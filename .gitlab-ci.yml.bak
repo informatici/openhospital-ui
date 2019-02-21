@@ -1,0 +1,107 @@
+image: docker.intesys.it/node-curl:10-alpine
+
+cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+        - ./node_modules
+
+stages:
+    - install
+    - test
+    - build
+    - release
+    - deploy
+
+
+# before_script:
+#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#     - eval $(ssh-agent -s)
+#     - echo "$GIT_DEPLOY_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#     - ls ~/.ssh
+
+npm_install:
+    stage: install
+    variables:
+        NODE_ENV: 'development'
+    script:
+        - npm install
+    only:
+        - develop
+        - master
+        - tags
+
+npm_ci:
+    stage: install
+    variables:
+        NODE_ENV: 'development'
+    script:
+        - npm ci
+    except:
+        - develop
+        - master
+        - tags
+
+npm_test:
+    stage: test
+    script:
+        - npm ci
+        - npm test -- --ci --bail
+
+npm_build: 
+    stage: build
+    variables:
+        APP_IGNORE_HOST: 'true'
+        NODE_ENV: 'production'
+    script:
+        - rm -rf .cache
+        - npm run build
+    artifacts:
+        paths:
+            - dist/
+        expire_in: 1 day
+
+# docker_push:
+#     stage: release
+#     image: docker:latest
+#     services:
+#         - docker:dind
+#     variables:
+#         REGISTRY_URL: docker.intesys.it
+#         DOCKER_HOST: tcp://docker:2375
+#         DOCKER_DRIVER: overlay2
+#         CI_REGISTRY_IMAGE: docker.intesys.it/alfalaval-aps-spa
+#         IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+#     dependencies:
+#         - npm_build
+#     before_script:
+#         - docker info
+#     script:
+#         - docker login -u $DOCKER_USER -p "$DOCKER_PASS" $REGISTRY_URL
+#         - docker build -t $IMAGE_TAG .
+#         - docker push $IMAGE_TAG
+#     only:
+#         - master
+#         - develop
+#         - tags
+
+# push_tgz:
+#     stage: release
+#     dependencies:
+#         - npm_build
+#     script:
+#         - export BUNDLE_FILE=`npm pack`
+#         - curl -u intesys:intesys --upload-file $BUNDLE_FILE https://maven.intesys.it/repository/frontend-raw/intesys-alfalaval-aps-spa-$CI_COMMIT_REF_SLUG.tgz
+#     only:
+#         - master
+#         - develop
+#         - tags
+
+# trigger_deploy:
+#     stage: deploy
+#     script:
+#         - curl -X POST -F token=$DEPLOY_PIPELINE_TRIGGER_TOKEN -F ref=master -F "variables[DEPLOY_ENVIRONMENT]=staging" "https://gitlab.intesys.it/api/v4/projects/982/trigger/pipeline"
+#     only:
+#         - develop
+#         - testci
