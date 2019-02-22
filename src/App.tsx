@@ -1,22 +1,19 @@
 import * as React from 'react';
-import './App.css';
-
-import logo from './assets/logo.svg';
+import AppBar from './modules/header/ApplicationBar';
+import { BrowserRouter as Router } from "react-router-dom";
+import { BASE_PATH, ENV_NAME } from "./config/constants";
+import AppRoutes from "./routes";
+import withRootTheme from './withRootTheme';
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      // <AppBar />
+      <Router basename={BASE_PATH}>
+        <AppRoutes />
+      </Router>
     );
   }
 }
 
-export default App;
+export default withRootTheme(App);

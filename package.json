@@ -1,6 +1,6 @@
 {
-  "name": "intesys-react-boilerplate",
-  "version": "0.2.0",
+  "name": "open-hospital",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "parcel public/index.html --port 3000 --open",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "@types/core-js": "^2.5.0",
     "@types/dotenv": "^6.1.0",
     "@types/enzyme": "^3.1.18",
@@ -42,8 +43,8 @@
     "parcel-plugin-bundle-visualiser": "^1.2.0",
     "postcss-modules": "^1.4.1",
     "prettier": "^1.16.4",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "react-helmet": "^5.2.0",
     "react-intl": "^2.8.0",
     "react-intl-extract": "git+https://gitlab.intesys.it/open-source/react-intl-extract.git",
