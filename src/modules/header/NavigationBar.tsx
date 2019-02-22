@@ -24,7 +24,7 @@ const styles = (theme: Theme) =>
             flexGrow: 1,
             backgroundColor: theme.palette.background.paper,
             height: 76,
-            boxShadow: 'none',
+            boxShadow: '0px 6px 20px rgba(0,0,0,0.1)',
             padding: '0 24px'
         },
         navigationBar: {

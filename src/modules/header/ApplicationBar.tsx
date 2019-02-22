@@ -71,6 +71,7 @@ const styles = (theme: Theme) =>
             display: 'flex',
             flexGrow: 1,
             justifyContent: 'flex-end',
+            height: '100%'
         },
         search: {
             position: 'relative',
@@ -96,6 +97,7 @@ const styles = (theme: Theme) =>
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            // color: theme.palette.primary.text
         },
         inputRoot: {
             color: 'inherit',
@@ -122,6 +124,7 @@ const styles = (theme: Theme) =>
             width: 218,
             borderLeft: '1px solid #EEEEEE',
             justifyContent: 'flex-end',
+            alignItems: 'center'
         },
         sectionMobile: {
             display: 'flex',
