@@ -1,28 +1,39 @@
 import * as React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Home from "./modules/home/Home";
-import Test from "./modules/test/Test";
 import Header from "./modules/header/Header";
-// import PageNotFound from "./shared/PageNotFound/PageNotFound";
-// import { TabTypes } from "./types/tab";
+import Dashboard from "./modules/dashboard/Dashboard";
+import PatientsDatabase from "./modules/patientsDatabase/PatientsDatabase";
+import ColleaguesDatabase from "./modules/colleaguesDatabase/ColleaguesDatabase";
+import Pharmacy from "./modules/pharmacy/Pharmacy";
+import Ward from "./modules/ward/Ward";
+import Billing from "./modules/billing/Billing";
+import News from "./modules/news/News";
+import PageNotFound from "./modules/pageNotFound/PageNotFound";
 
 
 const Routes = () => (
-    <Switch>
+    <>
         <Header />
-        <Redirect from="/" exact={true} to="/dashboard" />
-        <Route path="/dashboard" component={Home} />
-        <Route path="/test" component={Test} />
-        {/* <Route path="/login" component={Login} />
+        <Switch>
+            <Redirect from="/" exact={true} to="/dashboard" />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/patientsDatabase" component={PatientsDatabase} />
+            <Route path="/colleaguesDatabase" component={ColleaguesDatabase} />
+            <Route path="/pharmacy" component={Pharmacy} />
+            <Route path="/ward" component={Ward} />
+            <Route path="/billing" component={Billing} />
+            <Route path="/news" component={News} />
+            {/* <Route path="/login" component={Login} />
     <Route path="/personal-profile" component={PersonalProfile} /> */}
-        {/* <Route
+            {/* <Route
       path="/activities/:listName"
       render={props => <ActivitiesList key={props.match.params.listName} {...props} />}
     /> */}
 
-        {/* If no Route matches, show PageNotFound component */}
-        {/* <Route component={PageNotFound} /> */}
-    </Switch>
+            {/* If no Route matches, show PageNotFound component */}
+            <Route component={PageNotFound} />
+        </Switch>
+    </>
 );
 
 export default Routes;

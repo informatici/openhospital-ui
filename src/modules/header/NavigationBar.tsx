@@ -87,12 +87,12 @@ class NavigationBar extends React.Component<Props, State> {
                     <img src={OHlogo} alt="Open Hospital" className={classes.logo} />
                     <Tabs className={classes.navigationBar} variant="fullWidth" value={value} onChange={this.handleChange}>
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/dashboard" label="Dashboard" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/test" label="Patients database" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/test" label="Colleagues database" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/test" label="Pharmacy" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/test" label="Ward" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/test" label="Billing" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/test" label="News" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/patientsDatabase" label="Patients database" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/colleaguesDatabase" label="Colleagues database" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/pharmacy" label="Pharmacy" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/ward" label="Ward" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/billing" label="Billing" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/news" label="News" />
                     </Tabs>
                 </div>
                 {/* {value === 0 && <TabContainer>Page One</TabContainer>}
