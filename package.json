@@ -38,6 +38,7 @@
     "jest": "^24.1.0",
     "jest-transform-stub": "^2.0.0",
     "lodash": "^4.17.11",
+    "modules": "^0.4.0",
     "openapi-server": "git+https://gitlab.intesys.it/open-source/openapi-server.git",
     "parcel-bundler": "^1.11.0",
     "parcel-plugin-bundle-visualiser": "^1.2.0",

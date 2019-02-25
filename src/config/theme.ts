@@ -74,6 +74,7 @@ declare module '@material-ui/core/styles/createPalette' {
 
 const primaryPalette = {
 
+    text: '#444444',
     darkGrey: '#444444',
     main: '#ffffff',
     grey: '#8D8D8F',
