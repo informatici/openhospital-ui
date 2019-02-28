@@ -78,7 +78,7 @@ const primaryPalette = {
     darkGrey: '#444444',
     main: '#ffffff',
     grey: '#8D8D8F',
-    lightGrey: '#8D8D8F',
+    lightGrey: '#EEEEEE',
     red: '#FE4641',
     light: '#fffeef',
     white: '#fff',

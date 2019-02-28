@@ -65,7 +65,7 @@ const styles = (theme: Theme) =>
         },
         title_welcome: {
             fontSize: 12,
-            color: theme.palette.primary.lightGrey,
+            color: theme.palette.primary.grey,
         },
         title_name: {
             fontSize: 12,

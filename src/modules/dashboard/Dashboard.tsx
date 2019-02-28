@@ -18,6 +18,8 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import BigSearchIcon from '../utils/icons/svg/BigSearchIcon';
 import PlusIcon from '../utils/icons/svg/PlusIcon';
 import classNames from 'classnames';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 
 const styles = (theme: Theme) =>
@@ -72,12 +74,15 @@ const styles = (theme: Theme) =>
             fontSize: 16,
             letterSpacing: 1
         },
+        tabs: {
+            boxShadow: ' 0 4px 8px 0 rgba(48,49,51,0.1)',
+        },
         tab: {
             textTransform: 'initial',
             fontSize: 14,
             fontWeight: 600,
             letterSpacing: 0.26,
-            padding: 16
+            padding: 16,
         },
         tabSelected: {
             color: theme.palette.primary.red,
@@ -90,6 +95,41 @@ const styles = (theme: Theme) =>
         },
         cardMaterials: {
             padding: 0
+        },
+        materialsListItem: {
+            borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
+            '&:hover': {
+                backgroundColor: '#F9F9F9',
+            }
+        },
+        materialsListItemTitleContainer: {
+            display: 'flex',
+            alignItems: 'center',
+            paddingBottom: '20px !important',
+        },
+        materialsListItemTitle: {
+            fontSize: 18,
+            letterSpacing: 1,
+            fontWeight: 'bold',
+            padding: 5
+        },
+        materialsListItemTitleWarning: {
+            padding: 5,
+            fontSize: 12,
+            letterSpacing: 0.3,
+            color: theme.palette.primary.red,
+        },
+        materialsListItemBigNumber: {
+            fontSize: 48,
+            letterSpacing: 1,
+            fontWeight: 'bold',
+            padding: 5
+        },
+        materialsListItemBigNumberDesc: {
+            fontSize: 14,
+            letterSpacing: 0.26,
+            color: theme.palette.primary.grey,
+            // padding: 5
         }
     }
     );
@@ -156,11 +196,65 @@ class Dashboard extends React.Component<Props, State> {
                                 MATERIALS ARE RUNNING OUT
                         </Typography>
                             <Paper className={classNames(classes.paper, classes.cardMaterials)}>
-                                <Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
+                                <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
                                     <Tab className={classNames(classes.tab, classes.tabRadiusSx)} classes={{ selected: classes.tabSelected }} label="Running out drugs" />
                                     <Tab className={classNames(classes.tab, classes.tabRadiusSx)} classes={{ selected: classes.tabSelected }} label="Running out nursing material" />
                                 </Tabs>
-                                {value === 0 && <TabContainer>Item One</TabContainer>}
+                                {value === 0 &&
+                                    // <TabContainer>Item One</TabContainer>
+                                    <div>
+                                        <List>
+                                            <ListItem className={classes.materialsListItem}>
+                                                <Grid container justify='center' spacing={24}>
+                                                    <Grid item xs={12} className={classes.materialsListItemTitleContainer}>
+                                                        <Typography className={classes.materialsListItemTitle} variant="inherit">
+                                                            Eritromicina
+                                                        </Typography>
+                                                        <Typography className={classes.materialsListItemTitleWarning} variant="inherit">
+                                                            The drug is running out
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumber} variant="inherit" align="center">
+                                                                150
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
+                                                                vials remaining
+                                                        </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <Grid item xs>
+                                                            4
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                            weeks for the next refueling
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        prova 3
+                                                    </Grid>
+                                                </Grid>
+                                            </ListItem>
+                                            <ListItem className={classes.materialsListItem}>
+                                                <Grid container justify='center' spacing={24}>
+                                                    <Grid item xs={12} sm={4}>
+                                                        prova 4
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        prova 5
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        prova 6
+                                                    </Grid>
+                                                </Grid>
+                                            </ListItem>
+                                        </List>
+                                    </div>
+                                }
                                 {value === 1 && <TabContainer>Item Two</TabContainer>}
                             </Paper>
                         </Grid>
