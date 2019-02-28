@@ -1,6 +1,6 @@
 import React from "react";
 
-const PlusIcon = () => (
+const BigSearchIcon = () => (
     <svg width="43px" height="43px" viewBox="0 0 43 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <defs>
             <polygon id="path-1" points="0 3.53909465e-05 42.9252136 3.53909465e-05 42.9252136 43 0 43"></polygon>
@@ -27,4 +27,4 @@ const PlusIcon = () => (
 );
 
 // export default React.memo(PlusIcon);
-export default PlusIcon;
+export default BigSearchIcon;

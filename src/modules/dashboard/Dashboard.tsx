@@ -10,6 +10,7 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/s
 // import { NavLink, NavLinkProps } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 // import ButtonBase from '@material-ui/core/ButtonBase';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -17,9 +18,12 @@ import CardContent from '@material-ui/core/CardContent';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import BigSearchIcon from '../utils/icons/svg/BigSearchIcon';
 import PlusIcon from '../utils/icons/svg/PlusIcon';
+import AlertIcon from '../utils/icons/svg/AlertIcon';
 import classNames from 'classnames';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+
 
 
 const styles = (theme: Theme) =>
@@ -27,6 +31,9 @@ const styles = (theme: Theme) =>
         root: {
             flexGrow: 1,
             // color: 'black'
+        },
+        textDark: {
+            color: theme.palette.primary.text,
         },
         paper: {
             padding: theme.spacing.unit * 2,
@@ -96,16 +103,20 @@ const styles = (theme: Theme) =>
         cardMaterials: {
             padding: 0
         },
+        materialsList: {
+            padding: 0
+        },
         materialsListItem: {
             borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
             '&:hover': {
                 backgroundColor: '#F9F9F9',
-            }
+            },
+            padding: '50px 30px'
         },
         materialsListItemTitleContainer: {
             display: 'flex',
             alignItems: 'center',
-            paddingBottom: '20px !important',
+            paddingBottom: '10px !important',
         },
         materialsListItemTitle: {
             fontSize: 18,
@@ -129,7 +140,35 @@ const styles = (theme: Theme) =>
             fontSize: 14,
             letterSpacing: 0.26,
             color: theme.palette.primary.grey,
-            // padding: 5
+        },
+        detailButtonContainer: {
+            display: 'flex',
+            alignItems: 'flex-end',
+        },
+        detailButton: {
+            textTransform: 'initial',
+            color: theme.palette.primary.red,
+            borderRadius: 20,
+            fontWeight: 'bold',
+            '&:hover': {
+                color: theme.palette.primary.white,
+                background: theme.palette.primary.red
+            },
+        },
+        detailButtonLabel: {
+            justifyContent: 'flex-end'
+        },
+        allMaterialsButton: {
+            justifyContent: 'center',
+            color: theme.palette.primary.red,
+            borderRadius: '0 0 10px 10px',
+            padding: '30px 0',
+            fontSize: 16,
+            letterSpacing: 1,
+            '&:hover': {
+                color: theme.palette.primary.white,
+                background: theme.palette.primary.red
+            },
         }
     }
     );
@@ -203,7 +242,7 @@ class Dashboard extends React.Component<Props, State> {
                                 {value === 0 &&
                                     // <TabContainer>Item One</TabContainer>
                                     <div>
-                                        <List>
+                                        <List classes={{ root: classes.materialsList }}>
                                             <ListItem className={classes.materialsListItem}>
                                                 <Grid container justify='center' spacing={24}>
                                                     <Grid item xs={12} className={classes.materialsListItemTitleContainer}>
@@ -211,6 +250,7 @@ class Dashboard extends React.Component<Props, State> {
                                                             Eritromicina
                                                         </Typography>
                                                         <Typography className={classes.materialsListItemTitleWarning} variant="inherit">
+                                                            {/* <SvgIcon component={AlertIcon} /> */}
                                                             The drug is running out
                                                         </Typography>
                                                     </Grid>
@@ -222,35 +262,118 @@ class Dashboard extends React.Component<Props, State> {
                                                         </Grid>
                                                         <Grid item xs>
                                                             <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
-                                                                vials remaining
+                                                                <span className={classes.textDark}>vials</span> remaining
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumber} variant="inherit" align="center">
+                                                                4
                                                         </Typography>
                                                         </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={4}>
                                                         <Grid item xs>
-                                                            4
-                                                        </Grid>
-                                                        <Grid item xs>
-                                                            weeks for the next refueling
+                                                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
+                                                                <span className={classes.textDark}>weeks</span> for the next refueling
+                                                            </Typography>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid item xs={12} sm={4}>
-                                                        prova 3
+                                                    <Grid item xs={12} sm={4} classes={{ item: classes.detailButtonContainer }}>
+                                                        <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                                                            Go to details
+                                                            <KeyboardArrowRightIcon />
+                                                        </Button>
                                                     </Grid>
                                                 </Grid>
                                             </ListItem>
                                             <ListItem className={classes.materialsListItem}>
                                                 <Grid container justify='center' spacing={24}>
-                                                    <Grid item xs={12} sm={4}>
-                                                        prova 4
+                                                    <Grid item xs={12} className={classes.materialsListItemTitleContainer}>
+                                                        <Typography className={classes.materialsListItemTitle} variant="inherit">
+                                                            Amoxicillina antibiotico
+                                                        </Typography>
+                                                        <Typography className={classes.materialsListItemTitleWarning} variant="inherit">
+                                                            {/* <SvgIcon component={AlertIcon} /> */}
+                                                            The drug is running out
+                                                        </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={4}>
-                                                        prova 5
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumber} variant="inherit" align="center">
+                                                                1200
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
+                                                                <span className={classes.textDark}>vials</span> remaining
+                                                            </Typography>
+                                                        </Grid>
                                                     </Grid>
                                                     <Grid item xs={12} sm={4}>
-                                                        prova 6
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumber} variant="inherit" align="center">
+                                                                4
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
+                                                                <span className={classes.textDark}>weeks</span> for the next refueling
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4} classes={{ item: classes.detailButtonContainer }}>
+                                                        <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                                                            Go to details
+                                                            <KeyboardArrowRightIcon />
+                                                        </Button>
                                                     </Grid>
                                                 </Grid>
+                                            </ListItem>
+                                            <ListItem className={classes.materialsListItem}>
+                                                <Grid container justify='center' spacing={24}>
+                                                    <Grid item xs={12} className={classes.materialsListItemTitleContainer}>
+                                                        <Typography className={classes.materialsListItemTitle} variant="inherit">
+                                                            Claritromicina antibiotico
+                                                        </Typography>
+                                                        <Typography className={classes.materialsListItemTitleWarning} variant="inherit">
+                                                            {/* <SvgIcon component={AlertIcon} /> */}
+                                                            The drug is running out
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumber} variant="inherit" align="center">
+                                                                200
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
+                                                                <span className={classes.textDark}>vials</span> remaining
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4}>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumber} variant="inherit" align="center">
+                                                                4
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item xs>
+                                                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit" align="center">
+                                                                <span className={classes.textDark}>weeks</span> for the next refueling
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={4} classes={{ item: classes.detailButtonContainer }}>
+                                                        <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                                                            Go to details
+                                                            <KeyboardArrowRightIcon />
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </ListItem>
+                                            <ListItem button classes={{ button: classes.allMaterialsButton }}>
+                                                SEE ALL MATERIALS
                                             </ListItem>
                                         </List>
                                     </div>
