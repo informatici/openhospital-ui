@@ -1,5 +1,7 @@
 
 import React from 'react';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // import Tabs from '@material-ui/core/Tabs';
 // import NoSsr from '@material-ui/core/NoSsr';
 // import { default as Tab, TabProps } from '@material-ui/core/Tab';
@@ -13,9 +15,9 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import SvgIcon from '@material-ui/core/SvgIcon';
-// import SearchIcon from '../../assets/icons/bigSearch.svg';
-import BigSearchIcon from '../utils/icons/BigSearchIcon';
-import PlusIcon from '../utils/icons/PlusIcon';
+import BigSearchIcon from '../utils/icons/svg/BigSearchIcon';
+import PlusIcon from '../utils/icons/svg/PlusIcon';
+import classNames from 'classnames';
 
 
 const styles = (theme: Theme) =>
@@ -28,13 +30,20 @@ const styles = (theme: Theme) =>
             padding: theme.spacing.unit * 2,
             textAlign: 'center',
             // color: theme.palette.text.secondary,
+            borderRadius: 10,
+            background: theme.palette.primary.main,
+            boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
         },
-        gridPatient: {
-            paddingTop: 30
+        gridPaddingBottom: {
+            paddingBottom: 30
+        },
+        ctaGrid: {
+            paddingBottom: 80
         },
         ctaPatient: {
             height: 167,
             textAlign: 'center',
+            // alignItems: 'top',
             borderRadius: 10,
             background: theme.palette.primary.main,
             boxShadow: '0 8px 16px 0 rgba(48,49,51,0.1)',
@@ -45,17 +54,59 @@ const styles = (theme: Theme) =>
                 color: theme.palette.primary.white,
             }
         },
+        ctaPatientText: {
+            paddingTop: 15,
+            fontSize: 16,
+            // lineHeight: '42px',
+            letterSpacing: 1
+        },
         gridContainer: {
             margin: '0 auto',
             paddingTop: 60,
         },
-    });
+        gridMaterialsCalendar: {
+            //
+        },
+        cardTitle: {
+            paddingBottom: 30,
+            fontSize: 16,
+            letterSpacing: 1
+        },
+        tab: {
+            textTransform: 'initial',
+            fontSize: 14,
+            fontWeight: 600,
+            letterSpacing: 0.26,
+            padding: 16
+        },
+        tabSelected: {
+            color: theme.palette.primary.red,
+        },
+        tabRadiusSx: {
+            borderRadius: '10px 0 0 0',
+        },
+        tabRadiusDx: {
+            borderRadius: '0 10px 0 0',
+        },
+        cardMaterials: {
+            padding: 0
+        }
+    }
+    );
 
 
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
     value?: number;
+}
+
+function TabContainer(props: any) {
+    return (
+        <Typography component="div" style={{ padding: 8 * 3 }}>
+            {props.children}
+        </Typography>
+    );
 }
 
 class Dashboard extends React.Component<Props, State> {
@@ -69,23 +120,23 @@ class Dashboard extends React.Component<Props, State> {
 
     render() {
         const { classes } = this.props;
-        // const { value } = this.state;
+        const { value } = this.state;
 
         return (
             <div className={classes.root}>
                 <Grid container spacing={24} classes={{ container: classes.gridContainer }}>
-                    <Grid container justify='center'>
-                        <Grid item xs={2}>
+                    <Grid container justify='center' className={classes.gridPaddingBottom}>
+                        <Grid item xs={4}>
                             <Typography variant="inherit" align="center">
                                 Welcome <b>Mario Rossi</b>
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Grid container justify='center' spacing={24} className={classes.gridPatient}>
+                    <Grid container justify='center' spacing={24} className={classes.ctaGrid}>
                         <Grid item xs={12} sm={4}>
                             <CardActionArea className={classes.ctaPatient}>
                                 <SvgIcon component={PlusIcon} />
-                                <Typography variant="h6" color="inherit" align="center">
+                                <Typography className={classes.ctaPatientText} color="inherit" align="center">
                                     <b>REGISTER NEW PATIENT</b>
                                 </Typography>
                             </CardActionArea>
@@ -93,23 +144,32 @@ class Dashboard extends React.Component<Props, State> {
                         <Grid item xs={12} sm={4}>
                             <CardActionArea className={classes.ctaPatient}>
                                 <SvgIcon component={BigSearchIcon} />
-                                <Typography variant="h6" color="inherit" align="center">
+                                <Typography className={classes.ctaPatientText} color="inherit" align="center">
                                     <b>SEARCH FOR PATIENTS</b>
                                 </Typography>
                             </CardActionArea>
                         </Grid>
                     </Grid>
-                    <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                        <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    <Grid container justify='center' spacing={24} className={classes.gridMaterialsCalendar}>
+                        <Grid item xs={12} sm={6}>
+                            <Typography className={classes.cardTitle} variant="inherit" align="left">
+                                MATERIALS ARE RUNNING OUT
+                        </Typography>
+                            <Paper className={classNames(classes.paper, classes.cardMaterials)}>
+                                <Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
+                                    <Tab className={classNames(classes.tab, classes.tabRadiusSx)} classes={{ selected: classes.tabSelected }} label="Running out drugs" />
+                                    <Tab className={classNames(classes.tab, classes.tabRadiusSx)} classes={{ selected: classes.tabSelected }} label="Running out nursing material" />
+                                </Tabs>
+                                {value === 0 && <TabContainer>Item One</TabContainer>}
+                                {value === 1 && <TabContainer>Item Two</TabContainer>}
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography className={classes.cardTitle} variant="inherit" align="left">
+                                CALENDAR
+                        </Typography>
+                            <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                        </Grid>
                     </Grid>
                 </Grid>
             </div >
