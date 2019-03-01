@@ -147,6 +147,13 @@ const styles = (theme: Theme) =>
         color: theme.palette.primary.white,
         background: theme.palette.primary.red
       },
+    },
+    appointmentsTitle: {
+      marginRight: 'auto',
+    },
+    appointmentsDWM: {
+      borderRadius: 20,
+      color: theme.palette.primary.grey
     }
   }
   );

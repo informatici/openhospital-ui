@@ -2,15 +2,16 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-// import Tabs from '@material-ui/core/Tabs';
-// import NoSsr from '@material-ui/core/NoSsr';
-// import { default as Tab, TabProps } from '@material-ui/core/Tab';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-// import { NavLink, NavLinkProps } from 'react-router-dom';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 // import ButtonBase from '@material-ui/core/ButtonBase';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -23,12 +24,16 @@ import classNames from 'classnames';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import Calendar from '../../shared/lib/calendar/index';
+
 
 import styles from './Dashboard.style';
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
   value?: number;
+  openAppointments?: boolean,
+  anchorEl?: any,
 }
 
 function TabContainer(props: any) {
@@ -41,7 +46,21 @@ function TabContainer(props: any) {
 
 class Dashboard extends React.Component<Props, State> {
   state: State = {
+    openAppointments: true,
     value: 0,
+    anchorEl: null,
+  };
+
+  handleClickCalendarAppointmentsDWM = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleCloseCalendarAppointmentsDWM = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleClickCollapseAppointments = () => {
+    this.setState(state => ({ openAppointments: !state.openAppointments }));
   };
 
   handleChange = (event: React.MouseEvent<HTMLElement>, value: number) => {
@@ -50,7 +69,7 @@ class Dashboard extends React.Component<Props, State> {
 
   render() {
     const { classes } = this.props;
-    const { value } = this.state;
+    const { value, openAppointments, anchorEl } = this.state;
 
     return (
       <div className={classes.root}>
@@ -236,7 +255,57 @@ class Dashboard extends React.Component<Props, State> {
               <Typography className={classes.cardTitle} variant="inherit" align="left">
                 CALENDAR
                         </Typography>
-              <Paper className={classes.paper}>xs=6 sm=3</Paper>
+              <Paper className={classes.paper}>
+                {/* xs=6 sm=3 */}
+                <Calendar
+                  accentColor={'red'}
+                  orientation={'flex-row'}
+                  showHeader={true}
+                  onDatePicked={(d: any) => {
+                    console.log('onDatePicked', d);
+                  }} />
+
+
+
+                <List classes={{ root: classes.materialsList }}>
+                  <ListItem>
+                    <Typography className={classes.appointmentsTitle} variant="inherit" align="left">
+                      APPOINTMENTS
+                        </Typography>
+                    <Button
+                      aria-owns={anchorEl ? 'simple-menu' : undefined}
+                      aria-haspopup="true"
+                      className={classes.appointmentsDWM}
+                      onClick={this.handleClickCalendarAppointmentsDWM}
+                    >
+                      Day
+                    </Button>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={this.handleCloseCalendarAppointmentsDWM}
+                    >
+                      <MenuItem onClick={this.handleCloseCalendarAppointmentsDWM}>Day</MenuItem>
+                      <MenuItem onClick={this.handleCloseCalendarAppointmentsDWM}>Week</MenuItem>
+                      <MenuItem onClick={this.handleCloseCalendarAppointmentsDWM}>Month</MenuItem>
+                    </Menu>
+                    {openAppointments ? 
+                    <ExpandLess onClick={this.handleClickCollapseAppointments} /> : <ExpandMore onClick={this.handleClickCollapseAppointments} />}
+                  </ListItem>
+                  <Collapse in={openAppointments} timeout="auto" unmountOnExit>
+                    <List disablePadding>
+                      <ListItem>
+                        sotto lista
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                </List>
+
+
+
+
+              </Paper>
             </Grid>
           </Grid>
         </Grid>
