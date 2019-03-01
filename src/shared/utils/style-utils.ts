@@ -13,7 +13,7 @@ export const fonts = {
  * 4 values on "top" "right" "bottom" and "left"
  * @param {(number|number[])} values - An array of values, or a single value
  */
-export const padding = (values: number | number[] = 0) : CSSProperties => {
+export const padding = (values: number | number[] = 0): CSSProperties => {
     if (Array.isArray(values)) {
 
         if (values.length === 1) {
@@ -68,7 +68,7 @@ export const padding = (values: number | number[] = 0) : CSSProperties => {
  * 4 values on "top" "right" "bottom" and "left"
  * @param {(number|number[])} values - An array of values, or a single value
  */
-export const margin = (values: number | number[] = 0 ) : CSSProperties => {
+export const margin = (values: number | number[] = 0): CSSProperties => {
     if (Array.isArray(values)) {
 
         if (values.length === 1) {
@@ -115,7 +115,7 @@ export const margin = (values: number | number[] = 0 ) : CSSProperties => {
     }
 };
 
-export const ellipsis = (display: string = 'block') : CSSProperties => ({
+export const ellipsis = (display: string = 'block'): CSSProperties => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',

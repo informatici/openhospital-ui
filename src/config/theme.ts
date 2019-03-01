@@ -50,7 +50,7 @@ declare module '@material-ui/core/styles/createMixins' {
     }
 
     interface MixinsOptions {
-        padding: (value?: number| number[]) => CSSProperties;
+        padding: (value?: number | number[]) => CSSProperties;
         margin: (value?: number | string | any[]) => CSSProperties;
         ellipsis: (display?: string) => CSSProperties;
     }
@@ -159,7 +159,7 @@ const theme: ThemeOptions = {
         secondary: secondaryPalette,
     },
 
-    mixins:{
+    mixins: {
         padding,
         margin,
         ellipsis
