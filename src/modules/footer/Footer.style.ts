@@ -12,14 +12,25 @@ const styles = (theme: Theme) =>
     },
     footerContainerGrid: {
       maxWidth: '100%',
+      padding: '0 24px',
     },
     footerInfo: {
       color: theme.palette.primary.white,
     },
-    logoISF: {
-
+    linkISF: {
+      color: theme.palette.primary.red,
+      textDecoration: 'none',
+      fontWeight: 'bold'
     },
-
+    logoISFContainer: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+    logoISF: {
+      alignSelf: 'center',
+      paddingRight: 8
+    },
+    
 
 
 
