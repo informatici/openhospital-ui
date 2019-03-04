@@ -2,6 +2,30 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 
 const styles = (theme: Theme) =>
   createStyles({
+    footerContainer: {
+      display: 'flex',
+      marginTop: 100,
+      height: 159,
+      backgroundColor: theme.palette.primary.darkGrey,
+      // justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+    footerContainerGrid: {
+      maxWidth: '100%',
+    },
+    footerInfo: {
+      color: theme.palette.primary.white,
+    },
+    logoISF: {
+
+    },
+
+
+
+
+
+
+
     root: {
       flexGrow: 1,
       // color: 'black'

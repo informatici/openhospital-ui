@@ -34,6 +34,7 @@
   /* flex-grow: 2; */
   flex-direction: row;
   display: flex;
+  padding: 16px;
 }
 .calendar {
   flex-grow: 2;

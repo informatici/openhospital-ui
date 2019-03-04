@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./modules/header/Header";
+import Footer from "./modules/footer/Footer";
 import Dashboard from "./modules/dashboard/Dashboard";
 import PatientsDatabase from "./modules/patientsDatabase/PatientsDatabase";
 import ColleaguesDatabase from "./modules/colleaguesDatabase/ColleaguesDatabase";
@@ -33,6 +34,7 @@ const Routes = () => (
             {/* If no Route matches, show PageNotFound component */}
             <Route component={PageNotFound} />
         </Switch>
+        <Footer />
     </>
 );
 

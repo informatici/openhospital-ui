@@ -2,7 +2,7 @@ import * as React from "react";
 import ApplicationBar from "./ApplicationBar";
 import NavigationBar from "./NavigationBar";
 
-class Test extends React.Component {
+class Header extends React.Component {
     public render() {
         return (
             <header>
@@ -13,4 +13,4 @@ class Test extends React.Component {
     }
 }
 
-export default Test;
+export default Header;
