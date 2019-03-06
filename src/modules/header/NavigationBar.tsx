@@ -79,13 +79,37 @@ class NavigationBar extends React.Component<Props, State> {
 
     render() {
         const { classes } = this.props;
-        const { value } = this.state;
+        // const { value } = this.state;
+
+        let value = null; 
+        if (window.location.pathname.indexOf("/dashboard") === 0) {
+            value = 0;
+        }
+        if (window.location.pathname.indexOf("/patientsDatabase") === 0) {
+            value = 1;
+        }
+        if (window.location.pathname.indexOf("/colleaguesDatabase") === 0) {
+            value = 2;
+        }
+        if (window.location.pathname.indexOf("/pharmacy") === 0) {
+            value = 3;
+        }
+        if (window.location.pathname.indexOf("/ward") === 0) {
+            value = 4;
+        }
+        if (window.location.pathname.indexOf("/billing") === 0) {
+            value = 5;
+        }
+        if (window.location.pathname.indexOf("/news") === 0) {
+            value = 6;
+        }
+        // value={value} onChange={this.handleChange}
 
         return (
             <NoSsr>
                 <div className={classes.subApplicationBar}>
-                    <img src={OHlogo} alt="Open Hospital" className={classes.logo} />
-                    <Tabs className={classes.navigationBar} variant="fullWidth" value={value} onChange={this.handleChange}>
+                    <img src={OHlogo} alt="Open Hospital" className={classes.logo}  />
+                    <Tabs className={classes.navigationBar} variant="fullWidth" value={value} >
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/dashboard" label="Dashboard" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/patientsDatabase" label="Patients database" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/colleaguesDatabase" label="Colleagues database" />
@@ -95,9 +119,6 @@ class NavigationBar extends React.Component<Props, State> {
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/news" label="News" />
                     </Tabs>
                 </div>
-                {/* {value === 0 && <TabContainer>Page One</TabContainer>}
-                    {value === 1 && <TabContainer>Page Two</TabContainer>}
-                    {value === 2 && <TabContainer>Page Three</TabContainer>} */}
             </NoSsr>
         );
     }

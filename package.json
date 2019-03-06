@@ -6,7 +6,7 @@
     "start": "parcel public/index.html --port 3000 --open",
     "api": "openapi-server",
     "start:api": "concurrently \"npm run api\" \"npm run start\"",
-    "build": "parcel build public/index.html",
+    "build": "parcel build public/index.html --public-url ./",
     "test": "jest",
     "tdd": "jest --watch",
     "coverage": "jest --coverage",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@material-ui/lab": "^3.0.0-alpha.30",
     "@types/core-js": "^2.5.0",
     "@types/dotenv": "^6.1.0",
     "@types/enzyme": "^3.1.18",

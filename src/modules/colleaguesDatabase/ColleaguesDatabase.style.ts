@@ -4,14 +4,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      // color: 'black'
-    },
-    textDark: {
-      color: theme.palette.primary.text,
-    },
-    welcomeTitle: {
-      fontSize: 16,
-      letterSpacing: 1,
+      // marginTop: 50
     },
     paper: {
       padding: theme.spacing.unit * 2,
@@ -20,6 +13,80 @@ const styles = (theme: Theme) =>
       borderRadius: 10,
       background: theme.palette.primary.main,
       boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
+    },
+    paperFlat: {
+      // display: 'flex',
+      padding: theme.spacing.unit * 2,
+      textAlign: 'center',
+      // color: theme.palette.text.secondary,
+      borderRadius: 'none',
+      background: theme.palette.primary.main,
+      boxShadow: 'none',
+      width: '100%',
+    },
+    gridContainer: {
+      margin: '0 auto',
+      paddingTop: 60,
+    },
+
+    breadCrumb: {
+      fontWeight: 'bold',
+      fontSize: 12,
+      letterSpacing: 0.75
+    },
+
+    colleaguesTitle: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      letterSpacing: 1,
+    },
+    findColleagues: {
+      fontWeight: 'bold',
+      fontSize: 14,
+      letterSpacing: 0.88,
+      textAlign: 'left',
+      paddingRight: 20
+    },
+    insertInfoColleagues: {
+      fontSize: 14,
+      letterSpacing: 0.78,
+      textAlign: 'left'
+    },
+    formField: {
+      width: '100%'
+    },
+    cssOutlinedInput: {
+        borderColor: `${theme.palette.primary.inputBorder} !important`,
+        '& legend': {
+          width: '0 !important'
+        }
+    },
+    cssFocused: {
+      '&$cssFocused': {
+        color: 'purple',
+        transform: 'translate(0px, -20px) scale(1)',
+      },
+    },
+    inputContainer: {
+      display: 'flex'
+    },
+
+
+
+
+
+
+
+
+
+
+
+    textDark: {
+      color: theme.palette.primary.text,
+    },
+    welcomeTitle: {
+      fontSize: 16,
+      letterSpacing: 1,
     },
     paperCalendar: {
       // padding: theme.spacing.unit * 2,
@@ -55,10 +122,7 @@ const styles = (theme: Theme) =>
       // lineHeight: '42px',
       letterSpacing: 1
     },
-    gridContainer: {
-      margin: '0 auto',
-      paddingTop: 60,
-    },
+
     gridMaterialsCalendar: {
       //
     },

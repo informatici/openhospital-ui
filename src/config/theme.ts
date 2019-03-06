@@ -82,6 +82,7 @@ const primaryPalette = {
     red: '#FE4641',
     light: '#fffeef',
     white: '#fff',
+    inputBorder: '#C4C4C4'
 
     // dark: '#ffd402',
     // A100: 'rgba(251, 237, 66, 0.5)',
