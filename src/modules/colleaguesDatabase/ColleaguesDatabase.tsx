@@ -30,19 +30,28 @@ interface State {
 }
 
 function AvatarItem(classes: any) {
+
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const listItems = numbers.map((number) =>
-    // <li key={number.toString()}>
-    //   {number}
-    // </li>
-    <Grid item xs={12} sm={4} key={number.toString()}>
-      <Paper className={classes.paper}>
-        <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
+  const listItems: any = numbers.map((num: number) =>
+    <Grid item xs={12} sm={4} key={num.toString()}>
+      <Paper className={classNames(classes.paper)}>
+        <Grid container className={classes.gridContainer} justify='center' spacing={24}>
+          <Grid item xs={12}>
+            <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color="inherit">Dr. Meredith Grey</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color="inherit">m.grey</Typography>
+          </Grid>
+        </Grid>
       </Paper>
     </Grid>
   );
-
-  return listItems;
+  return (
+    listItems
+  )
 }
 class ColleaguesDatabase extends React.Component<Props, State> {
 
@@ -165,6 +174,12 @@ class ColleaguesDatabase extends React.Component<Props, State> {
                             labelWidth={this.state.InputLabelRef}
                             name="​professionSpecializationUsergroup"
                             id="profession"
+                            // inputProps={{                          
+                            classes={{
+                              // root: classes.formFieldSelectInput,
+                              input: classes.formFieldSelectInput
+                            }}
+                          // }}
                           />
                         }
                       >
@@ -208,17 +223,12 @@ class ColleaguesDatabase extends React.Component<Props, State> {
             </Paper>
           </Grid>
           <Grid container item style={{ padding: '12px 0' }} spacing={24}>
-
-            <AvatarItem classes={classes} />
-
-
+            {AvatarItem(classes)}
             {/* <Grid item xs={12} sm={4}>
               <Paper className={classes.paper}>
                 <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
               </Paper>
             </Grid> */}
-
-
           </Grid>
         </Grid>
       </div>

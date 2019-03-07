@@ -14,6 +14,10 @@ const styles = (theme: Theme) =>
       background: theme.palette.primary.main,
       boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
     },
+    paperPerson: {
+      display: 'flex',
+      justifyContent: 'center'
+    },
     paperFlat: {
       // display: 'flex',
       padding: theme.spacing.unit * 2,
@@ -71,10 +75,13 @@ const styles = (theme: Theme) =>
       justifyContent: 'flex-end'
     },
     formField: {
-      width: '100%'
+      width: '100%',      
     },
     formFieldInput: {
       padding: '6px 0',
+      '& input': {
+        padding: 6
+      }
     },
     formFieldInputLabel: {
       transform: 'translate(14px, 14px) scale(1)',
@@ -83,12 +90,16 @@ const styles = (theme: Theme) =>
       marginTop: '16px',
       marginBottom: '8px',
     },
+    formFieldSelectInput: {
+      padding: '6px 0 !important'
+    },
     select: {
-      padding: '6px !important',
+      padding: '6px 0 !important',
       '& :focus': {
-        borderRadius: '4px !important',
+        borderRadius: '14px !important',
         border: `1px solid ${theme.palette.primary.inputBorder} !important`,
-        backgroundColor: theme.palette.primary.white
+        backgroundColor: theme.palette.primary.white,
+        padding: '6px 0 !important',
       }
     },
     selectLabel: {
@@ -116,6 +127,7 @@ const styles = (theme: Theme) =>
     avatar: {
       height: 104,
       width: 104,
+      margin: '0 auto'
     }
 
 
