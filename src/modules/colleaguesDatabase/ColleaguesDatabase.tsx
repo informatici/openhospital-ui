@@ -19,50 +19,89 @@ import FormControl from '@material-ui/core/FormControl';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import maleAvatar from "../../assets/images/male.png";
-import femaleAvatar from "../../assets/images/female.png";
+import femaleAvatar from '../../assets/images/female.png';
+import Colleague from './Colleague';
 
 import styles from './ColleaguesDatabase.style';
+import { any } from 'prop-types';
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
   labelWidth: number;
+  error: any;
+  isLoaded: boolean;
+  items: any;
 }
 
-function AvatarItem(classes: any) {
+// function AvatarItem(classes: any) {
 
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const listItems: any = numbers.map((num: number) =>
-    <Grid item xs={12} sm={4} key={num.toString()}>
-      <Paper className={classNames(classes.paper)}>
-        <Grid container className={classes.gridContainer} justify='center' spacing={24}>
-          <Grid item xs={12}>
-            <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography color="inherit">Dr. Meredith Grey</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography color="inherit">m.grey</Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Grid>
-  );
-  return (
-    listItems
-  )
-}
+//   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+//   const listItems: any = numbers.map((num: number) =>
+//     <Grid item xs={12} sm={4} key={num.toString()}>
+//       <Paper className={classNames(classes.paper)}>
+//         <Grid container className={classes.gridContainer} justify='center' spacing={24}>
+//           <Grid item xs={12}>
+//             <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
+//           </Grid>
+//           <Grid item xs={12}>
+//             <Typography color="inherit">Dr. Meredith Grey</Typography>
+//           </Grid>
+//           <Grid item xs={12}>
+//             <Typography color="inherit">m.grey</Typography>
+//           </Grid>
+//           <Grid item xs={12}>
+//             <Typography color="inherit">Profession: Pneumologist</Typography>
+//           </Grid>
+//           <Grid item xs={12}>
+//             <Typography color="secondary">3451234567</Typography>
+//           </Grid>
+//           <Grid item xs={12}>
+//             <Typography color="secondary">greys.meredith@gmail.com</Typography>
+//           </Grid>
+//         </Grid>
+//       </Paper>
+//     </Grid>
+//   );
+//   return (
+//     listItems
+//   )
+// }
 class ColleaguesDatabase extends React.Component<Props, State> {
 
   state: State = {
-    // age: '',
-    // name: 'hai',
     labelWidth: 0,
+    error: null,
+    isLoaded: false,
+    items: [],
   };
 
   componentDidMount() {
-    // debugger;
+    fetch("https://uinames.com/api/?ext&amount=9")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          
+          setTimeout(() => {
+            this.setState({
+              isLoaded: true,
+              items: result
+            });
+          }, 500)
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
@@ -70,7 +109,20 @@ class ColleaguesDatabase extends React.Component<Props, State> {
 
 
   public render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
+    const { items, isLoaded, error } = this.state;
+
+    const colleagues = (
+      items && items.length !== 0 ?
+      (items.map((item: any) => (
+        <Colleague
+          info={item}
+          // surname={item.surname}
+        />
+      ))) :
+      <CircularProgress className={classes.progress} color="secondary" style={{margin: '20px auto'}} />
+    )
+
     return (
       <div className={classes.root}>
         <Grid container className={classes.gridContainer} justify='center' spacing={24}>
@@ -223,12 +275,9 @@ class ColleaguesDatabase extends React.Component<Props, State> {
             </Paper>
           </Grid>
           <Grid container item style={{ padding: '12px 0' }} spacing={24}>
-            {AvatarItem(classes)}
-            {/* <Grid item xs={12} sm={4}>
-              <Paper className={classes.paper}>
-                <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
-              </Paper>
-            </Grid> */}
+
+          {colleagues}
+
           </Grid>
         </Grid>
       </div>

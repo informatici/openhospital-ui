@@ -128,16 +128,10 @@ const styles = (theme: Theme) =>
       height: 104,
       width: 104,
       margin: '0 auto'
+    },
+    colleagueContainer: {
+      paddingTop: 20
     }
-
-
-
-
-
-
-
-
-
 
 
     // textDark: {
