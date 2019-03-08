@@ -48,7 +48,7 @@ class ColleaguesDatabase extends React.Component<Props, State> {
       .then(res => res.json())
       .then(
         (result) => {
-          
+
           setTimeout(() => {
             this.setState({
               isLoaded: true,
@@ -71,18 +71,18 @@ class ColleaguesDatabase extends React.Component<Props, State> {
 
 
   public render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const { items, isLoaded, error } = this.state;
 
     const colleagues = (
       items && items.length !== 0 ?
-      (items.map((item: any) => (
-        <Colleague
-          info={item}
+        (items.map((item: any) => (
+          <Colleague
+            info={item}
           // surname={item.surname}
-        />
-      ))) :
-      <CircularProgress className={classes.progress} color="secondary" style={{margin: '20px auto'}} />
+          />
+        ))) :
+        <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }} />
     )
 
     return (
@@ -218,14 +218,14 @@ class ColleaguesDatabase extends React.Component<Props, State> {
           </Grid>
           <Grid container item style={{ padding: '47px 0' }} spacing={24}>
 
-          {colleagues}
+            {colleagues}
 
           </Grid>
           <Grid item xs={12} sm={2} classes={{ item: classes.detailButtonContainer }}>
-                    <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
-                      Load more
+            <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+              Load more
                     </Button>
-                  </Grid>
+          </Grid>
         </Grid>
       </div>
     );

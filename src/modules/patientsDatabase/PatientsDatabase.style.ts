@@ -39,27 +39,28 @@ const styles = (theme: Theme) =>
       letterSpacing: 0.75
     },
 
-    colleaguesTitle: {
+    patientsTitle: {
       fontWeight: 'bold',
       fontSize: 16,
       letterSpacing: 1,
+      marginRight: 'auto'
     },
-    findColleagues: {
+    findPatients: {
       fontWeight: 'bold',
       fontSize: 14,
       letterSpacing: 0.88,
       textAlign: 'left',
       paddingRight: 20
     },
-    insertInfoColleagues: {
+    insertInfoPatients: {
       fontSize: 14,
       letterSpacing: 0.78,
       textAlign: 'left'
     },
-    detailButtonContainer: {
+    searchButton: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-end',
     },
     detailButton: {
       textTransform: 'none',
@@ -118,7 +119,7 @@ const styles = (theme: Theme) =>
     },
     cssFocused: {
       '&$cssFocused': {
-        // color: 'purple',
+        // color: 'green',
         transform: 'translate(0px, -20px) scale(1)',
       },
     },
@@ -136,8 +137,13 @@ const styles = (theme: Theme) =>
         margin: 0,
       },
     },
-    colleagueContainer: {
+    patientContainer: {
       paddingTop: 20
+    },
+    patientActions: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end'
     }
   }
   );
