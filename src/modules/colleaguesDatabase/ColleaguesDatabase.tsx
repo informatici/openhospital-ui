@@ -205,26 +205,6 @@ class ColleaguesDatabase extends React.Component<Props, State> {
                         <MenuItem value={30}>Thirty</MenuItem>
                       </Select>
                     </FormControl>
-
-                    {/* <TextField
-                      id="profession"
-                      label="Profession / Specialization / Usergroup"
-                      className={classNames(classes.formField, classes.cssOutlinedInput)}
-                      InputLabelProps={{
-                        classes: {
-                          focused: classes.cssFocused,
-                        },
-                      }}
-                      InputProps={{
-                        classes: {
-                          notchedOutline: classes.cssOutlinedInput,
-                        },
-                      }}
-                      // value="{this.state.name}"
-                      // onChange={this.handleChange('name')}
-                      margin="normal"
-                      variant="outlined"
-                    /> */}
                   </Grid>
                   <Grid item xs={12} sm={2} classes={{ item: classes.detailButtonContainer }}>
                     <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
@@ -236,11 +216,16 @@ class ColleaguesDatabase extends React.Component<Props, State> {
               </form>
             </Paper>
           </Grid>
-          <Grid container item style={{ padding: '12px 0' }} spacing={24}>
+          <Grid container item style={{ padding: '47px 0' }} spacing={24}>
 
           {colleagues}
 
           </Grid>
+          <Grid item xs={12} sm={2} classes={{ item: classes.detailButtonContainer }}>
+                    <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                      Load more
+                    </Button>
+                  </Grid>
         </Grid>
       </div>
     );

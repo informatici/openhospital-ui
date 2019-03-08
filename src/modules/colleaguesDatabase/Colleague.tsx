@@ -46,7 +46,6 @@ class Colleague extends React.Component<Props, State> {
     colleagueInfo.nickname = colleagueInfo.name.substring(0, 1).toLowerCase() + '.' + colleagueInfo.surname.toLowerCase();
 
     const item =
-      // numbers.map((num: number) =>
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
           <Grid container className={classes.colleagueContainer} justify='center' spacing={24}>
@@ -109,7 +108,6 @@ class Colleague extends React.Component<Props, State> {
           </Grid>
         </Paper>
       </Grid>
-    // );
 
     return (
       item

@@ -64,6 +64,7 @@ const styles = (theme: Theme) =>
     detailButton: {
       textTransform: 'none',
       color: theme.palette.primary.red,
+      fontWeight: 'bold',
       borderRadius: 20,
       marginBottom: '8px',
       '&:hover': {
