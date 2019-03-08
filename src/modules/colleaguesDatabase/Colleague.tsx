@@ -22,6 +22,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import maleAvatar from "../../assets/images/male.png";
 import femaleAvatar from "../../assets/images/female.png";
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 import styles from './ColleaguesDatabase.style';
 export interface Props extends WithStyles<typeof styles> { }
@@ -48,29 +49,30 @@ class Colleague extends React.Component<Props, State> {
     const item =
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
-          <Grid container className={classes.colleagueContainer} justify='center' spacing={24}>
-            <Grid item xs={12}>
-              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classes.avatar} />
+          <CardActionArea className={classes.cardAction}>
+            <Grid container className={classes.colleagueContainer} justify='center' spacing={24}>
+              <Grid item xs={12}>
+                <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classes.avatar} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="inherit">{colleagueInfo.name} {colleagueInfo.surname}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="inherit">{colleagueInfo.nickname}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="inherit">Profession: Pneumologist</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="secondary">{colleagueInfo.phone}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="secondary">{colleagueInfo.email}</Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">{colleagueInfo.name} {colleagueInfo.surname}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">{colleagueInfo.nickname}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">Profession: Pneumologist</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="secondary">{colleagueInfo.phone}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="secondary">{colleagueInfo.email}</Typography>
-            </Grid>
-          </Grid>
+          </CardActionArea>
           <Grid container item className={classes.colleagueContainer} justify='center' spacing={24}>
             <Grid item xs={12}>
-              <Divider style={{ marginLeft: '-31px', marginRight: '-31px' }} />
             </Grid>
             <Grid item xs={12}>
               <Typography color="inherit">LAST PATIENTS VISITED</Typography>
@@ -84,21 +86,21 @@ class Colleague extends React.Component<Props, State> {
                 </div>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex' }}>
-              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
                   <Typography color="inherit">Gross</Typography>
                   <Typography color="inherit">Marcus</Typography>
                 </div>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex' }}>
-              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
                   <Typography color="inherit">Gross</Typography>
                   <Typography color="inherit">Marcus</Typography>
                 </div>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex' }}>
-              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
                   <Typography color="inherit">Gross</Typography>
                   <Typography color="inherit">Marcus</Typography>

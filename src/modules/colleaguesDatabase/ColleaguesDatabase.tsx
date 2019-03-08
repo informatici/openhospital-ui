@@ -54,7 +54,7 @@ class ColleaguesDatabase extends React.Component<Props, State> {
               isLoaded: true,
               items: result
             });
-          }, 500)
+          }, 300)
         },
         (error) => {
           this.setState({

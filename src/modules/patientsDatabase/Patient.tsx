@@ -22,6 +22,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import maleAvatar from "../../assets/images/male.png";
 import femaleAvatar from "../../assets/images/female.png";
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 import styles from './PatientsDatabase.style';
 export interface Props extends WithStyles<typeof styles> { }
@@ -44,36 +45,40 @@ class Patient extends React.Component<Props, State> {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let patientInfo = this.props.info;
     patientInfo.nickname = patientInfo.name.substring(0, 1).toLowerCase() + '.' + patientInfo.surname.toLowerCase();
-
+    patientInfo.pid = 32040;
+    patientInfo.opd = 8937821;
+debugger;
     const item =
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
-          <Grid container className={classes.patientContainer} justify='center' spacing={24}>
-            <Grid item xs={12}>
-              <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classes.avatar} />
+          <CardActionArea className={classes.cardAction}>
+            <Grid container className={classes.patientContainer} justify='center' spacing={24}>
+              <Grid item xs={12}>
+                <Typography color="inherit"><b>{patientInfo.name} {patientInfo.surname}</b></Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="inherit">PID: <b>{patientInfo.pid}</b> - OPD: <b>{patientInfo.opd}</b></Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography color="inherit">{patientInfo.gender}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classes.avatar} />
+              </Grid>
+              <Grid item xs={12} className={classes.infoContainer}>
+                <Typography color="inherit"><b>Last admission:</b> 22.01.2019</Typography>
+              </Grid>
+              <Grid item xs={12} className={classes.infoContainer}>
+                <Typography color="inherit"><b>Reason for visit:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit</Typography>
+              </Grid>
+              <Grid item xs={12} className={classes.infoContainer}>
+                <Typography color="inherit"><b>Treatment made:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit</Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">{patientInfo.name} {patientInfo.surname}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">{patientInfo.nickname}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">Profession: Pneumologist</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="secondary">{patientInfo.phone}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="secondary">{patientInfo.email}</Typography>
-            </Grid>
-          </Grid>
+          </CardActionArea>
           <Grid container item className={classes.patientContainer} justify='center' spacing={24}>
-            <Grid item xs={12}>
-              <Divider style={{ marginLeft: '-31px', marginRight: '-31px' }} />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography color="inherit">LAST PATIENTS VISITED</Typography>
+            <Grid item xs={12} className={classes.infoContainer}>
+              <Typography color="inherit"><b>LAST DOCTOR WHO VISIT THE PATIENT:</b></Typography>
             </Grid>
             <Grid container item className={classes.patientContainer} justify='center' spacing={24}>
               <Grid item xs={6} style={{ display: 'flex' }}>
@@ -84,21 +89,21 @@ class Patient extends React.Component<Props, State> {
                 </div>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex' }}>
-              <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
                   <Typography color="inherit">Gross</Typography>
                   <Typography color="inherit">Marcus</Typography>
                 </div>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex' }}>
-              <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
                   <Typography color="inherit">Gross</Typography>
                   <Typography color="inherit">Marcus</Typography>
                 </div>
               </Grid>
               <Grid item xs={6} style={{ display: 'flex' }}>
-              <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
                   <Typography color="inherit">Gross</Typography>
                   <Typography color="inherit">Marcus</Typography>

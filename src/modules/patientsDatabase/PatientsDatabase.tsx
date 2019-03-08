@@ -98,16 +98,16 @@ class PatientsDatabase extends React.Component<Props, State> {
                             <Typography variant="inherit" className={classes.patientsTitle}>
                                 PATIENTS
                             </Typography>
-                            <Button color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
-                      <CancelIcon />
+                            <Button color="inherit" classes={{ root: classes.button, label: classes.buttonLabel}}>
+                      <CancelIcon className={classes.buttonIcon}/>
                                 Delete a patient
                             </Button>
-                            <Button color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
-                      <AddIcon />
+                            <Button color="inherit" classes={{ root: (classNames(classes.button)), label: classes.buttonLabel }}>
+                      <AddIcon className={classes.buttonIcon}/>
                                 Record new patient
                             </Button>
-                            <Button color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
-                      <MergeIcon />
+                            <Button color="inherit" classes={{ root: (classNames(classes.button)), label: classes.buttonLabel }}>
+                      <MergeIcon className={classes.buttonIcon}/>
                                 Merge double patients' registration
                             </Button>
                         </Grid>
@@ -223,7 +223,7 @@ class PatientsDatabase extends React.Component<Props, State> {
                                 <Grid container justify="flex-end" item spacing={24}>
                                     <Grid item xs={12} sm={9} />
                                     <Grid item xs={12} sm={3} classes={{ item: classes.searchButton }}>
-                                        <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                                        <Button variant="outlined" color="inherit" classes={{ root: classes.button, label: classes.buttonLabel }}>
                                             Search
                       <KeyboardArrowRightIcon />
                                         </Button>
@@ -237,8 +237,8 @@ class PatientsDatabase extends React.Component<Props, State> {
                         {patients}
 
                     </Grid>
-                    <Grid item xs={12} sm={2}>
-                        <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                    <Grid item xs={12} sm={2} className={classes.loadMoreContainer}>
+                        <Button variant="outlined" color="inherit" classes={{ root: classes.button, label: classes.buttonLabel }}>
                             Load more
                     </Button>
                     </Grid>

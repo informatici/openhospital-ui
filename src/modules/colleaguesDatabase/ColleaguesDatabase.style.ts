@@ -7,7 +7,8 @@ const styles = (theme: Theme) =>
       // marginTop: 50
     },
     paper: {
-      padding: theme.spacing.unit * 2,
+      // padding: theme.spacing.unit * 2,
+      padding: 0,
       textAlign: 'center',
       // color: theme.palette.text.secondary,
       borderRadius: 10,
@@ -137,8 +138,15 @@ const styles = (theme: Theme) =>
       },
     },
     colleagueContainer: {
-      paddingTop: 20
-    }
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
+    cardAction: {
+      borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
+      '&:hover $avatar': {
+        border: `4px solid ${theme.palette.primary.red}`,
+      }
+    },
   }
   );
 

@@ -7,16 +7,13 @@ const styles = (theme: Theme) =>
       // marginTop: 50
     },
     paper: {
-      padding: theme.spacing.unit * 2,
+      // padding: theme.spacing.unit * 2,
       textAlign: 'center',
       // color: theme.palette.text.secondary,
       borderRadius: 10,
+      padding: 0,
       background: theme.palette.primary.main,
       boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
-    },
-    paperPerson: {
-      display: 'flex',
-      justifyContent: 'center'
     },
     paperFlat: {
       // display: 'flex',
@@ -62,22 +59,24 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'flex-end',
     },
-    detailButton: {
+    button: {
       textTransform: 'none',
       color: theme.palette.primary.red,
       fontWeight: 'bold',
       borderRadius: 20,
-      marginBottom: '8px',
       '&:hover': {
         color: theme.palette.primary.white,
         background: theme.palette.primary.red
       },
     },
-    detailButtonLabel: {
-      justifyContent: 'flex-end'
+    buttonIcon: {
+      marginRight: 5
+    },
+    buttonLabel: {
+      justifyContent: 'flex-end',
     },
     formField: {
-      width: '100%',      
+      width: '100%',
     },
     formFieldInput: {
       padding: '6px 0',
@@ -110,6 +109,12 @@ const styles = (theme: Theme) =>
       transform: 'translate(0px, -20px) scale(1) !important',
       // },
     },
+    cardAction: {
+      borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
+      '&:hover $avatar': {
+        border: `4px solid ${theme.palette.primary.red}`,
+      }
+    },
 
     cssOutlinedInput: {
       borderColor: `${theme.palette.primary.inputBorder} !important`,
@@ -138,12 +143,23 @@ const styles = (theme: Theme) =>
       },
     },
     patientContainer: {
-      paddingTop: 20
+      paddingTop: 20,
+      paddingBottom: 20,
+      '& $infoContainer': {
+        padding: '5px 12px',
+        textAlign: 'left'
+      }
+    },
+    infoContainer: {
     },
     patientActions: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end'
+    },
+    loadMoreContainer: {
+      display: 'flex',
+      justifyContent: 'center'
     }
   }
   );
