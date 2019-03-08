@@ -17,7 +17,9 @@ import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+// import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import MailIcon from '@material-ui/icons/Mail';
+import PhoneIcon from '@material-ui/icons/Phone';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import maleAvatar from "../../assets/images/male.png";
@@ -90,8 +92,8 @@ class Patient extends React.Component<Props, State> {
                 <Typography color="secondary"><b>Dr. Gross Marcus</b></Typography>
                 <Typography color="inherit">Pneumologist</Typography>
                 <br/>
-                <Typography color="secondary"><b>{patientInfo.phone}</b></Typography>
-                <Typography color="secondary"><b>{patientInfo.email}</b></Typography>
+                <Typography color="secondary"><b><PhoneIcon/>{patientInfo.phone}</b></Typography>
+                <Typography color="secondary"><b><MailIcon/>{patientInfo.email}</b></Typography>
               </Grid>
             </Grid>
           </Grid>
