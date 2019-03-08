@@ -127,7 +127,13 @@ const styles = (theme: Theme) =>
     avatar: {
       height: 104,
       width: 104,
-      margin: '0 auto'
+      margin: '0 auto',
+      border: '4px solid #e6e6e6',
+      '&.avatarSmall': {
+        height: 44,
+        width: 44,
+        margin: 0,
+      },
     },
     colleagueContainer: {
       paddingTop: 20

@@ -25,7 +25,6 @@ import femaleAvatar from '../../assets/images/female.png';
 import Colleague from './Colleague';
 
 import styles from './ColleaguesDatabase.style';
-import { any } from 'prop-types';
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -35,40 +34,6 @@ interface State {
   items: any;
 }
 
-// function AvatarItem(classes: any) {
-
-//   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-//   const listItems: any = numbers.map((num: number) =>
-//     <Grid item xs={12} sm={4} key={num.toString()}>
-//       <Paper className={classNames(classes.paper)}>
-//         <Grid container className={classes.gridContainer} justify='center' spacing={24}>
-//           <Grid item xs={12}>
-//             <Avatar alt="Remy Sharp" src={maleAvatar} className={classes.avatar} />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <Typography color="inherit">Dr. Meredith Grey</Typography>
-//           </Grid>
-//           <Grid item xs={12}>
-//             <Typography color="inherit">m.grey</Typography>
-//           </Grid>
-//           <Grid item xs={12}>
-//             <Typography color="inherit">Profession: Pneumologist</Typography>
-//           </Grid>
-//           <Grid item xs={12}>
-//             <Typography color="secondary">3451234567</Typography>
-//           </Grid>
-//           <Grid item xs={12}>
-//             <Typography color="secondary">greys.meredith@gmail.com</Typography>
-//           </Grid>
-//         </Grid>
-//       </Paper>
-//     </Grid>
-//   );
-//   return (
-//     listItems
-//   )
-// }
 class ColleaguesDatabase extends React.Component<Props, State> {
 
   state: State = {
@@ -91,9 +56,6 @@ class ColleaguesDatabase extends React.Component<Props, State> {
             });
           }, 500)
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: true,

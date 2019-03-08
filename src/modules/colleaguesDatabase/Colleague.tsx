@@ -6,6 +6,7 @@ import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 // import { Link as LinkRouter, LinkProps } from 'react-router-dom';
 // import { MaterialNavLinkRouter, MaterialLinkRouter } from '../utils/LinkHelper';
 import TextField from '@material-ui/core/TextField';
@@ -38,14 +39,14 @@ class Colleague extends React.Component<Props, State> {
   }
 
   render() {
-// debugger;
+    // debugger;
     let classes = this.props.classes;
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let colleagueInfo = this.props.info;
-    colleagueInfo.nickname = colleagueInfo.name.substring(0,1).toLowerCase() + '.' + colleagueInfo.surname.toLowerCase();
+    colleagueInfo.nickname = colleagueInfo.name.substring(0, 1).toLowerCase() + '.' + colleagueInfo.surname.toLowerCase();
 
-    const item = 
-    // numbers.map((num: number) =>
+    const item =
+      // numbers.map((num: number) =>
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
           <Grid container className={classes.colleagueContainer} justify='center' spacing={24}>
@@ -66,6 +67,44 @@ class Colleague extends React.Component<Props, State> {
             </Grid>
             <Grid item xs={12}>
               <Typography color="secondary">{colleagueInfo.email}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container item className={classes.colleagueContainer} justify='center' spacing={24}>
+            <Grid item xs={12}>
+              <Divider style={{ marginLeft: '-31px', marginRight: '-31px' }} />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography color="inherit">LAST PATIENTS VISITED</Typography>
+            </Grid>
+            <Grid container item className={classes.colleagueContainer} justify='center' spacing={24}>
+              <Grid item xs={6} style={{ display: 'flex' }}>
+                <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <div style={{ flexDirection: 'column' }}>
+                  <Typography color="inherit">Gross</Typography>
+                  <Typography color="inherit">Marcus</Typography>
+                </div>
+              </Grid>
+              <Grid item xs={6} style={{ display: 'flex' }}>
+              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <div style={{ flexDirection: 'column' }}>
+                  <Typography color="inherit">Gross</Typography>
+                  <Typography color="inherit">Marcus</Typography>
+                </div>
+              </Grid>
+              <Grid item xs={6} style={{ display: 'flex' }}>
+              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <div style={{ flexDirection: 'column' }}>
+                  <Typography color="inherit">Gross</Typography>
+                  <Typography color="inherit">Marcus</Typography>
+                </div>
+              </Grid>
+              <Grid item xs={6} style={{ display: 'flex' }}>
+              <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
+                <div style={{ flexDirection: 'column' }}>
+                  <Typography color="inherit">Gross</Typography>
+                  <Typography color="inherit">Marcus</Typography>
+                </div>
+              </Grid>
             </Grid>
           </Grid>
         </Paper>
