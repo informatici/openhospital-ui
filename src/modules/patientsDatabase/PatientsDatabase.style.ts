@@ -137,8 +137,8 @@ const styles = (theme: Theme) =>
       margin: '0 auto',
       border: '4px solid #e6e6e6',
       '&.avatarSmall': {
-        height: 44,
-        width: 44,
+        height: 57,
+        width: 57,
         margin: 0,
       },
     },
@@ -146,7 +146,7 @@ const styles = (theme: Theme) =>
       paddingTop: 20,
       paddingBottom: 20,
       '& $infoContainer': {
-        padding: '5px 12px',
+        padding: '5pxd 12px',
         textAlign: 'left'
       }
     },

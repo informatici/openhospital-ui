@@ -47,7 +47,7 @@ class Patient extends React.Component<Props, State> {
     patientInfo.nickname = patientInfo.name.substring(0, 1).toLowerCase() + '.' + patientInfo.surname.toLowerCase();
     patientInfo.pid = 32040;
     patientInfo.opd = 8937821;
-debugger;
+    debugger;
     const item =
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
@@ -81,33 +81,17 @@ debugger;
               <Typography color="inherit"><b>LAST DOCTOR WHO VISIT THE PATIENT:</b></Typography>
             </Grid>
             <Grid container item className={classes.patientContainer} justify='center' spacing={24}>
-              <Grid item xs={6} style={{ display: 'flex' }}>
+              <Grid item xs={12} sm={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
                 <div style={{ flexDirection: 'column' }}>
-                  <Typography color="inherit">Gross</Typography>
-                  <Typography color="inherit">Marcus</Typography>
                 </div>
               </Grid>
-              <Grid item xs={6} style={{ display: 'flex' }}>
-                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
-                <div style={{ flexDirection: 'column' }}>
-                  <Typography color="inherit">Gross</Typography>
-                  <Typography color="inherit">Marcus</Typography>
-                </div>
-              </Grid>
-              <Grid item xs={6} style={{ display: 'flex' }}>
-                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
-                <div style={{ flexDirection: 'column' }}>
-                  <Typography color="inherit">Gross</Typography>
-                  <Typography color="inherit">Marcus</Typography>
-                </div>
-              </Grid>
-              <Grid item xs={6} style={{ display: 'flex' }}>
-                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classNames(classes.avatar, 'avatarSmall')} />
-                <div style={{ flexDirection: 'column' }}>
-                  <Typography color="inherit">Gross</Typography>
-                  <Typography color="inherit">Marcus</Typography>
-                </div>
+              <Grid item xs={12} sm={9} style={{ textAlign: 'left' }}>
+                <Typography color="secondary"><b>Dr. Gross Marcus</b></Typography>
+                <Typography color="inherit">Pneumologist</Typography>
+                <br/>
+                <Typography color="secondary"><b>{patientInfo.phone}</b></Typography>
+                <Typography color="secondary"><b>{patientInfo.email}</b></Typography>
               </Grid>
             </Grid>
           </Grid>
