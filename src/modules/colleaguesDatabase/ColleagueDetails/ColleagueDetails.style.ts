@@ -6,6 +6,89 @@ const styles = (theme: Theme) =>
       flexGrow: 1,
       // marginTop: 50
     },
+    paperHeader: {
+      padding: theme.spacing.unit * 2,
+      textAlign: 'center',
+      // color: theme.palette.text.secondary,
+      borderRadius: 0,
+      background: theme.palette.primary.main,
+      boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
+      width: '100%',
+      zIndex: 1
+      // display: 'flex',
+      // justifyContent: 'space-start'
+    },
+    colleagueProfileHeader: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center'
+    },
+    colleagueProfile: {
+      textAlign: 'left'
+    },
+    avatar: {
+      height: 104,
+      width: 104,
+      // margin: '0 auto',
+      border: '4px solid #e6e6e6',
+      '&.avatarSmall': {
+        height: 44,
+        width: 44,
+        margin: 0,
+      },
+    },
+    // detailButtonContainer: {
+    //   display: 'flex',
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    // },
+    chatButton: {
+      textTransform: 'none',
+      color: theme.palette.primary.red,
+      fontWeight: 'bold',
+      borderRadius: 20,
+      marginLeft: 'auto',
+      // alignSelf: 'flex-end',
+      // marginBottom: '8px',
+      '&:hover': {
+        color: theme.palette.primary.white,
+        background: theme.palette.primary.red
+      },
+    },
+    chatButtonLabel: {
+      justifyContent: 'flex-end'
+    },
+    buttonIcon: {
+      marginRight: 5,
+    },
+    colleagueName: {
+      fontSize: '24px',
+      fontWeight: 'bold',
+      letterSpacing: 1
+    },
+    sidebar: {
+      backgroundColor: theme.palette.primary.darkGrey,
+      color: theme.palette.primary.white,
+    },
+    colleagueContent: {
+      backgroundColor: '#F9F9F9'
+    },
+    contacts: {
+      fontSize: 16,
+      letterSpacing: 1,
+      marginTop: 40
+    },
+    divider: {
+      backgroundColor: '#F9F9F9',
+      opacity: 0.2
+    },
+
+
+
+
+
+
+
     paper: {
       // padding: theme.spacing.unit * 2,
       padding: 0,
@@ -57,27 +140,8 @@ const styles = (theme: Theme) =>
       letterSpacing: 0.78,
       textAlign: 'left'
     },
-    detailButtonContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    detailButton: {
-      textTransform: 'none',
-      color: theme.palette.primary.red,
-      fontWeight: 'bold',
-      borderRadius: 20,
-      marginBottom: '8px',
-      '&:hover': {
-        color: theme.palette.primary.white,
-        background: theme.palette.primary.red
-      },
-    },
-    detailButtonLabel: {
-      justifyContent: 'flex-end'
-    },
     formField: {
-      width: '100%',      
+      width: '100%',
     },
     formFieldInput: {
       padding: '6px 0',
@@ -125,17 +189,6 @@ const styles = (theme: Theme) =>
     },
     inputContainer: {
       display: 'flex'
-    },
-    avatar: {
-      height: 104,
-      width: 104,
-      margin: '0 auto',
-      border: '4px solid #e6e6e6',
-      '&.avatarSmall': {
-        height: 44,
-        width: 44,
-        margin: 0,
-      },
     },
     colleagueContainer: {
       paddingTop: 20,
