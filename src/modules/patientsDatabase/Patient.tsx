@@ -1,5 +1,6 @@
 import * as React from "react";
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
@@ -20,6 +21,7 @@ import FormControl from '@material-ui/core/FormControl';
 // import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import MailIcon from '@material-ui/icons/Mail';
 import PhoneIcon from '@material-ui/icons/Phone';
+import HospitalIcon from '@material-ui/icons/LocalHospital';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import maleAvatar from "../../assets/images/male.png";
@@ -49,19 +51,27 @@ class Patient extends React.Component<Props, State> {
     patientInfo.nickname = patientInfo.name.substring(0, 1).toLowerCase() + '.' + patientInfo.surname.toLowerCase();
     patientInfo.pid = 32040;
     patientInfo.opd = 8937821;
-    debugger;
+    patientInfo.isChronic = _.sample([true, false]);
+    patientInfo.lastDocWhoVisitedHim = {
+      name: 'Marcus',
+      surname: 'Marcus',
+      occupation: _.sample(['Anesthesiologist', 'Cardiologist', 'Dermatologist', 'Gastroenterologist', 'Pneumologist']),
+      phone: '555 911 118',
+      email: 'doc@hospital.org',
+    }
+
     const item =
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
           <CardActionArea className={classes.cardAction}>
             <Grid container className={classes.patientContainer} justify='center' spacing={24}>
               <Grid item xs={12}>
-                <Typography color="inherit"><b>{patientInfo.name} {patientInfo.surname}</b></Typography>
-              </Grid>
-              <Grid item xs={12}>
+                <Typography color="inherit" className={classes.patientName}>{patientInfo.name} {patientInfo.surname}</Typography>
+                {/* </Grid> */}
+                {/* <Grid item xs={12}> */}
                 <Typography color="inherit">PID: <b>{patientInfo.pid}</b> - OPD: <b>{patientInfo.opd}</b></Typography>
-              </Grid>
-              <Grid item xs={12}>
+                {/* </Grid> */}
+                {/* <Grid item xs={12}> */}
                 <Typography color="inherit">{patientInfo.gender}</Typography>
               </Grid>
               <Grid item xs={12}>
@@ -69,13 +79,18 @@ class Patient extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12} className={classes.infoContainer}>
                 <Typography color="inherit"><b>Last admission:</b> 22.01.2019</Typography>
-              </Grid>
-              <Grid item xs={12} className={classes.infoContainer}>
+              {/* </Grid> */}
+              {/* <Grid item xs={12} className={classes.infoContainer}> */}
                 <Typography color="inherit"><b>Reason for visit:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit</Typography>
-              </Grid>
-              <Grid item xs={12} className={classes.infoContainer}>
+              {/* </Grid> */}
+              {/* <Grid item xs={12} className={classes.infoContainer}> */}
                 <Typography color="inherit"><b>Treatment made:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit</Typography>
               </Grid>
+              {patientInfo.isChronic &&
+                <Grid item xs={12} className={classes.infoContainer}>
+                  <Typography color="secondary" className={classes.iconAndText}><HospitalIcon style={{ marginRight: '5px' }} />Chronic patient</Typography>
+              </Grid>
+              }
             </Grid>
           </CardActionArea>
           <Grid container item className={classes.patientContainer} justify='center' spacing={24}>
@@ -89,11 +104,11 @@ class Patient extends React.Component<Props, State> {
                 </div>
               </Grid>
               <Grid item xs={12} sm={9} style={{ textAlign: 'left' }}>
-                <Typography color="secondary"><b>Dr. Gross Marcus</b></Typography>
-                <Typography color="inherit">Pneumologist</Typography>
-                <br/>
-                <Typography color="secondary"><b><PhoneIcon/>{patientInfo.phone}</b></Typography>
-                <Typography color="secondary"><b><MailIcon/>{patientInfo.email}</b></Typography>
+                <Typography color="secondary" style={{ fontWeight: 'bold' }}>Dr. {patientInfo.lastDocWhoVisitedHim.surname} {patientInfo.lastDocWhoVisitedHim.name}</Typography>
+                <Typography color="inherit">{patientInfo.lastDocWhoVisitedHim.occupation}</Typography>
+                <br />
+                <Typography color="secondary" className={classes.iconAndText}><PhoneIcon style={{ marginRight: '5px' }} />{patientInfo.lastDocWhoVisitedHim.phone}</Typography>
+                <Typography color="secondary" className={classes.iconAndText}><MailIcon style={{ marginRight: '5px' }} />{patientInfo.lastDocWhoVisitedHim.email}</Typography>
               </Grid>
             </Grid>
           </Grid>

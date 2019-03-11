@@ -68,9 +68,12 @@ const styles = (theme: Theme) =>
         color: theme.palette.primary.white,
         background: theme.palette.primary.red
       },
+      '&.mergeButton,&.addButton': {
+        marginLeft: 40
+      }
     },
     buttonIcon: {
-      marginRight: 5
+      marginRight: 5,
     },
     buttonLabel: {
       justifyContent: 'flex-end',
@@ -129,7 +132,7 @@ const styles = (theme: Theme) =>
       },
     },
     inputContainer: {
-      display: 'flex'
+      paddingTop: 20
     },
     avatar: {
       height: 104,
@@ -150,6 +153,12 @@ const styles = (theme: Theme) =>
         textAlign: 'left'
       }
     },
+    patientName: {
+      fontSize: 18,
+      letterSpacing: 1,
+      fontWeight: 'bold',
+      padding: '10px 0',
+    },
     infoContainer: {
     },
     patientActions: {
@@ -160,6 +169,12 @@ const styles = (theme: Theme) =>
     loadMoreContainer: {
       display: 'flex',
       justifyContent: 'center'
+    },
+    iconAndText: {
+      display: 'flex',
+      alignItems: 'center',
+      fontWeight: 'bold',
+      padding: '5px 0'
     }
   }
   );

@@ -102,11 +102,11 @@ class PatientsDatabase extends React.Component<Props, State> {
                       <CancelIcon className={classes.buttonIcon}/>
                                 Delete a patient
                             </Button>
-                            <Button color="inherit" classes={{ root: (classNames(classes.button)), label: classes.buttonLabel }}>
+                            <Button color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
                       <AddIcon className={classes.buttonIcon}/>
                                 Record new patient
                             </Button>
-                            <Button color="inherit" classes={{ root: (classNames(classes.button)), label: classes.buttonLabel }}>
+                            <Button color="inherit" classes={{ root: (classNames(classes.button, 'mergeButton')), label: classes.buttonLabel }}>
                       <MergeIcon className={classes.buttonIcon}/>
                                 Merge double patients' registration
                             </Button>
@@ -114,8 +114,8 @@ class PatientsDatabase extends React.Component<Props, State> {
                     </Grid>
                     <Grid container item justify='center' spacing={24}>
                         <Paper className={classes.paperFlat}>
-                            <Grid container item spacing={24}>
-                                <Grid item xs={12} className={classes.inputContainer}>
+                            <Grid container item spacing={24} className={classes.inputContainer}>
+                                <Grid item xs={12} style={{display: 'flex'}}>
                                     <Typography variant="inherit" className={classes.findPatients}>
                                         FIND A PATIENT
                 </Typography>
