@@ -88,7 +88,7 @@ class NavigationBar extends React.Component<Props, State> {
         if (window.location.pathname.indexOf("/patientsDatabase") === 0) {
             value = 1;
         }
-        if (window.location.pathname.indexOf("/colleaguesDatabase") === 0) {
+        if (window.location.pathname.indexOf("/colleagues") === 0) {
             value = 2;
         }
         if (window.location.pathname.indexOf("/pharmacy") === 0) {
@@ -112,7 +112,7 @@ class NavigationBar extends React.Component<Props, State> {
                     <Tabs className={classes.navigationBar} variant="fullWidth" value={value} >
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/dashboard" label="Dashboard" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/patientsDatabase" label="Patients database" />
-                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/colleaguesDatabase" label="Colleagues database" />
+                        <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/colleagues" label="Colleagues database" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/pharmacy" label="Pharmacy" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/ward" label="Ward" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/billing" label="Billing" />

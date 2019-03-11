@@ -7,8 +7,8 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-// import { Link as LinkRouter, LinkProps } from 'react-router-dom';
-// import { MaterialNavLinkRouter, MaterialLinkRouter } from '../utils/LinkHelper';
+import { Link as LinkRouter, LinkProps } from 'react-router-dom';
+import { MaterialNavLinkRouter, MaterialLinkRouter, MaterialCardActionAreaRouter } from '../utils/LinkHelper';
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
 import Select from '@material-ui/core/Select';
@@ -49,7 +49,7 @@ class Colleague extends React.Component<Props, State> {
     const item =
       <Grid item xs={12} sm={4}>
         <Paper className={classNames(classes.paper)}>
-          <CardActionArea className={classes.cardAction}>
+          <MaterialCardActionAreaRouter className={classes.cardAction} component={LinkRouter} to="/colleagues/colleagueDetails">
             <Grid container className={classes.colleagueContainer} justify='center' spacing={24}>
               <Grid item xs={12}>
                 <Avatar alt="Remy Sharp" src={colleagueInfo.photo} className={classes.avatar} />
@@ -70,7 +70,7 @@ class Colleague extends React.Component<Props, State> {
                 <Typography color="secondary">{colleagueInfo.email}</Typography>
               </Grid>
             </Grid>
-          </CardActionArea>
+          </MaterialCardActionAreaRouter>
           <Grid container item className={classes.colleagueContainer} justify='center' spacing={24}>
             <Grid item xs={12}>
             </Grid>

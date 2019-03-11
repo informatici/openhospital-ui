@@ -5,6 +5,7 @@ import Footer from "./modules/footer/Footer";
 import Dashboard from "./modules/dashboard/Dashboard";
 import PatientsDatabase from "./modules/patientsDatabase/PatientsDatabase";
 import ColleaguesDatabase from "./modules/colleaguesDatabase/ColleaguesDatabase";
+import ColleagueDetails from "./modules/colleaguesDatabase/ColleagueDetails/ColleagueDetails";
 import Pharmacy from "./modules/pharmacy/Pharmacy";
 import Ward from "./modules/ward/Ward";
 import Billing from "./modules/billing/Billing";
@@ -19,7 +20,8 @@ const Routes = () => (
             <Redirect from="/" exact={true} to="/dashboard" />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/patientsDatabase" component={PatientsDatabase} />
-            <Route path="/colleaguesDatabase" component={ColleaguesDatabase} />
+            <Route exact={true} path="/colleagues" component={ColleaguesDatabase} />
+            <Route path="/colleagues/colleagueDetails" component={ColleagueDetails} />
             <Route path="/pharmacy" component={Pharmacy} />
             <Route path="/ward" component={Ward} />
             <Route path="/billing" component={Billing} />
