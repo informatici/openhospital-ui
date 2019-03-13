@@ -69,10 +69,11 @@ const styles = (theme: Theme) =>
     sidebar: {
       backgroundColor: theme.palette.primary.darkGrey,
       color: theme.palette.primary.white,
-      padding: '30px !important'
+      padding: '40px 30px !important'
     },
     colleagueContent: {
-      backgroundColor: '#F9F9F9'
+      backgroundColor: '#F9F9F9',
+      padding: '40px !important'
     },
     contacts: {
       fontSize: 16,
@@ -101,10 +102,43 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       paddingBottom: 20
     },
+    roster: {
+      marginRight: 'auto'
+    },
+    rosterInfo: {
+      display: 'flex'
+    },
+    rosterInfoItem: {
+      display: 'flex',
+      flex: 1,
+      textAlign: 'center',
+      borderRadius: 0,
+      boxShadow: 'none',
+      border: '1px solid #F9F9F9',
+      '& .value': {
+        fontSize: 48,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+      },
+      '& .title': {
+        fontSize: 12,
+        letterSpacing: 1,
+        textTransform: 'uppercase'
+      },
+      '& .subTitle': {
+        fontSize: 12,
+        letterSpacing: 0.2,
+      },
+      '& .subValue': {
+        fontSize: 14,
+        letterSpacing: 0.26,
+      }
+
+    },
 
 
 
-    
+
 
 
 

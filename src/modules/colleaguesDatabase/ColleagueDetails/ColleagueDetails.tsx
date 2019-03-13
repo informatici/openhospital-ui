@@ -26,6 +26,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import maleAvatar from "../../../assets/images/male.png";
 import femaleAvatar from '../../../assets/images/female.png';
+import Card from '@material-ui/core/Card';
+// import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 // import Colleague from './Colleague';
 
 import styles from './ColleagueDetails.style';
@@ -46,6 +49,31 @@ class ColleagueDetails extends React.Component<Props, State> {
     isLoaded: false,
     items: [],
   };
+
+  componentDidMount() {
+    // fetch("https://uinames.com/api/?ext&amount=9")
+    //   .then(res => res.json())
+    //   .then(
+    //     (result) => {
+
+    //       setTimeout(() => {
+    //         this.setState({
+    //           isLoaded: true,
+    //           items: result
+    //         });
+    //       }, 300)
+    //     },
+    //     (error) => {
+    //       this.setState({
+    //         isLoaded: true,
+    //         error
+    //       });
+    //     }
+    //   )
+    this.setState({
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+    });
+  }
 
 
   public render() {
@@ -107,21 +135,21 @@ class ColleagueDetails extends React.Component<Props, State> {
                     </div>
                   </div>
                   <div className={classes.sidebarPatientsItem}>
-                  <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
                     <div style={{ flexDirection: 'column', textAlign: 'left' }}>
                       <Typography color="inherit"><b>Gross</b></Typography>
                       <Typography color="inherit">Marcus</Typography>
                     </div>
                   </div>
                   <div className={classes.sidebarPatientsItem}>
-                  <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
                     <div style={{ flexDirection: 'column', textAlign: 'left' }}>
                       <Typography color="inherit"><b>Gross</b></Typography>
                       <Typography color="inherit">Marcus</Typography>
                     </div>
                   </div>
                   <div className={classes.sidebarPatientsItem}>
-                  <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
                     <div style={{ flexDirection: 'column', textAlign: 'left' }}>
                       <Typography color="inherit"><b>Gross</b></Typography>
                       <Typography color="inherit">Marcus</Typography>
@@ -130,8 +158,132 @@ class ColleagueDetails extends React.Component<Props, State> {
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={9} className={classes.colleagueContent}>
-                amici
-          </Grid>
+                <Typography color="inherit" className={classes.roster}>DUTY ROSTER</Typography>
+                <Grid item xs={12} sm={6}>
+                  <FormControl variant="outlined"
+                    className={classNames(classes.formField, classes.formFieldSelect)}>
+                    <InputLabel
+                      ref={ref => {
+                        this.InputLabelRef = ref;
+                      }}
+                      htmlFor="​profession"
+                      classes={{
+                        root: classes.formFieldInputLabel,
+                        focused: classes.selectLabel
+                      }}
+                    >
+                      Profession / Specialization / Usergroup
+                      </InputLabel>
+                    <Select
+                      className={classes.select}
+                      // value={this.state.age}
+                      // onChange={this.handleChange}
+                      input={
+                        <OutlinedInput
+                          labelWidth={this.state.InputLabelRef}
+                          name="​professionSpecializationUsergroup"
+                          id="profession"
+                          // inputProps={{                          
+                          classes={{
+                            // root: classes.formFieldSelectInput,
+                            input: classes.formFieldSelectInput
+                          }}
+                        // }}
+                        />
+                      }
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={2} classes={{ item: classes.detailButtonContainer }}>
+                  <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+                    Go
+                    </Button>
+                </Grid>
+                <Grid item xs={12} className={classes.rosterInfo}>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemDay')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">Day</Typography>
+                      <Typography className="subTitle" color="inherit">Wednesday</Typography>
+                      <Typography className="value" color="inherit">18</Typography>
+                      <Typography className="subValue" color="inherit">May</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemHours')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">Hours</Typography>
+                      <Typography className="value" color="inherit">06</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemFrom')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">From</Typography>
+                      <Typography className="value" color="inherit">03</Typography>
+                      <Typography className="subValue" color="inherit">am</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemTo')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">To</Typography>
+                      <Typography className="value" color="inherit">09</Typography>
+                      <Typography className="subValue" color="inherit">pm</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemHospital')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">Hospital</Typography>
+                      <Typography className="subTitle" color="inherit">St. Democrito</Typography>
+                      <Typography className="value" color="inherit">114</Typography>
+                      <Typography className="subValue" color="inherit">Room/East wing</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} className={classes.rosterInfo}>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemDay')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">Day</Typography>
+                      <Typography className="subTitle" color="inherit">Wednesday</Typography>
+                      <Typography className="value" color="inherit">18</Typography>
+                      <Typography className="subValue" color="inherit">May</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemHours')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">Hours</Typography>
+                      <Typography className="value" color="inherit">06</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemFrom')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">From</Typography>
+                      <Typography className="value" color="inherit">03</Typography>
+                      <Typography className="subValue" color="inherit">am</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemTo')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">To</Typography>
+                      <Typography className="value" color="inherit">09</Typography>
+                      <Typography className="subValue" color="inherit">pm</Typography>
+                    </CardContent>
+                  </Card>
+                  <Card className={classNames(classes.rosterInfoItem, 'itemHospital')}>
+                    <CardContent style={{ width: '100%' }}>
+                      <Typography className="title" color="inherit">Hospital</Typography>
+                      <Typography className="subTitle" color="inherit">St. Democrito</Typography>
+                      <Typography className="value" color="inherit">114</Typography>
+                      <Typography className="subValue" color="inherit">Room/East wing</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
