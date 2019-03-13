@@ -69,6 +69,7 @@ const styles = (theme: Theme) =>
     sidebar: {
       backgroundColor: theme.palette.primary.darkGrey,
       color: theme.palette.primary.white,
+      padding: '30px !important'
     },
     colleagueContent: {
       backgroundColor: '#F9F9F9'
@@ -82,9 +83,28 @@ const styles = (theme: Theme) =>
       backgroundColor: '#F9F9F9',
       opacity: 0.2
     },
+    iconAndText: {
+      display: 'flex',
+      alignItems: 'center',
+      // fontWeight: 'bold',
+      padding: '5px 0'
+    },
+    contactsContainer: {
+      padding: '15px 15px'
+    },
+    sidebarPatients: {
+      paddingTop: 25
+    },
+    sidebarPatientsItem: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      paddingBottom: 20
+    },
 
 
 
+    
 
 
 

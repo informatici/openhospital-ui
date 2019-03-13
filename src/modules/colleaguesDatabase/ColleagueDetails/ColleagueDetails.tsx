@@ -17,6 +17,8 @@ import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import MailIcon from '@material-ui/icons/Mail';
+import PhoneIcon from '@material-ui/icons/Phone';
 import ChatIcon from '@material-ui/icons/Sms';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
@@ -89,7 +91,43 @@ class ColleagueDetails extends React.Component<Props, State> {
             <Grid container item justify='center' spacing={24}>
               <Grid item xs={12} sm={3} className={classes.sidebar}>
                 <Typography color="inherit" className={classes.contacts}>CONTACTS</Typography>
-                <Divider className={classes.divider}/>
+                <Divider className={classes.divider} />
+                <div className={classes.contactsContainer}>
+                  <Typography color="inherit" className={classes.iconAndText}><PhoneIcon color="secondary" style={{ marginRight: '5px' }} />3451234567</Typography>
+                  <Typography color="inherit" className={classes.iconAndText}><MailIcon color="secondary" style={{ marginRight: '5px' }} />doc@hospital.com</Typography>
+                </div>
+                <Typography color="inherit" className={classes.contacts}>LAST VISITED PATIENTS</Typography>
+                <Divider className={classes.divider} />
+                <Grid item xs={12} className={classes.sidebarPatients}>
+                  <div className={classes.sidebarPatientsItem}>
+                    <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <div style={{ flexDirection: 'column', textAlign: 'left' }}>
+                      <Typography color="inherit"><b>Gross</b></Typography>
+                      <Typography color="inherit">Marcus</Typography>
+                    </div>
+                  </div>
+                  <div className={classes.sidebarPatientsItem}>
+                  <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <div style={{ flexDirection: 'column', textAlign: 'left' }}>
+                      <Typography color="inherit"><b>Gross</b></Typography>
+                      <Typography color="inherit">Marcus</Typography>
+                    </div>
+                  </div>
+                  <div className={classes.sidebarPatientsItem}>
+                  <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <div style={{ flexDirection: 'column', textAlign: 'left' }}>
+                      <Typography color="inherit"><b>Gross</b></Typography>
+                      <Typography color="inherit">Marcus</Typography>
+                    </div>
+                  </div>
+                  <div className={classes.sidebarPatientsItem}>
+                  <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classNames(classes.avatar, 'avatarSmall')} />
+                    <div style={{ flexDirection: 'column', textAlign: 'left' }}>
+                      <Typography color="inherit"><b>Gross</b></Typography>
+                      <Typography color="inherit">Marcus</Typography>
+                    </div>
+                  </div>
+                </Grid>
               </Grid>
               <Grid item xs={12} sm={9} className={classes.colleagueContent}>
                 amici
