@@ -135,6 +135,91 @@ const styles = (theme: Theme) =>
       }
 
     },
+    appointmentsTitle: {
+      marginRight: 'auto',
+    },
+    expandButton: {
+      color: theme.palette.primary.red,
+    },
+    appointmentsTitleContainer: {
+      borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
+      margin: '0 16px 16px 16px',
+      width: 'auto',
+      paddingBottom: 5
+    },
+    appointmentsDWM: {
+      borderRadius: 20,
+      color: theme.palette.primary.grey
+    },
+    appointments: {
+      // padding: 0,
+    },
+    appointmentsListItem: {
+      '&:hover': {
+        backgroundColor: '#F9F9F9',
+      }
+    },
+    appointmentsListItemText: {
+      fontSize: 14,
+      letterSpacing: 0.26,
+    },
+    appointmentsListItemGrid: {
+      // padding: 0,
+    },
+    appointmentsListItemCheckbox: {
+      // paddingRight: 0
+    },
+    cardMaterials: {
+      padding: 0
+    },
+    materialsList: {
+      padding: 0
+    },
+    materialsListItem: {
+      borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
+      '&:hover': {
+        backgroundColor: '#F9F9F9',
+      },
+      padding: '50px 30px'
+    },
+    materialsListItemTitleContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      paddingBottom: '10px !important',
+    },
+    materialsListItemTitle: {
+      fontSize: 18,
+      letterSpacing: 1,
+      fontWeight: 'bold',
+      padding: 5
+    },
+    materialsListItemTitleWarning: {
+      padding: 5,
+      fontSize: 12,
+      letterSpacing: 0.3,
+      color: theme.palette.primary.red,
+    },
+    materialsListItemBigNumber: {
+      fontSize: 48,
+      letterSpacing: 1,
+      fontWeight: 'bold',
+      padding: 5
+    },
+    materialsListItemBigNumberDesc: {
+      fontSize: 14,
+      letterSpacing: 0.26,
+      color: theme.palette.primary.grey,
+    },
+    paperFlat: {
+      // display: 'flex',
+      padding: theme.spacing.unit * 2,
+      textAlign: 'center',
+      // color: theme.palette.text.secondary,
+      borderRadius: 'none',
+      background: theme.palette.primary.main,
+      boxShadow: 'none',
+      width: '100%',
+    },
 
 
 
@@ -155,16 +240,6 @@ const styles = (theme: Theme) =>
     paperPerson: {
       display: 'flex',
       justifyContent: 'center'
-    },
-    paperFlat: {
-      // display: 'flex',
-      padding: theme.spacing.unit * 2,
-      textAlign: 'center',
-      // color: theme.palette.text.secondary,
-      borderRadius: 'none',
-      background: theme.palette.primary.main,
-      boxShadow: 'none',
-      width: '100%',
     },
     gridContainer: {
       margin: '0 auto',

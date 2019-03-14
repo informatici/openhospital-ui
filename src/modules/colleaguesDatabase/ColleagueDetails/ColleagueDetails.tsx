@@ -12,15 +12,21 @@ import { MaterialNavLinkRouter, MaterialLinkRouter } from '../../utils/LinkHelpe
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
 import Select from '@material-ui/core/Select';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import MailIcon from '@material-ui/icons/Mail';
 import PhoneIcon from '@material-ui/icons/Phone';
 import ChatIcon from '@material-ui/icons/Sms';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
@@ -39,6 +45,7 @@ interface State {
   error: any;
   isLoaded: boolean;
   items: any;
+  anchorEl?: any,
 }
 
 class ColleagueDetails extends React.Component<Props, State> {
@@ -48,6 +55,7 @@ class ColleagueDetails extends React.Component<Props, State> {
     error: null,
     isLoaded: false,
     items: [],
+    anchorEl: null,
   };
 
   componentDidMount() {
@@ -73,11 +81,20 @@ class ColleagueDetails extends React.Component<Props, State> {
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
-  }
+  };
+
+  handleClickCalendarAppointmentsDWM = (event: any) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleCloseCalendarAppointmentsDWM = () => {
+    this.setState({ anchorEl: null });
+  };
 
 
   public render() {
     const { classes } = this.props;
+    const { anchorEl } = this.state;
     // const { items, isLoaded, error } = this.state;
 
     return (
@@ -282,6 +299,129 @@ class ColleagueDetails extends React.Component<Props, State> {
                     </CardContent>
                   </Card>
                 </Grid>
+
+
+                <Grid item xs={12} style={{marginTop: 55}} >
+
+                <Paper className={classes.paperFlat}>
+                  <List classes={{ root: classes.appointments }}>
+                    <ListItem disableGutters className={classes.appointmentsTitleContainer}>
+                      <Typography className={classes.appointmentsTitle} variant="inherit" align="left">
+                        APPOINTMENTS
+                        </Typography>
+                      <Button
+                        aria-owns={anchorEl ? 'simple-menu' : undefined}
+                        aria-haspopup="true"
+                        className={classes.appointmentsDWM}
+                        onClick={this.handleClickCalendarAppointmentsDWM}
+                      >
+                        Day
+                      {/* openAppointments ? */}
+                        <ExpandMore className={classes.expandButton} />
+                        {/* : <ExpandMore onClick={this.handleClickCollapseAppointments} /> */}
+
+                      </Button>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={this.handleCloseCalendarAppointmentsDWM}
+                      >
+                        <MenuItem onClick={this.handleCloseCalendarAppointmentsDWM}>Day</MenuItem>
+                        <MenuItem onClick={this.handleCloseCalendarAppointmentsDWM}>Week</MenuItem>
+                        <MenuItem onClick={this.handleCloseCalendarAppointmentsDWM}>Month</MenuItem>
+                      </Menu>
+                    </ListItem>
+                    {/* <Collapse in={openAppointments} timeout="auto" unmountOnExit> */}
+                    <List disablePadding>
+                      <ListItem disableGutters className={classes.appointmentsListItem}>
+                        <Grid container justify='center' spacing={24} className={classes.appointmentsListItemGrid}>
+                          <Grid item xs={3} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit">
+                              <b>7.00 am</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={9} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.materialsListItemBigNumberDesc} variant="inherit">
+                              Daily brief with the staff
+                        </Typography>
+                          </Grid>
+                        </Grid>
+                        <ListItemSecondaryAction>
+                          <Checkbox className={classes.appointmentsListItemCheckbox}
+                          // onChange={this.handleToggle(value)}
+                          // checked={this.state.checked.indexOf(value) !== -1}                      
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem disableGutters className={classes.appointmentsListItem}>
+                        <Grid container justify='center' spacing={24} className={classes.appointmentsListItemGrid}>
+                          <Grid item xs={3} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.appointmentsListItemText} variant="inherit">
+                              <b>9.30 am</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={9} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.appointmentsListItemText} variant="inherit">
+                              Meeting with Dr. Ford
+                        </Typography>
+                          </Grid>
+                        </Grid>
+                        <ListItemSecondaryAction>
+                          <Checkbox className={classes.appointmentsListItemCheckbox}
+                          // onChange={this.handleToggle(value)}
+                          // checked={this.state.checked.indexOf(value) !== -1}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem disableGutters className={classes.appointmentsListItem}>
+                        <Grid container justify='center' spacing={24} className={classes.appointmentsListItemGrid}>
+                          <Grid item xs={3} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.appointmentsListItemText} variant="inherit">
+                              <b>10.30 am</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={9} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.appointmentsListItemText} variant="inherit">
+                              Meeting team
+                        </Typography>
+                          </Grid>
+                        </Grid>
+                        <ListItemSecondaryAction>
+                          <Checkbox className={classes.appointmentsListItemCheckbox}
+                          // onChange={this.handleToggle(value)}
+                          // checked={this.state.checked.indexOf(value) !== -1}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem disableGutters className={classes.appointmentsListItem}>
+                        <Grid container justify='center' spacing={24} className={classes.appointmentsListItemGrid}>
+                          <Grid item xs={3} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.appointmentsListItemText} variant="inherit">
+                              <b>3.00 pm</b>
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={9} className={classes.materialsListItemTitleContainer}>
+                            <Typography className={classes.appointmentsListItemText} variant="inherit">
+                              Daily visits
+                        </Typography>
+                          </Grid>
+                        </Grid>
+                        <ListItemSecondaryAction>
+                          <Checkbox className={classes.appointmentsListItemCheckbox}
+                          // onChange={this.handleToggle(value)}
+                          // checked={this.state.checked.indexOf(value) !== -1}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                    {/* </Collapse> */}
+                  </List>
+                </Paper>
+
+                </Grid>
+
+
 
               </Grid>
             </Grid>
