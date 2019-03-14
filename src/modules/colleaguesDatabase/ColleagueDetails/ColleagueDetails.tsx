@@ -175,8 +175,9 @@ class ColleagueDetails extends React.Component<Props, State> {
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={9} className={classes.colleagueContent}>
-                <Typography color="inherit" className={classes.roster}>DUTY ROSTER</Typography>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} className={classes.rosterActions}>
+                <Typography color="inherit" className={classes.rosterTitle}>DUTY ROSTER</Typography>
+                <Grid item xs={12} sm={3} className={classes.temp}>
                   <FormControl variant="outlined"
                     className={classNames(classes.formField, classes.formFieldSelect)}>
                     <InputLabel
@@ -189,7 +190,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                         focused: classes.selectLabel
                       }}
                     >
-                      Profession / Specialization / Usergroup
+                      Today
                       </InputLabel>
                     <Select
                       className={classes.select}
@@ -210,19 +211,20 @@ class ColleagueDetails extends React.Component<Props, State> {
                       }
                     >
                       <MenuItem value="">
-                        <em>None</em>
+                        <em>Today</em>
                       </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      <MenuItem value={10}>Tomorrow</MenuItem>
+                      <MenuItem value={20}>Next three days</MenuItem>
+                      <MenuItem value={30}>Next week</MenuItem>
                     </Select>
                   </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={2} classes={{ item: classes.detailButtonContainer }}>
+                  </Grid>
                   <Button variant="outlined" color="inherit" classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
                     Go
                     </Button>
                 </Grid>
+                {/* <Grid item xs={12} sm={2} classes={{ item: classes.detailButtonContainer }}>
+                </Grid> */}
                 <Grid item xs={12} className={classes.rosterInfo}>
                   <Card className={classNames(classes.rosterInfoItem, 'itemDay')}>
                     <CardContent style={{ width: '100%' }}>
@@ -235,12 +237,14 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <Card className={classNames(classes.rosterInfoItem, 'itemHours')}>
                     <CardContent style={{ width: '100%' }}>
                       <Typography className="title" color="inherit">Hours</Typography>
+                      <Typography className="subTitle" color="inherit">&nbsp;</Typography>
                       <Typography className="value" color="inherit">06</Typography>
                     </CardContent>
                   </Card>
                   <Card className={classNames(classes.rosterInfoItem, 'itemFrom')}>
                     <CardContent style={{ width: '100%' }}>
                       <Typography className="title" color="inherit">From</Typography>
+                      <Typography className="subTitle" color="inherit">&nbsp;</Typography>
                       <Typography className="value" color="inherit">03</Typography>
                       <Typography className="subValue" color="inherit">am</Typography>
                     </CardContent>
@@ -248,6 +252,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <Card className={classNames(classes.rosterInfoItem, 'itemTo')}>
                     <CardContent style={{ width: '100%' }}>
                       <Typography className="title" color="inherit">To</Typography>
+                      <Typography className="subTitle" color="inherit">&nbsp;</Typography>
                       <Typography className="value" color="inherit">09</Typography>
                       <Typography className="subValue" color="inherit">pm</Typography>
                     </CardContent>
@@ -273,12 +278,14 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <Card className={classNames(classes.rosterInfoItem, 'itemHours')}>
                     <CardContent style={{ width: '100%' }}>
                       <Typography className="title" color="inherit">Hours</Typography>
+                      <Typography className="subTitle" color="inherit">&nbsp;</Typography>
                       <Typography className="value" color="inherit">06</Typography>
                     </CardContent>
                   </Card>
                   <Card className={classNames(classes.rosterInfoItem, 'itemFrom')}>
                     <CardContent style={{ width: '100%' }}>
                       <Typography className="title" color="inherit">From</Typography>
+                      <Typography className="subTitle" color="inherit">&nbsp;</Typography>
                       <Typography className="value" color="inherit">03</Typography>
                       <Typography className="subValue" color="inherit">am</Typography>
                     </CardContent>
@@ -286,6 +293,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <Card className={classNames(classes.rosterInfoItem, 'itemTo')}>
                     <CardContent style={{ width: '100%' }}>
                       <Typography className="title" color="inherit">To</Typography>
+                      <Typography className="subTitle" color="inherit">&nbsp;</Typography>
                       <Typography className="value" color="inherit">09</Typography>
                       <Typography className="subValue" color="inherit">pm</Typography>
                     </CardContent>

@@ -55,7 +55,7 @@ class PatientsDatabase extends React.Component<Props, State> {
                             isLoaded: true,
                             items: result
                         });
-                    }, 0)
+                    }, 300)
                 },
                 (error) => {
                     this.setState({

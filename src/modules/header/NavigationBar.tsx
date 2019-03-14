@@ -81,7 +81,7 @@ class NavigationBar extends React.Component<Props, State> {
         const { classes } = this.props;
         // const { value } = this.state;
 
-        let value = null; 
+        let value = null;
         if (window.location.pathname.indexOf("/dashboard") === 0) {
             value = 0;
         }
@@ -108,7 +108,7 @@ class NavigationBar extends React.Component<Props, State> {
         return (
             <NoSsr>
                 <div className={classes.subApplicationBar}>
-                    <img src={OHlogo} alt="Open Hospital" className={classes.logo}  />
+                    <img src={OHlogo} alt="Open Hospital" className={classes.logo} />
                     <Tabs className={classes.navigationBar} variant="fullWidth" value={value} >
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/dashboard" label="Dashboard" />
                         <LinkTab classes={{ root: classes.tab, selected: classes.tabSelected }} component={NavLink} to="/patientsDatabase" label="Patients database" />

@@ -102,8 +102,16 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       paddingBottom: 20
     },
-    roster: {
-      marginRight: 'auto'
+    rosterActions: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      paddingBottom: 60
+    },
+    rosterTitle: {
+      marginRight: 'auto',
+      fontSize: 16,
+      letterSpacing: 1
     },
     rosterInfo: {
       display: 'flex'
@@ -220,6 +228,60 @@ const styles = (theme: Theme) =>
       boxShadow: 'none',
       width: '100%',
     },
+    detailButtonContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    detailButton: {
+      textTransform: 'none',
+      color: theme.palette.primary.red,
+      fontWeight: 'bold',
+      borderRadius: 20,
+      // marginBottom: '8px',
+      marginLeft: '17px',
+      '&:hover': {
+        color: theme.palette.primary.white,
+        background: theme.palette.primary.red
+      },
+    },
+    detailButtonLabel: {
+      // justifyContent: 'flex-end'
+    },
+    formField: {
+      width: '100%',
+    },
+    formFieldInput: {
+      padding: '6px 0',
+      '& input': {
+        padding: 6
+      }
+    },
+    formFieldInputLabel: {
+      transform: 'translate(14px, 14px) scale(1)',
+    },
+    formFieldSelect: {
+      // marginTop: '16px',
+      // marginBottom: '8px',
+    },
+    formFieldSelectInput: {
+      padding: '6px 0 !important'
+    },
+    select: {
+      padding: '6px 0 !important',
+      '& :focus': {
+        borderRadius: '14px !important',
+        border: `1px solid ${theme.palette.primary.inputBorder} !important`,
+        backgroundColor: theme.palette.primary.white,
+        padding: '6px 0 !important',
+      }
+    },
+    selectLabel: {
+      // '&$focused': {
+      // color: 'purple !important',
+      transform: 'translate(0px, -20px) scale(1) !important',
+      // },
+    },
 
 
 
@@ -269,41 +331,6 @@ const styles = (theme: Theme) =>
       letterSpacing: 0.78,
       textAlign: 'left'
     },
-    formField: {
-      width: '100%',
-    },
-    formFieldInput: {
-      padding: '6px 0',
-      '& input': {
-        padding: 6
-      }
-    },
-    formFieldInputLabel: {
-      transform: 'translate(14px, 14px) scale(1)',
-    },
-    formFieldSelect: {
-      marginTop: '16px',
-      marginBottom: '8px',
-    },
-    formFieldSelectInput: {
-      padding: '6px 0 !important'
-    },
-    select: {
-      padding: '6px 0 !important',
-      '& :focus': {
-        borderRadius: '14px !important',
-        border: `1px solid ${theme.palette.primary.inputBorder} !important`,
-        backgroundColor: theme.palette.primary.white,
-        padding: '6px 0 !important',
-      }
-    },
-    selectLabel: {
-      // '&$focused': {
-      // color: 'purple !important',
-      transform: 'translate(0px, -20px) scale(1) !important',
-      // },
-    },
-
     cssOutlinedInput: {
       borderColor: `${theme.palette.primary.inputBorder} !important`,
       '& legend': {
