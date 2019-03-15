@@ -12,7 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import ButtonBase from '@material-ui/core/ButtonBase';
+import { Link as LinkRouter, LinkProps } from 'react-router-dom';
+import { MaterialNavLinkRouter, MaterialLinkRouter, MaterialCardActionAreaRouter } from '../utils/LinkHelper';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
@@ -61,9 +62,6 @@ class Dashboard extends React.Component<Props, State> {
     this.setState({ anchorEl: null });
   };
 
-  handleClickCollapseAppointments = () => {
-    this.setState(state => ({ openAppointments: !state.openAppointments }));
-  };
 
   handleChange = (event: React.MouseEvent<HTMLElement>, value: number) => {
     this.setState({ value });
@@ -85,20 +83,20 @@ class Dashboard extends React.Component<Props, State> {
           </Grid>
           <Grid container justify='center' spacing={24} className={classes.ctaGrid}>
             <Grid item xs={12} sm={4}>
-              <CardActionArea className={classes.ctaPatient}>
+            <MaterialCardActionAreaRouter className={classes.ctaPatient} component={LinkRouter} to="/patientsDatabase/newPatient">
                 <SvgIcon component={PlusIcon} />
                 <Typography className={classes.ctaPatientText} color="inherit" align="center">
                   <b>REGISTER NEW PATIENT</b>
                 </Typography>
-              </CardActionArea>
+              </MaterialCardActionAreaRouter>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <CardActionArea className={classes.ctaPatient}>
+              <MaterialCardActionAreaRouter className={classes.ctaPatient} component={LinkRouter} to="/patientsDatabase">
                 <SvgIcon component={BigSearchIcon} />
                 <Typography className={classes.ctaPatientText} color="inherit" align="center">
                   <b>SEARCH FOR PATIENTS</b>
                 </Typography>
-              </CardActionArea>
+                </MaterialCardActionAreaRouter>
             </Grid>
           </Grid>
           <Grid container justify='center' spacing={24} className={classes.gridMaterialsCalendar}>
@@ -288,9 +286,6 @@ class Dashboard extends React.Component<Props, State> {
                       onClick={this.handleClickCalendarAppointmentsDWM}
                     >
                       Day
-                      {/* openAppointments ? */}
-                      <ExpandMore className={classes.expandButton} onClick={this.handleClickCollapseAppointments} />
-                      {/* : <ExpandMore onClick={this.handleClickCollapseAppointments} /> */}
 
                     </Button>
                     <Menu
@@ -403,10 +398,6 @@ class Dashboard extends React.Component<Props, State> {
                       onClick={this.handleClickCalendarAppointmentsDWM}
                     >
                       Day
-                      {/* openAppointments ? */}
-                      <ExpandMore className={classes.expandButton} onClick={this.handleClickCollapseAppointments} />
-                      {/* : <ExpandMore onClick={this.handleClickCollapseAppointments} /> */}
-
                     </Button>
                     <Menu
                       id="simple-menu"

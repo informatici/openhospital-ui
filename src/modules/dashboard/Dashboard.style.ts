@@ -36,6 +36,8 @@ const styles = (theme: Theme) =>
       paddingBottom: 80
     },
     ctaPatient: {
+      display: 'flex',
+      flexDirection: 'column',
       height: 167,
       textAlign: 'center',
       // alignItems: 'top',

@@ -132,7 +132,10 @@ const styles = (theme: Theme) =>
       },
     },
     inputContainer: {
-      paddingTop: 20
+      paddingTop: 20,
+    },
+    filterContainer: {
+      paddingTop: '40px !important'
     },
     avatar: {
       height: 104,
@@ -175,7 +178,12 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       fontWeight: 'bold',
       padding: '5px 0'
-    }
+    },
+    divider: {
+      backgroundColor: '#8D8D8D',
+      // opacity: 0.2,
+      width: '100%'
+    },
   }
   );
 
