@@ -100,7 +100,7 @@ const styles = (theme: Theme) =>
     select: {
       padding: '6px 0 !important',
       '& :focus': {
-        borderRadius: '14px !important',
+        borderRadius: '6px !important',
         border: `1px solid ${theme.palette.primary.inputBorder} !important`,
         backgroundColor: theme.palette.primary.white,
         padding: '6px 0 !important',

@@ -256,7 +256,7 @@ const styles = (theme: Theme) =>
     },
     formField: {
       width: '100%',
-      margin: '8px 00 !important'
+      margin: '8px 0 !important'
     },
     formFieldInput: {
       padding: '6px 0',
@@ -272,15 +272,15 @@ const styles = (theme: Theme) =>
       // marginBottom: '8px',
     },
     formFieldSelectInput: {
-      padding: '6px 0 !important'
+      padding: '12px 0 !important'
     },
     select: {
-      padding: '6px 0 !important',
+      padding: '0px 0 !important',
       '& :focus': {
-        borderRadius: '14px !important',
+        borderRadius: '6px !important',
         border: `1px solid ${theme.palette.primary.inputBorder} !important`,
         backgroundColor: theme.palette.primary.white,
-        padding: '6px 0 !important',
+        padding: '12px 0 !important',
       }
     },
     selectLabel: {

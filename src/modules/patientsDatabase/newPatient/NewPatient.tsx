@@ -193,11 +193,59 @@ class ColleagueDetails extends React.Component<Props, State> {
                 </Grid>
 
                 <Grid container item xs={12} spacing={24}>
-                  <Grid item xs={12} sm={3}>
+                  <Grid item xs={12} sm={2}>
                     <TextField
                       required
-                      id="age"
-                      label="Age"
+                      id="years"
+                      label="Years"
+                      className={classNames(classes.formField, classes.cssOutlinedInput)}
+                      InputLabelProps={{
+                        classes: {
+                          root: classes.formFieldInputLabel,
+                          focused: classes.cssFocused,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.formFieldInput,
+                          notchedOutline: classes.cssOutlinedInput,
+                        },
+                      }}
+                      // value="{this.state.name}"
+                      // onChange={this.handleChange('name')}
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={2}>
+                    <TextField
+                      required
+                      id="months"
+                      label="Months"
+                      className={classNames(classes.formField, classes.cssOutlinedInput)}
+                      InputLabelProps={{
+                        classes: {
+                          root: classes.formFieldInputLabel,
+                          focused: classes.cssFocused,
+                        },
+                      }}
+                      InputProps={{
+                        classes: {
+                          root: classes.formFieldInput,
+                          notchedOutline: classes.cssOutlinedInput,
+                        },
+                      }}
+                      // value="{this.state.name}"
+                      // onChange={this.handleChange('name')}
+                      margin="normal"
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={2}>
+                    <TextField
+                      required
+                      id="days"
+                      label="Days"
                       className={classNames(classes.formField, classes.cssOutlinedInput)}
                       InputLabelProps={{
                         classes: {
