@@ -7,6 +7,7 @@
     "api": "openapi-server",
     "start:api": "concurrently \"npm run api\" \"npm run start\"",
     "build": "parcel build public/index.html --public-url ./",
+    "publish": "parcel build public/index.html --public-url /oh20 -d oh20",
     "test": "jest",
     "tdd": "jest --watch",
     "coverage": "jest --coverage",
