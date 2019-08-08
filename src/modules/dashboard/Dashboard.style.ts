@@ -1,4 +1,4 @@
-import { createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, Theme } from "@material-ui/core/styles";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -15,50 +15,50 @@ const styles = (theme: Theme) =>
     },
     paper: {
       padding: theme.spacing.unit * 2,
-      textAlign: 'center',
+      textAlign: "center",
       // color: theme.palette.text.secondary,
       borderRadius: 10,
       background: theme.palette.primary.main,
-      boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
+      boxShadow: "0 4px 8px 0 rgba(48,49,51,0.1)",
     },
     paperCalendar: {
       // padding: theme.spacing.unit * 2,
-      textAlign: 'center',
+      textAlign: "center",
       // color: theme.palette.text.secondary,
       borderRadius: 10,
       background: theme.palette.primary.main,
-      boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
+      boxShadow: "0 4px 8px 0 rgba(48,49,51,0.1)",
     },
     gridPaddingBottom: {
-      paddingBottom: 30
+      paddingBottom: 30,
     },
     ctaGrid: {
-      paddingBottom: 80
+      paddingBottom: 80,
     },
     ctaPatient: {
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
       height: 167,
-      textAlign: 'center',
+      textAlign: "center",
       // alignItems: 'top',
       borderRadius: 10,
       background: theme.palette.primary.main,
-      boxShadow: '0 8px 16px 0 rgba(48,49,51,0.1)',
+      boxShadow: "0 8px 16px 0 rgba(48,49,51,0.1)",
       // color: 'green'
-      '&:hover': {
-        background: 'linear-gradient(180deg, #E82758 0%, #FE4641 100%)',
-        boxShadow: '0 8px 16px 0 rgba(254,70,65,0.33)',
+      "&:hover": {
+        background: "linear-gradient(180deg, #E82758 0%, #FE4641 100%)",
+        boxShadow: "0 8px 16px 0 rgba(254,70,65,0.33)",
         color: theme.palette.primary.white,
-      }
+      },
     },
     ctaPatientText: {
       paddingTop: 15,
       fontSize: 16,
       // lineHeight: '42px',
-      letterSpacing: 1
+      letterSpacing: 1,
     },
     gridContainer: {
-      margin: '0 auto',
+      margin: "0 auto",
       paddingTop: 60,
     },
     gridMaterialsCalendar: {
@@ -67,13 +67,13 @@ const styles = (theme: Theme) =>
     cardTitle: {
       paddingBottom: 30,
       fontSize: 16,
-      letterSpacing: 1
+      letterSpacing: 1,
     },
     tabs: {
-      boxShadow: ' 0 4px 8px 0 rgba(48,49,51,0.1)',
+      boxShadow: " 0 4px 8px 0 rgba(48,49,51,0.1)",
     },
     tab: {
-      textTransform: 'none',
+      textTransform: "none",
       fontSize: 14,
       fontWeight: 600,
       letterSpacing: 0.26,
@@ -83,34 +83,34 @@ const styles = (theme: Theme) =>
       color: theme.palette.primary.red,
     },
     tabRadiusSx: {
-      borderRadius: '10px 0 0 0',
+      borderRadius: "10px 0 0 0",
     },
     tabRadiusDx: {
-      borderRadius: '0 10px 0 0',
+      borderRadius: "0 10px 0 0",
     },
     cardMaterials: {
-      padding: 0
+      padding: 0,
     },
     materialsList: {
-      padding: 0
+      padding: 0,
     },
     materialsListItem: {
       borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
-      '&:hover': {
-        backgroundColor: '#F9F9F9',
+      "&:hover": {
+        backgroundColor: "#F9F9F9",
       },
-      padding: '50px 30px'
+      padding: "50px 30px",
     },
     materialsListItemTitleContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingBottom: '10px !important',
+      display: "flex",
+      alignItems: "center",
+      paddingBottom: "10px !important",
     },
     materialsListItemTitle: {
       fontSize: 18,
       letterSpacing: 1,
-      fontWeight: 'bold',
-      padding: 5
+      fontWeight: "bold",
+      padding: 5,
     },
     materialsListItemTitleWarning: {
       padding: 5,
@@ -121,8 +121,8 @@ const styles = (theme: Theme) =>
     materialsListItemBigNumber: {
       fontSize: 48,
       letterSpacing: 1,
-      fontWeight: 'bold',
-      padding: 5
+      fontWeight: "bold",
+      padding: 5,
     },
     materialsListItemBigNumberDesc: {
       fontSize: 14,
@@ -130,32 +130,32 @@ const styles = (theme: Theme) =>
       color: theme.palette.primary.grey,
     },
     detailButtonContainer: {
-      display: 'flex',
-      alignItems: 'flex-end',
+      display: "flex",
+      alignItems: "flex-end",
     },
     detailButton: {
-      textTransform: 'none',
+      textTransform: "none",
       color: theme.palette.primary.red,
       borderRadius: 20,
-      fontWeight: 'bold',
-      '&:hover': {
+      fontWeight: "bold",
+      "&:hover": {
         color: theme.palette.primary.white,
-        background: theme.palette.primary.red
+        background: theme.palette.primary.red,
       },
     },
     detailButtonLabel: {
-      justifyContent: 'flex-end'
+      justifyContent: "flex-end",
     },
     allMaterialsButton: {
-      justifyContent: 'center',
+      justifyContent: "center",
       color: theme.palette.primary.red,
-      borderRadius: '0 0 10px 10px',
-      padding: '30px 0',
+      borderRadius: "0 0 10px 10px",
+      padding: "30px 0",
       fontSize: 16,
       letterSpacing: 1,
-      '&:hover': {
+      "&:hover": {
         color: theme.palette.primary.white,
-        background: theme.palette.primary.red
+        background: theme.palette.primary.red,
       },
     },
     calendar: {
@@ -163,28 +163,28 @@ const styles = (theme: Theme) =>
       padding: 20,
     },
     appointmentsTitle: {
-      marginRight: 'auto',
+      marginRight: "auto",
     },
     expandButton: {
       color: theme.palette.primary.red,
     },
     appointmentsTitleContainer: {
       borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
-      margin: '0 16px 16px 16px',
-      width: 'auto',
-      paddingBottom: 5
+      margin: "0 16px 16px 16px",
+      width: "auto",
+      paddingBottom: 5,
     },
     appointmentsDWM: {
       borderRadius: 20,
-      color: theme.palette.primary.grey
+      color: theme.palette.primary.grey,
     },
     appointments: {
       // padding: 0,
     },
     appointmentsListItem: {
-      '&:hover': {
-        backgroundColor: '#F9F9F9',
-      }
+      "&:hover": {
+        backgroundColor: "#F9F9F9",
+      },
     },
     appointmentsListItemText: {
       fontSize: 14,
@@ -196,13 +196,8 @@ const styles = (theme: Theme) =>
     appointmentsListItemCheckbox: {
       // paddingRight: 0
     },
-    summary: {
-
-    },
-    summaryItem: {
-      
-    }
-  }
-  );
+    summary: {},
+    summaryItem: {},
+  });
 
 export default styles;

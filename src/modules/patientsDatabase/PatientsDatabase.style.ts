@@ -81,6 +81,16 @@ const styles = (theme: Theme) =>
     formField: {
       width: '100%',
     },
+    formDeleteField: {
+      width: '50%',
+      justifyContent:'center'
+    },
+
+    deleteInputField: {
+      paddingLeft: "165px",
+      width: '104%'
+    },
+
     formFieldInput: {
       padding: '6px 0',
       '& input': {

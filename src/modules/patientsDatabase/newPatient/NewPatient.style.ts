@@ -1,4 +1,4 @@
-import { createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, Theme } from "@material-ui/core/styles";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -8,30 +8,30 @@ const styles = (theme: Theme) =>
     },
     paperHeader: {
       padding: theme.spacing.unit * 2,
-      textAlign: 'center',
+      textAlign: "center",
       // color: theme.palette.text.secondary,
       borderRadius: 0,
       background: theme.palette.primary.main,
-      boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
-      width: '100%',
-      zIndex: 1
+      boxShadow: "0 4px 8px 0 rgba(48,49,51,0.1)",
+      width: "100%",
+      zIndex: 1,
       // display: 'flex',
       // justifyContent: 'space-start'
     },
     colleagueProfileHeader: {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      alignItems: 'center'
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
     },
     colleagueProfile: {
-      textAlign: 'left'
+      textAlign: "left",
     },
     avatar: {
-      height: 104,
-      width: 104,
-      margin: '0 auto',
-      border: '4px solid #e6e6e6',
-      '&.avatarSmall': {
+      height: 200,
+      width: 200,
+      margin: "0 auto",
+      border: "4px solid #e6e6e6",
+      "&.avatarSmall": {
         height: 44,
         width: 44,
         margin: 0,
@@ -43,130 +43,129 @@ const styles = (theme: Theme) =>
     //   justifyContent: 'center',
     // },
     chatButton: {
-      textTransform: 'none',
+      textTransform: "none",
       color: theme.palette.primary.red,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       borderRadius: 20,
-      marginLeft: 'auto',
+      marginLeft: "auto",
       // alignSelf: 'flex-end',
       // marginBottom: '8px',
-      '&:hover': {
+      "&:hover": {
         color: theme.palette.primary.white,
-        background: theme.palette.primary.red
+        background: theme.palette.primary.red,
       },
     },
     chatButtonLabel: {
-      justifyContent: 'flex-end'
+      justifyContent: "flex-end",
     },
     buttonIcon: {
       marginRight: 5,
     },
     colleagueName: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-      letterSpacing: 1
+      fontSize: "24px",
+      fontWeight: "bold",
+      letterSpacing: 1,
     },
     sidebar: {
       backgroundColor: theme.palette.primary.darkGrey,
       color: theme.palette.primary.white,
-      padding: '40px 30px !important'
+      padding: "40px 30px !important",
     },
     colleagueContent: {
-      backgroundColor: '#F9F9F9',
-      padding: '40px !important'
+      backgroundColor: "#F9F9F9",
+      padding: "40px !important",
     },
     contacts: {
       fontSize: 16,
       letterSpacing: 1,
-      marginTop: 40
+      marginTop: 40,
     },
     divider: {
-      backgroundColor: '#F9F9F9',
-      opacity: 0.2
+      backgroundColor: "#F9F9F9",
+      opacity: 0.2,
     },
     iconAndText: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       // fontWeight: 'bold',
-      padding: '5px 0'
+      padding: "5px 0",
     },
     contactsContainer: {
-      padding: '15px 15px'
+      padding: "15px 15px",
     },
     sidebarPatients: {
-      paddingTop: 25
+      paddingTop: 25,
     },
     sidebarPatientsItem: {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      paddingBottom: 20
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      paddingBottom: 20,
     },
     rosterActions: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      paddingBottom: 60
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      paddingBottom: 60,
     },
     rosterTitle: {
-      marginRight: 'auto',
+      marginRight: "auto",
       fontSize: 16,
-      letterSpacing: 1
+      letterSpacing: 1,
     },
     rosterInfo: {
-      display: 'flex',
-      paddingBottom: 10
+      display: "flex",
+      paddingBottom: 10,
     },
     rosterInfoItem: {
-      display: 'flex',
+      display: "flex",
       flex: 1,
-      textAlign: 'center',
+      textAlign: "center",
       borderRadius: 0,
-      boxShadow: 'none',
-      border: '1px solid #F9F9F9',
-      '& .value': {
+      boxShadow: "none",
+      border: "1px solid #F9F9F9",
+      "& .value": {
         fontSize: 48,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         letterSpacing: 1,
       },
-      '& .title': {
+      "& .title": {
         fontSize: 12,
         letterSpacing: 1,
-        textTransform: 'uppercase'
+        textTransform: "uppercase",
       },
-      '& .subTitle': {
+      "& .subTitle": {
         fontSize: 12,
         letterSpacing: 0.2,
       },
-      '& .subValue': {
+      "& .subValue": {
         fontSize: 14,
         letterSpacing: 0.26,
-      }
-
+      },
     },
     appointmentsTitle: {
-      marginRight: 'auto',
+      marginRight: "auto",
     },
     expandButton: {
       color: theme.palette.primary.red,
     },
     appointmentsTitleContainer: {
       borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
-      margin: '0 16px 16px 16px',
-      width: 'auto',
-      paddingBottom: 5
+      margin: "0 16px 16px 16px",
+      width: "auto",
+      paddingBottom: 5,
     },
     appointmentsDWM: {
       borderRadius: 20,
-      color: theme.palette.primary.grey
+      color: theme.palette.primary.grey,
     },
     appointments: {
       // padding: 0,
     },
     appointmentsListItem: {
-      '&:hover': {
-        backgroundColor: '#F9F9F9',
-      }
+      "&:hover": {
+        backgroundColor: "#F9F9F9",
+      },
     },
     appointmentsListItemText: {
       fontSize: 14,
@@ -179,28 +178,28 @@ const styles = (theme: Theme) =>
       // paddingRight: 0
     },
     cardMaterials: {
-      padding: 0
+      padding: 0,
     },
     materialsList: {
-      padding: 0
+      padding: 0,
     },
     materialsListItem: {
       borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
-      '&:hover': {
-        backgroundColor: '#F9F9F9',
+      "&:hover": {
+        backgroundColor: "#F9F9F9",
       },
-      padding: '50px 30px'
+      padding: "50px 30px",
     },
     materialsListItemTitleContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      paddingBottom: '10px !important',
+      display: "flex",
+      alignItems: "center",
+      paddingBottom: "10px !important",
     },
     materialsListItemTitle: {
       fontSize: 18,
       letterSpacing: 1,
-      fontWeight: 'bold',
-      padding: 5
+      fontWeight: "bold",
+      padding: 5,
     },
     materialsListItemTitleWarning: {
       padding: 5,
@@ -211,8 +210,8 @@ const styles = (theme: Theme) =>
     materialsListItemBigNumber: {
       fontSize: 48,
       letterSpacing: 1,
-      fontWeight: 'bold',
-      padding: 5
+      fontWeight: "bold",
+      padding: 5,
     },
     materialsListItemBigNumberDesc: {
       fontSize: 14,
@@ -222,29 +221,43 @@ const styles = (theme: Theme) =>
     paperFlat: {
       // display: 'flex',
       padding: theme.spacing.unit * 2,
-      textAlign: 'center',
+      textAlign: "center",
       // color: theme.palette.text.secondary,
-      borderRadius: 'none',
+      borderRadius: "none",
       background: theme.palette.primary.main,
-      boxShadow: 'none',
-      width: '100%',
+      boxShadow: "none",
+      width: "100%",
     },
     detailButtonContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginTop:30,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     detailButton: {
-      textTransform: 'none',
+      textTransform: "none",
       color: theme.palette.primary.red,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       borderRadius: 20,
       // marginBottom: '8px',
-      marginLeft: '17px',
-      '&:hover': {
+      marginLeft: "17px",
+      "&:hover": {
         color: theme.palette.primary.white,
-        background: theme.palette.primary.red
+        background: theme.palette.primary.red,
       },
+    },
+    detailInfoButton: {
+      textTransform: "none",
+      color: theme.palette.primary.red,
+      fontWeight: "bold",
+      borderRadius: 20,
+      // marginBottom: '8px',
+      marginLeft: "17px",
+      "&:hover": {
+        color: theme.palette.primary.white,
+        background: theme.palette.primary.red,
+      },
+      height: '150%'
     },
     detailButtonLabelInverse: {
       color: theme.palette.primary.white,
@@ -252,106 +265,107 @@ const styles = (theme: Theme) =>
     },
     avatarTitle: {
       marginTop: 30,
-      textAlign: 'center'
+      textAlign: "center",
     },
     formField: {
-      width: '100%',
-      margin: '8px 0 !important'
+      width: "100%",
+      margin: "8px 0 !important",
     },
     formFieldInput: {
-      padding: '6px 0',
-      '& input': {
-        padding: 6
-      }
+      padding: "6px 0",
+      "& input": {
+        padding: 6,
+      },
     },
     formFieldInputLabel: {
-      transform: 'translate(14px, 14px) scale(1)',
+      transform: "translate(14px, 14px) scale(1)",
     },
     formFieldSelect: {
       // marginTop: '16px',
       // marginBottom: '8px',
     },
     formFieldSelectInput: {
-      padding: '12px 0 !important'
+      padding: "12px 0 !important",
     },
     select: {
-      padding: '0px 0 !important',
-      '& :focus': {
-        borderRadius: '6px !important',
+      padding: "0px 0 !important",
+      "& :focus": {
+        borderRadius: "6px !important",
         border: `1px solid ${theme.palette.primary.inputBorder} !important`,
         backgroundColor: theme.palette.primary.white,
-        padding: '12px 0 !important',
-      }
+        padding: "12px 0 !important",
+      },
     },
     selectLabel: {
       // '&$focused': {
       // color: 'purple !important',
-      transform: 'translate(0px, -20px) scale(1) !important',
+      transform: "translate(0px, -20px) scale(1) !important",
       // },
     },
-
-
-
-
-
-
-
 
     paper: {
       // padding: theme.spacing.unit * 2,
       padding: 0,
-      textAlign: 'center',
+      textAlign: "center",
       // color: theme.palette.text.secondary,
       borderRadius: 10,
       background: theme.palette.primary.main,
-      boxShadow: '0 4px 8px 0 rgba(48,49,51,0.1)',
+      boxShadow: "0 4px 8px 0 rgba(48,49,51,0.1)",
     },
     paperPerson: {
-      display: 'flex',
-      justifyContent: 'center'
+      display: "flex",
+      justifyContent: "center",
     },
     gridContainer: {
-      margin: '0 auto',
+      margin: "0 auto",
       paddingTop: 60,
     },
 
     breadCrumb: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 12,
-      letterSpacing: 0.75
+      letterSpacing: 0.75,
     },
 
     colleaguesTitle: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 16,
       letterSpacing: 1,
     },
+
+    outOrInTitle:{
+      fontWeight:"bold",
+      fontsize: 16,
+      letterSpacing: 1,
+      marginTop: 20
+    },
+
     findColleagues: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 14,
       letterSpacing: 0.88,
-      textAlign: 'left',
-      paddingRight: 20
+      textAlign: "left",
+      paddingRight: 20,
     },
     insertInfoColleagues: {
       fontSize: 14,
       letterSpacing: 0.78,
-      textAlign: 'left'
+      textAlign: "left",
     },
     cssOutlinedInput: {
       borderColor: `${theme.palette.primary.inputBorder} !important`,
-      '& legend': {
-        width: '0 !important'
-      }
+      "& legend": {
+        width: "0 !important",
+      },
     },
     cssFocused: {
-      '&$cssFocused': {
+      "&$cssFocused": {
         // color: 'purple',
-        transform: 'translate(0px, -20px) scale(1)',
+        transform: "translate(0px, -20px) scale(1)",
       },
     },
     inputContainer: {
-      display: 'flex'
+      display: "flex",
     },
     colleagueContainer: {
       paddingTop: 20,
@@ -359,11 +373,24 @@ const styles = (theme: Theme) =>
     },
     cardAction: {
       borderBottom: `1px solid ${theme.palette.primary.lightGrey}`,
-      '&:hover $avatar': {
+      "&:hover $avatar": {
         border: `4px solid ${theme.palette.primary.red}`,
-      }
+      },
     },
-  }
-  );
+
+    //SNACK BAR ERRORS//
+
+    error: {
+      backgroundColor: theme.palette.primary.red,
+    },
+    icon: {
+      fontSize: 20,
+    },
+    message: {
+      display: 'flex',
+      alignItems: 'center',
+      
+    },
+  });
 
 export default styles;
