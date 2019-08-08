@@ -50,7 +50,6 @@
     "modules": "^0.4.0",
     "openapi-server": "git+https://gitlab.intesys.it/open-source/openapi-server.git",
     "parcel-bundler": "^1.11.0",
-    "parcel-plugin-bundle-visualiser": "^1.2.0",
     "postcss-modules": "^1.4.1",
     "prettier": "^1.16.4",
     "react": "^16.8.2",
@@ -70,6 +69,8 @@
     "typescript": "^3.3.3",
     "typesync": "^0.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "parcel-plugin-bundle-visualiser": "^1.2.0"
+  },
   "browserslist": "defaults"
 }
