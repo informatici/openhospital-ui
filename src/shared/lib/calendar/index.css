@@ -39,11 +39,11 @@
 .calendar {
   flex-grow: 2;
 }
-
+/*
 .header {
   width: 100%;
   flex-grow: 1;
-  /* min-width: 350px; */
+  
   background-color: #444444;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(48,49,51,0.1);
@@ -64,7 +64,7 @@
   font-size: 4em;
   font-weight: bold;
 }
-
+*/
 .padding {
   padding: 10px;
 }
@@ -78,6 +78,7 @@
 
 .month-title {
   text-align: center;
+  font-size: x-large;
   flex: 4;
 }
 
