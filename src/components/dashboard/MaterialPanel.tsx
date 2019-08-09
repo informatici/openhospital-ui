@@ -27,7 +27,7 @@ class MaterialPanel extends Component<Props>{
 		return (
 			<Grid item xs={12} sm={6}>
               <Typography className={classes.cardTitle} variant="inherit" align="left">
-                MATERIALS ARE RUNNING OUT
+                MATERIALS
               </Typography>
               <Paper className={classNames(classes.paper, classes.cardMaterials)}>
                 <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
