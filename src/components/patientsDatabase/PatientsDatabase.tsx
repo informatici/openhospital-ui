@@ -1,3 +1,15 @@
+import React, { Component } from "react";
+import { Link as LinkRouter } from 'react-router-dom';
+
+// local imports
+import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
+import Patients from "./Patients";
+import styles from './PatientsDatabase.style';
+import { PatientControllerApi, GetPatientsUsingGETRequest } from '../../generate/apis';
+import { Patient } from 'generate';
+import classNames from 'classnames';
+
+// material imports
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
@@ -19,14 +31,9 @@ import MergeIcon from '@material-ui/icons//LibraryBooks';
 import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
-import classNames from 'classnames';
-import * as React from "react";
-import { Link as LinkRouter } from 'react-router-dom';
-import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
-import Patients from "./Patients";
-import styles from './PatientsDatabase.style';
-import { PatientControllerApi, GetPatientsUsingGETRequest } from '../../generate/apis';
-import { Patient } from 'generate';
+
+import DeletePatientDialog from "./DeletePatientDialog";
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -37,26 +44,20 @@ interface State {
   patients: Array<Patient>;
   visible: Number;
   searchedValue: String;
-  open: boolean;
+  isDeleteDialogOpen: boolean;
  
 }
 
-class PatientsDatabase extends React.Component<Props, State> {
-
-
+class PatientsDatabase extends Component<Props, State> {
   state: State = {
     error: null,
     isLoaded: false,
     items: [],
     selectedDate: new Date(),
-    open: false,
-    
+    isDeleteDialogOpen: false,
   };
    
- 
-   
   componentDidMount() {
-
     const patientController: PatientControllerApi = new PatientControllerApi();
     const requestParams: GetPatientsUsingGETRequest = {
       page: 1,
@@ -89,16 +90,20 @@ class PatientsDatabase extends React.Component<Props, State> {
 
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({ isDeleteDialogOpen: true });
   };
   
   handleClickClose = () => {
-    this.setState({ open: false });
+    this.setState({ isDeleteDialogOpen: false });
   };
 
   public render() {
     const { classes, theme } = this.props;
-    const { items, isLoaded, error } = this.state;
+    const { 
+      items, 
+      isLoaded, 
+      error, 
+      isDeleteDialogOpen } = this.state;
 
 
     const patients = (
@@ -115,11 +120,12 @@ class PatientsDatabase extends React.Component<Props, State> {
       <div className={classes.root}>
         <Grid container className={classes.gridContainer} justify='center' spacing={24}>
           <Grid container item justify='center' spacing={24}>
+            
             <Grid item xs={12}>
               <Breadcrumbs aria-label="Breadcrumb" className={classes.breadCrumb}>
                 <MaterialLinkRouter color="secondary" component={LinkRouter} to="/dashboard">
                   Home
-              </MaterialLinkRouter>
+                </MaterialLinkRouter>
                 <Typography color="inherit">Patients</Typography>
               </Breadcrumbs>
             </Grid>
@@ -127,46 +133,13 @@ class PatientsDatabase extends React.Component<Props, State> {
             <Grid item xs={12} className={classes.patientActions}>
               <Typography variant="inherit" className={classes.patientsTitle}>
                 PATIENTS
-                            </Typography>
+              </Typography>
               <Grid>
                 <Button color="inherit" onClick={this.handleClickOpen} classes={{ root: classes.button, label: classes.buttonLabel }}>
                   <CancelIcon className={classes.buttonIcon} />
                   Delete a patient
               </Button>
-                <Dialog
-                  open={this.state.open}
-                  onClose={this.handleClickClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">{"ENTER THE PATIENT'S CODE YOU WANT TO DELETE"}</DialogTitle>
-                  <DialogContent>
-                    &nbsp;
-                    <DialogContentText style={{textAlign:'center'}} id="alert-dialog-description">
-                     <b>Attention!</b> This action will completely erase patient data! 
-              </DialogContentText>
-              &nbsp;
-              <Grid className={classes.deleteInputField}>
-                    <TextField
-                    required
-                    id="outlined-required"
-                    label="Patient ID"
-                    className={classNames(classes.formDeleteField, classes.cssOutlinedInput)}
-                    margin="normal"
-                    variant="outlined"
-                    
-                    />
-              </Grid>      
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.handleClickClose} color="secondary">
-                       <b>EXIT</b> 
-                 </Button>
-                    <Button onClick={this.handleClickClose} color="secondary">
-                      <b>DELETE</b> 
-                  </Button>
-                  </DialogActions>
-                </Dialog>
+                <DeletePatientDialog isOpen={isDeleteDialogOpen} handleClickClose={this.handleClickClose}/>
               </Grid>                  
               <MaterialButtonRouter component={LinkRouter} to="/patientsDatabase/newPatient" color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
                 <AddIcon className={classes.buttonIcon} />
