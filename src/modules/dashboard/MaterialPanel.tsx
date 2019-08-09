@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 // local imports
 import MaterialPanelItem from "./MaterialPanelItem";
-import styles from "./MaterialPanel.style";
+import styles from "./styles/MaterialPanel.style";
 import classNames from "classnames";
 
 // material imports

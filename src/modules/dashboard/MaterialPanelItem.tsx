@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 // local imports
-import styles from "./MaterialPanelItem.style";
+import styles from "./styles/MaterialPanelItem.style";
 import classNames from "classnames";
+import BigNumberItem from "./BigNumberItem";
 
 // material imports
 import ListItem from "@material-ui/core/ListItem";
@@ -20,63 +21,29 @@ class MaterialPanelItem extends Component<Props>{
 		const { classes } = this.props
 		return (
 			<ListItem className={classes.materialsListItem}>
-	                <Grid container justify="center" spacing={24}>
-						<Grid item xs={12} className={classes.materialsListItemTitleContainer}>
-							<Typography className={classes.materialsListItemTitle} variant="inherit">
-								Amoxicillina antibiotico
-							</Typography>
-							<Typography className={classes.materialsListItemTitleWarning} variant="inherit">
-								{/* <SvgIcon component={AlertIcon} /> */}
-								The drug is running out
-							</Typography>
-						</Grid>
-						<Grid item xs={12} sm={4}>
-							<Grid item xs>
-								<Typography
-									className={classes.materialsListItemBigNumber}
-									variant="inherit"
-									align="center">
-										1200
-								</Typography>
-							</Grid>
-							<Grid item xs>
-								<Typography
-									className={classes.materialsListItemBigNumberDesc}
-									variant="inherit"
-									align="center">
-										<span className={classes.textDark}>vials</span> remaining
-								</Typography>
-							</Grid>
-						</Grid>
-						<Grid item xs={12} sm={4}>
-							<Grid item xs>
-								<Typography
-									className={classes.materialsListItemBigNumber}
-									variant="inherit"
-									align="center">
-										4
-								</Typography>
-							</Grid>
-							<Grid item xs>
-								<Typography
-									className={classes.materialsListItemBigNumberDesc}
-									variant="inherit"
-									align="center">
-										<span className={classes.textDark}>weeks</span> for the next refueling
-								</Typography>
-							</Grid>
-						</Grid>
-						<Grid item xs={12} sm={4} classes={{ item: classes.detailButtonContainer }}>
-							<Button
-								variant="outlined"
-								color="inherit"
-								classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
-									Go to details
-									<KeyboardArrowRightIcon />
-							</Button>
-						</Grid>
-	                </Grid>
-              	</ListItem>
+                <Grid container justify="center" spacing={24}>
+					<Grid item xs={12} className={classes.materialsListItemTitleContainer}>
+						<Typography className={classes.materialsListItemTitle} variant="inherit">
+							Amoxicillina antibiotico
+						</Typography>
+						<Typography className={classes.materialsListItemTitleWarning} variant="inherit">
+							{/* <SvgIcon component={AlertIcon} /> */}
+							The drug is running out
+						</Typography>
+					</Grid>
+					<BigNumberItem/>
+					<BigNumberItem/>
+					<Grid item xs={12} sm={4} classes={{ item: classes.detailButtonContainer }}>
+						<Button
+							variant="outlined"
+							color="inherit"
+							classes={{ root: classes.detailButton, label: classes.detailButtonLabel }}>
+								Go to details
+								<KeyboardArrowRightIcon />
+						</Button>
+					</Grid>
+                </Grid>
+			</ListItem>
 		)
 	}
 }
