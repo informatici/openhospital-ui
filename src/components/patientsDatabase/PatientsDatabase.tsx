@@ -3,7 +3,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 
 // local imports
 import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
-import Patients from "./Patients";
+import PatientsListItem from "./PatientsListItem";
 import styles from './PatientsDatabase.style';
 import { PatientControllerApi, GetPatientsUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
@@ -40,7 +40,6 @@ interface State {
     visible: Number;
     searchedValue: String;
     isDeleteDialogOpen: boolean;
- 
 }
 
 class PatientsDatabase extends Component<Props, State> {
@@ -77,7 +76,7 @@ class PatientsDatabase extends Component<Props, State> {
             }
         };
 
-        const items = [item, item, item];
+        const items = [item, item, item, item, item, item, item];
         this.setState({ isLoaded: true, items, });
         // </test>
 
@@ -90,14 +89,6 @@ class PatientsDatabase extends Component<Props, State> {
         //     }
         // )
     }
-  
-    handleClickOpen = () => {
-        this.setState({ isDeleteDialogOpen: true });
-    };
-  
-    handleClickClose = () => {
-        this.setState({ isDeleteDialogOpen: false });
-    };
 
     keywordInput = (classes, classNames) => {
         return (
@@ -128,13 +119,6 @@ class PatientsDatabase extends Component<Props, State> {
     public render() {
         const { classes, theme } = this.props;
         const { items, isLoaded, error, isDeleteDialogOpen } = this.state;
-        const patients = (
-            items && items.length !== 0 ?
-                (items.map((item) => (<Patients info={item}/>)))
-                :
-                <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }} />
-        )
-
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
@@ -152,11 +136,15 @@ class PatientsDatabase extends Component<Props, State> {
                                 PATIENTS
                             </Typography>
                             <Grid>
-                                <Button color="inherit" onClick={this.handleClickOpen} classes={{ root: classes.button, label: classes.buttonLabel }}>
+                                <Button color="inherit" 
+                                    onClick={() => this.setState({ isDeleteDialogOpen: true })} 
+                                    classes={{ root: classes.button, label: classes.buttonLabel }}>
                                     <CancelIcon className={classes.buttonIcon} />
                                     Delete a patient
                                 </Button>
-                                <DeletePatientDialog isOpen={isDeleteDialogOpen} handleClickClose={this.handleClickClose}/>
+                                <DeletePatientDialog 
+                                    isOpen={isDeleteDialogOpen} 
+                                    handleClickClose={() => this.setState({ isDeleteDialogOpen: false })}/>
                             </Grid>                  
                             <MaterialButtonRouter component={LinkRouter} to="/patientsDatabase/newPatient" color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
                                 <AddIcon className={classes.buttonIcon} />
@@ -168,7 +156,6 @@ class PatientsDatabase extends Component<Props, State> {
                             </Button>
                         </Grid>
                     </Grid>
-
                     <Grid container item justify='center' spacing={24}>
                         <Paper className={classes.paperFlat}>
                             <Grid container item spacing={24} className={classes.inputContainer}>
@@ -184,9 +171,7 @@ class PatientsDatabase extends Component<Props, State> {
                             <PatientBasicInfoForm extraInput={this.keywordInput}/>
                         </Paper>
                     </Grid>
-
                     <Grid container item spacing={24} className={classes.filterContainer}>
-
                         <Grid item xs={12} style={{ display: 'flex' }}>
                             <Typography variant="inherit" className={classes.findPatients}>
                                 Which patient are you searching for?
@@ -195,23 +180,18 @@ class PatientsDatabase extends Component<Props, State> {
                                 Use the filter for a faster search
                             </Typography>
                         </Grid>
-
                         <Divider className={classes.divider} />
                         <Grid item xs={12} sm={3}>
                             <FormControl variant="outlined" className={classNames(classes.formField, classes.formFieldSelect)}>
                                 <Select
                                     className={classes.select}
-                                    // value={this.state.age}
-                                    // onChange={this.handleChange}
                                     input={<OutlinedInput
                                                 placeholder="soma"
                                                 labelWidth={300} //{this.state.InputLabelRef}
                                                 name="filter"
                                                 id="filter"
-                                                enableSearch
-                                                // inputProps={{                          
+                                                enableSearch                   
                                                 classes={{
-                                                    // root: classes.formFieldSelectInput,
                                                     input: classes.formFieldSelectInput}}/>}>
                                     <MenuItem value={10}>Chronic Patient</MenuItem>
                                     <MenuItem value={20}>Properly admission</MenuItem>
@@ -222,7 +202,10 @@ class PatientsDatabase extends Component<Props, State> {
                         </Grid>
                     </Grid>
                     <Grid container item style={{ padding: '47px 0' }} spacing={24}>
-                        {patients}
+                        {items && items.length !== 0 ?
+                            (items.map((item) => (<PatientsListItem info={item}/>)))
+                            :
+                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>}
                     </Grid>
                     <Grid item xs={12} sm={2} className={classes.loadMoreContainer}>
                         <Button type="button" variant="outlined" color="inherit" classes={{ root: classes.button, label: classes.buttonLabel }}>
