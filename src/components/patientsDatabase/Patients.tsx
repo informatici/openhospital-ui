@@ -15,6 +15,7 @@ import styles from "./PatientsDatabase.style";
 import { MaterialCardActionAreaRouter } from "../utils/LinkHelper";
 import { number } from 'prop-types';
 import { Patient } from 'generate';
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -22,23 +23,17 @@ interface State {
   error: any;
   isLoaded: boolean;
   items: any[];
-
 }
 
 interface IProps {
   info: Patient;
 }
 
-
 class Patients extends React.Component<IProps> {
-
-
-
 
   render() {
     // debugger;
     const { classes } = this.props;
-
     let patientInfo = this.props.info;
 
     patientInfo.isChronic = _.sample([true, false]);
@@ -56,8 +51,7 @@ class Patients extends React.Component<IProps> {
           <MaterialCardActionAreaRouter
             className={classes.cardAction}
             component={LinkRouter}
-            to={"/PatientDatabase/PatientDetails/" + this.props.info.code}
-          >
+            to={"/PatientDatabase/PatientDetails/" + this.props.info.code}>
             <Grid container className={classes.patientContainer} justify="center" spacing={24}>
               <Grid item xs={12}>
                 <Typography color="inherit" className={classes.patientName}>
@@ -120,8 +114,7 @@ class Patients extends React.Component<IProps> {
                   <Avatar
                     alt="Remy Sharp"
                     src={patientInfo.photo}
-                    className={classNames(classes.avatar, "avatarSmall")}
-                  />
+                    className={classNames(classes.avatar, "avatarSmall")}/>
                   <div style={{ flexDirection: "column" }} />
                 </Grid>
                 <Grid item xs={12} sm={9} style={{ textAlign: "left" }}>

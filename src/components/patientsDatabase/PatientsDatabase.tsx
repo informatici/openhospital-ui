@@ -56,14 +56,39 @@ class PatientsDatabase extends Component<Props, State> {
         const patientController: PatientControllerApi = new PatientControllerApi();
         const requestParams: GetPatientsUsingGETRequest = { page: 1, size: 8 }
 
-        patientController.getPatientsUsingGET(requestParams).then(
-            (result) => {
-                this.setState({ isLoaded: true, items: result, });
-            },
-            (error) => {
-              this.setState({ isLoaded: true, error });
+        // <test>
+        const item = {
+            patientInfo: {
+                isChronic: true,
+                lastDocWhoVisitedHim: {
+                        name: "Marcus",
+                        surname: "Marcus",
+                        occupation: "Anesthesiologist",
+                        phone: "555 911 118",
+                        email: "doc@hospital.org",
+                }
+                firstName: "Ronaldinho",
+                secondName: "Gaúcho",
+                code: 123456,
+                age: 87,
+                sex: "M",
+                gender: "undefined",
+                photo: null,
             }
-        )
+        };
+
+        const items = [item, item, item];
+        this.setState({ isLoaded: true, items, });
+        // </test>
+
+        // patientController.getPatientsUsingGET(requestParams).then(
+        //     (result) => {
+        //         this.setState({ isLoaded: true, items: result, });
+        //     },
+        //     (error) => {
+        //       this.setState({ isLoaded: true, error });
+        //     }
+        // )
     }
   
     handleClickOpen = () => {
@@ -106,12 +131,11 @@ class PatientsDatabase extends Component<Props, State> {
         const patients = (
             items && items.length !== 0 ?
                 (items.map((item) => (<Patients info={item}/>)))
-            :
+                :
                 <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }} />
         )
 
         return (
-
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
                     <Grid container item justify='center' spacing={24}>
@@ -188,9 +212,7 @@ class PatientsDatabase extends Component<Props, State> {
                                                 // inputProps={{                          
                                                 classes={{
                                                     // root: classes.formFieldSelectInput,
-                                                    input: classes.formFieldSelectInput}}
-                                    />}
-                                >
+                                                    input: classes.formFieldSelectInput}}/>}>
                                     <MenuItem value={10}>Chronic Patient</MenuItem>
                                     <MenuItem value={20}>Properly admission</MenuItem>
                                     <MenuItem value={30}>Visited this month</MenuItem>
@@ -212,7 +234,6 @@ class PatientsDatabase extends Component<Props, State> {
         );
     }
 }
-
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientsDatabase);
 export default styledComponent;

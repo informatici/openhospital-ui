@@ -34,8 +34,6 @@ interface State {
   isLoaded: boolean;
   items: Patient;
   anchorEl?: any;
-  
-
 }
 
 
