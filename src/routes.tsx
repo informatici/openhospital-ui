@@ -5,7 +5,7 @@ import Footer from "./components/footer/Footer";
 import Dashboard from "./components/dashboard/Dashboard";
 import PatientsDatabase from "./components/patientsDatabase/PatientsDatabase";
 import PatientVisit from "./components/patientsDatabase/PatientVisit/PatientVisit";
-import PatientDetails from "./components/patientsDatabase/PatientDetails/PatientDetails";
+import PatientDetails from "./components/patientsDatabase/PatientDetails";
 import PatientAdmission from "./components/patientsDatabase/PatientAdmission/PatientAdmission";
 import PatientLabTest from "./components/patientsDatabase/PatientLabTest/PatientLabTest";
 import PatientTherapy from "./components/patientsDatabase/PatientTherapy/PatientTherapy";

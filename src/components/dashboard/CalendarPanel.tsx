@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 // local imports
-import AppointmentsItem from "./AppointmentsItem";
-import ListHeader from "./ListHeader";
+import AppointmentsItem from "../sharedComponents/AppointmentsItem";
+import ListHeader from "../sharedComponents/ListHeader";
 import BigNumberItem from "./BigNumberItem";
 import styles from "./styles/CalendarPanel.style";
 import Calendar from "../../shared/lib/calendar/index";

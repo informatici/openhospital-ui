@@ -79,7 +79,7 @@ class PatientsDatabase extends Component<Props, State> {
                 lastAdmission: "22.01.2019",
                 reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
                 treatment: "Bloodletting"
-                address: "Rua do Catete, Rio de Janeiro - RJ"
+                address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
             }
         };
 
