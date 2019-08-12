@@ -55,7 +55,7 @@ class PatientsDatabase extends Component<Props, State> {
         const patientController: PatientControllerApi = new PatientControllerApi();
         const requestParams: GetPatientsUsingGETRequest = { page: 1, size: 8 }
 
-        // <test>
+        // TEST
         const item = {
             patientInfo: {
                 isChronic: false,
@@ -73,12 +73,19 @@ class PatientsDatabase extends Component<Props, State> {
                 sex: "M",
                 gender: "undefined",
                 photo: null,
+                bloodType: "A+",
+                nextKin: "Jorge de Oliveira Jobim",
+                notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                lastAdmission: "22.01.2019",
+                reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+                treatment: "Bloodletting"
+                address: "Rua do Catete, Rio de Janeiro - RJ"
             }
         };
 
         const items = [item, item, item, item, item, item, item];
         this.setState({ isLoaded: true, items, });
-        // </test>
+        // TEST
 
         // patientController.getPatientsUsingGET(requestParams).then(
         //     (result) => {
@@ -91,6 +98,7 @@ class PatientsDatabase extends Component<Props, State> {
     }
 
     keywordInput = (classes, classNames) => {
+        // this function defines an extra input for PatientBasicInfoForm
         return (
             <Grid item xs={12} sm={3}>
                 <TextField

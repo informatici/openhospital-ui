@@ -1,26 +1,31 @@
-import * as React from "react";
+import React, { Component } from "react";
+import { Link as LinkRouter, RouteProps, RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
+
+// local imports
+import { MaterialLinkRouter, MaterialButtonRouter } from "../../utils/LinkHelper";
+import classNames from "classnames";
+import styles from "./PatientDetails.style";
+import Calendar from "../../../shared/lib/calendar/index";
+import { PatientControllerApi, GetPatientUsingGETRequest } from '../../../generate/apis';
+import { Patient } from 'generate';
+
+// material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { Link as LinkRouter, RouteProps, RouteComponentProps } from "react-router-dom";
-import { MaterialLinkRouter, MaterialButtonRouter } from "../../utils/LinkHelper";
-import classNames from "classnames";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
-import styles from "./PatientDetails.style";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import Tooltip from '@material-ui/core/Tooltip';
-import Calendar from "../../../shared/lib/calendar/index";
-import { PatientControllerApi, GetPatientUsingGETRequest } from '../../../generate/apis';
 import { Collapse, FormControl, InputLabel, Select, MenuItem, OutlinedInput, List, ListItem, ListItemSecondaryAction } from '@material-ui/core';
-import { Patient } from 'generate';
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -29,7 +34,6 @@ interface State {
   isLoaded: boolean;
   item: Patient;
   openOptionalInfo: boolean;
-
 }
 
 interface IRouteParams {
@@ -38,47 +42,13 @@ interface IRouteParams {
 
 interface IProps extends RouteComponentProps<IRouteParams> { }
 
-class PatientDetails extends React.Component<IProps> {
-
+class PatientDetails extends Component<IProps> {
   state: State = {
     labelWidth: 0,
     error: null,
     isLoaded: false,
-    item: {},
     openOptionalInfo: false,
-
   };
-
-  componentDidMount() {
-
-    const patientController: PatientControllerApi = new PatientControllerApi();
-    const requestParams: GetPatientUsingGETRequest = {
-      code: Number(this.props.match.params.id)
-    }
-
-    patientController.getPatientUsingGET(requestParams)
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            item: result,
-
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
-
-    this.setState({
-      // labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-
-
-  }
 
   handleClickCollapseOptionalInfo = () => {
     this.setState(state => ({ openOptionalInfo: !state.openOptionalInfo }));
@@ -88,8 +58,9 @@ class PatientDetails extends React.Component<IProps> {
 
   public render() {
     const { classes } = this.props;
+    const { patientInfo } = this.props.location;
     const { openOptionalInfo } = this.state;
-
+    console.log(this.props)
 
     {
       openOptionalInfo ? <ExpandLess /> : <ExpandMore />;
@@ -129,49 +100,44 @@ class PatientDetails extends React.Component<IProps> {
                   PATIENT ID
                 </Typography>
                 <Typography color="inherit" className={classes.patientIdNumber}>
-                  {this.state.item.code}
+                  {patientInfo.code}
                 </Typography>
                 <Typography color="inherit" className={classes.bloodGroup}>
                   Blood Group
                 </Typography>
                 <Typography color="inherit" className={classes.bloodType}>
-                  {this.state.item.bloodType}
+                  {patientInfo.bloodType}
                 </Typography>
                 <Typography color="inherit" className={classes.notes}>
                   Next Kin:
                 </Typography>
                 <Typography color="inherit" className={classes.notesDetails}>
-                  {this.state.item.nextKin}
+                  {patientInfo.nextKin}
                 </Typography>
                 &emsp;
                 <Typography color="inherit" className={classes.notes}>
                   Notes:
                 </Typography>
                 <Typography color="inherit" className={classes.notesDetails}>
-                  Pneumonia and malnutrition
-                </Typography>
-                <Typography color="inherit" className={classes.notesDetails}>
-                  Grasses, Gluten
+                  {patientInfo.notes}
                 </Typography>
                 &emsp;
                 <Divider className={classes.divider} />
                 &emsp;
                 <Typography color="inherit" className={classes.admissionDate}>
-                  Last Admission:&nbsp;<b>22.01.2019</b>
+                  Last Admission:&nbsp;<b>{patientInfo.lastAdmission}</b>
                 </Typography>
                 <Typography color="inherit" className={classes.reasonVisit}>
                   Reason for visit:
                 </Typography>
                 <Typography color="inherit" className={classes.reasonVisitType}>
-                  {" "}
-                  Pneumonia and malnutrition
+                  {patientInfo.reasonOfVisit}
                 </Typography>
                 <Typography color="inherit" className={classes.treatment}>
                   Treatment made:
                 </Typography>
                 <Typography color="inherit" className={classes.treatmentType}>
-                  {" "}
-
+                  {patientInfo.treatment}
                 </Typography>
                 <MaterialButtonRouter
                   style={{ marginTop: 30 }}
@@ -179,8 +145,7 @@ class PatientDetails extends React.Component<IProps> {
                   to="/"
                   variant="outlined"
                   color="inherit"
-                  classes={classes.detailButtonLabelPrint}
-                >
+                  classes={classes.detailButtonLabelPrint}>
                   Print health information
                 </MaterialButtonRouter>
               </Grid>
@@ -188,10 +153,10 @@ class PatientDetails extends React.Component<IProps> {
                 <Grid item xs={12} className={classes.patientProfileHeader}>
                   <div style={{ flexDirection: "column", textAlign: "left" }}>
                     <Typography color="inherit" className={classes.patientName}>
-                      {this.state.item.firstName} {this.state.item.secondName}
+                      {patientInfo.firstName} {patientInfo.secondName}
                     </Typography>
                     <Typography color="inherit" className={classes.patientAddress}>
-                      Provenance: <b>{this.state.item.address}</b>&emsp;<b>{this.state.item.city}</b>
+                      Provenance: <b>{patientInfo.address}</b>
                     </Typography>
                   </div>
                   <MaterialButtonRouter component={LinkRouter} to="/PatientDatabase/PatientAdmission" variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}

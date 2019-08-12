@@ -37,16 +37,14 @@ class PatientsListItem extends Component<IProps> {
     render() {
         const { classes } = this.props;
         const { patientInfo } = this.props.info;
-
         patientInfo.isChronic = _.sample([true, false]);
-
         return(
             <Grid item xs={12} sm={4}>
                 <Paper className={classes.paper}>
                     <MaterialCardActionAreaRouter
                         className={classes.cardAction}
                         component={LinkRouter}
-                        to={"/PatientDatabase/PatientDetails/" + this.props.info.code}>
+                        to={{ pathname: "/PatientDatabase/PatientDetails/" + this.props.info.code, patientInfo }}>
                         <Grid container className={classes.patientContainer} justify="center" spacing={24}>
                             <Grid item xs={12}>
                                 <Typography color="inherit" className={classes.patientName}>
