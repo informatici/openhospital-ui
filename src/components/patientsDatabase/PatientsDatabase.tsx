@@ -58,7 +58,7 @@ class PatientsDatabase extends Component<Props, State> {
         // <test>
         const item = {
             patientInfo: {
-                isChronic: true,
+                isChronic: false,
                 lastDocWhoVisitedHim: {
                         name: "Marcus",
                         surname: "Marcus",
@@ -66,8 +66,8 @@ class PatientsDatabase extends Component<Props, State> {
                         phone: "555 911 118",
                         email: "doc@hospital.org",
                 }
-                firstName: "Ronaldinho",
-                secondName: "Gaúcho",
+                firstName: "Antônio",
+                secondName: "Carlos Jobim",
                 code: 123456,
                 age: 87,
                 sex: "M",

@@ -8,8 +8,6 @@ import withRootTheme from "./withRootTheme";
 export const ROOT_PATH = process.env.NODE_ENV === "production" ? "/oh20" : "/";
 export const LOGIN_PATH = `${ROOT_PATH}/login`;
 
-
-
 class App extends React.Component {
   public render() {
     const login = window.localStorage.getItem("user") === "true";

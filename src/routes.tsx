@@ -27,10 +27,7 @@ import Calendar from "./components/Calendar/Calendario";
 import Notification from "./components/Notifications/Notification";
 import PageNotFound from "./components/pageNotFound/PageNotFound";
 
-
-
 const Routes = () => (
-      
    <>
         
         <Header />

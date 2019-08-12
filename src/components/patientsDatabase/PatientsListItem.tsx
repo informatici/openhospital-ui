@@ -38,16 +38,7 @@ class PatientsListItem extends Component<IProps> {
         const { classes } = this.props;
         const { patientInfo } = this.props.info;
 
-        
-
-        // patientInfo.isChronic = _.sample([true, false]);
-        // patientInfo.lastDocWhoVisitedHim = {
-        //     name: "Marcus",
-        //     surname: "Marcus",
-        //     occupation: _.sample(["Anesthesiologist", "Cardiologist", "Dermatologist", "Gastroenterologist", "Pneumologist"]),
-        //     phone: "555 911 118",
-        //     email: "doc@hospital.org",
-        // };
+        patientInfo.isChronic = _.sample([true, false]);
 
         return(
             <Grid item xs={12} sm={4}>
@@ -100,7 +91,7 @@ class PatientsListItem extends Component<IProps> {
                         <Grid container item className={classes.patientContainer} justify="center" spacing={24}>
                             <Grid item xs={12} className={classes.infoContainer}>
                                 <Typography color="inherit">
-                                    <b>LAST DOCTOR WHO VISIT THE PATIENT:</b>
+                                    <b>LAST VISIT:</b>
                                 </Typography>
                             </Grid>
                             <Grid container item className={classes.patientContainer} justify="center" spacing={24}>

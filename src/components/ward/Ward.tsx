@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link as LinkRouter } from 'react-router-dom';
-import Patients from "../PatientsDatabase/Patients";
+import PatientsListItem from "../PatientsDatabase/PatientsListItem";
 import styles from './Ward.style';
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -42,26 +42,52 @@ class Ward extends React.Component {
   };
 
   componentDidMount() {
-    fetch("https://uinames.com/api/?ext&amount=9")
-      .then(res => res.json())
-      .then(
-        (result) => {
-            this.setState({
-              isLoaded: true,
-              items: result
-            });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
 
-    this.setState({
-      // labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
+    // <test>
+    const item = {
+        patientInfo: {
+            isChronic: false,
+            lastDocWhoVisitedHim: {
+                    name: "Marcus",
+                    surname: "Marcus",
+                    occupation: "Anesthesiologist",
+                    phone: "555 911 118",
+                    email: "doc@hospital.org",
+            }
+            firstName: "Antônio",
+            secondName: "Carlos Jobim",
+            code: 123456,
+            age: 87,
+            sex: "M",
+            gender: "undefined",
+            photo: null,
+        }
+    };
+
+    const items = [item, item, item, item, item, item, item];
+    this.setState({ isLoaded: true, items, });
+    // </test>
+    
+    // fetch("https://uinames.com/api/?ext&amount=9")
+    //   .then(res => res.json())
+    //   .then(
+    //     (result) => {
+    //         this.setState({
+    //           isLoaded: true,
+    //           items: result
+    //         });
+    //     },
+    //     (error) => {
+    //       this.setState({
+    //         isLoaded: true,
+    //         error
+    //       });
+    //     }
+    //   )
+
+    // this.setState({
+    //   // labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+    // });
   }
 
   handleChange = (event: React.MouseEvent<HTMLElement>, value: number) => {
@@ -76,7 +102,7 @@ class Ward extends React.Component {
     const patients = (
       items && items.length !== 0 ?
         (items.map((item: any) => (
-          <Patients
+          <PatientsListItem
             info={item}
           />
         ))) :
