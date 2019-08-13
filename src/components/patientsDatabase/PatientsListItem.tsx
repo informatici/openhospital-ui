@@ -3,7 +3,7 @@ import { Link as LinkRouter } from "react-router-dom";
 import _ from "lodash";
 
 // local imports
-import styles from "./PatientsDatabase.style";
+import styles from "./styles/PatientsListItem.style";
 import { MaterialCardActionAreaRouter } from "../utils/LinkHelper";
 import { number } from 'prop-types';
 import { Patient } from 'generate';

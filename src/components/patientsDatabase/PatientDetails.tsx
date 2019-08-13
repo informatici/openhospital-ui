@@ -9,6 +9,7 @@ import styles from "./styles/PatientDetails.style";
 import ListHeader from "../sharedComponents/ListHeader";
 import AppoitmentsItem from "../sharedComponents/AppointmentsItem";
 import SummaryItem from "../sharedComponents/SummaryItem";
+import HealthInfoBar from "./HealthInfoBar";
 import Calendar from "../../shared/lib/calendar/index";
 import { PatientControllerApi, GetPatientUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
@@ -86,66 +87,7 @@ class PatientDetails extends Component<IProps> {
                     </Grid>
                     <Grid container item justify="center" spacing={24}>
                         <Grid container item justify="center" spacing={24}>
-                            <Grid item xs={12} sm={3} className={classes.sidebar}>
-                                <Avatar alt="Remy Sharp" src={""} className={classes.avatar}>
-                                    <AddPhotoIcon />
-                                </Avatar>
-                                <Typography color="inherit" className={classes.avatarTitle}>
-                                    HEALTH INFORMATION
-                                </Typography>
-                                <Typography color="inherit" className={classes.patientIdTitle}>
-                                    PATIENT ID
-                                </Typography>
-                                <Typography color="inherit" className={classes.patientIdNumber}>
-                                    {patientInfo.code}
-                                </Typography>
-                                <Typography color="inherit" className={classes.bloodGroup}>
-                                    Blood Group
-                                </Typography>
-                                <Typography color="inherit" className={classes.bloodType}>
-                                    {patientInfo.bloodType}
-                                </Typography>
-                                <Typography color="inherit" className={classes.notes}>
-                                    Next Kin:
-                                </Typography>
-                                <Typography color="inherit" className={classes.notesDetails}>
-                                    {patientInfo.nextKin}
-                                </Typography>
-                                &emsp;
-                                <Typography color="inherit" className={classes.notes}>
-                                    Notes:
-                                </Typography>
-                                <Typography color="inherit" className={classes.notesDetails}>
-                                    {patientInfo.notes}
-                                </Typography>
-                                &emsp;
-                                <Divider className={classes.divider} />
-                                &emsp;
-                                <Typography color="inherit" className={classes.admissionDate}>
-                                    Last Admission:&nbsp;<b>{patientInfo.lastAdmission}</b>
-                                </Typography>
-                                <Typography color="inherit" className={classes.reasonVisit}>
-                                    Reason for visit:
-                                </Typography>
-                                <Typography color="inherit" className={classes.reasonVisitType}>
-                                    {patientInfo.reasonOfVisit}
-                                </Typography>
-                                <Typography color="inherit" className={classes.treatment}>
-                                    Treatment made:
-                                </Typography>
-                                <Typography color="inherit" className={classes.treatmentType}>
-                                    {patientInfo.treatment}
-                                </Typography>
-                                <MaterialButtonRouter
-                                    style={{ marginTop: 30 }}
-                                    component={LinkRouter}
-                                    to="/"
-                                    variant="outlined"
-                                    color="inherit"
-                                    classes={classes.detailButtonLabelPrint}>
-                                    Print health information
-                                </MaterialButtonRouter>
-                            </Grid>
+                            <HealthInfoBar patientInfo={patientInfo}/>
                             <Grid item xs={12} sm={9} className={classes.patientContent}>
                                 <Grid item xs={12} className={classes.patientProfileHeader}>
                                     <div style={{ flexDirection: "column", textAlign: "left" }}>

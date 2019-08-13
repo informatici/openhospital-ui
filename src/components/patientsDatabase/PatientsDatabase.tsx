@@ -4,7 +4,7 @@ import { Link as LinkRouter } from 'react-router-dom';
 // local imports
 import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
 import PatientsListItem from "./PatientsListItem";
-import styles from './PatientsDatabase.style';
+import styles from './styles/PatientsDatabase.style';
 import { PatientControllerApi, GetPatientsUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
 import classNames from 'classnames';
