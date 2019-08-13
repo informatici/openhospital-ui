@@ -6,7 +6,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PatientsDatabase from "./components/patientsDatabase/PatientsDatabase";
 import PatientVisit from "./components/patientsDatabase/PatientVisit/PatientVisit";
 import PatientDetails from "./components/patientsDatabase/PatientDetails";
-import PatientAdmission from "./components/patientsDatabase/PatientAdmission/PatientAdmission";
+import Admission from "./components/patientsDatabase/Admission";
 import PatientLabTest from "./components/patientsDatabase/PatientLabTest/PatientLabTest";
 import PatientTherapy from "./components/patientsDatabase/PatientTherapy/PatientTherapy";
 import PatientExamination from "./components/patientsDatabase/PatientExamination/PatientExamination";
@@ -39,7 +39,7 @@ const Routes = () => (
             <Route path="/PatientsDatabase/NewPatient" component={NewPatient} />
             <Route path="/PatientDatabase/PatientVisit" component={PatientVisit}/>
             <Route path="/PatientDatabase/PatientDetails/:id" component={PatientDetails}/>
-            <Route path="/PatientDatabase/PatientAdmission" component={PatientAdmission}/>
+            <Route path="/PatientDatabase/PatientAdmission" component={Admission}/>
             <Route path="/PatientDatabase/PatientLabTest" component={PatientLabTest}/>
             <Route path="/PatientDatabase/PatientTherapy" component={PatientTherapy}/>
             <Route path="/PatientDatabase/PatientExamination" component={PatientExamination}/>

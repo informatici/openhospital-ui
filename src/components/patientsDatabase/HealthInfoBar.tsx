@@ -19,6 +19,7 @@ class HealthInfoBar extends Component<Props>{
 
 	render() {
 		const { classes, patientInfo } = this.props;
+        console.log(patientInfo)
 		return(
 			<Grid item xs={12} sm={3} className={classes.sidebar}>
                 <Avatar alt="Remy Sharp" src={""} className={classes.avatar}>
