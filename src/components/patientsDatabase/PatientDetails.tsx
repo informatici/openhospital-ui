@@ -60,7 +60,30 @@ class PatientDetails extends Component<IProps> {
 
     render() {
         const { classes } = this.props;
-        const { patientInfo } = this.props.location; //TODO this data has to be fetched from store after redux's ready
+        const patientInfo = {
+            isChronic: false,
+            lastDocWhoVisitedHim: {
+                name: "Marcus",
+                surname: "Marcus",
+                occupation: "Anesthesiologist",
+                phone: "555 911 118",
+                email: "doc@hospital.org",
+            }
+            firstName: "Antônio",
+            secondName: "Carlos Jobim",
+            code: 123456,
+            age: 87,
+            sex: "M",
+            gender: "undefined",
+            photo: null,
+            bloodType: "A+",
+            nextKin: "Jorge de Oliveira Jobim",
+            notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            lastAdmission: "22.01.2019",
+            reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+            treatment: "Bloodletting"
+            address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
+        } //TODO this data has to be fetched from store after redux's ready
         const { openOptionalInfo } = this.state;
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
 
