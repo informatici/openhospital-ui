@@ -88,134 +88,107 @@ class PatientDetails extends Component<IProps> {
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
 
         return (
-            <div className={classes.root}>
-                <Grid container className={classes.gridContainer} justify="center" spacing={24}>
-                    <Grid container item spacing={24}>
-                        <Grid item xs={12}>
-                            <Breadcrumbs aria-label="Breadcrumb" className={classes.breadCrumb}>
-                                <MaterialLinkRouter color="secondary" component={LinkRouter} to="/dashboard">
-                                    Home
-                                </MaterialLinkRouter>
-                                <MaterialLinkRouter color="secondary" component={LinkRouter} to="/patientsDatabase">
-                                    <Typography color="inherit">Patient Database</Typography>
-                                </MaterialLinkRouter>
-                                <Typography color="inherit">Patient Details</Typography>
-                            </Breadcrumbs>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="inherit" className={classes.patientTitle}>
-                                PATIENT DETAILS
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container item justify="center" spacing={24}>
-                        <Grid container item justify="center" spacing={24}>
-                            <HealthInfoBar patientInfo={patientInfo}/>
-                            <Grid item xs={12} sm={9} className={classes.patientContent}>
-                                <Grid item xs={12} className={classes.patientProfileHeader}>
-                                    <div style={{ flexDirection: "column", textAlign: "left" }}>
-                                        <Typography color="inherit" className={classes.patientName}>
-                                            {patientInfo.firstName} {patientInfo.secondName}
-                                        </Typography>
-                                        <Typography color="inherit" className={classes.patientAddress}>
-                                            Address: <b>{patientInfo.address}</b>
-                                        </Typography>
-                                    </div>
-                                    <MaterialButtonRouter component={LinkRouter} to="/PatientDatabase/PatientAdmission" variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
-                                        New Admission
-                                    </MaterialButtonRouter>
-                                    <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientVisit" variant="outlined" color="inherit" classes={{ root: classes.visitButton }}>
-                                        New visit
-                                    </MaterialButtonRouter>
-                                </Grid>
-                                &emsp;
-                                <Divider className={classes.divider} />
-                                &emsp;
-                                <Grid item xs={12} className={classes.patientProfileHeader}>
-                                    <div style={{ flexDirection: "column", textAlign: "left" }}>
-                                        <Typography color="inherit" className={classes.patientRecord}>
-                                            PATIENT RECORD
-                                        </Typography>
-                                    </div>
-                                    <Tooltip title="View Opd patient History" interactive>
-                                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientOpd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
-                                            OPD
-                                        </MaterialButtonRouter>
-                                    </Tooltip>
-                                    <Tooltip title="Add new patient's therapy" interactive>
-                                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientTherapy" variant="outlined" color="inherit" classes={{ root: classes.therapyButton }}>
-                                            Therapy
-                                        </MaterialButtonRouter>
-                                    </Tooltip>
-                                </Grid>
-                                &nbsp;
-                                <Grid container justify="center" spacing={24}>
-                                    <Calendar
-                                        accentColor={"red"}
-                                        orientation={"flex-row"}
-                                        showHeader={true}
-                                        onDatePicked={(d: any) => {
-                                        { onclick = this.handleClickCollapseOptionalInfo, d }
-                                        }}/>
-                                    <Collapse in={openOptionalInfo} style={{ width: "100%" }} timeout="auto">
-                                        <Grid item xs={12} justify="center">
-                                            <List classes={{ root: classes.appointments }}>
-                                                <ListHeader/>
-                                                <AppoitmentsItem/>
-                                                <AppoitmentsItem/>
-                                                <AppoitmentsItem/>
-                                            </List>
-                                        </Grid>
-                                    </Collapse>
-                                </Grid>
-                                <Grid item xs={12} spacing={24} style={{ marginTop: 50, marginBottom: 20 }} className={classes.detailButtonContainer}>
-                                    <MaterialButtonRouter
-                                        component={LinkRouter}
-                                        to="/Billing"
-                                        variant="contained"
-                                        color="secondary"
-                                        classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
-                                        <KeyboardArrowRightIcon/>
-                                            Pay the bill
-                                    </MaterialButtonRouter>
-                                    <MaterialButtonRouter
-                                        component={LinkRouter}
-                                        to="/PatientDatabase/PatientExamination"
-                                        variant="contained"
-                                        color="secondary"
-                                        classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
-                                        <KeyboardArrowRightIcon/>
-                                        Examination
-                                    </MaterialButtonRouter>
-                                    <MaterialButtonRouter
-                                        component={LinkRouter}
-                                        to="/PatientDatabase/PatientVaccine"
-                                        variant="contained"
-                                        color="secondary"
-                                        classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
-                                        <KeyboardArrowRightIcon/>
-                                        Vaccination
-                                    </MaterialButtonRouter>
-                                </Grid>
-                                &emsp;
-                                <Divider className={classes.divider} />
-                                &emsp;
-                                <Typography color="inherit" className={classes.patientSummary}>
-                                    PATIENT SUMMARY
-                                </Typography>
-                                &emsp;
-                                <Grid container className={classes.patientSummaryCard} style={{ width: "120%" }}>
-                                    <SummaryItem/>
-                                    <SummaryItem/>
-                                    <SummaryItem/>
-                                    <SummaryItem/>
-                                    <SummaryItem/>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+            <Grid item xs={12} sm={9} className={classes.patientContent}>
+                <Grid item xs={12} className={classes.patientProfileHeader}>
+                    <div style={{ flexDirection: "column", textAlign: "left" }}>
+                        <Typography color="inherit" className={classes.patientName}>
+                            {patientInfo.firstName} {patientInfo.secondName}
+                        </Typography>
+                        <Typography color="inherit" className={classes.patientAddress}>
+                            Address: <b>{patientInfo.address}</b>
+                        </Typography>
+                    </div>
+                    <MaterialButtonRouter component={LinkRouter} to="/PatientDatabase/PatientAdmission" variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
+                        New Admission
+                    </MaterialButtonRouter>
+                    <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientVisit" variant="outlined" color="inherit" classes={{ root: classes.visitButton }}>
+                        New visit
+                    </MaterialButtonRouter>
                 </Grid>
-            </div>
+                &emsp;
+                <Divider className={classes.divider} />
+                &emsp;
+                <Grid item xs={12} className={classes.patientProfileHeader}>
+                    <div style={{ flexDirection: "column", textAlign: "left" }}>
+                        <Typography color="inherit" className={classes.patientRecord}>
+                            PATIENT RECORD
+                        </Typography>
+                    </div>
+                    <Tooltip title="View Opd patient History" interactive>
+                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientOpd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
+                            OPD
+                        </MaterialButtonRouter>
+                    </Tooltip>
+                    <Tooltip title="Add new patient's therapy" interactive>
+                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientTherapy" variant="outlined" color="inherit" classes={{ root: classes.therapyButton }}>
+                            Therapy
+                        </MaterialButtonRouter>
+                    </Tooltip>
+                </Grid>
+                &nbsp;
+                <Grid container justify="center" spacing={24}>
+                    <Calendar
+                        accentColor={"red"}
+                        orientation={"flex-row"}
+                        showHeader={true}
+                        onDatePicked={(d: any) => {
+                        { onclick = this.handleClickCollapseOptionalInfo, d }
+                        }}/>
+                    <Collapse in={openOptionalInfo} style={{ width: "100%" }} timeout="auto">
+                        <Grid item xs={12} justify="center">
+                            <List classes={{ root: classes.appointments }}>
+                                <ListHeader/>
+                                <AppoitmentsItem/>
+                                <AppoitmentsItem/>
+                                <AppoitmentsItem/>
+                            </List>
+                        </Grid>
+                    </Collapse>
+                </Grid>
+                <Grid item xs={12} spacing={24} style={{ marginTop: 50, marginBottom: 20 }} className={classes.detailButtonContainer}>
+                    <MaterialButtonRouter
+                        component={LinkRouter}
+                        to="/Billing"
+                        variant="contained"
+                        color="secondary"
+                        classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
+                        <KeyboardArrowRightIcon/>
+                            Pay the bill
+                    </MaterialButtonRouter>
+                    <MaterialButtonRouter
+                        component={LinkRouter}
+                        to="/PatientDatabase/PatientExamination"
+                        variant="contained"
+                        color="secondary"
+                        classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
+                        <KeyboardArrowRightIcon/>
+                        Examination
+                    </MaterialButtonRouter>
+                    <MaterialButtonRouter
+                        component={LinkRouter}
+                        to="/PatientDatabase/PatientVaccine"
+                        variant="contained"
+                        color="secondary"
+                        classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
+                        <KeyboardArrowRightIcon/>
+                        Vaccination
+                    </MaterialButtonRouter>
+                </Grid>
+                &emsp;
+                <Divider className={classes.divider} />
+                &emsp;
+                <Typography color="inherit" className={classes.patientSummary}>
+                    PATIENT SUMMARY
+                </Typography>
+                &emsp;
+                <Grid container className={classes.patientSummaryCard} style={{ width: "120%" }}>
+                    <SummaryItem/>
+                    <SummaryItem/>
+                    <SummaryItem/>
+                    <SummaryItem/>
+                    <SummaryItem/>
+                </Grid>
+            </Grid>
         );
     }
 }
