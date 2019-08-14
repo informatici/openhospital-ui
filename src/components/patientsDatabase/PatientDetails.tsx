@@ -86,7 +86,7 @@ class PatientDetails extends Component<IProps> {
         } //TODO this data has to be fetched from store after redux's ready
         const { openOptionalInfo } = this.state;
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
-
+        console.log(this.props)
         return (
             <Grid item xs={12} sm={9} className={classes.patientContent}>
                 <Grid item xs={12} className={classes.patientProfileHeader}>
