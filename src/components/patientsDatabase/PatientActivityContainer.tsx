@@ -12,6 +12,7 @@ import SummaryItem from "../sharedComponents/SummaryItem";
 import HealthInfoBar from "./HealthInfoBar";
 import PatientDetails from "./PatientDetails";
 import PatientAdmission from "./PatientAdmission";
+import PatientVisit from "./PatientVisit";
 import Calendar from "../../shared/lib/calendar/index";
 import { PatientControllerApi, GetPatientUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
@@ -56,10 +57,6 @@ class PatientActivityContainer extends Component<IProps> {
         openOptionalInfo: false,
     };
 
-    handleClickCollapseOptionalInfo = () => {
-        this.setState(state => ({ openOptionalInfo: !state.openOptionalInfo }));
-    };
-
     activitySwitch = () => {
         const currentPath = this.props.location.pathname
         switch(currentPath){
@@ -67,13 +64,11 @@ class PatientActivityContainer extends Component<IProps> {
                 return(<PatientDetails/>);
             case "/PatientDatabase/PatientAdmission":
                 return(<PatientAdmission/>);
+            case "/PatientDatabase/PatientVisit":
+                return(<PatientVisit/>);
             default:
                 return(<div/>);
         }
-    }
-
-    componentDidMount(){
-        console.log("it did mount!");
     }
 
     render() {
@@ -103,7 +98,6 @@ class PatientActivityContainer extends Component<IProps> {
             address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
         } //TODO this data has to be fetched from store after redux's ready
         const { openOptionalInfo } = this.state;
-        {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify="center" spacing={24}>
