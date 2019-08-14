@@ -22,11 +22,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
-import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import Tooltip from '@material-ui/core/Tooltip';
 import { FormControlLabel } from "@material-ui/core";
 
