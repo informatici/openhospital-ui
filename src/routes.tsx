@@ -41,7 +41,7 @@ const Routes = () => (
             <Route path="/PatientDatabase/PatientDetails/:id" component={PatientActivityContainer}/>
             <Route path="/PatientDatabase/PatientAdmission" component={PatientActivityContainer}/>
             <Route path="/PatientDatabase/PatientLabTest" component={PatientLabTest}/>
-            <Route path="/PatientDatabase/PatientTherapy" component={PatientTherapy}/>
+            <Route path="/PatientDatabase/PatientTherapy" component={PatientActivityContainer}/>
             <Route path="/PatientDatabase/PatientExamination" component={PatientExamination}/>
             <Route path="/PatientDatabase/PatientVaccine" component={PatientVaccine}/>
             <Route path="/PatientDatabase/Vaccine" component={Vaccine}/>
