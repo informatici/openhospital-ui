@@ -11,6 +11,7 @@ import AppoitmentsItem from "../sharedComponents/AppointmentsItem";
 import SummaryItem from "../sharedComponents/SummaryItem";
 import HealthInfoBar from "./HealthInfoBar";
 import PatientDetails from "./PatientDetails";
+import PatientAdmission from "./PatientAdmission";
 import Calendar from "../../shared/lib/calendar/index";
 import { PatientControllerApi, GetPatientUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
@@ -64,9 +65,15 @@ class PatientActivityContainer extends Component<IProps> {
         switch(currentPath){
             case "/PatientDatabase/PatientDetails/123456":
                 return(<PatientDetails/>);
+            case "/PatientDatabase/PatientAdmission":
+                return(<PatientAdmission/>);
             default:
                 return(<div/>);
         }
+    }
+
+    componentDidMount(){
+        console.log("it did mount!");
     }
 
     render() {
@@ -96,10 +103,7 @@ class PatientActivityContainer extends Component<IProps> {
             address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
         } //TODO this data has to be fetched from store after redux's ready
         const { openOptionalInfo } = this.state;
-        const path = "/PatientDatabase/PatientDetails/" + patientInfo.code;
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
-        const currentPath = this.props.location.pathname
-        console.log(currentPath)
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify="center" spacing={24}>
