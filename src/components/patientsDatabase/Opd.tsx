@@ -117,7 +117,6 @@ class Opd extends React.Component<Props, State> {
                 <Spinner title="DIAGNOSIS"/>
                 <Spinner title="DIAGNOSIS N°2"/>
                 <Spinner title="DIAGNOSIS N°3"/>
-
                 <Grid item style={{ marginTop: 50 }} xs={12} sm={12}>
                     <Typography color="inherit" className={classes.opdNotes}>
                         NOTES & SYMPTOM
