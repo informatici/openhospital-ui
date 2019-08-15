@@ -14,6 +14,7 @@ import PatientDetails from "./PatientDetails";
 import PatientAdmission from "./PatientAdmission";
 import PatientVisit from "./PatientVisit";
 import Opd from "./Opd";
+import NewOpd from "./NewOpd";
 import PatientTherapy from "./PatientTherapy";
 import PatientExamination from "./PatientExamination";
 import Calendar from "../../shared/lib/calendar/index";
@@ -69,8 +70,10 @@ class PatientActivityContainer extends Component<IProps> {
                 return(<PatientAdmission/>);
             case "/PatientDatabase/PatientVisit":
                 return(<PatientVisit/>);
-            case "/patientDatabase/PatientOpd":
-                return(<Opd/>);
+            case "/patientDatabase/opd":
+                return(<Opd/>)
+            case "/patientDatabase/new-opd":
+                return(<NewOpd/>);
             case "/patientDatabase/PatientTherapy":
                 return(<PatientTherapy/>);
             case "/PatientDatabase/PatientExamination":

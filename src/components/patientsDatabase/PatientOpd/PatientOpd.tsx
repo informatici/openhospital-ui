@@ -157,7 +157,7 @@ class PatientOpd extends React.Component<Props, State> {
                       Provenance: <b>District, Village</b>
                     </Typography>
                   </div>
-                  <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/Opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
+                  <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/new-opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
                      Create New OPD
                   </MaterialButtonRouter>
                 </Grid>

@@ -114,7 +114,7 @@ class PatientDetails extends Component<IProps> {
                         </Typography>
                     </div>
                     <Tooltip title="View Opd patient History" interactive>
-                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientOpd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
+                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
                             OPD
                         </MaterialButtonRouter>
                     </Tooltip>
