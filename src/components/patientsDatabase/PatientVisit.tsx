@@ -152,7 +152,7 @@ class PatientVisit extends React.Component<Props, State> {
                         </Typography>
                     </Grid>
                     <Tooltip title="Add new patient's therapy" interactive placement="top">
-                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientTherapy" variant="outlined" color="inherit" classes={{ root: classes.detailButtonTherapy, label: classes.detailButtonLabel }}>
+                        <MaterialButtonRouter component={LinkRouter} to="/patient-database/therapy" variant="outlined" color="inherit" classes={{ root: classes.detailButtonTherapy, label: classes.detailButtonLabel }}>
                             THERAPY
                         </MaterialButtonRouter>
                     </Tooltip>
@@ -245,7 +245,7 @@ class PatientVisit extends React.Component<Props, State> {
                 <Grid item xs={12} spacing={24} className={classes.detailButtonContainer}>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/PatientDatabase/PatientLabTest"
+                        to="/patient-database/new-lab-test"
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

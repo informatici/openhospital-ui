@@ -97,10 +97,10 @@ class PatientDetails extends Component<IProps> {
                             Address: <b>{patientInfo.address}</b>
                         </Typography>
                     </div>
-                    <MaterialButtonRouter component={LinkRouter} to="/PatientDatabase/PatientAdmission" variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
+                    <MaterialButtonRouter component={LinkRouter} to="/patient-database/admission" variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
                         New Admission
                     </MaterialButtonRouter>
-                    <MaterialButtonRouter component={LinkRouter} to="/PatientDatabase/PatientVisit" variant="outlined" color="inherit" classes={{ root: classes.visitButton }}>
+                    <MaterialButtonRouter component={LinkRouter} to="/patient-database/visit" variant="outlined" color="inherit" classes={{ root: classes.visitButton }}>
                         New visit
                     </MaterialButtonRouter>
                 </Grid>
@@ -114,12 +114,12 @@ class PatientDetails extends Component<IProps> {
                         </Typography>
                     </div>
                     <Tooltip title="View Opd patient History" interactive>
-                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
+                        <MaterialButtonRouter component={LinkRouter} to="/patient-database/opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
                             OPD
                         </MaterialButtonRouter>
                     </Tooltip>
                     <Tooltip title="Add new patient's therapy" interactive>
-                        <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientTherapy" variant="outlined" color="inherit" classes={{ root: classes.therapyButton }}>
+                        <MaterialButtonRouter component={LinkRouter} to="/patient-database/therapy" variant="outlined" color="inherit" classes={{ root: classes.therapyButton }}>
                             Therapy
                         </MaterialButtonRouter>
                     </Tooltip>
@@ -156,7 +156,7 @@ class PatientDetails extends Component<IProps> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/PatientDatabase/PatientExamination"
+                        to="/patient-database/examination"
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
@@ -165,7 +165,7 @@ class PatientDetails extends Component<IProps> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/PatientDatabase/PatientVaccine"
+                        to="/patient-database/vaccination"
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

@@ -37,16 +37,16 @@ const Routes = () => (
             <Route path="/dashboard" component={Dashboard} />
             <Route exact={true} path="/PatientsDatabase" component={PatientsDatabase} />
             <Route path="/PatientsDatabase/NewPatient" component={NewPatient} />
-            <Route path="/PatientDatabase/PatientVisit" component={PatientActivityContainer}/>
+            <Route path="/patient-database/visit" component={PatientActivityContainer}/>
             <Route path="/PatientDatabase/PatientDetails/:id" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/PatientAdmission" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/PatientLabTest" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/PatientTherapy" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/PatientExamination" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/PatientVaccine" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/Vaccine" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/opd" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/new-opd" component={PatientActivityContainer}/>
+            <Route path="/patient-database/admission" component={PatientActivityContainer}/>
+            <Route path="/patient-database/new-lab-test" component={PatientActivityContainer}/>
+            <Route path="/patient-database/therapy" component={PatientActivityContainer}/>
+            <Route path="/patient-database/examination" component={PatientActivityContainer}/>
+            <Route path="/patient-database/vaccination" component={PatientActivityContainer}/>
+            <Route path="/patient-database/new-vaccination" component={PatientActivityContainer}/>
+            <Route path="/patient-database/opd" component={PatientActivityContainer}/>
+            <Route path="/patient-database/new-opd" component={PatientActivityContainer}/>
             <Route exact={true} path="/colleagues" component={ColleaguesDatabase} />
             <Route path="/colleagues/colleagueDetails" component={ColleagueDetails} />
             <Route path="/pharmacy" component={Pharmacy} />

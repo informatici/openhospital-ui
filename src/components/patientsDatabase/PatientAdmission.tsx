@@ -180,7 +180,7 @@ class PatientAdmission extends Component<Props, State>{
 							DRUGS PRESCRIBED
 						</Typography>
 					</Grid>
-					<MaterialButtonRouter component={LinkRouter} to="/patientDatabase/PatientTherapy" variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
+					<MaterialButtonRouter component={LinkRouter} to="/patient-database/therapy" variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
 						Therapy
 					</MaterialButtonRouter>
 					<TextField

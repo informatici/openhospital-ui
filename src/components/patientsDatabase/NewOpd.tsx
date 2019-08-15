@@ -151,7 +151,7 @@ class NewOpd extends React.Component<Props, State> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/PatientDatabase/PatientLabTest"
+                        to="/patient-database/new-lab-test"
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

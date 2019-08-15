@@ -67,25 +67,25 @@ class PatientActivityContainer extends Component<IProps> {
     activitySwitch = () => {
         const currentPath = this.props.location.pathname
         switch(currentPath){
-            case "/PatientDatabase/PatientDetails/123456":
+            case "/patient-database/details/123456":
                 return(<PatientDetails/>);
-            case "/PatientDatabase/PatientAdmission":
+            case "/patient-database/admission":
                 return(<PatientAdmission/>);
-            case "/PatientDatabase/PatientVisit":
+            case "/patient-database/visit":
                 return(<PatientVisit/>);
-            case "/patientDatabase/opd":
+            case "/patient-database/opd":
                 return(<Opd/>)
-            case "/patientDatabase/new-opd":
+            case "/patient-database/new-opd":
                 return(<NewOpd/>);
-            case "/patientDatabase/PatientTherapy":
+            case "/patient-database/therapy":
                 return(<PatientTherapy/>);
-            case "/PatientDatabase/PatientExamination":
+            case "/patient-database/examination":
                 return(<PatientExamination/>);
-            case "/PatientDatabase/PatientVaccine":
+            case "/patient-database/vaccination":
                 return(<PatientVaccination/>);
-            case "/patientDatabase/Vaccine":
+            case "/patient-database/new-vaccination":
                 return(<NewVaccination/>);
-            case "/PatientDatabase/PatientLabTest":
+            case "/patient-database/new-lab-test":
                 return(<NewLabTest/>)
             default:
                 return(<div/>);

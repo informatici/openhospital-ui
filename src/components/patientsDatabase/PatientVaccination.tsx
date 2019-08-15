@@ -75,7 +75,7 @@ class PatientVaccine extends React.Component<Props, State> {
             </Typography>
           </div>
           <Tooltip title="Prescribe new Vaccine" interactive>
-          <MaterialButtonRouter component={LinkRouter} to="/patientDatabase/Vaccine" variant="outlined" color="inherit" classes={{ root: classes.detailNewVaccineButton, label: classes.detailButtonLabel }}>
+          <MaterialButtonRouter component={LinkRouter} to="/patient-database/new-vaccination" variant="outlined" color="inherit" classes={{ root: classes.detailNewVaccineButton, label: classes.detailButtonLabel }}>
            New Vaccine
           </MaterialButtonRouter>
           </Tooltip>
