@@ -38,7 +38,7 @@ const Routes = () => (
             <Route exact={true} path="/PatientsDatabase" component={PatientsDatabase} />
             <Route path="/PatientsDatabase/NewPatient" component={NewPatient} />
             <Route path="/patient-database/visit" component={PatientActivityContainer}/>
-            <Route path="/PatientDatabase/PatientDetails/:id" component={PatientActivityContainer}/>
+            <Route path="/patient-database/details/:id" component={PatientActivityContainer}/>
             <Route path="/patient-database/admission" component={PatientActivityContainer}/>
             <Route path="/patient-database/new-lab-test" component={PatientActivityContainer}/>
             <Route path="/patient-database/therapy" component={PatientActivityContainer}/>
