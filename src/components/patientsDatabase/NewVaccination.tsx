@@ -9,7 +9,6 @@ import styles from "./styles/NewVaccination.style";
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -19,9 +18,7 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
-import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 
 export interface Props extends WithStyles <typeof styles> {}
 

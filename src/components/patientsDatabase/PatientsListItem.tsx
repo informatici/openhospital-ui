@@ -19,7 +19,6 @@ import MailIcon from "@material-ui/icons/Mail";
 import PhoneIcon from "@material-ui/icons/Phone";
 import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
-import CardActionArea from "@material-ui/core/CardActionArea";
 
 export interface Props extends WithStyles<typeof styles> { }
 

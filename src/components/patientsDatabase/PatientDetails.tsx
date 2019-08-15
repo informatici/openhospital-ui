@@ -1,34 +1,26 @@
 import React, { Component } from "react";
-import { Link as LinkRouter, RouteProps, RouteComponentProps } from "react-router-dom";
+import { Link as LinkRouter, RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
 
 // local imports
-import { MaterialLinkRouter, MaterialButtonRouter } from "../utils/LinkHelper";
-import classNames from "classnames";
+import { MaterialButtonRouter } from "../utils/LinkHelper";
 import styles from "./styles/PatientDetails.style";
 import ListHeader from "../sharedComponents/ListHeader";
 import AppoitmentsItem from "../sharedComponents/AppointmentsItem";
 import SummaryItem from "../sharedComponents/SummaryItem";
-import HealthInfoBar from "./HealthInfoBar";
 import Calendar from "../../shared/lib/calendar/index";
-import { PatientControllerApi, GetPatientUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import Tooltip from '@material-ui/core/Tooltip';
-import { Collapse, FormControl, InputLabel, Select, MenuItem, OutlinedInput, List, ListItem, ListItemSecondaryAction } from '@material-ui/core';
+import { Collapse, List } from '@material-ui/core';
 
 // constants
 import { 

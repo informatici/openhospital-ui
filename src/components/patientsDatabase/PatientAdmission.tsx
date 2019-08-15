@@ -3,14 +3,12 @@ import { Link as LinkRouter } from "react-router-dom";
 
 // local imports
 import styles from "./styles/PatientAdmission.style";
-import HealthInfoBar from "./HealthInfoBar"
-import { MaterialButtonRouter, MaterialLinkRouter } from "../utils/LinkHelper";
+import { MaterialButtonRouter } from "../utils/LinkHelper";
 import classNames from "classnames";
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
-import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";

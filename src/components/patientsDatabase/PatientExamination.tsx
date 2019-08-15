@@ -3,20 +3,15 @@ import _ from "lodash";
 import { Link as LinkRouter } from "react-router-dom";
 
 // local imports
-import { MaterialLinkRouter, MaterialButtonRouter } from "../utils/LinkHelper";
-import classNames from "classnames";
+import { MaterialButtonRouter } from "../utils/LinkHelper";
 import styles from "./styles/PatientExamination.style";
 import MUIDataTable from "mui-datatables";
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
-import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import Tooltip from '@material-ui/core/Tooltip';
 
 // constants
