@@ -28,6 +28,12 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import Tooltip from '@material-ui/core/Tooltip';
 import { FormControlLabel } from "@material-ui/core";
 
+// constants
+import { 
+    PATH_NEW_LAB_TEST,
+    PATH_PATIENT_THERAPY,
+} from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -152,7 +158,7 @@ class PatientVisit extends React.Component<Props, State> {
                         </Typography>
                     </Grid>
                     <Tooltip title="Add new patient's therapy" interactive placement="top">
-                        <MaterialButtonRouter component={LinkRouter} to="/patient-database/therapy" variant="outlined" color="inherit" classes={{ root: classes.detailButtonTherapy, label: classes.detailButtonLabel }}>
+                        <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY} variant="outlined" color="inherit" classes={{ root: classes.detailButtonTherapy, label: classes.detailButtonLabel }}>
                             THERAPY
                         </MaterialButtonRouter>
                     </Tooltip>
@@ -245,7 +251,7 @@ class PatientVisit extends React.Component<Props, State> {
                 <Grid item xs={12} spacing={24} className={classes.detailButtonContainer}>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/patient-database/new-lab-test"
+                        to={PATH_NEW_LAB_TEST}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

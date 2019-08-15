@@ -7,6 +7,7 @@ import styles from "./styles/PatientsListItem.style";
 import { MaterialCardActionAreaRouter } from "../utils/LinkHelper";
 import { number } from 'prop-types';
 import { Patient } from 'generate';
+import { PATH_PATIENT_DETAILS } from "../../config/constants"
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -44,7 +45,7 @@ class PatientsListItem extends Component<IProps> {
                     <MaterialCardActionAreaRouter
                         className={classes.cardAction}
                         component={LinkRouter}
-                        to={{ pathname: "/patient-database/details/" + patientInfo.code }}>
+                        to={{ pathname: PATH_PATIENT_DETAILS + patientInfo.code }}>
                         <Grid container className={classes.patientContainer} justify="center" spacing={24}>
                             <Grid item xs={12}>
                                 <Typography color="inherit" className={classes.patientName}>

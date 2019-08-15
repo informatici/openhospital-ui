@@ -14,6 +14,10 @@ import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import Tooltip from '@material-ui/core/Tooltip';
 import styles from "./styles/PatientExamination.style";
 import MUIDataTable from "mui-datatables";
+
+// constants
+import { PATH_NEW_LAB_TEST } from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -66,7 +70,7 @@ class PatientExamination extends React.Component<Props, State> {
             </Typography>
           </div>
           <Tooltip title="Prescribe new Exam" interactive>
-          <MaterialButtonRouter component={LinkRouter} to="/patient-database/new-lab-test" variant="outlined" color="inherit" classes={{ root: classes.detailNewExamButton, label: classes.detailButtonLabel }}>
+          <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_LAB_TEST} variant="outlined" color="inherit" classes={{ root: classes.detailNewExamButton, label: classes.detailButtonLabel }}>
            New Exam
           </MaterialButtonRouter>
           </Tooltip>

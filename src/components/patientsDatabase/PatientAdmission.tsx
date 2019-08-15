@@ -26,6 +26,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 
+// constants
+import { PATH_PATIENT_THERAPY } from "../../config/constants"
 
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -180,7 +182,7 @@ class PatientAdmission extends Component<Props, State>{
 							DRUGS PRESCRIBED
 						</Typography>
 					</Grid>
-					<MaterialButtonRouter component={LinkRouter} to="/patient-database/therapy" variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
+					<MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY} variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
 						Therapy
 					</MaterialButtonRouter>
 					<TextField

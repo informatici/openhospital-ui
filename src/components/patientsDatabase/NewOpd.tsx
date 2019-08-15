@@ -26,6 +26,9 @@ import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import TextField from '@material-ui/core/TextField';
 
+// constants
+import { PATH_NEW_LAB_TEST } from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -151,7 +154,7 @@ class NewOpd extends React.Component<Props, State> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/patient-database/new-lab-test"
+                        to={PATH_NEW_LAB_TEST}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

@@ -21,6 +21,10 @@ import Select from "@material-ui/core/Select";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import TextField from '@material-ui/core/TextField';
 import MUIDataTable from "mui-datatables";
+
+// constants
+import { PATH_NEW_OPD } from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -70,7 +74,7 @@ class PatientOpd extends React.Component<Props, State> {
               Provenance: <b>District, Village</b>
             </Typography>
           </div>
-          <MaterialButtonRouter component={LinkRouter} to="/patient-database/new-opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
+          <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_OPD} variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
              Create New OPD
           </MaterialButtonRouter>
         </Grid>

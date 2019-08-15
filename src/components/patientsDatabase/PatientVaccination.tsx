@@ -14,6 +14,10 @@ import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import Tooltip from '@material-ui/core/Tooltip';
 import styles from "./styles/PatientVaccination.style";
 import MUIDataTable from "mui-datatables";
+
+// constants
+import { PATH_PATIENT_NEW_VACCINATION } from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -75,7 +79,7 @@ class PatientVaccine extends React.Component<Props, State> {
             </Typography>
           </div>
           <Tooltip title="Prescribe new Vaccine" interactive>
-          <MaterialButtonRouter component={LinkRouter} to="/patient-database/new-vaccination" variant="outlined" color="inherit" classes={{ root: classes.detailNewVaccineButton, label: classes.detailButtonLabel }}>
+          <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_NEW_VACCINATION} variant="outlined" color="inherit" classes={{ root: classes.detailNewVaccineButton, label: classes.detailButtonLabel }}>
            New Vaccine
           </MaterialButtonRouter>
           </Tooltip>

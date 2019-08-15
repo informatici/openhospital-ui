@@ -40,6 +40,20 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import Tooltip from '@material-ui/core/Tooltip';
 import { Collapse, FormControl, InputLabel, Select, MenuItem, OutlinedInput, List, ListItem, ListItemSecondaryAction } from '@material-ui/core';
 
+// constants
+import { 
+    PATH_PATIENT_DETAILS,
+    PATH_PATIENT_VISIT,
+    PATH_PATIENT_ADMISSION,
+    PATH_NEW_LAB_TEST,
+    PATH_PATIENT_THERAPY,
+    PATH_PATIENT_EXAMINATION,
+    PATH_PATIENT_VACCINATION,
+    PATH_PATIENT_NEW_VACCINATION,
+    PATH_OPD,
+    PATH_NEW_OPD,
+} from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -67,25 +81,25 @@ class PatientActivityContainer extends Component<IProps> {
     activitySwitch = () => {
         const currentPath = this.props.location.pathname
         switch(currentPath){
-            case "/patient-database/details/123456":
+            case `${PATH_PATIENT_DETAILS}123456`:
                 return(<PatientDetails/>);
-            case "/patient-database/admission":
+            case PATH_PATIENT_ADMISSION:
                 return(<PatientAdmission/>);
-            case "/patient-database/visit":
+            case PATH_PATIENT_VISIT:
                 return(<PatientVisit/>);
-            case "/patient-database/opd":
+            case PATH_OPD:
                 return(<Opd/>)
-            case "/patient-database/new-opd":
+            case PATH_NEW_OPD:
                 return(<NewOpd/>);
-            case "/patient-database/therapy":
+            case PATH_PATIENT_THERAPY:
                 return(<PatientTherapy/>);
-            case "/patient-database/examination":
+            case PATH_PATIENT_EXAMINATION:
                 return(<PatientExamination/>);
-            case "/patient-database/vaccination":
+            case PATH_PATIENT_VACCINATION:
                 return(<PatientVaccination/>);
-            case "/patient-database/new-vaccination":
+            case PATH_PATIENT_NEW_VACCINATION:
                 return(<NewVaccination/>);
-            case "/patient-database/new-lab-test":
+            case PATH_NEW_LAB_TEST:
                 return(<NewLabTest/>)
             default:
                 return(<div/>);

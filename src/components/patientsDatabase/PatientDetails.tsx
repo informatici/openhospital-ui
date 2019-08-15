@@ -30,6 +30,16 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import Tooltip from '@material-ui/core/Tooltip';
 import { Collapse, FormControl, InputLabel, Select, MenuItem, OutlinedInput, List, ListItem, ListItemSecondaryAction } from '@material-ui/core';
 
+// constants
+import { 
+    PATH_PATIENT_VISIT,
+    PATH_PATIENT_ADMISSION,
+    PATH_PATIENT_THERAPY,
+    PATH_PATIENT_EXAMINATION,
+    PATH_PATIENT_VACCINATION,
+    PATH_OPD,
+} from "../../config/constants"
+
 export interface Props extends WithStyles<typeof styles> { }
 
 interface State {
@@ -97,10 +107,10 @@ class PatientDetails extends Component<IProps> {
                             Address: <b>{patientInfo.address}</b>
                         </Typography>
                     </div>
-                    <MaterialButtonRouter component={LinkRouter} to="/patient-database/admission" variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
+                    <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_ADMISSION} variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
                         New Admission
                     </MaterialButtonRouter>
-                    <MaterialButtonRouter component={LinkRouter} to="/patient-database/visit" variant="outlined" color="inherit" classes={{ root: classes.visitButton }}>
+                    <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_VISIT} variant="outlined" color="inherit" classes={{ root: classes.visitButton }}>
                         New visit
                     </MaterialButtonRouter>
                 </Grid>
@@ -114,12 +124,12 @@ class PatientDetails extends Component<IProps> {
                         </Typography>
                     </div>
                     <Tooltip title="View Opd patient History" interactive>
-                        <MaterialButtonRouter component={LinkRouter} to="/patient-database/opd" variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
+                        <MaterialButtonRouter component={LinkRouter} to={PATH_OPD} variant="outlined" color="inherit" classes={{ root: classes.opdButton }}>
                             OPD
                         </MaterialButtonRouter>
                     </Tooltip>
                     <Tooltip title="Add new patient's therapy" interactive>
-                        <MaterialButtonRouter component={LinkRouter} to="/patient-database/therapy" variant="outlined" color="inherit" classes={{ root: classes.therapyButton }}>
+                        <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY} variant="outlined" color="inherit" classes={{ root: classes.therapyButton }}>
                             Therapy
                         </MaterialButtonRouter>
                     </Tooltip>
@@ -156,7 +166,7 @@ class PatientDetails extends Component<IProps> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/patient-database/examination"
+                        to={PATH_PATIENT_EXAMINATION}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
@@ -165,7 +175,7 @@ class PatientDetails extends Component<IProps> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to="/patient-database/vaccination"
+                        to={PATH_PATIENT_VACCINATION}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

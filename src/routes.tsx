@@ -27,6 +27,20 @@ import Calendar from "./components/Calendar/Calendario";
 import Notification from "./components/Notifications/Notification";
 import PageNotFound from "./components/pageNotFound/PageNotFound";
 
+// constants
+import { 
+    PATH_PATIENT_DETAILS,
+    PATH_PATIENT_VISIT,
+    PATH_PATIENT_ADMISSION,
+    PATH_NEW_LAB_TEST,
+    PATH_PATIENT_THERAPY,
+    PATH_PATIENT_EXAMINATION,
+    PATH_PATIENT_VACCINATION,
+    PATH_PATIENT_NEW_VACCINATION,
+    PATH_OPD,
+    PATH_NEW_OPD,
+} from "./config/constants";
+
 const Routes = () => (
    <>
         
@@ -37,16 +51,16 @@ const Routes = () => (
             <Route path="/dashboard" component={Dashboard} />
             <Route exact={true} path="/PatientsDatabase" component={PatientsDatabase} />
             <Route path="/PatientsDatabase/NewPatient" component={NewPatient} />
-            <Route path="/patient-database/visit" component={PatientActivityContainer}/>
-            <Route path="/patient-database/details/:id" component={PatientActivityContainer}/>
-            <Route path="/patient-database/admission" component={PatientActivityContainer}/>
-            <Route path="/patient-database/new-lab-test" component={PatientActivityContainer}/>
-            <Route path="/patient-database/therapy" component={PatientActivityContainer}/>
-            <Route path="/patient-database/examination" component={PatientActivityContainer}/>
-            <Route path="/patient-database/vaccination" component={PatientActivityContainer}/>
-            <Route path="/patient-database/new-vaccination" component={PatientActivityContainer}/>
-            <Route path="/patient-database/opd" component={PatientActivityContainer}/>
-            <Route path="/patient-database/new-opd" component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_VISIT} component={PatientActivityContainer}/>
+            <Route path={`${PATH_PATIENT_DETAILS}:id`} component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_ADMISSION} component={PatientActivityContainer}/>
+            <Route path={PATH_NEW_LAB_TEST} component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_THERAPY} component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_EXAMINATION} component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_VACCINATION} component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_NEW_VACCINATION} component={PatientActivityContainer}/>
+            <Route path={PATH_OPD} component={PatientActivityContainer}/>
+            <Route path={PATH_NEW_OPD} component={PatientActivityContainer}/>
             <Route exact={true} path="/colleagues" component={ColleaguesDatabase} />
             <Route path="/colleagues/colleagueDetails" component={ColleagueDetails} />
             <Route path="/pharmacy" component={Pharmacy} />
