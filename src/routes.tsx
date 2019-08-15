@@ -29,6 +29,8 @@ import PageNotFound from "./components/pageNotFound/PageNotFound";
 
 // constants
 import { 
+    PATH_PATIENTS_DATABASE,
+    PATH_NEW_PATIENT,
     PATH_PATIENT_DETAILS,
     PATH_PATIENT_VISIT,
     PATH_PATIENT_ADMISSION,
@@ -49,8 +51,8 @@ const Routes = () => (
             
             <Redirect from="/" exact={true} to="/dashboard" />
             <Route path="/dashboard" component={Dashboard} />
-            <Route exact={true} path="/PatientsDatabase" component={PatientsDatabase} />
-            <Route path="/PatientsDatabase/NewPatient" component={NewPatient} />
+            <Route exact={true} path={PATH_PATIENTS_DATABASE} component={PatientsDatabase} />
+            <Route path={PATH_NEW_PATIENT} component={NewPatient} />
             <Route path={PATH_PATIENT_VISIT} component={PatientActivityContainer}/>
             <Route path={`${PATH_PATIENT_DETAILS}:id`} component={PatientActivityContainer}/>
             <Route path={PATH_PATIENT_ADMISSION} component={PatientActivityContainer}/>

@@ -2,6 +2,7 @@ import { IconButton } from "@material-ui/core";
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
 import { IProps } from './NewPatient';
+
 export function MyErrorSnackbar(props: IProps) {
   const { className, message, onClose } = props;
   const { classes } = this.props;

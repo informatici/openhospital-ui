@@ -29,6 +29,9 @@ import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 
+// constants
+import { PATH_NEW_PATIENT } from "../../config/constants";
+
 export interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -154,7 +157,7 @@ class PatientsDatabase extends Component<Props, State> {
                                     isOpen={isDeleteDialogOpen} 
                                     handleClickClose={() => this.setState({ isDeleteDialogOpen: false })}/>
                             </Grid>                  
-                            <MaterialButtonRouter component={LinkRouter} to="/patientsDatabase/newPatient" color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
+                            <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_PATIENT} color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
                                 <AddIcon className={classes.buttonIcon} />
                                 Record new patient
                             </MaterialButtonRouter>

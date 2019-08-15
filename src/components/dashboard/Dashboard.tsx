@@ -15,6 +15,12 @@ import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import SvgIcon from "@material-ui/core/SvgIcon";
 
+// constants
+import { 
+    PATH_PATIENTS_DATABASE,
+    PATH_NEW_PATIENT,
+} from "../../config/constants";
+
 export interface Props extends WithStyles<typeof styles> {}
 
 class Dashboard extends React.Component<Props> {
@@ -36,7 +42,7 @@ class Dashboard extends React.Component<Props> {
                             <MaterialCardActionAreaRouter
                                 className={classes.ctaPatient}
                                 component={LinkRouter}
-                                to="/patientsDatabase/newPatient">
+                                to={PATH_NEW_PATIENT}>
                                 <SvgIcon component={PlusIcon} />
                                 <Typography className={classes.ctaPatientText} color="inherit" align="center">
                                     <b>REGISTER NEW PATIENT</b>
@@ -47,7 +53,7 @@ class Dashboard extends React.Component<Props> {
                             <MaterialCardActionAreaRouter
                                 className={classes.ctaPatient}
                                 component={LinkRouter}
-                                to="/patientsDatabase">
+                                to={PATH_PATIENTS_DATABASE}>
                                 <SvgIcon component={BigSearchIcon} />
                                 <Typography className={classes.ctaPatientText} color="inherit" align="center">
                                     <b>SEARCH FOR PATIENTS</b>

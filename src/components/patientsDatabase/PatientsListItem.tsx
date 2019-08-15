@@ -7,7 +7,6 @@ import styles from "./styles/PatientsListItem.style";
 import { MaterialCardActionAreaRouter } from "../utils/LinkHelper";
 import { number } from 'prop-types';
 import { Patient } from 'generate';
-import { PATH_PATIENT_DETAILS } from "../../config/constants"
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -19,6 +18,9 @@ import MailIcon from "@material-ui/icons/Mail";
 import PhoneIcon from "@material-ui/icons/Phone";
 import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
+
+// constants
+import { PATH_PATIENT_DETAILS } from "../../config/constants";
 
 export interface Props extends WithStyles<typeof styles> { }
 

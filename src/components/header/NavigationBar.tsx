@@ -6,6 +6,9 @@ import { default as Tab, TabProps } from "@material-ui/core/Tab";
 import { createStyles, Theme, withStyles, WithStyles } from "@material-ui/core/styles";
 import { NavLink, NavLinkProps } from "react-router-dom";
 
+// constants
+import { PATH_PATIENTS_DATABASE } from "../../config/constants";
+
 const styles = (theme: Theme) =>
   createStyles({
     root: {},
@@ -78,7 +81,7 @@ class NavigationBar extends React.Component<Props, State> {
     if (window.location.pathname.indexOf("/dashboard") === 0) {
       value = 0;
     }
-    if (window.location.pathname.indexOf("/patientsDatabase") === 0) {
+    if (window.location.pathname.indexOf(PATH_PATIENTS_DATABASE) === 0) {
       value = 1;
     }
     if (window.location.pathname.indexOf("/colleagues") === 0) {
@@ -112,8 +115,8 @@ class NavigationBar extends React.Component<Props, State> {
             <LinkTab
               classes={{ root: classes.tab, selected: classes.tabSelected }}
               component={NavLink}
-              to="/patientsDatabase"
-              label="Patients database"
+              to={PATH_PATIENTS_DATABASE}
+              label="Patients Database"
             />
             <LinkTab
               classes={{ root: classes.tab, selected: classes.tabSelected }}

@@ -22,6 +22,9 @@ import PaymentIcon from "../utils/icons/svg/PaymentIcon";
 import CashIcon from "../utils/icons/svg/CashIcon";
 import styles from "./Billing.style";
 
+// constants
+import { PATH_PATIENTS_DATABASE } from "../../config/constants";
+
 export interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -177,7 +180,7 @@ class Billing extends React.Component {
             &emsp;
             <Typography variant="inherit" className={classes.insertInfoBilling}>
               &emsp;Have a problem?{" "}
-              <MaterialLinkRouter color="secondary" component={LinkRouter} to="/patientsDatabase">
+              <MaterialLinkRouter color="secondary" component={LinkRouter} to={PATH_PATIENTS_DATABASE}>
                 Search a patient&nbsp;
               </MaterialLinkRouter>
               in the database and start the payment process.
