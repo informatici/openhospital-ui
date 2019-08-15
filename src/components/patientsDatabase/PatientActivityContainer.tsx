@@ -18,6 +18,7 @@ import NewOpd from "./NewOpd";
 import PatientTherapy from "./PatientTherapy";
 import PatientExamination from "./PatientExamination";
 import PatientVaccination from "./PatientVaccination";
+import NewVaccination from "./NewVaccination";
 import Calendar from "../../shared/lib/calendar/index";
 import { PatientControllerApi, GetPatientUsingGETRequest } from '../../generate/apis';
 import { Patient } from 'generate';
@@ -80,7 +81,9 @@ class PatientActivityContainer extends Component<IProps> {
             case "/PatientDatabase/PatientExamination":
                 return(<PatientExamination/>);
             case "/PatientDatabase/PatientVaccine":
-                return(<PatientVaccination/>)
+                return(<PatientVaccination/>);
+            case "/patientDatabase/Vaccine":
+                return(<NewVaccination/>);
             default:
                 return(<div/>);
         }
