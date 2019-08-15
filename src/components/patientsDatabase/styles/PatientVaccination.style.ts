@@ -18,14 +18,28 @@ const styles = (theme: Theme) =>
       // display: 'flex',
       // justifyContent: 'space-start'
     },
-    colleagueProfileHeader: {
+
+    patientExamination: {
+      fontSize: 15,
+      fontWeight: "bold",
+      letterSpacing: 1,
+    },
+
+    patientTitle: {
+        fontSize: 16,
+        fontWeight: "bold",
+        letterSpacing: 1,
+    },
+  
+    patientProfileHeader: {
       display: "flex",
-      justifyContent: "flex-start",
       alignItems: "center",
     },
+
     colleagueProfile: {
       textAlign: "left",
     },
+
     avatar: {
       height: 200,
       width: 200,
@@ -116,19 +130,6 @@ const styles = (theme: Theme) =>
       letterSpacing: 1,
     },
 
-    dateTitle: {
-      fontSize: 16,
-      fontWeight: "bold",
-      letterSpacing: 1,
-    },
-
-    frequencyDrugs: {
-        paddingTop:30,
-        fontSize: "15px",
-        fontWeight: "bold",
-        letterSpacing: 1,
-      },
-
     detailButtonTherapy: {
       textTransform: "none",
       color: theme.palette.primary.red,
@@ -136,6 +137,19 @@ const styles = (theme: Theme) =>
       borderRadius: 20,
       // marginBottom: '8px',
       marginLeft: "724px",
+      "&:hover": {
+        color: theme.palette.primary.white,
+        background: theme.palette.primary.red,
+      },
+    },
+
+    detailNewVaccineButton: {
+      textTransform: "none",
+      color: theme.palette.primary.red,
+      fontWeight: "bold",
+      borderRadius: 20,
+      // marginBottom: '8px',
+      marginLeft: "auto",
       "&:hover": {
         color: theme.palette.primary.white,
         background: theme.palette.primary.red,
@@ -168,12 +182,21 @@ const styles = (theme: Theme) =>
       fontWeight: "bold",
       letterSpacing: 1,
     },
+
+    calendarTitle: {
+      fontSize: "20px",
+      fontWeight: "bold",
+      textAlign: "center",
+      letterSpacing: 1,
+    },
+
     sidebar: {
       backgroundColor: theme.palette.primary.darkGrey,
       color: theme.palette.primary.white,
       padding: "40px 30px !important",
     },
-    colleagueContent: {
+
+    patientContent: {
       backgroundColor: "#ffffff",
       padding: "40px !important",
     },
@@ -191,6 +214,7 @@ const styles = (theme: Theme) =>
 
     table: {
       minWidth: 650,
+      marginTop: 25
     },
 
     boxInfo: {
@@ -387,6 +411,12 @@ const styles = (theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
     },
+
+    detailButtonBillContainer: {
+      display: "flex",
+      alignItems: "left",
+      justifyContent: "center",
+    },
     detailButton: {
       textTransform: "none",
       color: theme.palette.primary.red,
@@ -503,8 +533,6 @@ const styles = (theme: Theme) =>
       fontSize: 15,
       fontWeight: "bold",
     },
-    
-   
 
     formField: {
       width: "100%",
@@ -574,12 +602,17 @@ const styles = (theme: Theme) =>
 
     formatFormAdmission: {
       float: "left",
-      
+      width: "50%",
       padding: "30px",
       paddingLeft: 0,
     },
 
-  
+    formatFormAdmissionDate: {
+      float: "left",
+      width: "30%",
+      padding: "30px",
+      paddingLeft: 0,
+    },
 
     findColleagues: {
       fontWeight: "bold",
