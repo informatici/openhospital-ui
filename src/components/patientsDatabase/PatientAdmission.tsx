@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link as LinkRouter } from "react-router-dom";
 
 // local imports
-import styles from "./styles/Admission.style";
+import styles from "./styles/PatientAdmission.style";
 import HealthInfoBar from "./HealthInfoBar"
 import { MaterialButtonRouter, MaterialLinkRouter } from "../utils/LinkHelper";
 import classNames from "classnames";
