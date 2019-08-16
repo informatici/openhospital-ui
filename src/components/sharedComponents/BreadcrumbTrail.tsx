@@ -60,8 +60,6 @@ const getPaths = (pathname) => {
 
 const BreadcrumbsItem = ({ ...rest, match }) => {
     const routeName = findRouteName(match.url);
-    console.log(match.url);
-    console.log(routeName);
     if (routeName) {
         return (
             match.isExact ?

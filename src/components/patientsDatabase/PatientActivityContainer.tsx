@@ -63,31 +63,31 @@ class PatientActivityContainer extends Component<IProps> {
         openOptionalInfo: false,
     };
 
-    activitySwitch = () => {
+    getActivityTitle = () => {
         const currentPath = this.props.location.pathname
         switch(currentPath){
             case PATH_PATIENT_DETAILS:
-                return(<PatientDetails/>);
+                return "Patient Details";
             case PATH_PATIENT_ADMISSION:
-                return(<PatientAdmission/>);
+                return "Patient Admission";
             case PATH_PATIENT_VISIT:
-                return(<PatientVisit/>);
+                return "Patient Visit";
             case PATH_OPD:
-                return(<Opd/>)
+                return "Outpatient Department History"
             case PATH_NEW_OPD:
-                return(<NewOpd/>);
+                return "New Outpatient Department Registration";
             case PATH_PATIENT_THERAPY:
-                return(<PatientTherapy/>);
+                return "Patient Therapy";
             case PATH_PATIENT_EXAMINATION:
-                return(<PatientExamination/>);
+                return "Patient Examination");
             case PATH_PATIENT_VACCINATION:
-                return(<PatientVaccination/>);
+                return "Patient Vaccination");
             case PATH_PATIENT_NEW_VACCINATION:
-                return(<NewVaccination/>);
+                return "New Vaccionation";
             case PATH_NEW_LAB_TEST:
-                return(<NewLabTest/>)
+                return "New Laboratory Test"
             default:
-                return(<div/>);
+                return "";
         }
     }
 
@@ -118,6 +118,7 @@ class PatientActivityContainer extends Component<IProps> {
             address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
         } //TODO this data has to be fetched from store after redux's ready
         const { openOptionalInfo } = this.state;
+        console.log(this.props)
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify="center" spacing={24}>
@@ -127,14 +128,39 @@ class PatientActivityContainer extends Component<IProps> {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="inherit" className={classes.patientTitle}>
-                                PATIENT DETAILS
+                                {this.getActivityTitle()}
                             </Typography>
                         </Grid>
                     </Grid>
                     <Grid container item justify="center" spacing={24}>
                         <Grid container item justify="center" spacing={24}>
                             <HealthInfoBar patientInfo={patientInfo}/>
-                            {this.activitySwitch()}
+                            {(() => {
+                                switch (this.props.location.pathname) {
+                                    case PATH_PATIENT_DETAILS:
+                                        return(<PatientDetails/>);
+                                    case PATH_PATIENT_ADMISSION:
+                                        return(<PatientAdmission/>);
+                                    case PATH_PATIENT_VISIT:
+                                        return(<PatientVisit/>);
+                                    case PATH_OPD:
+                                        return(<Opd/>)
+                                    case PATH_NEW_OPD:
+                                        return(<NewOpd/>);
+                                    case PATH_PATIENT_THERAPY:
+                                        return(<PatientTherapy/>);
+                                    case PATH_PATIENT_EXAMINATION:
+                                        return(<PatientExamination/>);
+                                    case PATH_PATIENT_VACCINATION:
+                                        return(<PatientVaccination/>);
+                                    case PATH_PATIENT_NEW_VACCINATION:
+                                        return(<NewVaccination/>);
+                                    case PATH_NEW_LAB_TEST:
+                                        return(<NewLabTest/>)
+                                    default:
+                                        return(<div/>);
+                                }
+                            })()}
                         </Grid>
                     </Grid>
                 </Grid>
