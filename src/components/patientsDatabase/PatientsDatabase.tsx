@@ -10,6 +10,7 @@ import { Patient } from 'generate';
 import classNames from 'classnames';
 import DeletePatientDialog from "./DeletePatientDialog";
 import PatientBasicInfoForm from "../sharedComponents/PatientBasicInfoForm"
+import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
 
 // material imports
 import Button from '@material-ui/core/Button';
@@ -135,12 +136,7 @@ class PatientsDatabase extends Component<Props, State> {
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
                     <Grid container item justify='center' spacing={24}>
                         <Grid item xs={12}>
-                            <Breadcrumbs aria-label="Breadcrumb" className={classes.breadCrumb}>
-                                <MaterialLinkRouter color="secondary" component={LinkRouter} to="/dashboard">
-                                    Home
-                                </MaterialLinkRouter>
-                                <Typography color="inherit">Patients</Typography>
-                            </Breadcrumbs>
+                            <BreadcrumbTrail/>
                         </Grid>
                         <Grid item xs={12} className={classes.patientActions}>
                             <Typography variant="inherit" className={classes.patientsTitle}>

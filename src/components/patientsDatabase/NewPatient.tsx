@@ -4,9 +4,10 @@ import { Link as LinkRouter } from "react-router-dom";
 // local imports
 import classNames from "classnames";
 import { Patient } from "generate";
-import { NewPatientUsingPOSTRequest, PatientControllerApi } from "../../../generate/apis";
-import { MaterialButtonRouter, MaterialLinkRouter } from "../../utils/LinkHelper";
-import styles from "./NewPatient.style";
+import { NewPatientUsingPOSTRequest, PatientControllerApi } from "../../generate/apis";
+import { MaterialButtonRouter, MaterialLinkRouter } from "../utils/LinkHelper";
+import styles from "./styles/NewPatient.style";
+import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -25,7 +26,6 @@ import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import SnackBar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -133,15 +133,7 @@ class NewPatient extends React.Component <IProps, State > {
                     <Grid container className={classes.gridContainer} justify="center" spacing={24}>
                         <Grid container item spacing={24}>
                             <Grid item xs={12}>
-                                <Breadcrumbs aria-label="Breadcrumb" className={classes.breadCrumb}>
-                                    <MaterialLinkRouter color="secondary" component={LinkRouter} to="/dashboard">
-                                        Home
-                                    </MaterialLinkRouter>
-                                    <MaterialLinkRouter color="secondary" component={LinkRouter} to="/patientsDatabase">
-                                        <Typography color="inherit">Patients</Typography>
-                                    </MaterialLinkRouter>
-                                    <Typography color="inherit">New patient registration</Typography>
-                                </Breadcrumbs>
+                                <BreadcrumbTrail/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="inherit" className={classes.colleaguesTitle}>

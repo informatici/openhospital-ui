@@ -14,7 +14,7 @@ import PatientExamination from "./components/patientsDatabase/PatientExamination
 import PatientVaccine from "./components/patientsDatabase/PatientVaccine/PatientVaccine";
 import Vaccine from "./components/patientsDatabase/Vaccine/Vaccine";
 import Opd from "./components/patientsDatabase/Opd";
-import NewPatient from "./components/patientsDatabase/NewPatient/NewPatient";
+import NewPatient from "./components/patientsDatabase/NewPatient";
 import ColleaguesDatabase from "./components/colleaguesDatabase/ColleaguesDatabase";
 import ColleagueDetails from "./components/colleaguesDatabase/ColleagueDetails/ColleagueDetails";
 import Pharmacy from "./components/pharmacy/Pharmacy";
@@ -44,17 +44,15 @@ import {
 } from "./config/constants";
 
 const Routes = () => (
-   <>
-        
+   <div>
         <Header />
-        <Switch>
-            
+        <Switch>  
             <Redirect from="/" exact={true} to="/dashboard" />
             <Route path="/dashboard" component={Dashboard} />
             <Route exact={true} path={PATH_PATIENTS_DATABASE} component={PatientsDatabase} />
             <Route path={PATH_NEW_PATIENT} component={NewPatient} />
             <Route path={PATH_PATIENT_VISIT} component={PatientActivityContainer}/>
-            <Route path={`${PATH_PATIENT_DETAILS}:id`} component={PatientActivityContainer}/>
+            <Route path={PATH_PATIENT_DETAILS} component={PatientActivityContainer}/>
             <Route path={PATH_PATIENT_ADMISSION} component={PatientActivityContainer}/>
             <Route path={PATH_NEW_LAB_TEST} component={PatientActivityContainer}/>
             <Route path={PATH_PATIENT_THERAPY} component={PatientActivityContainer}/>
@@ -73,18 +71,11 @@ const Routes = () => (
             <Route exact={true} path="/setting" component={setting} />
             <Route exact={true} path="/Calendar" component={Calendar} />
             <Route exact={true} path="/Notification" component={Notification} />
-
             {/* If no Route matches, show PageNotFound component */}
             <Route component={PageNotFound} />
         </Switch>
         <Footer />
-       
-
-    </>
-
-    
-   
-    
+    </div>
 );
 
 

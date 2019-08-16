@@ -46,7 +46,7 @@ class PatientsListItem extends Component<IProps> {
                     <MaterialCardActionAreaRouter
                         className={classes.cardAction}
                         component={LinkRouter}
-                        to={{ pathname: PATH_PATIENT_DETAILS + patientInfo.code }}>
+                        to={{ pathname: PATH_PATIENT_DETAILS }}>
                         <Grid container className={classes.patientContainer} justify="center" spacing={24}>
                             <Grid item xs={12}>
                                 <Typography color="inherit" className={classes.patientName}>

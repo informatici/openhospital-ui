@@ -17,6 +17,7 @@ import PatientVaccination from "./PatientVaccination";
 import NewVaccination from "./NewVaccination";
 import NewLabTest from "./NewLabTest";
 import { Patient } from 'generate';
+import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -65,7 +66,7 @@ class PatientActivityContainer extends Component<IProps> {
     activitySwitch = () => {
         const currentPath = this.props.location.pathname
         switch(currentPath){
-            case `${PATH_PATIENT_DETAILS}123456`:
+            case PATH_PATIENT_DETAILS:
                 return(<PatientDetails/>);
             case PATH_PATIENT_ADMISSION:
                 return(<PatientAdmission/>);
@@ -122,15 +123,7 @@ class PatientActivityContainer extends Component<IProps> {
                 <Grid container className={classes.gridContainer} justify="center" spacing={24}>
                     <Grid container item spacing={24}>
                         <Grid item xs={12}>
-                            <Breadcrumbs aria-label="Breadcrumb" className={classes.breadCrumb}>
-                                <MaterialLinkRouter color="secondary" component={LinkRouter} to="/dashboard">
-                                    Home
-                                </MaterialLinkRouter>
-                                <MaterialLinkRouter color="secondary" component={LinkRouter} to="/patientsDatabase">
-                                    <Typography color="inherit">Patient Database</Typography>
-                                </MaterialLinkRouter>
-                                <Typography color="inherit">Patient Details</Typography>
-                            </Breadcrumbs>
+                            <BreadcrumbTrail/>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="inherit" className={classes.patientTitle}>
