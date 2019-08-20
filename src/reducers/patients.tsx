@@ -1,5 +1,5 @@
 import {
-	RECEIVE_PATIENTS,
+	GET_PATIENTS,
 	ADD_NEW_PATIENT,
 	DELETE_PATIENT,
 	UPDATE_PATIENT_DETAILS,
@@ -7,7 +7,7 @@ import {
 
 export default function patients(state={}, action){
 	switch(action.type){
-		case RECEIVE_PATIENTS :
+		case GET_PATIENTS :
 			return {
 				...state,
 				...action.patients,

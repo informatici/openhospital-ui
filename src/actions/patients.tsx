@@ -1,58 +1,63 @@
 // api fuctions, which will be used inside the thunks, to be imported when ready
+import {
+	getPatientsAPI,
+} from '../helpers/api';
 
-export const RECEIVE_PATIENTS = 'RECEIVE_PATIENTS';
+export const GET_PATIENTS = 'GET_PATIENTS';
 export const ADD_NEW_PATIENT = 'ADD_NEW_PATIENT';
 export const DELETE_PATIENT = 'DELETE_PATIENT';
 export const UPDATE_PATIENT_DETAILS = 'UPDATE_PATIENT_DETAILS';
 
-receivePatients = (patients) => {
+function getPatients(patients){
 	return {
-		type: RECEIVE_PATIENTS,
+		type: GET_PATIENTS,
 		patients,
 	}
 }
 
-export receivePatientsThunk = () => {
+export function getPatientsThunk(){
 	return (dispatch) => {
-		return ()
+		return getPatientsAPI().then((patients) => {
+			dispatch(getPatients(patients))
+		})
 	}
 }
 
-addNewPatient = (patient) => {
+function addNewPatient(patient){
 	return {
 		type: ADD_NEW_PATIENT,
 		patient,
 	}
 }
 
-export addNewPatientThunk = () => {
+export function addNewPatientThunk(){
 	return (dispatch) => {
-		return ()
+		return null
 	}
 }
 
-deletePatient = (patient) => {
+function deletePatient(patient){
 	return {
 		type: DELETE_PATIENT,
 		patient,
 	}
 }
 
-export deletePatientThunk = () => {
+export function deletePatientThunk(){
 	return (dispatch) => {
-		return ()
+		return null
 	}
 }
 
-updatePatientDetails = (patient) => {
+function updatePatientDetails(patient){
 	return {
 		type: UPDATE_PATIENT_DETAILS,
 		patient,
 	}
 }
 
-export updatePatientDetailsThunk = () => {
+export function updatePatientDetailsThunk(){
 	return (dispatch) => {
-		return ()
+		return null
 	}
 }
