@@ -118,7 +118,6 @@ class PatientActivityContainer extends Component<IProps> {
             address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
         } //TODO this data has to be fetched from store after redux's ready
         const { openOptionalInfo } = this.state;
-        console.log(this.props)
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify="center" spacing={24}>

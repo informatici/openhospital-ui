@@ -174,16 +174,16 @@ class PatientsDatabase extends Component<Props> {
     }
 }
 
-function mapStateToProps ({ patients }){
-  return {
-    patients: objectToArray(patients),
-  }
+function mapStateToProps({ patients }) {
+    return {
+        patients: objectToArray(patients),
+    }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    getPatients: () => dispatch(getPatientsThunk())
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        getPatients: () => dispatch(getPatientsThunk()),
+    }
 }
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientsDatabase);

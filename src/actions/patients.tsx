@@ -1,9 +1,11 @@
 // api fuctions, which will be used inside the thunks, to be imported when ready
 import {
 	getPatientsAPI,
+	getPatientAPI,
 } from '../helpers/api';
 
 export const GET_PATIENTS = 'GET_PATIENTS';
+export const GET_PATIENT = 'GET_PATIENT';
 export const ADD_NEW_PATIENT = 'ADD_NEW_PATIENT';
 export const DELETE_PATIENT = 'DELETE_PATIENT';
 export const UPDATE_PATIENT_DETAILS = 'UPDATE_PATIENT_DETAILS';
