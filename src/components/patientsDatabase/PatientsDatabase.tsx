@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link as LinkRouter } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 // local imports
 import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
@@ -11,6 +12,10 @@ import classNames from 'classnames';
 import DeletePatientDialog from "./DeletePatientDialog";
 import PatientBasicInfoForm from "../sharedComponents/PatientBasicInfoForm"
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
+import { objectToArray } from '../../helpers/objectToArray'
+
+// redux imports
+import { getPatientsThunk } from "../../actions/patients";
 
 // material imports
 import Button from '@material-ui/core/Button';
@@ -49,7 +54,7 @@ interface State {
 class PatientsDatabase extends Component<Props, State> {
     state: State = {
         error: null,
-        isLoaded: false,
+        isLoaded: true,
         items: [],
         selectedDate: new Date(),
         isDeleteDialogOpen: false,
@@ -59,36 +64,38 @@ class PatientsDatabase extends Component<Props, State> {
         const patientController: PatientControllerApi = new PatientControllerApi();
         const requestParams: GetPatientsUsingGETRequest = { page: 1, size: 8 }
 
-        // TEST
-        const item = {
-            patientInfo: {
-                isChronic: false,
-                lastDocWhoVisitedHim: {
-                        name: "Marcus",
-                        surname: "Marcus",
-                        occupation: "Anesthesiologist",
-                        phone: "555 911 118",
-                        email: "doc@hospital.org",
-                }
-                firstName: "Antônio",
-                secondName: "Carlos Jobim",
-                code: 123456,
-                age: 87,
-                sex: "M",
-                gender: "undefined",
-                photo: null,
-                bloodType: "A+",
-                nextKin: "Jorge de Oliveira Jobim",
-                notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                lastAdmission: "22.01.2019",
-                reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-                treatment: "Bloodletting"
-                address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
-            }
-        };
+        this.props.init();
 
-        const items = [item, item, item, item, item, item, item];
-        this.setState({ isLoaded: true, items, });
+        // TEST
+        // const item = {
+        //     patientInfo: {
+        //         isChronic: false,
+        //         lastDocWhoVisitedHim: {
+        //                 name: "Marcus",
+        //                 surname: "Marcus",
+        //                 occupation: "Anesthesiologist",
+        //                 phone: "555 911 118",
+        //                 email: "doc@hospital.org",
+        //         }
+        //         firstName: "Antônio",
+        //         secondName: "Carlos Jobim",
+        //         code: 123456,
+        //         age: 87,
+        //         sex: "M",
+        //         gender: "undefined",
+        //         photo: null,
+        //         bloodType: "A+",
+        //         nextKin: "Jorge de Oliveira Jobim",
+        //         notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        //         lastAdmission: "22.01.2019",
+        //         reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+        //         treatment: "Bloodletting"
+        //         address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
+        //     }
+        // };
+
+        // const items = [item, item, item, item, item, item, item];
+        // this.setState({ isLoaded: true, items, });
         // TEST
 
         // patientController.getPatientsUsingGET(requestParams).then(
@@ -129,7 +136,7 @@ class PatientsDatabase extends Component<Props, State> {
     }
 
     public render() {
-        const { classes, theme } = this.props;
+        const { classes, theme, patients } = this.props;
         const { items, isLoaded, error, isDeleteDialogOpen } = this.state;
         return (
             <div className={classes.root}>
@@ -209,8 +216,8 @@ class PatientsDatabase extends Component<Props, State> {
                         </Grid>
                     </Grid>
                     <Grid container item style={{ padding: '47px 0' }} spacing={24}>
-                        {items && items.length !== 0 ?
-                            (items.map((item) => (<PatientsListItem info={item}/>)))
+                        {patients && patients.length !== 0 ?
+                            (patients.map((patient) => (<PatientsListItem key={patient.id} patient={patient}/>)))
                             :
                             <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>}
                     </Grid>
@@ -225,5 +232,17 @@ class PatientsDatabase extends Component<Props, State> {
     }
 }
 
+function mapStateToProps ({ patients }){
+  return {
+    patients: objectToArray(patients),
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    init: () => dispatch(getPatientsThunk())
+  }
+}
+
 const styledComponent = withStyles(styles, { withTheme: true })(PatientsDatabase);
-export default styledComponent;
+export default connect(mapStateToProps, mapDispatchToProps)(styledComponent);
