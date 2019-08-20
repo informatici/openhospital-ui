@@ -40,76 +40,18 @@ import { PATH_NEW_PATIENT } from "../../config/constants";
 
 export interface Props extends WithStyles<typeof styles> {}
 
-interface State {
-    error: any;
-    isLoaded: boolean;
-    items: any[];
-    selectedDate: any;
-    patients: Array<Patient>;
-    visible: Number;
-    searchedValue: String;
-    isDeleteDialogOpen: boolean;
-}
-
-class PatientsDatabase extends Component<Props, State> {
-    state: State = {
-        error: null,
-        isLoaded: true,
-        items: [],
-        selectedDate: new Date(),
+class PatientsDatabase extends Component<Props> {
+    state = {
         isDeleteDialogOpen: false,
-    };
+    }
    
     componentDidMount() {
-        const patientController: PatientControllerApi = new PatientControllerApi();
-        const requestParams: GetPatientsUsingGETRequest = { page: 1, size: 8 }
-
-        this.props.init();
-
-        // TEST
-        // const item = {
-        //     patientInfo: {
-        //         isChronic: false,
-        //         lastDocWhoVisitedHim: {
-        //                 name: "Marcus",
-        //                 surname: "Marcus",
-        //                 occupation: "Anesthesiologist",
-        //                 phone: "555 911 118",
-        //                 email: "doc@hospital.org",
-        //         }
-        //         firstName: "Antônio",
-        //         secondName: "Carlos Jobim",
-        //         code: 123456,
-        //         age: 87,
-        //         sex: "M",
-        //         gender: "undefined",
-        //         photo: null,
-        //         bloodType: "A+",
-        //         nextKin: "Jorge de Oliveira Jobim",
-        //         notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        //         lastAdmission: "22.01.2019",
-        //         reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-        //         treatment: "Bloodletting"
-        //         address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
-        //     }
-        // };
-
-        // const items = [item, item, item, item, item, item, item];
-        // this.setState({ isLoaded: true, items, });
-        // TEST
-
-        // patientController.getPatientsUsingGET(requestParams).then(
-        //     (result) => {
-        //         this.setState({ isLoaded: true, items: result, });
-        //     },
-        //     (error) => {
-        //       this.setState({ isLoaded: true, error });
-        //     }
-        // )
+        this.props.getPatients();
     }
 
     keywordInput = (classes, classNames) => {
-        // this function defines an extra input for PatientBasicInfoForm
+        // this function defines an extra input for PatientBasicInfoForm, which has three default inputs,
+        // that are responsible for gathering Patient ID, Outpatient number and Inpatient number.
         return (
             <Grid item xs={12} sm={3}>
                 <TextField
@@ -137,7 +79,7 @@ class PatientsDatabase extends Component<Props, State> {
 
     public render() {
         const { classes, theme, patients } = this.props;
-        const { items, isLoaded, error, isDeleteDialogOpen } = this.state;
+        const { items, isDeleteDialogOpen } = this.state;
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
@@ -240,7 +182,7 @@ function mapStateToProps ({ patients }){
 
 function mapDispatchToProps(dispatch){
   return {
-    init: () => dispatch(getPatientsThunk())
+    getPatients: () => dispatch(getPatientsThunk())
   }
 }
 

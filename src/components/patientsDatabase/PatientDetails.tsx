@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link as LinkRouter, RouteComponentProps } from "react-router-dom";
+import { Link as LinkRouter, RouteComponentProps, withRouter } from "react-router-dom";
 import _ from "lodash";
 
 // local imports
@@ -24,6 +24,7 @@ import { Collapse, List } from '@material-ui/core';
 
 // constants
 import { 
+    PATH_PATIENTS_DATABASE,
     PATH_PATIENT_VISIT,
     PATH_PATIENT_ADMISSION,
     PATH_PATIENT_THERAPY,
@@ -59,6 +60,13 @@ class PatientDetails extends Component<IProps> {
     handleClickCollapseOptionalInfo = () => {
         this.setState(state => ({ openOptionalInfo: !state.openOptionalInfo }));
     };
+
+    componentDidMount(){
+        const { id, history } = this.props
+        if (!id) {
+            history.push(PATH_PATIENTS_DATABASE);
+        }
+    }
 
     render() {
         const { classes } = this.props;
@@ -195,4 +203,5 @@ class PatientDetails extends Component<IProps> {
 }
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientDetails);
-export default styledComponent;
+const styledWithRouterComponent = withRouter(styledComponent);
+export default styledWithRouterComponent;
