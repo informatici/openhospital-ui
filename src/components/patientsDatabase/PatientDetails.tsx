@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link as LinkRouter, RouteComponentProps, withRouter } from "react-router-dom";
+import { connect } from 'react-redux'
 import _ from "lodash";
 
 // local imports
@@ -10,6 +11,7 @@ import AppoitmentsItem from "../sharedComponents/AppointmentsItem";
 import SummaryItem from "../sharedComponents/SummaryItem";
 import Calendar from "../../shared/lib/calendar/index";
 import { Patient } from 'generate';
+import { getPatientThunk } from '../../actions/patientInDetails';
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -62,10 +64,14 @@ class PatientDetails extends Component<IProps> {
     };
 
     componentDidMount(){
-        const { id, history } = this.props
-        if (!id) {
+        // it needs to be fixed because it's not working well when page's refreshed
+        const { location, history } = this.props
+        if (!location.id) {
             history.push(PATH_PATIENTS_DATABASE);
         }
+
+        console.log("inside PatientDetails()" + location.id)
+        this.props.getPatient(location.id).then(this.setState({ error: 1 }))
     }
 
     render() {
@@ -202,6 +208,18 @@ class PatientDetails extends Component<IProps> {
     }
 }
 
+function mapStateToProps ({ patientInDetails }){
+    return {
+        patientInDetails,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getPatient: (id) => dispatch(getPatientThunk(id)),
+    }
+}
+
 const styledComponent = withStyles(styles, { withTheme: true })(PatientDetails);
 const styledWithRouterComponent = withRouter(styledComponent);
-export default styledWithRouterComponent;
+export default connect(mapStateToProps, mapDispatchToProps)(styledWithRouterComponent);
