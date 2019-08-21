@@ -35,7 +35,7 @@ class PatientVaccine extends React.Component <Props, State> {
     };
 
     public render() {
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
         const columns = ["Date", "Vaccine", "Vaccine Type"];
         const data = [
             ['15/09/2019', "BCG", "CHILD"],
@@ -66,10 +66,10 @@ class PatientVaccine extends React.Component <Props, State> {
                 <Grid item xs={12} className={classes.patientProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            Modotoky Tokai
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Provenance: <b>District, Village</b>
+                            Address: <b>{patient.address}</b>
                         </Typography>
                     </div>
                     <Tooltip title="Prescribe new Vaccine" interactive>

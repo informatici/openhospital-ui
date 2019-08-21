@@ -22,20 +22,7 @@ import Avatar from "@material-ui/core/Avatar";
 // constants
 import { PATH_PATIENT_DETAILS } from "../../config/constants";
 
-export interface Props extends WithStyles<typeof styles> { }
-
-interface State {
-    labelWidth: number;
-    error: any;
-    isLoaded: boolean;
-    items: any[];
-}
-
-interface IProps {
-    info: Patient;
-}
-
-class PatientsListItem extends Component<IProps> {
+class PatientsListItem extends Component {
     render() {
         const { classes, patient } = this.props;
         return(
