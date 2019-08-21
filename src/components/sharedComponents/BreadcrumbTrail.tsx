@@ -24,7 +24,7 @@ import {
     PATH_PATIENT_NEW_VACCINATION,
     PATH_OPD,
     PATH_NEW_OPD,
-} from "../../config/constants"
+} from "../../helpers/constants"
 
 const routes = {
     '/': 'Home',
@@ -58,17 +58,48 @@ const getPaths = (pathname) => {
     return paths;
 };
 
-const BreadcrumbsItem = ({ ...rest, match }) => {
-    const routeName = findRouteName(match.url);
+// const BreadcrumbsItem = ({ ...rest, match }) => {
+//     const routeName = findRouteName(match.path);
+//     console.log(match)
+//     if (routeName) {
+//         return (
+//             match.isExact ?
+//             (<Typography color="inherit">{routeName}</Typography>) 
+//             :
+//             (<MaterialLinkRouter 
+//                 color="secondary" 
+//                 component={LinkRouter} 
+//                 to={match.path.replace(/:id/, match.params.id) || ''}>
+//                 {routeName}
+//             </MaterialLinkRouter>)
+//         );
+//     }
+//     return null;
+// };
+
+const prepareUrl = (match, path) => {
+    let url = path;
+    Object.keys(match.params).map((key) => {
+        if (path.includes(key)) {
+            url = url.replace(":" + key, match.params[key]);
+        }
+    })
+    return url;
+}
+
+const BreadcrumbsItem = (props) => {
+    const routeName = findRouteName(props.path);
+    const url = prepareUrl(props.match, props.path);
+    
     if (routeName) {
         return (
-            match.isExact ?
+            props.path === props.match.path ?
             (<Typography color="inherit">{routeName}</Typography>) 
             :
             (<MaterialLinkRouter 
                 color="secondary" 
                 component={LinkRouter} 
-                to={match.url || ''}>
+                to={url || ''}>
                 {routeName}
             </MaterialLinkRouter>)
         );
@@ -76,17 +107,35 @@ const BreadcrumbsItem = ({ ...rest, match }) => {
     return null;
 };
 
-const BreadcrumbContainer = ({ ...rest, location: { pathname }, match }) => {
-    const paths = getPaths(pathname);
+// const BreadcrumbContainer = ({ ...rest, location: { pathname }, match }) => {
+//     const paths = getPaths(pathname);
+//     console.log(match)
+//     return (
+//         <Breadcrumbs>
+//             {paths.map(p => <Route path={p} component={BreadcrumbsItem} />)}
+//         </Breadcrumbs>
+//     );
+// };
+
+const BreadcrumbContainer = (props) => {
+    const paths = getPaths(props.match.path);
+    console.props
     return (
         <Breadcrumbs>
-            {paths.map(p => <Route path={p} component={BreadcrumbsItem} />)}
+            {paths.map((p) => <BreadcrumbsItem path={p} match={props.match}/>)}
         </Breadcrumbs>
     );
 };
 
+// export default props => (
+//     <div>
+//         {console.log(props)}
+//         <Route path="/:path" component={BreadcrumbContainer} {...props} />
+//     </div>
+// );
+
 export default props => (
     <div>
-        <Route path="/:path" component={BreadcrumbContainer} {...props} />
+        <BreadcrumbContainer match={props.match}/>
     </div>
 );

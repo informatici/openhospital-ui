@@ -14,7 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 
 // constants
-import { PATH_NEW_OPD } from "../../config/constants"
+import { PATH_NEW_OPD } from "../../helpers/constants"
 
 export interface Props extends WithStyles < typeof styles > {}
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link as LinkRouter, RouteComponentProps } from "react-router-dom";
+import { Link as LinkRouter, RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
 import _ from "lodash";
 
@@ -40,7 +40,7 @@ import {
     PATH_PATIENT_NEW_VACCINATION,
     PATH_OPD,
     PATH_NEW_OPD,
-} from "../../config/constants"
+} from "../../helpers/constants"
 
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -50,7 +50,6 @@ class PatientActivityContainer extends Component<IProps> {
 
     componentDidMount(){
         const { id } = this.props.location
-
         this.props.getPatient(id);
     }
 
@@ -58,8 +57,12 @@ class PatientActivityContainer extends Component<IProps> {
         this.props.clearPatientInDetails();
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+    }
+
     getActivityTitle = () => {
-        const currentPath = this.props.location.pathname
+        const currentPath = this.props.match.path
         switch(currentPath){
             case PATH_PATIENT_DETAILS:
                 return "Patient Details";
@@ -98,7 +101,7 @@ class PatientActivityContainer extends Component<IProps> {
                     <Grid container className={classes.gridContainer} justify="center" spacing={24}>
                         <Grid container item spacing={24}>
                             <Grid item xs={12}>
-                                <BreadcrumbTrail/>
+                                <BreadcrumbTrail match={this.props.match}/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="inherit" className={classes.patientTitle}>
@@ -107,35 +110,33 @@ class PatientActivityContainer extends Component<IProps> {
                             </Grid>
                         </Grid>
                         <Grid container item justify="center" spacing={24}>
-                            <Grid container item justify="center" spacing={24}>
-                                <HealthInfoBar patient={patientInDetails}/>
-                                {(() => {
-                                    switch (this.props.location.pathname) {
-                                        case PATH_PATIENT_DETAILS:
-                                            return(<PatientDetails patient={patientInDetails}/>);
-                                        case PATH_PATIENT_ADMISSION:
-                                            return(<PatientAdmission patient={patientInDetails}/>);
-                                        case PATH_PATIENT_VISIT:
-                                            return(<PatientVisit patient={patientInDetails}/>);
-                                        case PATH_OPD:
-                                            return(<Opd patient={patientInDetails}/>)
-                                        case PATH_NEW_OPD:
-                                            return(<NewOpd patient={patientInDetails}/>);
-                                        case PATH_PATIENT_THERAPY:
-                                            return(<PatientTherapy patient={patientInDetails}/>);
-                                        case PATH_PATIENT_EXAMINATION:
-                                            return(<PatientExamination patient={patientInDetails}/>);
-                                        case PATH_PATIENT_VACCINATION:
-                                            return(<PatientVaccination patient={patientInDetails}/>);
-                                        case PATH_PATIENT_NEW_VACCINATION:
-                                            return(<NewVaccination patient={patientInDetails}/>);
-                                        case PATH_NEW_LAB_TEST:
-                                            return(<NewLabTest patient={patientInDetails}/>)
-                                        default:
-                                            return(<div/>);
-                                    }
-                                })()}
-                            </Grid>
+                            <HealthInfoBar patient={patientInDetails}/>
+                            {(() => {
+                                switch (this.props.match.path) {
+                                    case PATH_PATIENT_DETAILS:
+                                        return(<PatientDetails patient={patientInDetails}/>);
+                                    case PATH_PATIENT_ADMISSION:
+                                        return(<PatientAdmission patient={patientInDetails}/>);
+                                    case PATH_PATIENT_VISIT:
+                                        return(<PatientVisit patient={patientInDetails}/>);
+                                    case PATH_OPD:
+                                        return(<Opd patient={patientInDetails}/>)
+                                    case PATH_NEW_OPD:
+                                        return(<NewOpd patient={patientInDetails}/>);
+                                    case PATH_PATIENT_THERAPY:
+                                        return(<PatientTherapy patient={patientInDetails}/>);
+                                    case PATH_PATIENT_EXAMINATION:
+                                        return(<PatientExamination patient={patientInDetails}/>);
+                                    case PATH_PATIENT_VACCINATION:
+                                        return(<PatientVaccination patient={patientInDetails}/>);
+                                    case PATH_PATIENT_NEW_VACCINATION:
+                                        return(<NewVaccination patient={patientInDetails}/>);
+                                    case PATH_NEW_LAB_TEST:
+                                        return(<NewLabTest patient={patientInDetails}/>)
+                                    default:
+                                        return(<div/>);
+                                }
+                            })()}
                         </Grid>
                     </Grid>
                 }
@@ -159,4 +160,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientActivityContainer);
-export default connect(mapStateToProps, mapDispatchToProps)(styledComponent);
+const routeredComponent = withRouter(styledComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(routeredComponent);

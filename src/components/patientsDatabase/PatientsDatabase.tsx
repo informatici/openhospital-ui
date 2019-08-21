@@ -36,7 +36,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 
 // constants
-import { PATH_NEW_PATIENT } from "../../config/constants";
+import { PATH_NEW_PATIENT } from "../../helpers/constants";
 
 export interface Props extends WithStyles<typeof styles> {}
 
@@ -85,7 +85,7 @@ class PatientsDatabase extends Component<Props> {
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
                     <Grid container item justify='center' spacing={24}>
                         <Grid item xs={12}>
-                            <BreadcrumbTrail/>
+                            <BreadcrumbTrail match={this.props.match}/>
                         </Grid>
                         <Grid item xs={12} className={classes.patientActions}>
                             <Typography variant="inherit" className={classes.patientsTitle}>

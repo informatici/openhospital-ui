@@ -25,7 +25,7 @@ import FormControl from "@material-ui/core/FormControl";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 // constants
-import { PATH_PATIENT_THERAPY } from "../../config/constants"
+import { PATH_PATIENT_THERAPY } from "../../helpers/constants"
 
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -281,3 +281,8 @@ class PatientAdmission extends Component<Props, State>{
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientAdmission);
 export default styledComponent;
+
+
+
+
+
