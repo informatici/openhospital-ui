@@ -7,7 +7,7 @@ import { createStyles, Theme, withStyles, WithStyles } from "@material-ui/core/s
 import { NavLink, NavLinkProps } from "react-router-dom";
 
 // constants
-import { PATH_PATIENTS_DATABASE } from "../../config/constants";
+import { PATH_PATIENTS_DATABASE } from "../../helpers/constants";
 
 const styles = (theme: Theme) =>
   createStyles({

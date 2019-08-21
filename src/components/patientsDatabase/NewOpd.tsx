@@ -19,7 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 
 // constants
-import { PATH_NEW_LAB_TEST } from "../../config/constants"
+import { PATH_NEW_LAB_TEST } from "../../helpers/constants"
 
 export interface Props extends WithStyles<typeof styles> { }
 

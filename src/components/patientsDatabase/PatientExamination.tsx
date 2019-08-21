@@ -15,7 +15,7 @@ import Divider from "@material-ui/core/Divider";
 import Tooltip from '@material-ui/core/Tooltip';
 
 // constants
-import { PATH_NEW_LAB_TEST } from "../../config/constants"
+import { PATH_NEW_LAB_TEST } from "../../helpers/constants"
 
 export interface Props extends WithStyles <typeof styles> {}
 
