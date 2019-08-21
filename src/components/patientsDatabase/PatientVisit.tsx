@@ -60,7 +60,7 @@ class PatientVisit extends React.Component<Props, State> {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
         const { openOptionalInfo } = this.state;
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
 
@@ -69,10 +69,10 @@ class PatientVisit extends React.Component<Props, State> {
                 <Grid item xs={12} className={classes.colleagueProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            Modotoky Tokai
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Provenance: <b>District, Village</b>
+                            Provenance: <b>{patient.address}</b>
                         </Typography>
                     </div>
                 </Grid>

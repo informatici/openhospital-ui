@@ -41,17 +41,17 @@ class NewOpd extends React.Component<Props, State> {
     }
 
     public render() {
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
 
         return (
             <Grid item xs={12} sm={9} className={classes.patientContent}>
                 <Grid item xs={12} className={classes.patientProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            Modotoky Tokai
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Provenance: <b>District, Village</b>
+                            Address: <b>{patient.address}</b>
                         </Typography>
                     </div>
                 </Grid>

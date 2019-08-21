@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link as LinkRouter, RouteComponentProps, withRouter } from "react-router-dom";
-import { connect } from 'react-redux'
+import { Link as LinkRouter, RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
 
 // local imports
@@ -11,7 +10,6 @@ import AppoitmentsItem from "../sharedComponents/AppointmentsItem";
 import SummaryItem from "../sharedComponents/SummaryItem";
 import Calendar from "../../shared/lib/calendar/index";
 import { Patient } from 'generate';
-import { getPatientThunk } from '../../actions/patientInDetails';
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -26,7 +24,6 @@ import { Collapse, List } from '@material-ui/core';
 
 // constants
 import { 
-    PATH_PATIENTS_DATABASE,
     PATH_PATIENT_VISIT,
     PATH_PATIENT_ADMISSION,
     PATH_PATIENT_THERAPY,
@@ -63,43 +60,8 @@ class PatientDetails extends Component<IProps> {
         this.setState(state => ({ openOptionalInfo: !state.openOptionalInfo }));
     };
 
-    componentDidMount(){
-        // it needs to be fixed because it's not working well when page's refreshed
-        const { location, history } = this.props
-        if (!location.id) {
-            history.push(PATH_PATIENTS_DATABASE);
-        }
-
-        console.log("inside PatientDetails()" + location.id)
-        this.props.getPatient(location.id).then(this.setState({ error: 1 }))
-    }
-
     render() {
-        const { classes } = this.props;
-        const patientInfo = {
-            isChronic: false,
-            lastDocWhoVisitedHim: {
-                name: "Marcus",
-                surname: "Marcus",
-                occupation: "Anesthesiologist",
-                phone: "555 911 118",
-                email: "doc@hospital.org",
-            }
-            firstName: "Antônio",
-            secondName: "Carlos Jobim",
-            code: 123456,
-            age: 87,
-            sex: "M",
-            gender: "undefined",
-            photo: null,
-            bloodType: "A+",
-            nextKin: "Jorge de Oliveira Jobim",
-            notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            lastAdmission: "22.01.2019",
-            reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-            treatment: "Bloodletting"
-            address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
-        } //TODO this data has to be fetched from store after redux's ready
+        const { classes, patient } = this.props;
         const { openOptionalInfo } = this.state;
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
         return (
@@ -107,10 +69,10 @@ class PatientDetails extends Component<IProps> {
                 <Grid item xs={12} className={classes.patientProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            {patientInfo.firstName} {patientInfo.secondName}
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Address: <b>{patientInfo.address}</b>
+                            Address: <b>{patient.address}</b>
                         </Typography>
                     </div>
                     <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_ADMISSION} variant="outlined" color="inherit" classes={{ root: classes.admissionButton }}>
@@ -208,18 +170,5 @@ class PatientDetails extends Component<IProps> {
     }
 }
 
-function mapStateToProps ({ patientInDetails }){
-    return {
-        patientInDetails,
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getPatient: (id) => dispatch(getPatientThunk(id)),
-    }
-}
-
 const styledComponent = withStyles(styles, { withTheme: true })(PatientDetails);
-const styledWithRouterComponent = withRouter(styledComponent);
-export default connect(mapStateToProps, mapDispatchToProps)(styledWithRouterComponent);
+export default styledComponent;

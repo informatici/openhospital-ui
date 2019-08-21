@@ -3,6 +3,7 @@ import {
 } from '../helpers/api';
 
 export const GET_PATIENT = 'GET_PATIENT';
+export const CLEAR_PATIENT_IN_DETAILS = 'CLEAR_PATIENT_IN_DETAILS';
 
 function getPatient(patient){
 	return {
@@ -13,9 +14,15 @@ function getPatient(patient){
 
 export function getPatientThunk(id){
 	return (dispatch) => {
-		console.log("inside getPatientThunk()" + location.id)
 		return getPatientAPI(id).then((patient) => {
 			dispatch(getPatient(patient))
 		})
+	}
+}
+
+export function clearPatientInDetails(){
+	return {
+		type: CLEAR_PATIENT_IN_DETAILS,
+		patient: {},
 	}
 }
