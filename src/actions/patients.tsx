@@ -4,6 +4,8 @@ import {
 	getPatientAPI,
 } from '../helpers/api';
 
+import { loading, LOADING } from './loading';
+
 export const GET_PATIENTS = 'GET_PATIENTS';
 export const GET_PATIENT = 'GET_PATIENT';
 export const ADD_NEW_PATIENT = 'ADD_NEW_PATIENT';
@@ -19,8 +21,10 @@ function getPatients(patients){
 
 export function getPatientsThunk(){
 	return (dispatch) => {
+		dispatch(loading(true));
 		return getPatientsAPI().then((patients) => {
-			dispatch(getPatients(patients))
+			dispatch(loading(false));
+			dispatch(getPatients(patients));
 		})
 	}
 }
