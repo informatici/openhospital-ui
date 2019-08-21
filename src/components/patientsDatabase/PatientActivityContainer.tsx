@@ -26,6 +26,7 @@ import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // constants
 import { 
@@ -46,12 +47,9 @@ export interface Props extends WithStyles<typeof styles> { }
 interface IProps extends RouteComponentProps<Props> { }
 
 class PatientActivityContainer extends Component<IProps> {
-    state = {
-        patient: {},
-    }
 
     componentDidMount(){
-        const { id, patient } = this.props.location
+        const { id } = this.props.location
 
         this.props.getPatient(id);
     }
@@ -89,60 +87,67 @@ class PatientActivityContainer extends Component<IProps> {
     }
 
     render() {
-        const { classes, patientInDetails } = this.props;
+        const { classes, patientInDetails, loading } = this.props;
         return (
             <div className={classes.root}>
-                <Grid container className={classes.gridContainer} justify="center" spacing={24}>
-                    <Grid container item spacing={24}>
-                        <Grid item xs={12}>
-                            <BreadcrumbTrail/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="inherit" className={classes.patientTitle}>
-                                {this.getActivityTitle()}
-                            </Typography>
-                        </Grid>
+                {loading === true ?
+                    <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+                        <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>
                     </Grid>
-                    <Grid container item justify="center" spacing={24}>
+                    :
+                    <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+                        <Grid container item spacing={24}>
+                            <Grid item xs={12}>
+                                <BreadcrumbTrail/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="inherit" className={classes.patientTitle}>
+                                    {this.getActivityTitle()}
+                                </Typography>
+                            </Grid>
+                        </Grid>
                         <Grid container item justify="center" spacing={24}>
-                            <HealthInfoBar patient={patientInDetails}/>
-                            {(() => {
-                                switch (this.props.location.pathname) {
-                                    case PATH_PATIENT_DETAILS:
-                                        return(<PatientDetails patient={patientInDetails}/>);
-                                    case PATH_PATIENT_ADMISSION:
-                                        return(<PatientAdmission patient={patientInDetails}/>);
-                                    case PATH_PATIENT_VISIT:
-                                        return(<PatientVisit patient={patientInDetails}/>);
-                                    case PATH_OPD:
-                                        return(<Opd patient={patientInDetails}/>)
-                                    case PATH_NEW_OPD:
-                                        return(<NewOpd patient={patientInDetails}/>);
-                                    case PATH_PATIENT_THERAPY:
-                                        return(<PatientTherapy patient={patientInDetails}/>);
-                                    case PATH_PATIENT_EXAMINATION:
-                                        return(<PatientExamination patient={patientInDetails}/>);
-                                    case PATH_PATIENT_VACCINATION:
-                                        return(<PatientVaccination patient={patientInDetails}/>);
-                                    case PATH_PATIENT_NEW_VACCINATION:
-                                        return(<NewVaccination patient={patientInDetails}/>);
-                                    case PATH_NEW_LAB_TEST:
-                                        return(<NewLabTest patient={patientInDetails}/>)
-                                    default:
-                                        return(<div/>);
-                                }
-                            })()}
+                            <Grid container item justify="center" spacing={24}>
+                                <HealthInfoBar patient={patientInDetails}/>
+                                {(() => {
+                                    switch (this.props.location.pathname) {
+                                        case PATH_PATIENT_DETAILS:
+                                            return(<PatientDetails patient={patientInDetails}/>);
+                                        case PATH_PATIENT_ADMISSION:
+                                            return(<PatientAdmission patient={patientInDetails}/>);
+                                        case PATH_PATIENT_VISIT:
+                                            return(<PatientVisit patient={patientInDetails}/>);
+                                        case PATH_OPD:
+                                            return(<Opd patient={patientInDetails}/>)
+                                        case PATH_NEW_OPD:
+                                            return(<NewOpd patient={patientInDetails}/>);
+                                        case PATH_PATIENT_THERAPY:
+                                            return(<PatientTherapy patient={patientInDetails}/>);
+                                        case PATH_PATIENT_EXAMINATION:
+                                            return(<PatientExamination patient={patientInDetails}/>);
+                                        case PATH_PATIENT_VACCINATION:
+                                            return(<PatientVaccination patient={patientInDetails}/>);
+                                        case PATH_PATIENT_NEW_VACCINATION:
+                                            return(<NewVaccination patient={patientInDetails}/>);
+                                        case PATH_NEW_LAB_TEST:
+                                            return(<NewLabTest patient={patientInDetails}/>)
+                                        default:
+                                            return(<div/>);
+                                    }
+                                })()}
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
+                }
             </div>
         );
     }
 }
 
-function mapStateToProps ({ patientInDetails }){
+function mapStateToProps ({ patientInDetails, loading }){
     return {
         patientInDetails,
+        loading,
     }
 }
 

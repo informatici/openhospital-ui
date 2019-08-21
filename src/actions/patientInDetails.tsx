@@ -2,6 +2,8 @@ import {
 	getPatientAPI,
 } from '../helpers/api';
 
+import { loading } from './loading'
+
 export const GET_PATIENT = 'GET_PATIENT';
 export const CLEAR_PATIENT_IN_DETAILS = 'CLEAR_PATIENT_IN_DETAILS';
 
@@ -14,7 +16,9 @@ function getPatient(patient){
 
 export function getPatientThunk(id){
 	return (dispatch) => {
+		dispatch(loading(true))
 		return getPatientAPI(id).then((patient) => {
+			dispatch(loading(false))
 			dispatch(getPatient(patient))
 		})
 	}
@@ -25,4 +29,4 @@ export function clearPatientInDetails(){
 		type: CLEAR_PATIENT_IN_DETAILS,
 		patient: {},
 	}
-}
+} 
