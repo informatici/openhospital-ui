@@ -78,7 +78,7 @@ class PatientsDatabase extends Component<Props> {
     }
 
     public render() {
-        const { classes, theme, patients } = this.props;
+        const { classes, theme, patients, loading } = this.props;
         const { items, isDeleteDialogOpen } = this.state;
         return (
             <div className={classes.root}>
@@ -158,10 +158,10 @@ class PatientsDatabase extends Component<Props> {
                         </Grid>
                     </Grid>
                     <Grid container item style={{ padding: '47px 0' }} spacing={24}>
-                        {patients && patients.length !== 0 ?
-                            (patients.map((patient) => (<PatientsListItem key={patient.id} patient={patient}/>)))
+                        {loading === true ?
+                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>
                             :
-                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>}
+                            (patients.map((patient) => (<PatientsListItem key={patient.id} patient={patient}/>)))}
                     </Grid>
                     <Grid item xs={12} sm={2} className={classes.loadMoreContainer}>
                         <Button type="button" variant="outlined" color="inherit" classes={{ root: classes.button, label: classes.buttonLabel }}>
@@ -174,9 +174,10 @@ class PatientsDatabase extends Component<Props> {
     }
 }
 
-function mapStateToProps({ patients }) {
+function mapStateToProps({ patients, loading }) {
     return {
         patients: objectToArray(patients),
+        loading,
     }
 }
 
