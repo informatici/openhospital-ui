@@ -7,7 +7,7 @@ import { loading } from './loading'
 export const GET_PATIENT = 'GET_PATIENT';
 export const CLEAR_PATIENT_IN_DETAILS = 'CLEAR_PATIENT_IN_DETAILS';
 
-function getPatient(patient){
+export function getPatient(patient){
 	return {
 		type: GET_PATIENT,
 		patient,
