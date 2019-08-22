@@ -62,7 +62,7 @@ class PatientOpd extends Component <Props, State> {
                     </div>
                     <MaterialButtonRouter 
                         component={LinkRouter} 
-                        to={PATH_NEW_OPD} 
+                        to={PATH_NEW_OPD.replace(':patientId', patient.id)} 
                         variant="outlined" 
                         color="inherit" 
                         classes={{ root: classes.opdButton }}>
