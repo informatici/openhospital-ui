@@ -19,7 +19,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 
 // constants
-import { PATH_NEW_LAB_TEST } from "../../config/constants"
+import { PATH_NEW_LAB_TEST } from "../../helpers/constants"
 
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -41,17 +41,17 @@ class NewOpd extends React.Component<Props, State> {
     }
 
     public render() {
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
 
         return (
             <Grid item xs={12} sm={9} className={classes.patientContent}>
                 <Grid item xs={12} className={classes.patientProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            Modotoky Tokai
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Provenance: <b>District, Village</b>
+                            Address: <b>{patient.address}</b>
                         </Typography>
                     </div>
                 </Grid>
@@ -146,7 +146,7 @@ class NewOpd extends React.Component<Props, State> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to={PATH_NEW_LAB_TEST}
+                        to={PATH_NEW_LAB_TEST.replace(':patientId', patient.id)}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

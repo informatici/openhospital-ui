@@ -20,48 +20,33 @@ import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
 
 // constants
-import { PATH_PATIENT_DETAILS } from "../../config/constants";
+import { PATH_PATIENT_DETAILS } from "../../helpers/constants";
 
-export interface Props extends WithStyles<typeof styles> { }
-
-interface State {
-    labelWidth: number;
-    error: any;
-    isLoaded: boolean;
-    items: any[];
-}
-
-interface IProps {
-    info: Patient;
-}
-
-class PatientsListItem extends Component<IProps> {
+class PatientsListItem extends Component {
     render() {
-        const { classes } = this.props;
-        const { patientInfo } = this.props.info;
-        patientInfo.isChronic = _.sample([true, false]);
+        const { classes, patient } = this.props;
         return(
             <Grid item xs={12} sm={4}>
                 <Paper className={classes.paper}>
                     <MaterialCardActionAreaRouter
                         className={classes.cardAction}
                         component={LinkRouter}
-                        to={{ pathname: PATH_PATIENT_DETAILS }}>
+                        to={{ pathname: PATH_PATIENT_DETAILS.replace(":patientId", patient.id), patient: patient }}>
                         <Grid container className={classes.patientContainer} justify="center" spacing={24}>
                             <Grid item xs={12}>
                                 <Typography color="inherit" className={classes.patientName}>
-                                    {patientInfo.firstName} {patientInfo.secondName}
+                                    {patient.firstName} {patient.secondName}
                                 </Typography>
                                 <Typography color="inherit">
-                                    PatientID: <b>{patientInfo.code}</b>
+                                    PatientID: <b>{patient.id}</b>
                                 </Typography>
                                 <Typography color="inherit">
-                                    Age: <b>{patientInfo.age}</b> &nbsp; Sex:<b>{patientInfo.sex}</b>
+                                    Age: <b>{patient.age}</b> &nbsp; Sex:<b>{patient.sex}</b>
                                 </Typography>
-                                <Typography color="inherit">{patientInfo.gender}</Typography>
+                                <Typography color="inherit">{patient.gender}</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Avatar alt="Remy Sharp" src={patientInfo.photo} className={classes.avatar} />
+                                <Avatar alt="Remy Sharp" src={patient.photo} className={classes.avatar} />
                             </Grid>
                             <Grid item xs={12} className={classes.infoContainer}>
                                 <Typography color="inherit">
@@ -75,7 +60,7 @@ class PatientsListItem extends Component<IProps> {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} className={classes.infoContainer}>
-                                {patientInfo.isChronic && (
+                                {patient.isChronic && (
                                     <Typography color="secondary" className={classes.iconAndText}>
                                         <HospitalIcon style={{ marginRight: "5px" }} />
                                         Chronic patient
@@ -98,23 +83,23 @@ class PatientsListItem extends Component<IProps> {
                                 <Grid item xs={12} sm={3} style={{ display: "flex", justifyContent: "flex-end" }}>
                                     <Avatar
                                     alt="Remy Sharp"
-                                    src={patientInfo.photo}
+                                    src={patient.photo}
                                     className={classNames(classes.avatar, "avatarSmall")}/>
                                     <div style={{ flexDirection: "column" }} />
                                 </Grid>
                                 <Grid item xs={12} sm={9} style={{ textAlign: "left" }}>
                                     <Typography color="secondary" style={{ fontWeight: "bold" }}>
-                                        Dr. {patientInfo.lastDocWhoVisitedHim.surname} {patientInfo.lastDocWhoVisitedHim.name}
+                                        Dr. {patient.lastWhoVisited.surname} {patient.lastWhoVisited.name}
                                     </Typography>
-                                    <Typography color="inherit">{patientInfo.lastDocWhoVisitedHim.occupation}</Typography>
+                                    <Typography color="inherit">{patient.lastWhoVisited.occupation}</Typography>
                                     <br/>
                                     <Typography color="secondary" className={classes.iconAndText}>
                                         <PhoneIcon style={{ marginRight: "5px" }} />
-                                        {patientInfo.lastDocWhoVisitedHim.phone}
+                                        {patient.lastWhoVisited.phone}
                                     </Typography>
                                     <Typography color="secondary" className={classes.iconAndText}>
                                         <MailIcon style={{ marginRight: "5px" }} />
-                                        {patientInfo.lastDocWhoVisitedHim.email}
+                                        {patient.lastWhoVisited.email}
                                     </Typography>
                                 </Grid>
                             </Grid>

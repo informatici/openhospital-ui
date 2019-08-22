@@ -23,7 +23,7 @@ import CashIcon from "../utils/icons/svg/CashIcon";
 import styles from "./Billing.style";
 
 // constants
-import { PATH_PATIENTS_DATABASE } from "../../config/constants";
+import { PATH_PATIENTS_DATABASE } from "../../helpers/constants";
 
 export interface Props extends WithStyles<typeof styles> {}
 

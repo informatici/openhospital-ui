@@ -6,10 +6,12 @@ Here goes the description of the redux `store` when it comes to its elements. Al
 - drugs;
 - user;
 - patients;
+- patientInDetails;
 - colleagues;
 - patientSummary;
 - news;
-- notifications.
+- notifications;
+- loading.
 
 ## Actions
 
@@ -28,6 +30,9 @@ Here goes the description of the redux `store` when it comes to its elements. Al
 - DELETE_PATIENT;
 - UPDATE_PATIENT_DETAILS.
 
+###### patientInDetails
+- GET_PATIENT.
+
 ###### colleagues
 - RECEIVE_COLLEAGUES.
 
@@ -38,5 +43,8 @@ Here goes the description of the redux `store` when it comes to its elements. Al
 - RECEIVE_NEWS.
 
 ###### notifications
-- RECEIVE_NOTIFICATIONS
+- RECEIVE_NOTIFICATIONS.
+
+###### loading
+- LOADING.
 
