@@ -14,7 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 
 // constants
-import { PATH_NEW_OPD } from "../../config/constants"
+import { PATH_NEW_OPD } from "../../helpers/constants"
 
 export interface Props extends WithStyles < typeof styles > {}
 
@@ -36,7 +36,7 @@ class PatientOpd extends Component <Props, State> {
     }
 
     public render() {
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
         const columns = ["Date", "Disease", "Disease Type", "Status"];
         const data = [
             ["15/09/2019", "Meningitis", "Priority infectious deseases", "new"],
@@ -54,10 +54,10 @@ class PatientOpd extends Component <Props, State> {
                 <Grid item xs={12} className={classes.patientProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            Modotoky Tokai
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Provenance: <b>District, Village</b>
+                            Address: <b>{patient.address}</b>
                         </Typography>
                     </div>
                     <MaterialButtonRouter 

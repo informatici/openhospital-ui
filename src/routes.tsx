@@ -41,7 +41,7 @@ import {
     PATH_PATIENT_NEW_VACCINATION,
     PATH_OPD,
     PATH_NEW_OPD,
-} from "./config/constants";
+} from "./helpers/constants";
 
 const Routes = () => (
    <div>

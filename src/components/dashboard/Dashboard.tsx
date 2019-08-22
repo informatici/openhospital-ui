@@ -19,7 +19,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import { 
     PATH_PATIENTS_DATABASE,
     PATH_NEW_PATIENT,
-} from "../../config/constants";
+} from "../../helpers/constants";
 
 export interface Props extends WithStyles<typeof styles> {}
 

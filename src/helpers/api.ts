@@ -126,6 +126,6 @@ export async function getPatientsAPI(){
 	return fakeDatabase;
 }
 export async function getPatientAPI(id){
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
     return fakeDatabase[id];
 }

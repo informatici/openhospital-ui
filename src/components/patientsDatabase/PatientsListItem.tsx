@@ -20,22 +20,9 @@ import HospitalIcon from "@material-ui/icons/LocalHospital";
 import Avatar from "@material-ui/core/Avatar";
 
 // constants
-import { PATH_PATIENT_DETAILS } from "../../config/constants";
+import { PATH_PATIENT_DETAILS } from "../../helpers/constants";
 
-export interface Props extends WithStyles<typeof styles> { }
-
-interface State {
-    labelWidth: number;
-    error: any;
-    isLoaded: boolean;
-    items: any[];
-}
-
-interface IProps {
-    info: Patient;
-}
-
-class PatientsListItem extends Component<IProps> {
+class PatientsListItem extends Component {
     render() {
         const { classes, patient } = this.props;
         return(
@@ -44,7 +31,7 @@ class PatientsListItem extends Component<IProps> {
                     <MaterialCardActionAreaRouter
                         className={classes.cardAction}
                         component={LinkRouter}
-                        to={{ pathname: PATH_PATIENT_DETAILS, id: patient.id }}>
+                        to={{ pathname: PATH_PATIENT_DETAILS.replace(":patientId", patient.id), id: patient.id }}>
                         <Grid container className={classes.patientContainer} justify="center" spacing={24}>
                             <Grid item xs={12}>
                                 <Typography color="inherit" className={classes.patientName}>
