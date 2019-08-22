@@ -1,6 +1,6 @@
 import {
 	getPatientAPI,
-} from '../helpers/api';
+} from '../../dummyAPI';
 
 import { loading } from './loading'
 
