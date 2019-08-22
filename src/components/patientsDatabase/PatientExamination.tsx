@@ -66,7 +66,7 @@ class PatientExamination extends Component <Props, State> {
                         </Typography>
                     </div>
                     <Tooltip title="Prescribe new Exam" interactive>
-                        <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_LAB_TEST} variant="outlined" color="inherit" classes={{ root: classes.detailNewExamButton, label: classes.detailButtonLabel }}>
+                        <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_LAB_TEST.replace(':patientId', patient.id)} variant="outlined" color="inherit" classes={{ root: classes.detailNewExamButton, label: classes.detailButtonLabel }}>
                             New Exam
                         </MaterialButtonRouter>
                     </Tooltip>

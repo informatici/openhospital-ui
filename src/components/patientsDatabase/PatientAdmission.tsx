@@ -155,7 +155,7 @@ class PatientAdmission extends Component<Props, State>{
 							DRUGS PRESCRIBED
 						</Typography>
 					</Grid>
-					<MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY} variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
+					<MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY.replace(':patientId', patient.id)} variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
 						Therapy
 					</MaterialButtonRouter>
 					<TextField

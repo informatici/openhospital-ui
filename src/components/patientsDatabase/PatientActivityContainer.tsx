@@ -57,10 +57,6 @@ class PatientActivityContainer extends Component<IProps> {
         this.props.clearPatientInDetails();
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-    }
-
     getActivityTitle = () => {
         const currentPath = this.props.match.path
         switch(currentPath){

@@ -146,7 +146,7 @@ class NewOpd extends React.Component<Props, State> {
                     </MaterialButtonRouter>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to={PATH_NEW_LAB_TEST}
+                        to={PATH_NEW_LAB_TEST.replace(':patientId', patient.id)}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>
