@@ -1,8 +1,7 @@
 // api fuctions, which will be used inside the thunks, to be imported when ready
 import {
 	getPatientsAPI,
-	getPatientAPI,
-} from '../helpers/api';
+} from '../../dummyAPI';
 
 import { loading } from './loading';
 
