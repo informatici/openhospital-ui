@@ -19,7 +19,7 @@ import NewVaccination from "./NewVaccination";
 import NewLabTest from "./NewLabTest";
 import { Patient } from 'generate';
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
-import { getPatientThunk, clearPatientInDetails } from '../../actions/patientInDetails';
+import { getPatientThunk, clearPatientInDetails, getPatient } from '../../actions/patientInDetails';
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
@@ -42,24 +42,29 @@ import {
     PATH_NEW_OPD,
 } from "../../helpers/constants"
 
-export interface Props extends WithStyles<typeof styles> { }
-
-interface IProps extends RouteComponentProps<Props> { }
-
-class PatientActivityContainer extends Component<IProps> {
+class PatientActivityContainer extends Component {
 
     componentDidMount(){
-        const { id } = this.props.location
-        this.props.getPatient(id);
+        const { 
+            match, 
+            putPatientInStore,
+            getPatientInServer,
+            location, 
+        } = this.props
+
+        if (location.patient) {
+            putPatientInStore(location.patient)
+        } else {
+            getPatientInServer(match.params.patientId)
+        }
     }
 
     componentWillUnmount(){
         this.props.clearPatientInDetails();
     }
 
-    getActivityTitle = () => {
-        const currentPath = this.props.match.path
-        switch(currentPath){
+    getActivityTitle = (match) => {
+        switch(match.path){
             case PATH_PATIENT_DETAILS:
                 return "Patient Details";
             case PATH_PATIENT_ADMISSION:
@@ -86,7 +91,7 @@ class PatientActivityContainer extends Component<IProps> {
     }
 
     render() {
-        const { classes, patientInDetails, loading } = this.props;
+        const { classes, patientInDetails, loading, match } = this.props;
         return (
             <div className={classes.root}>
                 {loading === true ?
@@ -97,18 +102,18 @@ class PatientActivityContainer extends Component<IProps> {
                     <Grid container className={classes.gridContainer} justify="center" spacing={24}>
                         <Grid container item spacing={24}>
                             <Grid item xs={12}>
-                                <BreadcrumbTrail match={this.props.match}/>
+                                <BreadcrumbTrail match={match}/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="inherit" className={classes.patientTitle}>
-                                    {this.getActivityTitle()}
+                                    {this.getActivityTitle(match)}
                                 </Typography>
                             </Grid>
                         </Grid>
                         <Grid container item justify="center" spacing={24}>
                             <HealthInfoBar patient={patientInDetails}/>
                             {(() => {
-                                switch (this.props.match.path) {
+                                switch (match.path) {
                                     case PATH_PATIENT_DETAILS:
                                         return(<PatientDetails patient={patientInDetails}/>);
                                     case PATH_PATIENT_ADMISSION:
@@ -150,7 +155,8 @@ function mapStateToProps ({ patientInDetails, loading }){
 
 function mapDispatchToProps(dispatch) {
     return {
-        getPatient: (id) => dispatch(getPatientThunk(id)),
+        putPatientInStore: (patient) => dispatch(getPatient(patient)),
+        getPatientInServer: (id) => dispatch(getPatientThunk(id)),
         clearPatientInDetails: () => dispatch(clearPatientInDetails()),
     }
 }
