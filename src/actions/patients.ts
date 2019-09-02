@@ -15,10 +15,6 @@ import {
 import { loading } from './loading';
 import { AppState } from '../reducers/index';
 
-export const ADD_NEW_PATIENT = 'ADD_NEW_PATIENT';
-export const DELETE_PATIENT = 'DELETE_PATIENT';
-export const UPDATE_PATIENT_DETAILS = 'UPDATE_PATIENT_DETAILS';
-
 function getPatients(patients: PatientsList): PatientsActionTypes{
 	return {
 		type: GET_PATIENTS,
@@ -36,41 +32,41 @@ export function getPatientsThunk(): ThunkAction<void, AppState, null, AnyAction>
 	}
 }
 
-function addNewPatient(patient){
-	return {
-		type: ADD_NEW_PATIENT,
-		patient,
-	}
-}
+// function addNewPatient(patient){
+// 	return {
+// 		type: ADD_NEW_PATIENT,
+// 		patient,
+// 	}
+// }
 
-export function addNewPatientThunk(){
-	return (dispatch) => {
-		return null
-	}
-}
+// export function addNewPatientThunk(){
+// 	return (dispatch) => {
+// 		return null
+// 	}
+// }
 
-function deletePatient(patient){
-	return {
-		type: DELETE_PATIENT,
-		patient,
-	}
-}
+// function deletePatient(patient){
+// 	return {
+// 		type: DELETE_PATIENT,
+// 		patient,
+// 	}
+// }
 
-export function deletePatientThunk(){
-	return (dispatch) => {
-		return null
-	}
-}
+// export function deletePatientThunk(){
+// 	return (dispatch) => {
+// 		return null
+// 	}
+// }
 
-function updatePatientDetails(patient){
-	return {
-		type: UPDATE_PATIENT_DETAILS,
-		patient,
-	}
-}
+// function updatePatientDetails(patient){
+// 	return {
+// 		type: UPDATE_PATIENT_DETAILS,
+// 		patient,
+// 	}
+// }
 
-export function updatePatientDetailsThunk(){
-	return (dispatch) => {
-		return null
-	}
-}
+// export function updatePatientDetailsThunk(){
+// 	return (dispatch) => {
+// 		return null
+// 	}
+// }
