@@ -8,11 +8,11 @@ import './index.css';
 // redux imports
 import { createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './reducers'
+import { rootReducer } from './reducers'
 import middleware from './middleware'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhancers(
+const store = createStore(rootReducer, composeEnhancers(
     middleware
 ));
 
