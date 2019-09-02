@@ -3,7 +3,7 @@ import patients from './patients';
 import patientInDetails from './patientInDetails';
 import loading from './loading';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
 	patientInDetails,
 	patients,
 	loading,
