@@ -5,9 +5,15 @@ import {
 	ADD_NEW_PATIENT,
 	DELETE_PATIENT,
 	UPDATE_PATIENT_DETAILS,
-} from '../actions/patients';
+	PatientsActionTypes,
+	PatientsList,
+} from '../types/patients'
 
-export default function patients(state={}, action){
+const initialState: PatientsList = {
+	patients: [],
+}
+
+export default function patients(state = initialState, action: PatientsActionTypes): PatientsList{
 	return produce(state, draft => {
 		switch(action.type){
 			case GET_PATIENTS :

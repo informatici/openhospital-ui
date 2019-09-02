@@ -1,25 +1,33 @@
+import { AnyAction } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
 // api fuctions, which will be used inside the thunks, to be imported when ready
 import {
 	getPatientsAPI,
 } from '../../dummyAPI';
 
-import { loading } from './loading';
+import {
+	PatientsList,
+	GET_PATIENTS,
+	PatientsActionTypes,
+} from '../types/patients';
 
-export const GET_PATIENTS = 'GET_PATIENTS';
-export const GET_PATIENT = 'GET_PATIENT';
+import { loading } from './loading';
+import { AppState } from '../reducers/index';
+
 export const ADD_NEW_PATIENT = 'ADD_NEW_PATIENT';
 export const DELETE_PATIENT = 'DELETE_PATIENT';
 export const UPDATE_PATIENT_DETAILS = 'UPDATE_PATIENT_DETAILS';
 
-function getPatients(patients){
+function getPatients(patients: PatientsList): PatientsActionTypes{
 	return {
 		type: GET_PATIENTS,
 		patients,
 	}
 }
 
-export function getPatientsThunk(){
-	return (dispatch) => {
+export function getPatientsThunk(): ThunkAction<void, AppState, null, AnyAction>{
+	return async (dispatch) => {
 		dispatch(loading(true));
 		return getPatientsAPI().then((patients) => {
 			dispatch(loading(false));
