@@ -10,7 +10,7 @@ import {
 } from '../types/patients'
 
 const initialState: PatientsList = {
-	patients: [],
+	patients: {},
 }
 
 export default function patients(state = initialState, action: PatientsActionTypes): PatientsList{

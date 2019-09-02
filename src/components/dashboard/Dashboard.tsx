@@ -30,7 +30,7 @@ class Dashboard extends React.Component<Props> {
         return (
             <div className={classes.root}>
                 <Grid container spacing={24} classes={{ container: classes.gridContainer }}>
-                    <Grid container justify="center" centerlassName={classes.gridPaddingBottom}>
+                    <Grid container justify="center" className={classes.gridPaddingBottom}>
                         <Grid item xs={4}>
                             <Typography variant="inherit" align="center" className={classes.welcomeTitle}>
                                 Welcome <b>Mario Rossi</b>

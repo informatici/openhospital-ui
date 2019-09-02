@@ -3,16 +3,16 @@ import { Link as LinkRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 // local imports
-import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
+import { MaterialButtonRouter} from '../utils/LinkHelper';
 import PatientsListItem from "./PatientsListItem";
 import styles from './styles/PatientsDatabase.style';
-import { PatientControllerApi, GetPatientsUsingGETRequest } from '../../generate/apis';
-import { Patient } from 'generate';
 import classNames from 'classnames';
 import DeletePatientDialog from "./DeletePatientDialog";
 import PatientBasicInfoForm from "../sharedComponents/PatientBasicInfoForm"
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
 import { objectToArray } from '../../helpers/objectToArray'
+import { AppState } from '../../reducers/index';
+import { Patient } from '../../types/patients';
 
 // redux imports
 import { getPatientsThunk } from "../../actions/patients";
@@ -33,23 +33,28 @@ import Typography from '@material-ui/core/Typography';
 import MergeIcon from '@material-ui/icons//LibraryBooks';
 import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
-import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 
 // constants
 import { PATH_NEW_PATIENT } from "../../helpers/constants";
 
-export interface Props extends WithStyles<typeof styles> {}
+export interface Props extends WithStyles<typeof styles> { 
+    getPatients: any,
+    patients: Array<Patient>,
+    classes: any,
+    classNames: any,
+    loading: boolean,
+}
 
 class PatientsDatabase extends Component<Props> {
     state = {
         isDeleteDialogOpen: false,
     }
-   
+
     componentDidMount() {
         this.props.getPatients();
     }
 
-    keywordInput = (classes, classNames) => {
+    keywordInput = (classes: any, classNames: any) => {
         // this function defines an extra input for PatientBasicInfoForm, which has three default inputs,
         // that are responsible for gathering Patient ID, Outpatient number and Inpatient number.
         return (
@@ -72,36 +77,36 @@ class PatientsDatabase extends Component<Props> {
                         },
                     }}
                     margin="normal"
-                    variant="outlined"/>
+                    variant="outlined" />
             </Grid>
         )
     }
 
     public render() {
-        const { classes, theme, patients, loading } = this.props;
-        const { items, isDeleteDialogOpen } = this.state;
+        const { classes, patients, loading } = this.props;
+        const { isDeleteDialogOpen } = this.state;
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
                     <Grid container item justify='center' spacing={24}>
                         <Grid item xs={12}>
-                            <BreadcrumbTrail match={this.props.match}/>
+                            <BreadcrumbTrail match={this.props.match} />
                         </Grid>
                         <Grid item xs={12} className={classes.patientActions}>
                             <Typography variant="inherit" className={classes.patientsTitle}>
                                 PATIENTS
                             </Typography>
                             <Grid>
-                                <Button color="inherit" 
-                                    onClick={() => this.setState({ isDeleteDialogOpen: true })} 
+                                <Button color="inherit"
+                                    onClick={() => this.setState({ isDeleteDialogOpen: true })}
                                     classes={{ root: classes.button, label: classes.buttonLabel }}>
                                     <CancelIcon className={classes.buttonIcon} />
                                     Delete a patient
                                 </Button>
-                                <DeletePatientDialog 
-                                    isOpen={isDeleteDialogOpen} 
-                                    handleClickClose={() => this.setState({ isDeleteDialogOpen: false })}/>
-                            </Grid>                  
+                                <DeletePatientDialog
+                                    isOpen={isDeleteDialogOpen}
+                                    handleClickClose={() => this.setState({ isDeleteDialogOpen: false })} />
+                            </Grid>
                             <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_PATIENT} color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
                                 <AddIcon className={classes.buttonIcon} />
                                 Record new patient
@@ -124,7 +129,7 @@ class PatientsDatabase extends Component<Props> {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                            <PatientBasicInfoForm extraInput={this.keywordInput}/>
+                            <PatientBasicInfoForm extraInput={this.keywordInput} />
                         </Paper>
                     </Grid>
                     <Grid container item spacing={24} className={classes.filterContainer}>
@@ -142,13 +147,14 @@ class PatientsDatabase extends Component<Props> {
                                 <Select
                                     className={classes.select}
                                     input={<OutlinedInput
-                                                placeholder="soma"
-                                                labelWidth={300} //{this.state.InputLabelRef}
-                                                name="filter"
-                                                id="filter"
-                                                enableSearch                   
-                                                classes={{
-                                                    input: classes.formFieldSelectInput}}/>}>
+                                        placeholder="soma"
+                                        labelWidth={300} //{this.state.InputLabelRef}
+                                        name="filter"
+                                        id="filter"
+                                        enableSearch
+                                        classes={{
+                                            input: classes.formFieldSelectInput
+                                        }} />}>
                                     <MenuItem value={10}>Chronic Patient</MenuItem>
                                     <MenuItem value={20}>Properly admission</MenuItem>
                                     <MenuItem value={30}>Visited this month</MenuItem>
@@ -159,9 +165,9 @@ class PatientsDatabase extends Component<Props> {
                     </Grid>
                     <Grid container item style={{ padding: '47px 0' }} spacing={24}>
                         {loading === true ?
-                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>
+                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }} />
                             :
-                            (patients.map((patient) => (<PatientsListItem key={patient.id} patient={patient}/>)))}
+                            (patients.map((patient) => (<PatientsListItem key={patient.id} patient={patient} />)))}
                     </Grid>
                     <Grid item xs={12} sm={2} className={classes.loadMoreContainer}>
                         <Button type="button" variant="outlined" color="inherit" classes={{ root: classes.button, label: classes.buttonLabel }}>
@@ -174,14 +180,14 @@ class PatientsDatabase extends Component<Props> {
     }
 }
 
-function mapStateToProps({ patients, loading }) {
+function mapStateToProps(state: AppState) {
     return {
-        patients: objectToArray(patients),
-        loading,
+        patients: objectToArray(state.patients),
+        loading: state.loading,
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
     return {
         getPatients: () => dispatch(getPatientsThunk()),
     }
