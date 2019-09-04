@@ -31,7 +31,7 @@ export interface Patient {
 }
 
 export interface PatientsList {
-    patients: { [id: string]: Patient }
+    [id: string]: Patient
 }
 
 interface getPatientsAction{
