@@ -9,9 +9,7 @@ import {
 	PatientsList,
 } from '../types/patients'
 
-const initialState: PatientsList = {}
-
-export default function patients(state = initialState, action: PatientsActionTypes): PatientsList{
+export default function patients(state: PatientsList = {}, action: PatientsActionTypes): PatientsList{
 	return produce(state, draft => {
 		switch(action.type){
 			case GET_PATIENTS :
