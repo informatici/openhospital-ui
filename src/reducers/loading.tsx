@@ -1,7 +1,7 @@
 import produce from 'immer';
-import { LOADING } from '../actions/loading';
+import { LOADING, LoadingAction } from '../types/loading';
 
-export default function loading(state = null, action){
+export default function loading(state: boolean = false, action: LoadingAction){
 	return produce(state, (draft) => {
 		switch(action.type) {
 			case LOADING :
