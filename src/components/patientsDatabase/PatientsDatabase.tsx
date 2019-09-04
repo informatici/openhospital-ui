@@ -37,16 +37,28 @@ import CancelIcon from '@material-ui/icons/Cancel';
 // constants
 import { PATH_NEW_PATIENT } from "../../helpers/constants";
 
-export interface Props extends WithStyles<typeof styles> { 
-    getPatients: any,
-    patients: Array<Patient>,
+export interface LocalProps extends WithStyles<typeof styles> { 
     classes: any,
     classNames: any,
+}
+
+interface StateProps {
+    patients: Array<Patient>,
     loading: boolean,
 }
 
-class PatientsDatabase extends Component<Props> {
-    state = {
+interface DispatchProps {
+    getPatients: () => void,
+}
+
+type Props = StateProps & DispatchProps & LocalProps
+
+interface State {
+    isDeleteDialogOpen: boolean
+}
+
+class PatientsDatabase extends Component<Props, State> {
+    state: State = {
         isDeleteDialogOpen: false,
     }
 
@@ -180,18 +192,18 @@ class PatientsDatabase extends Component<Props> {
     }
 }
 
-function mapStateToProps(state: AppState) {
+function mapStateToProps(state: AppState): StateProps {
     return {
         patients: objectToArray(state.patients),
         loading: state.loading,
     }
 }
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: any): DispatchProps {
     return {
         getPatients: () => dispatch(getPatientsThunk()),
     }
 }
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientsDatabase);
-export default connect(mapStateToProps, mapDispatchToProps)(styledComponent);
+export default connect<StateProps, DispatchProps, LocalProps>(mapStateToProps, mapDispatchToProps)(styledComponent);
