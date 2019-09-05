@@ -25,10 +25,9 @@ function getPatients(patients: PatientsList): PatientsActionTypes{
 export function getPatientsThunk(): ThunkAction<void, AppState, null, AnyAction>{
 	return async (dispatch) => {
 		dispatch(loading(true));
-		return getPatientsAPI().then((patients) => {
-			dispatch(loading(false));
-			dispatch(getPatients(patients));
-		})
+		const patients = await getPatientsAPI();
+		dispatch(loading(false));
+		dispatch(getPatients(patients));
 	}
 }
 
