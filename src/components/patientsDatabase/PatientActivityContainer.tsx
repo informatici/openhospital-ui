@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Link as LinkRouter, RouteComponentProps, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
 import _ from "lodash";
 
 // local imports
-import { MaterialLinkRouter } from "../utils/LinkHelper";
 import styles from "./styles/PatientDetails.style";
 import HealthInfoBar from "./HealthInfoBar";
 import PatientDetails from "./PatientDetails";
@@ -17,13 +16,11 @@ import PatientExamination from "./PatientExamination";
 import PatientVaccination from "./PatientVaccination";
 import NewVaccination from "./NewVaccination";
 import NewLabTest from "./NewLabTest";
-import { Patient } from 'generate';
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
 import { getPatientThunk, clearPatientInDetails, getPatient } from '../../actions/patientInDetails';
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -41,8 +38,27 @@ import {
     PATH_OPD,
     PATH_NEW_OPD,
 } from "../../helpers/constants"
+import { Patient } from 'types/patients';
+import { AppState } from 'reducers';
 
-class PatientActivityContainer extends Component {
+export interface LocalProps extends WithStyles<typeof styles> {
+    classes: any
+}
+
+interface StateProps {
+    patientInDetails: {} | Patient
+    loading: boolean
+}
+
+interface DispatchProps {
+    putPatientInStore: (patient: Patient) => void
+    getPatientInServer: (id: string) => void
+    clearPatientInDetails: () => void
+}
+
+type Props = StateProps & DispatchProps & LocalProps
+
+class PatientActivityContainer extends Component<Props> {
 
     componentDidMount(){
         const { 
@@ -146,14 +162,14 @@ class PatientActivityContainer extends Component {
     }
 }
 
-function mapStateToProps ({ patientInDetails, loading }){
+function mapStateToProps (state: AppState): StateProps{
     return {
-        patientInDetails,
-        loading,
+        patientInDetails: state.patientInDetails,
+        loading: state.loading,
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any): DispatchProps {
     return {
         putPatientInStore: (patient) => dispatch(getPatient(patient)),
         getPatientInServer: (id) => dispatch(getPatientThunk(id)),

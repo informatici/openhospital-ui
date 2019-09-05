@@ -2,6 +2,8 @@ export const GET_PATIENTS = 'GET_PATIENTS';
 export const ADD_NEW_PATIENT = 'ADD_NEW_PATIENT';
 export const DELETE_PATIENT = 'DELETE_PATIENT';
 export const UPDATE_PATIENT_DETAILS = 'UPDATE_PATIENT_DETAILS';
+export const GET_PATIENT = "GET_PATIENT";
+export const CLEAR_PATIENT_IN_DETAILS = 'CLEAR_PATIENT_IN_DETAILS';
 
 interface lastWhoVisited {
     name: string
@@ -54,8 +56,20 @@ interface updatePatientDetailsAction{
     patient: Patient
 }
 
-export type PatientsActionTypes = 
-getPatientsAction | 
-addNewPatientAction | 
-deletePatientAction | 
-updatePatientDetailsAction
+export type PatientsActionTypes =
+    getPatientsAction |
+    addNewPatientAction |
+    deletePatientAction |
+    updatePatientDetailsAction
+
+interface getPatientAction{
+    type: typeof GET_PATIENT
+    patient: Patient
+}
+
+interface clearPatientInDetailsAction{
+    type: typeof CLEAR_PATIENT_IN_DETAILS
+    patient: {}
+}
+
+export type PatientInDetailsActionTypes = getPatientAction | clearPatientInDetailsAction
