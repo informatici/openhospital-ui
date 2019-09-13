@@ -179,4 +179,4 @@ function mapDispatchToProps(dispatch: any): DispatchProps {
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientActivityContainer);
 const routeredComponent = withRouter(styledComponent)
-export default connect(mapStateToProps, mapDispatchToProps)(routeredComponent);
+export default connect<StateProps, DispatchProps, LocalProps>(mapStateToProps, mapDispatchToProps)(routeredComponent);
