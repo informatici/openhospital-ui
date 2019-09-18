@@ -173,6 +173,7 @@ class Calendar extends Component {
     var year = this.state.current.getFullYear();
     var date = this.state.current.getDate();
 
+     
     var upperDate = null;
     if( this.props.showHeader ) {
       upperDate = (<div className='header center'>
@@ -182,10 +183,13 @@ class Calendar extends Component {
         <p className="header-month">{year}</p>
         {/* <p className="header-day">{tDate}</p> */}
       </div>);
-    }
+    
+  }
+
+   
     return (<div className="calendar-container">
     {/* return (<div className={this.props.orientation}> */}
-      {upperDate}
+      
       <div className="calendar">
         <div className='month'>
           <img className="month-arrow-left" src={ic_back} alt="back" onClick={this.prev.bind(this)}></img>
