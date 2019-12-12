@@ -31,7 +31,7 @@ import { FormControlLabel } from "@material-ui/core";
 import { 
     PATH_NEW_LAB_TEST,
     PATH_PATIENT_THERAPY,
-} from "../../config/constants"
+} from "../../helpers/constants"
 
 export interface Props extends WithStyles<typeof styles> {}
 
@@ -60,7 +60,7 @@ class PatientVisit extends React.Component<Props, State> {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
         const { openOptionalInfo } = this.state;
         {openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
 
@@ -69,10 +69,10 @@ class PatientVisit extends React.Component<Props, State> {
                 <Grid item xs={12} className={classes.colleagueProfileHeader}>
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
                         <Typography color="inherit" className={classes.patientName}>
-                            Modotoky Tokai
+                            {patient.firstName} {patient.secondName}
                         </Typography>
                         <Typography color="inherit" className={classes.patientAddress}>
-                            Provenance: <b>District, Village</b>
+                            Provenance: <b>{patient.address}</b>
                         </Typography>
                     </div>
                 </Grid>
@@ -157,7 +157,7 @@ class PatientVisit extends React.Component<Props, State> {
                         </Typography>
                     </Grid>
                     <Tooltip title="Add new patient's therapy" interactive placement="top">
-                        <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY} variant="outlined" color="inherit" classes={{ root: classes.detailButtonTherapy, label: classes.detailButtonLabel }}>
+                        <MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY.replace(':patientId', patient.id)} variant="outlined" color="inherit" classes={{ root: classes.detailButtonTherapy, label: classes.detailButtonLabel }}>
                             THERAPY
                         </MaterialButtonRouter>
                     </Tooltip>
@@ -250,7 +250,7 @@ class PatientVisit extends React.Component<Props, State> {
                 <Grid item xs={12} spacing={24} className={classes.detailButtonContainer}>
                     <MaterialButtonRouter
                         component={LinkRouter}
-                        to={PATH_NEW_LAB_TEST}
+                        to={PATH_NEW_LAB_TEST.replace(':patientId', patient.id)}
                         variant="contained"
                         color="secondary"
                         classes={{ root: classes.detailButton, label: classes.detailButtonLabelInverse }}>

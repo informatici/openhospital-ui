@@ -25,7 +25,7 @@ import FormControl from "@material-ui/core/FormControl";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 // constants
-import { PATH_PATIENT_THERAPY } from "../../config/constants"
+import { PATH_PATIENT_THERAPY } from "../../helpers/constants"
 
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -53,43 +53,18 @@ class PatientAdmission extends Component<Props, State>{
 	};
 
 	render(){
-		const { classes } = this.props;
+		const { classes, patient } = this.props;
 		const { openOptionalInfo } = this.state;
-		const patientInfo = {
-		    isChronic: false,
-	        lastDocWhoVisitedHim: {
-	            name: "Marcus",
-	            surname: "Marcus",
-	            occupation: "Anesthesiologist",
-	            phone: "555 911 118",
-	            email: "doc@hospital.org",
-	        }
-	        firstName: "Antônio",
-	        secondName: "Carlos Jobim",
-	        code: 123456,
-	        age: 87,
-	        sex: "M",
-	        gender: "undefined",
-	        photo: null,
-	        bloodType: "A+",
-	        nextKin: "Jorge de Oliveira Jobim",
-	        notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-	        lastAdmission: "22.01.2019",
-	        reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-	        treatment: "Bloodletting"
-	        address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
-		} //TODO this data has to be fetched from store after redux's ready
-
 		{openOptionalInfo ? <ExpandLess /> : <ExpandMore />;}
 		return(
 			<Grid item xs={12} sm={9} className={classes.colleagueContent}>
 				<Grid item xs={12} className={classes.colleagueProfileHeader}>
 					<div style={{ flexDirection: "column", textAlign: "left" }}>
 						<Typography color="inherit" className={classes.patientName}>
-							Modotoky Tokai
+							{patient.firstName} {patient.secondName}
 						</Typography>
 						<Typography color="inherit" className={classes.patientAddress}>
-							Provenance: <b>District, Village</b>
+							Provenance: <b>{patient.address}</b>
 						</Typography>
 					</div>
 				</Grid>
@@ -180,7 +155,7 @@ class PatientAdmission extends Component<Props, State>{
 							DRUGS PRESCRIBED
 						</Typography>
 					</Grid>
-					<MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY} variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
+					<MaterialButtonRouter component={LinkRouter} to={PATH_PATIENT_THERAPY.replace(':patientId', patient.id)} variant="outlined" color="secondary" classes={{ root: classes.detailButtonTherapy }}>
 						Therapy
 					</MaterialButtonRouter>
 					<TextField
@@ -306,3 +281,8 @@ class PatientAdmission extends Component<Props, State>{
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientAdmission);
 export default styledComponent;
+
+
+
+
+

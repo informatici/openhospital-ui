@@ -133,7 +133,7 @@ class NewPatient extends React.Component <IProps, State > {
                     <Grid container className={classes.gridContainer} justify="center" spacing={24}>
                         <Grid container item spacing={24}>
                             <Grid item xs={12}>
-                                <BreadcrumbTrail/>
+                                <BreadcrumbTrail match={this.props.match}/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography variant="inherit" className={classes.colleaguesTitle}>

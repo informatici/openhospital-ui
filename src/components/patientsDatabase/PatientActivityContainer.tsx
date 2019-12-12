@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Link as LinkRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux'
 import _ from "lodash";
 
 // local imports
-import { MaterialLinkRouter } from "../utils/LinkHelper";
 import styles from "./styles/PatientDetails.style";
 import HealthInfoBar from "./HealthInfoBar";
 import PatientDetails from "./PatientDetails";
@@ -16,14 +16,14 @@ import PatientExamination from "./PatientExamination";
 import PatientVaccination from "./PatientVaccination";
 import NewVaccination from "./NewVaccination";
 import NewLabTest from "./NewLabTest";
-import { Patient } from 'generate';
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
+import { getPatientThunk, clearPatientInDetails, getPatient } from '../../actions/patientInDetails';
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // constants
 import { 
@@ -37,35 +37,50 @@ import {
     PATH_PATIENT_NEW_VACCINATION,
     PATH_OPD,
     PATH_NEW_OPD,
-} from "../../config/constants"
+} from "../../helpers/constants"
+import { Patient } from 'types/patients';
+import { AppState } from 'reducers';
 
-export interface Props extends WithStyles<typeof styles> { }
-
-interface State {
-    labelWidth: number;
-    error: any;
-    isLoaded: boolean;
-    item: Patient;
-    openOptionalInfo: boolean;
+export interface LocalProps extends WithStyles<typeof styles> {
+    classes: any
 }
 
-interface IRouteParams {
-    id: string;
+interface StateProps {
+    patientInDetails: {} | Patient
+    loading: boolean
 }
 
-interface IProps extends RouteComponentProps<IRouteParams> { }
+interface DispatchProps {
+    putPatientInStore: (patient: Patient) => void
+    getPatientInServer: (id: string) => void
+    clearPatientInDetails: () => void
+}
 
-class PatientActivityContainer extends Component<IProps> {
-    state: State = {
-        labelWidth: 0,
-        error: null,
-        isLoaded: false,
-        openOptionalInfo: false,
-    };
+type Props = StateProps & DispatchProps & LocalProps
 
-    getActivityTitle = () => {
-        const currentPath = this.props.location.pathname
-        switch(currentPath){
+class PatientActivityContainer extends Component<Props> {
+
+    componentDidMount(){
+        const { 
+            match, 
+            putPatientInStore,
+            getPatientInServer,
+            location, 
+        } = this.props
+
+        if (location.patient) {
+            putPatientInStore(location.patient)
+        } else {
+            getPatientInServer(match.params.patientId)
+        }
+    }
+
+    componentWillUnmount(){
+        this.props.clearPatientInDetails();
+    }
+
+    getActivityTitle = (match) => {
+        switch(match.path){
             case PATH_PATIENT_DETAILS:
                 return "Patient Details";
             case PATH_PATIENT_ADMISSION:
@@ -92,82 +107,76 @@ class PatientActivityContainer extends Component<IProps> {
     }
 
     render() {
-        const { classes } = this.props;
-        const patientInfo = {
-            isChronic: false,
-            lastDocWhoVisitedHim: {
-                name: "Marcus",
-                surname: "Marcus",
-                occupation: "Anesthesiologist",
-                phone: "555 911 118",
-                email: "doc@hospital.org",
-            }
-            firstName: "Antônio",
-            secondName: "Carlos Jobim",
-            code: 123456,
-            age: 87,
-            sex: "M",
-            gender: "undefined",
-            photo: null,
-            bloodType: "A+",
-            nextKin: "Jorge de Oliveira Jobim",
-            notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            lastAdmission: "22.01.2019",
-            reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-            treatment: "Bloodletting"
-            address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
-        } //TODO this data has to be fetched from store after redux's ready
-        const { openOptionalInfo } = this.state;
-        console.log(this.props)
+        const { classes, patientInDetails, loading, match } = this.props;
         return (
             <div className={classes.root}>
-                <Grid container className={classes.gridContainer} justify="center" spacing={24}>
-                    <Grid container item spacing={24}>
-                        <Grid item xs={12}>
-                            <BreadcrumbTrail/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="inherit" className={classes.patientTitle}>
-                                {this.getActivityTitle()}
-                            </Typography>
-                        </Grid>
+                {loading === true ?
+                    <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+                        <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>
                     </Grid>
-                    <Grid container item justify="center" spacing={24}>
+                    :
+                    <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+                        <Grid container item spacing={24}>
+                            <Grid item xs={12}>
+                                <BreadcrumbTrail match={match}/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="inherit" className={classes.patientTitle}>
+                                    {this.getActivityTitle(match)}
+                                </Typography>
+                            </Grid>
+                        </Grid>
                         <Grid container item justify="center" spacing={24}>
-                            <HealthInfoBar patientInfo={patientInfo}/>
+                            <HealthInfoBar patient={patientInDetails}/>
                             {(() => {
-                                switch (this.props.location.pathname) {
+                                switch (match.path) {
                                     case PATH_PATIENT_DETAILS:
-                                        return(<PatientDetails/>);
+                                        return(<PatientDetails patient={patientInDetails}/>);
                                     case PATH_PATIENT_ADMISSION:
-                                        return(<PatientAdmission/>);
+                                        return(<PatientAdmission patient={patientInDetails}/>);
                                     case PATH_PATIENT_VISIT:
-                                        return(<PatientVisit/>);
+                                        return(<PatientVisit patient={patientInDetails}/>);
                                     case PATH_OPD:
-                                        return(<Opd/>)
+                                        return(<Opd patient={patientInDetails}/>)
                                     case PATH_NEW_OPD:
-                                        return(<NewOpd/>);
+                                        return(<NewOpd patient={patientInDetails}/>);
                                     case PATH_PATIENT_THERAPY:
-                                        return(<PatientTherapy/>);
+                                        return(<PatientTherapy patient={patientInDetails}/>);
                                     case PATH_PATIENT_EXAMINATION:
-                                        return(<PatientExamination/>);
+                                        return(<PatientExamination patient={patientInDetails}/>);
                                     case PATH_PATIENT_VACCINATION:
-                                        return(<PatientVaccination/>);
+                                        return(<PatientVaccination patient={patientInDetails}/>);
                                     case PATH_PATIENT_NEW_VACCINATION:
-                                        return(<NewVaccination/>);
+                                        return(<NewVaccination patient={patientInDetails}/>);
                                     case PATH_NEW_LAB_TEST:
-                                        return(<NewLabTest/>)
+                                        return(<NewLabTest patient={patientInDetails}/>)
                                     default:
                                         return(<div/>);
                                 }
                             })()}
                         </Grid>
                     </Grid>
-                </Grid>
+                }
             </div>
         );
     }
 }
 
+function mapStateToProps (state: AppState): StateProps{
+    return {
+        patientInDetails: state.patientInDetails,
+        loading: state.loading,
+    }
+}
+
+function mapDispatchToProps(dispatch: any): DispatchProps {
+    return {
+        putPatientInStore: (patient) => dispatch(getPatient(patient)),
+        getPatientInServer: (id) => dispatch(getPatientThunk(id)),
+        clearPatientInDetails: () => dispatch(clearPatientInDetails()),
+    }
+}
+
 const styledComponent = withStyles(styles, { withTheme: true })(PatientActivityContainer);
-export default styledComponent;
+const routeredComponent = withRouter(styledComponent)
+export default connect<StateProps, DispatchProps, LocalProps>(mapStateToProps, mapDispatchToProps)(routeredComponent);

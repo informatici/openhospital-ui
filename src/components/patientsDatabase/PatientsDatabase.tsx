@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import { Link as LinkRouter } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 // local imports
-import { MaterialButtonRouter, MaterialLinkRouter } from '../utils/LinkHelper';
+import { MaterialButtonRouter} from '../utils/LinkHelper';
 import PatientsListItem from "./PatientsListItem";
 import styles from './styles/PatientsDatabase.style';
-import { PatientControllerApi, GetPatientsUsingGETRequest } from '../../generate/apis';
-import { Patient } from 'generate';
 import classNames from 'classnames';
 import DeletePatientDialog from "./DeletePatientDialog";
 import PatientBasicInfoForm from "../sharedComponents/PatientBasicInfoForm"
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
+import { objectToArray } from '../../helpers/objectToArray'
+import { AppState } from '../../reducers/index';
+import { Patient } from '../../types/patients';
+
+// redux imports
+import { getPatientsThunk } from "../../actions/patients";
 
 // material imports
 import Button from '@material-ui/core/Button';
@@ -28,81 +33,42 @@ import Typography from '@material-ui/core/Typography';
 import MergeIcon from '@material-ui/icons//LibraryBooks';
 import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
-import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
 
 // constants
-import { PATH_NEW_PATIENT } from "../../config/constants";
+import { PATH_NEW_PATIENT } from "../../helpers/constants";
 
-export interface Props extends WithStyles<typeof styles> {}
+export interface LocalProps extends WithStyles<typeof styles> { 
+    classes: any,
+    classNames: any,
+}
+
+interface StateProps {
+    patients: Array<Patient>,
+    loading: boolean,
+}
+
+interface DispatchProps {
+    getPatients: () => void,
+}
+
+type Props = StateProps & DispatchProps & LocalProps
 
 interface State {
-    error: any;
-    isLoaded: boolean;
-    items: any[];
-    selectedDate: any;
-    patients: Array<Patient>;
-    visible: Number;
-    searchedValue: String;
-    isDeleteDialogOpen: boolean;
+    isDeleteDialogOpen: boolean
 }
 
 class PatientsDatabase extends Component<Props, State> {
     state: State = {
-        error: null,
-        isLoaded: false,
-        items: [],
-        selectedDate: new Date(),
         isDeleteDialogOpen: false,
-    };
-   
-    componentDidMount() {
-        const patientController: PatientControllerApi = new PatientControllerApi();
-        const requestParams: GetPatientsUsingGETRequest = { page: 1, size: 8 }
-
-        // TEST
-        const item = {
-            patientInfo: {
-                isChronic: false,
-                lastDocWhoVisitedHim: {
-                        name: "Marcus",
-                        surname: "Marcus",
-                        occupation: "Anesthesiologist",
-                        phone: "555 911 118",
-                        email: "doc@hospital.org",
-                }
-                firstName: "Antônio",
-                secondName: "Carlos Jobim",
-                code: 123456,
-                age: 87,
-                sex: "M",
-                gender: "undefined",
-                photo: null,
-                bloodType: "A+",
-                nextKin: "Jorge de Oliveira Jobim",
-                notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                lastAdmission: "22.01.2019",
-                reasonOfVisit: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-                treatment: "Bloodletting"
-                address: "Rua do Catete 90, Glória, Rio de Janeiro - RJ"
-            }
-        };
-
-        const items = [item, item, item, item, item, item, item];
-        this.setState({ isLoaded: true, items, });
-        // TEST
-
-        // patientController.getPatientsUsingGET(requestParams).then(
-        //     (result) => {
-        //         this.setState({ isLoaded: true, items: result, });
-        //     },
-        //     (error) => {
-        //       this.setState({ isLoaded: true, error });
-        //     }
-        // )
     }
 
-    keywordInput = (classes, classNames) => {
-        // this function defines an extra input for PatientBasicInfoForm
+    componentDidMount() {
+        this.props.getPatients();
+    }
+
+    keywordInput = (classes: any, classNames: any) => {
+        // this function defines an extra input for PatientBasicInfoForm, which has three default inputs,
+        // that are responsible for gathering Patient ID, Outpatient number and Inpatient number.
         return (
             <Grid item xs={12} sm={3}>
                 <TextField
@@ -123,36 +89,36 @@ class PatientsDatabase extends Component<Props, State> {
                         },
                     }}
                     margin="normal"
-                    variant="outlined"/>
+                    variant="outlined" />
             </Grid>
         )
     }
 
     public render() {
-        const { classes, theme } = this.props;
-        const { items, isLoaded, error, isDeleteDialogOpen } = this.state;
+        const { classes, patients, loading } = this.props;
+        const { isDeleteDialogOpen } = this.state;
         return (
             <div className={classes.root}>
                 <Grid container className={classes.gridContainer} justify='center' spacing={24}>
                     <Grid container item justify='center' spacing={24}>
                         <Grid item xs={12}>
-                            <BreadcrumbTrail/>
+                            <BreadcrumbTrail match={this.props.match} />
                         </Grid>
                         <Grid item xs={12} className={classes.patientActions}>
                             <Typography variant="inherit" className={classes.patientsTitle}>
                                 PATIENTS
                             </Typography>
                             <Grid>
-                                <Button color="inherit" 
-                                    onClick={() => this.setState({ isDeleteDialogOpen: true })} 
+                                <Button color="inherit"
+                                    onClick={() => this.setState({ isDeleteDialogOpen: true })}
                                     classes={{ root: classes.button, label: classes.buttonLabel }}>
                                     <CancelIcon className={classes.buttonIcon} />
                                     Delete a patient
                                 </Button>
-                                <DeletePatientDialog 
-                                    isOpen={isDeleteDialogOpen} 
-                                    handleClickClose={() => this.setState({ isDeleteDialogOpen: false })}/>
-                            </Grid>                  
+                                <DeletePatientDialog
+                                    isOpen={isDeleteDialogOpen}
+                                    handleClickClose={() => this.setState({ isDeleteDialogOpen: false })} />
+                            </Grid>
                             <MaterialButtonRouter component={LinkRouter} to={PATH_NEW_PATIENT} color="inherit" classes={{ root: (classNames(classes.button, 'addButton')), label: classes.buttonLabel }}>
                                 <AddIcon className={classes.buttonIcon} />
                                 Record new patient
@@ -175,7 +141,7 @@ class PatientsDatabase extends Component<Props, State> {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                            <PatientBasicInfoForm extraInput={this.keywordInput}/>
+                            <PatientBasicInfoForm extraInput={this.keywordInput} />
                         </Paper>
                     </Grid>
                     <Grid container item spacing={24} className={classes.filterContainer}>
@@ -193,13 +159,14 @@ class PatientsDatabase extends Component<Props, State> {
                                 <Select
                                     className={classes.select}
                                     input={<OutlinedInput
-                                                placeholder="soma"
-                                                labelWidth={300} //{this.state.InputLabelRef}
-                                                name="filter"
-                                                id="filter"
-                                                enableSearch                   
-                                                classes={{
-                                                    input: classes.formFieldSelectInput}}/>}>
+                                        placeholder="soma"
+                                        labelWidth={300} //{this.state.InputLabelRef}
+                                        name="filter"
+                                        id="filter"
+                                        enableSearch
+                                        classes={{
+                                            input: classes.formFieldSelectInput
+                                        }} />}>
                                     <MenuItem value={10}>Chronic Patient</MenuItem>
                                     <MenuItem value={20}>Properly admission</MenuItem>
                                     <MenuItem value={30}>Visited this month</MenuItem>
@@ -209,10 +176,10 @@ class PatientsDatabase extends Component<Props, State> {
                         </Grid>
                     </Grid>
                     <Grid container item style={{ padding: '47px 0' }} spacing={24}>
-                        {items && items.length !== 0 ?
-                            (items.map((item) => (<PatientsListItem info={item}/>)))
+                        {loading === true ?
+                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }} />
                             :
-                            <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>}
+                            (patients.map((patient) => (<PatientsListItem key={patient.id} patient={patient} />)))}
                     </Grid>
                     <Grid item xs={12} sm={2} className={classes.loadMoreContainer}>
                         <Button type="button" variant="outlined" color="inherit" classes={{ root: classes.button, label: classes.buttonLabel }}>
@@ -225,5 +192,18 @@ class PatientsDatabase extends Component<Props, State> {
     }
 }
 
+function mapStateToProps(state: AppState): StateProps {
+    return {
+        patients: objectToArray(state.patients),
+        loading: state.loading,
+    }
+}
+
+function mapDispatchToProps(dispatch: any): DispatchProps {
+    return {
+        getPatients: () => dispatch(getPatientsThunk()),
+    }
+}
+
 const styledComponent = withStyles(styles, { withTheme: true })(PatientsDatabase);
-export default styledComponent;
+export default connect<StateProps, DispatchProps, LocalProps>(mapStateToProps, mapDispatchToProps)(styledComponent)
