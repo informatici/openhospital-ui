@@ -15,11 +15,11 @@ import News from "./components/news/News";
 import NewsDetails from "./components/news/newsDetails/NewsDetails";
 import setting from "./components/settings/Setting";
 import Calendar from "./components/calendar/Calendario";
-import Notification from "./components/Notifications/Notification";
+import Notification from "./components/notifications/Notification";
 import PageNotFound from "./components/pageNotFound/PageNotFound";
 
 // constants
-import { 
+import {
     PATH_PATIENTS_DATABASE,
     PATH_NEW_PATIENT,
     PATH_PATIENT_DETAILS,
@@ -37,7 +37,7 @@ import {
 const Routes = () => (
    <div>
         <Header />
-        <Switch>  
+        <Switch>
             <Redirect from="/" exact={true} to="/dashboard" />
             <Route path="/dashboard" component={Dashboard} />
             <Route exact={true} path={PATH_PATIENTS_DATABASE} component={PatientsDatabase} />

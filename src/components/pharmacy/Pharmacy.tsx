@@ -19,7 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import * as React from "react";
 import { Link as LinkRouter } from "react-router-dom";
-import styles from "./Pharmacy.style";
+import styles from "./pharmacy.style";
 import classNames from "classnames";
 export interface Props extends WithStyles<typeof styles> {}
 
