@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link as LinkRouter } from 'react-router-dom';
-import PatientsListItem from "../PatientsDatabase/PatientsListItem";
+import PatientsListItem from "../patientsDatabase/PatientsListItem";
 import styles from './Ward.style';
 export interface Props extends WithStyles<typeof styles> { }
 
@@ -29,7 +29,7 @@ interface State {
   isLoaded: boolean;
   items: any;
   value?: number;
-  
+
 }
 
 class Ward extends React.Component {
@@ -38,7 +38,7 @@ class Ward extends React.Component {
     error: null,
     isLoaded: false,
     value: 0,
-    
+
   };
 
   componentDidMount() {
@@ -67,7 +67,7 @@ class Ward extends React.Component {
     const items = [item, item, item, item, item, item, item];
     this.setState({ isLoaded: true, items, });
     // </test>
-    
+
     // fetch("https://uinames.com/api/?ext&amount=9")
     //   .then(res => res.json())
     //   .then(
@@ -111,8 +111,8 @@ class Ward extends React.Component {
           color="secondary"
           style={{ margin: '20px auto' }} />
     )
-    
-    
+
+
     return (
       <div className={classes.root}>
         <Grid container item className={classes.gridContainer} justify="center" spacing={24}>
@@ -253,14 +253,14 @@ class Ward extends React.Component {
                     classes: {
                       focused: classes.cssFocused,
                       root: classes.formFieldInputLabel,
-                      
+
                     },
                   }}
                   InputProps={{
                     classes: {
                       notchedOutline: classes.cssOutlinedInput,
                       root: classes.formFieldInput,
-                      
+
                     },
                   }}
 
@@ -534,14 +534,14 @@ class Ward extends React.Component {
                     classes: {
                       focused: classes.cssFocused,
                       root: classes.formFieldInputLabel,
-                      
+
                     },
                   }}
                   InputProps={{
                     classes: {
                       notchedOutline: classes.cssOutlinedInput,
                       root: classes.formFieldInput,
-                      
+
                     },
                   }}
 
