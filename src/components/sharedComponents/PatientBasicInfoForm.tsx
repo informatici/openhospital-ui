@@ -39,7 +39,6 @@ class PatientBasicInfoForm extends Component<Props> {
                   }}
                   InputProps={{
                     classes: {
-                      root: classes.formFieldInput,
                       notchedOutline: classes.cssOutlinedInput,
                     },
                   }}
