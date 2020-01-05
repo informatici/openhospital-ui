@@ -121,7 +121,6 @@ class Login extends React.Component {
                       }}
                       InputProps={{
                         classes: {
-                          root: classes.formFieldInput,
                           notchedOutline: classes.cssOutlinedInput,
                         },
                       }}
@@ -148,7 +147,6 @@ class Login extends React.Component {
                       }}
                       InputProps={{
                         classes: {
-                          root: classes.formFieldInput,
                           notchedOutline: classes.cssOutlinedInput,
                         },
                       }}

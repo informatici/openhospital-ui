@@ -107,15 +107,11 @@ const styles = (theme: Theme) =>
       width: "100%",
     },
 
-    formFieldInput: {
-      padding: "6px 0",
-      "& input": {
-        padding: 6,
-      },
-    },
-
     formFieldInputLabel: {
-      transform: "translate(14px, 14px) scale(1)",
+      transform: "translate(14px, 19px) scale(1)",
+      backgroundColor: "white",
+      borderRadius: 2,
+      padding: "1px",
     },
 
     cssOutlinedInput: {
@@ -127,7 +123,7 @@ const styles = (theme: Theme) =>
 
     cssFocused: {
       "&$cssFocused": {
-        transform: "translate(0px, -20px) scale(1)",
+        transform: "translate(5px, -20px) scale(0.85)",
       },
     },
 
