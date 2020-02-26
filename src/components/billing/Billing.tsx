@@ -483,7 +483,7 @@ class Billing extends React.Component {
   }
 }
 
-Billing.PropTypes = {
+Billing.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

@@ -713,7 +713,7 @@ class Ward extends React.Component {
   }
 }
 
-Ward.PropTypes = {
+Ward.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
