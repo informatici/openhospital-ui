@@ -177,7 +177,7 @@ class NewsDetails extends React.Component {
   }
 }
 
-NewsDetails.PropTypes = {
+NewsDetails.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

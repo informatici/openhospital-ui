@@ -564,7 +564,7 @@ class Pharmacy extends React.Component<Props, State> {
   }
 }
 
-Pharmacy.PropTypes = {
+Pharmacy.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

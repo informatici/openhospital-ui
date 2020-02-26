@@ -328,7 +328,7 @@ class Login extends React.Component {
   }
 }
 
-Login.PropTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

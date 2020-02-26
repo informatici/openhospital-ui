@@ -198,7 +198,7 @@ class Notification extends React.Component<Props, State> {
   }
 }
 
-Notification.PropTypes = {
+Notification.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

@@ -185,7 +185,7 @@ class Setting extends React.Component<Props, State> {
   }
 }
 
-Setting.PropTypes = {
+Setting.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
