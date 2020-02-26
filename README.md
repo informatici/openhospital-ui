@@ -4,6 +4,17 @@ This boilerplate is generated using [Create React App](https://github.com/facebo
 
 You can read the original [README here](./README.original.md)
 
+## Quickstart
+
+Use `npm install` to install dependencies.
+
+- `npm run start`, runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `npm run test`, runs the tests
+- `npm run api`, runs the api backend via `openapi-server` command
+- `npm run start:api", runs concurrently the api server and the ui
+- `npm run build`, builds the ui
+- `npm run coverage`, run tests with coverage
+
 ## Guidelines
 
 ### Folder structure
