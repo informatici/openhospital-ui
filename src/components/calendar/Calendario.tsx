@@ -329,7 +329,7 @@ class Calendario extends React.Component<Props, State> {
   }
 }
 
-Calendar.propTypes = {
+Calendario.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
