@@ -6,8 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/lab/Breadcrumbs";
 import PropTypes from "prop-types";
 import * as React from "react";
-import ReactDOM from "react-dom";
-import { Link as LinkRouter, Link} from "react-router-dom";
+import { Link as LinkRouter } from "react-router-dom";
 import styles from "./Notification.style";
 import { MaterialLinkRouter } from "../utils/LinkHelper";
 
