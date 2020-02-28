@@ -32,6 +32,10 @@ class News extends React.Component {
     isLoaded: false,
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   public render() {
     const { classes } = this.props;
 
@@ -305,10 +309,6 @@ class News extends React.Component {
     );
   }
 }
-
-News.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(News);
 export default styledComponent;

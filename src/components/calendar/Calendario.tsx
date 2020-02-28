@@ -40,6 +40,10 @@ class Calendario extends React.Component<Props, State> {
     openOptionalInfo: false
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   public handleChange = (event: React.MouseEvent<HTMLElement>, value: number) => {
     this.setState({ value });
   };
@@ -328,10 +332,6 @@ class Calendario extends React.Component<Props, State> {
     );
   }
 }
-
-Calendario.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Calendario);
 export default styledComponent;
