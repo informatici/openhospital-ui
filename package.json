@@ -37,6 +37,7 @@
     "@types/sass": "^1.16.0",
     "autoprefixer": "^9.4.7",
     "axios": "^0.18.1",
+    "browserslist": "^4.9.0",
     "classnames": "^2.2.6",
     "concurrently": "^4.1.0",
     "config": "^3.0.1",
