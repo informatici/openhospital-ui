@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { FunctionComponent } from "react";
 
 // local imports
 import styles from "./styles/PatientBasicInfoForm.style";
@@ -11,49 +11,46 @@ import TextField from "@material-ui/core/TextField";
 
 export interface Props extends WithStyles<typeof styles> {}
 
-class PatientBasicInfoForm extends Component<Props> {
-  basicInfoTextFields = [
+const PatientBasicInfoForm: FunctionComponent<Props> = ({ classes, children }) => {
+  const basicInfoTextFields = [
     { id: "patientId", label: "Patient ID (PID)" },
     { id: "outpatientNumber", label: "Outpatient Number (OPD)" },
     { id: "inpatientNumber", label: "Inpatient Number (IPD)" },
   ];
 
-  render() {
-    const { classes, extraInput } = this.props;
-    return (
-      <div>
-        <form>
-          <Grid container item spacing={24}>
-            {this.basicInfoTextFields.map(field => (
-              <Grid item xs={12} sm={3}>
-                <TextField
-                  id={field.id}
-                  label={field.label}
-                  type="text"
-                  className={classNames(classes.formField, classes.cssOutlinedInput)}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.formFieldInputLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.cssOutlinedInput,
-                    },
-                  }}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </Grid>
-            ))}
-            {extraInput(classes, classNames)}
-          </Grid>
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <form>
+        <Grid container item spacing={24}>
+          {basicInfoTextFields.map(field => (
+            <Grid item xs={12} sm={3}>
+              <TextField
+                id={field.id}
+                label={field.label}
+                type="text"
+                className={classNames(classes.formField, classes.cssOutlinedInput)}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.formFieldInputLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.cssOutlinedInput,
+                  },
+                }}
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+          ))}
+          {children}
+        </Grid>
+      </form>
+    </div>
+  );
+};
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientBasicInfoForm);
 export default styledComponent;

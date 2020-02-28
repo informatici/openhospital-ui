@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from 'react-redux'
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { connect } from "react-redux";
 import _ from "lodash";
 
 // local imports
@@ -16,167 +16,165 @@ import PatientExamination from "./PatientExamination";
 import PatientVaccination from "./PatientVaccination";
 import NewVaccination from "./NewVaccination";
 import NewLabTest from "./NewLabTest";
-import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
-import { getPatientThunk, clearPatientInDetails, getPatient } from '../../actions/patientInDetails';
+import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail";
+import { getPatientThunk, clearPatientInDetails, getPatient } from "../../actions/patientInDetails";
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // constants
-import { 
-    PATH_PATIENT_DETAILS,
-    PATH_PATIENT_VISIT,
-    PATH_PATIENT_ADMISSION,
-    PATH_NEW_LAB_TEST,
-    PATH_PATIENT_THERAPY,
-    PATH_PATIENT_EXAMINATION,
-    PATH_PATIENT_VACCINATION,
-    PATH_PATIENT_NEW_VACCINATION,
-    PATH_OPD,
-    PATH_NEW_OPD,
-} from "../../helpers/constants"
-import { Patient } from 'types/patients';
-import { AppState } from 'reducers';
+import {
+  PATH_PATIENT_DETAILS,
+  PATH_PATIENT_VISIT,
+  PATH_PATIENT_ADMISSION,
+  PATH_NEW_LAB_TEST,
+  PATH_PATIENT_THERAPY,
+  PATH_PATIENT_EXAMINATION,
+  PATH_PATIENT_VACCINATION,
+  PATH_PATIENT_NEW_VACCINATION,
+  PATH_OPD,
+  PATH_NEW_OPD,
+} from "../../helpers/constants";
+import { Patient } from "types/patients";
+import { AppState } from "reducers";
 
 export interface LocalProps extends WithStyles<typeof styles> {
-    classes: any
+  classes: any;
 }
 
 interface StateProps {
-    patientInDetails: {} | Patient
-    loading: boolean
+  patientInDetails: {} | Patient;
+  loading: boolean;
 }
 
 interface DispatchProps {
-    putPatientInStore: (patient: Patient) => void
-    getPatientInServer: (id: string) => void
-    clearPatientInDetails: () => void
+  putPatientInStore: (patient: Patient) => void;
+  getPatientInServer: (id: string) => void;
+  clearPatientInDetails: () => void;
 }
 
-type Props = StateProps & DispatchProps & LocalProps
+type Props = StateProps & DispatchProps & LocalProps & RouteComponentProps;
 
 class PatientActivityContainer extends Component<Props> {
+  componentDidMount() {
+    const { match, putPatientInStore, getPatientInServer, location } = this.props;
+    console.log(location, match);
 
-    componentDidMount(){
-        const { 
-            match, 
-            putPatientInStore,
-            getPatientInServer,
-            location, 
-        } = this.props
-
-        if (location.patient) {
-            putPatientInStore(location.patient)
-        } else {
-            getPatientInServer(match.params.patientId)
-        }
+    if (location.patient) {
+      putPatientInStore(location.patient);
+    } else {
+      getPatientInServer(match.params.patientId);
     }
+  }
 
-    componentWillUnmount(){
-        this.props.clearPatientInDetails();
+  componentWillUnmount() {
+    this.props.clearPatientInDetails();
+  }
+
+  getActivityTitle = match => {
+    switch (match.path) {
+      case PATH_PATIENT_DETAILS:
+        return "Patient Details";
+      case PATH_PATIENT_ADMISSION:
+        return "Patient Admission";
+      case PATH_PATIENT_VISIT:
+        return "Patient Visit";
+      case PATH_OPD:
+        return "Outpatient Department History";
+      case PATH_NEW_OPD:
+        return "New Outpatient Department Registration";
+      case PATH_PATIENT_THERAPY:
+        return "Patient Therapy";
+      case PATH_PATIENT_EXAMINATION:
+        return "Patient Examination";
+      case PATH_PATIENT_VACCINATION:
+        return "Patient Vaccination";
+      case PATH_PATIENT_NEW_VACCINATION:
+        return "New Vaccionation";
+      case PATH_NEW_LAB_TEST:
+        return "New Laboratory Test";
+      default:
+        return "";
     }
+  };
 
-    getActivityTitle = (match) => {
-        switch(match.path){
-            case PATH_PATIENT_DETAILS:
-                return "Patient Details";
-            case PATH_PATIENT_ADMISSION:
-                return "Patient Admission";
-            case PATH_PATIENT_VISIT:
-                return "Patient Visit";
-            case PATH_OPD:
-                return "Outpatient Department History"
-            case PATH_NEW_OPD:
-                return "New Outpatient Department Registration";
-            case PATH_PATIENT_THERAPY:
-                return "Patient Therapy";
-            case PATH_PATIENT_EXAMINATION:
-                return "Patient Examination");
-            case PATH_PATIENT_VACCINATION:
-                return "Patient Vaccination");
-            case PATH_PATIENT_NEW_VACCINATION:
-                return "New Vaccionation";
-            case PATH_NEW_LAB_TEST:
-                return "New Laboratory Test"
-            default:
-                return "";
-        }
-    }
-
-    render() {
-        const { classes, patientInDetails, loading, match } = this.props;
-        return (
-            <div className={classes.root}>
-                {loading === true ?
-                    <Grid container className={classes.gridContainer} justify="center" spacing={24}>
-                        <CircularProgress className={classes.progress} color="secondary" style={{ margin: '20px auto' }}/>
-                    </Grid>
-                    :
-                    <Grid container className={classes.gridContainer} justify="center" spacing={24}>
-                        <Grid container item spacing={24}>
-                            <Grid item xs={12}>
-                                <BreadcrumbTrail match={match}/>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant="inherit" className={classes.patientTitle}>
-                                    {this.getActivityTitle(match)}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid container item justify="center" spacing={24}>
-                            <HealthInfoBar patient={patientInDetails}/>
-                            {(() => {
-                                switch (match.path) {
-                                    case PATH_PATIENT_DETAILS:
-                                        return(<PatientDetails patient={patientInDetails}/>);
-                                    case PATH_PATIENT_ADMISSION:
-                                        return(<PatientAdmission patient={patientInDetails}/>);
-                                    case PATH_PATIENT_VISIT:
-                                        return(<PatientVisit patient={patientInDetails}/>);
-                                    case PATH_OPD:
-                                        return(<Opd patient={patientInDetails}/>)
-                                    case PATH_NEW_OPD:
-                                        return(<NewOpd patient={patientInDetails}/>);
-                                    case PATH_PATIENT_THERAPY:
-                                        return(<PatientTherapy patient={patientInDetails}/>);
-                                    case PATH_PATIENT_EXAMINATION:
-                                        return(<PatientExamination patient={patientInDetails}/>);
-                                    case PATH_PATIENT_VACCINATION:
-                                        return(<PatientVaccination patient={patientInDetails}/>);
-                                    case PATH_PATIENT_NEW_VACCINATION:
-                                        return(<NewVaccination patient={patientInDetails}/>);
-                                    case PATH_NEW_LAB_TEST:
-                                        return(<NewLabTest patient={patientInDetails}/>)
-                                    default:
-                                        return(<div/>);
-                                }
-                            })()}
-                        </Grid>
-                    </Grid>
+  render() {
+    const { classes, patientInDetails, loading, match } = this.props;
+    return (
+      <div className={classes.root}>
+        {loading === true ? (
+          <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+            <CircularProgress className={classes.progress} color="secondary" style={{ margin: "20px auto" }} />
+          </Grid>
+        ) : (
+          <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+            <Grid container item spacing={24}>
+              <Grid item xs={12}>
+                <BreadcrumbTrail match={match} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="inherit" className={classes.patientTitle}>
+                  {this.getActivityTitle(match)}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container item justify="center" spacing={24}>
+              <HealthInfoBar patient={patientInDetails} />
+              {(() => {
+                switch (match.path) {
+                  case PATH_PATIENT_DETAILS:
+                    return <PatientDetails patient={patientInDetails} />;
+                  case PATH_PATIENT_ADMISSION:
+                    return <PatientAdmission patient={patientInDetails} />;
+                  case PATH_PATIENT_VISIT:
+                    return <PatientVisit patient={patientInDetails} />;
+                  case PATH_OPD:
+                    return <Opd patient={patientInDetails} />;
+                  case PATH_NEW_OPD:
+                    return <NewOpd patient={patientInDetails} />;
+                  case PATH_PATIENT_THERAPY:
+                    return <PatientTherapy patient={patientInDetails} />;
+                  case PATH_PATIENT_EXAMINATION:
+                    return <PatientExamination patient={patientInDetails} />;
+                  case PATH_PATIENT_VACCINATION:
+                    return <PatientVaccination patient={patientInDetails} />;
+                  case PATH_PATIENT_NEW_VACCINATION:
+                    return <NewVaccination patient={patientInDetails} />;
+                  case PATH_NEW_LAB_TEST:
+                    return <NewLabTest patient={patientInDetails} />;
+                  default:
+                    return <div />;
                 }
-            </div>
-        );
-    }
+              })()}
+            </Grid>
+          </Grid>
+        )}
+      </div>
+    );
+  }
 }
 
-function mapStateToProps (state: AppState): StateProps{
-    return {
-        patientInDetails: state.patientInDetails,
-        loading: state.loading,
-    }
+function mapStateToProps(state: AppState): StateProps {
+  return {
+    patientInDetails: state.patientInDetails,
+    loading: state.loading,
+  };
 }
 
 function mapDispatchToProps(dispatch: any): DispatchProps {
-    return {
-        putPatientInStore: (patient) => dispatch(getPatient(patient)),
-        getPatientInServer: (id) => dispatch(getPatientThunk(id)),
-        clearPatientInDetails: () => dispatch(clearPatientInDetails()),
-    }
+  return {
+    putPatientInStore: patient => dispatch(getPatient(patient)),
+    getPatientInServer: id => dispatch(getPatientThunk(id)),
+    clearPatientInDetails: () => dispatch(clearPatientInDetails()),
+  };
 }
 
 const styledComponent = withStyles(styles, { withTheme: true })(PatientActivityContainer);
-const routeredComponent = withRouter(styledComponent)
-export default connect<StateProps, DispatchProps, LocalProps>(mapStateToProps, mapDispatchToProps)(routeredComponent);
+const routeredComponent = withRouter(styledComponent);
+export default connect<StateProps, DispatchProps, LocalProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(routeredComponent);
