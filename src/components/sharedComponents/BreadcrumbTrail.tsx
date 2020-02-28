@@ -1,6 +1,4 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link as LinkRouter } from 'react-router-dom';
 
 // local imports

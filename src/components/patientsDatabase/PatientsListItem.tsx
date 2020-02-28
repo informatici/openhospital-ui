@@ -5,11 +5,9 @@ import _ from "lodash";
 // local imports
 import styles from "./styles/PatientsListItem.style";
 import { MaterialCardActionAreaRouter } from "../utils/LinkHelper";
-import { number } from 'prop-types';
-import { Patient } from 'generate';
 
 // material imports
-import { withStyles, WithStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
