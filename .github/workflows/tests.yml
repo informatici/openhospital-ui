@@ -1,0 +1,31 @@
+name: tests
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the develop branch
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Git Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Build the app
+        run: |
+          npm run build
+      - name: Run tests
+        run: |
+          npm run test
