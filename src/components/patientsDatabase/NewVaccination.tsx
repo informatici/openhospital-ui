@@ -3,7 +3,7 @@ import _ from "lodash";
 import { Link as LinkRouter } from "react-router-dom";
 
 // local imports
-import { MaterialLinkRouter, MaterialButtonRouter } from "../utils/LinkHelper";
+import { MaterialButtonRouter } from "../utils/LinkHelper";
 import classNames from "classnames";
 import styles from "./styles/NewVaccination.style";
 

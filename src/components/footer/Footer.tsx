@@ -1,7 +1,6 @@
 import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import styles from "./Footer.style";
-import classNames from "classnames";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import ISFLogo from "../../assets/images/isf.png";
