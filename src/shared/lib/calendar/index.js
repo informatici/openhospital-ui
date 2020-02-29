@@ -26,7 +26,7 @@ class Calendar extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.updateMonth(0);
   }
 
