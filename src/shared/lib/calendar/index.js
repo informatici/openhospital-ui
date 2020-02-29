@@ -31,9 +31,9 @@ class Calendar extends Component {
   }
 
   updateMonth(add) {
-    var d = this.state.current;
+    const d = this.state.current;
     d.setMonth(d.getMonth() + add);
-    var eom = new Date(d.getYear(), d.getMonth() + 1, 0).getDate();
+    const eom = new Date(d.getYear(), d.getMonth() + 1, 0).getDate();
     this.setState({
       current: d,
       ldom: eom
@@ -41,7 +41,7 @@ class Calendar extends Component {
   }
 
   _onDatePicked(month, day) {
-    var d = new Date(this.state.current.getTime());
+    const d = new Date(this.state.current.getTime());
     d.setMonth(d.getMonth() + month);
     d.setDate(day);
     this.props.onDatePicked(d);
@@ -51,10 +51,10 @@ class Calendar extends Component {
   }
 
   renderDay(opts = {}) {
-    var baseClasses = "day noselect";
-    var today = "";
-    var todayStyle = {};
-    var containerStyle = {};
+    let baseClasses = "day noselect";
+    let today = "";
+    let todayStyle = {};
+    let containerStyle = {};
     if (opts.today) {
       today = "current";
       todayStyle = {
@@ -62,8 +62,8 @@ class Calendar extends Component {
       };
     }
 
-    var selected = "";
-    var selectedStyle = {};
+    let selected = "";
+    let selectedStyle = {};
     if (opts.selected) {
       selected = "selected";
       selectedStyle = {
@@ -85,7 +85,7 @@ class Calendar extends Component {
         <div className={today} style={todayStyle}></div>
         <div className={selected} style={selectedStyle}></div>
         <p onClick={(ev) => {
-          var day = ev.target.innerHTML;
+          const day = ev.target.innerHTML;
           this._onDatePicked(opts.month, day);
         }}>{opts.date.getDate()}</p>
       </div>
@@ -93,19 +93,20 @@ class Calendar extends Component {
   }
 
   renderDays(copy) {
-    var days = [];
+    const days = [];
 
     // set to beginning of month
     copy.setDate(1);
 
     // if we are missing no offset, include the previous week
-    var offset = copy.getDay() === 0 ? 7 : copy.getDay();
+    const offset = copy.getDay() === 0 ? 7 : copy.getDay();
 
     copy.setDate(-offset);
 
-    var inMonth = false;
-    var lastMonth = true;
-    for (var i = 0; i < 42; i++) {
+    let inMonth = false;
+    let lastMonth = true;
+
+    for (let i = 0; i < 42; i++) {
       // increase date
       copy.setDate(copy.getDate() + 1);
 
@@ -120,12 +121,12 @@ class Calendar extends Component {
         inMonth = false;
       }
 
-      var sel = new Date(this.state.selected.getTime());
-      var isSelected = (sel.getFullYear() === copy.getFullYear() &&
+      const sel = new Date(this.state.selected.getTime());
+      const isSelected = (sel.getFullYear() === copy.getFullYear() &&
         sel.getDate() === copy.getDate() &&
         sel.getMonth() === copy.getMonth());
 
-      var isToday = (TODAY.getFullYear() === copy.getFullYear() &&
+      const isToday = (TODAY.getFullYear() === copy.getFullYear() &&
         TODAY.getDate() === copy.getDate() &&
         TODAY.getMonth() === copy.getMonth());
 
@@ -153,23 +154,22 @@ class Calendar extends Component {
 
   render() {
     // get su-sat header
-    var header = this.renderHeaders();
+    const header = this.renderHeaders();
 
     // copy our current time state
-    var copy = new Date(this.state.current.getTime());
+    const copy = new Date(this.state.current.getTime());
 
     // get the month days
-    var days = this.renderDays(copy);
+    const days = this.renderDays(copy);
 
-    var tMonth = config.months[this.state.selected.getMonth()];
-    var tDate = this.state.selected.getDate();
-    var tWeekDay = config.weeks[this.state.selected.getDay()];
-    var month = config.months[this.state.current.getMonth()];
-    var year = this.state.current.getFullYear();
-    var date = this.state.current.getDate();
+    const tMonth = config.months[this.state.selected.getMonth()];
+    const tDate = this.state.selected.getDate();
+    const tWeekDay = config.weeks[this.state.selected.getDay()];
+    const month = config.months[this.state.current.getMonth()];
+    const year = this.state.current.getFullYear();
+    const date = this.state.current.getDate();
+    let upperDate = null;
 
-
-    var upperDate = null;
     if (this.props.showHeader) {
       upperDate = (
         <div className='header center'>
