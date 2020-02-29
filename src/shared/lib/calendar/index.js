@@ -85,8 +85,11 @@ class Calendar extends Component {
     baseClasses += opts.current ? "" : " non-current";
 
     return (
-      <div className={baseClasses}
-        style={containerStyle}>
+      <div
+        className={baseClasses}
+        key={`day_${opts.dayId}`}
+        style={containerStyle}
+      >
         <div className={today} style={todayStyle}></div>
         <div className={selected} style={selectedStyle}></div>
         <p onClick={(ev) => {
@@ -134,13 +137,15 @@ class Calendar extends Component {
         TODAY.getDate() === copy.getDate() &&
         TODAY.getMonth() === copy.getMonth());
 
-      days.push(this.renderDay({
-        today: isToday,
-        selected: isSelected,
-        current: inMonth,
-        month: (inMonth ? 0 : (lastMonth ? -1 : 1)),
-        date: copy
-      }));
+      days.push(
+        this.renderDay({
+          dayId: i,
+          today: isToday,
+          selected: isSelected,
+          current: inMonth,
+          month: (inMonth ? 0 : (lastMonth ? -1 : 1)),
+          date: copy
+        }));
     }
 
     return days;
