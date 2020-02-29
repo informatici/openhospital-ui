@@ -147,17 +147,11 @@ class Calendar extends Component {
   }
 
   renderHeaders() {
-    var header = [];
-
-    for (var i = 0; i < config.week_subs.length; i++) {
-      header.push(
-        <p className='day-headers noselect'>
-          {config.week_subs[i]}
-        </p>
-      );
-    }
-
-    return header;
+    return config.week_subs.map((week) => (
+      <p className='day-headers noselect' key={`week_${week}`}>
+        {week}
+      </p>
+    ));
   }
 
   render() {
