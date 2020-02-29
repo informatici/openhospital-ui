@@ -6,9 +6,9 @@ import ic_forward from './ic_forward.svg';
 
 export const config = {
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  month_subs: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+  monthSubs: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
   weeks: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  week_subs: ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'],
+  weekSubs: ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'],
   today: function () {
     return new Date();
   }
@@ -152,7 +152,7 @@ class Calendar extends Component {
   }
 
   renderHeaders() {
-    return config.week_subs.map((week) => (
+    return config.weekSubs.map((week) => (
       <p className='day-headers noselect' key={`week_${week}`}>
         {week}
       </p>

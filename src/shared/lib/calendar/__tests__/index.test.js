@@ -206,7 +206,7 @@ describe('Calendar', () => {
 
     expect(headersRendered.length).toBe(7);
     const headersLabels = headersRendered.map((h) => (h.props.children));
-    expect(headersLabels).toEqual(config.week_subs);
+    expect(headersLabels).toEqual(config.weekSubs);
   });
 
   it('renderDays', () => {
@@ -280,9 +280,9 @@ describe('config', () => {
 
   it('config content', () => {
     expect(config.months.length).toBe(12);
-    expect(config.month_subs.length).toBe(12);
+    expect(config.monthSubs.length).toBe(12);
     expect(config.weeks.length).toBe(7);
-    expect(config.week_subs.length).toBe(7);
+    expect(config.weekSubs.length).toBe(7);
     expect(config.today()).toEqual(dateFakeNow);
     expect(spyDate).toHaveBeenCalledWith();
   });
