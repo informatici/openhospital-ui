@@ -40,14 +40,6 @@ class Calendar extends Component {
     });
   }
 
-  prev() {
-    this.updateMonth(-1);
-  }
-
-  next() {
-    this.updateMonth(1);
-  }
-
   _onDatePicked(month, day) {
     var d = new Date(this.state.current.getTime());
     d.setMonth(d.getMonth() + month);
@@ -195,11 +187,11 @@ class Calendar extends Component {
         {/* return (<div className={this.props.orientation}> */}
         <div className="calendar">
           <div className='month'>
-            <img className="month-arrow-left" src={ic_back} alt="back" onClick={this.prev.bind(this)}></img>
+            <img className="month-arrow-left" src={ic_back} alt="back" onClick={() => this.updateMonth(-1)}></img>
             <p className="month-title">{month}<br />
               <span className="month-year">{year}</span>
             </p>
-            <img className="month-arrow-right" src={ic_forward} alt="forward" onClick={this.next.bind(this)}></img>
+            <img className="month-arrow-right" src={ic_forward} alt="forward" onClick={() => this.updateMonth(1)}></img>
           </div>
           <div className='footer'>
             {header}
