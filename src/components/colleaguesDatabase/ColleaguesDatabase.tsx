@@ -45,7 +45,7 @@ class ColleaguesDatabase extends React.Component<Props, State> {
           setTimeout(() => {
             this.setState({
               isLoaded: true,
-              items: result,
+              items: result.map((u, k) => ({ ...u, id: k + 1 })),
             });
           }, 300);
         },
@@ -69,10 +69,7 @@ class ColleaguesDatabase extends React.Component<Props, State> {
     const colleagues =
       items && items.length !== 0 ? (
         items.map((item: any) => (
-          <Colleague
-            info={item}
-            // surname={item.surname}
-          />
+          <Colleague key={`colleague_${item.id}`} info={item} />
         ))
       ) : (
         <CircularProgress className={classes.progress} color="secondary" style={{ margin: "20px auto" }} />
