@@ -33,7 +33,7 @@ class Calendar extends Component {
   updateMonth(add) {
     const d = this.state.current;
     d.setMonth(d.getMonth() + add);
-    const eom = new Date(d.getYear(), d.getMonth() + 1, 0).getDate();
+    const eom = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
     this.setState({
       current: d,
       ldom: eom
