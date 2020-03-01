@@ -30,7 +30,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
 import styles from "./ColleagueDetails.style";
-import _ from 'lodash';
+import sample from 'lodash/sample';
 export interface Props extends WithStyles<typeof styles> {}
 
 interface State {
@@ -91,7 +91,7 @@ class ColleagueDetails extends React.Component<Props, State> {
           <Grid container item justify="center" spacing={24}>
             <Paper className={classes.paperHeader}>
               <Grid item xs={12} className={classes.colleagueProfileHeader}>
-                <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classes.avatar} />
+                <Avatar alt="Remy Sharp" src={sample([maleAvatar, femaleAvatar])} className={classes.avatar} />
                 <div style={{ flexDirection: "column", textAlign: "left" }}>
                   <Typography color="inherit" className={classes.colleagueName}>
                     Dr. Marcus Gross
@@ -134,7 +134,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -147,7 +147,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -160,7 +160,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -173,7 +173,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
