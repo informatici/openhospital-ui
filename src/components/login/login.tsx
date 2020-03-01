@@ -23,6 +23,10 @@ class Login extends React.Component {
     this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
   }
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   handleChange(e) {
     let fields = this.state.fields;
     fields[e.target.name] = e.target.value;
@@ -327,10 +331,6 @@ class Login extends React.Component {
     );
   }
 }
-
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Login);
 //const routedComponent = withRouter(styledComponent);

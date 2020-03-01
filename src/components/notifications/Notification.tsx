@@ -28,6 +28,10 @@ class Notification extends React.Component<Props, State> {
     isLoaded: false,
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   public render() {
     const { classes } = this.props;
 
@@ -196,10 +200,6 @@ class Notification extends React.Component<Props, State> {
     );
   }
 }
-
-Notification.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Notification);
 export default styledComponent;

@@ -41,6 +41,10 @@ class Ward extends React.Component {
 
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   componentDidMount() {
 
     // <test>
@@ -712,10 +716,6 @@ class Ward extends React.Component {
     );
   }
 }
-
-Ward.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Ward);
 export default styledComponent;

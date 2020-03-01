@@ -28,6 +28,10 @@ class NewsDetails extends React.Component {
     isLoaded: false,
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   public render() {
     const { classes } = this.props;
     return (
@@ -176,10 +180,6 @@ class NewsDetails extends React.Component {
     );
   }
 }
-
-NewsDetails.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(NewsDetails);
 export default styledComponent;

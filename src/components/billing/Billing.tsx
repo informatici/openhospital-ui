@@ -41,6 +41,11 @@ class Billing extends React.Component {
     isLoaded: false,
   };
 
+
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   public render() {
     const { classes } = this.props;
 
@@ -482,10 +487,6 @@ class Billing extends React.Component {
     );
   }
 }
-
-Billing.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Billing);
 export default styledComponent;

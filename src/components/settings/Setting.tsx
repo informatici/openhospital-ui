@@ -29,6 +29,10 @@ class Setting extends React.Component<Props, State> {
     isLoaded: false,
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   public render() {
     const { classes } = this.props;
 
@@ -184,10 +188,6 @@ class Setting extends React.Component<Props, State> {
     );
   }
 }
-
-Setting.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Setting);
 export default styledComponent;
