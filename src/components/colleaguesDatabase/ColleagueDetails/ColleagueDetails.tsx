@@ -31,7 +31,8 @@ import CardContent from "@material-ui/core/CardContent";
 
 import styles from "./ColleagueDetails.style";
 import sample from 'lodash/sample';
-export interface Props extends WithStyles<typeof styles> {}
+
+export interface Props extends WithStyles<typeof styles> { };
 
 interface State {
   labelWidth: number;
@@ -48,10 +49,7 @@ class ColleagueDetails extends React.Component<Props, State> {
     isLoaded: false,
     items: [],
     anchorEl: null,
-    
   };
-
-  
 
   public handleClickCalendarAppointmentsDWM = (event: any) => {
     this.setState({ anchorEl: event.currentTarget });
@@ -218,7 +216,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                               // root: classes.formFieldSelectInput,
                               input: classes.formFieldSelectInput,
                             }}
-                            // }}
+                          // }}
                           />
                         }
                       >
@@ -447,8 +445,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -468,8 +466,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -489,8 +487,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -510,8 +508,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
