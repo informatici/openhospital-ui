@@ -78,7 +78,7 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-react": "3.6.0",
     "typescript": "^3.8.3",
-    "typesync": "^0.4.1"
+    "typesync": "^0.6.1"
   },
   "browserslist": "defaults"
 }
