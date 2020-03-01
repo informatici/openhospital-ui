@@ -28,6 +28,7 @@ describe('Calendar', () => {
   });
 
   it('default render content', () => {
+    global.Date.now = jest.fn().mockImplementation(() => (dateFakeNow));
     const renderedComponent = mount(<Calendar />);
     const instance = renderedComponent.instance();
 
@@ -42,6 +43,7 @@ describe('Calendar', () => {
 
     expect(renderedComponent.find('p.month-title > span.month-year')
       .props().children).toBe(2017);
+    global.Date.now.mockRestore();
   });
 
   it('prev function should call instance.updateMonth', () => {
@@ -105,6 +107,7 @@ describe('Calendar', () => {
   });
 
   it('renderDay w/ default props', () => {
+    global.Date.now = jest.fn().mockImplementation(() => (dateFakeNow));
     const renderedComponent = mount(<Calendar />);
     const instance = renderedComponent.instance();
     const dayRendered = instance.renderDay({
@@ -131,9 +134,11 @@ describe('Calendar', () => {
     expect(renderedDay.find('div > div').at(1).props()).toEqual({
       className: '', style: {},
     });
+    global.Date.now.mockRestore();
   });
 
   it('renderDay w/ today', () => {
+    global.Date.now = jest.fn().mockImplementation(() => (dateFakeNow));
     const renderedComponent = mount(<Calendar />);
     const instance = renderedComponent.instance();
     const dayRendered = instance.renderDay({
@@ -156,9 +161,11 @@ describe('Calendar', () => {
     expect(renderedDay.find('div > div').at(1).props()).toEqual({
       className: '', style: {},
     });
+    global.Date.now.mockRestore();
   });
 
   it('renderDay w/ selected', () => {
+    global.Date.now = jest.fn().mockImplementation(() => (dateFakeNow));
     const renderedComponent = mount(<Calendar />);
     const instance = renderedComponent.instance();
     const dayRendered = instance.renderDay({
@@ -181,6 +188,7 @@ describe('Calendar', () => {
     expect(renderedDay.find('div > div').at(1).props()).toEqual({
       className: 'selected', style: { backgroundColor: '#00C1A6' },
     });
+    global.Date.now.mockRestore();
   });
 
   it('renderDay w/ click on date props', () => {
