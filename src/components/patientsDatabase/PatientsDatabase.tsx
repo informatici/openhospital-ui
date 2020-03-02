@@ -54,7 +54,7 @@ interface IDispatchProps {
 
 type Props = IStateProps & IDispatchProps & IOwnProps;
 
-const PatientsDatabase: FunctionComponent<Props> = ({ getPatients, classes, match, patients, loading }) => {
+const PatientsDatabase: FunctionComponent<Props> = ({ getPatients, classes, patients, loading }) => {
   const [showDeletePatientDialog, setShowDeletePatientDialog] = useState(false);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const PatientsDatabase: FunctionComponent<Props> = ({ getPatients, classes, matc
       <Grid container className={classes.gridContainer} justify="center" spacing={24}>
         <Grid container item justify="center" spacing={24}>
           <Grid item xs={12}>
-            <BreadcrumbTrail match={match} />
+            <BreadcrumbTrail/>
           </Grid>
           <Grid item xs={12} className={classes.patientActions}>
             <Typography variant="inherit" className={classes.patientsTitle}>

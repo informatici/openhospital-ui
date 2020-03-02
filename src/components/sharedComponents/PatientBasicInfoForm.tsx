@@ -48,6 +48,7 @@ const PatientBasicInfoForm: FunctionComponent<Props> = ({ classes, children }) =
           {children}
         </Grid>
       </form>
+      <div />
     </div>
   );
 };

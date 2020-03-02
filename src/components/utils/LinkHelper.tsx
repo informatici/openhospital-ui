@@ -3,9 +3,13 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
+import { FunctionComponent } from 'react';
 
+interface IMaterialLinkRouter extends LinkProps {
+  component: any,
+}
 
-export const MaterialLinkRouter = (props: LinkProps) => {
+export const MaterialLinkRouter: FunctionComponent<IMaterialLinkRouter> = ({ component }) => {
   return (
     <Link {...props} />
   );
