@@ -1,9 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Link as LinkRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 // local imports
-import { MaterialButtonRouter } from "../utils/LinkHelper";
 import PatientsListItem from "./PatientsListItem";
 import styles from "./styles/PatientsDatabase.style";
 import classNames from "classnames";
@@ -34,9 +32,6 @@ import MergeIcon from "@material-ui/icons//LibraryBooks";
 import AddIcon from "@material-ui/icons/Add";
 import CancelIcon from "@material-ui/icons/Cancel";
 
-// constants
-import { PATH_NEW_PATIENT } from "../../helpers/constants";
-
 interface IOwnProps extends WithStyles<typeof styles> {
   classes: any;
   classNames: any;
@@ -66,7 +61,7 @@ const PatientsDatabase: FunctionComponent<Props> = ({ getPatients, classes, pati
       <Grid container className={classes.gridContainer} justify="center" spacing={24}>
         <Grid container item justify="center" spacing={24}>
           <Grid item xs={12}>
-            <BreadcrumbTrail/>
+            <BreadcrumbTrail />
           </Grid>
           <Grid item xs={12} className={classes.patientActions}>
             <Typography variant="inherit" className={classes.patientsTitle}>
@@ -86,15 +81,16 @@ const PatientsDatabase: FunctionComponent<Props> = ({ getPatients, classes, pati
                 dismissDialog={() => setShowDeletePatientDialog(false)}
               />
             </Grid>
-            <MaterialButtonRouter
-              component={LinkRouter}
-              to={PATH_NEW_PATIENT}
+
+            <Button
               color="inherit"
+              onClick={() => setShowDeletePatientDialog(true)}
               classes={{ root: classNames(classes.button, "addButton"), label: classes.buttonLabel }}
             >
               <AddIcon className={classes.buttonIcon} />
               Record new patient
-            </MaterialButtonRouter>
+            </Button>
+
             <Button
               color="inherit"
               classes={{ root: classNames(classes.button, "mergeButton"), label: classes.buttonLabel }}
@@ -161,7 +157,6 @@ const PatientsDatabase: FunctionComponent<Props> = ({ getPatients, classes, pati
                     labelWidth={300} //{this.state.InputLabelRef}
                     name="filter"
                     id="filter"
-                    enableSearch
                     classes={{
                       input: classes.formFieldSelectInput,
                     }}
