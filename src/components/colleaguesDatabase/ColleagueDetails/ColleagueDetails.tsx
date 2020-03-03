@@ -30,8 +30,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
 import styles from "./ColleagueDetails.style";
-import _ from 'lodash';
-export interface Props extends WithStyles<typeof styles> {}
+import sample from 'lodash/sample';
+
+export interface Props extends WithStyles<typeof styles> { };
 
 interface State {
   labelWidth: number;
@@ -48,10 +49,7 @@ class ColleagueDetails extends React.Component<Props, State> {
     isLoaded: false,
     items: [],
     anchorEl: null,
-    
   };
-
-  
 
   public handleClickCalendarAppointmentsDWM = (event: any) => {
     this.setState({ anchorEl: event.currentTarget });
@@ -91,7 +89,7 @@ class ColleagueDetails extends React.Component<Props, State> {
           <Grid container item justify="center" spacing={24}>
             <Paper className={classes.paperHeader}>
               <Grid item xs={12} className={classes.colleagueProfileHeader}>
-                <Avatar alt="Remy Sharp" src={_.sample([maleAvatar, femaleAvatar])} className={classes.avatar} />
+                <Avatar alt="Remy Sharp" src={sample([maleAvatar, femaleAvatar])} className={classes.avatar} />
                 <div style={{ flexDirection: "column", textAlign: "left" }}>
                   <Typography color="inherit" className={classes.colleagueName}>
                     Dr. Marcus Gross
@@ -134,7 +132,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -147,7 +145,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -160,7 +158,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -173,7 +171,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                   <div className={classes.sidebarPatientsItem}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={_.sample([maleAvatar, femaleAvatar])}
+                      src={sample([maleAvatar, femaleAvatar])}
                       className={classNames(classes.avatar, "avatarSmall")}
                     />
                     <div style={{ flexDirection: "column", textAlign: "left" }}>
@@ -218,7 +216,7 @@ class ColleagueDetails extends React.Component<Props, State> {
                               // root: classes.formFieldSelectInput,
                               input: classes.formFieldSelectInput,
                             }}
-                            // }}
+                          // }}
                           />
                         }
                       >
@@ -447,8 +445,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -468,8 +466,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -489,8 +487,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -510,8 +508,8 @@ class ColleagueDetails extends React.Component<Props, State> {
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.appointmentsListItemCheckbox}
-                              // onChange={this.handleToggle(value)}
-                              // checked={this.state.checked.indexOf(value) !== -1}
+                            // onChange={this.handleToggle(value)}
+                            // checked={this.state.checked.indexOf(value) !== -1}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
