@@ -165,6 +165,10 @@
   /* z-index: -100; */
 }
 
+.selected + p {
+  z-index: 1;
+  font-weight: bold;
+}
 
 .non-current {
   opacity: 0.2;
