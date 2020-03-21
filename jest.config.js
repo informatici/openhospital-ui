@@ -2,12 +2,15 @@ module.exports = {
   "roots": [
     "<rootDir>/src"
   ],
-  "setupTestFrameworkScriptFile": "<rootDir>/src/setup.tests.ts",
+  "setupFilesAfterEnv": ["<rootDir>/src/setup.tests.ts"],
   "transform": {
-    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.(jsx?|tsx?)$": "ts-jest",
     "^.+\.(?!js|jsx|ts|tsx).*$": "jest-transform-stub" // stubs all not javascript files
   },
-  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+  "moduleNameMapper": {
+    ".*\\.(css|less|scss|sass)$": "<rootDir>/src/mocks/cssModule.js"
+  },
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   "moduleFileExtensions": [
     "ts",
     "tsx",
@@ -18,7 +21,7 @@ module.exports = {
   ],
   "globals": {
     "ts-jest": {
-      "tsConfig": "tsconfig.test.json",
+      "tsConfig": "<rootDir>/tsconfig.test.json",
       "diagnostics": {
         "warnOnly": true
       }

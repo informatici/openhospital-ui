@@ -1,19 +1,16 @@
-import React, { Component } from "react";
-import { Link as LinkRouter } from "react-router-dom";
+import React from "react";
 
 // local imports
 import classNames from "classnames";
 import { Patient } from "generate";
 import { NewPatientUsingPOSTRequest, PatientControllerApi } from "../../generate/apis";
-import { MaterialButtonRouter, MaterialLinkRouter } from "../utils/LinkHelper";
 import styles from "./styles/NewPatient.style";
 import BreadcrumbTrail from "../sharedComponents/BreadcrumbTrail"
 
 // material imports
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Button, Icon } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import Collapse from "@material-ui/core/Collapse";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -23,11 +20,8 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import SnackBar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 export interface IProps extends WithStyles <typeof styles> {}

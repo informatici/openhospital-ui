@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 // local imports
 import styles from "./styles/MaterialPanelItem.style";
-import classNames from "classnames";
 import BigNumberItem from "./BigNumberItem";
 
 // material imports

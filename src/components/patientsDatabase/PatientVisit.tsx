@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link as LinkRouter } from "react-router-dom";
 import _ from "lodash";
 

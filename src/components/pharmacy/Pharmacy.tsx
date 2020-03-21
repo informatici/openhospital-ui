@@ -39,6 +39,10 @@ class Pharmacy extends React.Component<Props, State> {
     isLoaded: false,
   };
 
+  public static propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
   handleChange = (event: React.MouseEvent<HTMLElement>, value: number) => {
     this.setState({ value });
   };
@@ -563,10 +567,6 @@ class Pharmacy extends React.Component<Props, State> {
     );
   }
 }
-
-Pharmacy.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const styledComponent = withStyles(styles, { withTheme: true })(Pharmacy);
 export default styledComponent;
