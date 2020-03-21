@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "parcel public/index.html --port 3000 --open",
-    "dev": "parcel -p 3000 watch public/index.html --open",
     "api": "openapi-server",
     "start:api": "concurrently \"npm run api\" \"npm run start\"",
     "build": "parcel build public/index.html --public-url ./",
