@@ -73,6 +73,7 @@ const styles = (theme: Theme) =>
     scrollIn: {
       display: "flex",
       justifyContent: "center",
+      cursor: "pointer",
     },
 
     summaryPanel: {
