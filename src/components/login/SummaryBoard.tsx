@@ -9,7 +9,7 @@ const SummaryBoard: FunctionComponent<Props> = ({ classes }) => {
   const scrollSummaryIn = () => {
     const element = document.getElementById("summary-panel");
     if (element) {
-      document.getElementById("summary-panel").scrollIntoView({
+      element.scrollIntoView({
         behavior: "smooth",
       });
     }
