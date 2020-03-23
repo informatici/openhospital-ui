@@ -27,28 +27,30 @@ const styles = (theme: Theme) =>
 
     loginPanel: {
       display: "flex",
-      marginTop: "2.6%",
-      marginBottom: "2.6%",
+      flex: "1 1 auto",
+      marginTop: 15,
+      marginBottom: 15,
       marginLeft: 10,
       marginRight: 10,
       flexDirection: "column",
       alignItems: "center",
       margin: "0 auto",
       width: 700,
+      height: "100%",
       [theme.breakpoints.down("md")]: {
         width: 700,
-        marginTop: "2.6%",
-        marginBottom: "2.6%",
+        marginTop: 15,
+        marginBottom: 15,
       },
       [theme.breakpoints.down("sm")]: {
         width: 550,
-        marginTop: "5.9%",
-        marginBottom: "5.9%",
+        marginTop: 25,
+        marginBottom: 25,
       },
       [theme.breakpoints.down("xs")]: {
         width: 300,
-        marginTop: "11%",
-        marginBottom: "11%",
+        marginTop: 15,
+        marginBottom: 15,
       },
     },
 
@@ -78,7 +80,7 @@ const styles = (theme: Theme) =>
 
     summaryPanel: {
       display: "flex",
-      marginTop: 15,
+      flex: "0 1 auto",
       marginBottom: 15,
       marginLeft: 10,
       marginRight: 10,
@@ -280,6 +282,7 @@ const styles = (theme: Theme) =>
     logo: {
       display: "flex",
       justifyContent: "center",
+      margin: 30,
       width: "40%",
     },
 

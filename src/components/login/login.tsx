@@ -32,9 +32,9 @@ const Login: FunctionComponent<Props> = ({ classes, successRoute }) => {
       <div className={classes.gridContainer}>
         <div className={classes.loginPanel}>
           <Paper className={classNames(classes.paperFlat, classes.paper)}>
-            <Grid container className={classes.gridContainer} justify="center" spacing={24}>
+            <div className={classes.gridContainer}>
               <img src={OHlogo} alt="Open Hospital" className={classes.logo} />
-            </Grid>
+            </div>
             &emsp;
             <Grid className={classes.loginForm} justify="center" spacing={24}>
               <form onSubmit={formik.handleSubmit}>
