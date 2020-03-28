@@ -60,7 +60,6 @@ type Props = StateProps & DispatchProps & LocalProps & RouteComponentProps;
 class PatientActivityContainer extends Component<Props> {
   componentDidMount() {
     const { match, putPatientInStore, getPatientInServer, location } = this.props;
-    console.log(location, match);
 
     if (location.patient) {
       putPatientInStore(location.patient);
