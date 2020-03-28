@@ -42,7 +42,6 @@ import { Patient } from "types/patients";
 import { AppState } from "reducers";
 
 export interface LocalProps extends WithStyles<typeof styles> {
-  classes: any;
 }
 
 interface StateProps {
