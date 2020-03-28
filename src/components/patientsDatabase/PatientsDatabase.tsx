@@ -35,7 +35,6 @@ import CancelIcon from "@material-ui/icons/Cancel";
 interface IOwnProps extends WithStyles<typeof styles> {
   classes: any;
   classNames: any;
-  isDeleteDialogOpen: boolean;
 }
 
 interface IStateProps {
