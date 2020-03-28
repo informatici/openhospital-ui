@@ -3,9 +3,9 @@ import { createStyles, Theme } from "@material-ui/core";
 export const styles = (theme: Theme) =>
   createStyles({
     container: {
-      marginBottom: "14px",
+      marginBottom: "20px",
       [theme.breakpoints.down("xs")]: {
-        marginBottom: "5px",
+        marginBottom: "15px",
       },
     },
 
