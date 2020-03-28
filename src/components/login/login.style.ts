@@ -34,9 +34,10 @@ const styles = (theme: Theme) =>
       marginRight: 10,
       flexDirection: "column",
       alignItems: "center",
+      justifyContent: "center",
       margin: "0 auto",
       width: 700,
-      height: "100%",
+      height: "80vh",
       [theme.breakpoints.down("md")]: {
         width: 700,
         marginTop: 15,
@@ -45,7 +46,7 @@ const styles = (theme: Theme) =>
       [theme.breakpoints.down("sm")]: {
         width: 550,
         marginTop: 25,
-        marginBottom: 25,
+        marginBottom: 15,
       },
       [theme.breakpoints.down("xs")]: {
         width: 300,
@@ -266,6 +267,7 @@ const styles = (theme: Theme) =>
       },
       [theme.breakpoints.down("xs")]: {
         fontSize: 12,
+        marginTop: 16,
         padding: "5px 20px",
       },
     },
