@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { styles } from "./styles";
 import { IProps } from "./types";
 
-const TextField: FunctionComponent<IProps> = ({ classes, field, label, type, isValid, errorText }) => {
+const TextField: FunctionComponent<IProps> = ({ classes, field, label, type, isValid, errorText, onBlur }) => {
   return (
     <div className={classes.container}>
       <MaterialUITextField
@@ -12,6 +12,7 @@ const TextField: FunctionComponent<IProps> = ({ classes, field, label, type, isV
         label={label}
         type={type || ""}
         onChange={field.onChange}
+        onBlur={onBlur}
         value={field.value}
         error={isValid}
         helperText={errorText}

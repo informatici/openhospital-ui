@@ -12,20 +12,26 @@ import get from "lodash.get";
 import has from "lodash.has";
 import TextField from "../sharedComponents/TextField/TextField";
 import { TLoginProps as Props } from "./types";
+import { initialValues } from "./consts";
 import SummaryBoard from "./SummaryBoard";
 
 const Login: FunctionComponent<Props> = ({ classes, successRoute }) => {
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues,
     validationSchema,
     onSubmit: values => {
       window.localStorage.setItem("user", "true");
       window.location.href = successRoute;
     },
   });
+
+  const isValid = (fieldName: string): boolean => {
+    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+  };
+
+  const getErrorText = (fieldName: string): string => {
+    return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
+  };
 
   return (
     <div className={classes.root}>
@@ -41,15 +47,17 @@ const Login: FunctionComponent<Props> = ({ classes, successRoute }) => {
                 <TextField
                   field={formik.getFieldProps("email")}
                   label="Email"
-                  isValid={has(formik.errors, "email")}
-                  errorText={get(formik.errors, "email") || ""}
+                  isValid={isValid("email")}
+                  errorText={getErrorText("email")}
+                  onBlur={formik.handleBlur}
                 />
                 <TextField
                   field={formik.getFieldProps("password")}
                   label="Password"
                   type="Password"
-                  isValid={has(formik.errors, "password")}
-                  errorText={get(formik.errors, "password") || ""}
+                  isValid={isValid("password")}
+                  errorText={getErrorText("password")}
+                  onBlur={formik.handleBlur}
                 />
                 <div className={classes.gridButtonContainer}>
                   <Button

@@ -9,6 +9,7 @@ interface ITextFieldProps {
   type?: string;
   isValid: boolean;
   errorText: string;
+  onBlur: (e: any) => void;
 }
 
 export type IProps = ITextFieldProps & WithStyles<typeof styles>;
