@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { BASE_PATH } from "./config/constants";
-import Login from "./components/login/login";
+import Login from "./components/login/Login";
 import AppRoutes from "./routes";
 import withRootTheme from "./withRootTheme";
 
@@ -16,7 +16,7 @@ class App extends React.Component {
       window.location.pathname = LOGIN_PATH;
     }
 
-    return <Router basename={BASE_PATH}>{login ? <AppRoutes /> : <Login />}</Router>;
+    return <Router basename={BASE_PATH}>{login ? <AppRoutes /> : <Login successRoute="/dashboard" />}</Router>;
   }
 }
 
