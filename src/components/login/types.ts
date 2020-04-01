@@ -1,6 +1,11 @@
 import { WithStyles } from "@material-ui/core";
 import styles from "./login.style";
 
+export interface IValues {
+  email: string;
+  password: string;
+}
+
 interface ILoginProps {
   successRoute: string;
 }
