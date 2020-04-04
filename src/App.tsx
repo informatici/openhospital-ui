@@ -4,6 +4,7 @@ import { BASE_PATH } from "./config/constants";
 import Login from "./components/login/Login";
 import AppRoutes from "./routes";
 import withRootTheme from "./withRootTheme";
+import "./App.scss";
 
 export const ROOT_PATH = process.env.NODE_ENV === "production" ? "/oh20" : "";
 export const LOGIN_PATH = `${ROOT_PATH}/login`;

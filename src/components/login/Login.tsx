@@ -14,6 +14,7 @@ import TextField from "../sharedComponents/TextField/TextField";
 import { TLoginProps as Props } from "./types";
 import { initialValues } from "./consts";
 import SummaryBoard from "./SummaryBoard";
+import "./login.scss";
 
 const Login: FunctionComponent<Props> = ({ classes, successRoute }) => {
   const formik = useFormik({
