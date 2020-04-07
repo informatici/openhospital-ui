@@ -1,8 +1,6 @@
-import { Divider, Grid, Link, Typography } from "@material-ui/core";
+import { Link } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
 import React, { FunctionComponent } from "react";
 import OHlogo from "../../assets/images/open-hospital.png";
 import styles from "./login.style";
@@ -13,7 +11,6 @@ import has from "lodash.has";
 import TextField from "../sharedComponents/TextField/TextField";
 import { TLoginProps as Props } from "./types";
 import { initialValues } from "./consts";
-import SummaryBoard from "./SummaryBoard";
 import "./login.scss";
 
 const Login: FunctionComponent<Props> = ({ classes, successRoute }) => {
