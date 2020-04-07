@@ -1,5 +1,9 @@
 import { createStyles, Theme } from "@material-ui/core/styles";
 
+const defaultItemWidth = 180;
+const smItemWidth = 150;
+const xsItemWidth = 100;
+
 const styles = (theme: Theme) =>
   createStyles({
     root: {
@@ -7,28 +11,137 @@ const styles = (theme: Theme) =>
     },
 
     gridContainer: {
+      display: "flex",
       margin: "0 auto",
-      paddingTop: 30,
+      paddingTop: 15,
+      paddingBottom: 15,
+      paddingLeft: 10,
+      paddingRight: 10,
+      alignContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      [theme.breakpoints.down("xs")]: {
+        padding: 0,
+      },
     },
 
-    loginContainer: {
+    loginPanel: {
+      display: "flex",
+      flex: "1 1 auto",
+      marginTop: 15,
+      marginBottom: 15,
+      marginLeft: 10,
+      marginRight: 10,
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
       margin: "0 auto",
-      paddingTop: 30,
-      float: "left",
-      width: "50%",
+      width: 700,
+      height: "80vh",
+      [theme.breakpoints.down("md")]: {
+        width: 700,
+        marginTop: 15,
+        marginBottom: 15,
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: 550,
+        marginTop: 25,
+        marginBottom: 15,
+      },
+      [theme.breakpoints.down("xs")]: {
+        width: 300,
+        marginTop: 15,
+        marginBottom: 15,
+      },
     },
 
-    summaryContainer: {
+    loginForm: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
       margin: "0 auto",
-      paddingTop: 30,
-      float: "right",
-      width: "50%",
+      paddingTop: 15,
+      paddingBottom: 15,
+      width: "60%",
+      [theme.breakpoints.down("sm")]: {
+        width: "60%",
+      },
+      [theme.breakpoints.down("xs")]: {
+        paddingTop: 0,
+        paddingBottom: 0,
+        width: "75%",
+      },
+    },
+
+    scrollIn: {
+      display: "flex",
+      justifyContent: "center",
+      cursor: "pointer",
+    },
+
+    summaryPanel: {
+      display: "flex",
+      flex: "0 1 auto",
+      marginBottom: 15,
+      marginLeft: 10,
+      marginRight: 10,
+      flexDirection: "column",
+      alignItems: "center",
+      margin: "0 auto",
+      width: 700,
+      [theme.breakpoints.down("md")]: {
+        width: 700,
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "100%",
+      },
+      [theme.breakpoints.down("xs")]: {
+        width: "100%",
+        marginLeft: 0,
+        marginRight: 0,
+      },
+    },
+
+    summaryTable: {
+      display: "flex",
+      flexWrap: "wrap",
+      margin: "auto",
+      marginBottom: 30,
+      width: defaultItemWidth * 3,
+      [theme.breakpoints.down("sm")]: {
+        width: smItemWidth * 3,
+      },
+      [theme.breakpoints.down("xs")]: {
+        width: xsItemWidth * 3,
+      },
+    },
+
+    tableItem: {
+      height: 100,
+      border: "1px solid ",
+      borderColor: "white",
+      width: defaultItemWidth,
+      [theme.breakpoints.down("sm")]: {
+        width: smItemWidth,
+      },
+      [theme.breakpoints.down("xs")]: {
+        width: xsItemWidth,
+      },
+    },
+
+    breakTableItem: {
+      flexBasis: "100%",
+      border: "1px solid ",
+      borderColor: "white",
+      height: 100,
     },
 
     gridButtonContainer: {
-      margin: "10px auto",
+      display: "flex",
+      justifyContent: "center",
       paddingTop: 0,
       paddingLeft: 0,
+      margin: 10,
     },
 
     divider: {
@@ -42,30 +155,34 @@ const styles = (theme: Theme) =>
     },
 
     forgotContainer: {
-      margin: "10px auto",
-      paddingTop: 0,
-      paddingLeft: 0,
-      flexFlow: "row-reverse",
-      marginRight: "80px",
-      marginTop: 0,
+      textAlign: "center",
     },
 
     forgotLink: {
       color: theme.palette.primary.red,
       fontWeight: "bold",
       fontSize: 12,
+      [theme.breakpoints.down("xs")]: {
+        fontSize: 10,
+      },
     },
 
     notRegisterContainer: {
       margin: "10px auto",
       paddingTop: 0,
       paddingLeft: 0,
+      [theme.breakpoints.down("xs")]: {
+        fontSize: 10,
+      },
     },
 
     notRegisterLink: {
       color: theme.palette.primary.red,
       fontWeight: "bold",
       fontSize: 15,
+      [theme.breakpoints.down("xs")]: {
+        fontSize: 12,
+      },
     },
 
     breadCrumb: {
@@ -99,8 +216,9 @@ const styles = (theme: Theme) =>
       borderRadius: "none",
       background: "#fb5f5b",
       boxShadow: "none",
-      width: "106%",
+      // width: "106%",
       marginTop: "50px",
+      width: "100%",
     },
 
     formField: {
@@ -137,6 +255,9 @@ const styles = (theme: Theme) =>
       color: theme.palette.primary.red,
       fontWeight: "bold",
       borderRadius: 20,
+      marginTop: 10,
+      fontSize: 14,
+      padding: "10px 40px",
       "&:hover": {
         color: theme.palette.primary.white,
         background: theme.palette.primary.red,
@@ -144,7 +265,11 @@ const styles = (theme: Theme) =>
       "&.mergeButton,&.addButton": {
         marginLeft: 40,
       },
-      padding: "12px 55px",
+      [theme.breakpoints.down("xs")]: {
+        fontSize: 12,
+        marginTop: 16,
+        padding: "5px 20px",
+      },
     },
 
     buttonLabel: {
@@ -159,6 +284,7 @@ const styles = (theme: Theme) =>
     logo: {
       display: "flex",
       justifyContent: "center",
+      margin: 30,
       width: "40%",
     },
 
@@ -185,7 +311,8 @@ const styles = (theme: Theme) =>
       boxShadow: "none",
       border: "1px solid ",
       borderColor: "white",
-      width: 70,
+      width: "100%",
+      height: "100%",
     },
 
     numberOf: {
@@ -204,11 +331,14 @@ const styles = (theme: Theme) =>
     },
 
     subTitleSpec: {
-      fontSize: 8,
+      fontSize: 12,
       fontWeight: "bold",
       color: theme.palette.primary.white,
       letterSpacing: 1.5,
       margin: "0px 0px",
+      [theme.breakpoints.down("xs")]: {
+        fontSize: 9,
+      },
     },
   });
 

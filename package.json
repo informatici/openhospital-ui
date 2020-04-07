@@ -11,7 +11,8 @@
     "test": "jest",
     "tdd": "jest --watch",
     "coverage": "jest --coverage",
-    "install:types": "yarn typesync"
+    "install:types": "yarn typesync",
+    "clean": "rm -rf ./.cache/* ./dist/*"
   },
   "dependencies": {
     "@material-ui/core": "^3.9.2",
@@ -26,6 +27,8 @@
     "@types/enzyme-adapter-react-16": "^1.0.4",
     "@types/jest": "^24.0.5",
     "@types/lodash": "^4.14.121",
+    "@types/lodash.get": "^4.4.6",
+    "@types/lodash.has": "^4.5.6",
     "@types/parcel-bundler": "^1.10.1",
     "@types/prettier": "^1.16.1",
     "@types/react": "^16.8.3",
@@ -35,6 +38,7 @@
     "@types/react-router": "^4.4.5",
     "@types/react-router-dom": "^4.3.5",
     "@types/sass": "^1.16.0",
+    "@types/yup": "^0.26.33",
     "autoprefixer": "^9.4.7",
     "axios": "^0.18.1",
     "browserslist": "^4.9.0",
@@ -45,10 +49,13 @@
     "dotenv": "^6.2.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
+    "formik": "^2.1.4",
     "immer": "^3.2.0",
     "jest": "^24.9.0",
     "jest-transform-stub": "^2.0.0",
     "lodash": "^4.17.15",
+    "lodash.get": "^4.4.2",
+    "lodash.has": "^4.5.2",
     "modules": "^0.4.0",
     "mui-datatables": "^2.7.0",
     "openapi-server": "git+https://gitlab.intesys.it/open-source/openapi-server.git",
@@ -74,7 +81,8 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-react": "3.6.0",
     "typescript": "^3.3.3",
-    "typesync": "^0.4.1"
+    "typesync": "^0.4.1",
+    "yup": "^0.28.3"
   },
   "devDependencies": {
     "@types/react-redux": "^7.1.2",
