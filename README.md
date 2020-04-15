@@ -11,7 +11,7 @@ Use `npm install` to install dependencies.
 - `npm run start`, runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - `npm run test`, runs the tests
 - `npm run api`, runs the api backend via `openapi-server` command
-- `npm run start:api", runs concurrently the api server and the ui
+- `npm run start:api`, runs concurrently the api server and the ui
 - `npm run build`, builds the ui
 - `npm run coverage`, run tests with coverage
 
@@ -55,7 +55,7 @@ Module structure:
 
 **Modules** follow the [Duck](https://github.com/erikras/ducks-modular-redux) convention.
 
-**Test**: use Jest + Enzyme                     ***[ TODO: add details ]***
+**Test**: use Jest + Enzyme **_[ TODO: add details ]_**
 
 ## Libraries
 
@@ -80,3 +80,7 @@ In order to change page headers
 #### [React-intl](https://github.com/yahoo/react-intl) & [react-intl-extract](https://gitlab.intesys.it/open-source/react-intl-extract)
 
 For internationalization
+
+## Appendix
+
+- https://www.open-hospital.org/oh-api/swagger-ui.html#/

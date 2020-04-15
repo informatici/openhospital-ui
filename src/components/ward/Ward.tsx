@@ -51,13 +51,13 @@ class Ward extends React.Component {
     const item = {
         patientInfo: {
             isChronic: false,
-            lastDocWhoVisitedHim: {
+            lastWhoVisited: {
                     name: "Marcus",
                     surname: "Marcus",
                     occupation: "Anesthesiologist",
                     phone: "555 911 118",
                     email: "doc@hospital.org",
-            }
+            },
             firstName: "Antônio",
             secondName: "Carlos Jobim",
             code: 123456,
@@ -105,10 +105,8 @@ class Ward extends React.Component {
 
     const patients = (
       items && items.length !== 0 ?
-        (items.map((item: any) => (
-          <PatientsListItem
-            info={item}
-          />
+        (items.map(({ patientInfo }: any) => (
+          <PatientsListItem patient={patientInfo} />
         ))) :
         <CircularProgress
           className={classes.progress}
