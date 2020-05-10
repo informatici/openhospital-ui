@@ -15,7 +15,7 @@
   - **resetPassword** mode should have an **email** input field and a **“submit”** button;
 - It should have a link that toggles the central panel to the **resetPassword** mode;
 - It should have a **“back”** button that toggles the central panel to the **login** mode;
-- It should reset the activity state to **login** mode after submitting the **resetPassword**’s **email** input;
+- It should reset theactivity state to **login** mode after submitting the **resetPassword**’s **email** input;
 
 ### 2. AppHeader
 
@@ -74,7 +74,7 @@
   - It should set the **“submit”** button’s text using the props;
 - It should have a **“reset”** button;
 
-### 5. NewPatient Activity
+### 5. NewPatientActivity
 
 - It should have the **AppHeader**;
 - It should have access to the user **credentials**;
@@ -88,7 +88,7 @@
 - It should receive a **patient** object as prop;
 - It should receive the **routePrefix** as prop, add the **id** and use it to redirect;
 
-### 7. SearchPatient Activity
+### 7. SearchPatientActivity
 
 - It should present **patient**’s **id** and **taxNumber** as main search params;
 - It should present **name**, **surname**, **birthday** and **address** as secondary search params;
