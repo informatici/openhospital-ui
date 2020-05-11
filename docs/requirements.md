@@ -102,7 +102,7 @@
     - **birthday** input is **NOT** required;
     - **birthday** input should be in the format **YYYYMMDD**;
     - **birthday** input should rendered with a mask (**MM/DD/YYYYY**);
-  - It should **NOT** validate the address input;
+  - It should **NOT** validate the **address** input;
 - It should display the results in a grid of three columns;
   - Each grid item should contain a **PatientSearchItem**;
   - It should pass the patient object to the **PatientSearchItem**;
