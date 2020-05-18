@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FunctionComponent, useState } from "react";
+import "./App.css";
+import { TProps, IStateProps, IState, IDispatchProps } from "./types";
+import LoginActivity from "./components/activities/loginActivity/LoginActivity";
+import { connect } from "react-redux";
+import { setToken } from "./state/main/actions";
+import Routes from "./Routes";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: FunctionComponent<TProps> = ({ userCredentials, setToken }) => {
+  let { token } = userCredentials;
+  const browserStored = window.localStorage.getItem("sessionId");
+  if (!token && browserStored) {
+    setToken(browserStored);
+    return null;
+  }
+  return <div className="App">{token ? <Routes /> : <LoginActivity />}</div>;
+};
 
-export default App;
+const mapStateToProps = (state: IState): IStateProps => ({
+  userCredentials: state.main.userCredentials,
+});
+
+const mapDispatchToProps: IDispatchProps = {
+  setToken,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
