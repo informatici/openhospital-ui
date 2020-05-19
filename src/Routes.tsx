@@ -1,15 +1,14 @@
 import React, { FunctionComponent } from "react";
-import { Router, Switch, Route } from "react-router";
+import { Switch, Route } from "react-router";
+import DashboardActivity from "./components/activities/dashboardActivity/DashboardActivity";
 
 const Routes: FunctionComponent = () => {
   return (
-    <Router basename={""}>
-      <Switch>
-        <Route>
-          <Dashboard />
-        </Route>
-      </Switch>
-    </Router>
+    <Switch>
+      <Route path="/dashboard">
+        <DashboardActivity />
+      </Route>
+    </Switch>
   );
 };
 

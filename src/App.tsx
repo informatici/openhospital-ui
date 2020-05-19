@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import "./App.css";
 import { TProps, IStateProps, IState, IDispatchProps } from "./types";
 import LoginActivity from "./components/activities/loginActivity/LoginActivity";
