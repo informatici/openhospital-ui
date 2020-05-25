@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import "./App.css";
+import "./App.scss";
 import { TProps, IStateProps, IState, IDispatchProps } from "./types";
 import LoginActivity from "./components/activities/loginActivity/LoginActivity";
 import { connect } from "react-redux";
@@ -13,7 +13,11 @@ const App: FunctionComponent<TProps> = ({ userCredentials, setToken }) => {
     setToken(browserStored);
     return null;
   }
-  return <div className="App">{token ? <Routes /> : <LoginActivity />}</div>;
+  return (
+    <div className="App">
+      {token ? <Routes /> : <LoginActivity successRoute="/dashboard" />}
+    </div>
+  );
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
