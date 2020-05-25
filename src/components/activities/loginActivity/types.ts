@@ -10,6 +10,6 @@ export interface IStateProps {
 export type TProps = IOwnProps & IStateProps;
 
 export interface IValues {
-  email: string;
+  username: string;
   password: string;
 }
