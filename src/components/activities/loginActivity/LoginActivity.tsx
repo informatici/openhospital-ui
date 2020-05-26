@@ -11,6 +11,7 @@ import logo from "../../../assets/logo.png";
 import "./styles.scss";
 import TextField from "../../shared/textField/TextField";
 import Button from "../../shared/button/Button";
+import Footer from "../../shared/footer/Footer";
 
 const LoginActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -22,9 +23,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    username: string()
-      .email("Email address not valid")
-      .required("Enter a valid email address"),
+    username: string().required("Enter a valid user name"),
     password: string().required("Enter the password"),
   });
 
@@ -57,10 +56,10 @@ const LoginActivity: FunctionComponent<TProps> = ({
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
             <div>
               <TextField
-                field={formik.getFieldProps("email")}
-                label="Email"
-                isValid={isValid("email")}
-                errorText={getErrorText("email")}
+                field={formik.getFieldProps("username")}
+                label="User"
+                isValid={isValid("username")}
+                errorText={getErrorText("username")}
                 onBlur={formik.handleBlur}
               />
             </div>
@@ -76,16 +75,19 @@ const LoginActivity: FunctionComponent<TProps> = ({
             </div>
             <div>
               <Button type="submit" variant="contained" color="primary">
-                ENTER
+                LOG IN
               </Button>
             </div>
             <div>
-              <Link component="button">FORGOT PASSWORD?</Link>
+              <Link className="login__panel__resetPassword" component="button">
+                Forgot the password?
+              </Link>
             </div>
             &emsp;
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

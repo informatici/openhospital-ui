@@ -15,7 +15,6 @@ const Button: FunctionComponent<IProps> = ({
         className="button"
         type="submit"
         variant="contained"
-        color="primary"
         disableElevation
       >
         {children}
