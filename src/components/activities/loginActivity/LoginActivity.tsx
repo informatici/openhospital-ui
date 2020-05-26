@@ -12,6 +12,7 @@ import "./styles.scss";
 import TextField from "../../shared/textField/TextField";
 import Button from "../../shared/button/Button";
 import Footer from "../../shared/footer/Footer";
+import { LocalStorage } from "../../../libraries/storage/storage";
 
 const LoginActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -31,8 +32,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      console.log(values);
-      window.localStorage.setItem("user", "true");
+      LocalStorage.write("sessionId", values.username);
       window.location.href = successRoute;
     },
   });
@@ -92,8 +92,11 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.userCredentials,
-});
+const mapStateToProps = (state: IState): IStateProps => {
+  console.log(state);
+  return {
+    userCredentials: state.main.userCredentials,
+  };
+};
 
 export default connect(mapStateToProps)(LoginActivity);

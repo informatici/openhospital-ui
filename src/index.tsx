@@ -5,11 +5,16 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { IState } from "./types";
-import { createStore, combineReducers } from "redux";
+import { applyMiddleware, compose, createStore, combineReducers } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunkMiddleware from "redux-thunk";
 import main from "./state/main/reducer";
 
 const reducer = combineReducers<IState>({ main });
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
+);
 
 ReactDOM.render(
   <React.StrictMode>
