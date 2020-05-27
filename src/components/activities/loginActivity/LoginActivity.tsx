@@ -6,7 +6,7 @@ import has from "lodash.has";
 import get from "lodash.get";
 import Link from "@material-ui/core/Link";
 import { IState } from "../../../types";
-import { TProps, IStateProps, IValues } from "./types";
+import { TProps, IValues } from "./types";
 import logo from "../../../assets/logo.png";
 import "./styles.scss";
 import TextField from "../../shared/textField/TextField";
@@ -14,10 +14,9 @@ import Button from "../../shared/button/Button";
 import Footer from "../../shared/footer/Footer";
 import { LocalStorage } from "../../../libraries/storage/storage";
 
-const LoginActivity: FunctionComponent<TProps> = ({
-  userCredentials,
-  successRoute,
-}) => {
+const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
+  window.history.replaceState(null, "", "/");
+
   const initialValues: IValues = {
     username: "",
     password: "",
@@ -92,11 +91,4 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => {
-  console.log(state);
-  return {
-    userCredentials: state.main.userCredentials,
-  };
-};
-
-export default connect(mapStateToProps)(LoginActivity);
+export default LoginActivity;
