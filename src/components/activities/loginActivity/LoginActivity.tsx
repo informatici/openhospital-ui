@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import has from "lodash.has";
 import get from "lodash.get";
 import Link from "@material-ui/core/Link";
-import { IState } from "../../../types";
 import { TProps, IValues } from "./types";
 import logo from "../../../assets/logo.png";
 import "./styles.scss";

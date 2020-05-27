@@ -1,0 +1,47 @@
+@import "../../../styles/variables";
+
+.appHeader {
+  .appHeader__background {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $c-white;
+    height: 20vh;
+  }
+
+  .appHeader__identifier {
+    display: flex;
+  }
+
+  .appHeader__identifier__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+  }
+
+  .appHeader__identifier__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .appHeader__identified__main__headline {
+    font-size: xx-large;
+    font-weight: bolder;
+    margin: 10px 0px;
+  }
+
+  .appHeader__nav {
+    display: flex;
+    align-items: flex-end;
+    padding: 0px 20px;
+    height: 100%;
+  }
+
+  .appHeader__nav__item {
+    font-size: large;
+    font-weight: bold;
+    margin: 15px 10px;
+  }
+}
