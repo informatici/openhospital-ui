@@ -1,5 +1,5 @@
 export interface IProps {
   type: string;
-  variant: string;
+  variant: "text" | "outlined" | "contained" | undefined;
   color: string;
 }

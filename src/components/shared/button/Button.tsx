@@ -14,7 +14,7 @@ const Button: FunctionComponent<IProps> = ({
       <MaterialComponent
         className="button"
         type="submit"
-        variant="contained"
+        variant={variant}
         disableElevation
       >
         {children}

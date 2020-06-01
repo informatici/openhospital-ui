@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+.newPatient {
+  background-color: $c-color-secondary;
+
+  .newPatient__background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .newPatient__panel {
+  }
+}
