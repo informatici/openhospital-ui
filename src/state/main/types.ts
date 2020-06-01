@@ -1,7 +1,9 @@
 export interface IUserCredentials {
+  name: string;
+  surname: string;
   token: string;
 }
 
-export interface IState {
+export interface IMainState {
   userCredentials: IUserCredentials;
 }

@@ -4,6 +4,7 @@ import { TProps } from "./types";
 import "./styles.scss";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
 
 const AppHeader: FunctionComponent<TProps> = ({ userCredentials }) => {
   return (

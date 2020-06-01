@@ -1,0 +1,32 @@
+@import "../../../styles/variables";
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  height: 100vh;
+
+  .dashboard__background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $c-color-secondary;
+  }
+
+  .dashboard__greeter {
+    width: fit-content;
+    margin: 20px;
+    font-size: larger;
+  }
+
+  .dashboard__actions {
+    display: flex;
+    width: fit-content;
+  }
+
+  .dashboard__actions__button {
+    margin: 10px;
+  }
+}
