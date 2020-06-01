@@ -47,7 +47,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         </div>
       </div>
       <form className="patientDataForm__form" onSubmit={() => null}>
-        <div className="row start-lg center-xs">
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("name")}
@@ -78,7 +78,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
 
-        <div className="row start-lg center-xs">
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("gender")}
@@ -100,7 +100,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
 
-        <div className="row start-lg center-xs">
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("address")}
@@ -132,7 +132,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
 
-        <div className="row start-lg center-xs">
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("bloodType")}
@@ -144,7 +144,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
 
-        <div className="row start-lg center-xs">
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("telephone")}
@@ -165,7 +165,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             />
           </div>
         </div>
-        <div className="row start-lg center-xs">
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("insurance")}

@@ -12,12 +12,13 @@
   }
 
   .login__logo {
-    margin: 30px;
+    margin-top: 30px;
   }
 
   .login__title {
     margin: 30px;
-    font-size: xx-large;
+    font-size: x-large;
+    text-align: center;
     font-weight: bolder;
   }
 
@@ -25,7 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     padding: 0px;
     background-color: $c-white;
     border-radius: 10px;
@@ -38,12 +38,16 @@
       justify-content: center;
       align-items: center;
       width: 100%;
-      margin: 35px 30px 0px 30px;
+      margin: 20px 20px 0px 20px;
+    }
+
+    .login__buttonContainer {
+      margin-top: 5px;
     }
 
     .login__panel__resetPassword {
       color: $c-black;
-      margin: 10px;
+      margin-top: 10px;
     }
   }
 }

@@ -4,9 +4,14 @@ import { TProps } from "./types";
 import "./styles.scss";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
-import Button from "@material-ui/core/Button";
+import { Typography } from "@material-ui/core";
 
-const AppHeader: FunctionComponent<TProps> = ({ userCredentials }) => {
+const AppHeader: FunctionComponent<TProps> = ({
+  userCredentials,
+  breadcrumbMap,
+}) => {
+  const keys = Object.keys(breadcrumbMap);
+  const trailEdgeKey = keys.pop();
   return (
     <div className="appHeader">
       <div className="appHeader__background">
@@ -19,9 +24,12 @@ const AppHeader: FunctionComponent<TProps> = ({ userCredentials }) => {
               Princeton-Plainsboro Teaching Hospital
             </div>
             <Breadcrumbs>
-              <Link color="inherit" href="/dashboard">
-                Dashboard
-              </Link>
+              {keys.forEach((key) => (
+                <Link color="inherit" href={breadcrumbMap[key]}>
+                  {key}
+                </Link>
+              ))}
+              <Typography color="textPrimary">{trailEdgeKey}</Typography>
             </Breadcrumbs>
           </div>
         </div>

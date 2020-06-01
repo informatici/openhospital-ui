@@ -24,6 +24,8 @@ const TextField: FunctionComponent<IProps> = ({
         helperText={errorText}
         variant="outlined"
         className="textField"
+        size="small"
+        margin="dense"
       />
     </div>
   );

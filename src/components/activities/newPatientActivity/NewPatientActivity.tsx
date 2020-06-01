@@ -9,10 +9,17 @@ import { initialValues } from "./consts";
 import "./styles.scss";
 
 const NewPatientActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
+  const breadcrumbMap = {
+    Dashboard: "/dashboard",
+    "New Patient": "/new",
+  };
   const handleSubmit = () => {};
   return (
     <div className="newPatient">
-      <AppHeader userCredentials={userCredentials} />
+      <AppHeader
+        userCredentials={userCredentials}
+        breadcrumbMap={breadcrumbMap}
+      />
       <div className="newPatient__background">
         <div className="col-sm-12 col-md-11 col-xs-11">
           <div className="newPatient__title">Register New Patient</div>

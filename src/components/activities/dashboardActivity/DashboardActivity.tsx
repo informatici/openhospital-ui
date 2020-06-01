@@ -14,6 +14,10 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   newPatientRoute,
   searchPatientRoute,
 }) => {
+  const breadcrumbMap = {
+    Dashboard: "/dashboard",
+  };
+
   const { name, surname } = userCredentials;
 
   const largeButtonHandleClick = (route: string) => () => {
@@ -22,7 +26,10 @@ const DashboardActivity: FunctionComponent<TProps> = ({
 
   return (
     <div className="dashboard">
-      <AppHeader userCredentials={userCredentials} />
+      <AppHeader
+        userCredentials={userCredentials}
+        breadcrumbMap={breadcrumbMap}
+      />
       <div className="dashboard__background">
         <div className="dashboard__greeter">
           Welcome {name} {surname}

@@ -71,7 +71,7 @@ const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
                 onBlur={formik.handleBlur}
               />
             </div>
-            <div>
+            <div className="login__buttonContainer">
               <Button type="submit" variant="contained" color="primary">
                 LOG IN
               </Button>
