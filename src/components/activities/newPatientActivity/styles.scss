@@ -5,10 +5,15 @@
 
   .newPatient__background {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  .newPatient__panel {
+  .newPatient__title {
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+    margin-top: 30px;
   }
 }

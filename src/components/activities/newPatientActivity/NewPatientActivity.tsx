@@ -14,7 +14,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
     <div className="newPatient">
       <AppHeader userCredentials={userCredentials} />
       <div className="newPatient__background">
-        <div className="newPatient__panel col-md-11 col-xs-11">
+        <div className="col-sm-12 col-md-11 col-xs-11">
+          <div className="newPatient__title">Register New Patient</div>
           <PatientDataForm
             initialValues={initialValues}
             handleSubmit={handleSubmit}
