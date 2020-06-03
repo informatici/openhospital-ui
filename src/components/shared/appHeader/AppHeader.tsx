@@ -24,7 +24,7 @@ const AppHeader: FunctionComponent<TProps> = ({
               Princeton-Plainsboro Teaching Hospital
             </div>
             <Breadcrumbs>
-              {keys.forEach((key) => (
+              {keys.map((key) => (
                 <Link color="inherit" href={breadcrumbMap[key]}>
                   {key}
                 </Link>
