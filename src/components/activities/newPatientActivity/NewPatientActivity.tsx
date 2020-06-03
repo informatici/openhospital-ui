@@ -21,7 +21,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
         breadcrumbMap={breadcrumbMap}
       />
       <div className="newPatient__background">
-        <div className="col-sm-12 col-md-11 col-xs-11">
+        <div>
           <div className="newPatient__title">Register New Patient</div>
           <PatientDataForm
             initialValues={initialValues}
