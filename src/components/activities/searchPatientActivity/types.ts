@@ -5,3 +5,7 @@ export interface IStateProps {
 }
 
 export type TProps = IStateProps;
+
+export interface IPatientSearchItemProps {
+  patient: any; //TODO: use generated type here
+}

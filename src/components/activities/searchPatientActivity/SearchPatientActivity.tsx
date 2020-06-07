@@ -10,9 +10,9 @@ import { useFormik } from "formik";
 import has from "lodash.has";
 import get from "lodash.get";
 import TextField from "../../shared/textField/TextField";
-import SmallButton from "../../shared/smallButton/SmallButton";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "../../../assets/SearchIcon";
+import PatientSearchItem from "./PatientSearchItem";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -60,7 +60,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
         breadcrumbMap={breadcrumbMap}
       />
       <div className="searchPatient__background">
-        <div>
+        <div className="container">
           <div className="searchPatient__title">Search Patient</div>
           <div className="searchPatient__panel">
             <div className="searchPatient__primary">
@@ -145,7 +145,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
           </div>
-          <div className="searchPatient__results"></div>
+          <div className="searchPatient__results">
+            <PatientSearchItem patient={{ id: 12345 }} />
+            <PatientSearchItem patient={{ id: 12345 }} />
+            <PatientSearchItem patient={{ id: 12345 }} />
+          </div>
         </div>
       </div>
       <Footer />
