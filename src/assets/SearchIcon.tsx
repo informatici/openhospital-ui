@@ -1,10 +1,15 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 
-const LargeSearchIcon = () => (
+interface IProps {
+  width: string;
+  height: string;
+}
+
+const SearchIcon: FunctionComponent<IProps> = ({ width, height }) => (
   <svg
-    width="43px"
-    height="43px"
-    viewBox="0 0 43 43"
+    width={`${width}px`}
+    height={`${height}px`}
+    viewBox={`0 0 43 43`}
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -12,7 +17,7 @@ const LargeSearchIcon = () => (
     <defs>
       <polygon
         id="path-1"
-        points="0 3.53909465e-05 42.9252136 3.53909465e-05 42.9252136 43 0 43"
+        points={`0 3.53909465e-05 42.9252136 3.53909465e-05 42.9252136 43 0 43`}
       ></polygon>
     </defs>
     <g id="Layout" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -45,4 +50,4 @@ const LargeSearchIcon = () => (
   </svg>
 );
 
-export default LargeSearchIcon;
+export default SearchIcon;

@@ -7,7 +7,7 @@ import Footer from "../../shared/footer/Footer";
 import LargeButton from "../../shared/largeButton/LargeButton";
 import "./styles.scss";
 import PlusIcon from "../../../assets/PlusIcon";
-import LargeSearchIcon from "../../../assets/LargeSearchIcon";
+import SearchIcon from "../../../assets/SearchIcon";
 
 const DashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -50,7 +50,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
               handleClick={largeButtonHandleClick(searchPatientRoute)}
             >
               <div className="largeButton__inner">
-                <LargeSearchIcon />
+                <SearchIcon width="43" height="43" />
                 <div className="largeButton__inner__label">Search Patients</div>
               </div>
             </LargeButton>

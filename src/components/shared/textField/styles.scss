@@ -3,25 +3,4 @@
 .textField {
   height: 60px;
   width: 250px;
-
-  .textField__label {
-    transform: translate(14px, 20.5px) scale(1);
-    background-color: white;
-    border-radius: 2;
-    padding: 1;
-  }
-
-  .textField__focused {
-    transform: translate(5px, -20px) scale(0.85);
-  }
-
-  .textField__outline {
-    border-color: #c4c4c4;
-  }
-
-  .textField__helperText {
-    margin: 10px 0px 0px 0px;
-    position: absolute;
-    top: 53;
-  }
 }

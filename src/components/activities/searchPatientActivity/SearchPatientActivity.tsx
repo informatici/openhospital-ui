@@ -11,6 +11,8 @@ import has from "lodash.has";
 import get from "lodash.get";
 import TextField from "../../shared/textField/TextField";
 import SmallButton from "../../shared/smallButton/SmallButton";
+import Button from "@material-ui/core/Button";
+import SearchIcon from "../../../assets/SearchIcon";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -62,28 +64,35 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
           <div className="searchPatient__title">Search Patient</div>
           <div className="searchPatient__panel">
             <div className="searchPatient__primary">
-              <div className="searchPatient__formItem">
-                <TextField
-                  field={formik.getFieldProps("id")}
-                  label="Patient ID"
-                  isValid={isValid("id")}
-                  errorText={getErrorText("id")}
-                  onBlur={formik.handleBlur}
-                />
-              </div>
-              <span className="searchPatient__primary__divider">OR</span>
-              <div className="searchPatient__formItem">
-                <TextField
-                  field={formik.getFieldProps("taxNumber")}
-                  label="Tax Number"
-                  isValid={isValid("taxNumber")}
-                  errorText={getErrorText("taxNumber")}
-                  onBlur={formik.handleBlur}
-                />
+              <div className="row center-xs">
+                <div className="searchPatient__formItem">
+                  <TextField
+                    className="searchPatient__primary__textField"
+                    field={formik.getFieldProps("id")}
+                    label="Patient ID"
+                    isValid={isValid("id")}
+                    errorText={getErrorText("id")}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
+                <span className="searchPatient__primary__divider">OR</span>
+                <div className="searchPatient__formItem">
+                  <TextField
+                    className="searchPatient__primary__textField"
+                    field={formik.getFieldProps("taxNumber")}
+                    label="Tax Number"
+                    isValid={isValid("taxNumber")}
+                    errorText={getErrorText("taxNumber")}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
               </div>
             </div>
-            <div className="searchPatient__button">
-              <SmallButton type="submit">Search</SmallButton>
+            <div className="searchPatient__buttonContainer">
+              <Button className="searchPatient__button" type="submit">
+                <SearchIcon width="20" height="20" />
+                <div className="searchPatient__button__label">Search</div>
+              </Button>
             </div>
             <div className="searchPatient__secondary">
               <div className="searchPatient__info">

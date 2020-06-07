@@ -4,6 +4,7 @@ import "./styles.scss";
 import { IProps } from "./types";
 
 const TextField: FunctionComponent<IProps> = ({
+  className,
   field,
   label,
   type,
@@ -23,7 +24,7 @@ const TextField: FunctionComponent<IProps> = ({
         error={isValid}
         helperText={errorText}
         variant="outlined"
-        className="textField"
+        className={className ? className : "textField"}
         size="small"
         margin="dense"
       />
