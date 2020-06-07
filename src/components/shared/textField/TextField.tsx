@@ -6,12 +6,14 @@ import { IProps } from "./types";
 const TextField: FunctionComponent<IProps> = ({
   className,
   field,
+  theme,
   label,
   type,
   isValid,
   errorText,
   onBlur,
 }) => {
+  const actualClassName = theme === "light" ? "textField__light" : "textField";
   return (
     <div>
       <MaterialComponent
@@ -24,7 +26,7 @@ const TextField: FunctionComponent<IProps> = ({
         error={isValid}
         helperText={errorText}
         variant="outlined"
-        className={className ? className : "textField"}
+        className={actualClassName}
         size="small"
         margin="dense"
       />

@@ -67,7 +67,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
                   <TextField
-                    className="searchPatient__primary__textField"
+                    theme="light"
                     field={formik.getFieldProps("id")}
                     label="Patient ID"
                     isValid={isValid("id")}
@@ -78,7 +78,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 <span className="searchPatient__primary__divider">OR</span>
                 <div className="searchPatient__formItem">
                   <TextField
-                    className="searchPatient__primary__textField"
+                    theme="light"
                     field={formik.getFieldProps("taxNumber")}
                     label="Tax Number"
                     isValid={isValid("taxNumber")}
@@ -103,6 +103,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 <div className="searchPatient__formItem">
                   <TextField
                     field={formik.getFieldProps("name")}
+                    theme="regular"
                     label="Name"
                     isValid={isValid("name")}
                     errorText={getErrorText("name")}
@@ -112,6 +113,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 <div className="searchPatient__formItem">
                   <TextField
                     field={formik.getFieldProps("surname")}
+                    theme="regular"
                     label="Surname"
                     isValid={isValid("surname")}
                     errorText={getErrorText("surname")}
@@ -123,6 +125,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 <div className="searchPatient__formItem">
                   <TextField
                     field={formik.getFieldProps("birthday")}
+                    theme="regular"
                     label="Birthday"
                     isValid={isValid("birthday")}
                     errorText={getErrorText("birthday")}
@@ -132,6 +135,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 <div className="searchPatient__formItem">
                   <TextField
                     field={formik.getFieldProps("address")}
+                    theme="regular"
                     label="Address"
                     isValid={isValid("address")}
                     errorText={getErrorText("address")}

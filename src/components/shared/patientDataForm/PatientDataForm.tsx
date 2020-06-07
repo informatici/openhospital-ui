@@ -51,6 +51,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("name")}
+              theme="regular"
               label="Name"
               isValid={isValid("name")}
               errorText={getErrorText("name")}
@@ -60,6 +61,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("surname")}
+              theme="regular"
               label="Surname"
               isValid={isValid("surname")}
               errorText={getErrorText("surname")}
@@ -70,6 +72,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("taxNumber")}
+              theme="regular"
               label="Tax Number"
               isValid={isValid("taxNumber")}
               errorText={getErrorText("taxNumber")}
@@ -82,6 +85,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("gender")}
+              theme="regular"
               label="Gender"
               isValid={isValid("gender")}
               errorText={getErrorText("gender")}
@@ -92,6 +96,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("birthday")}
+              theme="regular"
               label="Birthday"
               isValid={isValid("birthday")}
               errorText={getErrorText("birthday")}
@@ -104,6 +109,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("address")}
+              theme="regular"
               label="Address"
               isValid={isValid("address")}
               errorText={getErrorText("address")}
@@ -114,6 +120,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("city")}
+              theme="regular"
               label="City"
               isValid={isValid("city")}
               errorText={getErrorText("city")}
@@ -124,6 +131,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("zipCode")}
+              theme="regular"
               label="ZIP Code"
               isValid={isValid("zipCode")}
               errorText={getErrorText("zipCode")}
@@ -136,6 +144,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("bloodType")}
+              theme="regular"
               label="Blood Type"
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
@@ -148,6 +157,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("telephone")}
+              theme="regular"
               label="Telephone"
               isValid={isValid("telephone")}
               errorText={getErrorText("telephone")}
@@ -158,6 +168,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("email")}
+              theme="regular"
               label="Email"
               isValid={isValid("email")}
               errorText={getErrorText("email")}
@@ -169,6 +180,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("insurance")}
+              theme="regular"
               label="Insurance"
               isValid={isValid("insurance")}
               errorText={getErrorText("insurance")}

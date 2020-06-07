@@ -55,6 +55,7 @@ const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
             <div>
               <TextField
                 field={formik.getFieldProps("username")}
+                theme="regular"
                 label="User"
                 isValid={isValid("username")}
                 errorText={getErrorText("username")}
@@ -64,6 +65,7 @@ const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
             <div>
               <TextField
                 field={formik.getFieldProps("password")}
+                theme="regular"
                 label="Password"
                 type="Password"
                 isValid={isValid("password")}
