@@ -9,8 +9,9 @@ import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import main from "./state/main/reducer";
+import patients from "./state/patients/reducer";
 
-const reducer = combineReducers<IState>({ main });
+const reducer = combineReducers<IState>({ main, patients });
 const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))

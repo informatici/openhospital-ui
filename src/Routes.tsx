@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import DashboardActivity from "./components/activities/dashboardActivity/DashboardActivity";
 import NewPatientActivity from "./components/activities/newPatientActivity/NewPatientActivity";
 import SearchPatientActivity from "./components/activities/searchPatientActivity/SearchPatientActivity";
+import PatientDetailsActivity from "./components/activities/patientDetailsActivity/PatientDetailsActivity";
 
 const Routes: FunctionComponent = () => {
   return (
@@ -20,6 +21,9 @@ const Routes: FunctionComponent = () => {
         </Route>
         <Route path="/search">
           <SearchPatientActivity />
+        </Route>
+        <Route path="/details/:id">
+          <PatientDetailsActivity />
         </Route>
       </Switch>
     </BrowserRouter>

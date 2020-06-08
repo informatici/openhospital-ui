@@ -1,4 +1,5 @@
-import { IUserCredentials } from "./state/main/types";
+import { IUserCredentials, IMainState } from "./state/main/types";
+import { IPatientsState } from "./state/patients/types";
 
 export interface IStateProps {
   userCredentials: IUserCredentials;
@@ -11,7 +12,6 @@ export interface IDispatchProps {
 export type TProps = IStateProps & IDispatchProps;
 
 export interface IState {
-  main: {
-    userCredentials: IUserCredentials;
-  };
+  main: IMainState;
+  patients: IPatientsState;
 }

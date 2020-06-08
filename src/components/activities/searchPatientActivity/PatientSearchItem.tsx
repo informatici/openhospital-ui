@@ -5,10 +5,13 @@ import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
 }) => {
-  const path = "/patientDetails/" + patient.id;
+  const handleClick = () => {
+    const path = "/details/1234"; //TODO: use actual patient id instead
+    window.location.href = path;
+  };
   return (
     <div className="patientSearchItem center-xs col-md-4 col-sm-6 col-xs-12">
-      <div className="patientSearchItem__panel">
+      <div className="patientSearchItem__panel" onClick={handleClick}>
         <div className="patientSearchItem__header">
           <div>PID: 32040</div>
           <div>OPD: 32240321</div>
