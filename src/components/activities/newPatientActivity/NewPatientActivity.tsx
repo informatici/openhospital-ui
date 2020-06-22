@@ -36,7 +36,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.userCredentials,
+  userCredentials: state.main.authentication.data?.credentials,
 });
 
 export default connect(mapStateToProps)(NewPatientActivity);

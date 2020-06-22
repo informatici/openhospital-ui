@@ -1,16 +1,36 @@
 import produce from "immer";
-import { SET_TOKEN, SET_USER_CREDENTIALS } from "./consts";
+import {
+  SET_TOKEN,
+  SET_USER_CREDENTIALS,
+  SET_AUTHENTICATION_LOADING,
+  SET_AUTHENTICATION_SUCCESS,
+  SET_AUTHENTICATION_FAIL,
+} from "./consts";
 import { IMainState } from "./types";
 import { initial } from "./initial";
 
 export default produce((draft: IMainState, action: any) => {
   switch (action.type) {
     case SET_TOKEN: {
-      draft.userCredentials.token = action.token;
-      break;
+      // draft.userCredentials.token = action.token;
+      // break;
     }
     case SET_USER_CREDENTIALS: {
       draft.userCredentials = action.userCredentials;
+      break;
+    }
+    case SET_AUTHENTICATION_LOADING: {
+      draft.authentication.isLoading = true;
+      break;
+    }
+    case SET_AUTHENTICATION_SUCCESS: {
+      draft.authentication.data = action.payload;
+      draft.authentication.isLoading = false;
+      break;
+    }
+    case SET_AUTHENTICATION_FAIL: {
+      draft.authentication.error = action.payload;
+      draft.authentication.isLoading = false;
       break;
     }
   }

@@ -13,12 +13,11 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
   newPatientRoute,
   searchPatientRoute,
+  name,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
   };
-
-  const { name, surname } = userCredentials;
 
   const largeButtonHandleClick = (route: string) => () => {
     window.location.href = route;
@@ -27,13 +26,11 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   return (
     <div className="dashboard">
       <AppHeader
-        userCredentials={userCredentials}
+        userCredentials={userCredentials ? userCredentials : {}}
         breadcrumbMap={breadcrumbMap}
       />
       <div className="dashboard__background">
-        <div className="dashboard__greeter">
-          Welcome {name} {surname}
-        </div>
+        <div className="dashboard__greeter">Welcome {name}</div>
         <div className="dashboard__actions">
           <div className="dashboard__actions__button">
             <LargeButton handleClick={largeButtonHandleClick(newPatientRoute)}>
@@ -63,7 +60,8 @@ const DashboardActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.userCredentials,
+  userCredentials: state.main.authentication.data?.credentials,
+  name: state.main.authentication.data?.name,
 });
 
 export default connect(mapStateToProps)(DashboardActivity);

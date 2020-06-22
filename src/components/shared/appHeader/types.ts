@@ -1,9 +1,9 @@
-import { IUserCredentials } from "../../../state/main/types";
+import { TUserCredentials } from "../../../state/main/types";
 
 export type TBreadcrumbMap = Record<string, string>;
 
 export interface IOwnProps {
-  userCredentials: IUserCredentials;
+  userCredentials: TUserCredentials;
   breadcrumbMap: TBreadcrumbMap;
 }
 

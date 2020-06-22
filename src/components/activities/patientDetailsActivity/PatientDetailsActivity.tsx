@@ -117,7 +117,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.userCredentials,
+  userCredentials: state.main.authentication.data?.credentials,
   patients: state.patients,
 });
 

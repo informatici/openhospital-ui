@@ -1,7 +1,7 @@
-import { IUserCredentials } from "../../../state/main/types";
+import { TUserCredentials } from "../../../state/main/types";
 
 export interface IStateProps {
-  userCredentials: IUserCredentials;
+  userCredentials: TUserCredentials;
 }
 
 export type TProps = IStateProps;
