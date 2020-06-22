@@ -8,21 +8,24 @@ import Routes from "./Routes";
 import { LocalStorage } from "./libraries/storage/storage";
 
 const App: FunctionComponent<TProps> = ({ userCredentials, setToken }) => {
-  let { token } = userCredentials;
-  const browserStored = LocalStorage.read("sessionId");
-  if (!token && browserStored) {
-    setToken(browserStored);
+  const browserStoredId = LocalStorage.read("sessionId");
+  if (!userCredentials && browserStoredId) {
+    setToken(browserStoredId);
     return null;
   }
   return (
     <div className="App">
-      {token ? <Routes /> : <LoginActivity successRoute="/dashboard" />}
+      {userCredentials ? (
+        <Routes />
+      ) : (
+        <LoginActivity successRoute="/dashboard" />
+      )}
     </div>
   );
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.userCredentials,
+  userCredentials: state.main.authentication.data?.credentials,
 });
 
 const mapDispatchToProps: IDispatchProps = {

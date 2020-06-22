@@ -4,9 +4,5 @@ export const initial: IMainState = {
   authentication: {
     isLoading: false,
   },
-  userCredentials: {
-    name: "",
-    surname: "",
-    token: "",
-  },
+  token: "",
 };

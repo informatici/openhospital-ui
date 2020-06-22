@@ -1,7 +1,6 @@
 import produce from "immer";
 import {
   SET_TOKEN,
-  SET_USER_CREDENTIALS,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
   SET_AUTHENTICATION_FAIL,
@@ -12,11 +11,7 @@ import { initial } from "./initial";
 export default produce((draft: IMainState, action: any) => {
   switch (action.type) {
     case SET_TOKEN: {
-      // draft.userCredentials.token = action.token;
-      // break;
-    }
-    case SET_USER_CREDENTIALS: {
-      draft.userCredentials = action.userCredentials;
+      draft.token = action.payload;
       break;
     }
     case SET_AUTHENTICATION_LOADING: {

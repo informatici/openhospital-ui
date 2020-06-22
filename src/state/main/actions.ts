@@ -10,9 +10,9 @@ import { IAction } from "../types";
 
 const api = new LoginApiApi();
 
-export const setToken = (token: string) => ({
+export const setToken = (token: string): IAction<string, {}> => ({
   type: SET_TOKEN,
-  token,
+  payload: token,
 });
 
 export const setAuthentication = (username: string, password: string) => (
