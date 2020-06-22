@@ -7,6 +7,7 @@ import {
 import { Dispatch } from "redux";
 import { Authentication, LoginApiApi } from "../../generated";
 import { IAction } from "../types";
+import { LocalStorage } from "../../libraries/storage/storage";
 
 const api = new LoginApiApi();
 
@@ -28,6 +29,7 @@ export const setAuthentication = (username: string, password: string) => (
         type: SET_AUTHENTICATION_SUCCESS,
         payload,
       });
+      LocalStorage.write("sessionID", payload.name);
     },
     (error) => {
       dispatch({

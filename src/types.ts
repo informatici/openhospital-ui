@@ -2,7 +2,7 @@ import { TUserCredentials, IMainState } from "./state/main/types";
 import { IPatientsState } from "./state/patients/types";
 
 export interface IStateProps {
-  userCredentials: TUserCredentials;
+  token: string;
 }
 
 export interface IDispatchProps {

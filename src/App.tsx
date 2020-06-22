@@ -7,25 +7,21 @@ import { setToken } from "./state/main/actions";
 import Routes from "./Routes";
 import { LocalStorage } from "./libraries/storage/storage";
 
-const App: FunctionComponent<TProps> = ({ userCredentials, setToken }) => {
-  const browserStoredId = LocalStorage.read("sessionId");
-  if (!userCredentials && browserStoredId) {
-    setToken(browserStoredId);
+const App: FunctionComponent<TProps> = ({ token, setToken }) => {
+  const browserStoredID = LocalStorage.read("sessionID");
+  if (!token && browserStoredID) {
+    setToken(browserStoredID);
     return null;
   }
   return (
     <div className="App">
-      {userCredentials ? (
-        <Routes />
-      ) : (
-        <LoginActivity successRoute="/dashboard" />
-      )}
+      {token ? <Routes /> : <LoginActivity successRoute="/dashboard" />}
     </div>
   );
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data?.credentials,
+  token: state.main.token,
 });
 
 const mapDispatchToProps: IDispatchProps = {

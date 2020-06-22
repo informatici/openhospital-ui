@@ -24,7 +24,7 @@ export default produce((draft: IMainState, action: any) => {
       break;
     }
     case SET_AUTHENTICATION_FAIL: {
-      draft.authentication.error = action.payload;
+      draft.authentication.error = action.error;
       draft.authentication.isLoading = false;
       break;
     }
