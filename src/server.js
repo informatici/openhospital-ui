@@ -1,14 +1,17 @@
-import { Server, Model } from "miragejs";
+import { Polly } from "@pollyjs/core";
+import XHRAdapter from "@pollyjs/adapter-xhr";
 
-export function makeServer({ environment = "test" } = {}) {
-  let server = new Server({
-    environment,
-    urlPrefix: "http://www.open-hospital.org/oh-api",
-    routes() {
-      this.namespace = "/auth";
+export function makeServer() {
+  Polly.register(XHRAdapter);
+  const polly = new Polly("api-mocking", {
+    adapters: ["xhr"],
+  });
+  const { server } = polly;
 
-      this.post("/login", (schema, request) => {
-        return {
+  server.host("http://www.open-hospital.org/oh-api", () => {
+    server.namespace("/auth", () => {
+      server.post("/login").intercept((req, res) => {
+        res.status(200).json({
           authenticated: true,
           authorities: [
             {
@@ -19,13 +22,10 @@ export function makeServer({ environment = "test" } = {}) {
           details: {},
           name: "Marco Rossi",
           principal: {},
-        };
+        });
       });
-
-      this.post("/logout", (schema) => {
-        return schema.authentication.find("Mario Rossi").destroy();
-      });
-    },
+    });
   });
+
   return server;
 }

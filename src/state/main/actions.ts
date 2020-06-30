@@ -29,7 +29,10 @@ export const setAuthentication = (username: string, password: string) => (
         type: SET_AUTHENTICATION_SUCCESS,
         payload,
       });
-      LocalStorage.write("sessionID", payload.name);
+      dispatch({
+        type: SET_TOKEN,
+        payload: payload.name,
+      });
     },
     (error) => {
       dispatch({

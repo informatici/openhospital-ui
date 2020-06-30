@@ -8,10 +8,13 @@ import Routes from "./Routes";
 import { LocalStorage } from "./libraries/storage/storage";
 
 const App: FunctionComponent<TProps> = ({ token, setToken }) => {
-  const browserStoredID = LocalStorage.read("sessionID");
-  if (!token && browserStoredID) {
-    setToken(browserStoredID);
+  const browserStoredId = LocalStorage.read("sessionId");
+  if (!token && browserStoredId) {
+    setToken(browserStoredId);
     return null;
+  }
+  if (token && window.location.pathname === "/") {
+    window.location.href = "/dashboard";
   }
   return (
     <div className="App">
