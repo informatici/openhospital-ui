@@ -1,23 +1,10 @@
+import { PatientDTO } from "../../../generated";
+
 interface IOwnProps {
-  initialValues: IPatientData;
+  initialValues: PatientDTO;
   profilePicture?: any;
-  handleSubmit: () => void;
+  handleSubmit: (patient: PatientDTO) => void;
   submitButtonLabel: string;
 }
 
 export type TProps = IOwnProps;
-
-export interface IPatientData {
-  name: string;
-  surname: string;
-  taxNumber: string;
-  gender: string;
-  birthday: string;
-  address: string;
-  city: string;
-  zipCode: string;
-  bloodType: string;
-  telephone: string;
-  email: string;
-  insurance: string;
-}
