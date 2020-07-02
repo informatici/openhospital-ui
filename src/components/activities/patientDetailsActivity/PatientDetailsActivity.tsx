@@ -9,7 +9,7 @@ import "./styles.scss";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
-  patients,
+  patient,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -118,7 +118,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data?.credentials,
-  patients: state.patients,
+  patient: state.patients.selectedPatient,
 });
 
 export default connect(mapStateToProps)(PatientDetailsActivity);

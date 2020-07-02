@@ -25,6 +25,12 @@ export function makeServer() {
         });
       });
     });
+
+    server.namespace("/patients", () => {
+      server.post("/").intercept((req, res) => {
+        res.status(201);
+      });
+    });
   });
 
   return server;
