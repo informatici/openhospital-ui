@@ -1,4 +1,9 @@
 import { FieldInputProps } from "formik";
+import {
+  InputProps,
+  FilledInputProps,
+  OutlinedInputProps,
+} from "@material-ui/core";
 
 export interface IProps {
   className?: string;
@@ -9,4 +14,8 @@ export interface IProps {
   isValid: boolean;
   errorText: string;
   onBlur: (e: any) => void;
+  InputProps?:
+    | Partial<InputProps>
+    | Partial<FilledInputProps>
+    | Partial<OutlinedInputProps>;
 }
