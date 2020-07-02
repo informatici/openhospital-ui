@@ -175,13 +175,13 @@ export enum PatientDTOFatherEnum {
  */
 export enum PatientDTOBloodTypeEnum {
   O = "0-",
-  _O = "0+",
-  _A = "A-",
-  A = "A+",
-  _B = "B-",
-  B = "B+",
-  _AB = "AB-",
-  AB = "AB+",
+  O_ = "0+",
+  A = "A-",
+  A_ = "A+",
+  B = "B-",
+  B_ = "B+",
+  AB = "AB-",
+  AB_ = "AB+",
 }
 /**
  * @export

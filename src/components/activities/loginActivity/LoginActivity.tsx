@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { object, string } from "yup";
 import { useFormik } from "formik";
@@ -14,6 +14,8 @@ import Footer from "../../shared/footer/Footer";
 import { LocalStorage } from "../../../libraries/storage/storage";
 import { setAuthentication } from "../../../state/main/actions";
 import { IState } from "../../../types";
+import { InputAdornment } from "@material-ui/core";
+import { RemoveRedEye } from "@material-ui/icons";
 
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthentication,
@@ -40,6 +42,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
       setAuthentication(values.username, values.password);
     },
   });
+
+  const [state, setState] = useState({ isPasswordVisible: false });
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -80,10 +84,26 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 field={formik.getFieldProps("password")}
                 theme="regular"
                 label="Password"
-                type="Password"
+                type={state.isPasswordVisible ? "text" : "password"}
                 isValid={isValid("password")}
                 errorText={getErrorText("password")}
                 onBlur={formik.handleBlur}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <div
+                        className="login__passwordToggler"
+                        onClick={() =>
+                          setState({
+                            isPasswordVisible: !state.isPasswordVisible,
+                          })
+                        }
+                      >
+                        <RemoveRedEye />
+                      </div>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </div>
             <div className="login__buttonContainer">

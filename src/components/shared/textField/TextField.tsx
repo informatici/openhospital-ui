@@ -4,7 +4,6 @@ import "./styles.scss";
 import { IProps } from "./types";
 
 const TextField: FunctionComponent<IProps> = ({
-  className,
   field,
   theme,
   label,
@@ -12,6 +11,7 @@ const TextField: FunctionComponent<IProps> = ({
   isValid,
   errorText,
   onBlur,
+  InputProps,
 }) => {
   const actualClassName = theme === "light" ? "textField__light" : "textField";
   return (
@@ -29,6 +29,7 @@ const TextField: FunctionComponent<IProps> = ({
         className={actualClassName}
         size="small"
         margin="dense"
+        InputProps={InputProps}
       />
     </div>
   );
