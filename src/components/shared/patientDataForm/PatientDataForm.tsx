@@ -9,22 +9,23 @@ import { object, string } from "yup";
 import SmallButton from "../smallButton/SmallButton";
 import "./styles.scss";
 import TextButton from "../textButton/TextButton";
+import { PatientDTO } from "../../../generated";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,
   profilePicture,
-  handleSubmit,
+  onSubmit,
   submitButtonLabel,
 }) => {
   const validationSchema = object({
-    name: string().required("This field is required"),
+    firstName: string().required("This field is required"),
     //TODO: write schema
   });
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: handleSubmit,
+    onSubmit,
   });
 
   const isValid = (fieldName: string): boolean => {
@@ -46,36 +47,36 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           Click to add a photo
         </div>
       </div>
-      <form className="patientDataForm__form" onSubmit={() => null}>
+      <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("name")}
+              field={formik.getFieldProps("firstName")}
               theme="regular"
               label="Name"
-              isValid={isValid("name")}
-              errorText={getErrorText("name")}
+              isValid={isValid("firstName")}
+              errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
             />
           </div>
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("surname")}
+              field={formik.getFieldProps("secondName")}
               theme="regular"
               label="Surname"
-              isValid={isValid("surname")}
-              errorText={getErrorText("surname")}
+              isValid={isValid("secondName")}
+              errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
             />
           </div>
 
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("taxNumber")}
+              field={formik.getFieldProps("taxCode")}
               theme="regular"
-              label="Tax Number"
-              isValid={isValid("taxNumber")}
-              errorText={getErrorText("taxNumber")}
+              label="Tax Code"
+              isValid={isValid("taxCode")}
+              errorText={getErrorText("taxCode")}
               onBlur={formik.handleBlur}
             />
           </div>
@@ -84,22 +85,22 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("gender")}
+              field={formik.getFieldProps("sex")}
               theme="regular"
               label="Gender"
-              isValid={isValid("gender")}
-              errorText={getErrorText("gender")}
+              isValid={isValid("sex")}
+              errorText={getErrorText("sex")}
               onBlur={formik.handleBlur}
             />
           </div>
 
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("birthday")}
+              field={formik.getFieldProps("birthDate")}
               theme="regular"
-              label="Birthday"
-              isValid={isValid("birthday")}
-              errorText={getErrorText("birthday")}
+              label="Data of Birth"
+              isValid={isValid("birthDate")}
+              errorText={getErrorText("birthDate")}
               onBlur={formik.handleBlur}
             />
           </div>
@@ -188,16 +189,16 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             />
           </div>
         </div>
-      </form>
 
-      <div className="patientDataForm__buttonSet">
-        <div>
-          <TextButton>Clear All</TextButton>
+        <div className="patientDataForm__buttonSet">
+          <div>
+            <SmallButton type="submit">{submitButtonLabel}</SmallButton>
+          </div>
+          <div>
+            <TextButton>Clear All</TextButton>
+          </div>
         </div>
-        <div>
-          <SmallButton type="submit">{submitButtonLabel}</SmallButton>
-        </div>
-      </div>
+      </form>
     </div>
   );
 };

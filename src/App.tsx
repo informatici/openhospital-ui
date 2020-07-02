@@ -7,12 +7,14 @@ import { setToken } from "./state/main/actions";
 import Routes from "./Routes";
 import { LocalStorage } from "./libraries/storage/storage";
 
-const App: FunctionComponent<TProps> = ({ userCredentials, setToken }) => {
-  let { token } = userCredentials;
-  const browserStored = LocalStorage.read("sessionId");
-  if (!token && browserStored) {
-    setToken(browserStored);
+const App: FunctionComponent<TProps> = ({ token, setToken }) => {
+  const browserStoredId = LocalStorage.read("sessionId");
+  if (!token && browserStoredId) {
+    setToken(browserStoredId);
     return null;
+  }
+  if (token && window.location.pathname === "/") {
+    window.location.href = "/dashboard";
   }
   return (
     <div className="App">
@@ -22,7 +24,7 @@ const App: FunctionComponent<TProps> = ({ userCredentials, setToken }) => {
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.userCredentials,
+  token: state.main.token,
 });
 
 const mapDispatchToProps: IDispatchProps = {

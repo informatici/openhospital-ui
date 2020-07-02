@@ -1,9 +1,9 @@
-export interface IUserCredentials {
-  name: string;
-  surname: string;
-  token: string;
-}
+import { Authentication } from "../../generated";
+import { IApiResponse } from "../types";
+
+export type TUserCredentials = object | undefined;
 
 export interface IMainState {
-  userCredentials: IUserCredentials;
+  authentication: IApiResponse<Authentication>;
+  token: string;
 }

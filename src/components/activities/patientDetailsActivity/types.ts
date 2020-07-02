@@ -1,9 +1,10 @@
-import { IUserCredentials } from "../../../state/main/types";
-import { IPatient } from "../../../state/patients/types";
+import { TUserCredentials } from "../../../state/main/types";
+import { IApiResponse } from "../../../state/types";
+import { PatientDTO } from "../../../generated";
 
 export interface IStateProps {
-  userCredentials: IUserCredentials;
-  patients: Array<IPatient>; //TODO: use generated type here instead
+  userCredentials: TUserCredentials;
+  patient: IApiResponse<PatientDTO>;
 }
 
 export type TProps = IStateProps;

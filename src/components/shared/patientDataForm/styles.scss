@@ -30,7 +30,6 @@
 
   .patientDataForm__buttonSet {
     display: flex;
-    align-self: flex-end;
-    margin: 0px 40px;
+    flex-direction: row-reverse;
   }
 }

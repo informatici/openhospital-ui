@@ -1,4 +1,4 @@
-import { IUserCredentials } from "../../../state/main/types";
+import { TUserCredentials } from "../../../state/main/types";
 
 export interface IOwnProps {
   newPatientRoute: string;
@@ -6,7 +6,8 @@ export interface IOwnProps {
 }
 
 export interface IStateProps {
-  userCredentials: IUserCredentials;
+  userCredentials: TUserCredentials;
+  name: string | undefined;
 }
 
 export type TProps = IOwnProps & IStateProps;
