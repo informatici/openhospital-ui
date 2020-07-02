@@ -24,10 +24,17 @@ describe("LoginActivity spec", () => {
   });
 
   it("should toggle the password visibility", () => {
-    cy.get("[class=password-toggler]").click();
-    cy.get("[class=password]").should("have.class", "visible");
-    cy.get("[class=password-visibility-toggler]").click();
-    cy.get("[class=password]").should("have.class", "invisible");
+    cy.get("[id=password]").clear().type("thisisapassword");
+
+    cy.get("[class=login__passwordToggler]").click();
+    cy.get("[id=password]").then(($input) => {
+      expect($input.attr("type")).equal("text");
+    });
+
+    cy.get("[class=login__passwordToggler]").click();
+    cy.get("[id=password]").then(($input) => {
+      expect($input.attr("type")).equal("password");
+    });
   });
 
   it("should have username and password input fields and a submit button when on login mode", () => {
