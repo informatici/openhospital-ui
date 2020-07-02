@@ -3,7 +3,7 @@ import { PatientDTO } from "../../../generated";
 interface IOwnProps {
   initialValues: PatientDTO;
   profilePicture?: any;
-  handleSubmit: (patient: PatientDTO) => void;
+  onSubmit: (patient: PatientDTO) => void;
   submitButtonLabel: string;
 }
 

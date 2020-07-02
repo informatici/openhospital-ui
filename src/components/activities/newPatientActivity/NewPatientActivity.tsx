@@ -19,7 +19,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     "New Patient": "/new",
   };
 
-  const handleSubmit = (patient: PatientDTO) => {
+  const onSubmit = (patient: PatientDTO) => {
     createPatient(patient);
   };
 
@@ -34,7 +34,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <div className="newPatient__title">Register New Patient</div>
           <PatientDataForm
             initialValues={initialValues}
-            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
             submitButtonLabel="Submit"
           />
         </div>

@@ -14,7 +14,7 @@ import { PatientDTO } from "../../../generated";
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,
   profilePicture,
-  handleSubmit,
+  onSubmit,
   submitButtonLabel,
 }) => {
   const validationSchema = object({
@@ -25,9 +25,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values: PatientDTO) => {
-      handleSubmit(values);
-    },
+    onSubmit,
   });
 
   const isValid = (fieldName: string): boolean => {
