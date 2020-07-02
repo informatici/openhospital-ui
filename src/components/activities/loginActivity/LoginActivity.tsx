@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { connect } from "react-redux";
 import { object, string } from "yup";
 import { useFormik } from "formik";
@@ -12,6 +12,8 @@ import TextField from "../../shared/textField/TextField";
 import Button from "../../shared/button/Button";
 import Footer from "../../shared/footer/Footer";
 import { LocalStorage } from "../../../libraries/storage/storage";
+import { InputAdornment } from "@material-ui/core";
+import { RemoveRedEye } from "@material-ui/icons";
 
 const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
   window.history.replaceState(null, "", "/");
@@ -34,6 +36,8 @@ const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
       window.location.href = successRoute;
     },
   });
+
+  const [state, setState] = useState({ isPasswordVisible: false });
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -67,10 +71,26 @@ const LoginActivity: FunctionComponent<TProps> = ({ successRoute }) => {
                 field={formik.getFieldProps("password")}
                 theme="regular"
                 label="Password"
-                type="Password"
+                type={state.isPasswordVisible ? "text" : "password"}
                 isValid={isValid("password")}
                 errorText={getErrorText("password")}
                 onBlur={formik.handleBlur}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <div
+                        className="login__passwordToggler"
+                        onClick={() =>
+                          setState({
+                            isPasswordVisible: !state.isPasswordVisible,
+                          })
+                        }
+                      >
+                        <RemoveRedEye />
+                      </div>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </div>
             <div className="login__buttonContainer">
