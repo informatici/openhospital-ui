@@ -2,8 +2,8 @@ import React, { FunctionComponent } from "react";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
 import { IStateProps, TProps } from "./types";
-import AppHeader from "../../shared/appHeader/AppHeader";
-import Footer from "../../shared/footer/Footer";
+import AppHeader from "../../accessories/appHeader/AppHeader";
+import Footer from "../../accessories/footer/Footer";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
 
