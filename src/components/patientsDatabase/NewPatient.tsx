@@ -23,8 +23,6 @@ import AddPhotoIcon from "@material-ui/icons/AddAPhoto";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import SnackBar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
 
 export interface IProps extends WithStyles <typeof styles> {}
 
@@ -52,7 +50,6 @@ class NewPatient extends React.Component <IProps, State > {
         this.handleChange = this.handleChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleDayChange = this.handleDayChange.bind(this)
         this.state = {
             firstName: "",
             secondName: "",
@@ -72,7 +69,6 @@ class NewPatient extends React.Component <IProps, State > {
             mother: "U",
             parentTogether: "U",
             lock: 2,
-            selectedDay: undefined,
         };
     }
 
@@ -112,10 +108,6 @@ class NewPatient extends React.Component <IProps, State > {
                 },
             );
     };
-
-    handleDayChange(day) {
-        this.setState({ selectedDay: day });
-      }
 
     public render() {
         const { classes } = this.props;
@@ -233,14 +225,15 @@ class NewPatient extends React.Component <IProps, State > {
                                                 variant="outlined"/>
                                         </Grid>
                                         <Grid item xs={4} sm={2}>
-                                            <DayPickerInput
+                                            <TextField
                                             required={true}
                                             name='birthDate'
                                             label="Birthdate"
-                                            onDayChange={this.handleDayChange}
+                                            type="date"
                                             onChange={event => this.handleChange(event)}
                                             className={classNames(classes.formField, classes.cssOutlinedInput)}
                                             InputLabelProps={{
+                                                shrink: true,
                                                 classes: {
                                                     root: classes.formFieldInputLabel,
                                                     focused: classes.cssFocused,
