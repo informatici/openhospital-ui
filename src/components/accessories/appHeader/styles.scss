@@ -1,0 +1,57 @@
+@import "../../../styles/variables";
+
+.appHeader {
+  box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+  position: relative;
+
+  .appHeader__background {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $c-white;
+    height: 20vh;
+  }
+
+  .appHeader__identifier {
+    display: flex;
+  }
+
+  .appHeader__identifier__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+  }
+
+  .appHeader__identifier__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .appHeader__identified__main__headline {
+    font-size: x-large;
+    font-weight: bolder;
+    margin: 10px 0px;
+  }
+
+  .appHeader__nav {
+    display: flex;
+    align-items: flex-end;
+    padding: 0px 20px;
+    height: 100%;
+  }
+
+  .appHeader__nav__item {
+    font-size: medium;
+    font-weight: bold;
+    margin: 15px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .appHeader__nav__item:hover {
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+  }
+}

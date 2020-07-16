@@ -1,0 +1,69 @@
+{
+  "name": "open-hospital",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/icons": "^4.9.1",
+    "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^24.9.1",
+    "@types/lodash.get": "^4.4.6",
+    "@types/lodash.has": "^4.5.6",
+    "@types/node": "^12.12.38",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "@types/react-redux": "^7.1.8",
+    "@types/react-router": "^5.1.7",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/yup": "^0.29.0",
+    "classnames": "^2.2.6",
+    "formik": "^2.1.4",
+    "immer": "^6.0.5",
+    "lodash.get": "^4.4.2",
+    "lodash.has": "^4.5.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.26.5",
+    "typescript": "^3.7.5",
+    "yup": "^0.29.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "build:api": "openapi-generator generate -i api.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@pollyjs/adapter-xhr": "^5.0.0",
+    "@pollyjs/core": "^5.0.0",
+    "cypress": "^4.5.0"
+  }
+}
