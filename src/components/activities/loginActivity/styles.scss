@@ -1,0 +1,57 @@
+@import "../../../styles/variables";
+
+.login {
+  .login__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 82vh;
+    width: 100vw;
+    background-color: $c-color-secondary;
+  }
+
+  .login__logo {
+    margin-top: 30px;
+  }
+
+  .login__title {
+    margin: 30px;
+    font-size: x-large;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  .login__panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background-color: $c-white;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+
+    .login__panel__form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 20px 20px 0px 20px;
+    }
+
+    .login__passwordToggler {
+      cursor: pointer;
+    }
+
+    .login__buttonContainer {
+      margin-top: 5px;
+    }
+
+    .login__panel__resetPassword {
+      color: $c-black;
+      margin-top: 10px;
+    }
+  }
+}

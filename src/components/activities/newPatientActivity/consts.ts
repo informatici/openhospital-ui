@@ -1,0 +1,33 @@
+import {
+  PatientDTO,
+  PatientDTOSexEnum,
+  PatientDTOMotherEnum,
+  PatientDTOFatherEnum,
+  PatientDTOBloodTypeEnum,
+  PatientDTOHasInsuranceEnum,
+  PatientDTOParentTogetherEnum,
+} from "../../../generated";
+
+export const initialValues: PatientDTO = {
+  firstName: "",
+  secondName: "",
+  birthDate: "",
+  age: 28,
+  agetype: "",
+  sex: PatientDTOSexEnum.M,
+  address: "",
+  city: "",
+  telephone: "",
+  note: "",
+  mother_name: "",
+  mother: PatientDTOMotherEnum.A,
+  father_name: "",
+  father: PatientDTOFatherEnum.A,
+  bloodType: PatientDTOBloodTypeEnum.AB,
+  hasInsurance: PatientDTOHasInsuranceEnum.Y,
+  parentTogether: PatientDTOParentTogetherEnum.Y,
+  taxCode: "",
+  height: 175,
+  weight: 83,
+  blobPhoto: "",
+};

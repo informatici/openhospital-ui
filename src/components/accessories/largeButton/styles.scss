@@ -1,0 +1,35 @@
+@import "../../../styles/variables";
+
+.largeButton {
+  background-color: $c-white !important;
+  color: $c-black !important;
+  position: relative;
+  height: 140px;
+  width: 300px;
+  border-radius: 10px !important;
+
+  .largeButton__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .largeButton__inner__label {
+    color: $c-color-primary;
+    font-weight: bolder;
+    margin-top: 15px;
+  }
+
+  &:hover {
+    background-color: $c-color-primary !important;
+    color: $c-white !important;
+    transition: all 0.4s ease;
+  }
+
+  &:hover .largeButton__inner__label {
+    background-color: transparent;
+    color: $c-white !important;
+    transition: all 0.4s ease;
+  }
+}
