@@ -1,24 +1,34 @@
-import * as React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Login from "./components/login/Login";
-import { BASE_PATH } from "./config/constants";
-import AppRoutes from "./routes";
-import withRootTheme from "./withRootTheme";
+import React, { FunctionComponent } from "react";
 import "./App.scss";
+import { TProps, IStateProps, IState, IDispatchProps } from "./types";
+import LoginActivity from "./components/activities/loginActivity/LoginActivity";
+import { connect } from "react-redux";
+import { setToken } from "./state/main/actions";
+import Routes from "./Routes";
+import { LocalStorage } from "./libraries/storage/storage";
 
-export const ROOT_PATH = process.env.NODE_ENV === "production" ? "/oh20" : "";
-export const LOGIN_PATH = `${ROOT_PATH}/login`;
-
-class App extends React.Component {
-  public render() {
-    const login = window.localStorage.getItem("user") === "true";
-
-    if (!login && window.location.pathname != LOGIN_PATH) {
-      window.location.pathname = LOGIN_PATH;
-    }
-
-    return <Router basename={BASE_PATH}>{login ? <AppRoutes /> : <Login successRoute="/dashboard" />}</Router>;
+const App: FunctionComponent<TProps> = ({ token, setToken }) => {
+  const browserStoredId = LocalStorage.read("sessionId");
+  if (!token && browserStoredId) {
+    setToken(browserStoredId);
+    return null;
   }
-}
+  if (token && window.location.pathname === "/") {
+    window.location.href = "/dashboard";
+  }
+  return (
+    <div className="App">
+      {token ? <Routes /> : <LoginActivity successRoute="/dashboard" />}
+    </div>
+  );
+};
 
-export default withRootTheme(App);
+const mapStateToProps = (state: IState): IStateProps => ({
+  token: state.main.token,
+});
+
+const mapDispatchToProps: IDispatchProps = {
+  setToken,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

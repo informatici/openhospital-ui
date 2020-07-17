@@ -1,0 +1,19 @@
+@import "../../../styles/variables";
+
+.newPatient {
+  background-color: $c-color-secondary;
+
+  .newPatient__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .newPatient__title {
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+    margin: 30px 20px 60px 20px;
+  }
+}

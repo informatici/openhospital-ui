@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px;
+  background-color: $c-gray;
+  height: 18vh;
+
+  .footer__infoBox {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .footer__infoBox__row {
+    color: $c-white;
+    font-size: small;
+  }
+}
