@@ -25,4 +25,4 @@ jobs:
           record: false
           start: npm start
           spec: cypress/integration/login_activity_spec.js
-          env: port=3000
+          env: host=localhost,port=3000
