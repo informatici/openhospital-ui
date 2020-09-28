@@ -8,5 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
       - name: Building...
         run: npm run build
