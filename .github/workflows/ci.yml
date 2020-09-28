@@ -25,4 +25,4 @@ jobs:
           record: false
           start: npm start
           spec: cypress/integration/login_activity_spec.js
-          config: pageLoadTimeout=100000,baseUrl=http://localhost:3000
+          env: port=3000
