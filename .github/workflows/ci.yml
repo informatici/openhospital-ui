@@ -26,3 +26,4 @@ jobs:
           start: npm start
           spec: cypress/integration/login_activity_spec.js
           env: host=localhost,port=3000
+          wait-on: "http://localhost:3000"
