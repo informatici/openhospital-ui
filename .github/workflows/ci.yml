@@ -23,7 +23,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: false
-          start: npm run serve
+          start: npm start
           spec: |
-            cypress/integration/login_activity_spec.js
-            cypress/integration/dashboard_activity_spec.js
+            ../cypress/integration/login_activity_spec.js
+            ../cypress/integration/dashboard_activity_spec.js
