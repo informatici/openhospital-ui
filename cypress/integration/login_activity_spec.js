@@ -43,24 +43,28 @@ describe("LoginActivity spec", () => {
     cy.get("[class=login__panel]").contains("LOG IN");
   });
 
-  // it("should have username input field and a submit button when on resetPassword mode", () => {
-  //   cy.contains("Forgot the password?").click();
-  //   cy.get("[id=username]");
-  //   cy.get("[id=password]").should("not.exist");
-  //   cy.get("[class=send-request]");
-  // });
+  // Waiting to be implemented
+  it.skip("should have username input field and a submit button when on resetPassword mode", () => {
+    cy.contains("Forgot the password?").click();
+    cy.get("[id=username]");
+    cy.get("[id=password]").should("not.exist");
+    cy.get("[class=send-request]");
+  });
 
-  it("should have a link that toggles the central panel to the resetPassword mode", () => {
+  // Waiting to be implemented
+  it.skip("should have a link that toggles the central panel to the resetPassword mode", () => {
     cy.get("[class=password-reset]").click();
     cy.get("[class=login__panel]").contains("RESET PASSWORD");
   });
 
-  it("should have a “back” button that toggles the central panel to the login mode", () => {
+  // Waiting to be implemented
+  it.skip("should have a “back” button that toggles the central panel to the login mode", () => {
     cy.get("[class=back]").click();
     cy.get("[class=login__panel]").contains("SIGN IN");
   });
 
-  it("should reset the activity state to login mode after submitting the resetPassword’s email input", () => {
+  // Waiting to be implemented
+  it.skip("should reset the activity state to login mode after submitting the resetPassword’s email input", () => {
     cy.get("[class=password-reset]").click();
     cy.get("[id=username]").focus().type("username").blur();
     cy.get("[class=send-request]").click();

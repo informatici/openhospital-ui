@@ -12,3 +12,15 @@ jobs:
         run: npm i
       - name: Building...
         run: npm run build
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          record: false
+          start: npm run serve
+          working-directory: src
