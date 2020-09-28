@@ -18,8 +18,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      # https://github.com/cypress-io/github-action
       - name: Cypress run
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         with:
           record: false
           start: npm run serve
+          spec: |
+            cypress/integration/login_activity_spec.js
+            cypress/integration/dashboard_activity_spec.js
