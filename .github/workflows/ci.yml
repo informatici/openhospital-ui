@@ -25,5 +25,5 @@ jobs:
           record: false
           start: npm start
           spec: cypress/integration/**/*
-          # env: host=localhost,port=3000
+          env: host=localhost,port=3000
           wait-on: "http://localhost:3000"
