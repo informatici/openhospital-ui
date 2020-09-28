@@ -9,7 +9,6 @@ import { object, string } from "yup";
 import SmallButton from "../smallButton/SmallButton";
 import "./styles.scss";
 import TextButton from "../textButton/TextButton";
-import { PatientDTO } from "../../../generated";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,

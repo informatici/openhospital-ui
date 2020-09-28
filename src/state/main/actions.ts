@@ -7,7 +7,6 @@ import {
 import { Dispatch } from "redux";
 import { Authentication, LoginApiApi } from "../../generated";
 import { IAction } from "../types";
-import { LocalStorage } from "../../libraries/storage/storage";
 
 const api = new LoginApiApi();
 

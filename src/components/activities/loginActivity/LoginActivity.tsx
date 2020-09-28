@@ -58,7 +58,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
       LocalStorage.write("sessionId", "token");
       window.location.href = successRoute;
     }
-  }, [authenticated]);
+  }, [authenticated, successRoute]);
 
   return (
     <div className="login">
