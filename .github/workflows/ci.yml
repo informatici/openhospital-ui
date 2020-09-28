@@ -23,4 +23,3 @@ jobs:
         with:
           record: false
           start: npm run serve
-          working-directory: src
