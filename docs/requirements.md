@@ -4,7 +4,7 @@
 
 ### 1. LoginActivity
 
-- It should validate the **email** input;
+- It should validate the **username** input;
   - **username** input is **REQUIRED**;
 - It should validate the **password** input;
   - **password** input is **REQUIRED**;
