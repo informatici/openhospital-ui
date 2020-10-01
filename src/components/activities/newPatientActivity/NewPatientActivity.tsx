@@ -35,7 +35,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <PatientDataForm
             initialValues={initialValues}
             onSubmit={onSubmit}
-            submitButtonLabel="Submit"
+            submitButtonLabel="submit"
           />
         </div>
       </div>

@@ -1,6 +1,8 @@
+const START_PATH = "http://localhost:3000/login";
+
 describe("LoginActivity spec", () => {
   it("should render the ui", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit(START_PATH);
     cy.get("[class=login__panel]");
   });
 

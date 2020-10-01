@@ -78,8 +78,8 @@
 - It should have the **AppHeader**;
 - It should have access to the user **credentials**;
 - It should have a **PatientDataForm** as a child component;
-  - It should **NOT** populate the props’ data field;
-  - It should pass the **“submit”** button wording;
+  - It should pass in **initialValues** carrying only default values;
+  - It should pass the **“submit”** button label;
   - It should pass the callback function for performing the API call;
 
 ### 6. PatientSearchItem
