@@ -81,6 +81,7 @@
   - It should pass in **initialValues** carrying only default values;
   - It should pass the **“submit”** button label;
   - It should pass the callback function for performing the API call;
+  <!-- TODO: add a confirmation dialog? -->
 
 ### 6. PatientSearchItem
 
