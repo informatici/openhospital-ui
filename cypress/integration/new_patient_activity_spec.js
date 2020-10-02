@@ -37,5 +37,23 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=patientDataForm]").contains("submit");
   });
 
-  it.skip("should pass the callback function for performing the API call", () => {});
+  it.skip("should pass the callback function for performing the API call", () => {
+    cy.get("[id=firstName]").type("Antonio Carlos");
+    cy.get("[id=secondName]").type("Jobim");
+    cy.get("[id=birthDate]").type("19270125");
+    cy.get("[id=sex]").clear().type("M");
+    cy.get("[id=address]").type("Rua Nascimento Silva 107");
+    cy.get("[id=city]").type("Rio de Janeiro");
+    cy.get("[id=zipCode]").type("10040");
+    cy.get("[id=telephone]").type("998338785");
+    cy.get("[id=email]").type("antonio.jobim@email.com");
+    cy.get("[id=bloodType]").clear().type("0+");
+    cy.get("[id=insurance]").type("Insurance S.A.");
+    cy.get("[id=taxCode]").type("K475");
+
+    cy.get("[class=patientDataForm]").contains("submit").click();
+
+    cy.wait(1000);
+    cy.get("[class=confirmationDialog]");
+  });
 });
