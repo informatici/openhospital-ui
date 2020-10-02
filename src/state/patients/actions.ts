@@ -5,6 +5,7 @@ import {
   CREATE_PATIENT_LOADING,
   CREATE_PATIENT_SUCCESS,
   CREATE_PATIENT_FAIL,
+  CREATE_PATIENT_RESET,
 } from "./consts";
 
 const patientControllerApi = new PatientControllerApi();
@@ -29,4 +30,12 @@ export const createPatient = (newPatient: PatientDTO) => (
       });
     }
   );
+};
+
+export const createPatientReset = () => (
+  dispatch: Dispatch<IAction<null, {}>>
+) => {
+  dispatch({
+    type: CREATE_PATIENT_RESET,
+  });
 };
