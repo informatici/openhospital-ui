@@ -7,6 +7,7 @@ export interface IAction<Payload, Error> {
 
 export interface IApiResponse<T> {
   isLoading: boolean;
+  hasSucceeded?: boolean;
   data?: T;
   error?: any;
 }
