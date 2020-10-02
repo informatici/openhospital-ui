@@ -79,7 +79,7 @@ describe("LoginActivity spec", () => {
 
     cy.contains("LOG IN").click();
 
-    cy.wait(500);
+    cy.wait(1000);
     cy.url().should("include", "/dashboard");
   });
 });
