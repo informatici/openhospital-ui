@@ -37,7 +37,37 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=patientDataForm]").contains("submit");
   });
 
-  it.skip("should pass the callback function for performing the API call", () => {
+  it("should allow the user to add and remove a profile picture", () => {
+    cy.get("[class=profilePicture]")
+      .find("img")
+      .invoke("attr", "src")
+      .then((firstSrc) => {
+        const placeholder = firstSrc;
+
+        cy.get(
+          "[id=profilePicture_input]"
+        ).attachFile("images/profilePicture.jpg", { force: true });
+
+        cy.wait(1000);
+        cy.get("[class=profilePicture]")
+          .find("img")
+          .invoke("attr", "src")
+          .then((nextSrc) => {
+            expect(nextSrc).to.not.equal(placeholder);
+          });
+
+        cy.get("[class=profilePicture_removeIcon]").click();
+        cy.wait(1000);
+        cy.get("[class=profilePicture]")
+          .find("img")
+          .invoke("attr", "src")
+          .then((nextSrc) => {
+            expect(nextSrc).equal(placeholder);
+          });
+      });
+  });
+
+  it("should allow the user to fill in the form with personal data", () => {
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get("[id=birthDate]").type("19270125");
@@ -50,7 +80,9 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=bloodType]").clear().type("0+");
     cy.get("[id=insurance]").type("Insurance S.A.");
     cy.get("[id=taxCode]").type("K475");
+  });
 
+  it.skip("should pass the callback function for performing the API call", () => {
     cy.get("[class=patientDataForm]").contains("submit").click();
 
     cy.wait(1000);
