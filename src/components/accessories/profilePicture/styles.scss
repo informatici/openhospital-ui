@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: -30px;
+  margin-bottom: -60px;
 }
 
 .profilePicture_mask {
@@ -18,7 +18,7 @@
   position: relative;
 }
 
-.profilePicture_editIcon {
+.profilePicture_removeIcon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,11 +27,29 @@
   width: 30px;
   background-color: $c-color-primary;
   position: relative;
-  bottom: 30px;
+  bottom: 60px;
+  left: 65px;
+  border-style: solid;
+  border-width: medium;
+  border-color: white;
+  cursor: pointer;
+}
+
+.profilePicture_editIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  background-color: $c-error-light;
+  position: relative;
+  bottom: 65px;
   left: 40px;
   border-style: solid;
   border-width: medium;
   border-color: white;
+  cursor: pointer;
 }
 
 .profilePicture img {
