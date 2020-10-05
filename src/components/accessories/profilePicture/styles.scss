@@ -1,0 +1,29 @@
+@import "../../../styles/variables";
+
+.profilePicture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profilePicture_mask {
+  display: flex;
+  justify-content: center;
+  object-fit: cover;
+  border-radius: 100px;
+  height: 140px;
+  width: 140px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profilePicture_label {
+  margin: 10px;
+}
+
+.profilePicture img {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  object-fit: cover;
+}
