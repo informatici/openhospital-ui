@@ -65,6 +65,7 @@
   "devDependencies": {
     "@pollyjs/adapter-xhr": "^5.0.0",
     "@pollyjs/core": "^5.0.0",
-    "cypress": "^4.5.0"
+    "cypress": "^4.5.0",
+    "cypress-file-upload": "^4.1.1"
   }
 }
