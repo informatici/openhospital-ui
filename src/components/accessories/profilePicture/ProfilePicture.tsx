@@ -2,6 +2,7 @@ import React, { FunctionComponent, useRef, useState } from "react";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
 import { handlePictureSelection } from "./utils";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
 
 export interface IProps {
   isEditable: boolean;
@@ -13,6 +14,8 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   //   preLoadedBlobPic,
 }) => {
   const pictureInputRef = useRef<HTMLInputElement>(null);
+
+  const performFileInputClick = () => pictureInputRef.current?.click();
 
   //TODO: Resolve preloaded picture and set it as default
 
@@ -34,10 +37,17 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         <img
           src={pic.preview}
           alt="profilePicture"
-          onClick={() => pictureInputRef.current?.click()}
+          onClick={performFileInputClick}
         />
       </div>
-      <div className="profilePicture_label">Click to add a photo</div>
+      {isEditable && (
+        <div
+          className="profilePicture_editIcon"
+          onClick={performFileInputClick}
+        >
+          <EditRoundedIcon fontSize="small" style={{ color: "white" }} />
+        </div>
+      )}
     </div>
   );
 };

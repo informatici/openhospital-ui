@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: -30px;
 }
 
 .profilePicture_mask {
@@ -17,8 +18,20 @@
   position: relative;
 }
 
-.profilePicture_label {
-  margin: 10px;
+.profilePicture_editIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  background-color: $c-color-primary;
+  position: relative;
+  bottom: 30px;
+  left: 40px;
+  border-style: solid;
+  border-width: medium;
+  border-color: white;
 }
 
 .profilePicture img {
