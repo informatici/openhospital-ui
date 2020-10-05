@@ -1,18 +1,18 @@
-import React, { FunctionComponent } from "react";
-import { TProps } from "./types";
 import { useFormik } from "formik";
-import has from "lodash.has";
 import get from "lodash.get";
-import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
-import TextField from "../textField/TextField";
+import has from "lodash.has";
+import React, { FunctionComponent } from "react";
 import { object, string } from "yup";
+import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
-import "./styles.scss";
 import TextButton from "../textButton/TextButton";
+import TextField from "../textField/TextField";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,
-  profilePicture,
+  // profilePicture,
   onSubmit,
   submitButtonLabel,
 }) => {
@@ -38,13 +38,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
-        <img
-          src={profilePicture ? profilePicture : profilePicturePlaceholder}
-          alt="profilePicture"
-        />
-        <div className="patientDataForm__profilePictureContainer__label">
-          Click to add a photo
-        </div>
+        <ProfilePicture isEditable />
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
