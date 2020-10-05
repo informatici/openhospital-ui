@@ -79,6 +79,7 @@ describe("LoginActivity spec", () => {
 
     cy.contains("LOG IN").click();
 
+    cy.wait(2000);
     cy.url({ timeout: 1000 }).should("include", "/dashboard");
   });
 });
