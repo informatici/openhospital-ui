@@ -31,7 +31,5 @@ A list of open issues is available on [Jira][jira].
  [openhospital-core]: https://github.com/informatici/openhospital-core
  [openhospital-api]: https://github.com/informatici/openhospital-api
  [openhospital-gui]: https://github.com/informatici/openhospital-gui
- [openhospital-doc]: https://github.com/informatici/openhospital-doc
  [contribution-guide]: https://openhospital.atlassian.net/wiki/display/OH/Contribution+Guidelines
  [jira]: https://openhospital.atlassian.net/issues/
- [database.prop]: https://github.com/informatici/openhospital-core/blob/develop/src/test/resources/database.properties
