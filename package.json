@@ -44,7 +44,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "build:api": "openapi-generator generate -i api.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/"
+    "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/"
   },
   "eslintConfig": {
     "extends": "react-app"
