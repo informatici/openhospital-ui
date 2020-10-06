@@ -1,44 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Open Hospital - UI
+[![CI build](https://github.com/informatici/openhospital-ui/workflows/CI/badge.svg)](https://github.com/informatici/openhospital-ui/actions?query=workflow%3ACI)
 
-## Available Scripts
+This is the UI component of [Open Hospital][openhospital]: it contains a web user interface that consists of a React SPA (single page application).
+This project depends on the [API component][openhospital-api] that exposes business logic APIs implemented in the [Core component][openhospital-core].  
+*This project is still in early stages. For a more mature user interface of Open Hospital, check out the [GUI project][openhospital-gui].*
 
-In the project directory, you can run:
+## How to build
 
-### `npm start`
+This project is based on React. To learn React, check out the [React documentation](https://reactjs.org/).  
+To build this project issue:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    npm install
+   
+To run its tests issue:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    npm test
+    
+## How to launch the application
 
-### `npm test`
+You can run a development build of the application by issuing:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm start
+    
+## How to contribute
 
-### `npm run build`
+You can find the contribution guidelines in the [Open Hospital wiki][contribution-guide].  
+A list of open issues is available on [Jira][jira].
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ [openhospital]: https://www.open-hospital.org/
+ [openhospital-core]: https://github.com/informatici/openhospital-core
+ [openhospital-api]: https://github.com/informatici/openhospital-api
+ [openhospital-gui]: https://github.com/informatici/openhospital-gui
+ [contribution-guide]: https://openhospital.atlassian.net/wiki/display/OH/Contribution+Guidelines
+ [jira]: https://openhospital.atlassian.net/issues/
