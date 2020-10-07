@@ -4,14 +4,11 @@
 .appHeader {
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
   position: relative;
-
   &.open_menu{
     .appHeader__identifier{
       border-bottom: 2px solid $c-white;
-      padding-bottom: 20px;
       z-index: 55;
       .appHeader__identified__main{
-        z-index: 55;
         color: $c-white;
       }
       .appHeader__identified__trigger{
@@ -45,15 +42,35 @@
     justify-content: space-between;
     background-color: $c-white;
     padding: 30px 30px 20px 30px;
+    @include susy-media($tablet_land){
+      padding: 30px 20px 0px 20px;
+    }
+    @include susy-media($tablet_port){
+      padding: 30px 20px 0px 20px;
+    }
     @include susy-media($smartphone){
-      padding: 30px 20px 20px 20px;
+      padding: 30px 10px 0px 10px;
     }
   }
 
   .appHeader__identifier {
     display: flex;
+    @include susy-media($tablet_land){
+      padding: 0px 35px 20px 35px;
+      text-align: center;
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+    @include susy-media($tablet_port){
+      padding: 0px 35px 20px 35px;
+      text-align: center;
+      position: relative;
+      display: block;
+      width: 100%;
+    }
     @include susy-media($smartphone){
-      padding: 0px 35px;
+      padding: 0px 35px 20px 35px;
       text-align: center;
       position: relative;
       display: block;
@@ -67,6 +84,12 @@
     justify-content: center;
     align-items: center;
     margin-right: 30px;
+    @include susy-media($tablet_land){
+      display: none;
+    }
+    @include susy-media($tablet_port){
+      display: none;
+    }
     @include susy-media($smartphone){
       display: none;
     }
@@ -82,13 +105,27 @@
     font-size: x-large;
     font-weight: bolder;
     margin-bottom: 5px;
-    @include susy-media($smartphone){
+    @include susy-media($tablet_land){
       font-size: 1.2rem;
+      text-align: center;
+    }
+    @include susy-media($tablet_port){
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    @include susy-media($smartphone){
+      font-size: 1.1rem;
       text-align: center;
     }
   }
 
   .MuiTypography-root{
+    @include susy-media($tablet_land){
+      display: none;
+    }
+    @include susy-media($tablet_port){
+      display: none;
+    }
     @include susy-media($smartphone){
       display: none;
     }
@@ -98,6 +135,32 @@
     display: flex;
     align-items: flex-end;
     height: 100%;
+    @include susy-media($tablet_land){
+      display: block;
+      position: fixed;
+      align-items: initial;
+      background: $c-color-primary;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out
+    }
+    @include susy-media($tablet_port){
+      display: block;
+      position: fixed;
+      align-items: initial;
+      background: $c-color-primary;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out
+    }
     @include susy-media($smartphone){
       display: block;
       position: fixed;
@@ -114,7 +177,19 @@
   }
 
   .appHeader__nav_items{
+    display: flex;
+    @include susy-media($tablet_land){
+      display: block;
+      margin-top: 100px;
+      padding-top: 50px;
+    }
+    @include susy-media($tablet_port){
+      display: block;
+      margin-top: 100px;
+      padding-top: 50px;
+    }
     @include susy-media($smartphone){
+      display: block;
       margin-top: 100px;
       padding-top: 50px;
     }
@@ -127,6 +202,16 @@
     cursor: pointer;
     transition: all 0.5s ease-in-out;
     border-bottom: 1px solid transparent;
+    @include susy-media($tablet_land){
+      font-size: 1.5rem;
+      color: $c-white;
+      margin: 0px 20px 35px 20px;
+    }
+    @include susy-media($tablet_port){
+      font-size: 1.5rem;
+      color: $c-white;
+      margin: 0px 20px 35px 20px;
+    }
     @include susy-media($smartphone){
       font-size: 1.5rem;
       color: $c-white;
@@ -136,6 +221,12 @@
 
   .appHeader__nav__item:hover {
     border-bottom: 1px solid;
+    @include susy-media($tablet_land){
+      border-bottom: 2px solid;
+    }
+    @include susy-media($tablet_port){
+      border-bottom: 2px solid;
+    }
     @include susy-media($smartphone){
       border-bottom: 2px solid;
     }
@@ -146,8 +237,24 @@
     width: 35px;
     height: 35px;
     left: 5px;
-    top: 15px;
+    top: 5px;
+    display: none;
     cursor: pointer;
+    @include susy-media($phablet){
+      display: block;
+      top: -5px;
+    }
+    @include susy-media($tablet_land){
+      display: block;
+      top: -5px;
+    }
+    @include susy-media($tablet_port){
+      display: block;
+      top: -5px;
+    }
+    @include susy-media($phone){
+      display: block;
+    }
     .trigger_x, .trigger_y, .trigger_z{
       position: absolute;
       height: 3px;
