@@ -35,6 +35,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "sass": "^1.26.5",
+    "sass-loader": "^10.0.2",
+    "susy": "^2.2.14",
     "typescript": "^3.7.5",
     "yup": "^0.29.0"
   },

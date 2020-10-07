@@ -1,17 +1,38 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 50px;
+  padding: 25px;
   background-color: $c-gray;
-  height: 18vh;
+  height: 120px;
+  @include susy-media($smartphone) {
+    position: static;
+    display: block;
+    text-align: center;
+    height: auto;
+  }
+
+  img{
+    height: auto;
+    max-width: 100%;
+  }
 
   .footer__infoBox {
     display: flex;
     flex-direction: column;
     height: fit-content;
+    @include susy-media($smartphone) {
+      flex-direction: initial;
+      margin-bottom: 25px;
+      display: block;
+      height: auto;
+    }
   }
 
   .footer__infoBox__row {
