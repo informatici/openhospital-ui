@@ -8,6 +8,8 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0'
+schemes: 
+  - https
 host: www.open-hospital.org
 basePath: /oh-api
 tags:
@@ -6559,15 +6561,15 @@ definitions:
         type: string
         example: A+
         description: 'Blood type (0-/+, A-/+ , B-/+, AB-/+)'
-        enum:
-          - 0-
-          - 0+
-          - A-
-          - A+
-          - B-
-          - B+
-          - AB-
-          - AB+
+        # enum:
+        #   - "0-"
+        #   - "0+"
+        #   - "A-"
+        #   - "A+"
+        #   - "B-"
+        #   - "B+"
+        #   - "AB-"
+        #   - "AB+"
       hasInsurance:
         type: string
         example: 'N'

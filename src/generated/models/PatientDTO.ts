@@ -106,7 +106,7 @@ export interface PatientDTO {
      * @type {string}
      * @memberof PatientDTO
      */
-    bloodType?: PatientDTOBloodTypeEnum;
+    bloodType?: string;
     /**
      * hasInsurance (Y=Yes, N=no)
      * @type {string}
@@ -168,20 +168,6 @@ export enum PatientDTOMotherEnum {
 export enum PatientDTOFatherEnum {
     D = 'D',
     A = 'A'
-}
-/**
- * @export
- * @enum {string}
- */
-export enum PatientDTOBloodTypeEnum {
-    _0 = '0-',
-    _0 = '0+',
-    A = 'A-',
-    A = 'A+',
-    B = 'B-',
-    B = 'B+',
-    AB = 'AB-',
-    AB = 'AB+'
 }
 /**
  * @export
