@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import { setToken } from "./state/main/actions";
 import Routes from "./Routes";
 import { LocalStorage } from "./libraries/storage/storage";
+import { SESSION_ID_KEY } from "./consts";
 
 const App: FunctionComponent<TProps> = ({ token, setToken }) => {
-  const browserStoredId = LocalStorage.read("sessionId");
-  if (!token && browserStoredId) {
-    setToken(browserStoredId);
+  const storedSessionId = LocalStorage.read(SESSION_ID_KEY);
+  if (!token && storedSessionId) {
+    setToken(storedSessionId);
     return null;
   }
   if (token && window.location.pathname === "/") {

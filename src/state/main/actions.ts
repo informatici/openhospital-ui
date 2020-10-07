@@ -5,10 +5,13 @@ import {
   SET_AUTHENTICATION_FAIL,
 } from "./consts";
 import { Dispatch } from "redux";
-import { Authentication, LoginApiApi } from "../../generated";
+import { Authentication, Configuration, LoginApiApi } from "../../generated";
 import { IAction } from "../types";
+import { getTokenFromHeader } from "../../libraries/apiUtils/getTokenFromHeader";
 
-const api = new LoginApiApi();
+const api = new LoginApiApi(
+  new Configuration({ middleware: [getTokenFromHeader] })
+);
 
 export const setToken = (token: string): IAction<string, {}> => ({
   type: SET_TOKEN,
