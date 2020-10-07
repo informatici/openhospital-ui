@@ -11,10 +11,6 @@
  * Do not edit the class manually.
  */
 
-import {
-    GrantedAuthority,
-} from './';
-
 /**
  * @export
  * @interface Authentication
@@ -26,10 +22,10 @@ export interface Authentication {
      */
     authenticated?: boolean;
     /**
-     * @type {Array<GrantedAuthority>}
+     * @type {object}
      * @memberof Authentication
      */
-    authorities?: Array<GrantedAuthority>;
+    authorities?: object;
     /**
      * @type {object}
      * @memberof Authentication

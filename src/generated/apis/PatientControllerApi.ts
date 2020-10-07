@@ -36,8 +36,10 @@ export interface NewPatientUsingPOSTRequest {
 }
 
 export interface SearchPatientUsingGETRequest {
-    code?: number;
-    name?: string;
+    firstName?: string;
+    secondName?: string;
+    birthDate?: string;
+    address?: string;
 }
 
 export interface UpdatePatientUsingPUTRequest {
@@ -128,7 +130,7 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * searchPatient
      */
-    searchPatientUsingGET = ({ code, name }: SearchPatientUsingGETRequest): Observable<PatientDTO> => {
+    searchPatientUsingGET = ({ firstName, secondName, birthDate, address }: SearchPatientUsingGETRequest): Observable<Array<PatientDTO>> => {
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
@@ -136,10 +138,12 @@ export class PatientControllerApi extends BaseAPI {
 
         const query: HttpQuery = {};
 
-        if (code != null) { query['code'] = code; }
-        if (name != null) { query['name'] = name; }
+        if (firstName != null) { query['firstName'] = firstName; }
+        if (secondName != null) { query['secondName'] = secondName; }
+        if (birthDate != null) { query['birthDate'] = birthDate; }
+        if (address != null) { query['address'] = address; }
 
-        return this.request<PatientDTO>({
+        return this.request<Array<PatientDTO>>({
             path: '/patients/search',
             method: 'GET',
             headers,
