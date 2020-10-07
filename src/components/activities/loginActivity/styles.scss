@@ -10,12 +10,8 @@
     height: calc(100vh - 120px);
     width: 100vw;
     background-color: $c-color-secondary;
-    @include susy-media($smartphone_big){
+    @include susy-media($smartphone){
       padding: 100px 0px;
-      height: 100%;
-    }
-    @include susy-media($smartphone_small){
-      padding: 50px 0px;
       height: 100%;
     }
   }

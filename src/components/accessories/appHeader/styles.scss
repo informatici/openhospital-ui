@@ -1,26 +1,75 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .appHeader {
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
   position: relative;
 
+  &.open_menu{
+    .appHeader__identifier{
+      border-bottom: 2px solid $c-white;
+      padding-bottom: 20px;
+      z-index: 55;
+      .appHeader__identified__main{
+        z-index: 55;
+        color: $c-white;
+      }
+      .appHeader__identified__trigger{
+        z-index: 55;
+        .trigger_y{
+          z-index: -1;
+        }
+        .trigger_x, .trigger_z{
+          transition: all 0.5s ease-in-out;
+          background: $c-white;
+          z-index: 55;
+          width: 26px;
+          top: 22px;
+        }
+        .trigger_x{
+          transform: rotate(45deg) scale(1);
+        }
+        .trigger_z{
+          transform: rotate(-45deg) scale(1);
+        }
+      }
+    }
+    .appHeader__nav{
+      z-index: 50;
+      opacity: 1;
+    }
+  }
   .appHeader__background {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     background-color: $c-white;
-    height: 20vh;
+    padding: 30px 30px 20px 30px;
+    @include susy-media($smartphone){
+      padding: 30px 20px 20px 20px;
+    }
   }
 
   .appHeader__identifier {
     display: flex;
+    @include susy-media($smartphone){
+      padding: 0px 35px;
+      text-align: center;
+      position: relative;
+      display: block;
+      width: 100%;
+    }
   }
+
 
   .appHeader__identifier__logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px;
+    margin-right: 30px;
+    @include susy-media($smartphone){
+      display: none;
+    }
   }
 
   .appHeader__identifier__main {
@@ -32,26 +81,103 @@
   .appHeader__identified__main__headline {
     font-size: x-large;
     font-weight: bolder;
-    margin: 10px 0px;
+    margin-bottom: 5px;
+    @include susy-media($smartphone){
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  }
+
+  .MuiTypography-root{
+    @include susy-media($smartphone){
+      display: none;
+    }
   }
 
   .appHeader__nav {
     display: flex;
     align-items: flex-end;
-    padding: 0px 20px;
     height: 100%;
+    @include susy-media($smartphone){
+      display: block;
+      position: fixed;
+      align-items: initial;
+      background: $c-color-primary;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out
+    }
+  }
+
+  .appHeader__nav_items{
+    @include susy-media($smartphone){
+      margin-top: 100px;
+      padding-top: 50px;
+    }
   }
 
   .appHeader__nav__item {
     font-size: medium;
-    font-weight: bold;
-    margin: 15px 10px;
+    margin: 0px 15px;
+    padding: 2px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    border-bottom: 1px solid transparent;
+    @include susy-media($smartphone){
+      font-size: 1.5rem;
+      color: $c-white;
+      margin: 0px 20px 35px 20px;
+    }
   }
 
   .appHeader__nav__item:hover {
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease-in-out;
+    border-bottom: 1px solid;
+    @include susy-media($smartphone){
+      border-bottom: 2px solid;
+    }
+  }
+
+  .appHeader__identified__trigger {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 5px;
+    top: 15px;
+    cursor: pointer;
+    .trigger_x, .trigger_y, .trigger_z{
+      position: absolute;
+      height: 3px;
+      z-index: 5;
+      width: 30px;
+      background: $c-color-primary;
+      transition: all 0.5s ease-in-out;
+    }
+    .trigger_x{
+      top: 12px;
+    }
+    .trigger_y{
+      top: 20px;
+    }
+    .trigger_z{
+      top: 28px;
+    }
+    &:hover .trigger_x{
+      transition: all 0.5s ease-in-out;
+      width: 30px;
+    }
+    
+    &:hover .trigger_y{
+      transition: all 0.5s ease-in-out;
+      width: 26px;
+    }
+     
+    &:hover .trigger_z{
+      transition: all 0.5s ease-in-out;
+      width: 30px;
+    }
   }
 }

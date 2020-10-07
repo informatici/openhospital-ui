@@ -6,10 +6,7 @@
   flex-direction: column;
   margin: 0px;
   height: calc(100vh - 120px);
-  @include susy-media($smartphone_big){
-    height: 100%;
-  }
-  @include susy-media($smartphone_small){
+  @include susy-media($smartphone){
     height: 100%;
   }
   .dashboard__background {
@@ -20,7 +17,7 @@
     align-items: center;
     background-color: $c-color-secondary;
     @include susy-media($smartphone){
-      padding: 50px 0px;
+      padding: 100px 0px;
     }
   }
 
