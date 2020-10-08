@@ -21,6 +21,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/yup": "^0.29.0",
     "classnames": "^2.2.6",
+    "filereader": "^0.10.3",
     "formik": "^2.1.4",
     "immer": "^6.0.5",
     "lodash.get": "^4.4.2",
@@ -66,6 +67,7 @@
   "devDependencies": {
     "@pollyjs/adapter-xhr": "^5.0.0",
     "@pollyjs/core": "^5.0.0",
-    "cypress": "^4.5.0"
+    "cypress": "^4.5.0",
+    "cypress-file-upload": "^4.1.1"
   }
 }

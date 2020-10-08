@@ -11,6 +11,7 @@ import {
   SEARCH_PATIENT_LOADING,
   SEARCH_PATIENT_SUCCESS,
   SEARCH_PATIENT_FAIL,
+  CREATE_PATIENT_RESET,
 } from "./consts";
 import { IAction } from "../types";
 
@@ -26,13 +27,22 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case CREATE_PATIENT_SUCCESS: {
       draft.createPatient.isLoading = false;
+      draft.createPatient.hasSucceeded = true;
       delete draft.createPatient.error;
       break;
     }
 
     case CREATE_PATIENT_FAIL: {
       draft.createPatient.isLoading = false;
+      draft.createPatient.hasSucceeded = false;
       draft.createPatient.error = action.error;
+      break;
+    }
+
+    case CREATE_PATIENT_RESET: {
+      draft.createPatient.isLoading = false;
+      draft.createPatient.hasSucceeded = false;
+      delete draft.createPatient.error;
       break;
     }
 
