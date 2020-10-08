@@ -1,4 +1,5 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .searchPatient {
   background-color: $c-color-secondary;
@@ -25,8 +26,10 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     margin: 20px 80px 60px 80px;
-    padding: 0px 20px 20px 20px;
     overflow: hidden;
+    @include susy-media($smartphone){
+      margin: 20px 20px 40px 20px;
+    }
   }
 
   .searchPatient__primary {
@@ -35,19 +38,74 @@
     align-items: flex-start;
     background-color: $c-gray;
     width: 100%;
-    padding: 30px;
+    padding: 50px 30px;
     flex: 0 0 90px;
+    @include susy-media($smartphone){
+      display: block;
+      text-align: center;
+      justify-content: initial;
+      align-items: initial;
+      padding: 25px 25px 50px 25px;
+    }
+    .row{
+      width: 80%;
+      flex-wrap: initial;
+      @include susy-media($smartphone){
+        width: 100%;
+        display: block;
+        margin: 0px;
+      }
+    }
+    .searchPatient__formItem {
+      width: 50%;
+      @include susy-media($smartphone){
+        width: 100%;
+      }
+    }
   }
 
   .searchPatient__primary__divider {
     color: $c-white;
     font-weight: 500;
-    padding: 10px 0px 10px 0px;
+    padding: 15px 0px 10px 0px;
     margin: 10px;
+  }
+
+  .searchPatient__secondary{
+    padding-bottom: 35px;
+    .searchPatient__formItem {
+      width: 35%;
+      @include susy-media($smartphone){
+        width: 100%;
+      }
+      .MuiFormControl-marginDense{
+        margin: 0px;
+      }
+    }
+    .row{
+      @include susy-media($smartphone){
+        width: 100%;
+        display: block;
+        padding: 0px 20px;
+        margin: 0px;
+      }
+    }
   }
 
   .searchPatient__formItem {
     margin: 5px 10px;
+    @include susy-media($smartphone){
+      margin: 10px 0px;
+    }
+    .MuiFormControl-marginDense{
+      width: 100%;
+      label{
+        top: 5px;
+      }
+      input{
+        padding: 15px;
+      }
+    }
   }
 
   .searchPatient__buttonContainer {
@@ -70,13 +128,34 @@
 
   .searchPatient__info {
     margin: 20px;
+    @include susy-media($smartphone){
+      text-align: center;
+      margin: 0px 20px 20px;
+    }
   }
 
   .searchPatient__results {
-    display: flex;
-    flex: 0 1 auto;
-    flex-wrap: wrap;
-    margin: 0px 20px 60px 20px;
+    .searchPatient__results_list {
+      display: flex;
+      flex: 0 1 auto;
+      flex-wrap: wrap;
+      margin: 0px 20px 60px 20px;
+      @include susy-media($smartphone){
+        margin: 0px 10px 40px 10px;
+      }
+    }
+    .searchPatient__results_count{
+      font-size: x-large;
+      margin-bottom: 30px;
+      margin-left: 20px;
+      @include susy-media($smartphone){
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .footer{
+    position: relative;
   }
 }
 
@@ -85,6 +164,9 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  @include susy-media($smartphone){
+    padding: 0px;
+  }
 
   .patientSearchItem__panel {
     display: flex;
@@ -124,7 +206,13 @@
   }
 
   .patientSearchItem__profile__name {
-    margin: 10px;
+    margin: 15px 0px;
+    font-size: small;
+  }
+
+  .patientSearchItem__profile__admission{
+    font-size: small;
+    margin-top: 15px;
   }
 
   .patientSearchItem__divider {
@@ -136,6 +224,8 @@
   }
 
   .patientSearchItem__info {
-    margin: 5px 0px 5px 50px;
+    margin: 5px 0px 5px 25px;
+    font-size: small;
+    text-align: left;
   }
 }
