@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
 import { IStateProps, TProps } from "./types";
