@@ -8,9 +8,10 @@ import { Dispatch } from "redux";
 import { Authentication, Configuration, LoginApiApi } from "../../generated";
 import { IAction } from "../types";
 import { getTokenFromHeader } from "../../libraries/apiUtils/getTokenFromHeader";
+import { allowCookies } from "../../libraries/apiUtils/allowCookies";
 
 const api = new LoginApiApi(
-  new Configuration({ middleware: [getTokenFromHeader] })
+  new Configuration({ middleware: [getTokenFromHeader, allowCookies] })
 );
 
 export const setToken = (token: string): IAction<string, {}> => ({
