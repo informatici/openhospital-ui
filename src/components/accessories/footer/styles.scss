@@ -11,6 +11,7 @@
   padding: 25px;
   background-color: $c-gray;
   height: 120px;
+  z-index:10;
   @include susy-media($smartphone) {
     position: static;
     display: block;
