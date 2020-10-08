@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef } from "react";
+import React, { FunctionComponent, useState } from "react";
 import logo from "../../../assets/logo.png";
 import { TProps } from "./types";
 import "./styles.scss";
@@ -10,14 +10,13 @@ const AppHeader: FunctionComponent<TProps> = ({
   userCredentials,
   breadcrumbMap,
 }) => {
-  const appHeader = useRef(null);
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
 
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`appHeader ${(isOpen ? "open_menu": "")}`} ref={appHeader}>
+    <div className={`appHeader${(isOpen ? " open_menu": "")}`}>
       <div className="appHeader__background">
         <div className="appHeader__identifier">
           <div className="appHeader__identifier__logo">
