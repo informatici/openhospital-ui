@@ -5,6 +5,7 @@ import "./styles.scss";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import { Typography } from "@material-ui/core";
+import classNames from "classnames";
 
 const AppHeader: FunctionComponent<TProps> = ({
   userCredentials,
@@ -16,13 +17,13 @@ const AppHeader: FunctionComponent<TProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`appHeader${(isOpen ? " open_menu": "")}`}>
+    <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__background">
         <div className="appHeader__identifier">
           <div className="appHeader__identifier__logo">
             <img src={logo} alt="Open Hospital" />
           </div>
-          <div className="appHeader__identified__trigger" onClick={() => setIsOpen((!isOpen) ? true : false)}>
+          <div className="appHeader__identified__trigger" onClick={() => setIsOpen((!isOpen))}>
             <div className="trigger_x"></div>
             <div className="trigger_y"></div>
             <div className="trigger_z"></div>
