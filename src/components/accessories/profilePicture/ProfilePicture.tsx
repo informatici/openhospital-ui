@@ -1,7 +1,7 @@
-import React, { Fragment, FunctionComponent, useRef, useState } from "react";
+import React, { Fragment, FunctionComponent, useRef, useState, useEffect } from "react";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
-import { handlePictureSelection } from "./utils";
+import { handlePictureSelection, preprocessImage } from "./utils";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 
@@ -16,9 +16,15 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 }) => {
   
   const [pic, setPic] = useState({
-    preview: (preLoadedPicture) ? preLoadedPicture : profilePicturePlaceholder,
+    preview: profilePicturePlaceholder,
     blob: "",
   });
+
+  useEffect(() => {
+    if(preLoadedPicture) {
+      preprocessImage(setPic, preLoadedPicture);
+    }
+  }, []);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
