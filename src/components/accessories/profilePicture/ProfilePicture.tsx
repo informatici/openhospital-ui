@@ -24,7 +24,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     if(preLoadedPicture) {
       preprocessImage(setPic, preLoadedPicture);
     }
-  }, []);
+  }, [preLoadedPicture]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
