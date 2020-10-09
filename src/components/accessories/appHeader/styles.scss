@@ -105,6 +105,9 @@
     font-size: x-large;
     font-weight: bolder;
     margin-bottom: 5px;
+    @include susy-media($narrow){
+      font-size: larger;
+    }
     @include susy-media($tablet_land){
       font-size: 1.2rem;
       text-align: center;
@@ -217,6 +220,27 @@
       font-size: 1.5rem;
       color: $c-white;
       margin: 0px 20px 35px 20px;
+    }
+
+    &.home{
+      a{
+        color: lighten($c-black, 30%);
+        @include susy-media($tablet_land){
+          color: $c-white;
+        }
+        @include susy-media($tablet_port){
+          color: $c-white;
+        }
+        @include susy-media($smartphone){
+          color: $c-white;
+        }
+      }
+    }
+
+    a{
+      display: inline-block;
+      text-decoration: none;
+      color: $c-black;
     }
   }
 
