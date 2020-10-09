@@ -7,16 +7,16 @@ import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 
 export interface IProps {
   isEditable: boolean;
-  preLoadedBlobPic?: string;
+  preLoadedPicture?: string;
 }
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
-  //   preLoadedBlobPic,
+  preLoadedPicture,
 }) => {
-  //TODO: Resolve preloaded picture and set it as default
+  
   const [pic, setPic] = useState({
-    preview: profilePicturePlaceholder,
+    preview: (preLoadedPicture) ? preLoadedPicture : profilePicturePlaceholder,
     blob: "",
   });
 
