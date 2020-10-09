@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import React, { FunctionComponent } from "react";
-import profilePicturePlaceholder from "../../../assets/profile.svg";
-import TextField from "../textField/TextField";
 import { object, string } from "yup";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
@@ -39,16 +37,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
   return (
     <div className="patientDataForm">
-      <div className={`patientDataForm__profilePictureContainer${(profilePicture ? "" : " placeholder_button")}`}>
-        <div className="patientDataForm__profilePictureContainer_wrapper">
-          <img
-            src={profilePicture ? profilePicture : profilePicturePlaceholder}
-            alt="profilePicture"
-          />
-          <div className="patientDataForm__profilePictureContainer__label">
-            Click to add a photo
-          </div>
-        </div>
+      <div className="patientDataForm__profilePictureContainer">
+        <ProfilePicture isEditable />	    
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
