@@ -30,8 +30,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
         breadcrumbMap={breadcrumbMap}
       />
       <div className="newPatient__background">
-        <div>
-          <div className="newPatient__title">Register New Patient</div>
+        <div className="newPatient__content">
+          <div className="newPatient__title">Register new patient</div>
           <PatientDataForm
             initialValues={initialValues}
             onSubmit={onSubmit}

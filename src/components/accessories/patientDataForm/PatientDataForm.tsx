@@ -3,7 +3,7 @@ import { TProps } from "./types";
 import { useFormik } from "formik";
 import has from "lodash.has";
 import get from "lodash.get";
-import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
+import profilePicturePlaceholder from "../../../assets/profile.svg";
 import TextField from "../textField/TextField";
 import { object, string } from "yup";
 import SmallButton from "../smallButton/SmallButton";
@@ -37,13 +37,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
   return (
     <div className="patientDataForm">
-      <div className="patientDataForm__profilePictureContainer">
-        <img
-          src={profilePicture ? profilePicture : profilePicturePlaceholder}
-          alt="profilePicture"
-        />
-        <div className="patientDataForm__profilePictureContainer__label">
-          Click to add a photo
+      <div className={`patientDataForm__profilePictureContainer${(profilePicture ? "" : " placeholder_button")}`}>
+        <div className="patientDataForm__profilePictureContainer_wrapper">
+          <img
+            src={profilePicture ? profilePicture : profilePicturePlaceholder}
+            alt="profilePicture"
+          />
+          <div className="patientDataForm__profilePictureContainer__label">
+            Click to add a photo
+          </div>
         </div>
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
@@ -190,10 +192,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         </div>
 
         <div className="patientDataForm__buttonSet">
-          <div>
+          <div className="submit_button">
             <SmallButton type="submit">{submitButtonLabel}</SmallButton>
           </div>
-          <div>
+          <div className="reset_button">
             <TextButton>Clear All</TextButton>
           </div>
         </div>
