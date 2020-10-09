@@ -3,7 +3,7 @@ import {
   PatientDTOSexEnum,
   PatientDTOMotherEnum,
   PatientDTOFatherEnum,
-  PatientDTOBloodTypeEnum,
+  // PatientDTOBloodTypeEnum,
   PatientDTOHasInsuranceEnum,
   PatientDTOParentTogetherEnum,
 } from "../../../generated";
@@ -23,11 +23,11 @@ export const initialValues: PatientDTO = {
   mother: PatientDTOMotherEnum.A,
   father_name: "",
   father: PatientDTOFatherEnum.A,
-  bloodType: PatientDTOBloodTypeEnum.AB,
+  bloodType: "", //PatientDTOBloodTypeEnum.AB,
   hasInsurance: PatientDTOHasInsuranceEnum.Y,
   parentTogether: PatientDTOParentTogetherEnum.Y,
   taxCode: "",
   height: 175,
   weight: 83,
-  blobPhoto: "",
+  blobPhoto: [],
 };
