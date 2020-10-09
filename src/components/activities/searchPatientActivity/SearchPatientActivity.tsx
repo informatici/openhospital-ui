@@ -146,9 +146,14 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="searchPatient__results">
-            <PatientSearchItem patient={{ id: 12345 }} />
-            <PatientSearchItem patient={{ id: 12345 }} />
-            <PatientSearchItem patient={{ id: 12345 }} />
+            <div className="searchPatient__results_count">
+              Results: <strong>3</strong>
+            </div>
+            <div className="searchPatient__results_list">
+              <PatientSearchItem patient={{ id: 12345 }} />
+              <PatientSearchItem patient={{ id: 12345 }} />
+              <PatientSearchItem patient={{ id: 12345 }} />
+            </div>
           </div>
         </div>
       </div>
