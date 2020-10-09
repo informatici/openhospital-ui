@@ -18,8 +18,8 @@ import {
 } from '../models';
 
 export interface LoginUsingPOSTRequest {
-    password: string;
     username: string;
+    password: string;
 }
 
 /**
@@ -31,13 +31,13 @@ export class LoginApiApi extends BaseAPI {
      * Login with the given credentials.
      * Login
      */
-    loginUsingPOST = ({ password, username }: LoginUsingPOSTRequest): Observable<Authentication> => {
-        throwIfNullOrUndefined(password, 'loginUsingPOST');
+    loginUsingPOST = ({ username, password }: LoginUsingPOSTRequest): Observable<Authentication> => {
         throwIfNullOrUndefined(username, 'loginUsingPOST');
+        throwIfNullOrUndefined(password, 'loginUsingPOST');
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'password': password,
             'username': username,
+            'password': password,
         };
 
         return this.request<Authentication>({

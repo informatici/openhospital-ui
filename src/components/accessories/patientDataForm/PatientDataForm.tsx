@@ -1,18 +1,20 @@
-import React, { FunctionComponent } from "react";
-import { TProps } from "./types";
 import { useFormik } from "formik";
-import has from "lodash.has";
 import get from "lodash.get";
+import has from "lodash.has";
+import React, { FunctionComponent } from "react";
 import profilePicturePlaceholder from "../../../assets/profile.svg";
 import TextField from "../textField/TextField";
 import { object, string } from "yup";
+import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
-import "./styles.scss";
 import TextButton from "../textButton/TextButton";
+import TextField from "../textField/TextField";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,
-  profilePicture,
+  // profilePicture,
   onSubmit,
   submitButtonLabel,
 }) => {
