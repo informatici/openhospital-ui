@@ -6,6 +6,7 @@ import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
+import classNames from "classnames";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -28,8 +29,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       <div className="patientDetails__background">
         <div className="container">
           <div className="patientDetails__panel">
-            <div className={`patientDetails__personalData${(isOpen ? " open_sidebar": "")}`}>
-              <div className="patientDetails__personalData__trigger_mobile" onClick={() => setIsOpen((!isOpen) ? true : false)}>
+            <div className={classNames("patientDetails__personalData", { open_sidebar: isOpen })}>
+              <div className="patientDetails__personalData__trigger_mobile" onClick={() => setIsOpen(!isOpen)}>
                 Antonio Carlos
                 <svg xmlns="http://www.w3.org/2000/svg" className="arrow_icon" data-name="Layer 1" viewBox="0 0 24 30" x="0px" y="0px"><polygon points="12 17.02 4.08 9.1 5.5 7.69 12 14.19 18.5 7.69 19.92 9.1 12 17.02"/></svg>
               </div>

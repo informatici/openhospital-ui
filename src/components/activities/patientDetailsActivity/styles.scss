@@ -160,7 +160,6 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0px 10px;
       flex-wrap: wrap;
       .patientDetils__content__header_tab{
         flex-grow: 1;
@@ -198,6 +197,44 @@
       border-radius: 5px;
       padding: 15px;
       width: 100%;
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, $c-gray 50%),
+        linear-gradient(135deg, $c-gray 50%, transparent 50%),
+        linear-gradient(to right, #ccc, #ccc);
+      background-position:
+        calc(100% - 20px) 20px,
+        calc(100% - 16px) 20px,
+        calc(100% - 3em) 0.5em;
+      background-size:
+        5px 5px,
+        5px 5px,
+        1px 30px;
+      background-repeat: no-repeat;
+      
+      &:focus {
+        background-image:
+          linear-gradient(45deg, green 50%, transparent 50%),
+          linear-gradient(135deg, transparent 50%, green 50%),
+          linear-gradient(to right, #ccc, #ccc);
+        background-position:
+          calc(100% - 16px) 20px,
+          calc(100% - 20px) 20px,
+          calc(100% - 3em) 0.5em;
+        background-size:
+          5px 5px,
+          5px 5px,
+          1px 30px;
+        background-repeat: no-repeat;
+        border-color: green;
+        outline: 0;
+      }
+      
+      
+      &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+      }
     }
   }
 
