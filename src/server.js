@@ -36,14 +36,26 @@ export function makeServer() {
 
       server.get("/search").intercept((req, res) => {
         res.status(200).json([{
-          firstName: 'Mario',
-          secondName: 'Rossi'
-        }, {
-          firstName: 'Marco',
-          secondName: 'Bianchi'
-        }, {
-          firstName: 'Luca',
-          secondName: 'Ferrari'
+          firstName: "Mario",
+          secondName: "Rossi",
+          birthDate: "12/12/1980",    
+          age: 40,
+          agetype: "year",
+          sex: "M",
+          address: "Via Roma, 4",
+          city: "Milano",
+          telephone: "3335678455",
+          note: "",
+          mother_name: "Rosa",
+          mother: "D",
+          father_name: "Luigi",
+          father: "D",
+          bloodType: "A+",
+          hasInsurance: "Y",
+          parentTogether: "Y",
+          taxCode: 1578965,
+          height: 180,
+          weight: 80
         }]);
       });
     });

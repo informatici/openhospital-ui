@@ -16,6 +16,7 @@ import {
 import { IAction } from "../types";
 
 export default produce((draft: IPatientsState, action: IAction<any, any>) => {
+
   switch (action.type) {
     /**
      * CREATE_PATIENT

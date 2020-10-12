@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
-import { IStateProps, TProps, IValues } from "./types";
+import { IStateProps, IDispatchProps, TProps, IValues } from "./types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import "./styles.scss";
@@ -9,7 +9,7 @@ import { object } from "yup";
 import { useFormik } from "formik";
 import has from "lodash.has";
 import get from "lodash.get";
-import { PatientControllerApi } from "../../../generated";
+import { searchPatient } from "../../../state/patients/actions";
 import TextField from "../../accessories/textField/TextField";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "../../../assets/SearchIcon";
@@ -17,6 +17,8 @@ import PatientSearchItem from "./PatientSearchItem";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
+  patientSearchResults,
+  searchPatient,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -26,9 +28,9 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   const initialValues = {
     id: "",
     taxNumber: "",
-    name: "",
-    surname: "",
-    birthday: "",
+    firstName: "",
+    secondName: "",
+    birthDate: "",
     address: "",
   };
 
@@ -41,22 +43,15 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
+      //TODO: if there is at least one of those fields Tax Number and Patient ID filled up, use getPatientUsingGET
       searchPatient(values);
     },
   });
 
-  const searchPatient = (values: IValues) => {
-    //TODO: if there is at least one of those fields Tax Number and Patient ID filled up, use getPatientUsingGET
-    const api = new PatientControllerApi();
-    api.searchPatientUsingGET({ ...values }).subscribe(
-      (payload) => {
-        console.log(payload);
-      },
-      (error) => {
-        console.log(error);
-      })
-  }
-
+  useEffect(() => {
+    console.log(patientSearchResults);
+    console.log(userCredentials);
+  }, [patientSearchResults, userCredentials]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -177,6 +172,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data?.credentials,
+  patientSearchResults: state.patients.searchResults.data,
 });
 
-export default connect(mapStateToProps)(SearchPatientActivity);
+const mapDispatchToProps: IDispatchProps = {
+  searchPatient,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPatientActivity);

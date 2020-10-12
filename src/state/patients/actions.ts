@@ -6,6 +6,9 @@ import {
   CREATE_PATIENT_SUCCESS,
   CREATE_PATIENT_FAIL,
   CREATE_PATIENT_RESET,
+  SEARCH_PATIENT_LOADING,
+  SEARCH_PATIENT_SUCCESS,
+  SEARCH_PATIENT_FAIL,
 } from "./consts";
 
 const patientControllerApi = new PatientControllerApi();
@@ -39,3 +42,26 @@ export const createPatientReset = () => (
     type: CREATE_PATIENT_RESET,
   });
 };
+
+export const searchPatient = (values: object) => (
+  dispatch: Dispatch<IAction<null, {}>>
+  ) => {
+    dispatch({
+      type: SEARCH_PATIENT_LOADING,
+    });
+    
+    patientControllerApi.searchPatientUsingGET({ ...values }).subscribe(
+      (payload) => {
+        dispatch({
+          type: SEARCH_PATIENT_SUCCESS,
+          payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: SEARCH_PATIENT_FAIL,
+          error,
+        });
+      }
+    );
+  };
