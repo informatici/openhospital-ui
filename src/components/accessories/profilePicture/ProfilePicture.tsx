@@ -1,24 +1,30 @@
-import React, { Fragment, FunctionComponent, useRef, useState } from "react";
+import React, { Fragment, FunctionComponent, useRef, useState, useEffect } from "react";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
-import { handlePictureSelection } from "./utils";
+import { handlePictureSelection, preprocessImage } from "./utils";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 
 export interface IProps {
   isEditable: boolean;
-  preLoadedBlobPic?: string;
+  preLoadedPicture?: string;
 }
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
-  //   preLoadedBlobPic,
+  preLoadedPicture,
 }) => {
-  //TODO: Resolve preloaded picture and set it as default
+  
   const [pic, setPic] = useState({
     preview: profilePicturePlaceholder,
     blob: "",
   });
+
+  useEffect(() => {
+    if(preLoadedPicture) {
+      preprocessImage(setPic, preLoadedPicture);
+    }
+  }, [preLoadedPicture]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
