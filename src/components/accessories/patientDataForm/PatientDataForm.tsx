@@ -37,6 +37,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
   const onProfilePictureChange = useCallback((picture: string) => {
     formik.setFieldValue("blobPhoto", [picture]);
+    //TODO: it needs refactoring
+    // eslint-disable-next-line
   }, []);
 
   return (

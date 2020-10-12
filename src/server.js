@@ -7,7 +7,7 @@ export function makeServer() {
   const polly = new Polly("api-mocking", {
     adapters: ["xhr"],
     mode: "passthrough",
-    logging: true
+    logging: true,
   });
   const { server } = polly;
 
