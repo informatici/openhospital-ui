@@ -11,18 +11,18 @@
     align-items: center;
   }
 
-  .newPatient__content{
+  .newPatient__content {
     width: 80%;
-    @include susy-media($narrow){
+    @include susy-media($narrow) {
       width: 90%;
     }
-    @include susy-media($tablet_land){
+    @include susy-media($tablet_land) {
       width: 90%;
     }
-    @include susy-media($tablet_port){
+    @include susy-media($tablet_port) {
       width: 90%;
     }
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       width: 90%;
     }
   }
@@ -32,16 +32,49 @@
     color: $c-black;
     font-weight: bolder;
     margin: 45px 0px 70px 0px;
-    @include susy-media($tablet_port){
+    @include susy-media($tablet_port) {
       font-size: x-large;
     }
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       margin: 45px 0px 80px 0px;
       font-size: x-large;
     }
   }
 
-  .footer{
+  .footer {
     position: relative;
+  }
+}
+
+.dialog__title {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.dialog__info {
+  margin: 25px 0px 40px;
+}
+
+.dialog__divider {
+  width: 100%;
+  background-color: $c-gray-light;
+  height: 2px;
+}
+
+.dialog__buttonSet {
+  display: flex;
+  flex-direction: row-reverse;
+  @include susy-media($smartphone_small) {
+    display: block;
+  }
+
+  .submit_button,
+  .reset_button {
+    .MuiButton-label {
+      font-size: smaller;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
   }
 }

@@ -3,4 +3,5 @@ export interface IProps {
   variant: "text" | "outlined" | "contained" | undefined;
   color: string;
   disabled?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

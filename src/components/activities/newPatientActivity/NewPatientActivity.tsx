@@ -1,23 +1,29 @@
-import React, { FunctionComponent, useEffect } from "react";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
-import { IStateProps, TProps, IDispatchProps } from "./types";
-import { IState } from "../../../types";
-import AppHeader from "../../accessories/appHeader/AppHeader";
-import Footer from "../../accessories/footer/Footer";
-import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
-import { initialValues } from "./consts";
+import { PatientDTO } from "../../../generated";
 import {
   createPatient,
   createPatientReset,
 } from "../../../state/patients/actions";
+import { IState } from "../../../types";
+import AppHeader from "../../accessories/appHeader/AppHeader";
+import Button from "../../accessories/button/Button";
+import Footer from "../../accessories/footer/Footer";
+import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
+import SmallButton from "../../accessories/smallButton/SmallButton";
+import TextButton from "../../accessories/textButton/TextButton";
+import { initialValues } from "./consts";
 import "./styles.scss";
-import { PatientDTO } from "../../../generated";
+import { IDispatchProps, IStateProps, TProps } from "./types";
 
 const NewPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
   createPatient,
-  // createPatientReset,
-  // isLoading,
+  createPatientReset,
+  isLoading,
   hasSucceeded,
 }) => {
   const breadcrumbMap = {
@@ -29,15 +35,15 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     createPatient(patient);
   };
 
-  useEffect(() => {
-    if (hasSucceeded) {
-      //TODO: show confirmation dialog
-    }
-  }, [hasSucceeded]);
+  const handleDialogOnDismiss = () => {
+    //TODO: should reset values and profilePicture
+    createPatientReset();
+    window.location.href = "/new";
+  };
 
-  // const handleDialogButtonClick = () => {
-  //   //TODO: should reset createPatient and values, and close dialog
-  // };
+  const handleDialogToDashboard = () => {
+    window.location.href = "/dashboard";
+  };
 
   return (
     <div className="newPatient">
@@ -52,9 +58,39 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             initialValues={initialValues}
             onSubmit={onSubmit}
             submitButtonLabel="submit"
+            isLoading={isLoading}
           />
         </div>
       </div>
+      <Dialog open={!!hasSucceeded}>
+        <DialogTitle>
+          <div className="dialog__title">Patient Created</div>
+        </DialogTitle>
+        <DialogContent>
+          <div className="dialog__content">
+            <div className="dialog__divider" />
+            <div className="dialog__info">
+              The patient registration was successful.
+            </div>
+            <div className="dialog__buttonSet">
+              <div className="return_button">
+                <SmallButton
+                  type="button"
+                  disabled={false}
+                  onClick={handleDialogToDashboard}
+                >
+                  Dashboard
+                </SmallButton>
+              </div>
+              <div className="reset_button">
+                <TextButton onClick={handleDialogOnDismiss}>
+                  Keep editing
+                </TextButton>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       <Footer />
     </div>
   );

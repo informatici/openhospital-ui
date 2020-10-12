@@ -3,10 +3,21 @@ import { Button as MaterialComponent } from "@material-ui/core";
 import "./styles.scss";
 import { IProps } from "./types";
 
-const SmallButton: FunctionComponent<IProps> = ({ children, type }) => {
+const SmallButton: FunctionComponent<IProps> = ({
+  children,
+  type,
+  disabled,
+  onClick,
+}) => {
   return (
     <div>
-      <MaterialComponent className="smallButton" type={type} disableElevation>
+      <MaterialComponent
+        className="smallButton"
+        disabled={disabled}
+        type={type}
+        onClick={onClick}
+        disableElevation
+      >
         {children}
       </MaterialComponent>
     </div>

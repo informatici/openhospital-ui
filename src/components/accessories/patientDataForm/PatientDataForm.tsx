@@ -15,6 +15,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   profilePicture,
   onSubmit,
   submitButtonLabel,
+  isLoading,
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
@@ -195,10 +196,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
-            <SmallButton type="submit">{submitButtonLabel}</SmallButton>
+            <SmallButton type="submit" disabled={isLoading}>
+              {submitButtonLabel}
+            </SmallButton>
           </div>
           <div className="reset_button">
-            <TextButton>Clear All</TextButton>
+            <TextButton onClick={() => formik.resetForm()}>
+              Clear All
+            </TextButton>
           </div>
         </div>
       </form>
