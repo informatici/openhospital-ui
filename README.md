@@ -32,4 +32,4 @@ A list of open issues is available on [Jira][jira].
  [openhospital-api]: https://github.com/informatici/openhospital-api
  [openhospital-gui]: https://github.com/informatici/openhospital-gui
  [contribution-guide]: https://openhospital.atlassian.net/wiki/display/OH/Contribution+Guidelines
- [jira]: https://openhospital.atlassian.net/issues/
+ [jira]: https://openhospital.atlassian.net/secure/RapidBoard.jspa?rapidView=5&selectedIssue=OP-293
