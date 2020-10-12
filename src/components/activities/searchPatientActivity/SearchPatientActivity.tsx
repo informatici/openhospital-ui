@@ -5,7 +5,7 @@ import { IStateProps, TProps, IValues } from "./types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import "./styles.scss";
-import { object, string } from "yup";
+import { object } from "yup";
 import { useFormik } from "formik";
 import has from "lodash.has";
 import get from "lodash.get";
