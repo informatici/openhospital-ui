@@ -201,6 +201,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </SmallButton>
           </div>
           <div className="reset_button">
+            {/* TODO: Remove profilePicture as well */}
             <TextButton onClick={() => formik.resetForm()}>
               Clear All
             </TextButton>
