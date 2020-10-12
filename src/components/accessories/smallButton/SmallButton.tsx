@@ -5,7 +5,7 @@ import { IProps } from "./types";
 
 const SmallButton: FunctionComponent<IProps> = ({
   children,
-  type,
+  type = "button",
   disabled,
   onClick,
 }) => {

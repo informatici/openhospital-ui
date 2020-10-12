@@ -73,11 +73,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             </div>
             <div className="dialog__buttonSet">
               <div className="return_button">
-                <SmallButton
-                  type="button"
-                  disabled={false}
-                  onClick={handleDialogToDashboard}
-                >
+                <SmallButton onClick={handleDialogToDashboard}>
                   Dashboard
                 </SmallButton>
               </div>
