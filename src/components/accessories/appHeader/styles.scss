@@ -222,18 +222,20 @@
       margin: 0px 20px 35px 20px;
     }
 
-    &.home{
+    &.mobile{
+      display: none;
+      @include susy-media($tablet_land){
+        display: block;
+      }
+      @include susy-media($tablet_port){
+        display: block;
+      }
+      @include susy-media($smartphone){
+        display: block;
+      }
+
       a{
-        color: lighten($c-black, 30%);
-        @include susy-media($tablet_land){
-          color: $c-white;
-        }
-        @include susy-media($tablet_port){
-          color: $c-white;
-        }
-        @include susy-media($smartphone){
-          color: $c-white;
-        }
+        color: $c-white;
       }
     }
 

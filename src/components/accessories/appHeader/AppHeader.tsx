@@ -44,7 +44,7 @@ const AppHeader: FunctionComponent<TProps> = ({
         </div>
         <div className="appHeader__nav">
           <div className="appHeader__nav_items">
-            <div className="appHeader__nav__item home"><Link href="/dashboard">Dashboard</Link></div>
+            <div className="appHeader__nav__item mobile"><Link href="/dashboard">Dashboard</Link></div>
             <div className="appHeader__nav__item">Pharmacy</div>
             <div className="appHeader__nav__item">Ward</div>
             <div className="appHeader__nav__item">Billing</div>
