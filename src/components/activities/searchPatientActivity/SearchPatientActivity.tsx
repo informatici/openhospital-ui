@@ -50,8 +50,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     console.log(patientSearchResults);
-    console.log(userCredentials);
-  }, [patientSearchResults, userCredentials]);
+  }, [patientSearchResults]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
