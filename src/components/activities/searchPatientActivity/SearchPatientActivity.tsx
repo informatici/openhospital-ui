@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
-import { IStateProps, TProps } from "./types";
+import { IStateProps, TProps, IValues } from "./types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import "./styles.scss";
@@ -9,6 +9,7 @@ import { object, string } from "yup";
 import { useFormik } from "formik";
 import has from "lodash.has";
 import get from "lodash.get";
+import { PatientControllerApi } from "../../../generated";
 import TextField from "../../accessories/textField/TextField";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "../../../assets/SearchIcon";
@@ -32,18 +33,30 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    id: string().required("This field is required"),
+    //id: string().required("This field is required"),
     //TODO: write schema
   });
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      //TODO: implement onSubmit event
-      console.log("submit");
+    onSubmit: (values: IValues) => {
+      searchPatient(values);
     },
   });
+
+  const searchPatient = (values: IValues) => {
+    //TODO: if there is at least one of those fields Tax Number and Patient ID filled up, use getPatientUsingGET
+    const api = new PatientControllerApi();
+    api.searchPatientUsingGET({ ...values }).subscribe(
+      (payload) => {
+        console.log(payload);
+      },
+      (error) => {
+        console.log(error);
+      })
+  }
+
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -62,7 +75,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       <div className="searchPatient__background">
         <div className="container">
           <div className="searchPatient__title">Search Patient</div>
-          <div className="searchPatient__panel">
+          <form className="searchPatient__panel" onSubmit={formik.handleSubmit}>
             <div className="searchPatient__primary">
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
@@ -102,21 +115,21 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
                   <TextField
-                    field={formik.getFieldProps("name")}
+                    field={formik.getFieldProps("firstName")}
                     theme="regular"
                     label="Name"
-                    isValid={isValid("name")}
-                    errorText={getErrorText("name")}
+                    isValid={isValid("firstName")}
+                    errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
                   />
                 </div>
                 <div className="searchPatient__formItem">
                   <TextField
-                    field={formik.getFieldProps("surname")}
+                    field={formik.getFieldProps("secondName")}
                     theme="regular"
                     label="Surname"
-                    isValid={isValid("surname")}
-                    errorText={getErrorText("surname")}
+                    isValid={isValid("secondName")}
+                    errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
                   />
                 </div>
@@ -124,11 +137,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
                   <TextField
-                    field={formik.getFieldProps("birthday")}
+                    field={formik.getFieldProps("birthDate")}
                     theme="regular"
                     label="Birthday"
-                    isValid={isValid("birthday")}
-                    errorText={getErrorText("birthday")}
+                    isValid={isValid("birthDate")}
+                    errorText={getErrorText("birthDate")}
                     onBlur={formik.handleBlur}
                   />
                 </div>
@@ -144,7 +157,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 </div>
               </div>
             </div>
-          </div>
+          </form>
           <div className="searchPatient__results">
             <div className="searchPatient__results_count">
               Results: <strong>3</strong>

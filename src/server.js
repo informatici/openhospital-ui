@@ -33,6 +33,19 @@ export function makeServer() {
       server.post("/").intercept((req, res) => {
         res.status(201);
       });
+
+      server.get("/search").intercept((req, res) => {
+        res.status(200).json([{
+          firstName: 'Mario',
+          secondName: 'Rossi'
+        }, {
+          firstName: 'Marco',
+          secondName: 'Bianchi'
+        }, {
+          firstName: 'Luca',
+          secondName: 'Ferrari'
+        }]);
+      });
     });
   });
 
