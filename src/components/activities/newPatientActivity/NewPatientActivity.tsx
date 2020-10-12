@@ -10,7 +10,6 @@ import {
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import SmallButton from "../../accessories/smallButton/SmallButton";
