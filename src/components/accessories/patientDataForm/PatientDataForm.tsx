@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useCallback } from "react";
 import { object, string } from "yup";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
@@ -12,7 +12,7 @@ import { TProps } from "./types";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,
-  // profilePicture,
+  profilePicture,
   onSubmit,
   submitButtonLabel,
 }) => {
@@ -35,10 +35,18 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+  const onProfilePictureChange = useCallback((picture: string) => {
+    formik.setFieldValue("blobPhoto", [picture]);
+  }, []);
+
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
-        <ProfilePicture isEditable />	    
+        <ProfilePicture
+          isEditable
+          preLoadedPicture={profilePicture}
+          onChange={onProfilePictureChange}
+        />
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
