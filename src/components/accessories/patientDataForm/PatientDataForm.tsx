@@ -38,7 +38,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
-        <ProfilePicture isEditable />
+        <ProfilePicture isEditable />	    
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
@@ -184,10 +184,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         </div>
 
         <div className="patientDataForm__buttonSet">
-          <div>
+          <div className="submit_button">
             <SmallButton type="submit">{submitButtonLabel}</SmallButton>
           </div>
-          <div>
+          <div className="reset_button">
             <TextButton>Clear All</TextButton>
           </div>
         </div>

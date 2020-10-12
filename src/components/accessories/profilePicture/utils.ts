@@ -44,15 +44,24 @@ export const handlePictureSelection = (
       window.URL = window.URL || window.webkitURL;
       const blobURL = window.URL.createObjectURL(blob); // and get it's URL
 
-      // helper Image object
-      const image = new Image();
-      image.src = blobURL;
-      //preview.appendChild(image); // preview commented out, I am using the canvas instead
-      image.onload = function () {
-        // have to wait till it's loaded
-        const preview = createPreview(image);
-        setPic((prevState) => ({ ...prevState, preview }));
-      };
+      preprocessImage(setPic, blobURL);
     };
   }
+};
+
+export const preprocessImage = (
+  setPic: Dispatch<
+    SetStateAction<{
+      preview: string;
+      blob: string;
+    }>
+  >, imageCode: string
+  ) => {
+    const image = new Image();
+    image.src = imageCode;
+
+    image.onload = function () {
+      const preview = createPreview(image);
+      setPic((prevState) => ({ ...prevState, preview }));
+  };
 };
