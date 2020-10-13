@@ -1,4 +1,5 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .login {
   .login__background {
@@ -6,20 +7,30 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 82vh;
+    height: calc(100vh - 120px);
     width: 100vw;
     background-color: $c-color-secondary;
+    @include susy-media($smartphone){
+      padding: 100px 0px;
+      height: 100%;
+    }
   }
 
   .login__logo {
-    margin-top: 30px;
+    margin-top: 0px;
   }
 
   .login__title {
-    margin: 30px;
+    padding: 25px;
     font-size: x-large;
     text-align: center;
     font-weight: bolder;
+    @include susy-media($narrow){
+      padding: 15px;
+    }
+    @include susy-media($tablet_land){
+      padding: 25px;
+    }
   }
 
   .login__panel {

@@ -12,9 +12,9 @@ import main from "./state/main/reducer";
 import patients from "./state/patients/reducer";
 import { makeServer } from "./server";
 
-// if (process.env.NODE_ENV === "development") {
-//   makeServer();
-// }
+if (process.env.NODE_ENV === "development") {
+  makeServer();
+}
 
 const reducer = combineReducers<IState>({ main, patients });
 const store = createStore(

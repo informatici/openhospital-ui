@@ -1,7 +1,14 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .patientDetails {
   background-color: $c-color-secondary;
+
+  .container{
+    @include susy-media($smartphone){
+      width: 100%;
+    }
+  }
 
   .patientDetails__background {
     display: flex;
@@ -23,8 +30,16 @@
     background-color: $c-white;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-    margin: 20px 80px 60px 80px;
+    margin: 20px 20px 40px 20px;
     overflow: hidden;
+    @include susy-media($smartphone){
+      display: block;
+      align-items: initial;
+      background-color: transparent;
+      margin: 40px 20px 80px 20px;
+      border-radius: initial;
+      box-shadow: initial;
+    }
   }
 
   .patientDetails__personalData {
@@ -33,18 +48,74 @@
     flex-direction: column;
     background-color: $c-gray;
     padding: 0px 0px 40px 0px;
+
+    &.open_sidebar{
+      .patientDetails__personalData__trigger_mobile{
+        svg{
+          transform: rotate(180deg);
+          top: 5px;
+        }
+      }
+      .patientDetails__personalData_sidebar{
+        max-height: 1000px;
+        overflow: auto;
+        .patientDetails__personalData__item:last-of-type{
+          margin: 10px 30px 20px;
+        }
+      }
+    }
+
+    @include susy-media($smartphone){
+      display: block;
+      flex: initial;
+      padding: 0px;
+      flex-direction: initial;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    }
+  }
+
+  .patientDetails__personalData_sidebar{
+    @include susy-media($smartphone){
+      overflow: hidden;
+      max-height: 0px;
+      transition: 0.5s max-height ease-in-out;
+    }
+  }
+
+  .patientDetails__personalData__trigger_mobile{
+    display: none;
+    color: $c-white;
+    position: relative;
+    padding: 15px 40px 15px 15px;
+    @include susy-media($smartphone){
+      display: block;
+    }
+    svg.arrow_icon{
+      position: absolute;
+      top: 12px;
+      width: 30px;
+      right: 10px;
+      fill: $c-white;
+      transition: 0.3s transform ease-in-out;
+    }
   }
 
   .patientDetails__profilePictureContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px 70px;
+    padding: 50px 70px;
+    
   }
 
   .patientDetails__personalData__item {
     color: $c-white;
     margin: 10px 30px;
+    & + .patientDetails__personalData__item{
+      padding-top: 15px;
+      border-top: 1px solid lighten($c-gray, 40%);
+    }
   }
 
   .patientDetails__personalData__item__value {
@@ -55,10 +126,119 @@
     flex: 3;
     display: flex;
     flex-direction: column;
+    @include susy-media($smartphone){
+      display: block;
+      flex: initial;
+      margin-top: 35px;
+      border-radius: 10px;
+      padding: 40px 25px 25px;
+      flex-direction: initial;
+      background-color: $c-white;
+      box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    }
+
+    .patientDetils__content__body_header{
+      font-size: large;
+      font-weight: 500;
+    }
+
+    .patientDetils__content__body{
+      padding: 30px;
+      @include susy-media($smartphone){
+        padding: 30px 0px;
+      }
+    }
   }
 
   .patientDetils__content__header {
     background-color: #f5f5f5;
-    padding: 25px 0px;
+    @include susy-media($smartphone){
+      display: none;
+    }
+
+    .patientDetils__content__header_tabs{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .patientDetils__content__header_tab{
+        flex-grow: 1;
+        font-weight: 500;
+        font-size: smaller;
+        text-transform: uppercase;
+        display: inline-block;
+        padding: 20px 10px 10px;
+        vertical-align: top;
+        background-color: #eee;
+        cursor: hand;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: $c-black;
+        border-bottom: 2px solid transparent;
+        transition: 0.3s all ease-in-out;
+        &:hover,
+        &:active{
+          color: $c-color-primary;
+          border-bottom: 2px solid $c-color-primary;
+        }
+      }
+    }
+  }
+
+  .patientDetils__content__header_mobile{
+    display: none;
+    
+    @include susy-media($smartphone){
+      display: block;
+    }
+    
+    select{
+      border-radius: 5px;
+      padding: 15px;
+      width: 100%;
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, $c-gray 50%),
+        linear-gradient(135deg, $c-gray 50%, transparent 50%),
+        linear-gradient(to right, #ccc, #ccc);
+      background-position:
+        calc(100% - 20px) 20px,
+        calc(100% - 16px) 20px,
+        calc(100% - 3em) 0.5em;
+      background-size:
+        5px 5px,
+        5px 5px,
+        1px 30px;
+      background-repeat: no-repeat;
+      
+      &:focus {
+        background-image:
+          linear-gradient(45deg, green 50%, transparent 50%),
+          linear-gradient(135deg, transparent 50%, green 50%),
+          linear-gradient(to right, #ccc, #ccc);
+        background-position:
+          calc(100% - 16px) 20px,
+          calc(100% - 20px) 20px,
+          calc(100% - 3em) 0.5em;
+        background-size:
+          5px 5px,
+          5px 5px,
+          1px 30px;
+        background-repeat: no-repeat;
+        border-color: green;
+        outline: 0;
+      }
+      
+      
+      &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+      }
+    }
+  }
+
+  .footer{
+    position: relative;
   }
 }

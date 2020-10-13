@@ -1,35 +1,114 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .patientDataForm {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   align-items: center;
   background-color: $c-white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-  margin: 20px 20px 60px 20px;
+  margin-bottom: 60px;
   padding: 20px;
+  width: 100%;
 
   .patientDataForm__profilePictureContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: -70px 0px 10px 0px;
+
+    &.placeholder_button{
+      .patientDataForm__profilePictureContainer_wrapper{
+        transition: 0.3s all ease-in-out;
+        background-color: $c-gray;
+        display: inline-block;
+        border-radius: 50%;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+        height: 150px;
+        width: 150px;
+        @include susy-media($smartphone){
+          height: 120px;
+          width: 120px;
+          padding: 5px;
+        }
+        &:hover{
+          background-color: $c-black;
+        }
+      }
+      
+      img{
+        width: 75px;
+        @include susy-media($smartphone){
+          width: 60px;
+        }
+      }
+
+      .patientDataForm__profilePictureContainer__label{
+        color: $c-white;
+        font-size: smaller;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        position: relative;
+        top: -25px;
+        @include susy-media($smartphone){
+          letter-spacing: 0px;
+          font-size: small;
+        }
+      }
+
+    }
   }
 
   .patientDataForm__profilePictureContainer__label {
     margin: 10px;
   }
-
-  .patientDataForm__form {
-    padding: 20px;
-  }
+  
   .patientDataForm__item {
-    margin: 5px 10px;
+    margin: 5px 0px;
+    padding: 0px 20px;
+    width: 33%;
+    @include susy-media($tablet_port){
+      width: 50%;
+    }
+    @include susy-media($smartphone){
+      width: 100%;
+    }
+    .textField{
+      width: 100%;
+    }
+    input{
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    label{
+      top: 5px;
+    }
   }
 
   .patientDataForm__buttonSet {
     display: flex;
     flex-direction: row-reverse;
+    @include susy-media($smartphone_small){
+      display: block;
+    }
+
+    .submit_button,
+    .reset_button{
+      .MuiButton-label{
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button{
+        @include susy-media($smartphone_small){
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
   }
 }

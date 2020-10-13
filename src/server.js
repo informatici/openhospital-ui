@@ -1,15 +1,17 @@
-import { Polly } from "@pollyjs/core";
 import XHRAdapter from "@pollyjs/adapter-xhr";
+import { Polly } from "@pollyjs/core";
+import { BASE_PATH } from "./generated/runtime";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
   const polly = new Polly("api-mocking", {
     adapters: ["xhr"],
+    mode: "passthrough",
     logging: true,
   });
   const { server } = polly;
 
-  server.host("https://www.open-hospital.org/oh-api", () => {
+  server.host(BASE_PATH, () => {
     server.namespace("/auth", () => {
       server.post("/login").intercept((req, res) => {
         res

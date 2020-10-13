@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import logo from "../../../assets/logo.png";
 import { TProps } from "./types";
 import "./styles.scss";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import { Typography } from "@material-ui/core";
+import classNames from "classnames";
 
 const AppHeader: FunctionComponent<TProps> = ({
   userCredentials,
@@ -12,12 +13,20 @@ const AppHeader: FunctionComponent<TProps> = ({
 }) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="appHeader">
+    <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__background">
         <div className="appHeader__identifier">
           <div className="appHeader__identifier__logo">
             <img src={logo} alt="Open Hospital" />
+          </div>
+          <div className="appHeader__identified__trigger" onClick={() => setIsOpen((!isOpen))}>
+            <div className="trigger_x"></div>
+            <div className="trigger_y"></div>
+            <div className="trigger_z"></div>
           </div>
           <div className="appHeader__identified__main">
             <div className="appHeader__identified__main__headline">
@@ -34,9 +43,11 @@ const AppHeader: FunctionComponent<TProps> = ({
           </div>
         </div>
         <div className="appHeader__nav">
-          <div className="appHeader__nav__item">Pharmacy</div>
-          <div className="appHeader__nav__item">Ward</div>
-          <div className="appHeader__nav__item">Billing</div>
+          <div className="appHeader__nav_items">
+            <div className="appHeader__nav__item">Pharmacy</div>
+            <div className="appHeader__nav__item">Ward</div>
+            <div className="appHeader__nav__item">Billing</div>
+          </div>
         </div>
       </div>
     </div>
