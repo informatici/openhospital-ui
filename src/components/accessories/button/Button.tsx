@@ -9,6 +9,7 @@ const Button: FunctionComponent<IProps> = ({
   variant,
   color,
   disabled,
+  onClick,
 }) => {
   return (
     <div>
@@ -18,6 +19,7 @@ const Button: FunctionComponent<IProps> = ({
         variant={variant}
         disableElevation
         disabled={disabled}
+        onClick={onClick}
       >
         {children}
       </MaterialComponent>

@@ -5,8 +5,11 @@ export interface IAction<Payload, Error> {
   error?: boolean;
 }
 
+type TAPIResponseStatus = "IDLE" | "LOADING" | "SUCCESS" | "FAIL";
+
 export interface IApiResponse<T> {
-  isLoading: boolean;
+  status?: TAPIResponseStatus;
+  isLoading?: boolean;
   hasSucceeded?: boolean;
   data?: T;
   error?: any;
