@@ -130,9 +130,10 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
+//TODO: Replace isLoading by status
 const mapStateToProps = (state: IState): IStateProps => ({
   authenticated: state.main.authentication.data?.authenticated,
-  isLoading: state.main.authentication.isLoading,
+  isLoading: !!state.main.authentication.isLoading,
 });
 
 const mapDispatchToProps: IDispatchProps = {
