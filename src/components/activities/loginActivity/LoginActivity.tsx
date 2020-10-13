@@ -129,7 +129,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  authenticated: state.main.authentication.data?.authenticated,
+  authenticated: state.main.authentication.hasSucceeded,
   isLoading: state.main.authentication.isLoading,
 });
 

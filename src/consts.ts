@@ -1,1 +1,1 @@
-export const SESSION_ID_KEY = "sessionId";
+export const AUTH_KEY = "authenticated";
