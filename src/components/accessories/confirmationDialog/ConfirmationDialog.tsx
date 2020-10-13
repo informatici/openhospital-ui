@@ -25,7 +25,7 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
       <DialogContent>
         <div className="dialog__content">
           <div className="dialog__divider" />
-          <img className="dialog__checkIcon" src={icon} />
+          <img className="dialog__icon" alt="dialog-icon" src={icon} />
           <div className="dialog__info">{info}</div>
           <div className="dialog__buttonSet">
             <div className="return_button">
