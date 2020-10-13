@@ -1,5 +1,5 @@
 export interface IProps {
-  type: string;
+  type: "button" | "submit" | "reset" | undefined;
   variant: "text" | "outlined" | "contained" | undefined;
   color: string;
   disabled?: boolean;

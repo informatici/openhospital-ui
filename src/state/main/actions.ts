@@ -1,19 +1,16 @@
+import { Dispatch } from "redux";
+import { AUTH_KEY } from "../../consts";
+import { Authentication, Configuration, LoginApiApi } from "../../generated";
+import { allowCookies } from "../../libraries/apiUtils/allowCookies";
+import { SessionStorage } from "../../libraries/storage/storage";
+import { IAction } from "../types";
 import {
-  SET_TOKEN,
+  SET_AUTHENTICATION_FAIL,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
-  SET_AUTHENTICATION_FAIL,
 } from "./consts";
-import { Dispatch } from "redux";
-import { Authentication, LoginApiApi } from "../../generated";
-import { IAction } from "../types";
 
-const api = new LoginApiApi();
-
-export const setToken = (token: string): IAction<string, {}> => ({
-  type: SET_TOKEN,
-  payload: token,
-});
+const api = new LoginApiApi(new Configuration({ middleware: [allowCookies] }));
 
 export const setAuthentication = (username: string, password: string) => (
   dispatch: Dispatch<IAction<Authentication, {}>>
@@ -23,15 +20,11 @@ export const setAuthentication = (username: string, password: string) => (
   });
 
   api.loginUsingPOST({ password, username }).subscribe(
-    (payload) => {
+    () => {
       dispatch({
         type: SET_AUTHENTICATION_SUCCESS,
-        payload,
       });
-      dispatch({
-        type: SET_TOKEN,
-        payload: payload.name,
-      });
+      SessionStorage.write(AUTH_KEY, "true");
     },
     (error) => {
       dispatch({

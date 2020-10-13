@@ -14,18 +14,24 @@ export function makeServer() {
   server.host(BASE_PATH, () => {
     server.namespace("/auth", () => {
       server.post("/login").intercept((req, res) => {
-        res.status(200).json({
-          authenticated: true,
-          authorities: [
-            {
-              authority: "Administrator",
-            },
-          ],
-          credentials: {},
-          details: {},
-          name: "Marco Rossi",
-          principal: {},
-        });
+        res
+          .status(200)
+          .setHeader(
+            "set-cookie",
+            "JSESSIONID=1qrj12fcxu3a21d21pjvba6g1;Path=/oh-api"
+          )
+          .json({
+            authenticated: true,
+            authorities: [
+              {
+                authority: "Administrator",
+              },
+            ],
+            credentials: {},
+            details: {},
+            name: "Marco Rossi",
+            principal: {},
+          });
       });
     });
 
