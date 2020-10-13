@@ -1,8 +1,7 @@
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
+import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
 import { PatientDTO } from "../../../generated";
 import {
   createPatient,
@@ -10,10 +9,9 @@ import {
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
+import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
-import SmallButton from "../../accessories/smallButton/SmallButton";
-import TextButton from "../../accessories/textButton/TextButton";
 import { initialValues } from "./consts";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, TProps } from "./types";
@@ -24,6 +22,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   createPatientReset,
   isLoading,
   hasSucceeded,
+  hasFailed,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -61,31 +60,26 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           />
         </div>
       </div>
-      <Dialog open={!!hasSucceeded}>
-        <DialogTitle>
-          <div className="dialog__title">Patient Created</div>
-        </DialogTitle>
-        <DialogContent>
-          <div className="dialog__content">
-            <div className="dialog__divider" />
-            <div className="dialog__info">
-              The patient registration was successful.
-            </div>
-            <div className="dialog__buttonSet">
-              <div className="return_button">
-                <SmallButton onClick={handleDialogToDashboard}>
-                  Dashboard
-                </SmallButton>
-              </div>
-              <div className="reset_button">
-                <TextButton onClick={handleDialogOnDismiss}>
-                  Keep editing
-                </TextButton>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ConfirmationDialog
+        isOpen={hasSucceeded}
+        title="Patient Created"
+        icon={checkIcon}
+        info="The patient registration was successful."
+        primaryButtonLabel="Dashboard"
+        secondaryButtonLabel="Keep editing"
+        handlePrimaryButtonClick={handleDialogToDashboard}
+        handleSecondaryButtonClick={handleDialogOnDismiss}
+      />
+      <ConfirmationDialog
+        isOpen={hasFailed}
+        title="Failed"
+        icon={failIcon}
+        info="The patient registration was not possible."
+        primaryButtonLabel="Dashboard"
+        secondaryButtonLabel="Keep editing"
+        handlePrimaryButtonClick={handleDialogToDashboard}
+        handleSecondaryButtonClick={handleDialogOnDismiss}
+      />
       <Footer />
     </div>
   );
@@ -93,8 +87,9 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data?.credentials,
-  isLoading: state.patients.createPatient.isLoading,
-  hasSucceeded: state.patients.createPatient.hasSucceeded,
+  isLoading: state.patients.createPatient.status === "LOADING",
+  hasSucceeded: state.patients.createPatient.status === "SUCCESS",
+  hasFailed: state.patients.createPatient.status === "FAIL",
 });
 
 const mapDispatchToProps: IDispatchProps = {

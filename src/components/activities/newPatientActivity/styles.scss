@@ -45,36 +45,3 @@
     position: relative;
   }
 }
-
-.dialog__title {
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-}
-
-.dialog__info {
-  margin: 25px 0px 40px;
-}
-
-.dialog__divider {
-  width: 100%;
-  background-color: $c-grey-light;
-  height: 2px;
-}
-
-.dialog__buttonSet {
-  display: flex;
-  flex-direction: row-reverse;
-  @include susy-media($smartphone_small) {
-    display: block;
-  }
-
-  .submit_button,
-  .reset_button {
-    .MuiButton-label {
-      font-size: smaller;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-  }
-}

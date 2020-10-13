@@ -22,12 +22,14 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
      */
     case CREATE_PATIENT_LOADING: {
       draft.createPatient.isLoading = true;
+      draft.createPatient.status = "LOADING";
       break;
     }
 
     case CREATE_PATIENT_SUCCESS: {
       draft.createPatient.isLoading = false;
       draft.createPatient.hasSucceeded = true;
+      draft.createPatient.status = "SUCCESS";
       delete draft.createPatient.error;
       break;
     }
@@ -36,6 +38,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
       draft.createPatient.isLoading = false;
       draft.createPatient.hasSucceeded = false;
       draft.createPatient.error = action.error;
+      draft.createPatient.status = "FAIL";
       break;
     }
 
