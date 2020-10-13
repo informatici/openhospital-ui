@@ -11,6 +11,10 @@
       .appHeader__identified__main{
         color: $c-white;
       }
+      .MuiTypography-root{
+        z-index: 55;
+        opacity: 1;
+      }
       .appHeader__identified__trigger{
         z-index: 55;
         .trigger_y{
@@ -123,15 +127,61 @@
     }
   }
 
-  .MuiTypography-root{
+  .MuiBreadcrumbs-root {
+    transition: 0.3s all ease-in-out;
     @include susy-media($tablet_land){
-      display: none;
+      opacity: 0;
+      z-index: -1;
     }
     @include susy-media($tablet_port){
-      display: none;
+      opacity: 0;
+      z-index: -1;
     }
     @include susy-media($smartphone){
-      display: none;
+      opacity: 0;
+      z-index: -1;
+    }
+    ol{
+      @include susy-media($tablet_land){
+        position: absolute;
+        top: 65px;
+        left: 0px;
+      }
+      @include susy-media($tablet_port){
+        position: absolute;
+        top: 65px;
+        left: 0px;
+      }
+      @include susy-media($smartphone){
+        position: absolute;
+        top: 85px;
+        left: 10px;
+      }
+      li{
+        @include susy-media($tablet_land){
+          color: $c-white;
+        }
+        @include susy-media($tablet_port){
+          color: $c-white;
+        }
+        @include susy-media($smartphone){
+          color: $c-white;
+        }
+        span, p, a{
+          @include susy-media($tablet_land){
+            color: $c-white;
+            font-size: small;
+          }
+          @include susy-media($tablet_port){
+            color: $c-white;
+            font-size: small;
+          }
+          @include susy-media($smartphone){
+            color: $c-white;
+            font-size: small;
+          }
+        }
+      }
     }
   }
 
@@ -185,17 +235,17 @@
     @include susy-media($tablet_land){
       display: block;
       margin-top: 100px;
-      padding-top: 50px;
+      padding-top: 70px;
     }
     @include susy-media($tablet_port){
       display: block;
       margin-top: 100px;
-      padding-top: 50px;
+      padding-top: 70px;
     }
     @include susy-media($smartphone){
       display: block;
       margin-top: 100px;
-      padding-top: 50px;
+      padding-top: 70px;
     }
   }
 
