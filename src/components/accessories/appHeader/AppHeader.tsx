@@ -16,6 +16,11 @@ const AppHeader: FunctionComponent<TProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const openMenu = (isOpen: boolean) =>{
+    document.body.classList.add('disable-scroll');
+    setIsOpen(isOpen);
+  }
+
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__background">
@@ -23,7 +28,7 @@ const AppHeader: FunctionComponent<TProps> = ({
           <div className="appHeader__identifier__logo">
             <img src={logo} alt="Open Hospital" />
           </div>
-          <div className="appHeader__identified__trigger" onClick={() => setIsOpen((!isOpen))}>
+          <div className="appHeader__identified__trigger" onClick={() => openMenu((!isOpen))}>
             <div className="trigger_x"></div>
             <div className="trigger_y"></div>
             <div className="trigger_z"></div>
