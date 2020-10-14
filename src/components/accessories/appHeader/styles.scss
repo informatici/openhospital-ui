@@ -103,10 +103,23 @@
     }
   }
 
-  .appHeader__identifier__main {
+  .appHeader__identified__main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
+    .only_mobile{
+      display: none;
+      @include susy-media($tablet_land){
+        display: inline-block;
+      }
+      @include susy-media($tablet_port){
+        display: inline-block;
+      }
+      @include susy-media($smartphone){
+        display: inline-block;
+      }
+    }
   }
 
   .appHeader__identified__main__headline {
@@ -170,6 +183,18 @@
         }
         @include susy-media($smartphone){
           color: $c-white;
+        }
+        &:nth-of-type(-n+2){
+          display: none;
+          @include susy-media($tablet_land){
+            display: inline-block;
+          }
+          @include susy-media($tablet_port){
+            display: inline-block;
+          }
+          @include susy-media($smartphone){
+            display: inline-block;
+          }
         }
         span, p, a{
           @include susy-media($tablet_land){
