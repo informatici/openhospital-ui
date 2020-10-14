@@ -59,7 +59,7 @@ export class ExamControllerApi extends BaseAPI {
         throwIfNullOrUndefined(description, 'getExamsUsingGET');
 
         return this.request<Array<ExamDTO>>({
-            path: '/exams/{description}'.replace('{description}', encodeURI(description)),
+            path: '/exams/description/{description}'.replace('{description}', encodeURI(description)),
             method: 'GET',
         });
     };
