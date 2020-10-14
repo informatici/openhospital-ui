@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useState, useEffect, useRef } from "react";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
 import { IStateProps, IDispatchProps, TProps, IValues } from "./types";
@@ -19,13 +19,18 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
   patientSearchResults,
   searchPatient,
+  isLoading,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
     "Search Patient": "/search",
   };
 
-  const initialValues = {
+  const [showResults, setShowResults] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  const initialValues: IValues = {
     id: "",
     taxNumber: "",
     firstName: "",
@@ -33,6 +38,10 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     birthDate: "",
     address: "",
   };
+
+  useEffect(() => {
+    setShowLoader(isLoading);
+  }, [isLoading])
 
   const validationSchema = object({
     //id: string().required("This field is required"),
@@ -44,13 +53,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     validationSchema,
     onSubmit: (values: IValues) => {
       //TODO: if there is at least one of those fields Tax Number and Patient ID filled up, use getPatientUsingGET
+      handleScrollToElement();
+      setShowResults(true);
       searchPatient(values);
     },
   });
-
-  useEffect(() => {
-    console.log(patientSearchResults);
-  }, [patientSearchResults]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -59,6 +66,43 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
+
+  const handleScrollToElement = () => {
+    const elem = resultsRef.current;
+    window.scrollTo({
+      top: (elem) ? elem.offsetTop - 200 : 0,
+      behavior: 'smooth',
+    }); 
+  }
+
+  const searchResults = () =>{
+    if(showResults) {
+      if(patientSearchResults && patientSearchResults?.length <= 0){
+        return (
+          <div className="searchPatient__results_none">
+            <h4>We couldn't find a match, please try another search.</h4>
+          </div>
+        );
+      } else {
+        if(showLoader) {
+          return (<h5>Is loading...</h5>);
+        } else {
+          return (
+            <div className="searchPatient__results">
+              <div className="searchPatient__results_count">
+                Results: <strong>{patientSearchResults?.length}</strong>
+              </div>
+              <div className="searchPatient__results_list">
+                {patientSearchResults?.map((patient) => (
+                  <PatientSearchItem patient={patient} />
+                ))}
+              </div>
+            </div>
+          );
+        }
+      }
+    }
+  }
 
   return (
     <div className="searchPatient">
@@ -96,7 +140,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
             <div className="searchPatient__buttonContainer">
-              <Button className="searchPatient__button" type="submit">
+              <Button className="searchPatient__button" type="submit" disabled={isLoading}>
                 <SearchIcon width="20" height="20" />
                 <div className="searchPatient__button__label">Search</div>
               </Button>
@@ -152,15 +196,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
           </form>
-          <div className="searchPatient__results">
-            <div className="searchPatient__results_count">
-              Results: <strong>3</strong>
-            </div>
-            <div className="searchPatient__results_list">
-              <PatientSearchItem patient={{ id: 12345 }} />
-              <PatientSearchItem patient={{ id: 12345 }} />
-              <PatientSearchItem patient={{ id: 12345 }} />
-            </div>
+          <div ref={resultsRef}>
+            {searchResults()}
           </div>
         </div>
       </div>
@@ -172,6 +209,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data?.credentials,
   patientSearchResults: state.patients.searchResults.data,
+  isLoading: !!state.patients.searchResults.isLoading,
 });
 
 const mapDispatchToProps: IDispatchProps = {

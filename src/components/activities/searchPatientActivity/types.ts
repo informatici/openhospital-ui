@@ -4,10 +4,11 @@ import { PatientDTO } from "../../../generated";
 export interface IStateProps {
   userCredentials: TUserCredentials;
   patientSearchResults: Array<PatientDTO> | undefined;
+  isLoading: boolean;
 }
 
 export interface IPatientSearchItemProps {
-  patient: any; //TODO: use generated type here
+  patient: PatientDTO;
 }
 
 export interface IDispatchProps {
@@ -17,6 +18,8 @@ export interface IDispatchProps {
 export type TProps = IStateProps & IDispatchProps;
 
 export interface IValues {
+  id?: string,
+  taxNumber?: string,
   firstName?: string;
   secondName?: string;
   birthDate?: string;

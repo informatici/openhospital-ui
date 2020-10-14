@@ -32,6 +32,18 @@
     }
   }
 
+  .searchPatient__results_none{
+    border: 1px solid $c-color-primary;
+    color: $c-color-primary;
+    padding: 20px;
+    background-color: lighten($c-color-primary, 40%);
+    margin-bottom: 50px;
+
+    h4{
+      margin: 0px;
+    }
+  }
+
   .searchPatient__primary {
     display: flex;
     justify-content: center;
