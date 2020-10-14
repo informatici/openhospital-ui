@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useCallback } from "react";
 import { object, string } from "yup";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
@@ -12,9 +12,10 @@ import { TProps } from "./types";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   initialValues,
-  // profilePicture,
+  profilePicture,
   onSubmit,
   submitButtonLabel,
+  isLoading,
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
@@ -35,10 +36,20 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+  const onProfilePictureChange = useCallback((picture: string) => {
+    formik.setFieldValue("blobPhoto", [picture]);
+    //TODO: it needs refactoring
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
-        <ProfilePicture isEditable />	    
+        <ProfilePicture
+          isEditable
+          preLoadedPicture={profilePicture}
+          onChange={onProfilePictureChange}
+        />
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
@@ -185,10 +196,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
-            <SmallButton type="submit">{submitButtonLabel}</SmallButton>
+            <SmallButton type="submit" disabled={isLoading}>
+              {submitButtonLabel}
+            </SmallButton>
           </div>
           <div className="reset_button">
-            <TextButton>Clear All</TextButton>
+            {/* TODO: Remove profilePicture as well */}
+            <TextButton onClick={() => formik.resetForm()}>
+              Clear All
+            </TextButton>
           </div>
         </div>
       </form>

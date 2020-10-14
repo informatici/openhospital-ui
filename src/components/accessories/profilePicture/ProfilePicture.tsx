@@ -1,39 +1,47 @@
-import React, { Fragment, FunctionComponent, useRef, useState, useEffect } from "react";
+import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import React, {
+  Fragment,
+  FunctionComponent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
+import { IProps } from "./types";
 import { handlePictureSelection, preprocessImage } from "./utils";
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
-import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
-
-export interface IProps {
-  isEditable: boolean;
-  preLoadedPicture?: string;
-}
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
   preLoadedPicture,
+  onChange,
 }) => {
-  
-  const [pic, setPic] = useState({
+  const [picture, setPicture] = useState({
     preview: profilePicturePlaceholder,
-    blob: "",
+    original: "",
   });
 
   useEffect(() => {
-    if(preLoadedPicture) {
-      preprocessImage(setPic, preLoadedPicture);
+    if (preLoadedPicture) {
+      preprocessImage(setPicture, preLoadedPicture);
     }
   }, [preLoadedPicture]);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(picture.original);
+    }
+  }, [onChange, picture.original]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
   const editPicture = () => pictureInputRef.current?.click();
 
   const removePicture = () => {
-    setPic({
+    setPicture({
       preview: profilePicturePlaceholder,
-      blob: "",
+      original: "",
     });
     if (pictureInputRef.current) {
       pictureInputRef.current.value = "";
@@ -48,10 +56,10 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         style={{ display: "none" }}
         disabled={!isEditable}
         type="file"
-        onChange={handlePictureSelection(setPic)}
+        onChange={handlePictureSelection(setPicture)}
       />
       <div className="profilePicture_mask">
-        <img src={pic.preview} alt="profilePicture" />
+        <img src={picture.preview} alt="profilePicture" />
       </div>
       {isEditable && (
         <Fragment>

@@ -25,43 +25,49 @@ const createPreview = (img: HTMLImageElement) => {
 };
 
 export const handlePictureSelection = (
-  setPic: Dispatch<
+  setPicture: Dispatch<
     SetStateAction<{
       preview: string;
-      blob: string;
+      original: string;
     }>
   >
 ) => (e: ChangeEvent<HTMLInputElement>) => {
   const newPic = e.target.files && e.target.files[0];
   if (newPic) {
-    const reader = new FileReader();
-
-    reader.readAsArrayBuffer(newPic);
-
-    reader.onload = (e) => {
+    const arrayBufferReader = new FileReader();
+    arrayBufferReader.readAsArrayBuffer(newPic);
+    arrayBufferReader.onload = (e) => {
       const result = e.target?.result || "";
       const blob = new Blob([result]); // create blob...
       window.URL = window.URL || window.webkitURL;
       const blobURL = window.URL.createObjectURL(blob); // and get it's URL
 
-      preprocessImage(setPic, blobURL);
+      const dataURLReader = new FileReader();
+      dataURLReader.onload = (e) => {
+        const originalBase64 = e.target?.result;
+        preprocessImage(setPicture, blobURL, originalBase64 as string);
+      };
+
+      dataURLReader.readAsDataURL(newPic);
     };
   }
 };
 
 export const preprocessImage = (
-  setPic: Dispatch<
+  setPicture: Dispatch<
     SetStateAction<{
       preview: string;
-      blob: string;
+      original: string;
     }>
-  >, imageCode: string
-  ) => {
-    const image = new Image();
-    image.src = imageCode;
+  >,
+  blobURL: string,
+  originalBase64 = ""
+) => {
+  const image = new Image();
+  image.src = blobURL;
 
-    image.onload = function () {
-      const preview = createPreview(image);
-      setPic((prevState) => ({ ...prevState, preview }));
+  image.onload = function () {
+    const preview = createPreview(image);
+    setPicture({ original: originalBase64, preview });
   };
 };

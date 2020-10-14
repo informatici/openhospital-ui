@@ -1,21 +1,20 @@
+import { InputAdornment } from "@material-ui/core";
+import Link from "@material-ui/core/Link";
+import { RemoveRedEye } from "@material-ui/icons";
+import { useFormik } from "formik";
+import get from "lodash.get";
+import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { object, string } from "yup";
-import { useFormik } from "formik";
-import has from "lodash.has";
-import get from "lodash.get";
-import Link from "@material-ui/core/Link";
-import { TProps, IValues, IDispatchProps, IStateProps } from "./types";
 import logo from "../../../assets/logo.png";
-import "./styles.scss";
-import TextField from "../../accessories/textField/TextField";
-import Button from "../../accessories/button/Button";
-import Footer from "../../accessories/footer/Footer";
-import { LocalStorage } from "../../../libraries/storage/storage";
 import { setAuthentication } from "../../../state/main/actions";
 import { IState } from "../../../types";
-import { InputAdornment } from "@material-ui/core";
-import { RemoveRedEye } from "@material-ui/icons";
+import Button from "../../accessories/button/Button";
+import Footer from "../../accessories/footer/Footer";
+import TextField from "../../accessories/textField/TextField";
+import "./styles.scss";
+import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthentication,
@@ -55,7 +54,6 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (authenticated) {
-      LocalStorage.write("sessionId", "token");
       window.location.href = successRoute;
     }
   }, [authenticated, successRoute]);
@@ -130,9 +128,10 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
+//TODO: Replace isLoading by status
 const mapStateToProps = (state: IState): IStateProps => ({
-  authenticated: state.main.authentication.data?.authenticated,
-  isLoading: state.main.authentication.isLoading,
+  authenticated: state.main.authentication.hasSucceeded,
+  isLoading: !!state.main.authentication.isLoading,
 });
 
 const mapDispatchToProps: IDispatchProps = {

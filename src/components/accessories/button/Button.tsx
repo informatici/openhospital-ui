@@ -9,15 +9,17 @@ const Button: FunctionComponent<IProps> = ({
   variant,
   color,
   disabled,
+  onClick,
 }) => {
   return (
     <div>
       <MaterialComponent
         className="button"
-        type="submit"
+        type={type}
         variant={variant}
         disableElevation
         disabled={disabled}
+        onClick={onClick}
       >
         {children}
       </MaterialComponent>
