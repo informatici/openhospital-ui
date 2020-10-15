@@ -7,7 +7,13 @@ describe("NewPatientActivity spec", () => {
     cy.visit(START_PATH, {
       onBeforeLoad(w) {
         w.sessionStorage.clear();
-        w.sessionStorage.setItem("authenticated", "true");
+        w.sessionStorage.setItem(
+          "auth",
+          JSON.stringify({
+            displayName: "John Doe",
+            token: "1qrj12fcxu3a21d21pjvba6g1",
+          })
+        );
       },
     });
     cy.get("[class=newPatient]");
