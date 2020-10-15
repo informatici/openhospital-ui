@@ -13,7 +13,6 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
   newPatientRoute,
   searchPatientRoute,
-  name,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -30,7 +29,9 @@ const DashboardActivity: FunctionComponent<TProps> = ({
         breadcrumbMap={breadcrumbMap}
       />
       <div className="dashboard__background">
-        <div className="dashboard__greeter">Welcome {name}</div>
+        <div className="dashboard__greeter">
+          Welcome {userCredentials?.displayName}
+        </div>
         <div className="dashboard__actions">
           <div className="dashboard__actions__button">
             <LargeButton handleClick={largeButtonHandleClick(newPatientRoute)}>
@@ -60,8 +61,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data?.credentials,
-  name: state.main.authentication.data?.name,
+  userCredentials: state.main.authentication.data,
 });
 
 export default connect(mapStateToProps)(DashboardActivity);

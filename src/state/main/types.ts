@@ -1,8 +1,8 @@
-import { Authentication } from "../../generated";
+import { LoginResponse } from "../../generated";
 import { IApiResponse } from "../types";
 
-export type TUserCredentials = object | undefined;
+export type TUserCredentials = LoginResponse | undefined;
 
 export interface IMainState {
-  authentication: IApiResponse<Authentication>;
+  authentication: IApiResponse<LoginResponse>;
 }

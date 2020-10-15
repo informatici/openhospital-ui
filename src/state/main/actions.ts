@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { AUTH_KEY } from "../../consts";
-import { Authentication, Configuration, LoginApiApi } from "../../generated";
+import { LoginResponse, Configuration, LoginApiApi } from "../../generated";
 import { allowCookies } from "../../libraries/apiUtils/allowCookies";
 import { SessionStorage } from "../../libraries/storage/storage";
 import { IAction } from "../types";
@@ -13,7 +13,7 @@ import {
 const api = new LoginApiApi(new Configuration({ middleware: [allowCookies] }));
 
 export const setAuthentication = (username: string, password: string) => (
-  dispatch: Dispatch<IAction<Authentication, {}>>
+  dispatch: Dispatch<IAction<LoginResponse, {}>>
 ) => {
   dispatch({
     type: SET_AUTHENTICATION_LOADING,
