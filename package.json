@@ -13,6 +13,7 @@
     "@types/jest": "^24.9.1",
     "@types/lodash.get": "^4.4.6",
     "@types/lodash.has": "^4.5.6",
+    "@types/lodash.set": "^4.3.6",
     "@types/node": "^12.12.38",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
@@ -26,6 +27,7 @@
     "immer": "^6.0.5",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
+    "lodash.set": "^4.3.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -47,7 +49,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/"
+    "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
+    "clear": "rm -rf ./.cache ./dist"
   },
   "eslintConfig": {
     "extends": "react-app"
