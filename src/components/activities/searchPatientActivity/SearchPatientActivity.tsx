@@ -207,7 +207,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data?.credentials,
+  userCredentials: state.main.authentication.data,
   patientSearchResults: state.patients.searchResults.data,
   isLoading: !!state.patients.searchResults.isLoading,
 });

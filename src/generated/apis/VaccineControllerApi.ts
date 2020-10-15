@@ -74,7 +74,7 @@ export class VaccineControllerApi extends BaseAPI {
         throwIfNullOrUndefined(vaccineTypeCode, 'getVaccinesByVaccineTypeCodeUsingGET');
 
         return this.request<Array<VaccineDTO>>({
-            path: '/vaccines/{vaccineTypeCode}'.replace('{vaccineTypeCode}', encodeURI(vaccineTypeCode)),
+            path: '/vaccines/type-code/{vaccineTypeCode}'.replace('{vaccineTypeCode}', encodeURI(vaccineTypeCode)),
             method: 'GET',
         });
     };
