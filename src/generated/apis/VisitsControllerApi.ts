@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -45,9 +45,14 @@ export class VisitsControllerApi extends BaseAPI {
     deleteVisitsRelatedToPatientUsingDELETE = ({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(patID, 'deleteVisitsRelatedToPatientUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -57,9 +62,14 @@ export class VisitsControllerApi extends BaseAPI {
     getVisitUsingGET = ({ patID }: GetVisitUsingGETRequest): Observable<Array<VisitDTO>> => {
         throwIfNullOrUndefined(patID, 'getVisitUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<VisitDTO>>({
             path: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -71,6 +81,7 @@ export class VisitsControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<number>({
@@ -89,6 +100,7 @@ export class VisitsControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

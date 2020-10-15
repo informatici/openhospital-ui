@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -22,10 +22,10 @@ export interface DeleteMedicalUsingDELETERequest {
 }
 
 export interface FilterMedicalsUsingGETRequest {
-    desc?: string;
-    type?: string;
     critical?: boolean;
+    desc?: string;
     nameSorted?: boolean;
+    type?: string;
 }
 
 export interface GetMedicalUsingGETRequest {
@@ -57,27 +57,37 @@ export class MedicalControllerApi extends BaseAPI {
     deleteMedicalUsingDELETE = ({ code }: DeleteMedicalUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'deleteMedicalUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/medicals/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
     /**
      * filterMedicals
      */
-    filterMedicalsUsingGET = ({ desc, type, critical, nameSorted }: FilterMedicalsUsingGETRequest): Observable<Array<MedicalDTO>> => {
+    filterMedicalsUsingGET = ({ critical, desc, nameSorted, type }: FilterMedicalsUsingGETRequest): Observable<Array<MedicalDTO>> => {
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = {};
 
-        if (desc != null) { query['desc'] = desc; }
-        if (type != null) { query['type'] = type; }
         if (critical != null) { query['critical'] = critical; }
+        if (desc != null) { query['desc'] = desc; }
         if (nameSorted != null) { query['name_sorted'] = nameSorted; }
+        if (type != null) { query['type'] = type; }
 
         return this.request<Array<MedicalDTO>>({
             path: '/medicals/filter',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -88,9 +98,14 @@ export class MedicalControllerApi extends BaseAPI {
     getMedicalUsingGET = ({ code }: GetMedicalUsingGETRequest): Observable<MedicalDTO> => {
         throwIfNullOrUndefined(code, 'getMedicalUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<MedicalDTO>({
             path: '/medicals/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -99,6 +114,10 @@ export class MedicalControllerApi extends BaseAPI {
      */
     getMedicalsUsingGET = ({ sortBy }: GetMedicalsUsingGETRequest): Observable<Array<MedicalDTO>> => {
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = {};
 
         if (sortBy != null) { query['sort_by'] = sortBy; }
@@ -106,6 +125,7 @@ export class MedicalControllerApi extends BaseAPI {
         return this.request<Array<MedicalDTO>>({
             path: '/medicals',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -118,6 +138,7 @@ export class MedicalControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = {};
@@ -141,6 +162,7 @@ export class MedicalControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = {};

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -40,9 +40,14 @@ export class DiseaseTypeControllerApi extends BaseAPI {
     deleteDiseaseTypeUsingDELETE = ({ code }: DeleteDiseaseTypeUsingDELETERequest): Observable<{ [key: string]: boolean; }> => {
         throwIfNullOrUndefined(code, 'deleteDiseaseTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<{ [key: string]: boolean; }>({
             path: '/diseasetypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -50,9 +55,14 @@ export class DiseaseTypeControllerApi extends BaseAPI {
      * getAllDiseaseTypes
      */
     getAllDiseaseTypesUsingGET = (): Observable<Array<DiseaseTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseTypeDTO>>({
             path: '/diseasetypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -64,6 +74,7 @@ export class DiseaseTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<DiseaseTypeDTO>({
@@ -82,6 +93,7 @@ export class DiseaseTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<DiseaseTypeDTO>({

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -49,9 +49,14 @@ export class VaccineControllerApi extends BaseAPI {
     checkVaccineCodeUsingGET = ({ code }: CheckVaccineCodeUsingGETRequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'checkVaccineCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/vaccines/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -61,9 +66,14 @@ export class VaccineControllerApi extends BaseAPI {
     deleteVaccineUsingDELETE = ({ code }: DeleteVaccineUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(code, 'deleteVaccineUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/vaccines/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -73,9 +83,14 @@ export class VaccineControllerApi extends BaseAPI {
     getVaccinesByVaccineTypeCodeUsingGET = ({ vaccineTypeCode }: GetVaccinesByVaccineTypeCodeUsingGETRequest): Observable<Array<VaccineDTO>> => {
         throwIfNullOrUndefined(vaccineTypeCode, 'getVaccinesByVaccineTypeCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<VaccineDTO>>({
             path: '/vaccines/type-code/{vaccineTypeCode}'.replace('{vaccineTypeCode}', encodeURI(vaccineTypeCode)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -83,9 +98,14 @@ export class VaccineControllerApi extends BaseAPI {
      * getVaccines
      */
     getVaccinesUsingGET = (): Observable<Array<VaccineDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<VaccineDTO>>({
             path: '/vaccines',
             method: 'GET',
+            headers,
         });
     };
 
@@ -97,6 +117,7 @@ export class VaccineControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -115,6 +136,7 @@ export class VaccineControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

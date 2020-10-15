@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -40,9 +40,14 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
     deleteDeliveryResultTypeUsingDELETE = ({ code }: DeleteDeliveryResultTypeUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'deleteDeliveryResultTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/deliveryresulttypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -50,9 +55,14 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
      * getDeliveryResultTypes
      */
     getDeliveryResultTypesUsingGET = (): Observable<Array<DeliveryResultTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DeliveryResultTypeDTO>>({
             path: '/deliveryresulttypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -64,6 +74,7 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
@@ -82,6 +93,7 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
