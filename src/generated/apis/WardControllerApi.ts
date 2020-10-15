@@ -66,7 +66,7 @@ export class WardControllerApi extends BaseAPI {
         throwIfNullOrUndefined(createIfNotExist, 'checkWardMaternityCodeUsingGET');
 
         return this.request<boolean>({
-            path: '/wards/check/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
+            path: '/wards/check-or-create/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
             method: 'GET',
         });
     };

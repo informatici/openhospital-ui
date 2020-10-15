@@ -26,7 +26,7 @@ export interface NewDeliveryTypeUsingPOSTRequest {
 }
 
 export interface UpdateDeliveryTypetUsingPUTRequest {
-    code: DeliveryTypeDTO;
+    dlvrTypeDTO: DeliveryTypeDTO;
 }
 
 /**
@@ -77,8 +77,8 @@ export class DeliveryTypeControllerApi extends BaseAPI {
     /**
      * updateDeliveryTypet
      */
-    updateDeliveryTypetUsingPUT = ({ code }: UpdateDeliveryTypetUsingPUTRequest): Observable<string> => {
-        throwIfNullOrUndefined(code, 'updateDeliveryTypetUsingPUT');
+    updateDeliveryTypetUsingPUT = ({ dlvrTypeDTO }: UpdateDeliveryTypetUsingPUTRequest): Observable<string> => {
+        throwIfNullOrUndefined(dlvrTypeDTO, 'updateDeliveryTypetUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export class DeliveryTypeControllerApi extends BaseAPI {
             path: '/deliverytypes',
             method: 'PUT',
             headers,
-            body: code,
+            body: dlvrTypeDTO,
         });
     };
 

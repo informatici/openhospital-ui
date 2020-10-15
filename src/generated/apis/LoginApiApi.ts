@@ -14,7 +14,7 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpQuery, throwIfNullOrUndefined } from '../runtime';
 import {
-    Authentication,
+    LoginResponse,
 } from '../models';
 
 export interface LoginUsingPOSTRequest {
@@ -31,7 +31,7 @@ export class LoginApiApi extends BaseAPI {
      * Login with the given credentials.
      * Login
      */
-    loginUsingPOST = ({ username, password }: LoginUsingPOSTRequest): Observable<Authentication> => {
+    loginUsingPOST = ({ username, password }: LoginUsingPOSTRequest): Observable<LoginResponse> => {
         throwIfNullOrUndefined(username, 'loginUsingPOST');
         throwIfNullOrUndefined(password, 'loginUsingPOST');
 
@@ -40,7 +40,7 @@ export class LoginApiApi extends BaseAPI {
             'password': password,
         };
 
-        return this.request<Authentication>({
+        return this.request<LoginResponse>({
             path: '/auth/login',
             method: 'POST',
             query,

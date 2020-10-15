@@ -1,7 +1,3 @@
-import { TUserCredentials } from "../../../state/main/types";
-import { IApiResponse } from "../../../state/types";
-import { Authentication } from "../../../generated/models/Authentication";
-
 interface IOwnProps {
   successRoute: string;
 }
