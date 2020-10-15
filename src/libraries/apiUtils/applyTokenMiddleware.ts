@@ -9,13 +9,11 @@ export const applyTokenMiddleware: Middleware = {
     return produce(request, (draft) => {
       const userCredentials = SessionStorage.read(AUTH_KEY);
       if (userCredentials.token) {
-        draft.headers =
-          draft.headers &&
-          set(
-            draft.headers,
-            "Authorization",
-            `Bearer ${userCredentials.token}`
-          );
+        draft.headers = set(
+          draft.headers || {},
+          "Authorization",
+          `Bearer ${userCredentials.token}`
+        );
       }
     });
   },
