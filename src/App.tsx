@@ -18,8 +18,8 @@ const App: FunctionComponent<TProps> = ({
     setUserCredentials(auth);
     return null;
   }
-  if (appStoredToken && window.location.pathname === "/") {
-    window.location.href = "/dashboard";
+  if (appStoredToken && window.location.pathname === process.env.PUBLIC_URL) {
+    window.location.href = process.env.PUBLIC_URL + "/dashboard";
   }
   return (
     <div className="App">

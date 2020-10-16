@@ -37,7 +37,7 @@ const AppHeader: FunctionComponent<TProps> = ({
             </div>
             <Breadcrumbs>
               {keys.map((key, index) => (
-                <Link key={index} color="inherit" href={breadcrumbMap[key]}>
+                <Link key={index} color="inherit" href={process.env.PUBLIC_URL + breadcrumbMap[key]}>
                   {key}
                 </Link>
               ))}

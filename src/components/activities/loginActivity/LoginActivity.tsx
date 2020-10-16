@@ -22,7 +22,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
   isLoading,
   successRoute,
 }) => {
-  window.history.replaceState(null, "", "/");
+  window.history.replaceState(null, "", process.env.PUBLIC_URL);
 
   const initialValues: IValues = {
     username: "",
@@ -54,7 +54,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (authenticated) {
-      window.location.href = successRoute;
+      window.location.href = process.env.PUBLIC_URL + successRoute;
     }
   }, [authenticated, successRoute]);
 

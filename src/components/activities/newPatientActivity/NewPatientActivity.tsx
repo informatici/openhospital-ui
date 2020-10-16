@@ -36,11 +36,11 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   const handleDialogOnDismiss = () => {
     //TODO: should reset values and profilePicture
     createPatientReset();
-    window.location.href = "/new";
+    window.location.href = process.env.PUBLIC_URL + "/new";
   };
 
   const handleDialogToDashboard = () => {
-    window.location.href = "/dashboard";
+    window.location.href = process.env.PUBLIC_URL + "/dashboard";
   };
 
   return (
