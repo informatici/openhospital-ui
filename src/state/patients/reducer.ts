@@ -47,19 +47,19 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
      * SEARCH_PATIENT
      */
     case SEARCH_PATIENT_LOADING: {
-      draft.searchResults.isLoading = true;
+      draft.searchResults.status = "LOADING";
       break;
     }
 
     case SEARCH_PATIENT_SUCCESS: {
-      draft.searchResults.isLoading = false;
+      draft.searchResults.status = "SUCCESS";
       draft.searchResults.data = action.payload;
       delete draft.searchResults.error;
       break;
     }
 
     case SEARCH_PATIENT_FAIL: {
-      draft.searchResults.isLoading = false;
+      draft.searchResults.status = "FAIL";
       draft.searchResults.error = action.error;
       break;
     }

@@ -14,12 +14,13 @@ import TextField from "../../accessories/textField/TextField";
 import Button from "@material-ui/core/Button";
 import SearchIcon from "../../../assets/SearchIcon";
 import PatientSearchItem from "./PatientSearchItem";
+import { scrollToDiv } from "../../../libraries/uiUtils/handleScrollToElement";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
   patientSearchResults,
   searchPatient,
-  isLoading,
+  searchStatus,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -39,9 +40,9 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     address: "",
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     setShowLoader(isLoading);
-  }, [isLoading])
+  }, [isLoading])*/
 
   const validationSchema = object({
     //id: string().required("This field is required"),
@@ -53,7 +54,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     validationSchema,
     onSubmit: (values: IValues) => {
       //TODO: if there is at least one of those fields Tax Number and Patient ID filled up, use getPatientUsingGET
-      handleScrollToElement();
+      scrollToDiv(resultsRef.current);
       setShowResults(true);
       searchPatient(values);
     },
@@ -67,39 +68,42 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
-  const handleScrollToElement = () => {
-    const elem = resultsRef.current;
-    window.scrollTo({
-      top: (elem) ? elem.offsetTop - 200 : 0,
-      behavior: 'smooth',
-    }); 
-  }
-
   const searchResults = () =>{
     if(showResults) {
-      if(patientSearchResults && patientSearchResults?.length <= 0){
-        return (
-          <div className="searchPatient__results_none">
-            <h4>We couldn't find a match, please try another search.</h4>
-          </div>
-        );
-      } else {
-        if(showLoader) {
-          return (<h5>Is loading...</h5>);
-        } else {
+      switch(searchStatus){
+        case "LOADING":
+          return (<h3 className="searchPatient__loading">Searching</h3>);
+
+        case "SUCCESS":
+          //No results at all
+          if(patientSearchResults && patientSearchResults?.length <= 0){
+            return (
+              <div className="searchPatient__results_none warning">
+                <h4>We couldn't find a match, please try another search.</h4>
+              </div>
+            );
+          } else {
+            //Results OK
+            return (
+              <div className="searchPatient__results">
+                <div className="searchPatient__results_count">
+                  Results: <strong>{patientSearchResults?.length}</strong>
+                </div>
+                <div className="searchPatient__results_list">
+                  {patientSearchResults?.map((patient) => (
+                    <PatientSearchItem patient={patient} />
+                  ))}
+                </div>
+              </div>
+            );
+          }
+
+        case "FAIL":
           return (
-            <div className="searchPatient__results">
-              <div className="searchPatient__results_count">
-                Results: <strong>{patientSearchResults?.length}</strong>
-              </div>
-              <div className="searchPatient__results_list">
-                {patientSearchResults?.map((patient) => (
-                  <PatientSearchItem patient={patient} />
-                ))}
-              </div>
+            <div className="searchPatient__results_none error">
+              <h4>Something went wrong, please retry.</h4>
             </div>
           );
-        }
       }
     }
   }
@@ -140,7 +144,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
             <div className="searchPatient__buttonContainer">
-              <Button className="searchPatient__button" type="submit" disabled={isLoading}>
+              <Button className="searchPatient__button" type="submit" disabled={(searchStatus === "LOADING") ? true : false}>
                 <SearchIcon width="20" height="20" />
                 <div className="searchPatient__button__label">Search</div>
               </Button>
@@ -209,7 +213,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
   patientSearchResults: state.patients.searchResults.data,
-  isLoading: !!state.patients.searchResults.isLoading,
+  searchStatus: state.patients.searchResults.status,
 });
 
 const mapDispatchToProps: IDispatchProps = {

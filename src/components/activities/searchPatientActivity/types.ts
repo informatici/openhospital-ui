@@ -4,7 +4,7 @@ import { PatientDTO } from "../../../generated";
 export interface IStateProps {
   userCredentials: TUserCredentials;
   patientSearchResults: Array<PatientDTO> | undefined;
-  isLoading: boolean;
+  searchStatus: string | undefined;
 }
 
 export interface IPatientSearchItemProps {
