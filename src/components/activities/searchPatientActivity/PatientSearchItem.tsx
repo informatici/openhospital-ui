@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { IPatientSearchItemProps } from "./types";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
+import { IPatientSearchItemProps } from "./types";
 
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
@@ -13,16 +13,24 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
     <div className="patientSearchItem center-xs col-md-4 col-sm-6 col-xs-12">
       <div className="patientSearchItem__panel" onClick={handleClick}>
         <div className="patientSearchItem__header">
-          <div><strong>PID:</strong> 32040</div>
-          <div><strong>OPD:</strong> 32240321</div>
+          <div>
+            <strong>PID:</strong> 32040
+          </div>
+          <div>
+            <strong>OPD:</strong> 32240321
+          </div>
         </div>
         <div className="patientSearchItem__content">
           <div className="patientSearchItem__profile">
-            <div className="patientSearchItem__profile__name">Name and Surname</div>
+            <div className="patientSearchItem__profile__name">
+              {`${patient.firstName} ${patient.secondName}`}
+            </div>
             <div>
               <img src={profilePicturePlaceholder} alt="profilePicture" />
             </div>
-            <div className="patientSearchItem__profile__admission">Last admission: <strong>24/27/2020</strong></div>
+            <div className="patientSearchItem__profile__admission">
+              Last admission: <strong>24/27/2020</strong>
+            </div>
           </div>
           <div className="patientSearchItem__divider" />
           <div className="patientSearchItem__info">

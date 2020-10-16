@@ -23,7 +23,10 @@ const AppHeader: FunctionComponent<TProps> = ({
           <div className="appHeader__identifier__logo">
             <img src={logo} alt="Open Hospital" />
           </div>
-          <div className="appHeader__identified__trigger" onClick={() => setIsOpen((!isOpen))}>
+          <div
+            className="appHeader__identified__trigger"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <div className="trigger_x"></div>
             <div className="trigger_y"></div>
             <div className="trigger_z"></div>
@@ -33,8 +36,8 @@ const AppHeader: FunctionComponent<TProps> = ({
               Princeton-Plainsboro Teaching Hospital
             </div>
             <Breadcrumbs>
-              {keys.map((key) => (
-                <Link color="inherit" href={breadcrumbMap[key]}>
+              {keys.map((key, index) => (
+                <Link key={index} color="inherit" href={breadcrumbMap[key]}>
                   {key}
                 </Link>
               ))}

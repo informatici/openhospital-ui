@@ -1,47 +1,55 @@
-import React, { FunctionComponent } from "react";
-import { IState } from "../../../types";
+import Button from "@material-ui/core/Button";
+import { useFormik } from "formik";
+import get from "lodash.get";
+import has from "lodash.has";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { IStateProps, TProps } from "./types";
+import { object } from "yup";
+import SearchIcon from "../../../assets/SearchIcon";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { searchPatient } from "../../../state/patients/actions";
+import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import "./styles.scss";
-import { object, string } from "yup";
-import { useFormik } from "formik";
-import has from "lodash.has";
-import get from "lodash.get";
 import TextField from "../../accessories/textField/TextField";
-import Button from "@material-ui/core/Button";
-import SearchIcon from "../../../assets/SearchIcon";
 import PatientSearchItem from "./PatientSearchItem";
+import "./styles.scss";
+import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
+  patientSearchResults,
+  searchPatient,
+  searchStatus,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
     "Search Patient": "/search",
   };
 
-  const initialValues = {
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  const initialValues: IValues = {
     id: "",
     taxNumber: "",
-    name: "",
-    surname: "",
-    birthday: "",
+    firstName: "",
+    secondName: "",
+    birthDate: "",
     address: "",
   };
 
   const validationSchema = object({
-    id: string().required("This field is required"),
+    //id: string().required("This field is required"),
     //TODO: write schema
   });
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      //TODO: implement onSubmit event
-      console.log("submit");
+    onSubmit: (values: IValues) => {
+      // First scroll to show searching message
+      scrollToElement(resultsRef.current);
+      searchPatient(values);
     },
   });
 
@@ -53,6 +61,51 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+  useEffect(() => {
+    if (searchStatus === "SUCCESS" || searchStatus === "SUCCESS_EMPTY") {
+      // Second scroll to show results
+      scrollToElement(resultsRef.current);
+    }
+  }, [searchStatus]);
+
+  const renderSearchResults = (): JSX.Element | undefined => {
+    switch (searchStatus) {
+      case "IDLE":
+        return;
+
+      case "LOADING":
+        return <h3 className="searchPatient__loading">Searching</h3>;
+
+      case "SUCCESS":
+        return (
+          <div className="searchPatient__results">
+            <div className="searchPatient__results_count">
+              Results: <strong>{patientSearchResults?.length}</strong>
+            </div>
+            <div className="searchPatient__results_list">
+              {patientSearchResults?.map((patient, index) => (
+                <PatientSearchItem key={index} patient={patient} />
+              ))}
+            </div>
+          </div>
+        );
+
+      case "SUCCESS_EMPTY":
+        return (
+          <div className="searchPatient__results_none warning">
+            <h4>We couldn't find a match, please try another search.</h4>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="searchPatient__results_none error">
+            <h4>Something went wrong, please retry.</h4>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="searchPatient">
       <AppHeader
@@ -62,7 +115,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       <div className="searchPatient__background">
         <div className="container">
           <div className="searchPatient__title">Search Patient</div>
-          <div className="searchPatient__panel">
+          <form className="searchPatient__panel" onSubmit={formik.handleSubmit}>
             <div className="searchPatient__primary">
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
@@ -89,7 +142,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
             <div className="searchPatient__buttonContainer">
-              <Button className="searchPatient__button" type="submit">
+              <Button
+                className="searchPatient__button"
+                type="submit"
+                disabled={searchStatus === "LOADING"}
+              >
                 <SearchIcon width="20" height="20" />
                 <div className="searchPatient__button__label">Search</div>
               </Button>
@@ -102,21 +159,21 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
                   <TextField
-                    field={formik.getFieldProps("name")}
+                    field={formik.getFieldProps("firstName")}
                     theme="regular"
                     label="Name"
-                    isValid={isValid("name")}
-                    errorText={getErrorText("name")}
+                    isValid={isValid("firstName")}
+                    errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
                   />
                 </div>
                 <div className="searchPatient__formItem">
                   <TextField
-                    field={formik.getFieldProps("surname")}
+                    field={formik.getFieldProps("secondName")}
                     theme="regular"
                     label="Surname"
-                    isValid={isValid("surname")}
-                    errorText={getErrorText("surname")}
+                    isValid={isValid("secondName")}
+                    errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
                   />
                 </div>
@@ -124,11 +181,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
                   <TextField
-                    field={formik.getFieldProps("birthday")}
+                    field={formik.getFieldProps("birthDate")}
                     theme="regular"
                     label="Birthday"
-                    isValid={isValid("birthday")}
-                    errorText={getErrorText("birthday")}
+                    isValid={isValid("birthDate")}
+                    errorText={getErrorText("birthDate")}
                     onBlur={formik.handleBlur}
                   />
                 </div>
@@ -144,17 +201,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 </div>
               </div>
             </div>
-          </div>
-          <div className="searchPatient__results">
-            <div className="searchPatient__results_count">
-              Results: <strong>3</strong>
-            </div>
-            <div className="searchPatient__results_list">
-              <PatientSearchItem patient={{ id: 12345 }} />
-              <PatientSearchItem patient={{ id: 12345 }} />
-              <PatientSearchItem patient={{ id: 12345 }} />
-            </div>
-          </div>
+          </form>
+          <div ref={resultsRef}>{renderSearchResults()}</div>
         </div>
       </div>
       <Footer />
@@ -164,6 +212,15 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
+  patientSearchResults: state.patients.searchResults.data,
+  searchStatus: state.patients.searchResults.status!,
 });
 
-export default connect(mapStateToProps)(SearchPatientActivity);
+const mapDispatchToProps: IDispatchProps = {
+  searchPatient,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchPatientActivity);
