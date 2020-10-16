@@ -21,6 +21,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/yup": "^0.29.0",
     "classnames": "^2.2.6",
+    "env-cmd": "^10.1.0",
     "filereader": "^0.10.3",
     "formik": "^2.1.4",
     "immer": "^6.0.5",
@@ -47,6 +48,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
+    "build:staging": "env-cmd -f .env.staging npm run build",
     "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/"
   },
   "eslintConfig": {
