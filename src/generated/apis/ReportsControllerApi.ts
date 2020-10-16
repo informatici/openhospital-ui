@@ -13,9 +13,6 @@
 
 import { Observable } from 'rxjs';
 import { BaseAPI } from '../runtime';
-import {
-    Resource,
-} from '../models';
 
 /**
  * no description
@@ -25,8 +22,8 @@ export class ReportsControllerApi extends BaseAPI {
     /**
      * printDiseasesListPdf
      */
-    printDiseasesListPdfUsingGET = (): Observable<Resource> => {
-        return this.request<Resource>({
+    printDiseasesListPdfUsingGET = (): Observable<Array<string>> => {
+        return this.request<Array<string>>({
             path: '/reports/diseases-list',
             method: 'GET',
         });
@@ -35,8 +32,8 @@ export class ReportsControllerApi extends BaseAPI {
     /**
      * printExamsListPdf
      */
-    printExamsListPdfUsingGET = (): Observable<Resource> => {
-        return this.request<Resource>({
+    printExamsListPdfUsingGET = (): Observable<Array<string>> => {
+        return this.request<Array<string>>({
             path: '/reports/exams-list',
             method: 'GET',
         });

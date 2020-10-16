@@ -86,7 +86,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data?.credentials,
+  userCredentials: state.main.authentication.data,
   isLoading: state.patients.createPatient.status === "LOADING",
   hasSucceeded: state.patients.createPatient.status === "SUCCESS",
   hasFailed: state.patients.createPatient.status === "FAIL",

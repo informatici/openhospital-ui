@@ -590,7 +590,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Authentication'
+            $ref: '#/definitions/LoginResponse'
         '201':
           description: Created
         '401':
@@ -1216,7 +1216,7 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: code
+          name: dlvrTypeDTO
           description: dlvrTypeDTO
           required: true
           schema:
@@ -2294,6 +2294,35 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  '/exams/description/{description}':
+    get:
+      tags:
+        - exam-controller
+      summary: getExams
+      operationId: getExamsUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: description
+          in: path
+          description: description
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExamDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
   '/exams/{code}':
     put:
       tags:
@@ -2355,35 +2384,6 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
-  '/exams/{description}':
-    get:
-      tags:
-        - exam-controller
-      summary: getExams
-      operationId: getExamsUsingGET
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: description
-          in: path
-          description: description
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ExamDTO'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
   /examtypes:
     get:
       tags:
@@ -3931,7 +3931,10 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Resource'
+            type: array
+            items:
+              type: string
+              format: byte
         '401':
           description: Unauthorized
         '403':
@@ -3952,7 +3955,10 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Resource'
+            type: array
+            items:
+              type: string
+              format: byte
         '401':
           description: Unauthorized
         '403':
@@ -5161,34 +5167,7 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-  '/vaccines/{code}':
-    delete:
-      tags:
-        - vaccine-controller
-      summary: deleteVaccine
-      operationId: deleteVaccineUsingDELETE
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: code
-          in: path
-          description: code
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-  '/vaccines/{vaccineTypeCode}':
+  '/vaccines/type-code/{vaccineTypeCode}':
     get:
       tags:
         - vaccine-controller
@@ -5217,6 +5196,33 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  '/vaccines/{code}':
+    delete:
+      tags:
+        - vaccine-controller
+      summary: deleteVaccine
+      operationId: deleteVaccineUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
   /vaccinetype:
     get:
       tags:
@@ -5553,6 +5559,33 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+  '/wards/check-or-create/{createIfNotExist}':
+    get:
+      tags:
+        - ward-controller
+      summary: checkWardMaternityCode
+      operationId: checkWardMaternityCodeUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: createIfNotExist
+          in: path
+          description: createIfNotExist
+          required: true
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
   '/wards/check/{code}':
     get:
       tags:
@@ -5569,33 +5602,6 @@ paths:
           description: code
           required: true
           type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: boolean
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-  '/wards/check/{createIfNotExist}':
-    get:
-      tags:
-        - ward-controller
-      summary: checkWardMaternityCode
-      operationId: checkWardMaternityCodeUsingGET
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: createIfNotExist
-          in: path
-          description: createIfNotExist
-          required: true
-          type: boolean
       responses:
         '200':
           description: OK
@@ -5934,30 +5940,13 @@ definitions:
         example: admin
         description: the current user
     description: Class representing a billPayment
-  GrantedAuthority:
+  LoginResponse:
     type: object
     properties:
-      authority:
+      displayName:
         type: string
-  Resource:
-    type: object
-    properties:
-      description:
+      token:
         type: string
-      file:
-        type: file
-      filename:
-        type: string
-      inputStream:
-        $ref: '#/definitions/InputStream'
-      open:
-        type: boolean
-      readable:
-        type: boolean
-      uri:
-        $ref: '#/definitions/URI'
-      url:
-        $ref: '#/definitions/URL'
   GregorianCalendar:
     type: object
     properties:
@@ -6271,42 +6260,6 @@ definitions:
         type: string
       result:
         type: string
-  File:
-    type: object
-    properties:
-      absolute:
-        type: boolean
-      absoluteFile:
-        type: file
-      absolutePath:
-        type: string
-      canonicalFile:
-        type: file
-      canonicalPath:
-        type: string
-      directory:
-        type: boolean
-      file:
-        type: boolean
-      freeSpace:
-        type: integer
-        format: int64
-      hidden:
-        type: boolean
-      name:
-        type: string
-      parent:
-        type: string
-      parentFile:
-        type: file
-      path:
-        type: string
-      totalSpace:
-        type: integer
-        format: int64
-      usableSpace:
-        type: integer
-        format: int64
   DiseaseTypeDTO:
     type: object
     properties:
@@ -6369,8 +6322,6 @@ definitions:
         format: float
         example: 65
         description: The weight of the patient
-  Collection«GrantedAuthority»:
-    type: object
   BillItemsDTO:
     type: object
     properties:
@@ -6422,71 +6373,6 @@ definitions:
         type: array
         items:
           type: string
-  URI:
-    type: object
-    properties:
-      absolute:
-        type: boolean
-      authority:
-        type: string
-      fragment:
-        type: string
-      host:
-        type: string
-      opaque:
-        type: boolean
-      path:
-        type: string
-      port:
-        type: integer
-        format: int32
-      query:
-        type: string
-      rawAuthority:
-        type: string
-      rawFragment:
-        type: string
-      rawPath:
-        type: string
-      rawQuery:
-        type: string
-      rawSchemeSpecificPart:
-        type: string
-      rawUserInfo:
-        type: string
-      scheme:
-        type: string
-      schemeSpecificPart:
-        type: string
-      userInfo:
-        type: string
-  URL:
-    type: object
-    properties:
-      authority:
-        type: string
-      content:
-        type: object
-      defaultPort:
-        type: integer
-        format: int32
-      file:
-        type: string
-      host:
-        type: string
-      path:
-        type: string
-      port:
-        type: integer
-        format: int32
-      protocol:
-        type: string
-      query:
-        type: string
-      ref:
-        type: string
-      userInfo:
-        type: string
   PatientDTO:
     type: object
     properties:
@@ -6561,15 +6447,15 @@ definitions:
         type: string
         example: A+
         description: 'Blood type (0-/+, A-/+ , B-/+, AB-/+)'
-        # enum:
-        #   - "0-"
-        #   - "0+"
-        #   - "A-"
-        #   - "A+"
-        #   - "B-"
-        #   - "B+"
-        #   - "AB-"
-        #   - "AB+"
+        enum:
+          - 0-
+          - 0+
+          - A-
+          - A+
+          - B-
+          - B+
+          - AB-
+          - AB+
       hasInsurance:
         type: string
         example: 'N'
@@ -6925,8 +6811,6 @@ definitions:
         type: string
         example: 'N'
         description: 'flag record deleted, values are ''Y'' OR ''N'' '
-  InputStream:
-    type: object
   OperationDTO:
     type: object
     properties:
@@ -7113,21 +6997,6 @@ definitions:
       statusCodeValue:
         type: integer
         format: int32
-  Authentication:
-    type: object
-    properties:
-      authenticated:
-        type: boolean
-      authorities:
-        $ref: '#/definitions/Collection«GrantedAuthority»'
-      credentials:
-        type: object
-      details:
-        type: object
-      name:
-        type: string
-      principal:
-        type: object
   VaccineTypeDTO:
     type: object
     properties:
