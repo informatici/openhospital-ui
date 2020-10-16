@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect, useRef } from "react";
+import React, { FunctionComponent, useState, useRef } from "react";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
 import { IStateProps, IDispatchProps, TProps, IValues } from "./types";
@@ -28,7 +28,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const [showResults, setShowResults] = useState(false);
-  const [showLoader, setShowLoader] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const initialValues: IValues = {
@@ -39,10 +38,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     birthDate: "",
     address: "",
   };
-
-  /*useEffect(() => {
-    setShowLoader(isLoading);
-  }, [isLoading])*/
 
   const validationSchema = object({
     //id: string().required("This field is required"),
