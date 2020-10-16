@@ -1,20 +1,20 @@
-import React, { FunctionComponent, useState, useRef } from "react";
-import { IState } from "../../../types";
+import Button from "@material-ui/core/Button";
+import { useFormik } from "formik";
+import get from "lodash.get";
+import has from "lodash.has";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { IStateProps, IDispatchProps, TProps, IValues } from "./types";
+import { object } from "yup";
+import SearchIcon from "../../../assets/SearchIcon";
+import { scrollToDiv } from "../../../libraries/uiUtils/handleScrollToElement";
+import { searchPatient } from "../../../state/patients/actions";
+import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import "./styles.scss";
-import { object } from "yup";
-import { useFormik } from "formik";
-import has from "lodash.has";
-import get from "lodash.get";
-import { searchPatient } from "../../../state/patients/actions";
 import TextField from "../../accessories/textField/TextField";
-import Button from "@material-ui/core/Button";
-import SearchIcon from "../../../assets/SearchIcon";
 import PatientSearchItem from "./PatientSearchItem";
-import { scrollToDiv } from "../../../libraries/uiUtils/handleScrollToElement";
+import "./styles.scss";
+import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -27,7 +27,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     "Search Patient": "/search",
   };
 
-  const [showResults, setShowResults] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const initialValues: IValues = {
@@ -48,9 +47,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      //TODO: if there is at least one of those fields Tax Number and Patient ID filled up, use getPatientUsingGET
+      // First scroll to show searching message
       scrollToDiv(resultsRef.current);
-      setShowResults(true);
       searchPatient(values);
     },
   });
@@ -63,45 +61,50 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
-  const searchResults = () =>{
-    if(showResults) {
-      switch(searchStatus){
-        case "LOADING":
-          return (<h3 className="searchPatient__loading">Searching</h3>);
-
-        case "SUCCESS":
-          //No results at all
-          if(patientSearchResults && patientSearchResults?.length <= 0){
-            return (
-              <div className="searchPatient__results_none warning">
-                <h4>We couldn't find a match, please try another search.</h4>
-              </div>
-            );
-          } else {
-            //Results OK
-            return (
-              <div className="searchPatient__results">
-                <div className="searchPatient__results_count">
-                  Results: <strong>{patientSearchResults?.length}</strong>
-                </div>
-                <div className="searchPatient__results_list">
-                  {patientSearchResults?.map((patient) => (
-                    <PatientSearchItem patient={patient} />
-                  ))}
-                </div>
-              </div>
-            );
-          }
-
-        case "FAIL":
-          return (
-            <div className="searchPatient__results_none error">
-              <h4>Something went wrong, please retry.</h4>
-            </div>
-          );
-      }
+  useEffect(() => {
+    if (searchStatus === "SUCCESS" || searchStatus === "SUCCESS_EMPTY") {
+      // Second scroll to show results
+      scrollToDiv(resultsRef.current);
     }
-  }
+  }, [searchStatus]);
+
+  const renderSearchResults = (): JSX.Element | undefined => {
+    switch (searchStatus) {
+      case "IDLE":
+        return;
+
+      case "LOADING":
+        return <h3 className="searchPatient__loading">Searching</h3>;
+
+      case "SUCCESS":
+        return (
+          <div className="searchPatient__results">
+            <div className="searchPatient__results_count">
+              Results: <strong>{patientSearchResults?.length}</strong>
+            </div>
+            <div className="searchPatient__results_list">
+              {patientSearchResults?.map((patient, index) => (
+                <PatientSearchItem key={index} patient={patient} />
+              ))}
+            </div>
+          </div>
+        );
+
+      case "SUCCESS_EMPTY":
+        return (
+          <div className="searchPatient__results_none warning">
+            <h4>We couldn't find a match, please try another search.</h4>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="searchPatient__results_none error">
+            <h4>Something went wrong, please retry.</h4>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className="searchPatient">
@@ -139,7 +142,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
             <div className="searchPatient__buttonContainer">
-              <Button className="searchPatient__button" type="submit" disabled={(searchStatus === "LOADING") ? true : false}>
+              <Button
+                className="searchPatient__button"
+                type="submit"
+                disabled={searchStatus === "LOADING"}
+              >
                 <SearchIcon width="20" height="20" />
                 <div className="searchPatient__button__label">Search</div>
               </Button>
@@ -195,9 +202,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
           </form>
-          <div ref={resultsRef}>
-            {searchResults()}
-          </div>
+          <div ref={resultsRef}>{renderSearchResults()}</div>
         </div>
       </div>
       <Footer />
@@ -208,11 +213,14 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
   patientSearchResults: state.patients.searchResults.data,
-  searchStatus: state.patients.searchResults.status,
+  searchStatus: state.patients.searchResults.status!,
 });
 
 const mapDispatchToProps: IDispatchProps = {
   searchPatient,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPatientActivity);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchPatientActivity);

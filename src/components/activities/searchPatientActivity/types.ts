@@ -1,10 +1,11 @@
-import { TUserCredentials } from "../../../state/main/types";
 import { PatientDTO } from "../../../generated";
+import { TUserCredentials } from "../../../state/main/types";
+import { TAPIResponseStatus } from "../../../state/types";
 
 export interface IStateProps {
   userCredentials: TUserCredentials;
   patientSearchResults: Array<PatientDTO> | undefined;
-  searchStatus: string | undefined;
+  searchStatus: TAPIResponseStatus;
 }
 
 export interface IPatientSearchItemProps {
@@ -18,8 +19,8 @@ export interface IDispatchProps {
 export type TProps = IStateProps & IDispatchProps;
 
 export interface IValues {
-  id?: string,
-  taxNumber?: string,
+  id?: string;
+  taxNumber?: string;
   firstName?: string;
   secondName?: string;
   birthDate?: string;
