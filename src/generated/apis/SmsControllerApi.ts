@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -44,6 +44,7 @@ export class SmsControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -61,6 +62,10 @@ export class SmsControllerApi extends BaseAPI {
         throwIfNullOrUndefined(dateFrom, 'getAllUsingGET');
         throwIfNullOrUndefined(dateTo, 'getAllUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'dateFrom': dateFrom,
             'dateTo': dateTo,
@@ -69,6 +74,7 @@ export class SmsControllerApi extends BaseAPI {
         return this.request<Array<SmsDTO>>({
             path: '/sms',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -81,6 +87,7 @@ export class SmsControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = {};

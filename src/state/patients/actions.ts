@@ -1,9 +1,11 @@
 import { Dispatch } from "redux";
 import {
+  Configuration,
   PatientControllerApi,
   PatientDTO,
   SearchPatientUsingGETRequest,
 } from "../../generated";
+import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
 import {
   CREATE_PATIENT_FAIL,
@@ -15,7 +17,9 @@ import {
   SEARCH_PATIENT_SUCCESS,
 } from "./consts";
 
-const patientControllerApi = new PatientControllerApi();
+const patientControllerApi = new PatientControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
 
 export const createPatient = (newPatient: PatientDTO) => (
   dispatch: Dispatch<IAction<null, {}>>

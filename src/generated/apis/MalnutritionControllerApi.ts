@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -50,6 +50,7 @@ export class MalnutritionControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -66,9 +67,14 @@ export class MalnutritionControllerApi extends BaseAPI {
     getLastMalnutritionUsingGET = ({ idPatient }: GetLastMalnutritionUsingGETRequest): Observable<MalnutritionDTO> => {
         throwIfNullOrUndefined(idPatient, 'getLastMalnutritionUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<MalnutritionDTO>({
             path: '/malnutritions/last/{id_patient}'.replace('{id_patient}', encodeURI(idPatient)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -78,9 +84,14 @@ export class MalnutritionControllerApi extends BaseAPI {
     getMalnutritionUsingGET = ({ idAdmission }: GetMalnutritionUsingGETRequest): Observable<Array<MalnutritionDTO>> => {
         throwIfNullOrUndefined(idAdmission, 'getMalnutritionUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MalnutritionDTO>>({
             path: '/malnutritions/{id_admission}'.replace('{id_admission}', encodeURI(idAdmission)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -92,6 +103,7 @@ export class MalnutritionControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<void>({
@@ -110,6 +122,7 @@ export class MalnutritionControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<MalnutritionDTO>({

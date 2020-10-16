@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -63,9 +63,14 @@ export class ExaminationControllerApi extends BaseAPI {
     getByIDUsingGET = ({ id }: GetByIDUsingGETRequest): Observable<PatientExaminationDTO> => {
         throwIfNullOrUndefined(id, 'getByIDUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<PatientExaminationDTO>({
             path: '/examinations/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -75,9 +80,14 @@ export class ExaminationControllerApi extends BaseAPI {
     getByPatientIdUsingGET = ({ patId }: GetByPatientIdUsingGETRequest): Observable<Array<PatientExaminationDTO>> => {
         throwIfNullOrUndefined(patId, 'getByPatientIdUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<PatientExaminationDTO>>({
             path: '/examinations/byPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -87,6 +97,10 @@ export class ExaminationControllerApi extends BaseAPI {
     getDefaultPatientExaminationUsingGET = ({ patId }: GetDefaultPatientExaminationUsingGETRequest): Observable<PatientExaminationDTO> => {
         throwIfNullOrUndefined(patId, 'getDefaultPatientExaminationUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'patId': patId,
         };
@@ -94,6 +108,7 @@ export class ExaminationControllerApi extends BaseAPI {
         return this.request<PatientExaminationDTO>({
             path: '/examinations/defaultPatientExamination',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -104,9 +119,14 @@ export class ExaminationControllerApi extends BaseAPI {
     getFromLastPatientExaminationUsingGET = ({ id }: GetFromLastPatientExaminationUsingGETRequest): Observable<PatientExaminationDTO> => {
         throwIfNullOrUndefined(id, 'getFromLastPatientExaminationUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<PatientExaminationDTO>({
             path: '/examinations/fromLastPatientExamination/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -116,9 +136,14 @@ export class ExaminationControllerApi extends BaseAPI {
     getLastByPatientIdUsingGET = ({ patId }: GetLastByPatientIdUsingGETRequest): Observable<PatientExaminationDTO> => {
         throwIfNullOrUndefined(patId, 'getLastByPatientIdUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<PatientExaminationDTO>({
             path: '/examinations/lastByPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -129,6 +154,10 @@ export class ExaminationControllerApi extends BaseAPI {
         throwIfNullOrUndefined(limit, 'getLastNByPatIDUsingGET');
         throwIfNullOrUndefined(patId, 'getLastNByPatIDUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'limit': limit,
             'patId': patId,
@@ -137,6 +166,7 @@ export class ExaminationControllerApi extends BaseAPI {
         return this.request<Array<PatientExaminationDTO>>({
             path: '/examinations/lastNByPatId',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -149,6 +179,7 @@ export class ExaminationControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -168,6 +199,7 @@ export class ExaminationControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

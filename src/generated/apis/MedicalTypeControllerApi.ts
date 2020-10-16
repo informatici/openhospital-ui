@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -46,6 +46,7 @@ export class MedicalTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<void>({
@@ -62,9 +63,14 @@ export class MedicalTypeControllerApi extends BaseAPI {
     deleteMedicalTypeUsingDELETE = ({ code }: DeleteMedicalTypeUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'deleteMedicalTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/medicaltypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -72,9 +78,14 @@ export class MedicalTypeControllerApi extends BaseAPI {
      * getMedicalTypes
      */
     getMedicalTypesUsingGET = (): Observable<Array<MedicalTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MedicalTypeDTO>>({
             path: '/medicaltypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -84,9 +95,14 @@ export class MedicalTypeControllerApi extends BaseAPI {
     isCodeUsedUsingGET1 = ({ code }: IsCodeUsedUsingGET1Request): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'isCodeUsedUsingGET1');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/medicaltypes/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -98,6 +114,7 @@ export class MedicalTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<void>({

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -87,9 +87,14 @@ export class BillControllerApi extends BaseAPI {
     deleteBillUsingDELETE = ({ id }: DeleteBillUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(id, 'deleteBillUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/bills/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -99,9 +104,14 @@ export class BillControllerApi extends BaseAPI {
     getBillUsingGET = ({ id }: GetBillUsingGETRequest): Observable<BillDTO> => {
         throwIfNullOrUndefined(id, 'getBillUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<BillDTO>({
             path: '/bills/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -109,9 +119,14 @@ export class BillControllerApi extends BaseAPI {
      * getDistinctItems
      */
     getDistinctItemsUsingGET = (): Observable<Array<BillItemsDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<BillItemsDTO>>({
             path: '/bills/items',
             method: 'GET',
+            headers,
         });
     };
 
@@ -121,9 +136,14 @@ export class BillControllerApi extends BaseAPI {
     getItemsUsingGET = ({ billId }: GetItemsUsingGETRequest): Observable<Array<BillItemsDTO>> => {
         throwIfNullOrUndefined(billId, 'getItemsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<BillItemsDTO>>({
             path: '/bills/items/{bill_id}'.replace('{bill_id}', encodeURI(billId)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -133,9 +153,14 @@ export class BillControllerApi extends BaseAPI {
     getPaymentsByBillIdUsingGET = ({ billId }: GetPaymentsByBillIdUsingGETRequest): Observable<Array<BillPaymentsDTO>> => {
         throwIfNullOrUndefined(billId, 'getPaymentsByBillIdUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<BillPaymentsDTO>>({
             path: '/bills/payments/{bill_id}'.replace('{bill_id}', encodeURI(billId)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -145,6 +170,10 @@ export class BillControllerApi extends BaseAPI {
     getPendingBillsAffiliateUsingGET = ({ patientCode }: GetPendingBillsAffiliateUsingGETRequest): Observable<Array<BillDTO>> => {
         throwIfNullOrUndefined(patientCode, 'getPendingBillsAffiliateUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'patient_code': patientCode,
         };
@@ -152,6 +181,7 @@ export class BillControllerApi extends BaseAPI {
         return this.request<Array<BillDTO>>({
             path: '/bills/pending/affiliate',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -162,6 +192,10 @@ export class BillControllerApi extends BaseAPI {
     getPendingBillsUsingGET = ({ patientCode }: GetPendingBillsUsingGETRequest): Observable<Array<BillDTO>> => {
         throwIfNullOrUndefined(patientCode, 'getPendingBillsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'patient_code': patientCode,
         };
@@ -169,6 +203,7 @@ export class BillControllerApi extends BaseAPI {
         return this.request<Array<BillDTO>>({
             path: '/bills/pending',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -181,6 +216,7 @@ export class BillControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<FullBillDTO>({
@@ -199,6 +235,7 @@ export class BillControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<BillDTO>>({
@@ -216,6 +253,10 @@ export class BillControllerApi extends BaseAPI {
         throwIfNullOrUndefined(datefrom, 'searchBillsPaymentsUsingGET');
         throwIfNullOrUndefined(dateto, 'searchBillsPaymentsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'datefrom': (datefrom as any).toISOString(),
             'dateto': (dateto as any).toISOString(),
@@ -226,6 +267,7 @@ export class BillControllerApi extends BaseAPI {
         return this.request<Array<BillPaymentsDTO>>({
             path: '/bills/payments',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -237,6 +279,10 @@ export class BillControllerApi extends BaseAPI {
         throwIfNullOrUndefined(datefrom, 'searchBillsUsingGET');
         throwIfNullOrUndefined(dateto, 'searchBillsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'datefrom': (datefrom as any).toISOString(),
             'dateto': (dateto as any).toISOString(),
@@ -247,6 +293,7 @@ export class BillControllerApi extends BaseAPI {
         return this.request<Array<BillDTO>>({
             path: '/bills',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -261,6 +308,7 @@ export class BillControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -286,6 +334,7 @@ export class BillControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<FullBillDTO>({

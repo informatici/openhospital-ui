@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -48,9 +48,14 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     deleteMedicaldsrstockmovTypeUsingDELETE = ({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'deleteMedicaldsrstockmovTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -58,9 +63,14 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
      * getMedicaldsrstockmovType
      */
     getMedicaldsrstockmovTypeUsingGET = (): Observable<Array<MovementTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MovementTypeDTO>>({
             path: '/medstockmovementtype',
             method: 'GET',
+            headers,
         });
     };
 
@@ -70,9 +80,14 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     getMovementTypeUsingGET = ({ code }: GetMovementTypeUsingGETRequest): Observable<MovementTypeDTO> => {
         throwIfNullOrUndefined(code, 'getMovementTypeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<MovementTypeDTO>({
             path: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -82,9 +97,14 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     isCodeUsedUsingGET = ({ code }: IsCodeUsedUsingGETRequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'isCodeUsedUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/medstockmovementtype/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -96,6 +116,7 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<void>({
@@ -114,6 +135,7 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<void>({

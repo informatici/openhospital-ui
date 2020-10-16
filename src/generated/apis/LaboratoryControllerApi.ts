@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -25,9 +25,9 @@ export interface DeleteExamUsingDELETE2Request {
 }
 
 export interface GetLaboratoryForPrintUsingGETRequest {
-    examName: string;
     dateFrom: string;
     dateTo: string;
+    examName: string;
 }
 
 export interface GetLaboratoryUsingGETRequest {
@@ -58,29 +58,39 @@ export class LaboratoryControllerApi extends BaseAPI {
     deleteExamUsingDELETE2 = ({ code }: DeleteExamUsingDELETE2Request): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(code, 'deleteExamUsingDELETE2');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/laboratories/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
     /**
      * getLaboratoryForPrint
      */
-    getLaboratoryForPrintUsingGET = ({ examName, dateFrom, dateTo }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LaboratoryForPrintDTO>> => {
-        throwIfNullOrUndefined(examName, 'getLaboratoryForPrintUsingGET');
+    getLaboratoryForPrintUsingGET = ({ dateFrom, dateTo, examName }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LaboratoryForPrintDTO>> => {
         throwIfNullOrUndefined(dateFrom, 'getLaboratoryForPrintUsingGET');
         throwIfNullOrUndefined(dateTo, 'getLaboratoryForPrintUsingGET');
+        throwIfNullOrUndefined(examName, 'getLaboratoryForPrintUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'examName': examName,
             'dateFrom': (dateFrom as any).toISOString(),
             'dateTo': (dateTo as any).toISOString(),
+            'examName': examName,
         };
 
         return this.request<Array<LaboratoryForPrintDTO>>({
             path: '/laboratories/exams',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -91,9 +101,14 @@ export class LaboratoryControllerApi extends BaseAPI {
     getLaboratoryUsingGET = ({ patId }: GetLaboratoryUsingGETRequest): Observable<Array<LaboratoryDTO>> => {
         throwIfNullOrUndefined(patId, 'getLaboratoryUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<LaboratoryDTO>>({
             path: '/laboratories/byPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -101,9 +116,14 @@ export class LaboratoryControllerApi extends BaseAPI {
      * getLaboratory
      */
     getLaboratoryUsingGET1 = (): Observable<Array<LaboratoryDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<LaboratoryDTO>>({
             path: '/laboratories',
             method: 'GET',
+            headers,
         });
     };
 
@@ -111,9 +131,14 @@ export class LaboratoryControllerApi extends BaseAPI {
      * getMaterials
      */
     getMaterialsUsingGET = (): Observable<Array<string>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<string>>({
             path: '/laboratories/materials',
             method: 'GET',
+            headers,
         });
     };
 
@@ -125,6 +150,7 @@ export class LaboratoryControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -143,6 +169,7 @@ export class LaboratoryControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -162,6 +189,7 @@ export class LaboratoryControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
