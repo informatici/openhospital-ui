@@ -27,8 +27,55 @@
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     margin: 20px 80px 60px 80px;
     overflow: hidden;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       margin: 20px 20px 40px 20px;
+    }
+  }
+
+  .searchPatient__loading {
+    font-size: x-large;
+    margin: 0px 20px 50px;
+    &:after {
+      display: inline-block;
+      animation: dotty steps(1, end) 1s infinite;
+      content: "";
+    }
+
+    @keyframes dotty {
+      0% {
+        content: "";
+      }
+      25% {
+        content: ".";
+      }
+      50% {
+        content: "..";
+      }
+      75% {
+        content: "...";
+      }
+      100% {
+        content: "";
+      }
+    }
+  }
+
+  .searchPatient__results_none {
+    padding: 20px;
+    margin: 0px 20px 50px;
+    &.error {
+      color: $c-color-primary;
+      border: 1px solid $c-color-primary;
+      background-color: lighten($c-color-primary, 40%);
+    }
+    &.warning {
+      color: $c-black;
+      border: 1px solid $c-grey-lighter;
+      background-color: lighten($c-black, 80%);
+    }
+
+    h4 {
+      margin: 0px;
     }
   }
 
@@ -40,17 +87,17 @@
     width: 100%;
     padding: 50px 30px;
     flex: 0 0 90px;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       display: block;
       text-align: center;
       justify-content: initial;
       align-items: initial;
       padding: 25px 25px 50px 25px;
     }
-    .row{
+    .row {
       width: 80%;
       flex-wrap: initial;
-      @include susy-media($smartphone){
+      @include susy-media($smartphone) {
         width: 100%;
         display: block;
         margin: 0px;
@@ -58,7 +105,7 @@
     }
     .searchPatient__formItem {
       width: 50%;
-      @include susy-media($smartphone){
+      @include susy-media($smartphone) {
         width: 100%;
       }
     }
@@ -71,19 +118,19 @@
     margin: 10px;
   }
 
-  .searchPatient__secondary{
+  .searchPatient__secondary {
     padding-bottom: 35px;
     .searchPatient__formItem {
       width: 35%;
-      @include susy-media($smartphone){
+      @include susy-media($smartphone) {
         width: 100%;
       }
-      .MuiFormControl-marginDense{
+      .MuiFormControl-marginDense {
         margin: 0px;
       }
     }
-    .row{
-      @include susy-media($smartphone){
+    .row {
+      @include susy-media($smartphone) {
         width: 100%;
         display: block;
         padding: 0px 20px;
@@ -94,15 +141,15 @@
 
   .searchPatient__formItem {
     margin: 5px 10px;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       margin: 10px 0px;
     }
-    .MuiFormControl-marginDense{
+    .MuiFormControl-marginDense {
       width: 100%;
-      label{
+      label {
         top: 5px;
       }
-      input{
+      input {
         padding: 15px;
       }
     }
@@ -128,7 +175,7 @@
 
   .searchPatient__info {
     margin: 20px;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       text-align: center;
       margin: 0px 20px 20px;
     }
@@ -140,21 +187,21 @@
       flex: 0 1 auto;
       flex-wrap: wrap;
       margin: 0px 20px 60px 20px;
-      @include susy-media($smartphone){
+      @include susy-media($smartphone) {
         margin: 0px 10px 40px 10px;
       }
     }
-    .searchPatient__results_count{
+    .searchPatient__results_count {
       font-size: x-large;
       margin-bottom: 30px;
       margin-left: 20px;
-      @include susy-media($smartphone){
+      @include susy-media($smartphone) {
         margin-left: 10px;
       }
     }
   }
 
-  .footer{
+  .footer {
     position: relative;
   }
 }
@@ -164,7 +211,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  @include susy-media($smartphone){
+  @include susy-media($smartphone) {
     padding: 0px;
   }
 
@@ -210,7 +257,7 @@
     font-size: small;
   }
 
-  .patientSearchItem__profile__admission{
+  .patientSearchItem__profile__admission {
     font-size: small;
     margin-top: 15px;
   }
