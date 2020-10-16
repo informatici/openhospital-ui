@@ -6,7 +6,7 @@ import React, { FunctionComponent, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
-import { scrollToDiv } from "../../../libraries/uiUtils/handleScrollToElement";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { searchPatient } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -48,7 +48,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     validationSchema,
     onSubmit: (values: IValues) => {
       // First scroll to show searching message
-      scrollToDiv(resultsRef.current);
+      scrollToElement(resultsRef.current);
       searchPatient(values);
     },
   });
@@ -64,7 +64,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   useEffect(() => {
     if (searchStatus === "SUCCESS" || searchStatus === "SUCCESS_EMPTY") {
       // Second scroll to show results
-      scrollToDiv(resultsRef.current);
+      scrollToElement(resultsRef.current);
     }
   }, [searchStatus]);
 
