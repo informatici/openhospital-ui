@@ -22,7 +22,7 @@ const Routes: FunctionComponent = () => {
           />
         </PrivateRoute>
         <PrivateRoute path="/new">
-          <NewPatientActivity />
+          <NewPatientActivity dashboardRoute="/dashboard" />
         </PrivateRoute>
         <PrivateRoute path="/search">
           <SearchPatientActivity />

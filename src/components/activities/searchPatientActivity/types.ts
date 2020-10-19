@@ -26,3 +26,5 @@ export interface IValues {
   birthDate?: string;
   address?: string;
 }
+
+export type TRouteActionState = "IDLE" | "TO_PATIENT_DETAILS";

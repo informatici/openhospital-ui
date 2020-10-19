@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useState } from "react";
-import logo from "../../../assets/logo.png";
-import { TProps } from "./types";
-import "./styles.scss";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Link from "@material-ui/core/Link";
 import { Typography } from "@material-ui/core";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import classNames from "classnames";
+import React, { FunctionComponent, useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../../assets/logo.png";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const AppHeader: FunctionComponent<TProps> = ({
   userCredentials,
@@ -37,8 +37,8 @@ const AppHeader: FunctionComponent<TProps> = ({
             </div>
             <Breadcrumbs>
               {keys.map((key, index) => (
-                <Link key={index} color="inherit" href={process.env.PUBLIC_URL + breadcrumbMap[key]}>
-                  {key}
+                <Link key={index} to={breadcrumbMap[key]}>
+                  <Typography color="textPrimary">{key}</Typography>
                 </Link>
               ))}
               <Typography color="textPrimary">{trailEdgeKey}</Typography>

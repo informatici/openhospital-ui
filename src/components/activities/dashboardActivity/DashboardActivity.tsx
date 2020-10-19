@@ -24,7 +24,11 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   );
 
   switch (routeActionState) {
-    case "IDLE":
+    case "TO_NEW_PATIENT":
+      return <Redirect to={newPatientRoute} />;
+    case "TO_SEARCH_PATIENT":
+      return <Redirect to={searchPatientRoute} />;
+    default:
       return (
         <div className="dashboard">
           <AppHeader
@@ -65,10 +69,6 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           <Footer />
         </div>
       );
-    case "TO_NEW_PATIENT":
-      return <Redirect to={newPatientRoute} />;
-    case "TO_SEARCH_PATIENT":
-      return <Redirect to={searchPatientRoute} />;
   }
 };
 
