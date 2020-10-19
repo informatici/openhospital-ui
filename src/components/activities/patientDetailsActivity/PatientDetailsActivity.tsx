@@ -21,7 +21,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const [tabValue, setTabValue] = useState('one');
 
   return (
     <div className="patientDetails">
