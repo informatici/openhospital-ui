@@ -1,4 +1,4 @@
-const START_PATH = "http://localhost:3000/login";
+const START_PATH = "http://localhost:3000/";
 
 describe("LoginActivity spec", () => {
   it("should render the ui", () => {
