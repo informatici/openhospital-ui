@@ -8,7 +8,7 @@ import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import LargeButton from "../../accessories/largeButton/LargeButton";
 import "./styles.scss";
-import { IStateProps, TProps, TRouteActionState } from "./types";
+import { IStateProps, TProps, TActivityTransitionState } from "./types";
 
 const DashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -19,11 +19,11 @@ const DashboardActivity: FunctionComponent<TProps> = ({
     Dashboard: "/dashboard",
   };
 
-  const [routeActionState, setRouteActionState] = useState<TRouteActionState>(
-    "IDLE"
-  );
+  const [activityTransitionState, setActivityTransitionState] = useState<
+    TActivityTransitionState
+  >("IDLE");
 
-  switch (routeActionState) {
+  switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
       return <Redirect to={newPatientRoute} />;
     case "TO_SEARCH_PATIENT":
@@ -42,7 +42,9 @@ const DashboardActivity: FunctionComponent<TProps> = ({
             <div className="dashboard__actions">
               <div className="dashboard__actions__button">
                 <LargeButton
-                  handleClick={() => setRouteActionState("TO_NEW_PATIENT")}
+                  handleClick={() =>
+                    setActivityTransitionState("TO_NEW_PATIENT")
+                  }
                 >
                   <div className="largeButton__inner">
                     <PlusIcon />
@@ -54,7 +56,9 @@ const DashboardActivity: FunctionComponent<TProps> = ({
               </div>
               <div className="dashboard__actions__button">
                 <LargeButton
-                  handleClick={() => setRouteActionState("TO_SEARCH_PATIENT")}
+                  handleClick={() =>
+                    setActivityTransitionState("TO_SEARCH_PATIENT")
+                  }
                 >
                   <div className="largeButton__inner">
                     <SearchIcon width="43" height="43" />

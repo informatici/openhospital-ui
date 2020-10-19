@@ -27,4 +27,4 @@ export interface IValues {
   address?: string;
 }
 
-export type TRouteActionState = "IDLE" | "TO_PATIENT_DETAILS";
+export type TActivityTransitionState = "IDLE" | "TO_PATIENT_DETAILS";

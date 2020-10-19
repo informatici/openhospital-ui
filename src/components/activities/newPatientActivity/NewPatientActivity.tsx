@@ -19,7 +19,7 @@ import {
   IDispatchProps,
   IStateProps,
   TProps,
-  TRouteActionState,
+  TActivityTransitionState,
 } from "./types";
 
 const NewPatientActivity: FunctionComponent<TProps> = ({
@@ -40,19 +40,19 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     createPatient(patient);
   };
 
-  const [routeActionState, setRouteActionState] = useState<TRouteActionState>(
-    "IDLE"
-  );
+  const [activityTransitionState, setActivityTransitionState] = useState<
+    TActivityTransitionState
+  >("IDLE");
 
   useEffect(() => {
-    if (routeActionState === "TO_NEW_PATIENT_RESET") {
+    if (activityTransitionState === "TO_NEW_PATIENT_RESET") {
       //TODO: should reset activity without the need of refreshing the app
       createPatientReset();
       window.location.href = process.env.PUBLIC_URL + "/new";
     }
-  }, [routeActionState]);
+  }, [activityTransitionState]);
 
-  switch (routeActionState) {
+  switch (activityTransitionState) {
     case "TO_DASHBOARD":
       return <Redirect to={dashboardRoute} />;
     default:
@@ -80,9 +80,11 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             info="The patient registration was successful."
             primaryButtonLabel="Dashboard"
             secondaryButtonLabel="Keep editing"
-            handlePrimaryButtonClick={() => setRouteActionState("TO_DASHBOARD")}
+            handlePrimaryButtonClick={() =>
+              setActivityTransitionState("TO_DASHBOARD")
+            }
             handleSecondaryButtonClick={() =>
-              setRouteActionState("TO_NEW_PATIENT_RESET")
+              setActivityTransitionState("TO_NEW_PATIENT_RESET")
             }
           />
           <ConfirmationDialog
@@ -92,9 +94,11 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             info="The patient registration was not possible."
             primaryButtonLabel="Dashboard"
             secondaryButtonLabel="Keep editing"
-            handlePrimaryButtonClick={() => setRouteActionState("TO_DASHBOARD")}
+            handlePrimaryButtonClick={() =>
+              setActivityTransitionState("TO_DASHBOARD")
+            }
             handleSecondaryButtonClick={() =>
-              setRouteActionState("TO_NEW_PATIENT_RESET")
+              setActivityTransitionState("TO_NEW_PATIENT_RESET")
             }
           />
           <Footer />

@@ -19,7 +19,7 @@ export interface IDispatchProps {
 
 export type TProps = IOwnProps & IStateProps & IDispatchProps;
 
-export type TRouteActionState =
+export type TActivityTransitionState =
   | "IDLE"
   | "TO_NEW_PATIENT_RESET"
   | "TO_DASHBOARD";

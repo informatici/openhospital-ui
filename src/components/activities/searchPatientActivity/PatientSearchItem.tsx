@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useState } from "react";
 import { Redirect } from "react-router";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
-import { IPatientSearchItemProps, TRouteActionState } from "./types";
+import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
 
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
 }) => {
-  const [routeActionState, setRouteActionState] = useState<TRouteActionState>(
-    "IDLE"
-  );
+  const [activityTransitionState, setActivityTransitionState] = useState<
+    TActivityTransitionState
+  >("IDLE");
 
-  switch (routeActionState) {
+  switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":
       return <Redirect to={`/details/1234`} />; //TODO: use actual patient id instead
     default:
@@ -18,7 +18,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
         <div className="patientSearchItem center-xs col-md-4 col-sm-6 col-xs-12">
           <div
             className="patientSearchItem__panel"
-            onClick={() => setRouteActionState("TO_PATIENT_DETAILS")}
+            onClick={() => setActivityTransitionState("TO_PATIENT_DETAILS")}
           >
             <div className="patientSearchItem__header">
               <div>
