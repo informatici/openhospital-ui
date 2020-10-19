@@ -10,3 +10,5 @@ export interface IStateProps {
 }
 
 export type TProps = IOwnProps & IStateProps;
+
+export type TRouteActionState = "IDLE" | "TO_NEW_PATIENT" | "TO_SEARCH_PATIENT";
