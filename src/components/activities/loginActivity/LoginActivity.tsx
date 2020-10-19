@@ -33,7 +33,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
     if (userCredentials) {
       setAuthenticationSuccess(userCredentials);
     }
-  }, []);
+  }, [setAuthenticationSuccess]);
 
   const initialValues: IValues = {
     username: "",
@@ -68,10 +68,10 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (status === "SUCCESS") {
-      const { from } = location.state || { from: { pathname: "/dashboard" } };
+      const { from } = location.state || { from: { pathname: successRoute } };
       history.replace(from);
     }
-  }, [status]);
+  }, [status, location.state, history, successRoute]);
 
   return (
     <div className="login">

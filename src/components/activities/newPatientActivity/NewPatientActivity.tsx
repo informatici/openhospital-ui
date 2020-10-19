@@ -50,7 +50,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       createPatientReset();
       window.location.href = process.env.PUBLIC_URL + "/new";
     }
-  }, [activityTransitionState]);
+  }, [activityTransitionState, createPatientReset]);
 
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
