@@ -1,21 +1,10 @@
-import initialValues from "../consts/newPatientInitialValues.json";
+import initialValues from "../fixtures/newPatientInitialValues.json";
 
 const START_PATH = "http://localhost:3000/new";
 
 describe("NewPatientActivity spec", () => {
   it("should render the ui", () => {
-    cy.visit(START_PATH, {
-      onBeforeLoad(w) {
-        w.sessionStorage.clear();
-        w.sessionStorage.setItem(
-          "auth",
-          JSON.stringify({
-            displayName: "John Doe",
-            token: "1qrj12fcxu3a21d21pjvba6g1",
-          })
-        );
-      },
-    });
+    cy.authenticate(START_PATH);
     cy.get("[class=newPatient]");
   });
 

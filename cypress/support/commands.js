@@ -25,3 +25,12 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import "cypress-file-upload";
+
+Cypress.Commands.add("authenticate", (START_PATH) => {
+  cy.visit(START_PATH, {
+    onBeforeLoad(w) {
+      w.sessionStorage.clear();
+      w.sessionStorage.setItem("authenticated", "true");
+    },
+  });
+});
