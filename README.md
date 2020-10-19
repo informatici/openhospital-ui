@@ -1,35 +1,48 @@
 # Open Hospital - UI
+
 [![CI build](https://github.com/informatici/openhospital-ui/workflows/CI/badge.svg)](https://github.com/informatici/openhospital-ui/actions?query=workflow%3ACI)
 
 This is the UI component of [Open Hospital][openhospital]: it contains a web user interface that consists of a React SPA (single page application).
 This project depends on the [API component][openhospital-api] that exposes business logic APIs implemented in the [Core component][openhospital-core].  
-*This project is still in early stages. For a more mature user interface of Open Hospital, check out the [GUI project][openhospital-gui].*
+_This project is still in early stages. For a more mature user interface of Open Hospital, check out the [GUI project][openhospital-gui]._
 
 ## How to build
 
 This project is based on React. To learn React, check out the [React documentation](https://reactjs.org/).  
-To build this project issue:
+To install the project dependencies, issue:
 
-    npm install
-   
+    npm i
+
 To run its tests issue:
 
     npm test
-    
+
 ## How to launch the application
 
 You can run a development build of the application by issuing:
 
     npm start
-    
+
+## How to launch the e2e tests
+
+After installing the dependencies (by issuing `npm i`), you can run the **Cypress e2e tests** by issuing:
+
+    npm start
+
+In a different process, issue:
+
+    npm run cypress:open
+
+Once the app is compiled and served, and the Cypress Test Runner is launched, click on _Run all tests_
+
 ## How to contribute
 
 You can find the contribution guidelines in the [Open Hospital wiki][contribution-guide].  
 A list of open issues is available on [Jira][jira].
 
- [openhospital]: https://www.open-hospital.org/
- [openhospital-core]: https://github.com/informatici/openhospital-core
- [openhospital-api]: https://github.com/informatici/openhospital-api
- [openhospital-gui]: https://github.com/informatici/openhospital-gui
- [contribution-guide]: https://openhospital.atlassian.net/wiki/display/OH/Contribution+Guidelines
- [jira]: https://openhospital.atlassian.net/secure/RapidBoard.jspa?rapidView=5&selectedIssue=OP-293
+[openhospital]: https://www.open-hospital.org/
+[openhospital-core]: https://github.com/informatici/openhospital-core
+[openhospital-api]: https://github.com/informatici/openhospital-api
+[openhospital-gui]: https://github.com/informatici/openhospital-gui
+[contribution-guide]: https://openhospital.atlassian.net/wiki/display/OH/Contribution+Guidelines
+[jira]: https://openhospital.atlassian.net/secure/RapidBoard.jspa?rapidView=5&selectedIssue=OP-293
