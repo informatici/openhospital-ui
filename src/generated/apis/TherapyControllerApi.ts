@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -58,9 +58,14 @@ export class TherapyControllerApi extends BaseAPI {
     deleteAllTherapiesUsingDELETE = ({ codePatient }: DeleteAllTherapiesUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(codePatient, 'deleteAllTherapiesUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/therapies/{code_patient}'.replace('{code_patient}', encodeURI(codePatient)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -72,6 +77,7 @@ export class TherapyControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<MedicalDTO>>({
@@ -90,6 +96,7 @@ export class TherapyControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<TherapyDTO>>({
@@ -106,9 +113,14 @@ export class TherapyControllerApi extends BaseAPI {
     getTherapyRowsUsingGET = ({ codePatient }: GetTherapyRowsUsingGETRequest): Observable<Array<TherapyRowDTO>> => {
         throwIfNullOrUndefined(codePatient, 'getTherapyRowsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<TherapyRowDTO>>({
             path: '/therapies/{code_patient}'.replace('{code_patient}', encodeURI(codePatient)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -120,6 +132,7 @@ export class TherapyControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<TherapyDTO>({
@@ -138,6 +151,7 @@ export class TherapyControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<TherapyRowDTO>({
@@ -156,6 +170,7 @@ export class TherapyControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({

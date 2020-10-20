@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -40,9 +40,14 @@ export class AdmissionTypeControllerApi extends BaseAPI {
     deleteAdmissionTypeUsingDELETE1 = ({ code }: DeleteAdmissionTypeUsingDELETE1Request): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'deleteAdmissionTypeUsingDELETE1');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/admissiontypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -50,9 +55,14 @@ export class AdmissionTypeControllerApi extends BaseAPI {
      * getAdmissionTypes
      */
     getAdmissionTypesUsingGET = (): Observable<Array<AdmissionTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<AdmissionTypeDTO>>({
             path: '/admissiontypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -64,6 +74,7 @@ export class AdmissionTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
@@ -82,6 +93,7 @@ export class AdmissionTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({

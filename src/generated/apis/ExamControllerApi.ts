@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -46,9 +46,14 @@ export class ExamControllerApi extends BaseAPI {
     deleteExamUsingDELETE = ({ code }: DeleteExamUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(code, 'deleteExamUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/exams/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -58,9 +63,14 @@ export class ExamControllerApi extends BaseAPI {
     getExamsUsingGET = ({ description }: GetExamsUsingGETRequest): Observable<Array<ExamDTO>> => {
         throwIfNullOrUndefined(description, 'getExamsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<ExamDTO>>({
-            path: '/exams/{description}'.replace('{description}', encodeURI(description)),
+            path: '/exams/description/{description}'.replace('{description}', encodeURI(description)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -68,9 +78,14 @@ export class ExamControllerApi extends BaseAPI {
      * getExams
      */
     getExamsUsingGET1 = (): Observable<Array<ExamDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<ExamDTO>>({
             path: '/exams',
             method: 'GET',
+            headers,
         });
     };
 
@@ -82,6 +97,7 @@ export class ExamControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -101,6 +117,7 @@ export class ExamControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

@@ -1,19 +1,19 @@
 import produce from "immer";
-import { IPatientsState } from "./types";
-import { initial } from "./initial";
+import { IAction } from "../types";
 import {
-  GET_PATIENT_SUCCESS,
-  CREATE_PATIENT_LOADING,
-  CREATE_PATIENT_SUCCESS,
   CREATE_PATIENT_FAIL,
-  GET_PATIENT_LOADING,
+  CREATE_PATIENT_LOADING,
+  CREATE_PATIENT_RESET,
+  CREATE_PATIENT_SUCCESS,
   GET_PATIENT_FAIL,
+  GET_PATIENT_LOADING,
+  GET_PATIENT_SUCCESS,
+  SEARCH_PATIENT_FAIL,
   SEARCH_PATIENT_LOADING,
   SEARCH_PATIENT_SUCCESS,
-  SEARCH_PATIENT_FAIL,
-  CREATE_PATIENT_RESET,
 } from "./consts";
-import { IAction } from "../types";
+import { initial } from "./initial";
+import { IPatientsState } from "./types";
 
 export default produce((draft: IPatientsState, action: IAction<any, any>) => {
   switch (action.type) {
@@ -21,27 +21,23 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
      * CREATE_PATIENT
      */
     case CREATE_PATIENT_LOADING: {
-      draft.createPatient.isLoading = true;
+      draft.createPatient.status = "LOADING";
       break;
     }
 
     case CREATE_PATIENT_SUCCESS: {
-      draft.createPatient.isLoading = false;
-      draft.createPatient.hasSucceeded = true;
+      draft.createPatient.status = "SUCCESS";
       delete draft.createPatient.error;
       break;
     }
 
     case CREATE_PATIENT_FAIL: {
-      draft.createPatient.isLoading = false;
-      draft.createPatient.hasSucceeded = false;
+      draft.createPatient.status = "FAIL";
       draft.createPatient.error = action.error;
       break;
     }
 
     case CREATE_PATIENT_RESET: {
-      draft.createPatient.isLoading = false;
-      draft.createPatient.hasSucceeded = false;
       delete draft.createPatient.error;
       break;
     }
@@ -50,19 +46,23 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
      * SEARCH_PATIENT
      */
     case SEARCH_PATIENT_LOADING: {
-      draft.searchResults.isLoading = true;
+      draft.searchResults.status = "LOADING";
       break;
     }
 
     case SEARCH_PATIENT_SUCCESS: {
-      draft.searchResults.isLoading = false;
+      if (action.payload.length > 0) {
+        draft.searchResults.status = "SUCCESS";
+      } else {
+        draft.searchResults.status = "SUCCESS_EMPTY";
+      }
       draft.searchResults.data = action.payload;
       delete draft.searchResults.error;
       break;
     }
 
     case SEARCH_PATIENT_FAIL: {
-      draft.searchResults.isLoading = false;
+      draft.searchResults.status = "FAIL";
       draft.searchResults.error = action.error;
       break;
     }

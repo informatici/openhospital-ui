@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -12,10 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI } from '../runtime';
-import {
-    Resource,
-} from '../models';
+import { BaseAPI, HttpHeaders } from '../runtime';
 
 /**
  * no description
@@ -25,20 +22,30 @@ export class ReportsControllerApi extends BaseAPI {
     /**
      * printDiseasesListPdf
      */
-    printDiseasesListPdfUsingGET = (): Observable<Resource> => {
-        return this.request<Resource>({
+    printDiseasesListPdfUsingGET = (): Observable<string> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<string>({
             path: '/reports/diseases-list',
             method: 'GET',
+            headers,
         });
     };
 
     /**
      * printExamsListPdf
      */
-    printExamsListPdfUsingGET = (): Observable<Resource> => {
-        return this.request<Resource>({
+    printExamsListPdfUsingGET = (): Observable<string> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<string>({
             path: '/reports/exams-list',
             method: 'GET',
+            headers,
         });
     };
 

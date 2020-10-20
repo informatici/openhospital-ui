@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -12,14 +12,14 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpQuery, throwIfNullOrUndefined } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined } from '../runtime';
 import {
-    Authentication,
+    LoginResponse,
 } from '../models';
 
 export interface LoginUsingPOSTRequest {
-    username: string;
     password: string;
+    username: string;
 }
 
 /**
@@ -31,16 +31,16 @@ export class LoginApiApi extends BaseAPI {
      * Login with the given credentials.
      * Login
      */
-    loginUsingPOST = ({ username, password }: LoginUsingPOSTRequest): Observable<Authentication> => {
-        throwIfNullOrUndefined(username, 'loginUsingPOST');
+    loginUsingPOST = ({ password, username }: LoginUsingPOSTRequest): Observable<LoginResponse> => {
         throwIfNullOrUndefined(password, 'loginUsingPOST');
+        throwIfNullOrUndefined(username, 'loginUsingPOST');
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'username': username,
             'password': password,
+            'username': username,
         };
 
-        return this.request<Authentication>({
+        return this.request<LoginResponse>({
             path: '/auth/login',
             method: 'POST',
             query,
@@ -52,9 +52,14 @@ export class LoginApiApi extends BaseAPI {
      * Logout
      */
     logoutUsingPOST = (): Observable<void> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<void>({
             path: '/auth/logout',
             method: 'POST',
+            headers,
         });
     };
 

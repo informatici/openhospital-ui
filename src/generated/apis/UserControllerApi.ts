@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -76,9 +76,14 @@ export class UserControllerApi extends BaseAPI {
     deleteGroupUsingDELETE = ({ groupCode }: DeleteGroupUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(groupCode, 'deleteGroupUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/users/groups/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -88,9 +93,14 @@ export class UserControllerApi extends BaseAPI {
     deleteUserUsingDELETE = ({ username }: DeleteUserUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(username, 'deleteUserUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/users/{username}'.replace('{username}', encodeURI(username)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -100,9 +110,14 @@ export class UserControllerApi extends BaseAPI {
     getGroupMenuUsingGET = ({ groupCode }: GetGroupMenuUsingGETRequest): Observable<Array<UserMenuItemDTO>> => {
         throwIfNullOrUndefined(groupCode, 'getGroupMenuUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<UserMenuItemDTO>>({
             path: '/users/group-menus/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -112,9 +127,14 @@ export class UserControllerApi extends BaseAPI {
     getMenuUsingGET = ({ username }: GetMenuUsingGETRequest): Observable<Array<UserMenuItemDTO>> => {
         throwIfNullOrUndefined(username, 'getMenuUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<UserMenuItemDTO>>({
             path: '/users/menus/{username}'.replace('{username}', encodeURI(username)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -124,9 +144,14 @@ export class UserControllerApi extends BaseAPI {
     getUserByNameUsingGET = ({ username }: GetUserByNameUsingGETRequest): Observable<UserDTO> => {
         throwIfNullOrUndefined(username, 'getUserByNameUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<UserDTO>({
             path: '/users/{username}'.replace('{username}', encodeURI(username)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -134,9 +159,14 @@ export class UserControllerApi extends BaseAPI {
      * getUserGroup
      */
     getUserGroupUsingGET = (): Observable<Array<UserGroupDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<UserGroupDTO>>({
             path: '/users/groups',
             method: 'GET',
+            headers,
         });
     };
 
@@ -145,6 +175,10 @@ export class UserControllerApi extends BaseAPI {
      */
     getUserUsingGET = ({ groupId }: GetUserUsingGETRequest): Observable<Array<UserDTO>> => {
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = {};
 
         if (groupId != null) { query['group_id'] = groupId; }
@@ -152,6 +186,7 @@ export class UserControllerApi extends BaseAPI {
         return this.request<Array<UserDTO>>({
             path: '/users',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -164,6 +199,7 @@ export class UserControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -182,6 +218,7 @@ export class UserControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -201,6 +238,7 @@ export class UserControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -219,6 +257,7 @@ export class UserControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -237,6 +276,7 @@ export class UserControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = {};

@@ -6,8 +6,14 @@ describe("NewPatientActivity spec", () => {
   it("should render the ui", () => {
     cy.visit(START_PATH, {
       onBeforeLoad(w) {
-        w.localStorage.clear();
-        w.localStorage.setItem("sessionId", "token");
+        w.sessionStorage.clear();
+        w.sessionStorage.setItem(
+          "auth",
+          JSON.stringify({
+            displayName: "John Doe",
+            token: "1qrj12fcxu3a21d21pjvba6g1",
+          })
+        );
       },
     });
     cy.get("[class=newPatient]");

@@ -1,7 +1,7 @@
 import { IPatientsState } from "./types";
 
 export const initial: IPatientsState = {
-  createPatient: { isLoading: false, hasSucceeded: false },
-  searchResults: { isLoading: false, data: [] },
+  createPatient: { status: "IDLE" },
+  searchResults: { status: "IDLE", data: [] },
   selectedPatient: { isLoading: false, data: {} },
 };

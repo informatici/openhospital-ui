@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -28,22 +28,22 @@ export interface GetLotByMedicalUsingGETRequest {
 }
 
 export interface GetMovementsUsingGETRequest {
-    wardId: string;
     from: string;
     to: string;
+    wardId: string;
 }
 
 export interface GetMovementsUsingGET1Request {
-    medCode?: number;
-    medType?: string;
-    wardId?: string;
-    movType?: string;
-    movFrom?: string;
-    movTo?: string;
-    lotPrepFrom?: string;
-    lotPrepTo?: string;
     lotDueFrom?: string;
     lotDueTo?: string;
+    lotPrepFrom?: string;
+    lotPrepTo?: string;
+    medCode?: number;
+    medType?: string;
+    movFrom?: string;
+    movTo?: string;
+    movType?: string;
+    wardId?: string;
 }
 
 export interface GetMovementsUsingGET2Request {
@@ -72,6 +72,10 @@ export class StockMovementControllerApi extends BaseAPI {
         throwIfNullOrUndefined(medCode, 'alertCriticalQuantityUsingGET');
         throwIfNullOrUndefined(qty, 'alertCriticalQuantityUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'med_code': medCode,
             'qty': qty,
@@ -80,6 +84,7 @@ export class StockMovementControllerApi extends BaseAPI {
         return this.request<boolean>({
             path: '/stockmovements/critical/check',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -90,29 +95,39 @@ export class StockMovementControllerApi extends BaseAPI {
     getLotByMedicalUsingGET = ({ medCode }: GetLotByMedicalUsingGETRequest): Observable<Array<LotDTO>> => {
         throwIfNullOrUndefined(medCode, 'getLotByMedicalUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<LotDTO>>({
             path: '/stockmovements/lot/{med_code}'.replace('{med_code}', encodeURI(medCode)),
             method: 'GET',
+            headers,
         });
     };
 
     /**
      * getMovements
      */
-    getMovementsUsingGET = ({ wardId, from, to }: GetMovementsUsingGETRequest): Observable<Array<MovementDTO>> => {
-        throwIfNullOrUndefined(wardId, 'getMovementsUsingGET');
+    getMovementsUsingGET = ({ from, to, wardId }: GetMovementsUsingGETRequest): Observable<Array<MovementDTO>> => {
         throwIfNullOrUndefined(from, 'getMovementsUsingGET');
         throwIfNullOrUndefined(to, 'getMovementsUsingGET');
+        throwIfNullOrUndefined(wardId, 'getMovementsUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'ward_id': wardId,
             'from': (from as any).toISOString(),
             'to': (to as any).toISOString(),
+            'ward_id': wardId,
         };
 
         return this.request<Array<MovementDTO>>({
             path: '/stockmovements/filter/v1',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -120,24 +135,29 @@ export class StockMovementControllerApi extends BaseAPI {
     /**
      * getMovements
      */
-    getMovementsUsingGET1 = ({ medCode, medType, wardId, movType, movFrom, movTo, lotPrepFrom, lotPrepTo, lotDueFrom, lotDueTo }: GetMovementsUsingGET1Request): Observable<Array<MovementDTO>> => {
+    getMovementsUsingGET1 = ({ lotDueFrom, lotDueTo, lotPrepFrom, lotPrepTo, medCode, medType, movFrom, movTo, movType, wardId }: GetMovementsUsingGET1Request): Observable<Array<MovementDTO>> => {
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = {};
 
-        if (medCode != null) { query['med_code'] = medCode; }
-        if (medType != null) { query['med_type'] = medType; }
-        if (wardId != null) { query['ward_id'] = wardId; }
-        if (movType != null) { query['mov_type'] = movType; }
-        if (movFrom != null) { query['mov_from'] = (movFrom as any).toISOString(); }
-        if (movTo != null) { query['mov_to'] = (movTo as any).toISOString(); }
-        if (lotPrepFrom != null) { query['lot_prep_from'] = (lotPrepFrom as any).toISOString(); }
-        if (lotPrepTo != null) { query['lot_prep_to'] = (lotPrepTo as any).toISOString(); }
         if (lotDueFrom != null) { query['lot_due_from'] = (lotDueFrom as any).toISOString(); }
         if (lotDueTo != null) { query['lot_due_to'] = (lotDueTo as any).toISOString(); }
+        if (lotPrepFrom != null) { query['lot_prep_from'] = (lotPrepFrom as any).toISOString(); }
+        if (lotPrepTo != null) { query['lot_prep_to'] = (lotPrepTo as any).toISOString(); }
+        if (medCode != null) { query['med_code'] = medCode; }
+        if (medType != null) { query['med_type'] = medType; }
+        if (movFrom != null) { query['mov_from'] = (movFrom as any).toISOString(); }
+        if (movTo != null) { query['mov_to'] = (movTo as any).toISOString(); }
+        if (movType != null) { query['mov_type'] = movType; }
+        if (wardId != null) { query['ward_id'] = wardId; }
 
         return this.request<Array<MovementDTO>>({
             path: '/stockmovements/filter/v2',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -148,9 +168,14 @@ export class StockMovementControllerApi extends BaseAPI {
     getMovementsUsingGET2 = ({ ref }: GetMovementsUsingGET2Request): Observable<Array<MovementDTO>> => {
         throwIfNullOrUndefined(ref, 'getMovementsUsingGET2');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MovementDTO>>({
             path: '/stockmovements/{ref}'.replace('{ref}', encodeURI(ref)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -158,9 +183,14 @@ export class StockMovementControllerApi extends BaseAPI {
      * getMovements
      */
     getMovementsUsingGET3 = (): Observable<Array<MovementDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MovementDTO>>({
             path: '/stockmovements',
             method: 'GET',
+            headers,
         });
     };
 
@@ -173,6 +203,7 @@ export class StockMovementControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -197,6 +228,7 @@ export class StockMovementControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined

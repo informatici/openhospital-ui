@@ -8,7 +8,7 @@ import PatientDetailsActivity from "./components/activities/patientDetailsActivi
 
 const Routes: FunctionComponent = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/dashboard">
           <DashboardActivity

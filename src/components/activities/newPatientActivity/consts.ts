@@ -29,5 +29,5 @@ export const initialValues: PatientDTO = {
   taxCode: "",
   height: 175,
   weight: 83,
-  blobPhoto: [],
+  blobPhoto: "",
 };

@@ -29,10 +29,26 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       <div className="patientDetails__background">
         <div className="container">
           <div className="patientDetails__panel">
-            <div className={classNames("patientDetails__personalData", { open_sidebar: isOpen })}>
-              <div className="patientDetails__personalData__trigger_mobile" onClick={() => setIsOpen(!isOpen)}>
+            <div
+              className={classNames("patientDetails__personalData", {
+                open_sidebar: isOpen,
+              })}
+            >
+              <div
+                className="patientDetails__personalData__trigger_mobile"
+                onClick={() => setIsOpen(!isOpen)}
+              >
                 Antonio Carlos
-                <svg xmlns="http://www.w3.org/2000/svg" className="arrow_icon" data-name="Layer 1" viewBox="0 0 24 30" x="0px" y="0px"><polygon points="12 17.02 4.08 9.1 5.5 7.69 12 14.19 18.5 7.69 19.92 9.1 12 17.02"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="arrow_icon"
+                  data-name="Layer 1"
+                  viewBox="0 0 24 30"
+                  x="0px"
+                  y="0px"
+                >
+                  <polygon points="12 17.02 4.08 9.1 5.5 7.69 12 14.19 18.5 7.69 19.92 9.1 12 17.02" />
+                </svg>
               </div>
               <div className="patientDetails__personalData_sidebar">
                 <div className="patientDetails__profilePictureContainer">
@@ -115,13 +131,25 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
             <div className="patientDetails__content">
               <div className="patientDetils__content__header">
                 <div className="patientDetils__content__header_tabs">
-                  <div className="patientDetils__content__header_tab">Summary</div>
-                  <div className="patientDetils__content__header_tab">Triage</div>
+                  <div className="patientDetils__content__header_tab">
+                    Summary
+                  </div>
+                  <div className="patientDetils__content__header_tab">
+                    Triage
+                  </div>
                   <div className="patientDetils__content__header_tab">OPD</div>
-                  <div className="patientDetils__content__header_tab">Admission</div>
-                  <div className="patientDetils__content__header_tab">Therapy</div>
-                  <div className="patientDetils__content__header_tab">Vaccination</div>
-                  <div className="patientDetils__content__header_tab">Lab Exam</div>
+                  <div className="patientDetils__content__header_tab">
+                    Admission
+                  </div>
+                  <div className="patientDetils__content__header_tab">
+                    Therapy
+                  </div>
+                  <div className="patientDetils__content__header_tab">
+                    Vaccination
+                  </div>
+                  <div className="patientDetils__content__header_tab">
+                    Lab Exam
+                  </div>
                 </div>
               </div>
               <div className="patientDetils__content__header_mobile">
@@ -136,9 +164,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </select>
               </div>
               <div className="patientDetils__content__body">
-                <div className="patientDetils__content__body_header">
-                  BODY
-                </div>
+                <div className="patientDetils__content__body_header">BODY</div>
                 <div className="patientDetils__content__body_content">
                   CONTENT
                 </div>
@@ -153,7 +179,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data?.credentials,
+  userCredentials: state.main.authentication.data,
   patient: state.patients.selectedPatient,
 });
 

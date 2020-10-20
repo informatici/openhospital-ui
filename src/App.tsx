@@ -1,34 +1,43 @@
 import React, { FunctionComponent } from "react";
-import "./App.scss";
-import { TProps, IStateProps, IState, IDispatchProps } from "./types";
-import LoginActivity from "./components/activities/loginActivity/LoginActivity";
 import { connect } from "react-redux";
-import { setToken } from "./state/main/actions";
+import "./App.scss";
+import LoginActivity from "./components/activities/loginActivity/LoginActivity";
+import { AUTH_KEY } from "./consts";
+import { LoginResponse } from "./generated";
+import { SessionStorage } from "./libraries/storage/storage";
 import Routes from "./Routes";
-import { LocalStorage } from "./libraries/storage/storage";
+import { setUserCredentials } from "./state/main/actions";
+import { IDispatchProps, IState, IStateProps, TProps } from "./types";
 
-const App: FunctionComponent<TProps> = ({ token, setToken }) => {
-  const browserStoredId = LocalStorage.read("sessionId");
-  if (!token && browserStoredId) {
-    setToken(browserStoredId);
+const App: FunctionComponent<TProps> = ({
+  appStoredToken,
+  setUserCredentials,
+}) => {
+  const auth = SessionStorage.read(AUTH_KEY) as LoginResponse;
+  if (!appStoredToken && auth) {
+    setUserCredentials(auth);
     return null;
   }
-  if (token && window.location.pathname === "/") {
-    window.location.href = "/dashboard";
+  if (appStoredToken && window.location.pathname === process.env.PUBLIC_URL) {
+    window.location.href = process.env.PUBLIC_URL + "/dashboard";
   }
   return (
     <div className="App">
-      {token ? <Routes /> : <LoginActivity successRoute="/dashboard" />}
+      {appStoredToken ? (
+        <Routes />
+      ) : (
+        <LoginActivity successRoute="/dashboard" />
+      )}
     </div>
   );
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  token: state.main.token,
+  appStoredToken: state.main.authentication.data?.token,
 });
 
 const mapDispatchToProps: IDispatchProps = {
-  setToken,
+  setUserCredentials,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

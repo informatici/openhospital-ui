@@ -51,8 +51,12 @@ const AppHeader: FunctionComponent<TProps> = ({
               <div className="appHeader__home_icon">
                 <HomeIcon fontSize="small" style={{ color: "#fff" }} />
               </div>
-              {keys.map((key) => (
-                <Link color="inherit" href={breadcrumbMap[key]}>
+              {keys.map((key, index) => (
+                <Link
+                  key={index}
+                  color="inherit"
+                  href={process.env.PUBLIC_URL + breadcrumbMap[key]}
+                >
                   {key}
                 </Link>
               ))}

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -26,7 +26,7 @@ export interface NewDeliveryTypeUsingPOSTRequest {
 }
 
 export interface UpdateDeliveryTypetUsingPUTRequest {
-    code: DeliveryTypeDTO;
+    dlvrTypeDTO: DeliveryTypeDTO;
 }
 
 /**
@@ -40,9 +40,14 @@ export class DeliveryTypeControllerApi extends BaseAPI {
     deleteDeliveryTypeUsingDELETE = ({ code }: DeleteDeliveryTypeUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'deleteDeliveryTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/deliverytypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -50,9 +55,14 @@ export class DeliveryTypeControllerApi extends BaseAPI {
      * getDeliveryTypes
      */
     getDeliveryTypesUsingGET = (): Observable<Array<DeliveryTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DeliveryTypeDTO>>({
             path: '/deliverytypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -64,6 +74,7 @@ export class DeliveryTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
@@ -77,18 +88,19 @@ export class DeliveryTypeControllerApi extends BaseAPI {
     /**
      * updateDeliveryTypet
      */
-    updateDeliveryTypetUsingPUT = ({ code }: UpdateDeliveryTypetUsingPUTRequest): Observable<string> => {
-        throwIfNullOrUndefined(code, 'updateDeliveryTypetUsingPUT');
+    updateDeliveryTypetUsingPUT = ({ dlvrTypeDTO }: UpdateDeliveryTypetUsingPUTRequest): Observable<string> => {
+        throwIfNullOrUndefined(dlvrTypeDTO, 'updateDeliveryTypetUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
             path: '/deliverytypes',
             method: 'PUT',
             headers,
-            body: code,
+            body: dlvrTypeDTO,
         });
     };
 

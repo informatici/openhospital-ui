@@ -1,37 +1,38 @@
+import { Dispatch } from "redux";
+import { AUTH_KEY } from "../../consts";
+import { Configuration, LoginApiApi, LoginResponse } from "../../generated";
+import { SessionStorage } from "../../libraries/storage/storage";
+import { IAction } from "../types";
 import {
-  SET_TOKEN,
+  SET_AUTHENTICATION_FAIL,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
-  SET_AUTHENTICATION_FAIL,
+  SET_USER_CREDENTIALS,
 } from "./consts";
-import { Dispatch } from "redux";
-import { Authentication, LoginApiApi } from "../../generated";
-import { IAction } from "../types";
 
-const api = new LoginApiApi();
+const api = new LoginApiApi(new Configuration());
 
-export const setToken = (token: string): IAction<string, {}> => ({
-  type: SET_TOKEN,
-  payload: token,
+export const setUserCredentials = (
+  userCredentials: LoginResponse
+): IAction<LoginResponse, {}> => ({
+  type: SET_USER_CREDENTIALS,
+  payload: userCredentials,
 });
 
 export const setAuthentication = (username: string, password: string) => (
-  dispatch: Dispatch<IAction<Authentication, {}>>
+  dispatch: Dispatch<IAction<LoginResponse, {}>>
 ) => {
   dispatch({
     type: SET_AUTHENTICATION_LOADING,
   });
 
   api.loginUsingPOST({ password, username }).subscribe(
-    (payload) => {
+    (payload: LoginResponse) => {
       dispatch({
         type: SET_AUTHENTICATION_SUCCESS,
-        payload,
+        payload: payload,
       });
-      dispatch({
-        type: SET_TOKEN,
-        payload: payload.name,
-      });
+      SessionStorage.write(AUTH_KEY, payload);
     },
     (error) => {
       dispatch({

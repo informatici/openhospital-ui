@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -42,9 +42,14 @@ export class ExamTypeControllerApi extends BaseAPI {
     deleteExamTypeUsingDELETE = ({ code }: DeleteExamTypeUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(code, 'deleteExamTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/examtypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -52,9 +57,14 @@ export class ExamTypeControllerApi extends BaseAPI {
      * getExamTypes
      */
     getExamTypesUsingGET = (): Observable<Array<ExamTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<ExamTypeDTO>>({
             path: '/examtypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -66,6 +76,7 @@ export class ExamTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -85,6 +96,7 @@ export class ExamTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

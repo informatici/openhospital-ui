@@ -1,12 +1,13 @@
-import { TUserCredentials, IMainState } from "./state/main/types";
+import { LoginResponse } from "./generated";
+import { IMainState } from "./state/main/types";
 import { IPatientsState } from "./state/patients/types";
 
 export interface IStateProps {
-  token: string;
+  appStoredToken: string | undefined;
 }
 
 export interface IDispatchProps {
-  setToken: (token: string) => void;
+  setUserCredentials: (userCredentials: LoginResponse) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -45,9 +45,14 @@ export class VaccineTypeControllerApi extends BaseAPI {
     checkVaccineTypeCodeUsingGET = ({ code }: CheckVaccineTypeCodeUsingGETRequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'checkVaccineTypeCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/vaccinetype/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -57,9 +62,14 @@ export class VaccineTypeControllerApi extends BaseAPI {
     deleteVaccineTypeUsingDELETE = ({ code }: DeleteVaccineTypeUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(code, 'deleteVaccineTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/vaccinetype/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -67,9 +77,14 @@ export class VaccineTypeControllerApi extends BaseAPI {
      * getVaccineType
      */
     getVaccineTypeUsingGET = (): Observable<Array<VaccineTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<VaccineTypeDTO>>({
             path: '/vaccinetype',
             method: 'GET',
+            headers,
         });
     };
 
@@ -81,6 +96,7 @@ export class VaccineTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -99,6 +115,7 @@ export class VaccineTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

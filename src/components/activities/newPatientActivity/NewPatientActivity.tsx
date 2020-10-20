@@ -1,24 +1,28 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
-import { IStateProps, TProps, IDispatchProps } from "./types";
-import { IState } from "../../../types";
-import AppHeader from "../../accessories/appHeader/AppHeader";
-import Footer from "../../accessories/footer/Footer";
-import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
-import { initialValues } from "./consts";
+import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
+import { PatientDTO } from "../../../generated";
 import {
   createPatient,
   createPatientReset,
 } from "../../../state/patients/actions";
+import { IState } from "../../../types";
+import AppHeader from "../../accessories/appHeader/AppHeader";
+import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
+import Footer from "../../accessories/footer/Footer";
+import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
+import { initialValues } from "./consts";
 import "./styles.scss";
-import { PatientDTO } from "../../../generated";
+import { IDispatchProps, IStateProps, TProps } from "./types";
 
 const NewPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
   createPatient,
-  // createPatientReset,
-  // isLoading,
+  createPatientReset,
+  isLoading,
   hasSucceeded,
+  hasFailed,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -29,15 +33,15 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     createPatient(patient);
   };
 
-  useEffect(() => {
-    if (hasSucceeded) {
-      //TODO: show confirmation dialog
-    }
-  }, [hasSucceeded]);
+  const handleDialogOnDismiss = () => {
+    //TODO: should reset values and profilePicture
+    createPatientReset();
+    window.location.href = process.env.PUBLIC_URL + "/new";
+  };
 
-  // const handleDialogButtonClick = () => {
-  //   //TODO: should reset createPatient and values, and close dialog
-  // };
+  const handleDialogToDashboard = () => {
+    window.location.href = process.env.PUBLIC_URL + "/dashboard";
+  };
 
   return (
     <div className="newPatient">
@@ -52,18 +56,40 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             initialValues={initialValues}
             onSubmit={onSubmit}
             submitButtonLabel="submit"
+            isLoading={isLoading}
           />
         </div>
       </div>
+      <ConfirmationDialog
+        isOpen={hasSucceeded}
+        title="Patient Created"
+        icon={checkIcon}
+        info="The patient registration was successful."
+        primaryButtonLabel="Dashboard"
+        secondaryButtonLabel="Keep editing"
+        handlePrimaryButtonClick={handleDialogToDashboard}
+        handleSecondaryButtonClick={handleDialogOnDismiss}
+      />
+      <ConfirmationDialog
+        isOpen={hasFailed}
+        title="Failed"
+        icon={failIcon}
+        info="The patient registration was not possible."
+        primaryButtonLabel="Dashboard"
+        secondaryButtonLabel="Keep editing"
+        handlePrimaryButtonClick={handleDialogToDashboard}
+        handleSecondaryButtonClick={handleDialogOnDismiss}
+      />
       <Footer />
     </div>
   );
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data?.credentials,
-  isLoading: state.patients.createPatient.isLoading,
-  hasSucceeded: state.patients.createPatient.hasSucceeded,
+  userCredentials: state.main.authentication.data,
+  isLoading: state.patients.createPatient.status === "LOADING",
+  hasSucceeded: state.patients.createPatient.status === "SUCCESS",
+  hasFailed: state.patients.createPatient.status === "FAIL",
 });
 
 const mapDispatchToProps: IDispatchProps = {

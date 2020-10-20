@@ -7,7 +7,6 @@ export interface IOwnProps {
 
 export interface IStateProps {
   userCredentials: TUserCredentials;
-  name: string | undefined;
 }
 
 export type TProps = IOwnProps & IStateProps;
