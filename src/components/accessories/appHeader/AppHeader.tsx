@@ -4,7 +4,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./styles.scss";
 import { TProps } from "./types";
