@@ -6,6 +6,9 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import { Typography } from "@material-ui/core";
 import classNames from "classnames";
+import HomeIcon from "@material-ui/icons/Home";
+import NavigateBefore from "@material-ui/icons/NavigateBefore";
+import { useHistory } from "react-router-dom";
 
 const AppHeader: FunctionComponent<TProps> = ({
   userCredentials,
@@ -16,6 +19,15 @@ const AppHeader: FunctionComponent<TProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const openMenu = (isOpen: boolean) => {
+    isOpen
+      ? document.body.classList.add("disable-scroll")
+      : document.body.classList.remove("disable-scroll");
+    setIsOpen(isOpen);
+  };
+
+  const history = useHistory();
+
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__background">
@@ -24,25 +36,40 @@ const AppHeader: FunctionComponent<TProps> = ({
             <img src={logo} alt="Open Hospital" />
           </div>
           <div
-            className="appHeader__identified__trigger"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => history.goBack()}
+            className={classNames("appHeader__navigate_before", {
+              hidden: trailEdgeKey === "Dashboard",
+            })}
           >
-            <div className="trigger_x"></div>
-            <div className="trigger_y"></div>
-            <div className="trigger_z"></div>
+            <NavigateBefore fontSize="large" style={{ color: "#fc1812" }} />
           </div>
           <div className="appHeader__identified__main">
             <div className="appHeader__identified__main__headline">
               Princeton-Plainsboro Teaching Hospital
             </div>
             <Breadcrumbs>
+              <div className="appHeader__home_icon">
+                <HomeIcon fontSize="small" style={{ color: "#fff" }} />
+              </div>
               {keys.map((key, index) => (
-                <Link key={index} color="inherit" href={process.env.PUBLIC_URL + breadcrumbMap[key]}>
+                <Link
+                  key={index}
+                  color="inherit"
+                  href={process.env.PUBLIC_URL + breadcrumbMap[key]}
+                >
                   {key}
                 </Link>
               ))}
               <Typography color="textPrimary">{trailEdgeKey}</Typography>
             </Breadcrumbs>
+          </div>
+          <div
+            className="appHeader__identified__trigger"
+            onClick={() => openMenu(!isOpen)}
+          >
+            <div className="trigger_x"></div>
+            <div className="trigger_y"></div>
+            <div className="trigger_z"></div>
           </div>
         </div>
         <div className="appHeader__nav">
