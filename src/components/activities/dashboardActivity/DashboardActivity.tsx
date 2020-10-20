@@ -19,7 +19,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   };
 
   const largeButtonHandleClick = (route: string) => () => {
-    window.location.href = route;
+    window.location.href = process.env.PUBLIC_URL + route;
   };
 
   return (

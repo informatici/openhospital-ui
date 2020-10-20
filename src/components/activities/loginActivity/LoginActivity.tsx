@@ -7,7 +7,7 @@ import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { object, string } from "yup";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo-color.svg";
 import { setAuthentication } from "../../../state/main/actions";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
@@ -22,7 +22,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
   isLoading,
   successRoute,
 }) => {
-  window.history.replaceState(null, "", "/");
+  window.history.replaceState(null, "", process.env.PUBLIC_URL);
 
   const initialValues: IValues = {
     username: "",
@@ -54,14 +54,14 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (authenticated) {
-      window.location.href = successRoute;
+      window.location.href = process.env.PUBLIC_URL + successRoute;
     }
   }, [authenticated, successRoute]);
 
   return (
     <div className="login">
       <div className="container login__background">
-        <img src={logo} alt="Open Hospital" className="login__logo" />
+        <img src={logo} alt="Open Hospital" className="login__logo" width="150px" />
         <div className="login__title">
           Princeton-Plainsboro Teaching Hospital
         </div>

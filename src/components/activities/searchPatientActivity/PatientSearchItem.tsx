@@ -7,7 +7,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
 }) => {
   const handleClick = () => {
     const path = "/details/1234"; //TODO: use actual patient id instead
-    window.location.href = path;
+    window.location.href = process.env.PUBLIC_URL + path;
   };
   return (
     <div className="patientSearchItem center-xs col-md-4 col-sm-6 col-xs-12">
