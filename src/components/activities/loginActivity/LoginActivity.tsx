@@ -8,13 +8,13 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { object, string } from "yup";
-import logo from "../../../assets/logo.png";
 import { AUTH_KEY } from "../../../consts";
 import { SessionStorage } from "../../../libraries/storage/storage";
 import {
   setAuthenticationSuccess,
   setAuthenticationThunk,
 } from "../../../state/main/actions";
+import logo from "../../../assets/logo-color.svg";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -76,7 +76,12 @@ const LoginActivity: FunctionComponent<TProps> = ({
   return (
     <div className="login">
       <div className="container login__background">
-        <img src={logo} alt="Open Hospital" className="login__logo" />
+        <img
+          src={logo}
+          alt="Open Hospital"
+          className="login__logo"
+          width="150px"
+        />
         <div className="login__title">
           Princeton-Plainsboro Teaching Hospital
         </div>

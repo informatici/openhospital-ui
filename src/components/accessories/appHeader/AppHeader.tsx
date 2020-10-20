@@ -5,7 +5,7 @@ import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { TProps } from "./types";
 
@@ -32,7 +32,7 @@ const AppHeader: FunctionComponent<TProps> = ({
       <div className="appHeader__background">
         <div className="appHeader__identifier">
           <div className="appHeader__identifier__logo">
-            <img src={logo} alt="Open Hospital" />
+            <img src={logo} alt="Open Hospital" height="45px" />
           </div>
           <div
             onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
