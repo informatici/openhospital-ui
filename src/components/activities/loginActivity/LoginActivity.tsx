@@ -7,7 +7,7 @@ import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { object, string } from "yup";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo-color.svg";
 import { setAuthentication } from "../../../state/main/actions";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
@@ -61,7 +61,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
   return (
     <div className="login">
       <div className="container login__background">
-        <img src={logo} alt="Open Hospital" className="login__logo" />
+        <img src={logo} alt="Open Hospital" className="login__logo" width="150px" />
         <div className="login__title">
           Princeton-Plainsboro Teaching Hospital
         </div>
