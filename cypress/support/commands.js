@@ -30,7 +30,10 @@ Cypress.Commands.add("authenticate", (START_PATH) => {
   cy.visit(START_PATH, {
     onBeforeLoad(w) {
       w.sessionStorage.clear();
-      w.sessionStorage.setItem("authenticated", "true");
+      w.sessionStorage.setItem(
+        "auth",
+        `{"displayName":"John Doe","token":"1qrj12fcxu3a21d21pjvba6g1"}`
+      );
     },
   });
 });
