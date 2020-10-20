@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo-color.svg";
 import { TProps } from "./types";
 import "./styles.scss";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
@@ -33,7 +33,7 @@ const AppHeader: FunctionComponent<TProps> = ({
       <div className="appHeader__background">
         <div className="appHeader__identifier">
           <div className="appHeader__identifier__logo">
-            <img src={logo} alt="Open Hospital" />
+            <img src={logo} alt="Open Hospital" height="45px" />
           </div>
           <div
             onClick={() => history.goBack()}

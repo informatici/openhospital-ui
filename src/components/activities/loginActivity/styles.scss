@@ -11,7 +11,7 @@
     width: 100vw;
     background-color: $c-color-secondary;
     @include susy-media($smartphone){
-      padding: 100px 0px;
+      padding: 50px 0 100px 0;
       height: 100%;
     }
   }
@@ -21,12 +21,12 @@
   }
 
   .login__title {
-    padding: 25px;
+    padding: 50px 25px 25px 25px;
     font-size: x-large;
     text-align: center;
     font-weight: bolder;
     @include susy-media($narrow){
-      padding: 15px;
+      padding: 25px;
     }
     @include susy-media($tablet_land){
       padding: 25px;
