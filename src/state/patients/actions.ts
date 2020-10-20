@@ -60,10 +60,17 @@ export const searchPatient = (values: SearchPatientUsingGETRequest) => (
 
   patientControllerApi.searchPatientUsingGET(values).subscribe(
     (payload) => {
-      dispatch({
-        type: SEARCH_PATIENT_SUCCESS,
-        payload,
-      });
+      if (Array.isArray(payload)) {
+        dispatch({
+          type: SEARCH_PATIENT_SUCCESS,
+          payload,
+        });
+      } else {
+        dispatch({
+          type: SEARCH_PATIENT_FAIL,
+          error: { message: "Unexpected payload" },
+        });
+      }
     },
     (error) => {
       dispatch({

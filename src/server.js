@@ -29,6 +29,8 @@ export function makeServer() {
       server.get("/search").intercept((req, res) => {
         if (req.query.firstName === "empty") {
           res.status(200).json([]);
+        } else if (req.query.firstName === "unexpected") {
+          res.status(200).json({});
         } else if (req.query.firstName === "fail") {
           res.status(400);
         } else {
