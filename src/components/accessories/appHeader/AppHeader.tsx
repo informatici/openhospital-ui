@@ -1,14 +1,13 @@
-import React, { FunctionComponent, useState } from "react";
-import logo from "../../../assets/logo-color.svg";
-import { TProps } from "./types";
-import "./styles.scss";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Link from "@material-ui/core/Link";
 import { Typography } from "@material-ui/core";
-import classNames from "classnames";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import HomeIcon from "@material-ui/icons/Home";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
-import { useHistory } from "react-router-dom";
+import classNames from "classnames";
+import React, { FunctionComponent, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import logo from "../../../assets/logo-color.svg";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const AppHeader: FunctionComponent<TProps> = ({
   userCredentials,
@@ -36,7 +35,7 @@ const AppHeader: FunctionComponent<TProps> = ({
             <img src={logo} alt="Open Hospital" height="45px" />
           </div>
           <div
-            onClick={() => history.goBack()}
+            onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
             className={classNames("appHeader__navigate_before", {
               hidden: trailEdgeKey === "Dashboard",
             })}
@@ -52,12 +51,8 @@ const AppHeader: FunctionComponent<TProps> = ({
                 <HomeIcon fontSize="small" style={{ color: "#fff" }} />
               </div>
               {keys.map((key, index) => (
-                <Link
-                  key={index}
-                  color="inherit"
-                  href={process.env.PUBLIC_URL + breadcrumbMap[key]}
-                >
-                  {key}
+                <Link key={index} to={breadcrumbMap[key]}>
+                  <Typography color="textPrimary">{key}</Typography>
                 </Link>
               ))}
               <Typography color="textPrimary">{trailEdgeKey}</Typography>

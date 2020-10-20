@@ -26,3 +26,5 @@ export interface IValues {
   birthDate?: string;
   address?: string;
 }
+
+export type TActivityTransitionState = "IDLE" | "TO_PATIENT_DETAILS";

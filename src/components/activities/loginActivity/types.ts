@@ -1,14 +1,19 @@
+import { LoginResponse } from "../../../generated";
+import { IAction, TAPIResponseStatus } from "../../../state/types";
+
 interface IOwnProps {
   successRoute: string;
 }
 
 export interface IStateProps {
-  authenticated: boolean | undefined;
-  isLoading: boolean;
+  status: TAPIResponseStatus;
 }
 
 export interface IDispatchProps {
-  setAuthentication: (username: string, password: string) => void;
+  setAuthenticationThunk: (username: string, password: string) => void;
+  setAuthenticationSuccess: (
+    userCredentials: LoginResponse
+  ) => IAction<LoginResponse, {}>;
 }
 
 export type TProps = IOwnProps & IStateProps & IDispatchProps;
