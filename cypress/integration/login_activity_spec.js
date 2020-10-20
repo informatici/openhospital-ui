@@ -1,6 +1,6 @@
 const START_PATH = "http://localhost:3000/";
 
-describe.only("LoginActivity spec", () => {
+describe("LoginActivity spec", () => {
   it("should render the ui", () => {
     cy.visit(START_PATH, {
       onBeforeLoad(w) {
