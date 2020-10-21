@@ -2,7 +2,7 @@ import initialValues from "../fixtures/newPatientInitialValues.json";
 
 const START_PATH = "http://localhost:3000/new";
 
-describe.only("NewPatientActivity spec", () => {
+describe("NewPatientActivity spec", () => {
   it("should render the ui", () => {
     cy.authenticate(START_PATH);
     cy.get("[class=newPatient]");
