@@ -5,6 +5,6 @@ export const scrollToElement = (
 ) => {
   window.scrollTo({
     top: element ? element.offsetTop - offSet : 0,
-    behavior: behavior,
+    behavior,
   });
 };
