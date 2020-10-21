@@ -23,7 +23,12 @@ export function makeServer() {
 
     server.namespace("/patients", () => {
       server.post("/").intercept((req, res) => {
-        res.status(201);
+        const body = req.jsonBody();
+        if (body.firstName === "fail") {
+          res.status(400);
+        } else {
+          res.status(201);
+        }
       });
 
       server.get("/search").intercept((req, res) => {
