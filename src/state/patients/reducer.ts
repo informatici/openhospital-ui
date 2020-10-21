@@ -38,6 +38,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
     }
 
     case CREATE_PATIENT_RESET: {
+      draft.createPatient.status = "IDLE";
       delete draft.createPatient.error;
       break;
     }

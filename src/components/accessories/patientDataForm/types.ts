@@ -6,6 +6,8 @@ interface IOwnProps {
   onSubmit: (patient: PatientDTO) => void;
   submitButtonLabel: string;
   isLoading: boolean;
+  shouldResetForm: boolean;
+  resetFormCallback: () => void;
 }
 
 export type TProps = IOwnProps;
