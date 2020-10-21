@@ -47,7 +47,6 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (activityTransitionState === "TO_NEW_PATIENT_RESET") {
-      //TODO: should reset activity without the need of refreshing the app
       createPatientReset();
       setShouldResetForm(true);
     }
