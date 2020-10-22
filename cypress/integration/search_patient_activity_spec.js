@@ -6,6 +6,15 @@ describe("SearchPatientActivity spec", () => {
     cy.get("[class=searchPatient]");
   });
 
+  it("should present single search result if search param is patient ID", () => {
+    cy.get("[id=id]").clear().type("1234567");
+    cy.get("[class=searchPatient__panel]").submit();
+    cy.get(["div.patientSearchItem"]).then((els) =>
+      expect(els.length).equal(1)
+    );
+    cy.get("[id=id]").clear();
+  });
+
   it("should alert the user that no result was found", () => {
     cy.get("[id=firstName]").clear().type("empty");
     cy.get("[class=searchPatient__panel]").submit();
