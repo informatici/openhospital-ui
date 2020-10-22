@@ -1,3 +1,4 @@
+import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { IValues } from "../../components/activities/searchPatientActivity/types";
 import {
@@ -63,15 +64,15 @@ export const searchPatient = (values: IValues) => (
       .getPatientUsingGET({ code: parseInt(values.id) })
       .subscribe(
         (payload) => {
-          if (typeof payload === "object") {
+          if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: SEARCH_PATIENT_SUCCESS,
               payload: [payload],
             });
           } else {
             dispatch({
-              type: SEARCH_PATIENT_FAIL,
-              error: { message: "Unexpected payload" },
+              type: SEARCH_PATIENT_SUCCESS,
+              payload: [],
             });
           }
         },
