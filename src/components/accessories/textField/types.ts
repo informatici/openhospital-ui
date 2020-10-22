@@ -14,6 +14,7 @@ export interface IProps {
   isValid: boolean;
   errorText: string;
   onBlur: (e: any) => void;
+  disabled?: boolean;
   InputProps?:
     | Partial<InputProps>
     | Partial<FilledInputProps>

@@ -11,6 +11,7 @@ const TextField: FunctionComponent<IProps> = ({
   isValid,
   errorText,
   onBlur,
+  disabled,
   InputProps,
 }) => {
   const actualClassName = theme === "light" ? "textField__light" : "textField";
@@ -29,6 +30,7 @@ const TextField: FunctionComponent<IProps> = ({
         className={actualClassName}
         size="small"
         margin="dense"
+        disabled={disabled}
         InputProps={InputProps}
       />
     </div>
