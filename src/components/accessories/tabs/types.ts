@@ -5,5 +5,5 @@ export interface IProps {
 
 export interface ITabConfig {
   mainClass: string;
-  items: Array<object>;
+  items: Array<Record<number, string>>;
 }

@@ -10,7 +10,7 @@ const Tabs: FunctionComponent<IProps> = ({
 
   const [ currentIndex, updateCurrentIndex ] = useState(0); 
 
-  const renderHeader = (item: object | any, index: number, mobile: boolean = false): JSX.Element => {
+  const renderHeader = (item: Record<number, string>, index: number, mobile: boolean = false): JSX.Element => {
     if(!mobile){
       return (
         <div className={classNames("tab", { active: (currentIndex === index) })} key={index} onClick={() => updateCurrentIndex(index)}>
@@ -26,7 +26,7 @@ const Tabs: FunctionComponent<IProps> = ({
     }
   };
 
-  const renderContent = (item: object | any, index: number): JSX.Element => {
+  const renderContent = (item: Record<number, string>, index: number): JSX.Element => {
     return (
       <div className="panel" key={index}>
         <span>{item[index]}</span>
@@ -38,16 +38,16 @@ const Tabs: FunctionComponent<IProps> = ({
     <Fragment>
       <div className={ header.mainClass }>
         <div className="tabs desktop">
-          { header.items?.map((item, index): JSX.Element => renderHeader(item, index)) }
+          { header.items?.map((item, index) => renderHeader(item, index)) }
         </div>
         <div className="tabs mobile">
           <select value={ currentIndex } onChange={(e) => updateCurrentIndex(parseInt(e.target.value)) }>
-            { header.items?.map((item, index): JSX.Element => renderHeader(item, index, true)) }
+            { header.items?.map((item, index) => renderHeader(item, index, true)) }
           </select>
         </div>
       </div>
       <div className={ content.mainClass }>
-        { content.items?.map((item, index): JSX.Element | null => (currentIndex === index) ? renderContent(item, index) : null) }
+        { content.items?.map((item, index) => (currentIndex === index) ? renderContent(item, index) : null) }
       </div>
     </Fragment>
   );

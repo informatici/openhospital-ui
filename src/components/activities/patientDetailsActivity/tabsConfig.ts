@@ -1,4 +1,6 @@
-export const patientDetailTabs = {
+import { ITabConfig } from "../../accessories/tabs/types";
+
+export const patientDetailTabs: { header: ITabConfig, content: ITabConfig } = {
   header: {
     mainClass: 'patientDetils__content__header',
     items: [
