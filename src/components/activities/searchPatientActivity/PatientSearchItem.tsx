@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
 import { Redirect } from "react-router";
-import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
 

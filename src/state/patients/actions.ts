@@ -4,7 +4,6 @@ import {
   Configuration,
   PatientControllerApi,
   PatientDTO,
-  SearchPatientUsingGETRequest,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
