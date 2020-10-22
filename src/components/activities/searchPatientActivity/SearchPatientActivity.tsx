@@ -6,11 +6,12 @@ import React, { FunctionComponent, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
-import { scrollToDiv } from "../../../libraries/uiUtils/handleScrollToElement";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { searchPatient } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
+import InfoBox from "../../accessories/infoBox/InfoBox";
 import TextField from "../../accessories/textField/TextField";
 import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
@@ -39,7 +40,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    //id: string().required("This field is required"),
     //TODO: write schema
   });
 
@@ -48,7 +48,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     validationSchema,
     onSubmit: (values: IValues) => {
       // First scroll to show searching message
-      scrollToDiv(resultsRef.current);
+      scrollToElement(resultsRef.current);
       searchPatient(values);
     },
   });
@@ -64,7 +64,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   useEffect(() => {
     if (searchStatus === "SUCCESS" || searchStatus === "SUCCESS_EMPTY") {
       // Second scroll to show results
-      scrollToDiv(resultsRef.current);
+      scrollToElement(resultsRef.current);
     }
   }, [searchStatus]);
 
@@ -92,16 +92,15 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
       case "SUCCESS_EMPTY":
         return (
-          <div className="searchPatient__results_none warning">
-            <h4>We couldn't find a match, please try another search.</h4>
-          </div>
+          <InfoBox
+            type="warning"
+            message="We couldn't find a match, please try another search."
+          />
         );
 
       default:
         return (
-          <div className="searchPatient__results_none error">
-            <h4>Something went wrong, please retry.</h4>
-          </div>
+          <InfoBox type="error" message="Something went wrong, please retry." />
         );
     }
   };

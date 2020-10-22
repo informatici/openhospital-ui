@@ -10,7 +10,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import main from "./state/main/reducer";
 import patients from "./state/patients/reducer";
-import { makeServer } from "./server";
+import { makeServer } from "./mockServer/server";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();

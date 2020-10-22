@@ -6,9 +6,15 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useHistory, useLocation } from "react-router";
 import { object, string } from "yup";
-import logo from "../../../assets/logo.png";
-import { setAuthentication } from "../../../state/main/actions";
+import { AUTH_KEY } from "../../../consts";
+import { SessionStorage } from "../../../libraries/storage/storage";
+import {
+  setAuthenticationSuccess,
+  setAuthenticationThunk,
+} from "../../../state/main/actions";
+import logo from "../../../assets/logo-color.svg";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -17,12 +23,17 @@ import "./styles.scss";
 import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
 const LoginActivity: FunctionComponent<TProps> = ({
-  setAuthentication,
-  authenticated,
-  isLoading,
+  setAuthenticationThunk,
+  setAuthenticationSuccess,
+  status,
   successRoute,
 }) => {
-  window.history.replaceState(null, "", "/");
+  useEffect(() => {
+    const userCredentials = SessionStorage.read(AUTH_KEY);
+    if (userCredentials) {
+      setAuthenticationSuccess(userCredentials);
+    }
+  }, [setAuthenticationSuccess]);
 
   const initialValues: IValues = {
     username: "",
@@ -38,7 +49,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      setAuthentication(values.username, values.password);
+      setAuthenticationThunk(values.username, values.password);
     },
   });
 
@@ -52,16 +63,25 @@ const LoginActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+  const history = useHistory();
+  const location = useLocation<{ from: Location }>();
+
   useEffect(() => {
-    if (authenticated) {
-      window.location.href = successRoute;
+    if (status === "SUCCESS") {
+      const { from } = location.state || { from: { pathname: successRoute } };
+      history.replace(from);
     }
-  }, [authenticated, successRoute]);
+  }, [status, location.state, history, successRoute]);
 
   return (
     <div className="login">
       <div className="container login__background">
-        <img src={logo} alt="Open Hospital" className="login__logo" />
+        <img
+          src={logo}
+          alt="Open Hospital"
+          className="login__logo"
+          width="150px"
+        />
         <div className="login__title">
           Princeton-Plainsboro Teaching Hospital
         </div>
@@ -109,7 +129,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 type="submit"
                 variant="contained"
                 color="primary"
-                disabled={isLoading}
+                disabled={status === "LOADING"}
               >
                 LOG IN
               </Button>
@@ -128,14 +148,13 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
-//TODO: Replace isLoading by status
 const mapStateToProps = (state: IState): IStateProps => ({
-  authenticated: state.main.authentication.hasSucceeded,
-  isLoading: !!state.main.authentication.isLoading,
+  status: state.main.authentication.status!,
 });
 
 const mapDispatchToProps: IDispatchProps = {
-  setAuthentication,
+  setAuthenticationThunk,
+  setAuthenticationSuccess,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginActivity);

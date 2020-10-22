@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -32,9 +32,14 @@ export class HospitalControllerApi extends BaseAPI {
      * getHospitalCurrencyCode
      */
     getHospitalCurrencyCodeUsingGET = (): Observable<string> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<string>({
             path: '/hospitals/currencyCode',
             method: 'GET',
+            headers,
         });
     };
 
@@ -42,9 +47,14 @@ export class HospitalControllerApi extends BaseAPI {
      * getHospital
      */
     getHospitalUsingGET = (): Observable<HospitalDTO> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<HospitalDTO>({
             path: '/hospitals',
             method: 'GET',
+            headers,
         });
     };
 
@@ -57,6 +67,7 @@ export class HospitalControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
-import failIcon from "../../../assets/fail-icon.png";
 import { PatientDTO } from "../../../generated";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createPatient,
   createPatientReset,
@@ -11,10 +12,16 @@ import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
+import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialValues } from "./consts";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, TProps } from "./types";
+import {
+  IDispatchProps,
+  IStateProps,
+  TActivityTransitionState,
+  TProps,
+} from "./types";
 
 const NewPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -23,6 +30,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   isLoading,
   hasSucceeded,
   hasFailed,
+  dashboardRoute,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -33,56 +41,72 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     createPatient(patient);
   };
 
-  const handleDialogOnDismiss = () => {
-    //TODO: should reset values and profilePicture
-    createPatientReset();
-    window.location.href = "/new";
-  };
+  const [activityTransitionState, setActivityTransitionState] = useState<
+    TActivityTransitionState
+  >("IDLE");
 
-  const handleDialogToDashboard = () => {
-    window.location.href = "/dashboard";
-  };
+  useEffect(() => {
+    if (activityTransitionState === "TO_NEW_PATIENT_RESET") {
+      //TODO: should reset activity without the need of refreshing the app
+      createPatientReset();
+      window.location.href = process.env.PUBLIC_URL + "/new";
+    }
+  }, [activityTransitionState, createPatientReset]);
 
-  return (
-    <div className="newPatient">
-      <AppHeader
-        userCredentials={userCredentials}
-        breadcrumbMap={breadcrumbMap}
-      />
-      <div className="newPatient__background">
-        <div className="newPatient__content">
-          <div className="newPatient__title">Register new patient</div>
-          <PatientDataForm
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            submitButtonLabel="submit"
-            isLoading={isLoading}
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (hasFailed) {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [hasFailed]);
+
+  switch (activityTransitionState) {
+    case "TO_DASHBOARD":
+      return <Redirect to={dashboardRoute} />;
+    default:
+      return (
+        <div className="newPatient">
+          <AppHeader
+            userCredentials={userCredentials}
+            breadcrumbMap={breadcrumbMap}
           />
+          <div className="newPatient__background">
+            <div className="newPatient__content">
+              <div className="newPatient__title">Register new patient</div>
+              <PatientDataForm
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                submitButtonLabel="submit"
+                isLoading={isLoading}
+              />
+            </div>
+          </div>
+          <div ref={infoBoxRef}>
+            {hasFailed && (
+              <InfoBox
+                type="error"
+                message="Something went wrong, please retry later."
+              />
+            )}
+          </div>
+          <ConfirmationDialog
+            isOpen={hasSucceeded}
+            title="Patient Created"
+            icon={checkIcon}
+            info="The patient registration was successful."
+            primaryButtonLabel="Dashboard"
+            secondaryButtonLabel="Keep editing"
+            handlePrimaryButtonClick={() =>
+              setActivityTransitionState("TO_DASHBOARD")
+            }
+            handleSecondaryButtonClick={() =>
+              setActivityTransitionState("TO_NEW_PATIENT_RESET")
+            }
+          />
+          <Footer />
         </div>
-      </div>
-      <ConfirmationDialog
-        isOpen={hasSucceeded}
-        title="Patient Created"
-        icon={checkIcon}
-        info="The patient registration was successful."
-        primaryButtonLabel="Dashboard"
-        secondaryButtonLabel="Keep editing"
-        handlePrimaryButtonClick={handleDialogToDashboard}
-        handleSecondaryButtonClick={handleDialogOnDismiss}
-      />
-      <ConfirmationDialog
-        isOpen={hasFailed}
-        title="Failed"
-        icon={failIcon}
-        info="The patient registration was not possible."
-        primaryButtonLabel="Dashboard"
-        secondaryButtonLabel="Keep editing"
-        handlePrimaryButtonClick={handleDialogToDashboard}
-        handleSecondaryButtonClick={handleDialogOnDismiss}
-      />
-      <Footer />
-    </div>
-  );
+      );
+  }
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({

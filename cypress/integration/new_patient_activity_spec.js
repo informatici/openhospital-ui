@@ -1,15 +1,10 @@
-import initialValues from "../consts/newPatientInitialValues.json";
+import initialValues from "../fixtures/newPatientInitialValues.json";
 
 const START_PATH = "http://localhost:3000/new";
 
 describe("NewPatientActivity spec", () => {
   it("should render the ui", () => {
-    cy.visit(START_PATH, {
-      onBeforeLoad(w) {
-        w.sessionStorage.clear();
-        w.sessionStorage.setItem("authenticated", "true");
-      },
-    });
+    cy.authenticate(START_PATH);
     cy.get("[class=newPatient]");
   });
 
@@ -82,10 +77,11 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=taxCode]").type("K475");
   });
 
-  it.skip("should pass the callback function for performing the API call", () => {
+  it("should pass the callback function for performing the API call", () => {
     cy.get("[class=patientDataForm]").contains("submit").click();
 
-    cy.wait(1000);
-    cy.get("[class=confirmationDialog]");
+    cy.get("div.dialog__info").contains(
+      "The patient registration was successful."
+    );
   });
 });

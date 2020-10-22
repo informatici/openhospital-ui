@@ -2,7 +2,7 @@ export interface IAction<Payload, Error> {
   type: string;
   payload?: Payload | Error;
   meta?: any;
-  error?: boolean;
+  error?: boolean | Error;
 }
 
 export type TAPIResponseStatus =

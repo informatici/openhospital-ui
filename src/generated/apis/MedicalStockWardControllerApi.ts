@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -19,8 +19,8 @@ import {
 } from '../models';
 
 export interface GetCurrentQuantityInWardUsingGETRequest {
-    wardCode: string;
     medId: number;
+    wardCode: string;
 }
 
 export interface GetMedicalsWardUsingGETRequest {
@@ -28,14 +28,14 @@ export interface GetMedicalsWardUsingGETRequest {
 }
 
 export interface GetMovementWardUsingGETRequest {
-    wardCode: string;
     from: string;
     to: string;
+    wardCode: string;
 }
 
 export interface GetWardMovementsToWardUsingGETRequest {
-    targetWardCode: string;
     from: string;
+    targetWardCode: string;
     to: string;
 }
 
@@ -59,9 +59,13 @@ export class MedicalStockWardControllerApi extends BaseAPI {
     /**
      * getCurrentQuantityInWard
      */
-    getCurrentQuantityInWardUsingGET = ({ wardCode, medId }: GetCurrentQuantityInWardUsingGETRequest): Observable<number> => {
-        throwIfNullOrUndefined(wardCode, 'getCurrentQuantityInWardUsingGET');
+    getCurrentQuantityInWardUsingGET = ({ medId, wardCode }: GetCurrentQuantityInWardUsingGETRequest): Observable<number> => {
         throwIfNullOrUndefined(medId, 'getCurrentQuantityInWardUsingGET');
+        throwIfNullOrUndefined(wardCode, 'getCurrentQuantityInWardUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'med_id': medId,
@@ -70,6 +74,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         return this.request<number>({
             path: '/medicalstockward/current/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -80,19 +85,28 @@ export class MedicalStockWardControllerApi extends BaseAPI {
     getMedicalsWardUsingGET = ({ wardCode }: GetMedicalsWardUsingGETRequest): Observable<Array<MedicalWardDTO>> => {
         throwIfNullOrUndefined(wardCode, 'getMedicalsWardUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MedicalWardDTO>>({
             path: '/medicalstockward/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
             method: 'GET',
+            headers,
         });
     };
 
     /**
      * getMovementWard
      */
-    getMovementWardUsingGET = ({ wardCode, from, to }: GetMovementWardUsingGETRequest): Observable<Array<MovementWardDTO>> => {
-        throwIfNullOrUndefined(wardCode, 'getMovementWardUsingGET');
+    getMovementWardUsingGET = ({ from, to, wardCode }: GetMovementWardUsingGETRequest): Observable<Array<MovementWardDTO>> => {
         throwIfNullOrUndefined(from, 'getMovementWardUsingGET');
         throwIfNullOrUndefined(to, 'getMovementWardUsingGET');
+        throwIfNullOrUndefined(wardCode, 'getMovementWardUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'from': (from as any).toISOString(),
@@ -102,6 +116,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         return this.request<Array<MovementWardDTO>>({
             path: '/medicalstockward/movements/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -110,19 +125,28 @@ export class MedicalStockWardControllerApi extends BaseAPI {
      * getMovementWard
      */
     getMovementWardUsingGET1 = (): Observable<Array<MovementWardDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<MovementWardDTO>>({
             path: '/medicalstockward/movements',
             method: 'GET',
+            headers,
         });
     };
 
     /**
      * getWardMovementsToWard
      */
-    getWardMovementsToWardUsingGET = ({ targetWardCode, from, to }: GetWardMovementsToWardUsingGETRequest): Observable<Array<MovementWardDTO>> => {
-        throwIfNullOrUndefined(targetWardCode, 'getWardMovementsToWardUsingGET');
+    getWardMovementsToWardUsingGET = ({ from, targetWardCode, to }: GetWardMovementsToWardUsingGETRequest): Observable<Array<MovementWardDTO>> => {
         throwIfNullOrUndefined(from, 'getWardMovementsToWardUsingGET');
+        throwIfNullOrUndefined(targetWardCode, 'getWardMovementsToWardUsingGET');
         throwIfNullOrUndefined(to, 'getWardMovementsToWardUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'from': (from as any).toISOString(),
@@ -132,6 +156,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         return this.request<Array<MovementWardDTO>>({
             path: '/medicalstockward/movements/to/{target_ward_code}'.replace('{target_ward_code}', encodeURI(targetWardCode)),
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -144,6 +169,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -162,6 +188,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -180,6 +207,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({

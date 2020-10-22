@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -53,9 +53,14 @@ export class WardControllerApi extends BaseAPI {
     checkWardCodeUsingGET = ({ code }: CheckWardCodeUsingGETRequest): Observable<boolean> => {
         throwIfNullOrUndefined(code, 'checkWardCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/wards/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -65,9 +70,14 @@ export class WardControllerApi extends BaseAPI {
     checkWardMaternityCodeUsingGET = ({ createIfNotExist }: CheckWardMaternityCodeUsingGETRequest): Observable<boolean> => {
         throwIfNullOrUndefined(createIfNotExist, 'checkWardMaternityCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/wards/check-or-create/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -77,9 +87,14 @@ export class WardControllerApi extends BaseAPI {
     deleteWardUsingDELETE = ({ code }: DeleteWardUsingDELETERequest): Observable<ResponseEntity> => {
         throwIfNullOrUndefined(code, 'deleteWardUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<ResponseEntity>({
             path: '/wards/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -89,9 +104,14 @@ export class WardControllerApi extends BaseAPI {
     getCurrentOccupationUsingGET = ({ code }: GetCurrentOccupationUsingGETRequest): Observable<number> => {
         throwIfNullOrUndefined(code, 'getCurrentOccupationUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<number>({
             path: '/wards/occupation/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -99,9 +119,14 @@ export class WardControllerApi extends BaseAPI {
      * getWardsNoMaternity
      */
     getWardsNoMaternityUsingGET = (): Observable<Array<WardDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<WardDTO>>({
             path: '/wardsNoMaternity',
             method: 'GET',
+            headers,
         });
     };
 
@@ -109,9 +134,14 @@ export class WardControllerApi extends BaseAPI {
      * getWards
      */
     getWardsUsingGET = (): Observable<Array<WardDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<WardDTO>>({
             path: '/wards',
             method: 'GET',
+            headers,
         });
     };
 
@@ -123,6 +153,7 @@ export class WardControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -141,6 +172,7 @@ export class WardControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({

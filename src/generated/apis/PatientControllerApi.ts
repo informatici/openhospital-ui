@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -36,10 +36,10 @@ export interface NewPatientUsingPOSTRequest {
 }
 
 export interface SearchPatientUsingGETRequest {
+    address?: string;
+    birthDate?: string;
     firstName?: string;
     secondName?: string;
-    birthDate?: string;
-    address?: string;
 }
 
 export interface UpdatePatientUsingPUTRequest {
@@ -59,7 +59,7 @@ export class PatientControllerApi extends BaseAPI {
         throwIfNullOrUndefined(code, 'deletePatientUsingDELETE');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
@@ -76,7 +76,7 @@ export class PatientControllerApi extends BaseAPI {
         throwIfNullOrUndefined(code, 'getPatientUsingGET');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<PatientDTO>({
@@ -92,7 +92,7 @@ export class PatientControllerApi extends BaseAPI {
     getPatientsUsingGET = ({ page, size }: GetPatientsUsingGETRequest): Observable<Array<PatientDTO>> => {
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = {};
@@ -116,7 +116,7 @@ export class PatientControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<number>({
@@ -130,18 +130,18 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * searchPatient
      */
-    searchPatientUsingGET = ({ firstName, secondName, birthDate, address }: SearchPatientUsingGETRequest): Observable<Array<PatientDTO>> => {
+    searchPatientUsingGET = ({ address, birthDate, firstName, secondName }: SearchPatientUsingGETRequest): Observable<Array<PatientDTO>> => {
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = {};
 
+        if (address != null) { query['address'] = address; }
+        if (birthDate != null) { query['birthDate'] = birthDate; }
         if (firstName != null) { query['firstName'] = firstName; }
         if (secondName != null) { query['secondName'] = secondName; }
-        if (birthDate != null) { query['birthDate'] = birthDate; }
-        if (address != null) { query['address'] = address; }
 
         return this.request<Array<PatientDTO>>({
             path: '/patients/search',
@@ -160,7 +160,7 @@ export class PatientControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<number>({

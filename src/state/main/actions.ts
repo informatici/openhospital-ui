@@ -1,7 +1,6 @@
 import { Dispatch } from "redux";
 import { AUTH_KEY } from "../../consts";
-import { LoginResponse, Configuration, LoginApiApi } from "../../generated";
-import { allowCookies } from "../../libraries/apiUtils/allowCookies";
+import { Configuration, LoginApiApi, LoginResponse } from "../../generated";
 import { SessionStorage } from "../../libraries/storage/storage";
 import { IAction } from "../types";
 import {
@@ -10,9 +9,16 @@ import {
   SET_AUTHENTICATION_SUCCESS,
 } from "./consts";
 
-const api = new LoginApiApi(new Configuration({ middleware: [allowCookies] }));
+const api = new LoginApiApi(new Configuration());
 
-export const setAuthentication = (username: string, password: string) => (
+export const setAuthenticationSuccess = (
+  userCredentials: LoginResponse
+): IAction<LoginResponse, {}> => ({
+  type: SET_AUTHENTICATION_SUCCESS,
+  payload: userCredentials,
+});
+
+export const setAuthenticationThunk = (username: string, password: string) => (
   dispatch: Dispatch<IAction<LoginResponse, {}>>
 ) => {
   dispatch({
@@ -20,11 +26,9 @@ export const setAuthentication = (username: string, password: string) => (
   });
 
   api.loginUsingPOST({ password, username }).subscribe(
-    () => {
-      dispatch({
-        type: SET_AUTHENTICATION_SUCCESS,
-      });
-      SessionStorage.write(AUTH_KEY, "true");
+    (payload: LoginResponse) => {
+      dispatch(setAuthenticationSuccess(payload));
+      SessionStorage.write(AUTH_KEY, payload);
     },
     (error) => {
       dispatch({

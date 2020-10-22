@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -139,10 +139,10 @@ export interface PatientDTO {
     weight?: number;
     /**
      * BlobPhoto
-     * @type {Array<string>}
+     * @type {string}
      * @memberof PatientDTO
      */
-    blobPhoto?: Array<string>;
+    blobPhoto?: string;
 }
 
 /**
@@ -169,10 +169,10 @@ export enum PatientDTOFatherEnum {
     D = 'D',
     A = 'A'
 }
-// /**
-//  * @export
-//  * @enum {string}
-//  */
+/**
+ * @export
+ * @enum {string}
+ */
 // export enum PatientDTOBloodTypeEnum {
 //     _0 = '0-',
 //     _0 = '0+',

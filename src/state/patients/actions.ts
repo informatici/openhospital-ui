@@ -1,9 +1,11 @@
 import { Dispatch } from "redux";
+import { IValues } from "../../components/activities/searchPatientActivity/types";
 import {
+  Configuration,
   PatientControllerApi,
   PatientDTO,
-  SearchPatientUsingGETRequest,
 } from "../../generated";
+import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
 import {
   CREATE_PATIENT_FAIL,
@@ -15,7 +17,9 @@ import {
   SEARCH_PATIENT_SUCCESS,
 } from "./consts";
 
-const patientControllerApi = new PatientControllerApi();
+const patientControllerApi = new PatientControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
 
 export const createPatient = (newPatient: PatientDTO) => (
   dispatch: Dispatch<IAction<null, {}>>
@@ -47,25 +51,58 @@ export const createPatientReset = () => (
   });
 };
 
-export const searchPatient = (values: SearchPatientUsingGETRequest) => (
+export const searchPatient = (values: IValues) => (
   dispatch: Dispatch<IAction<PatientDTO[], {}>>
 ) => {
   dispatch({
     type: SEARCH_PATIENT_LOADING,
   });
 
-  patientControllerApi.searchPatientUsingGET(values).subscribe(
-    (payload) => {
-      dispatch({
-        type: SEARCH_PATIENT_SUCCESS,
-        payload,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: SEARCH_PATIENT_FAIL,
-        error,
-      });
-    }
-  );
+  if (values.id) {
+    patientControllerApi
+      .getPatientUsingGET({ code: parseInt(values.id) })
+      .subscribe(
+        (payload) => {
+          if (typeof payload === "object") {
+            dispatch({
+              type: SEARCH_PATIENT_SUCCESS,
+              payload: [payload],
+            });
+          } else {
+            dispatch({
+              type: SEARCH_PATIENT_FAIL,
+              error: { message: "Unexpected payload" },
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_PATIENT_FAIL,
+            error,
+          });
+        }
+      );
+  } else {
+    patientControllerApi.searchPatientUsingGET(values).subscribe(
+      (payload) => {
+        if (Array.isArray(payload)) {
+          dispatch({
+            type: SEARCH_PATIENT_SUCCESS,
+            payload,
+          });
+        } else {
+          dispatch({
+            type: SEARCH_PATIENT_FAIL,
+            error: { message: "Unexpected payload" },
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: SEARCH_PATIENT_FAIL,
+          error,
+        });
+      }
+    );
+  }
 };

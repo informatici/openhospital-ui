@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -27,9 +27,9 @@ export interface GetAdmissionsUsingGETRequest {
 }
 
 export interface GetAdmittedPatientsUsingGETRequest {
-    searchterms?: string;
     admissionrange?: string;
     dischargerange?: string;
+    searchterms?: string;
 }
 
 export interface GetCurrentAdmissionUsingGETRequest {
@@ -67,9 +67,14 @@ export class AdmissionControllerApi extends BaseAPI {
     deleteAdmissionTypeUsingDELETE = ({ id }: DeleteAdmissionTypeUsingDELETERequest): Observable<boolean> => {
         throwIfNullOrUndefined(id, 'deleteAdmissionTypeUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<boolean>({
             path: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -79,26 +84,36 @@ export class AdmissionControllerApi extends BaseAPI {
     getAdmissionsUsingGET = ({ id }: GetAdmissionsUsingGETRequest): Observable<AdmissionDTO> => {
         throwIfNullOrUndefined(id, 'getAdmissionsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<AdmissionDTO>({
             path: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         });
     };
 
     /**
      * getAdmittedPatients
      */
-    getAdmittedPatientsUsingGET = ({ searchterms, admissionrange, dischargerange }: GetAdmittedPatientsUsingGETRequest): Observable<Array<AdmittedPatientDTO>> => {
+    getAdmittedPatientsUsingGET = ({ admissionrange, dischargerange, searchterms }: GetAdmittedPatientsUsingGETRequest): Observable<Array<AdmittedPatientDTO>> => {
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
 
         const query: HttpQuery = {};
 
-        if (searchterms != null) { query['searchterms'] = searchterms; }
         if (admissionrange != null) { query['admissionrange'] = admissionrange; }
         if (dischargerange != null) { query['dischargerange'] = dischargerange; }
+        if (searchterms != null) { query['searchterms'] = searchterms; }
 
         return this.request<Array<AdmittedPatientDTO>>({
             path: '/admissions/admittedPatients',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -109,6 +124,10 @@ export class AdmissionControllerApi extends BaseAPI {
     getCurrentAdmissionUsingGET = ({ patientcode }: GetCurrentAdmissionUsingGETRequest): Observable<AdmissionDTO> => {
         throwIfNullOrUndefined(patientcode, 'getCurrentAdmissionUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'patientcode': patientcode,
         };
@@ -116,6 +135,7 @@ export class AdmissionControllerApi extends BaseAPI {
         return this.request<AdmissionDTO>({
             path: '/admissions/current',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -126,6 +146,10 @@ export class AdmissionControllerApi extends BaseAPI {
     getNextYProgUsingGET = ({ wardcode }: GetNextYProgUsingGETRequest): Observable<number> => {
         throwIfNullOrUndefined(wardcode, 'getNextYProgUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'wardcode': wardcode,
         };
@@ -133,6 +157,7 @@ export class AdmissionControllerApi extends BaseAPI {
         return this.request<number>({
             path: '/admissions/getNextProgressiveIdInYear',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -143,6 +168,10 @@ export class AdmissionControllerApi extends BaseAPI {
     getPatientAdmissionsUsingGET = ({ patientcode }: GetPatientAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>> => {
         throwIfNullOrUndefined(patientcode, 'getPatientAdmissionsUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'patientcode': patientcode,
         };
@@ -150,6 +179,7 @@ export class AdmissionControllerApi extends BaseAPI {
         return this.request<Array<AdmissionDTO>>({
             path: '/admissions',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -160,6 +190,10 @@ export class AdmissionControllerApi extends BaseAPI {
     getUsedWardBedUsingGET = ({ wardid }: GetUsedWardBedUsingGETRequest): Observable<number> => {
         throwIfNullOrUndefined(wardid, 'getUsedWardBedUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'wardid': wardid,
         };
@@ -167,6 +201,7 @@ export class AdmissionControllerApi extends BaseAPI {
         return this.request<number>({
             path: '/admissions/getBedsOccupationInWard',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -179,6 +214,7 @@ export class AdmissionControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<number>({
@@ -197,6 +233,7 @@ export class AdmissionControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<number>({

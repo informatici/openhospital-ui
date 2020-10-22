@@ -1,8 +1,12 @@
-const START_PATH = "http://localhost:3000/login";
+const START_PATH = "http://localhost:3000/";
 
 describe("LoginActivity spec", () => {
   it("should render the ui", () => {
-    cy.visit(START_PATH);
+    cy.visit(START_PATH, {
+      onBeforeLoad(w) {
+        w.sessionStorage.clear();
+      },
+    });
     cy.get("[class=login__panel]");
   });
 
@@ -73,12 +77,12 @@ describe("LoginActivity spec", () => {
     cy.get("[class=login__panel]").contains("SIGN IN");
   });
 
-  it.skip("should change the activity when credentials are valid and submit button's clicked", () => {
+  it("should change the activity when credentials are valid and submit button's clicked", () => {
     cy.get("[id=username]").focus().clear().type("hribeiro").blur();
     cy.get("[id=password]").focus().clear().type("123456789").blur();
 
     cy.contains("LOG IN").click();
 
-    cy.url({ timeout: 3000 }).should("include", "/dashboard");
+    cy.get("div.dashboard");
   });
 });

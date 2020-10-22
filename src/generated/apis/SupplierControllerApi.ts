@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -44,9 +44,14 @@ export class SupplierControllerApi extends BaseAPI {
     getSuppliersUsingGET = ({ id }: GetSuppliersUsingGETRequest): Observable<SupplierDTO> => {
         throwIfNullOrUndefined(id, 'getSuppliersUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<SupplierDTO>({
             path: '/suppliers/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -55,6 +60,10 @@ export class SupplierControllerApi extends BaseAPI {
      */
     getSuppliersUsingGET1 = ({ excludeDeleted }: GetSuppliersUsingGET1Request): Observable<Array<SupplierDTO>> => {
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = {};
 
         if (excludeDeleted != null) { query['exclude_deleted'] = excludeDeleted; }
@@ -62,6 +71,7 @@ export class SupplierControllerApi extends BaseAPI {
         return this.request<Array<SupplierDTO>>({
             path: '/suppliers',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -74,6 +84,7 @@ export class SupplierControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
@@ -92,6 +103,7 @@ export class SupplierControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({

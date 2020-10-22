@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+
+.infoBox {
+  padding: 20px;
+  margin: 0px 20px 50px;
+  width: auto;
+  &.error {
+    color: $c-color-primary;
+    border: 1px solid $c-color-primary;
+    background-color: lighten($c-color-primary, 40%);
+  }
+  &.warning {
+    color: $c-black;
+    border: 1px solid $c-grey-lighter;
+    background-color: lighten($c-black, 80%);
+  }
+
+  h4 {
+    margin: 0px;
+  }
+}

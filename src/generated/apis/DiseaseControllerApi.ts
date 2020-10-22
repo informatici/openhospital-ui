@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -60,9 +60,14 @@ export class DiseaseControllerApi extends BaseAPI {
     deleteDiseaseUsingDELETE = ({ code }: DeleteDiseaseUsingDELETERequest): Observable<{ [key: string]: boolean; }> => {
         throwIfNullOrUndefined(code, 'deleteDiseaseUsingDELETE');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<{ [key: string]: boolean; }>({
             path: '/diseases/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
         });
     };
 
@@ -70,9 +75,14 @@ export class DiseaseControllerApi extends BaseAPI {
      * getAllDiseases
      */
     getAllDiseasesUsingGET = (): Observable<Array<DiseaseDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/all',
             method: 'GET',
+            headers,
         });
     };
 
@@ -82,9 +92,14 @@ export class DiseaseControllerApi extends BaseAPI {
     getDiseaseByCodeUsingGET = ({ code }: GetDiseaseByCodeUsingGETRequest): Observable<DiseaseDTO> => {
         throwIfNullOrUndefined(code, 'getDiseaseByCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<DiseaseDTO>({
             path: '/diseases/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -94,9 +109,14 @@ export class DiseaseControllerApi extends BaseAPI {
     getDiseasesIpdInByCodeUsingGET = ({ typecode }: GetDiseasesIpdInByCodeUsingGETRequest): Observable<Array<DiseaseDTO>> => {
         throwIfNullOrUndefined(typecode, 'getDiseasesIpdInByCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/ipd/in/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -104,9 +124,14 @@ export class DiseaseControllerApi extends BaseAPI {
      * getDiseasesIpdIn
      */
     getDiseasesIpdInUsingGET = (): Observable<Array<DiseaseDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/ipd/in',
             method: 'GET',
+            headers,
         });
     };
 
@@ -116,9 +141,14 @@ export class DiseaseControllerApi extends BaseAPI {
     getDiseasesIpdOutByCodeUsingGET = ({ typecode }: GetDiseasesIpdOutByCodeUsingGETRequest): Observable<Array<DiseaseDTO>> => {
         throwIfNullOrUndefined(typecode, 'getDiseasesIpdOutByCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/ipd/out/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -126,9 +156,14 @@ export class DiseaseControllerApi extends BaseAPI {
      * getDiseasesIpdOut
      */
     getDiseasesIpdOutUsingGET = (): Observable<Array<DiseaseDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/ipd/out',
             method: 'GET',
+            headers,
         });
     };
 
@@ -138,9 +173,14 @@ export class DiseaseControllerApi extends BaseAPI {
     getDiseasesOpdByCodeUsingGET = ({ typecode }: GetDiseasesOpdByCodeUsingGETRequest): Observable<Array<DiseaseDTO>> => {
         throwIfNullOrUndefined(typecode, 'getDiseasesOpdByCodeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/opd/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -148,9 +188,14 @@ export class DiseaseControllerApi extends BaseAPI {
      * getDiseasesOpd
      */
     getDiseasesOpdUsingGET = (): Observable<Array<DiseaseDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/opd',
             method: 'GET',
+            headers,
         });
     };
 
@@ -160,9 +205,14 @@ export class DiseaseControllerApi extends BaseAPI {
     getDiseasesUsingGET = ({ typecode }: GetDiseasesUsingGETRequest): Observable<Array<DiseaseDTO>> => {
         throwIfNullOrUndefined(typecode, 'getDiseasesUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/both/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -170,9 +220,14 @@ export class DiseaseControllerApi extends BaseAPI {
      * getDiseases
      */
     getDiseasesUsingGET1 = (): Observable<Array<DiseaseDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<DiseaseDTO>>({
             path: '/diseases/both',
             method: 'GET',
+            headers,
         });
     };
 
@@ -184,6 +239,7 @@ export class DiseaseControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<DiseaseDTO>({
@@ -202,6 +258,7 @@ export class DiseaseControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<DiseaseDTO>({

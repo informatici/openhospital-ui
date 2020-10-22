@@ -1,24 +1,14 @@
 import React, { FunctionComponent } from "react";
+import { connect } from "react-redux";
 import "./App.scss";
-import LoginActivity from "./components/activities/loginActivity/LoginActivity";
-import { AUTH_KEY } from "./consts";
-import { SessionStorage } from "./libraries/storage/storage";
 import Routes from "./Routes";
 
 const App: FunctionComponent = () => {
-  const isAuthenticated = SessionStorage.read(AUTH_KEY);
-  if (isAuthenticated && window.location.pathname === "/") {
-    window.location.href = "/dashboard";
-  }
   return (
     <div className="App">
-      {isAuthenticated ? (
-        <Routes />
-      ) : (
-        <LoginActivity successRoute="/dashboard" />
-      )}
+      <Routes />
     </div>
   );
 };
 
-export default App;
+export default connect()(App);

@@ -1,7 +1,7 @@
 // tslint:disable
 /**
- * Api Documentation
- * Api Documentation
+ * OH 2.0 Api Documentation
+ * OH 2.0 Api Documentation
  *
  * The version of the OpenAPI document: 1.0
  * 
@@ -41,9 +41,14 @@ export class AgeTypeControllerApi extends BaseAPI {
     getAgeTypeByIndexUsingGET = ({ index }: GetAgeTypeByIndexUsingGETRequest): Observable<AgeType> => {
         throwIfNullOrUndefined(index, 'getAgeTypeByIndexUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<AgeType>({
             path: '/agetypes/{index}'.replace('{index}', encodeURI(index)),
             method: 'GET',
+            headers,
         });
     };
 
@@ -53,6 +58,10 @@ export class AgeTypeControllerApi extends BaseAPI {
     getAgeTypeCodeByAgeUsingGET = ({ age }: GetAgeTypeCodeByAgeUsingGETRequest): Observable<{ [key: string]: string; }> => {
         throwIfNullOrUndefined(age, 'getAgeTypeCodeByAgeUsingGET');
 
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'age': age,
         };
@@ -60,6 +69,7 @@ export class AgeTypeControllerApi extends BaseAPI {
         return this.request<{ [key: string]: string; }>({
             path: '/agetypes/code',
             method: 'GET',
+            headers,
             query,
         });
     };
@@ -68,9 +78,14 @@ export class AgeTypeControllerApi extends BaseAPI {
      * getAllAgeTypes
      */
     getAllAgeTypesUsingGET = (): Observable<Array<AgeTypeDTO>> => {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
         return this.request<Array<AgeTypeDTO>>({
             path: '/agetypes',
             method: 'GET',
+            headers,
         });
     };
 
@@ -82,6 +97,7 @@ export class AgeTypeControllerApi extends BaseAPI {
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<AgeTypeDTO>({
