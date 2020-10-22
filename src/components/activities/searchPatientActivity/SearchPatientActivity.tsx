@@ -40,7 +40,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    //id: string().required("This field is required"),
     //TODO: write schema
   });
 
