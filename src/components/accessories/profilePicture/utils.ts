@@ -34,22 +34,14 @@ export const handlePictureSelection = (
 ) => (e: ChangeEvent<HTMLInputElement>) => {
   const newPic = e.target.files && e.target.files[0];
   if (newPic) {
-    const arrayBufferReader = new FileReader();
-    arrayBufferReader.readAsArrayBuffer(newPic);
-    arrayBufferReader.onload = (e) => {
-      const result = e.target?.result || "";
-      const blob = new Blob([result]); // create blob...
-      window.URL = window.URL || window.webkitURL;
-      const blobURL = window.URL.createObjectURL(blob); // and get it's URL
-
-      const dataURLReader = new FileReader();
-      dataURLReader.onload = (e) => {
-        const originalBase64 = e.target?.result;
-        preprocessImage(setPicture, blobURL, originalBase64 as string);
-      };
-
-      dataURLReader.readAsDataURL(newPic);
+    const dataURLReader = new FileReader();
+    dataURLReader.onload = (e) => {
+      const pictureURI = e.target?.result;
+      if (typeof pictureURI === "string") {
+        preprocessImage(setPicture, pictureURI);
+      }
     };
+    dataURLReader.readAsDataURL(newPic);
   }
 };
 
@@ -60,14 +52,23 @@ export const preprocessImage = (
       original: string;
     }>
   >,
-  blobURL: string,
-  originalBase64 = ""
+  picture: string
 ) => {
+  let pictureURI = "";
+  let pictureData = "";
+  if (picture.includes("data:")) {
+    pictureURI = picture;
+    pictureData = picture.split(",")[1];
+  } else {
+    pictureURI = "data:image/jpeg;base64," + picture;
+    pictureData = picture;
+  }
+
   const image = new Image();
-  image.src = blobURL;
+  image.src = pictureURI;
 
   image.onload = function () {
     const preview = createPreview(image);
-    setPicture({ original: originalBase64, preview });
+    setPicture({ original: pictureData, preview });
   };
 };
