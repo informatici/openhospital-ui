@@ -77,6 +77,15 @@ describe("LoginActivity spec", () => {
     cy.get("[class=login__panel]").contains("SIGN IN");
   });
 
+  it("should alert the user of invalid credentials", () => {
+    cy.get("[id=username]").focus().clear().type("fail").blur();
+    cy.get("[id=password]").focus().clear().type("123456789").blur();
+
+    cy.contains("LOG IN").click();
+
+    cy.get("div.login__invalidCredentials").should("not.have.class", "hidden");
+  });
+
   it("should change the activity when credentials are valid and submit button's clicked", () => {
     cy.get("[id=username]").focus().clear().type("hribeiro").blur();
     cy.get("[id=password]").focus().clear().type("123456789").blur();
