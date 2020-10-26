@@ -33,10 +33,13 @@ export function makeServer() {
     server.namespace("/patients", () => {
       server.post("/").intercept((req, res) => {
         const body = req.jsonBody();
-        if (body.firstName === "fail") {
-          res.status(400);
-        } else {
-          res.status(201);
+        switch (body.firstName) {
+          case "fail":
+            res.status(400);
+            break;
+          default:
+            res.status(201);
+            break;
         }
       });
 
@@ -56,23 +59,27 @@ export function makeServer() {
       });
 
       server.get("/search").intercept((req, res) => {
-        if (req.query.firstName === "empty") {
-          res.status(200).json([]);
-        } else if (req.query.firstName === "unexpected") {
-          res.status(200).json({});
-        } else if (req.query.firstName === "fail") {
-          res.status(400);
-        } else {
-          res
-            .status(200)
-            .json([
-              patientDTO,
-              patientDTO,
-              patientDTO,
-              patientDTO,
-              patientDTO,
-              patientDTO,
-            ]);
+        switch (req.query.firstName) {
+          case "empty":
+            res.status(200).json([]);
+            break;
+          case "unexpected":
+            res.status(200).json({});
+            break;
+          case "fail":
+            res.status(400);
+            break;
+          default:
+            res
+              .status(200)
+              .json([
+                patientDTO,
+                patientDTO,
+                patientDTO,
+                patientDTO,
+                patientDTO,
+                patientDTO,
+              ]);
         }
       });
     });
