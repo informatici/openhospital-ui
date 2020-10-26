@@ -46,7 +46,10 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   >("IDLE");
 
   useEffect(() => {
-    if (activityTransitionState === "TO_NEW_PATIENT_RESET") {
+    if (
+      activityTransitionState === "TO_NEW_PATIENT_RESET" ||
+      activityTransitionState === "TO_DASHBOARD"
+    ) {
       createPatientReset();
       setShouldResetForm(true);
     }
