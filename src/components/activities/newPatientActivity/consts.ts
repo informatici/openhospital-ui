@@ -1,11 +1,11 @@
 import {
   PatientDTO,
-  PatientDTOSexEnum,
-  PatientDTOMotherEnum,
   PatientDTOFatherEnum,
   // PatientDTOBloodTypeEnum,
   PatientDTOHasInsuranceEnum,
+  PatientDTOMotherEnum,
   PatientDTOParentTogetherEnum,
+  PatientDTOSexEnum,
 } from "../../../generated";
 
 export const initialValues: PatientDTO = {

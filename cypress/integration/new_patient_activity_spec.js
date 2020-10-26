@@ -77,11 +77,40 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=taxCode]").type("K475");
   });
 
-  it("should pass the callback function for performing the API call", () => {
-    cy.get("[class=patientDataForm]").contains("submit").click();
+  it("should reset all the fields on the Clear All button click", () => {
+    cy.get("[id=secondName]").clear().type("Jobim");
+    cy.get("[class=patientDataForm]").contains("Clear All").click();
+    cy.get("[id=secondName]").should("have.value", "");
+  });
 
+  it.skip("should reset the profile picture on the Clear All button click", () => {
+    cy.get("[class=patientDataForm]").contains("Clear All").click();
+  });
+
+  it("should show an error message when the call fails", () => {
+    cy.get("[id=firstName]").clear().type("fail");
+    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("div.infoBox").should("have.class", "error");
+  });
+
+  it("should show a confirmation dialog when the call is successful", () => {
+    cy.get("[id=firstName]").clear().type("Antonio Carlos");
+    cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
     );
+  });
+
+  it("should reset the form if the user chooses to keep editing after a submit", () => {
+    cy.get("div.dialog__content").contains("Keep editing").click();
+    cy.get("[id=firstName]").should("have.value", "");
+    cy.get("[id=secondName]").should("have.value", "");
+  });
+
+  it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
+    cy.get("[id=firstName]").type("Antonio Carlos");
+    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("div.dialog__content").contains("Dashboard").click();
+    cy.get("div.dashboard");
   });
 });

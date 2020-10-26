@@ -16,6 +16,8 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
   preLoadedPicture,
   onChange,
+  shouldReset,
+  resetCallback,
 }) => {
   const [picture, setPicture] = useState({
     preview: profilePicturePlaceholder,
@@ -47,6 +49,13 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       pictureInputRef.current.value = "";
     }
   };
+
+  useEffect(() => {
+    if (shouldReset && resetCallback) {
+      removePicture();
+      resetCallback();
+    }
+  }, [shouldReset, resetCallback]);
 
   return (
     <div className="profilePicture">

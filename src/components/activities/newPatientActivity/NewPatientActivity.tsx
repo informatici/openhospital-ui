@@ -46,10 +46,12 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   >("IDLE");
 
   useEffect(() => {
-    if (activityTransitionState === "TO_NEW_PATIENT_RESET") {
-      //TODO: should reset activity without the need of refreshing the app
+    if (
+      activityTransitionState === "TO_NEW_PATIENT_RESET" ||
+      activityTransitionState === "TO_DASHBOARD"
+    ) {
       createPatientReset();
-      window.location.href = process.env.PUBLIC_URL + "/new";
+      setShouldResetForm(true);
     }
   }, [activityTransitionState, createPatientReset]);
 
@@ -59,6 +61,14 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
+
+  const [shouldResetForm, setShouldResetForm] = useState(false);
+
+  const resetFormCallback = () => {
+    setShouldResetForm(false);
+    setActivityTransitionState("IDLE");
+    scrollToElement(null);
+  };
 
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
@@ -78,6 +88,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
                 onSubmit={onSubmit}
                 submitButtonLabel="submit"
                 isLoading={isLoading}
+                shouldResetForm={shouldResetForm}
+                resetFormCallback={resetFormCallback}
               />
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useCallback } from "react";
+import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { object, string } from "yup";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
@@ -16,6 +16,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   onSubmit,
   submitButtonLabel,
   isLoading,
+  shouldResetForm,
+  resetFormCallback,
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
@@ -36,11 +38,20 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
-  const onProfilePictureChange = useCallback((picture: string) => {
-    formik.setFieldValue("blobPhoto", picture);
-    //TODO: it needs refactoring
-    // eslint-disable-next-line
-  }, []);
+  const { setFieldValue } = formik;
+  const onProfilePictureChange = useCallback(
+    (picture: string) => {
+      setFieldValue("blobPhoto", picture);
+    },
+    [setFieldValue]
+  );
+
+  const { resetForm } = formik;
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+    }
+  }, [shouldResetForm, resetForm]);
 
   return (
     <div className="patientDataForm">
@@ -49,6 +60,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           isEditable
           preLoadedPicture={profilePicture}
           onChange={onProfilePictureChange}
+          shouldReset={shouldResetForm}
+          resetCallback={resetFormCallback}
         />
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
@@ -201,7 +214,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </SmallButton>
           </div>
           <div className="reset_button">
-            {/* TODO: Remove profilePicture as well */}
             <TextButton onClick={() => formik.resetForm()}>
               Clear All
             </TextButton>
