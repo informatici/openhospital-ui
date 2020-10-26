@@ -7,6 +7,8 @@ import Footer from "../../accessories/footer/Footer";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
 import classNames from "classnames";
+import Tabs from "../../accessories/tabs/Tabs";
+import { patientDetailTabs } from "./tabsConfig";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -129,46 +131,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
             <div className="patientDetails__content">
-              <div className="patientDetils__content__header">
-                <div className="patientDetils__content__header_tabs">
-                  <div className="patientDetils__content__header_tab">
-                    Summary
-                  </div>
-                  <div className="patientDetils__content__header_tab">
-                    Triage
-                  </div>
-                  <div className="patientDetils__content__header_tab">OPD</div>
-                  <div className="patientDetils__content__header_tab">
-                    Admission
-                  </div>
-                  <div className="patientDetils__content__header_tab">
-                    Therapy
-                  </div>
-                  <div className="patientDetils__content__header_tab">
-                    Vaccination
-                  </div>
-                  <div className="patientDetils__content__header_tab">
-                    Lab Exam
-                  </div>
-                </div>
-              </div>
-              <div className="patientDetils__content__header_mobile">
-                <select>
-                  <option>Summary</option>
-                  <option>Triage</option>
-                  <option>OPD</option>
-                  <option>Admission</option>
-                  <option>Therapy</option>
-                  <option>Vaccination</option>
-                  <option>Lab Exam</option>
-                </select>
-              </div>
-              <div className="patientDetils__content__body">
-                <div className="patientDetils__content__body_header">BODY</div>
-                <div className="patientDetils__content__body_content">
-                  CONTENT
-                </div>
-              </div>
+              <Tabs config={patientDetailTabs} />
             </div>
           </div>
         </div>

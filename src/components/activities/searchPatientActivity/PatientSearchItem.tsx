@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { Redirect } from "react-router";
-import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
+import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
 
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
@@ -33,8 +33,11 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
                 <div className="patientSearchItem__profile__name">
                   {`${patient.firstName} ${patient.secondName}`}
                 </div>
-                <div>
-                  <img src={profilePicturePlaceholder} alt="profilePicture" />
+                <div className="patientSearchItem__profile__picture">
+                  <ProfilePicture
+                    isEditable={false}
+                    preLoadedPicture={patient.blobPhoto}
+                  />
                 </div>
                 <div className="patientSearchItem__profile__admission">
                   Last admission: <strong>24/27/2020</strong>

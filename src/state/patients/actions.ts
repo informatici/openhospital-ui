@@ -1,9 +1,10 @@
+import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
+import { IValues } from "../../components/activities/searchPatientActivity/types";
 import {
   Configuration,
   PatientControllerApi,
   PatientDTO,
-  SearchPatientUsingGETRequest,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -51,32 +52,58 @@ export const createPatientReset = () => (
   });
 };
 
-export const searchPatient = (values: SearchPatientUsingGETRequest) => (
+export const searchPatient = (values: IValues) => (
   dispatch: Dispatch<IAction<PatientDTO[], {}>>
 ) => {
   dispatch({
     type: SEARCH_PATIENT_LOADING,
   });
 
-  patientControllerApi.searchPatientUsingGET(values).subscribe(
-    (payload) => {
-      if (Array.isArray(payload)) {
-        dispatch({
-          type: SEARCH_PATIENT_SUCCESS,
-          payload,
-        });
-      } else {
+  if (values.id) {
+    patientControllerApi
+      .getPatientUsingGET({ code: parseInt(values.id) })
+      .subscribe(
+        (payload) => {
+          if (typeof payload === "object" && !isEmpty(payload)) {
+            dispatch({
+              type: SEARCH_PATIENT_SUCCESS,
+              payload: [payload],
+            });
+          } else {
+            dispatch({
+              type: SEARCH_PATIENT_SUCCESS,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_PATIENT_FAIL,
+            error,
+          });
+        }
+      );
+  } else {
+    patientControllerApi.searchPatientUsingGET(values).subscribe(
+      (payload) => {
+        if (Array.isArray(payload)) {
+          dispatch({
+            type: SEARCH_PATIENT_SUCCESS,
+            payload,
+          });
+        } else {
+          dispatch({
+            type: SEARCH_PATIENT_FAIL,
+            error: { message: "Unexpected payload" },
+          });
+        }
+      },
+      (error) => {
         dispatch({
           type: SEARCH_PATIENT_FAIL,
-          error: { message: "Unexpected payload" },
+          error,
         });
       }
-    },
-    (error) => {
-      dispatch({
-        type: SEARCH_PATIENT_FAIL,
-        error,
-      });
-    }
-  );
+    );
+  }
 };
