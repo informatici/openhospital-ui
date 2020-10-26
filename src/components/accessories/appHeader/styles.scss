@@ -145,10 +145,15 @@
       font-size: 1.2rem;
       text-align: center;
     }
-    @include susy-media($smartphone) {
+    @include susy-media($phablet) {
       font-size: 1.1rem;
       text-align: center;
-      padding: 0px 20px;
+      padding: 0px 10px;
+    }
+    @include susy-media($phone) {
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 0px 25px;
     }
   }
 
@@ -343,45 +348,47 @@
       display: block;
       position: absolute;
       left: 0px;
-      top: 5px;
+      top: -3px;
     }
     @include susy-media($tablet_land) {
       display: block;
       position: absolute;
       left: 0px;
-      top: 5px;
+      top: -3px;
     }
     @include susy-media($tablet_port) {
       display: block;
       position: absolute;
       left: 0px;
-      top: 5px;
+      top: -3px;
     }
     @include susy-media($phone) {
       display: block;
       position: absolute;
       left: 0px;
-      top: 5px;
+      top: 10px;
     }
   }
 
   .appHeader__identified__trigger {
     display: none;
     cursor: pointer;
+    position: relative; 
     @include susy-media($phablet) {
       display: block;
-      top: -5px;
+      top: -8px;
     }
     @include susy-media($tablet_land) {
       display: block;
-      top: -5px;
+      top: -8px;
     }
     @include susy-media($tablet_port) {
       display: block;
-      top: -5px;
+      top: -8px;
     }
     @include susy-media($phone) {
       display: block;
+      top: 5px;
     }
     .trigger_x,
     .trigger_y,
