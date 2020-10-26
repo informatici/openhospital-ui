@@ -1,9 +1,5 @@
 export interface IProps {
-  header: ITabConfig;
-  content: ITabConfig;
+  config: TTabConfig
 }
 
-export interface ITabConfig {
-  mainClass: string;
-  items: Array<Record<number, string>>;
-}
+export type TTabConfig = Array<{ label: string, content: JSX.Element }>;

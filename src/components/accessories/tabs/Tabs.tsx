@@ -3,51 +3,56 @@ import React, { Fragment, FunctionComponent, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
 
-const Tabs: FunctionComponent<IProps> = ({
-  header,
-  content,
-}) => {
+const Tabs: FunctionComponent<IProps> = ({ config }) => {
 
   const [ currentIndex, updateCurrentIndex ] = useState(0); 
 
-  const renderHeader = (item: Record<number, string>, index: number, mobile: boolean = false): JSX.Element => {
+  const renderHeader = (mobile: boolean = false): JSX.Element[] => {
     if(!mobile){
-      return (
-        <div className={classNames("tab", { active: (currentIndex === index) })} key={index} onClick={() => updateCurrentIndex(index)}>
-          <span>{item[index]}</span>
-        </div>
-      );
+      return config.map((item, index) => {
+        return (
+          <div className={classNames("tab", { active: (currentIndex === index) })} key={index} onClick={() => updateCurrentIndex(index)}>
+            <span>{item.label}</span>
+          </div>
+        )
+      })
     } else {
-      return (
-        <option className={classNames("tab", { active: (currentIndex === index) })} key={index} value={index}>
-          {item[index]}
-        </option>
-      );
+      return config.map((item, index) => {
+        return (
+          <option className={classNames("tab", { active: (currentIndex === index) })} key={index} value={index}>
+            {item.label}
+          </option>
+        )
+      })
     }
   };
 
-  const renderContent = (item: Record<number, string>, index: number): JSX.Element => {
-    return (
-      <div className="panel" key={index}>
-        <span>{item[index]}</span>
-      </div>
-    );
+  const renderContent = (): JSX.Element | null => {
+    const content = config[currentIndex]?.content
+    if (content) {
+       return (
+         <div className="panel">
+           {content}
+         </div>
+       );
+    }
+    return null;
   };
 
   return (
     <Fragment>
-      <div className={ header.mainClass }>
+      <div className="tabs_header">
         <div className="tabs desktop">
-          { header.items?.map((item, index) => renderHeader(item, index)) }
+          { renderHeader() }
         </div>
         <div className="tabs mobile">
           <select value={ currentIndex } onChange={(e) => updateCurrentIndex(parseInt(e.target.value)) }>
-            { header.items?.map((item, index) => renderHeader(item, index, true)) }
+            { renderHeader(true) }
           </select>
         </div>
       </div>
-      <div className={ content.mainClass }>
-        { content.items?.map((item, index) => (currentIndex === index) ? renderContent(item, index) : null) }
+      <div className="tabs_content">
+        { renderContent() }
       </div>
     </Fragment>
   );

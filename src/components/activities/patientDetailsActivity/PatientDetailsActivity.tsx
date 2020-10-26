@@ -131,7 +131,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
               </div>
             </div>
             <div className="patientDetails__content">
-              <Tabs {...patientDetailTabs} />
+              <Tabs config={patientDetailTabs} />
             </div>
           </div>
         </div>
