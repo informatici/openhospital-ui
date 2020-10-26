@@ -1,6 +1,7 @@
 import { InputAdornment } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { RemoveRedEye } from "@material-ui/icons";
+import classNames from "classnames";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
@@ -8,13 +9,13 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { object, string } from "yup";
+import logo from "../../../assets/logo-color.svg";
 import { AUTH_KEY } from "../../../consts";
 import { SessionStorage } from "../../../libraries/storage/storage";
 import {
   setAuthenticationSuccess,
   setAuthenticationThunk,
 } from "../../../state/main/actions";
-import logo from "../../../assets/logo-color.svg";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -123,6 +124,13 @@ const LoginActivity: FunctionComponent<TProps> = ({
                   ),
                 }}
               />
+            </div>
+            <div
+              className={classNames("login__invalidCredentials", {
+                hidden: status !== "FAIL",
+              })}
+            >
+              Invalid username or password
             </div>
             <div className="login__buttonContainer">
               <Button

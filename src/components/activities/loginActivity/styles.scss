@@ -10,7 +10,7 @@
     height: calc(100vh - 120px);
     width: 100vw;
     background-color: $c-color-secondary;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       padding: 50px 0 100px 0;
       height: 100%;
     }
@@ -25,10 +25,10 @@
     font-size: x-large;
     text-align: center;
     font-weight: bolder;
-    @include susy-media($narrow){
+    @include susy-media($narrow) {
       padding: 25px;
     }
-    @include susy-media($tablet_land){
+    @include susy-media($tablet_land) {
       padding: 25px;
     }
   }
@@ -54,6 +54,15 @@
 
     .login__passwordToggler {
       cursor: pointer;
+    }
+
+    .login__invalidCredentials {
+      font-size: smaller;
+      color: $c-color-primary;
+
+      &.hidden {
+        display: none;
+      }
     }
 
     .login__buttonContainer {

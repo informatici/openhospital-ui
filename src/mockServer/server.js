@@ -15,10 +15,18 @@ export function makeServer() {
   server.host(BASE_PATH, () => {
     server.namespace("/auth", () => {
       server.post("/login").intercept((req, res) => {
-        res.status(200).json({
-          displayName: "John Doe",
-          token: "1qrj12fcxu3a21d21pjvba6g1",
-        });
+        const { username } = req.query;
+        switch (username) {
+          case "fail":
+            res.status(401);
+            break;
+          default:
+            res.status(200).json({
+              displayName: "John Doe",
+              token: "1qrj12fcxu3a21d21pjvba6g1",
+            });
+            break;
+        }
       });
     });
 
@@ -37,6 +45,10 @@ export function makeServer() {
         switch (code) {
           case "1234561":
             res.status(400);
+            break;
+          case "1234562":
+            res.status(204);
+            res.body = null;
             break;
           default:
             res.status(200).json(patientDTO);
