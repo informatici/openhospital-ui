@@ -6,8 +6,12 @@
   "address": "",
   "city": "",
   "telephone": "",
-  "email": "",
+  "mother_name": "",
+  "father_name": "",
   "bloodType": "",
-  "insurance": "",
-  "taxCode": ""
+  "hasInsurance": "Y",
+  "parentTogether": "Y",
+  "taxCode": "",
+  "height": "175",
+  "weight": "83"
 }

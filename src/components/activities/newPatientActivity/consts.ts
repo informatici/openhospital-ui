@@ -1,5 +1,4 @@
 import {
-  PatientDTO,
   PatientDTOFatherEnum,
   // PatientDTOBloodTypeEnum,
   PatientDTOHasInsuranceEnum,
@@ -7,27 +6,92 @@ import {
   PatientDTOParentTogetherEnum,
   PatientDTOSexEnum,
 } from "../../../generated";
+import { TFields } from "../../../libraries/formDataHandling/types";
+import { TPatientDataFormFieldName } from "../../accessories/patientDataForm/types";
 
-export const initialValues: PatientDTO = {
-  firstName: "",
-  secondName: "",
-  birthDate: "",
-  age: 28,
-  agetype: "",
-  sex: PatientDTOSexEnum.M,
-  address: "",
-  city: "",
-  telephone: "",
-  note: "",
-  mother_name: "",
-  mother: PatientDTOMotherEnum.A,
-  father_name: "",
-  father: PatientDTOFatherEnum.A,
-  bloodType: "", //PatientDTOBloodTypeEnum.AB,
-  hasInsurance: PatientDTOHasInsuranceEnum.Y,
-  parentTogether: PatientDTOParentTogetherEnum.Y,
-  taxCode: "",
-  height: 175,
-  weight: 83,
-  blobPhoto: "",
+export const fields: TFields<TPatientDataFormFieldName> = {
+  firstName: {
+    value: "",
+    type: "text",
+  },
+  secondName: {
+    value: "",
+    type: "text",
+  },
+  birthDate: {
+    value: "",
+    type: "date",
+  },
+  age: {
+    value: "28",
+    type: "number",
+  },
+  agetype: {
+    value: "",
+    type: "text",
+  },
+  sex: {
+    value: PatientDTOSexEnum.M,
+    type: "text",
+  },
+  address: {
+    value: "",
+    type: "text",
+  },
+  city: {
+    value: "",
+    type: "text",
+  },
+  telephone: {
+    value: "",
+    type: "text",
+  },
+  note: {
+    value: "",
+    type: "text",
+  },
+  mother_name: {
+    value: "",
+    type: "text",
+  },
+  mother: {
+    value: PatientDTOMotherEnum.A,
+    type: "text",
+  },
+  father_name: {
+    value: "",
+    type: "text",
+  },
+  father: {
+    value: PatientDTOFatherEnum.A,
+    type: "text",
+  },
+  bloodType: {
+    value: "",
+    type: "text",
+  },
+  hasInsurance: {
+    value: PatientDTOHasInsuranceEnum.Y,
+    type: "text",
+  },
+  parentTogether: {
+    value: PatientDTOParentTogetherEnum.Y,
+    type: "text",
+  },
+  taxCode: {
+    value: "",
+    type: "text",
+  },
+  height: {
+    value: "175",
+    type: "number",
+  },
+  weight: {
+    value: "83",
+    type: "number",
+  },
+  blobPhoto: {
+    value: "",
+    type: "text",
+  },
 };

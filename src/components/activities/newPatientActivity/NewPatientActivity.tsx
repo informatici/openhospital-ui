@@ -14,7 +14,7 @@ import ConfirmationDialog from "../../accessories/confirmationDialog/Confirmatio
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
-import { initialValues } from "./consts";
+import { fields } from "./consts";
 import "./styles.scss";
 import {
   IDispatchProps,
@@ -84,7 +84,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             <div className="newPatient__content">
               <div className="newPatient__title">Register new patient</div>
               <PatientDataForm
-                initialValues={initialValues}
+                fields={fields}
                 onSubmit={onSubmit}
                 submitButtonLabel="submit"
                 isLoading={isLoading}

@@ -3,6 +3,10 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { object, string } from "yup";
+import {
+  formatFieldValues,
+  getFromFields,
+} from "../../../libraries/formDataHandling/functions";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
@@ -11,7 +15,7 @@ import "./styles.scss";
 import { TProps } from "./types";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
-  initialValues,
+  fields,
   profilePicture,
   onSubmit,
   submitButtonLabel,
@@ -24,10 +28,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     //TODO: write schema
   });
 
+  const initialValues = getFromFields(fields, "value");
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit,
+    onSubmit: (values) => {
+      const formattedValues = formatFieldValues(fields, values);
+      onSubmit(formattedValues);
+    },
   });
 
   const isValid = (fieldName: string): boolean => {
@@ -35,7 +44,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   };
 
   const getErrorText = (fieldName: string): string => {
-    return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
+    return has(formik.touched, fieldName)
+      ? (get(formik.errors, fieldName) as string)
+      : "";
   };
 
   const { setFieldValue } = formik;
@@ -121,6 +132,76 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={formik.handleBlur}
             />
           </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("height")}
+              theme="regular"
+              label="Height"
+              isValid={isValid("height")}
+              errorText={getErrorText("height")}
+              onBlur={formik.handleBlur}
+              type="number"
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("weight")}
+              theme="regular"
+              label="Weight"
+              isValid={isValid("weight")}
+              errorText={getErrorText("weight")}
+              onBlur={formik.handleBlur}
+              type="number"
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("bloodType")}
+              theme="regular"
+              label="Blood Type"
+              isValid={isValid("bloodType")}
+              errorText={getErrorText("bloodType")}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("mother_name")}
+              theme="regular"
+              label="Mother's full name"
+              isValid={isValid("mother_name")}
+              errorText={getErrorText("mother_name")}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("father_name")}
+              theme="regular"
+              label="Father's full name"
+              isValid={isValid("father_name")}
+              errorText={getErrorText("father_name")}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("parentTogether")}
+              theme="regular"
+              label="Lives with the parents?"
+              isValid={isValid("parentTogether")}
+              errorText={getErrorText("parentTogether")}
+              onBlur={formik.handleBlur}
+            />
+          </div>
         </div>
 
         <div className="row start-sm center-xs">
@@ -148,60 +229,25 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("zipCode")}
-              theme="regular"
-              label="ZIP Code"
-              isValid={isValid("zipCode")}
-              errorText={getErrorText("zipCode")}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("bloodType")}
-              theme="regular"
-              label="Blood Type"
-              isValid={isValid("bloodType")}
-              errorText={getErrorText("bloodType")}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="patientDataForm__item">
-            <TextField
               field={formik.getFieldProps("telephone")}
               theme="regular"
               label="Telephone"
               isValid={isValid("telephone")}
               errorText={getErrorText("telephone")}
               onBlur={formik.handleBlur}
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("email")}
-              theme="regular"
-              label="Email"
-              isValid={isValid("email")}
-              errorText={getErrorText("email")}
-              onBlur={formik.handleBlur}
+              type="tel"
             />
           </div>
         </div>
+
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("insurance")}
+              field={formik.getFieldProps("hasInsurance")}
               theme="regular"
-              label="Insurance"
-              isValid={isValid("insurance")}
-              errorText={getErrorText("insurance")}
+              label="Has insurance"
+              isValid={isValid("hasInsurance")}
+              errorText={getErrorText("hasInsurance")}
               onBlur={formik.handleBlur}
             />
           </div>
