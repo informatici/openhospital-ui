@@ -32,7 +32,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   const initialValues: IValues = {
     id: "",
-    taxNumber: "",
     firstName: "",
     secondName: "",
     birthDate: "",
@@ -127,17 +126,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                     onBlur={formik.handleBlur}
                   />
                 </div>
-                <span className="searchPatient__primary__divider">OR</span>
-                <div className="searchPatient__formItem">
-                  <TextField
-                    theme="light"
-                    field={formik.getFieldProps("taxNumber")}
-                    label="Tax Number"
-                    isValid={isValid("taxNumber")}
-                    errorText={getErrorText("taxNumber")}
-                    onBlur={formik.handleBlur}
-                  />
-                </div>
               </div>
             </div>
             <div className="searchPatient__buttonContainer">
@@ -152,8 +140,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
             </div>
             <div className="searchPatient__secondary">
               <div className="searchPatient__info">
-                If you don't have the patient ID or the tax number, fill as many
-                fields as possible and click search
+                If you don't have the patient ID, fill as many fields as
+                possible and click search
               </div>
               <div className="row center-xs">
                 <div className="searchPatient__formItem">

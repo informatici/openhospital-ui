@@ -20,7 +20,6 @@ export type TProps = IStateProps & IDispatchProps;
 
 export interface IValues {
   id?: string;
-  taxNumber?: string;
   firstName?: string;
   secondName?: string;
   birthDate?: string;
