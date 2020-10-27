@@ -15,7 +15,8 @@ import InfoBox from "../../accessories/infoBox/InfoBox";
 import TextField from "../../accessories/textField/TextField";
 import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
+import { IDispatchProps, IStateProps, TValues, TProps } from "./types";
+import { useIsSearchById } from "./useIsSearchById";
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -30,7 +31,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  const initialValues: IValues = {
+  const initialValues: TValues = {
     id: "",
     firstName: "",
     secondName: "",
@@ -45,7 +46,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values: IValues) => {
+    onSubmit: (values: TValues) => {
       // First scroll to show searching message
       scrollToElement(resultsRef.current);
       searchPatient(values);
@@ -66,6 +67,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       scrollToElement(resultsRef.current);
     }
   }, [searchStatus]);
+
+  const isSearchById = useIsSearchById(formik);
 
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
@@ -152,6 +155,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                     isValid={isValid("firstName")}
                     errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
+                    disabled={isSearchById}
                   />
                 </div>
                 <div className="searchPatient__formItem">
@@ -162,6 +166,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                     isValid={isValid("secondName")}
                     errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
+                    disabled={isSearchById}
                   />
                 </div>
               </div>
@@ -174,6 +179,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                     isValid={isValid("birthDate")}
                     errorText={getErrorText("birthDate")}
                     onBlur={formik.handleBlur}
+                    disabled={isSearchById}
                   />
                 </div>
                 <div className="searchPatient__formItem">
@@ -184,6 +190,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                     isValid={isValid("address")}
                     errorText={getErrorText("address")}
                     onBlur={formik.handleBlur}
+                    disabled={isSearchById}
                   />
                 </div>
               </div>

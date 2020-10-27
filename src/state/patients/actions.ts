@@ -1,6 +1,6 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { IValues } from "../../components/activities/searchPatientActivity/types";
+import { TValues } from "../../components/activities/searchPatientActivity/types";
 import {
   Configuration,
   PatientControllerApi,
@@ -52,7 +52,7 @@ export const createPatientReset = () => (
   });
 };
 
-export const searchPatient = (values: IValues) => (
+export const searchPatient = (values: TValues) => (
   dispatch: Dispatch<IAction<PatientDTO[], {}>>
 ) => {
   dispatch({

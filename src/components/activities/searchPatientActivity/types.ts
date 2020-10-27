@@ -13,17 +13,18 @@ export interface IPatientSearchItemProps {
 }
 
 export interface IDispatchProps {
-  searchPatient: (values: object) => void;
+  searchPatient: (values: TValues) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;
 
-export interface IValues {
-  id?: string;
-  firstName?: string;
-  secondName?: string;
-  birthDate?: string;
-  address?: string;
-}
+export type TValues = Record<TFieldName, string>;
+
+export type TFieldName =
+  | "id"
+  | "firstName"
+  | "secondName"
+  | "birthDate"
+  | "address";
 
 export type TActivityTransitionState = "IDLE" | "TO_PATIENT_DETAILS";

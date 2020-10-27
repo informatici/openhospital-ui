@@ -15,6 +15,18 @@ describe("SearchPatientActivity spec", () => {
     cy.get("[id=id]").clear();
   });
 
+  it("should clean up secondary fields if patient ID is filled", () => {
+    cy.get("[id=firstName]").clear().type("Antonio");
+    cy.get("[id=secondName]").clear().type("Carlos Jobim");
+
+    cy.get("[id=id]").clear().type("1234567");
+
+    cy.get("[id=firstName]").should("have.value", "");
+    cy.get("[id=secondName]").should("have.value", "");
+
+    cy.get("[id=id]").clear();
+  });
+
   it("should alert the user that no result was found", () => {
     cy.get("[id=firstName]").clear().type("empty");
     cy.get("[class=searchPatient__panel]").submit();
