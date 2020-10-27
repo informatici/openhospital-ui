@@ -9,7 +9,7 @@ import {
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientDataFormFieldName } from "../../accessories/patientDataForm/types";
 
-export const fields: TFields<TPatientDataFormFieldName> = {
+export const initialFields: TFields<TPatientDataFormFieldName> = {
   firstName: {
     value: "",
     type: "text",
