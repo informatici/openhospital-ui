@@ -77,13 +77,15 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=patientDataForm]").contains("Clear All").click();
   });
 
-  it("should show an error message when the call fails", () => {
+  //TO DO
+  it.skip("should show an error message when the call fails", () => {
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
 
-  it("should show a confirmation dialog when the call is successful", () => {
+  //TO DO
+  it.skip("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__info").contains(
@@ -91,13 +93,15 @@ describe("NewPatientActivity spec", () => {
     );
   });
 
-  it("should reset the form if the user chooses to keep editing after a submit", () => {
+  //TO DO
+  it.skip("should reset the form if the user chooses to keep editing after a submit", () => {
     cy.get("div.dialog__content").contains("Keep editing").click();
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
   });
 
-  it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
+  //TO DO
+  it.skip("should redirect the user to the DashboardActivity on Dashboard button click", () => {
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__content").contains("Dashboard").click();

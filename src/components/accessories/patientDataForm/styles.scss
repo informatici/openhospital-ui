@@ -83,13 +83,10 @@
     @include susy-media($smartphone){
       width: 100%;
     }
+    .dateField,
+    .textField,
+    .dateField,
     .MuiFormControl-root{
-      width: 100%;
-    }
-    .textField{
-      width: 100%;
-    }
-    .selectField{
       width: 100%;
     }
   }
