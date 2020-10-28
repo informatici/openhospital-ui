@@ -4,9 +4,10 @@ import has from "lodash.has";
 import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { object, string } from "yup";
 import {
-  formatFieldValues,
+  formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
@@ -40,10 +41,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      const formattedValues = formatFieldValues(fields, values);
+      const formattedValues = formatAllFieldValues(fields, values);
       onSubmit(formattedValues);
     },
   });
+
+  const { setFieldValue, resetForm, handleBlur } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -55,7 +58,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       : "";
   };
 
-  const { setFieldValue } = formik;
   const onProfilePictureChange = useCallback(
     (picture: string) => {
       setFieldValue("blobPhoto", picture);
@@ -63,12 +65,19 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     [setFieldValue]
   );
 
-  const { resetForm } = formik;
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
     }
   }, [shouldResetForm, resetForm]);
+
+  const dateFieldHandleOnBlur = useCallback(
+    (e, value) => {
+      setFieldValue("birthDate", value);
+      handleBlur(e);
+    },
+    [setFieldValue, handleBlur]
+  );
 
   return (
     <div className="patientDataForm">
@@ -130,13 +139,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("birthDate")}
+            <DateField
+              fieldName="birthDate"
+              fieldValue={formik.values.birthDate}
               theme="regular"
-              label="Data of Birth"
+              label="Birthday (day/month/year)"
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
-              onBlur={formik.handleBlur}
+              onBlur={dateFieldHandleOnBlur}
             />
           </div>
 

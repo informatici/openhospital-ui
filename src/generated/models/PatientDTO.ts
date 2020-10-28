@@ -18,6 +18,12 @@
  */
 export interface PatientDTO {
     /**
+     * Patient type code
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    code?: number;
+    /**
      * First name of the patient
      * @type {string}
      * @memberof PatientDTO
