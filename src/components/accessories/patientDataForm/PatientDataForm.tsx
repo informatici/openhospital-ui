@@ -73,10 +73,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     [setFieldValue, handleBlur]
   );
 
-  useEffect(() => {
-    console.log("boom");
-  }, [dateFieldHandleOnBlur]);
-
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -139,7 +135,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <DateField
               fieldName="birthDate"
               theme="regular"
-              label="Date of Birth"
+              label="Birthday (day/month/year)"
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
               onBlur={dateFieldHandleOnBlur}
