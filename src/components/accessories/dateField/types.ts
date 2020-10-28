@@ -7,6 +7,7 @@ import {
 export interface IProps {
   className?: string;
   fieldName: string;
+  fieldValue: string;
   theme: "light" | "regular";
   label: string;
   type?: string;

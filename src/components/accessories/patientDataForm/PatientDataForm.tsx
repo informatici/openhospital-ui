@@ -134,6 +134,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <DateField
               fieldName="birthDate"
+              fieldValue={formik.values.birthDate}
               theme="regular"
               label="Birthday (day/month/year)"
               isValid={isValid("birthDate")}

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from "react";
+import React, { FunctionComponent, memo, useEffect } from "react";
 import { TextField } from "@material-ui/core";
 import { useRifm } from "rifm";
 import { formatToDate } from "./utils";
@@ -7,6 +7,7 @@ import "./styles.scss";
 
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
+  fieldValue,
   label,
   isValid,
   errorText,
@@ -20,6 +21,10 @@ const DateField: FunctionComponent<IProps> = ({
     onChange: setValue,
     format: formatToDate,
   });
+
+  useEffect(() => {
+    setValue(fieldValue);
+  }, [fieldValue]);
 
   const handleOnBlur = (e: any) => {
     onBlur(e, value);
