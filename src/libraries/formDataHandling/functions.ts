@@ -8,8 +8,11 @@ export const getFromFields = (fields: TFields, fieldAddress: TFieldAddress) => {
 };
 
 const parseDate = (raw: string) => {
-  const splitted = raw.split("/");
-  return `${splitted[2]}-${splitted[1]}-${splitted[0]}`;
+  if (raw) {
+    const splitted = raw.split("/");
+    return `${splitted[2]}-${splitted[1]}-${splitted[0]}`;
+  }
+  return "";
 };
 
 export const formatAllFieldValues = (
