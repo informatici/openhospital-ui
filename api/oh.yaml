@@ -6898,6 +6898,10 @@ definitions:
   PatientDTO:
     type: object
     properties:
+      code:
+        type: integer
+        format: int32
+        description: Patient type code
       firstName:
         type: string
         example: Mario
