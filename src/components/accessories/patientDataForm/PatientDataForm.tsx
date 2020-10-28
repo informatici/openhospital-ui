@@ -11,6 +11,7 @@ import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
 import TextField from "../textField/TextField";
+import SelectField from "../selectField/SelectField";
 import "./styles.scss";
 import { TProps } from "./types";
 
@@ -25,10 +26,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
+    sex: string().required("This field is required"),
+    bloodType: string().required("This field is required"),
+    parentTogether: string().required("This field is required"),
+    hasInsurance: string().required("This field is required"),
     //TODO: write schema
   });
 
   const initialValues = getFromFields(fields, "value");
+  const optionValues = getFromFields(fields, "options");
 
   const formik = useFormik({
     initialValues,
@@ -112,13 +118,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
-            <TextField
+            <SelectField 
               field={formik.getFieldProps("sex")}
               theme="regular"
               label="Gender"
               isValid={isValid("sex")}
               errorText={getErrorText("sex")}
               onBlur={formik.handleBlur}
+              options={optionValues.sex}
             />
           </div>
 
@@ -158,13 +165,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
+            <SelectField
               field={formik.getFieldProps("bloodType")}
               theme="regular"
               label="Blood Type"
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
               onBlur={formik.handleBlur}
+              options={optionValues.bloodType}
             />
           </div>
         </div>
@@ -193,13 +201,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
+            <SelectField
               field={formik.getFieldProps("parentTogether")}
               theme="regular"
               label="Lives with the parents?"
               isValid={isValid("parentTogether")}
               errorText={getErrorText("parentTogether")}
               onBlur={formik.handleBlur}
+              options={optionValues.parentTogether}
             />
           </div>
         </div>
@@ -242,13 +251,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
-            <TextField
+            <SelectField
               field={formik.getFieldProps("hasInsurance")}
               theme="regular"
               label="Has insurance"
               isValid={isValid("hasInsurance")}
               errorText={getErrorText("hasInsurance")}
               onBlur={formik.handleBlur}
+              options={optionValues.hasInsurance}
             />
           </div>
         </div>

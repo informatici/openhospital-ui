@@ -71,21 +71,26 @@
     margin: 5px 0px;
     padding: 0px 20px;
     width: 33%;
+    @include susy-media($narrow){
+      padding: 0px 10px;
+    }
+    @include susy-media($tablet_land){
+      padding: 0px 10px;
+    }
     @include susy-media($tablet_port){
       width: 50%;
     }
     @include susy-media($smartphone){
       width: 100%;
     }
+    .MuiFormControl-root{
+      width: 100%;
+    }
     .textField{
       width: 100%;
     }
-    input{
-      padding-top: 15px;
-      padding-bottom: 15px;
-    }
-    label{
-      top: 5px;
+    .selectField{
+      width: 100%;
     }
   }
 

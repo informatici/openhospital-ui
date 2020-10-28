@@ -9,7 +9,7 @@ import {
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientDataFormFieldName } from "../../accessories/patientDataForm/types";
 
-export const initialFields: TFields<TPatientDataFormFieldName> = {
+export const formFields: TFields<TPatientDataFormFieldName> = {
   firstName: {
     value: "",
     type: "text",
@@ -31,8 +31,15 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     type: "text",
   },
   sex: {
-    value: PatientDTOSexEnum.M,
-    type: "text",
+    value: "",
+    type: "select",
+    options: [{
+      label: "Male",
+      value: PatientDTOSexEnum.M,
+    }, {
+      label: "Female",
+      value: PatientDTOSexEnum.F,
+    }]
   },
   address: {
     value: "",
@@ -68,15 +75,54 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
   },
   bloodType: {
     value: "",
-    type: "text",
+    type: "select",
+    options: [{
+      label: "0-",
+      value: "0-",
+    }, {
+      label: "0+",
+      value: "0+",
+    }, {
+      label: "A-",
+      value: "A-",
+    }, {
+      label: "A+",
+      value: "A+",
+    }, {
+      label: "B-",
+      value: "B-",
+    }, {
+      label: "B+",
+      value: "B+",
+    }, {
+      label: "AB-",
+      value: "AB-",
+    }, {
+      label: "AB+",
+      value: "AB+",
+    }]
   },
   hasInsurance: {
-    value: PatientDTOHasInsuranceEnum.Y,
-    type: "text",
+    value: "",
+    type: "select",
+    options: [{
+      label: "Yes",
+      value: PatientDTOHasInsuranceEnum.Y
+    }, {
+      label: "No",
+      value: PatientDTOHasInsuranceEnum.N
+    }]
   },
   parentTogether: {
-    value: PatientDTOParentTogetherEnum.Y,
-    type: "text",
+    value: "",
+    type: "select",
+    options: [{
+      label: "Yes",
+      value: PatientDTOParentTogetherEnum.Y
+    }, {
+      label: "No",
+      value: PatientDTOParentTogetherEnum.N
+    }]
   },
   taxCode: {
     value: "",

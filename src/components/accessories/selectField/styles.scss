@@ -1,24 +1,29 @@
 @import "../../../styles/variables";
 
-.textField {
+.MuiFormControl-root.selectField_wrapper{
   height: 60px;
-  width: 250px;
-  label{
-    top: 5px;
+  margin: 8px 0px 4px;
+  .selectField {
+    .MuiSelect-select {
+      padding: 15px;
+    }
+  }
+  label.MuiFormLabel-root {
+    top: -2px;
     font-size: smaller;
     &.MuiFormLabel-filled,
     &.Mui-focused{
       top: 2px;
     }
   }
-  input{
+  .MuiSelect-select.MuiInputBase-input{
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: smaller;
   }
 }
 
-.textField__light {
+.selectField_wrapper__light {
   .MuiFormLabel-root {
     color: $c-white;
   }
@@ -62,4 +67,8 @@
   .MuiFormHelperText-root.Mui-error {
     color: $c-error-light !important;
   }
+}
+
+.MuiMenu-list .MuiMenuItem-root{
+  font-size: smaller;
 }
