@@ -13,6 +13,9 @@ import {
   CREATE_PATIENT_LOADING,
   CREATE_PATIENT_RESET,
   CREATE_PATIENT_SUCCESS,
+  GET_PATIENT_FAIL,
+  GET_PATIENT_LOADING,
+  GET_PATIENT_SUCCESS,
   SEARCH_PATIENT_FAIL,
   SEARCH_PATIENT_LOADING,
   SEARCH_PATIENT_SUCCESS,
@@ -94,7 +97,7 @@ export const searchPatient = (values: TValues) => (
         } else {
           dispatch({
             type: SEARCH_PATIENT_FAIL,
-            error: { message: "Unexpected payload" },
+            error: { message: "Unexpected response payload" },
           });
         }
       },
@@ -106,4 +109,40 @@ export const searchPatient = (values: TValues) => (
       }
     );
   }
+};
+
+export const getPatientSuccess = (
+  patient: PatientDTO
+): IAction<PatientDTO, {}> => {
+  return {
+    type: GET_PATIENT_SUCCESS,
+    payload: patient,
+  };
+};
+
+export const getPatientThunk = (id: string) => (
+  dispatch: Dispatch<IAction<PatientDTO, {}>>
+) => {
+  dispatch({
+    type: GET_PATIENT_LOADING,
+  });
+
+  patientControllerApi.getPatientUsingGET({ code: parseInt(id) }).subscribe(
+    (payload) => {
+      if (typeof payload === "object" && !isEmpty(payload)) {
+        dispatch(getPatientSuccess(payload));
+      } else {
+        dispatch({
+          type: GET_PATIENT_FAIL,
+          error: { message: "Unexpected response payload" },
+        });
+      }
+    },
+    (error) => {
+      dispatch({
+        type: GET_PATIENT_FAIL,
+        error,
+      });
+    }
+  );
 };

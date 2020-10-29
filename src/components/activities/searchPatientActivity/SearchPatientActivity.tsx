@@ -7,7 +7,10 @@ import { connect } from "react-redux";
 import { object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { searchPatient } from "../../../state/patients/actions";
+import {
+  searchPatient,
+  getPatientSuccess,
+} from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
@@ -23,6 +26,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   patientSearchResults,
   searchPatient,
   searchStatus,
+  getPatientSuccess,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/dashboard",
@@ -86,7 +90,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
             </div>
             <div className="searchPatient__results_list">
               {patientSearchResults?.map((patient, index) => (
-                <PatientSearchItem key={index} patient={patient} />
+                <PatientSearchItem
+                  key={index}
+                  patient={patient}
+                  getPatientSuccessCallback={getPatientSuccess}
+                />
               ))}
             </div>
           </div>
@@ -212,6 +220,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
 
 const mapDispatchToProps: IDispatchProps = {
   searchPatient,
+  getPatientSuccess,
 };
 
 export default connect(

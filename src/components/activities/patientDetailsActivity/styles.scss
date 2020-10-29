@@ -4,8 +4,8 @@
 .patientDetails {
   background-color: $c-color-secondary;
 
-  .container{
-    @include susy-media($smartphone){
+  .container {
+    @include susy-media($smartphone) {
       width: 100%;
     }
   }
@@ -32,7 +32,7 @@
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     margin: 20px 20px 40px 20px;
     overflow: hidden;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       display: block;
       align-items: initial;
       background-color: transparent;
@@ -49,23 +49,23 @@
     background-color: $c-gray;
     padding: 0px 0px 40px 0px;
 
-    &.open_sidebar{
-      .patientDetails__personalData__trigger_mobile{
-        svg{
+    &.open_sidebar {
+      .patientDetails__personalData__trigger_mobile {
+        svg {
           transform: rotate(180deg);
           top: 5px;
         }
       }
-      .patientDetails__personalData_sidebar{
+      .patientDetails__personalData_sidebar {
         max-height: 1000px;
         overflow: auto;
-        .patientDetails__personalData__item:last-of-type{
+        .patientDetails__personalData__item:last-of-type {
           margin: 10px 30px 20px;
         }
       }
     }
 
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       display: block;
       flex: initial;
       padding: 0px;
@@ -75,23 +75,23 @@
     }
   }
 
-  .patientDetails__personalData_sidebar{
-    @include susy-media($smartphone){
+  .patientDetails__personalData_sidebar {
+    @include susy-media($smartphone) {
       overflow: hidden;
       max-height: 0px;
       transition: 0.5s max-height ease-in-out;
     }
   }
 
-  .patientDetails__personalData__trigger_mobile{
+  .patientDetails__personalData__trigger_mobile {
     display: none;
     color: $c-white;
     position: relative;
     padding: 15px 40px 15px 15px;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       display: block;
     }
-    svg.arrow_icon{
+    svg.arrow_icon {
       position: absolute;
       top: 12px;
       width: 30px;
@@ -105,14 +105,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 70px;
-    
+    padding: 50px 70px 100px;
   }
 
   .patientDetails__personalData__item {
     color: $c-white;
     margin: 10px 30px;
-    & + .patientDetails__personalData__item{
+    & + .patientDetails__personalData__item {
       padding-top: 15px;
       border-top: 1px solid lighten($c-gray, 40%);
     }
@@ -126,7 +125,7 @@
     flex: 3;
     display: flex;
     flex-direction: column;
-    @include susy-media($smartphone){
+    @include susy-media($smartphone) {
       display: block;
       flex: initial;
       margin-top: 35px;
@@ -137,14 +136,14 @@
       box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     }
 
-    .patientDetils__content__body_header{
+    .patientDetils__content__body_header {
       font-size: large;
       font-weight: 500;
     }
 
-    .patientDetils__content__body{
+    .patientDetils__content__body {
       padding: 30px;
-      @include susy-media($smartphone){
+      @include susy-media($smartphone) {
         padding: 30px 0px;
       }
     }
@@ -154,7 +153,7 @@
     background-color: #f5f5f5;
   }
 
-  .footer{
+  .footer {
     position: relative;
   }
 }

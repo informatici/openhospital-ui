@@ -3,5 +3,5 @@ import { IPatientsState } from "./types";
 export const initial: IPatientsState = {
   createPatient: { status: "IDLE" },
   searchResults: { status: "IDLE", data: [] },
-  selectedPatient: { isLoading: false, data: {} },
+  selectedPatient: { status: "IDLE", data: {} },
 };
