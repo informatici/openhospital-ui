@@ -135,19 +135,6 @@
       background-color: $c-white;
       box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     }
-
-    .patientDetils__content__body_header {
-      font-size: large;
-      font-weight: 500;
-      padding: 30px;
-    }
-
-    .patientDetils__content__body {
-      padding: 30px;
-      @include susy-media($smartphone) {
-        padding: 30px 0px;
-      }
-    }
   }
 
   .patientDetils__content__header {

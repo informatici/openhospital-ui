@@ -1,13 +1,14 @@
 import React from "react";
 import { TTabConfig } from "../../accessories/tabs/types";
+import PatientDetailsContent from '../patientDetailsActivityContent/PatientDetailsActivityContent';
 
 export const patientDetailTabs: TTabConfig = [
-  { label: "Summary", content: <div className="patientDetils__content__body_header">Summary</div> },
-  { label: "Triage", content: <div className="patientDetils__content__body_header">Triage</div> },
-  { label: "Admission", content: <div className="patientDetils__content__body_header">Admission</div> },
-  { label: "Therapy", content: <div className="patientDetils__content__body_header">Therapy</div> },
-  { label: "Vaccination", content: <div className="patientDetils__content__body_header">Vaccination</div> },
-  { label: "Lab Exam", content: <div className="patientDetils__content__body_header">Lab Exam</div> },
-  { label: "OPD", content: <div className="patientDetils__content__body_header">OPD</div> },
+  { label: "ODP", content: <PatientDetailsContent title="ODP" content="ODP" /> },
+  { label: "Summary", content: <PatientDetailsContent title="Summary" content="Summary" /> },
+  { label: "Triage", content: <PatientDetailsContent title="Triage" content="Triage" /> },
+  { label: "Admission", content: <PatientDetailsContent title="Admission" content="Admission" /> },
+  { label: "Therapy", content: <PatientDetailsContent title="Therapy" content="Therapy" /> },
+  { label: "Vaccination", content: <PatientDetailsContent title="Vaccination" content="Vaccination" /> },
+  { label: "Lab Exam", content: <PatientDetailsContent title="Lab Exam" content="Lab Exam" /> },
 ];
 
