@@ -1,23 +1,40 @@
-import React, { FunctionComponent, useState } from "react";
-import { IState } from "../../../types";
+import classNames from "classnames";
+import isEmpty from "lodash.isempty";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { IStateProps, TProps } from "./types";
+import { useParams } from "react-router-dom";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getPatientThunk } from "../../../state/patients/actions";
+import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
-import "./styles.scss";
-import classNames from "classnames";
+import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import Tabs from "../../accessories/tabs/Tabs";
+import "./styles.scss";
 import { patientDetailTabs } from "./tabsConfig";
+import { IDispatchProps, IStateProps, TProps } from "./types";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
   patient,
+  getPatientThunk,
 }) => {
+  useEffect(() => {
+    scrollToElement(null);
+  }, []);
+
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    if (isEmpty(patient.data) && patient.status === "IDLE") {
+      getPatientThunk(id);
+    }
+  }, [patient, id, getPatientThunk]);
+
   const breadcrumbMap = {
     Dashboard: "/dashboard",
     "Search Patient": "/search",
-    "Patient Details": `/details/:id`, //TODO: use actual patient id instead
+    "Patient Details": `/details/${patient.data?.code}`,
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -54,14 +71,17 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
               </div>
               <div className="patientDetails__personalData_sidebar">
                 <div className="patientDetails__profilePictureContainer">
-                  <img src={profilePicturePlaceholder} alt="profilePicture" />
+                  <ProfilePicture
+                    isEditable={false}
+                    preLoadedPicture={patient.data?.blobPhoto}
+                  />
                 </div>
                 <div className="patientDetails__personalData__item">
                   <div className="patientDetails__personalData__item__label">
                     Name:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    Antonio Carlos
+                    {patient.data?.firstName}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -69,7 +89,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Surname:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    Jobim
+                    {patient.data?.secondName}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -77,7 +97,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Gender:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    Male
+                    {patient.data?.sex}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -85,7 +105,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Blood Type:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    A+
+                    {patient.data?.bloodType}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -93,7 +113,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Patient ID:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    012345679
+                    {patient.data?.code}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -101,7 +121,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Provenience:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    Rio de Janeiro
+                    {patient.data?.city}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -109,7 +129,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Tax number:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    ADS2fa2SDA1234afas1
+                    {patient.data?.taxCode}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -117,7 +137,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Health Insurance:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    Some Company Name, Inc
+                    {patient.data?.hasInsurance}
                   </div>
                 </div>
                 <div className="patientDetails__personalData__item">
@@ -125,7 +145,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     Telephone number:
                   </div>
                   <div className="patientDetails__personalData__item__value">
-                    222 222 2222
+                    {patient.data?.telephone}
                   </div>
                 </div>
               </div>
@@ -146,4 +166,11 @@ const mapStateToProps = (state: IState): IStateProps => ({
   patient: state.patients.selectedPatient,
 });
 
-export default connect(mapStateToProps)(PatientDetailsActivity);
+const mapDispatchToProps: IDispatchProps = {
+  getPatientThunk,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PatientDetailsActivity);
