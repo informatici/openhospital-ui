@@ -1,5 +1,3 @@
-import { FieldInputProps } from "formik";
-
 export interface IProps {
   fieldName: string;
   fieldValue: string;
