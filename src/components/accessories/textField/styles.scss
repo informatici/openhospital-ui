@@ -3,9 +3,33 @@
 .textField {
   height: 60px;
   width: 250px;
+  label {
+    top: 5px;
+    // font-size: smaller;
+    &.MuiFormLabel-filled,
+    &.Mui-focused {
+      top: 2px;
+    }
+  }
+  input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
 }
 
 .textField__light {
+  label {
+    top: 5px;
+    &.MuiFormLabel-filled,
+    &.Mui-focused {
+      top: 2px;
+    }
+  }
+  input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    // font-size: small;
+  }
   .MuiFormLabel-root {
     color: $c-white;
   }
