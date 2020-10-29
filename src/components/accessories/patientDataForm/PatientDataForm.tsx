@@ -40,7 +40,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { setFieldValue, resetForm, handleBlur } = formik;
+  const { setFieldValue, resetForm } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
