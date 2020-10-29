@@ -1,22 +1,12 @@
-import {
-  FilledInputProps,
-  InputProps,
-  OutlinedInputProps,
-} from "@material-ui/core";
+import { FieldInputProps } from "formik";
 
 export interface IProps {
-  className?: string;
   fieldName: string;
   fieldValue: string;
+  disableFuture?: boolean;
+  disabled?: boolean;
   theme: "light" | "regular";
   label: string;
-  type?: string;
-  isValid: boolean;
-  errorText: string;
-  onBlur: (e: any, value: string) => void;
-  disabled?: boolean;
-  InputProps?:
-    | Partial<InputProps>
-    | Partial<FilledInputProps>
-    | Partial<OutlinedInputProps>;
+  format: string;
+  onChange: (value: Date | null) => void;
 }

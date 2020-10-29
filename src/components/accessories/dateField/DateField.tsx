@@ -1,53 +1,45 @@
-import React, { FunctionComponent, memo, useEffect } from "react";
-import { TextField } from "@material-ui/core";
-import { useRifm } from "rifm";
-import { formatToDate } from "./utils";
+import React, { FunctionComponent, useState } from "react";
+import { KeyboardDatePicker as DatePicker, MuiPickersUtilsProvider as DatePickerWrapper } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import { IProps } from "./types";
 import "./styles.scss";
 
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
-  label,
-  isValid,
-  errorText,
-  onBlur,
+  disableFuture,
   disabled,
-  InputProps,
+  label,
+  theme,
+  format,
+  onChange
 }) => {
-  const [value, setValue] = React.useState("");
-  const rifm = useRifm({
-    value,
-    onChange: setValue,
-    format: formatToDate,
-  });
 
-  useEffect(() => {
-    setValue(fieldValue);
-  }, [fieldValue]);
+  const [value, setValue] = useState<Date | null>((fieldValue !== "") ? new Date(fieldValue) : null);
 
-  const handleOnBlur = (e: any) => {
-    onBlur(e, value);
+  const handleDateChange = (date: Date | null) => {
+    onChange(date);
+    setValue(date);
   };
 
+  const actualClassName = theme === "light" ? "dateField__light" : "dateField";
+
   return (
-    <TextField
-      type="tel"
-      id={fieldName}
-      label={label}
-      onChange={rifm.onChange}
-      onBlur={handleOnBlur}
-      value={rifm.value}
-      error={isValid}
-      helperText={errorText}
-      variant="outlined"
-      className="dateField"
-      size="small"
-      margin="dense"
-      disabled={disabled}
-      InputProps={InputProps}
-    />
+    <DatePickerWrapper utils={DateFnsUtils}>
+      <DatePicker
+        format={format}
+        id={fieldName}
+        label={label}
+        disabled={disabled}
+        disableFuture={disableFuture}
+        className={actualClassName}
+        onChange={handleDateChange}
+        inputVariant="outlined"
+        margin="dense"
+        value={value}
+      />  
+    </DatePickerWrapper>
   );
 };
 
-export default memo(DateField);
+export default DateField;

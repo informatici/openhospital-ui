@@ -65,12 +65,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     }
   }, [shouldResetForm, resetForm]);
 
-  const dateFieldHandleOnBlur = useCallback(
-    (e, value) => {
+  const dateFieldHandleOnChange = useCallback(
+    (value) => {
       setFieldValue("birthDate", value);
-      handleBlur(e);
     },
-    [setFieldValue, handleBlur]
+    [setFieldValue]
   );
 
   return (
@@ -135,11 +134,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <DateField
               fieldName="birthDate"
               fieldValue={formik.values.birthDate}
+              disableFuture={true}
               theme="regular"
+              format="dd/MM/yyyy"
               label="Birthday (day/month/year)"
-              isValid={isValid("birthDate")}
-              errorText={getErrorText("birthDate")}
-              onBlur={dateFieldHandleOnBlur}
+              onChange={dateFieldHandleOnChange}
             />
           </div>
 
