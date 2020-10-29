@@ -7,4 +7,8 @@ export interface IStateProps {
   patient: IApiResponse<PatientDTO>;
 }
 
-export type TProps = IStateProps;
+export interface IDispatchProps {
+  getPatientThunk: (id: string) => void;
+}
+
+export type TProps = IStateProps & IDispatchProps;

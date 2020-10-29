@@ -72,19 +72,19 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
      * GET_PATIENT
      */
     case GET_PATIENT_LOADING: {
-      draft.selectedPatient.isLoading = true;
+      draft.selectedPatient.status = "LOADING";
       break;
     }
 
     case GET_PATIENT_SUCCESS: {
-      draft.selectedPatient.isLoading = false;
+      draft.selectedPatient.status = "SUCCESS";
       draft.selectedPatient.data = action.payload;
       delete draft.selectedPatient.error;
       break;
     }
 
     case GET_PATIENT_FAIL: {
-      draft.selectedPatient.isLoading = false;
+      draft.selectedPatient.status = "FAIL";
       break;
     }
   }

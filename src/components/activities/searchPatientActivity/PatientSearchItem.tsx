@@ -1,18 +1,25 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Redirect } from "react-router";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
 
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
+  getPatientSuccessCallback,
 }) => {
   const [activityTransitionState, setActivityTransitionState] = useState<
     TActivityTransitionState
   >("IDLE");
 
+  useEffect(() => {
+    if (activityTransitionState === "TO_PATIENT_DETAILS") {
+      getPatientSuccessCallback(patient);
+    }
+  }, [activityTransitionState, getPatientSuccessCallback, patient]);
+
   switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":
-      return <Redirect to={`/details/1234`} />; //TODO: use actual patient id instead
+      return <Redirect to={`/details/${patient.code}`} />; //TODO: use actual patient id instead
     default:
       return (
         <div className="patientSearchItem center-xs col-md-4 col-sm-6 col-xs-12">
@@ -22,7 +29,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
           >
             <div className="patientSearchItem__header">
               <div>
-                <strong>PID:</strong> 32040
+                <strong>PID:</strong> {patient.code}
               </div>
               <div>
                 <strong>OPD:</strong> 32240321
