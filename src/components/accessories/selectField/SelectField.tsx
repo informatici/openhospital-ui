@@ -1,4 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
@@ -8,7 +14,7 @@ const SelectField: FunctionComponent<IProps> = ({
   fieldValue,
   label,
   isValid,
-  //   errorText,
+  errorText,
   onBlur,
   options,
 }) => {
@@ -18,16 +24,21 @@ const SelectField: FunctionComponent<IProps> = ({
     setValue(fieldValue);
   }, [fieldValue]);
 
-  const handleOnBlur = (e: any) => {
+  const handleOnBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     onBlur(e, value);
   };
 
   return (
     <FormControl variant="outlined" className="selectField" size="small">
-      <InputLabel id={fieldName}>{label}</InputLabel>
+      <InputLabel id={fieldName} error={isValid}>
+        {label}
+      </InputLabel>
       <Select
         labelId={`${fieldName}-label`}
-        id={`${fieldName}-select-outlined`}
+        id={fieldName}
+        name={fieldName}
         value={value}
         onChange={(e) => setValue(e.target.value as string)}
         onBlur={handleOnBlur}
@@ -39,6 +50,7 @@ const SelectField: FunctionComponent<IProps> = ({
           <MenuItem value={option.value}>{option.label}</MenuItem>
         ))}
       </Select>
+      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };

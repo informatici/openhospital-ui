@@ -27,6 +27,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
+    sex: string().required("This field is required"),
+    birthDate: string().required("This field is required"),
     //TODO: write schema
   });
 
@@ -69,9 +71,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   }, [shouldResetForm, resetForm]);
 
   const onBlurCallback = useCallback(
-    (fieldName: string) => (e: any, value: string) => {
-      setFieldValue(fieldName, value);
+    (fieldName: string) => (
+      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+      value: string
+    ) => {
       handleBlur(e);
+      setFieldValue(fieldName, value);
     },
     [setFieldValue, handleBlur]
   );

@@ -82,10 +82,9 @@
     @include susy-media($smartphone) {
       width: 100%;
     }
-    .dateField {
-      width: 100%;
-    }
-    .textField {
+    .dateField,
+    .textField,
+    .selectField {
       width: 100%;
     }
   }
