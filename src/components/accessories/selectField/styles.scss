@@ -1,16 +1,14 @@
-@import "../../../styles/variables";
-
-.dateField {
-  height: 60px;
-  width: 250px;
-  label {
+.selectField {
+  width: 100%;
+  margin-top: 8px !important;
+  label.MuiFormLabel-root {
     top: 5px;
     &.MuiFormLabel-filled,
     &.Mui-focused {
       top: 2px;
     }
   }
-  input {
+  .MuiSelect-select.MuiInputBase-input {
     padding-top: 15px;
     padding-bottom: 15px;
   }

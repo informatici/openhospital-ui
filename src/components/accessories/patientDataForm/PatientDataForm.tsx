@@ -9,6 +9,7 @@ import {
 } from "../../../libraries/formDataHandling/functions";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
+import SelectField from "../selectField/SelectField";
 import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
 import TextField from "../textField/TextField";
@@ -26,10 +27,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
-    //TODO: write schema
+    // sex: string().required("This field is required"),
+    // birthDate: string().required("This field is required"),
   });
 
   const initialValues = getFromFields(fields, "value");
+
+  const options = getFromFields(fields, "options");
 
   const formik = useFormik({
     initialValues,
@@ -65,10 +69,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     }
   }, [shouldResetForm, resetForm]);
 
-  const dateFieldHandleOnBlur = useCallback(
-    (e, value) => {
-      setFieldValue("birthDate", value);
+  const onBlurCallback = useCallback(
+    (fieldName: string) => (
+      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+      value: string
+    ) => {
       handleBlur(e);
+      setFieldValue(fieldName, value);
     },
     [setFieldValue, handleBlur]
   );
@@ -121,13 +128,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("sex")}
-              theme="regular"
+            <SelectField
+              fieldName="sex"
+              fieldValue={formik.values.sex}
               label="Gender"
               isValid={isValid("sex")}
               errorText={getErrorText("sex")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("sex")}
+              options={options.sex}
             />
           </div>
 
@@ -139,7 +147,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               label="Birthday (day/month/year)"
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
-              onBlur={dateFieldHandleOnBlur}
+              onBlur={onBlurCallback("birthDate")}
             />
           </div>
 
@@ -168,13 +176,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("bloodType")}
-              theme="regular"
+            <SelectField
+              fieldName="bloodType"
+              fieldValue={formik.values.bloodType}
               label="Blood Type"
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("bloodType")}
+              options={options.bloodType}
             />
           </div>
         </div>
@@ -203,13 +212,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("parentTogether")}
-              theme="regular"
+            <SelectField
+              fieldName="parentTogether"
+              fieldValue={formik.values.parentTogether}
               label="Lives with the parents?"
               isValid={isValid("parentTogether")}
               errorText={getErrorText("parentTogether")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("parentTogether")}
+              options={options.parentTogether}
             />
           </div>
         </div>
@@ -252,13 +262,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("hasInsurance")}
-              theme="regular"
+            <SelectField
+              fieldName="hasInsurance"
+              fieldValue={formik.values.hasInsurance}
               label="Has insurance"
               isValid={isValid("hasInsurance")}
               errorText={getErrorText("hasInsurance")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("hasInsurance")}
+              options={options.hasInsurance}
             />
           </div>
         </div>
