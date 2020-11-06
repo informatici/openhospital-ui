@@ -1,12 +1,14 @@
 import React from "react";
 import { TTabConfig } from "../../accessories/tabs/types";
+import PatientDetailsContent from '../patientDetailsActivityContent/PatientDetailsActivityContent';
 
 export const patientDetailTabs: TTabConfig = [
-  { label: "OPD", content: <span>Content 1</span> },
-  { label: "Summary", content: <span>Content 2</span> },
-  { label: "Triage", content: <span>Content 3</span> },
-  { label: "Admission", content: <span>Content 4</span> },
-  { label: "Therapy", content: <span>Content 5</span> },
-  { label: "Vaccination", content: <span>Content 6</span> },
-  { label: "Lab Exam", content: <span>Content 7</span> },
+  { label: "ODP", content: <PatientDetailsContent title="ODP" content="ODP" /> },
+  { label: "Summary", content: <PatientDetailsContent title="Summary" content="Summary" /> },
+  { label: "Triage", content: <PatientDetailsContent title="Triage" content="Triage" /> },
+  { label: "Admission", content: <PatientDetailsContent title="Admission" content="Admission" /> },
+  { label: "Therapy", content: <PatientDetailsContent title="Therapy" content="Therapy" /> },
+  { label: "Vaccination", content: <PatientDetailsContent title="Vaccination" content="Vaccination" /> },
+  { label: "Lab Exam", content: <PatientDetailsContent title="Lab Exam" content="Lab Exam" /> },
 ];
+
