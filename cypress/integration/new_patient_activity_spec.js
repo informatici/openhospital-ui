@@ -84,6 +84,8 @@ describe("NewPatientActivity spec", () => {
 
   it("should show an error message when the call fails", () => {
     cy.get("[id=firstName]").clear().type("fail");
+    cy.get("[id=secondName]").clear().type("fail");
+    cy.get("[id=birthDate]").clear().type("00/00/0000");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
