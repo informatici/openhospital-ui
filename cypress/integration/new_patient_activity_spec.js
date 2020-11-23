@@ -98,7 +98,9 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
-    cy.get("[id=firstName]").type("Antonio Carlos");
+    cy.get("[id=firstName]").type("Antonio");
+    cy.get("[id=lastName]").type("Carlos");
+    cy.get("[id=birthDate]").type("10/10/2020");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__content").contains("Dashboard").click();
     cy.get("div.dashboard");
