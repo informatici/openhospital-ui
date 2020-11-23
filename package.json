@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
