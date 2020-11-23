@@ -65,12 +65,17 @@ describe("NewPatientActivity spec", () => {
   it("should allow the user to fill in the form with personal data", () => {
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
+    cy.get("[id=birthDate]").type("10/10/2020");
   });
 
   it("should reset all the fields on the Clear All button click", () => {
+    cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
+    cy.get("[id=birthDate]").clear().type("10/10/2020");
     cy.get("[class=patientDataForm]").contains("Clear All").click();
+    cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
+    cy.get("[id=birthDate]").should("have.value", "");
   });
 
   it.skip("should reset the profile picture on the Clear All button click", () => {
@@ -85,6 +90,8 @@ describe("NewPatientActivity spec", () => {
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
+    cy.get("[id=secondName]").clear().type("Jobim");
+    cy.get("[id=birthDate]").clear().type("10/10/2020");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
@@ -95,11 +102,12 @@ describe("NewPatientActivity spec", () => {
     cy.get("div.dialog__content").contains("Keep editing").click();
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
+    cy.get("[id=birthDate]").should("have.value", "");
   });
 
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
-    cy.get("[id=firstName]").type("Antonio");
-    cy.get("[id=lastName]").type("Carlos");
+    cy.get("[id=firstName]").type("Antonio Carlos");
+    cy.get("[id=secondName]").type("Jobim");
     cy.get("[id=birthDate]").type("10/10/2020");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__content").contains("Dashboard").click();
