@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo, useEffect } from "react";
+import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import { TextField } from "@material-ui/core";
 import { useRifm } from "rifm";
 import { formatToDate } from "./utils";
@@ -15,7 +15,7 @@ const DateField: FunctionComponent<IProps> = ({
   disabled,
   InputProps,
 }) => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
   const rifm = useRifm({
     value,
     onChange: setValue,
