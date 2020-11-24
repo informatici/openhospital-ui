@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IPropsSummary, IProps } from "./types";
 import "./styles.scss";
 import classNames from "classnames";
@@ -12,7 +12,7 @@ export const AccordionSummary: React.FC<IPropsSummary> = ({
   return (
     <div className="accordion_summary" onClick={onClick}>
       <span>{children}</span>
-      <img src={Arrow} className="icon_toggle" />
+      <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
     </div>
   )
 };

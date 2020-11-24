@@ -43,10 +43,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>('panel_1');
 
-  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-    setExpanded(newExpanded ? panel : false);
-  };
-
   return (
     <div className="patientDetails">
       <AppHeader

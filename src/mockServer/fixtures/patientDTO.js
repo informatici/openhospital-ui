@@ -9,7 +9,6 @@ const patientDTO = {
   address: "Via Roma, 4",
   city: "Milano",
   telephone: "3335678455",
-  note: "",
   mother_name: "Rosa",
   mother: "D",
   father_name: "Luigi",
