@@ -67,7 +67,7 @@
   }
 
   .patientDataForm__item {
-    margin: 5px 0px;
+    margin: 7px 0px;
     padding: 0px 20px;
     width: 33%;
     @include susy-media($narrow) {
@@ -87,10 +87,16 @@
     .selectField {
       width: 100%;
     }
+
+    &.fullWidth{
+      width: 100%;
+    }
   }
 
   .patientDataForm__buttonSet {
     display: flex;
+    margin-top: 25px;
+    padding: 0px 15px;
     flex-direction: row-reverse;
     @include susy-media($smartphone_small) {
       display: block;

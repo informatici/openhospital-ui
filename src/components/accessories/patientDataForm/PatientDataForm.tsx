@@ -274,6 +274,20 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
 
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item fullWidth">
+            <TextField
+              field={formik.getFieldProps("note")}
+              theme="regular"
+              multiline={true}
+              label="Note"
+              isValid={isValid("note")}
+              errorText={getErrorText("note")}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+        </div>
+
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
             <SmallButton type="submit" disabled={isLoading}>

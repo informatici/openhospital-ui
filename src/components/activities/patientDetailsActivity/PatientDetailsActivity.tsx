@@ -5,14 +5,17 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
+import { Accordion, AccordionDetails, AccordionSummary } from '../../accessories/accordion/Accordion';
 import Tabs from "../../accessories/tabs/Tabs";
-import "./styles.scss";
-import { patientDetailTabs } from "./tabsConfig";
+
+import { IState } from "../../../types";
 import { IDispatchProps, IStateProps, TProps } from "./types";
+import { patientDetailTabs } from "./tabsConfig";
+
+import "./styles.scss";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -38,6 +41,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   };
 
   const [isOpen, setIsOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string | false>('panel_1');
+
+  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   return (
     <div className="patientDetails">
@@ -76,84 +84,104 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     preLoadedPicture={patient.data?.blobPhoto}
                   />
                 </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Name:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.firstName}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Surname:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.secondName}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Gender:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.sex}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Blood Type:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.bloodType}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Patient ID:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.code}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Provenience:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.city}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Tax number:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.taxCode}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Health Insurance:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.hasInsurance}
-                  </div>
-                </div>
-                <div className="patientDetails__personalData__item">
-                  <div className="patientDetails__personalData__item__label">
-                    Telephone number:
-                  </div>
-                  <div className="patientDetails__personalData__item__value">
-                    {patient.data?.telephone}
-                  </div>
-                </div>
+                <Accordion expanded={expanded === 'panel_1'}>
+                  <AccordionSummary onClick={() => setExpanded('panel_1')}>
+                    <p>Personal Data</p>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Name:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.firstName}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Surname:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.secondName}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Gender:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.sex}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Blood Type:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.bloodType}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Patient ID:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.code}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Provenience:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.city}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Tax number:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.taxCode}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Health Insurance:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.hasInsurance}
+                      </div>
+                    </div>
+                    <div className="patientDetails__personalData__item">
+                      <div className="patientDetails__personalData__item__label">
+                        Telephone number:
+                      </div>
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.telephone}
+                      </div>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion expanded={expanded === 'panel_2'}>
+                  <AccordionSummary onClick={() => setExpanded('panel_2')}>
+                    Patient Note
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="patientDetails__personalData__item longText">
+                      <div className="patientDetails__personalData__item__value">
+                        {patient.data?.note}
+                      </div>
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
               </div>
             </div>
             <div className="patientDetails__content">
               <Tabs config={patientDetailTabs} />
-            </div>
+            </div>          
           </div>
+
         </div>
       </div>
       <Footer />

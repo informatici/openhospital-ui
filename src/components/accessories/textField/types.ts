@@ -11,6 +11,7 @@ export interface IProps {
   theme: "light" | "regular";
   label: string;
   type?: string;
+  multiline?: boolean;
   isValid: boolean;
   errorText: string;
   onBlur: (e: any) => void;
