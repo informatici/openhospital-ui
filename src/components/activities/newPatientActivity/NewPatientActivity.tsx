@@ -33,7 +33,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   dashboardRoute,
 }) => {
   const breadcrumbMap = {
-    Dashboard: "/dashboard",
+    Dashboard: "/",
     "New Patient": "/new",
   };
 
