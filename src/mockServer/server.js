@@ -58,6 +58,21 @@ export function makeServer() {
         }
       });
 
+      server.put("/:code").intercept((req, res) => {
+        const code = req.params.code;
+        switch (code) {
+          case "1234561":
+            res.status(400);
+            break;
+          case "1234562":
+            res.status(204);
+            res.body = null;
+            break;
+          default:
+            res.status(200).json(patientDTO);
+        }
+      });
+
       server.get("/search").intercept((req, res) => {
         switch (req.query.firstName) {
           case "empty":

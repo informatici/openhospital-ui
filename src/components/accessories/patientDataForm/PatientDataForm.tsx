@@ -7,6 +7,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import { PatientDTO } from "../../../generated";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SelectField from "../selectField/SelectField";
@@ -22,6 +23,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   onSubmit,
   submitButtonLabel,
   isLoading,
+  editMode,
+  patient,
   shouldResetForm,
   resetFormCallback,
 }) => {
@@ -68,6 +71,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       resetForm();
     }
   }, [shouldResetForm, resetForm]);
+
+  useEffect(() => {
+    if (editMode && patient) {
+      Object.keys(initialValues).forEach((field) => 
+        setFieldValue(field, (patient?.data?.[field as keyof PatientDTO]) ? patient?.data?.[field as keyof PatientDTO] : '', false));
+    }
+  }, [patient, editMode])
 
   const onBlurCallback = useCallback(
     (fieldName: string) => (

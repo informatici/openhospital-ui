@@ -19,6 +19,10 @@ import {
   SEARCH_PATIENT_FAIL,
   SEARCH_PATIENT_LOADING,
   SEARCH_PATIENT_SUCCESS,
+  UPDATE_PATIENT_LOADING,
+  UPDATE_PATIENT_FAIL,
+  UPDATE_PATIENT_RESET,
+  UPDATE_PATIENT_SUCCESS,
 } from "./consts";
 
 const patientControllerApi = new PatientControllerApi(
@@ -45,6 +49,37 @@ export const createPatient = (newPatient: PatientDTO) => (
       });
     }
   );
+};
+
+export const updatePatient = (code: number, updatePatient: PatientDTO) => (
+  dispatch: Dispatch<IAction<null, {}>>
+) => {
+  dispatch({
+    type: UPDATE_PATIENT_LOADING,
+  });
+
+  patientControllerApi.updatePatientUsingPUT({ code, updatePatient }).subscribe(
+    (payload) => {
+      dispatch({
+        type: UPDATE_PATIENT_SUCCESS,
+      });
+    },
+    (error) => {
+      console.log(error);
+      dispatch({
+        type: UPDATE_PATIENT_FAIL,
+        error,
+      });
+    }
+  );
+};
+
+export const updatePatientReset = () => (
+  dispatch: Dispatch<IAction<null, {}>>
+) => {
+  dispatch({
+    type: UPDATE_PATIENT_RESET,
+  });
 };
 
 export const createPatientReset = () => (
