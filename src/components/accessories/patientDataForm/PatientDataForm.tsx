@@ -77,7 +77,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       Object.keys(initialValues).forEach((field) => 
         setFieldValue(field, (patient?.data?.[field as keyof PatientDTO]) ? patient?.data?.[field as keyof PatientDTO] : '', false));
     }
-  }, [patient, editMode])
+  }, [])
 
   const onBlurCallback = useCallback(
     (fieldName: string) => (
