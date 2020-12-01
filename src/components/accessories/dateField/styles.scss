@@ -1,7 +1,7 @@
 @import "../../../styles/variables";
 
 .dateField {
-  height: 60px;
+  //height: 60px;
   width: 250px;
   label {
     top: 5px;
@@ -13,5 +13,11 @@
   input {
     padding-top: 15px;
     padding-bottom: 15px;
+  }
+  .MuiFormHelperText-root.Mui-error{
+    position: absolute;
+    bottom: -20px;
+    margin: 0px;
+    left: 0px;
   }
 }

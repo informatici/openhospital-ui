@@ -10,13 +10,14 @@ const TextField: FunctionComponent<IProps> = ({
   type,
   isValid,
   errorText,
+  multiline,
   onBlur,
   disabled,
   InputProps,
 }) => {
   const actualClassName = theme === "light" ? "textField__light" : "textField";
   return (
-    <div>
+    <React.Fragment>
       <MaterialComponent
         id={field.name}
         label={label}
@@ -29,11 +30,13 @@ const TextField: FunctionComponent<IProps> = ({
         variant="outlined"
         className={actualClassName}
         size="small"
+        multiline={multiline || false}
+        rows={10}
         margin="dense"
         disabled={disabled}
         InputProps={InputProps}
       />
-    </div>
+    </React.Fragment>
   );
 };
 
