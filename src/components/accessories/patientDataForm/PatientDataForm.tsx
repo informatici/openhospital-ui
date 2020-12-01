@@ -27,8 +27,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
-    // sex: string().required("This field is required"),
-    // birthDate: string().required("This field is required"),
+    secondName: string().required("This field is required"),
+    birthDate: string().required("This field is required"),
+    // sex: string().required("This field is required
   });
 
   const initialValues = getFromFields(fields, "value");
