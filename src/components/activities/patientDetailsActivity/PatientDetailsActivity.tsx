@@ -35,7 +35,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    Dashboard: "/dashboard",
+    Dashboard: "/",
     "Search Patient": "/search",
     "Patient Details": `/details/${patient.data?.code}`,
   };

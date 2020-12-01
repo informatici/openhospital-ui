@@ -11,7 +11,7 @@ const PrivateRoute: FunctionComponent<RouteProps> = ({ children, ...rest }) => {
       ) : (
         <Redirect
           to={{
-            pathname: "/",
+            pathname: "/login",
             state: { from: location },
           }}
         />
