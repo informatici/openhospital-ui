@@ -1,15 +1,13 @@
 import { PatientDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { IApiResponse } from "../../../state/types";
-
 interface IOwnProps {
   fields: TFields<TPatientDataFormFieldName>;
   profilePicture?: any;
   onSubmit: (patient: PatientDTO) => void;
   submitButtonLabel: string;
+  resetButtonLabel: string;
   isLoading: boolean;
-  editMode?: boolean;
-  patient?: IApiResponse<PatientDTO>;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }

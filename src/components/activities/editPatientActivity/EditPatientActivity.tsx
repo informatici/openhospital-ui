@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Redirect, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientDTO } from "../../../generated";
+import { updateFields } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   updatePatient,
@@ -52,7 +53,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
-    updatePatient(patient?.data?.code!, updatePatientValues);
+    if(patient?.data?.code)
+      updatePatient(patient?.data?.code, updatePatientValues);
+    else 
+      console.error('The Patient: PatientDTO object must have a "code" property.');
   };
 
   const [activityTransitionState, setActivityTransitionState] = useState<TActivityTransitionState>("IDLE");
@@ -100,13 +104,12 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
             <div className="newPatient__content">
               <div className="newPatient__title">{`Edit patient: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
               <PatientDataForm
-                fields={initialFields}
+                fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
                 onSubmit={onSubmit}
                 submitButtonLabel="submit"
+                resetButtonLabel="reset"
                 isLoading={isLoading}
-                editMode={true}
-                patient={patient}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
               />
