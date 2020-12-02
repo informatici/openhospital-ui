@@ -30,8 +30,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
-    // sex: string().required("This field is required"),
-    // birthDate: string().required("This field is required"),
+    secondName: string().required("This field is required"),
+    birthDate: string().required("This field is required"),
+    // sex: string().required("This field is required
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -280,6 +281,20 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("hasInsurance")}
               onBlur={onBlurCallback("hasInsurance")}
               options={options.hasInsurance}
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item fullWidth">
+            <TextField
+              field={formik.getFieldProps("note")}
+              theme="regular"
+              multiline={true}
+              label="Note"
+              isValid={isValid("note")}
+              errorText={getErrorText("note")}
+              onBlur={formik.handleBlur}
             />
           </div>
         </div>

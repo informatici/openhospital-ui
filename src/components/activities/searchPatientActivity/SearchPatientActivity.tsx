@@ -29,7 +29,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   getPatientSuccess,
 }) => {
   const breadcrumbMap = {
-    Dashboard: "/dashboard",
+    Dashboard: "/",
     "Search Patient": "/search",
   };
 
