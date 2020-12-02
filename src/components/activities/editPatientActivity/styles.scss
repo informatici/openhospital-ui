@@ -1,17 +1,17 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 
-.newPatient {
+.editPatient {
   background-color: $c-color-secondary;
 
-  .newPatient__background {
+  .editPatient__background {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  .newPatient__content {
+  .editPatient__content {
     width: 80%;
     @include susy-media($narrow) {
       width: 90%;
@@ -27,7 +27,7 @@
     }
   }
 
-  .newPatient__title {
+  .editPatient__title {
     font-size: xx-large;
     color: $c-black;
     font-weight: bolder;

@@ -95,14 +95,14 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       return <Redirect to={`/details/${patient.data?.code}`} />;
     default:
       return (
-        <div className="newPatient">
+        <div className="editPatient">
           <AppHeader
             userCredentials={userCredentials}
             breadcrumbMap={breadcrumbMap}
           />
-          <div className="newPatient__background">
-            <div className="newPatient__content">
-              <div className="newPatient__title">{`Edit patient: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
+          <div className="editPatient__background">
+            <div className="editPatient__content">
+              <div className="editPatient__title">{`Edit patient: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
               <PatientDataForm
                 fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
