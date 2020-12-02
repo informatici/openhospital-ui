@@ -69,9 +69,9 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should reset all the fields on the Clear All button click", () => {
-    cy.get("[id=firstName]").clear().type("Antonio Carlos");
-    cy.get("[id=secondName]").clear().type("Jobim");
-    cy.get("[id=birthDate]").clear().type("10/10/2020");
+    cy.get("[id=firstName]").clear({ force: true }).type("Antonio Carlos");
+    cy.get("[id=secondName]").clear({ force: true }).type("Jobim");
+    cy.get("[id=birthDate]").clear({ force: true }).type("10/10/2020");
     cy.get("[class=patientDataForm]").contains("Clear All").click();
     cy.get("div.dialog__content").contains("Clear All").click();
     cy.get("[id=firstName]").should("have.value", "");
@@ -85,17 +85,17 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should show an error message when the call fails", () => {
-    cy.get("[id=firstName]").clear().type("fail");
-    cy.get("[id=secondName]").clear().type("fail");
-    cy.get("[id=birthDate]").clear().type("00/00/0000");
+    cy.get("[id=firstName]").clear({ force: true }).type("fail");
+    cy.get("[id=secondName]").clear({ force: true }).type("fail");
+    cy.get("[id=birthDate]").clear({ force: true }).type("00/00/0000");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
 
   it("should show a confirmation dialog when the call is successful", () => {
-    cy.get("[id=firstName]").clear().type("Antonio Carlos");
-    cy.get("[id=secondName]").clear().type("Jobim");
-    cy.get("[id=birthDate]").clear().type("10/10/2020");
+    cy.get("[id=firstName]").clear({ force: true }).type("Antonio Carlos");
+    cy.get("[id=secondName]").clear({ force: true }).type("Jobim");
+    cy.get("[id=birthDate]").clear({ force: true }).type("10/10/2020");
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
@@ -103,8 +103,8 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should reset the form if the user chooses to keep editing after a submit", () => {
-    cy.get("[class=patientDataForm]").contains("submit").click();
-    cy.get("div.dialog__content").contains("Keep editing").click();
+    cy.get("[class=patientDataForm]").contains("submit").click({ force: true });
+    cy.get("div.dialog__content").contains("Keep editing").click({ force: true });
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
     cy.get("[id=birthDate]").should("have.value", "");
@@ -114,8 +114,8 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get("[id=birthDate]").type("10/10/2020");
-    cy.get("[class=patientDataForm]").contains("submit").click();
-    cy.get("div.dialog__content").contains("Dashboard").click();
+    cy.get("[class=patientDataForm]").contains("submit").click({ force: true });
+    cy.get("div.dialog__content").contains("Dashboard").click({ force: true });
     cy.get("div.dashboard");
   });
 });
