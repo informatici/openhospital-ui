@@ -69,14 +69,20 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should reset all the fields on the Clear All button click", () => {
-    /*cy.get("[id=firstName]").clear().type("Antonio Carlos");
+    cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
     cy.get("[id=birthDate]").clear().type("10/10/2020");
+    
     cy.get("[class=patientDataForm]").contains("Clear All").click();
+    
+    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("div.dialog__content").contains("Dashboard").click();
+    
     cy.get("div.dialog__content").contains("Clear All").click();
+    
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
-    cy.get("[id=birthDate]").should("have.value", "");*/
+    cy.get("[id=birthDate]").should("have.value", "");
   });
 
   it.skip("should reset the profile picture on the Clear All button click", () => {
@@ -100,11 +106,13 @@ describe("NewPatientActivity spec", () => {
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
     );
+    cy.wait(1500);
   });
 
   it("should reset the form if the user chooses to keep editing after a submit", () => {
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__content").contains("Keep editing").click();
+    cy.wait(1500);
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
     cy.get("[id=birthDate]").should("have.value", "");
