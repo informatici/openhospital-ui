@@ -311,18 +311,20 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </TextButton>
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={`Are you sure to ${resetButtonLabel} the Form?`}
-          icon={warningIcon}
-          primaryButtonLabel={resetButtonLabel}
-          secondaryButtonLabel="Dismiss"
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() =>
-            setOpenResetConfirmation(false)
-          }
-        />
+        {(openResetConfirmation) ?
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={resetButtonLabel.toUpperCase()}
+            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            icon={warningIcon}
+            primaryButtonLabel={resetButtonLabel}
+            secondaryButtonLabel="Dismiss"
+            handlePrimaryButtonClick={handleResetConfirmation}
+            handleSecondaryButtonClick={() =>
+              setOpenResetConfirmation(false)
+            }
+          />
+        : ''}
       </form>
     </div>
   );
