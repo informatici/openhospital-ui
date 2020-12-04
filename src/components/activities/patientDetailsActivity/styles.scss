@@ -75,6 +75,30 @@
   }
 
   .patientDetails__personalData_sidebar {
+    position: relative;
+
+    .patientDetails__personalData_edit_button{
+      position: relative;
+      cursor: pointer;
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      top: 25px;
+      .profilePicture_editIcon{
+        display: inline-flex;
+        position: initial;
+        bottom: initial;
+        left: initial;
+      }
+      span{
+        text-decoration: underline;
+        position: relative;
+        margin-left: 5px;
+        color: $c-white;
+        top: -5px;
+      }
+    }
+    
     .accordion{
       padding: 20px 0px 0px;
       .accordion_summary{

@@ -1,0 +1,47 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.editPatient {
+  background-color: $c-color-secondary;
+
+  .editPatient__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .editPatient__content {
+    width: 80%;
+    @include susy-media($narrow) {
+      width: 90%;
+    }
+    @include susy-media($tablet_land) {
+      width: 90%;
+    }
+    @include susy-media($tablet_port) {
+      width: 90%;
+    }
+    @include susy-media($smartphone) {
+      width: 90%;
+    }
+  }
+
+  .editPatient__title {
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+    margin: 45px 0px 70px 0px;
+    @include susy-media($tablet_port) {
+      font-size: x-large;
+    }
+    @include susy-media($smartphone) {
+      margin: 45px 0px 80px 0px;
+      font-size: x-large;
+    }
+  }
+
+  .footer {
+    position: relative;
+  }
+}

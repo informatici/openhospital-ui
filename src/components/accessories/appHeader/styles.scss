@@ -212,6 +212,7 @@
         span,
         p,
         a {
+          color: $c-black;
           @include susy-media($tablet_land) {
             color: $c-white;
             font-size: small;

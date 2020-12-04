@@ -87,6 +87,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
                 fields={initialFields}
                 onSubmit={onSubmit}
                 submitButtonLabel="submit"
+                resetButtonLabel="Clear All"
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}

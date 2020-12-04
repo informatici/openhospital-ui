@@ -11,6 +11,10 @@ import {
   SEARCH_PATIENT_FAIL,
   SEARCH_PATIENT_LOADING,
   SEARCH_PATIENT_SUCCESS,
+  UPDATE_PATIENT_LOADING,
+  UPDATE_PATIENT_FAIL,
+  UPDATE_PATIENT_RESET,
+  UPDATE_PATIENT_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IPatientsState } from "./types";
@@ -85,6 +89,31 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case GET_PATIENT_FAIL: {
       draft.selectedPatient.status = "FAIL";
+      break;
+    }
+
+    /**
+     * UPDATE_PATIENT
+     */
+    case UPDATE_PATIENT_LOADING: {
+      draft.updatePatient.status = "LOADING";
+      break;
+    }
+
+    case UPDATE_PATIENT_SUCCESS: {
+      draft.updatePatient.status = "SUCCESS";
+      delete draft.updatePatient.error;
+      break;
+    }
+
+    case UPDATE_PATIENT_FAIL: {
+      draft.updatePatient.status = "FAIL";
+      break;
+    }
+
+    case UPDATE_PATIENT_RESET: {
+      draft.updatePatient.status = "IDLE";
+      delete draft.updatePatient.error;
       break;
     }
   }

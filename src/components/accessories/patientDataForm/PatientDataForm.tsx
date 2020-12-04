@@ -1,12 +1,14 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useCallback, useEffect } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import warningIcon from "../../../assets/warning-icon.png";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SelectField from "../selectField/SelectField";
@@ -21,6 +23,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   profilePicture,
   onSubmit,
   submitButtonLabel,
+  resetButtonLabel,
   isLoading,
   shouldResetForm,
   resetFormCallback,
@@ -39,6 +42,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const formik = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       onSubmit(formattedValues);
@@ -81,6 +85,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     [setFieldValue, handleBlur]
   );
 
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+  
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    formik.resetForm();
+  }
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -296,11 +306,23 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </SmallButton>
           </div>
           <div className="reset_button">
-            <TextButton onClick={() => formik.resetForm()}>
-              Clear All
+            <TextButton onClick={() => setOpenResetConfirmation(true)}>
+              {resetButtonLabel}
             </TextButton>
           </div>
         </div>
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={resetButtonLabel.toUpperCase()}
+          info={`Are you sure to ${resetButtonLabel} the Form?`}
+          icon={warningIcon}
+          primaryButtonLabel={resetButtonLabel}
+          secondaryButtonLabel="Dismiss"
+          handlePrimaryButtonClick={handleResetConfirmation}
+          handleSecondaryButtonClick={() =>
+            setOpenResetConfirmation(false)
+          }
+        />
       </form>
     </div>
   );
