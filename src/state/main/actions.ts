@@ -20,7 +20,7 @@ export const setAuthenticationSuccess = (
 
 export const setAuthenticationThunk = (username: string, password: string) => (
   dispatch: Dispatch<IAction<LoginResponse, {}>>
-) => {
+): void => {
   dispatch({
     type: SET_AUTHENTICATION_LOADING,
   });

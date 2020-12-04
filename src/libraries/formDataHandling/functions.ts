@@ -2,7 +2,7 @@ import { produce } from "immer";
 import { PatientDTO } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
-export const getFromFields = (fields: TFields, fieldAddress: TFieldAddress) => {
+export const getFromFields = (fields: TFields, fieldAddress: TFieldAddress): Record<string, any> => {
   return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
     acc[key] = fields[key][fieldAddress];
     return acc;
@@ -20,7 +20,7 @@ const parseDate = (raw: string) => {
 export const formatAllFieldValues = (
   fields: TFields,
   values: Record<string, string>
-) => {
+): Record<string, TFieldFormattedValue> => {
   return Object.keys(fields).reduce(
     (acc: Record<string, TFieldFormattedValue>, key) => {
       switch (fields[key].type) {

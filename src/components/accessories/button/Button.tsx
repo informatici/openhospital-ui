@@ -7,7 +7,6 @@ const Button: FunctionComponent<IProps> = ({
   children,
   type,
   variant,
-  color,
   disabled,
   onClick,
 }) => {

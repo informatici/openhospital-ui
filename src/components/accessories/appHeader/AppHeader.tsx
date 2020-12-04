@@ -10,7 +10,6 @@ import "./styles.scss";
 import { TProps } from "./types";
 
 const AppHeader: FunctionComponent<TProps> = ({
-  userCredentials,
   breadcrumbMap,
 }) => {
   const keys = Object.keys(breadcrumbMap);
