@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TFieldName } from "./types";
 
-export const useIsSearchById = (formik: any) => {
+export const useIsSearchById = (formik: any): boolean => {
   const [isSearchById, setIsSearchById] = useState(false);
   const { setFieldTouched, setFieldValue, values } = formik;
   useEffect(() => {

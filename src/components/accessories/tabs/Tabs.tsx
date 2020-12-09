@@ -7,7 +7,7 @@ const Tabs: FunctionComponent<IProps> = ({ config }) => {
 
   const [ currentIndex, updateCurrentIndex ] = useState(0); 
 
-  const renderHeader = (mobile: boolean = false): JSX.Element[] => {
+  const renderHeader = (mobile = false): JSX.Element[] => {
     if(!mobile){
       return config.map((item, index) => {
         return (

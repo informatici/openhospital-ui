@@ -31,13 +31,13 @@ const patientControllerApi = new PatientControllerApi(
 
 export const createPatient = (newPatient: PatientDTO) => (
   dispatch: Dispatch<IAction<null, {}>>
-) => {
+): void => {
   dispatch({
     type: CREATE_PATIENT_LOADING,
   });
 
   patientControllerApi.newPatientUsingPOST({ newPatient }).subscribe(
-    (payload) => {
+    () => {
       dispatch({
         type: CREATE_PATIENT_SUCCESS,
       });
@@ -53,19 +53,18 @@ export const createPatient = (newPatient: PatientDTO) => (
 
 export const updatePatient = (code: number, updatePatient: PatientDTO) => (
   dispatch: Dispatch<IAction<null, {}>>
-) => {
+): void => {
   dispatch({
     type: UPDATE_PATIENT_LOADING,
   });
 
   patientControllerApi.updatePatientUsingPUT({ code, updatePatient }).subscribe(
-    (payload) => {
+    () => {
       dispatch({
         type: UPDATE_PATIENT_SUCCESS,
       });
     },
     (error) => {
-      console.log(error);
       dispatch({
         type: UPDATE_PATIENT_FAIL,
         error,
@@ -76,7 +75,7 @@ export const updatePatient = (code: number, updatePatient: PatientDTO) => (
 
 export const updatePatientReset = () => (
   dispatch: Dispatch<IAction<null, {}>>
-) => {
+): void => {
   dispatch({
     type: UPDATE_PATIENT_RESET,
   });
@@ -84,7 +83,7 @@ export const updatePatientReset = () => (
 
 export const createPatientReset = () => (
   dispatch: Dispatch<IAction<null, {}>>
-) => {
+): void => {
   dispatch({
     type: CREATE_PATIENT_RESET,
   });
@@ -92,7 +91,7 @@ export const createPatientReset = () => (
 
 export const searchPatient = (values: TValues) => (
   dispatch: Dispatch<IAction<PatientDTO[], {}>>
-) => {
+): void => {
   dispatch({
     type: SEARCH_PATIENT_LOADING,
   });
@@ -157,7 +156,7 @@ export const getPatientSuccess = (
 
 export const getPatientThunk = (id: string) => (
   dispatch: Dispatch<IAction<PatientDTO, {}>>
-) => {
+): void => {
   dispatch({
     type: GET_PATIENT_LOADING,
   });

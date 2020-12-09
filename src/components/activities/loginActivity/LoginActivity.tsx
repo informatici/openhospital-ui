@@ -157,7 +157,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  status: state.main.authentication.status!,
+  status: state.main.authentication.status || "IDLE",
 });
 
 const mapDispatchToProps: IDispatchProps = {
