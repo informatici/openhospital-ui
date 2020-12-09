@@ -39,7 +39,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const breadcrumbMap = {
     Dashboard: "/",
     "Search Patient": "/search",
-    "Patient Details": `/details/${patient.data?.code}`,
+    "Patient Dashboard": `/details/${patient.data?.code}`,
   };
 
   const [activityTransitionState, setActivityTransitionState] = useState<TActivityTransitionState>("IDLE");
@@ -68,7 +68,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     className="patientDetails__personalData__trigger_mobile"
                     onClick={() => setIsOpen(!isOpen)}
                   >
-                    Antonio Carlos
+                    {patient.data?.firstName || "-"}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="arrow_icon"
@@ -103,7 +103,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Name:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.firstName}
+                            {patient.data?.firstName || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -111,7 +111,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Surname:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.secondName}
+                            {patient.data?.secondName || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -119,7 +119,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Gender:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.sex}
+                            {patient.data?.sex || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -127,7 +127,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Blood Type:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.bloodType}
+                            {patient.data?.bloodType || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -135,7 +135,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Patient ID:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.code}
+                            {patient.data?.code || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -143,7 +143,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Provenience:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.city}
+                            {patient.data?.city || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -151,7 +151,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Tax number:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.taxCode}
+                            {patient.data?.taxCode || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -159,7 +159,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Health Insurance:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.hasInsurance}
+                            {patient.data?.hasInsurance || "-"}
                           </div>
                         </div>
                         <div className="patientDetails__personalData__item">
@@ -167,11 +167,12 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Telephone number:
                           </div>
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.telephone}
+                            {patient.data?.telephone || "-"}
                           </div>
                         </div>
                       </AccordionDetails>
                     </Accordion>
+                    {(patient.data?.note) ? 
                     <Accordion expanded={expanded === 'panel_2'}>
                       <AccordionSummary onClick={() => setExpanded('panel_2')}>
                         Patient Note
@@ -179,11 +180,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       <AccordionDetails>
                         <div className="patientDetails__personalData__item longText">
                           <div className="patientDetails__personalData__item__value">
-                            {patient.data?.note}
+                            {patient.data.note}
                           </div>
                         </div>
                       </AccordionDetails>
-                    </Accordion>
+                    </Accordion> : ''}
                   </div>
                 </div>
                 <div className="patientDetails__content">
