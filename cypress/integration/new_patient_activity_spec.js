@@ -66,6 +66,8 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get("[id=birthDate]").type("10/10/2020");
+    cy.get(".MuiSelect-select[id=sex]").click();
+    cy.get(".MuiMenu-list li[data-value=M]").click();
   });
 
   it("should reset all the fields on the Clear All button click", () => {
@@ -88,6 +90,8 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[id=secondName]").clear().type("fail");
     cy.get("[id=birthDate]").clear().type("00/00/0000");
+    cy.get(".MuiSelect-select[id=sex]").click();
+    cy.get(".MuiMenu-list li[data-value=M]").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
@@ -96,6 +100,8 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
     cy.get("[id=birthDate]").clear().type("10/10/2020");
+    cy.get(".MuiSelect-select[id=sex]").click();
+    cy.get(".MuiMenu-list li[data-value=M]").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
@@ -113,6 +119,8 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get("[id=birthDate]").type("10/10/2020");
+    cy.get(".MuiSelect-select[id=sex]").click();
+    cy.get(".MuiMenu-list li[data-value=M]").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__buttonSet").contains("Dashboard").click();
     cy.get("div.dashboard");
