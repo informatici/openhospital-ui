@@ -20,6 +20,7 @@ import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, TValues, TProps } from "./types";
 import { useIsSearchById } from "./useIsSearchById";
+import { T, useT } from '@transifex/react';
 
 const SearchPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -28,9 +29,10 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   searchStatus,
   getPatientSuccess,
 }) => {
+  const searchPatientPath = useT("Search Patient", {});
   const breadcrumbMap = {
     Dashboard: "/",
-    "Search Patient": "/search",
+    [searchPatientPath]: "/search",
   };
 
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -74,19 +76,22 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   const isSearchById = useIsSearchById(formik);
 
+  const warningLabel = "We couldn't find a match, please try another search.";
+  const errorLabel = "Something went wrong, please retry.";
+
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
         return;
 
       case "LOADING":
-        return <h3 className="searchPatient__loading">Searching</h3>;
+        return <h3 className="searchPatient__loading"><T _str="Searching" /></h3>;
 
       case "SUCCESS":
         return (
           <div className="searchPatient__results">
             <div className="searchPatient__results_count">
-              Results: <strong>{patientSearchResults?.length}</strong>
+            <T _str="Results" />: <strong>{patientSearchResults?.length}</strong>
             </div>
             <div className="searchPatient__results_list">
               {patientSearchResults?.map((patient, index) => (
@@ -104,13 +109,13 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
         return (
           <InfoBox
             type="warning"
-            message="We couldn't find a match, please try another search."
+            message={warningLabel}
           />
         );
 
       default:
         return (
-          <InfoBox type="error" message="Something went wrong, please retry." />
+          <InfoBox type="error" message={errorLabel} />
         );
     }
   };
@@ -123,7 +128,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       />
       <div className="searchPatient__background">
         <div className="container">
-          <div className="searchPatient__title">Search Patient</div>
+          <div className="searchPatient__title"><T _str="Search Patient" /></div>
           <form className="searchPatient__panel" onSubmit={formik.handleSubmit}>
             <div className="searchPatient__primary">
               <div className="row center-xs">
@@ -131,7 +136,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                   <TextField
                     theme="light"
                     field={formik.getFieldProps("id")}
-                    label="Patient ID"
+                    label={useT("Patient ID", {})}
                     isValid={isValid("id")}
                     errorText={getErrorText("id")}
                     onBlur={formik.handleBlur}
@@ -146,20 +151,20 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                 disabled={searchStatus === "LOADING"}
               >
                 <SearchIcon width="20" height="20" />
-                <div className="searchPatient__button__label">Search</div>
+                <div className="searchPatient__button__label"><T _str="Search" /></div>
               </Button>
             </div>
             <div className="searchPatient__secondary">
               <div className="searchPatient__info">
-                If you don't have the patient ID, fill as many fields as
-                possible and click search
+                <T _str="If you don't have the patient ID, fill as many fields as
+                  possible and click search" />
               </div>
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
                   <TextField
                     field={formik.getFieldProps("firstName")}
                     theme="regular"
-                    label="Name"
+                    label={useT("Name", {})}
                     isValid={isValid("firstName")}
                     errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
@@ -170,7 +175,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                   <TextField
                     field={formik.getFieldProps("secondName")}
                     theme="regular"
-                    label="Surname"
+                    label={useT("Surname", {})}
                     isValid={isValid("secondName")}
                     errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
@@ -183,7 +188,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                   <TextField
                     field={formik.getFieldProps("birthDate")}
                     theme="regular"
-                    label="Birthday"
+                    label={useT("Birthday", {})}
                     isValid={isValid("birthDate")}
                     errorText={getErrorText("birthDate")}
                     onBlur={formik.handleBlur}
@@ -194,7 +199,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                   <TextField
                     field={formik.getFieldProps("address")}
                     theme="regular"
-                    label="Address"
+                    label={useT("Address", {})}
                     isValid={isValid("address")}
                     errorText={getErrorText("address")}
                     onBlur={formik.handleBlur}

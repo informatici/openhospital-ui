@@ -1,3 +1,4 @@
+import { useT } from "@transifex/react";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
@@ -32,9 +33,10 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   hasFailed,
   dashboardRoute,
 }) => {
+  const newPatientPath = useT("New Patient", {});
   const breadcrumbMap = {
     Dashboard: "/",
-    "New Patient": "/new",
+    [newPatientPath]: "/new",
   };
 
   const onSubmit = (patient: PatientDTO) => {
@@ -70,6 +72,15 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     scrollToElement(null);
   };
 
+  const submitButtonLabel = useT('submit', {});
+  const clearButtonLabel = useT('Clear All', {});
+  const errorLabel = useT('Something went wrong, please retry later.', {});
+  const patientLabel = useT('Patient Created', {});
+  const successLabel = useT('The patient registration was successful.', {});
+  const dashboardLabel = useT('Dashboard', {});
+  const editingLabel = useT('Keep editing', {});
+  const newPatientLabel = useT('Register new patient', {});
+
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
       return <Redirect to={dashboardRoute} />;
@@ -82,12 +93,12 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="newPatient__background">
             <div className="newPatient__content">
-              <div className="newPatient__title">Register new patient</div>
+              <div className="newPatient__title">{newPatientLabel}</div>
               <PatientDataForm
                 fields={initialFields}
                 onSubmit={onSubmit}
-                submitButtonLabel="submit"
-                resetButtonLabel="Clear All"
+                submitButtonLabel={submitButtonLabel}
+                resetButtonLabel={clearButtonLabel}
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
@@ -98,17 +109,17 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             {hasFailed && (
               <InfoBox
                 type="error"
-                message="Something went wrong, please retry later."
+                message={errorLabel}
               />
             )}
           </div>
           <ConfirmationDialog
             isOpen={hasSucceeded}
-            title="Patient Created"
+            title={patientLabel}
             icon={checkIcon}
-            info="The patient registration was successful."
-            primaryButtonLabel="Dashboard"
-            secondaryButtonLabel="Keep editing"
+            info={successLabel}
+            primaryButtonLabel={dashboardLabel}
+            secondaryButtonLabel={editingLabel}
             handlePrimaryButtonClick={() =>
               setActivityTransitionState("TO_DASHBOARD")
             }

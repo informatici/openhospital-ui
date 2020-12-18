@@ -25,6 +25,7 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
+import { useT } from '@transifex/react';
 
 const EditPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -45,11 +46,14 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     }
   }, [patient, id, getPatientThunk]);
 
+  const searchPatientPath = useT("Search Patient", {});
+  const dashPatientPath = useT("Patient Dashboard", {});
+  const editPatientPath = useT("Edit Patient", {});
   const breadcrumbMap = {
     Dashboard: "/",
-    "Search Patient": "/search",
-    "Patient Dashboard": `/details/${patient.data?.code}`,
-    "Edit Patient": `/details/${patient.data?.code}/edit`,
+    [searchPatientPath]: "/search",
+    [dashPatientPath]: `/details/${patient.data?.code}`,
+    [editPatientPath]: `/details/${patient.data?.code}/edit`,
   };
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
@@ -90,6 +94,14 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     scrollToElement(null);
   };
 
+  const submitLabel = useT("submit", {});
+  const resetLabel = useT("reset", {});
+  const errorLabel = useT("Something went wrong, please retry later.", {});
+  const patientEditLabel = useT("Patient Edited", {});
+  const successLabel = useT("The patient was edit successfully.", {});
+  const patientLabel = useT("Patient", {});
+  const editingLabel = useT("Keep editing", {});
+
   switch (activityTransitionState) {
     case "TO_PATIENT":
       return <Redirect to={`/details/${patient.data?.code}`} />;
@@ -107,8 +119,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                 fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
                 onSubmit={onSubmit}
-                submitButtonLabel="submit"
-                resetButtonLabel="reset"
+                submitButtonLabel={submitLabel}
+                resetButtonLabel={resetLabel}
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
@@ -119,17 +131,17 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
             {hasFailed && (
               <InfoBox
                 type="error"
-                message="Something went wrong, please retry later."
+                message={errorLabel}
               />
             )}
           </div>
           <ConfirmationDialog
             isOpen={openConfirmationMessage}
-            title="Patient Edited"
+            title={patientEditLabel}
             icon={checkIcon}
-            info="The patient was edit successfully."
-            primaryButtonLabel="Patient"
-            secondaryButtonLabel="Keep editing"
+            info={successLabel}
+            primaryButtonLabel={patientLabel}
+            secondaryButtonLabel={editingLabel}
             handlePrimaryButtonClick={() =>
               setActivityTransitionState("TO_PATIENT")
             }

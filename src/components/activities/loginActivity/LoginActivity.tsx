@@ -22,6 +22,7 @@ import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
+import { T, useT } from '@transifex/react';
 
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthenticationThunk,
@@ -42,8 +43,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    username: string().required("Enter a valid user name"),
-    password: string().required("Enter the password"),
+    username: string().required(useT("Enter a valid user name", {})),
+    password: string().required(useT("Enter the password", {})),
   });
 
   const formik = useFormik({
@@ -92,7 +93,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("username")}
                 theme="regular"
-                label="User"
+                label={useT("User", {})}
                 isValid={isValid("username")}
                 errorText={getErrorText("username")}
                 onBlur={formik.handleBlur}
@@ -102,7 +103,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("password")}
                 theme="regular"
-                label="Password"
+                label={useT("Password", {})}
                 type={state.isPasswordVisible ? "text" : "password"}
                 isValid={isValid("password")}
                 errorText={getErrorText("password")}
@@ -130,7 +131,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              Invalid username or password
+              {<T _str="Invalid username or password" />}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -139,12 +140,12 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 color="primary"
                 disabled={status === "LOADING"}
               >
-                LOG IN
+                {<T _str="LOG IN" />}
               </Button>
             </div>
             <div>
               <Link className="login__panel__resetPassword" component="button">
-                Forgot the password?
+                {<T _str="Forgot the password?" />}
               </Link>
             </div>
             &emsp;

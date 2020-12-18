@@ -2,6 +2,7 @@ import { Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import HomeIcon from "@material-ui/icons/Home";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
+import LangSwitcher from "../langSwitcher/LangSwitcher";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -57,6 +58,7 @@ const AppHeader: FunctionComponent<TProps> = ({
               <Typography color="textPrimary">{trailEdgeKey}</Typography>
             </Breadcrumbs>
           </div>
+          {<LangSwitcher />}
           <div
             className="appHeader__identified__trigger"
             onClick={() => openMenu(!isOpen)}

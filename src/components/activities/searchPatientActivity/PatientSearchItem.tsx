@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { Redirect } from "react-router";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
+import { T } from '@transifex/react';
 
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
@@ -29,10 +30,10 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
           >
             <div className="patientSearchItem__header">
               <div>
-                <strong>PID:</strong> {patient.code}
+                <strong><T _str="PID" />:</strong> {patient.code}
               </div>
               <div>
-                <strong>OPD:</strong> 32240321
+                <strong><T _str="OPD" />:</strong> 32240321
               </div>
             </div>
             <div className="patientSearchItem__content">
@@ -47,15 +48,15 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
                   />
                 </div>
                 <div className="patientSearchItem__profile__admission">
-                  Last admission: <strong>24/27/2020</strong>
+                <T _str="Last admission" />: <strong>24/27/2020</strong>
                 </div>
               </div>
               <div className="patientSearchItem__divider" />
               <div className="patientSearchItem__info">
-                <strong>Reason for visit:</strong> Pneumonia
+                <strong><T _str="Reason for visit" />:</strong> Pneumonia
               </div>
               <div className="patientSearchItem__info">
-                <strong>Treatment made:</strong> Pneumonia
+                <strong><T _str="Treatment made" />:</strong> Pneumonia
               </div>
             </div>
           </div>

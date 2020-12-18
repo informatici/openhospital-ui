@@ -1,12 +1,47 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import "./App.scss";
 import Routes from "./Routes";
+import { tx } from '@transifex/native';
+import { LangContext } from "./libraries/langContext/langContext";
+import { useLanguages } from "@transifex/react";
+import _ from "lodash";
+
+// Transifex init with the default language
+tx.init({ token: process.env.REACT_APP_TRANSIFEX_TOKEN, sourceLocale: 'en' });
 
 const App: FunctionComponent = () => {
+
+  // LANGUAGE SWITCHER
+  // When the changeLang in invokated from the language switche component
+  // the tx lang will be updated and the App will be rerendered
+  const [lang, setLang] = useState("en");
+  const changeLang = (l: string) => {
+    tx.setCurrentLocale(l).then(() => {
+      setLang(l);
+    });
+  };
+
+  // transifex avaiable lanuages
+  const languages = useLanguages();
+  
+  // LANGUAGE BROWSER NEGOTIATION:
+  // The code updates the App' language based on the 
+  // first browser language who matchs the Transifex avaiable langugages 
+  useEffect(() => {
+    var userLangs = navigator.languages
+    userLangs.forEach((lang) => {
+      if(!_.find(languages, {code: lang})) {
+        changeLang(lang);
+      }
+    })
+  }, [languages])
+  
   return (
     <div className="App">
-      <Routes />
+      <LangContext.Provider value={{ changeLang }}>
+        <Routes />
+      </LangContext.Provider>
     </div>
   );
 };

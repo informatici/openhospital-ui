@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../../accessories/footer/Footer";
 import logo from "../../../assets/logo-color.svg";
 import { Link } from "react-router-dom";
+import { T } from '@transifex/react';
 
 const NotFound: React.FC = () => {
   return (
@@ -14,10 +15,10 @@ const NotFound: React.FC = () => {
           width="150px"
         />
         <div className="login__title">
-          404 - Page Not Found
+          <T _str="404 - Page Not Found" />
         </div>
         <div className="login__link">
-          <Link to="/">Go back to the dashboard</Link>
+          <Link to="/"><T _str="Go back to the dashboard" /></Link>
         </div>
       </div>
       <Footer />

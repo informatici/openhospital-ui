@@ -9,6 +9,7 @@ import Footer from "../../accessories/footer/Footer";
 import LargeButton from "../../accessories/largeButton/LargeButton";
 import "./styles.scss";
 import { IStateProps, TProps, TActivityTransitionState } from "./types";
+import { T } from '@transifex/react';
 
 const DashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -21,7 +22,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
 
   const [activityTransitionState, setActivityTransitionState] = useState<
     TActivityTransitionState
-  >("IDLE");
+    >("IDLE");
 
   switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
@@ -37,7 +38,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           />
           <div className="dashboard__background">
             <div className="dashboard__greeter">
-              Welcome {userCredentials?.displayName}
+              {<T _str="Welcome {name}" name={userCredentials?.displayName} />} 
             </div>
             <div className="dashboard__actions">
               <div className="dashboard__actions__button">
@@ -49,7 +50,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <PlusIcon />
                     <div className="largeButton__inner__label">
-                      Register New Patient
+                      {<T _str="Register New Patient" />}
                     </div>
                   </div>
                 </LargeButton>
@@ -63,7 +64,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <SearchIcon width="43" height="43" />
                     <div className="largeButton__inner__label">
-                      Search Patients
+                      {<T _str="Search Patients"  />}
                     </div>
                   </div>
                 </LargeButton>

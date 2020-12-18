@@ -17,6 +17,7 @@ import TextButton from "../textButton/TextButton";
 import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
+import { useT } from "@transifex/react";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -29,10 +30,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   resetFormCallback,
 }) => {
   const validationSchema = object({
-    firstName: string().required("This field is required"),
-    secondName: string().required("This field is required"),
-    birthDate: string().required("This field is required"),
-    sex: string().required("This field is required")
+    firstName: string().required(useT("This field is required", {})),
+    secondName: string().required(useT("This field is required", {})),
+    birthDate: string().required(useT("This field is required", {})),
+    sex: string().required(useT("This field is required", {}))
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -108,7 +109,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("firstName")}
               theme="regular"
-              label="Name"
+              label={useT("Name", {})}
               isValid={isValid("firstName")}
               errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
@@ -118,7 +119,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("secondName")}
               theme="regular"
-              label="Surname"
+              label={useT("Surname", {})}
               isValid={isValid("secondName")}
               errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
@@ -129,7 +130,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("taxCode")}
               theme="regular"
-              label="Tax Code"
+              label={useT("Tax Code", {})}
               isValid={isValid("taxCode")}
               errorText={getErrorText("taxCode")}
               onBlur={formik.handleBlur}
@@ -142,7 +143,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="sex"
               fieldValue={formik.values.sex}
-              label="Gender"
+              label={useT("Gender", {})}
               isValid={isValid("sex")}
               errorText={getErrorText("sex")}
               onBlur={onBlurCallback("sex")}
@@ -155,7 +156,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               fieldName="birthDate"
               fieldValue={formik.values.birthDate}
               theme="regular"
-              label="Birthday (day/month/year)"
+              label={useT("Birthday (day/month/year)", {})}
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
               onBlur={onBlurCallback("birthDate")}
@@ -166,7 +167,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("height")}
               theme="regular"
-              label="Height"
+              label={useT("Height", {})}
               isValid={isValid("height")}
               errorText={getErrorText("height")}
               onBlur={formik.handleBlur}
@@ -178,7 +179,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("weight")}
               theme="regular"
-              label="Weight"
+              label={useT("Weight", {})}
               isValid={isValid("weight")}
               errorText={getErrorText("weight")}
               onBlur={formik.handleBlur}
@@ -190,7 +191,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="bloodType"
               fieldValue={formik.values.bloodType}
-              label="Blood Type"
+              label={useT("Blood Type", {})}
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
               onBlur={onBlurCallback("bloodType")}
@@ -204,7 +205,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("mother_name")}
               theme="regular"
-              label="Mother's full name"
+              label={useT("Mother's full name", {})}
               isValid={isValid("mother_name")}
               errorText={getErrorText("mother_name")}
               onBlur={formik.handleBlur}
@@ -215,7 +216,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("father_name")}
               theme="regular"
-              label="Father's full name"
+              label={useT("Father's full name", {})}
               isValid={isValid("father_name")}
               errorText={getErrorText("father_name")}
               onBlur={formik.handleBlur}
@@ -226,7 +227,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="parentTogether"
               fieldValue={formik.values.parentTogether}
-              label="Lives with the parents?"
+              label={useT("Lives with the parents?", {})}
               isValid={isValid("parentTogether")}
               errorText={getErrorText("parentTogether")}
               onBlur={onBlurCallback("parentTogether")}
@@ -240,7 +241,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("address")}
               theme="regular"
-              label="Address"
+              label={useT("Address", {})}
               isValid={isValid("address")}
               errorText={getErrorText("address")}
               onBlur={formik.handleBlur}
@@ -251,7 +252,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("city")}
               theme="regular"
-              label="City"
+              label={useT("City", {})}
               isValid={isValid("city")}
               errorText={getErrorText("city")}
               onBlur={formik.handleBlur}
@@ -262,7 +263,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("telephone")}
               theme="regular"
-              label="Telephone"
+              label={useT("Telephone", {})}
               isValid={isValid("telephone")}
               errorText={getErrorText("telephone")}
               onBlur={formik.handleBlur}
@@ -276,7 +277,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="hasInsurance"
               fieldValue={formik.values.hasInsurance}
-              label="Has insurance"
+              label={useT("Has insurance", {})}
               isValid={isValid("hasInsurance")}
               errorText={getErrorText("hasInsurance")}
               onBlur={onBlurCallback("hasInsurance")}
@@ -291,7 +292,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               field={formik.getFieldProps("note")}
               theme="regular"
               multiline={true}
-              label="Note"
+              label={useT("Note", {})}
               isValid={isValid("note")}
               errorText={getErrorText("note")}
               onBlur={formik.handleBlur}
@@ -314,10 +315,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         <ConfirmationDialog
           isOpen={openResetConfirmation}
           title={resetButtonLabel.toUpperCase()}
-          info={`Are you sure to ${resetButtonLabel} the Form?`}
+          info={useT("Are you sure to {resetButtonLabel} the Form?", {resetButtonLabel})}
           icon={warningIcon}
           primaryButtonLabel={resetButtonLabel}
-          secondaryButtonLabel="Dismiss"
+          secondaryButtonLabel={useT("Dismiss", {})}
           handlePrimaryButtonClick={handleResetConfirmation}
           handleSecondaryButtonClick={() =>
             setOpenResetConfirmation(false)
