@@ -114,7 +114,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="editPatient__background">
             <div className="editPatient__content">
-              <div className="editPatient__title">{`Edit patient: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
+            <div className="editPatient__title">{useT("Edit patient: {name} {surname}", {name: patient.data?.firstName, surname:patient.data?.secondName})}</div>
               <PatientDataForm
                 fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
