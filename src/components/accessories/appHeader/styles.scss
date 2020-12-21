@@ -43,6 +43,13 @@
     .appHeader__nav {
       z-index: 50;
       opacity: 1;
+      .appHeader__nav_lang_switcher{
+        position: absolute;
+        text-align: center;
+        bottom: 50px;
+        right: 0;
+        left: 0;
+      }
     }
   }
   .appHeader__background {
@@ -231,9 +238,6 @@
   }
 
   .appHeader__nav {
-    display: flex;
-    align-items: flex-end;
-    height: 100%;
     @include susy-media($tablet_land) {
       display: block;
       position: fixed;
@@ -273,6 +277,13 @@
       opacity: 0;
       transition: 0.5s opacity ease-in-out;
     }
+  }
+
+  .appHeader__nav_lang_switcher{
+    text-align: right;
+    position: relative;
+    right: 15px;
+    margin-bottom: 10px;
   }
 
   .appHeader__nav_items {
@@ -376,20 +387,36 @@
     cursor: pointer;
     position: relative; 
     @include susy-media($phablet) {
-      display: block;
       top: -8px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
     }
     @include susy-media($tablet_land) {
-      display: block;
       top: -8px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
     }
     @include susy-media($tablet_port) {
-      display: block;
       top: -8px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
     }
     @include susy-media($phone) {
-      display: block;
       top: 5px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
     }
     .trigger_x,
     .trigger_y,

@@ -31,8 +31,9 @@ const App: FunctionComponent = () => {
   useEffect(() => {
     var userLangs = navigator.languages
     userLangs.forEach((lang) => {
-      if(!_.find(languages, {code: lang})) {
+      if(_.find(languages, {code: lang})) {
         changeLang(lang);
+        return;
       }
     })
   }, [languages])

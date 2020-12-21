@@ -58,7 +58,6 @@ const AppHeader: FunctionComponent<TProps> = ({
               <Typography color="textPrimary">{trailEdgeKey}</Typography>
             </Breadcrumbs>
           </div>
-          {<LangSwitcher />}
           <div
             className="appHeader__identified__trigger"
             onClick={() => openMenu(!isOpen)}
@@ -69,6 +68,9 @@ const AppHeader: FunctionComponent<TProps> = ({
           </div>
         </div>
         <div className="appHeader__nav">
+          <div className="appHeader__nav_lang_switcher">
+            {<LangSwitcher />}
+          </div>
           <div className="appHeader__nav_items">
             <div className="appHeader__nav__item">Pharmacy</div>
             <div className="appHeader__nav__item">Ward</div>
