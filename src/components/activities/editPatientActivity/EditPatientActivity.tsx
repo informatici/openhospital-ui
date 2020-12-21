@@ -101,6 +101,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   const successLabel = useT("The patient was edit successfully.", {});
   const patientLabel = useT("Patient", {});
   const editingLabel = useT("Keep editing", {});
+  const editingPanelLabel = useT("Edit patient: {name} {surname}", {name: patient.data?.firstName, surname:patient.data?.secondName})
 
   switch (activityTransitionState) {
     case "TO_PATIENT":
@@ -114,7 +115,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="editPatient__background">
             <div className="editPatient__content">
-            <div className="editPatient__title">{useT("Edit patient: {name} {surname}", {name: patient.data?.firstName, surname:patient.data?.secondName})}</div>
+            <div className="editPatient__title">{editingPanelLabel}</div>
               <PatientDataForm
                 fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
