@@ -25,7 +25,7 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
-import { useT } from '@transifex/react';
+import { T, useT } from '@transifex/react';
 
 const EditPatientActivity: FunctionComponent<TProps> = ({
   userCredentials,

@@ -156,8 +156,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
             </div>
             <div className="searchPatient__secondary">
               <div className="searchPatient__info">
-                <T _str="If you don't have the patient ID, fill as many fields as
-                  possible and click search" />
+                <T _str="If you don't have the patient ID, fill as many fields as possible and click search" />
               </div>
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
