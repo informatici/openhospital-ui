@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import "./App.scss";
 import Routes from "./Routes";
 import { tx } from '@transifex/native';
-import _ from "lodash";
 
 // Transifex init with the default language
 tx.init({ token: process.env.REACT_APP_TRANSIFEX_TOKEN, sourceLocale: 'en' });
