@@ -13,9 +13,9 @@ tx.init({ token: process.env.REACT_APP_TRANSIFEX_TOKEN, sourceLocale: 'en' });
 const App: FunctionComponent = () => {
 
   // LANGUAGE SWITCHER
-  // When the changeLang in invokated from the language switche component
+  // When the changeLang is invokated from the language switcher component
   // the tx lang will be updated and the App will be rerendered
-  const [lang, setLang] = useState("en");
+  const [, setLang] = useState("en");
   const changeLang = (l: string) => {
     tx.setCurrentLocale(l).then(() => {
       setLang(l);

@@ -12,7 +12,7 @@ const LangSwitcher: FunctionComponent = () => {
 
   const renderOptions = (): JSX.Element[] => {
     return languages.map(({ code, name }: Record<string, string>) => (
-      <option key={code} value={code} selected={(code == currentLang) ? true : false}>{name}</option>
+      <option key={code} value={code} selected={(code === currentLang) ? true : false}>{name}</option>
     ))
   }
   
