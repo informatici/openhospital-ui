@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { KeyboardDatePicker as DatePicker, MuiPickersUtilsProvider as DatePickerWrapper } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { IProps } from "./types";
@@ -15,7 +15,11 @@ const DateField: FunctionComponent<IProps> = ({
   onChange
 }) => {
 
-  const [value, setValue] = useState<Date | null>((fieldValue !== "") ? new Date(fieldValue) : null);
+  const [value, setValue] = useState<Date | null>(new Date(+fieldValue));
+
+  useEffect(() => {
+    setValue(new Date(+fieldValue));
+  }, [fieldValue])
 
   const handleDateChange = (date: Date | null) => {
     onChange(date);
