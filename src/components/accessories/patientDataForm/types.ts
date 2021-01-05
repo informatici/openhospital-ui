@@ -1,11 +1,11 @@
 import { PatientDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
-
 interface IOwnProps {
   fields: TFields<TPatientDataFormFieldName>;
   profilePicture?: any;
   onSubmit: (patient: PatientDTO) => void;
   submitButtonLabel: string;
+  resetButtonLabel: string;
   isLoading: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;

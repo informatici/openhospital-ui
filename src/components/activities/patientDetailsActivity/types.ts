@@ -12,3 +12,7 @@ export interface IDispatchProps {
 }
 
 export type TProps = IStateProps & IDispatchProps;
+
+export type TActivityTransitionState =
+  | "IDLE"
+  | "TO_PATIENT_EDITING";

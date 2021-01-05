@@ -31,7 +31,7 @@ export const handlePictureSelection = (
       original: string;
     }>
   >
-) => (e: ChangeEvent<HTMLInputElement>) => {
+) => (e: ChangeEvent<HTMLInputElement>): void => {
   const newPic = e.target.files && e.target.files[0];
   if (newPic) {
     const dataURLReader = new FileReader();
@@ -53,7 +53,7 @@ export const preprocessImage = (
     }>
   >,
   picture: string
-) => {
+): void => {
   let pictureURI = "";
   let pictureData = "";
   if (picture.includes("data:")) {

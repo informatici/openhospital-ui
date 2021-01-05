@@ -1,6 +1,6 @@
 import React from "react";
 
-const PlusIcon = () => (
+const PlusIcon = ():JSX.Element => (
   <svg
     width="44px"
     height="43px"

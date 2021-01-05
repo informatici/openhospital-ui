@@ -29,7 +29,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   getPatientSuccess,
 }) => {
   const breadcrumbMap = {
-    Dashboard: "/dashboard",
+    Dashboard: "/",
     "Search Patient": "/search",
   };
 
@@ -215,7 +215,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
   patientSearchResults: state.patients.searchResults.data,
-  searchStatus: state.patients.searchResults.status!,
+  searchStatus: state.patients.searchResults.status || "IDLE",
 });
 
 const mapDispatchToProps: IDispatchProps = {

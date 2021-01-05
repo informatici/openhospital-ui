@@ -88,7 +88,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
         </div>
         <div className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
-            <div>
+            <div className="login__panel__textField">
               <TextField
                 field={formik.getFieldProps("username")}
                 theme="regular"
@@ -98,7 +98,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 onBlur={formik.handleBlur}
               />
             </div>
-            <div>
+            <div className="login__panel__textField">
               <TextField
                 field={formik.getFieldProps("password")}
                 theme="regular"
@@ -157,7 +157,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  status: state.main.authentication.status!,
+  status: state.main.authentication.status || "IDLE",
 });
 
 const mapDispatchToProps: IDispatchProps = {

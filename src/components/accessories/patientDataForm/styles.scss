@@ -67,25 +67,36 @@
   }
 
   .patientDataForm__item {
-    margin: 5px 0px;
+    margin: 7px 0px;
     padding: 0px 20px;
     width: 33%;
+    @include susy-media($narrow) {
+      padding: 0px 10px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 0px 10px;
+    }
     @include susy-media($tablet_port) {
       width: 50%;
     }
     @include susy-media($smartphone) {
       width: 100%;
     }
-    .dateField {
+    .dateField,
+    .textField,
+    .selectField {
       width: 100%;
     }
-    .textField {
+
+    &.fullWidth{
       width: 100%;
     }
   }
 
   .patientDataForm__buttonSet {
     display: flex;
+    margin-top: 25px;
+    padding: 0px 15px;
     flex-direction: row-reverse;
     @include susy-media($smartphone_small) {
       display: block;

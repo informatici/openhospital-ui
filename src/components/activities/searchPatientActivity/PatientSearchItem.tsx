@@ -38,7 +38,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
             <div className="patientSearchItem__content">
               <div className="patientSearchItem__profile">
                 <div className="patientSearchItem__profile__name">
-                  {`${patient.firstName} ${patient.secondName}`}
+                  {`${patient.firstName || ''} ${patient.secondName || ''}`}
                 </div>
                 <div className="patientSearchItem__profile__picture">
                   <ProfilePicture

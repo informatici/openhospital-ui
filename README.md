@@ -6,7 +6,7 @@ This is the UI component of [Open Hospital][openhospital]: it contains a web use
 This project depends on the [API component][openhospital-api] that exposes business logic APIs implemented in the [Core component][openhospital-core].  
 _This project is still in early stages. For a more mature user interface of Open Hospital, check out the [GUI project][openhospital-gui]._
 
-## App architecture [outdated]
+## App architecture
 
 <div align="center">
 <img src="./docs/app-architecture.png"  width="70%" height="70%">

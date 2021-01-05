@@ -16,7 +16,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   searchPatientRoute,
 }) => {
   const breadcrumbMap = {
-    Dashboard: "/dashboard",
+    Dashboard: "/",
   };
 
   const [activityTransitionState, setActivityTransitionState] = useState<

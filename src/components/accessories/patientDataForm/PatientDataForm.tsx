@@ -1,14 +1,17 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useCallback, useEffect } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import warningIcon from "../../../assets/warning-icon.png";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
+import SelectField from "../selectField/SelectField";
 import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
 import TextField from "../textField/TextField";
@@ -20,27 +23,33 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   profilePicture,
   onSubmit,
   submitButtonLabel,
+  resetButtonLabel,
   isLoading,
   shouldResetForm,
   resetFormCallback,
 }) => {
   const validationSchema = object({
     firstName: string().required("This field is required"),
-    //TODO: write schema
+    secondName: string().required("This field is required"),
+    birthDate: string().required("This field is required"),
+    sex: string().required("This field is required")
   });
 
   const initialValues = getFromFields(fields, "value");
 
+  const options = getFromFields(fields, "options");
+
   const formik = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       onSubmit(formattedValues);
     },
   });
 
-  const { setFieldValue, resetForm } = formik;
+  const { setFieldValue, resetForm, handleBlur } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -72,6 +81,23 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     [setFieldValue]
   );
 
+  const onBlurCallback = useCallback(
+    (fieldName: string) => (
+      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+      value: string
+    ) => {
+      handleBlur(e);
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue, handleBlur]
+  );
+
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+  
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    formik.resetForm();
+  }
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -120,13 +146,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("sex")}
-              theme="regular"
+            <SelectField
+              fieldName="sex"
+              fieldValue={formik.values.sex}
               label="Gender"
               isValid={isValid("sex")}
               errorText={getErrorText("sex")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("sex")}
+              options={options.sex}
             />
           </div>
 
@@ -167,13 +194,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("bloodType")}
-              theme="regular"
+            <SelectField
+              fieldName="bloodType"
+              fieldValue={formik.values.bloodType}
               label="Blood Type"
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("bloodType")}
+              options={options.bloodType}
             />
           </div>
         </div>
@@ -202,13 +230,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("parentTogether")}
-              theme="regular"
+            <SelectField
+              fieldName="parentTogether"
+              fieldValue={formik.values.parentTogether}
               label="Lives with the parents?"
               isValid={isValid("parentTogether")}
               errorText={getErrorText("parentTogether")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("parentTogether")}
+              options={options.parentTogether}
             />
           </div>
         </div>
@@ -251,12 +280,27 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("hasInsurance")}
-              theme="regular"
+            <SelectField
+              fieldName="hasInsurance"
+              fieldValue={formik.values.hasInsurance}
               label="Has insurance"
               isValid={isValid("hasInsurance")}
               errorText={getErrorText("hasInsurance")}
+              onBlur={onBlurCallback("hasInsurance")}
+              options={options.hasInsurance}
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item fullWidth">
+            <TextField
+              field={formik.getFieldProps("note")}
+              theme="regular"
+              multiline={true}
+              label="Note"
+              isValid={isValid("note")}
+              errorText={getErrorText("note")}
               onBlur={formik.handleBlur}
             />
           </div>
@@ -269,11 +313,23 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </SmallButton>
           </div>
           <div className="reset_button">
-            <TextButton onClick={() => formik.resetForm()}>
-              Clear All
+            <TextButton onClick={() => setOpenResetConfirmation(true)}>
+              {resetButtonLabel}
             </TextButton>
           </div>
         </div>
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={resetButtonLabel.toUpperCase()}
+          info={`Are you sure to ${resetButtonLabel} the Form?`}
+          icon={warningIcon}
+          primaryButtonLabel={resetButtonLabel}
+          secondaryButtonLabel="Dismiss"
+          handlePrimaryButtonClick={handleResetConfirmation}
+          handleSecondaryButtonClick={() =>
+            setOpenResetConfirmation(false)
+          }
+        />
       </form>
     </div>
   );
