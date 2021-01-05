@@ -25,7 +25,7 @@ const DateField: FunctionComponent<IProps> = ({
     onChange(date);
     setValue(date);
   };
-
+  
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
   return (
