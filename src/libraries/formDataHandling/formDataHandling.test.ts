@@ -7,7 +7,7 @@ const fields: TFields = {
     type: "text",
   },
   birthday: {
-    value: "30/08/1991",
+    value: "Fri Aug 30 1991 02:00:00 GMT+0200",
     type: "date",
   },
   weight: {
@@ -25,7 +25,7 @@ describe("getFromFields", () => {
     expect(Object.keys(types).length).toEqual(Object.keys(fields).length);
 
     expect(values.name).toEqual("Antonio");
-    expect(values.birthday).toEqual("30/08/1991");
+    expect(values.birthday).toEqual("Fri Aug 30 1991 02:00:00 GMT+0200");
     expect(values.weight).toEqual("85");
 
     expect(types.name).toEqual("text");
