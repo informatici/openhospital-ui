@@ -84,15 +84,17 @@ describe("NewPatientActivity spec", () => {
     cy.get("div.dialog__buttonSet").contains("Clear All").click();
   });
 
-  /*it("should show an error message when the call fails", () => {
+  it("should show an error message when the call fails", () => {
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[id=secondName]").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[id=birthDate]").clear().type("00/00/0000");
+    cy.get(".dateField button").click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.infoBox").should("have.class", "error");
-  });*/
+  });
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
