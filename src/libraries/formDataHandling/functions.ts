@@ -10,11 +10,7 @@ export const getFromFields = (fields: TFields, fieldAddress: TFieldAddress): Rec
 };
 
 const parseDate = (raw: string) => {
-  if (raw) {
-    const splitted = raw.split("/");
-    return `${splitted[2]}-${splitted[1]}-${splitted[0]}`;
-  }
-  return "";
+  return Date.parse(raw).toString();
 };
 
 export const formatAllFieldValues = (

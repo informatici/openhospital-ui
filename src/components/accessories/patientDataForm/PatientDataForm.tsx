@@ -74,6 +74,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     }
   }, [shouldResetForm, resetForm]);
 
+  const dateFieldHandleOnChange = useCallback(
+    (value) => {
+      setFieldValue("birthDate", value);
+    },
+    [setFieldValue]
+  );
+
   const onBlurCallback = useCallback(
     (fieldName: string) => (
       e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -154,11 +161,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <DateField
               fieldName="birthDate"
               fieldValue={formik.values.birthDate}
+              disableFuture={true}
               theme="regular"
+              format="dd/MM/yyyy"
               label="Birthday (day/month/year)"
-              isValid={isValid("birthDate")}
-              errorText={getErrorText("birthDate")}
-              onBlur={onBlurCallback("birthDate")}
+              onChange={dateFieldHandleOnChange}
             />
           </div>
 
