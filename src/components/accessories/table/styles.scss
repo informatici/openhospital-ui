@@ -1,0 +1,10 @@
+@import "../../../styles/variables";
+
+.table{
+  .table_header{
+    th{
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+  }
+}
