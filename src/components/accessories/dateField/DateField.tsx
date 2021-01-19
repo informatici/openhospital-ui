@@ -18,8 +18,8 @@ const DateField: FunctionComponent<IProps> = ({
   const [value, setValue] = useState<Date | null>(new Date(+fieldValue));
 
   useEffect(() => {
-    setValue(new Date(+fieldValue));
-  }, [fieldValue])
+    handleDateChange(new Date(+fieldValue))
+  }, [])
 
   const handleDateChange = (date: Date | null) => {
     onChange(date);
