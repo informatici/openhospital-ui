@@ -70,7 +70,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     } else if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
     }
-  }, [activityTransitionState, updatePatientReset]);
+  }, [activityTransitionState, updatePatientReset, getPatientThunk, id]);
 
   useEffect(() => {
     setOpenConfirmationMessage(hasSucceeded);
