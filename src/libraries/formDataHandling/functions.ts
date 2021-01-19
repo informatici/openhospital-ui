@@ -10,7 +10,8 @@ export const getFromFields = (fields: TFields, fieldAddress: TFieldAddress): Rec
 };
 
 const parseDate = (raw: string) => {
-  return Date.parse(raw).toString();
+  const unformatDate = new Date(+raw).toString();
+  return Date.parse(unformatDate).toString();
 };
 
 export const formatAllFieldValues = (
