@@ -161,7 +161,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
       </TableRow>
       {(isCollapsabile) ?
         <TableRow>
-          <TableCell style={{ padding: 0 }} colSpan={6}>
+          <TableCell style={{ padding: 0, borderBottom: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit className="collapseWrapper">
               <ul>
                 {Object.keys(_.omit(row, tableHeader)).map((key, index) => (

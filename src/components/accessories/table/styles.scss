@@ -10,20 +10,20 @@
   }
   .table_body{
     .collapseWrapper{
-      padding: 20px;
       background: lighten($c-grey-lighter, 22%);
+      padding: 20px 75px;
       ul{
+        column-count: 2;
         margin: 0px;
-        padding: 0px 60px;
+        padding: 0px;
+        @include susy-media($smartphone){
+          column-count: 1;
+        }
         li{
-          display: flex;
           list-style: none;
-          justify-content: space-between;
         }
         li + li {
           margin-top: 5px;
-          padding-top: 5px;
-          border-top: 1px solid lighten($c-grey-lighter, 15%);
         }
       }
     }
