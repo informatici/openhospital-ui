@@ -70,7 +70,7 @@ const Table: FunctionComponent<IProps> = ({
   const renderActions = () => {
     if (onEdit || onDelete || onPrint || onView) {
       return (
-        <TableCell scope="row" align="right" size="small">
+        <TableCell scope="row" align="right" size="small" style={{ minWidth: 125 }}>
           {(onEdit) ? renderIcon('edit') : ''}
           {(onPrint) ? renderIcon('print') : ''}
           {(onDelete) ? renderIcon('delete') : ''}
