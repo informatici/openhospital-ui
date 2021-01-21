@@ -2,18 +2,48 @@ import React, { FunctionComponent } from 'react';
 import Table from "../../table/Table";
 
 const values = [
-  {name: "Frozen yoghurt", calories: 159, fat: 6, carbs: 24, protein: 4},
-  {name: "Ice cream sandwich", calories: 237, fat: 9, carbs: 37, protein: 4.3},
-  {name: "Eclair", calories: 262, fat: 16, carbs: 24, protein: 6},
-  {name: "Cupcake", calories: 305, fat: 3.7, carbs: 67, protein: 4.3},
-  {name: "Gingerbread", calories: 356, fat: 16, carbs: 49, protein: 3.9}
+  { date: "21/12/2021", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2020", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2021", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2020", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2018", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2018", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2020", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2019", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2019", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2019", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 },
+  { date: "21/12/2020", H: 159, W: 6, AP: 24, HR: 4, T: 0, O2: 0, HGT: 0, RR: 0, D24G: 0, D: 0, B: 0, AUSC: 0 }
 ];
 
+const header = ["date"];
+const search = ["date"];
+
 const PatientTriageTable: FunctionComponent = () => {
+
+  const onEdit = () => {
+    console.log('edit');
+  }
+
+  const onDelete = () => {
+    console.log('delete');
+  }
+
+  const onPrint = () => {
+    console.log('print');
+  }
+
   return (
     <>
       <div className="patientTriageTable">
-        <Table values={values} />
+        <Table
+          tableValues={values}
+          tableHeader={header}
+          columnsSearch={search}
+          rowsPerPage={5}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onPrint={onPrint}
+        />
       </div>
     </>
   );

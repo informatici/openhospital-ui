@@ -9,7 +9,7 @@
 
   .patientTriageForm__item {
     margin: 7px 0px;
-    padding: 0px 20px;
+    padding: 0px 15px;
     width: 33%;
     @include susy-media($narrow) {
       padding: 0px 10px;
@@ -31,6 +31,16 @@
 
     &.fullWidth{
       width: 100%;
+    }
+
+    &.compressed{
+      .textField {
+        float: left;
+        width: 50%;
+        &:nth-of-type(1){
+          padding-right: 10px;
+        }
+      }
     }
   }
 

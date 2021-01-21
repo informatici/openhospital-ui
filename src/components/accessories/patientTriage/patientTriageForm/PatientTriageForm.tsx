@@ -145,16 +145,26 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               />
             </div>
 
-            <div className="patientTriageForm__item">
+            <div className="patientTriageForm__item compressed">
               <TextField
-                field={formik.getFieldProps("arterial_pressure")}
+                field={formik.getFieldProps("arterial_pressure_min")}
                 theme="regular"
-                label="Arterial pressure (min/max)"
-                isValid={isValid("arterial_pressure")}
-                errorText={getErrorText("arterial_pressure")}
+                label="Art.pr.(min)"
+                isValid={isValid("arterial_pressure_min")}
+                errorText={getErrorText("arterial_pressure_min")}
                 onBlur={formik.handleBlur}
                 type="string"
               />
+
+              <TextField
+                field={formik.getFieldProps("arterial_pressure_max")}
+                theme="regular"
+                label="Art.pr.(max)"
+                isValid={isValid("arterial_pressure_max")}
+                errorText={getErrorText("arterial_pressure_max")}
+                onBlur={formik.handleBlur}
+                type="string"
+              />  
             </div>
 
             <div className="patientTriageForm__item">

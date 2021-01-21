@@ -55,9 +55,13 @@ export const initialFields: TFields<TPatientTriageFormFieldName> = {
     value: "0",
     type: "decimal",
   },
-  arterial_pressure: {
-    value: "0 / 0",
-    type: "text",
+  arterial_pressure_min: {
+    value: "0",
+    type: "decimal",
+  },
+  arterial_pressure_max: {
+    value: "0",
+    type: "decimal",
   },
   heart_rate: {
     value: "0",
