@@ -1,9 +1,8 @@
 
 export interface IProps {
-  tableValues: Array<Record<string, any>>;
+  rowData: Array<Record<string, any>>;
+  labelData: Record<string, any>;
   tableHeader: Array<string>;
-  tableCollapseContent?: Array<string>;
-  tableCollapseComponent?: React.Component;
   isCollapsabile?: boolean;
   rowsPerPage: number;
   columnsSearch: Array<string>;
@@ -11,6 +10,15 @@ export interface IProps {
   onDelete?: () => void;
   onPrint?: () => void;
   onView?: () => void;
+}
+
+export interface IRowProps {
+  row: Record<string, any>;
+  rowIndex: number;
+  labelData: Record<string, any>;
+  tableHeader: Array<string>;
+  isCollapsabile?: boolean;
+  renderActions: () => void;
 }
 
 export type TActions = "edit" | "delete" | "view" | "print";

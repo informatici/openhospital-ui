@@ -1,10 +1,31 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .table{
   .table_header{
     th{
       text-transform: capitalize;
       font-weight: 600;
+    }
+  }
+  .table_body{
+    .collapseWrapper{
+      padding: 20px;
+      background: lighten($c-grey-lighter, 22%);
+      ul{
+        margin: 0px;
+        padding: 0px 60px;
+        li{
+          display: flex;
+          list-style: none;
+          justify-content: space-between;
+        }
+        li + li {
+          margin-top: 5px;
+          padding-top: 5px;
+          border-top: 1px solid lighten($c-grey-lighter, 15%);
+        }
+      }
     }
   }
 }

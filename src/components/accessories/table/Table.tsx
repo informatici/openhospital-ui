@@ -2,22 +2,21 @@ import React, { FunctionComponent } from 'react';
 import _ from "lodash";
 import { getComparator, stableSort } from "../../../libraries/sortUtils/sortUtils";
 import { TOrder } from "../../../libraries/sortUtils/types";
-import { IconButton, Table as MaterialComponent, TablePagination, TableSortLabel } from '@material-ui/core';
+import { Collapse, IconButton, Table as MaterialComponent, TablePagination, TableSortLabel } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Edit, Delete, Print } from '@material-ui/icons';
+import { Edit, Delete, Print, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import "./styles.scss";
-import { IProps, TActions } from "./types";
+import { IProps, TActions, IRowProps } from "./types";
 
 const Table: FunctionComponent<IProps> = ({
-  tableValues,
+  rowData,
   tableHeader,
-  tableCollapseContent,
-  tableCollapseComponent,
+  labelData,
   isCollapsabile,
   rowsPerPage,
   columnsSearch,
@@ -86,6 +85,7 @@ const Table: FunctionComponent<IProps> = ({
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">
             <TableRow>
+              {(isCollapsabile) ? <TableCell /> : ''}
               {tableHeader.map((h: string, i) => (
                 <TableCell key={i}>
                   {(columnsSearch.includes(h)) ?
@@ -94,31 +94,33 @@ const Table: FunctionComponent<IProps> = ({
                       direction={orderBy === h ? order : 'asc'}
                       onClick={createSortHandler(h)}
                     >
-                      {h}
-                    </TableSortLabel> : h}
+                      {labelData[h]}
+                    </TableSortLabel> : labelData[h]}
                 </TableCell>
               ))}
               <TableCell>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody className="table_body">
-            {stableSort(tableValues, getComparator(order, orderBy))
+            {stableSort(rowData, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
-                <TableRow key={index}>
-                  {Object.keys(row).map((key, index) => (
-                    (columnsSearch.includes(key)) ? <TableCell align="left" key={index}>{row[key]}</TableCell> : ''
-                  ))}
-                  {renderActions()}
-                </TableRow>
+                <TableBodyRow
+                  row={row}
+                  rowIndex={index}
+                  labelData={labelData}
+                  tableHeader={tableHeader}
+                  renderActions={renderActions}
+                  isCollapsabile={isCollapsabile}
+                />
               ))}
           </TableBody>
         </MaterialComponent>
       </TableContainer>
-      {(tableValues.length > rowsPerPage) ?
+      {(rowData.length > rowsPerPage) ?
         <TablePagination
           component="div"
-          count={tableValues.length}
+          count={rowData.length}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[rowsPerPage]}
           page={page}
@@ -129,3 +131,49 @@ const Table: FunctionComponent<IProps> = ({
 }
 
 export default Table;
+
+const TableBodyRow: FunctionComponent<IRowProps> = ({
+  row,
+  rowIndex,
+  labelData,
+  tableHeader,
+  renderActions,
+  isCollapsabile,
+}) => {
+  
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <TableRow key={rowIndex}>
+        {(isCollapsabile) ? 
+          <TableCell width="40">
+            <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+              {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            </IconButton>
+          </TableCell>
+        : ''}
+        {Object.keys(row).map((key, index) => (
+          (tableHeader.includes(key)) ? <TableCell align="left" key={index}>{row[key]}</TableCell> : ''
+        ))}
+        
+        {renderActions()}
+      </TableRow>
+      {(isCollapsabile) ?
+        <TableRow>
+          <TableCell style={{ padding: 0 }} colSpan={6}>
+            <Collapse in={open} timeout="auto" unmountOnExit className="collapseWrapper">
+              <ul>
+                {Object.keys(_.omit(row, tableHeader)).map((key, index) => (
+                  <li className="collapseItem_row" key={index}>
+                    <strong>{labelData[key]}:&nbsp;</strong>
+                    <span>{row[key]}</span>
+                  </li>
+                ))}
+              </ul>
+            </Collapse>
+          </TableCell>
+        </TableRow> : ''}
+      </>
+  );
+}
