@@ -35,16 +35,8 @@ const label = {
 
 const PatientTriageTable: FunctionComponent = () => {
 
-  const onEdit = () => {
-    console.log('edit');
-  }
-
   const onDelete = () => {
     console.log('delete');
-  }
-
-  const onPrint = () => {
-    console.log('print');
   }
 
   return (
@@ -56,9 +48,7 @@ const PatientTriageTable: FunctionComponent = () => {
           labelData={label}
           columnsSearch={search}
           rowsPerPage={5}
-          onEdit={onEdit}
           onDelete={onDelete}
-          onPrint={onPrint}
           isCollapsabile={true}
         />
       </div>
