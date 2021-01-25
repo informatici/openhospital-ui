@@ -41,7 +41,7 @@ const PatientSummaryByType: FunctionComponent = () => {
       </div>
       
       <div className="patientSummary_type_row">
-        <h4>Visite (3)</h4>
+        <h4>Esame obiettivo (3)</h4>
         <Table
           rowData={data}
           tableHeader={header}
@@ -53,7 +53,7 @@ const PatientSummaryByType: FunctionComponent = () => {
       </div>
 
       <div className="patientSummary_type_row">
-        <h4>Visite (3)</h4>
+        <h4>Prestazioni specialistiche (3)</h4>
         <Table
           rowData={data}
           tableHeader={header}
@@ -65,7 +65,19 @@ const PatientSummaryByType: FunctionComponent = () => {
       </div>
 
       <div className="patientSummary_type_row">
-        <h4>Visite (3)</h4>
+        <h4>Prestazioni diagnostiche (3)</h4>
+        <Table
+          rowData={data}
+          tableHeader={header}
+          labelData={label}
+          columnsOrder={order}
+          rowsPerPage={3}
+          isCollapsabile={true}
+        />
+      </div>
+
+      <div className="patientSummary_type_row">
+        <h4>Interventi operatori (3)</h4>
         <Table
           rowData={data}
           tableHeader={header}
