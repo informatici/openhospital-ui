@@ -40,7 +40,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { setFieldValue, handleBlur } = formik;
+  const { setFieldValue } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (value) => {
