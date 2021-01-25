@@ -5,7 +5,7 @@ export interface IProps {
   tableHeader: Array<string>;
   isCollapsabile?: boolean;
   rowsPerPage: number;
-  columnsSearch: Array<string>;
+  columnsOrder: Array<string>;
   onEdit?: () => void;
   onDelete?: () => void;
   onPrint?: () => void;

@@ -19,7 +19,7 @@ const Table: FunctionComponent<IProps> = ({
   labelData,
   isCollapsabile,
   rowsPerPage,
-  columnsSearch,
+  columnsOrder,
   onEdit,
   onDelete,
   onPrint,
@@ -88,7 +88,7 @@ const Table: FunctionComponent<IProps> = ({
               {(isCollapsabile) ? <TableCell /> : ''}
               {tableHeader.map((h: string, i) => (
                 <TableCell key={i}>
-                  {(columnsSearch.includes(h)) ?
+                  {(columnsOrder.includes(h)) ?
                     <TableSortLabel
                       active={orderBy === h}
                       direction={orderBy === h ? order : 'asc'}

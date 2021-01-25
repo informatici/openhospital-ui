@@ -16,7 +16,7 @@ const data = [
 ];
 
 const header = ["date"];
-const search = ["date"];
+const order = ["date"];
 const label = {
   "date": "Date",
   "H": "Height",
@@ -46,7 +46,7 @@ const PatientTriageTable: FunctionComponent = () => {
           rowData={data}
           tableHeader={header}
           labelData={label}
-          columnsSearch={search}
+          columnsOrder={order}
           rowsPerPage={5}
           onDelete={onDelete}
           isCollapsabile={true}
