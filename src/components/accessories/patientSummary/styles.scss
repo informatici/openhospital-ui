@@ -1,0 +1,10 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientSummary{
+  .tabs_content{
+    .panel{
+      padding: 30px 0px;
+    }
+  }
+}
