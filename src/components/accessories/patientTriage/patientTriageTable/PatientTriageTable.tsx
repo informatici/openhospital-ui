@@ -46,7 +46,7 @@ const PatientTriageTable: FunctionComponent = () => {
           rowData={data}
           tableHeader={header}
           labelData={label}
-          columnsSearch={search}
+          columnsOrder={search}
           rowsPerPage={5}
           onDelete={onDelete}
           isCollapsabile={true}
