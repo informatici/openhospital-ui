@@ -1,4 +1,6 @@
+import { LoginResponse } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
+import { IAction } from "../../../state/types";
 
 export interface IOwnProps {
   newPatientRoute: string;
@@ -9,7 +11,13 @@ export interface IStateProps {
   userCredentials: TUserCredentials;
 }
 
-export type TProps = IOwnProps & IStateProps;
+export interface IDispatchProps {
+  setAuthenticationSuccess: (
+    userCredentials: LoginResponse
+  ) => IAction<LoginResponse, {}>;
+}
+
+export type TProps = IOwnProps & IStateProps & IDispatchProps;
 
 export type TActivityTransitionState =
   | "IDLE"
