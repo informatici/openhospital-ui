@@ -30,7 +30,7 @@
     "env-cmd": "^10.1.0",
     "filereader": "^0.10.3",
     "formik": "^2.1.4",
-    "immer": "^6.0.5",
+    "immer": "^8.0.1",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
     "lodash.isempty": "^4.4.0",
