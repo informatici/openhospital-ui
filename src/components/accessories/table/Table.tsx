@@ -2,15 +2,16 @@ import React, { FunctionComponent } from 'react';
 import _ from "lodash";
 import { getComparator, stableSort } from "../../../libraries/sortUtils/sortUtils";
 import { TOrder } from "../../../libraries/sortUtils/types";
-import { Collapse, IconButton, Table as MaterialComponent, TablePagination, TableSortLabel } from '@material-ui/core';
+import { IconButton, Table as MaterialComponent, TablePagination, TableSortLabel } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Edit, Delete, Print, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import { Edit, Delete, Print } from '@material-ui/icons';
 import "./styles.scss";
+import TableBodyRow from './TableBodyRow';
 import { IProps, TActions, IRowProps } from "./types";
 
 const Table: FunctionComponent<IProps> = ({
@@ -131,49 +132,3 @@ const Table: FunctionComponent<IProps> = ({
 }
 
 export default Table;
-
-const TableBodyRow: FunctionComponent<IRowProps> = ({
-  row,
-  rowIndex,
-  labelData,
-  tableHeader,
-  renderActions,
-  isCollapsabile,
-}) => {
-  
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <>
-      <TableRow key={rowIndex}>
-        {(isCollapsabile) ? 
-          <TableCell width="40">
-            <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-              {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-            </IconButton>
-          </TableCell>
-        : ''}
-        {Object.keys(row).map((key, index) => (
-          (tableHeader.includes(key)) ? <TableCell align="left" key={index}>{row[key]}</TableCell> : ''
-        ))}
-        
-        {renderActions()}
-      </TableRow>
-      {(isCollapsabile) ?
-        <TableRow>
-          <TableCell style={{ padding: 0, borderBottom: 0 }} colSpan={6}>
-            <Collapse in={open} timeout="auto" unmountOnExit className="collapseWrapper">
-              <ul>
-                {Object.keys(_.omit(row, tableHeader)).map((key, index) => (
-                  <li className="collapseItem_row" key={index}>
-                    <strong>{labelData[key]}:&nbsp;</strong>
-                    <span>{row[key]}</span>
-                  </li>
-                ))}
-              </ul>
-            </Collapse>
-          </TableCell>
-        </TableRow> : ''}
-      </>
-  );
-}
