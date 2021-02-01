@@ -1,36 +1,23 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
 import SearchIcon from "../../../assets/SearchIcon";
-import { AUTH_KEY } from "../../../consts";
-import { SessionStorage } from "../../../libraries/storage/storage";
-import { setAuthenticationSuccess } from "../../../state/main/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import LargeButton from "../../accessories/largeButton/LargeButton";
 import "./styles.scss";
-import { IStateProps, TProps, TActivityTransitionState, IDispatchProps } from "./types";
+import { IStateProps, TProps, TActivityTransitionState } from "./types";
 
 const DashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
   newPatientRoute,
-  setAuthenticationSuccess,
   searchPatientRoute,
 }) => {
   const breadcrumbMap = {
     Dashboard: "/",
   };
-
-  useEffect(() => {
-    if (!userCredentials) {
-      const userCredentialsLocal = SessionStorage.read(AUTH_KEY);
-      if (userCredentialsLocal) {
-        setAuthenticationSuccess(userCredentialsLocal);
-      }
-    }
-  }, [userCredentials, setAuthenticationSuccess]);
 
   const [activityTransitionState, setActivityTransitionState] = useState<
     TActivityTransitionState
@@ -93,8 +80,4 @@ const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
 });
 
-const mapDispatchToProps: IDispatchProps = {
-  setAuthenticationSuccess,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardActivity);
+export default connect(mapStateToProps)(DashboardActivity);

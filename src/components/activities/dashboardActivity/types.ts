@@ -11,13 +11,7 @@ export interface IStateProps {
   userCredentials: TUserCredentials;
 }
 
-export interface IDispatchProps {
-  setAuthenticationSuccess: (
-    userCredentials: LoginResponse
-  ) => IAction<LoginResponse, {}>;
-}
-
-export type TProps = IOwnProps & IStateProps & IDispatchProps;
+export type TProps = IOwnProps & IStateProps;
 
 export type TActivityTransitionState =
   | "IDLE"
