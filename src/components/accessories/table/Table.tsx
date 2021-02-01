@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import _ from "lodash";
 import { getComparator, stableSort } from "../../../libraries/sortUtils/sortUtils";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import { IconButton, Table as MaterialComponent, TablePagination, TableSortLabel } from '@material-ui/core';
@@ -12,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import { Edit, Delete, Print } from '@material-ui/icons';
 import "./styles.scss";
 import TableBodyRow from './TableBodyRow';
-import { IProps, TActions, IRowProps } from "./types";
+import { IProps, TActions } from "./types";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
