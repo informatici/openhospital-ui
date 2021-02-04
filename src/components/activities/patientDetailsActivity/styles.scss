@@ -5,6 +5,12 @@
   background-color: $c-color-secondary;
 
   .container {
+    @include susy-media($tablet_land) {
+      width: 100%;
+    }
+    @include susy-media($tablet_port) {
+      width: 100%;
+    }
     @include susy-media($smartphone) {
       width: 100%;
     }
@@ -26,7 +32,7 @@
 
   .patientDetails__panel {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     background-color: $c-white;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
