@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.table{
+  .table_header{
+    th{
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+  }
+  .table_body{
+    tr{
+      td.MuiTableCell-root{
+        padding: 14px;
+      }
+    }
+    .collapseWrapper{
+      background: lighten($c-grey-lighter, 22%);
+      padding: 20px 75px;
+      ul{
+        column-count: 2;
+        margin: 0px;
+        padding: 0px;
+        @include susy-media($smartphone){
+          column-count: 1;
+        }
+        li{
+          list-style: none;
+        }
+        li + li {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
