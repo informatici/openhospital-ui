@@ -1,0 +1,74 @@
+@import "../../../../styles/variables";
+@import "../../../../../node_modules/susy/sass/susy";
+
+.patientOpdForm {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .patientOpdForm__item {
+    margin: 7px 0px;
+    padding: 0px 15px;
+    width: 33%;
+    &.fullWith{
+      width: 100%;
+    }
+    @include susy-media($narrow) {
+      padding: 0px 10px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 0px 10px;
+    }
+    @include susy-media($tablet_port) {
+      width: 50%;
+    }
+    @include susy-media($smartphone) {
+      width: 100%;
+    }
+    .dateField,
+    .textField,
+    .selectField {
+      width: 100%;
+    }
+
+    &.fullWidth{
+      width: 100%;
+    }
+
+    &.compressed{
+      .textField {
+        float: left;
+        width: 50%;
+        &:nth-of-type(1){
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+
+  .patientOpdForm__buttonSet {
+    display: flex;
+    margin-top: 25px;
+    padding: 0px 15px;
+    flex-direction: row-reverse;
+    @include susy-media($smartphone_small) {
+      display: block;
+    }
+
+    .submit_button,
+    .reset_button {
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button {
+        @include susy-media($smartphone_small) {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
