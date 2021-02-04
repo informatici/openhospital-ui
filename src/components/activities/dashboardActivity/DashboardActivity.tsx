@@ -37,7 +37,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           />
           <div className="dashboard__background">
             <div className="dashboard__greeter">
-              Welcome {userCredentials?.displayName}
+              Welcome <strong>{userCredentials?.displayName}</strong>
             </div>
             <div className="dashboard__actions">
               <div className="dashboard__actions__button">
