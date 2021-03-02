@@ -94,7 +94,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 theme="regular"
                 format="dd/MM/yyyy"
                 label="Date (day/month/year)"
-                onChange={() => dateFieldHandleOnChange("triageDate")}
+                onChange={dateFieldHandleOnChange("triageDate")}
               />
             </div>
           </div>

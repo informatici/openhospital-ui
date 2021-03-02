@@ -170,7 +170,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               theme="regular"
               format="dd/MM/yyyy"
               label="Birthday (day/month/year)"
-              onChange={() => dateFieldHandleOnChange("birthDate")}
+              onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>
 
