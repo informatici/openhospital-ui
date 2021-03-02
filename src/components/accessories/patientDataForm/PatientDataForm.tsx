@@ -1,7 +1,12 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
@@ -32,7 +37,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     firstName: string().required("This field is required"),
     secondName: string().required("This field is required"),
     birthDate: string().required("This field is required"),
-    sex: string().required("This field is required")
+    sex: string().required("This field is required"),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -93,11 +98,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
-  }
+  };
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -326,9 +331,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           primaryButtonLabel={resetButtonLabel}
           secondaryButtonLabel="Dismiss"
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() =>
-            setOpenResetConfirmation(false)
-          }
+          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
         />
       </form>
     </div>
