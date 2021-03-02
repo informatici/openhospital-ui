@@ -1,21 +1,21 @@
-import React, { FunctionComponent, useCallback, useState } from 'react';
+import React, { FunctionComponent, useCallback, useState } from "react";
 import { useFormik } from "formik";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import DateField from '../../dateField/DateField';
-import { object } from 'yup';
-import { TProps } from './types';
-import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
-import TextButton from '../../textButton/TextButton';
-import SmallButton from '../../smallButton/SmallButton';
+import DateField from "../../dateField/DateField";
+import { object } from "yup";
+import { TProps } from "./types";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import TextButton from "../../textButton/TextButton";
+import SmallButton from "../../smallButton/SmallButton";
 import warningIcon from "../../../../assets/warning-icon.png";
-import TextField from '../../textField/TextField';
-import has from 'lodash.has';
-import get from 'lodash.get';
-import SelectField from '../../selectField/SelectField';
-import "./styles.scss"
+import TextField from "../../textField/TextField";
+import has from "lodash.has";
+import get from "lodash.get";
+import SelectField from "../../selectField/SelectField";
+import "./styles.scss";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -24,9 +24,8 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-
   const validationSchema = object({
-    // TODO  
+    // TODO
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -45,8 +44,8 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   const { setFieldValue, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("triageDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -73,16 +72,19 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
-  }
+  };
 
   return (
     <>
       <div className="patientTriageForm">
-        <form className="patientTriageForm__form" onSubmit={formik.handleSubmit}>
+        <form
+          className="patientTriageForm__form"
+          onSubmit={formik.handleSubmit}
+        >
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item">
               <DateField
@@ -92,7 +94,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 theme="regular"
                 format="dd/MM/yyyy"
                 label="Date (day/month/year)"
-                onChange={dateFieldHandleOnChange}
+                onChange={() => dateFieldHandleOnChange("triageDate")}
               />
             </div>
           </div>
@@ -164,7 +166,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("arterial_pressure_max")}
                 onBlur={formik.handleBlur}
                 type="string"
-              />  
+              />
             </div>
 
             <div className="patientTriageForm__item">
@@ -273,14 +275,12 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             primaryButtonLabel={resetButtonLabel}
             secondaryButtonLabel="Dismiss"
             handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() =>
-              setOpenResetConfirmation(false)
-            }
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
         </form>
       </div>
     </>
   );
-}
+};
 
 export default PatientTriageForm;
