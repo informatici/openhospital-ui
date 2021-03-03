@@ -90,7 +90,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       resetForm();
       resetFormCallback();
     }
-  }, [shouldResetForm, resetForm]);
+  }, [shouldResetForm, resetForm, resetFormCallback]);
 
   return (
     <>
