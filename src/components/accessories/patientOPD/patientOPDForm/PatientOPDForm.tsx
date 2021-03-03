@@ -1,20 +1,20 @@
-import React, { FunctionComponent, useCallback, useState } from 'react';
+import React, { FunctionComponent, useCallback, useState } from "react";
 import { useFormik } from "formik";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import DateField from '../../dateField/DateField';
-import { object } from 'yup';
-import { TProps } from './types';
-import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
-import TextButton from '../../textButton/TextButton';
-import SmallButton from '../../smallButton/SmallButton';
+import DateField from "../../dateField/DateField";
+import { object } from "yup";
+import { TProps } from "./types";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import TextButton from "../../textButton/TextButton";
+import SmallButton from "../../smallButton/SmallButton";
 import warningIcon from "../../../../assets/warning-icon.png";
-import TextField from '../../textField/TextField';
-import has from 'lodash.has';
-import get from 'lodash.get';
-import "./styles.scss"
+import TextField from "../../textField/TextField";
+import has from "lodash.has";
+import get from "lodash.get";
+import "./styles.scss";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -23,9 +23,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-
   const validationSchema = object({
-    // TODO  
+    // TODO
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -60,11 +59,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   };
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
-  }
+  };
 
   return (
     <>
@@ -78,7 +77,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                label="Date (day/month/year)"
+                isValid={isValid("opdDate")}
+                errorText={getErrorText("opdDate")}
+                label="Date (d/m/y)"
                 onChange={dateFieldHandleOnChange}
               />
             </div>
@@ -170,14 +171,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             primaryButtonLabel={resetButtonLabel}
             secondaryButtonLabel="Dismiss"
             handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() =>
-              setOpenResetConfirmation(false)
-            }
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
         </form>
       </div>
     </>
   );
-}
+};
 
 export default PatientOPDForm;
