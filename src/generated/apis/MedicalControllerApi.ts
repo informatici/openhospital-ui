@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     MedicalDTO,
 } from '../models';
@@ -54,24 +54,28 @@ export class MedicalControllerApi extends BaseAPI {
     /**
      * deleteMedical
      */
-    deleteMedicalUsingDELETE = ({ code }: DeleteMedicalUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'deleteMedicalUsingDELETE');
+    deleteMedicalUsingDELETE({ code }: DeleteMedicalUsingDELETERequest): Observable<boolean>
+    deleteMedicalUsingDELETE({ code }: DeleteMedicalUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteMedicalUsingDELETE({ code }: DeleteMedicalUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteMedicalUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/medicals/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medicals/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * filterMedicals
      */
-    filterMedicalsUsingGET = ({ critical, desc, nameSorted, type }: FilterMedicalsUsingGETRequest): Observable<Array<MedicalDTO>> => {
+    filterMedicalsUsingGET({ critical, desc, nameSorted, type }: FilterMedicalsUsingGETRequest): Observable<Array<MedicalDTO>>
+    filterMedicalsUsingGET({ critical, desc, nameSorted, type }: FilterMedicalsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalDTO>>>
+    filterMedicalsUsingGET({ critical, desc, nameSorted, type }: FilterMedicalsUsingGETRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | RawAjaxResponse<Array<MedicalDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -85,34 +89,38 @@ export class MedicalControllerApi extends BaseAPI {
         if (type != null) { query['type'] = type; }
 
         return this.request<Array<MedicalDTO>>({
-            path: '/medicals/filter',
+            url: '/medicals/filter',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMedical
      */
-    getMedicalUsingGET = ({ code }: GetMedicalUsingGETRequest): Observable<MedicalDTO> => {
-        throwIfNullOrUndefined(code, 'getMedicalUsingGET');
+    getMedicalUsingGET({ code }: GetMedicalUsingGETRequest): Observable<MedicalDTO>
+    getMedicalUsingGET({ code }: GetMedicalUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalDTO>>
+    getMedicalUsingGET({ code }: GetMedicalUsingGETRequest, opts?: OperationOpts): Observable<MedicalDTO | RawAjaxResponse<MedicalDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'getMedicalUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<MedicalDTO>({
-            path: '/medicals/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medicals/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMedicals
      */
-    getMedicalsUsingGET = ({ sortBy }: GetMedicalsUsingGETRequest): Observable<Array<MedicalDTO>> => {
+    getMedicalsUsingGET({ sortBy }: GetMedicalsUsingGETRequest): Observable<Array<MedicalDTO>>
+    getMedicalsUsingGET({ sortBy }: GetMedicalsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalDTO>>>
+    getMedicalsUsingGET({ sortBy }: GetMedicalsUsingGETRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | RawAjaxResponse<Array<MedicalDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -123,18 +131,20 @@ export class MedicalControllerApi extends BaseAPI {
         if (sortBy != null) { query['sort_by'] = sortBy; }
 
         return this.request<Array<MedicalDTO>>({
-            path: '/medicals',
+            url: '/medicals',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newMedical
      */
-    newMedicalUsingPOST = ({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest): Observable<void> => {
-        throwIfNullOrUndefined(medicalDTO, 'newMedicalUsingPOST');
+    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest): Observable<void>
+    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(medicalDTO, 'medicalDTO', 'newMedicalUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -146,19 +156,21 @@ export class MedicalControllerApi extends BaseAPI {
         if (ignoreSimilar != null) { query['ignore_similar'] = ignoreSimilar; }
 
         return this.request<void>({
-            path: '/medicals',
+            url: '/medicals',
             method: 'POST',
             headers,
             query,
             body: medicalDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateMedical
      */
-    updateMedicalUsingPUT = ({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest): Observable<void> => {
-        throwIfNullOrUndefined(medicalDTO, 'updateMedicalUsingPUT');
+    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest): Observable<void>
+    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(medicalDTO, 'medicalDTO', 'updateMedicalUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -170,12 +182,12 @@ export class MedicalControllerApi extends BaseAPI {
         if (ignoreSimilar != null) { query['ignore_similar'] = ignoreSimilar; }
 
         return this.request<void>({
-            path: '/medicals',
+            url: '/medicals',
             method: 'PUT',
             headers,
             query,
             body: medicalDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

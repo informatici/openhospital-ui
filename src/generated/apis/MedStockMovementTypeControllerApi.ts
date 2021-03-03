@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     MovementTypeDTO,
 } from '../models';
@@ -45,74 +45,84 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     /**
      * deleteMedicaldsrstockmovType
      */
-    deleteMedicaldsrstockmovTypeUsingDELETE = ({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'deleteMedicaldsrstockmovTypeUsingDELETE');
+    deleteMedicaldsrstockmovTypeUsingDELETE({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest): Observable<boolean>
+    deleteMedicaldsrstockmovTypeUsingDELETE({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteMedicaldsrstockmovTypeUsingDELETE({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteMedicaldsrstockmovTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMedicaldsrstockmovType
      */
-    getMedicaldsrstockmovTypeUsingGET = (): Observable<Array<MovementTypeDTO>> => {
+    getMedicaldsrstockmovTypeUsingGET(): Observable<Array<MovementTypeDTO>>
+    getMedicaldsrstockmovTypeUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementTypeDTO>>>
+    getMedicaldsrstockmovTypeUsingGET(opts?: OperationOpts): Observable<Array<MovementTypeDTO> | RawAjaxResponse<Array<MovementTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<MovementTypeDTO>>({
-            path: '/medstockmovementtype',
+            url: '/medstockmovementtype',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMovementType
      */
-    getMovementTypeUsingGET = ({ code }: GetMovementTypeUsingGETRequest): Observable<MovementTypeDTO> => {
-        throwIfNullOrUndefined(code, 'getMovementTypeUsingGET');
+    getMovementTypeUsingGET({ code }: GetMovementTypeUsingGETRequest): Observable<MovementTypeDTO>
+    getMovementTypeUsingGET({ code }: GetMovementTypeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementTypeDTO>>
+    getMovementTypeUsingGET({ code }: GetMovementTypeUsingGETRequest, opts?: OperationOpts): Observable<MovementTypeDTO | RawAjaxResponse<MovementTypeDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'getMovementTypeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<MovementTypeDTO>({
-            path: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * isCodeUsed
      */
-    isCodeUsedUsingGET = ({ code }: IsCodeUsedUsingGETRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'isCodeUsedUsingGET');
+    isCodeUsedUsingGET({ code }: IsCodeUsedUsingGETRequest): Observable<boolean>
+    isCodeUsedUsingGET({ code }: IsCodeUsedUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    isCodeUsedUsingGET({ code }: IsCodeUsedUsingGETRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'isCodeUsedUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/medstockmovementtype/check/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medstockmovementtype/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newMedicaldsrstockmovType
      */
-    newMedicaldsrstockmovTypeUsingPOST = ({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest): Observable<void> => {
-        throwIfNullOrUndefined(medicaldsrstockmovType, 'newMedicaldsrstockmovTypeUsingPOST');
+    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest): Observable<void>
+    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(medicaldsrstockmovType, 'medicaldsrstockmovType', 'newMedicaldsrstockmovTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -120,18 +130,20 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
         };
 
         return this.request<void>({
-            path: '/medstockmovementtype',
+            url: '/medstockmovementtype',
             method: 'POST',
             headers,
             body: medicaldsrstockmovType,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateMedicaldsrstockmovType
      */
-    updateMedicaldsrstockmovTypeUsingPUT = ({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest): Observable<void> => {
-        throwIfNullOrUndefined(medicaldsrstockmovTypeDTO, 'updateMedicaldsrstockmovTypeUsingPUT');
+    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest): Observable<void>
+    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(medicaldsrstockmovTypeDTO, 'medicaldsrstockmovTypeDTO', 'updateMedicaldsrstockmovTypeUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -139,11 +151,11 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
         };
 
         return this.request<void>({
-            path: '/medstockmovementtype',
+            url: '/medstockmovementtype',
             method: 'PUT',
             headers,
             body: medicaldsrstockmovTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     AgeType,
     AgeTypeDTO,
@@ -38,25 +38,29 @@ export class AgeTypeControllerApi extends BaseAPI {
     /**
      * getAgeTypeByIndex
      */
-    getAgeTypeByIndexUsingGET = ({ index }: GetAgeTypeByIndexUsingGETRequest): Observable<AgeType> => {
-        throwIfNullOrUndefined(index, 'getAgeTypeByIndexUsingGET');
+    getAgeTypeByIndexUsingGET({ index }: GetAgeTypeByIndexUsingGETRequest): Observable<AgeType>
+    getAgeTypeByIndexUsingGET({ index }: GetAgeTypeByIndexUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AgeType>>
+    getAgeTypeByIndexUsingGET({ index }: GetAgeTypeByIndexUsingGETRequest, opts?: OperationOpts): Observable<AgeType | RawAjaxResponse<AgeType>> {
+        throwIfNullOrUndefined(index, 'index', 'getAgeTypeByIndexUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<AgeType>({
-            path: '/agetypes/{index}'.replace('{index}', encodeURI(index)),
+            url: '/agetypes/{index}'.replace('{index}', encodeURI(index)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAgeTypeCodeByAge
      */
-    getAgeTypeCodeByAgeUsingGET = ({ age }: GetAgeTypeCodeByAgeUsingGETRequest): Observable<{ [key: string]: string; }> => {
-        throwIfNullOrUndefined(age, 'getAgeTypeCodeByAgeUsingGET');
+    getAgeTypeCodeByAgeUsingGET({ age }: GetAgeTypeCodeByAgeUsingGETRequest): Observable<{ [key: string]: string; }>
+    getAgeTypeCodeByAgeUsingGET({ age }: GetAgeTypeCodeByAgeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<{ [key: string]: string; }>>
+    getAgeTypeCodeByAgeUsingGET({ age }: GetAgeTypeCodeByAgeUsingGETRequest, opts?: OperationOpts): Observable<{ [key: string]: string; } | RawAjaxResponse<{ [key: string]: string; }>> {
+        throwIfNullOrUndefined(age, 'age', 'getAgeTypeCodeByAgeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -67,33 +71,37 @@ export class AgeTypeControllerApi extends BaseAPI {
         };
 
         return this.request<{ [key: string]: string; }>({
-            path: '/agetypes/code',
+            url: '/agetypes/code',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAllAgeTypes
      */
-    getAllAgeTypesUsingGET = (): Observable<Array<AgeTypeDTO>> => {
+    getAllAgeTypesUsingGET(): Observable<Array<AgeTypeDTO>>
+    getAllAgeTypesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<AgeTypeDTO>>>
+    getAllAgeTypesUsingGET(opts?: OperationOpts): Observable<Array<AgeTypeDTO> | RawAjaxResponse<Array<AgeTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<AgeTypeDTO>>({
-            path: '/agetypes',
+            url: '/agetypes',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateAgeType
      */
-    updateAgeTypeUsingPUT = ({ ageTypeDTO }: UpdateAgeTypeUsingPUTRequest): Observable<AgeTypeDTO> => {
-        throwIfNullOrUndefined(ageTypeDTO, 'updateAgeTypeUsingPUT');
+    updateAgeTypeUsingPUT({ ageTypeDTO }: UpdateAgeTypeUsingPUTRequest): Observable<AgeTypeDTO>
+    updateAgeTypeUsingPUT({ ageTypeDTO }: UpdateAgeTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AgeTypeDTO>>
+    updateAgeTypeUsingPUT({ ageTypeDTO }: UpdateAgeTypeUsingPUTRequest, opts?: OperationOpts): Observable<AgeTypeDTO | RawAjaxResponse<AgeTypeDTO>> {
+        throwIfNullOrUndefined(ageTypeDTO, 'ageTypeDTO', 'updateAgeTypeUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -101,11 +109,11 @@ export class AgeTypeControllerApi extends BaseAPI {
         };
 
         return this.request<AgeTypeDTO>({
-            path: '/agetypes',
+            url: '/agetypes',
             method: 'PUT',
             headers,
             body: ageTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

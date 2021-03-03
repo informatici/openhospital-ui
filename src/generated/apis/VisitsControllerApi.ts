@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     ResponseEntity,
     VisitDTO,
@@ -42,42 +42,48 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * deleteVisitsRelatedToPatient
      */
-    deleteVisitsRelatedToPatientUsingDELETE = ({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(patID, 'deleteVisitsRelatedToPatientUsingDELETE');
+    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest): Observable<ResponseEntity>
+    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(patID, 'patID', 'deleteVisitsRelatedToPatientUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            path: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
+            url: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getVisit
      */
-    getVisitUsingGET = ({ patID }: GetVisitUsingGETRequest): Observable<Array<VisitDTO>> => {
-        throwIfNullOrUndefined(patID, 'getVisitUsingGET');
+    getVisitUsingGET({ patID }: GetVisitUsingGETRequest): Observable<Array<VisitDTO>>
+    getVisitUsingGET({ patID }: GetVisitUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<VisitDTO>>>
+    getVisitUsingGET({ patID }: GetVisitUsingGETRequest, opts?: OperationOpts): Observable<Array<VisitDTO> | RawAjaxResponse<Array<VisitDTO>>> {
+        throwIfNullOrUndefined(patID, 'patID', 'getVisitUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<VisitDTO>>({
-            path: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
+            url: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newVisit
      */
-    newVisitUsingPOST = ({ newVisit }: NewVisitUsingPOSTRequest): Observable<number> => {
-        throwIfNullOrUndefined(newVisit, 'newVisitUsingPOST');
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest): Observable<number>
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(newVisit, 'newVisit', 'newVisitUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -85,18 +91,20 @@ export class VisitsControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/visit',
+            url: '/visit',
             method: 'POST',
             headers,
             body: newVisit,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newVisits
      */
-    newVisitsUsingPOST = ({ newVisits }: NewVisitsUsingPOSTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(newVisits, 'newVisitsUsingPOST');
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest): Observable<ResponseEntity>
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(newVisits, 'newVisits', 'newVisitsUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -104,11 +112,11 @@ export class VisitsControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/visits',
+            url: '/visits',
             method: 'POST',
             headers,
             body: newVisits,
-        });
+        }, opts?.responseOpts);
     };
 
 }
