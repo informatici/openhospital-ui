@@ -29,7 +29,7 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should pass the “submit” button label", () => {
-    cy.get("[class=patientDataForm]").contains("submit");
+    cy.get(".submit_button button");
   });
 
   it("should allow the user to add and remove a profile picture", () => {
@@ -92,7 +92,7 @@ describe("NewPatientActivity spec", () => {
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
     cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get(".patientDataForm .submit_button button").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
 
@@ -104,7 +104,7 @@ describe("NewPatientActivity spec", () => {
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
     cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get(".patientDataForm .submit_button button").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
     );
@@ -125,7 +125,7 @@ describe("NewPatientActivity spec", () => {
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
     cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get(".patientDataForm .submit_button button").click();
     cy.get("div.dialog__buttonSet").contains("Dashboard").click();
     cy.get("div.dashboard");
   });
