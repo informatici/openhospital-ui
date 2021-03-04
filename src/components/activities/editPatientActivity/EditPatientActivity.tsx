@@ -1,5 +1,6 @@
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
@@ -34,10 +35,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   hasSucceeded,
   hasFailed,
   patient,
-  getPatientThunk
+  getPatientThunk,
 }) => {
-
   const { id } = useParams<{ id: string }>();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
@@ -53,14 +54,22 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
-    if(patient?.data?.code)
+    if (patient?.data?.code)
       updatePatient(patient?.data?.code, updatePatientValues);
-    else 
-      console.error('The Patient: PatientDTO object must have a "code" property.');
+    else
+      console.error(
+        'The Patient: PatientDTO object must have a "code" property.'
+      );
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<TActivityTransitionState>("IDLE");
-  const [openConfirmationMessage, setOpenConfirmationMessage] = useState<boolean>(false);
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
+  const [
+    openConfirmationMessage,
+    setOpenConfirmationMessage,
+  ] = useState<boolean>(false);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {
@@ -103,7 +112,9 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="editPatient__background">
             <div className="editPatient__content">
-              <div className="editPatient__title">{`Edit patient: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
+              <div className="editPatient__title">{`${t(
+                "patient.titleedit"
+              )}: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
               <PatientDataForm
                 fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
@@ -158,4 +169,7 @@ const mapDispatchToProps: IDispatchProps = {
   updatePatient,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPatientActivity);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditPatientActivity);

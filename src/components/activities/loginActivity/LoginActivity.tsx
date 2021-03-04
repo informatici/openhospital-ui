@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { object, string } from "yup";
@@ -29,6 +30,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
   status,
   successRoute,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const userCredentials = SessionStorage.read(AUTH_KEY);
     if (userCredentials) {
@@ -42,8 +45,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    username: string().required("Enter a valid user name"),
-    password: string().required("Enter the password"),
+    username: string().required(t("menu.pleaseinsertavalidusername")),
+    password: string().required(t("menu.pleaseinsertapassword")),
   });
 
   const formik = useFormik({
@@ -92,7 +95,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("username")}
                 theme="regular"
-                label="User"
+                label={t("menu.userm")}
                 isValid={isValid("username")}
                 errorText={getErrorText("username")}
                 onBlur={formik.handleBlur}
@@ -102,7 +105,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("password")}
                 theme="regular"
-                label="Password"
+                label={t("menu.password")}
                 type={state.isPasswordVisible ? "text" : "password"}
                 isValid={isValid("password")}
                 errorText={getErrorText("password")}
@@ -130,7 +133,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              Invalid username or password
+              {t("menu.passwordincorrectretry")}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -144,7 +147,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
             </div>
             <div>
               <Link className="login__panel__resetPassword" component="button">
-                Forgot the password?
+                {t("menu.resetpassword")}
               </Link>
             </div>
             &emsp;

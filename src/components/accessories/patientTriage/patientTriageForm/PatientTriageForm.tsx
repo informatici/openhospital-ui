@@ -1,21 +1,22 @@
-import React, { FunctionComponent, useCallback, useState } from 'react';
+import React, { FunctionComponent, useCallback, useState } from "react";
 import { useFormik } from "formik";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import DateField from '../../dateField/DateField';
-import { object } from 'yup';
-import { TProps } from './types';
-import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
-import TextButton from '../../textButton/TextButton';
-import SmallButton from '../../smallButton/SmallButton';
+import DateField from "../../dateField/DateField";
+import { object } from "yup";
+import { TProps } from "./types";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import TextButton from "../../textButton/TextButton";
+import SmallButton from "../../smallButton/SmallButton";
 import warningIcon from "../../../../assets/warning-icon.png";
-import TextField from '../../textField/TextField';
-import has from 'lodash.has';
-import get from 'lodash.get';
-import SelectField from '../../selectField/SelectField';
-import "./styles.scss"
+import TextField from "../../textField/TextField";
+import has from "lodash.has";
+import get from "lodash.get";
+import SelectField from "../../selectField/SelectField";
+import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -24,11 +25,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-
   const validationSchema = object({
-    // TODO  
+    // TODO
   });
 
+  const { t } = useTranslation();
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
 
@@ -73,16 +74,19 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
-  }
+  };
 
   return (
     <>
       <div className="patientTriageForm">
-        <form className="patientTriageForm__form" onSubmit={formik.handleSubmit}>
+        <form
+          className="patientTriageForm__form"
+          onSubmit={formik.handleSubmit}
+        >
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item">
               <DateField
@@ -101,7 +105,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("height")}
                 theme="regular"
-                label="Height"
+                label={t("examination.height")}
                 isValid={isValid("height")}
                 errorText={getErrorText("height")}
                 onBlur={formik.handleBlur}
@@ -113,7 +117,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("weight")}
                 theme="regular"
-                label="Weight"
+                label={t("examination.weight")}
                 isValid={isValid("weight")}
                 errorText={getErrorText("weight")}
                 onBlur={formik.handleBlur}
@@ -125,7 +129,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("temperature")}
                 theme="regular"
-                label="Temperature °C"
+                label={t("examination.temperature")}
                 isValid={isValid("temperature")}
                 errorText={getErrorText("temperature")}
                 onBlur={formik.handleBlur}
@@ -137,7 +141,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("saturation")}
                 theme="regular"
-                label="Saturation %"
+                label={t("examination.saturation")}
                 isValid={isValid("saturation")}
                 errorText={getErrorText("saturation")}
                 onBlur={formik.handleBlur}
@@ -149,7 +153,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("arterial_pressure_min")}
                 theme="regular"
-                label="Art.pr.(min)"
+                label={t("examination.ap.min")}
                 isValid={isValid("arterial_pressure_min")}
                 errorText={getErrorText("arterial_pressure_min")}
                 onBlur={formik.handleBlur}
@@ -159,19 +163,19 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("arterial_pressure_max")}
                 theme="regular"
-                label="Art.pr.(max)"
+                label={t("examination.ap.max")}
                 isValid={isValid("arterial_pressure_max")}
                 errorText={getErrorText("arterial_pressure_max")}
                 onBlur={formik.handleBlur}
                 type="string"
-              />  
+              />
             </div>
 
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("heart_rate")}
                 theme="regular"
-                label="Heart rate"
+                label={t("examination.heartrate")}
                 isValid={isValid("heart_rate")}
                 errorText={getErrorText("heart_rate")}
                 onBlur={formik.handleBlur}
@@ -183,7 +187,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("diuresis_vol")}
                 theme="regular"
-                label="Diuresis vol 24H"
+                label={t("examination.diuresisvolume24h")}
                 isValid={isValid("diuresis_vol")}
                 errorText={getErrorText("diuresis_vol")}
                 onBlur={formik.handleBlur}
@@ -195,7 +199,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("respiratory_rate")}
                 theme="regular"
-                label="Respiratory rate"
+                label={t("examination.respiratoryrate")}
                 isValid={isValid("respiratory_rate")}
                 errorText={getErrorText("respiratory_rate")}
                 onBlur={formik.handleBlur}
@@ -207,7 +211,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("hgt")}
                 theme="regular"
-                label="HGT"
+                label={t("examination.hgt")}
                 isValid={isValid("hgt")}
                 errorText={getErrorText("hgt")}
                 onBlur={formik.handleBlur}
@@ -273,14 +277,12 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             primaryButtonLabel={resetButtonLabel}
             secondaryButtonLabel="Dismiss"
             handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() =>
-              setOpenResetConfirmation(false)
-            }
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
         </form>
       </div>
     </>
   );
-}
+};
 
 export default PatientTriageForm;

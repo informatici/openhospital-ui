@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
@@ -7,9 +8,11 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
   getPatientSuccessCallback,
 }) => {
-  const [activityTransitionState, setActivityTransitionState] = useState<
-    TActivityTransitionState
-  >("IDLE");
+  const { t } = useTranslation();
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT_DETAILS") {
@@ -29,16 +32,16 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
           >
             <div className="patientSearchItem__header">
               <div>
-                <strong>PID:</strong> {patient.code}
+                <strong>{t("common.patientID")}:</strong> {patient.code}
               </div>
               <div>
-                <strong>OPD:</strong> 32240321
+                <strong>{t("menu.opd")}:</strong> 32240321
               </div>
             </div>
             <div className="patientSearchItem__content">
               <div className="patientSearchItem__profile">
                 <div className="patientSearchItem__profile__name">
-                  {`${patient.firstName || ''} ${patient.secondName || ''}`}
+                  {`${patient.firstName || ""} ${patient.secondName || ""}`}
                 </div>
                 <div className="patientSearchItem__profile__picture">
                   <ProfilePicture

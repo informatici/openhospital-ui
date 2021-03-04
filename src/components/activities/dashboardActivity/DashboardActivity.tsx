@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
@@ -15,13 +16,16 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   newPatientRoute,
   searchPatientRoute,
 }) => {
+  const { t } = useTranslation();
+
   const breadcrumbMap = {
     Dashboard: "/",
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<
-    TActivityTransitionState
-  >("IDLE");
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
   switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
@@ -49,7 +53,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <PlusIcon />
                     <div className="largeButton__inner__label">
-                      Register New Patient
+                      {t("patient.title")}
                     </div>
                   </div>
                 </LargeButton>
@@ -63,7 +67,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <SearchIcon width="43" height="43" />
                     <div className="largeButton__inner__label">
-                      Search Patients
+                      {t("patient.searchpatient")}
                     </div>
                   </div>
                 </LargeButton>

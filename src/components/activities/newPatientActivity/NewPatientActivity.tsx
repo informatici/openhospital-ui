@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
@@ -32,18 +33,20 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   hasFailed,
   dashboardRoute,
 }) => {
+  const { t } = useTranslation();
   const breadcrumbMap = {
     Dashboard: "/",
-    "New Patient": "/new",
+    [t("patient.newpatient")]: "/new",
   };
 
   const onSubmit = (patient: PatientDTO) => {
     createPatient(patient);
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<
-    TActivityTransitionState
-  >("IDLE");
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
     if (
@@ -82,11 +85,13 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="newPatient__background">
             <div className="newPatient__content">
-              <div className="newPatient__title">Register new patient</div>
+              <div className="newPatient__title">
+                {t("patient.insertdataofnewpatient")}
+              </div>
               <PatientDataForm
                 fields={initialFields}
                 onSubmit={onSubmit}
-                submitButtonLabel="submit"
+                submitButtonLabel="Submit"
                 resetButtonLabel="Clear All"
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
