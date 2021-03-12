@@ -30,18 +30,31 @@ export const handlePictureSelection = (
       preview: string;
       original: string;
     }>
-  >
+  >, setShowError: React.Dispatch<React.SetStateAction<string>>, maxFileUpload: number
 ) => (e: ChangeEvent<HTMLInputElement>): void => {
   const newPic = e.target.files && e.target.files[0];
-  if (newPic) {
-    const dataURLReader = new FileReader();
-    dataURLReader.onload = (e) => {
-      const pictureURI = e.target?.result;
-      if (typeof pictureURI === "string") {
-        preprocessImage(setPicture, pictureURI);
-      }
-    };
-    dataURLReader.readAsDataURL(newPic);
+  if (getFileSize(newPic, maxFileUpload)) {
+    if (newPic) {
+      const dataURLReader = new FileReader();
+      dataURLReader.onload = (e) => {
+        const pictureURI = e.target?.result;
+        if (typeof pictureURI === "string") {
+          preprocessImage(setPicture, pictureURI);
+        }
+      };
+      dataURLReader.readAsDataURL(newPic);
+    }
+  } else {
+    setShowError("File is too big! (Max upload file is " + maxFileUpload / 1000 + " KB)");
+    return;
+  }
+};
+
+export const getFileSize = (file: File | null, maxFileUpload: number): boolean => {
+  if(!file || file.size > maxFileUpload){
+    return false;
+  } else {
+    return true;
   }
 };
 
