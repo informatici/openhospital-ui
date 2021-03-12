@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
@@ -19,7 +19,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    Dashboard: "/",
+    [t("nav.dashboard")]: "/",
   };
 
   const [
@@ -41,7 +41,10 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           />
           <div className="dashboard__background">
             <div className="dashboard__greeter">
-              Welcome <strong>{userCredentials?.displayName}</strong>
+              <Trans
+                i18nKey="dashboard.welcomename"
+                values={{ name: userCredentials?.displayName }}
+              />
             </div>
             <div className="dashboard__actions">
               <div className="dashboard__actions__button">
@@ -53,7 +56,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <PlusIcon />
                     <div className="largeButton__inner__label">
-                      {t("patient.title")}
+                      {t("dashboard.newpatient")}
                     </div>
                   </div>
                 </LargeButton>
@@ -67,7 +70,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <SearchIcon width="43" height="43" />
                     <div className="largeButton__inner__label">
-                      {t("patient.searchpatient")}
+                      {t("dashboard.searchpatients")}
                     </div>
                   </div>
                 </LargeButton>

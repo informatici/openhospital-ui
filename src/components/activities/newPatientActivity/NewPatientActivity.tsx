@@ -35,8 +35,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const breadcrumbMap = {
-    Dashboard: "/",
-    [t("patient.newpatient")]: "/new",
+    [t("nav.dashboard")]: "/",
+    [t("nav.newpatient")]: "/new",
   };
 
   const onSubmit = (patient: PatientDTO) => {
@@ -85,14 +85,12 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="newPatient__background">
             <div className="newPatient__content">
-              <div className="newPatient__title">
-                {t("patient.insertdataofnewpatient")}
-              </div>
+              <div className="newPatient__title">{t("nav.newpatient")}</div>
               <PatientDataForm
                 fields={initialFields}
                 onSubmit={onSubmit}
-                submitButtonLabel="Submit"
-                resetButtonLabel="Clear All"
+                submitButtonLabel={t("common.submit")}
+                resetButtonLabel={t("common.clearall")}
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
@@ -101,19 +99,16 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           </div>
           <div ref={infoBoxRef}>
             {hasFailed && (
-              <InfoBox
-                type="error"
-                message="Something went wrong, please retry later."
-              />
+              <InfoBox type="error" message={t("common.somethingwrong")} />
             )}
           </div>
           <ConfirmationDialog
             isOpen={hasSucceeded}
             title="Patient Created"
             icon={checkIcon}
-            info="The patient registration was successful."
-            primaryButtonLabel="Dashboard"
-            secondaryButtonLabel="Keep editing"
+            info={t("common.patientregistrationsuccessfull")}
+            primaryButtonLabel={t("common.dashboard")}
+            secondaryButtonLabel={t("common.keepediting")}
             handlePrimaryButtonClick={() =>
               setActivityTransitionState("TO_DASHBOARD")
             }

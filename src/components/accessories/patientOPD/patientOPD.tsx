@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 import { initialFields } from "./consts";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 
 const PatientOPD: FunctionComponent = () => {
+  const { t } = useTranslation();
 
   const onSubmit = (opd: any) => {
     console.log(opd);
@@ -13,12 +15,12 @@ const PatientOPD: FunctionComponent = () => {
       <PatientOPDForm
         fields={initialFields}
         onSubmit={onSubmit}
-        submitButtonLabel="Save OPD"
-        resetButtonLabel="Discard"
+        submitButtonLabel={t("common.saveopd")}
+        resetButtonLabel={t("common.discard")}
         isLoading={false}
       />
     </div>
   );
-}
+};
 
 export default PatientOPD;

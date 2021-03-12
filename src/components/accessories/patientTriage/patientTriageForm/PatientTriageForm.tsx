@@ -95,7 +95,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                label="Date (day/month/year)"
+                label={t("examination.datetriage")}
                 onChange={dateFieldHandleOnChange}
               />
             </div>
@@ -224,7 +224,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="diuresis"
                 fieldValue={formik.values.diuresis}
-                label="Diuresis"
+                label={t("examination.diuresis")}
                 isValid={isValid("diuresis")}
                 errorText={getErrorText("diuresis")}
                 onBlur={onBlurCallback("diuresis")}
@@ -236,7 +236,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="bowel"
                 fieldValue={formik.values.bowel}
-                label="Bowel"
+                label={t("examination.bowel")}
                 isValid={isValid("bowel")}
                 errorText={getErrorText("bowel")}
                 onBlur={onBlurCallback("bowel")}
@@ -248,7 +248,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="auscultation"
                 fieldValue={formik.values.auscultation}
-                label="Auscultation"
+                label={t("examination.auscultation")}
                 isValid={isValid("auscultation")}
                 errorText={getErrorText("auscultation")}
                 onBlur={onBlurCallback("auscultation")}

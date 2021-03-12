@@ -9,6 +9,12 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
+import { TTabConfig } from "../../accessories/tabs/types";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import PatientTriage from "../../accessories/patientTriage/PatientTriage";
+import PatientSummary from "../../accessories/patientSummary/PatientSummary";
+import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import {
   Accordion,
@@ -16,8 +22,6 @@ import {
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
 import Tabs from "../../accessories/tabs/Tabs";
-
-import { patientDetailTabs } from "./tabsConfig";
 import {
   IDispatchProps,
   IStateProps,
@@ -47,9 +51,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    Dashboard: "/",
-    "Search Patient": "/search",
-    "Patient Dashboard": `/details/${patient.data?.code}`,
+    [t("nav.dashboard")]: "/",
+    [t("nav.searchpatient")]: "/search",
+    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
   };
 
   const [
@@ -58,6 +62,37 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   ] = useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>("panel_1");
+
+  const patientDetailTabs: TTabConfig = [
+    {
+      label: t("nav.summary"),
+      content: (
+        <PatientDetailsContent title="Summary" content={<PatientSummary />} />
+      ),
+    },
+    {
+      label: t("nav.opd"),
+      content: <PatientDetailsContent title="OPD" content={<PatientOPD />} />,
+    },
+    {
+      label: t("nav.triage"),
+      content: (
+        <PatientDetailsContent title="Triage" content={<PatientTriage />} />
+      ),
+    },
+    {
+      label: t("nav.therapy"),
+      content: (
+        <PatientDetailsContent title="Therapy" content={<SkeletonLoader />} />
+      ),
+    },
+    {
+      label: t("nav.booking"),
+      content: (
+        <PatientDetailsContent title="Booking" content={<SkeletonLoader />} />
+      ),
+    },
+  ];
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
@@ -116,7 +151,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     </div>
                     <Accordion expanded={expanded === "panel_1"}>
                       <AccordionSummary onClick={() => setExpanded("panel_1")}>
-                        <p>Personal Data</p>
+                        <p>{t("patient.personaldata")}</p>
                       </AccordionSummary>
                       <AccordionDetails>
                         <div className="patientDetails__personalData__item">
@@ -145,7 +180,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Blood type:
+                            {t("patient.bloodtype")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.bloodType || "-"}
@@ -153,7 +188,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Patient ID:
+                            {t("patient.patientID")}::
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.code || "-"}

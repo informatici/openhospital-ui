@@ -45,8 +45,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    username: string().required(t("menu.pleaseinsertavalidusername")),
-    password: string().required(t("menu.pleaseinsertapassword")),
+    username: string().required(t("login.insertavalidusername")),
+    password: string().required(t("login.insertthepassword")),
   });
 
   const formik = useFormik({
@@ -95,7 +95,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("username")}
                 theme="regular"
-                label={t("menu.userm")}
+                label={t("login.username")}
                 isValid={isValid("username")}
                 errorText={getErrorText("username")}
                 onBlur={formik.handleBlur}
@@ -105,7 +105,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("password")}
                 theme="regular"
-                label={t("menu.password")}
+                label={t("login.password")}
                 type={state.isPasswordVisible ? "text" : "password"}
                 isValid={isValid("password")}
                 errorText={getErrorText("password")}
@@ -133,7 +133,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              {t("menu.passwordincorrectretry")}
+              {t("login.incorrectcredentials")}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -142,12 +142,12 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 color="primary"
                 disabled={status === "LOADING"}
               >
-                LOG IN
+                {t("login.login")}
               </Button>
             </div>
             <div>
               <Link className="login__panel__resetPassword" component="button">
-                {t("menu.resetpassword")}
+                {t("login.forgotpassword")}
               </Link>
             </div>
             &emsp;

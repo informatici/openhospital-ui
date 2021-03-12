@@ -32,10 +32,10 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
           >
             <div className="patientSearchItem__header">
               <div>
-                <strong>{t("common.patientID")}:</strong> {patient.code}
+                <strong>{t("patient.patientID")}:</strong> {patient.code}
               </div>
               <div>
-                <strong>{t("menu.opd")}:</strong> 32240321
+                <strong>{t("patient.opd")}:</strong> 32240321
               </div>
             </div>
             <div className="patientSearchItem__content">
@@ -50,15 +50,15 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
                   />
                 </div>
                 <div className="patientSearchItem__profile__admission">
-                  Last admission: <strong>24/27/2020</strong>
+                  {t("patient.lastadmission")}: <strong>24/27/2020</strong>
                 </div>
               </div>
               <div className="patientSearchItem__divider" />
               <div className="patientSearchItem__info">
-                <strong>Reason for visit:</strong> Pneumonia
+                <strong>{t("patient.reasonforvisit")}:</strong> Pneumonia
               </div>
               <div className="patientSearchItem__info">
-                <strong>Treatment made:</strong> Pneumonia
+                <strong>{t("patient.treatmentmade")}:</strong> Pneumonia
               </div>
             </div>
           </div>
