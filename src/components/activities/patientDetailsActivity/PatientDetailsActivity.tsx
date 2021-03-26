@@ -11,7 +11,7 @@ import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { Accordion, AccordionDetails, AccordionSummary } from '../../accessories/accordion/Accordion';
-import Tabs from "../../accessories/tabs/Tabs";
+import RouterTabs from "../../accessories/tabs/RouterTabs";
 
 import { patientDetailTabs } from "./tabsConfig";
 import { IDispatchProps, IStateProps, TProps, TActivityTransitionState } from "./types";
@@ -22,7 +22,7 @@ import "./styles.scss";
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
   patient,
-  getPatientThunk,
+  getPatientThunk
 }) => {
   useEffect(() => {
     scrollToElement(null);
@@ -188,7 +188,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <Tabs config={patientDetailTabs} />
+                  <RouterTabs config={patientDetailTabs} />
                 </div>
               </div>
             </div>          
