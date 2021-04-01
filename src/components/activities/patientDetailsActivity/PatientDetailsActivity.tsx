@@ -188,7 +188,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <RouterTabs config={patientDetailTabs} />
+                  <RouterTabs config={patientDetailTabs} defaultRoute='/summary' />
                 </div>
               </div>
             </div>          

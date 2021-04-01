@@ -1,31 +1,28 @@
 import classNames from "classnames";
 import React, { Fragment, FunctionComponent, useEffect, useState } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch, useLocation} from "react-router-dom";
 import { Switch } from "react-router";
 import { IProps } from "./types";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import "./styles.scss";
 
-const RouterTabs: FunctionComponent<IProps> = ({ config }) => {
-  const [ currentIndex, updateCurrentIndex ] = useState(0); 
+const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
   const history = useHistory();
   const match = useRouteMatch();
   const { url } = match;
+  const {pathname} = useLocation();
+  const currentPath: string | undefined = config.map(item => item.path).find(path => pathname.match(new RegExp(`^(${url}${path})([/?].*)?$`, "gi")));
 
-  const switchTab = (index: number, path: string) => {
-    updateCurrentIndex(index);
+  const switchTab = (path: string) => {
     history.push(url + path)
   };
 
-  const handleChangeMobileTab = (index: number): void => {
-    switchTab(index, config[index].path!)
-  };
-
-
   useEffect(() => {
-    // default tab route - summary
-    history.push(`${url}/summary`)
-  }, [history, url]);
+    if (defaultRoute && !currentPath) {
+      // default tab route
+      history.push(url + defaultRoute);
+    };
+  }, [history, defaultRoute, currentPath, url]);
 
 
   const renderHeader = (mobile = false): JSX.Element[] => {
@@ -33,15 +30,16 @@ const RouterTabs: FunctionComponent<IProps> = ({ config }) => {
       return config.map((item, index) => {
         const path = item.path!;
         return (
-          <div className={classNames("tab", { active: (currentIndex === index) })} key={index} onClick={() => switchTab(index, path)}>
+          <div className={classNames("tab", { active: (path === currentPath) })} key={index} onClick={() => switchTab(path)}>
             <span>{item.label}</span>
           </div>
         )
       })
     } else {
       return config.map((item, index) => {
+        const path = item.path!;
         return (
-          <option className={classNames("tab", { active: (currentIndex === index) })} key={index} value={index}>
+          <option className={classNames("tab", { active: (path === currentPath) })} key={index} value={path}>
             {item.label}
           </option>
         )
@@ -56,15 +54,15 @@ const RouterTabs: FunctionComponent<IProps> = ({ config }) => {
           { renderHeader() }
         </div>
         <div className="tabs mobile">
-          <select value={currentIndex} onChange={(e) => handleChangeMobileTab(parseInt(e.target.value))}>
+          <select value={currentPath} onChange={(e) => switchTab(e.target.value)}>
             { renderHeader(true) }
           </select>
         </div>
       </div>
       <div className="tabs_content"> 
         <Switch>
-          {config.map(item => (
-            <PrivateRoute path={url + item.path}>
+          {config.map((item, index) => (
+            <PrivateRoute path={url + item.path} key={index}>
               <div className="panel">
                 {item.content}
               </div>
