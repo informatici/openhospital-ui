@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { Fragment, FunctionComponent, useEffect, useState } from "react";
+import React, { Fragment, FunctionComponent, useEffect } from "react";
 import { useHistory, useRouteMatch, useLocation} from "react-router-dom";
 import { Switch } from "react-router";
 import { IProps } from "./types";
