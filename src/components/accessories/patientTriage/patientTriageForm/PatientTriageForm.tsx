@@ -44,8 +44,8 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   const { setFieldValue, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("triageDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -96,7 +96,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 isValid={isValid("triageDate")}
                 errorText={getErrorText("triageDate")}
                 label="Date (d/m/y)"
-                onChange={dateFieldHandleOnChange}
+                onChange={dateFieldHandleOnChange("triageDate")}
               />
             </div>
           </div>

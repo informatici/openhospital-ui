@@ -1,14 +1,6 @@
-import { TFields } from "../../../../libraries/formDataHandling/types";
+import { IForm } from "../../../../libraries/formDataHandling/types";
 
-interface IOwnProps {
-  fields: TFields<TPatientOPDFormFieldName>;
-  onSubmit: (triage: any) => void;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
-  isLoading: boolean;
-}
-
-export type TProps = IOwnProps;
+export type TProps = IForm<TPatientOPDFormFieldName, any>;
 
 export type TPatientOPDFormFieldName =
   | "opdDate"

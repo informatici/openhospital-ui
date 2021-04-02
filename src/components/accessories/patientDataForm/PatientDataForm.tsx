@@ -80,8 +80,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   }, [shouldResetForm, resetForm]);
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("birthDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -172,7 +172,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
               label="Birthday (day/month/year)"
-              onChange={dateFieldHandleOnChange}
+              onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>
 

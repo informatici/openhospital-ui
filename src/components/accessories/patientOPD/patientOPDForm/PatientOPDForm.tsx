@@ -42,8 +42,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const { setFieldValue } = formik;
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("opdDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -80,7 +80,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 isValid={isValid("opdDate")}
                 errorText={getErrorText("opdDate")}
                 label="Date (d/m/y)"
-                onChange={dateFieldHandleOnChange}
+                onChange={dateFieldHandleOnChange("opdDate")}
               />
             </div>
           </div>
