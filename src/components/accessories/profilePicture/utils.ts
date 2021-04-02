@@ -50,13 +50,9 @@ export const handlePictureSelection = (
   }
 };
 
-export const getFileSize = (file: File | null, maxFileUpload: number): boolean => {
-  if(!file || file.size > maxFileUpload){
-    return false;
-  } else {
-    return true;
-  }
-};
+export const getFileSize = (file: File | null, maxFileUpload: number): boolean => (
+  !file || file.size > maxFileUpload ? false : true
+);
 
 export const preprocessImage = (
   setPicture: Dispatch<
