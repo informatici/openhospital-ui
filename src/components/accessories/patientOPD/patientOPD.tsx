@@ -1,9 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from "react";
 import { initialFields } from "./consts";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 
 const PatientOPD: FunctionComponent = () => {
-
   const onSubmit = (opd: any) => {
     console.log(opd);
   };
@@ -19,6 +18,6 @@ const PatientOPD: FunctionComponent = () => {
       />
     </div>
   );
-}
+};
 
 export default PatientOPD;
