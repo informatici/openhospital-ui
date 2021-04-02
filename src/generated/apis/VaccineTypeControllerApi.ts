@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     ResponseEntity,
     VaccineTypeDTO,
@@ -42,57 +42,65 @@ export class VaccineTypeControllerApi extends BaseAPI {
     /**
      * checkVaccineTypeCode
      */
-    checkVaccineTypeCodeUsingGET = ({ code }: CheckVaccineTypeCodeUsingGETRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'checkVaccineTypeCodeUsingGET');
+    checkVaccineTypeCodeUsingGET({ code }: CheckVaccineTypeCodeUsingGETRequest): Observable<boolean>
+    checkVaccineTypeCodeUsingGET({ code }: CheckVaccineTypeCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    checkVaccineTypeCodeUsingGET({ code }: CheckVaccineTypeCodeUsingGETRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'checkVaccineTypeCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/vaccinetype/check/{code}'.replace('{code}', encodeURI(code)),
+            url: '/vaccinetype/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * deleteVaccineType
      */
-    deleteVaccineTypeUsingDELETE = ({ code }: DeleteVaccineTypeUsingDELETERequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(code, 'deleteVaccineTypeUsingDELETE');
+    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest): Observable<ResponseEntity>
+    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteVaccineTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            path: '/vaccinetype/{code}'.replace('{code}', encodeURI(code)),
+            url: '/vaccinetype/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getVaccineType
      */
-    getVaccineTypeUsingGET = (): Observable<Array<VaccineTypeDTO>> => {
+    getVaccineTypeUsingGET(): Observable<Array<VaccineTypeDTO>>
+    getVaccineTypeUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<VaccineTypeDTO>>>
+    getVaccineTypeUsingGET(opts?: OperationOpts): Observable<Array<VaccineTypeDTO> | RawAjaxResponse<Array<VaccineTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<VaccineTypeDTO>>({
-            path: '/vaccinetype',
+            url: '/vaccinetype',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newVaccineType
      */
-    newVaccineTypeUsingPOST = ({ newVaccineType }: NewVaccineTypeUsingPOSTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(newVaccineType, 'newVaccineTypeUsingPOST');
+    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest): Observable<ResponseEntity>
+    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(newVaccineType, 'newVaccineType', 'newVaccineTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -100,18 +108,20 @@ export class VaccineTypeControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/vaccinetype',
+            url: '/vaccinetype',
             method: 'POST',
             headers,
             body: newVaccineType,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateVaccineType
      */
-    updateVaccineTypeUsingPUT = ({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(updateVaccineType, 'updateVaccineTypeUsingPUT');
+    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest): Observable<ResponseEntity>
+    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(updateVaccineType, 'updateVaccineType', 'updateVaccineTypeUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -119,11 +129,11 @@ export class VaccineTypeControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/vaccinetype',
+            url: '/vaccinetype',
             method: 'PUT',
             headers,
             body: updateVaccineType,
-        });
+        }, opts?.responseOpts);
     };
 
 }

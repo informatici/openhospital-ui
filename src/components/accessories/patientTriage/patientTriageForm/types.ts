@@ -1,16 +1,27 @@
-import { IForm } from "../../../../libraries/formDataHandling/types";
+import { PatientExaminationDTO } from "../../../../generated";
+import { TFields } from "../../../../libraries/formDataHandling/types";
 
-export type TProps = IForm<TPatientTriageFormFieldName, any>;
+interface IOwnProps {
+  fields: TFields<TPatientTriageFormFieldName>;
+  onSubmit: (triage: PatientExaminationDTO) => void;
+  submitButtonLabel: string;
+  resetButtonLabel: string;
+  isLoading: boolean;
+  shouldResetForm: boolean;
+  resetFormCallback: () => void;
+}
+
+export type TProps = IOwnProps;
 
 export type TPatientTriageFormFieldName =
-  | "triageDate"
-  | "height"
-  | "weight"
-  | "temperature"
-  | "saturation"
-  | "arterial_pressure_min"
-  | "arterial_pressure_max"
-  | "heart_rate"
+  | "pex_date"
+  | "pex_height"
+  | "pex_weight"
+  | "pex_temp"
+  | "pex_sat"
+  | "pex_pa_min"
+  | "pex_pa_max"
+  | "pex_fc"
   | "diuresis_vol"
   | "respiratory_rate"
   | "hgt"

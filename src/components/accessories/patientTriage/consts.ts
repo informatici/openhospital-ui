@@ -35,35 +35,35 @@ const auscultationOptions = [
 ];
 
 export const initialFields: TFields<TPatientTriageFormFieldName> = {
-  triageDate: {
+  pex_date: {
     value: "",
     type: "date",
   },
-  height: {
+  pex_height: {
     value: "175",
     type: "number",
   },
-  weight: {
+  pex_weight: {
     value: "83",
     type: "number",
   },
-  temperature: {
+  pex_temp: {
     value: "36",
     type: "decimal",
   },
-  saturation: {
+  pex_sat: {
     value: "0",
     type: "decimal",
   },
-  arterial_pressure_min: {
+  pex_pa_min: {
     value: "0",
     type: "decimal",
   },
-  arterial_pressure_max: {
+  pex_pa_max: {
     value: "0",
     type: "decimal",
   },
-  heart_rate: {
+  pex_fc: {
     value: "0",
     type: "decimal",
   },

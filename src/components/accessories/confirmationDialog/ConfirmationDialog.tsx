@@ -33,11 +33,15 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
                 {primaryButtonLabel}
               </SmallButton>
             </div>
-            <div className="reset_button">
-              <TextButton onClick={handleSecondaryButtonClick}>
-                {secondaryButtonLabel}
-              </TextButton>
-            </div>
+            {secondaryButtonLabel ? (
+              <div className="reset_button">
+                <TextButton onClick={handleSecondaryButtonClick}>
+                  {secondaryButtonLabel}
+                </TextButton>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </DialogContent>

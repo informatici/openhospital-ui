@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     MedicalTypeDTO,
 } from '../models';
@@ -41,8 +41,10 @@ export class MedicalTypeControllerApi extends BaseAPI {
     /**
      * createMedicalType
      */
-    createMedicalTypeUsingPOST = ({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest): Observable<void> => {
-        throwIfNullOrUndefined(medicalTypeDTO, 'createMedicalTypeUsingPOST');
+    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest): Observable<void>
+    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(medicalTypeDTO, 'medicalTypeDTO', 'createMedicalTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -50,67 +52,75 @@ export class MedicalTypeControllerApi extends BaseAPI {
         };
 
         return this.request<void>({
-            path: '/medicaltypes',
+            url: '/medicaltypes',
             method: 'POST',
             headers,
             body: medicalTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * deleteMedicalType
      */
-    deleteMedicalTypeUsingDELETE = ({ code }: DeleteMedicalTypeUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'deleteMedicalTypeUsingDELETE');
+    deleteMedicalTypeUsingDELETE({ code }: DeleteMedicalTypeUsingDELETERequest): Observable<boolean>
+    deleteMedicalTypeUsingDELETE({ code }: DeleteMedicalTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteMedicalTypeUsingDELETE({ code }: DeleteMedicalTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteMedicalTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/medicaltypes/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medicaltypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMedicalTypes
      */
-    getMedicalTypesUsingGET = (): Observable<Array<MedicalTypeDTO>> => {
+    getMedicalTypesUsingGET(): Observable<Array<MedicalTypeDTO>>
+    getMedicalTypesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalTypeDTO>>>
+    getMedicalTypesUsingGET(opts?: OperationOpts): Observable<Array<MedicalTypeDTO> | RawAjaxResponse<Array<MedicalTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<MedicalTypeDTO>>({
-            path: '/medicaltypes',
+            url: '/medicaltypes',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * isCodeUsed
      */
-    isCodeUsedUsingGET1 = ({ code }: IsCodeUsedUsingGET1Request): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'isCodeUsedUsingGET1');
+    isCodeUsedUsingGET1({ code }: IsCodeUsedUsingGET1Request): Observable<boolean>
+    isCodeUsedUsingGET1({ code }: IsCodeUsedUsingGET1Request, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    isCodeUsedUsingGET1({ code }: IsCodeUsedUsingGET1Request, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'isCodeUsedUsingGET1');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/medicaltypes/check/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medicaltypes/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateMedicalType
      */
-    updateMedicalTypeUsingPUT = ({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest): Observable<void> => {
-        throwIfNullOrUndefined(medicalTypeDTO, 'updateMedicalTypeUsingPUT');
+    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest): Observable<void>
+    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(medicalTypeDTO, 'medicalTypeDTO', 'updateMedicalTypeUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -118,11 +128,11 @@ export class MedicalTypeControllerApi extends BaseAPI {
         };
 
         return this.request<void>({
-            path: '/medicaltypes',
+            url: '/medicaltypes',
             method: 'PUT',
             headers,
             body: medicalTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

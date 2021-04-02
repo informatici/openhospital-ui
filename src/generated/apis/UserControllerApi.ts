@@ -12,11 +12,13 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
+    LitePermissionDTO,
     UserDTO,
     UserGroupDTO,
     UserMenuItemDTO,
+    UserProfileDTO,
 } from '../models';
 
 export interface DeleteGroupUsingDELETERequest {
@@ -51,6 +53,10 @@ export interface NewUserUsingPOSTRequest {
     userDTO: UserDTO;
 }
 
+export interface RetrievePermissionsByUsernameUsingGETRequest {
+    username: string;
+}
+
 export interface SetGroupMenuUsingPOSTRequest {
     groupCode: string;
     menusDTO: Array<UserMenuItemDTO>;
@@ -73,107 +79,121 @@ export class UserControllerApi extends BaseAPI {
     /**
      * deleteGroup
      */
-    deleteGroupUsingDELETE = ({ groupCode }: DeleteGroupUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(groupCode, 'deleteGroupUsingDELETE');
+    deleteGroupUsingDELETE({ groupCode }: DeleteGroupUsingDELETERequest): Observable<boolean>
+    deleteGroupUsingDELETE({ groupCode }: DeleteGroupUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteGroupUsingDELETE({ groupCode }: DeleteGroupUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(groupCode, 'groupCode', 'deleteGroupUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/users/groups/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
+            url: '/users/groups/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * deleteUser
      */
-    deleteUserUsingDELETE = ({ username }: DeleteUserUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(username, 'deleteUserUsingDELETE');
+    deleteUserUsingDELETE({ username }: DeleteUserUsingDELETERequest): Observable<boolean>
+    deleteUserUsingDELETE({ username }: DeleteUserUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteUserUsingDELETE({ username }: DeleteUserUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(username, 'username', 'deleteUserUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/users/{username}'.replace('{username}', encodeURI(username)),
+            url: '/users/{username}'.replace('{username}', encodeURI(username)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getGroupMenu
      */
-    getGroupMenuUsingGET = ({ groupCode }: GetGroupMenuUsingGETRequest): Observable<Array<UserMenuItemDTO>> => {
-        throwIfNullOrUndefined(groupCode, 'getGroupMenuUsingGET');
+    getGroupMenuUsingGET({ groupCode }: GetGroupMenuUsingGETRequest): Observable<Array<UserMenuItemDTO>>
+    getGroupMenuUsingGET({ groupCode }: GetGroupMenuUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserMenuItemDTO>>>
+    getGroupMenuUsingGET({ groupCode }: GetGroupMenuUsingGETRequest, opts?: OperationOpts): Observable<Array<UserMenuItemDTO> | RawAjaxResponse<Array<UserMenuItemDTO>>> {
+        throwIfNullOrUndefined(groupCode, 'groupCode', 'getGroupMenuUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<UserMenuItemDTO>>({
-            path: '/users/group-menus/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
+            url: '/users/group-menus/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMenu
      */
-    getMenuUsingGET = ({ username }: GetMenuUsingGETRequest): Observable<Array<UserMenuItemDTO>> => {
-        throwIfNullOrUndefined(username, 'getMenuUsingGET');
+    getMenuUsingGET({ username }: GetMenuUsingGETRequest): Observable<Array<UserMenuItemDTO>>
+    getMenuUsingGET({ username }: GetMenuUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserMenuItemDTO>>>
+    getMenuUsingGET({ username }: GetMenuUsingGETRequest, opts?: OperationOpts): Observable<Array<UserMenuItemDTO> | RawAjaxResponse<Array<UserMenuItemDTO>>> {
+        throwIfNullOrUndefined(username, 'username', 'getMenuUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<UserMenuItemDTO>>({
-            path: '/users/menus/{username}'.replace('{username}', encodeURI(username)),
+            url: '/users/menus/{username}'.replace('{username}', encodeURI(username)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getUserByName
      */
-    getUserByNameUsingGET = ({ username }: GetUserByNameUsingGETRequest): Observable<UserDTO> => {
-        throwIfNullOrUndefined(username, 'getUserByNameUsingGET');
+    getUserByNameUsingGET({ username }: GetUserByNameUsingGETRequest): Observable<UserDTO>
+    getUserByNameUsingGET({ username }: GetUserByNameUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDTO>>
+    getUserByNameUsingGET({ username }: GetUserByNameUsingGETRequest, opts?: OperationOpts): Observable<UserDTO | RawAjaxResponse<UserDTO>> {
+        throwIfNullOrUndefined(username, 'username', 'getUserByNameUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<UserDTO>({
-            path: '/users/{username}'.replace('{username}', encodeURI(username)),
+            url: '/users/{username}'.replace('{username}', encodeURI(username)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getUserGroup
      */
-    getUserGroupUsingGET = (): Observable<Array<UserGroupDTO>> => {
+    getUserGroupUsingGET(): Observable<Array<UserGroupDTO>>
+    getUserGroupUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserGroupDTO>>>
+    getUserGroupUsingGET(opts?: OperationOpts): Observable<Array<UserGroupDTO> | RawAjaxResponse<Array<UserGroupDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<UserGroupDTO>>({
-            path: '/users/groups',
+            url: '/users/groups',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getUser
      */
-    getUserUsingGET = ({ groupId }: GetUserUsingGETRequest): Observable<Array<UserDTO>> => {
+    getUserUsingGET({ groupId }: GetUserUsingGETRequest): Observable<Array<UserDTO>>
+    getUserUsingGET({ groupId }: GetUserUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserDTO>>>
+    getUserUsingGET({ groupId }: GetUserUsingGETRequest, opts?: OperationOpts): Observable<Array<UserDTO> | RawAjaxResponse<Array<UserDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -184,18 +204,20 @@ export class UserControllerApi extends BaseAPI {
         if (groupId != null) { query['group_id'] = groupId; }
 
         return this.request<Array<UserDTO>>({
-            path: '/users',
+            url: '/users',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newUserGroup
      */
-    newUserGroupUsingPOST = ({ aGroup }: NewUserGroupUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(aGroup, 'newUserGroupUsingPOST');
+    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest): Observable<boolean>
+    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(aGroup, 'aGroup', 'newUserGroupUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -203,18 +225,20 @@ export class UserControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/users/groups',
+            url: '/users/groups',
             method: 'POST',
             headers,
             body: aGroup,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newUser
      */
-    newUserUsingPOST = ({ userDTO }: NewUserUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(userDTO, 'newUserUsingPOST');
+    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest): Observable<boolean>
+    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(userDTO, 'userDTO', 'newUserUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -222,19 +246,74 @@ export class UserControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/users',
+            url: '/users',
             method: 'POST',
             headers,
             body: userDTO,
-        });
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * retrievePermissionsByCurrentLoggedInUser
+     */
+    retrievePermissionsByCurrentLoggedInUserUsingGET(): Observable<Array<LitePermissionDTO>>
+    retrievePermissionsByCurrentLoggedInUserUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<LitePermissionDTO>>>
+    retrievePermissionsByCurrentLoggedInUserUsingGET(opts?: OperationOpts): Observable<Array<LitePermissionDTO> | RawAjaxResponse<Array<LitePermissionDTO>>> {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<Array<LitePermissionDTO>>({
+            url: '/users/permissions',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * retrievePermissionsByUsername
+     */
+    retrievePermissionsByUsernameUsingGET({ username }: RetrievePermissionsByUsernameUsingGETRequest): Observable<Array<LitePermissionDTO>>
+    retrievePermissionsByUsernameUsingGET({ username }: RetrievePermissionsByUsernameUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LitePermissionDTO>>>
+    retrievePermissionsByUsernameUsingGET({ username }: RetrievePermissionsByUsernameUsingGETRequest, opts?: OperationOpts): Observable<Array<LitePermissionDTO> | RawAjaxResponse<Array<LitePermissionDTO>>> {
+        throwIfNullOrUndefined(username, 'username', 'retrievePermissionsByUsernameUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<Array<LitePermissionDTO>>({
+            url: '/users/permissions/username/{username}'.replace('{username}', encodeURI(username)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * retrieveProfileByCurrentLoggedInUser
+     */
+    retrieveProfileByCurrentLoggedInUserUsingGET(): Observable<UserProfileDTO>
+    retrieveProfileByCurrentLoggedInUserUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<UserProfileDTO>>
+    retrieveProfileByCurrentLoggedInUserUsingGET(opts?: OperationOpts): Observable<UserProfileDTO | RawAjaxResponse<UserProfileDTO>> {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<UserProfileDTO>({
+            url: '/users/me',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
     };
 
     /**
      * setGroupMenu
      */
-    setGroupMenuUsingPOST = ({ groupCode, menusDTO }: SetGroupMenuUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(groupCode, 'setGroupMenuUsingPOST');
-        throwIfNullOrUndefined(menusDTO, 'setGroupMenuUsingPOST');
+    setGroupMenuUsingPOST({ groupCode, menusDTO }: SetGroupMenuUsingPOSTRequest): Observable<boolean>
+    setGroupMenuUsingPOST({ groupCode, menusDTO }: SetGroupMenuUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    setGroupMenuUsingPOST({ groupCode, menusDTO }: SetGroupMenuUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(groupCode, 'groupCode', 'setGroupMenuUsingPOST');
+        throwIfNullOrUndefined(menusDTO, 'menusDTO', 'setGroupMenuUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -242,18 +321,20 @@ export class UserControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/users/groups/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
+            url: '/users/groups/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
             method: 'POST',
             headers,
             body: menusDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateUserGroup
      */
-    updateUserGroupUsingPUT = ({ aGroup }: UpdateUserGroupUsingPUTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(aGroup, 'updateUserGroupUsingPUT');
+    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest): Observable<boolean>
+    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(aGroup, 'aGroup', 'updateUserGroupUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -261,18 +342,20 @@ export class UserControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/users/groups',
+            url: '/users/groups',
             method: 'PUT',
             headers,
             body: aGroup,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateUser
      */
-    updateUserUsingPUT = ({ userDTO, password }: UpdateUserUsingPUTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(userDTO, 'updateUserUsingPUT');
+    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest): Observable<boolean>
+    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(userDTO, 'userDTO', 'updateUserUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -284,12 +367,12 @@ export class UserControllerApi extends BaseAPI {
         if (password != null) { query['password'] = password; }
 
         return this.request<boolean>({
-            path: '/users',
+            url: '/users',
             method: 'PUT',
             headers,
             query,
             body: userDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

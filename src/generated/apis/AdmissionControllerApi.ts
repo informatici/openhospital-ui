@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     AdmissionDTO,
     AdmittedPatientDTO,
@@ -64,41 +64,47 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * deleteAdmissionType
      */
-    deleteAdmissionTypeUsingDELETE = ({ id }: DeleteAdmissionTypeUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(id, 'deleteAdmissionTypeUsingDELETE');
+    deleteAdmissionTypeUsingDELETE({ id }: DeleteAdmissionTypeUsingDELETERequest): Observable<boolean>
+    deleteAdmissionTypeUsingDELETE({ id }: DeleteAdmissionTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteAdmissionTypeUsingDELETE({ id }: DeleteAdmissionTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(id, 'id', 'deleteAdmissionTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/admissions/{id}'.replace('{id}', encodeURI(id)),
+            url: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAdmissions
      */
-    getAdmissionsUsingGET = ({ id }: GetAdmissionsUsingGETRequest): Observable<AdmissionDTO> => {
-        throwIfNullOrUndefined(id, 'getAdmissionsUsingGET');
+    getAdmissionsUsingGET({ id }: GetAdmissionsUsingGETRequest): Observable<AdmissionDTO>
+    getAdmissionsUsingGET({ id }: GetAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    getAdmissionsUsingGET({ id }: GetAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getAdmissionsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<AdmissionDTO>({
-            path: '/admissions/{id}'.replace('{id}', encodeURI(id)),
+            url: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAdmittedPatients
      */
-    getAdmittedPatientsUsingGET = ({ admissionrange, dischargerange, searchterms }: GetAdmittedPatientsUsingGETRequest): Observable<Array<AdmittedPatientDTO>> => {
+    getAdmittedPatientsUsingGET({ admissionrange, dischargerange, searchterms }: GetAdmittedPatientsUsingGETRequest): Observable<Array<AdmittedPatientDTO>>
+    getAdmittedPatientsUsingGET({ admissionrange, dischargerange, searchterms }: GetAdmittedPatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AdmittedPatientDTO>>>
+    getAdmittedPatientsUsingGET({ admissionrange, dischargerange, searchterms }: GetAdmittedPatientsUsingGETRequest, opts?: OperationOpts): Observable<Array<AdmittedPatientDTO> | RawAjaxResponse<Array<AdmittedPatientDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -111,18 +117,20 @@ export class AdmissionControllerApi extends BaseAPI {
         if (searchterms != null) { query['searchterms'] = searchterms; }
 
         return this.request<Array<AdmittedPatientDTO>>({
-            path: '/admissions/admittedPatients',
+            url: '/admissions/admittedPatients',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getCurrentAdmission
      */
-    getCurrentAdmissionUsingGET = ({ patientcode }: GetCurrentAdmissionUsingGETRequest): Observable<AdmissionDTO> => {
-        throwIfNullOrUndefined(patientcode, 'getCurrentAdmissionUsingGET');
+    getCurrentAdmissionUsingGET({ patientcode }: GetCurrentAdmissionUsingGETRequest): Observable<AdmissionDTO>
+    getCurrentAdmissionUsingGET({ patientcode }: GetCurrentAdmissionUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    getCurrentAdmissionUsingGET({ patientcode }: GetCurrentAdmissionUsingGETRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
+        throwIfNullOrUndefined(patientcode, 'patientcode', 'getCurrentAdmissionUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -133,18 +141,20 @@ export class AdmissionControllerApi extends BaseAPI {
         };
 
         return this.request<AdmissionDTO>({
-            path: '/admissions/current',
+            url: '/admissions/current',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getNextYProg
      */
-    getNextYProgUsingGET = ({ wardcode }: GetNextYProgUsingGETRequest): Observable<number> => {
-        throwIfNullOrUndefined(wardcode, 'getNextYProgUsingGET');
+    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest): Observable<number>
+    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(wardcode, 'wardcode', 'getNextYProgUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -155,18 +165,20 @@ export class AdmissionControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/admissions/getNextProgressiveIdInYear',
+            url: '/admissions/getNextProgressiveIdInYear',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getPatientAdmissions
      */
-    getPatientAdmissionsUsingGET = ({ patientcode }: GetPatientAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>> => {
-        throwIfNullOrUndefined(patientcode, 'getPatientAdmissionsUsingGET');
+    getPatientAdmissionsUsingGET({ patientcode }: GetPatientAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>>
+    getPatientAdmissionsUsingGET({ patientcode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AdmissionDTO>>>
+    getPatientAdmissionsUsingGET({ patientcode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<Array<AdmissionDTO> | RawAjaxResponse<Array<AdmissionDTO>>> {
+        throwIfNullOrUndefined(patientcode, 'patientcode', 'getPatientAdmissionsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -177,18 +189,20 @@ export class AdmissionControllerApi extends BaseAPI {
         };
 
         return this.request<Array<AdmissionDTO>>({
-            path: '/admissions',
+            url: '/admissions',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getUsedWardBed
      */
-    getUsedWardBedUsingGET = ({ wardid }: GetUsedWardBedUsingGETRequest): Observable<number> => {
-        throwIfNullOrUndefined(wardid, 'getUsedWardBedUsingGET');
+    getUsedWardBedUsingGET({ wardid }: GetUsedWardBedUsingGETRequest): Observable<number>
+    getUsedWardBedUsingGET({ wardid }: GetUsedWardBedUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getUsedWardBedUsingGET({ wardid }: GetUsedWardBedUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(wardid, 'wardid', 'getUsedWardBedUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -199,18 +213,20 @@ export class AdmissionControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/admissions/getBedsOccupationInWard',
+            url: '/admissions/getBedsOccupationInWard',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newAdmissions
      */
-    newAdmissionsUsingPOST = ({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest): Observable<number> => {
-        throwIfNullOrUndefined(newAdmissionDTO, 'newAdmissionsUsingPOST');
+    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest): Observable<number>
+    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(newAdmissionDTO, 'newAdmissionDTO', 'newAdmissionsUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -218,18 +234,20 @@ export class AdmissionControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/admissions',
+            url: '/admissions',
             method: 'POST',
             headers,
             body: newAdmissionDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateAdmissions
      */
-    updateAdmissionsUsingPUT = ({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest): Observable<number> => {
-        throwIfNullOrUndefined(updAdmissionDTO, 'updateAdmissionsUsingPUT');
+    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest): Observable<number>
+    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(updAdmissionDTO, 'updAdmissionDTO', 'updateAdmissionsUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -237,11 +255,11 @@ export class AdmissionControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/admissions',
+            url: '/admissions',
             method: 'PUT',
             headers,
             body: updAdmissionDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

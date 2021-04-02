@@ -112,7 +112,7 @@ export interface PatientDTO {
      * @type {string}
      * @memberof PatientDTO
      */
-    bloodType?: string; // PatientDTOBloodTypeEnum;
+    bloodType?: string; //PatientDTOBloodTypeEnum;
     /**
      * hasInsurance (Y=Yes, N=no)
      * @type {string}

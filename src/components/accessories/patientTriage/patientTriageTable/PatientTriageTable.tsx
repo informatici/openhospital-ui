@@ -1,12 +1,23 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from "react";
 import Table from "../../table/Table";
-import { data, header, label, order } from './consts';
+import { data, header, label, order } from "./consts";
 
-const PatientTriageTable: FunctionComponent = () => {
+interface IOwnProps {
+  shouldUpdateTable: boolean;
+}
+
+const PatientTriageTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+}) => {
+  const [, setUpdate] = useState(false);
 
   const onDelete = () => {
-    console.log('delete');
-  }
+    console.log("delete");
+  };
+
+  useEffect(() => {
+    setUpdate(shouldUpdateTable);
+  }, [shouldUpdateTable]);
 
   return (
     <>
@@ -23,6 +34,6 @@ const PatientTriageTable: FunctionComponent = () => {
       </div>
     </>
   );
-}
+};
 
 export default PatientTriageTable;

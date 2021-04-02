@@ -4,7 +4,7 @@ export interface IProps {
   icon: string;
   info: string;
   primaryButtonLabel: string;
-  secondaryButtonLabel: string;
+  secondaryButtonLabel?: string;
   handlePrimaryButtonClick: () => void;
   handleSecondaryButtonClick: () => void;
 }

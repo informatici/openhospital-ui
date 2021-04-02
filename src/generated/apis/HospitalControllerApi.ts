@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     HospitalDTO,
     ResponseEntity,
@@ -31,39 +31,45 @@ export class HospitalControllerApi extends BaseAPI {
     /**
      * getHospitalCurrencyCode
      */
-    getHospitalCurrencyCodeUsingGET = (): Observable<string> => {
+    getHospitalCurrencyCodeUsingGET(): Observable<string>
+    getHospitalCurrencyCodeUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    getHospitalCurrencyCodeUsingGET(opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
-            path: '/hospitals/currencyCode',
+            url: '/hospitals/currencyCode',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getHospital
      */
-    getHospitalUsingGET = (): Observable<HospitalDTO> => {
+    getHospitalUsingGET(): Observable<HospitalDTO>
+    getHospitalUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<HospitalDTO>>
+    getHospitalUsingGET(opts?: OperationOpts): Observable<HospitalDTO | RawAjaxResponse<HospitalDTO>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<HospitalDTO>({
-            path: '/hospitals',
+            url: '/hospitals',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateHospital
      */
-    updateHospitalUsingPUT = ({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(code, 'updateHospitalUsingPUT');
-        throwIfNullOrUndefined(hospitalDTO, 'updateHospitalUsingPUT');
+    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest): Observable<ResponseEntity>
+    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(code, 'code', 'updateHospitalUsingPUT');
+        throwIfNullOrUndefined(hospitalDTO, 'hospitalDTO', 'updateHospitalUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -71,11 +77,11 @@ export class HospitalControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/hospitals/{code}'.replace('{code}', encodeURI(code)),
+            url: '/hospitals/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,
             body: hospitalDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }
