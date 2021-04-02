@@ -171,7 +171,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               format="dd/MM/yyyy"
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
-              label="Birthday (day/month/year)"
+              label="Birthday (d/m/y)"
               onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>

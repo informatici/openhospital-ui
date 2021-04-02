@@ -87,7 +87,7 @@ describe("NewPatientActivity spec", () => {
   it("should show an error message when the call fails", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(10).click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
     cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[id=secondName]").clear().type("fail");
@@ -100,7 +100,7 @@ describe("NewPatientActivity spec", () => {
   it("should show a confirmation dialog when the call is successful", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(10).click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
     cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
@@ -122,7 +122,7 @@ describe("NewPatientActivity spec", () => {
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(10).click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
     cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
