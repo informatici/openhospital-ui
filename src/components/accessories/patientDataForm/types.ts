@@ -27,6 +27,4 @@ export type TPatientDataFormFieldName =
   | "hasInsurance"
   | "parentTogether"
   | "taxCode"
-  | "height"
-  | "weight"
   | "blobPhoto";

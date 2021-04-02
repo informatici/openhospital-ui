@@ -177,30 +177,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("height")}
-              theme="regular"
-              label="Height"
-              isValid={isValid("height")}
-              errorText={getErrorText("height")}
-              onBlur={formik.handleBlur}
-              type="number"
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("weight")}
-              theme="regular"
-              label="Weight"
-              isValid={isValid("weight")}
-              errorText={getErrorText("weight")}
-              onBlur={formik.handleBlur}
-              type="number"
-            />
-          </div>
-
-          <div className="patientDataForm__item">
             <SelectField
               fieldName="bloodType"
               fieldValue={formik.values.bloodType}

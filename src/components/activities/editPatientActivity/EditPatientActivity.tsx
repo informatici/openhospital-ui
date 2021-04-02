@@ -34,9 +34,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   hasSucceeded,
   hasFailed,
   patient,
-  getPatientThunk
+  getPatientThunk,
 }) => {
-
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -53,14 +52,22 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
-    if(patient?.data?.code)
+    if (patient?.data?.code)
       updatePatient(patient?.data?.code, updatePatientValues);
-    else 
-      console.error('The Patient: PatientDTO object must have a "code" property.');
+    else
+      console.error(
+        'The Patient: PatientDTO object must have a "code" property.'
+      );
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<TActivityTransitionState>("IDLE");
-  const [openConfirmationMessage, setOpenConfirmationMessage] = useState<boolean>(false);
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
+  const [
+    openConfirmationMessage,
+    setOpenConfirmationMessage,
+  ] = useState<boolean>(false);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {
@@ -158,4 +165,7 @@ const mapDispatchToProps: IDispatchProps = {
   updatePatient,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPatientActivity);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditPatientActivity);

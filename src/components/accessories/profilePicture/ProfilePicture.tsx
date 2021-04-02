@@ -1,3 +1,10 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import React, {
@@ -23,6 +30,12 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     preview: profilePicturePlaceholder,
     original: "",
   });
+
+  const [showError, setShowError] = React.useState("");
+
+  const handleCloseError = () => {
+    setShowError("");
+  };
 
   useEffect(() => {
     if (preLoadedPicture) {
@@ -65,7 +78,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         style={{ display: "none" }}
         disabled={!isEditable}
         type="file"
-        onChange={handlePictureSelection(setPicture)}
+        onChange={handlePictureSelection(setPicture, setShowError, 360000)}
       />
       <div className="profilePicture_mask">
         <img src={picture.preview} alt="profilePicture" />
@@ -79,6 +92,26 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
             <EditRoundedIcon fontSize="small" style={{ color: "white" }} />
           </div>
         </Fragment>
+      )}
+      {showError ? (
+        <Dialog
+          open={!!showError}
+          onClose={handleCloseError}
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {showError}
+            </DialogContentText>
+            <DialogActions>
+              <Button onClick={handleCloseError} color="primary">
+                Ok
+              </Button>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        ""
       )}
     </div>
   );
