@@ -53,8 +53,12 @@ tags:
     description: Medical Stock Ward Controller
   - name: medical-type-controller
     description: Medical Type Controller
+  - name: opd-controller
+    description: Opd Controller
   - name: patient-controller
     description: Patient Controller
+  - name: permission-controller
+    description: Permission Controller
   - name: reports-controller
     description: Reports Controller
   - name: sms-controller
@@ -3911,6 +3915,331 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /opds:
+    post:
+      tags:
+        - opd-controller
+      summary: newOpd
+      operationId: newOpdUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: opdDTO
+          description: opdDTO
+          required: true
+          schema:
+            $ref: '#/definitions/OpdDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/opds/ProgYear/{year}':
+    get:
+      tags:
+        - opd-controller
+      summary: getProgYear
+      operationId: getProgYearUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: year
+          in: path
+          description: year
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /opds/check/progyear:
+    get:
+      tags:
+        - opd-controller
+      summary: isExistOpdNum
+      operationId: isExistOpdNumUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: opdNum
+          in: query
+          description: opdNum
+          required: true
+          type: integer
+          format: int32
+        - name: year
+          in: query
+          description: year
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/opds/last/{code}':
+    get:
+      tags:
+        - opd-controller
+      summary: getLastOpd
+      operationId: getLastOpdUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OpdDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/opds/patient/{pcode}':
+    get:
+      tags:
+        - opd-controller
+      summary: getOpdByPatient
+      operationId: getOpdByPatientUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: pcode
+          in: path
+          description: pcode
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OpdDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /opds/search:
+    get:
+      tags:
+        - opd-controller
+      summary: getOpdByDates
+      operationId: getOpdByDatesUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: ageFrom
+          in: query
+          description: ageFrom
+          required: true
+          type: integer
+          format: int32
+        - name: ageTo
+          in: query
+          description: ageTo
+          required: true
+          type: integer
+          format: int32
+        - name: dateFrom
+          in: query
+          description: dateFrom
+          required: true
+          type: string
+          format: date-time
+        - name: dateTo
+          in: query
+          description: dateTo
+          required: true
+          type: string
+          format: date-time
+        - name: diseaseCode
+          in: query
+          description: diseaseCode
+          required: true
+          type: string
+        - name: diseaseTypeCode
+          in: query
+          description: diseaseTypeCode
+          required: true
+          type: string
+        - name: newPatient
+          in: query
+          description: newPatient
+          required: true
+          type: string
+        - name: sex
+          in: query
+          description: sex
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OpdDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /opds/weekly:
+    get:
+      tags:
+        - opd-controller
+      summary: getOpdToDayOrWeek
+      operationId: getOpdToDayOrWeekUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: oneWeek
+          in: query
+          description: oneWeek
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OpdDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/opds/{code}':
+    put:
+      tags:
+        - opd-controller
+      summary: updateOpd
+      operationId: updateOpdUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: opdDTO
+          description: opdDTO
+          required: true
+          schema:
+            $ref: '#/definitions/OpdDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    delete:
+      tags:
+        - opd-controller
+      summary: deleteOpd
+      operationId: deleteOpdUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
   /patients:
     get:
       tags:
@@ -4115,6 +4444,215 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/ResponseEntity'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
+  /permissions:
+    get:
+      tags:
+        - permission-controller
+      summary: retrieveAllPermissions
+      operationId: retrieveAllPermissionsUsingGET
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PermissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    post:
+      tags:
+        - permission-controller
+      summary: insertPermission
+      operationId: insertPermissionUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: permissionDTO
+          description: permissionDTO
+          required: true
+          schema:
+            $ref: '#/definitions/PermissionDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PermissionDTO'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/permissions/name/{name}':
+    get:
+      tags:
+        - permission-controller
+      summary: retrievePermissionByName
+      operationId: retrievePermissionByNameUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          in: path
+          description: name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PermissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/permissions/userGroupCode/{userGroupCode}':
+    get:
+      tags:
+        - permission-controller
+      summary: retrievePermissionsByUserGroupcode
+      operationId: retrievePermissionsByUserGroupcodeUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: userGroupCode
+          in: path
+          description: userGroupCode
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PermissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/permissions/{id}':
+    get:
+      tags:
+        - permission-controller
+      summary: retrievePermissionById
+      operationId: retrievePermissionByIdUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PermissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    put:
+      tags:
+        - permission-controller
+      summary: updatePermission
+      operationId: updatePermissionUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: permissionDTO
+          description: permissionDTO
+          required: true
+          schema:
+            $ref: '#/definitions/PermissionDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PermissionDTO'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    delete:
+      tags:
+        - permission-controller
+      summary: deletePermission
+      operationId: deletePermissionUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
         '204':
           description: No Content
         '401':
@@ -5245,6 +5783,28 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /users/me:
+    get:
+      tags:
+        - user-controller
+      summary: retrieveProfileByCurrentLoggedInUser
+      operationId: retrieveProfileByCurrentLoggedInUserUsingGET
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserProfileDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
   '/users/menus/{username}':
     get:
       tags:
@@ -5266,6 +5826,60 @@ paths:
             type: array
             items:
               $ref: '#/definitions/UserMenuItemDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /users/permissions:
+    get:
+      tags:
+        - user-controller
+      summary: retrievePermissionsByCurrentLoggedInUser
+      operationId: retrievePermissionsByCurrentLoggedInUserUsingGET
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/LitePermissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  '/users/permissions/username/{username}':
+    get:
+      tags:
+        - user-controller
+      summary: retrievePermissionsByUsername
+      operationId: retrievePermissionsByUsernameUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          description: username
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/LitePermissionDTO'
         '401':
           description: Unauthorized
         '403':
@@ -6615,6 +7229,12 @@ definitions:
       result:
         type: string
     title: LaboratoryForPrintDTO
+  LitePermissionDTO:
+    type: object
+    properties:
+      name:
+        type: string
+    title: LitePermissionDTO
   Locale:
     type: object
     title: Locale
@@ -6871,6 +7491,74 @@ definitions:
         description: The ward from which the movement is done
         $ref: '#/definitions/WardDTO'
     title: MovementWardDTO
+  OpdDTO:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      date:
+        type: string
+        format: date-time
+        description: the date of the admission
+      visitDate:
+        type: string
+        format: date-time
+        description: the visit date
+      nextVisitDate:
+        type: string
+        format: date-time
+        description: the next visit date
+      patientCode:
+        type: integer
+        format: int32
+        description: the admitted patient code
+      age:
+        type: integer
+        format: int32
+        example: 18
+        description: the patient age
+      sex:
+        type: string
+        example: M
+        description: the patient sex
+      note:
+        type: string
+        description: the admission note
+      prog_year:
+        type: integer
+        format: int32
+        example: 18
+        description: a progr. in year for each ward
+      disease:
+        description: disease
+        $ref: '#/definitions/DiseaseDTO'
+      disease2:
+        description: disease 2
+        $ref: '#/definitions/DiseaseDTO'
+      disease3:
+        description: disease 3
+        $ref: '#/definitions/DiseaseDTO'
+      newPatient:
+        type: string
+        example: 'N'
+        description: new(N) or reattendance(R) patient
+      referralFrom:
+        type: string
+        example: R
+        description: referral from another unit
+      referralTo:
+        type: string
+        example: R
+        description: referral to another unit
+      lock:
+        type: integer
+        format: int32
+        description: opd lock column
+      userID:
+        type: string
+        description: user id
+    title: OpdDTO
   OperationDTO:
     type: object
     properties:
@@ -7000,16 +7688,6 @@ definitions:
         type: string
         example: RSSMRA79E01L781N
         description: Tax code
-      height:
-        type: number
-        format: float
-        example: 174
-        description: Height
-      weight:
-        type: number
-        format: float
-        example: 73
-        description: Weight
       blobPhoto:
         type: string
         format: byte
@@ -7066,6 +7744,21 @@ definitions:
         type: string
         description: Examination Note
     title: PatientExaminationDTO
+  PermissionDTO:
+    type: object
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+        format: int32
+      name:
+        type: string
+      userGroupIds:
+        type: array
+        items:
+          type: string
+    title: PermissionDTO
   PregnantTreatmentTypeDTO:
     type: object
     properties:
@@ -7422,6 +8115,16 @@ definitions:
         example: 5
         description: position of the menu item
     title: UserMenuItemDTO
+  UserProfileDTO:
+    type: object
+    properties:
+      permission:
+        type: array
+        items:
+          type: string
+      userName:
+        type: string
+    title: UserProfileDTO
   VaccineDTO:
     type: object
     properties:
