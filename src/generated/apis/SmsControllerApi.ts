@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     SmsDTO,
 } from '../models';
@@ -39,8 +39,10 @@ export class SmsControllerApi extends BaseAPI {
     /**
      * deleteSms
      */
-    deleteSmsUsingPOST = ({ smsDTOList }: DeleteSmsUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(smsDTOList, 'deleteSmsUsingPOST');
+    deleteSmsUsingPOST({ smsDTOList }: DeleteSmsUsingPOSTRequest): Observable<boolean>
+    deleteSmsUsingPOST({ smsDTOList }: DeleteSmsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteSmsUsingPOST({ smsDTOList }: DeleteSmsUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(smsDTOList, 'smsDTOList', 'deleteSmsUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -48,19 +50,21 @@ export class SmsControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/sms/delete',
+            url: '/sms/delete',
             method: 'POST',
             headers,
             body: smsDTOList,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAll
      */
-    getAllUsingGET = ({ dateFrom, dateTo }: GetAllUsingGETRequest): Observable<Array<SmsDTO>> => {
-        throwIfNullOrUndefined(dateFrom, 'getAllUsingGET');
-        throwIfNullOrUndefined(dateTo, 'getAllUsingGET');
+    getAllUsingGET({ dateFrom, dateTo }: GetAllUsingGETRequest): Observable<Array<SmsDTO>>
+    getAllUsingGET({ dateFrom, dateTo }: GetAllUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<SmsDTO>>>
+    getAllUsingGET({ dateFrom, dateTo }: GetAllUsingGETRequest, opts?: OperationOpts): Observable<Array<SmsDTO> | RawAjaxResponse<Array<SmsDTO>>> {
+        throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getAllUsingGET');
+        throwIfNullOrUndefined(dateTo, 'dateTo', 'getAllUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -72,18 +76,20 @@ export class SmsControllerApi extends BaseAPI {
         };
 
         return this.request<Array<SmsDTO>>({
-            path: '/sms',
+            url: '/sms',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * saveSms
      */
-    saveSmsUsingPOST = ({ smsDTO, split }: SaveSmsUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(smsDTO, 'saveSmsUsingPOST');
+    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest): Observable<boolean>
+    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(smsDTO, 'smsDTO', 'saveSmsUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -95,12 +101,12 @@ export class SmsControllerApi extends BaseAPI {
         if (split != null) { query['split'] = split; }
 
         return this.request<boolean>({
-            path: '/sms',
+            url: '/sms',
             method: 'POST',
             headers,
             query,
             body: smsDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

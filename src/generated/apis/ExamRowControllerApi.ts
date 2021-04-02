@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     ExamRowDTO,
     ResponseEntity,
@@ -47,26 +47,30 @@ export class ExamRowControllerApi extends BaseAPI {
     /**
      * deleteExam
      */
-    deleteExamUsingDELETE1 = ({ code }: DeleteExamUsingDELETE1Request): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(code, 'deleteExamUsingDELETE1');
+    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request): Observable<ResponseEntity>
+    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteExamUsingDELETE1');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            path: '/examrows/{code}'.replace('{code}', encodeURI(code)),
+            url: '/examrows/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getExamRowsByCodeAndDescription
      */
-    getExamRowsByCodeAndDescriptionUsingGET = ({ code, description }: GetExamRowsByCodeAndDescriptionUsingGETRequest): Observable<Array<ExamRowDTO>> => {
-        throwIfNullOrUndefined(code, 'getExamRowsByCodeAndDescriptionUsingGET');
-        throwIfNullOrUndefined(description, 'getExamRowsByCodeAndDescriptionUsingGET');
+    getExamRowsByCodeAndDescriptionUsingGET({ code, description }: GetExamRowsByCodeAndDescriptionUsingGETRequest): Observable<Array<ExamRowDTO>>
+    getExamRowsByCodeAndDescriptionUsingGET({ code, description }: GetExamRowsByCodeAndDescriptionUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ExamRowDTO>>>
+    getExamRowsByCodeAndDescriptionUsingGET({ code, description }: GetExamRowsByCodeAndDescriptionUsingGETRequest, opts?: OperationOpts): Observable<Array<ExamRowDTO> | RawAjaxResponse<Array<ExamRowDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getExamRowsByCodeAndDescriptionUsingGET');
+        throwIfNullOrUndefined(description, 'description', 'getExamRowsByCodeAndDescriptionUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -78,67 +82,75 @@ export class ExamRowControllerApi extends BaseAPI {
         };
 
         return this.request<Array<ExamRowDTO>>({
-            path: '/examrows/search',
+            url: '/examrows/search',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getExamRowsByCode
      */
-    getExamRowsByCodeUsingGET = ({ code }: GetExamRowsByCodeUsingGETRequest): Observable<Array<ExamRowDTO>> => {
-        throwIfNullOrUndefined(code, 'getExamRowsByCodeUsingGET');
+    getExamRowsByCodeUsingGET({ code }: GetExamRowsByCodeUsingGETRequest): Observable<Array<ExamRowDTO>>
+    getExamRowsByCodeUsingGET({ code }: GetExamRowsByCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ExamRowDTO>>>
+    getExamRowsByCodeUsingGET({ code }: GetExamRowsByCodeUsingGETRequest, opts?: OperationOpts): Observable<Array<ExamRowDTO> | RawAjaxResponse<Array<ExamRowDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getExamRowsByCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<ExamRowDTO>>({
-            path: '/examrows/{code}'.replace('{code}', encodeURI(code)),
+            url: '/examrows/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getExamRowsByExamCode
      */
-    getExamRowsByExamCodeUsingGET = ({ examCode }: GetExamRowsByExamCodeUsingGETRequest): Observable<Array<ExamRowDTO>> => {
-        throwIfNullOrUndefined(examCode, 'getExamRowsByExamCodeUsingGET');
+    getExamRowsByExamCodeUsingGET({ examCode }: GetExamRowsByExamCodeUsingGETRequest): Observable<Array<ExamRowDTO>>
+    getExamRowsByExamCodeUsingGET({ examCode }: GetExamRowsByExamCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ExamRowDTO>>>
+    getExamRowsByExamCodeUsingGET({ examCode }: GetExamRowsByExamCodeUsingGETRequest, opts?: OperationOpts): Observable<Array<ExamRowDTO> | RawAjaxResponse<Array<ExamRowDTO>>> {
+        throwIfNullOrUndefined(examCode, 'examCode', 'getExamRowsByExamCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<ExamRowDTO>>({
-            path: '/examrows/byExamCode/{examCode}'.replace('{examCode}', encodeURI(examCode)),
+            url: '/examrows/byExamCode/{examCode}'.replace('{examCode}', encodeURI(examCode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getExamRows
      */
-    getExamRowsUsingGET = (): Observable<Array<ExamRowDTO>> => {
+    getExamRowsUsingGET(): Observable<Array<ExamRowDTO>>
+    getExamRowsUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<ExamRowDTO>>>
+    getExamRowsUsingGET(opts?: OperationOpts): Observable<Array<ExamRowDTO> | RawAjaxResponse<Array<ExamRowDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<ExamRowDTO>>({
-            path: '/examrows',
+            url: '/examrows',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newExamRow
      */
-    newExamRowUsingPOST = ({ examRowDTO }: NewExamRowUsingPOSTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(examRowDTO, 'newExamRowUsingPOST');
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest): Observable<ResponseEntity>
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(examRowDTO, 'examRowDTO', 'newExamRowUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -146,11 +158,11 @@ export class ExamRowControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/examrows',
+            url: '/examrows',
             method: 'POST',
             headers,
             body: examRowDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

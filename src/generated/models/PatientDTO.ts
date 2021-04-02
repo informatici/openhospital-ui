@@ -132,18 +132,6 @@ export interface PatientDTO {
      */
     taxCode?: string;
     /**
-     * Height
-     * @type {number}
-     * @memberof PatientDTO
-     */
-    height?: number;
-    /**
-     * Weight
-     * @type {number}
-     * @memberof PatientDTO
-     */
-    weight?: number;
-    /**
      * BlobPhoto
      * @type {string}
      * @memberof PatientDTO

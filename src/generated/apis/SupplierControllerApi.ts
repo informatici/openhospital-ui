@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     SupplierDTO,
 } from '../models';
@@ -41,24 +41,28 @@ export class SupplierControllerApi extends BaseAPI {
     /**
      * getSuppliers
      */
-    getSuppliersUsingGET = ({ id }: GetSuppliersUsingGETRequest): Observable<SupplierDTO> => {
-        throwIfNullOrUndefined(id, 'getSuppliersUsingGET');
+    getSuppliersUsingGET({ id }: GetSuppliersUsingGETRequest): Observable<SupplierDTO>
+    getSuppliersUsingGET({ id }: GetSuppliersUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
+    getSuppliersUsingGET({ id }: GetSuppliersUsingGETRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getSuppliersUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<SupplierDTO>({
-            path: '/suppliers/{id}'.replace('{id}', encodeURI(id)),
+            url: '/suppliers/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getSuppliers
      */
-    getSuppliersUsingGET1 = ({ excludeDeleted }: GetSuppliersUsingGET1Request): Observable<Array<SupplierDTO>> => {
+    getSuppliersUsingGET1({ excludeDeleted }: GetSuppliersUsingGET1Request): Observable<Array<SupplierDTO>>
+    getSuppliersUsingGET1({ excludeDeleted }: GetSuppliersUsingGET1Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<SupplierDTO>>>
+    getSuppliersUsingGET1({ excludeDeleted }: GetSuppliersUsingGET1Request, opts?: OperationOpts): Observable<Array<SupplierDTO> | RawAjaxResponse<Array<SupplierDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -69,18 +73,20 @@ export class SupplierControllerApi extends BaseAPI {
         if (excludeDeleted != null) { query['exclude_deleted'] = excludeDeleted; }
 
         return this.request<Array<SupplierDTO>>({
-            path: '/suppliers',
+            url: '/suppliers',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * saveSupplier
      */
-    saveSupplierUsingPOST = ({ suplierDTO }: SaveSupplierUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(suplierDTO, 'saveSupplierUsingPOST');
+    saveSupplierUsingPOST({ suplierDTO }: SaveSupplierUsingPOSTRequest): Observable<boolean>
+    saveSupplierUsingPOST({ suplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    saveSupplierUsingPOST({ suplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(suplierDTO, 'suplierDTO', 'saveSupplierUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -88,18 +94,20 @@ export class SupplierControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/suppliers',
+            url: '/suppliers',
             method: 'POST',
             headers,
             body: suplierDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateSupplier
      */
-    updateSupplierUsingPUT = ({ suplierDTO }: UpdateSupplierUsingPUTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(suplierDTO, 'updateSupplierUsingPUT');
+    updateSupplierUsingPUT({ suplierDTO }: UpdateSupplierUsingPUTRequest): Observable<boolean>
+    updateSupplierUsingPUT({ suplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateSupplierUsingPUT({ suplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(suplierDTO, 'suplierDTO', 'updateSupplierUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -107,11 +115,11 @@ export class SupplierControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/suppliers',
+            url: '/suppliers',
             method: 'PUT',
             headers,
             body: suplierDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }
