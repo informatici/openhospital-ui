@@ -77,7 +77,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                label="Date (day/month/year)"
+                isValid={isValid("opdDate")}
+                errorText={getErrorText("opdDate")}
+                label="Date (d/m/y)"
                 onChange={dateFieldHandleOnChange("opdDate")}
               />
             </div>

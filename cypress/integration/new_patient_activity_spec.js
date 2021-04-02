@@ -76,7 +76,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("div.dialog__buttonSet").contains("Clear All").click();
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
-    cy.get("[id=birthDate]").should("have.value", "01/01/1970");
+    cy.get("[id=birthDate]").should("have.value", "");
   });
 
   it.skip("should reset the profile picture on the Clear All button click", () => {
@@ -85,25 +85,27 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should show an error message when the call fails", () => {
+    cy.wait(2000);
+    cy.get(".dateField button").click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[id=secondName]").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
 
   it("should show a confirmation dialog when the call is successful", () => {
+    cy.wait(2000);
+    cy.get(".dateField button").click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
@@ -114,17 +116,18 @@ describe("NewPatientActivity spec", () => {
     cy.get("div.dialog__buttonSet").contains("Keep editing").click();
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
-    cy.get("[id=birthDate]").should("have.value", "01/01/1970");
+    cy.get("[id=birthDate]").should("have.value", "");
   });
 
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
+    cy.wait(2000);
+    cy.get(".dateField button").click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-day").eq(4).click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
     cy.get("[class=patientDataForm]").contains("submit").click();
     cy.get("div.dialog__buttonSet").contains("Dashboard").click();
     cy.get("div.dashboard");

@@ -1,8 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { KeyboardDatePicker as DatePicker, MuiPickersUtilsProvider as DatePickerWrapper } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import {
+  KeyboardDatePicker as DatePicker,
+  MuiPickersUtilsProvider as DatePickerWrapper,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
+import TextField from "@material-ui/core/TextField";
 
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
@@ -11,21 +15,22 @@ const DateField: FunctionComponent<IProps> = ({
   disabled,
   label,
   theme,
+  isValid,
+  errorText,
   format,
-  onChange
+  onChange,
 }) => {
-
-  const [value, setValue] = useState<Date | null>(new Date(+fieldValue));
+  const [value, setValue] = useState<Date | null>(null);
 
   useEffect(() => {
-    setValue(new Date(+fieldValue));
-  }, [fieldValue])
+    setValue(fieldValue === "" ? null : new Date(+fieldValue));
+  }, [fieldValue]);
 
   const handleDateChange = (date: Date | null) => {
     onChange(date);
     setValue(date);
   };
-  
+
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
   return (
@@ -41,7 +46,18 @@ const DateField: FunctionComponent<IProps> = ({
         inputVariant="outlined"
         margin="dense"
         value={value}
-      />  
+        TextFieldComponent={(props): any => (
+          <TextField
+            {...props}
+            name={""}
+            error={isValid}
+            variant="outlined"
+            margin="dense"
+            helperText={errorText}
+            autoComplete={"off"}
+          />
+        )}
+      />
     </DatePickerWrapper>
   );
 };

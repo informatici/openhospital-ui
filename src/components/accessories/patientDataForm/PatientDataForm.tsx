@@ -169,7 +169,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               disableFuture={true}
               theme="regular"
               format="dd/MM/yyyy"
-              label="Birthday (day/month/year)"
+              isValid={isValid("birthDate")}
+              errorText={getErrorText("birthDate")}
+              label="Birthday (d/m/y)"
               onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>

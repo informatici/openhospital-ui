@@ -93,7 +93,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                label="Date (day/month/year)"
+                isValid={isValid("triageDate")}
+                errorText={getErrorText("triageDate")}
+                label="Date (d/m/y)"
                 onChange={dateFieldHandleOnChange("triageDate")}
               />
             </div>
