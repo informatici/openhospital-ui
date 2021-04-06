@@ -14,7 +14,7 @@ export const PermissionProvider: FunctionComponent = ({ children }) => {
       return;
     }
     // reload permissions when user authenticates
-    getUserInfoThunk()(dispatch);
+    dispatch(getUserInfoThunk());
   }, [authenticatedUser, dispatch]);
 
   // TODO: display fallback when loading

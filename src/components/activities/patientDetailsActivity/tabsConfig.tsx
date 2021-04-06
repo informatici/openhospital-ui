@@ -41,15 +41,11 @@ export const patientDetailTabs: TTabConfig = [
   {
     label: "Therapy",
     path: "/therapy",
-    content: (
-      <PatientDetailsContent title="Therapy" content={<SkeletonLoader />} />
-    ),
+    content: <PatientDetailsContent title="Therapy" content={SkeletonLoader} />,
   },
   {
     label: "Booking",
     path: "/booking",
-    content: (
-      <PatientDetailsContent title="Booking" content={<SkeletonLoader />} />
-    ),
+    content: <PatientDetailsContent title="Booking" content={SkeletonLoader} />,
   },
 ];
