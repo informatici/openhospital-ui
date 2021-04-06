@@ -1,14 +1,10 @@
 import React, { FunctionComponent } from "react";
+import { initialFields } from "./consts";
 import PatientTriageForm from "./patientTriageForm/PatientTriageForm";
 import PatientTriageTable from "./patientTriageTable/PatientTriageTable";
-import { initialFields } from "./consts";
 import "./styles.scss";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
-import { PermissionDenied } from "../permissionDenied/PermissionDenied";
 
 const PatientTriage: FunctionComponent = () => {
-  const canRead = usePermission("examination.read");
-
   const onSubmit = (triage: any) => {
     console.log(triage);
 
@@ -19,7 +15,7 @@ const PatientTriage: FunctionComponent = () => {
      */
   };
 
-  return canRead ? (
+  return (
     <div className="patientTriage">
       <PatientTriageForm
         fields={initialFields}
@@ -30,8 +26,6 @@ const PatientTriage: FunctionComponent = () => {
       />
       <PatientTriageTable />
     </div>
-  ) : (
-    <PermissionDenied />
   );
 };
 
