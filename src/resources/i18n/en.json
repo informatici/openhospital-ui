@@ -10,7 +10,7 @@
   },
   "dashboard": {
     "welcomename": "Welcome <strong>{{name}}<strong>",
-    "newpatient": "New patient (changed)",
+    "newpatient": "New patient",
     "searchpatients": "Search patients"
   },
   "patient": {
@@ -85,7 +85,7 @@
     "therapy": "Therapy",
     "booking": "Booking",
     "dashboard": "Dashboard",
-    "newpatient": "New patient (changed)",
+    "newpatient": "New patient",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard"
