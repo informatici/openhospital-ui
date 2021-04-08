@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     DeliveryTypeDTO,
 } from '../models';
@@ -37,40 +37,46 @@ export class DeliveryTypeControllerApi extends BaseAPI {
     /**
      * deleteDeliveryType
      */
-    deleteDeliveryTypeUsingDELETE = ({ code }: DeleteDeliveryTypeUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'deleteDeliveryTypeUsingDELETE');
+    deleteDeliveryTypeUsingDELETE({ code }: DeleteDeliveryTypeUsingDELETERequest): Observable<boolean>
+    deleteDeliveryTypeUsingDELETE({ code }: DeleteDeliveryTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteDeliveryTypeUsingDELETE({ code }: DeleteDeliveryTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteDeliveryTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/deliverytypes/{code}'.replace('{code}', encodeURI(code)),
+            url: '/deliverytypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDeliveryTypes
      */
-    getDeliveryTypesUsingGET = (): Observable<Array<DeliveryTypeDTO>> => {
+    getDeliveryTypesUsingGET(): Observable<Array<DeliveryTypeDTO>>
+    getDeliveryTypesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DeliveryTypeDTO>>>
+    getDeliveryTypesUsingGET(opts?: OperationOpts): Observable<Array<DeliveryTypeDTO> | RawAjaxResponse<Array<DeliveryTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DeliveryTypeDTO>>({
-            path: '/deliverytypes',
+            url: '/deliverytypes',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newDeliveryType
      */
-    newDeliveryTypeUsingPOST = ({ dlvrTypeDTO }: NewDeliveryTypeUsingPOSTRequest): Observable<string> => {
-        throwIfNullOrUndefined(dlvrTypeDTO, 'newDeliveryTypeUsingPOST');
+    newDeliveryTypeUsingPOST({ dlvrTypeDTO }: NewDeliveryTypeUsingPOSTRequest): Observable<string>
+    newDeliveryTypeUsingPOST({ dlvrTypeDTO }: NewDeliveryTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    newDeliveryTypeUsingPOST({ dlvrTypeDTO }: NewDeliveryTypeUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+        throwIfNullOrUndefined(dlvrTypeDTO, 'dlvrTypeDTO', 'newDeliveryTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -78,18 +84,20 @@ export class DeliveryTypeControllerApi extends BaseAPI {
         };
 
         return this.request<string>({
-            path: '/deliverytypes',
+            url: '/deliverytypes',
             method: 'POST',
             headers,
             body: dlvrTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateDeliveryTypet
      */
-    updateDeliveryTypetUsingPUT = ({ dlvrTypeDTO }: UpdateDeliveryTypetUsingPUTRequest): Observable<string> => {
-        throwIfNullOrUndefined(dlvrTypeDTO, 'updateDeliveryTypetUsingPUT');
+    updateDeliveryTypetUsingPUT({ dlvrTypeDTO }: UpdateDeliveryTypetUsingPUTRequest): Observable<string>
+    updateDeliveryTypetUsingPUT({ dlvrTypeDTO }: UpdateDeliveryTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    updateDeliveryTypetUsingPUT({ dlvrTypeDTO }: UpdateDeliveryTypetUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+        throwIfNullOrUndefined(dlvrTypeDTO, 'dlvrTypeDTO', 'updateDeliveryTypetUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -97,11 +105,11 @@ export class DeliveryTypeControllerApi extends BaseAPI {
         };
 
         return this.request<string>({
-            path: '/deliverytypes',
+            url: '/deliverytypes',
             method: 'PUT',
             headers,
             body: dlvrTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

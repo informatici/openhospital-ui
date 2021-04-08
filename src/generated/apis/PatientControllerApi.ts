@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     PatientDTO,
     ResponseEntity,
@@ -55,41 +55,47 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * deletePatient
      */
-    deletePatientUsingDELETE = ({ code }: DeletePatientUsingDELETERequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(code, 'deletePatientUsingDELETE');
+    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest): Observable<ResponseEntity>
+    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(code, 'code', 'deletePatientUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            path: '/patients/{code}'.replace('{code}', encodeURI(code)),
+            url: '/patients/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getPatient
      */
-    getPatientUsingGET = ({ code }: GetPatientUsingGETRequest): Observable<PatientDTO> => {
-        throwIfNullOrUndefined(code, 'getPatientUsingGET');
+    getPatientUsingGET({ code }: GetPatientUsingGETRequest): Observable<PatientDTO>
+    getPatientUsingGET({ code }: GetPatientUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientDTO>>
+    getPatientUsingGET({ code }: GetPatientUsingGETRequest, opts?: OperationOpts): Observable<PatientDTO | RawAjaxResponse<PatientDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'getPatientUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<PatientDTO>({
-            path: '/patients/{code}'.replace('{code}', encodeURI(code)),
+            url: '/patients/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getPatients
      */
-    getPatientsUsingGET = ({ page, size }: GetPatientsUsingGETRequest): Observable<Array<PatientDTO>> => {
+    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest): Observable<Array<PatientDTO>>
+    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PatientDTO>>>
+    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<Array<PatientDTO> | RawAjaxResponse<Array<PatientDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -101,18 +107,20 @@ export class PatientControllerApi extends BaseAPI {
         if (size != null) { query['size'] = size; }
 
         return this.request<Array<PatientDTO>>({
-            path: '/patients',
+            url: '/patients',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newPatient
      */
-    newPatientUsingPOST = ({ newPatient }: NewPatientUsingPOSTRequest): Observable<number> => {
-        throwIfNullOrUndefined(newPatient, 'newPatientUsingPOST');
+    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest): Observable<number>
+    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(newPatient, 'newPatient', 'newPatientUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -120,17 +128,19 @@ export class PatientControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/patients',
+            url: '/patients',
             method: 'POST',
             headers,
             body: newPatient,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * searchPatient
      */
-    searchPatientUsingGET = ({ address, birthDate, firstName, secondName }: SearchPatientUsingGETRequest): Observable<Array<PatientDTO>> => {
+    searchPatientUsingGET({ address, birthDate, firstName, secondName }: SearchPatientUsingGETRequest): Observable<Array<PatientDTO>>
+    searchPatientUsingGET({ address, birthDate, firstName, secondName }: SearchPatientUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PatientDTO>>>
+    searchPatientUsingGET({ address, birthDate, firstName, secondName }: SearchPatientUsingGETRequest, opts?: OperationOpts): Observable<Array<PatientDTO> | RawAjaxResponse<Array<PatientDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -144,19 +154,21 @@ export class PatientControllerApi extends BaseAPI {
         if (secondName != null) { query['secondName'] = secondName; }
 
         return this.request<Array<PatientDTO>>({
-            path: '/patients/search',
+            url: '/patients/search',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updatePatient
      */
-    updatePatientUsingPUT = ({ code, updatePatient }: UpdatePatientUsingPUTRequest): Observable<number> => {
-        throwIfNullOrUndefined(code, 'updatePatientUsingPUT');
-        throwIfNullOrUndefined(updatePatient, 'updatePatientUsingPUT');
+    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest): Observable<number>
+    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(code, 'code', 'updatePatientUsingPUT');
+        throwIfNullOrUndefined(updatePatient, 'updatePatient', 'updatePatientUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -164,11 +176,11 @@ export class PatientControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/patients/{code}'.replace('{code}', encodeURI(code)),
+            url: '/patients/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,
             body: updatePatient,
-        });
+        }, opts?.responseOpts);
     };
 
 }

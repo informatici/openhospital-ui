@@ -83,8 +83,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   }, [shouldResetForm, resetForm]);
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("birthDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -172,32 +172,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               disableFuture={true}
               theme="regular"
               format="dd/MM/yyyy"
-              label={t("patient.birthdate")}
-              onChange={dateFieldHandleOnChange}
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("height")}
-              theme="regular"
-              label="Height"
-              isValid={isValid("height")}
-              errorText={getErrorText("height")}
-              onBlur={formik.handleBlur}
-              type="number"
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("weight")}
-              theme="regular"
-              label="Weight"
-              isValid={isValid("weight")}
-              errorText={getErrorText("weight")}
-              onBlur={formik.handleBlur}
-              type="number"
+              isValid={isValid("birthDate")}
+              errorText={getErrorText("birthDate")}
+              label="Birthday (d/m/y)"
+              onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>
 

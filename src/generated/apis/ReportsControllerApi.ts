@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders } from '../runtime';
+import { BaseAPI, HttpHeaders, OperationOpts, RawAjaxResponse } from '../runtime';
 
 /**
  * no description
@@ -22,31 +22,35 @@ export class ReportsControllerApi extends BaseAPI {
     /**
      * printDiseasesListPdf
      */
-    printDiseasesListPdfUsingGET = (): Observable<string> => {
+    printDiseasesListPdfUsingGET(): Observable<string>
+    printDiseasesListPdfUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    printDiseasesListPdfUsingGET(opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
-            path: '/reports/diseases-list',
+            url: '/reports/diseases-list',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * printExamsListPdf
      */
-    printExamsListPdfUsingGET = (): Observable<string> => {
+    printExamsListPdfUsingGET(): Observable<string>
+    printExamsListPdfUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    printExamsListPdfUsingGET(opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<string>({
-            path: '/reports/exams-list',
+            url: '/reports/exams-list',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
 }

@@ -44,8 +44,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("opdDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -79,8 +79,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
+                isValid={isValid("opdDate")}
+                errorText={getErrorText("opdDate")}
                 label={t("opd.dateopd")}
-                onChange={dateFieldHandleOnChange}
+                onChange={dateFieldHandleOnChange("opdDate")}
               />
             </div>
           </div>

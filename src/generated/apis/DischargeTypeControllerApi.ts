@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     DischargeTypeDTO,
 } from '../models';
@@ -37,40 +37,46 @@ export class DischargeTypeControllerApi extends BaseAPI {
     /**
      * deleteDischargeType
      */
-    deleteDischargeTypeUsingDELETE = ({ code }: DeleteDischargeTypeUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'deleteDischargeTypeUsingDELETE');
+    deleteDischargeTypeUsingDELETE({ code }: DeleteDischargeTypeUsingDELETERequest): Observable<boolean>
+    deleteDischargeTypeUsingDELETE({ code }: DeleteDischargeTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteDischargeTypeUsingDELETE({ code }: DeleteDischargeTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteDischargeTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/dischargetypes/{code}'.replace('{code}', encodeURI(code)),
+            url: '/dischargetypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDischargeTypes
      */
-    getDischargeTypesUsingGET = (): Observable<Array<DischargeTypeDTO>> => {
+    getDischargeTypesUsingGET(): Observable<Array<DischargeTypeDTO>>
+    getDischargeTypesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DischargeTypeDTO>>>
+    getDischargeTypesUsingGET(opts?: OperationOpts): Observable<Array<DischargeTypeDTO> | RawAjaxResponse<Array<DischargeTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DischargeTypeDTO>>({
-            path: '/dischargetypes',
+            url: '/dischargetypes',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newDischargeType
      */
-    newDischargeTypeUsingPOST = ({ dischTypeDTO }: NewDischargeTypeUsingPOSTRequest): Observable<string> => {
-        throwIfNullOrUndefined(dischTypeDTO, 'newDischargeTypeUsingPOST');
+    newDischargeTypeUsingPOST({ dischTypeDTO }: NewDischargeTypeUsingPOSTRequest): Observable<string>
+    newDischargeTypeUsingPOST({ dischTypeDTO }: NewDischargeTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    newDischargeTypeUsingPOST({ dischTypeDTO }: NewDischargeTypeUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+        throwIfNullOrUndefined(dischTypeDTO, 'dischTypeDTO', 'newDischargeTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -78,18 +84,20 @@ export class DischargeTypeControllerApi extends BaseAPI {
         };
 
         return this.request<string>({
-            path: '/dischargetypes',
+            url: '/dischargetypes',
             method: 'POST',
             headers,
             body: dischTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateDischargeTypet
      */
-    updateDischargeTypetUsingPUT = ({ dischTypeDTO }: UpdateDischargeTypetUsingPUTRequest): Observable<string> => {
-        throwIfNullOrUndefined(dischTypeDTO, 'updateDischargeTypetUsingPUT');
+    updateDischargeTypetUsingPUT({ dischTypeDTO }: UpdateDischargeTypetUsingPUTRequest): Observable<string>
+    updateDischargeTypetUsingPUT({ dischTypeDTO }: UpdateDischargeTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    updateDischargeTypetUsingPUT({ dischTypeDTO }: UpdateDischargeTypetUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+        throwIfNullOrUndefined(dischTypeDTO, 'dischTypeDTO', 'updateDischargeTypetUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -97,11 +105,11 @@ export class DischargeTypeControllerApi extends BaseAPI {
         };
 
         return this.request<string>({
-            path: '/dischargetypes',
+            url: '/dischargetypes',
             method: 'PUT',
             headers,
             body: dischTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

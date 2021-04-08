@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     PatientExaminationDTO,
     ResponseEntity,
@@ -60,42 +60,48 @@ export class ExaminationControllerApi extends BaseAPI {
     /**
      * getByID
      */
-    getByIDUsingGET = ({ id }: GetByIDUsingGETRequest): Observable<PatientExaminationDTO> => {
-        throwIfNullOrUndefined(id, 'getByIDUsingGET');
+    getByIDUsingGET({ id }: GetByIDUsingGETRequest): Observable<PatientExaminationDTO>
+    getByIDUsingGET({ id }: GetByIDUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    getByIDUsingGET({ id }: GetByIDUsingGETRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getByIDUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<PatientExaminationDTO>({
-            path: '/examinations/{id}'.replace('{id}', encodeURI(id)),
+            url: '/examinations/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getByPatientId
      */
-    getByPatientIdUsingGET = ({ patId }: GetByPatientIdUsingGETRequest): Observable<Array<PatientExaminationDTO>> => {
-        throwIfNullOrUndefined(patId, 'getByPatientIdUsingGET');
+    getByPatientIdUsingGET({ patId }: GetByPatientIdUsingGETRequest): Observable<Array<PatientExaminationDTO>>
+    getByPatientIdUsingGET({ patId }: GetByPatientIdUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PatientExaminationDTO>>>
+    getByPatientIdUsingGET({ patId }: GetByPatientIdUsingGETRequest, opts?: OperationOpts): Observable<Array<PatientExaminationDTO> | RawAjaxResponse<Array<PatientExaminationDTO>>> {
+        throwIfNullOrUndefined(patId, 'patId', 'getByPatientIdUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<PatientExaminationDTO>>({
-            path: '/examinations/byPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
+            url: '/examinations/byPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDefaultPatientExamination
      */
-    getDefaultPatientExaminationUsingGET = ({ patId }: GetDefaultPatientExaminationUsingGETRequest): Observable<PatientExaminationDTO> => {
-        throwIfNullOrUndefined(patId, 'getDefaultPatientExaminationUsingGET');
+    getDefaultPatientExaminationUsingGET({ patId }: GetDefaultPatientExaminationUsingGETRequest): Observable<PatientExaminationDTO>
+    getDefaultPatientExaminationUsingGET({ patId }: GetDefaultPatientExaminationUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    getDefaultPatientExaminationUsingGET({ patId }: GetDefaultPatientExaminationUsingGETRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
+        throwIfNullOrUndefined(patId, 'patId', 'getDefaultPatientExaminationUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -106,53 +112,59 @@ export class ExaminationControllerApi extends BaseAPI {
         };
 
         return this.request<PatientExaminationDTO>({
-            path: '/examinations/defaultPatientExamination',
+            url: '/examinations/defaultPatientExamination',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getFromLastPatientExamination
      */
-    getFromLastPatientExaminationUsingGET = ({ id }: GetFromLastPatientExaminationUsingGETRequest): Observable<PatientExaminationDTO> => {
-        throwIfNullOrUndefined(id, 'getFromLastPatientExaminationUsingGET');
+    getFromLastPatientExaminationUsingGET({ id }: GetFromLastPatientExaminationUsingGETRequest): Observable<PatientExaminationDTO>
+    getFromLastPatientExaminationUsingGET({ id }: GetFromLastPatientExaminationUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    getFromLastPatientExaminationUsingGET({ id }: GetFromLastPatientExaminationUsingGETRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getFromLastPatientExaminationUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<PatientExaminationDTO>({
-            path: '/examinations/fromLastPatientExamination/{id}'.replace('{id}', encodeURI(id)),
+            url: '/examinations/fromLastPatientExamination/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getLastByPatientId
      */
-    getLastByPatientIdUsingGET = ({ patId }: GetLastByPatientIdUsingGETRequest): Observable<PatientExaminationDTO> => {
-        throwIfNullOrUndefined(patId, 'getLastByPatientIdUsingGET');
+    getLastByPatientIdUsingGET({ patId }: GetLastByPatientIdUsingGETRequest): Observable<PatientExaminationDTO>
+    getLastByPatientIdUsingGET({ patId }: GetLastByPatientIdUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    getLastByPatientIdUsingGET({ patId }: GetLastByPatientIdUsingGETRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
+        throwIfNullOrUndefined(patId, 'patId', 'getLastByPatientIdUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<PatientExaminationDTO>({
-            path: '/examinations/lastByPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
+            url: '/examinations/lastByPatientId/{patId}'.replace('{patId}', encodeURI(patId)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getLastNByPatID
      */
-    getLastNByPatIDUsingGET = ({ limit, patId }: GetLastNByPatIDUsingGETRequest): Observable<Array<PatientExaminationDTO>> => {
-        throwIfNullOrUndefined(limit, 'getLastNByPatIDUsingGET');
-        throwIfNullOrUndefined(patId, 'getLastNByPatIDUsingGET');
+    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest): Observable<Array<PatientExaminationDTO>>
+    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PatientExaminationDTO>>>
+    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<Array<PatientExaminationDTO> | RawAjaxResponse<Array<PatientExaminationDTO>>> {
+        throwIfNullOrUndefined(limit, 'limit', 'getLastNByPatIDUsingGET');
+        throwIfNullOrUndefined(patId, 'patId', 'getLastNByPatIDUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -164,18 +176,20 @@ export class ExaminationControllerApi extends BaseAPI {
         };
 
         return this.request<Array<PatientExaminationDTO>>({
-            path: '/examinations/lastNByPatId',
+            url: '/examinations/lastNByPatId',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newPatientExamination
      */
-    newPatientExaminationUsingPOST = ({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(newPatientExamination, 'newPatientExaminationUsingPOST');
+    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest): Observable<boolean>
+    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(newPatientExamination, 'newPatientExamination', 'newPatientExaminationUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -183,19 +197,21 @@ export class ExaminationControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/examinations',
+            url: '/examinations',
             method: 'POST',
             headers,
             body: newPatientExamination,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateExamination
      */
-    updateExaminationUsingPUT = ({ id, dto }: UpdateExaminationUsingPUTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(id, 'updateExaminationUsingPUT');
-        throwIfNullOrUndefined(dto, 'updateExaminationUsingPUT');
+    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest): Observable<ResponseEntity>
+    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(id, 'id', 'updateExaminationUsingPUT');
+        throwIfNullOrUndefined(dto, 'dto', 'updateExaminationUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -203,11 +219,11 @@ export class ExaminationControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/examinations/{id}'.replace('{id}', encodeURI(id)),
+            url: '/examinations/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
             body: dto,
-        });
+        }, opts?.responseOpts);
     };
 
 }

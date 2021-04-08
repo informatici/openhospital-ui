@@ -21,7 +21,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
-import Tabs from "../../accessories/tabs/Tabs";
+import RouterTabs from "../../accessories/tabs/RouterTabs";
 import {
   IDispatchProps,
   IStateProps,
@@ -65,29 +65,34 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const patientDetailTabs: TTabConfig = [
     {
-      label: t("nav.summary"),
+      label: "Summary",
+      path: "/summary",
       content: (
         <PatientDetailsContent title="Summary" content={<PatientSummary />} />
       ),
     },
     {
-      label: t("nav.opd"),
+      label: "OPD",
+      path: "/OPD",
       content: <PatientDetailsContent title="OPD" content={<PatientOPD />} />,
     },
     {
-      label: t("nav.triage"),
+      label: "Triage",
+      path: "/triage",
       content: (
         <PatientDetailsContent title="Triage" content={<PatientTriage />} />
       ),
     },
     {
-      label: t("nav.therapy"),
+      label: "Therapy",
+      path: "/therapy",
       content: (
         <PatientDetailsContent title="Therapy" content={<SkeletonLoader />} />
       ),
     },
     {
-      label: t("nav.booking"),
+      label: "Booking",
+      path: "/booking",
       content: (
         <PatientDetailsContent title="Booking" content={<SkeletonLoader />} />
       ),
@@ -249,7 +254,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <Tabs config={patientDetailTabs} />
+                  <RouterTabs
+                    config={patientDetailTabs}
+                    defaultRoute="/summary"
+                  />
                 </div>
               </div>
             </div>

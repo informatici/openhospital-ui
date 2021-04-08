@@ -2,6 +2,7 @@ import XHRAdapter from "@pollyjs/adapter-xhr";
 import { Polly } from "@pollyjs/core";
 import { BASE_PATH } from "../generated/runtime";
 import patientDTO from "./fixtures/patientDTO";
+import patientExaminationDTO from "./fixtures/patientExaminationDTO";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -13,6 +14,8 @@ export function makeServer() {
   const { server } = polly;
 
   server.host(BASE_PATH, () => {
+
+    // AUTH
     server.namespace("/auth", () => {
       server.post("/login").intercept((req, res) => {
         const { username } = req.query;
@@ -30,6 +33,7 @@ export function makeServer() {
       });
     });
 
+    // PATIENTS
     server.namespace("/patients", () => {
       server.post("/").intercept((req, res) => {
         const body = req.jsonBody();
@@ -94,6 +98,47 @@ export function makeServer() {
                 patientDTO,
                 patientDTO,
                 patientDTO,
+              ]);
+        }
+      });
+    });
+
+    // EXAMINATIONS (AKA TRIAGE)
+    server.namespace("/examinations", () => {
+      server.post("/").intercept((req, res) => {
+        const body = req.jsonBody();
+        switch (body.pex_ID) {
+          case -1:
+            res.status(400);
+            break;
+          default:
+            res.status(201);
+            break;
+        }
+      });
+
+      server.post("/byPatientId/:patId").intercept((req, res) => {
+        const patId = req.params.patId;
+        switch (patId) {
+          case "empty":
+            res.status(200).json([]);
+            break;
+          case "unexpected":
+            res.status(200).json({});
+            break;
+          case "fail":
+            res.status(400);
+            break;
+          default:
+            res
+              .status(200)
+              .json([
+                patientExaminationDTO,
+                patientExaminationDTO,
+                patientExaminationDTO,
+                patientExaminationDTO,
+                patientExaminationDTO,
+                patientExaminationDTO,
               ]);
         }
       });

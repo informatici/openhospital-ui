@@ -1,9 +1,15 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Table from "../../table/Table";
 import { data, header, order } from "./consts";
+interface IOwnProps {
+  shouldUpdateTable: boolean;
+}
 
-const PatientTriageTable: FunctionComponent = () => {
+const PatientTriageTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+}) => {
+  const [, setUpdate] = useState(false);
   const { t } = useTranslation();
 
   const label = {
@@ -25,6 +31,10 @@ const PatientTriageTable: FunctionComponent = () => {
   const onDelete = () => {
     console.log("delete");
   };
+
+  useEffect(() => {
+    setUpdate(shouldUpdateTable);
+  }, [shouldUpdateTable]);
 
   return (
     <>

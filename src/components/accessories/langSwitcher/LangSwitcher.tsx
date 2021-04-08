@@ -29,8 +29,8 @@ const LangSwitcher: FunctionComponent = () => {
 
   const getCurrentLang = () => {
     var value = "";
-    Object.keys(languageVocabolary).find((key: string) => {
-      if (currentLang == key || currentLang.split("-")[0] == key) {
+    Object.keys(languageVocabolary).forEach((key: string) => {
+      if (currentLang === key || currentLang.split("-")[0] === key) {
         value = key;
       }
     });
