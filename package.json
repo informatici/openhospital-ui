@@ -58,6 +58,7 @@
   },
   "scripts": {
     "transifex:source": "node scripts/transifex/syncSource.js",
+    "transifex:files": "node scripts/transifex/syncFiles.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

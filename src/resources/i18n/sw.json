@@ -10,26 +10,26 @@
   },
   "dashboard": {
     "welcomename": "Welcome <strong>{{name}}<strong>",
-    "newpatient": "New patient (changed)",
+    "newpatient": "New patient",
     "searchpatients": "Search patients"
   },
   "patient": {
-    "address": "ADDRESS",
+    "address": "ANWANI",
     "birthdate": "Birth Date",
-    "bloodtype": "Blood type",
+    "bloodtype": "Aina ya damu",
     "city": "City",
     "fathername": "Fathername",
-    "firstname": "First Name *",
+    "firstname": "First Name",
     "hasinsurance": "Has Insurance",
     "mothername": "Mothername",
-    "note": "Complain",
-    "secondname": "Second Name *",
-    "sex": "SEX",
+    "note": "Note",
+    "secondname": "Second Name",
+    "sex": "Sex",
     "opd": "OPD",
     "lastadminission": "Last admission",
     "reasonforvisit": "Reason for visit",
     "treatmentmade": "Treatment made",
-    "patientID": "Pat.ID",
+    "patientID": "Patient ID",
     "taxcode": "Tax Number ID",
     "telephone": "Telephone",
     "titleedit": "Edit Patient",
@@ -40,7 +40,7 @@
   "opd": {
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnesis",
-    "note": "Complain"
+    "note": "Note"
   },
   "examination": {
     "ap": {
@@ -77,7 +77,7 @@
   },
   "nav": {
     "pharmacy": "Pharmacy",
-    "ward": "Ward *",
+    "ward": "Ward",
     "billing": "Billing",
     "summary": "Summary",
     "opd": "OPD",
@@ -85,7 +85,7 @@
     "therapy": "Therapy",
     "booking": "Booking",
     "dashboard": "Dashboard",
-    "newpatient": "New patient (changed)",
+    "newpatient": "New Patient",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard"
