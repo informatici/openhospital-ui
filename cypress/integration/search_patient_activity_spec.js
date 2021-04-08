@@ -40,9 +40,7 @@ describe("SearchPatientActivity spec", () => {
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[class=searchPatient__panel]").submit();
 
-    cy.get("[class=searchPatient]").contains(
-      "Something went wrong, please retry."
-    );
+    cy.get("[class=searchPatient] .infoBox.error");
   });
 
   it("should display the results in a grid", () => {
