@@ -32,6 +32,7 @@
     "filereader": "^0.10.3",
     "formik": "^2.1.4",
     "i18next": "^19.9.1",
+    "i18next-browser-languagedetector": "^6.1.0",
     "immer": "^8.0.1",
     "js-resource-converter": "^1.0.1",
     "lodash.get": "^4.4.2",

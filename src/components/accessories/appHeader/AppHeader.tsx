@@ -1,6 +1,7 @@
 import { Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import HomeIcon from "@material-ui/icons/Home";
+import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
@@ -67,6 +68,7 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
           </div>
         </div>
         <div className="appHeader__nav">
+          <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
           <div className="appHeader__nav_items">
             <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
             <div className="appHeader__nav__item">{t("nav.ward")}</div>
