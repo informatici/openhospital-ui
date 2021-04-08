@@ -4,22 +4,22 @@
     "password": "Password",
     "incorrectcredentials": "Username o password non valide",
     "forgotpassword": "Hai dimenticato la password?",
-    "insertavalidusername": "Insert a valid user name",
-    "insertthepassword": "Insert the password",
+    "insertavalidusername": "Inserisci uno username valido",
+    "insertthepassword": "Inserisci una password valida",
     "login": "Login"
   },
   "dashboard": {
-    "welcomename": "Welcome <strong>{{name}}<strong>",
-    "newpatient": "New patient",
-    "searchpatients": "Search patients"
+    "welcomename": "Benvenuto/a <strong>{{name}}<strong>",
+    "newpatient": "Nuovo paziente",
+    "searchpatients": "Cerca pazienti"
   },
   "patient": {
-    "address": "INDIRIZZO",
-    "birthdate": "Birth Date",
-    "bloodtype": "Gruppo Sanguigno",
-    "city": "City",
-    "fathername": "Fathername",
-    "firstname": "First Name",
+    "address": "Indirizzo",
+    "birthdate": "Data di nascita",
+    "bloodtype": "Tipo di sange",
+    "city": "Città",
+    "fathername": "Nome del padre",
+    "firstname": "Nome",
     "hasinsurance": "Has Insurance",
     "mothername": "Mothername",
     "note": "Note",
