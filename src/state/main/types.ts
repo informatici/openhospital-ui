@@ -1,9 +1,13 @@
-import { LoginResponse, UserProfileDTO } from "../../generated";
+import { LoginResponse } from "../../generated";
+import { TPermission } from "../../types";
 import { IApiResponse } from "../types";
 
 export type TUserCredentials = LoginResponse | undefined;
 
+export interface IAuthentication extends LoginResponse {
+  permission: TPermission[];
+}
+
 export interface IMainState {
-  authentication: IApiResponse<LoginResponse>;
-  me: IApiResponse<UserProfileDTO>;
+  authentication: IApiResponse<IAuthentication>;
 }

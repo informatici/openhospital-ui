@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
-import { AUTH_KEY } from "../../consts";
+import { concat } from "rxjs";
+import { tap, toArray } from "rxjs/operators";
 import {
   Configuration,
   LoginApiApi,
@@ -7,25 +8,27 @@ import {
   UserControllerApi,
   UserProfileDTO,
 } from "../../generated";
-import { SessionStorage } from "../../libraries/storage/storage";
+import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
+import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
 import { IAction } from "../types";
 import {
   SET_AUTHENTICATION_FAIL,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
-  SET_ME_FAIL,
-  SET_ME_LOADING,
-  SET_ME_SUCCESS,
 } from "./consts";
+import { IAuthentication } from "./types";
 
 const api = new LoginApiApi(new Configuration());
-const usersApi = new UserControllerApi(new Configuration());
+const usersApi = new UserControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
 
 export const setAuthenticationSuccess = (
-  userCredentials: LoginResponse
-): IAction<LoginResponse, {}> => ({
+  payload: IAuthentication
+): IAction<IAuthentication, {}> => ({
   type: SET_AUTHENTICATION_SUCCESS,
-  payload: userCredentials,
+  payload,
 });
 
 export const setAuthenticationThunk = (username: string, password: string) => (
@@ -35,39 +38,30 @@ export const setAuthenticationThunk = (username: string, password: string) => (
     type: SET_AUTHENTICATION_LOADING,
   });
 
-  api.loginUsingPOST({ password, username }).subscribe(
-    (payload: LoginResponse) => {
-      dispatch(setAuthenticationSuccess(payload));
-      SessionStorage.write(AUTH_KEY, payload);
-    },
-    (error) => {
-      dispatch({
-        type: SET_AUTHENTICATION_FAIL,
-        error,
-      });
-    }
-  );
-};
-
-export const getUserInfoThunk = () => (
-  dispatch: Dispatch<IAction<UserProfileDTO, {}>>
-) => {
-  dispatch({
-    type: SET_ME_LOADING,
-  });
-
-  usersApi.retrieveProfileByCurrentLoggedInUserUsingGET().subscribe(
-    (payload) => {
-      dispatch({
-        type: SET_ME_SUCCESS,
-        payload,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: SET_ME_FAIL,
-        error,
-      });
-    }
-  );
+  concat(
+    api
+      .loginUsingPOST({ password, username })
+      .pipe(tap(saveAuthenticationDataToSession)),
+    usersApi
+      .retrieveProfileByCurrentLoggedInUserUsingGET()
+      .pipe(tap(savePermissionDataToSession))
+  )
+    .pipe(toArray())
+    .subscribe(
+      ([userCredentials, me]) => {
+        dispatch({
+          type: SET_AUTHENTICATION_SUCCESS,
+          payload: {
+            ...(userCredentials as LoginResponse),
+            permission: (me as UserProfileDTO).permission,
+          },
+        });
+      },
+      (error) => {
+        dispatch({
+          type: SET_AUTHENTICATION_FAIL,
+          error,
+        });
+      }
+    );
 };

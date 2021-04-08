@@ -6,7 +6,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import App from "./App";
 import "./index.css";
-import { PermissionProvider } from "./libraries/permissionUtils/PermissionProvider";
 import { makeServer } from "./mockServer/server";
 import * as serviceWorker from "./serviceWorker";
 import main from "./state/main/reducer";
@@ -26,9 +25,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PermissionProvider>
-        <App />
-      </PermissionProvider>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
