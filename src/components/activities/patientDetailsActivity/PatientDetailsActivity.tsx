@@ -65,33 +65,33 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const patientDetailTabs: TTabConfig = [
     {
-      label: "Summary",
+      label: t("nav.summary"),
       path: "/summary",
       content: (
         <PatientDetailsContent title="Summary" content={<PatientSummary />} />
       ),
     },
     {
-      label: "OPD",
+      label: t("nav.opd"),
       path: "/OPD",
       content: <PatientDetailsContent title="OPD" content={<PatientOPD />} />,
     },
     {
-      label: "Triage",
+      label: t("nav.triage"),
       path: "/triage",
       content: (
         <PatientDetailsContent title="Triage" content={<PatientTriage />} />
       ),
     },
     {
-      label: "Therapy",
+      label: t("nav.therapy"),
       path: "/therapy",
       content: (
         <PatientDetailsContent title="Therapy" content={<SkeletonLoader />} />
       ),
     },
     {
-      label: "Booking",
+      label: t("nav.booking"),
       path: "/booking",
       content: (
         <PatientDetailsContent title="Booking" content={<SkeletonLoader />} />
@@ -193,7 +193,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            {t("patient.patientID")}::
+                            {t("patient.patientID")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.code || "-"}

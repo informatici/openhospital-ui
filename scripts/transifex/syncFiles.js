@@ -1,4 +1,3 @@
-
 const glob = require('glob');
 const _ = require('lodash');
 const fs = require('fs');
@@ -32,7 +31,6 @@ glob(destPath + "/*.json", {}, function (
   });
 });
 
-
 function generateNewJson(object, target) {
   const clonedObj = { ...object };
   const entries = Object.entries(clonedObj);
@@ -55,7 +53,7 @@ function findTargetVal(object, key) {
   Object.keys(object).some(function(k) {
     if (object[k] && typeof object[k] === 'object') {
       value = findTargetVal(object[k], key);
-      return value !== undefined;
+      return value !== null;
     } else if (object[k] && typeof object[k] !== 'object') {
       if(k === key) {
         value = object[k];
