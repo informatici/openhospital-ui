@@ -1,5 +1,6 @@
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
@@ -37,6 +38,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   getPatientThunk,
 }) => {
   const { id } = useParams<{ id: string }>();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
@@ -45,10 +47,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    Dashboard: "/",
-    "Search Patient": "/search",
-    "Patient Dashboard": `/details/${patient.data?.code}`,
-    "Edit Patient": `/details/${patient.data?.code}/edit`,
+    [t("nav.dashboard")]: "/",
+    [t("nav.searchpatient")]: "/search",
+    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
+    [t("nav.editpatient")]: `/details/${patient.data?.code}/edit`,
   };
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
@@ -110,13 +112,17 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="editPatient__background">
             <div className="editPatient__content">
-              <div className="editPatient__title">{`Edit patient: ${patient.data?.firstName} ${patient.data?.secondName}`}</div>
+              <div className="editPatient__title">
+                {`${t("nav.editpatient")}: ${patient.data?.firstName} ${
+                  patient.data?.secondName
+                }`}
+              </div>
               <PatientDataForm
                 fields={updateFields(initialFields, patient?.data)}
                 profilePicture={patient.data?.blobPhoto}
                 onSubmit={onSubmit}
-                submitButtonLabel="submit"
-                resetButtonLabel="reset"
+                submitButtonLabel={t("common.submit")}
+                resetButtonLabel={t("common.reset")}
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
@@ -125,19 +131,16 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
           </div>
           <div ref={infoBoxRef}>
             {hasFailed && (
-              <InfoBox
-                type="error"
-                message="Something went wrong, please retry later."
-              />
+              <InfoBox type="error" message={t("common.somethingwrong")} />
             )}
           </div>
           <ConfirmationDialog
             isOpen={openConfirmationMessage}
-            title="Patient Edited"
+            title={t("common.titleedited")}
             icon={checkIcon}
-            info="The patient was edit successfully."
-            primaryButtonLabel="Patient"
-            secondaryButtonLabel="Keep editing"
+            info={t("common.patienteditsuccessfull")}
+            primaryButtonLabel={t("common.patient")}
+            secondaryButtonLabel={t("common.keepediting")}
             handlePrimaryButtonClick={() =>
               setActivityTransitionState("TO_PATIENT")
             }

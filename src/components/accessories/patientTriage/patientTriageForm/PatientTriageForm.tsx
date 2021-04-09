@@ -21,6 +21,7 @@ import has from "lodash.has";
 import get from "lodash.get";
 import SelectField from "../../selectField/SelectField";
 import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -35,6 +36,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     // TODO
   });
 
+  const { t } = useTranslation();
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
 
@@ -109,7 +111,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 format="dd/MM/yyyy"
                 isValid={isValid("triageDate")}
                 errorText={getErrorText("triageDate")}
-                label="Date (d/m/y)"
+                label={t("examination.datetriage")}
                 onChange={dateFieldHandleOnChange("triageDate")}
               />
             </div>
@@ -119,7 +121,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_height")}
                 theme="regular"
-                label="Height"
+                label={t("examination.height")}
                 isValid={isValid("pex_height")}
                 errorText={getErrorText("pex_height")}
                 onBlur={formik.handleBlur}
@@ -131,7 +133,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_weight")}
                 theme="regular"
-                label="Weight"
+                label={t("examination.weight")}
                 isValid={isValid("pex_weight")}
                 errorText={getErrorText("pex_weight")}
                 onBlur={formik.handleBlur}
@@ -143,7 +145,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_temp")}
                 theme="regular"
-                label="Temperature °C"
+                label={t("examination.temperature")}
                 isValid={isValid("pex_temp")}
                 errorText={getErrorText("pex_temp")}
                 onBlur={formik.handleBlur}
@@ -155,7 +157,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_sat")}
                 theme="regular"
-                label="Saturation %"
+                label={t("examination.saturation")}
                 isValid={isValid("pex_sat")}
                 errorText={getErrorText("pex_sat")}
                 onBlur={formik.handleBlur}
@@ -167,7 +169,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_pa_min")}
                 theme="regular"
-                label="Art.pr.(min)"
+                label={t("examination.ap.min")}
                 isValid={isValid("pex_pa_min")}
                 errorText={getErrorText("pex_pa_min")}
                 onBlur={formik.handleBlur}
@@ -177,7 +179,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_pa_max")}
                 theme="regular"
-                label="Art.pr.(max)"
+                label={t("examination.ap.max")}
                 isValid={isValid("pex_pa_max")}
                 errorText={getErrorText("pex_pa_max")}
                 onBlur={formik.handleBlur}
@@ -189,7 +191,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("pex_fc")}
                 theme="regular"
-                label="Heart rate"
+                label={t("examination.heartrate")}
                 isValid={isValid("pex_fc")}
                 errorText={getErrorText("pex_fc")}
                 onBlur={formik.handleBlur}
@@ -201,7 +203,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("diuresis_vol")}
                 theme="regular"
-                label="Diuresis vol 24H"
+                label={t("examination.diuresisvolume24h")}
                 isValid={isValid("diuresis_vol")}
                 errorText={getErrorText("diuresis_vol")}
                 onBlur={formik.handleBlur}
@@ -213,7 +215,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("respiratory_rate")}
                 theme="regular"
-                label="Respiratory rate"
+                label={t("examination.respiratoryrate")}
                 isValid={isValid("respiratory_rate")}
                 errorText={getErrorText("respiratory_rate")}
                 onBlur={formik.handleBlur}
@@ -225,7 +227,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("hgt")}
                 theme="regular"
-                label="HGT"
+                label={t("examination.hgt")}
                 isValid={isValid("hgt")}
                 errorText={getErrorText("hgt")}
                 onBlur={formik.handleBlur}
@@ -238,7 +240,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="diuresis"
                 fieldValue={formik.values.diuresis}
-                label="Diuresis"
+                label={t("examination.diuresis")}
                 isValid={isValid("diuresis")}
                 errorText={getErrorText("diuresis")}
                 onBlur={onBlurCallback("diuresis")}
@@ -250,7 +252,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="bowel"
                 fieldValue={formik.values.bowel}
-                label="Bowel"
+                label={t("examination.bowel")}
                 isValid={isValid("bowel")}
                 errorText={getErrorText("bowel")}
                 onBlur={onBlurCallback("bowel")}
@@ -262,7 +264,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="auscultation"
                 fieldValue={formik.values.auscultation}
-                label="Auscultation"
+                label={t("examination.auscultation")}
                 isValid={isValid("auscultation")}
                 errorText={getErrorText("auscultation")}
                 onBlur={onBlurCallback("auscultation")}

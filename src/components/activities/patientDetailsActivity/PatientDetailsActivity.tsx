@@ -9,25 +9,39 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
+import { TTabConfig } from "../../accessories/tabs/types";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import PatientTriage from "../../accessories/patientTriage/PatientTriage";
+import PatientSummary from "../../accessories/patientSummary/PatientSummary";
+import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
-import { Accordion, AccordionDetails, AccordionSummary } from '../../accessories/accordion/Accordion';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "../../accessories/accordion/Accordion";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
-
-import { patientDetailTabs } from "./tabsConfig";
-import { IDispatchProps, IStateProps, TProps, TActivityTransitionState } from "./types";
+import {
+  IDispatchProps,
+  IStateProps,
+  TProps,
+  TActivityTransitionState,
+} from "./types";
 import { IState } from "../../../types";
-
 import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
   patient,
-  getPatientThunk
+  getPatientThunk,
 }) => {
   useEffect(() => {
     scrollToElement(null);
   }, []);
 
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -37,14 +51,53 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    Dashboard: "/",
-    "Search Patient": "/search",
-    "Patient Dashboard": `/details/${patient.data?.code}`,
+    [t("nav.dashboard")]: "/",
+    [t("nav.searchpatient")]: "/search",
+    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<TActivityTransitionState>("IDLE");
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
-  const [expanded, setExpanded] = useState<string | false>('panel_1');
+  const [expanded, setExpanded] = useState<string | false>("panel_1");
+
+  const patientDetailTabs: TTabConfig = [
+    {
+      label: t("nav.summary"),
+      path: "/summary",
+      content: (
+        <PatientDetailsContent title="Summary" content={<PatientSummary />} />
+      ),
+    },
+    {
+      label: t("nav.opd"),
+      path: "/OPD",
+      content: <PatientDetailsContent title="OPD" content={<PatientOPD />} />,
+    },
+    {
+      label: t("nav.triage"),
+      path: "/triage",
+      content: (
+        <PatientDetailsContent title="Triage" content={<PatientTriage />} />
+      ),
+    },
+    {
+      label: t("nav.therapy"),
+      path: "/therapy",
+      content: (
+        <PatientDetailsContent title="Therapy" content={<SkeletonLoader />} />
+      ),
+    },
+    {
+      label: t("nav.booking"),
+      path: "/booking",
+      content: (
+        <PatientDetailsContent title="Booking" content={<SkeletonLoader />} />
+      ),
+    },
+  ];
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
@@ -81,11 +134,19 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     </svg>
                   </div>
                   <div className="patientDetails__personalData_sidebar">
-                    <div className="patientDetails__personalData_edit_button" onClick={() => setActivityTransitionState('TO_PATIENT_EDITING')}>
+                    <div
+                      className="patientDetails__personalData_edit_button"
+                      onClick={() =>
+                        setActivityTransitionState("TO_PATIENT_EDITING")
+                      }
+                    >
                       <div className="profilePicture_editIcon">
-                        <EditRoundedIcon fontSize="small" style={{ color: "white" }} />
+                        <EditRoundedIcon
+                          fontSize="small"
+                          style={{ color: "white" }}
+                        />
                       </div>
-                      <span>Edit patient</span>
+                      <span>{t("patient.titleedit")}</span>
                     </div>
                     <div className="patientDetails__profilePictureContainer">
                       <ProfilePicture
@@ -93,14 +154,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         preLoadedPicture={patient.data?.blobPhoto}
                       />
                     </div>
-                    <Accordion expanded={expanded === 'panel_1'}>
-                      <AccordionSummary onClick={() => setExpanded('panel_1')}>
-                        <p>Personal Data</p>
+                    <Accordion expanded={expanded === "panel_1"}>
+                      <AccordionSummary onClick={() => setExpanded("panel_1")}>
+                        <p>{t("patient.personaldata")}</p>
                       </AccordionSummary>
                       <AccordionDetails>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Name:
+                            {t("patient.firstname")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.firstName || "-"}
@@ -108,7 +169,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Surname:
+                            {t("patient.secondname")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.secondName || "-"}
@@ -116,7 +177,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Gender:
+                            {t("patient.sex")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.sex || "-"}
@@ -124,7 +185,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Blood Type:
+                            {t("patient.bloodtype")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.bloodType || "-"}
@@ -132,7 +193,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Patient ID:
+                            {t("patient.patientID")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.code || "-"}
@@ -140,7 +201,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Provenience:
+                            {t("patient.city")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.city || "-"}
@@ -148,7 +209,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Tax number:
+                            {t("patient.taxcode")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.taxCode || "-"}
@@ -156,7 +217,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Health Insurance:
+                            {t("patient.hasinsurance")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.hasInsurance || "-"}
@@ -164,7 +225,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                         <div className="patientDetails__personalData__item">
                           <div className="patientDetails__personalData__item__label">
-                            Telephone number:
+                            {t("patient.telephone")}:
                           </div>
                           <div className="patientDetails__personalData__item__value">
                             {patient.data?.telephone || "-"}
@@ -172,26 +233,34 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         </div>
                       </AccordionDetails>
                     </Accordion>
-                    {(patient.data?.note) ? 
-                    <Accordion expanded={expanded === 'panel_2'}>
-                      <AccordionSummary onClick={() => setExpanded('panel_2')}>
-                        Patient Note
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <div className="patientDetails__personalData__item longText">
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data.note}
+                    {patient.data?.note ? (
+                      <Accordion expanded={expanded === "panel_2"}>
+                        <AccordionSummary
+                          onClick={() => setExpanded("panel_2")}
+                        >
+                          {t("patient.note")}:
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <div className="patientDetails__personalData__item longText">
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data.note}
+                            </div>
                           </div>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion> : ''}
+                        </AccordionDetails>
+                      </Accordion>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <RouterTabs config={patientDetailTabs} defaultRoute='/summary' />
+                  <RouterTabs
+                    config={patientDetailTabs}
+                    defaultRoute="/summary"
+                  />
                 </div>
               </div>
-            </div>          
+            </div>
           </div>
           <Footer />
         </div>

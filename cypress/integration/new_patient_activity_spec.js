@@ -29,7 +29,7 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should pass the “submit” button label", () => {
-    cy.get("[class=patientDataForm]").contains("submit");
+    cy.get(".submit_button button");
   });
 
   it("should allow the user to add and remove a profile picture", () => {
@@ -93,7 +93,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=secondName]").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("[class=patientDataForm]").contains("Submit").click();
     cy.get("div.infoBox").should("have.class", "error");
   });
 
@@ -106,7 +106,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=secondName]").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("[class=patientDataForm]").contains("Submit").click();
     cy.get("div.dialog__info").contains(
       "The patient registration was successful."
     );
@@ -128,7 +128,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[id=secondName]").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("[class=patientDataForm]").contains("Submit").click();
     cy.get("div.dialog__buttonSet").contains("Dashboard").click();
     cy.get("div.dashboard");
   });

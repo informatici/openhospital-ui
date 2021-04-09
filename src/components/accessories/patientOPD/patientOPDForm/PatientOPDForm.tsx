@@ -15,6 +15,7 @@ import TextField from "../../textField/TextField";
 import has from "lodash.has";
 import get from "lodash.get";
 import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -40,6 +41,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   });
 
   const { setFieldValue } = formik;
+  const { t } = useTranslation();
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
@@ -79,7 +81,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 format="dd/MM/yyyy"
                 isValid={isValid("opdDate")}
                 errorText={getErrorText("opdDate")}
-                label="Date (d/m/y)"
+                label={t("opd.dateopd")}
                 onChange={dateFieldHandleOnChange("opdDate")}
               />
             </div>
@@ -90,7 +92,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 field={formik.getFieldProps("anamnesis")}
                 multiline={true}
                 theme="regular"
-                label="anamnesis"
+                label={t("opd.anamnesis")}
                 isValid={isValid("anamnesis")}
                 errorText={getErrorText("anamnesis")}
                 onBlur={formik.handleBlur}
@@ -143,7 +145,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 field={formik.getFieldProps("note")}
                 multiline={true}
                 theme="regular"
-                label="note"
+                label={t("opd.note")}
                 isValid={isValid("note")}
                 errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
@@ -166,10 +168,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            info={t("common.resetform", { resetButtonLabel })}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel="Dismiss"
+            secondaryButtonLabel={t("common.dismiss")}
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />

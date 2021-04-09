@@ -29,7 +29,7 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should pass the “submit” button label", () => {
-    cy.get("[class=patientDataForm]").contains("submit");
+    cy.get("[class=patientDataForm]").contains("Submit");
   });
 
   it("should allow the user to change the profile picture", () => {
@@ -55,14 +55,14 @@ describe("EditPatientActivity spec", () => {
 
   it("should reset all the fields on the Reset button click", () => {
     cy.get("[id=firstName]").clear().type("Marcelo");
-    cy.get("[class=patientDataForm]").contains("reset").click();
-    cy.get("div.dialog__buttonSet").contains("reset").click();
+    cy.get("[class=patientDataForm]").contains("Reset").click();
+    cy.get("div.dialog__buttonSet").contains("Reset").click();
     cy.get("[id=firstName]").should("have.value", "Antonio Carlos");
   });
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Marcelo");
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("[class=patientDataForm]").contains("Submit").click();
     cy.get("div.dialog__info").contains(
       "The patient was edit successfully."
     );
@@ -74,7 +74,7 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should redirect the user to the Patient on Patient button click", () => {
-    cy.get("[class=patientDataForm]").contains("submit").click();
+    cy.get("[class=patientDataForm]").contains("Submit").click();
     cy.get("div.dialog__buttonSet").contains("Patient").click();
     cy.get("[class=patientDetails]");
   });

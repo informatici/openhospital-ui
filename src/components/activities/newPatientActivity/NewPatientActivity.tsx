@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
@@ -32,18 +33,20 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   hasFailed,
   dashboardRoute,
 }) => {
+  const { t } = useTranslation();
   const breadcrumbMap = {
-    Dashboard: "/",
-    "New Patient": "/new",
+    [t("nav.dashboard")]: "/",
+    [t("nav.newpatient")]: "/new",
   };
 
   const onSubmit = (patient: PatientDTO) => {
     createPatient(patient);
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<
-    TActivityTransitionState
-  >("IDLE");
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
     if (
@@ -82,12 +85,12 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           />
           <div className="newPatient__background">
             <div className="newPatient__content">
-              <div className="newPatient__title">Register new patient</div>
+              <div className="newPatient__title">{t("nav.newpatient")}</div>
               <PatientDataForm
                 fields={initialFields}
                 onSubmit={onSubmit}
-                submitButtonLabel="submit"
-                resetButtonLabel="Clear All"
+                submitButtonLabel={t("common.submit")}
+                resetButtonLabel={t("common.clearall")}
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
@@ -96,19 +99,16 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           </div>
           <div ref={infoBoxRef}>
             {hasFailed && (
-              <InfoBox
-                type="error"
-                message="Something went wrong, please retry later."
-              />
+              <InfoBox type="error" message={t("common.somethingwrong")} />
             )}
           </div>
           <ConfirmationDialog
             isOpen={hasSucceeded}
             title="Patient Created"
             icon={checkIcon}
-            info="The patient registration was successful."
-            primaryButtonLabel="Dashboard"
-            secondaryButtonLabel="Keep editing"
+            info={t("common.patientregistrationsuccessfull")}
+            primaryButtonLabel={t("common.dashboard")}
+            secondaryButtonLabel={t("common.keepediting")}
             handlePrimaryButtonClick={() =>
               setActivityTransitionState("TO_DASHBOARD")
             }

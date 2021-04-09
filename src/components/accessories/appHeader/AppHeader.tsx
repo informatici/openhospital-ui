@@ -1,20 +1,21 @@
 import { Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import HomeIcon from "@material-ui/icons/Home";
+import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { TProps } from "./types";
 
-const AppHeader: FunctionComponent<TProps> = ({
-  breadcrumbMap,
-}) => {
+const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
 
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const openMenu = (isOpen: boolean) => {
@@ -67,10 +68,11 @@ const AppHeader: FunctionComponent<TProps> = ({
           </div>
         </div>
         <div className="appHeader__nav">
+          <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
           <div className="appHeader__nav_items">
-            <div className="appHeader__nav__item">Pharmacy</div>
-            <div className="appHeader__nav__item">Ward</div>
-            <div className="appHeader__nav__item">Billing</div>
+            <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
+            <div className="appHeader__nav__item">{t("nav.ward")}</div>
+            <div className="appHeader__nav__item">{t("nav.billing")}</div>
           </div>
         </div>
       </div>

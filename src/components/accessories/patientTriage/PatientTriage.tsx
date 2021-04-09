@@ -10,6 +10,7 @@ import {
 import "./styles.scss";
 import { PatientExaminationDTO } from "../../../generated";
 import { IState } from "../../../types";
+import { useTranslation } from "react-i18next";
 import {
   IDispatchProps,
   IStateProps,
@@ -28,6 +29,7 @@ const PatientTriage: FunctionComponent<TProps> = ({
   hasSucceeded,
   hasFailed,
 }) => {
+  const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -67,9 +69,9 @@ const PatientTriage: FunctionComponent<TProps> = ({
       <PatientTriageForm
         fields={initialFields}
         onSubmit={onSubmit}
-        submitButtonLabel="Save triage"
+        submitButtonLabel={t("common.savetriage")}
+        resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
-        resetButtonLabel="Discard"
         resetFormCallback={resetFormCallback}
         isLoading={isLoading}
       />
