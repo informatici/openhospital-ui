@@ -1,6 +1,6 @@
 {
   "login": {
-    "username": "Username",
+    "username": "Nom d'utilisateur",
     "password": "Password",
     "incorrectcredentials": "Invalid username or password",
     "forgotpassword": "Forgot the password?",

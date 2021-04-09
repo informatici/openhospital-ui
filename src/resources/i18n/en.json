@@ -77,7 +77,7 @@
   },
   "nav": {
     "pharmacy": "Pharmacy",
-    "ward": "Ward *",
+    "ward": "Ward",
     "billing": "Billing",
     "summary": "Summary",
     "opd": "OPD",

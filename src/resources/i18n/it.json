@@ -1,8 +1,8 @@
 {
   "login": {
-    "username": "Username",
+    "username": "Nome utente",
     "password": "Password",
-    "incorrectcredentials": "Username o password non valide",
+    "incorrectcredentials": "Nome utente o password non valide",
     "forgotpassword": "Hai dimenticato la password?",
     "insertavalidusername": "Inserisci uno username valido",
     "insertthepassword": "Inserisci una password valida",
