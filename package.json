@@ -68,7 +68,7 @@
     "build:staging": "env-cmd -f .env.staging npm run build",
     "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
     "clear": "rm -rf ./.cache ./dist",
-    "convert": "convert-resources"
+    "convert": "convert-resources --path-generated src/resources/old"
   },
   "eslintConfig": {
     "extends": "react-app"
