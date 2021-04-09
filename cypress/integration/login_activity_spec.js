@@ -12,19 +12,19 @@ describe("LoginActivity spec", () => {
 
   it("should validate the username input", () => {
     cy.get("[id=username]").focus().clear().blur();
-    cy.get("[class=login__panel]").contains("Enter a valid user name");
+    cy.get("[class=login__panel]").contains("Insert a valid user name");
     cy.get("[id=username]").focus().type("hribeiro").blur();
     cy.get("[class=login__panel]").should(
       "not.contain",
-      "Enter a valid user name"
+      "Insert a valid user name"
     );
   });
 
   it("should validate the password input", () => {
     cy.get("[id=password]").focus().clear().blur();
-    cy.get("[class=login__panel]").contains("Enter the password");
+    cy.get("[class=login__panel]").contains("Insert the password");
     cy.get("[id=password]").focus().type("123456789").blur();
-    cy.get("[class=login__panel]").should("not.contain", "Enter the password");
+    cy.get("[class=login__panel]").should("not.contain", "Insert the password");
   });
 
   it("should toggle the password visibility", () => {

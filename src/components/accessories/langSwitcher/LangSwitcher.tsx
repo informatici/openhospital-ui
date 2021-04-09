@@ -12,6 +12,10 @@ const languageVocabolary: Record<string, string> = {
   pt: "Portoguese",
   ar: "Arabic",
   sw: "Swahili",
+  am: "Amharic",
+  cs: "Czech",
+  sq: "Albanian",
+  zh: "Chinese",
 };
 
 const LangSwitcher: FunctionComponent = () => {

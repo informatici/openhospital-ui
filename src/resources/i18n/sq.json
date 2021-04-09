@@ -14,7 +14,7 @@
     "searchpatients": "Search patients"
   },
   "patient": {
-    "address": "Address",
+    "address": "ADDRESS",
     "birthdate": "Birth Date",
     "bloodtype": "Blood type",
     "city": "City",
@@ -24,7 +24,7 @@
     "mothername": "Mothername",
     "note": "Complain",
     "secondname": "Second Name",
-    "sex": "Sex",
+    "sex": "SEX",
     "opd": "OPD",
     "lastadminission": "Last admission",
     "reasonforvisit": "Reason for visit",
