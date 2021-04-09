@@ -174,7 +174,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               format="dd/MM/yyyy"
               isValid={isValid("birthDate")}
               errorText={getErrorText("birthDate")}
-              label="Birthday (d/m/y)"
+              label={t("patient.birthdate")}
               onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>
@@ -183,7 +183,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="bloodType"
               fieldValue={formik.values.bloodType}
-              label="Blood Type"
+              label={t("patient.bloodtype")}
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
               onBlur={onBlurCallback("bloodType")}
@@ -219,7 +219,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="parentTogether"
               fieldValue={formik.values.parentTogether}
-              label={t("patient.parenttogether")}
+              label={t("patient.parentslivetoghether")}
               isValid={isValid("parentTogether")}
               errorText={getErrorText("parentTogether")}
               onBlur={onBlurCallback("parentTogether")}
