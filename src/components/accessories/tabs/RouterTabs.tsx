@@ -1,16 +1,18 @@
 import classNames from "classnames";
 import React, { Fragment, FunctionComponent, useEffect } from "react";
-import { useHistory, useRouteMatch, useLocation } from "react-router-dom";
 import { Switch } from "react-router";
-import { IProps } from "./types";
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import PrivateRoute from "../privateRoute/PrivateRoute";
+import { useFilterPermission } from "./hooks/useFilterPermission";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
   const history = useHistory();
   const match = useRouteMatch();
   const { url } = match;
   const { pathname } = useLocation();
+  const tabs = useFilterPermission(config);
   const currentPath: string | undefined = config
     .map((item) => item.path)
     .find((path) =>
@@ -30,7 +32,7 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
 
   const renderHeader = (mobile = false): JSX.Element[] => {
     if (!mobile) {
-      return config.map((item, index) => {
+      return tabs.map((item, index) => {
         const path = item.path!;
         return (
           <div
@@ -43,7 +45,7 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
         );
       });
     } else {
-      return config.map((item, index) => {
+      return tabs.map((item, index) => {
         const path = item.path!;
         return (
           <option
@@ -73,7 +75,7 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
       </div>
       <div className="tabs_content">
         <Switch>
-          {config.map((item, index) => (
+          {tabs.map((item, index) => (
             <PrivateRoute path={url + item.path} key={index}>
               <div className="panel">{item.content}</div>
             </PrivateRoute>

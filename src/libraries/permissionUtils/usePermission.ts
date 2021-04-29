@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
-import { IState, TPermission } from "../../types";
+import { TPermission } from "../../types";
+import { usePermissions } from "./usePermissions";
 
+/**
+ * @param name requested permission
+ * @returns boolean true if user has permission
+ */
 export const usePermission = (name: TPermission): boolean => {
-  const permissions = useSelector<IState, string[]>(
-    (state) => state.main.authentication?.data?.permission || []
-  );
+  const permissions = usePermissions();
 
   return Boolean(permissions.find((permission: string) => permission === name));
 };

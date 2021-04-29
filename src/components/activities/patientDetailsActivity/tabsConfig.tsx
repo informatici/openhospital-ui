@@ -1,42 +1,29 @@
 import React from "react";
-import { TTabConfig } from "../../accessories/tabs/types";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientTriage from "../../accessories/patientTriage/PatientTriage";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
+import PatientTriage from "../../accessories/patientTriage/PatientTriage";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import { TTabConfig } from "../../accessories/tabs/types";
 import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
-import { withPermission } from "../../../libraries/permissionUtils/withPermission";
 
 export const patientDetailTabs: TTabConfig = [
   {
+    checkPermissions: "summary.read",
     label: "Summary",
     path: "/summary",
-    content: (
-      <PatientDetailsContent
-        title="Summary"
-        content={withPermission("summary.read")(PatientSummary)}
-      />
-    ),
+    content: <PatientDetailsContent title="Summary" content={PatientSummary} />,
   },
   {
+    checkPermissions: "odp.read",
     label: "OPD",
     path: "/OPD",
-    content: (
-      <PatientDetailsContent
-        title="OPD"
-        content={withPermission("odp.read")(PatientOPD)}
-      />
-    ),
+    content: <PatientDetailsContent title="OPD" content={PatientOPD} />,
   },
   {
+    checkPermissions: "examination.read",
     label: "Triage",
     path: "/triage",
-    content: (
-      <PatientDetailsContent
-        title="Triage"
-        content={withPermission("examination.read")(PatientTriage)}
-      />
-    ),
+    content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
   },
   {
     label: "Therapy",
