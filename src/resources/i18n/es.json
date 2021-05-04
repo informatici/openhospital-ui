@@ -88,7 +88,9 @@
     "newpatient": "Nuevo paciente",
     "editpatient": "Modificar Paciente",
     "searchpatient": "Buscar Paciente",
-    "patientdashboard": "Patient Dashboard"
+    "patientdashboard": "Patient Dashboard",
+    "newtherapy": "New Therapy",
+    "managetherapy": "Manage Therapy"
   },
   "common": {
     "results": "Resultados",
