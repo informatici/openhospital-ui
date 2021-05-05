@@ -6,6 +6,7 @@ export interface IState {
   patients: IPatientsState;
 }
 
+// WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js
 export type TPermission =
   | "odp.read"
   | "odp.create"

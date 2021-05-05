@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import "cypress-file-upload";
+import permissionList from "../../src/mockServer/fixtures/permissionList";
 
 Cypress.Commands.add("authenticate", (START_PATH) => {
   cy.visit(START_PATH, {
@@ -35,36 +36,7 @@ Cypress.Commands.add("authenticate", (START_PATH) => {
         `{"displayName":"John Doe","token":"1qrj12fcxu3a21d21pjvba6g1"}`
       );
       w.sessionStorage.setItem("permission", {
-        permission: [
-          "odp.read",
-          "odp.create",
-          "odp.update",
-          "odp.delete",
-          "summary.read",
-          "summary.create",
-          "summary.update",
-          "summary.delete",
-          "examination.read",
-          "examination.create",
-          "examination.update",
-          "examination.delete",
-          "admission.read",
-          "admission.create",
-          "admission.update",
-          "admission.delete",
-          "therapy.read",
-          "therapy.create",
-          "therapy.update",
-          "therapy.delete",
-          "vaccine.read",
-          "vaccine.create",
-          "vaccine.update",
-          "vaccine.delete",
-          "exam.read",
-          "exam.create",
-          "exam.update",
-          "exam.delete",
-        ],
+        permission: permissionList,
         userName: "admin",
       });
     },
