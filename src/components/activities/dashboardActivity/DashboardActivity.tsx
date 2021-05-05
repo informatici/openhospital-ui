@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
@@ -15,13 +16,16 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   newPatientRoute,
   searchPatientRoute,
 }) => {
+  const { t } = useTranslation();
+
   const breadcrumbMap = {
-    Dashboard: "/",
+    [t("nav.dashboard")]: "/",
   };
 
-  const [activityTransitionState, setActivityTransitionState] = useState<
-    TActivityTransitionState
-  >("IDLE");
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
   switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
@@ -37,7 +41,10 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           />
           <div className="dashboard__background">
             <div className="dashboard__greeter">
-              Welcome <strong>{userCredentials?.displayName}</strong>
+              <Trans
+                i18nKey="dashboard.welcomename"
+                values={{ name: userCredentials?.displayName }}
+              />
             </div>
             <div className="dashboard__actions">
               <div className="dashboard__actions__button">
@@ -49,7 +56,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <PlusIcon />
                     <div className="largeButton__inner__label">
-                      Register New Patient
+                      {t("dashboard.newpatient")}
                     </div>
                   </div>
                 </LargeButton>
@@ -63,7 +70,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                   <div className="largeButton__inner">
                     <SearchIcon width="43" height="43" />
                     <div className="largeButton__inner__label">
-                      Search Patients
+                      {t("dashboard.searchpatients")}
                     </div>
                   </div>
                 </LargeButton>

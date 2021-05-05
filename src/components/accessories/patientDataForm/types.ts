@@ -1,17 +1,12 @@
 import { PatientDTO } from "../../../generated";
-import { TFields } from "../../../libraries/formDataHandling/types";
+import { IForm } from "../../../libraries/formDataHandling/types";
 interface IOwnProps {
-  fields: TFields<TPatientDataFormFieldName>;
   profilePicture?: any;
-  onSubmit: (patient: PatientDTO) => void;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
-  isLoading: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }
 
-export type TProps = IOwnProps;
+export type TProps = IForm<TPatientDataFormFieldName, PatientDTO> & IOwnProps;
 
 export type TPatientDataFormFieldName =
   | "firstName"
@@ -32,6 +27,4 @@ export type TPatientDataFormFieldName =
   | "hasInsurance"
   | "parentTogether"
   | "taxCode"
-  | "height"
-  | "weight"
   | "blobPhoto";

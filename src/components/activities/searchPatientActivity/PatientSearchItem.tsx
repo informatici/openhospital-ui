@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
@@ -7,9 +8,11 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
   getPatientSuccessCallback,
 }) => {
-  const [activityTransitionState, setActivityTransitionState] = useState<
-    TActivityTransitionState
-  >("IDLE");
+  const { t } = useTranslation();
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT_DETAILS") {
@@ -29,16 +32,16 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
           >
             <div className="patientSearchItem__header">
               <div>
-                <strong>PID:</strong> {patient.code}
+                <strong>{t("patient.patientID")}:</strong> {patient.code}
               </div>
               <div>
-                <strong>OPD:</strong> 32240321
+                <strong>{t("patient.opd")}:</strong> 32240321
               </div>
             </div>
             <div className="patientSearchItem__content">
               <div className="patientSearchItem__profile">
                 <div className="patientSearchItem__profile__name">
-                  {`${patient.firstName || ''} ${patient.secondName || ''}`}
+                  {`${patient.firstName || ""} ${patient.secondName || ""}`}
                 </div>
                 <div className="patientSearchItem__profile__picture">
                   <ProfilePicture
@@ -47,15 +50,15 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
                   />
                 </div>
                 <div className="patientSearchItem__profile__admission">
-                  Last admission: <strong>24/27/2020</strong>
+                  {t("patient.lastadmission")}: <strong>24/27/2020</strong>
                 </div>
               </div>
               <div className="patientSearchItem__divider" />
               <div className="patientSearchItem__info">
-                <strong>Reason for visit:</strong> Pneumonia
+                <strong>{t("patient.reasonforvisit")}:</strong> Pneumonia
               </div>
               <div className="patientSearchItem__info">
-                <strong>Treatment made:</strong> Pneumonia
+                <strong>{t("patient.treatmentmade")}:</strong> Pneumonia
               </div>
             </div>
           </div>

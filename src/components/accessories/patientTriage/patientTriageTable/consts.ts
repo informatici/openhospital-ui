@@ -14,18 +14,3 @@ export const data = [
 
 export const header = ["date"];
 export const order = ["date"];
-export const label = {
-  "date": "Date",
-  "H": "Height",
-  "W": "Weight",
-  "AP": "Arterial pressure",
-  "HR" : "Heart rate",
-  "T" : "Temperature",
-  "O2" : "Saturation",
-  "HGT": "HGT",
-  "RR": "Respitatory rate",
-  "D24G" : "Diuresis 24H",
-  "D" : "Diuresis",
-  "B": "Bowel",
-  "AUSC" : "Auscultation",
-}

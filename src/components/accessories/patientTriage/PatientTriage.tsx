@@ -1,18 +1,67 @@
-import React, { FunctionComponent } from "react";
+import { default as React, FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
+import checkIcon from "../../../assets/check-icon.png";
+import { PatientExaminationDTO } from "../../../generated";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import {
+  createExamination,
+  createExaminationReset
+} from "../../../state/examinations/actions";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
 import { initialFields } from "./consts";
 import PatientTriageForm from "./patientTriageForm/PatientTriageForm";
 import PatientTriageTable from "./patientTriageTable/PatientTriageTable";
 import "./styles.scss";
+import {
+  IDispatchProps,
+  IStateProps,
+  TActivityTransitionState,
+  TProps
+} from "./types";
 
-const PatientTriage: FunctionComponent = () => {
-  const onSubmit = (triage: any) => {
-    console.log(triage);
+const PatientTriage: FunctionComponent<TProps> = ({
+  createExamination,
+  createExaminationReset,
+  isLoading,
+  hasSucceeded,
+  hasFailed,
+}) => {
+  const { t } = useTranslation();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+  const [shouldResetForm, setShouldResetForm] = useState(false);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [
+    activityTransitionState,
+    setActivityTransitionState,
+  ] = useState<TActivityTransitionState>("IDLE");
 
-    /* TODO:
-     *     1. Save Triage using Redux
-     *     2. Reset the form
-     *     3. Update the table
-     */
+  useEffect(() => {
+    if (hasFailed) {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [hasFailed]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_RESET") {
+      createExaminationReset();
+      setShouldResetForm(true);
+      setShouldUpdateTable(true);
+    }
+  }, [activityTransitionState, createExaminationReset]);
+
+  const onSubmit = (triage: PatientExaminationDTO) => {
+    setShouldResetForm(false);
+    createExamination(triage);
+  };
+
+  const resetFormCallback = () => {
+    setShouldResetForm(false);
+    setShouldUpdateTable(false);
+    setActivityTransitionState("IDLE");
+    scrollToElement(null);
   };
 
   return (
@@ -20,13 +69,43 @@ const PatientTriage: FunctionComponent = () => {
       <PatientTriageForm
         fields={initialFields}
         onSubmit={onSubmit}
-        submitButtonLabel="Save triage"
-        resetButtonLabel="Discard"
-        isLoading={false}
+        submitButtonLabel={t("common.savetriage")}
+        resetButtonLabel={t("common.discard")}
+        shouldResetForm={shouldResetForm}
+        resetFormCallback={resetFormCallback}
+        isLoading={isLoading}
       />
-      <PatientTriageTable />
+      <div ref={infoBoxRef}>
+        {hasFailed && (
+          <InfoBox
+            type="error"
+            message="Something went wrong, please retry later."
+          />
+        )}
+      </div>
+      <ConfirmationDialog
+        isOpen={hasSucceeded}
+        title="Patient Created"
+        icon={checkIcon}
+        info="The examination registration was successful."
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
+      />
+      <PatientTriageTable shouldUpdateTable={shouldUpdateTable} />
     </div>
   );
 };
 
-export default PatientTriage;
+const mapStateToProps = (state: IState): IStateProps => ({
+  isLoading: state.examinations.createExamination.status === "LOADING",
+  hasSucceeded: state.examinations.createExamination.status === "SUCCESS",
+  hasFailed: state.examinations.createExamination.status === "FAIL",
+});
+
+const mapDispatchToProps: IDispatchProps = {
+  createExamination,
+  createExaminationReset,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientTriage);

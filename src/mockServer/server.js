@@ -4,6 +4,8 @@ import { BASE_PATH } from "../generated/runtime";
 import { authRoutes } from "./routes/auth";
 import { patientRoutes } from "./routes/patients";
 import { userRoutes } from "./routes/users";
+import patientDTO from "./fixtures/patientDTO";
+import patientExaminationDTO from "./fixtures/patientExaminationDTO";
 
 export function makeServer() {
   Polly.register(XHRAdapter);

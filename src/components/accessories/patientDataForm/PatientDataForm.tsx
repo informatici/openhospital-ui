@@ -1,7 +1,12 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
@@ -17,6 +22,7 @@ import TextButton from "../textButton/TextButton";
 import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
+import { useTranslation } from "react-i18next";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -28,11 +34,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   shouldResetForm,
   resetFormCallback,
 }) => {
+  const { t } = useTranslation();
+
   const validationSchema = object({
     firstName: string().required("This field is required"),
     secondName: string().required("This field is required"),
     birthDate: string().required("This field is required"),
-    sex: string().required("This field is required")
+    sex: string().required("This field is required"),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -75,8 +83,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   }, [shouldResetForm, resetForm]);
 
   const dateFieldHandleOnChange = useCallback(
-    (value) => {
-      setFieldValue("birthDate", value);
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
     },
     [setFieldValue]
   );
@@ -93,11 +101,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
-  }
+  };
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -115,7 +123,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("firstName")}
               theme="regular"
-              label="Name"
+              label={t("patient.firstname")}
               isValid={isValid("firstName")}
               errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
@@ -125,7 +133,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("secondName")}
               theme="regular"
-              label="Surname"
+              label={t("patient.secondname")}
               isValid={isValid("secondName")}
               errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
@@ -136,7 +144,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("taxCode")}
               theme="regular"
-              label="Tax Code"
+              label={t("patient.taxcode")}
               isValid={isValid("taxCode")}
               errorText={getErrorText("taxCode")}
               onBlur={formik.handleBlur}
@@ -149,7 +157,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="sex"
               fieldValue={formik.values.sex}
-              label="Gender"
+              label={t("patient.sex")}
               isValid={isValid("sex")}
               errorText={getErrorText("sex")}
               onBlur={onBlurCallback("sex")}
@@ -164,32 +172,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               disableFuture={true}
               theme="regular"
               format="dd/MM/yyyy"
-              label="Birthday (day/month/year)"
-              onChange={dateFieldHandleOnChange}
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("height")}
-              theme="regular"
-              label="Height"
-              isValid={isValid("height")}
-              errorText={getErrorText("height")}
-              onBlur={formik.handleBlur}
-              type="number"
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("weight")}
-              theme="regular"
-              label="Weight"
-              isValid={isValid("weight")}
-              errorText={getErrorText("weight")}
-              onBlur={formik.handleBlur}
-              type="number"
+              isValid={isValid("birthDate")}
+              errorText={getErrorText("birthDate")}
+              label={t("patient.birthdate")}
+              onChange={dateFieldHandleOnChange("birthDate")}
             />
           </div>
 
@@ -197,7 +183,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="bloodType"
               fieldValue={formik.values.bloodType}
-              label="Blood Type"
+              label={t("patient.bloodtype")}
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
               onBlur={onBlurCallback("bloodType")}
@@ -211,7 +197,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("mother_name")}
               theme="regular"
-              label="Mother's full name"
+              label={t("patient.mothername")}
               isValid={isValid("mother_name")}
               errorText={getErrorText("mother_name")}
               onBlur={formik.handleBlur}
@@ -222,7 +208,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("father_name")}
               theme="regular"
-              label="Father's full name"
+              label={t("patient.fathername")}
               isValid={isValid("father_name")}
               errorText={getErrorText("father_name")}
               onBlur={formik.handleBlur}
@@ -233,7 +219,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="parentTogether"
               fieldValue={formik.values.parentTogether}
-              label="Lives with the parents?"
+              label={t("patient.parentslivetoghether")}
               isValid={isValid("parentTogether")}
               errorText={getErrorText("parentTogether")}
               onBlur={onBlurCallback("parentTogether")}
@@ -247,7 +233,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("address")}
               theme="regular"
-              label="Address"
+              label={t("patient.address")}
               isValid={isValid("address")}
               errorText={getErrorText("address")}
               onBlur={formik.handleBlur}
@@ -258,7 +244,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("city")}
               theme="regular"
-              label="City"
+              label={t("patient.city")}
               isValid={isValid("city")}
               errorText={getErrorText("city")}
               onBlur={formik.handleBlur}
@@ -269,7 +255,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <TextField
               field={formik.getFieldProps("telephone")}
               theme="regular"
-              label="Telephone"
+              label={t("patient.telephone")}
               isValid={isValid("telephone")}
               errorText={getErrorText("telephone")}
               onBlur={formik.handleBlur}
@@ -283,7 +269,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <SelectField
               fieldName="hasInsurance"
               fieldValue={formik.values.hasInsurance}
-              label="Has insurance"
+              label={t("patient.hasinsurance")}
               isValid={isValid("hasInsurance")}
               errorText={getErrorText("hasInsurance")}
               onBlur={onBlurCallback("hasInsurance")}
@@ -298,7 +284,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               field={formik.getFieldProps("note")}
               theme="regular"
               multiline={true}
-              label="Note"
+              label={t("patient.note")}
               isValid={isValid("note")}
               errorText={getErrorText("note")}
               onBlur={formik.handleBlur}
@@ -326,9 +312,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           primaryButtonLabel={resetButtonLabel}
           secondaryButtonLabel="Dismiss"
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() =>
-            setOpenResetConfirmation(false)
-          }
+          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
         />
       </form>
     </div>
