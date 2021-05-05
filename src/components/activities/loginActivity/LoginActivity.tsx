@@ -5,18 +5,13 @@ import classNames from "classnames";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { default as React, FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { useHistory, useLocation } from "react-router";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { AUTH_KEY } from "../../../consts";
-import { SessionStorage } from "../../../libraries/storage/storage";
-import {
-  setAuthenticationSuccess,
-  setAuthenticationThunk,
-} from "../../../state/main/actions";
+import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
+import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -26,18 +21,11 @@ import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthenticationThunk,
-  setAuthenticationSuccess,
   status,
-  successRoute,
 }) => {
-  const { t } = useTranslation();
+  useAuthentication();
 
-  useEffect(() => {
-    const userCredentials = SessionStorage.read(AUTH_KEY);
-    if (userCredentials) {
-      setAuthenticationSuccess(userCredentials);
-    }
-  }, [setAuthenticationSuccess]);
+  const { t } = useTranslation();
 
   const initialValues: IValues = {
     username: "",
@@ -66,16 +54,6 @@ const LoginActivity: FunctionComponent<TProps> = ({
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-
-  const history = useHistory();
-  const location = useLocation<{ from: Location }>();
-
-  useEffect(() => {
-    if (status === "SUCCESS") {
-      const { from } = location.state || { from: { pathname: successRoute } };
-      history.replace(from);
-    }
-  }, [status, location.state, history, successRoute]);
 
   return (
     <div className="login">
@@ -165,7 +143,6 @@ const mapStateToProps = (state: IState): IStateProps => ({
 
 const mapDispatchToProps: IDispatchProps = {
   setAuthenticationThunk,
-  setAuthenticationSuccess,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginActivity);
