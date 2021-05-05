@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import { default as React, FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
@@ -23,6 +24,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
   status,
 }) => {
   useAuthentication();
+
+  const { t } = useTranslation();
 
   const initialValues: IValues = {
     username: "",
