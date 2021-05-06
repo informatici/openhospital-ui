@@ -1,23 +1,17 @@
 import { TextField } from "@material-ui/core";
 import React, { FC } from "react";
-import DateField from "../../../dateField/DateField";
 
-const NewTherapyForm : FC = (props) => {
+const TherapyForm : FC = (props) => {
     return (
         <>
-          <div className="patientTriageForm">
+          <div className="patientTherapyForm">
             <form
-              className="patientTriageForm__form"
+              className="patientTherapyForm__form"
             >
                 <div className="row start-sm center-xs">
-                    <div className="patientTriageForm__item">
-                        <TextField
-                            label="medecine"
-                            type="text"
-                        />
-                    </div>
+                
         
-                    <div className="patientTriageForm__item">
+                    <div className="patientTherapyForm__item">
                         <TextField
                             label="quantity"
                             type="number"
@@ -26,7 +20,7 @@ const NewTherapyForm : FC = (props) => {
                 </div>
 
                 <div className="row start-sm center-xs">
-                    <div className="patientTriageForm__item">
+                    <div className="patientTherapyForm__item">
                         <input
                             name="one"
                             type="radio"
@@ -44,14 +38,14 @@ const NewTherapyForm : FC = (props) => {
                             type="radio"
                         />Four
                     </div>
-                    <div className="patientTriageForm__item">
+                    <div className="patientTherapyForm__item">
                         
                         <TextField
                             label="days"
                             type="text"
                         />
                     </div>
-                    <div className="patientTriageForm__item">
+                    <div className="patientTherapyForm__item">
                         
                         <TextField
                             label="days"
@@ -59,13 +53,13 @@ const NewTherapyForm : FC = (props) => {
                         />
                     </div>
         
-                    <div className="patientTriageForm__item">
+                    <div className="patientTherapyForm__item">
                         <TextField
                             label="weeks"
                             type="number"
                         />
                     </div>
-                    <div className="patientTriageForm__item">
+                    <div className="patientTherapyForm__item">
                         <TextField
                             label="months"
                             type="number"
@@ -79,4 +73,4 @@ const NewTherapyForm : FC = (props) => {
       );
 }
 
-export default NewTherapyForm
+export default TherapyForm

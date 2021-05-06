@@ -5,7 +5,6 @@ export interface IProps {
 export interface TabItem {
   label: string, 
   content?: JSX.Element,
-  path?: string,
-  submenu?: Array<TabItem>
+  path?: string
 } 
 export type TTabConfig = Array<TabItem>;

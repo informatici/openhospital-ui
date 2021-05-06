@@ -31,8 +31,7 @@ import {
 import { IState } from "../../../types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import NewPatientTherapy from "../../accessories/patientTherapy/newTherapy/NewPatientTherapy";
-import ManagePatientTherapy from "../../accessories/patientTherapy/manageTherapy/ManagePatientTherapy";
+import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -88,18 +87,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     {
       label: t("nav.therapy"),
       path: "/therapy",
-      submenu: [
-        {
-          label: t("nav.newtherapy"),
-          path: '/therapy/new',
-          content: <PatientDetailsContent title={t("nav.newtherapy")} content={<NewPatientTherapy />} />
-        },
-        {
-          label: t("nav.managetherapy"),
-          path: '/therapy/manage',
-          content: <PatientDetailsContent title={t("nav.managetherapy")} content={<ManagePatientTherapy />} />
-        },
-      ]
+      content: (
+        <PatientDetailsContent title="Therapy" content={<PatientTherapy />} />
+      ),
+
     },
     {
       label: t("nav.booking"),
