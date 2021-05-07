@@ -11,7 +11,7 @@ interface ITherapyProps {
   resetFormCallback: () => void;
 }
 
-export type TProps = ITherapyProps;
+export type TherapyProps = ITherapyProps;
 
 export type TherapyFormFieldName =
   | "dates"

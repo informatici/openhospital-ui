@@ -1,76 +1,40 @@
-import { TextField } from "@material-ui/core";
-import React, { FC } from "react";
+import React, { FunctionComponent } from "react";
+import SelectField from "../../selectField/SelectField";
+import TextField from "../../textField/TextField";
 
-const TherapyForm : FC = (props) => {
-    return (
-        <>
-          <div className="patientTherapyForm">
-            <form
-              className="patientTherapyForm__form"
-            >
-                <div className="row start-sm center-xs">
-                
-        
-                    <div className="patientTherapyForm__item">
-                        <TextField
-                            label="quantity"
-                            type="number"
-                        />
-                    </div>
-                </div>
-
-                <div className="row start-sm center-xs">
-                    <div className="patientTherapyForm__item">
-                        <input
-                            name="one"
-                            type="radio"
-                        />One
-                        <input
-                            name="two"
-                            type="radio"
-                        />Two
-                        <input
-                            name="three"
-                            type="radio"
-                        />Three
-                        <input
-                            name="four"
-                            type="radio"
-                        />Four
-                    </div>
-                    <div className="patientTherapyForm__item">
-                        
-                        <TextField
-                            label="days"
-                            type="text"
-                        />
-                    </div>
-                    <div className="patientTherapyForm__item">
-                        
-                        <TextField
-                            label="days"
-                            type="number"
-                        />
-                    </div>
-        
-                    <div className="patientTherapyForm__item">
-                        <TextField
-                            label="weeks"
-                            type="number"
-                        />
-                    </div>
-                    <div className="patientTherapyForm__item">
-                        <TextField
-                            label="months"
-                            type="number"
-                        />
-                    </div>
-                </div>   
-    
-            </form>
+const TherapyForm: React.FunctionComponent = (props) => {
+  return (
+    <>
+      <div className="patientTherapyForm">
+        <form className="patientTherapyForm__form">
+          <div className="row start-sm center-xs">
+            <div className="patientTherapyForm__item">
+              <SelectField
+                fieldName="medecine"
+                fieldValue={"medecine"}
+                label={"medecine"}
+                isValid={true}
+                errorText={""}
+                onBlur={() => null}
+                options={[]}
+              />
+            </div>
+            <div className="patientTherapyForm__item">
+              <TextField
+                field={Object({})}
+                theme="regular"
+                label={"quantity"}
+                isValid={true}
+                errorText={""}
+                onBlur={() => {}}
+                type="number"
+              />
+            </div>
           </div>
-        </>
-      );
-}
+        </form>
+      </div>
+    </>
+  );
+};
 
-export default TherapyForm
+export default TherapyForm;
