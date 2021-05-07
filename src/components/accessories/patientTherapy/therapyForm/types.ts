@@ -22,6 +22,3 @@ export type TherapyFormFieldName =
   | "note"
   | "notify"
   | "sms";
-
-  
-  
