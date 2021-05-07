@@ -1,8 +1,13 @@
-import React, { FunctionComponent } from "react";
+import React, { ChangeEvent, FC } from "react";
 import SelectField from "../../selectField/SelectField";
 import TextField from "../../textField/TextField";
-
-const TherapyForm: React.FunctionComponent = (props) => {
+const TherapyForm: FC = (props) => {
+  const dummyField = {
+    value: "dummyValue",
+    name: "dummyName",
+    onChange: (e: ChangeEvent<any>) => console.log(e),
+    onBlur: (e: ChangeEvent<any>) => console.log(e),
+  };
   return (
     <>
       <div className="patientTherapyForm">
@@ -23,7 +28,7 @@ const TherapyForm: React.FunctionComponent = (props) => {
               <TextField
                 field={Object({})}
                 theme="regular"
-                label={"quantity"}
+                label={dummyField.name}
                 isValid={true}
                 errorText={""}
                 onBlur={() => {}}
