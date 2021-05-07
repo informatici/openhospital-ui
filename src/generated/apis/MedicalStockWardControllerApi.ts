@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     MedicalWardDTO,
     MovementWardDTO,
@@ -59,9 +59,11 @@ export class MedicalStockWardControllerApi extends BaseAPI {
     /**
      * getCurrentQuantityInWard
      */
-    getCurrentQuantityInWardUsingGET = ({ medId, wardCode }: GetCurrentQuantityInWardUsingGETRequest): Observable<number> => {
-        throwIfNullOrUndefined(medId, 'getCurrentQuantityInWardUsingGET');
-        throwIfNullOrUndefined(wardCode, 'getCurrentQuantityInWardUsingGET');
+    getCurrentQuantityInWardUsingGET({ medId, wardCode }: GetCurrentQuantityInWardUsingGETRequest): Observable<number>
+    getCurrentQuantityInWardUsingGET({ medId, wardCode }: GetCurrentQuantityInWardUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getCurrentQuantityInWardUsingGET({ medId, wardCode }: GetCurrentQuantityInWardUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(medId, 'medId', 'getCurrentQuantityInWardUsingGET');
+        throwIfNullOrUndefined(wardCode, 'wardCode', 'getCurrentQuantityInWardUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -72,37 +74,41 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         };
 
         return this.request<number>({
-            path: '/medicalstockward/current/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
+            url: '/medicalstockward/current/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMedicalsWard
      */
-    getMedicalsWardUsingGET = ({ wardCode }: GetMedicalsWardUsingGETRequest): Observable<Array<MedicalWardDTO>> => {
-        throwIfNullOrUndefined(wardCode, 'getMedicalsWardUsingGET');
+    getMedicalsWardUsingGET({ wardCode }: GetMedicalsWardUsingGETRequest): Observable<Array<MedicalWardDTO>>
+    getMedicalsWardUsingGET({ wardCode }: GetMedicalsWardUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalWardDTO>>>
+    getMedicalsWardUsingGET({ wardCode }: GetMedicalsWardUsingGETRequest, opts?: OperationOpts): Observable<Array<MedicalWardDTO> | RawAjaxResponse<Array<MedicalWardDTO>>> {
+        throwIfNullOrUndefined(wardCode, 'wardCode', 'getMedicalsWardUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<MedicalWardDTO>>({
-            path: '/medicalstockward/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
+            url: '/medicalstockward/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMovementWard
      */
-    getMovementWardUsingGET = ({ from, to, wardCode }: GetMovementWardUsingGETRequest): Observable<Array<MovementWardDTO>> => {
-        throwIfNullOrUndefined(from, 'getMovementWardUsingGET');
-        throwIfNullOrUndefined(to, 'getMovementWardUsingGET');
-        throwIfNullOrUndefined(wardCode, 'getMovementWardUsingGET');
+    getMovementWardUsingGET({ from, to, wardCode }: GetMovementWardUsingGETRequest): Observable<Array<MovementWardDTO>>
+    getMovementWardUsingGET({ from, to, wardCode }: GetMovementWardUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementWardDTO>>>
+    getMovementWardUsingGET({ from, to, wardCode }: GetMovementWardUsingGETRequest, opts?: OperationOpts): Observable<Array<MovementWardDTO> | RawAjaxResponse<Array<MovementWardDTO>>> {
+        throwIfNullOrUndefined(from, 'from', 'getMovementWardUsingGET');
+        throwIfNullOrUndefined(to, 'to', 'getMovementWardUsingGET');
+        throwIfNullOrUndefined(wardCode, 'wardCode', 'getMovementWardUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -114,35 +120,39 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         };
 
         return this.request<Array<MovementWardDTO>>({
-            path: '/medicalstockward/movements/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
+            url: '/medicalstockward/movements/{ward_code}'.replace('{ward_code}', encodeURI(wardCode)),
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMovementWard
      */
-    getMovementWardUsingGET1 = (): Observable<Array<MovementWardDTO>> => {
+    getMovementWardUsingGET1(): Observable<Array<MovementWardDTO>>
+    getMovementWardUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementWardDTO>>>
+    getMovementWardUsingGET1(opts?: OperationOpts): Observable<Array<MovementWardDTO> | RawAjaxResponse<Array<MovementWardDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<MovementWardDTO>>({
-            path: '/medicalstockward/movements',
+            url: '/medicalstockward/movements',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getWardMovementsToWard
      */
-    getWardMovementsToWardUsingGET = ({ from, targetWardCode, to }: GetWardMovementsToWardUsingGETRequest): Observable<Array<MovementWardDTO>> => {
-        throwIfNullOrUndefined(from, 'getWardMovementsToWardUsingGET');
-        throwIfNullOrUndefined(targetWardCode, 'getWardMovementsToWardUsingGET');
-        throwIfNullOrUndefined(to, 'getWardMovementsToWardUsingGET');
+    getWardMovementsToWardUsingGET({ from, targetWardCode, to }: GetWardMovementsToWardUsingGETRequest): Observable<Array<MovementWardDTO>>
+    getWardMovementsToWardUsingGET({ from, targetWardCode, to }: GetWardMovementsToWardUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementWardDTO>>>
+    getWardMovementsToWardUsingGET({ from, targetWardCode, to }: GetWardMovementsToWardUsingGETRequest, opts?: OperationOpts): Observable<Array<MovementWardDTO> | RawAjaxResponse<Array<MovementWardDTO>>> {
+        throwIfNullOrUndefined(from, 'from', 'getWardMovementsToWardUsingGET');
+        throwIfNullOrUndefined(targetWardCode, 'targetWardCode', 'getWardMovementsToWardUsingGET');
+        throwIfNullOrUndefined(to, 'to', 'getWardMovementsToWardUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -154,18 +164,20 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         };
 
         return this.request<Array<MovementWardDTO>>({
-            path: '/medicalstockward/movements/to/{target_ward_code}'.replace('{target_ward_code}', encodeURI(targetWardCode)),
+            url: '/medicalstockward/movements/to/{target_ward_code}'.replace('{target_ward_code}', encodeURI(targetWardCode)),
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newMovementWard
      */
-    newMovementWardUsingPOST = ({ newMovementDTOs }: NewMovementWardUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(newMovementDTOs, 'newMovementWardUsingPOST');
+    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest): Observable<boolean>
+    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(newMovementDTOs, 'newMovementDTOs', 'newMovementWardUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -173,18 +185,20 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/medicalstockward/movements/all',
+            url: '/medicalstockward/movements/all',
             method: 'POST',
             headers,
             body: newMovementDTOs,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newMovementWard
      */
-    newMovementWardUsingPOST1 = ({ newMovementDTO }: NewMovementWardUsingPOST1Request): Observable<boolean> => {
-        throwIfNullOrUndefined(newMovementDTO, 'newMovementWardUsingPOST1');
+    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request): Observable<boolean>
+    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(newMovementDTO, 'newMovementDTO', 'newMovementWardUsingPOST1');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -192,18 +206,20 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/medicalstockward/movements',
+            url: '/medicalstockward/movements',
             method: 'POST',
             headers,
             body: newMovementDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateMovementWard
      */
-    updateMovementWardUsingPUT = ({ movementWardDTO }: UpdateMovementWardUsingPUTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(movementWardDTO, 'updateMovementWardUsingPUT');
+    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest): Observable<boolean>
+    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(movementWardDTO, 'movementWardDTO', 'updateMovementWardUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -211,11 +227,11 @@ export class MedicalStockWardControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/medicalstockward/movements',
+            url: '/medicalstockward/movements',
             method: 'PUT',
             headers,
             body: movementWardDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

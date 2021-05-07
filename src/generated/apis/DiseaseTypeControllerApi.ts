@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     DiseaseTypeDTO,
 } from '../models';
@@ -37,40 +37,46 @@ export class DiseaseTypeControllerApi extends BaseAPI {
     /**
      * deleteDiseaseType
      */
-    deleteDiseaseTypeUsingDELETE = ({ code }: DeleteDiseaseTypeUsingDELETERequest): Observable<{ [key: string]: boolean; }> => {
-        throwIfNullOrUndefined(code, 'deleteDiseaseTypeUsingDELETE');
+    deleteDiseaseTypeUsingDELETE({ code }: DeleteDiseaseTypeUsingDELETERequest): Observable<{ [key: string]: boolean; }>
+    deleteDiseaseTypeUsingDELETE({ code }: DeleteDiseaseTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<{ [key: string]: boolean; }>>
+    deleteDiseaseTypeUsingDELETE({ code }: DeleteDiseaseTypeUsingDELETERequest, opts?: OperationOpts): Observable<{ [key: string]: boolean; } | RawAjaxResponse<{ [key: string]: boolean; }>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteDiseaseTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<{ [key: string]: boolean; }>({
-            path: '/diseasetypes/{code}'.replace('{code}', encodeURI(code)),
+            url: '/diseasetypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAllDiseaseTypes
      */
-    getAllDiseaseTypesUsingGET = (): Observable<Array<DiseaseTypeDTO>> => {
+    getAllDiseaseTypesUsingGET(): Observable<Array<DiseaseTypeDTO>>
+    getAllDiseaseTypesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseTypeDTO>>>
+    getAllDiseaseTypesUsingGET(opts?: OperationOpts): Observable<Array<DiseaseTypeDTO> | RawAjaxResponse<Array<DiseaseTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseTypeDTO>>({
-            path: '/diseasetypes',
+            url: '/diseasetypes',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newDiseaseType
      */
-    newDiseaseTypeUsingPOST = ({ diseaseTypeDTO }: NewDiseaseTypeUsingPOSTRequest): Observable<DiseaseTypeDTO> => {
-        throwIfNullOrUndefined(diseaseTypeDTO, 'newDiseaseTypeUsingPOST');
+    newDiseaseTypeUsingPOST({ diseaseTypeDTO }: NewDiseaseTypeUsingPOSTRequest): Observable<DiseaseTypeDTO>
+    newDiseaseTypeUsingPOST({ diseaseTypeDTO }: NewDiseaseTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseTypeDTO>>
+    newDiseaseTypeUsingPOST({ diseaseTypeDTO }: NewDiseaseTypeUsingPOSTRequest, opts?: OperationOpts): Observable<DiseaseTypeDTO | RawAjaxResponse<DiseaseTypeDTO>> {
+        throwIfNullOrUndefined(diseaseTypeDTO, 'diseaseTypeDTO', 'newDiseaseTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -78,18 +84,20 @@ export class DiseaseTypeControllerApi extends BaseAPI {
         };
 
         return this.request<DiseaseTypeDTO>({
-            path: '/diseasetypes',
+            url: '/diseasetypes',
             method: 'POST',
             headers,
             body: diseaseTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateDiseaseType
      */
-    updateDiseaseTypeUsingPUT = ({ diseaseTypeDTO }: UpdateDiseaseTypeUsingPUTRequest): Observable<DiseaseTypeDTO> => {
-        throwIfNullOrUndefined(diseaseTypeDTO, 'updateDiseaseTypeUsingPUT');
+    updateDiseaseTypeUsingPUT({ diseaseTypeDTO }: UpdateDiseaseTypeUsingPUTRequest): Observable<DiseaseTypeDTO>
+    updateDiseaseTypeUsingPUT({ diseaseTypeDTO }: UpdateDiseaseTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseTypeDTO>>
+    updateDiseaseTypeUsingPUT({ diseaseTypeDTO }: UpdateDiseaseTypeUsingPUTRequest, opts?: OperationOpts): Observable<DiseaseTypeDTO | RawAjaxResponse<DiseaseTypeDTO>> {
+        throwIfNullOrUndefined(diseaseTypeDTO, 'diseaseTypeDTO', 'updateDiseaseTypeUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -97,11 +105,11 @@ export class DiseaseTypeControllerApi extends BaseAPI {
         };
 
         return this.request<DiseaseTypeDTO>({
-            path: '/diseasetypes',
+            url: '/diseasetypes',
             method: 'PUT',
             headers,
             body: diseaseTypeDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

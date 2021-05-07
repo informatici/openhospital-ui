@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     DiseaseDTO,
 } from '../models';
@@ -57,185 +57,209 @@ export class DiseaseControllerApi extends BaseAPI {
     /**
      * deleteDisease
      */
-    deleteDiseaseUsingDELETE = ({ code }: DeleteDiseaseUsingDELETERequest): Observable<{ [key: string]: boolean; }> => {
-        throwIfNullOrUndefined(code, 'deleteDiseaseUsingDELETE');
+    deleteDiseaseUsingDELETE({ code }: DeleteDiseaseUsingDELETERequest): Observable<{ [key: string]: boolean; }>
+    deleteDiseaseUsingDELETE({ code }: DeleteDiseaseUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<{ [key: string]: boolean; }>>
+    deleteDiseaseUsingDELETE({ code }: DeleteDiseaseUsingDELETERequest, opts?: OperationOpts): Observable<{ [key: string]: boolean; } | RawAjaxResponse<{ [key: string]: boolean; }>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteDiseaseUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<{ [key: string]: boolean; }>({
-            path: '/diseases/{code}'.replace('{code}', encodeURI(code)),
+            url: '/diseases/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getAllDiseases
      */
-    getAllDiseasesUsingGET = (): Observable<Array<DiseaseDTO>> => {
+    getAllDiseasesUsingGET(): Observable<Array<DiseaseDTO>>
+    getAllDiseasesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getAllDiseasesUsingGET(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/all',
+            url: '/diseases/all',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseaseByCode
      */
-    getDiseaseByCodeUsingGET = ({ code }: GetDiseaseByCodeUsingGETRequest): Observable<DiseaseDTO> => {
-        throwIfNullOrUndefined(code, 'getDiseaseByCodeUsingGET');
+    getDiseaseByCodeUsingGET({ code }: GetDiseaseByCodeUsingGETRequest): Observable<DiseaseDTO>
+    getDiseaseByCodeUsingGET({ code }: GetDiseaseByCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseDTO>>
+    getDiseaseByCodeUsingGET({ code }: GetDiseaseByCodeUsingGETRequest, opts?: OperationOpts): Observable<DiseaseDTO | RawAjaxResponse<DiseaseDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'getDiseaseByCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<DiseaseDTO>({
-            path: '/diseases/{code}'.replace('{code}', encodeURI(code)),
+            url: '/diseases/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseasesIpdInByCode
      */
-    getDiseasesIpdInByCodeUsingGET = ({ typecode }: GetDiseasesIpdInByCodeUsingGETRequest): Observable<Array<DiseaseDTO>> => {
-        throwIfNullOrUndefined(typecode, 'getDiseasesIpdInByCodeUsingGET');
+    getDiseasesIpdInByCodeUsingGET({ typecode }: GetDiseasesIpdInByCodeUsingGETRequest): Observable<Array<DiseaseDTO>>
+    getDiseasesIpdInByCodeUsingGET({ typecode }: GetDiseasesIpdInByCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdInByCodeUsingGET({ typecode }: GetDiseasesIpdInByCodeUsingGETRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+        throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesIpdInByCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/ipd/in/{typecode}'.replace('{typecode}', encodeURI(typecode)),
+            url: '/diseases/ipd/in/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseasesIpdIn
      */
-    getDiseasesIpdInUsingGET = (): Observable<Array<DiseaseDTO>> => {
+    getDiseasesIpdInUsingGET(): Observable<Array<DiseaseDTO>>
+    getDiseasesIpdInUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdInUsingGET(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/ipd/in',
+            url: '/diseases/ipd/in',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseasesIpdOutByCode
      */
-    getDiseasesIpdOutByCodeUsingGET = ({ typecode }: GetDiseasesIpdOutByCodeUsingGETRequest): Observable<Array<DiseaseDTO>> => {
-        throwIfNullOrUndefined(typecode, 'getDiseasesIpdOutByCodeUsingGET');
+    getDiseasesIpdOutByCodeUsingGET({ typecode }: GetDiseasesIpdOutByCodeUsingGETRequest): Observable<Array<DiseaseDTO>>
+    getDiseasesIpdOutByCodeUsingGET({ typecode }: GetDiseasesIpdOutByCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdOutByCodeUsingGET({ typecode }: GetDiseasesIpdOutByCodeUsingGETRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+        throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesIpdOutByCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/ipd/out/{typecode}'.replace('{typecode}', encodeURI(typecode)),
+            url: '/diseases/ipd/out/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseasesIpdOut
      */
-    getDiseasesIpdOutUsingGET = (): Observable<Array<DiseaseDTO>> => {
+    getDiseasesIpdOutUsingGET(): Observable<Array<DiseaseDTO>>
+    getDiseasesIpdOutUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdOutUsingGET(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/ipd/out',
+            url: '/diseases/ipd/out',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseasesOpdByCode
      */
-    getDiseasesOpdByCodeUsingGET = ({ typecode }: GetDiseasesOpdByCodeUsingGETRequest): Observable<Array<DiseaseDTO>> => {
-        throwIfNullOrUndefined(typecode, 'getDiseasesOpdByCodeUsingGET');
+    getDiseasesOpdByCodeUsingGET({ typecode }: GetDiseasesOpdByCodeUsingGETRequest): Observable<Array<DiseaseDTO>>
+    getDiseasesOpdByCodeUsingGET({ typecode }: GetDiseasesOpdByCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesOpdByCodeUsingGET({ typecode }: GetDiseasesOpdByCodeUsingGETRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+        throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesOpdByCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/opd/{typecode}'.replace('{typecode}', encodeURI(typecode)),
+            url: '/diseases/opd/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseasesOpd
      */
-    getDiseasesOpdUsingGET = (): Observable<Array<DiseaseDTO>> => {
+    getDiseasesOpdUsingGET(): Observable<Array<DiseaseDTO>>
+    getDiseasesOpdUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesOpdUsingGET(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/opd',
+            url: '/diseases/opd',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseases
      */
-    getDiseasesUsingGET = ({ typecode }: GetDiseasesUsingGETRequest): Observable<Array<DiseaseDTO>> => {
-        throwIfNullOrUndefined(typecode, 'getDiseasesUsingGET');
+    getDiseasesUsingGET({ typecode }: GetDiseasesUsingGETRequest): Observable<Array<DiseaseDTO>>
+    getDiseasesUsingGET({ typecode }: GetDiseasesUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesUsingGET({ typecode }: GetDiseasesUsingGETRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+        throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/both/{typecode}'.replace('{typecode}', encodeURI(typecode)),
+            url: '/diseases/both/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDiseases
      */
-    getDiseasesUsingGET1 = (): Observable<Array<DiseaseDTO>> => {
+    getDiseasesUsingGET1(): Observable<Array<DiseaseDTO>>
+    getDiseasesUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesUsingGET1(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            path: '/diseases/both',
+            url: '/diseases/both',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newDisease
      */
-    newDiseaseUsingPOST = ({ diseaseDTO }: NewDiseaseUsingPOSTRequest): Observable<DiseaseDTO> => {
-        throwIfNullOrUndefined(diseaseDTO, 'newDiseaseUsingPOST');
+    newDiseaseUsingPOST({ diseaseDTO }: NewDiseaseUsingPOSTRequest): Observable<DiseaseDTO>
+    newDiseaseUsingPOST({ diseaseDTO }: NewDiseaseUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseDTO>>
+    newDiseaseUsingPOST({ diseaseDTO }: NewDiseaseUsingPOSTRequest, opts?: OperationOpts): Observable<DiseaseDTO | RawAjaxResponse<DiseaseDTO>> {
+        throwIfNullOrUndefined(diseaseDTO, 'diseaseDTO', 'newDiseaseUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -243,18 +267,20 @@ export class DiseaseControllerApi extends BaseAPI {
         };
 
         return this.request<DiseaseDTO>({
-            path: '/diseases',
+            url: '/diseases',
             method: 'POST',
             headers,
             body: diseaseDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateDisease
      */
-    updateDiseaseUsingPUT = ({ diseaseDTO }: UpdateDiseaseUsingPUTRequest): Observable<DiseaseDTO> => {
-        throwIfNullOrUndefined(diseaseDTO, 'updateDiseaseUsingPUT');
+    updateDiseaseUsingPUT({ diseaseDTO }: UpdateDiseaseUsingPUTRequest): Observable<DiseaseDTO>
+    updateDiseaseUsingPUT({ diseaseDTO }: UpdateDiseaseUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseDTO>>
+    updateDiseaseUsingPUT({ diseaseDTO }: UpdateDiseaseUsingPUTRequest, opts?: OperationOpts): Observable<DiseaseDTO | RawAjaxResponse<DiseaseDTO>> {
+        throwIfNullOrUndefined(diseaseDTO, 'diseaseDTO', 'updateDiseaseUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -262,11 +288,11 @@ export class DiseaseControllerApi extends BaseAPI {
         };
 
         return this.request<DiseaseDTO>({
-            path: '/diseases',
+            url: '/diseases',
             method: 'PUT',
             headers,
             body: diseaseDTO,
-        });
+        }, opts?.responseOpts);
     };
 
 }

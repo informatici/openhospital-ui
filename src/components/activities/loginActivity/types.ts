@@ -1,7 +1,8 @@
-import { LoginResponse } from "../../../generated";
-import { IAction, TAPIResponseStatus } from "../../../state/types";
+import { TAPIResponseStatus } from "../../../state/types";
 
-interface IOwnProps {
+interface IOwnProps {}
+
+export interface IRedirectAfterLogin {
   successRoute: string;
 }
 
@@ -11,9 +12,6 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   setAuthenticationThunk: (username: string, password: string) => void;
-  setAuthenticationSuccess: (
-    userCredentials: LoginResponse
-  ) => IAction<LoginResponse, {}>;
 }
 
 export type TProps = IOwnProps & IStateProps & IDispatchProps;

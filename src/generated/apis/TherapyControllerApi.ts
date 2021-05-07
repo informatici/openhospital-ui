@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     MedicalDTO,
     TherapyDTO,
@@ -55,25 +55,29 @@ export class TherapyControllerApi extends BaseAPI {
     /**
      * deleteAllTherapies
      */
-    deleteAllTherapiesUsingDELETE = ({ codePatient }: DeleteAllTherapiesUsingDELETERequest): Observable<boolean> => {
-        throwIfNullOrUndefined(codePatient, 'deleteAllTherapiesUsingDELETE');
+    deleteAllTherapiesUsingDELETE({ codePatient }: DeleteAllTherapiesUsingDELETERequest): Observable<boolean>
+    deleteAllTherapiesUsingDELETE({ codePatient }: DeleteAllTherapiesUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteAllTherapiesUsingDELETE({ codePatient }: DeleteAllTherapiesUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(codePatient, 'codePatient', 'deleteAllTherapiesUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/therapies/{code_patient}'.replace('{code_patient}', encodeURI(codePatient)),
+            url: '/therapies/{code_patient}'.replace('{code_patient}', encodeURI(codePatient)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getMedicalsOutOfStock
      */
-    getMedicalsOutOfStockUsingPOST = ({ therapyDTOs }: GetMedicalsOutOfStockUsingPOSTRequest): Observable<Array<MedicalDTO>> => {
-        throwIfNullOrUndefined(therapyDTOs, 'getMedicalsOutOfStockUsingPOST');
+    getMedicalsOutOfStockUsingPOST({ therapyDTOs }: GetMedicalsOutOfStockUsingPOSTRequest): Observable<Array<MedicalDTO>>
+    getMedicalsOutOfStockUsingPOST({ therapyDTOs }: GetMedicalsOutOfStockUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalDTO>>>
+    getMedicalsOutOfStockUsingPOST({ therapyDTOs }: GetMedicalsOutOfStockUsingPOSTRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | RawAjaxResponse<Array<MedicalDTO>>> {
+        throwIfNullOrUndefined(therapyDTOs, 'therapyDTOs', 'getMedicalsOutOfStockUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -81,18 +85,20 @@ export class TherapyControllerApi extends BaseAPI {
         };
 
         return this.request<Array<MedicalDTO>>({
-            path: '/therapies/meds-out-of-stock',
+            url: '/therapies/meds-out-of-stock',
             method: 'POST',
             headers,
             body: therapyDTOs,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getTherapies
      */
-    getTherapiesUsingPOST = ({ thRowDTOs }: GetTherapiesUsingPOSTRequest): Observable<Array<TherapyDTO>> => {
-        throwIfNullOrUndefined(thRowDTOs, 'getTherapiesUsingPOST');
+    getTherapiesUsingPOST({ thRowDTOs }: GetTherapiesUsingPOSTRequest): Observable<Array<TherapyDTO>>
+    getTherapiesUsingPOST({ thRowDTOs }: GetTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<TherapyDTO>>>
+    getTherapiesUsingPOST({ thRowDTOs }: GetTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<Array<TherapyDTO> | RawAjaxResponse<Array<TherapyDTO>>> {
+        throwIfNullOrUndefined(thRowDTOs, 'thRowDTOs', 'getTherapiesUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -100,35 +106,39 @@ export class TherapyControllerApi extends BaseAPI {
         };
 
         return this.request<Array<TherapyDTO>>({
-            path: '/therapies/from-rows',
+            url: '/therapies/from-rows',
             method: 'POST',
             headers,
             body: thRowDTOs,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getTherapyRows
      */
-    getTherapyRowsUsingGET = ({ codePatient }: GetTherapyRowsUsingGETRequest): Observable<Array<TherapyRowDTO>> => {
-        throwIfNullOrUndefined(codePatient, 'getTherapyRowsUsingGET');
+    getTherapyRowsUsingGET({ codePatient }: GetTherapyRowsUsingGETRequest): Observable<Array<TherapyRowDTO>>
+    getTherapyRowsUsingGET({ codePatient }: GetTherapyRowsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<TherapyRowDTO>>>
+    getTherapyRowsUsingGET({ codePatient }: GetTherapyRowsUsingGETRequest, opts?: OperationOpts): Observable<Array<TherapyRowDTO> | RawAjaxResponse<Array<TherapyRowDTO>>> {
+        throwIfNullOrUndefined(codePatient, 'codePatient', 'getTherapyRowsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<TherapyRowDTO>>({
-            path: '/therapies/{code_patient}'.replace('{code_patient}', encodeURI(codePatient)),
+            url: '/therapies/{code_patient}'.replace('{code_patient}', encodeURI(codePatient)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getTherapy
      */
-    getTherapyUsingPOST = ({ thRowDTO }: GetTherapyUsingPOSTRequest): Observable<TherapyDTO> => {
-        throwIfNullOrUndefined(thRowDTO, 'getTherapyUsingPOST');
+    getTherapyUsingPOST({ thRowDTO }: GetTherapyUsingPOSTRequest): Observable<TherapyDTO>
+    getTherapyUsingPOST({ thRowDTO }: GetTherapyUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyDTO>>
+    getTherapyUsingPOST({ thRowDTO }: GetTherapyUsingPOSTRequest, opts?: OperationOpts): Observable<TherapyDTO | RawAjaxResponse<TherapyDTO>> {
+        throwIfNullOrUndefined(thRowDTO, 'thRowDTO', 'getTherapyUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -136,18 +146,20 @@ export class TherapyControllerApi extends BaseAPI {
         };
 
         return this.request<TherapyDTO>({
-            path: '/therapies/from-row',
+            url: '/therapies/from-row',
             method: 'POST',
             headers,
             body: thRowDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newTherapy
      */
-    newTherapyUsingPOST = ({ thRowDTO }: NewTherapyUsingPOSTRequest): Observable<TherapyRowDTO> => {
-        throwIfNullOrUndefined(thRowDTO, 'newTherapyUsingPOST');
+    newTherapyUsingPOST({ thRowDTO }: NewTherapyUsingPOSTRequest): Observable<TherapyRowDTO>
+    newTherapyUsingPOST({ thRowDTO }: NewTherapyUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyRowDTO>>
+    newTherapyUsingPOST({ thRowDTO }: NewTherapyUsingPOSTRequest, opts?: OperationOpts): Observable<TherapyRowDTO | RawAjaxResponse<TherapyRowDTO>> {
+        throwIfNullOrUndefined(thRowDTO, 'thRowDTO', 'newTherapyUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -155,18 +167,20 @@ export class TherapyControllerApi extends BaseAPI {
         };
 
         return this.request<TherapyRowDTO>({
-            path: '/therapies',
+            url: '/therapies',
             method: 'POST',
             headers,
             body: thRowDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * replaceTherapies
      */
-    replaceTherapiesUsingPOST = ({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(thRowDTOs, 'replaceTherapiesUsingPOST');
+    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest): Observable<boolean>
+    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(thRowDTOs, 'thRowDTOs', 'replaceTherapiesUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -174,11 +188,11 @@ export class TherapyControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            path: '/therapies/replace',
+            url: '/therapies/replace',
             method: 'POST',
             headers,
             body: thRowDTOs,
-        });
+        }, opts?.responseOpts);
     };
 
 }

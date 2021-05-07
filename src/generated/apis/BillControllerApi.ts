@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     BillDTO,
     BillItemsDTO,
@@ -84,91 +84,103 @@ export class BillControllerApi extends BaseAPI {
     /**
      * deleteBill
      */
-    deleteBillUsingDELETE = ({ id }: DeleteBillUsingDELETERequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(id, 'deleteBillUsingDELETE');
+    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest): Observable<ResponseEntity>
+    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(id, 'id', 'deleteBillUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            path: '/bills/{id}'.replace('{id}', encodeURI(id)),
+            url: '/bills/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getBill
      */
-    getBillUsingGET = ({ id }: GetBillUsingGETRequest): Observable<BillDTO> => {
-        throwIfNullOrUndefined(id, 'getBillUsingGET');
+    getBillUsingGET({ id }: GetBillUsingGETRequest): Observable<BillDTO>
+    getBillUsingGET({ id }: GetBillUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<BillDTO>>
+    getBillUsingGET({ id }: GetBillUsingGETRequest, opts?: OperationOpts): Observable<BillDTO | RawAjaxResponse<BillDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getBillUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<BillDTO>({
-            path: '/bills/{id}'.replace('{id}', encodeURI(id)),
+            url: '/bills/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getDistinctItems
      */
-    getDistinctItemsUsingGET = (): Observable<Array<BillItemsDTO>> => {
+    getDistinctItemsUsingGET(): Observable<Array<BillItemsDTO>>
+    getDistinctItemsUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillItemsDTO>>>
+    getDistinctItemsUsingGET(opts?: OperationOpts): Observable<Array<BillItemsDTO> | RawAjaxResponse<Array<BillItemsDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<BillItemsDTO>>({
-            path: '/bills/items',
+            url: '/bills/items',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getItems
      */
-    getItemsUsingGET = ({ billId }: GetItemsUsingGETRequest): Observable<Array<BillItemsDTO>> => {
-        throwIfNullOrUndefined(billId, 'getItemsUsingGET');
+    getItemsUsingGET({ billId }: GetItemsUsingGETRequest): Observable<Array<BillItemsDTO>>
+    getItemsUsingGET({ billId }: GetItemsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillItemsDTO>>>
+    getItemsUsingGET({ billId }: GetItemsUsingGETRequest, opts?: OperationOpts): Observable<Array<BillItemsDTO> | RawAjaxResponse<Array<BillItemsDTO>>> {
+        throwIfNullOrUndefined(billId, 'billId', 'getItemsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<BillItemsDTO>>({
-            path: '/bills/items/{bill_id}'.replace('{bill_id}', encodeURI(billId)),
+            url: '/bills/items/{bill_id}'.replace('{bill_id}', encodeURI(billId)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getPaymentsByBillId
      */
-    getPaymentsByBillIdUsingGET = ({ billId }: GetPaymentsByBillIdUsingGETRequest): Observable<Array<BillPaymentsDTO>> => {
-        throwIfNullOrUndefined(billId, 'getPaymentsByBillIdUsingGET');
+    getPaymentsByBillIdUsingGET({ billId }: GetPaymentsByBillIdUsingGETRequest): Observable<Array<BillPaymentsDTO>>
+    getPaymentsByBillIdUsingGET({ billId }: GetPaymentsByBillIdUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillPaymentsDTO>>>
+    getPaymentsByBillIdUsingGET({ billId }: GetPaymentsByBillIdUsingGETRequest, opts?: OperationOpts): Observable<Array<BillPaymentsDTO> | RawAjaxResponse<Array<BillPaymentsDTO>>> {
+        throwIfNullOrUndefined(billId, 'billId', 'getPaymentsByBillIdUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<BillPaymentsDTO>>({
-            path: '/bills/payments/{bill_id}'.replace('{bill_id}', encodeURI(billId)),
+            url: '/bills/payments/{bill_id}'.replace('{bill_id}', encodeURI(billId)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getPendingBillsAffiliate
      */
-    getPendingBillsAffiliateUsingGET = ({ patientCode }: GetPendingBillsAffiliateUsingGETRequest): Observable<Array<BillDTO>> => {
-        throwIfNullOrUndefined(patientCode, 'getPendingBillsAffiliateUsingGET');
+    getPendingBillsAffiliateUsingGET({ patientCode }: GetPendingBillsAffiliateUsingGETRequest): Observable<Array<BillDTO>>
+    getPendingBillsAffiliateUsingGET({ patientCode }: GetPendingBillsAffiliateUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillDTO>>>
+    getPendingBillsAffiliateUsingGET({ patientCode }: GetPendingBillsAffiliateUsingGETRequest, opts?: OperationOpts): Observable<Array<BillDTO> | RawAjaxResponse<Array<BillDTO>>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getPendingBillsAffiliateUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -179,18 +191,20 @@ export class BillControllerApi extends BaseAPI {
         };
 
         return this.request<Array<BillDTO>>({
-            path: '/bills/pending/affiliate',
+            url: '/bills/pending/affiliate',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getPendingBills
      */
-    getPendingBillsUsingGET = ({ patientCode }: GetPendingBillsUsingGETRequest): Observable<Array<BillDTO>> => {
-        throwIfNullOrUndefined(patientCode, 'getPendingBillsUsingGET');
+    getPendingBillsUsingGET({ patientCode }: GetPendingBillsUsingGETRequest): Observable<Array<BillDTO>>
+    getPendingBillsUsingGET({ patientCode }: GetPendingBillsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillDTO>>>
+    getPendingBillsUsingGET({ patientCode }: GetPendingBillsUsingGETRequest, opts?: OperationOpts): Observable<Array<BillDTO> | RawAjaxResponse<Array<BillDTO>>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getPendingBillsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -201,18 +215,20 @@ export class BillControllerApi extends BaseAPI {
         };
 
         return this.request<Array<BillDTO>>({
-            path: '/bills/pending',
+            url: '/bills/pending',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newBill
      */
-    newBillUsingPOST = ({ newBillDto }: NewBillUsingPOSTRequest): Observable<FullBillDTO> => {
-        throwIfNullOrUndefined(newBillDto, 'newBillUsingPOST');
+    newBillUsingPOST({ newBillDto }: NewBillUsingPOSTRequest): Observable<FullBillDTO>
+    newBillUsingPOST({ newBillDto }: NewBillUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<FullBillDTO>>
+    newBillUsingPOST({ newBillDto }: NewBillUsingPOSTRequest, opts?: OperationOpts): Observable<FullBillDTO | RawAjaxResponse<FullBillDTO>> {
+        throwIfNullOrUndefined(newBillDto, 'newBillDto', 'newBillUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -220,18 +236,20 @@ export class BillControllerApi extends BaseAPI {
         };
 
         return this.request<FullBillDTO>({
-            path: '/bills',
+            url: '/bills',
             method: 'POST',
             headers,
             body: newBillDto,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * searchBillsByPayments
      */
-    searchBillsByPaymentsUsingPOST = ({ paymentsDTO }: SearchBillsByPaymentsUsingPOSTRequest): Observable<Array<BillDTO>> => {
-        throwIfNullOrUndefined(paymentsDTO, 'searchBillsByPaymentsUsingPOST');
+    searchBillsByPaymentsUsingPOST({ paymentsDTO }: SearchBillsByPaymentsUsingPOSTRequest): Observable<Array<BillDTO>>
+    searchBillsByPaymentsUsingPOST({ paymentsDTO }: SearchBillsByPaymentsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillDTO>>>
+    searchBillsByPaymentsUsingPOST({ paymentsDTO }: SearchBillsByPaymentsUsingPOSTRequest, opts?: OperationOpts): Observable<Array<BillDTO> | RawAjaxResponse<Array<BillDTO>>> {
+        throwIfNullOrUndefined(paymentsDTO, 'paymentsDTO', 'searchBillsByPaymentsUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -239,19 +257,21 @@ export class BillControllerApi extends BaseAPI {
         };
 
         return this.request<Array<BillDTO>>({
-            path: '/bills/search/by/payments',
+            url: '/bills/search/by/payments',
             method: 'POST',
             headers,
             body: paymentsDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * searchBillsPayments
      */
-    searchBillsPaymentsUsingGET = ({ datefrom, dateto, patientCode }: SearchBillsPaymentsUsingGETRequest): Observable<Array<BillPaymentsDTO>> => {
-        throwIfNullOrUndefined(datefrom, 'searchBillsPaymentsUsingGET');
-        throwIfNullOrUndefined(dateto, 'searchBillsPaymentsUsingGET');
+    searchBillsPaymentsUsingGET({ datefrom, dateto, patientCode }: SearchBillsPaymentsUsingGETRequest): Observable<Array<BillPaymentsDTO>>
+    searchBillsPaymentsUsingGET({ datefrom, dateto, patientCode }: SearchBillsPaymentsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillPaymentsDTO>>>
+    searchBillsPaymentsUsingGET({ datefrom, dateto, patientCode }: SearchBillsPaymentsUsingGETRequest, opts?: OperationOpts): Observable<Array<BillPaymentsDTO> | RawAjaxResponse<Array<BillPaymentsDTO>>> {
+        throwIfNullOrUndefined(datefrom, 'datefrom', 'searchBillsPaymentsUsingGET');
+        throwIfNullOrUndefined(dateto, 'dateto', 'searchBillsPaymentsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -265,19 +285,21 @@ export class BillControllerApi extends BaseAPI {
         if (patientCode != null) { query['patient_code'] = patientCode; }
 
         return this.request<Array<BillPaymentsDTO>>({
-            path: '/bills/payments',
+            url: '/bills/payments',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * searchBills
      */
-    searchBillsUsingGET = ({ datefrom, dateto, patientCode }: SearchBillsUsingGETRequest): Observable<Array<BillDTO>> => {
-        throwIfNullOrUndefined(datefrom, 'searchBillsUsingGET');
-        throwIfNullOrUndefined(dateto, 'searchBillsUsingGET');
+    searchBillsUsingGET({ datefrom, dateto, patientCode }: SearchBillsUsingGETRequest): Observable<Array<BillDTO>>
+    searchBillsUsingGET({ datefrom, dateto, patientCode }: SearchBillsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillDTO>>>
+    searchBillsUsingGET({ datefrom, dateto, patientCode }: SearchBillsUsingGETRequest, opts?: OperationOpts): Observable<Array<BillDTO> | RawAjaxResponse<Array<BillDTO>>> {
+        throwIfNullOrUndefined(datefrom, 'datefrom', 'searchBillsUsingGET');
+        throwIfNullOrUndefined(dateto, 'dateto', 'searchBillsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -291,20 +313,22 @@ export class BillControllerApi extends BaseAPI {
         if (patientCode != null) { query['patient_code'] = patientCode; }
 
         return this.request<Array<BillDTO>>({
-            path: '/bills',
+            url: '/bills',
             method: 'GET',
             headers,
             query,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * searchBills
      */
-    searchBillsUsingPOST = ({ datefrom, dateto, billItemDTO }: SearchBillsUsingPOSTRequest): Observable<Array<BillDTO>> => {
-        throwIfNullOrUndefined(datefrom, 'searchBillsUsingPOST');
-        throwIfNullOrUndefined(dateto, 'searchBillsUsingPOST');
-        throwIfNullOrUndefined(billItemDTO, 'searchBillsUsingPOST');
+    searchBillsUsingPOST({ datefrom, dateto, billItemDTO }: SearchBillsUsingPOSTRequest): Observable<Array<BillDTO>>
+    searchBillsUsingPOST({ datefrom, dateto, billItemDTO }: SearchBillsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<BillDTO>>>
+    searchBillsUsingPOST({ datefrom, dateto, billItemDTO }: SearchBillsUsingPOSTRequest, opts?: OperationOpts): Observable<Array<BillDTO> | RawAjaxResponse<Array<BillDTO>>> {
+        throwIfNullOrUndefined(datefrom, 'datefrom', 'searchBillsUsingPOST');
+        throwIfNullOrUndefined(dateto, 'dateto', 'searchBillsUsingPOST');
+        throwIfNullOrUndefined(billItemDTO, 'billItemDTO', 'searchBillsUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -317,20 +341,22 @@ export class BillControllerApi extends BaseAPI {
         };
 
         return this.request<Array<BillDTO>>({
-            path: '/bills/search/by/item',
+            url: '/bills/search/by/item',
             method: 'POST',
             headers,
             query,
             body: billItemDTO,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateBill
      */
-    updateBillUsingPUT = ({ id, odBillDto }: UpdateBillUsingPUTRequest): Observable<FullBillDTO> => {
-        throwIfNullOrUndefined(id, 'updateBillUsingPUT');
-        throwIfNullOrUndefined(odBillDto, 'updateBillUsingPUT');
+    updateBillUsingPUT({ id, odBillDto }: UpdateBillUsingPUTRequest): Observable<FullBillDTO>
+    updateBillUsingPUT({ id, odBillDto }: UpdateBillUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<FullBillDTO>>
+    updateBillUsingPUT({ id, odBillDto }: UpdateBillUsingPUTRequest, opts?: OperationOpts): Observable<FullBillDTO | RawAjaxResponse<FullBillDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'updateBillUsingPUT');
+        throwIfNullOrUndefined(odBillDto, 'odBillDto', 'updateBillUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -338,11 +364,11 @@ export class BillControllerApi extends BaseAPI {
         };
 
         return this.request<FullBillDTO>({
-            path: '/bills/{id}'.replace('{id}', encodeURI(id)),
+            url: '/bills/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
             body: odBillDto,
-        });
+        }, opts?.responseOpts);
     };
 
 }

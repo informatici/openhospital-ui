@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import "cypress-file-upload";
+import permissionList from "../../src/mockServer/fixtures/permissionList";
 
 Cypress.Commands.add("authenticate", (START_PATH) => {
   cy.visit(START_PATH, {
@@ -34,6 +35,10 @@ Cypress.Commands.add("authenticate", (START_PATH) => {
         "auth",
         `{"displayName":"John Doe","token":"1qrj12fcxu3a21d21pjvba6g1"}`
       );
+      w.sessionStorage.setItem("permission", {
+        permission: permissionList,
+        userName: "admin",
+      });
     },
   });
 });

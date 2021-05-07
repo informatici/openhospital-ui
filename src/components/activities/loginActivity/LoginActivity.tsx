@@ -5,17 +5,13 @@ import classNames from "classnames";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { default as React, FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { useHistory, useLocation } from "react-router";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { AUTH_KEY } from "../../../consts";
-import { SessionStorage } from "../../../libraries/storage/storage";
-import {
-  setAuthenticationSuccess,
-  setAuthenticationThunk,
-} from "../../../state/main/actions";
+import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
+import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -25,16 +21,11 @@ import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthenticationThunk,
-  setAuthenticationSuccess,
   status,
-  successRoute,
 }) => {
-  useEffect(() => {
-    const userCredentials = SessionStorage.read(AUTH_KEY);
-    if (userCredentials) {
-      setAuthenticationSuccess(userCredentials);
-    }
-  }, [setAuthenticationSuccess]);
+  useAuthentication();
+
+  const { t } = useTranslation();
 
   const initialValues: IValues = {
     username: "",
@@ -42,8 +33,8 @@ const LoginActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    username: string().required("Enter a valid user name"),
-    password: string().required("Enter the password"),
+    username: string().required(t("login.insertavalidusername")),
+    password: string().required(t("login.insertthepassword")),
   });
 
   const formik = useFormik({
@@ -64,16 +55,6 @@ const LoginActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
-  const history = useHistory();
-  const location = useLocation<{ from: Location }>();
-
-  useEffect(() => {
-    if (status === "SUCCESS") {
-      const { from } = location.state || { from: { pathname: successRoute } };
-      history.replace(from);
-    }
-  }, [status, location.state, history, successRoute]);
-
   return (
     <div className="login">
       <div className="container login__background">
@@ -92,7 +73,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("username")}
                 theme="regular"
-                label="User"
+                label={t("login.username")}
                 isValid={isValid("username")}
                 errorText={getErrorText("username")}
                 onBlur={formik.handleBlur}
@@ -102,7 +83,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
               <TextField
                 field={formik.getFieldProps("password")}
                 theme="regular"
-                label="Password"
+                label={t("login.password")}
                 type={state.isPasswordVisible ? "text" : "password"}
                 isValid={isValid("password")}
                 errorText={getErrorText("password")}
@@ -130,7 +111,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              Invalid username or password
+              {t("login.incorrectcredentials")}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -139,12 +120,12 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 color="primary"
                 disabled={status === "LOADING"}
               >
-                LOG IN
+                {t("login.login")}
               </Button>
             </div>
             <div>
               <Link className="login__panel__resetPassword" component="button">
-                Forgot the password?
+                {t("login.forgotpassword")}
               </Link>
             </div>
             &emsp;
@@ -162,7 +143,6 @@ const mapStateToProps = (state: IState): IStateProps => ({
 
 const mapDispatchToProps: IDispatchProps = {
   setAuthenticationThunk,
-  setAuthenticationSuccess,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginActivity);

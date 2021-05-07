@@ -112,7 +112,7 @@ export interface PatientDTO {
      * @type {string}
      * @memberof PatientDTO
      */
-    bloodType?: string; // PatientDTOBloodTypeEnum;
+    bloodType?: string; //PatientDTOBloodTypeEnum;
     /**
      * hasInsurance (Y=Yes, N=no)
      * @type {string}
@@ -131,18 +131,6 @@ export interface PatientDTO {
      * @memberof PatientDTO
      */
     taxCode?: string;
-    /**
-     * Height
-     * @type {number}
-     * @memberof PatientDTO
-     */
-    height?: number;
-    /**
-     * Weight
-     * @type {number}
-     * @memberof PatientDTO
-     */
-    weight?: number;
     /**
      * BlobPhoto
      * @type {string}

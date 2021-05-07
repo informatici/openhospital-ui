@@ -140,14 +140,6 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: "",
     type: "text",
   },
-  height: {
-    value: "175",
-    type: "number",
-  },
-  weight: {
-    value: "83",
-    type: "number",
-  },
   blobPhoto: {
     value: "",
     type: "text",

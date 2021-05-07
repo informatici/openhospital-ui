@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     ResponseEntity,
     WardDTO,
@@ -50,106 +50,120 @@ export class WardControllerApi extends BaseAPI {
     /**
      * checkWardCode
      */
-    checkWardCodeUsingGET = ({ code }: CheckWardCodeUsingGETRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(code, 'checkWardCodeUsingGET');
+    checkWardCodeUsingGET({ code }: CheckWardCodeUsingGETRequest): Observable<boolean>
+    checkWardCodeUsingGET({ code }: CheckWardCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    checkWardCodeUsingGET({ code }: CheckWardCodeUsingGETRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'checkWardCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/wards/check/{code}'.replace('{code}', encodeURI(code)),
+            url: '/wards/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * checkWardMaternityCode
      */
-    checkWardMaternityCodeUsingGET = ({ createIfNotExist }: CheckWardMaternityCodeUsingGETRequest): Observable<boolean> => {
-        throwIfNullOrUndefined(createIfNotExist, 'checkWardMaternityCodeUsingGET');
+    checkWardMaternityCodeUsingGET({ createIfNotExist }: CheckWardMaternityCodeUsingGETRequest): Observable<boolean>
+    checkWardMaternityCodeUsingGET({ createIfNotExist }: CheckWardMaternityCodeUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    checkWardMaternityCodeUsingGET({ createIfNotExist }: CheckWardMaternityCodeUsingGETRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(createIfNotExist, 'createIfNotExist', 'checkWardMaternityCodeUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<boolean>({
-            path: '/wards/check-or-create/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
+            url: '/wards/check-or-create/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * deleteWard
      */
-    deleteWardUsingDELETE = ({ code }: DeleteWardUsingDELETERequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(code, 'deleteWardUsingDELETE');
+    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest): Observable<ResponseEntity>
+    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteWardUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            path: '/wards/{code}'.replace('{code}', encodeURI(code)),
+            url: '/wards/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getCurrentOccupation
      */
-    getCurrentOccupationUsingGET = ({ code }: GetCurrentOccupationUsingGETRequest): Observable<number> => {
-        throwIfNullOrUndefined(code, 'getCurrentOccupationUsingGET');
+    getCurrentOccupationUsingGET({ code }: GetCurrentOccupationUsingGETRequest): Observable<number>
+    getCurrentOccupationUsingGET({ code }: GetCurrentOccupationUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getCurrentOccupationUsingGET({ code }: GetCurrentOccupationUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(code, 'code', 'getCurrentOccupationUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<number>({
-            path: '/wards/occupation/{code}'.replace('{code}', encodeURI(code)),
+            url: '/wards/occupation/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getWardsNoMaternity
      */
-    getWardsNoMaternityUsingGET = (): Observable<Array<WardDTO>> => {
+    getWardsNoMaternityUsingGET(): Observable<Array<WardDTO>>
+    getWardsNoMaternityUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<WardDTO>>>
+    getWardsNoMaternityUsingGET(opts?: OperationOpts): Observable<Array<WardDTO> | RawAjaxResponse<Array<WardDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<WardDTO>>({
-            path: '/wardsNoMaternity',
+            url: '/wardsNoMaternity',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * getWards
      */
-    getWardsUsingGET = (): Observable<Array<WardDTO>> => {
+    getWardsUsingGET(): Observable<Array<WardDTO>>
+    getWardsUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<WardDTO>>>
+    getWardsUsingGET(opts?: OperationOpts): Observable<Array<WardDTO> | RawAjaxResponse<Array<WardDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<WardDTO>>({
-            path: '/wards',
+            url: '/wards',
             method: 'GET',
             headers,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * newWard
      */
-    newWardUsingPOST = ({ newWard }: NewWardUsingPOSTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(newWard, 'newWardUsingPOST');
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest): Observable<ResponseEntity>
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(newWard, 'newWard', 'newWardUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -157,18 +171,20 @@ export class WardControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/wards',
+            url: '/wards',
             method: 'POST',
             headers,
             body: newWard,
-        });
+        }, opts?.responseOpts);
     };
 
     /**
      * updateWard
      */
-    updateWardUsingPUT = ({ updateWard }: UpdateWardUsingPUTRequest): Observable<ResponseEntity> => {
-        throwIfNullOrUndefined(updateWard, 'updateWardUsingPUT');
+    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest): Observable<ResponseEntity>
+    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(updateWard, 'updateWard', 'updateWardUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -176,11 +192,11 @@ export class WardControllerApi extends BaseAPI {
         };
 
         return this.request<ResponseEntity>({
-            path: '/wards',
+            url: '/wards',
             method: 'PUT',
             headers,
             body: updateWard,
-        });
+        }, opts?.responseOpts);
     };
 
 }

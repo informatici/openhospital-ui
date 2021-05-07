@@ -9,6 +9,14 @@ export type TFieldType = "text" | "number" | "date" | "select" | "decimal";
 
 export type TFieldFormattedValue = string | number;
 
+export interface IForm<T extends string, U> {
+  fields: TFields<T>;
+  onSubmit: (param: U) => void;
+  submitButtonLabel: string;
+  resetButtonLabel: string;
+  isLoading: boolean;
+}
+
 export interface IFieldContent {
   value: string;
   type: TFieldType;
