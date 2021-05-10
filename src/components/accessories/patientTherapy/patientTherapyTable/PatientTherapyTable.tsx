@@ -19,7 +19,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     Qty: t("Quantity"),
     FID: "Frequence In Day",
     D: t("Duration"),
-    FIP: t("Frequence In Period")
+    FIP: t("Frequence In Period"),
   };
 
   const onDelete = () => {
@@ -41,6 +41,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
           rowsPerPage={5}
           onDelete={onDelete}
           isCollapsabile={true}
+          onEdit={() => null}
+          onView={() => null}
         />
       </div>
     </>

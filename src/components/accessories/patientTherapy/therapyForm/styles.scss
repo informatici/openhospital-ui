@@ -9,8 +9,8 @@
 
     .patientTherapyForm__item {
         margin: 7px 0;
-        padding: 0 15px;
-        width: 33%;
+        padding: 0 5px;
+        width: 25%;
         &.fullWith{
             width: 100%;
         }
@@ -19,9 +19,10 @@
         }
         @include susy-media($tablet_land) {
             padding: 0 10px;
+            width: 100px;
         }
         @include susy-media($tablet_port) {
-            width: 50%;
+            width: 100%;
         }
         @include susy-media($smartphone) {
             width: 100%;
@@ -34,32 +35,6 @@
 
         &.fullWidth {
             width: 100%;
-        }
-        &.checkb {
-            padding-top: 15px;
-            background-color: #eee;
-            padding-bottom: 15px;
-            width: 180px;
-            margin-left: 30px;
-            height: 50px;
-            float: right!important;
-            display: flex;
-        }
-        &.label {
-            padding: 15px 0 15px 15px;
-        }
-        .day-label {
-            padding-top: 30px;
-        }
-        &.fif {
-            width: 50%;
-        }
-        &.fif-lbl{
-            width: 50%;
-            padding-top:22px;
-        }
-        .label-sms {
-            padding-top: 15px;
         }
         &.compressed {
             .textField {
@@ -99,12 +74,47 @@
 
     .medecine{
         width: 75%;
+        @include susy-media($narrow) {
+            padding: 0 10px;
+        }
+        @include susy-media($tablet_land) {
+            padding: 0 10px;
+            width: 100%;
+        }
+        @include susy-media($tablet_port) {
+            width: 100%;
+        }
+        @include susy-media($smartphone) {
+            width: 100%;
+        }
     }
     .quantity {
-        width: 25%;
+      width: 25%;
+      @include susy-media($narrow) {
+          padding: 0 10px;
+      }
+      @include susy-media($tablet_land) {
+          padding: 0 10px;
+          width: 100%;
+      }
+      @include susy-media($tablet_port) {
+          width: 100%;
+      }
+      @include susy-media($smartphone) {
+          width: 100%;
+      }
     }
-    .duration{
-        width: 15%;
+    .duration {
+      width: 75%;
+      .textField {
+        padding: 0 5px;
+      }
     }
+    .label-period {
+      padding: 20px 0 15px 5px;
+    }
+    .label-sms {
+      padding-left: 5px;
+    }   
    
 }

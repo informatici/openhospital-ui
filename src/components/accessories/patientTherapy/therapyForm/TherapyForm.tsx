@@ -6,6 +6,8 @@ import SmsIcon from "@material-ui/icons/Sms";
 import PriorityHigh from "@material-ui/icons/PriorityHigh";
 import DateField from "../../dateField/DateField";
 import "./styles.scss";
+import SelectField from "../../selectField/SelectField";
+import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 
 const TherapyForm: FC = (props) => {
   const dummyField = {
@@ -16,20 +18,34 @@ const TherapyForm: FC = (props) => {
     onChange: (e: ChangeEvent<any>) => console.log(e),
     onBlur: (e: ChangeEvent<any>) => console.log(e),
   };
+  const options = [
+    { label: "one", value: "One" },
+    { label: "two", value: "Two" },
+    { label: "three", value: "Three" },
+    { label: "four", value: "Four" },
+  ];
+  const optionsMed = [
+    { label: "med1", value: "Medecine 1" },
+    { label: "med2", value: "Medecine 2" },
+    { label: "med3", value: "Medecine 3" },
+    { label: "med4", value: "Medecone 4" },
+  ];
+
   return (
     <>
       <div className="patientTherapyForm">
         <form className="patientTherapyForm__form">
           <div className="row start-sm center-xs">
-            <div className="medecine patientTherapyForm__item">
-              <TextField
+            <div className="patientTherapyForm__item medecine">
+              <SelectField
                 {...dummyField}
-                theme="regular"
-                type="text"
+                fieldName="Medecine"
+                fieldValue={""}
                 label="Medecine"
+                options={optionsMed}
               />
             </div>
-            <div className="quantity patientTherapyForm__item">
+            <div className="patientTherapyForm__item">
               <TextField
                 {...dummyField}
                 theme="regular"
@@ -38,17 +54,19 @@ const TherapyForm: FC = (props) => {
               />
             </div>
           </div>
-          <div className="row start-sm center-xs">
+          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
-              <h3> Frequency: </h3>
-              <input type="radio" name="frequency" value="one" />
-              One
-              <input type="radio" name="frequency" value="two" /> Two
-              <input type="radio" name="frequency" value="three" /> Three
-              <input type="radio" name="frequency" value="four" /> Four
+              <SelectField
+                {...dummyField}
+                fieldName="frequency"
+                fieldValue={""}
+                label="Frequency"
+                options={options}
+              />
             </div>
-            <h3>Duration: </h3>
-            <div className="patientTherapyForm__item duration">
+
+            <div className="patientTherapyForm__item">
+              <span>Duration</span>
               <TextField
                 {...dummyField}
                 theme="regular"
@@ -56,7 +74,7 @@ const TherapyForm: FC = (props) => {
                 label="days"
               />
             </div>
-            <div className="patientTherapyForm__item duration">
+            <div className="patientTherapyForm__item">
               <TextField
                 {...dummyField}
                 theme="regular"
@@ -64,7 +82,7 @@ const TherapyForm: FC = (props) => {
                 label="weeks"
               />
             </div>
-            <div className="patientTherapyForm__item duration">
+            <div className="patientTherapyForm__item">
               <TextField
                 {...dummyField}
                 theme="regular"
@@ -74,72 +92,63 @@ const TherapyForm: FC = (props) => {
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item fif">
-              <div className="row start-sm center-xs">
-                <div className="patientTherapyForm__item fif-lbl">
-                  <label htmlFor="">Frequency in period:</label>
-                </div>
-                <div className="patientTherapyForm__item">
-                  <TextField
-                    {...dummyField}
-                    theme="regular"
-                    type="number"
-                    label="Every"
-                  />
-                </div>
-                <label htmlFor="" className="day-label">
-                  Days
-                </label>
-              </div>
+            <div className="patientTherapyForm__item label-period">
+              Frequency In Period:
             </div>
-            <div className="patientTherapyForm__item fif">
-              <div className="row start-sm center-xs">
-                <div className="patientTherapyForm__item fif">
-                  <DateField
-                    fieldName="opdDate"
-                    fieldValue={""}
-                    disableFuture={true}
-                    theme="regular"
-                    format="dd/MM/yyyy"
-                    isValid={false}
-                    errorText={""}
-                    label="Start"
-                    onChange={() => console.log("date changed...")}
-                  />
-                </div>
-                <div className="patientTherapyForm__item fif">
-                  <DateField
-                    fieldName="opdDate"
-                    fieldValue={""}
-                    disableFuture={true}
-                    theme="regular"
-                    format="dd/MM/yyyy"
-                    isValid={false}
-                    errorText={""}
-                    label={"End"}
-                    onChange={() => console.log("date changed...")}
-                  />
-                </div>
-              </div>
+            <div id="frequency" className="patientTherapyForm__item">
+              <TextField
+                {...dummyField}
+                theme="regular"
+                type="number"
+                label="Frequency in Days"
+              />
+            </div>
+            <div className="patientTherapyForm__item">
+              <DateField
+                fieldName="opdDate"
+                fieldValue={""}
+                disableFuture={true}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={false}
+                errorText={""}
+                label="Start"
+                onChange={() => console.log("date changed...")}
+              />
+            </div>
+            <div className="patientTherapyForm__item">
+              <DateField
+                fieldName="opdDate"
+                fieldValue={""}
+                disableFuture={true}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={false}
+                errorText={""}
+                label={"End"}
+                onChange={() => console.log("date changed...")}
+              />
             </div>
           </div>
-
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item label">
-              <label htmlFor="">Notify & SMS</label>
-            </div>
-            <div className="patientTherapyForm__item checkb">
-              <PriorityHigh fontSize="default" /> &nbsp; &nbsp;
-              <input type="checkbox" name="checkboxImp" id="imp" />
-              <label htmlFor="imp">Important</label>
-            </div>
-            <div className="patientTherapyForm__item checkb">
-              <SmsIcon color="secondary" fontSize="default" /> &nbsp; &nbsp;
-              <input type="checkbox" name="checkboxSms" id="sms" />
-              <label htmlFor="sms" className="check">
-                SMS
-              </label>
-            </div>
+            <FormGroup row className="label-sms">
+              <FormControlLabel
+                control={<Checkbox name="checkedImp" />}
+                label={
+                  <span>
+                    Important: send a notification <PriorityHigh />
+                  </span>
+                }
+              />
+              <FormControlLabel
+                control={<Checkbox name="checkedSMS" />}
+                label={
+                  <span>
+                    Send SMS <SmsIcon />
+                  </span>
+                }
+              />
+            </FormGroup>
           </div>
           <div className="row start-sm center-xs">
             <div className="patientTherapyForm__item fullWith">
