@@ -1,3 +1,5 @@
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+
 export interface IProps {
   fieldName: string;
   fieldValue: string;
@@ -9,4 +11,11 @@ export interface IProps {
   label: string;
   format: string;
   onChange: (value: Date | null) => void;
+  onMonthChange?: (date: MaterialUiPickersDate) => void | Promise<void>;
+  renderDay?: (
+    day: MaterialUiPickersDate,
+    selectedDate: MaterialUiPickersDate,
+    dayInCurrentMonth: boolean,
+    dayComponent: JSX.Element
+  ) => JSX.Element;
 }
