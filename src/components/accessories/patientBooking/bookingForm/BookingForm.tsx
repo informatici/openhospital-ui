@@ -1,13 +1,10 @@
 import {
   Badge,
   createMuiTheme,
-  createStyles,
   IconButton,
-  makeStyles,
   MuiThemeProvider,
 } from "@material-ui/core";
-import { Beenhere } from "@material-ui/icons";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import { cyan, pink } from "@material-ui/core/colors";
 import {
   endOfWeek,
   format,
@@ -21,8 +18,9 @@ import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import "./styles.scss";
+import { TProps } from "./types";
 
-const BookingForm: FC = (props) => {
+const BookingForm: FC<TProps> = (props) => {
   const dummyField = {
     name: "dummyName",
     isValid: false,
@@ -36,14 +34,28 @@ const BookingForm: FC = (props) => {
     { label: "medecine", value: "medecine" },
   ];
   const optionsService = [
-    { label: "para", value: "paracetamol" },
-    { label: "eff", value: "efferalgan" },
+    { label: "paracetamol", value: "paracetamol" },
+    { label: "efferalgan", value: "efferalgan" },
   ];
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [availabilities, setAvailabilities] = useState([12, 20, 14, 5, 6, 25]);
+
+  const handleDateMonthChange = (date: Date | null) => {
+    const result = [];
+    let i = 0;
+    while (i < 12) {
+      result.push(Math.floor(Math.random() * 31));
+      i++;
+    }
+    setAvailabilities(result);
+  };
 
   const handleDateChange = (date: Date | null) => {
-    console.log("hello..", date);
     date ? setSelectedDate(date) : setSelectedDate(new Date());
+  };
+
+  const filtrerUnavailableDates = (date: Date | null) => {
+    return !availabilities.includes(date ? date.getDate() : -5);
   };
   const renderWrappedDay = (
     date: any,
@@ -53,25 +65,33 @@ const BookingForm: FC = (props) => {
   ) => {
     let dateClone = new Date(date);
     let selectedDateClone = new Date(selectedDate);
-
-    const start = startOfWeek(selectedDateClone);
-    const end = endOfWeek(selectedDateClone);
-
-    //const dayIsBetween = isWithinInterval(dateClone, { start, end });
-    const isFirstDay = isSameDay(dateClone, start);
-    const isLastDay = isSameDay(dateClone, end);
-
-    let wrapperClassName = "";
-    return (
-      <div>
-        <IconButton>
-          <Badge
-            badgeContent={format(dateClone, "d")}
-            color={isLastDay || isFirstDay ? "secondary" : "primary"}
-          ></Badge>
+    const isSelected =
+      date.getDate() === selectedDate.getDate() &&
+      date.getMonth() == selectedDate.getMonth();
+    const isAvalaible = availabilities.includes(dateClone.getDate());
+    if (dayInCurrentMonth) {
+      return (
+        <div>
+          <IconButton className="day">
+            <Badge
+              classes={
+                isAvalaible
+                  ? isSelected
+                    ? { badge: "selectedDay" }
+                    : { badge: "primary" }
+                  : { badge: "secondary" }
+              }
+              badgeContent={format(dateClone, "d")}
+            ></Badge>
+          </IconButton>
+        </div>
+      );
+    } else
+      return (
+        <IconButton className="day" style={{ display: "none" }}>
+          <Badge badgeContent={format(dateClone, "d")}></Badge>
         </IconButton>
-      </div>
-    );
+      );
   };
 
   return (
@@ -100,18 +120,22 @@ const BookingForm: FC = (props) => {
           </div>
           <div className="row start-sm center-xs">
             <div className="patientBookingForm__item">
-              <DateField
-                fieldName="opdDate"
-                fieldValue={""}
-                disableFuture={false}
-                theme="light"
-                onChange={handleDateChange}
-                renderDay={renderWrappedDay}
-                format="dd/MM/yyyy"
-                isValid={false}
-                errorText={""}
-                label="Date"
-              />
+              <MuiThemeProvider theme={theme}>
+                <DateField
+                  fieldName="opdDate"
+                  fieldValue={""}
+                  disableFuture={false}
+                  theme="regular"
+                  onMonthChange={handleDateMonthChange}
+                  onChange={handleDateChange}
+                  renderDay={renderWrappedDay}
+                  shouldDisableDate={filtrerUnavailableDates}
+                  format="dd/MM/yyyy"
+                  isValid={false}
+                  errorText={""}
+                  label="Date"
+                />
+              </MuiThemeProvider>
             </div>
           </div>
           <div className="patientBookingForm__buttonSet">
@@ -134,15 +158,15 @@ const BookingForm: FC = (props) => {
 
 export default BookingForm;
 
-export const customTheme = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "rgb(250, 0, 2)",
-      light: "rgb(250, 202, 2)",
-      dark: "rgb(250, 0, 220)",
+      main: "#444444",
     },
     secondary: {
-      main: "rgb(250, 215, 2)",
+      light: "#444444",
+      main: "#444444",
+      contrastText: "#444444",
     },
   },
 });

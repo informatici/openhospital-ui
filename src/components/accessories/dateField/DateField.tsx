@@ -20,6 +20,7 @@ const DateField: FunctionComponent<IProps> = ({
   format,
   onChange,
   onMonthChange,
+  shouldDisableDate,
   renderDay,
 }) => {
   const [value, setValue] = useState<Date | null>(null);
@@ -49,6 +50,7 @@ const DateField: FunctionComponent<IProps> = ({
         margin="dense"
         value={value}
         onMonthChange={onMonthChange}
+        shouldDisableDate={shouldDisableDate}
         renderDay={renderDay}
         TextFieldComponent={(props): any => (
           <TextField

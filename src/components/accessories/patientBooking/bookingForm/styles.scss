@@ -71,12 +71,31 @@
   }
   
 }
-
-.nonCurrentMonthDay {
-    background: red;
+ 
+.day {
+  width: 40px;
+  min-height: 40px;
 }
-.highlight {
-background: green;
-color: rgb(158, 152, 152);
+.primary{
+  @extend .day;
+  &:hover {
+    background-color: #2E8B57;
+    color: #fff;
+    width: 40px;
+    min-height: 40px;
+  }  
+}
+.secondary{
+  @extend .day;
+  &:hover {
+    color: #fff;
+    background-color: #DC143C;
+  }
+}
+
+.selectedDay{
+  @extend .day;
+  color: #fff;
+  background-color: #1976d2;
 }
 
