@@ -1,17 +1,4 @@
-import {
-  Badge,
-  createMuiTheme,
-  IconButton,
-  MuiThemeProvider,
-} from "@material-ui/core";
-import { cyan, pink } from "@material-ui/core/colors";
-import {
-  endOfWeek,
-  format,
-  isSameDay,
-  isWithinInterval,
-  startOfWeek,
-} from "date-fns";
+import { Badge, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import React, { ChangeEvent, FC, useState } from "react";
 import DateField from "../../dateField/DateField";
 import SelectField from "../../selectField/SelectField";
@@ -19,6 +6,7 @@ import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import "./styles.scss";
 import { TProps } from "./types";
+import { categories, services } from "./consts";
 
 const BookingForm: FC<TProps> = (props) => {
   const dummyField = {
@@ -29,25 +17,22 @@ const BookingForm: FC<TProps> = (props) => {
     onChange: (e: ChangeEvent<any>) => console.log(e),
     onBlur: (e: ChangeEvent<any>) => console.log(e),
   };
-  const optionsCategory = [
-    { label: "exams", value: "exams" },
-    { label: "medecine", value: "medecine" },
-  ];
-  const optionsService = [
-    { label: "paracetamol", value: "paracetamol" },
-    { label: "efferalgan", value: "efferalgan" },
-  ];
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [availabilities, setAvailabilities] = useState([12, 20, 14, 5, 6, 25]);
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [unAvailables, setUnavailables] = useState([12, 20, 14, 5, 6, 25]);
+  const [barelyAvailable, setBarelyAvalaible] = useState([1, 30]);
   const handleDateMonthChange = (date: Date | null) => {
-    const result = [];
-    let i = 0;
-    while (i < 12) {
-      result.push(Math.floor(Math.random() * 31));
-      i++;
+    const result1 = [];
+    while (result1.length <= 5) {
+      result1.push(Math.floor(Math.random() * 31));
     }
-    setAvailabilities(result);
+    setUnavailables(result1);
+
+    const result2 = [];
+    while (result2.length <= 4) {
+      result2.push(Math.floor(Math.random() * 15));
+    }
+    setBarelyAvalaible(result2);
   };
 
   const handleDateChange = (date: Date | null) => {
@@ -55,7 +40,7 @@ const BookingForm: FC<TProps> = (props) => {
   };
 
   const filtrerUnavailableDates = (date: Date | null) => {
-    return !availabilities.includes(date ? date.getDate() : -5);
+    return unAvailables.includes(date!.getDate());
   };
   const renderWrappedDay = (
     date: any,
@@ -68,30 +53,25 @@ const BookingForm: FC<TProps> = (props) => {
     const isSelected =
       date.getDate() === selectedDate.getDate() &&
       date.getMonth() == selectedDate.getMonth();
-    const isAvalaible = availabilities.includes(dateClone.getDate());
+    const isUnAvalaible = unAvailables.includes(dateClone.getDate());
+    const isBarelyAvalaible = barelyAvailable.includes(dateClone.getDate());
+    const className = isUnAvalaible
+      ? "u-available"
+      : isBarelyAvalaible
+      ? "b-available"
+      : "available";
     if (dayInCurrentMonth) {
       return (
-        <div>
-          <IconButton className="day">
-            <Badge
-              classes={
-                isAvalaible
-                  ? isSelected
-                    ? { badge: "selectedDay" }
-                    : { badge: "primary" }
-                  : { badge: "secondary" }
-              }
-              badgeContent={format(dateClone, "d")}
-            ></Badge>
-          </IconButton>
-        </div>
+        <Badge
+          id="badge"
+          key={date.toString()}
+          overlap="circle"
+          badgeContent={<span className={className + " hidden-dot"}></span>}
+        >
+          {component}
+        </Badge>
       );
-    } else
-      return (
-        <IconButton className="day" style={{ display: "none" }}>
-          <Badge badgeContent={format(dateClone, "d")}></Badge>
-        </IconButton>
-      );
+    } else return <Badge> {component} </Badge>;
   };
 
   return (
@@ -105,7 +85,7 @@ const BookingForm: FC<TProps> = (props) => {
                 fieldName="Category"
                 fieldValue={""}
                 label="Category"
-                options={optionsCategory}
+                options={categories}
               />
             </div>
             <div className="patientBookingForm__item">
@@ -114,7 +94,7 @@ const BookingForm: FC<TProps> = (props) => {
                 fieldName="Service"
                 fieldValue={""}
                 label="Service"
-                options={optionsService}
+                options={services}
               />
             </div>
           </div>
@@ -123,7 +103,7 @@ const BookingForm: FC<TProps> = (props) => {
               <MuiThemeProvider theme={theme}>
                 <DateField
                   fieldName="opdDate"
-                  fieldValue={""}
+                  fieldValue={selectedDate.toString()}
                   disableFuture={false}
                   theme="regular"
                   onMonthChange={handleDateMonthChange}

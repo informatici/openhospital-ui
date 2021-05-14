@@ -72,30 +72,31 @@
   
 }
  
-.day {
-  width: 40px;
-  min-height: 40px;
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
 }
-.primary{
-  @extend .day;
-  &:hover {
-    background-color: #2E8B57;
-    color: #fff;
-    width: 40px;
-    min-height: 40px;
-  }  
+.available{
+  @extend .dot; 
+  background-color: #2E8B57;
 }
-.secondary{
-  @extend .day;
-  &:hover {
-    color: #fff;
-    background-color: #DC143C;
-  }
+.u-available{
+  @extend .dot;
+  background-color: #DC143C;
 }
 
-.selectedDay{
-  @extend .day;
-  color: #fff;
-  background-color: #1976d2;
+.b-available{
+  @extend .dot; 
+  background-color: #f0f000;
 }
+
+#badge .hidden-dot{
+  display: none;
+}
+
+#badge:hover .hidden-dot{
+  display: block;
+}
+
 
