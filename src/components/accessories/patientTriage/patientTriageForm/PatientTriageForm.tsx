@@ -70,13 +70,14 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   };
 
   const onBlurCallback = useCallback(
-    (fieldName: string) => (
-      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-      value: string
-    ) => {
-      handleBlur(e);
-      setFieldValue(fieldName, value);
-    },
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
     [setFieldValue, handleBlur]
   );
 
