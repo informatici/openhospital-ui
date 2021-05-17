@@ -60,13 +60,20 @@ const BookingForm: FC<TProps> = (props) => {
       : isBarelyAvalaible
       ? "b-available"
       : "available";
+    const message = isUnAvalaible
+      ? "Unavailable"
+      : isBarelyAvalaible
+      ? "Barely available"
+      : "Available";
     if (dayInCurrentMonth) {
       return (
         <Badge
           id="badge"
           key={date.toString()}
           overlap="circle"
-          badgeContent={<span className={className + " hidden-dot"}></span>}
+          badgeContent={
+            <span title={message} className={className + " hidden-dot"}></span>
+          }
         >
           {component}
         </Badge>
