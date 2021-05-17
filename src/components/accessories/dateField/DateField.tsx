@@ -49,6 +49,7 @@ const DateField: FunctionComponent<IProps> = ({
         inputVariant="outlined"
         margin="dense"
         value={value}
+        //disablePast
         onMonthChange={onMonthChange}
         shouldDisableDate={shouldDisableDate}
         renderDay={renderDay}

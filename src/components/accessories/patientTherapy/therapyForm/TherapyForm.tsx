@@ -16,7 +16,7 @@ import { TherapyProps } from "./types";
 import SelectField from "../../selectField/SelectField";
 import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import { useFormik } from "formik";
-import { useTranslation } from "react-i18next/*";
+import { useTranslation } from "react-i18next";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -42,6 +42,17 @@ const TherapyForm: FC<TherapyProps> = ({
   const { t } = useTranslation();
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
+
+  const medicalOptions = [
+    {
+      label: "Med 1",
+      value: "Medical 1",
+    },
+    {
+      label: "Med 2",
+      value: "Medical 2",
+    },
+  ];
 
   const formik = useFormik({
     initialValues,
@@ -86,27 +97,10 @@ const TherapyForm: FC<TherapyProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [notify, setNotify] = useState(false);
-
-  const [sms, setSms] = useState(false);
-
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
   };
-  const handleNotifyChange = useCallback(
-    (value: any) => {
-      setNotify(value);
-    },
-    [setNotify]
-  );
-
-  const handleSmsChange = useCallback(
-    (value: any) => {
-      setSms(value);
-    },
-    [setSms]
-  );
 
   useEffect(() => {
     if (shouldResetForm) {
@@ -114,27 +108,6 @@ const TherapyForm: FC<TherapyProps> = ({
       resetFormCallback();
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
-
-  const dummyField = {
-    name: "dummyName",
-    isValid: false,
-    errorText: "",
-    field: Object({}),
-    onChange: (e: ChangeEvent<any>) => console.log(e),
-    onBlur: (e: ChangeEvent<any>) => console.log(e),
-  };
-  const optionsFreq = [
-    { label: "one", value: "One" },
-    { label: "two", value: "Two" },
-    { label: "three", value: "Three" },
-    { label: "four", value: "Four" },
-  ];
-  const optionsMed = [
-    { label: "med1", value: "Medecine 1" },
-    { label: "med2", value: "Medecine 2" },
-    { label: "med3", value: "Medecine 3" },
-    { label: "med4", value: "Medecone 4" },
-  ];
 
   return (
     <>
@@ -146,13 +119,13 @@ const TherapyForm: FC<TherapyProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientTherapyForm__item medecine">
               <SelectField
-                fieldName="medical"
+                fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
                 label={t("therapy.medical")}
                 isValid={isValid("medicalId")}
                 errorText={getErrorText("medicalId")}
                 onBlur={onBlurCallback("medicalId")}
-                options={options.medecines}
+                options={medicalOptions}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -161,7 +134,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 theme="regular"
                 label={t("therapy.qty")}
                 isValid={isValid("qty")}
-                errorText={getErrorText("medicalId")}
+                errorText={getErrorText("qty")}
                 onBlur={formik.handleBlur}
                 type="number"
               />
@@ -169,47 +142,47 @@ const TherapyForm: FC<TherapyProps> = ({
           </div>
           <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
-              <SelectField
-                fieldName="freqInDay"
-                fieldValue={formik.values.freqInDay}
+              <TextField
+                field={formik.getFieldProps("freqInDay")}
+                theme="regular"
                 label={t("therapy.freqInDay")}
                 isValid={isValid("freqInDay")}
                 errorText={getErrorText("freqInDay")}
-                onBlur={onBlurCallback("freqInDay")}
-                options={options.frequencyInDays}
+                onBlur={formik.handleBlur}
+                type="number"
               />
             </div>
 
             <div className="patientTherapyForm__item">
-              <span>Duration</span>
+              <span>{t("therapy.duration")}</span>
               <TextField
-                field={formik.getFieldProps("days")}
+                field={formik.getFieldProps("nbDays")}
                 theme="regular"
                 label={t("therapy.days")}
-                isValid={isValid("days")}
-                errorText={getErrorText("days")}
+                isValid={isValid("nbDays")}
+                errorText={getErrorText("nbDays")}
                 onBlur={formik.handleBlur}
                 type="number"
               />
             </div>
             <div className="patientTherapyForm__item">
               <TextField
-                field={formik.getFieldProps("weeks")}
+                field={formik.getFieldProps("nbWeeks")}
                 theme="regular"
-                label={t("therapy.weeks")}
-                isValid={isValid("weeks")}
-                errorText={getErrorText("weeks")}
+                label={t("therapy.nbweeks")}
+                isValid={isValid("nbWeeks")}
+                errorText={getErrorText("nbWeeks")}
                 onBlur={formik.handleBlur}
                 type="number"
               />
             </div>
             <div className="patientTherapyForm__item">
               <TextField
-                field={formik.getFieldProps("months")}
+                field={formik.getFieldProps("nbMonths")}
                 theme="regular"
-                label={t("therapy.months")}
-                isValid={isValid("months")}
-                errorText={getErrorText("months")}
+                label={t("therapy.nbmonths")}
+                isValid={isValid("nbMonths")}
+                errorText={getErrorText("nbMonths")}
                 onBlur={formik.handleBlur}
                 type="number"
               />
@@ -262,9 +235,14 @@ const TherapyForm: FC<TherapyProps> = ({
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={notify}
-                    onChange={handleNotifyChange}
-                    name="notififyInt"
+                    checked={formik.values.notifyInt == 1}
+                    onChange={() =>
+                      setFieldValue(
+                        "notifyInt",
+                        formik.values.notifyInt == 1 ? 0 : 1
+                      )
+                    }
+                    name="notifyInt"
                   />
                 }
                 label={
@@ -277,9 +255,11 @@ const TherapyForm: FC<TherapyProps> = ({
               <FormControlLabel
                 control={
                   <Checkbox
-                    name="checkedSMS"
-                    checked={sms}
-                    onChange={handleSmsChange}
+                    name="smsInt"
+                    checked={formik.values.smsInt == 1}
+                    onChange={() =>
+                      setFieldValue("smsInt", formik.values.smsInt == 1 ? 0 : 1)
+                    }
                   />
                 }
                 label={

@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  FunctionComponent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
 import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
@@ -9,10 +15,12 @@ import {
   TProps,
 } from "./types";
 import { initialFields } from "./consts";
-import { useTranslation } from "react-i18next/*";
+import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { TherapyDTO } from "../../../generated";
-const PatientTherapy: FC<TProps> = ({
+import { connect } from "react-redux";
+import { IState } from "../../../types";
+const PatientTherapy: FunctionComponent<TProps> = ({
   createTherapy,
   createTherapyReset,
   isLoading,
@@ -67,5 +75,14 @@ const PatientTherapy: FC<TProps> = ({
     </div>
   );
 };
+const mapStateToProps = (state: IState): IStateProps => ({
+  isLoading: false,
+  hasSucceeded: true,
+  hasFailed: false,
+});
 
-export default PatientTherapy;
+const mapDispatchToProps: IDispatchProps = {
+  createTherapy: () => {},
+  createTherapyReset: () => {},
+};
+export default connect(mapStateToProps, mapDispatchToProps)(PatientTherapy);

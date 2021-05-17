@@ -14,11 +14,15 @@ interface ITherapyProps {
 export type TherapyProps = ITherapyProps;
 
 export type TherapyFormFieldName =
-  | "dates"
-  | "medical"
+  | "medicalId"
   | "qty"
-  | "units"
+  | "nbDays"
+  | "nbWeeks"
+  | "nbMonths"
   | "freqInDay"
-  | "note"
-  | "notify"
-  | "sms";
+  | "freqInPeriod"
+  | "startDate"
+  | "endDate"
+  | "notifyInt"
+  | "smsInt"
+  | "note";

@@ -1,38 +1,65 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { TPatientTriageFormFieldName } from "./patientTriageForm/types";
 import { TherapyFormFieldName } from "./therapyForm/types";
 
-const diuresisOptions = [
+const medicalOptions = [
   {
-    label: "Item 1",
-    value: "Item 1",
+    label: "Med 1",
+    value: "Medical 1",
   },
   {
-    label: "Item 2",
-    value: "Item 2",
-  },
-];
-
-const bowelOptions = [
-  {
-    label: "Item 1",
-    value: "Item 1",
-  },
-  {
-    label: "Item 2",
-    value: "Item 2",
+    label: "Med 2",
+    value: "Medical 2",
   },
 ];
 
-const auscultationOptions = [
-  {
-    label: "Item 1",
-    value: "Item 1",
+export const initialFields: TFields<TherapyFormFieldName> = {
+  medicalId: {
+    value: "",
+    type: "text",
+    options: medicalOptions,
   },
-  {
-    label: "Item 2",
-    value: "Item 2",
+  qty: {
+    value: "10",
+    type: "number",
   },
-];
-
-export const initialFields: TFields<TherapyFormFieldName> = {};
+  nbDays: {
+    value: "10",
+    type: "number",
+  },
+  nbWeeks: {
+    value: "10",
+    type: "number",
+  },
+  nbMonths: {
+    value: "10",
+    type: "number",
+  },
+  freqInDay: {
+    value: "2",
+    type: "number",
+  },
+  freqInPeriod: {
+    value: "1",
+    type: "number",
+  },
+  startDate: {
+    value: "",
+    type: "date",
+  },
+  endDate: {
+    value: "",
+    type: "date",
+  },
+  notifyInt: {
+    value: "0",
+    type: "number",
+  },
+  smsInt: {
+    value: "0",
+    type: "number",
+  },
+  note: {
+    value: "sample note",
+    type: "text",
+  },
+};
