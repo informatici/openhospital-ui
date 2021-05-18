@@ -1,22 +1,99 @@
 import { Badge, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import DateField from "../../dateField/DateField";
 import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import "./styles.scss";
-import { TProps } from "./types";
-import { categories, services } from "./consts";
+import { TBookingProps } from "./types";
+import { useTranslation } from "react-i18next";
+import { object } from "yup";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../../libraries/formDataHandling/functions";
+import { useFormik } from "formik";
+import { get, has } from "lodash";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../../assets/warning-icon.png";
 
-const BookingForm: FC<TProps> = (props) => {
-  const dummyField = {
-    name: "dummyName",
-    isValid: false,
-    errorText: "",
-    field: Object({}),
-    onChange: (e: ChangeEvent<any>) => console.log(e),
-    onBlur: (e: ChangeEvent<any>) => console.log(e),
+const BookingForm: FC<TBookingProps> = ({
+  fields,
+  onSubmit,
+  submitButtonLabel,
+  resetButtonLabel,
+  isLoading,
+  shouldResetForm,
+  resetFormCallback,
+}) => {
+  const validationSchema = object({
+    // TODO
+  });
+  const { t } = useTranslation();
+  const initialValues = getFromFields(fields, "value");
+  const options = getFromFields(fields, "options");
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      const formattedValues = formatAllFieldValues(fields, values);
+      console.log("data", formattedValues);
+      onSubmit(formattedValues);
+    },
+  });
+
+  const { setFieldValue, resetForm, handleBlur } = formik;
+
+  const dateFieldHandleOnChange = useCallback(
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
+
+  const isValid = (fieldName: string): boolean => {
+    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
+
+  const getErrorText = (fieldName: string): string => {
+    return has(formik.touched, fieldName)
+      ? (get(formik.errors, fieldName) as string)
+      : "";
+  };
+
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
+    [setFieldValue, handleBlur]
+  );
+
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    formik.resetForm();
+  };
+
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+      resetFormCallback();
+    }
+  }, [shouldResetForm, resetForm, resetFormCallback]);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [unAvailables, setUnavailables] = useState([12, 20, 14, 5, 6, 25]);
@@ -27,7 +104,6 @@ const BookingForm: FC<TProps> = (props) => {
       result1.push(Math.floor(Math.random() * 31));
     }
     setUnavailables(result1);
-
     const result2 = [];
     while (result2.length <= 4) {
       result2.push(Math.floor(Math.random() * 15));
@@ -84,24 +160,31 @@ const BookingForm: FC<TProps> = (props) => {
   return (
     <>
       <div className="patientBookingForm">
-        <form className="patientBookingForm__form">
+        <form
+          className="patientBookingForm__form"
+          onSubmit={formik.handleSubmit}
+        >
           <div className="row start-sm center-xs">
             <div className="patientBookingForm__item">
               <SelectField
-                {...dummyField}
-                fieldName="Category"
-                fieldValue={""}
-                label="Category"
-                options={categories}
+                fieldName="category"
+                fieldValue={formik.values.category}
+                label={t("booking.category")}
+                isValid={isValid("category")}
+                errorText={getErrorText("category")}
+                onBlur={onBlurCallback("category")}
+                options={options.category}
               />
             </div>
             <div className="patientBookingForm__item">
               <SelectField
-                {...dummyField}
-                fieldName="Service"
-                fieldValue={""}
-                label="Service"
-                options={services}
+                fieldName="service"
+                fieldValue={formik.values.service}
+                label={t("booking.service")}
+                isValid={isValid("service")}
+                errorText={getErrorText("service")}
+                onBlur={onBlurCallback("service")}
+                options={options.service}
               />
             </div>
           </div>
@@ -109,34 +192,44 @@ const BookingForm: FC<TProps> = (props) => {
             <div className="patientBookingForm__item">
               <MuiThemeProvider theme={theme}>
                 <DateField
-                  fieldName="opdDate"
-                  fieldValue={selectedDate.toString()}
+                  fieldName="bookingDate"
+                  fieldValue={formik.values.bookingDate}
                   disableFuture={false}
-                  theme="regular"
                   onMonthChange={handleDateMonthChange}
-                  onChange={handleDateChange}
                   renderDay={renderWrappedDay}
                   shouldDisableDate={filtrerUnavailableDates}
+                  theme="regular"
                   format="dd/MM/yyyy"
-                  isValid={false}
-                  errorText={""}
-                  label="Date"
+                  isValid={isValid("bookingDate")}
+                  errorText={getErrorText("bookingDate")}
+                  label={t("booking.bookingdate")}
+                  onChange={dateFieldHandleOnChange("bookingDate")}
                 />
               </MuiThemeProvider>
             </div>
           </div>
           <div className="patientBookingForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit" disabled={true}>
-                SAVE
+              <SmallButton type="submit" disabled={isLoading}>
+                {submitButtonLabel}
               </SmallButton>
             </div>
             <div className="reset_button">
-              <TextButton onClick={() => console.log("submitting ...")}>
-                DISCARD
+              <TextButton onClick={() => setOpenResetConfirmation(true)}>
+                {resetButtonLabel}
               </TextButton>
             </div>
           </div>
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={resetButtonLabel.toUpperCase()}
+            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            icon={warningIcon}
+            primaryButtonLabel={resetButtonLabel}
+            secondaryButtonLabel="Dismiss"
+            handlePrimaryButtonClick={handleResetConfirmation}
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          />
         </form>
       </div>
     </>

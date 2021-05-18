@@ -43,17 +43,6 @@ const TherapyForm: FC<TherapyProps> = ({
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
 
-  const medicalOptions = [
-    {
-      label: "Med 1",
-      value: "Medical 1",
-    },
-    {
-      label: "Med 2",
-      value: "Medical 2",
-    },
-  ];
-
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -125,14 +114,14 @@ const TherapyForm: FC<TherapyProps> = ({
                 isValid={isValid("medicalId")}
                 errorText={getErrorText("medicalId")}
                 onBlur={onBlurCallback("medicalId")}
-                options={medicalOptions}
+                options={options.medicalId}
               />
             </div>
             <div className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("qty")}
                 theme="regular"
-                label={t("therapy.qty")}
+                label={t("therapy.quantity")}
                 isValid={isValid("qty")}
                 errorText={getErrorText("qty")}
                 onBlur={formik.handleBlur}
@@ -145,7 +134,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <TextField
                 field={formik.getFieldProps("freqInDay")}
                 theme="regular"
-                label={t("therapy.freqInDay")}
+                label={t("therapy.frequencyInDay")}
                 isValid={isValid("freqInDay")}
                 errorText={getErrorText("freqInDay")}
                 onBlur={formik.handleBlur}
@@ -158,7 +147,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <TextField
                 field={formik.getFieldProps("nbDays")}
                 theme="regular"
-                label={t("therapy.days")}
+                label={t("therapy.nbdays")}
                 isValid={isValid("nbDays")}
                 errorText={getErrorText("nbDays")}
                 onBlur={formik.handleBlur}
@@ -196,7 +185,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <TextField
                 field={formik.getFieldProps("freqInPeriod")}
                 theme="regular"
-                label={t("therapy.freqInPeriod")}
+                label={t("therapy.frequencyInPeriod")}
                 isValid={isValid("freqInPeriod")}
                 errorText={getErrorText("freqInPeriod")}
                 onBlur={formik.handleBlur}
@@ -235,11 +224,11 @@ const TherapyForm: FC<TherapyProps> = ({
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={formik.values.notifyInt == 1}
+                    checked={formik.values.notifyInt === 1}
                     onChange={() =>
                       setFieldValue(
                         "notifyInt",
-                        formik.values.notifyInt == 1 ? 0 : 1
+                        formik.values.notifyInt === 1 ? 0 : 1
                       )
                     }
                     name="notifyInt"
@@ -247,7 +236,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 }
                 label={
                   <span>
-                    t("therapy.sendnotification")
+                    {t("therapy.sendnotification")}
                     <PriorityHigh />
                   </span>
                 }
@@ -256,15 +245,18 @@ const TherapyForm: FC<TherapyProps> = ({
                 control={
                   <Checkbox
                     name="smsInt"
-                    checked={formik.values.smsInt == 1}
+                    checked={formik.values.smsInt === 1}
                     onChange={() =>
-                      setFieldValue("smsInt", formik.values.smsInt == 1 ? 0 : 1)
+                      setFieldValue(
+                        "smsInt",
+                        formik.values.smsInt === 1 ? 0 : 1
+                      )
                     }
                   />
                 }
                 label={
                   <span>
-                    t("therapy.sendsms")
+                    {t("therapy.sendsms")}
                     <SmsIcon />
                   </span>
                 }

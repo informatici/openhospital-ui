@@ -88,9 +88,7 @@
     "newpatient": "Nouveau patient",
     "editpatient": "Modification patient",
     "searchpatient": "Cherchez Patient",
-    "patientdashboard": "Patient Dashboard",
-    "newtherapy": "Nouvelle Therapie",
-    "managetherapy": "Manage Therapie"
+    "patientdashboard": "Patient Dashboard"
   },
   "common": {
     "results": "Résultats",
@@ -115,5 +113,26 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search"
+  },
+  "therapy": {
+    "newtherapy": "Nouvelle Therapie",
+    "managetherapy": "Manage Therapie",
+    "medical": "Médicaments",
+    "quantity": "Quantité",
+    "frequencyInDay": "Frequence Par Jour",
+    "duration": "Durée",
+    "nbweeks": "Semaines",
+    "nbdays": "Jours",
+    "nbmonths": "Mois",
+    "frequencyInPeriod": "Frequence par période",
+    "startDate": "Date début",
+    "endDate": "Date Fin",
+    "sendnotification": "Important: envoyer la notification",
+    "sendsms": "Envoyer les sms"
+  },
+  "booking": {
+    "category": "Catégorie",
+    "service": "Service",
+    "bookingdate": "Date"
   }
 }

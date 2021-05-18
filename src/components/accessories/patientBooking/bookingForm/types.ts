@@ -2,13 +2,13 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IBookingProps {
-  fields?: TFields<TPatientBookingFormFieldName>;
-  onSubmit?: (booking: any) => void;
-  submitButtonLabel?: string;
-  resetButtonLabel?: string;
-  isLoading?: boolean;
-  shouldResetForm?: boolean;
-  resetFormCallback?: () => void;
+  fields: TFields<TBookingFormFieldName>;
+  onSubmit: (booking: any) => void;
+  submitButtonLabel: string;
+  resetButtonLabel: string;
+  isLoading: boolean;
+  shouldResetForm: boolean;
+  resetFormCallback: () => void;
   onMonthChange?: (date: MaterialUiPickersDate) => void | Promise<void>;
   shouldDisableDate?: (date: MaterialUiPickersDate) => boolean;
   renderDay?: (
@@ -19,6 +19,6 @@ interface IBookingProps {
   ) => JSX.Element;
 }
 
-export type TProps = IBookingProps;
+export type TBookingProps = IBookingProps;
 
-export type TPatientBookingFormFieldName = "category" | "service" | "date";
+export type TBookingFormFieldName = "category" | "service" | "bookingDate";

@@ -11,7 +11,7 @@ import "./styles.scss";
 import {
   IDispatchProps,
   IStateProps,
-  TActivityTransitionState,
+  TherapyTransitionState,
   TProps,
 } from "./types";
 import { initialFields } from "./consts";
@@ -31,8 +31,8 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const [activityTransitionState, setActivityTransitionState] =
-    useState<TActivityTransitionState>("IDLE");
+  const [therapyTransitionState, setActivityTransitionState] =
+    useState<TherapyTransitionState>("IDLE");
 
   useEffect(() => {
     if (hasFailed) {
@@ -41,12 +41,12 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   }, [hasFailed]);
 
   useEffect(() => {
-    if (activityTransitionState === "TO_RESET") {
+    if (therapyTransitionState === "TO_RESET") {
       createTherapyReset();
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
-  }, [activityTransitionState, createTherapyReset]);
+  }, [therapyTransitionState, createTherapyReset]);
 
   const onSubmit = (therapy: TherapyDTO) => {
     setShouldResetForm(false);

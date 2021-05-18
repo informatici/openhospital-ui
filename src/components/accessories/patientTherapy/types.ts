@@ -13,4 +13,4 @@ export interface IDispatchProps {
 
 export type TProps = IStateProps & IDispatchProps;
 
-export type TActivityTransitionState = "IDLE" | "TO_RESET";
+export type TherapyTransitionState = "IDLE" | "TO_RESET";
