@@ -48,6 +48,7 @@ const TherapyForm: FC<TherapyProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      setFieldValue("medicalId", 1);
       const formattedValues = formatAllFieldValues(fields, values);
       onSubmit(formattedValues);
     },

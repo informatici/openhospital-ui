@@ -21,47 +21,47 @@ const examinationControllerApi = new ExaminationControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
-export const createExamination = (newPatientExamination: PatientExaminationDTO) => (
-  dispatch: Dispatch<IAction<null, {}>>
-): void => {
-  dispatch({
-    type: CREATE_EXAMINATION_LOADING,
-  });
+export const createExamination =
+  (newPatientExamination: PatientExaminationDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_EXAMINATION_LOADING,
+    });
 
-  examinationControllerApi.newPatientExaminationUsingPOST({ newPatientExamination }).subscribe(
-    () => {
-      dispatch({
-        type: CREATE_EXAMINATION_SUCCESS,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: CREATE_EXAMINATION_FAIL,
-        error,
-      });
-    }
-  );
-};
-
-export const createExaminationReset = () => (
-  dispatch: Dispatch<IAction<null, {}>>
-): void => {
-  dispatch({
-    type: CREATE_EXAMINATION_RESET,
-  });
-};
-
-export const examinationsByPatientId = (patId: number) => (
-  dispatch: Dispatch<IAction<PatientExaminationDTO[], {}>>
-): void => {
-  dispatch({
-    type: SEARCH_EXAMINATION_LOADING,
-  });
-
-  if (patId) {
     examinationControllerApi
-      .getByPatientIdUsingGET({ patId })
+      .newPatientExaminationUsingPOST({ newPatientExamination })
       .subscribe(
+        () => {
+          dispatch({
+            type: CREATE_EXAMINATION_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: CREATE_EXAMINATION_FAIL,
+            error,
+          });
+        }
+      );
+  };
+
+export const createExaminationReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_EXAMINATION_RESET,
+    });
+  };
+
+export const examinationsByPatientId =
+  (patId: number) =>
+  (dispatch: Dispatch<IAction<PatientExaminationDTO[], {}>>): void => {
+    dispatch({
+      type: SEARCH_EXAMINATION_LOADING,
+    });
+
+    if (patId) {
+      examinationControllerApi.getByPatientIdUsingGET({ patId }).subscribe(
         (payload) => {
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
@@ -82,5 +82,5 @@ export const examinationsByPatientId = (patId: number) => (
           });
         }
       );
-  }
-};
+    }
+  };

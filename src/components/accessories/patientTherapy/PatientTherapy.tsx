@@ -1,13 +1,11 @@
-import React, {
-  FC,
-  FunctionComponent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
 import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
+import {
+  createTherapy,
+  createTherapyReset,
+} from "../../../state/therapies/actions";
 import {
   IDispatchProps,
   IStateProps,
@@ -17,7 +15,7 @@ import {
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyDTO } from "../../../generated";
+import { TherapyDTO, TherapyRowDTO } from "../../../generated";
 import { connect } from "react-redux";
 import { IState } from "../../../types";
 const PatientTherapy: FunctionComponent<TProps> = ({
@@ -48,7 +46,7 @@ const PatientTherapy: FunctionComponent<TProps> = ({
     }
   }, [therapyTransitionState, createTherapyReset]);
 
-  const onSubmit = (therapy: TherapyDTO) => {
+  const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
     createTherapy(therapy);
   };
@@ -76,13 +74,13 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   );
 };
 const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: false,
-  hasSucceeded: true,
-  hasFailed: false,
+  isLoading: state.therapies.createTherapy.status === "LOADING",
+  hasSucceeded: state.therapies.createTherapy.status === "SUCCESS",
+  hasFailed: state.therapies.createTherapy.status === "FAIL",
 });
 
 const mapDispatchToProps: IDispatchProps = {
-  createTherapy: () => {},
-  createTherapyReset: () => {},
+  createTherapy,
+  createTherapyReset,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PatientTherapy);

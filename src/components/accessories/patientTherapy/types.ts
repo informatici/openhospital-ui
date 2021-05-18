@@ -1,4 +1,4 @@
-import { TherapyDTO } from "../../../generated";
+import { TherapyRowDTO } from "../../../generated";
 
 export interface IStateProps {
   isLoading: boolean;
@@ -7,7 +7,7 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  createTherapy: (therapy: TherapyDTO) => any;
+  createTherapy: (therapy: TherapyRowDTO) => any;
   createTherapyReset: () => void;
 }
 

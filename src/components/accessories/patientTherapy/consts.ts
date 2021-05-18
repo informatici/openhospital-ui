@@ -62,4 +62,16 @@ export const initialFields: TFields<TherapyFormFieldName> = {
     value: "sample note",
     type: "text",
   },
+  unitID: {
+    value: "1",
+    type: "number",
+  },
+  patID: {
+    value: "",
+    type: "number",
+  },
+  therapyID: {
+    value: "",
+    type: "number",
+  },
 };

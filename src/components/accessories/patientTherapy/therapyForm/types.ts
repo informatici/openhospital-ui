@@ -1,9 +1,9 @@
-import { TherapyDTO } from "../../../../generated";
+import { TherapyRowDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface ITherapyProps {
   fields: TFields<TherapyFormFieldName>;
-  onSubmit: (triage: TherapyDTO) => void;
+  onSubmit: (therapy: TherapyRowDTO) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
@@ -25,4 +25,7 @@ export type TherapyFormFieldName =
   | "endDate"
   | "notifyInt"
   | "smsInt"
-  | "note";
+  | "note"
+  | "unitID"
+  | "therapyID"
+  | "patID";

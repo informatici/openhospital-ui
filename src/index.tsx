@@ -11,13 +11,19 @@ import thunkMiddleware from "redux-thunk";
 import main from "./state/main/reducer";
 import patients from "./state/patients/reducer";
 import examinations from "./state/examinations/reducer";
+import therapies from "./state/therapies/reducer";
 import { makeServer } from "./mockServer/server";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();
 }
 
-const reducer = combineReducers<IState>({ main, patients, examinations });
+const reducer = combineReducers<IState>({
+  main,
+  patients,
+  examinations,
+  therapies,
+});
 const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))
