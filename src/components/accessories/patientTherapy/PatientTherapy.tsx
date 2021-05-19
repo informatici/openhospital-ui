@@ -15,15 +15,20 @@ import {
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyDTO, TherapyRowDTO } from "../../../generated";
+import { TherapyRowDTO } from "../../../generated";
 import { connect } from "react-redux";
 import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import checkIcon from "../../../assets/check-icon.png";
+
 const PatientTherapy: FunctionComponent<TProps> = ({
   createTherapy,
   createTherapyReset,
   isLoading,
   hasSucceeded,
   hasFailed,
+  patient,
 }) => {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -48,6 +53,7 @@ const PatientTherapy: FunctionComponent<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
+    therapy.patID = patient;
     createTherapy(therapy);
   };
 
@@ -63,11 +69,28 @@ const PatientTherapy: FunctionComponent<TProps> = ({
       <TherapyForm
         fields={initialFields}
         onSubmit={onSubmit}
-        submitButtonLabel={t("common.savetriage")}
+        submitButtonLabel={t("common.savetherapy")}
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={isLoading}
+      />
+      <div ref={infoBoxRef}>
+        {hasFailed && (
+          <InfoBox
+            type="error"
+            message="Something went wrong, please retry later."
+          />
+        )}
+      </div>
+      <ConfirmationDialog
+        isOpen={hasSucceeded}
+        title="Therapy Created"
+        icon={checkIcon}
+        info="The therapy registration was successful."
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
       />
       <PatientTherapyTable shouldUpdateTable={shouldUpdateTable} />
     </div>

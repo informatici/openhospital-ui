@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
@@ -29,7 +30,26 @@ export const createTherapy =
       type: CREATE_THERAPY_LOADING,
     });
 
-    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
+    const parseObject: TherapyRowDTO = {
+      endDate: format(new Date(parseInt(thRowDTO.endDate!)), "yyyy-MM-dd"),
+      freqInDay: thRowDTO.freqInDay,
+      freqInPeriod: thRowDTO.freqInPeriod,
+      medicalId: parseInt("" + thRowDTO.medicalId),
+      note: thRowDTO.note,
+      notifyInt: thRowDTO.notifyInt,
+      patID: thRowDTO.patID,
+      qty: thRowDTO.qty,
+      smsInt: thRowDTO.smsInt,
+      startDate: format(new Date(parseInt(thRowDTO.startDate!)), "yyyy-MM-dd"),
+    };
+    thRowDTO = { ...parseObject };
+    //console.log("ALL DATA: ", thRowDTO);
+    dispatch({
+      type: CREATE_THERAPY_SUCCESS,
+      payload: thRowDTO,
+    });
+
+    /* therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       () => {
         dispatch({
           type: CREATE_THERAPY_SUCCESS,
@@ -41,7 +61,7 @@ export const createTherapy =
           error,
         });
       }
-    );
+    ); */
   };
 
 export const createTherapyReset =

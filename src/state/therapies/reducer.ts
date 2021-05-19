@@ -24,6 +24,7 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
 
     case CREATE_THERAPY_SUCCESS: {
       draft.createTherapy.status = "SUCCESS";
+      console.log("data produce", draft.createTherapy.data);
       delete draft.createTherapy.error;
       break;
     }

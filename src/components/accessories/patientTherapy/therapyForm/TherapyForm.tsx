@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import {
   formatAllFieldValues,
   getFromFields,
+  updateFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { object } from "yup";
 import has from "lodash.has";
@@ -48,7 +49,6 @@ const TherapyForm: FC<TherapyProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      setFieldValue("medicalId", 1);
       const formattedValues = formatAllFieldValues(fields, values);
       onSubmit(formattedValues);
     },
@@ -80,6 +80,7 @@ const TherapyForm: FC<TherapyProps> = ({
         value: string
       ) => {
         handleBlur(e);
+        console.log("value ", value);
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]

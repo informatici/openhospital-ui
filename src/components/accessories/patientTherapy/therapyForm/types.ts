@@ -1,4 +1,4 @@
-import { TherapyRowDTO } from "../../../../generated";
+import { PatientDTO, TherapyRowDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface ITherapyProps {
@@ -25,7 +25,4 @@ export type TherapyFormFieldName =
   | "endDate"
   | "notifyInt"
   | "smsInt"
-  | "note"
-  | "unitID"
-  | "therapyID"
-  | "patID";
+  | "note";

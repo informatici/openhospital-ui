@@ -13,17 +13,25 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
 
   const label = {
-    SD: "Start date",
-    ED: "End date",
-    medical: t("Medical"),
-    Qty: t("Quantity"),
-    FID: "Frequence In Day",
-    D: t("Duration"),
-    FIP: t("Frequence In Period"),
+    SD: t("therapy.startdate"),
+    ED: t("therapy.enddate"),
+    medical: t("therapy.medical"),
+    Qty: t("therapy.quantity"),
+    FID: t("therapy.frequencyInDay"),
+    D: t("therapy.duration"),
+    FIP: t("therapy.frequencyInPeriod"),
   };
 
   const onDelete = () => {
     console.log("delete");
+  };
+
+  const onEdit = () => {
+    console.log("update");
+  };
+
+  const onEView = () => {
+    console.log("view");
   };
 
   useEffect(() => {
@@ -41,8 +49,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
           rowsPerPage={5}
           onDelete={onDelete}
           isCollapsabile={true}
-          onEdit={() => null}
-          onView={() => null}
+          onEdit={onEdit}
+          onView={onEView}
         />
       </div>
     </>

@@ -58,10 +58,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
   };
 
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>("panel_1");
 
@@ -89,7 +87,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.therapy"),
       path: "/therapy",
       content: (
-        <PatientDetailsContent title="Therapy" content={<PatientTherapy />} />
+        <PatientDetailsContent
+          title="Therapy"
+          content={<PatientTherapy patient={patient.data} />}
+        />
       ),
     },
     {

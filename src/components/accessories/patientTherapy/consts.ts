@@ -4,11 +4,11 @@ import { TherapyFormFieldName } from "./therapyForm/types";
 const medicalOptions = [
   {
     label: "Med 1",
-    value: "Medical 1",
+    value: "1",
   },
   {
     label: "Med 2",
-    value: "Medical 2",
+    value: "2",
   },
 ];
 
@@ -61,17 +61,5 @@ export const initialFields: TFields<TherapyFormFieldName> = {
   note: {
     value: "sample note",
     type: "text",
-  },
-  unitID: {
-    value: "1",
-    type: "number",
-  },
-  patID: {
-    value: "",
-    type: "number",
-  },
-  therapyID: {
-    value: "",
-    type: "number",
   },
 };
