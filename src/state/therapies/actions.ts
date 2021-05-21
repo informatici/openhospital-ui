@@ -31,19 +31,19 @@ export const createTherapy =
     });
 
     const parseObject: TherapyRowDTO = {
-      endDate: format(new Date(parseInt(thRowDTO.endDate!)), "yyyy-MM-dd"),
+      endDate: format(new Date(parseInt(thRowDTO.endDate!)), "dd/MM/yyyy"),
       freqInDay: thRowDTO.freqInDay,
       freqInPeriod: thRowDTO.freqInPeriod,
-      medicalId: parseInt("" + thRowDTO.medicalId),
+      medicalId: thRowDTO.medicalId,
       note: thRowDTO.note,
       notifyInt: thRowDTO.notifyInt,
       patID: thRowDTO.patID,
       qty: thRowDTO.qty,
       smsInt: thRowDTO.smsInt,
-      startDate: format(new Date(parseInt(thRowDTO.startDate!)), "yyyy-MM-dd"),
+      startDate: format(new Date(parseInt(thRowDTO.startDate!)), "dd/MM/yyyy"),
     };
     thRowDTO = { ...parseObject };
-    //console.log("ALL DATA: ", thRowDTO);
+
     dispatch({
       type: CREATE_THERAPY_SUCCESS,
       payload: thRowDTO,

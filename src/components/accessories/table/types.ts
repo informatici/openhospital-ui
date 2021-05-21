@@ -1,4 +1,3 @@
-
 export interface IProps {
   rowData: Array<Record<string, any>>;
   labelData: Record<string, any>;

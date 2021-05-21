@@ -3,12 +3,24 @@ import { TherapyFormFieldName } from "./therapyForm/types";
 
 const medicalOptions = [
   {
-    label: "Med 1",
-    value: "1",
+    label: "Med1",
+    value: "Medical1",
   },
   {
-    label: "Med 2",
-    value: "2",
+    label: "Med2",
+    value: "Medical2",
+  },
+  {
+    label: "Med3",
+    value: "Medical3",
+  },
+  {
+    label: "Med4",
+    value: "Medical4",
+  },
+  {
+    label: "Med5",
+    value: "Medical5",
   },
 ];
 

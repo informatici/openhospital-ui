@@ -34,7 +34,7 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const [therapyTransitionState, setActivityTransitionState] =
+  const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
 
   useEffect(() => {
@@ -44,12 +44,12 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   }, [hasFailed]);
 
   useEffect(() => {
-    if (therapyTransitionState === "TO_RESET") {
+    if (activityTransitionState === "TO_RESET") {
       createTherapyReset();
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
-  }, [therapyTransitionState, createTherapyReset]);
+  }, [activityTransitionState, createTherapyReset]);
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
