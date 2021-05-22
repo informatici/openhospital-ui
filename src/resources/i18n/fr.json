@@ -109,7 +109,7 @@
     "titleedited": "Patient édité",
     "resetform": "Étés vous sur de {{resetButtonLabel}} le Formulaire?",
     "searchnotfound": "Aucune correspondance, essayé un autre recherche SVP.",
-    "patienteditsuccessfull": "Édition Patient completé",
+    "patienteditsuccessfull": "Édition Patient complété",
     "patientregistrationsuccessfull": "Enregistrement du patient complété.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search"
