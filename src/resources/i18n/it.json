@@ -107,7 +107,7 @@
     "gobackdashboard": "Torna al Pannello di controllo",
     "keepediting": "Continua a editare",
     "titleedited": "Paziente Editato",
-    "resetform": "Sei sicuro di {{resetButtonLabel}} il Frmulario.",
+    "resetform": "Sei sicuro di {{resetButtonLabel}} il Formulario.",
     "searchnotfound": "We couldn't find a match, please try another search.",
     "patienteditsuccessfull": "The patient was edit successfully.",
     "patientregistrationsuccessfull": "The patient registration was successful.",
