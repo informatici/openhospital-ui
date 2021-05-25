@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Tooltip, Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
@@ -10,6 +10,10 @@ import { Link, useHistory } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { TProps } from "./types";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { AUTH_KEY } from "../../../consts";
+import { LOGIN_URL } from "./consts";
+import { SessionStorage } from "../../../libraries/storage/storage";
 
 const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
   const keys = Object.keys(breadcrumbMap);
@@ -26,6 +30,12 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
   };
 
   const history = useHistory();
+
+  const handleSignout = () => {
+    SessionStorage.remove(AUTH_KEY);
+    //api call here
+    history.push(LOGIN_URL);
+  };
 
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
@@ -73,6 +83,11 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
             <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
             <div className="appHeader__nav__item">{t("nav.ward")}</div>
             <div className="appHeader__nav__item">{t("nav.billing")}</div>
+            <div className="appHeader__nav__item">
+              <Tooltip title="sign out" aria-label="sign out">
+                <ExitToAppIcon onClick={handleSignout} />
+              </Tooltip>
+            </div>
           </div>
         </div>
       </div>
