@@ -8,7 +8,12 @@ import { connect } from "react-redux";
 import { IState } from "../../../types";
 import { IStateProps, TProps, IDispatchProps } from "./types";
 
-const PrivateRoute: FunctionComponent<TProps> = ({ children, userCredentials, setAuthenticationSuccess, ...rest }) => {
+const PrivateRoute: FunctionComponent<TProps> = ({
+  children,
+  userCredentials,
+  setAuthenticationSuccess,
+  ...rest
+}) => {
   const location = useLocation();
 
   useEffect(() => {

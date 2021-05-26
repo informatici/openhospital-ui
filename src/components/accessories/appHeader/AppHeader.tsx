@@ -32,7 +32,7 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
   const history = useHistory();
 
   const handleSignout = () => {
-    SessionStorage.remove(AUTH_KEY);
+    SessionStorage.clear();
     //api call here
     history.push(LOGIN_URL);
   };
@@ -85,7 +85,7 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
             <div className="appHeader__nav__item">{t("nav.billing")}</div>
             <div className="appHeader__nav__item">
               <Tooltip title="sign out" aria-label="sign out">
-                <ExitToAppIcon onClick={handleSignout} />
+                <ExitToAppIcon key="signout" onClick={handleSignout} />
               </Tooltip>
             </div>
           </div>
