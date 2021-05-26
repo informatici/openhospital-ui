@@ -68,36 +68,31 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.summary"),
       path: "/summary",
       content: (
-        <PatientDetailsContent title="Summary" content={<PatientSummary />} />
+        <PatientDetailsContent title="Summary" content={PatientSummary} />
       ),
     },
     {
       label: t("nav.opd"),
       path: "/OPD",
-      content: <PatientDetailsContent title="OPD" content={<PatientOPD />} />,
+      content: <PatientDetailsContent title="OPD" content={PatientOPD} />,
     },
     {
       label: t("nav.triage"),
       path: "/triage",
-      content: (
-        <PatientDetailsContent title="Triage" content={<PatientTriage />} />
-      ),
+      content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
     },
     {
       label: t("nav.therapy"),
       path: "/therapy",
       content: (
-        <PatientDetailsContent
-          title="Therapy"
-          content={<PatientTherapy patient={patient.data} />}
-        />
+        <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
     {
       label: t("nav.booking"),
       path: "/booking",
       content: (
-        <PatientDetailsContent title="Booking" content={<PatientBooking />} />
+        <PatientDetailsContent title="Booking" content={PatientBooking} />
       ),
     },
   ];

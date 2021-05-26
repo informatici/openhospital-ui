@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
 import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
@@ -22,13 +22,12 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
 
-const PatientTherapy: FunctionComponent<TProps> = ({
+const PatientTherapy: FC<TProps> = ({
   createTherapy,
   createTherapyReset,
   isLoading,
   hasSucceeded,
   hasFailed,
-  patient,
 }) => {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -53,7 +52,7 @@ const PatientTherapy: FunctionComponent<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patient;
+    therapy.patID = undefined;
     createTherapy(therapy);
   };
 

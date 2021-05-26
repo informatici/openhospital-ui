@@ -9,13 +9,18 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
-import { TProps } from "./types";
+import { IDispatchProps, IStateProps, TProps } from "./types";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { AUTH_KEY } from "../../../consts";
+import { IState } from "../../../types";
+import { connect } from "react-redux";
+import { setLogoutThunk } from "../../../state/main/actions";
 import { LOGIN_URL } from "./consts";
-import { SessionStorage } from "../../../libraries/storage/storage";
 
-const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
+const AppHeader: FunctionComponent<TProps> = ({
+  breadcrumbMap,
+  setLogoutThunk,
+  status,
+}) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
 
@@ -30,13 +35,6 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
   };
 
   const history = useHistory();
-
-  const handleSignout = () => {
-    SessionStorage.clear();
-    //api call here
-    history.push(LOGIN_URL);
-  };
-
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__background">
@@ -85,7 +83,11 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
             <div className="appHeader__nav__item">{t("nav.billing")}</div>
             <div className="appHeader__nav__item">
               <Tooltip title="sign out" aria-label="sign out">
-                <ExitToAppIcon key="signout" onClick={handleSignout} />
+                <ExitToAppIcon
+                  key="logout"
+                  onClick={setLogoutThunk}
+                  color={status === "LOADING" ? "disabled" : "inherit"}
+                />
               </Tooltip>
             </div>
           </div>
@@ -95,4 +97,12 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
   );
 };
 
-export default AppHeader;
+const mapStateToProps = (state: IState): IStateProps => ({
+  status: state.main.logout.status || "IDLE",
+});
+
+const mapDispatchToProps: IDispatchProps = {
+  setLogoutThunk,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from "react";
 import { Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import NotFound from "./components/activities/notFound/NotFound";
 import PrivateRoute from "./components/accessories/privateRoute/PrivateRoute";
 import DashboardActivity from "./components/activities/dashboardActivity/DashboardActivity";
-import LoginActivity from "./components/activities/loginActivity/LoginActivity";
-import NewPatientActivity from "./components/activities/newPatientActivity/NewPatientActivity";
 import EditPatientActivity from "./components/activities/editPatientActivity/EditPatientActivity";
+import LoginActivity from "./components/activities/loginActivity/LoginActivity";
+import { RedirectAfterLogin } from "./components/activities/loginActivity/RedirectAfterLogin";
+import NewPatientActivity from "./components/activities/newPatientActivity/NewPatientActivity";
+import NotFound from "./components/activities/notFound/NotFound";
 import PatientDetailsActivity from "./components/activities/patientDetailsActivity/PatientDetailsActivity";
 import SearchPatientActivity from "./components/activities/searchPatientActivity/SearchPatientActivity";
 
@@ -15,7 +16,9 @@ const Routes: FunctionComponent = () => {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path="/login">
-          <LoginActivity successRoute="/" />
+          <RedirectAfterLogin successRoute="/">
+            <LoginActivity />
+          </RedirectAfterLogin>
         </Route>
         <PrivateRoute exact path="/">
           <DashboardActivity

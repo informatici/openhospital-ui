@@ -1,40 +1,90 @@
+import { useHistory } from "react-router";
 import { Dispatch } from "redux";
+import { concat } from "rxjs";
+import { tap, toArray } from "rxjs/operators";
 import { AUTH_KEY } from "../../consts";
-import { Configuration, LoginApiApi, LoginResponse } from "../../generated";
+import {
+  Configuration,
+  LoginApiApi,
+  LoginResponse,
+  UserControllerApi,
+  UserProfileDTO,
+} from "../../generated";
+import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
+import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
 import { SessionStorage } from "../../libraries/storage/storage";
 import { IAction } from "../types";
 import {
   SET_AUTHENTICATION_FAIL,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
+  SET_LOGOUT_LOADING,
+  SET_LOGOUT_SUCCESS,
 } from "./consts";
+import { IAuthentication } from "./types";
 
 const api = new LoginApiApi(new Configuration());
+const usersApi = new UserControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
 
 export const setAuthenticationSuccess = (
-  userCredentials: LoginResponse
-): IAction<LoginResponse, {}> => ({
+  payload: IAuthentication
+): IAction<IAuthentication, {}> => ({
   type: SET_AUTHENTICATION_SUCCESS,
-  payload: userCredentials,
+  payload,
 });
 
-export const setAuthenticationThunk = (username: string, password: string) => (
-  dispatch: Dispatch<IAction<LoginResponse, {}>>
-): void => {
-  dispatch({
-    type: SET_AUTHENTICATION_LOADING,
-  });
+export const setAuthenticationThunk =
+  (username: string, password: string) =>
+  (dispatch: Dispatch<IAction<LoginResponse, {}>>): void => {
+    dispatch({
+      type: SET_AUTHENTICATION_LOADING,
+    });
 
-  api.loginUsingPOST({ password, username }).subscribe(
-    (payload: LoginResponse) => {
-      dispatch(setAuthenticationSuccess(payload));
-      SessionStorage.write(AUTH_KEY, payload);
-    },
-    (error) => {
-      dispatch({
-        type: SET_AUTHENTICATION_FAIL,
-        error,
-      });
-    }
-  );
-};
+    concat(
+      api
+        .loginUsingPOST({ password, username })
+        .pipe(tap(saveAuthenticationDataToSession)),
+      usersApi
+        .retrieveProfileByCurrentLoggedInUserUsingGET()
+        .pipe(tap(savePermissionDataToSession))
+    )
+      .pipe(toArray())
+      .subscribe(
+        ([userCredentials, me]) => {
+          dispatch({
+            type: SET_AUTHENTICATION_SUCCESS,
+            payload: {
+              ...(userCredentials as LoginResponse),
+              permission: (me as UserProfileDTO).permission,
+            },
+          });
+        },
+        (error) => {
+          dispatch({
+            type: SET_AUTHENTICATION_FAIL,
+            error,
+          });
+        }
+      );
+  };
+
+export const setLogoutSuccess = (): IAction<void, {}> => ({
+  type: SET_LOGOUT_SUCCESS,
+});
+
+export const setLogoutThunk =
+  () =>
+  (dispatch: Dispatch<IAction<void, {}>>): void => {
+    dispatch({
+      type: SET_LOGOUT_LOADING,
+    });
+
+    SessionStorage.remove(AUTH_KEY);
+
+    dispatch({
+      type: SET_LOGOUT_SUCCESS,
+    });
+  };
