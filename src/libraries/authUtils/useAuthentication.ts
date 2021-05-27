@@ -15,7 +15,7 @@ export const useAuthentication = () => {
   useEffect(() => {
     try {
       const sessionData = getAuthenticationFromSession();
-      if (!userCredentials) {
+      if (!userCredentials && sessionData) {
         // hydrate redux from session
         dispatch(setAuthenticationSuccess(sessionData));
       }

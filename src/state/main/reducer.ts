@@ -27,11 +27,15 @@ export default produce((draft: IMainState, action: any) => {
       break;
     }
     case SET_LOGOUT_FAIL: {
+      draft.authentication.status = "IDLE";
+      draft.authentication.data = undefined;
       draft.logout.status = "FAIL";
       draft.logout.error = action.error;
       break;
     }
     case SET_LOGOUT_SUCCESS: {
+      draft.authentication.status = "IDLE";
+      draft.authentication.data = undefined;
       draft.logout.status = "SUCCESS";
       break;
     }

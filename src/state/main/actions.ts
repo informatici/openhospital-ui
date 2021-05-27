@@ -82,7 +82,8 @@ export const setLogoutThunk =
       type: SET_LOGOUT_LOADING,
     });
 
-    SessionStorage.remove(AUTH_KEY);
+    SessionStorage.clear();
+    //SessionStorage.remove(AUTH_KEY);
 
     dispatch({
       type: SET_LOGOUT_SUCCESS,
