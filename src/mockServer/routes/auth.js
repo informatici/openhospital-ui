@@ -2,6 +2,7 @@ export const authRoutes = (server) => {
   server.namespace("/auth", () => {
     server.post("/login").intercept((req, res) => {
       const { username } = req.query;
+
       switch (username) {
         case "fail":
           res.status(401);
@@ -13,6 +14,9 @@ export const authRoutes = (server) => {
           });
           break;
       }
+    });
+    server.post("/logout").intercept((req, res) => {
+      res.status(200);
     });
   });
 };

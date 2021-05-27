@@ -14,7 +14,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
 import { setLogoutThunk } from "../../../state/main/actions";
-import { LOGIN_URL } from "./consts";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -82,7 +81,7 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav__item">{t("nav.ward")}</div>
             <div className="appHeader__nav__item">{t("nav.billing")}</div>
             <div className="appHeader__nav__item">
-              <Tooltip title="sign out" aria-label="sign out">
+              <Tooltip title={t("login.signout")!} aria-label="sign out">
                 <ExitToAppIcon
                   key="logout"
                   onClick={setLogoutThunk}

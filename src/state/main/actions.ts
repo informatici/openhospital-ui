@@ -19,6 +19,7 @@ import {
   SET_AUTHENTICATION_FAIL,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
+  SET_LOGOUT_FAIL,
   SET_LOGOUT_LOADING,
   SET_LOGOUT_SUCCESS,
 } from "./consts";
@@ -71,21 +72,24 @@ export const setAuthenticationThunk =
       );
   };
 
-export const setLogoutSuccess = (): IAction<void, {}> => ({
-  type: SET_LOGOUT_SUCCESS,
-});
-
 export const setLogoutThunk =
   () =>
   (dispatch: Dispatch<IAction<void, {}>>): void => {
     dispatch({
       type: SET_LOGOUT_LOADING,
     });
-
     SessionStorage.clear();
-    //SessionStorage.remove(AUTH_KEY);
-
-    dispatch({
-      type: SET_LOGOUT_SUCCESS,
-    });
+    api.logoutUsingPOST().subscribe(
+      () => {
+        dispatch({
+          type: SET_LOGOUT_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: SET_LOGOUT_FAIL,
+          error,
+        });
+      }
+    );
   };
