@@ -92,4 +92,16 @@ describe("LoginActivity spec", () => {
 
     cy.get("div.dashboard");
   });
+  it("should display the logout confirmation when the logout icon is clicked", () => {
+    if (cy.get("[class=appHeader__identified__trigger]")) {
+      cy.get("[class=appHeader__identified__trigger]").click();
+      cy.get("[id=signout_icon]").click();
+    } else {
+      cy.get("[id=signout_icon]").click();
+    }
+  });
+  it("should display the login page after signout confirmation", () => {
+    cy.get(".smallButton").click();
+    cy.get("[class=login__panel]");
+  });
 });

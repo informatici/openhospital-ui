@@ -14,6 +14,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IState } from "../../../types";
 import { connect } from "react-redux";
 import { setLogoutThunk } from "../../../state/main/actions";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../assets/warning-icon.png";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -32,7 +34,12 @@ const AppHeader: FunctionComponent<TProps> = ({
       : document.body.classList.remove("disable-scroll");
     setIsOpen(isOpen);
   };
+  const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
 
+  const handleLogout = () => {
+    setOpenLogoutConfirmation(false);
+    setLogoutThunk();
+  };
   const history = useHistory();
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
@@ -83,15 +90,26 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav__item">
               <Tooltip title={t("login.signout")!} aria-label="sign out">
                 <ExitToAppIcon
-                  key="logout"
-                  onClick={setLogoutThunk}
-                  color={status === "LOADING" ? "disabled" : "inherit"}
+                  id="signout_icon"
+                  onClick={() => setOpenLogoutConfirmation(true)}
                 />
               </Tooltip>
             </div>
           </div>
         </div>
       </div>
+      <ConfirmationDialog
+        key="signout_dialog"
+        isOpen={openLogoutConfirmation}
+        title={t("login.signout")}
+        info={`Are you sure you want to ${t("login.signout")}?`}
+        icon={warningIcon}
+        primaryButtonLabel={t("login.signout")}
+        secondaryButtonLabel="Dismiss"
+        handlePrimaryButtonClick={handleLogout}
+        handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
+      />
+      ;
     </div>
   );
 };
