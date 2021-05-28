@@ -99,7 +99,6 @@ const AppHeader: FunctionComponent<TProps> = ({
         </div>
       </div>
       <ConfirmationDialog
-        key="signout_dialog"
         isOpen={openLogoutConfirmation}
         title={t("login.signout")}
         info={`Are you sure you want to ${t("login.signout")}?`}
