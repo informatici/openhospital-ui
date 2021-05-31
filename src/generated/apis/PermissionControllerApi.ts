@@ -38,12 +38,7 @@ export interface RetrievePermissionsByUserGroupcodeUsingGETRequest {
 }
 
 export interface UpdatePermissionUsingPUTRequest {
-    id: string;
-    permissionDTO: PermissionDTO;
-}
-
-export interface UpdatePermissionUsingPUT1Request {
-    id: string;
+    id: number;
     permissionDTO: PermissionDTO;
 }
 
@@ -174,28 +169,6 @@ export class PermissionControllerApi extends BaseAPI {
     updatePermissionUsingPUT({ id, permissionDTO }: UpdatePermissionUsingPUTRequest, opts?: OperationOpts): Observable<PermissionDTO | RawAjaxResponse<PermissionDTO>> {
         throwIfNullOrUndefined(id, 'id', 'updatePermissionUsingPUT');
         throwIfNullOrUndefined(permissionDTO, 'permissionDTO', 'updatePermissionUsingPUT');
-
-        const headers: HttpHeaders = {
-            'Content-Type': 'application/json',
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        return this.request<PermissionDTO>({
-            url: '/permissions'.replace('{id}', encodeURI(id)),
-            method: 'PUT',
-            headers,
-            body: permissionDTO,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * updatePermission
-     */
-    updatePermissionUsingPUT1({ id, permissionDTO }: UpdatePermissionUsingPUT1Request): Observable<PermissionDTO>
-    updatePermissionUsingPUT1({ id, permissionDTO }: UpdatePermissionUsingPUT1Request, opts?: OperationOpts): Observable<RawAjaxResponse<PermissionDTO>>
-    updatePermissionUsingPUT1({ id, permissionDTO }: UpdatePermissionUsingPUT1Request, opts?: OperationOpts): Observable<PermissionDTO | RawAjaxResponse<PermissionDTO>> {
-        throwIfNullOrUndefined(id, 'id', 'updatePermissionUsingPUT1');
-        throwIfNullOrUndefined(permissionDTO, 'permissionDTO', 'updatePermissionUsingPUT1');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
