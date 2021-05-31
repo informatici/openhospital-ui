@@ -35,7 +35,15 @@ To run unit tests, issue:
 
 ## How to launch the e2e tests
 
-For running the **Cypress e2e tests**, we need to use two different processes. One for serving the app (**process #1**) and one for running the Cypress Test Runner (**process #2**). You can launch it by issuing the following commands in two different intances of your terminal:
+Run:
+
+    - npm run test:cypress
+
+it launches application in development mode and starts cypress, in a single process.
+
+---
+
+If you want more control over **Cypress e2e tests**, use two different processes: one for serving the app (**process #1**) and one for running the Cypress Test Runner (**process #2**). You can launch it by issuing the following commands in two different intances of your terminal:
 
     //process #1
     - npm start
