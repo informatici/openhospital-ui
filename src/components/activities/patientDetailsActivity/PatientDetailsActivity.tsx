@@ -31,6 +31,7 @@ import {
 import { IState } from "../../../types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -56,10 +57,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
   };
 
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>("panel_1");
 
@@ -85,7 +84,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.therapy"),
       path: "/therapy",
       content: (
-        <PatientDetailsContent title="Therapy" content={SkeletonLoader} />
+        <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
     {

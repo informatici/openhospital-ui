@@ -88,7 +88,9 @@
     "newpatient": "مريض جديد",
     "editpatient": "تعديل المريض",
     "searchpatient": "بحث المريض",
-    "patientdashboard": "Patient Dashboard"
+    "patientdashboard": "Patient Dashboard",
+    "newtherapy": "New Therapy",
+    "managetherapy": "Manage Therapy"
   },
   "common": {
     "results": "النتائج",

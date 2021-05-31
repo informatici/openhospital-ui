@@ -86,9 +86,11 @@
     "booking": "Réservation",
     "dashboard": "Tableau de bord",
     "newpatient": "Nouveau patient",
+    "patientdashboard": "Accueil Patient",
+    "newtherapy": "Nouvelle Therapie",
+    "managetherapy": "Manage Therapie",
     "editpatient": "Éditer Patient",
-    "searchpatient": "Recherche Patient",
-    "patientdashboard": "Patient Tableau de bord"
+    "searchpatient": "Recherche Patient"
   },
   "common": {
     "results": "Résultats",

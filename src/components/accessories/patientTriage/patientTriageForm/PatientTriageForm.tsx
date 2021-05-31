@@ -210,7 +210,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 type="number"
               />
             </div>
-
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("respiratory_rate")}
@@ -222,7 +221,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 type="number"
               />
             </div>
-
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("hgt")}
