@@ -32,6 +32,7 @@ import { IState } from "../../../types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
+import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -91,7 +92,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.booking"),
       path: "/booking",
       content: (
-        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
+        <PatientDetailsContent title="Booking" content={PatientBooking} />
       ),
     },
   ];
