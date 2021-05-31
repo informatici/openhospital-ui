@@ -1,10 +1,25 @@
+import { TPermission } from "../../../types";
+
 export interface IProps {
-  config: TTabConfig,
-  defaultRoute?: string
+  // tabs
+  config: TTabConfig;
+
+  // if requested path is not valid, redirect to deafultRoute
+  defaultRoute?: string;
 }
-export interface TabItem {
-  label: string, 
-  content?: JSX.Element,
-  path?: string
-} 
-export type TTabConfig = Array<TabItem>;
+
+export type TTabElement = {
+  // if not set, doesn't check for permissions (assuming it's public)
+  checkPermissions?: TPermission | TPermission[];
+
+  // tab content
+  content: JSX.Element;
+
+  // tab label
+  label: string;
+
+  // url fragment to tab
+  path?: string;
+};
+
+export type TTabConfig = TTabElement[];

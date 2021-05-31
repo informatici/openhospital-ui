@@ -11,6 +11,8 @@ jobs:
       - name: Installing...
         run: npm i
       - name: Building...
+        env:
+          CI: false
         run: npm run build
 
   unit-tests:
