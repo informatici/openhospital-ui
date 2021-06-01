@@ -19,10 +19,9 @@
         }
         @include susy-media($tablet_land) {
             padding: 0 10px;
-            width: 100px;
         }
         @include susy-media($tablet_port) {
-            width: 100%;
+            width: 50%;
         }
         @include susy-media($smartphone) {
             width: 100%;
@@ -79,10 +78,9 @@
         }
         @include susy-media($tablet_land) {
             padding: 0 10px;
-            width: 100%;
         }
         @include susy-media($tablet_port) {
-            width: 100%;
+            width: 50%;
         }
         @include susy-media($smartphone) {
             width: 100%;
@@ -95,10 +93,9 @@
       }
       @include susy-media($tablet_land) {
           padding: 0 10px;
-          width: 100%;
       }
       @include susy-media($tablet_port) {
-          width: 100%;
+          width: 50%;
       }
       @include susy-media($smartphone) {
           width: 100%;

@@ -211,7 +211,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <DateField
                 fieldName="endDate"
                 fieldValue={formik.values.endDate}
-                disableFuture={true}
+                disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("endDate")}
