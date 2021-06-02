@@ -1,5 +1,5 @@
 const patientDTO = {
-  code: Math.floor(Math.random() * 100 + 1),
+  code: 1,
   firstName: "Antonio Carlos",
   secondName: "Jobim",
   birthDate: "683510400000",

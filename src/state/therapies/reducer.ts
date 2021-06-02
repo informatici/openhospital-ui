@@ -5,9 +5,9 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
-  SEARCH_THERAPY_FAIL,
-  SEARCH_THERAPY_LOADING,
-  SEARCH_THERAPY_SUCCESS,
+  GET_THERAPY_FAIL,
+  GET_THERAPY_LOADING,
+  GET_THERAPY_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { ITherapiesState } from "./types";
@@ -44,12 +44,12 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
     /**
      * SEARCH_THERAPY
      */
-    case SEARCH_THERAPY_LOADING: {
+    case GET_THERAPY_LOADING: {
       draft.therapiesByPatientId.status = "LOADING";
       break;
     }
 
-    case SEARCH_THERAPY_SUCCESS: {
+    case GET_THERAPY_SUCCESS: {
       if (action.payload.length > 0) {
         draft.therapiesByPatientId.status = "SUCCESS";
       } else {
@@ -60,7 +60,7 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
       break;
     }
 
-    case SEARCH_THERAPY_FAIL: {
+    case GET_THERAPY_FAIL: {
       draft.therapiesByPatientId.status = "FAIL";
       draft.therapiesByPatientId.error = action.error;
       break;

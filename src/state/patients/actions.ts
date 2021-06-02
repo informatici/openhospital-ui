@@ -29,87 +29,111 @@ const patientControllerApi = new PatientControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
-export const createPatient = (newPatient: PatientDTO) => (
-  dispatch: Dispatch<IAction<null, {}>>
-): void => {
-  dispatch({
-    type: CREATE_PATIENT_LOADING,
-  });
+export const createPatient =
+  (newPatient: PatientDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_PATIENT_LOADING,
+    });
 
-  patientControllerApi.newPatientUsingPOST({ newPatient }).subscribe(
-    () => {
-      dispatch({
-        type: CREATE_PATIENT_SUCCESS,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: CREATE_PATIENT_FAIL,
-        error,
-      });
-    }
-  );
-};
+    patientControllerApi.newPatientUsingPOST({ newPatient }).subscribe(
+      () => {
+        dispatch({
+          type: CREATE_PATIENT_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_PATIENT_FAIL,
+          error,
+        });
+      }
+    );
+  };
 
-export const updatePatient = (code: number, updatePatient: PatientDTO) => (
-  dispatch: Dispatch<IAction<null, {}>>
-): void => {
-  dispatch({
-    type: UPDATE_PATIENT_LOADING,
-  });
+export const updatePatient =
+  (code: number, updatePatient: PatientDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_PATIENT_LOADING,
+    });
 
-  patientControllerApi.updatePatientUsingPUT({ code, updatePatient }).subscribe(
-    () => {
-      dispatch({
-        type: UPDATE_PATIENT_SUCCESS,
-      });
-    },
-    (error) => {
-      dispatch({
-        type: UPDATE_PATIENT_FAIL,
-        error,
-      });
-    }
-  );
-};
-
-export const updatePatientReset = () => (
-  dispatch: Dispatch<IAction<null, {}>>
-): void => {
-  dispatch({
-    type: UPDATE_PATIENT_RESET,
-  });
-};
-
-export const createPatientReset = () => (
-  dispatch: Dispatch<IAction<null, {}>>
-): void => {
-  dispatch({
-    type: CREATE_PATIENT_RESET,
-  });
-};
-
-export const searchPatient = (values: TValues) => (
-  dispatch: Dispatch<IAction<PatientDTO[], {}>>
-): void => {
-  dispatch({
-    type: SEARCH_PATIENT_LOADING,
-  });
-
-  if (values.id) {
     patientControllerApi
-      .getPatientUsingGET({ code: parseInt(values.id) })
+      .updatePatientUsingPUT({ code, updatePatient })
       .subscribe(
+        () => {
+          dispatch({
+            type: UPDATE_PATIENT_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: UPDATE_PATIENT_FAIL,
+            error,
+          });
+        }
+      );
+  };
+
+export const updatePatientReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_PATIENT_RESET,
+    });
+  };
+
+export const createPatientReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_PATIENT_RESET,
+    });
+  };
+
+export const searchPatient =
+  (values: TValues) =>
+  (dispatch: Dispatch<IAction<PatientDTO[], {}>>): void => {
+    dispatch({
+      type: SEARCH_PATIENT_LOADING,
+    });
+
+    if (values.id) {
+      patientControllerApi
+        .getPatientUsingGET({ code: parseInt(values.id) })
+        .subscribe(
+          (payload) => {
+            if (typeof payload === "object" && !isEmpty(payload)) {
+              dispatch({
+                type: SEARCH_PATIENT_SUCCESS,
+                payload: [payload],
+              });
+            } else {
+              dispatch({
+                type: SEARCH_PATIENT_SUCCESS,
+                payload: [],
+              });
+            }
+          },
+          (error) => {
+            dispatch({
+              type: SEARCH_PATIENT_FAIL,
+              error,
+            });
+          }
+        );
+    } else {
+      patientControllerApi.searchPatientUsingGET(values).subscribe(
         (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+          if (Array.isArray(payload)) {
             dispatch({
               type: SEARCH_PATIENT_SUCCESS,
-              payload: [payload],
+              payload,
             });
           } else {
             dispatch({
-              type: SEARCH_PATIENT_SUCCESS,
-              payload: [],
+              type: SEARCH_PATIENT_FAIL,
+              error: { message: "Unexpected response payload" },
             });
           }
         },
@@ -120,30 +144,8 @@ export const searchPatient = (values: TValues) => (
           });
         }
       );
-  } else {
-    patientControllerApi.searchPatientUsingGET(values).subscribe(
-      (payload) => {
-        if (Array.isArray(payload)) {
-          dispatch({
-            type: SEARCH_PATIENT_SUCCESS,
-            payload,
-          });
-        } else {
-          dispatch({
-            type: SEARCH_PATIENT_FAIL,
-            error: { message: "Unexpected response payload" },
-          });
-        }
-      },
-      (error) => {
-        dispatch({
-          type: SEARCH_PATIENT_FAIL,
-          error,
-        });
-      }
-    );
-  }
-};
+    }
+  };
 
 export const getPatientSuccess = (
   patient: PatientDTO
@@ -154,29 +156,29 @@ export const getPatientSuccess = (
   };
 };
 
-export const getPatientThunk = (id: string) => (
-  dispatch: Dispatch<IAction<PatientDTO, {}>>
-): void => {
-  dispatch({
-    type: GET_PATIENT_LOADING,
-  });
+export const getPatientThunk =
+  (id: string) =>
+  (dispatch: Dispatch<IAction<PatientDTO, {}>>): void => {
+    dispatch({
+      type: GET_PATIENT_LOADING,
+    });
 
-  patientControllerApi.getPatientUsingGET({ code: parseInt(id) }).subscribe(
-    (payload) => {
-      if (typeof payload === "object" && !isEmpty(payload)) {
-        dispatch(getPatientSuccess(payload));
-      } else {
+    patientControllerApi.getPatientUsingGET({ code: parseInt(id) }).subscribe(
+      (payload) => {
+        if (typeof payload === "object" && !isEmpty(payload)) {
+          dispatch(getPatientSuccess(payload));
+        } else {
+          dispatch({
+            type: GET_PATIENT_FAIL,
+            error: { message: "Unexpected response payload" },
+          });
+        }
+      },
+      (error) => {
         dispatch({
           type: GET_PATIENT_FAIL,
-          error: { message: "Unexpected response payload" },
+          error,
         });
       }
-    },
-    (error) => {
-      dispatch({
-        type: GET_PATIENT_FAIL,
-        error,
-      });
-    }
-  );
-};
+    );
+  };

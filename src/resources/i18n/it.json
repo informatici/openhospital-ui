@@ -116,5 +116,34 @@
     "patientregistrationsuccessfull": "Il paziente è stato registrato correttamente.",
     "somethingwrong": "Qualcosa è andato storto, riprova più tardi.",
     "searchpatientinstruction": "Se non hai l'ID del Paziente, compila più compi possibili e poi clicca su Cerca."
+  },
+  "therapy": {
+    "newtherapy": "New Therapy",
+    "managetherapy": "Manage Therapy",
+    "medical": "Medical",
+    "quantity": "Quantity",
+    "frequencyInDay": "Frequency In Day",
+    "duration": "Duration",
+    "nbweeks": "Weeks",
+    "nbdays": "Days",
+    "nbmonths": "Months",
+    "frequencyInPeriod": "Frequency In Periods",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "sendnotification": "Important: Send notification",
+    "sendsms": "Send SMS",
+    "note": "Note"
+  },
+  "booking": {
+    "category": "Category",
+    "service": "Service",
+    "bookingdate": "Date"
+  },
+  "summary": {
+    "visits": "Visites",
+    "triage": "Esame obiettivo",
+    "therapy": "Prestazioni specialistiche",    
+    "opd": "Prestazioni diagnostiche",
+    "booking": "Interventi operatori"
   }
 }

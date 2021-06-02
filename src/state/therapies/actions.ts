@@ -14,9 +14,9 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
-  SEARCH_THERAPY_FAIL,
-  SEARCH_THERAPY_LOADING,
-  SEARCH_THERAPY_SUCCESS,
+  GET_THERAPY_FAIL,
+  GET_THERAPY_LOADING,
+  GET_THERAPY_SUCCESS,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -44,24 +44,27 @@ export const createTherapy =
     };
     thRowDTO = { ...parseObject };
 
-    dispatch({
-      type: CREATE_THERAPY_SUCCESS,
-      payload: thRowDTO,
-    });
-
-    /* therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
-      () => {
-        dispatch({
-          type: CREATE_THERAPY_SUCCESS,
-        });
+    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
+      (payload) => {
+        if (typeof payload === "object" && !isEmpty(payload)) {
+          dispatch({
+            type: GET_THERAPY_SUCCESS,
+            payload: [payload],
+          });
+        } else {
+          dispatch({
+            type: GET_THERAPY_SUCCESS,
+            payload: [],
+          });
+        }
       },
       (error) => {
         dispatch({
-          type: CREATE_THERAPY_FAIL,
+          type: GET_THERAPY_FAIL,
           error,
         });
       }
-    ); */
+    );
   };
 
 export const createTherapyReset =
@@ -76,7 +79,7 @@ export const therapiesByPatientId =
   (codePatient: number) =>
   (dispatch: Dispatch<IAction<TherapyRowDTO[], {}>>): void => {
     dispatch({
-      type: SEARCH_THERAPY_LOADING,
+      type: GET_THERAPY_LOADING,
     });
 
     if (codePatient) {
@@ -84,19 +87,19 @@ export const therapiesByPatientId =
         (payload) => {
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
-              type: SEARCH_THERAPY_SUCCESS,
+              type: GET_THERAPY_SUCCESS,
               payload: [payload],
             });
           } else {
             dispatch({
-              type: SEARCH_THERAPY_SUCCESS,
+              type: GET_THERAPY_SUCCESS,
               payload: [],
             });
           }
         },
         (error) => {
           dispatch({
-            type: SEARCH_THERAPY_FAIL,
+            type: GET_THERAPY_FAIL,
             error,
           });
         }

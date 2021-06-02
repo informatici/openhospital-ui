@@ -136,5 +136,12 @@
     "category": "Catégorie",
     "service": "Service",
     "bookingdate": "Date"
+  },
+  "summary": {
+    "visits": "Visites",
+    "triage": "Paramètres",
+    "therapy": "Thérapie",    
+    "opd": "Diagnostiques",
+    "booking": "Prescriptions"
   }
 }
