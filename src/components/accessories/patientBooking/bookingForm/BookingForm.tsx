@@ -45,7 +45,6 @@ const BookingForm: FC<TBookingProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      console.log("data", formattedValues);
       onSubmit(formattedValues);
     },
   });
