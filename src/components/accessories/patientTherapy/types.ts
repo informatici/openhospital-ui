@@ -11,7 +11,6 @@ export interface IDispatchProps {
   createTherapyReset: () => void;
 }
 
-export type TProps = IStateProps &
-  IDispatchProps & { patient: PatientDTO | undefined };
+export type TProps = IStateProps & IDispatchProps;
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";

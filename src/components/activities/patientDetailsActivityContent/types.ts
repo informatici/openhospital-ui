@@ -1,5 +1,6 @@
+import React from "react";
 
 export interface IProps {
   title: string;
-  content: any;
+  content: React.ComponentType;
 }

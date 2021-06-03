@@ -1,26 +1,26 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import PatientTriageForm from "./patientTriageForm/PatientTriageForm";
-import PatientTriageTable from "./patientTriageTable/PatientTriageTable";
+import { default as React, FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
-import { initialFields } from "./consts";
+import { PatientExaminationDTO } from "../../../generated";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createExamination,
-  createExaminationReset,
+  createExaminationReset
 } from "../../../state/examinations/actions";
-import "./styles.scss";
-import { PatientExaminationDTO } from "../../../generated";
 import { IState } from "../../../types";
-import { useTranslation } from "react-i18next";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import { initialFields } from "./consts";
+import PatientTriageForm from "./patientTriageForm/PatientTriageForm";
+import PatientTriageTable from "./patientTriageTable/PatientTriageTable";
+import "./styles.scss";
 import {
   IDispatchProps,
   IStateProps,
   TActivityTransitionState,
-  TProps,
+  TProps
 } from "./types";
-import { connect } from "react-redux";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import InfoBox from "../infoBox/InfoBox";
 
 const PatientTriage: FunctionComponent<TProps> = ({
   createExamination,

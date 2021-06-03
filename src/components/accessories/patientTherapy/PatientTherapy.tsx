@@ -28,7 +28,6 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   isLoading,
   hasSucceeded,
   hasFailed,
-  patient,
 }) => {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -53,7 +52,7 @@ const PatientTherapy: FunctionComponent<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patient;
+    therapy.patID = undefined;
     createTherapy(therapy);
   };
 
