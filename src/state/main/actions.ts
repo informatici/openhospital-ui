@@ -31,37 +31,37 @@ export const setAuthenticationSuccess = (
   payload,
 });
 
-export const setAuthenticationThunk = (username: string, password: string) => (
-  dispatch: Dispatch<IAction<LoginResponse, {}>>
-): void => {
-  dispatch({
-    type: SET_AUTHENTICATION_LOADING,
-  });
+export const setAuthenticationThunk =
+  (username: string, password: string) =>
+  (dispatch: Dispatch<IAction<LoginResponse, {}>>): void => {
+    dispatch({
+      type: SET_AUTHENTICATION_LOADING,
+    });
 
-  concat(
-    api
-      .loginUsingPOST({ password, username })
-      .pipe(tap(saveAuthenticationDataToSession)),
-    usersApi
-      .retrieveProfileByCurrentLoggedInUserUsingGET()
-      .pipe(tap(savePermissionDataToSession))
-  )
-    .pipe(toArray())
-    .subscribe(
-      ([userCredentials, me]) => {
-        dispatch({
-          type: SET_AUTHENTICATION_SUCCESS,
-          payload: {
-            ...(userCredentials as LoginResponse),
-            permission: (me as UserProfileDTO).permission,
-          },
-        });
-      },
-      (error) => {
-        dispatch({
-          type: SET_AUTHENTICATION_FAIL,
-          error,
-        });
-      }
-    );
-};
+    concat(
+      api
+        .loginUsingPOST({ password, username })
+        .pipe(tap(saveAuthenticationDataToSession)),
+      usersApi
+        .retrieveProfileByCurrentLoggedInUserUsingGET()
+        .pipe(tap(savePermissionDataToSession))
+    )
+      .pipe(toArray())
+      .subscribe(
+        ([userCredentials, me]) => {
+          dispatch({
+            type: SET_AUTHENTICATION_SUCCESS,
+            payload: {
+              ...(userCredentials as LoginResponse),
+              permission: (me as UserProfileDTO).permission,
+            },
+          });
+        },
+        (error) => {
+          dispatch({
+            type: SET_AUTHENTICATION_FAIL,
+            error,
+          });
+        }
+      );
+  };

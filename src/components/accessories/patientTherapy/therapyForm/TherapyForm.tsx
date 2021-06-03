@@ -20,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import {
   formatAllFieldValues,
   getFromFields,
-  updateFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { object } from "yup";
 import has from "lodash.has";
