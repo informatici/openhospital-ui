@@ -41,11 +41,10 @@ const Table: FunctionComponent<IProps> = ({
     setPage(newPage);
   };
 
-  const createSortHandler = (property: any) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    handleRequestSort(event, property);
-  };
+  const createSortHandler =
+    (property: any) => (event: React.MouseEvent<unknown>) => {
+      handleRequestSort(event, property);
+    };
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,

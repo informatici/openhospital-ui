@@ -11,13 +11,19 @@ import * as serviceWorker from "./serviceWorker";
 import examinations from "./state/examinations/reducer";
 import main from "./state/main/reducer";
 import patients from "./state/patients/reducer";
+import therapies from "./state/therapies/reducer";
 import { IState } from "./types";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();
 }
 
-const reducer = combineReducers<IState>({ main, patients, examinations });
+const reducer = combineReducers<IState>({
+  main,
+  patients,
+  examinations,
+  therapies,
+});
 const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))

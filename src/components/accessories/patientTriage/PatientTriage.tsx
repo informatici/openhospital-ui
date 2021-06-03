@@ -33,10 +33,8 @@ const PatientTriage: FunctionComponent<TProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
     if (hasFailed) {

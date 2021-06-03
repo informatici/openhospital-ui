@@ -45,9 +45,13 @@ const SelectField: FunctionComponent<IProps> = ({
         label={label}
         error={isValid}
       >
-        <MenuItem value=""> </MenuItem>
+        <MenuItem value="" key={"nano"}>
+          {" "}
+        </MenuItem>
         {options.map((option, index) => (
-          <MenuItem value={option.value} key={index}>{option.label}</MenuItem>
+          <MenuItem value={option.value} key={index}>
+            {option.label}
+          </MenuItem>
         ))}
       </Select>
       <FormHelperText error>{errorText || ""}</FormHelperText>
