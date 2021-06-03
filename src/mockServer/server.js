@@ -2,10 +2,12 @@ import XHRAdapter from "@pollyjs/adapter-xhr";
 import { Polly } from "@pollyjs/core";
 import { BASE_PATH } from "../generated/runtime";
 import { authRoutes } from "./routes/auth";
+import { examinationsRoutes } from "./routes/examinations";
 import { patientRoutes } from "./routes/patients";
 import { userRoutes } from "./routes/users";
-import patientDTO from "./fixtures/patientDTO";
-import patientExaminationDTO from "./fixtures/patientExaminationDTO";
+import { visitRoutes } from "./routes/visits"
+import { therapyRoutes } from "./routes/therapies"
+import { opdRoutes } from "./routes/opd";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -20,6 +22,10 @@ export function makeServer() {
     authRoutes(server);
     patientRoutes(server);
     userRoutes(server);
+    visitRoutes(server);
+    examinationsRoutes(server);
+    therapyRoutes(server);
+    opdRoutes(server);
   });
 
   return server;

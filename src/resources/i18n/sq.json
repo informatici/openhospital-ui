@@ -6,7 +6,8 @@
     "forgotpassword": "Forgot the password?",
     "insertavalidusername": "Insert a valid user name",
     "insertthepassword": "Insert the password",
-    "login": "Login"
+    "login": "Login",
+    "signout": "Sign Out"
   },
   "dashboard": {
     "welcomename": "Welcome <strong>{{name}}<strong>",
@@ -115,5 +116,34 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search"
+  },
+  "therapy": {
+    "newtherapy": "New Therapy",
+    "managetherapy": "Manage Therapy",
+    "medical": "Medical",
+    "quantity": "Quantity",
+    "frequencyInDay": "Frequency In Day",
+    "duration": "Duration",
+    "nbweeks": "Weeks",
+    "nbdays": "Days",
+    "nbmonths": "Months",
+    "frequencyInPeriod": "Frequency In Periods",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "sendnotification": "Important: Send notification",
+    "sendsms": "Send SMS",
+    "note": "Note"
+  },
+  "booking": {
+    "category": "Category",
+    "service": "Service",
+    "bookingdate": "Date"
+  },
+  "summary": {
+    "visits": "Visites",
+    "triage": "Examinations",
+    "therapy": "Therapy",    
+    "opd": "Diagnostics",
+    "booking": "Prescriptions"
   }
 }

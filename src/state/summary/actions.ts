@@ -1,13 +1,11 @@
 import { Dispatch } from "redux";
 import { concat } from "rxjs";
-import { tap, toArray } from "rxjs/operators";
+import { toArray } from "rxjs/operators";
 import {
   Configuration,
   ExaminationControllerApi,
-  LoginResponse,
   OpdControllerApi,
   TherapyControllerApi,
-  UserProfileDTO,
   VisitsControllerApi,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
@@ -38,26 +36,57 @@ export const loadSummaryData =
     dispatch({
       type: GET_SUMMARY_LOADING,
     });
-
-    concat(
-      therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(),
-      opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(),
-      visitsControllerApi.getVisitUsingGET({ patID: code }),
-      examinationControllerApi.getByPatientIdUsingGET({ patId: code })
-    )
-      .pipe(toArray())
-      .subscribe(
-        ([summaryData, me]) => {
-          dispatch({
-            type: GET_SUMMARY_SUCCESS,
-            payload: summaryData,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: GET_SUMMARY_FAIL,
-            error,
-          });
-        }
-      );
+    if (code)
+      concat(
+        opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(),
+        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }),
+        visitsControllerApi.getVisitUsingGET({ patID: code }),
+        examinationControllerApi.getByPatientIdUsingGET({ patId: code })
+      )
+        .pipe(toArray())
+        .subscribe(
+          ([opds, therapies, visits, triages]) => {
+            dispatch({
+              type: GET_SUMMARY_SUCCESS,
+              payload: convert(opds, therapies, visits, triages),
+            });
+          },
+          (error) => {
+            dispatch({
+              type: GET_SUMMARY_FAIL,
+              error,
+            });
+          }
+        );
   };
+
+const convert = (
+  opds: Array<any>,
+  therapies: Array<any>,
+  visits: Array<any>,
+  triages: Array<any>
+) => {
+  return opds
+    .map(({ ...rest }) => ({
+      type: "opd",
+      ...rest,
+    }))
+    .concat(
+      therapies.map(({ startDate: date, ...rest }) => ({
+        type: "therapy",
+        date,
+        ...rest,
+      })),
+
+      visits.map(({ ...rest }) => ({
+        type: "visits",
+        ...rest,
+      })),
+
+      triages.map(({ pex_date: date, ...rest }) => ({
+        type: "triages",
+        date,
+        ...rest,
+      }))
+    );
+};

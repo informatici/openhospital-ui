@@ -1,93 +1,16 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
-import { IPatientsState } from "../../../../state/patients/types";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { ISummaryState } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
-import {
-  IDispatchProps,
-  IStateProps,
-  SummaryTransitionState,
-  TProps,
-} from "./../types";
-
-const data = [
-  {
-    date: "21/12/2021",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2021",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2020",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2020",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2020",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2020",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2021",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2018",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2019",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2019",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    date: "21/12/2019",
-    type: "Pharmacologic treatment",
-    result: "Result (1)",
-    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-];
+import { IDispatchProps, IStateProps, TProps } from "./../types";
 
 const header = ["date", "type", "result"];
 const order = ["date"];
 const label = {
   date: "Date",
   type: "Typology",
-  result: "Result",
-  note: "Additional notes",
 };
 
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
@@ -96,19 +19,21 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
   hasFailed,
   loadSummaryData,
 }) => {
-  const [summaryData, setSummaryData] = useState(data);
+  const [summaryData, setSummaryData] = useState([[]]);
   const summary = useSelector<IState, ISummaryState>((state) => state.summary);
-  const patient = useSelector<IState, IPatientsState>(
-    (state) => state.patients
-  );
+  const patient = useSelector((state: IState) => state.patients);
+
   useEffect(() => {
-    if (
-      patient.selectedPatient.data &&
-      summary.loadSummaryData.status === "IDLE"
-    )
-      loadSummaryData(patient.selectedPatient.data?.code!);
-    if (hasSucceeded) setSummaryData(summary.loadSummaryData.data!);
-  }, [summary, patient]);
+    console.log("patient ici", patient.selectedPatient!.data);
+    loadSummaryData(patient.selectedPatient!.data!.code!);
+  }, [patient]);
+
+  useEffect(() => {
+    if (hasSucceeded) {
+      console.log("summary here data", summary.loadSummaryData.data);
+      setSummaryData(summary.loadSummaryData.data!);
+    }
+  }, [summary]);
 
   return (
     <div className="patientSummary_date">

@@ -4,4 +4,7 @@ export const initial: IMainState = {
   authentication: {
     status: "IDLE",
   },
+  logout: {
+    status: "IDLE",
+  },
 };

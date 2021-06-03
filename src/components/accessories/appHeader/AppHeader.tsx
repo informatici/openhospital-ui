@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Tooltip, Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
@@ -9,9 +9,19 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
-import { TProps } from "./types";
+import { IDispatchProps, IStateProps, TProps } from "./types";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { IState } from "../../../types";
+import { connect } from "react-redux";
+import { setLogoutThunk } from "../../../state/main/actions";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../assets/warning-icon.png";
 
-const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
+const AppHeader: FunctionComponent<TProps> = ({
+  breadcrumbMap,
+  setLogoutThunk,
+  status,
+}) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
 
@@ -24,9 +34,13 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
       : document.body.classList.remove("disable-scroll");
     setIsOpen(isOpen);
   };
+  const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
 
+  const handleLogout = () => {
+    setOpenLogoutConfirmation(false);
+    setLogoutThunk();
+  };
   const history = useHistory();
-
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__background">
@@ -73,11 +87,38 @@ const AppHeader: FunctionComponent<TProps> = ({ breadcrumbMap }) => {
             <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
             <div className="appHeader__nav__item">{t("nav.ward")}</div>
             <div className="appHeader__nav__item">{t("nav.billing")}</div>
+            <div className="appHeader__nav__item">
+              <Tooltip title={t("login.signout")!} aria-label="sign out">
+                <ExitToAppIcon
+                  id="signout_icon"
+                  onClick={() => setOpenLogoutConfirmation(true)}
+                />
+              </Tooltip>
+            </div>
           </div>
         </div>
       </div>
+      <ConfirmationDialog
+        isOpen={openLogoutConfirmation}
+        title={t("login.signout")}
+        info={`Are you sure you want to ${t("login.signout")}?`}
+        icon={warningIcon}
+        primaryButtonLabel={t("login.signout")}
+        secondaryButtonLabel="Dismiss"
+        handlePrimaryButtonClick={handleLogout}
+        handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
+      />
+      ;
     </div>
   );
 };
 
-export default AppHeader;
+const mapStateToProps = (state: IState): IStateProps => ({
+  status: state.main.logout.status || "IDLE",
+});
+
+const mapDispatchToProps: IDispatchProps = {
+  setLogoutThunk,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

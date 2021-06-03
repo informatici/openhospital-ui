@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
 import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
@@ -16,13 +16,13 @@ import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { TherapyRowDTO } from "../../../generated";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
 
-const PatientTherapy: FunctionComponent<TProps> = ({
+const PatientTherapy: FC<TProps> = ({
   createTherapy,
   createTherapyReset,
   isLoading,
@@ -35,6 +35,9 @@ const PatientTherapy: FunctionComponent<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
 
   useEffect(() => {
     if (hasFailed) {
@@ -52,7 +55,7 @@ const PatientTherapy: FunctionComponent<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = undefined;
+    therapy.patID = patient;
     createTherapy(therapy);
   };
 

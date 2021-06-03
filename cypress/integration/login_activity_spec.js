@@ -92,4 +92,42 @@ describe("LoginActivity spec", () => {
 
     cy.get("div.dashboard");
   });
+  it("should display the logout confirmation when the logout icon is clicked", () => {
+    //If the reduce menu icon is present, open the menu page and click on signout icon
+    // else click directly on the signout icon 
+    if (cy.get("[class=appHeader__identified__trigger]")) {
+      cy.get("[class=appHeader__identified__trigger]").click();
+      cy.get("[id=signout_icon]").click();
+    } else {
+      cy.get("[id=signout_icon]").click();
+    }
+    //check if the confirmation dialog is rendered
+    cy.get(".MuiDialog-paper");
+    //dismiss the confirmation dialog
+    cy.get(".reset_button button").click();
+
+    //close the menu page if present
+    if (cy.get("[class=appHeader__identified__trigger]"))
+      cy.get("[class=appHeader__identified__trigger]").click();
+
+    //check if the dashbaord is rendered
+    cy.get("div.dashboard");
+
+  });
+  it("should display the login page when the logout is confirmed on the dialog", () => {
+    //If the reduce menu icon is present, open the menu page and click on signout icon
+    // else click directly on the signout icon
+    if (cy.get("[class=appHeader__identified__trigger]")) {
+      cy.get("[class=appHeader__identified__trigger]").click();
+      cy.get("[id=signout_icon]").click();
+    } else {
+      cy.get("[id=signout_icon]").click();
+    }
+    //validate the signout action
+    cy.get(".return_button button").click();
+
+    //check if the login page is displayed
+    cy.get("[class=login__panel]")
+
+  });
 });
