@@ -1,6 +1,6 @@
 import therapyDTO from "../fixtures/therapyDTO";
 
-export const visitRoutes = (server) => {
+export const therapyRoutes = (server) => {
     server.namespace("/therapies", () => {
         server.post("/").intercept((req, res) => {
             const body = req.jsonBody();

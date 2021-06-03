@@ -1,6 +1,6 @@
 import patientExaminationDTO from "../fixtures/patientExaminationDTO";
 
-export const patientRoutes = (server) => {
+export const examinationsRoutes = (server) => {
     server.namespace("/examinations/byPatientId", () => {
         server.get("/:patId").intercept((req, res) => {
             const code = req.params.code;
