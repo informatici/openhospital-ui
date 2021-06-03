@@ -4,7 +4,6 @@ import { Dispatch } from "redux";
 import {
   Configuration,
   TherapyControllerApi,
-  TherapyDTO,
   TherapyRowDTO,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";

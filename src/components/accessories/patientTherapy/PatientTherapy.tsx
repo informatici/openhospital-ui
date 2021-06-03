@@ -77,7 +77,7 @@ const PatientTherapy: FC<TProps> = ({
         resetFormCallback={resetFormCallback}
         isLoading={isLoading}
       />
-      <div ref={infoBoxRef}>
+      <div ref={infoBoxRef} className="info-box-container">
         {hasFailed && (
           <InfoBox
             type="error"
