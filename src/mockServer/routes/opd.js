@@ -12,7 +12,6 @@ export const opdRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    console.log("OPD ++++", opdDTO);
                     res.status(200).json([opdDTO, opdDTO, opdDTO, opdDTO]);
             }
         });

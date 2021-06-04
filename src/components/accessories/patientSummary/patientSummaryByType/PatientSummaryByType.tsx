@@ -6,7 +6,7 @@ import { ISummaryState, SummaryData } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 
-import { IDispatchProps, IStateProps, TProps } from "../types";
+import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
 
 const header = ["date", "type", "result"];
 const order = ["date"];
@@ -18,9 +18,7 @@ const label = {
 };
 
 const PatientSummaryByType: FunctionComponent<TProps> = ({
-  isLoading,
   hasSucceeded,
-  hasFailed,
   loadSummaryData,
 }) => {
   const { t } = useTranslation();
@@ -37,22 +35,17 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
       setSummaryData(summary.loadSummaryData.data!);
     }
   }, [summary]);
+  const filterByType = (type: string) => {
+    return summaryData.filter((item) => item.type === type);
+  };
   return (
     <div className="patientSummary_type">
       <div className="patientSummary_type_row">
         <h4>
-          {t("summary.visits")}(
-          {summaryData
-            ? summaryData.filter((item) => item.type === "visit").length
-            : 0}
-          )
+          {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
         </h4>
         <Table
-          rowData={
-            summaryData
-              ? summaryData.filter((item) => item.type === "visit")
-              : []
-          }
+          rowData={filterByType(SummaryType.VISIT)}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
@@ -63,18 +56,10 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 
       <div className="patientSummary_type_row">
         <h4>
-          {t("summary.triage")}(
-          {summaryData
-            ? summaryData.filter((item) => item.type === "triage").length
-            : 0}
-          )
+          {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
         </h4>
         <Table
-          rowData={
-            summaryData
-              ? summaryData.filter((item) => item.type === "triage")
-              : []
-          }
+          rowData={filterByType(SummaryType.TRIAGE)}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
@@ -85,18 +70,10 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 
       <div className="patientSummary_type_row">
         <h4>
-          {t("summary.therapy")}(
-          {summaryData
-            ? summaryData.filter((item) => item.type === "therapy").length
-            : 0}
-          )
+          {t("summary.therapy")}({filterByType(SummaryType.THERAPY).length})
         </h4>
         <Table
-          rowData={
-            summaryData
-              ? summaryData.filter((item) => item.type === "therapy")
-              : []
-          }
+          rowData={filterByType(SummaryType.THERAPY)}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
@@ -107,16 +84,10 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 
       <div className="patientSummary_type_row">
         <h4>
-          {t("summary.opd")}(
-          {summaryData
-            ? summaryData.filter((item) => item.type === "opd").length
-            : 0}
-          )
+          {t("summary.opd")}({filterByType(SummaryType.OPD).length})
         </h4>
         <Table
-          rowData={
-            summaryData ? summaryData.filter((item) => item.type === "opd") : []
-          }
+          rowData={filterByType(SummaryType.OPD)}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}

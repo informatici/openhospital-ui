@@ -13,15 +13,12 @@ export default produce((draft: ISummaryState, action: any) => {
       draft.loadSummaryData.status = "LOADING";
       break;
     }
-
     case GET_SUMMARY_SUCCESS: {
       draft.loadSummaryData.status = "SUCCESS";
-      console.log("summary data", action.payload);
       draft.loadSummaryData.data = action.payload;
       delete draft.loadSummaryData.error;
       break;
     }
-
     case GET_SUMMARY_FAIL: {
       draft.loadSummaryData.status = "FAIL";
       break;

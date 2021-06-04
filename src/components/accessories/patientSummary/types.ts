@@ -1,5 +1,3 @@
-import { PatientDTO, TherapyRowDTO } from "../../../generated";
-
 export interface IStateProps {
   isLoading: boolean;
   hasSucceeded: boolean;
@@ -13,3 +11,10 @@ export interface IDispatchProps {
 export type TProps = IStateProps & IDispatchProps;
 
 export type SummaryTransitionState = "IDLE";
+
+export enum SummaryType {
+  VISIT = "visit",
+  OPD = "opd",
+  THERAPY = "therapy",
+  TRIAGE = "triage",
+}

@@ -17,6 +17,7 @@ import {
   GET_SUMMARY_SUCCESS,
   SummaryField,
 } from "./consts";
+import { SummaryData } from "./types";
 
 const therapyControllerApi = new TherapyControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -40,29 +41,29 @@ export const loadSummaryData =
     });
     if (code)
       concat(
+        examinationControllerApi.getByPatientIdUsingGET({ patId: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.triage)),
+          catchError((err) => of([]))
+        ),
         opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(
-          catchError((err) => of([])),
-          map((res) => convertToSummaryData(res, SummaryField.opd))
+          map((res) => convertToSummaryData(res, SummaryField.opd)),
+          catchError((err) => of(Array<SummaryData>()))
         ),
         therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
-          catchError((err) => of([])),
-          map((res) => convertToSummaryData(res, SummaryField.therapy))
+          map((res) => convertToSummaryData(res, SummaryField.therapy)),
+          catchError((err) => of(Array<SummaryData>()))
         ),
         visitsControllerApi.getVisitUsingGET({ patID: code }).pipe(
-          catchError((err) => of([])),
-          map((res) => convertToSummaryData(res, SummaryField.visit))
-        ),
-        examinationControllerApi.getByPatientIdUsingGET({ patId: code }).pipe(
-          catchError((err) => of([])),
-          map((res) => convertToSummaryData(res, SummaryField.triage))
+          map((res) => convertToSummaryData(res, SummaryField.visit)),
+          catchError((err) => of([]))
         )
       )
         .pipe(toArray())
         .subscribe(
-          ([opds, therapies, visits, triages]) => {
+          ([triages, opds, therapies, visits]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
-              payload: opds.concat(therapies, visits, triages),
+              payload: [...triages, ...opds, ...therapies, ...visits],
             });
           },
           (error) => {

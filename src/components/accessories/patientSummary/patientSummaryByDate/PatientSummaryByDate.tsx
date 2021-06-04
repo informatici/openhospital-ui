@@ -1,7 +1,8 @@
+import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { loadSummaryData } from "../../../../state/summary/actions";
-import { ISummaryState } from "../../../../state/summary/types";
+import { ISummaryState, SummaryData } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { IDispatchProps, IStateProps, TProps } from "./../types";
@@ -14,18 +15,17 @@ const label = {
 };
 
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
-  isLoading,
   hasSucceeded,
-  hasFailed,
   loadSummaryData,
+  isLoading,
 }) => {
-  const [summaryData, setSummaryData] = useState([[]]);
+  const [summaryData, setSummaryData] = useState(Array<SummaryData>());
   const summary = useSelector<IState, ISummaryState>((state) => state.summary);
   const patient = useSelector((state: IState) => state.patients);
 
   useEffect(() => {
     loadSummaryData(patient.selectedPatient?.data?.code!);
-  }, [patient]);
+  }, [patient.selectedPatient.data!.code]);
 
   useEffect(() => {
     if (hasSucceeded) {
@@ -34,16 +34,22 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
   }, [summary]);
 
   return (
-    <div className="patientSummary_date">
-      <Table
-        rowData={summaryData}
-        tableHeader={header}
-        labelData={label}
-        columnsOrder={order}
-        rowsPerPage={10}
-        isCollapsabile={true}
-      />
-    </div>
+    <>
+      <div className="patientSummary_date">
+        {!isLoading ? (
+          <Table
+            rowData={summaryData}
+            tableHeader={header}
+            labelData={label}
+            columnsOrder={order}
+            rowsPerPage={10}
+            isCollapsabile={true}
+          />
+        ) : (
+          <CircularProgress />
+        )}
+      </div>
+    </>
   );
 };
 

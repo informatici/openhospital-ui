@@ -4,7 +4,6 @@ import { BASE_PATH } from "../generated/runtime";
 import { authRoutes } from "./routes/auth";
 import { examinationsRoutes } from "./routes/examinations";
 import { patientRoutes } from "./routes/patients";
-import { therapiesRoutes } from "./routes/therapies";
 import { userRoutes } from "./routes/users";
 import { visitRoutes } from "./routes/visits"
 import { therapyRoutes } from "./routes/therapies"
