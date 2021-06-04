@@ -47,11 +47,11 @@ export const loadSummaryData =
         ),
         opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.opd)),
-          catchError((err) => of(Array<SummaryData>()))
+          catchError((err) => of([]))
         ),
         therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.therapy)),
-          catchError((err) => of(Array<SummaryData>()))
+          catchError((err) => of([]))
         ),
         visitsControllerApi.getVisitUsingGET({ patID: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.visit)),
