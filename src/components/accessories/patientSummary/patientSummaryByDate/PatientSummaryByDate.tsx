@@ -6,7 +6,7 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { IDispatchProps, IStateProps, TProps } from "./../types";
 
-const header = ["date", "type", "result"];
+const header = ["date", "type"];
 const order = ["date"];
 const label = {
   date: "Date",
@@ -24,13 +24,11 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
   const patient = useSelector((state: IState) => state.patients);
 
   useEffect(() => {
-    console.log("patient ici", patient.selectedPatient!.data);
-    loadSummaryData(patient.selectedPatient!.data!.code!);
+    loadSummaryData(patient.selectedPatient?.data?.code!);
   }, [patient]);
 
   useEffect(() => {
     if (hasSucceeded) {
-      console.log("summary here data", summary.loadSummaryData.data);
       setSummaryData(summary.loadSummaryData.data!);
     }
   }, [summary]);

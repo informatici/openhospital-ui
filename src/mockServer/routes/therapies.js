@@ -23,6 +23,9 @@ export const therapyRoutes = (server) => {
                     res.status(204);
                     res.body = null;
                     break;
+                case undefined:
+                    res.status(400);
+                    break;
                 default:
                     res.status(200).json([therapyDTO, therapyDTO, therapyDTO, therapyDTO]);
             }

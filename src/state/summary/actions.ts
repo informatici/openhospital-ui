@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
-import { concat } from "rxjs";
-import { toArray } from "rxjs/operators";
+import { of, concat } from "rxjs";
+import { map, catchError, toArray } from "rxjs/operators";
 import {
   Configuration,
   ExaminationControllerApi,
@@ -9,11 +9,13 @@ import {
   VisitsControllerApi,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { IAction } from "../types";
 import {
   GET_SUMMARY_FAIL,
   GET_SUMMARY_LOADING,
   GET_SUMMARY_SUCCESS,
+  SummaryField,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -38,17 +40,29 @@ export const loadSummaryData =
     });
     if (code)
       concat(
-        opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(),
-        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }),
-        visitsControllerApi.getVisitUsingGET({ patID: code }),
-        examinationControllerApi.getByPatientIdUsingGET({ patId: code })
+        opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(
+          catchError((err) => of([])),
+          map((res) => convertToSummaryData(res, SummaryField.opd))
+        ),
+        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
+          catchError((err) => of([])),
+          map((res) => convertToSummaryData(res, SummaryField.therapy))
+        ),
+        visitsControllerApi.getVisitUsingGET({ patID: code }).pipe(
+          catchError((err) => of([])),
+          map((res) => convertToSummaryData(res, SummaryField.visit))
+        ),
+        examinationControllerApi.getByPatientIdUsingGET({ patId: code }).pipe(
+          catchError((err) => of([])),
+          map((res) => convertToSummaryData(res, SummaryField.triage))
+        )
       )
         .pipe(toArray())
         .subscribe(
           ([opds, therapies, visits, triages]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
-              payload: convert(opds, therapies, visits, triages),
+              payload: opds.concat(therapies, visits, triages),
             });
           },
           (error) => {
@@ -59,34 +73,3 @@ export const loadSummaryData =
           }
         );
   };
-
-const convert = (
-  opds: Array<any>,
-  therapies: Array<any>,
-  visits: Array<any>,
-  triages: Array<any>
-) => {
-  return opds
-    .map(({ ...rest }) => ({
-      type: "opd",
-      ...rest,
-    }))
-    .concat(
-      therapies.map(({ startDate: date, ...rest }) => ({
-        type: "therapy",
-        date,
-        ...rest,
-      })),
-
-      visits.map(({ ...rest }) => ({
-        type: "visits",
-        ...rest,
-      })),
-
-      triages.map(({ pex_date: date, ...rest }) => ({
-        type: "triages",
-        date,
-        ...rest,
-      }))
-    );
-};
