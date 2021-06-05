@@ -5,8 +5,8 @@ import { loadSummaryData } from "../../../../state/summary/actions";
 import { ISummaryState, SummaryData } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
+import { ORDER_BY_DATE_PAGE_SIZE } from "../consts";
 import { IDispatchProps, IStateProps, TProps } from "./../types";
-import { ORDER_BY_DATE_PAGE_SIZE } from "./consts";
 
 const header = ["date", "type"];
 const order = ["date"];
