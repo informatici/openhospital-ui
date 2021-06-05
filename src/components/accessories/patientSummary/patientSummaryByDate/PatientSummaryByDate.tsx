@@ -6,6 +6,7 @@ import { ISummaryState, SummaryData } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { IDispatchProps, IStateProps, TProps } from "./../types";
+import { ORDER_BY_DATE_PAGE_SIZE } from "./consts";
 
 const header = ["date", "type"];
 const order = ["date"];
@@ -42,7 +43,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
-            rowsPerPage={10}
+            rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
             isCollapsabile={true}
           />
         ) : (

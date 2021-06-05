@@ -7,6 +7,7 @@ import { loadSummaryData } from "../../../../state/summary/actions";
 import { ISummaryState, SummaryData } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
+import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
 import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
 
@@ -54,7 +55,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
-              rowsPerPage={3}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
             />
           </div>
@@ -68,7 +69,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
-              rowsPerPage={3}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
             />
           </div>
@@ -82,7 +83,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
-              rowsPerPage={3}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
             />
           </div>
@@ -96,7 +97,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
-              rowsPerPage={3}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
             />
           </div>
