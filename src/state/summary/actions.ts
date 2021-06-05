@@ -17,7 +17,6 @@ import {
   GET_SUMMARY_SUCCESS,
   SummaryField,
 } from "./consts";
-import { SummaryData } from "./types";
 
 const therapyControllerApi = new TherapyControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -41,7 +40,7 @@ export const loadSummaryData =
     });
     if (code)
       concat(
-        examinationControllerApi.getByPatientIdUsingGET({ patId: code }).pipe(
+        examinationControllerApi.getByPatientIdUsingGET({ patId: 200 }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.triage)),
           catchError((err) => of([]))
         ),

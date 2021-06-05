@@ -1,3 +1,5 @@
+import { CircularProgress } from "@material-ui/core";
+import { CenterFocusStrong } from "@material-ui/icons";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
@@ -20,6 +22,7 @@ const label = {
 const PatientSummaryByType: FunctionComponent<TProps> = ({
   hasSucceeded,
   loadSummaryData,
+  isLoading,
 }) => {
   const { t } = useTranslation();
   const [summaryData, setSummaryData] = useState(Array<SummaryData>());
@@ -39,63 +42,69 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
     return summaryData.filter((item) => item.type === type);
   };
   return (
-    <div className="patientSummary_type">
-      <div className="patientSummary_type_row">
-        <h4>
-          {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
-        </h4>
-        <Table
-          rowData={filterByType(SummaryType.VISIT)}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={3}
-          isCollapsabile={true}
-        />
-      </div>
+    <>
+      {!isLoading ? (
+        <div className="patientSummary_type">
+          <div className="patientSummary_type_row">
+            <h4>
+              {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
+            </h4>
+            <Table
+              rowData={filterByType(SummaryType.VISIT)}
+              tableHeader={header}
+              labelData={label}
+              columnsOrder={order}
+              rowsPerPage={3}
+              isCollapsabile={true}
+            />
+          </div>
 
-      <div className="patientSummary_type_row">
-        <h4>
-          {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
-        </h4>
-        <Table
-          rowData={filterByType(SummaryType.TRIAGE)}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={3}
-          isCollapsabile={true}
-        />
-      </div>
+          <div className="patientSummary_type_row">
+            <h4>
+              {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
+            </h4>
+            <Table
+              rowData={filterByType(SummaryType.TRIAGE)}
+              tableHeader={header}
+              labelData={label}
+              columnsOrder={order}
+              rowsPerPage={3}
+              isCollapsabile={true}
+            />
+          </div>
 
-      <div className="patientSummary_type_row">
-        <h4>
-          {t("summary.therapy")}({filterByType(SummaryType.THERAPY).length})
-        </h4>
-        <Table
-          rowData={filterByType(SummaryType.THERAPY)}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={3}
-          isCollapsabile={true}
-        />
-      </div>
+          <div className="patientSummary_type_row">
+            <h4>
+              {t("summary.therapy")}({filterByType(SummaryType.THERAPY).length})
+            </h4>
+            <Table
+              rowData={filterByType(SummaryType.THERAPY)}
+              tableHeader={header}
+              labelData={label}
+              columnsOrder={order}
+              rowsPerPage={3}
+              isCollapsabile={true}
+            />
+          </div>
 
-      <div className="patientSummary_type_row">
-        <h4>
-          {t("summary.opd")}({filterByType(SummaryType.OPD).length})
-        </h4>
-        <Table
-          rowData={filterByType(SummaryType.OPD)}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={3}
-          isCollapsabile={true}
-        />
-      </div>
-    </div>
+          <div className="patientSummary_type_row">
+            <h4>
+              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
+            </h4>
+            <Table
+              rowData={filterByType(SummaryType.OPD)}
+              tableHeader={header}
+              labelData={label}
+              columnsOrder={order}
+              rowsPerPage={3}
+              isCollapsabile={true}
+            />
+          </div>
+        </div>
+      ) : (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
+    </>
   );
 };
 

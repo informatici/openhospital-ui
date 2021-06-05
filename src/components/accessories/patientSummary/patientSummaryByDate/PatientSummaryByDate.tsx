@@ -25,7 +25,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     loadSummaryData(patient.selectedPatient?.data?.code!);
-  }, [patient.selectedPatient.data!.code]);
+  }, [patient]);
 
   useEffect(() => {
     if (hasSucceeded) {
@@ -46,7 +46,9 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
             isCollapsabile={true}
           />
         ) : (
-          <CircularProgress />
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
         )}
       </div>
     </>
