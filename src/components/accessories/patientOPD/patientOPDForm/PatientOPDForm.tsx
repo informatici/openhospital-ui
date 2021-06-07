@@ -17,7 +17,7 @@ import get from "lodash.get";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 
-const PatientOPDForm: FunctionComponent<TProps> = ({
+const PatientOPDForm: FunctionComponent = ({
   fields,
   onSubmit,
   submitButtonLabel,

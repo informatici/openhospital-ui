@@ -1,4 +1,10 @@
-import { default as React, FunctionComponent, useEffect, useRef, useState } from "react";
+import {
+  default as React,
+  FunctionComponent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
@@ -6,7 +12,7 @@ import { PatientExaminationDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createExamination,
-  createExaminationReset
+  createExaminationReset,
 } from "../../../state/examinations/actions";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -19,7 +25,7 @@ import {
   IDispatchProps,
   IStateProps,
   TActivityTransitionState,
-  TProps
+  TProps,
 } from "./types";
 
 const PatientTriage: FunctionComponent<TProps> = ({
