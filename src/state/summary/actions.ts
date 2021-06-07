@@ -40,7 +40,7 @@ export const loadSummaryData =
     });
     if (code)
       concat(
-        examinationControllerApi.getByPatientIdUsingGET({ patId: 200 }).pipe(
+        examinationControllerApi.getByPatientIdUsingGET({ patId: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.triage)),
           catchError((err) => of([]))
         ),
