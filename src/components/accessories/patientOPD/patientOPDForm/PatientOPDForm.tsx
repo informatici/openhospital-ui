@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useCallback, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useFormik } from "formik";
 import {
   formatAllFieldValues,
@@ -6,7 +11,6 @@ import {
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import { object } from "yup";
-import { TProps } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import TextButton from "../../textButton/TextButton";
 import SmallButton from "../../smallButton/SmallButton";
@@ -16,8 +20,13 @@ import has from "lodash.has";
 import get from "lodash.get";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import { TProps } from "./types";
+import { IState } from "../../../../types";
+import { useSelector } from "react-redux";
+import { IDiseaseState } from "../../../../state/diseases/types";
+import { DiseaseDTO } from "../../../../generated";
 
-const PatientOPDForm: FunctionComponent = ({
+const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
   onSubmit,
   submitButtonLabel,
@@ -27,6 +36,8 @@ const PatientOPDForm: FunctionComponent = ({
   const validationSchema = object({
     // TODO
   });
+
+  const [diseases, setDiseases] = useState(Array<DiseaseDTO>());
 
   const initialValues = getFromFields(fields, "value");
 
@@ -49,7 +60,12 @@ const PatientOPDForm: FunctionComponent = ({
     },
     [setFieldValue]
   );
-
+  const disease = useSelector<IState, IDiseaseState>(
+    (state: IState) => state.diseases
+  );
+  useEffect(() => {
+    setDiseases(disease.getDiseases.data!);
+  }, [disease]);
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };

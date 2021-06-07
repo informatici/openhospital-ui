@@ -13,6 +13,9 @@ import {
 } from "./types";
 import { OpdDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import InfoBox from "../infoBox/InfoBox";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../assets/check-icon.png";
 
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
@@ -55,7 +58,24 @@ const PatientOPD: FunctionComponent<TProps> = ({
         onSubmit={onSubmit}
         submitButtonLabel={t("common.saveopd")}
         resetButtonLabel={t("common.discard")}
-        isLoading={false}
+        isLoading={isLoading}
+      />
+      <div ref={infoBoxRef}>
+        {hasFailed && (
+          <InfoBox
+            type="error"
+            message="Something went wrong, please retry later."
+          />
+        )}
+      </div>
+      <ConfirmationDialog
+        isOpen={hasSucceeded}
+        title="Patient Created"
+        icon={checkIcon}
+        info="The examination registration was successful."
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
       />
     </div>
   );
