@@ -10,7 +10,6 @@ import { getPatientThunk } from "../../../state/patients/actions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { TTabConfig } from "../../accessories/tabs/types";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
 import PatientTriage from "../../accessories/patientTriage/PatientTriage";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";

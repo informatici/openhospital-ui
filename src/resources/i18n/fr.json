@@ -1,12 +1,13 @@
 {
   "login": {
-    "username": "Utilisateur",
+    "username": "Nom d'utilisateur",
     "password": "Mot de passe",
-    "incorrectcredentials": "Utilisateur ou mot de passe invalide",
+    "incorrectcredentials": "Nom d'utilisateur ou mot de passe incorrect",
     "forgotpassword": "Mot de passe oublié?",
-    "insertavalidusername": "Insérer un utilisateur valide",
-    "insertthepassword": "Insérer le mot de passe",
-    "login": "Login"
+    "insertavalidusername": "Nom d'utlisateur invalid",
+    "insertthepassword": "Enter le mot de passe",
+    "login": "Login",
+    "signout": "Déconnection"
   },
   "dashboard": {
     "welcomename": "Bienvenu/e <strong>{{name}}<strong>",

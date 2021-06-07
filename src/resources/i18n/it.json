@@ -6,7 +6,8 @@
     "forgotpassword": "Hai dimenticato la password?",
     "insertavalidusername": "Inserisci uno username valido",
     "insertthepassword": "Inserisci una password valida",
-    "login": "Login"
+    "login": "Login",
+    "signout": "Sign Out"
   },
   "dashboard": {
     "welcomename": "Benvenuto/a <strong>{{name}}<strong>",

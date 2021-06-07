@@ -16,7 +16,7 @@ import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { TherapyRowDTO } from "../../../generated";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
@@ -35,6 +35,9 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
 
   useEffect(() => {
     if (hasFailed) {
