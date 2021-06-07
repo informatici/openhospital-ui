@@ -1,32 +1,25 @@
-import React, {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import SmallButton from "../../smallButton/SmallButton";
-import TextButton from "../../textButton/TextButton";
-import TextField from "../../textField/TextField";
-import SmsIcon from "@material-ui/icons/Sms";
-import PriorityHigh from "@material-ui/icons/PriorityHigh";
-import DateField from "../../dateField/DateField";
-import "./styles.scss";
-import { TherapyProps } from "./types";
-import SelectField from "../../selectField/SelectField";
 import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
+import PriorityHigh from "@material-ui/icons/PriorityHigh";
+import SmsIcon from "@material-ui/icons/Sms";
 import { useFormik } from "formik";
+import get from "lodash.get";
+import has from "lodash.has";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { object } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
-  updateFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { object } from "yup";
-import has from "lodash.has";
-import get from "lodash.get";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import warningIcon from "../../../../assets/warning-icon.png";
+import DateField from "../../dateField/DateField";
+import SelectField from "../../selectField/SelectField";
+import SmallButton from "../../smallButton/SmallButton";
+import TextButton from "../../textButton/TextButton";
+import TextField from "../../textField/TextField";
+import "./styles.scss";
+import { TherapyProps } from "./types";
 
 const TherapyForm: FC<TherapyProps> = ({
   fields,
