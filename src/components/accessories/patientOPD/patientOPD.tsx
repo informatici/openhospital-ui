@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { createOpd, createOpdReset } from "../../../state/opds/actions";
+import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 import {
   IDispatchProps,
@@ -20,6 +21,7 @@ import checkIcon from "../../../assets/check-icon.png";
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
   createOpdReset,
+  getDiseasesOpd,
   isLoading,
   hasSucceeded,
   hasFailed,
@@ -28,6 +30,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
+
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
@@ -39,6 +42,14 @@ const PatientOPD: FunctionComponent<TProps> = ({
   }, [hasFailed]);
 
   useEffect(() => {
+    getDiseasesOpd();
+  }, [getDiseasesOpd]);
+
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+
+  useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       createOpdReset();
       setShouldResetForm(true);
@@ -47,6 +58,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
   }, [activityTransitionState, createOpdReset]);
 
   const onSubmit = (opd: OpdDTO) => {
+    opd.patientCode = patient?.code;
     setShouldResetForm(false);
     createOpd(opd);
   };
@@ -89,6 +101,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
 const mapDispatchToProps: IDispatchProps = {
   createOpd,
   createOpdReset,
+  getDiseasesOpd,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientOPD);

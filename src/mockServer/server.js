@@ -8,6 +8,7 @@ import { userRoutes } from "./routes/users";
 import { visitRoutes } from "./routes/visits"
 import { therapyRoutes } from "./routes/therapies"
 import { opdRoutes } from "./routes/opd";
+import { diseasesRoutes } from "./routes/diseases";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -26,6 +27,7 @@ export function makeServer() {
     examinationsRoutes(server);
     therapyRoutes(server);
     opdRoutes(server);
+    diseasesRoutes(server);
   });
 
   return server;

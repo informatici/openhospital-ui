@@ -8,6 +8,7 @@ export interface IStateProps {
 export interface IDispatchProps {
   createOpd: (opd: OpdDTO) => any;
   createOpdReset: () => void;
+  getDiseasesOpd: () => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;
@@ -15,9 +16,9 @@ export type TProps = IStateProps & IDispatchProps;
 export type TActivityTransitionState = "IDLE" | "TO_RESET";
 
 export type TPatientOPDFormFieldName =
-  | "opdDate"
+  | "date"
   | "anamnesis"
-  | "opd_1"
-  | "opd_2"
-  | "opd_3"
+  | "disease"
+  | "disease2"
+  | "disease3"
   | "note";

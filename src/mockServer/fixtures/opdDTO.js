@@ -1,4 +1,4 @@
-import disease1DTO from "./diseaseDTO";
+import { disease1DTO, disease2DTO, disease3DTO } from "./diseaseDTO";
 import patientDTO from "./patientDTO";
 
 const opdDTO = {
@@ -12,8 +12,8 @@ const opdDTO = {
     note: "out patient consultation",
     prog_year: 18,
     disease: disease1DTO,
-    disease2: disease1DTO,
-    disease3: disease1DTO,
+    disease2: disease2DTO,
+    disease3: disease3DTO,
     newPatient: "N",
     referralFrom: "R",
     referralTo: "R",

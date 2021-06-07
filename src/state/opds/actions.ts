@@ -23,20 +23,31 @@ export const createOpd =
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-
-    opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
-      () => {
-        dispatch({
-          type: CREATE_OPD_SUCCESS,
-        });
-      },
-      (error) => {
-        dispatch({
-          type: CREATE_OPD_FAIL,
-          error,
-        });
-      }
-    );
+    if (
+      opdDTO.disease !== "" &&
+      opdDTO.disease2 !== "" &&
+      opdDTO.disease3 !== "" &&
+      opdDTO.date !== "0"
+    ) {
+      opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
+        () => {
+          dispatch({
+            type: CREATE_OPD_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: CREATE_OPD_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: CREATE_OPD_FAIL,
+        error: "choose disease before",
+      });
+    }
   };
 
 export const createOpdReset =

@@ -22,8 +22,10 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { IDiseaseState } from "../../../../state/diseases/types";
+import SelectField from "../../selectField/SelectField";
+import { getDiseasesOpd } from "../../../../state/diseases/actions";
 import { DiseaseDTO } from "../../../../generated";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
@@ -37,8 +39,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     // TODO
   });
 
-  const [diseases, setDiseases] = useState(Array<DiseaseDTO>());
-
+  const [diseasesOptions, setDiseasesOptions] = useState(
+    Array<{
+      value: string;
+      label: string;
+    }>()
+  );
   const initialValues = getFromFields(fields, "value");
 
   const formik = useFormik({
@@ -51,7 +57,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { setFieldValue } = formik;
+  const { setFieldValue, resetForm, handleBlur } = formik;
   const { t } = useTranslation();
 
   const dateFieldHandleOnChange = useCallback(
@@ -63,11 +69,19 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const disease = useSelector<IState, IDiseaseState>(
     (state: IState) => state.diseases
   );
+
   useEffect(() => {
-    setDiseases(disease.getDiseases.data!);
+    if (disease.getDiseases.data!.length > 0) {
+      setDiseasesOptions(
+        disease.getDiseases.data!.map((item) => {
+          return { value: item.code! + "", label: item.description! };
+        })
+      );
+    }
   }, [disease]);
   const isValid = (fieldName: string): boolean => {
-    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+    // return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+    return false;
   };
 
   const getErrorText = (fieldName: string): string => {
@@ -83,6 +97,18 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     formik.resetForm();
   };
 
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
+    [setFieldValue, handleBlur]
+  );
+
   return (
     <>
       <div className="patientOpdForm">
@@ -90,15 +116,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">
               <DateField
-                fieldName="opdDate"
+                fieldName="date"
                 fieldValue={formik.values.opdDate}
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("opdDate")}
-                errorText={getErrorText("opdDate")}
+                isValid={isValid("date")}
+                errorText={getErrorText("date")}
                 label={t("opd.dateopd")}
-                onChange={dateFieldHandleOnChange("opdDate")}
+                onChange={dateFieldHandleOnChange("date")}
               />
             </div>
           </div>
@@ -118,40 +144,40 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <TextField
-                field={formik.getFieldProps("opd_1")}
-                theme="regular"
-                label="opd_1"
-                isValid={isValid("opd_1")}
-                errorText={getErrorText("opd_1")}
-                onBlur={formik.handleBlur}
-                type="string"
+              <SelectField
+                fieldName="disease"
+                fieldValue={formik.values.opd_1}
+                label="disease"
+                isValid={isValid("disease")}
+                errorText={getErrorText("disease")}
+                onBlur={onBlurCallback("disease")}
+                options={diseasesOptions}
               />
             </div>
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <TextField
-                field={formik.getFieldProps("opd_2")}
-                theme="regular"
-                label="opd_2"
-                isValid={isValid("opd_2")}
-                errorText={getErrorText("opd_2")}
-                onBlur={formik.handleBlur}
-                type="string"
+              <SelectField
+                fieldName="disease2"
+                fieldValue={formik.values.opd_2}
+                label="disease2"
+                isValid={isValid("disease2")}
+                errorText={getErrorText("disease2")}
+                onBlur={onBlurCallback("disease2")}
+                options={diseasesOptions}
               />
             </div>
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <TextField
-                field={formik.getFieldProps("opd_3")}
-                theme="regular"
-                label="opd_3"
-                isValid={isValid("opd_3")}
-                errorText={getErrorText("opd_3")}
-                onBlur={formik.handleBlur}
-                type="string"
+              <SelectField
+                fieldName="disease3"
+                fieldValue={formik.values.opd_3}
+                label="disease3"
+                isValid={isValid("disease3")}
+                errorText={getErrorText("disease3")}
+                onBlur={onBlurCallback("disease3")}
+                options={diseasesOptions}
               />
             </div>
           </div>

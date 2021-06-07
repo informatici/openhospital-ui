@@ -18,18 +18,19 @@ const desaseControllerApi = new DiseaseControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
-export const loadDiseases =
+export const getDiseasesOpd =
   () =>
   (dispatch: Dispatch<IAction<DiseaseDTO[], {}>>): void => {
     dispatch({
       type: GET_DISEASE_LOADING,
     });
+    console.log("IICICICI IN ACTION");
     desaseControllerApi.getAllDiseasesUsingGET().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
             type: GET_DISEASE_SUCCESS,
-            payload: [payload],
+            payload: payload,
           });
         } else {
           dispatch({
