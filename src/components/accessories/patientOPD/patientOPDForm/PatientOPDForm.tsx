@@ -22,11 +22,10 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IDiseaseState } from "../../../../state/diseases/types";
 import SelectField from "../../selectField/SelectField";
-import { getDiseasesOpd } from "../../../../state/diseases/actions";
-import { DiseaseDTO } from "../../../../generated";
+import { format } from "date-fns";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -53,6 +52,20 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      const disease1 = diseaseSate.diseasesAll.data!.filter(
+        (el) => el.code === +values.disease
+      );
+      const disease2 = diseaseSate.diseasesAll.data!.filter(
+        (el) => el.code === +values.disease2
+      );
+      const disease3 = diseaseSate.diseasesAll.data!.filter(
+        (el) => el.code === +values.disease3
+      );
+      formattedValues.disease = disease1 ? disease1[0] : undefined;
+      formattedValues.disease2 = disease2 ? disease2[0] : undefined;
+      formattedValues.disease3 = disease3 ? disease3[0] : undefined;
+      formattedValues.date = values.date ? values.date : undefined;
+
       onSubmit(formattedValues);
     },
   });
@@ -66,22 +79,21 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
     [setFieldValue]
   );
-  const disease = useSelector<IState, IDiseaseState>(
+  const diseaseSate = useSelector<IState, IDiseaseState>(
     (state: IState) => state.diseases
   );
 
   useEffect(() => {
-    if (disease.getDiseases.data!.length > 0) {
+    if (diseaseSate.diseasesAll.data!.length > 0) {
       setDiseasesOptions(
-        disease.getDiseases.data!.map((item) => {
+        diseaseSate.diseasesAll.data!.map((item) => {
           return { value: item.code! + "", label: item.description! };
         })
       );
     }
-  }, [disease]);
+  }, [diseaseSate]);
   const isValid = (fieldName: string): boolean => {
-    // return has(formik.touched, fieldName) && has(formik.errors, fieldName);
-    return false;
+    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
 
   const getErrorText = (fieldName: string): string => {
@@ -94,7 +106,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
-    formik.resetForm();
+    resetForm();
   };
 
   const onBlurCallback = useCallback(
@@ -104,6 +116,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         value: string
       ) => {
         handleBlur(e);
+
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]
@@ -146,7 +159,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <div className="patientOpdForm__item fullWith">
               <SelectField
                 fieldName="disease"
-                fieldValue={formik.values.opd_1}
+                fieldValue={formik.values.disease}
                 label="disease"
                 isValid={isValid("disease")}
                 errorText={getErrorText("disease")}
@@ -159,7 +172,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <div className="patientOpdForm__item fullWith">
               <SelectField
                 fieldName="disease2"
-                fieldValue={formik.values.opd_2}
+                fieldValue={formik.values.disease2}
                 label="disease2"
                 isValid={isValid("disease2")}
                 errorText={getErrorText("disease2")}
@@ -172,7 +185,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <div className="patientOpdForm__item fullWith">
               <SelectField
                 fieldName="disease3"
-                fieldValue={formik.values.opd_3}
+                fieldValue={formik.values.disease3}
                 label="disease3"
                 isValid={isValid("disease3")}
                 errorText={getErrorText("disease3")}

@@ -23,12 +23,8 @@ export const createOpd =
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    if (
-      opdDTO.disease !== "" &&
-      opdDTO.disease2 !== "" &&
-      opdDTO.disease3 !== "" &&
-      opdDTO.date !== "0"
-    ) {
+
+    if (opdDTO.disease && opdDTO.disease2 && opdDTO.disease3 && opdDTO.date) {
       opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
         () => {
           dispatch({

@@ -4,7 +4,7 @@ import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { createOpd, createOpdReset } from "../../../state/opds/actions";
-import { getDiseasesOpd } from "../../../state/diseases/actions";
+import { getDiseasesAll } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 import {
   IDispatchProps,
@@ -17,11 +17,12 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
+import { CircularProgress } from "@material-ui/core";
 
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
   createOpdReset,
-  getDiseasesOpd,
+  getDiseasesAll,
   isLoading,
   hasSucceeded,
   hasFailed,
@@ -42,8 +43,8 @@ const PatientOPD: FunctionComponent<TProps> = ({
   }, [hasFailed]);
 
   useEffect(() => {
-    getDiseasesOpd();
-  }, [getDiseasesOpd]);
+    getDiseasesAll();
+  }, [getDiseasesAll]);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -101,7 +102,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
 const mapDispatchToProps: IDispatchProps = {
   createOpd,
   createOpdReset,
-  getDiseasesOpd,
+  getDiseasesAll,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientOPD);

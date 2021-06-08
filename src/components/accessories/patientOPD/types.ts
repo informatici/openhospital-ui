@@ -8,7 +8,7 @@ export interface IStateProps {
 export interface IDispatchProps {
   createOpd: (opd: OpdDTO) => any;
   createOpdReset: () => void;
-  getDiseasesOpd: () => void;
+  getDiseasesAll: () => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;
