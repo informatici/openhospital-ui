@@ -12,7 +12,7 @@ import "./styles.scss";
 import { IDispatchProps, IStateProps, TProps } from "./types";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IState } from "../../../types";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
@@ -27,7 +27,9 @@ const AppHeader: FunctionComponent<TProps> = ({
 
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-
+  const username = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
   const openMenu = (isOpen: boolean) => {
     isOpen
       ? document.body.classList.add("disable-scroll")
@@ -82,19 +84,27 @@ const AppHeader: FunctionComponent<TProps> = ({
           </div>
         </div>
         <div className="appHeader__nav">
-          <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
-          <div className="appHeader__nav_items">
-            <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
-            <div className="appHeader__nav__item">{t("nav.ward")}</div>
-            <div className="appHeader__nav__item">{t("nav.billing")}</div>
-            <div className="appHeader__nav__item">
+          <div className="appHeader__nav_top_right">
+            <div className="appHeader__nav_lang_switcher">
+              {<LangSwitcher />}
+            </div>
+            <div className="userInfo__toolbar">
+              <span>
+                Welcome, <strong>{username}</strong>
+              </span>
               <Tooltip title={t("login.signout")!} aria-label="sign out">
                 <ExitToAppIcon
+                  className="userInfo__toolbar_icon"
                   id="signout_icon"
                   onClick={() => setOpenLogoutConfirmation(true)}
                 />
               </Tooltip>
             </div>
+          </div>
+          <div className="appHeader__nav_items">
+            <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
+            <div className="appHeader__nav__item">{t("nav.ward")}</div>
+            <div className="appHeader__nav__item">{t("nav.billing")}</div>
           </div>
         </div>
       </div>

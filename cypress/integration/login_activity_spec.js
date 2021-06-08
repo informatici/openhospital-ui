@@ -104,7 +104,7 @@ describe("LoginActivity spec", () => {
     //check if the confirmation dialog is rendered
     cy.get(".MuiDialog-paper");
     //dismiss the confirmation dialog
-    cy.get(".reset_button button").click();
+    cy.get(".dialog__content .dialog__buttonSet .reset_button button").click();
 
     //close the menu page if present
     if (cy.get("[class=appHeader__identified__trigger]"))
@@ -124,7 +124,7 @@ describe("LoginActivity spec", () => {
       cy.get("[id=signout_icon]").click();
     }
     //validate the signout action
-    cy.get(".return_button button").click();
+    cy.get(".dialog__content .dialog__buttonSet .return_button button").click();
 
     //check if the login page is displayed
     cy.get("[class=login__panel]")
