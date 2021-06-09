@@ -280,9 +280,9 @@
   }
 
   .appHeader__nav_lang_switcher {
-    text-align: right;
+    text-align: left;
     position: relative;
-    right: 15px;
+    margin-right: 7px;
     margin-bottom: 10px;
   }
 
@@ -452,4 +452,16 @@
       width: 30px;
     }
   }
+
+  .appHeader__nav_top_right{
+    display: inline-flex;
+  }
+  .userInfo__toolbar {
+    margin-left: 15px;
+    .userInfo__toolbar_icon {
+      margin-left: 5px;
+      float:right;
+    }
+  }
+
 }
