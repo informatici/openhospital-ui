@@ -42,9 +42,9 @@
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnesis",
     "note": "Reclamo",
-    "disease1": "Diagnostic 1",
-    "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3"
+    "disease1": "Diagnóstico 1",
+    "disease2": "Diagnóstico 2",
+    "disease3": "Diagnóstico 3"
   },
   "examination": {
     "ap": {
