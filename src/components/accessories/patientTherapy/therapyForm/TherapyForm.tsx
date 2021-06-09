@@ -101,7 +101,7 @@ const TherapyForm: FC<TherapyProps> = ({
           onSubmit={formik.handleSubmit}
         >
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item medecine">
+            <div className="patientTherapyForm__item">
               <SelectField
                 fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
@@ -123,8 +123,6 @@ const TherapyForm: FC<TherapyProps> = ({
                 type="number"
               />
             </div>
-          </div>
-          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("freqInDay")}
@@ -136,7 +134,8 @@ const TherapyForm: FC<TherapyProps> = ({
                 type="number"
               />
             </div>
-
+          </div>
+          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
               <span>{t("therapy.duration")}</span>
               <TextField
