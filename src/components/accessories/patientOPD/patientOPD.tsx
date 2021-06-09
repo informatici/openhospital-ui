@@ -18,6 +18,7 @@ import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import { CircularProgress } from "@material-ui/core";
+import { IDiseaseState } from "../../../state/diseases/types";
 
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
@@ -31,10 +32,12 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
-
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
+
+  const diseaseSate = useSelector<IState, IDiseaseState>(
+    (state: IState) => state.diseases
+  );
 
   useEffect(() => {
     if (hasFailed) {
@@ -54,14 +57,29 @@ const PatientOPD: FunctionComponent<TProps> = ({
     if (activityTransitionState === "TO_RESET") {
       createOpdReset();
       setShouldResetForm(true);
-      setShouldUpdateTable(true);
     }
   }, [activityTransitionState, createOpdReset]);
 
-  const onSubmit = (opd: OpdDTO) => {
-    opd.patientCode = patient?.code;
+  const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
-    createOpd(opd);
+    if (patient?.code && diseaseSate.diseasesAll.data) {
+      createOpdValues.patientCode = patient?.code;
+      createOpd(createOpdValues, diseaseSate.diseasesAll?.data);
+    } else if (!patient?.code) {
+      return (
+        <InfoBox
+          type="error"
+          message='The Patient: PatientDTO object must have a "code" property.'
+        />
+      );
+    } else {
+      return (
+        <InfoBox
+          type="error"
+          message="The diseases list should not be empty."
+        />
+      );
+    }
   };
 
   return (
@@ -83,9 +101,9 @@ const PatientOPD: FunctionComponent<TProps> = ({
       </div>
       <ConfirmationDialog
         isOpen={hasSucceeded}
-        title="Patient Created"
+        title="Opd Created"
         icon={checkIcon}
-        info="The examination registration was successful."
+        info="The Opd registration was successful."
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}

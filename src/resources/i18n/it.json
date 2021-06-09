@@ -41,7 +41,10 @@
   "opd": {
     "dateopd": "Data (d/m/y)",
     "anamnesis": "Anamnesi",
-    "note": "Note"
+    "note": "Note",
+    "disease1": "Diagnostic 1",
+    "disease2": "Diagnostic 2",
+    "disease3": "Diagnostic 3"
   },
   "examination": {
     "ap": {

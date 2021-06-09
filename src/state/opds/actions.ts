@@ -1,7 +1,13 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { Configuration, OpdControllerApi, OpdDTO } from "../../generated";
+import {
+  Configuration,
+  DiseaseDTO,
+  OpdControllerApi,
+  OpdDTO,
+} from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { opdDataFormatter } from "../../libraries/formatUtils/dataFormatting";
 import { IAction } from "../types";
 import {
   CREATE_OPD_RESET,
@@ -18,11 +24,12 @@ const opdControllerApi = new OpdControllerApi(
 );
 
 export const createOpd =
-  (opdDTO: OpdDTO) =>
+  (opdValues: Record<string, any>, diseaseList: DiseaseDTO[]) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
     });
+    const opdDTO = opdDataFormatter(opdValues, diseaseList);
 
     if (opdDTO.disease && opdDTO.disease2 && opdDTO.disease3 && opdDTO.date) {
       opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(

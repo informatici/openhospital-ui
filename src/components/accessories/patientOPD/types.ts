@@ -1,4 +1,4 @@
-import { OpdDTO } from "../../../generated";
+import { DiseaseDTO, OpdDTO } from "../../../generated";
 
 export interface IStateProps {
   isLoading: boolean;
@@ -6,7 +6,7 @@ export interface IStateProps {
   hasFailed: boolean;
 }
 export interface IDispatchProps {
-  createOpd: (opd: OpdDTO) => any;
+  createOpd: (opd: Record<string, any>, diseasesList: DiseaseDTO[]) => any;
   createOpdReset: () => void;
   getDiseasesAll: () => void;
 }

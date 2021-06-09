@@ -10,7 +10,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
-import { object } from "yup";
+import { object, string } from "yup";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import TextButton from "../../textButton/TextButton";
 import SmallButton from "../../smallButton/SmallButton";
@@ -25,7 +25,6 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import { IDiseaseState } from "../../../../state/diseases/types";
 import SelectField from "../../selectField/SelectField";
-import { format } from "date-fns";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -35,7 +34,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   isLoading,
 }) => {
   const validationSchema = object({
-    // TODO
+    date: string().required("This field is required"),
+    disease: string().required("This field is required"),
+    disease2: string().required("This field is required"),
+    disease3: string().required("This field is required"),
   });
 
   const [diseasesOptions, setDiseasesOptions] = useState(
@@ -52,20 +54,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      const disease1 = diseaseSate.diseasesAll.data!.filter(
-        (el) => el.code === +values.disease
-      );
-      const disease2 = diseaseSate.diseasesAll.data!.filter(
-        (el) => el.code === +values.disease2
-      );
-      const disease3 = diseaseSate.diseasesAll.data!.filter(
-        (el) => el.code === +values.disease3
-      );
-      formattedValues.disease = disease1 ? disease1[0] : undefined;
-      formattedValues.disease2 = disease2 ? disease2[0] : undefined;
-      formattedValues.disease3 = disease3 ? disease3[0] : undefined;
-      formattedValues.date = values.date ? values.date : undefined;
-
       onSubmit(formattedValues);
     },
   });
@@ -84,7 +72,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   );
 
   useEffect(() => {
-    if (diseaseSate.diseasesAll.data!.length > 0) {
+    if (
+      diseaseSate.diseasesAll.data &&
+      diseaseSate.diseasesAll.data.length > 0
+    ) {
       setDiseasesOptions(
         diseaseSate.diseasesAll.data!.map((item) => {
           return { value: item.code! + "", label: item.description! };
@@ -130,7 +121,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <div className="patientOpdForm__item">
               <DateField
                 fieldName="date"
-                fieldValue={formik.values.opdDate}
+                fieldValue={formik.values.date}
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
@@ -160,7 +151,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="disease"
                 fieldValue={formik.values.disease}
-                label="disease"
+                label={t("opd.disease1")}
                 isValid={isValid("disease")}
                 errorText={getErrorText("disease")}
                 onBlur={onBlurCallback("disease")}
@@ -173,7 +164,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="disease2"
                 fieldValue={formik.values.disease2}
-                label="disease2"
+                label={t("opd.disease2")}
                 isValid={isValid("disease2")}
                 errorText={getErrorText("disease2")}
                 onBlur={onBlurCallback("disease2")}
@@ -186,7 +177,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               <SelectField
                 fieldName="disease3"
                 fieldValue={formik.values.disease3}
-                label="disease3"
+                label={t("opd.disease3")}
                 isValid={isValid("disease3")}
                 errorText={getErrorText("disease3")}
                 onBlur={onBlurCallback("disease3")}

@@ -41,7 +41,10 @@
   "opd": {
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnesis",
-    "note": "Malalamiko"
+    "note": "Malalamiko",
+    "disease1": "Diagnostic 1",
+    "disease2": "Diagnostic 2",
+    "disease3": "Diagnostic 3"
   },
   "examination": {
     "ap": {
