@@ -73,7 +73,6 @@ const TherapyForm: FC<TherapyProps> = ({
         value: string
       ) => {
         handleBlur(e);
-        console.log("value ", value);
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]

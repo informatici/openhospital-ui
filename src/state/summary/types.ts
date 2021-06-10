@@ -1,10 +1,10 @@
 import { IApiResponse } from "../types";
 
 export type ISummaryState = {
-  loadSummaryData: IApiResponse<Array<any>>;
+  summaryData: IApiResponse<Array<SummaryDataType>>;
 };
 
-export type SummaryData = {
+export type SummaryDataType = {
   date: string;
   type: string;
   result: string;

@@ -35,7 +35,7 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
-  const patient = useSelector(
+  const patientId = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -55,7 +55,7 @@ const PatientTherapy: FC<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patient;
+    therapy.patID = patientId;
     createTherapy(therapy);
   };
 

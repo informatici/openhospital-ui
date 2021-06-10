@@ -1,4 +1,4 @@
-const disease1DTO = {
+export const diseaseDTO = {
     code: Math.floor(Math.random() * 100 + 1),
     description: "Abortions",
     diseaseType: {
@@ -9,5 +9,3 @@ const disease1DTO = {
     ipdInInclude: true,
     ipdOutInclude: true
 }
-
-export default disease1DTO
