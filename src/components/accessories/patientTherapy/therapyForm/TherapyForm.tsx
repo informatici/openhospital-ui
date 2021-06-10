@@ -148,7 +148,6 @@ const TherapyForm: FC<TherapyProps> = ({
               />
             </div>
             <div className="patientTherapyForm__item">
-              <span>{t("therapy.duration")}</span>
               <TextField
                 field={formik.getFieldProps("nbWeeks")}
                 theme="regular"
