@@ -39,14 +39,12 @@ const TherapyForm: FC<TherapyProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const medicals = useSelector((state: IState) =>
-    state.medicals.medicalsList.data
-      ? state.medicals.medicalsList.data?.map((medical) => {
-          return {
-            value: medical.code,
-            label: medical.description,
-          };
-        })
-      : new Array()
+    state.medicals.medicalsOrderByName.data?.map((medical) => {
+      return {
+        value: medical.code,
+        label: medical.description,
+      };
+    })
   );
 
   const formik = useFormik({
@@ -120,7 +118,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 isValid={isValid("medicalId")}
                 errorText={getErrorText("medicalId")}
                 onBlur={onBlurCallback("medicalId")}
-                options={medicals}
+                options={medicals ? medicals : new Array()}
               />
             </div>
             <div className="patientTherapyForm__item">

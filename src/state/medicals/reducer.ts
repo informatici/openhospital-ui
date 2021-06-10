@@ -14,24 +14,24 @@ export default produce((draft: IMedicalState, action: IAction<any, any>) => {
      * GET_MEDICALS
      */
     case GET_MEDICAL_LOADING: {
-      draft.medicalsList.status = "LOADING";
+      draft.medicalsOrderByName.status = "LOADING";
       break;
     }
 
     case GET_MEDICAL_SUCCESS: {
       if (action.payload.length > 0) {
-        draft.medicalsList.status = "SUCCESS";
+        draft.medicalsOrderByName.status = "SUCCESS";
       } else {
-        draft.medicalsList.status = "SUCCESS_EMPTY";
+        draft.medicalsOrderByName.status = "SUCCESS_EMPTY";
       }
-      draft.medicalsList.data = action.payload;
-      delete draft.medicalsList.error;
+      draft.medicalsOrderByName.data = action.payload;
+      delete draft.medicalsOrderByName.error;
       break;
     }
 
     case GET_MEDICAL_FAIL: {
-      draft.medicalsList.status = "FAIL";
-      draft.medicalsList.error = action.error;
+      draft.medicalsOrderByName.status = "FAIL";
+      draft.medicalsOrderByName.error = action.error;
       break;
     }
   }

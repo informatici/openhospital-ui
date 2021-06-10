@@ -33,7 +33,11 @@ export const createTherapy =
       (payload) => {
         dispatch({
           type: CREATE_THERAPY_SUCCESS,
-          payload: payload,
+          payload: {
+            ...payload,
+            startDate: format(new Date(+payload.startDate!), "dd/MM/yyyy"),
+            endDate: format(new Date(+payload.endDate!), "dd/MM/yyyy"),
+          },
         });
       },
       (error) => {

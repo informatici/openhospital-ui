@@ -37,6 +37,8 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
+
+  //There is some "mistake" in apis model about the patient id
   const patientId = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
