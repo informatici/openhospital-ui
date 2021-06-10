@@ -1,5 +1,6 @@
 import { IExaminationsState } from "./state/examinations/types";
 import { IMainState } from "./state/main/types";
+import { IMedicalState } from "./state/medicals/types";
 import { IPatientsState } from "./state/patients/types";
 import { ITherapiesState } from "./state/therapies/types";
 
@@ -8,6 +9,7 @@ export interface IState {
   patients: IPatientsState;
   examinations: IExaminationsState;
   therapies: ITherapiesState;
+  medicals: IMedicalState;
 }
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js

@@ -6,6 +6,7 @@ import {
   createTherapy,
   createTherapyReset,
 } from "../../../state/therapies/actions";
+import { getMedicals } from "../../../state/medicals/actions";
 import {
   IDispatchProps,
   IStateProps,
@@ -28,6 +29,7 @@ const PatientTherapy: FC<TProps> = ({
   isLoading,
   hasSucceeded,
   hasFailed,
+  getMedicals,
 }) => {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -35,7 +37,7 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
-  const patient = useSelector(
+  const patientId = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -44,6 +46,10 @@ const PatientTherapy: FC<TProps> = ({
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
+
+  useEffect(() => {
+    getMedicals();
+  }, []);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -55,7 +61,7 @@ const PatientTherapy: FC<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = undefined;
+    therapy.patID = patientId;
     createTherapy(therapy);
   };
 
@@ -107,5 +113,6 @@ const mapStateToProps = (state: IState): IStateProps => ({
 const mapDispatchToProps: IDispatchProps = {
   createTherapy,
   createTherapyReset,
+  getMedicals,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PatientTherapy);

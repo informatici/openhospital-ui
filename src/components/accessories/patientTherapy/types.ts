@@ -9,6 +9,7 @@ export interface IStateProps {
 export interface IDispatchProps {
   createTherapy: (therapy: TherapyRowDTO) => any;
   createTherapyReset: () => void;
+  getMedicals: () => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;
