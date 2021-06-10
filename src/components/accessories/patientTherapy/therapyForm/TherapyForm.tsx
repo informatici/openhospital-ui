@@ -1,6 +1,4 @@
-import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
-import PriorityHigh from "@material-ui/icons/PriorityHigh";
-import SmsIcon from "@material-ui/icons/Sms";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";

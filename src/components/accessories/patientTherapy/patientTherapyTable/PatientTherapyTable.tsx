@@ -13,7 +13,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
   const [, setUpdate] = useState(false);
-  const { t } = useTranslation();
   const therapy = useSelector<IState, ITherapiesState>(
     (state) => state.therapies
   );
