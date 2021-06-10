@@ -17,7 +17,6 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
-import { CircularProgress } from "@material-ui/core";
 import { IDiseaseState } from "../../../state/diseases/types";
 
 const PatientOPD: FunctionComponent<TProps> = ({
@@ -62,24 +61,8 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
-    if (patient?.code && diseaseSate.diseasesAll.data) {
-      createOpdValues.patientCode = patient?.code;
-      createOpd(createOpdValues, diseaseSate.diseasesAll?.data);
-    } else if (!patient?.code) {
-      return (
-        <InfoBox
-          type="error"
-          message='The Patient: PatientDTO object must have a "code" property.'
-        />
-      );
-    } else {
-      return (
-        <InfoBox
-          type="error"
-          message="The diseases list should not be empty."
-        />
-      );
-    }
+    createOpdValues.patientCode = patient?.code;
+    createOpd(createOpdValues, diseaseSate.diseasesAll!.data!);
   };
 
   return (

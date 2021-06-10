@@ -29,9 +29,10 @@ export const createOpd =
     dispatch({
       type: CREATE_OPD_LOADING,
     });
+    //
     const opdDTO = opdDataFormatter(opdValues, diseaseList);
 
-    if (opdDTO.disease && opdDTO.disease2 && opdDTO.disease3 && opdDTO.date) {
+    if (opdDTO) {
       opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
         () => {
           dispatch({

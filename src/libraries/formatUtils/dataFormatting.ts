@@ -14,5 +14,14 @@ export const opdDataFormatter = (
   data.disease = disease1[0];
   data.disease2 = disease2[0];
   data.disease3 = disease3[0];
-  return data;
+
+  if (
+    data.patientCode &&
+    data.disease &&
+    data.disease2 &&
+    data.disease3 &&
+    data.date
+  )
+    return data;
+  else return undefined;
 };
