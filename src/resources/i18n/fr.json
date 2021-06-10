@@ -137,6 +137,14 @@
   "booking": {
     "category": "Catégorie",
     "service": "Service",
+    "bookingdate": "Date"
+  },
+  "summary": {
+    "visits": "Visites",
+    "triage": "Paramètres",
+    "therapy": "Thérapie",    
+    "opd": "Diagnostiques",
+    "booking": "Prescriptions",
     "bookingdate": "Date",
     "gobackdashboard": "Retour à l'accueil",
     "keepediting": "Continuer à éditer",
