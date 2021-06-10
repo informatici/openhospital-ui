@@ -1,6 +1,6 @@
 @import "../../../../styles/variables";
 @import "../../../../../node_modules/susy/sass/susy";
-$smallnarrow: 1025px 1200px;
+$ipadpro: 1024px 1366px;
 .patientTherapyForm {
   display: inline-block;
   flex-direction: column;
@@ -13,6 +13,9 @@ $smallnarrow: 1025px 1200px;
     width: 33%;
     @include susy-media($narrow) {
       padding: 0px 10px;
+    }
+    @include susy-media($ipadpro){
+      padding: 0px 5px;
     }
     @include susy-media($tablet_land) {
       padding: 0px 10px;
