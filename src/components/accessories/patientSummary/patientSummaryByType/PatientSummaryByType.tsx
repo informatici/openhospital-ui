@@ -22,24 +22,20 @@ const label = {
 const PatientSummaryByType: FunctionComponent<TProps> = ({
   loadSummaryData,
   isLoading,
+  summaryData,
 }) => {
   const { t } = useTranslation();
-  const summaryData = useSelector<IState, Array<SummaryDataType>>((state) =>
-    state.summary.summaryData.data
-      ? state.summary.summaryData.data
-      : new Array<SummaryDataType>()
+
+  const patientCode = useSelector(
+    (state: IState) => state.patients.selectedPatient.data?.code
   );
-  const patient = useSelector((state: IState) => state.patients);
 
   useEffect(() => {
-    if (patient.selectedPatient.data?.code)
-      loadSummaryData(patient.selectedPatient.data.code);
-  }, [patient]);
+    if (patientCode) loadSummaryData(patientCode);
+  }, [patientCode]);
 
   const filterByType = (type: string) => {
-    return summaryData.filter((item) => item.type === type)
-      ? summaryData.filter((item) => item.type === type)
-      : Array<SummaryDataType>();
+    return summaryData.filter((item) => item.type === type);
   };
   return (
     <>
@@ -109,9 +105,10 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: state.summary.summaryData.status === "LOADING",
-  hasSucceeded: state.summary.summaryData.status === "SUCCESS",
-  hasFailed: state.summary.summaryData.status === "FAIL",
+  isLoading: state.summary.summaryApisCall.status === "LOADING",
+  hasSucceeded: state.summary.summaryApisCall.status === "SUCCESS",
+  hasFailed: state.summary.summaryApisCall.status === "FAIL",
+  summaryData: state.summary.summaryApisCall.data!,
 });
 
 const mapDispatchToProps: IDispatchProps = {

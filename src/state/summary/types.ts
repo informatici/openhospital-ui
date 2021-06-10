@@ -1,7 +1,7 @@
 import { IApiResponse } from "../types";
 
 export type ISummaryState = {
-  summaryData: IApiResponse<Array<SummaryDataType>>;
+  summaryApisCall: IApiResponse<Array<SummaryDataType>>;
 };
 
 export type SummaryDataType = {

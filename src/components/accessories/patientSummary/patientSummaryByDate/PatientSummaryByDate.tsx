@@ -2,7 +2,6 @@ import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { loadSummaryData } from "../../../../state/summary/actions";
-import { SummaryDataType } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_DATE_PAGE_SIZE } from "../consts";
@@ -18,18 +17,15 @@ const label = {
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
   loadSummaryData,
   isLoading,
+  summaryData,
 }) => {
-  const summaryData = useSelector<IState, Array<SummaryDataType>>((state) =>
-    state.summary.summaryData.data
-      ? state.summary.summaryData.data
-      : new Array<SummaryDataType>()
+  const patientCode = useSelector(
+    (state: IState) => state.patients.selectedPatient.data?.code
   );
-  const patient = useSelector((state: IState) => state.patients);
 
   useEffect(() => {
-    if (patient.selectedPatient.data?.code)
-      loadSummaryData(patient.selectedPatient.data.code);
-  }, [patient]);
+    if (patientCode) loadSummaryData(patientCode);
+  }, [patientCode]);
 
   return (
     <>
@@ -54,9 +50,10 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: state.summary.summaryData.status === "LOADING",
-  hasSucceeded: state.summary.summaryData.status === "SUCCESS",
-  hasFailed: state.summary.summaryData.status === "FAIL",
+  isLoading: state.summary.summaryApisCall.status === "LOADING",
+  hasSucceeded: state.summary.summaryApisCall.status === "SUCCESS",
+  hasFailed: state.summary.summaryApisCall.status === "FAIL",
+  summaryData: state.summary.summaryApisCall.data!,
 });
 
 const mapDispatchToProps: IDispatchProps = {

@@ -10,17 +10,17 @@ import { ISummaryState } from "./types";
 export default produce((draft: ISummaryState, action: any) => {
   switch (action.type) {
     case GET_SUMMARY_LOADING: {
-      draft.summaryData.status = "LOADING";
+      draft.summaryApisCall.status = "LOADING";
       break;
     }
     case GET_SUMMARY_SUCCESS: {
-      draft.summaryData.status = "SUCCESS";
-      draft.summaryData.data = action.payload;
-      delete draft.summaryData.error;
+      draft.summaryApisCall.status = "SUCCESS";
+      draft.summaryApisCall.data = action.payload;
+      delete draft.summaryApisCall.error;
       break;
     }
     case GET_SUMMARY_FAIL: {
-      draft.summaryData.status = "FAIL";
+      draft.summaryApisCall.status = "FAIL";
       break;
     }
   }
