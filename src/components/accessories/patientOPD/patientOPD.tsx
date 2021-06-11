@@ -61,6 +61,11 @@ const PatientOPD: FunctionComponent<TProps> = ({
     createOpd(createOpdValues, diseasesData);
   };
 
+  const resetFormCallback = () => {
+    setShouldResetForm(false);
+    setActivityTransitionState("IDLE");
+    scrollToElement(null);
+  };
   return (
     <div className="patientSummary">
       <PatientOPDForm
@@ -70,6 +75,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
         resetButtonLabel={t("common.discard")}
         isLoading={isLoading}
         shouldResetForm={shouldResetForm}
+        resetFormCallback={resetFormCallback}
       />
       <div ref={infoBoxRef}>
         {hasFailed && (

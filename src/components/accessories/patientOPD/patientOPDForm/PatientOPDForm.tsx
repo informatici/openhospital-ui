@@ -24,7 +24,6 @@ import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import SelectField from "../../selectField/SelectField";
-import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -33,6 +32,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
   shouldResetForm,
+  resetFormCallback,
 }) => {
   const validationSchema = object({
     date: string().required("This field is required"),
@@ -94,9 +94,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
-      scrollToElement(null);
+      resetFormCallback();
     }
-  }, [shouldResetForm, resetForm]);
+  }, [shouldResetForm, resetForm, resetFormCallback]);
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
