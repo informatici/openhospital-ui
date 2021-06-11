@@ -3,7 +3,6 @@ import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
 import { loadSummaryData } from "../../../../state/summary/actions";
-import { SummaryDataType } from "../../../../state/summary/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
@@ -22,7 +21,7 @@ const label = {
 const PatientSummaryByType: FunctionComponent<TProps> = ({
   loadSummaryData,
   isLoading,
-  summaryData,
+  summaryData = [],
 }) => {
   const { t } = useTranslation();
 
@@ -32,7 +31,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (patientCode) loadSummaryData(patientCode);
-  }, [patientCode]);
+  }, [patientCode, loadSummaryData]);
 
   const filterByType = (type: string) => {
     return summaryData.filter((item) => item.type === type);
@@ -108,7 +107,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
   isLoading: state.summary.summaryApisCall.status === "LOADING",
   hasSucceeded: state.summary.summaryApisCall.status === "SUCCESS",
   hasFailed: state.summary.summaryApisCall.status === "FAIL",
-  summaryData: state.summary.summaryApisCall.data!,
+  summaryData: state.summary.summaryApisCall.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {

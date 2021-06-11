@@ -4,7 +4,7 @@ export interface IStateProps {
   isLoading: boolean;
   hasSucceeded: boolean;
   hasFailed: boolean;
-  summaryData: SummaryDataType[];
+  summaryData: SummaryDataType[] | undefined;
 }
 
 export interface IDispatchProps {

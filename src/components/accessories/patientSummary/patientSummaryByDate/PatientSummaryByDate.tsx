@@ -17,7 +17,7 @@ const label = {
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
   loadSummaryData,
   isLoading,
-  summaryData,
+  summaryData = [],
 }) => {
   const patientCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -25,7 +25,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (patientCode) loadSummaryData(patientCode);
-  }, [patientCode]);
+  }, [patientCode, loadSummaryData]);
 
   return (
     <>
@@ -53,7 +53,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
   isLoading: state.summary.summaryApisCall.status === "LOADING",
   hasSucceeded: state.summary.summaryApisCall.status === "SUCCESS",
   hasFailed: state.summary.summaryApisCall.status === "FAIL",
-  summaryData: state.summary.summaryApisCall.data!,
+  summaryData: state.summary.summaryApisCall.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {
