@@ -25,6 +25,7 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import { IDiseaseState } from "../../../../state/diseases/types";
 import SelectField from "../../selectField/SelectField";
+import { DiseaseDTO } from "../../../../generated";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -40,12 +41,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     disease3: string().required("This field is required"),
   });
 
-  const [diseasesOptions, setDiseasesOptions] = useState(
-    Array<{
-      value: string;
-      label: string;
-    }>()
-  );
   const initialValues = getFromFields(fields, "value");
 
   const formik = useFormik({
@@ -67,22 +62,18 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
     [setFieldValue]
   );
-  const diseaseSate = useSelector<IState, IDiseaseState>(
-    (state: IState) => state.diseases
-  );
-
-  useEffect(() => {
-    if (
-      diseaseSate.diseasesAll.data &&
-      diseaseSate.diseasesAll.data.length > 0
-    ) {
-      setDiseasesOptions(
-        diseaseSate.diseasesAll.data!.map((item) => {
-          return { value: item.code! + "", label: item.description! };
+  const diseasesOptionsSelector = (state: IState) => {
+    return state.diseases.diseasesAll.data
+      ? state.diseases.diseasesAll.data.map((item) => {
+          return { value: item.code + "", label: item.description + "" };
         })
-      );
-    }
-  }, [diseaseSate]);
+      : [];
+  };
+  const diseasesOptions = useSelector<
+    IState,
+    { value: string; label: string }[]
+  >((state: IState) => diseasesOptionsSelector(state));
+
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };

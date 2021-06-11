@@ -24,12 +24,11 @@ const opdControllerApi = new OpdControllerApi(
 );
 
 export const createOpd =
-  (opdValues: Record<string, any>, diseaseList: DiseaseDTO[]) =>
+  (opdValues: Record<string, any>, diseaseList: DiseaseDTO[] | undefined) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    //
     const opdDTO = opdDataFormatter(opdValues, diseaseList);
 
     if (opdDTO) {
@@ -49,7 +48,7 @@ export const createOpd =
     } else {
       dispatch({
         type: CREATE_OPD_FAIL,
-        error: "choose disease before",
+        error: "verify diseases and date",
       });
     }
   };
@@ -77,7 +76,7 @@ export const getOpds =
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: GET_OPD_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
           } else {
             dispatch({

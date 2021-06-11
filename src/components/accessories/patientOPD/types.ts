@@ -4,9 +4,13 @@ export interface IStateProps {
   isLoading: boolean;
   hasSucceeded: boolean;
   hasFailed: boolean;
+  diseasesData: DiseaseDTO[] | undefined;
 }
 export interface IDispatchProps {
-  createOpd: (opd: Record<string, any>, diseasesList: DiseaseDTO[]) => any;
+  createOpd: (
+    opd: Record<string, any>,
+    diseasesList: DiseaseDTO[] | undefined
+  ) => any;
   createOpdReset: () => void;
   getDiseasesAll: () => void;
 }

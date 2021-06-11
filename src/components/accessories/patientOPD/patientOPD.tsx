@@ -17,7 +17,6 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
-import { IDiseaseState } from "../../../state/diseases/types";
 
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
@@ -26,6 +25,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
   isLoading,
   hasSucceeded,
   hasFailed,
+  diseasesData,
 }) => {
   const { t } = useTranslation();
 
@@ -33,10 +33,6 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-
-  const diseaseSate = useSelector<IState, IDiseaseState>(
-    (state: IState) => state.diseases
-  );
 
   useEffect(() => {
     if (hasFailed) {
@@ -62,7 +58,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
     createOpdValues.patientCode = patient?.code;
-    createOpd(createOpdValues, diseaseSate.diseasesAll!.data!);
+    createOpd(createOpdValues, diseasesData);
   };
 
   return (
@@ -98,6 +94,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
   isLoading: state.opds.createOpd === "LOADING",
   hasSucceeded: state.opds.createOpd.status === "SUCCESS",
   hasFailed: state.opds.createOpd.status === "FAIL",
+  diseasesData: state.diseases.diseasesAll.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {
