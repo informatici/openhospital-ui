@@ -1,10 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { ITherapiesState } from "../../../../state/therapies/types";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
-import { data, header, order, label } from "./consts";
+import { header, order, label } from "./consts";
 interface IOwnProps {
   shouldUpdateTable: boolean;
 }
@@ -13,24 +11,25 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
   const [, setUpdate] = useState(false);
-  const { t } = useTranslation();
-  const therapy = useSelector<IState, ITherapiesState>(
-    (state) => state.therapies
+
+  let data = useSelector<IState, any[]>((state) =>
+    state.therapies.therapiesByPatientId.data
+      ? state.therapies.therapiesByPatientId.data
+      : []
   );
-  if (therapy.createTherapy.data) {
-    const newRow = {
-      startDate: therapy.createTherapy.data!.startDate!,
-      endDate: therapy.createTherapy.data!.endDate!,
-      medicalId: therapy.createTherapy.data!.medicalId! + "",
-      qty: therapy.createTherapy.data!.qty!,
-      freqInDay: therapy.createTherapy.data!.freqInDay!,
-      freqInPeriod: therapy.createTherapy.data!.freqInPeriod!,
-      unitID: therapy.createTherapy.data!.unitID!,
-      note: therapy.createTherapy.data!.note!,
-    };
-    const found = data.some((el) => el.medicalId === newRow.medicalId);
-    if (!found) data.push(newRow);
-  }
+
+  const updateTableData = (state: IState) => {
+    let newTherapyObj = state.therapies.createTherapy.data;
+    if (newTherapyObj) {
+      const found = data.find(
+        (item) => item.medicalId == newTherapyObj?.medicalId
+      );
+      if (!found) {
+        data = [...data, newTherapyObj];
+      }
+    }
+  };
+  useSelector<IState>((state) => updateTableData(state));
 
   const onDelete = () => {
     console.log("delete");

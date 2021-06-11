@@ -57,20 +57,21 @@ export const createTherapyReset =
     });
   };
 
-export const therapiesByPatientId =
-  (codePatient: number) =>
+export const getTherapiesByPatientId =
+  (codePatient: number | undefined) =>
   (dispatch: Dispatch<IAction<TherapyRowDTO[], {}>>): void => {
     dispatch({
       type: GET_THERAPY_LOADING,
     });
-
+    console.log("code...............: ", codePatient);
+    console.log("dbdbgkjjfbvdfbdsgf dshgs.............: ");
     if (codePatient) {
       therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
         (payload) => {
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: GET_THERAPY_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
           } else {
             dispatch({

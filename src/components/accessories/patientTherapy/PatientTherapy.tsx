@@ -4,6 +4,7 @@ import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
 import {
   createTherapy,
+  getTherapiesByPatientId,
   createTherapyReset,
 } from "../../../state/therapies/actions";
 import { getMedicals } from "../../../state/medicals/actions";
@@ -25,6 +26,7 @@ import checkIcon from "../../../assets/check-icon.png";
 
 const PatientTherapy: FC<TProps> = ({
   createTherapy,
+  getTherapiesByPatientId,
   createTherapyReset,
   isLoading,
   hasSucceeded,
@@ -51,7 +53,7 @@ const PatientTherapy: FC<TProps> = ({
 
   useEffect(() => {
     getMedicals();
-  }, []);
+  }, [getMedicals]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -60,6 +62,10 @@ const PatientTherapy: FC<TProps> = ({
       setShouldUpdateTable(true);
     }
   }, [activityTransitionState, createTherapyReset]);
+
+  useEffect(() => {
+    getTherapiesByPatientId(patientId?.code);
+  }, [patientId, getTherapiesByPatientId]);
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
@@ -116,5 +122,6 @@ const mapDispatchToProps: IDispatchProps = {
   createTherapy,
   createTherapyReset,
   getMedicals,
+  getTherapiesByPatientId,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PatientTherapy);
