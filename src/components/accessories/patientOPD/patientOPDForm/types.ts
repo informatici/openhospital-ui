@@ -1,6 +1,9 @@
 import { IForm } from "../../../../libraries/formDataHandling/types";
 
-export type TProps = IForm<TPatientOPDFormFieldName, any>;
+interface IOwnProps {
+  shouldResetForm: boolean;
+}
+export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
 
 export type TPatientOPDFormFieldName =
   | "date"

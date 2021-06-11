@@ -23,9 +23,8 @@ import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
-import { IDiseaseState } from "../../../../state/diseases/types";
 import SelectField from "../../selectField/SelectField";
-import { DiseaseDTO } from "../../../../generated";
+import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -33,6 +32,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
+  shouldResetForm,
 }) => {
   const validationSchema = object({
     date: string().required("This field is required"),
@@ -90,6 +90,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     setOpenResetConfirmation(false);
     resetForm();
   };
+
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+      scrollToElement(null);
+    }
+  }, [shouldResetForm, resetForm]);
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>

@@ -69,6 +69,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
         submitButtonLabel={t("common.saveopd")}
         resetButtonLabel={t("common.discard")}
         isLoading={isLoading}
+        shouldResetForm={shouldResetForm}
       />
       <div ref={infoBoxRef}>
         {hasFailed && (

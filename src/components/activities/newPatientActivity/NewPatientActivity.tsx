@@ -43,10 +43,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     createPatient(patient);
   };
 
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
     if (

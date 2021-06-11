@@ -22,10 +22,8 @@ const DashboardActivity: FunctionComponent<TProps> = ({
     [t("nav.dashboard")]: "/",
   };
 
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
 
   switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
