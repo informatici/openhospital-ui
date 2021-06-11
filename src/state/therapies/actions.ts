@@ -63,8 +63,6 @@ export const getTherapiesByPatientId =
     dispatch({
       type: GET_THERAPY_LOADING,
     });
-    console.log("code...............: ", codePatient);
-    console.log("dbdbgkjjfbvdfbdsgf dshgs.............: ");
     if (codePatient) {
       therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
         (payload) => {
