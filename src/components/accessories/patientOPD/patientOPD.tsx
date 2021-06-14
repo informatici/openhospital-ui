@@ -4,7 +4,7 @@ import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { createOpd, createOpdReset } from "../../../state/opds/actions";
-import { getDiseasesAll } from "../../../state/diseases/actions";
+import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 import {
   IDispatchProps,
@@ -21,11 +21,12 @@ import checkIcon from "../../../assets/check-icon.png";
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
   createOpdReset,
-  getDiseasesAll,
+  getDiseasesOpd,
   isLoading,
   hasSucceeded,
   hasFailed,
   diseasesData,
+  patient,
 }) => {
   const { t } = useTranslation();
 
@@ -41,12 +42,8 @@ const PatientOPD: FunctionComponent<TProps> = ({
   }, [hasFailed]);
 
   useEffect(() => {
-    getDiseasesAll();
-  }, [getDiseasesAll]);
-
-  const patient = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
+    getDiseasesOpd();
+  }, [getDiseasesOpd]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -57,6 +54,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
+    console.log("patient....", patient);
     createOpdValues.patientCode = patient?.code;
     createOpd(createOpdValues, diseasesData);
   };
@@ -101,13 +99,14 @@ const mapStateToProps = (state: IState): IStateProps => ({
   isLoading: state.opds.createOpd === "LOADING",
   hasSucceeded: state.opds.createOpd.status === "SUCCESS",
   hasFailed: state.opds.createOpd.status === "FAIL",
-  diseasesData: state.diseases.diseasesAll.data,
+  diseasesData: state.diseases.diseasesOpd.data,
+  patient: state.patients.selectedPatient.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {
   createOpd,
   createOpdReset,
-  getDiseasesAll,
+  getDiseasesOpd,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientOPD);

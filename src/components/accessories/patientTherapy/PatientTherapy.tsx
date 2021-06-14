@@ -52,7 +52,7 @@ const PatientTherapy: FC<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patient;
+    therapy.patID = undefined;
     createTherapy(therapy);
   };
 

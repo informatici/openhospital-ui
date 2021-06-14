@@ -11,20 +11,20 @@ import { IDiseaseState } from "./types";
 export default produce((draft: IDiseaseState, action: IAction<any, any>) => {
   switch (action.type) {
     case GET_DISEASE_LOADING: {
-      draft.diseasesAll.status = "LOADING";
+      draft.diseasesOpd.status = "LOADING";
       break;
     }
 
     case GET_DISEASE_SUCCESS: {
-      draft.diseasesAll.status = "SUCCESS";
-      draft.diseasesAll.data = action.payload;
-      delete draft.diseasesAll.error;
+      draft.diseasesOpd.status = "SUCCESS";
+      draft.diseasesOpd.data = action.payload;
+      delete draft.diseasesOpd.error;
       break;
     }
 
     case GET_DISEASE_FAIL: {
-      draft.diseasesAll.status = "FAIL";
-      draft.diseasesAll.error = action.error;
+      draft.diseasesOpd.status = "FAIL";
+      draft.diseasesOpd.error = action.error;
       break;
     }
   }

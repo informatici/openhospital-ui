@@ -1,10 +1,11 @@
-import { DiseaseDTO, OpdDTO } from "../../../generated";
+import { DiseaseDTO, OpdDTO, PatientDTO } from "../../../generated";
 
 export interface IStateProps {
   isLoading: boolean;
   hasSucceeded: boolean;
   hasFailed: boolean;
   diseasesData: DiseaseDTO[] | undefined;
+  patient: PatientDTO | undefined;
 }
 export interface IDispatchProps {
   createOpd: (
@@ -12,7 +13,7 @@ export interface IDispatchProps {
     diseasesList: DiseaseDTO[] | undefined
   ) => any;
   createOpdReset: () => void;
-  getDiseasesAll: () => void;
+  getDiseasesOpd: () => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;

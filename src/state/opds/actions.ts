@@ -30,7 +30,6 @@ export const createOpd =
       type: CREATE_OPD_LOADING,
     });
     const opdDTO = opdDataFormatter(opdValues, diseaseList);
-
     if (opdDTO) {
       opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
         () => {

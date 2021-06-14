@@ -11,13 +11,6 @@ export const opdDataFormatter = (
   data.disease2 = diseases?.filter((el) => el.code === +data.disease2)[0];
   data.disease3 = diseases?.filter((el) => el.code === +data.disease3)[0];
 
-  if (
-    data.patientCode &&
-    data.disease &&
-    data.disease2 &&
-    data.disease3 &&
-    data.date
-  )
-    return data;
+  if (data.patientCode && data.disease && data.date) return data;
   else return undefined;
 };

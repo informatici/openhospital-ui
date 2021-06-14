@@ -1,5 +1,5 @@
 import { IDiseaseState } from "./types";
 
 export const initial: IDiseaseState = {
-  diseasesAll: { status: "IDLE", data: [] },
+  diseasesOpd: { status: "IDLE", data: [] },
 };

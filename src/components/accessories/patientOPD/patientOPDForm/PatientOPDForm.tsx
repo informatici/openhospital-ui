@@ -63,8 +63,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     [setFieldValue]
   );
   const diseasesOptionsSelector = (state: IState) => {
-    return state.diseases.diseasesAll.data
-      ? state.diseases.diseasesAll.data.map((item) => {
+    return state.diseases.diseasesOpd.data
+      ? state.diseases.diseasesOpd.data.map((item) => {
           return { value: item.code + "", label: item.description + "" };
         })
       : [];
