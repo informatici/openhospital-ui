@@ -37,8 +37,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const validationSchema = object({
     date: string().required("This field is required"),
     disease: string().required("This field is required"),
-    disease2: string().required("This field is required"),
-    disease3: string().required("This field is required"),
   });
 
   const initialValues = getFromFields(fields, "value");
