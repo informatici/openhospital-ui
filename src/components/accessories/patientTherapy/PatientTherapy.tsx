@@ -35,9 +35,6 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
-  const patient = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
 
   useEffect(() => {
     if (hasFailed) {
