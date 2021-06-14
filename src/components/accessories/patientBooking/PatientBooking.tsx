@@ -23,7 +23,6 @@ const PatientBooking: FC<TBookingProps> = ({
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [bookingTransitionState, setActivityTransitionState] =
     useState<TBookingTransitionState>("IDLE");
 
@@ -37,7 +36,6 @@ const PatientBooking: FC<TBookingProps> = ({
     if (bookingTransitionState === "TO_RESET") {
       createBookingReset();
       setShouldResetForm(true);
-      setShouldUpdateTable(true);
     }
   }, [bookingTransitionState, createBookingReset]);
 
@@ -48,7 +46,6 @@ const PatientBooking: FC<TBookingProps> = ({
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
-    setShouldUpdateTable(false);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };

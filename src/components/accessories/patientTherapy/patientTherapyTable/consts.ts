@@ -1,5 +1,3 @@
-import { TherapyRowDTO } from "../../../../generated";
-
 export const data = [
   {
     startDate: "21/05/2021",

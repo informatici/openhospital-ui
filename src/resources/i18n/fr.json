@@ -128,13 +128,13 @@
     "quantity": "Quantité",
     "frequencyInDay": "Frequence Par Jour",
     "duration": "Durée",
-    "nbweeks": "Semaines",
-    "nbdays": "Jours",
-    "nbmonths": "Mois",
+    "nbweeks": "Durée en semaines",
+    "nbdays": "Durée en  jours",
+    "nbmonths": "Durée en  mois",
     "frequencyInPeriod": "Frequence par période",
     "startDate": "Date début",
     "endDate": "Date Fin",
-    "sendnotification": "Important: envoyer la notification",
+    "sendnotification": "Envoyer la notification",
     "sendsms": "Envoyer les sms"
   },
   "booking": {
