@@ -39,18 +39,23 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     disease: string().required("This field is required"),
     disease2: string().test({
       name: "disease2",
-      message: "Diagnostic 2 must be different to diagnostic 1",
+      message:
+        "Diagnostic 2 must be different to diagnostic 1 and diagnostic 1 cannot be empty.",
       test: function (value) {
-        return !value || value !== this.parent.disease;
+        return !value || (this.parent.disease && value !== this.parent.disease);
       },
     }),
     disease3: string().test({
       name: "disease3",
-      message: "Diagnostic 3 must be different to diagnostics 1 & 2 ",
+      message:
+        "Diagnostic 3 must be different to diagnostics 1 & 2 and those should be set",
       test: function (value) {
         return (
           !value ||
-          (value !== this.parent.disease && value !== this.parent.disease2)
+          (this.parent.disease &&
+            this.parent.disease2 &&
+            value !== this.parent.disease &&
+            value !== this.parent.disease2)
         );
       },
     }),
