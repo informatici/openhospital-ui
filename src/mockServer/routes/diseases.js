@@ -5,5 +5,8 @@ export const diseasesRoutes = (server) => {
         server.get("/all").intercept((req, res) => {
             res.status(200).json([disease1DTO, disease2DTO, disease3DTO, disease4DTO]);
         });
+        server.get("/opd").intercept((req, res) => {
+            res.status(200).json([disease1DTO, disease2DTO, disease3DTO, disease4DTO]);
+        });
     });
 };

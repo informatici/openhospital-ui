@@ -30,27 +30,19 @@ export const createOpd =
       type: CREATE_OPD_LOADING,
     });
     const opdDTO = opdDataFormatter(opdValues, diseaseList);
-
-    if (opdDTO) {
-      opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
-        () => {
-          dispatch({
-            type: CREATE_OPD_SUCCESS,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: CREATE_OPD_FAIL,
-            error,
-          });
-        }
-      );
-    } else {
-      dispatch({
-        type: CREATE_OPD_FAIL,
-        error: "verify diseases and date",
-      });
-    }
+    opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
+      () => {
+        dispatch({
+          type: CREATE_OPD_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_OPD_FAIL,
+          error,
+        });
+      }
+    );
   };
 
 export const createOpdReset =

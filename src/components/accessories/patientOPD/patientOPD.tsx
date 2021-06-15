@@ -4,7 +4,7 @@ import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { createOpd, createOpdReset } from "../../../state/opds/actions";
-import { getDiseasesAll } from "../../../state/diseases/actions";
+import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 import {
   IDispatchProps,
@@ -21,11 +21,10 @@ import checkIcon from "../../../assets/check-icon.png";
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
   createOpdReset,
-  getDiseasesAll,
+  getDiseasesOpd,
   isLoading,
   hasSucceeded,
   hasFailed,
-  diseasesData,
 }) => {
   const { t } = useTranslation();
 
@@ -36,18 +35,25 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (hasFailed) {
+      setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
 
   useEffect(() => {
-    getDiseasesAll();
-  }, [getDiseasesAll]);
+    getDiseasesOpd();
+  }, [getDiseasesOpd]);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
+  const userId = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
 
+  const diseasesData = useSelector(
+    (state: IState) => state.diseases.diseasesOpd.data
+  );
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       createOpdReset();
@@ -58,6 +64,9 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
     createOpdValues.patientCode = patient?.code;
+    createOpdValues.age = patient?.age;
+    createOpdValues.sex = patient?.sex;
+    createOpdValues.userID = userId;
     createOpd(createOpdValues, diseasesData);
   };
 
@@ -101,13 +110,12 @@ const mapStateToProps = (state: IState): IStateProps => ({
   isLoading: state.opds.createOpd === "LOADING",
   hasSucceeded: state.opds.createOpd.status === "SUCCESS",
   hasFailed: state.opds.createOpd.status === "FAIL",
-  diseasesData: state.diseases.diseasesAll.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {
   createOpd,
   createOpdReset,
-  getDiseasesAll,
+  getDiseasesOpd,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientOPD);

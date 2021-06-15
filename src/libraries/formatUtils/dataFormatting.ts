@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { DiseaseDTO } from "../../generated";
 
 export const opdDataFormatter = (
@@ -7,17 +8,12 @@ export const opdDataFormatter = (
   /**
    * get entire disease object from code
    */
-  data.disease = diseases?.filter((el) => el.code === +data.disease)[0];
-  data.disease2 = diseases?.filter((el) => el.code === +data.disease2)[0];
-  data.disease3 = diseases?.filter((el) => el.code === +data.disease3)[0];
+  data.disease = diseases?.find((el) => el.code === +data.disease);
+  data.disease2 = diseases?.find((el) => el.code === +data.disease2);
+  data.disease3 = diseases?.find((el) => el.code === +data.disease3);
 
-  if (
-    data.patientCode &&
-    data.disease &&
-    data.disease2 &&
-    data.disease3 &&
-    data.date
-  )
-    return data;
-  else return undefined;
+  data.date = format(+data.date, "yyyy-MM-dd");
+  data.visitDate = data.date;
+
+  return data;
 };
