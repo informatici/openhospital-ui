@@ -15,7 +15,7 @@ import {
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyRowDTO } from "../../../generated";
+import { PatientDTO, TherapyRowDTO } from "../../../generated";
 import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -42,6 +42,10 @@ const PatientTherapy: FC<TProps> = ({
     }
   }, [hasFailed]);
 
+  const patient = useSelector<IState, PatientDTO | undefined>(
+    (state) => state.patients.selectedPatient?.data
+  );
+
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       createTherapyReset();
@@ -52,6 +56,8 @@ const PatientTherapy: FC<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
+    // there is some mistake in api model about patID field
+    //which takes object instead of id
     therapy.patID = patient;
     createTherapy(therapy);
   };
