@@ -41,14 +41,17 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       name: "disease2",
       message: "Diagnostic 2 must be different to diagnostic 1",
       test: function (value) {
-        return value !== this.parent.disease;
+        return !value || value !== this.parent.disease;
       },
     }),
     disease3: string().test({
       name: "disease3",
       message: "Diagnostic 3 must be different to diagnostics 1 & 2 ",
       test: function (value) {
-        return value !== this.parent.disease && value !== this.parent.disease2;
+        return (
+          !value ||
+          (value !== this.parent.disease && value !== this.parent.disease2)
+        );
       },
     }),
   });
