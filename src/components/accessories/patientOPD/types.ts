@@ -4,8 +4,6 @@ export interface IStateProps {
   isLoading: boolean;
   hasSucceeded: boolean;
   hasFailed: boolean;
-  diseasesData: DiseaseDTO[] | undefined;
-  patient: PatientDTO | undefined;
 }
 export interface IDispatchProps {
   createOpd: (
@@ -18,7 +16,7 @@ export interface IDispatchProps {
 
 export type TProps = IStateProps & IDispatchProps;
 
-export type TActivityTransitionState = "IDLE" | "TO_RESET";
+export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 
 export type TPatientOPDFormFieldName =
   | "date"

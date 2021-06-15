@@ -37,6 +37,20 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const validationSchema = object({
     date: string().required("This field is required"),
     disease: string().required("This field is required"),
+    disease2: string().test({
+      name: "disease2",
+      message: "Diagnostic 2 must be different to diagnostic 1",
+      test: function (value) {
+        return value !== this.parent.disease;
+      },
+    }),
+    disease3: string().test({
+      name: "disease3",
+      message: "Diagnostic 3 must be different to diagnostics 1 & 2 ",
+      test: function (value) {
+        return value !== this.parent.disease && value !== this.parent.disease2;
+      },
+    }),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -51,7 +65,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { setFieldValue, resetForm, handleBlur } = formik;
+  const { values, setFieldValue, resetForm, handleBlur } = formik;
   const { t } = useTranslation();
 
   const dateFieldHandleOnChange = useCallback(

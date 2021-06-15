@@ -25,8 +25,6 @@ const PatientOPD: FunctionComponent<TProps> = ({
   isLoading,
   hasSucceeded,
   hasFailed,
-  diseasesData,
-  patient,
 }) => {
   const { t } = useTranslation();
 
@@ -37,6 +35,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (hasFailed) {
+      setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
@@ -45,6 +44,16 @@ const PatientOPD: FunctionComponent<TProps> = ({
     getDiseasesOpd();
   }, [getDiseasesOpd]);
 
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+  const userId = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
+
+  const diseasesData = useSelector(
+    (state: IState) => state.diseases.diseasesOpd.data
+  );
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       createOpdReset();
@@ -56,6 +65,9 @@ const PatientOPD: FunctionComponent<TProps> = ({
     setShouldResetForm(false);
     console.log("patient....", patient);
     createOpdValues.patientCode = patient?.code;
+    createOpdValues.age = patient?.age;
+    createOpdValues.sex = patient?.sex;
+    createOpdValues.userID = userId;
     createOpd(createOpdValues, diseasesData);
   };
 
@@ -99,8 +111,6 @@ const mapStateToProps = (state: IState): IStateProps => ({
   isLoading: state.opds.createOpd === "LOADING",
   hasSucceeded: state.opds.createOpd.status === "SUCCESS",
   hasFailed: state.opds.createOpd.status === "FAIL",
-  diseasesData: state.diseases.diseasesOpd.data,
-  patient: state.patients.selectedPatient.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {
