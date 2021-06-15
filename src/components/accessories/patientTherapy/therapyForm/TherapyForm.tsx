@@ -1,6 +1,4 @@
-import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
-import PriorityHigh from "@material-ui/icons/PriorityHigh";
-import SmsIcon from "@material-ui/icons/Sms";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
@@ -101,7 +99,7 @@ const TherapyForm: FC<TherapyProps> = ({
           onSubmit={formik.handleSubmit}
         >
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item medecine">
+            <div className="patientTherapyForm__item">
               <SelectField
                 fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
@@ -123,8 +121,6 @@ const TherapyForm: FC<TherapyProps> = ({
                 type="number"
               />
             </div>
-          </div>
-          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("freqInDay")}
@@ -136,9 +132,9 @@ const TherapyForm: FC<TherapyProps> = ({
                 type="number"
               />
             </div>
-
+          </div>
+          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
-              <span>{t("therapy.duration")}</span>
               <TextField
                 field={formik.getFieldProps("nbDays")}
                 theme="regular"
@@ -173,9 +169,6 @@ const TherapyForm: FC<TherapyProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item label-period">
-              Frequency In Period:
-            </div>
             <div id="frequency" className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("freqInPeriod")}
@@ -215,7 +208,7 @@ const TherapyForm: FC<TherapyProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <FormGroup row className="label-sms">
+            <div className="patientTherapyForm__item">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -229,13 +222,10 @@ const TherapyForm: FC<TherapyProps> = ({
                     name="notifyInt"
                   />
                 }
-                label={
-                  <span>
-                    {t("therapy.sendnotification")}
-                    <PriorityHigh />
-                  </span>
-                }
+                label={<span>{t("therapy.sendnotification")}</span>}
               />
+            </div>
+            <div className="patientTherapyForm__item">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -249,17 +239,12 @@ const TherapyForm: FC<TherapyProps> = ({
                     }
                   />
                 }
-                label={
-                  <span>
-                    {t("therapy.sendsms")}
-                    <SmsIcon />
-                  </span>
-                }
+                label={<span>{t("therapy.sendsms")}</span>}
               />
-            </FormGroup>
+            </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item fullWith">
+            <div className="fullWidth patientTherapyForm__item">
               <TextField
                 multiline={true}
                 theme="regular"
