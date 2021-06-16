@@ -29,38 +29,21 @@ export const createTherapy =
       type: CREATE_THERAPY_LOADING,
     });
 
-    const parseObject: TherapyRowDTO = {
-      endDate: format(new Date(parseInt(thRowDTO.endDate!)), "dd/MM/yyyy"),
-      freqInDay: thRowDTO.freqInDay,
-      freqInPeriod: thRowDTO.freqInPeriod,
-      medicalId: thRowDTO.medicalId,
-      note: thRowDTO.note,
-      notifyInt: thRowDTO.notifyInt,
-      patID: thRowDTO.patID,
-      qty: thRowDTO.qty,
-      smsInt: thRowDTO.smsInt,
-      startDate: format(new Date(parseInt(thRowDTO.startDate!)), "dd/MM/yyyy"),
-    };
-    thRowDTO = { ...parseObject };
-
     therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       (payload) => {
-        if (typeof payload === "object" && !isEmpty(payload)) {
-          dispatch({
-            type: GET_THERAPY_SUCCESS,
-            payload: [payload],
-          });
-        } else {
-          dispatch({
-            type: GET_THERAPY_SUCCESS,
-            payload: [],
-          });
-        }
+        dispatch({
+          type: CREATE_THERAPY_SUCCESS,
+          payload: {
+            ...payload,
+            startDate: format(new Date(+payload.startDate!), "dd/MM/yyyy"),
+            endDate: format(new Date(+payload.endDate!), "dd/MM/yyyy"),
+          },
+        });
       },
       (error) => {
         dispatch({
-          type: GET_THERAPY_FAIL,
-          error,
+          type: CREATE_THERAPY_FAIL,
+          error: error,
         });
       }
     );
@@ -74,20 +57,19 @@ export const createTherapyReset =
     });
   };
 
-export const therapiesByPatientId =
-  (codePatient: number) =>
+export const getTherapiesByPatientId =
+  (codePatient: number | undefined) =>
   (dispatch: Dispatch<IAction<TherapyRowDTO[], {}>>): void => {
     dispatch({
       type: GET_THERAPY_LOADING,
     });
-
     if (codePatient) {
       therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
         (payload) => {
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: GET_THERAPY_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
           } else {
             dispatch({
