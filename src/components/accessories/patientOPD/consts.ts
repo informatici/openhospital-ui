@@ -1,8 +1,9 @@
+import { format } from "date-fns";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientOPDFormFieldName } from "./patientOPDForm/types";
 
 export const initialFields: TFields<TPatientOPDFormFieldName> = {
-  opdDate: {
+  date: {
     value: "",
     type: "date",
   },
@@ -10,20 +11,20 @@ export const initialFields: TFields<TPatientOPDFormFieldName> = {
     value: "",
     type: "text",
   },
-  opd_1: {
+  disease: {
     value: "",
     type: "text",
   },
-  opd_2: {
+  disease2: {
     value: "",
     type: "text",
   },
-  opd_3: {
+  disease3: {
     value: "",
     type: "text",
   },
   note: {
     value: "",
     type: "text",
-  }
+  },
 };

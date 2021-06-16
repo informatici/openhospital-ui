@@ -7,7 +7,7 @@ export type TFieldAddress =
 
 export type TFieldType = "text" | "number" | "date" | "select" | "decimal";
 
-export type TFieldFormattedValue = string | number;
+export type TFieldFormattedValue = string | number | any;
 
 export interface IForm<T extends string, U> {
   fields: TFields<T>;

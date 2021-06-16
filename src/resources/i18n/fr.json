@@ -41,7 +41,10 @@
   "opd": {
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnèse",
-    "note": "Remarques"
+    "note": "Remarques",
+    "disease1": "Diagnostic 1",
+    "disease2": "Diagnostic 2",
+    "disease3": "Diagnostic 3"
   },
   "examination": {
     "ap": {
@@ -137,6 +140,14 @@
   "booking": {
     "category": "Catégorie",
     "service": "Service",
+    "bookingdate": "Date"
+  },
+  "summary": {
+    "visits": "Visites",
+    "triage": "Paramètres",
+    "therapy": "Thérapie",    
+    "opd": "Diagnostiques",
+    "booking": "Prescriptions",
     "bookingdate": "Date",
     "gobackdashboard": "Retour à l'accueil",
     "keepediting": "Continuer à éditer",

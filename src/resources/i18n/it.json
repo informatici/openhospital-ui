@@ -41,7 +41,10 @@
   "opd": {
     "dateopd": "Data (d/m/y)",
     "anamnesis": "Anamnesi",
-    "note": "Note"
+    "note": "Note",
+    "disease1": "Diagnostic 1",
+    "disease2": "Diagnostic 2",
+    "disease3": "Diagnostic 3"
   },
   "examination": {
     "ap": {
@@ -104,6 +107,47 @@
     "dashboard": "Pannello di controllo",
     "saveopd": "Salva OPD",
     "discard": "Annulla",
+    "dismiss": "Respingere",
+    "savetriage": "Salva Accettazione",
+    "404notfound": "404 - Pagina non trovata",
+    "gobackdashboard": "Torna alla dashboard",
+    "keepediting": "Continua a modificare",
+    "titleedited": "Paziente modificato",
+    "resetform": "Sei sicuro di {{resetButtonLabel}} il Form?",
+    "searchnotfound": "Non siamo riusciti a trovare una corrispondenza, riprova con un altro termine.",
+    "patienteditsuccessfull": "Il paziente è stato modificato correttamente.",
+    "patientregistrationsuccessfull": "Il paziente è stato registrato correttamente.",
+    "somethingwrong": "Qualcosa è andato storto, riprova più tardi.",
+    "searchpatientinstruction": "Se non hai l'ID del Paziente, compila più compi possibili e poi clicca su Cerca."
+  },
+  "therapy": {
+    "newtherapy": "New Therapy",
+    "managetherapy": "Manage Therapy",
+    "medical": "Medical",
+    "quantity": "Quantity",
+    "frequencyInDay": "Frequency In Day",
+    "duration": "Duration",
+    "nbweeks": "Weeks",
+    "nbdays": "Days",
+    "nbmonths": "Months",
+    "frequencyInPeriod": "Frequency In Periods",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "sendnotification": "Important: Send notification",
+    "sendsms": "Send SMS",
+    "note": "Note"
+  },
+  "booking": {
+    "category": "Category",
+    "service": "Service",
+    "bookingdate": "Date"
+  },
+  "summary": {
+    "visits": "Visites",
+    "triage": "Esame obiettivo",
+    "therapy": "Prestazioni specialistiche",    
+    "opd": "Prestazioni diagnostiche",
+    "booking": "Interventi operatori",
     "dismiss": "Rifiuta",
     "savetriage": "Salva triage",
     "404notfound": "404 - Page Not Found",

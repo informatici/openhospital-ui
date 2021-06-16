@@ -12,6 +12,9 @@ import examinations from "./state/examinations/reducer";
 import main from "./state/main/reducer";
 import patients from "./state/patients/reducer";
 import therapies from "./state/therapies/reducer";
+import summary from "./state/summary/reducer";
+import opds from "./state/opds/reducer";
+import diseases from "./state/diseases/reducer";
 import { IState } from "./types";
 
 if (process.env.NODE_ENV === "development") {
@@ -23,6 +26,9 @@ const reducer = combineReducers<IState>({
   patients,
   examinations,
   therapies,
+  summary,
+  opds,
+  diseases,
 });
 const store = createStore(
   reducer,
