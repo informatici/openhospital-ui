@@ -3,7 +3,11 @@ import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { createOpd, createOpdReset } from "../../../state/opds/actions";
+import {
+  createOpd,
+  createOpdReset,
+  getOpds,
+} from "../../../state/opds/actions";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 import {
@@ -17,11 +21,13 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
+import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 
 const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
   createOpdReset,
   getDiseasesOpd,
+  getOpds,
   isLoading,
   hasSucceeded,
   hasFailed,
@@ -32,6 +38,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
   useEffect(() => {
     if (hasFailed) {
@@ -47,6 +54,11 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
+
+  useEffect(() => {
+    getOpds(patient?.code);
+  }, [patient?.code, shouldUpdateTable, getOpds]);
+
   const userId = useSelector(
     (state: IState) => state.main.authentication.data?.displayName
   );
@@ -58,12 +70,12 @@ const PatientOPD: FunctionComponent<TProps> = ({
     if (activityTransitionState === "TO_RESET") {
       createOpdReset();
       setShouldResetForm(true);
+      setShouldUpdateTable(true);
     }
   }, [activityTransitionState, createOpdReset]);
 
   const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
-    console.log("patient....", patient);
     createOpdValues.patientCode = patient?.code;
     createOpdValues.age = patient?.age;
     createOpdValues.sex = patient?.sex;
@@ -73,11 +85,12 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
+    setShouldUpdateTable(false);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
   return (
-    <div className="patientSummary">
+    <div className="patientOpd">
       <PatientOPDForm
         fields={initialFields}
         onSubmit={onSubmit}
@@ -104,6 +117,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
+      <PatientOPDTable shouldUpdateTable={shouldUpdateTable} />
     </div>
   );
 };
@@ -117,6 +131,7 @@ const mapDispatchToProps: IDispatchProps = {
   createOpd,
   createOpdReset,
   getDiseasesOpd,
+  getOpds,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PatientOPD);
