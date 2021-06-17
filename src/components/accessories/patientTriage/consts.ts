@@ -49,35 +49,35 @@ export const initialFields: TFields<TPatientTriageFormFieldName> = {
   },
   pex_temp: {
     value: "36",
-    type: "decimal",
+    type: "number",
   },
   pex_sat: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   pex_pa_min: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   pex_pa_max: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   pex_fc: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   diuresis_vol: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   respiratory_rate: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   hgt: {
     value: "0",
-    type: "decimal",
+    type: "number",
   },
   diuresis: {
     value: "",
