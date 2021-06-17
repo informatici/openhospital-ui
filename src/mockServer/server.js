@@ -20,14 +20,14 @@ export function makeServer() {
   const { server } = polly;
 
   server.host(BASE_PATH, () => {
-    /* authRoutes(server);
+    authRoutes(server);
     patientRoutes(server);
     userRoutes(server);
     visitRoutes(server);
     examinationsRoutes(server);
     therapyRoutes(server);
     opdRoutes(server);
-    diseasesRoutes(server); */
+    diseasesRoutes(server);
   });
 
   return server;
