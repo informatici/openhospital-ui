@@ -10,7 +10,6 @@ import { getPatientThunk } from "../../../state/patients/actions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { TTabConfig } from "../../accessories/tabs/types";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
 import PatientTriage from "../../accessories/patientTriage/PatientTriage";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
@@ -31,6 +30,8 @@ import {
 import { IState } from "../../../types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
+import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -56,10 +57,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
   };
 
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>("panel_1");
 
@@ -68,33 +67,31 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.summary"),
       path: "/summary",
       content: (
-        <PatientDetailsContent title="Summary" content={<PatientSummary />} />
+        <PatientDetailsContent title="Summary" content={PatientSummary} />
       ),
     },
     {
       label: t("nav.opd"),
       path: "/OPD",
-      content: <PatientDetailsContent title="OPD" content={<PatientOPD />} />,
+      content: <PatientDetailsContent title="OPD" content={PatientOPD} />,
     },
     {
       label: t("nav.triage"),
       path: "/triage",
-      content: (
-        <PatientDetailsContent title="Triage" content={<PatientTriage />} />
-      ),
+      content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
     },
     {
       label: t("nav.therapy"),
       path: "/therapy",
       content: (
-        <PatientDetailsContent title="Therapy" content={<SkeletonLoader />} />
+        <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
     {
       label: t("nav.booking"),
       path: "/booking",
       content: (
-        <PatientDetailsContent title="Booking" content={<SkeletonLoader />} />
+        <PatientDetailsContent title="Booking" content={PatientBooking} />
       ),
     },
   ];

@@ -70,13 +70,14 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   };
 
   const onBlurCallback = useCallback(
-    (fieldName: string) => (
-      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-      value: string
-    ) => {
-      handleBlur(e);
-      setFieldValue(fieldName, value);
-    },
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
     [setFieldValue, handleBlur]
   );
 
@@ -210,7 +211,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 type="number"
               />
             </div>
-
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("respiratory_rate")}
@@ -222,7 +222,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 type="number"
               />
             </div>
-
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("hgt")}

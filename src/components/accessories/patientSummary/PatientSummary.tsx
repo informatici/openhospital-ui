@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
-import { patientSummaryTabs } from "./tabsConfig";
 import Tabs from "../tabs/Tabs";
 import "./styles.scss";
+import { patientSummaryTabs } from "./tabsConfig";
 
 const PatientSummary: FunctionComponent = () => {
   return (

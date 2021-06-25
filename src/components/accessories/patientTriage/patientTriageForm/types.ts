@@ -28,4 +28,3 @@ export type TPatientTriageFormFieldName =
   | "diuresis"
   | "bowel"
   | "auscultation";
-  
