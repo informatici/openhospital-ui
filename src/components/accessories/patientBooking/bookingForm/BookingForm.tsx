@@ -165,6 +165,26 @@ const BookingForm: FC<TBookingProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="patientBookingForm__item">
+              <MuiThemeProvider theme={theme}>
+                <DateField
+                  fieldName="bookingDate"
+                  fieldValue={formik.values.bookingDate}
+                  disableFuture={false}
+                  onMonthChange={handleDateMonthChange}
+                  renderDay={renderWrappedDay}
+                  shouldDisableDate={filtrerUnavailableDates}
+                  theme="regular"
+                  format="dd/MM/yyyy"
+                  isValid={isValid("bookingDate")}
+                  errorText={getErrorText("bookingDate")}
+                  label={t("booking.bookingdate")}
+                  onChange={dateFieldHandleOnChange("bookingDate")}
+                />
+              </MuiThemeProvider>
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="patientBookingForm__item">
               <SelectField
                 fieldName="category"
                 fieldValue={formik.values.category}
@@ -185,26 +205,6 @@ const BookingForm: FC<TBookingProps> = ({
                 onBlur={onBlurCallback("service")}
                 options={options.service}
               />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientBookingForm__item">
-              <MuiThemeProvider theme={theme}>
-                <DateField
-                  fieldName="bookingDate"
-                  fieldValue={formik.values.bookingDate}
-                  disableFuture={false}
-                  onMonthChange={handleDateMonthChange}
-                  renderDay={renderWrappedDay}
-                  shouldDisableDate={filtrerUnavailableDates}
-                  theme="regular"
-                  format="dd/MM/yyyy"
-                  isValid={isValid("bookingDate")}
-                  errorText={getErrorText("bookingDate")}
-                  label={t("booking.bookingdate")}
-                  onChange={dateFieldHandleOnChange("bookingDate")}
-                />
-              </MuiThemeProvider>
             </div>
           </div>
           <div className="patientBookingForm__buttonSet">
