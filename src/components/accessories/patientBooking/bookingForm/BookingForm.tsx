@@ -1,11 +1,5 @@
-import { Badge, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import React, {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import DateField from "../../dateField/DateField";
 import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
@@ -13,7 +7,7 @@ import TextButton from "../../textButton/TextButton";
 import "./styles.scss";
 import { TBookingProps } from "./types";
 import { useTranslation } from "react-i18next";
-import { object } from "yup";
+import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -22,6 +16,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../../assets/warning-icon.png";
+import classnames from "classnames";
 
 const BookingForm: FC<TBookingProps> = ({
   fields,
@@ -33,7 +28,9 @@ const BookingForm: FC<TBookingProps> = ({
   resetFormCallback,
 }) => {
   const validationSchema = object({
-    // TODO
+    category: string().required("This field is required"),
+    service: string().required("This field is required"),
+    bookingDate: string().required("This field is required"),
   });
   const { t } = useTranslation();
   const initialValues = getFromFields(fields, "value");
@@ -94,7 +91,6 @@ const BookingForm: FC<TBookingProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [unAvailables, setUnavailables] = useState([12, 20, 14, 5, 6, 25]);
   const [barelyAvailable, setBarelyAvalaible] = useState([1, 30]);
   const handleDateMonthChange = (date: Date | null) => {
@@ -110,10 +106,6 @@ const BookingForm: FC<TBookingProps> = ({
     setBarelyAvalaible(result2);
   };
 
-  const handleDateChange = (date: Date | null) => {
-    date ? setSelectedDate(date) : setSelectedDate(new Date());
-  };
-
   const filtrerUnavailableDates = (date: Date | null) => {
     return unAvailables.includes(date!.getDate());
   };
@@ -123,37 +115,35 @@ const BookingForm: FC<TBookingProps> = ({
     dayInCurrentMonth: boolean,
     component: any
   ) => {
-    let dateClone = new Date(date);
-    let selectedDateClone = new Date(selectedDate);
-    const isSelected =
-      date.getDate() === selectedDate.getDate() &&
-      date.getMonth() == selectedDate.getMonth();
-    const isUnAvalaible = unAvailables.includes(dateClone.getDate());
-    const isBarelyAvalaible = barelyAvailable.includes(dateClone.getDate());
+    const isUnAvalaible = unAvailables.includes(new Date(date).getDate());
+    const isBarelyAvalaible = barelyAvailable.includes(
+      new Date(date).getDate()
+    );
     const className = isUnAvalaible
       ? "u-available"
       : isBarelyAvalaible
       ? "b-available"
       : "available";
+
     const message = isUnAvalaible
       ? "Unavailable"
       : isBarelyAvalaible
       ? "Barely available"
       : "Available";
+
     if (dayInCurrentMonth) {
       return (
-        <Badge
-          id="badge"
-          key={date.toString()}
-          overlap="circle"
-          badgeContent={
-            <span title={message} className={className + " hidden-dot"}></span>
-          }
-        >
+        <div className="custom-date">
+          <span
+            title={message}
+            className={classnames(className, "badge")}
+          ></span>
           {component}
-        </Badge>
+        </div>
       );
-    } else return <Badge> {component} </Badge>;
+    } else {
+      return <div className="custom-date">{component}</div>;
+    }
   };
 
   return (
@@ -163,26 +153,6 @@ const BookingForm: FC<TBookingProps> = ({
           className="patientBookingForm__form"
           onSubmit={formik.handleSubmit}
         >
-          <div className="row start-sm center-xs">
-            <div className="patientBookingForm__item">
-              <MuiThemeProvider theme={theme}>
-                <DateField
-                  fieldName="bookingDate"
-                  fieldValue={formik.values.bookingDate}
-                  disableFuture={false}
-                  onMonthChange={handleDateMonthChange}
-                  renderDay={renderWrappedDay}
-                  shouldDisableDate={filtrerUnavailableDates}
-                  theme="regular"
-                  format="dd/MM/yyyy"
-                  isValid={isValid("bookingDate")}
-                  errorText={getErrorText("bookingDate")}
-                  label={t("booking.bookingdate")}
-                  onChange={dateFieldHandleOnChange("bookingDate")}
-                />
-              </MuiThemeProvider>
-            </div>
-          </div>
           <div className="row start-sm center-xs">
             <div className="patientBookingForm__item">
               <SelectField
@@ -205,6 +175,40 @@ const BookingForm: FC<TBookingProps> = ({
                 onBlur={onBlurCallback("service")}
                 options={options.service}
               />
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="patientBookingForm__item dateVisit">
+              <MuiThemeProvider theme={theme}>
+                <DateField
+                  fieldName="bookingDate"
+                  fieldValue={formik.values.bookingDate}
+                  disableFuture={false}
+                  onMonthChange={handleDateMonthChange}
+                  renderDay={renderWrappedDay}
+                  shouldDisableDate={filtrerUnavailableDates}
+                  theme="regular"
+                  format="dd/MM/yyyy"
+                  isValid={isValid("bookingDate")}
+                  errorText={getErrorText("bookingDate")}
+                  label={t("booking.bookingdate")}
+                  onChange={dateFieldHandleOnChange("bookingDate")}
+                />
+                <div className="helper-text">
+                  <p>
+                    <span className="badge available"></span>The date is
+                    availabe to book a visit.
+                  </p>
+                  <p>
+                    <span className="badge b-available"></span>The date is
+                    availabe, but it's almost complete.
+                  </p>
+                  <p>
+                    <span className="badge u-available"></span>The date isn't
+                    available, no more visit allowed.
+                  </p>
+                </div>
+              </MuiThemeProvider>
             </div>
           </div>
           <div className="patientBookingForm__buttonSet">
