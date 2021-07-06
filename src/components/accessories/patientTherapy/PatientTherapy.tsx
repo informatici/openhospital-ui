@@ -40,8 +40,7 @@ const PatientTherapy: FC<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
 
-  //There is some "mistake" in apis model about the patient id
-  const patientId = useSelector(
+  const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -64,12 +63,12 @@ const PatientTherapy: FC<TProps> = ({
   }, [activityTransitionState, createTherapyReset]);
 
   useEffect(() => {
-    getTherapiesByPatientId(patientId?.code);
-  }, [patientId, getTherapiesByPatientId]);
+    getTherapiesByPatientId(patientData?.code);
+  }, [patientData, getTherapiesByPatientId]);
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patientId;
+    therapy.patID = patientData;
     createTherapy(therapy);
   };
 

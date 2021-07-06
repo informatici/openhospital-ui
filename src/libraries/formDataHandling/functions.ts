@@ -14,7 +14,7 @@ export const getFromFields = (
 
 const parseDate = (raw: string) => {
   const unformatDate = new Date(+raw).toString();
-  return raw === "" ? "" : Date.parse(unformatDate).toString();
+  return raw ? Date.parse(unformatDate).toString() : "";
 };
 
 export const formatAllFieldValues = (

@@ -25,10 +25,11 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
     case CREATE_THERAPY_SUCCESS: {
       draft.createTherapy.status = "SUCCESS";
       draft.createTherapy.data = action.payload;
-      draft.therapiesByPatientId.data = [
-        ...draft.therapiesByPatientId.data!,
-        action.payload,
-      ];
+      if (draft.therapiesByPatientId.data)
+        draft.therapiesByPatientId.data = [
+          ...draft.therapiesByPatientId.data,
+          action.payload,
+        ];
       delete draft.createTherapy.error;
       break;
     }

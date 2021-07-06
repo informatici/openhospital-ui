@@ -35,8 +35,12 @@ export const createTherapy =
           type: CREATE_THERAPY_SUCCESS,
           payload: {
             ...payload,
-            startDate: format(new Date(+payload.startDate!), "dd/MM/yyyy"),
-            endDate: format(new Date(+payload.endDate!), "dd/MM/yyyy"),
+            startDate: payload.startDate
+              ? format(new Date(+payload.startDate), "dd/MM/yyyy")
+              : "",
+            endDate: payload.endDate
+              ? format(new Date(+payload.endDate), "dd/MM/yyyy")
+              : "",
           },
         });
       },
