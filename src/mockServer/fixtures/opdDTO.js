@@ -1,7 +1,7 @@
 import { disease1DTO, disease2DTO, disease3DTO } from "./diseaseDTO";
 import patientDTO from "./patientDTO";
 
-export const opdDTO = {
+const opdDTO = {
     code: Math.floor(Math.random() * 100 + 1),
     date: "2021-06-02T15:19:44.911Z",
     visitDate: "2021-06-02T15:19:44.911Z",
@@ -20,3 +20,5 @@ export const opdDTO = {
     lock: 0,
     userID: "admin"
 }
+
+export default opdDTO;

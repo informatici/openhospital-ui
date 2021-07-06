@@ -1,5 +1,5 @@
 export const disease1DTO = {
-    code: 28,
+    code: Math.floor(Math.random() * 100 + 1),
     description: "Abortions",
     diseaseType: {
         code: "MP",
@@ -8,26 +8,41 @@ export const disease1DTO = {
     opdInclude: true,
     ipdInInclude: true,
     ipdOutInclude: true
-},
+}
+
 export const disease2DTO = {
-    code: 1,
-    description: "Acute Flaccid Paralysis",
+    code: Math.floor(Math.random() * 100 + 1),
+    description: "hate ache",
     diseaseType: {
-        code: "ND",
-        description: "1.NOTIFIABLE DISEASES"
+        code: "MP",
+        description: "3.MATERNAL AND PERINATAL DISEASES"
     },
     opdInclude: true,
     ipdInInclude: true,
     ipdOutInclude: true
-},
+}
+
 export const disease3DTO = {
-    code: 106,
-    description: "Acute renal failure",
+    code: Math.floor(Math.random() * 100 + 1),
+    description: "clamidia",
     diseaseType: {
-        code: "NC",
-        description: "4.NON-COMMUNICABLE DISEASES"
+        code: "MP",
+        description: "3.MATERNAL AND PERINATAL DISEASES"
     },
-    opdInclude: false,
+    opdInclude: true,
+    ipdInInclude: true,
+    ipdOutInclude: true
+}
+
+
+export const disease4DTO = {
+    code: Math.floor(Math.random() * 100 + 1),
+    description: "Palu",
+    diseaseType: {
+        code: "MP",
+        description: "3.MATERNAL AND PERINATAL DISEASES"
+    },
+    opdInclude: true,
     ipdInInclude: true,
     ipdOutInclude: true
 }

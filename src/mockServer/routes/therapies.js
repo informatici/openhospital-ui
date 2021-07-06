@@ -14,7 +14,7 @@ export const therapyRoutes = (server) => {
             }
         });
         server.get("/:code_patient").intercept((req, res) => {
-            const code = req.params.code;
+            const code = req.params.codePatient;
             switch (code) {
                 case "10000":
                     res.status(400);

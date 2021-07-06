@@ -17,7 +17,7 @@ import {
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyRowDTO } from "../../../generated";
+import { PatientDTO, TherapyRowDTO } from "../../../generated";
 import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -49,6 +49,10 @@ const PatientTherapy: FC<TProps> = ({
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
+
+  const patient = useSelector<IState, PatientDTO | undefined>(
+    (state) => state.patients.selectedPatient?.data
+  );
 
   useEffect(() => {
     getMedicals();
