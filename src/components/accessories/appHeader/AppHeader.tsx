@@ -118,7 +118,6 @@ const AppHeader: FunctionComponent<TProps> = ({
         handlePrimaryButtonClick={handleLogout}
         handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
       />
-      ;
     </div>
   );
 };
