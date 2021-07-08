@@ -140,7 +140,8 @@
   "booking": {
     "category": "Category",
     "service": "Service",
-    "bookingdate": "Date"
+    "bookingdate": "Date",
+    "saveform": "Book"
   },
   "summary": {
     "visits": "Visites",

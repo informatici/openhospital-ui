@@ -201,76 +201,80 @@
 }
 
 .patientSearchItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 20px;
-  @include susy-media($smartphone) {
-    padding: 0px;
-  }
 
   .patientSearchItem__panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: $c-white;
-    border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    border-radius: 10px;
     overflow: hidden;
-    width: 100%;
     cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: lighten($c-color-secondary, 2%);
+    }
   }
 
-  .patientSearchItem__header {
-    display: flex;
-    justify-content: space-evenly;
-    background-color: $c-gray;
-    width: 100%;
-    padding: 15px 0px 15px 0px;
-    color: $c-white;
-    font-size: small;
-  }
-
-  .patientSearchItem__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    padding-bottom: 20px;
+  .patientSearchItem__profile {
+    .patientSearchItem__profile__picture {
+      margin-right: 25px;
+      .profilePicture {
+        margin-bottom: initial;
+        .profilePicture_mask {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
   }
 
   .patientSearchItem__profile {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
-  }
 
-  .patientSearchItem__profile__name {
-    margin: 15px 0px;
-    font-size: small;
-  }
+    .patientSearchItem__profile__content__name {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
 
-  .patientSearchItem__profile__picture {
-    display: inline-table;
-  }
+    .patientSearchItem__profile__content__info {
+      display: flex;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: $c-grey-light;
+      @include susy-media($smartphone) {
+        display: initial;
+      }
 
-  .patientSearchItem__profile__admission {
-    font-size: small;
-    margin-top: 15px;
-  }
+      .patientSearchItem__profile__content__item {
+        & + .patientSearchItem__profile__content__item {
+          margin-left: 15px;
+          @include susy-media($smartphone) {
+            margin-left: initial;
+          }
+        }
+      }
+    }
 
-  .patientSearchItem__divider {
-    width: 100%;
-    background-color: $c-gray;
-    height: 1px;
-    margin-bottom: 20px;
-    opacity: 0.1;
-  }
-
-  .patientSearchItem__info {
-    margin: 5px 0px 5px 25px;
-    font-size: small;
-    text-align: left;
+    .patientSearchItem__profile__content__contact {
+      display: flex;
+      font-size: 0.9rem;
+      color: darken($c-grey-lighter, 10%);
+      @include susy-media($smartphone) {
+        display: initial;
+      }
+      .patientSearchItem__profile__content__item {
+        & + .patientSearchItem__profile__content__item {
+          margin-left: 15px;
+          @include susy-media($smartphone) {
+            margin-left: initial;
+          }
+        }
+      }
+    }
   }
 }

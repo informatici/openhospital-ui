@@ -24,11 +24,6 @@ export const data = [
 export const header = [
   "startDate",
   "endDate",
-  "medicalId",
-  "qty",
-  "freqInDay",
-  "freqInPeriod",
-  "note",
 ];
 export const label = {
   startDate: "Start",
@@ -36,6 +31,7 @@ export const label = {
   medicalId: "Medical",
   qty: "Quantity",
   freqInDay: "FID",
+  unitID: "unitID",
   note: "Note",
   freqInPeriod: "FIP",
 };
