@@ -35,6 +35,9 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
+  const patientId = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
 
   useEffect(() => {
     if (hasFailed) {
@@ -56,9 +59,7 @@ const PatientTherapy: FC<TProps> = ({
 
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    // there is some mistake in api model about patID field
-    //which takes object instead of id
-    therapy.patID = patient;
+    therapy.patID = patientId;
     createTherapy(therapy);
   };
 

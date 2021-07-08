@@ -1,5 +1,5 @@
-import { ISummaryState } from "./types";
+import { ISummaryState, SummaryDataType } from "./types";
 
 export const initial: ISummaryState = {
-  loadSummaryData: { status: "IDLE" },
+  summaryApisCall: { data: new Array<SummaryDataType>(), status: "IDLE" },
 };
