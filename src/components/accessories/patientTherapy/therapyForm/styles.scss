@@ -29,15 +29,15 @@
       width: 100%;
     }
 
-    &.fullWidth{
+    &.fullWidth {
       width: 100%;
     }
 
-    &.compressed{
+    &.compressed {
       .textField {
         float: left;
         width: 50%;
-        &:nth-of-type(1){
+        &:nth-of-type(1) {
           padding-right: 10px;
         }
       }

@@ -95,12 +95,9 @@ describe("LoginActivity spec", () => {
   it("should display the logout confirmation when the logout icon is clicked", () => {
     //If the reduce menu icon is present, open the menu page and click on signout icon
     // else click directly on the signout icon 
-    if (cy.get("[class=appHeader__identified__trigger]")) {
-      cy.get("[class=appHeader__identified__trigger]").click();
+    
       cy.get("[id=signout_icon]").click();
-    } else {
-      cy.get("[id=signout_icon]").click();
-    }
+    
     //check if the confirmation dialog is rendered
     cy.get(".MuiDialog-paper");
     //dismiss the confirmation dialog

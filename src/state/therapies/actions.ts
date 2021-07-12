@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
@@ -33,15 +33,7 @@ export const createTherapy =
       (payload) => {
         dispatch({
           type: CREATE_THERAPY_SUCCESS,
-          payload: {
-            ...payload,
-            startDate: payload.startDate
-              ? format(new Date(+payload.startDate), "dd/MM/yyyy")
-              : "",
-            endDate: payload.endDate
-              ? format(new Date(+payload.endDate), "dd/MM/yyyy")
-              : "",
-          },
+          payload: payload,
         });
       },
       (error) => {

@@ -30,6 +30,7 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
           ...draft.therapiesByPatientId.data,
           action.payload,
         ];
+      else draft.therapiesByPatientId.data = [action.payload];
       delete draft.createTherapy.error;
       break;
     }
