@@ -1,9 +1,11 @@
 import { format } from "date-fns";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO } from "../../../../generated";
+import { getOpds } from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
+import { CircularProgress } from "@material-ui/core";
 import { header, order, label } from "./consts";
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -12,21 +14,26 @@ interface IOwnProps {
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
-  const opdStore = useSelector<IState, OpdDTO[]>((state) =>
+  const dispatch = useDispatch();
+  const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const [data, setData] = useState(opdStore);
+  const isLoading = useSelector<IState, boolean>(
+    (state) => state.opds.createOpd.status === "LOADING"
+  );
+  const patientCode = useSelector<IState, number | undefined>(
+    (state) => state.patients.selectedPatient.data?.code
+  );
 
   useEffect(() => {
-    setData(opdStore);
-  }, [opdStore, shouldUpdateTable]);
+    dispatch(getOpds(patientCode));
+  }, [shouldUpdateTable]);
 
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
     let results: any = [];
     if (data)
       results = data.map((item) => {
         return {
-          code: item.code,
           date: item.date ? format(new Date(item.date), "dd/MM/yyyy") : "",
           disease: item.disease ? item.disease.description : "",
           disease2: item.disease2 ? item.disease2.description : "",
@@ -50,17 +57,23 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   return (
     <>
       <div className="patientOPDTable">
-        <Table
-          rowData={formatDataToDisplay(data)}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={5}
-          onDelete={onDelete}
-          isCollapsabile={true}
-          onEdit={onEdit}
-          onView={onEView}
-        />
+        {!isLoading ? (
+          <Table
+            rowData={formatDataToDisplay(data)}
+            tableHeader={header}
+            labelData={label}
+            columnsOrder={order}
+            rowsPerPage={5}
+            onDelete={onDelete}
+            isCollapsabile={true}
+            onEdit={onEdit}
+            onView={onEView}
+          />
+        ) : (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        )}
       </div>
     </>
   );
