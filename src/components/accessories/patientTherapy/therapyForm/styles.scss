@@ -14,7 +14,7 @@ $ipadpro: 1024px 1366px;
     @include susy-media($narrow) {
       padding: 0px 10px;
     }
-    @include susy-media($ipadpro){
+    @include susy-media($ipadpro) {
       padding: 0px 5px;
     }
     @include susy-media($tablet_land) {
@@ -32,15 +32,15 @@ $ipadpro: 1024px 1366px;
       width: 100%;
     }
 
-    &.fullWidth{
+    &.fullWidth {
       width: 100%;
     }
 
-    &.compressed{
+    &.compressed {
       .textField {
         float: left;
         width: 50%;
-        &:nth-of-type(1){
+        &:nth-of-type(1) {
           padding-right: 10px;
         }
       }

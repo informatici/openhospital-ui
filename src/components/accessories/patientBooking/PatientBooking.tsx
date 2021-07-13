@@ -53,7 +53,7 @@ const PatientBooking: FC<TBookingProps> = ({
     <BookingForm
       fields={initialFields}
       onSubmit={onSubmit}
-      submitButtonLabel={t("common.savetriage")}
+      submitButtonLabel={t("booking.saveform")}
       resetButtonLabel={t("common.discard")}
       shouldResetForm={shouldResetForm}
       resetFormCallback={resetFormCallback}

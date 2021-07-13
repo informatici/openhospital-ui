@@ -174,7 +174,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 isValid={isValid("pex_pa_min")}
                 errorText={getErrorText("pex_pa_min")}
                 onBlur={formik.handleBlur}
-                type="string"
+                type="number"
               />
 
               <TextField
