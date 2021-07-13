@@ -32,8 +32,11 @@ const TherapyForm: FC<TherapyProps> = ({
 }) => {
   const validationSchema = object({
     medicalId: string().required("This field is required"),
+    startDate: string().required("This field is required"),
+    endDate: string().required("This field is required"),
   });
   const { t } = useTranslation();
+
   const initialValues = getFromFields(fields, "value");
 
   const medicalOptionsSelector = (state: IState) => {

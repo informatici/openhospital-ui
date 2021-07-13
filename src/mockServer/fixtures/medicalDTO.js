@@ -1,5 +1,5 @@
 export const medicalDTO = {
-    "code": Math.floor(Math.random() * 100 + 1),
+    "code": 16,
     "prod_code": "PARA",
     "type": {
         "code": "M",
