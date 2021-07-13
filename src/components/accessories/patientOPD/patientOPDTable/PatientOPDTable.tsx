@@ -12,7 +12,7 @@ interface IOwnProps {
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
-  let opdStore = useSelector<IState, OpdDTO[]>((state) =>
+  const opdStore = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
   const [data, setData] = useState(opdStore);
