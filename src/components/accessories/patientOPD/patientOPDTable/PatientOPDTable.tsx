@@ -12,7 +12,15 @@ interface IOwnProps {
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
-  const [, setUpdate] = useState(true);
+  let opdStore = useSelector<IState, OpdDTO[]>((state) =>
+    state.opds.getOpds.data ? state.opds.getOpds.data : []
+  );
+  const [data, setData] = useState(opdStore);
+
+  useEffect(() => {
+    setData(opdStore);
+  }, [opdStore, shouldUpdateTable]);
+
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
     let results: any = [];
     if (data)
@@ -28,9 +36,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       });
     return results;
   };
-  let data = useSelector<IState, OpdDTO[]>((state) =>
-    formatDataToDisplay(state.opds.getOpds.data)
-  );
 
   const onDelete = () => {
     console.log("delete");
@@ -42,15 +47,11 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   const onEView = () => {};
 
-  useEffect(() => {
-    setUpdate(shouldUpdateTable);
-  }, [shouldUpdateTable]);
-
   return (
     <>
       <div className="patientOPDTable">
         <Table
-          rowData={data}
+          rowData={formatDataToDisplay(data)}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
