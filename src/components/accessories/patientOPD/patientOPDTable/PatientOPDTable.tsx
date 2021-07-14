@@ -38,8 +38,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    if (shouldUpdateTable) dispatch(getOpds(patientCode));
-  }, [shouldUpdateTable, dispatch, patientCode]);
+    dispatch(getOpds(patientCode));
+  }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
     let results: any = [];
