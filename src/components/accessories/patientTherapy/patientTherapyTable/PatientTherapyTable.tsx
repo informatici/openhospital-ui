@@ -48,7 +48,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
   useEffect(() => {
     dispatch(getMedicals());
     dispatch(getTherapiesByPatientId(patientCode));
-  }, []);
+  }, [dispatch, patientCode]);
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data.map((item) => {
       const medical = medicals.find((medoc) => medoc.code === item.medicalId);
