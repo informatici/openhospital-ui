@@ -1,12 +1,13 @@
 import { format } from "date-fns";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO } from "../../../../generated";
 import { getOpds } from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
-import { header, order, label } from "./consts";
+import { useTranslation } from "react-i18next";
+import moment from "moment";
 interface IOwnProps {
   shouldUpdateTable: boolean;
 }
@@ -14,6 +15,17 @@ interface IOwnProps {
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
+  const { t } = useTranslation();
+  const header = ["date"];
+  const label = {
+    date: t("opd.dateopd"),
+    disease: t("opd.disease1"),
+    disease2: t("opd.disease2"),
+    disease3: t("opd.disease3"),
+    note: t("opd.note"),
+  };
+  const order = ["date"];
+
   const dispatch = useDispatch();
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
@@ -26,8 +38,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    dispatch(getOpds(patientCode));
-  }, [shouldUpdateTable]);
+    if (shouldUpdateTable) dispatch(getOpds(patientCode));
+  }, [shouldUpdateTable, dispatch, patientCode]);
 
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
     let results: any = [];
@@ -63,7 +75,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
-            rowsPerPage={5}
+            rowsPerPage={50}
             onDelete={onDelete}
             isCollapsabile={true}
             onEdit={onEdit}

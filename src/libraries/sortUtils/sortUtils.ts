@@ -1,6 +1,17 @@
 import { TOrder } from "./types";
+import moment from "moment";
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  //check if the value is formatted date in dd/MM/yyyy
+  let isFormattedA = moment(a[orderBy], "DD/MM/YYYY", true).isValid();
+  let isFormattedB = moment(b[orderBy], "DD/MM/YYYY", true).isValid();
+
+  if (isFormattedA && isFormattedB) {
+    return moment(b[orderBy]).format("YYYY-MM-DD") >
+      moment(a[orderBy]).format("YYYY-MM-DD")
+      ? 1
+      : -1;
+  }
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -12,9 +23,12 @@ export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 export function getComparator<Key extends keyof any>(
   order: TOrder,
-  orderBy: Key,
-): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
-  return order === 'desc'
+  orderBy: Key
+): (
+  a: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
+) => number {
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
