@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -42,6 +42,9 @@ const PatientTriage: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
+  const patientDataCode = useSelector(
+    (state: IState) => state.patients.selectedPatient.data?.code
+  );
   useEffect(() => {
     if (hasFailed) {
       scrollToElement(infoBoxRef.current);
@@ -58,6 +61,7 @@ const PatientTriage: FunctionComponent<TProps> = ({
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
+    triage.patientCode = patientDataCode;
     createExamination(triage);
   };
 

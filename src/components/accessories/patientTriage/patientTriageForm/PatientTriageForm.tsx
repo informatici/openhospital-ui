@@ -10,7 +10,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
-import { object } from "yup";
+import { object, string } from "yup";
 import { TProps } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import TextButton from "../../textButton/TextButton";
@@ -22,6 +22,9 @@ import get from "lodash.get";
 import SelectField from "../../selectField/SelectField";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import { IState } from "../../../../types";
+import { PatientDTO } from "../../../../generated";
+import { useSelector } from "react-redux";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -33,7 +36,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   isLoading,
 }) => {
   const validationSchema = object({
-    // TODO
+    pex_date: string().required("This field is required"),
   });
 
   const { t } = useTranslation();
@@ -110,10 +113,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("triageDate")}
-                errorText={getErrorText("triageDate")}
+                isValid={isValid("pex_date")}
+                errorText={getErrorText("pex_date")}
                 label={t("examination.datetriage")}
-                onChange={dateFieldHandleOnChange("triageDate")}
+                onChange={dateFieldHandleOnChange("pex_date")}
               />
             </div>
           </div>

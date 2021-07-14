@@ -27,7 +27,6 @@ export const createExamination =
     dispatch({
       type: CREATE_EXAMINATION_LOADING,
     });
-
     examinationControllerApi
       .newPatientExaminationUsingPOST({ newPatientExamination })
       .subscribe(
@@ -54,33 +53,31 @@ export const createExaminationReset =
   };
 
 export const examinationsByPatientId =
-  (patId: number) =>
+  (patId: number | undefined) =>
   (dispatch: Dispatch<IAction<PatientExaminationDTO[], {}>>): void => {
     dispatch({
       type: SEARCH_EXAMINATION_LOADING,
     });
-
     if (patId) {
-      examinationControllerApi.getByPatientIdUsingGET({ patId }).subscribe(
-        (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+      examinationControllerApi
+        .getByPatientIdUsingGET({ patId: patId })
+        .subscribe(
+          (payload) => {
             dispatch({
               type: SEARCH_EXAMINATION_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
-          } else {
+          },
+          (error) => {
             dispatch({
-              type: SEARCH_EXAMINATION_SUCCESS,
-              payload: [],
+              type: SEARCH_EXAMINATION_FAIL,
+              error,
             });
           }
-        },
-        (error) => {
-          dispatch({
-            type: SEARCH_EXAMINATION_FAIL,
-            error,
-          });
-        }
-      );
-    }
+        );
+    } else
+      dispatch({
+        type: SEARCH_EXAMINATION_FAIL,
+        error: "patient object should not be empty",
+      });
   };

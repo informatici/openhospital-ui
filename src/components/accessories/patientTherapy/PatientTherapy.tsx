@@ -39,9 +39,6 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
-  const patientId = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
 
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -52,10 +49,6 @@ const PatientTherapy: FC<TProps> = ({
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
-
-  const patient = useSelector<IState, PatientDTO | undefined>(
-    (state) => state.patients.selectedPatient?.data
-  );
 
   useEffect(() => {
     getMedicals();
