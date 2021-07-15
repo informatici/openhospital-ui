@@ -8,10 +8,10 @@ const formats = [
   "DD/MM/YYYY HH:mm:ss",
 ];
 export function dateComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (moment(b[orderBy], formats) > moment(a[orderBy], formats)) {
+  if (moment(b[orderBy], formats).isAfter(moment(a[orderBy], formats))) {
     return 1;
   }
-  if (moment(b[orderBy], formats) < moment(a[orderBy], formats)) {
+  if (moment(b[orderBy], formats).isBefore(moment(a[orderBy], formats))) {
     return -1;
   }
   return 0;
