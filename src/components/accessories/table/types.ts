@@ -1,3 +1,5 @@
+import internal from "events";
+
 export interface IProps {
   rowData: Array<Record<string, any>>;
   labelData: Record<string, any>;
@@ -5,6 +7,7 @@ export interface IProps {
   isCollapsabile?: boolean;
   rowsPerPage: number;
   columnsOrder: Array<string>;
+  rowComparator?: (a: any, b: any, orderBy: any) => number;
   onEdit?: () => void;
   onDelete?: () => void;
   onPrint?: () => void;

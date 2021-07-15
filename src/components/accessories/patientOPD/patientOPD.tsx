@@ -38,7 +38,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(true);
 
   useEffect(() => {
     if (hasFailed) {

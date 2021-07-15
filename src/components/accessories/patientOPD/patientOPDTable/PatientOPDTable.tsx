@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import React, { FunctionComponent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO } from "../../../../generated";
@@ -7,6 +6,7 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import { DateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -38,7 +38,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    dispatch(getOpds(patientCode));
+    if (shouldUpdateTable) dispatch(getOpds(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
@@ -46,7 +46,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     if (data)
       results = data.map((item) => {
         return {
-          date: item.date ? format(new Date(item.date), "dd/MM/yyyy") : "",
+          date: item.date ? moment(item.date).format("DD/MM/YYYY") : "",
           disease: item.disease ? item.disease.description : "",
           disease2: item.disease2 ? item.disease2.description : "",
           disease3: item.disease3 ? item.disease3.description : "",
@@ -76,6 +76,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
+            rowComparator={DateComparator}
             onDelete={onDelete}
             isCollapsabile={true}
             onEdit={onEdit}
