@@ -53,10 +53,6 @@ const PatientTherapy: FC<TProps> = ({
     }
   }, [hasFailed]);
 
-  const patient = useSelector<IState, PatientDTO | undefined>(
-    (state) => state.patients.selectedPatient?.data
-  );
-
   useEffect(() => {
     getMedicals();
   }, [getMedicals]);

@@ -28,6 +28,7 @@ const Table: FunctionComponent<IProps> = ({
   isCollapsabile,
   rowsPerPage,
   columnsOrder,
+  rowComparator,
   onEdit,
   onDelete,
   onPrint,
@@ -36,7 +37,6 @@ const Table: FunctionComponent<IProps> = ({
   const [order, setOrder] = React.useState<TOrder>("desc");
   const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
-
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -121,7 +121,7 @@ const Table: FunctionComponent<IProps> = ({
             </TableRow>
           </TableHead>
           <TableBody className="table_body">
-            {stableSort(rowData, getComparator(order, orderBy))
+            {stableSort(rowData, getComparator(order, orderBy, rowComparator))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
                 <TableBodyRow

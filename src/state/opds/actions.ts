@@ -54,34 +54,35 @@ export const createOpdReset =
   };
 
 export const getOpds =
-  (code: number) =>
+  (code: number | undefined) =>
   (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
     dispatch({
       type: GET_OPD_LOADING,
     });
-    opdControllerApi
-      .getOpdByPatientUsingGET({
-        pcode: code,
-      })
-      .subscribe(
-        (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+    if (code)
+      opdControllerApi
+        .getOpdByPatientUsingGET({
+          pcode: code,
+        })
+        .subscribe(
+          (payload) => {
+            if (typeof payload === "object" && !isEmpty(payload)) {
+              dispatch({
+                type: GET_OPD_SUCCESS,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: GET_OPD_SUCCESS,
+                payload: [],
+              });
+            }
+          },
+          (error) => {
             dispatch({
-              type: GET_OPD_SUCCESS,
-              payload: payload,
-            });
-          } else {
-            dispatch({
-              type: GET_OPD_SUCCESS,
-              payload: [],
+              type: GET_OPD_FAIL,
+              error,
             });
           }
-        },
-        (error) => {
-          dispatch({
-            type: GET_OPD_FAIL,
-            error,
-          });
-        }
-      );
+        );
   };

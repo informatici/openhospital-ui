@@ -1,6 +1,22 @@
+import moment from "moment";
 import { TOrder } from "./types";
 
-export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+const formats = [
+  "DD/MM/YYYY",
+  "YYYY-MM-DD",
+  "YYYY-MM-DD HH:mm:ss",
+  "DD/MM/YYYY HH:mm:ss",
+];
+export function DateComparator<T>(a: T, b: T, orderBy: keyof T) {
+  if (moment(b[orderBy], formats) > moment(a[orderBy], formats)) {
+    return 1;
+  }
+  if (moment(b[orderBy], formats) < moment(a[orderBy], formats)) {
+    return -1;
+  }
+  return 0;
+}
+export function defaultComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -13,8 +29,16 @@ export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 export function getComparator<Key extends keyof any>(
   order: TOrder,
   orderBy: Key,
-): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
-  return order === 'desc'
+  descendingComparator: (
+    a: any,
+    b: any,
+    orderBy: any
+  ) => number = defaultComparator
+): (
+  a: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
+) => number {
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }

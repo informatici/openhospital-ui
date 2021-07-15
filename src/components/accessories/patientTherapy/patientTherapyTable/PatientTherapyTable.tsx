@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../../state/medicals/actions";
+import { DateComparator } from "../../../../libraries/sortUtils/sortUtils";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -90,6 +91,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
+            rowComparator={DateComparator}
             isCollapsabile={true}
             onDelete={onDelete}
             onEdit={onEdit}
