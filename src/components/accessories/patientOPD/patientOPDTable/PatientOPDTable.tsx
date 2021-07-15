@@ -6,7 +6,7 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { DateComparator } from "../../../../libraries/sortUtils/sortUtils";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -76,7 +76,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
-            rowComparator={DateComparator}
+            rowComparator={dateComparator}
             onDelete={onDelete}
             isCollapsabile={true}
             onEdit={onEdit}

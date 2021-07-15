@@ -5,10 +5,10 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
-import { format } from "date-fns";
 import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../../state/medicals/actions";
-import { DateComparator } from "../../../../libraries/sortUtils/sortUtils";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
+import moment from "moment";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -56,10 +56,10 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
       return {
         medicalId: medical ? medical.description : item.medicalId,
         startDate: item.startDate
-          ? format(new Date(item.startDate), "dd/MM/yyyy")
+          ? moment(item.startDate).format("DD/MM/YYYY")
           : "",
         endDate: item.endDate
-          ? format(new Date(item.endDate), "dd/MM/yyyy")
+          ? moment(item.startDate).format("DD/MM/YYYY")
           : "",
         qty: item.qty,
         freqInDay: item.freqInDay,
@@ -91,7 +91,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
-            rowComparator={DateComparator}
+            rowComparator={dateComparator}
             isCollapsabile={true}
             onDelete={onDelete}
             onEdit={onEdit}
