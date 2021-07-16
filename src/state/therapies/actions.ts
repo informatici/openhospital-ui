@@ -81,5 +81,10 @@ export const getTherapiesByPatientId =
           });
         }
       );
+    } else {
+      dispatch({
+        type: GET_THERAPY_FAIL,
+        error: "the patient code should not be empty",
+      });
     }
   };
