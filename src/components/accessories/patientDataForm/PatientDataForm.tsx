@@ -37,10 +37,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const validationSchema = object({
-    firstName: string().required("This field is required"),
-    secondName: string().required("This field is required"),
-    birthDate: string().required("This field is required"),
-    sex: string().required("This field is required"),
+    firstName: string().required(t("common.required")),
+    secondName: string().required(t("common.required")),
+    birthDate: string().required(t("common.required")),
+    sex: string().required(t("common.required")),
+    telephone: string().matches(
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      t("common.incorrectformat")
+    ),
   });
 
   const initialValues = getFromFields(fields, "value");

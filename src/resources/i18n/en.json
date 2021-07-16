@@ -118,7 +118,14 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Save Therapy"
+    "savetherapy": "Save Therapy",
+    "required": "This field is required",
+    "incorrectformat": "Is not in correct format",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "male": "Male",
+    "female": "Female"
   },
   "therapy": {
     "newtherapy": "New Therapy",

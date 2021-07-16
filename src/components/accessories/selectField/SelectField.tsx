@@ -8,6 +8,7 @@ import {
 import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 const SelectField: FunctionComponent<IProps> = ({
   fieldName,
@@ -19,7 +20,7 @@ const SelectField: FunctionComponent<IProps> = ({
   options,
 }) => {
   const [value, setValue] = useState("");
-
+  const { t } = useTranslation();
   useEffect(() => {
     setValue(fieldValue);
   }, [fieldValue]);
@@ -50,7 +51,7 @@ const SelectField: FunctionComponent<IProps> = ({
         </MenuItem>
         {options.map((option, index) => (
           <MenuItem value={option.value} key={index}>
-            {option.label}
+            {t(option.label)}
           </MenuItem>
         ))}
       </Select>
