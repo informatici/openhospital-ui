@@ -64,7 +64,7 @@
     "diuresisvolume24habbr": "D24H",
     "heartrate": "Fréquence Cardiaque",
     "heartrateabbr": "FC",
-    "height": "Hauteur",
+    "height": "Taille",
     "heightabbr": "(H)",
     "hemoglucosetest": "Hemo Glucose Test",
     "hgt": "HGT",
@@ -119,7 +119,8 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Enregistrer"
+    "savetherapy": "Enregistrer",
+    "required": "Ce champ est obligatoire"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",

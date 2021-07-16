@@ -32,11 +32,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const validationSchema = object({
-    pex_date: string().required("This field is required"),
-  });
-
   const { t } = useTranslation();
+  const validationSchema = object({
+    pex_date: string().required(t("common.required")),
+  });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
 

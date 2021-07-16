@@ -14,20 +14,18 @@ interface IOwnProps {
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
-  const [, setUpdate] = useState(false);
   const { t } = useTranslation();
 
   const label = {
-    date: "Date",
-    pex_date: "Date",
+    pex_date: t("examination.datetriage"),
     pex_height: t("examination.height"),
     pex_weight: t("examination.weight"),
-    pex_pa_max: "Arterial pressure Max",
-    pex_pa_min: "Arterial pressure Min",
+    pex_pa_max: t("examination.pa.max"),
+    pex_pa_min: t("examination.pa.min"),
     pex_fc: t("examination.heartrate"),
     pex_temp: t("examination.temperature"),
     pex_sat: t("examination.saturation"),
-    pex_note: "Note",
+    pex_note: t("examination.note"),
   };
   const header = ["pex_date"];
   const order = ["pex_date"];
@@ -70,10 +68,6 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const onDelete = () => {
     console.log("delete");
   };
-
-  useEffect(() => {
-    setUpdate(shouldUpdateTable);
-  }, [shouldUpdateTable]);
 
   return (
     <>
