@@ -7,7 +7,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
-
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -36,34 +36,49 @@ const DateField: FunctionComponent<IProps> = ({
 
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
+  const pickerTheme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#444444",
+      },
+      secondary: {
+        light: "#444444",
+        main: "#444444",
+        contrastText: "#444444",
+      },
+    },
+  });
+
   return (
     <DatePickerWrapper utils={DateFnsUtils}>
-      <DatePicker
-        format={format}
-        id={fieldName}
-        label={label}
-        disabled={disabled}
-        disableFuture={disableFuture}
-        className={actualClassName}
-        onChange={handleDateChange}
-        inputVariant="outlined"
-        margin="dense"
-        value={value}
-        onMonthChange={onMonthChange}
-        shouldDisableDate={shouldDisableDate}
-        renderDay={renderDay}
-        TextFieldComponent={(props): any => (
-          <TextField
-            {...props}
-            name={""}
-            error={isValid}
-            variant="outlined"
-            margin="dense"
-            helperText={errorText}
-            autoComplete={"off"}
-          />
-        )}
-      />
+      <MuiThemeProvider theme={pickerTheme}>
+        <DatePicker
+          format={format}
+          id={fieldName}
+          label={label}
+          disabled={disabled}
+          disableFuture={disableFuture}
+          className={actualClassName}
+          onChange={handleDateChange}
+          inputVariant="outlined"
+          margin="dense"
+          value={value}
+          onMonthChange={onMonthChange}
+          shouldDisableDate={shouldDisableDate}
+          renderDay={renderDay}
+          TextFieldComponent={(props): any => (
+            <TextField
+              {...props}
+              name={""}
+              error={isValid}
+              variant="outlined"
+              margin="dense"
+              helperText={errorText}
+              autoComplete={"off"}
+            />
+          )}
+        />
+      </MuiThemeProvider>
     </DatePickerWrapper>
   );
 };
