@@ -44,7 +44,8 @@
     "note": "Complain",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3"
+    "disease3": "Diagnostic 3",
+    "validatedisease": "This diagnostic should be different"
   },
   "examination": {
     "ap": {
