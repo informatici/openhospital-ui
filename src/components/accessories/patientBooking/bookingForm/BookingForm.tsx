@@ -17,6 +17,7 @@ import { get, has } from "lodash";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../../assets/warning-icon.png";
 import classnames from "classnames";
+import { DATEPICKERTHEME } from "../../../../consts";
 
 const BookingForm: FC<TBookingProps> = ({
   fields,
@@ -179,7 +180,7 @@ const BookingForm: FC<TBookingProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientBookingForm__item dateVisit">
-              <MuiThemeProvider theme={theme}>
+              <MuiThemeProvider theme={DATEPICKERTHEME}>
                 <DateField
                   fieldName="bookingDate"
                   fieldValue={formik.values.bookingDate}
@@ -240,16 +241,3 @@ const BookingForm: FC<TBookingProps> = ({
 };
 
 export default BookingForm;
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#444444",
-    },
-    secondary: {
-      light: "#444444",
-      main: "#444444",
-      contrastText: "#444444",
-    },
-  },
-});

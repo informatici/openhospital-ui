@@ -25,6 +25,8 @@ import { useTranslation } from "react-i18next";
 import { IState } from "../../../../types";
 import { PatientDTO } from "../../../../generated";
 import { useSelector } from "react-redux";
+import { MuiThemeProvider } from "@material-ui/core";
+import { DATEPICKERTHEME } from "../../../../consts";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -107,17 +109,19 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item">
-              <DateField
-                fieldName="pex_date"
-                fieldValue={formik.values.pex_date}
-                disableFuture={true}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("pex_date")}
-                errorText={getErrorText("pex_date")}
-                label={t("examination.datetriage")}
-                onChange={dateFieldHandleOnChange("pex_date")}
-              />
+              <MuiThemeProvider theme={DATEPICKERTHEME}>
+                <DateField
+                  fieldName="pex_date"
+                  fieldValue={formik.values.pex_date}
+                  disableFuture={true}
+                  theme="regular"
+                  format="dd/MM/yyyy"
+                  isValid={isValid("pex_date")}
+                  errorText={getErrorText("pex_date")}
+                  label={t("examination.datetriage")}
+                  onChange={dateFieldHandleOnChange("pex_date")}
+                />
+              </MuiThemeProvider>
             </div>
           </div>
           <div className="row start-sm center-xs">
