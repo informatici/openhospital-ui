@@ -8,6 +8,7 @@ import {
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
+  GET_THERAPY_SUCCESS_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { ITherapiesState } from "./types";
@@ -58,16 +59,18 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
     }
 
     case GET_THERAPY_SUCCESS: {
-      if (action.payload.length > 0) {
-        draft.therapiesByPatientId.status = "SUCCESS";
-      } else {
-        draft.therapiesByPatientId.status = "SUCCESS_EMPTY";
-      }
+      draft.therapiesByPatientId.status = "SUCCESS";
       draft.therapiesByPatientId.data = action.payload;
       delete draft.therapiesByPatientId.error;
       break;
     }
 
+    case GET_THERAPY_SUCCESS_EMPTY: {
+      draft.therapiesByPatientId.status = "SUCCESS_EMPTY";
+      draft.therapiesByPatientId.data = [];
+      delete draft.therapiesByPatientId.error;
+      break;
+    }
     case GET_THERAPY_FAIL: {
       draft.therapiesByPatientId.status = "FAIL";
       draft.therapiesByPatientId.error = action.error;

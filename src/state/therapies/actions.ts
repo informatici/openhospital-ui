@@ -16,6 +16,7 @@ import {
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
+  GET_THERAPY_SUCCESS_EMPTY,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -69,7 +70,7 @@ export const getTherapiesByPatientId =
             });
           } else {
             dispatch({
-              type: GET_THERAPY_SUCCESS,
+              type: GET_THERAPY_SUCCESS_EMPTY,
               payload: [],
             });
           }
