@@ -17,6 +17,7 @@ import {
   GET_OPD_FAIL,
   GET_OPD_LOADING,
   GET_OPD_SUCCESS,
+  GET_OPD_SUCCESS_EMPTY,
 } from "./consts";
 
 const opdControllerApi = new OpdControllerApi(
@@ -59,7 +60,7 @@ export const getOpds =
     dispatch({
       type: GET_OPD_LOADING,
     });
-    if (code)
+    if (code) {
       opdControllerApi
         .getOpdByPatientUsingGET({
           pcode: code,
@@ -73,7 +74,7 @@ export const getOpds =
               });
             } else {
               dispatch({
-                type: GET_OPD_SUCCESS,
+                type: GET_OPD_SUCCESS_EMPTY,
                 payload: [],
               });
             }
@@ -85,4 +86,10 @@ export const getOpds =
             });
           }
         );
+    } else {
+      dispatch({
+        type: GET_OPD_FAIL,
+        error: "patient code should not be empty",
+      });
+    }
   };
