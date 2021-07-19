@@ -7,7 +7,7 @@ const formats = [
   "YYYY-MM-DD HH:mm:ss",
   "DD/MM/YYYY HH:mm:ss",
 ];
-export function compareByDate<Key extends keyof any>(order: TOrder, key: Key) {
+export function dateComparator<Key extends keyof any>(order: TOrder, key: Key) {
   let reverse = order === "desc" ? 1 : -1;
   return (a: any, b: any) => {
     if (moment(b[key], formats).isAfter(moment(a[key], formats))) {
@@ -20,7 +20,7 @@ export function compareByDate<Key extends keyof any>(order: TOrder, key: Key) {
   };
 }
 
-export function defaultCompareBy<Key extends keyof any>(
+export function defaultComparator<Key extends keyof any>(
   order: TOrder,
   key: Key
 ) {

@@ -16,7 +16,7 @@ import { Edit, Delete, Print } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
-import { defaultCompareBy } from "../../../libraries/sortUtils/sortUtils";
+import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -25,7 +25,7 @@ const Table: FunctionComponent<IProps> = ({
   isCollapsabile,
   rowsPerPage,
   columnsOrder,
-  compareRowBy = defaultCompareBy,
+  compareRowBy = defaultComparator,
   onEdit,
   onDelete,
   onPrint,
