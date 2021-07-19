@@ -6,8 +6,8 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
+import { compareByDate } from "../../../../libraries/sortUtils/sortUtils";
 interface IOwnProps {
   shouldUpdateTable: boolean;
 }
@@ -72,11 +72,11 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         {!isLoading ? (
           <Table
             rowData={formatDataToDisplay(data)}
+            compareRowBy={compareByDate}
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
-            rowComparator={dateComparator}
             onDelete={onDelete}
             isCollapsabile={true}
             onEdit={onEdit}
