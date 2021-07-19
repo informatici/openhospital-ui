@@ -87,7 +87,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
             style={{ marginLeft: "50%", position: "relative" }}
           />
         )}
-        {}
       </div>
     </>
   );

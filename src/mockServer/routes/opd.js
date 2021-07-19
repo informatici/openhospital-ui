@@ -23,7 +23,7 @@ export const opdRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(200).json([]);
+                    res.status(200).json([opdDTO, opdDTO, opdDTO, opdDTO]);
             }
         });
     });
