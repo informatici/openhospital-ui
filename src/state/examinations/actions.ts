@@ -15,6 +15,7 @@ import {
   SEARCH_EXAMINATION_FAIL,
   SEARCH_EXAMINATION_LOADING,
   SEARCH_EXAMINATION_SUCCESS,
+  SEARCH_EXAMINATION_SUCCESS_EMPTY,
 } from "./consts";
 
 const examinationControllerApi = new ExaminationControllerApi(
@@ -63,10 +64,17 @@ export const examinationsByPatientId =
         .getByPatientIdUsingGET({ patId: patId })
         .subscribe(
           (payload) => {
-            dispatch({
-              type: SEARCH_EXAMINATION_SUCCESS,
-              payload: payload,
-            });
+            if (typeof payload === "object" && !isEmpty(payload)) {
+              dispatch({
+                type: SEARCH_EXAMINATION_SUCCESS,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: SEARCH_EXAMINATION_SUCCESS_EMPTY,
+                payload: [],
+              });
+            }
           },
           (error) => {
             dispatch({
