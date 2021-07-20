@@ -4,8 +4,10 @@ import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
 import {
   createTherapy,
+  getTherapiesByPatientId,
   createTherapyReset,
 } from "../../../state/therapies/actions";
+import { getMedicals } from "../../../state/medicals/actions";
 import {
   IDispatchProps,
   IStateProps,
@@ -24,10 +26,12 @@ import checkIcon from "../../../assets/check-icon.png";
 
 const PatientTherapy: FC<TProps> = ({
   createTherapy,
+  getTherapiesByPatientId,
   createTherapyReset,
   isLoading,
   hasSucceeded,
   hasFailed,
+  getMedicals,
 }) => {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -50,6 +54,10 @@ const PatientTherapy: FC<TProps> = ({
   );
 
   useEffect(() => {
+    getMedicals();
+  }, [getMedicals]);
+
+  useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       createTherapyReset();
       setShouldResetForm(true);
@@ -57,9 +65,13 @@ const PatientTherapy: FC<TProps> = ({
     }
   }, [activityTransitionState, createTherapyReset]);
 
+  useEffect(() => {
+    getTherapiesByPatientId(patient?.code);
+  }, [patient, getTherapiesByPatientId]);
+
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patientId;
+    therapy.patID = patient;
     createTherapy(therapy);
   };
 
@@ -111,5 +123,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
 const mapDispatchToProps: IDispatchProps = {
   createTherapy,
   createTherapyReset,
+  getMedicals,
+  getTherapiesByPatientId,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PatientTherapy);
