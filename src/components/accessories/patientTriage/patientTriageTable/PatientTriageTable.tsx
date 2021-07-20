@@ -1,11 +1,13 @@
 import { CircularProgress } from "@material-ui/core";
 import moment from "moment";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { examinationsByPatientId } from "../../../../state/examinations/actions";
 import { IState } from "../../../../types";
+import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -15,7 +17,6 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
 }) => {
   const { t } = useTranslation();
-
   const label = {
     pex_date: t("examination.datetriage"),
     pex_height: t("examination.height"),
@@ -61,20 +62,30 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const isLoading = useSelector<IState, boolean>(
-    (state) => state.examinations.examinationsByPatientId.status === "LOADING"
+  const searchStatus = useSelector<IState, string | undefined>(
+    (state) => state.examinations.examinationsByPatientId.status
   );
 
   const onDelete = () => {
     console.log("delete");
   };
 
-  return (
-    <>
-      <div className="patientTriageTable">
-        {!isLoading ? (
+  const renderSwitch = (status: any) => {
+    switch (status) {
+      case "FAIL":
+        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+      case "LOADING":
+        return (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        );
+
+      case "SUCCESS":
+        return (
           <Table
             rowData={formatDataToDisplay(data)}
+            compareRows={dateComparator}
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
@@ -82,14 +93,17 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
             onDelete={onDelete}
             isCollapsabile={true}
           />
-        ) : (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        )}
-      </div>
-    </>
-  );
+        );
+
+      case "SUCCESS_EMPTY":
+        return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+      default:
+        return;
+    }
+  };
+
+  return <div className="patientTriageTable">{renderSwitch(searchStatus)}</div>;
 };
 
 export default PatientTriageTable;

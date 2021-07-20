@@ -64,7 +64,7 @@ export const examinationsByPatientId =
         .getByPatientIdUsingGET({ patId: patId })
         .subscribe(
           (payload) => {
-            if (typeof payload === "object" && !isEmpty(payload)) {
+            if (Array.isArray(payload) && payload.length > 0) {
               dispatch({
                 type: SEARCH_EXAMINATION_SUCCESS,
                 payload: payload,

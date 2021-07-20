@@ -17,7 +17,7 @@ import {
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { PatientDTO, TherapyRowDTO } from "../../../generated";
+import { TherapyRowDTO } from "../../../generated";
 import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
