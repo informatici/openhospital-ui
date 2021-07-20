@@ -52,22 +52,24 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
     dispatch(getTherapiesByPatientId(patientCode));
   }, [dispatch, patientCode]);
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
-    return data.map((item) => {
-      const medical = medicals.find((medoc) => medoc.code === item.medicalId);
-      return {
-        medicalId: medical ? medical.description : item.medicalId,
-        startDate: item.startDate
-          ? moment(item.startDate).format("DD/MM/YYYY")
-          : "",
-        endDate: item.endDate
-          ? moment(item.startDate).format("DD/MM/YYYY")
-          : "",
-        qty: item.qty,
-        freqInDay: item.freqInDay,
-        freqInPeriod: item.freqInPeriod,
-        note: item.note,
-      };
-    });
+    return data
+      .map((item) => {
+        const medical = medicals.find((medoc) => medoc.code === item.medicalId);
+        return {
+          medicalId: medical ? medical.description : item.medicalId,
+          startDate: item.startDate
+            ? moment(item.startDate).format("DD/MM/YYYY")
+            : "",
+          endDate: item.endDate
+            ? moment(item.endDate).format("DD/MM/YYYY")
+            : "",
+          qty: item.qty,
+          freqInDay: item.freqInDay,
+          freqInPeriod: item.freqInPeriod,
+          note: item.note,
+        };
+      })
+      .sort(dateComparator("desc", "startDate"));
   };
   const searchStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
