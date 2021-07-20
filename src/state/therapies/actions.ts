@@ -63,7 +63,7 @@ export const getTherapiesByPatientId =
     if (codePatient) {
       therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
         (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
               type: GET_THERAPY_SUCCESS,
               payload: payload,
@@ -85,7 +85,7 @@ export const getTherapiesByPatientId =
     } else {
       dispatch({
         type: GET_THERAPY_FAIL,
-        error: "the patient code should not be empty",
+        error: "The patient code should not be null",
       });
     }
   };
