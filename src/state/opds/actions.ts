@@ -1,4 +1,3 @@
-import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -67,7 +66,7 @@ export const getOpds =
         })
         .subscribe(
           (payload) => {
-            if (typeof payload === "object" && !isEmpty(payload)) {
+            if (Array.isArray(payload) && payload.length > 0) {
               dispatch({
                 type: GET_OPD_SUCCESS,
                 payload: payload,

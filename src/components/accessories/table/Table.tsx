@@ -25,7 +25,7 @@ const Table: FunctionComponent<IProps> = ({
   isCollapsabile,
   rowsPerPage,
   columnsOrder,
-  compareRowBy = defaultComparator,
+  compareRows = defaultComparator,
   onEdit,
   onDelete,
   onPrint,
@@ -119,7 +119,7 @@ const Table: FunctionComponent<IProps> = ({
           </TableHead>
           <TableBody className="table_body">
             {[...rowData]
-              .sort(compareRowBy(order, orderBy))
+              .sort(compareRows(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
                 <TableBodyRow

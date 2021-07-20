@@ -7,7 +7,7 @@ export interface IProps {
   isCollapsabile?: boolean;
   rowsPerPage: number;
   columnsOrder: Array<string>;
-  compareRowBy?: <Key extends string | number | symbol>(
+  compareRows?: <Key extends string | number | symbol>(
     order: TOrder,
     key: Key
   ) => (a: any, b: any) => number;
