@@ -31,6 +31,5 @@ export function makeServer() {
     diseasesRoutes(server);
     medicalRoutes(server);
   });
-
   return server;
 }
