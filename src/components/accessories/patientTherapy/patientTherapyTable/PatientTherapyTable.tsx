@@ -9,6 +9,7 @@ import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
+import InfoBox from "../../infoBox/InfoBox";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -68,8 +69,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
       };
     });
   };
-  const isLoading = useSelector<IState, boolean>(
-    (state) => state.therapies.therapiesByPatientId.status === "LOADING"
+  const searchStatus = useSelector<IState, string | undefined>(
+    (state) => state.therapies.therapiesByPatientId.status
   );
   const onDelete = () => {
     console.log("delete");
@@ -81,30 +82,42 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
 
   const onEView = () => {};
 
-  return (
-    <>
-      <div className="patientTherapyTable">
-        {!isLoading ? (
+  const renderSwitch = (status: any) => {
+    switch (status) {
+      case "FAIL":
+        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+      case "LOADING":
+        return (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        );
+
+      case "SUCCESS":
+        return (
           <Table
             rowData={formatDataToDisplay(data)}
+            compareRows={dateComparator}
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
-            rowComparator={dateComparator}
-            isCollapsabile={true}
             onDelete={onDelete}
+            isCollapsabile={true}
             onEdit={onEdit}
             onView={onEView}
           />
-        ) : (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        )}
-      </div>
-    </>
-  );
+        );
+
+      case "SUCCESS_EMPTY":
+        return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+      default:
+        return;
+    }
+  };
+
+  return <>{renderSwitch(searchStatus)}</>;
 };
 
 export default PatientTherapyTable;
