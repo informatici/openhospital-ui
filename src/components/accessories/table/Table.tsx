@@ -1,8 +1,4 @@
 import React, { FunctionComponent } from "react";
-import {
-  getComparator,
-  stableSort,
-} from "../../../libraries/sortUtils/sortUtils";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -20,6 +16,7 @@ import { Edit, Delete, Print } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
+import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -28,7 +25,7 @@ const Table: FunctionComponent<IProps> = ({
   isCollapsabile,
   rowsPerPage,
   columnsOrder,
-  rowComparator,
+  compareRows = defaultComparator,
   onEdit,
   onDelete,
   onPrint,
@@ -121,7 +118,8 @@ const Table: FunctionComponent<IProps> = ({
             </TableRow>
           </TableHead>
           <TableBody className="table_body">
-            {stableSort(rowData, getComparator(order, orderBy, rowComparator))
+            {[...rowData]
+              .sort(compareRows(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
                 <TableBodyRow

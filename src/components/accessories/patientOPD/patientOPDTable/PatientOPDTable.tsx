@@ -6,8 +6,9 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
+import InfoBox from "../../infoBox/InfoBox";
 interface IOwnProps {
   shouldUpdateTable: boolean;
 }
@@ -30,8 +31,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const isLoading = useSelector<IState, boolean>(
-    (state) => state.opds.createOpd.status === "LOADING"
+  const searchStatus = useSelector<IState, any>(
+    (state) => state.opds.getOpds.status
   );
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
@@ -66,30 +67,42 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   const onEView = () => {};
 
-  return (
-    <>
-      <div className="patientOPDTable">
-        {!isLoading ? (
+  const renderSwitch = (status: any) => {
+    switch (status) {
+      case "FAIL":
+        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+      case "LOADING":
+        return (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        );
+
+      case "SUCCESS":
+        return (
           <Table
             rowData={formatDataToDisplay(data)}
+            compareRows={dateComparator}
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
-            rowComparator={dateComparator}
             onDelete={onDelete}
             isCollapsabile={true}
             onEdit={onEdit}
             onView={onEView}
           />
-        ) : (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        )}
-      </div>
-    </>
-  );
+        );
+
+      case "SUCCESS_EMPTY":
+        return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+      default:
+        return;
+    }
+  };
+
+  return <>{renderSwitch(searchStatus)}</>;
 };
 
 export default PatientOPDTable;
