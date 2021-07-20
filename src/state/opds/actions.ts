@@ -1,4 +1,3 @@
-import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -17,6 +16,7 @@ import {
   GET_OPD_FAIL,
   GET_OPD_LOADING,
   GET_OPD_SUCCESS,
+  GET_OPD_SUCCESS_EMPTY,
 } from "./consts";
 
 const opdControllerApi = new OpdControllerApi(
@@ -54,34 +54,41 @@ export const createOpdReset =
   };
 
 export const getOpds =
-  (code: number) =>
+  (code: number | undefined) =>
   (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
     dispatch({
       type: GET_OPD_LOADING,
     });
-    opdControllerApi
-      .getOpdByPatientUsingGET({
-        pcode: code,
-      })
-      .subscribe(
-        (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+    if (code) {
+      opdControllerApi
+        .getOpdByPatientUsingGET({
+          pcode: code,
+        })
+        .subscribe(
+          (payload) => {
+            if (Array.isArray(payload) && payload.length > 0) {
+              dispatch({
+                type: GET_OPD_SUCCESS,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: GET_OPD_SUCCESS_EMPTY,
+                payload: [],
+              });
+            }
+          },
+          (error) => {
             dispatch({
-              type: GET_OPD_SUCCESS,
-              payload: payload,
-            });
-          } else {
-            dispatch({
-              type: GET_OPD_SUCCESS,
-              payload: [],
+              type: GET_OPD_FAIL,
+              error,
             });
           }
-        },
-        (error) => {
-          dispatch({
-            type: GET_OPD_FAIL,
-            error,
-          });
-        }
-      );
+        );
+    } else {
+      dispatch({
+        type: GET_OPD_FAIL,
+        error: "patient code should not be empty",
+      });
+    }
   };

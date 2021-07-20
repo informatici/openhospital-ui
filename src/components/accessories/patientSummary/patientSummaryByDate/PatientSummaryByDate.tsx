@@ -1,4 +1,5 @@
 import { CircularProgress } from "@material-ui/core";
+import { format } from "date-fns";
 import React, { FunctionComponent, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { loadSummaryData } from "../../../../state/summary/actions";
@@ -12,6 +13,8 @@ const order = ["date"];
 const label = {
   date: "Date",
   type: "Typology",
+  result: "Result",
+  note: "Additional notes",
 };
 
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
