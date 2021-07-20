@@ -101,8 +101,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         return;
     }
   };
-
-  return <>{renderSwitch(searchStatus)}</>;
+  return <div className="patientOpdTable">{renderSwitch(searchStatus)}</div>;
 };
 
 export default PatientOPDTable;
