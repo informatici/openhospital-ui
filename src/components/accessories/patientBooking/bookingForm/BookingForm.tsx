@@ -179,36 +179,34 @@ const BookingForm: FC<TBookingProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientBookingForm__item dateVisit">
-              <MuiThemeProvider theme={theme}>
-                <DateField
-                  fieldName="bookingDate"
-                  fieldValue={formik.values.bookingDate}
-                  disableFuture={false}
-                  onMonthChange={handleDateMonthChange}
-                  renderDay={renderWrappedDay}
-                  shouldDisableDate={filtrerUnavailableDates}
-                  theme="regular"
-                  format="dd/MM/yyyy"
-                  isValid={isValid("bookingDate")}
-                  errorText={getErrorText("bookingDate")}
-                  label={t("booking.bookingdate")}
-                  onChange={dateFieldHandleOnChange("bookingDate")}
-                />
-                <div className="helper-text">
-                  <p>
-                    <span className="badge available"></span>The date is
-                    availabe to book a visit.
-                  </p>
-                  <p>
-                    <span className="badge b-available"></span>The date is
-                    availabe, but it's almost complete.
-                  </p>
-                  <p>
-                    <span className="badge u-available"></span>The date isn't
-                    available, no more visit allowed.
-                  </p>
-                </div>
-              </MuiThemeProvider>
+              <DateField
+                fieldName="bookingDate"
+                fieldValue={formik.values.bookingDate}
+                disableFuture={false}
+                onMonthChange={handleDateMonthChange}
+                renderDay={renderWrappedDay}
+                shouldDisableDate={filtrerUnavailableDates}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={isValid("bookingDate")}
+                errorText={getErrorText("bookingDate")}
+                label={t("booking.bookingdate")}
+                onChange={dateFieldHandleOnChange("bookingDate")}
+              />
+              <div className="helper-text">
+                <p>
+                  <span className="badge available"></span>The date is availabe
+                  to book a visit.
+                </p>
+                <p>
+                  <span className="badge b-available"></span>The date is
+                  availabe, but it's almost complete.
+                </p>
+                <p>
+                  <span className="badge u-available"></span>The date isn't
+                  available, no more visit allowed.
+                </p>
+              </div>
             </div>
           </div>
           <div className="patientBookingForm__buttonSet">
@@ -240,16 +238,3 @@ const BookingForm: FC<TBookingProps> = ({
 };
 
 export default BookingForm;
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#444444",
-    },
-    secondary: {
-      light: "#444444",
-      main: "#444444",
-      contrastText: "#444444",
-    },
-  },
-});

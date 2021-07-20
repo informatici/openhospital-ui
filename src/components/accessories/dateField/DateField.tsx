@@ -7,7 +7,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
-
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,

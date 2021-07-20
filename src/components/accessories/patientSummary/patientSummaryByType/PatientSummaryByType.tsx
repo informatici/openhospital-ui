@@ -9,7 +9,7 @@ import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
 import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
 
-const header = ["date", "type", "result"];
+const header = ["date"];
 const order = ["date"];
 const label = {
   date: "Date",

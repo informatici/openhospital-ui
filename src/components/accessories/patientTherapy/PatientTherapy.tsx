@@ -4,8 +4,10 @@ import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
 import {
   createTherapy,
+  getTherapiesByPatientId,
   createTherapyReset,
 } from "../../../state/therapies/actions";
+import { getMedicals } from "../../../state/medicals/actions";
 import {
   IDispatchProps,
   IStateProps,
@@ -15,7 +17,7 @@ import {
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { PatientDTO, TherapyRowDTO } from "../../../generated";
+import { TherapyRowDTO } from "../../../generated";
 import { connect, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -24,10 +26,12 @@ import checkIcon from "../../../assets/check-icon.png";
 
 const PatientTherapy: FC<TProps> = ({
   createTherapy,
+  getTherapiesByPatientId,
   createTherapyReset,
   isLoading,
   hasSucceeded,
   hasFailed,
+  getMedicals,
 }) => {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -35,7 +39,8 @@ const PatientTherapy: FC<TProps> = ({
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
-  const patientId = useSelector(
+
+  const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -45,9 +50,9 @@ const PatientTherapy: FC<TProps> = ({
     }
   }, [hasFailed]);
 
-  const patient = useSelector<IState, PatientDTO | undefined>(
-    (state) => state.patients.selectedPatient?.data
-  );
+  useEffect(() => {
+    getMedicals();
+  }, [getMedicals]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -57,9 +62,13 @@ const PatientTherapy: FC<TProps> = ({
     }
   }, [activityTransitionState, createTherapyReset]);
 
+  useEffect(() => {
+    getTherapiesByPatientId(patientData?.code);
+  }, [patientData, getTherapiesByPatientId]);
+
   const onSubmit = (therapy: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patientId;
+    therapy.patID = patientData;
     createTherapy(therapy);
   };
 
@@ -111,5 +120,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
 const mapDispatchToProps: IDispatchProps = {
   createTherapy,
   createTherapyReset,
+  getMedicals,
+  getTherapiesByPatientId,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PatientTherapy);

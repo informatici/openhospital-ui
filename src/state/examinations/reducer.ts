@@ -8,6 +8,7 @@ import {
   SEARCH_EXAMINATION_FAIL,
   SEARCH_EXAMINATION_LOADING,
   SEARCH_EXAMINATION_SUCCESS,
+  SEARCH_EXAMINATION_SUCCESS_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { IExaminationsState } from "./types";
@@ -50,16 +51,17 @@ export default produce(
       }
 
       case SEARCH_EXAMINATION_SUCCESS: {
-        if (action.payload.length > 0) {
-          draft.examinationsByPatientId.status = "SUCCESS";
-        } else {
-          draft.examinationsByPatientId.status = "SUCCESS_EMPTY";
-        }
+        draft.examinationsByPatientId.status = "SUCCESS";
         draft.examinationsByPatientId.data = action.payload;
         delete draft.examinationsByPatientId.error;
         break;
       }
-
+      case SEARCH_EXAMINATION_SUCCESS_EMPTY: {
+        draft.examinationsByPatientId.status = "SUCCESS_EMPTY";
+        draft.examinationsByPatientId.data = [];
+        delete draft.examinationsByPatientId.error;
+        break;
+      }
       case SEARCH_EXAMINATION_FAIL: {
         draft.examinationsByPatientId.status = "FAIL";
         draft.examinationsByPatientId.error = action.error;
