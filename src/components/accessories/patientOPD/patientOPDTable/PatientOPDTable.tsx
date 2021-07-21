@@ -31,7 +31,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const searchStatus = useSelector<IState, any>(
+  const searchStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.getOpds.status
   );
   const patientCode = useSelector<IState, number | undefined>(
@@ -67,7 +67,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   const onEView = () => {};
 
-  const renderSwitch = (status: any) => {
+  const renderSwitch = (status: string = "") => {
     switch (status) {
       case "FAIL":
         return <InfoBox type="error" message={t("common.somethingwrong")} />;
@@ -101,8 +101,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         return;
     }
   };
-
-  return <>{renderSwitch(searchStatus)}</>;
+  return <div className="patientOpdTable">{renderSwitch(searchStatus)}</div>;
 };
 
 export default PatientOPDTable;
