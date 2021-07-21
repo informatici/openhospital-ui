@@ -2,6 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
@@ -46,6 +47,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
             </h4>
             <Table
               rowData={filterByType(SummaryType.VISIT)}
+              compareRows={dateComparator}
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
@@ -60,6 +62,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
             </h4>
             <Table
               rowData={filterByType(SummaryType.TRIAGE)}
+              compareRows={dateComparator}
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
@@ -74,6 +77,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
             </h4>
             <Table
               rowData={filterByType(SummaryType.THERAPY)}
+              compareRows={dateComparator}
               tableHeader={header}
               labelData={label}
               columnsOrder={order}
@@ -88,6 +92,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
             </h4>
             <Table
               rowData={filterByType(SummaryType.OPD)}
+              compareRows={dateComparator}
               tableHeader={header}
               labelData={label}
               columnsOrder={order}

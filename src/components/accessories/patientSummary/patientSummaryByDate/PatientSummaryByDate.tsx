@@ -2,6 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import { format } from "date-fns";
 import React, { FunctionComponent, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
@@ -36,6 +37,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
         {!isLoading ? (
           <Table
             rowData={summaryData}
+            compareRows={dateComparator}
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
