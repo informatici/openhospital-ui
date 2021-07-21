@@ -12,9 +12,9 @@ export interface IState {
   patients: IPatientsState;
   examinations: IExaminationsState;
   therapies: ITherapiesState;
+  diseases: IDiseaseState;
   summary: ISummaryState;
   opds: IOpdState;
-  diseases: IDiseaseState;
   medicals: IMedicalState;
 }
 

@@ -9,7 +9,7 @@ import { visitRoutes } from "./routes/visits";
 import { opdRoutes } from "./routes/opd";
 import { diseasesRoutes } from "./routes/diseases";
 import { therapyRoutes } from "./routes/therapies";
-import { medicalRoutes } from "./routes/medicals"
+import { medicalRoutes } from "./routes/medicals";
 
 export function makeServer() {
   Polly.register(XHRAdapter);

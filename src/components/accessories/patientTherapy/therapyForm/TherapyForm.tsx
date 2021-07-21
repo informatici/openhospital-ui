@@ -30,12 +30,12 @@ const TherapyForm: FC<TherapyProps> = ({
   shouldResetForm,
   resetFormCallback,
 }) => {
-  const validationSchema = object({
-    medicalId: string().required("This field is required"),
-    startDate: string().required("This field is required"),
-    endDate: string().required("This field is required"),
-  });
   const { t } = useTranslation();
+  const validationSchema = object({
+    medicalId: string().required(t("common.required")),
+    startDate: string().required(t("common.required")),
+    endDate: string().required(t("common.required")),
+  });
 
   const initialValues = getFromFields(fields, "value");
 

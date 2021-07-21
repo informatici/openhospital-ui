@@ -70,7 +70,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     console.log("delete");
   };
 
-  const renderSwitch = (status: any) => {
+  const renderSwitch = (status: string = "") => {
     switch (status) {
       case "FAIL":
         return <InfoBox type="error" message={t("common.somethingwrong")} />;

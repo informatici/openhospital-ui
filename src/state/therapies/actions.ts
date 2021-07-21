@@ -1,5 +1,3 @@
-import { format, parse } from "date-fns";
-import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -16,6 +14,7 @@ import {
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
+  GET_THERAPY_SUCCESS_EMPTY,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -62,14 +61,14 @@ export const getTherapiesByPatientId =
     if (codePatient) {
       therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
         (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
               type: GET_THERAPY_SUCCESS,
               payload: payload,
             });
           } else {
             dispatch({
-              type: GET_THERAPY_SUCCESS,
+              type: GET_THERAPY_SUCCESS_EMPTY,
               payload: [],
             });
           }
@@ -84,7 +83,7 @@ export const getTherapiesByPatientId =
     } else {
       dispatch({
         type: GET_THERAPY_FAIL,
-        error: "patient code should not be null",
+        error: "The patient code should not be null",
       });
     }
   };

@@ -1,13 +1,15 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MedicalDTO, TherapyRowDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
-import { format } from "date-fns";
 import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../../state/medicals/actions";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
+import moment from "moment";
+import InfoBox from "../../infoBox/InfoBox";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -50,25 +52,27 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
     dispatch(getTherapiesByPatientId(patientCode));
   }, [dispatch, patientCode]);
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
-    return data.map((item) => {
-      const medical = medicals.find((medoc) => medoc.code === item.medicalId);
-      return {
-        medicalId: medical ? medical.description : item.medicalId,
-        startDate: item.startDate
-          ? format(new Date(item.startDate), "dd/MM/yyyy")
-          : "",
-        endDate: item.endDate
-          ? format(new Date(item.endDate), "dd/MM/yyyy")
-          : "",
-        qty: item.qty,
-        freqInDay: item.freqInDay,
-        freqInPeriod: item.freqInPeriod,
-        note: item.note,
-      };
-    });
+    return data
+      .map((item) => {
+        const medical = medicals.find((medoc) => medoc.code === item.medicalId);
+        return {
+          medicalId: medical ? medical.description : item.medicalId,
+          startDate: item.startDate
+            ? moment(item.startDate).format("DD/MM/YYYY")
+            : "",
+          endDate: item.endDate
+            ? moment(item.endDate).format("DD/MM/YYYY")
+            : "",
+          qty: item.qty,
+          freqInDay: item.freqInDay,
+          freqInPeriod: item.freqInPeriod,
+          note: item.note,
+        };
+      })
+      .sort(dateComparator("desc", "startDate"));
   };
-  const isLoading = useSelector<IState, boolean>(
-    (state) => state.therapies.therapiesByPatientId.status === "LOADING"
+  const searchStatus = useSelector<IState, string | undefined>(
+    (state) => state.therapies.therapiesByPatientId.status
   );
   const onDelete = () => {
     console.log("delete");
@@ -80,28 +84,42 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
 
   const onEView = () => {};
 
-  return (
-    <>
-      <div className="patientTherapyTable">
-        {!isLoading ? (
+  const renderSwitch = (status: string = "") => {
+    switch (status) {
+      case "FAIL":
+        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+      case "LOADING":
+        return (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        );
+
+      case "SUCCESS":
+        return (
           <Table
             rowData={formatDataToDisplay(data)}
+            compareRows={dateComparator}
             tableHeader={header}
             labelData={label}
             columnsOrder={order}
             rowsPerPage={5}
-            isCollapsabile={true}
             onDelete={onDelete}
+            isCollapsabile={true}
             onEdit={onEdit}
             onView={onEView}
           />
-        ) : (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        )}
-      </div>
-    </>
+        );
+
+      case "SUCCESS_EMPTY":
+        return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+      default:
+        return;
+    }
+  };
+  return (
+    <div className="patientTherapyTable">{renderSwitch(searchStatus)}</div>
   );
 };
 
