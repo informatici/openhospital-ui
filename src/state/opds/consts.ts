@@ -7,3 +7,7 @@ export const CREATE_OPD_LOADING = "opds/CREATE_OPD_LOADING";
 export const CREATE_OPD_SUCCESS = "opds/CREATE_OPD_SUCCESS";
 export const CREATE_OPD_FAIL = "opds/CREATE_OPD_FAIL";
 export const CREATE_OPD_RESET = "opds/CREATE_OPD_RESET";
+
+export const DELETE_OPD_LOADING = "opds/DELETE_OPD_LOADING";
+export const DELETE_OPD_SUCCESS = "opds/DELETE_OPD_SUCCESS";
+export const DELETE_OPD_FAIL = "opds/DELETE_OPD_FAIL";

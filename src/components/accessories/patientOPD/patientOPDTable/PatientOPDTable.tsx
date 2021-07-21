@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO } from "../../../../generated";
-import { getOpds } from "../../../../state/opds/actions";
+import { deleteOpd, getOpds } from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../assets/check-icon.png";
 interface IOwnProps {
   shouldUpdateTable: boolean;
 }
@@ -26,7 +28,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     note: t("opd.note"),
   };
   const order = ["date"];
-
   const dispatch = useDispatch();
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
@@ -38,15 +39,23 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
+  const deleteStatus = useSelector<IState, string | undefined>(
+    (state) => state.opds.deleteOpd.status
+  );
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+
   useEffect(() => {
-    if (shouldUpdateTable) dispatch(getOpds(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable]);
+    if (deleteStatus === "SUCCESS") setOpenSuccessDialog(true);
+    if (shouldUpdateTable || deleteStatus === "SUCCESS")
+      dispatch(getOpds(patientCode));
+  }, [dispatch, patientCode, shouldUpdateTable, deleteStatus]);
 
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
     let results: any = [];
     if (data)
       results = data.map((item) => {
         return {
+          code: item.code,
           date: item.date ? moment(item.date).format("DD/MM/YYYY") : "",
           disease: item.disease ? item.disease.description : "",
           disease2: item.disease2 ? item.disease2.description : "",
@@ -57,8 +66,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     return results;
   };
 
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: OpdDTO) => {
+    if (row.code) dispatch(deleteOpd(row.code));
   };
 
   const onEdit = () => {
@@ -101,7 +110,34 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         return;
     }
   };
-  return <div className="patientOpdTable">{renderSwitch(searchStatus)}</div>;
+
+  const renderDeleteState = (status = "") => {
+    switch (status) {
+      case "FAIL":
+        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+
+      case "SUCCESS":
+        return (
+          <ConfirmationDialog
+            isOpen={openSuccessDialog}
+            title="Opd deleted"
+            icon={checkIcon}
+            info={t("common.deletesuccess")}
+            primaryButtonLabel="OK"
+            handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
+            handleSecondaryButtonClick={() => {}}
+          />
+        );
+      default:
+        return;
+    }
+  };
+  return (
+    <div className="patientOpdTable">
+      {renderSwitch(searchStatus)}
+      {renderDeleteState(deleteStatus)}
+    </div>
+  );
 };
 
 export default PatientOPDTable;

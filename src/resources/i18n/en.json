@@ -121,7 +121,10 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "savetherapy": "Save Therapy",
     "required": "This field is required",
-    "emptydata": "No data found!"
+    "emptydata": "No data found!",
+    "delete": "Delete",
+    "deleteconfirmation": "Are you sure to delete this item?",
+    "deletesuccess": "The item was deleted successfully!"
   },
   "therapy": {
     "newtherapy": "New Therapy",

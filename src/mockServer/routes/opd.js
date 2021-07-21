@@ -26,5 +26,17 @@ export const opdRoutes = (server) => {
                     res.status(200).json([opdDTO, opdDTO, opdDTO, opdDTO]);
             }
         });
+
+        server.delete("/:code").intercept((req, res) => {
+            const code = req.params.code;
+            switch (code) {
+                case "fail":
+                    res.status(400);
+                    break;
+                default:
+                    res.status(201);
+                    break;
+            }
+        });
     });
 };
