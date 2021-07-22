@@ -170,7 +170,7 @@ const Table: FunctionComponent<IProps> = ({
         title={t("common.delete")}
         info={t("common.deleteconfirmation")}
         icon={warningIcon}
-        primaryButtonLabel={t("login.signout")}
+        primaryButtonLabel="OK"
         secondaryButtonLabel="Dismiss"
         handlePrimaryButtonClick={handleDelete}
         handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}

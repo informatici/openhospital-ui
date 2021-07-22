@@ -6,6 +6,7 @@ import {
   CREATE_OPD_RESET,
   CREATE_OPD_SUCCESS,
   DELETE_OPD_FAIL,
+  DELETE_OPD_LOADING,
   DELETE_OPD_SUCCESS,
   GET_OPD_FAIL,
   GET_OPD_LOADING,
@@ -79,7 +80,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       break;
     }
 
-    case GET_OPD_LOADING: {
+    case DELETE_OPD_LOADING: {
       draft.deleteOpd.status = "LOADING";
       delete draft.deleteOpd.error;
       break;
