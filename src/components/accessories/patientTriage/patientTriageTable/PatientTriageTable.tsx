@@ -62,7 +62,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const searchStatus = useSelector<IState, string | undefined>(
+  const triageStatus = useSelector<IState, string | undefined>(
     (state) => state.examinations.examinationsByPatientId.status
   );
 
@@ -103,7 +103,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     }
   };
 
-  return <div className="patientTriageTable">{renderSwitch(searchStatus)}</div>;
+  return <div className="patientTriageTable">{renderSwitch(triageStatus)}</div>;
 };
 
 export default PatientTriageTable;

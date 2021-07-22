@@ -31,7 +31,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const searchStatus = useSelector<IState, string | undefined>(
+  const opdStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.getOpds.status
   );
   const patientCode = useSelector<IState, number | undefined>(
@@ -48,9 +48,9 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           date: item.date ? moment(item.date).format("DD/MM/YYYY") : "",
-          disease: item.disease ? item.disease.description : "",
-          disease2: item.disease2 ? item.disease2.description : "",
-          disease3: item.disease3 ? item.disease3.description : "",
+          disease: item.disease?.description + "",
+          disease2: item.disease2?.description + "",
+          disease3: item.disease3?.description + "",
           note: item.note + "",
         };
       });
@@ -101,7 +101,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         return;
     }
   };
-  return <div className="patientOpdTable">{renderSwitch(searchStatus)}</div>;
+  return <div className="patientOpdTable">{renderSwitch(opdStatus)}</div>;
 };
 
 export default PatientOPDTable;

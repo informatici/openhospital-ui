@@ -71,7 +71,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
       })
       .sort(dateComparator("desc", "startDate"));
   };
-  const searchStatus = useSelector<IState, string | undefined>(
+  const therapyStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
   );
   const onDelete = () => {
@@ -119,7 +119,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
     }
   };
   return (
-    <div className="patientTherapyTable">{renderSwitch(searchStatus)}</div>
+    <div className="patientTherapyTable">{renderSwitch(therapyStatus)}</div>
   );
 };
 
