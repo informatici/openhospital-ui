@@ -24,6 +24,7 @@ import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import SelectField from "../../selectField/SelectField";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -69,6 +70,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      console.log("data......: ", formattedValues);
       onSubmit(formattedValues);
     },
   });
@@ -166,7 +168,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease"
                 fieldValue={formik.values.disease}
                 label={t("opd.disease1")}
