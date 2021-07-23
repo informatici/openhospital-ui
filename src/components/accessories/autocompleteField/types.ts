@@ -1,6 +1,6 @@
 export interface IProps {
   fieldName: string;
-  fieldValue: { value: string; label: string };
+  fieldValue: string;
   label: string;
   isValid: boolean;
   errorText: string;

@@ -30,21 +30,16 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   const [inputValue, setInputValue] = React.useState("");
 
   useEffect(() => {
-    setValue(fieldValue);
+    setInputValue(fieldValue);
   }, [fieldValue]);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    console.log("input value.....:", inputValue);
     onBlur(e, inputValue);
   };
 
   return (
     <FormControl variant="outlined" className="autocomplete" size="small">
-      <InputLabel id={fieldName} error={isValid}>
-        {label}
-      </InputLabel>
       <Autocomplete
-        id={fieldName}
         value={value}
         inputValue={inputValue}
         options={options}
@@ -58,7 +53,14 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           setValue(newValue!);
         }}
         renderInput={(params) => (
-          <MaterialComponent {...params} variant="outlined" fullWidth />
+          <MaterialComponent
+            {...params}
+            id={fieldName}
+            error={isValid}
+            label={label}
+            variant="outlined"
+            fullWidth
+          />
         )}
       />
       <FormHelperText error>{errorText || ""}</FormHelperText>
