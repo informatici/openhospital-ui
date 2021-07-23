@@ -1,10 +1,5 @@
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
+import { FormControl, FormHelperText } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
   FunctionComponent,
@@ -15,7 +10,6 @@ import React, {
 import { IProps } from "./types";
 import "./styles.scss";
 import { Autocomplete } from "@material-ui/lab";
-import { TextField as MaterialComponent } from "@material-ui/core";
 
 const AutocompleteField: FunctionComponent<IProps> = ({
   fieldName,
@@ -26,39 +20,38 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   onBlur,
   options,
 }) => {
-  const [value, setValue] = React.useState(options[0]);
-  const [inputValue, setInputValue] = React.useState("");
+  const [value, setValue] = useState("");
+
+  const geFullObj = (val: string) => {
+    return options?.find((el) => el.value === val) || null;
+  };
+  const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    onBlur(e, value);
+  };
 
   useEffect(() => {
-    setInputValue(fieldValue);
+    setValue(fieldValue);
   }, [fieldValue]);
-
-  const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    onBlur(e, inputValue);
-  };
 
   return (
     <FormControl variant="outlined" className="autocomplete" size="small">
       <Autocomplete
-        value={value}
-        inputValue={inputValue}
         options={options}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
-        renderOption={(option) => <Fragment>{option.label}</Fragment>}
         getOptionLabel={(option) => option.label}
-        onBlur={handleOnBlur}
-        onChange={(event, newValue) => {
-          setValue(newValue!);
+        value={geFullObj(value)}
+        getOptionSelected={(option, v) => option.value === v.value}
+        renderOption={(option) => <Fragment>{option.label}</Fragment>}
+        onChange={(e: object, val: any | null) => {
+          setValue(val?.value || "");
         }}
+        onBlur={handleOnBlur}
         renderInput={(params) => (
-          <MaterialComponent
+          <TextField
             {...params}
-            id={fieldName}
-            error={isValid}
+            name={fieldName}
             label={label}
             variant="outlined"
+            error={isValid}
             fullWidth
           />
         )}

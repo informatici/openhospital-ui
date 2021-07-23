@@ -63,7 +63,6 @@ const PatientOPD: FunctionComponent<TProps> = ({
 
   const onSubmit = (createOpdValues: OpdDTO) => {
     setShouldResetForm(false);
-    console.log("patient....", patient);
     createOpdValues.patientCode = patient?.code;
     createOpdValues.age = patient?.age;
     createOpdValues.sex = patient?.sex;
