@@ -48,10 +48,10 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           date: item.date ? moment(item.date).format("DD/MM/YYYY") : "",
-          disease: item.disease?.description + "",
-          disease2: item.disease2?.description + "",
-          disease3: item.disease3?.description + "",
-          note: item.note + "",
+          disease: item.disease?.description || "",
+          disease2: item.disease2?.description || "",
+          disease3: item.disease3?.description || "",
+          note: item.note || "",
         };
       });
     return results;
@@ -67,41 +67,45 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   const onEView = () => {};
 
-  const renderSwitch = (status: string = "") => {
-    switch (status) {
-      case "FAIL":
-        return <InfoBox type="error" message={t("common.somethingwrong")} />;
-      case "LOADING":
-        return (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        );
+  return (
+    <div className="patientOpdTable">
+      {(() => {
+        switch (opdStatus) {
+          case "FAIL":
+            return (
+              <InfoBox type="error" message={t("common.somethingwrong")} />
+            );
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
+          case "SUCCESS":
+            return (
+              <Table
+                rowData={formatDataToDisplay(data)}
+                compareRows={dateComparator}
+                tableHeader={header}
+                labelData={label}
+                columnsOrder={order}
+                rowsPerPage={5}
+                onDelete={onDelete}
+                isCollapsabile={true}
+                onEdit={onEdit}
+                onView={onEView}
+              />
+            );
 
-      case "SUCCESS":
-        return (
-          <Table
-            rowData={formatDataToDisplay(data)}
-            compareRows={dateComparator}
-            tableHeader={header}
-            labelData={label}
-            columnsOrder={order}
-            rowsPerPage={5}
-            onDelete={onDelete}
-            isCollapsabile={true}
-            onEdit={onEdit}
-            onView={onEView}
-          />
-        );
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
 
-      case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.emptydata")} />;
-
-      default:
-        return;
-    }
-  };
-  return <div className="patientOpdTable">{renderSwitch(opdStatus)}</div>;
+          default:
+            return;
+        }
+      })()}
+    </div>
+  );
 };
 
 export default PatientOPDTable;

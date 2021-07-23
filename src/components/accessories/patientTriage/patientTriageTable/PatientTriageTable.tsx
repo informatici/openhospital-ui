@@ -70,40 +70,44 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     console.log("delete");
   };
 
-  const renderSwitch = (status: string = "") => {
-    switch (status) {
-      case "FAIL":
-        return <InfoBox type="error" message={t("common.somethingwrong")} />;
-      case "LOADING":
-        return (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        );
+  return (
+    <div className="patientTriageTable">
+      {(() => {
+        switch (triageStatus) {
+          case "FAIL":
+            return (
+              <InfoBox type="error" message={t("common.somethingwrong")} />
+            );
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
 
-      case "SUCCESS":
-        return (
-          <Table
-            rowData={formatDataToDisplay(data)}
-            compareRows={dateComparator}
-            tableHeader={header}
-            labelData={label}
-            columnsOrder={order}
-            rowsPerPage={5}
-            onDelete={onDelete}
-            isCollapsabile={true}
-          />
-        );
+          case "SUCCESS":
+            return (
+              <Table
+                rowData={formatDataToDisplay(data)}
+                compareRows={dateComparator}
+                tableHeader={header}
+                labelData={label}
+                columnsOrder={order}
+                rowsPerPage={5}
+                onDelete={onDelete}
+                isCollapsabile={true}
+              />
+            );
 
-      case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.emptydata")} />;
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
 
-      default:
-        return;
-    }
-  };
-
-  return <div className="patientTriageTable">{renderSwitch(triageStatus)}</div>;
+          default:
+            return;
+        }
+      })()}
+    </div>
+  );
 };
 
 export default PatientTriageTable;

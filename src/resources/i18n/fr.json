@@ -138,7 +138,8 @@
     "startDate": "Date début",
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
-    "sendsms": "Envoyer les sms"
+    "sendsms": "Envoyer les sms",
+    "validatelastdate": "doit être égale ou sup à la date de début"
   },
   "booking": {
     "category": "Catégorie",

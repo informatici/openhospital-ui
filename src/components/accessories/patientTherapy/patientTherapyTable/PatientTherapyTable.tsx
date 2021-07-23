@@ -84,42 +84,45 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
 
   const onEView = () => {};
 
-  const renderSwitch = (status: string = "") => {
-    switch (status) {
-      case "FAIL":
-        return <InfoBox type="error" message={t("common.somethingwrong")} />;
-      case "LOADING":
-        return (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        );
-
-      case "SUCCESS":
-        return (
-          <Table
-            rowData={formatDataToDisplay(data)}
-            compareRows={dateComparator}
-            tableHeader={header}
-            labelData={label}
-            columnsOrder={order}
-            rowsPerPage={5}
-            onDelete={onDelete}
-            isCollapsabile={true}
-            onEdit={onEdit}
-            onView={onEView}
-          />
-        );
-
-      case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.emptydata")} />;
-
-      default:
-        return;
-    }
-  };
   return (
-    <div className="patientTherapyTable">{renderSwitch(therapyStatus)}</div>
+    <div className="patientTherapyTable">
+      {(() => {
+        switch (therapyStatus) {
+          case "FAIL":
+            return (
+              <InfoBox type="error" message={t("common.somethingwrong")} />
+            );
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
+
+          case "SUCCESS":
+            return (
+              <Table
+                rowData={formatDataToDisplay(data)}
+                compareRows={dateComparator}
+                tableHeader={header}
+                labelData={label}
+                columnsOrder={order}
+                rowsPerPage={5}
+                onDelete={onDelete}
+                isCollapsabile={true}
+                onEdit={onEdit}
+                onView={onEView}
+              />
+            );
+
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+          default:
+            return;
+        }
+      })()}
+    </div>
   );
 };
 

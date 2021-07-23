@@ -2,6 +2,7 @@ import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -34,7 +35,15 @@ const TherapyForm: FC<TherapyProps> = ({
   const validationSchema = object({
     medicalId: string().required(t("common.required")),
     startDate: string().required(t("common.required")),
-    endDate: string().required(t("common.required")),
+    endDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "endDate",
+        message: t("therapy.validatelastdate"),
+        test: function (value) {
+          return moment(value).isSameOrAfter(moment(this.parent.startDate));
+        },
+      }),
   });
 
   const initialValues = getFromFields(fields, "value");
