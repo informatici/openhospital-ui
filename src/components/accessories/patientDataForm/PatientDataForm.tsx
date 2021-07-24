@@ -23,6 +23,7 @@ import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "@material-ui/core";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -257,15 +258,19 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("telephone")}
-              theme="regular"
-              label={t("patient.telephone")}
-              isValid={isValid("telephone")}
-              errorText={getErrorText("telephone")}
-              onBlur={formik.handleBlur}
-              type="tel"
-            />
+            <Tooltip title="ex: +237 690000000" placement="bottom">
+              <div>
+                <TextField
+                  field={formik.getFieldProps("telephone")}
+                  theme="regular"
+                  label={t("patient.telephone")}
+                  isValid={isValid("telephone")}
+                  errorText={getErrorText("telephone")}
+                  onBlur={formik.handleBlur}
+                  type="tel"
+                />
+              </div>
+            </Tooltip>
           </div>
         </div>
 
