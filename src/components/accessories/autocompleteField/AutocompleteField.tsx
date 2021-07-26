@@ -36,6 +36,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   return (
     <FormControl variant="outlined" className="autocomplete" size="small">
       <Autocomplete
+        freeSolo
         options={options}
         getOptionLabel={(option) => option.label}
         value={geFullObj(value)}
