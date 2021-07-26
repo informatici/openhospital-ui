@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import moment from "moment";
 import { SummaryFieldType } from "./SummaryFieldType";
 
 export const convertToSummaryData = (
@@ -7,7 +7,7 @@ export const convertToSummaryData = (
 ) => {
   const res = data.map(({ ...rest }) => ({
     type: field.type,
-    date: format(new Date(rest[field.dateField]), "yyyy-MM-dd"),
+    date: moment(rest[field.dateField]).format("DD/MM/YYYY"),
     note: field.noteField ? rest[field.noteField] : "",
     result: "",
   }));

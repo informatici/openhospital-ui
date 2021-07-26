@@ -44,7 +44,8 @@
     "note": "Complain",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3"
+    "disease3": "Diagnostic 3",
+    "validatedisease": "This diagnostic should be different"
   },
   "examination": {
     "ap": {
@@ -118,7 +119,9 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Save Therapy"
+    "savetherapy": "Save Therapy",
+    "required": "This field is required",
+    "emptydata": "No data found!"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -135,7 +138,8 @@
     "endDate": "End Date",
     "sendnotification": "Send notification",
     "sendsms": "Send SMS",
-    "note": "Note"
+    "note": "Note",
+    "validatelastdate": "should be greater or equal to start date"
   },
   "booking": {
     "category": "Category",

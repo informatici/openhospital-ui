@@ -2,18 +2,20 @@ import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { object } from "yup";
+import { useSelector } from "react-redux";
+import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
@@ -29,12 +31,36 @@ const TherapyForm: FC<TherapyProps> = ({
   shouldResetForm,
   resetFormCallback,
 }) => {
-  const validationSchema = object({
-    // TODO
-  });
   const { t } = useTranslation();
+  const validationSchema = object({
+    medicalId: string().required(t("common.required")),
+    startDate: string().required(t("common.required")),
+    endDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "endDate",
+        message: t("therapy.validatelastdate"),
+        test: function (value) {
+          return moment(value).isSameOrAfter(moment(this.parent.startDate));
+        },
+      }),
+  });
+
   const initialValues = getFromFields(fields, "value");
-  const options = getFromFields(fields, "options");
+
+  const medicalOptionsSelector = (state: IState) => {
+    if (state.medicals.medicalsOrderByName.data) {
+      return state.medicals.medicalsOrderByName.data.map((medical) => {
+        return {
+          value: medical.code + "",
+          label: medical.description + "",
+        };
+      });
+    } else return [];
+  };
+  const medicalOptions = useSelector((state: IState) =>
+    medicalOptionsSelector(state)
+  );
 
   const formik = useFormik({
     initialValues,
@@ -104,7 +130,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 isValid={isValid("medicalId")}
                 errorText={getErrorText("medicalId")}
                 onBlur={onBlurCallback("medicalId")}
-                options={options.medicalId}
+                options={medicalOptions}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -181,7 +207,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <DateField
                 fieldName="startDate"
                 fieldValue={formik.values.startDate}
-                disableFuture={true}
+                disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("startDate")}

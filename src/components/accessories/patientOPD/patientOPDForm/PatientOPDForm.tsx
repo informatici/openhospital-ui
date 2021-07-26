@@ -34,21 +34,21 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   shouldResetForm,
   resetFormCallback,
 }) => {
+  const { t } = useTranslation();
+
   const validationSchema = object({
-    date: string().required("This field is required"),
-    disease: string().required("This field is required"),
+    date: string().required(t("common.required")),
+    disease: string().required(t("common.required")),
     disease2: string().test({
       name: "disease2",
-      message:
-        "Diagnostic 2 must be different to diagnostic 1 and diagnostic 1 cannot be empty.",
+      message: t("opd.validatedisease"),
       test: function (value) {
         return !value || (this.parent.disease && value !== this.parent.disease);
       },
     }),
     disease3: string().test({
       name: "disease3",
-      message:
-        "Diagnostic 3 must be different to diagnostics 1 & 2 and those should be set",
+      message: t("opd.validatedisease"),
       test: function (value) {
         return (
           !value ||
@@ -74,7 +74,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   });
 
   const { values, setFieldValue, resetForm, handleBlur } = formik;
-  const { t } = useTranslation();
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {

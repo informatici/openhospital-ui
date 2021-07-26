@@ -44,7 +44,8 @@
     "note": "Remarques",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3"
+    "disease3": "Diagnostic 3",
+    "validatedisease": "Ce diagnostic doit être différent"
   },
   "examination": {
     "ap": {
@@ -64,7 +65,7 @@
     "diuresisvolume24habbr": "D24H",
     "heartrate": "Fréquence Cardiaque",
     "heartrateabbr": "FC",
-    "height": "Hauteur",
+    "height": "Taille",
     "heightabbr": "(H)",
     "hemoglucosetest": "Hemo Glucose Test",
     "hgt": "HGT",
@@ -119,7 +120,9 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Enregistrer"
+    "savetherapy": "Enregistrer",
+    "required": "Ce champ est obligatoire",
+    "emptydata": "Aucune donnée trouvée!"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -135,7 +138,8 @@
     "startDate": "Date début",
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
-    "sendsms": "Envoyer les sms"
+    "sendsms": "Envoyer les sms",
+    "validatelastdate": "doit être égale ou sup à la date de début"
   },
   "booking": {
     "category": "Catégorie",

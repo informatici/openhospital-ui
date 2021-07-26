@@ -12,6 +12,7 @@ export interface IDispatchProps {
   ) => any;
   createOpdReset: () => void;
   getDiseasesOpd: () => void;
+  getOpds: (code: number | undefined) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;
