@@ -1,12 +1,15 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
+import { OpdDTO } from "../../../generated";
 import {
   createOpd,
   createOpdReset,
+  updateOpd,
   getOpds,
+  updateOpdReset,
 } from "../../../state/opds/actions";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
@@ -16,7 +19,6 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
-import { OpdDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -33,12 +35,19 @@ const PatientOPD: FunctionComponent<TProps> = ({
   hasFailed,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [shouldUpdateTable, setShouldUpdateTable] = useState(true);
+
+  const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO | undefined);
+
+  const updateStatus = useSelector<IState, string | undefined>(
+    (state) => state.opds.updateOpd.status
+  );
 
   useEffect(() => {
     if (hasFailed) {
@@ -69,18 +78,21 @@ const PatientOPD: FunctionComponent<TProps> = ({
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       createOpdReset();
+      dispatch(updateOpdReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
-  }, [activityTransitionState, createOpdReset]);
+  }, [activityTransitionState, createOpdReset, updateOpdReset]);
 
-  const onSubmit = (createOpdValues: OpdDTO) => {
+  const onSubmit = (opdValuestoSave: OpdDTO) => {
     setShouldResetForm(false);
-    createOpdValues.patientCode = patient?.code;
-    createOpdValues.age = patient?.age;
-    createOpdValues.sex = patient?.sex;
-    createOpdValues.userID = userId;
-    createOpd(createOpdValues, diseasesData);
+    opdValuestoSave.patientCode = patient?.code;
+    opdValuestoSave.age = patient?.age;
+    opdValuestoSave.sex = patient?.sex;
+    opdValuestoSave.userID = userId;
+    if (opdToEdit && opdToEdit.code) {
+      dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
+    } else createOpd(opdValuestoSave, diseasesData);
   };
 
   const resetFormCallback = () => {
@@ -89,10 +101,17 @@ const PatientOPD: FunctionComponent<TProps> = ({
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
+
+  const onEdit = (row?: OpdDTO) => {
+    setOpdToEdit(row);
+    scrollToElement(null);
+  };
+
   return (
     <div className="patientOpd">
       <PatientOPDForm
         fields={initialFields}
+        opdToEdit={opdToEdit}
         onSubmit={onSubmit}
         submitButtonLabel={t("common.saveopd")}
         resetButtonLabel={t("common.discard")}
@@ -108,6 +127,14 @@ const PatientOPD: FunctionComponent<TProps> = ({
           />
         )}
       </div>
+      <div ref={infoBoxRef}>
+        {updateStatus === "FAIL" && (
+          <InfoBox
+            type="error"
+            message="Something went wrong, please retry later."
+          />
+        )}
+      </div>
       <ConfirmationDialog
         isOpen={hasSucceeded}
         title="Opd Created"
@@ -117,7 +144,19 @@ const PatientOPD: FunctionComponent<TProps> = ({
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
-      <PatientOPDTable shouldUpdateTable={shouldUpdateTable} />
+      <ConfirmationDialog
+        isOpen={updateStatus === "SUCCESS"}
+        title="Opd updated"
+        icon={checkIcon}
+        info="Opd updated successful!"
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
+      />
+      <PatientOPDTable
+        handleEdit={onEdit}
+        shouldUpdateTable={shouldUpdateTable}
+      />
     </div>
   );
 };

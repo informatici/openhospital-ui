@@ -1,7 +1,9 @@
+import { OpdDTO } from "../../../../generated";
 import { IForm } from "../../../../libraries/formDataHandling/types";
 
 interface IOwnProps {
   shouldResetForm: boolean;
+  opdToEdit: any;
   resetFormCallback: () => void;
 }
 export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;

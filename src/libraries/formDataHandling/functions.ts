@@ -13,6 +13,7 @@ export const getFromFields = (
 };
 
 const parseDate = (raw: string) => {
+  console.log("date2", raw);
   const unformatDate = new Date(+raw).toString();
   return raw ? Date.parse(unformatDate).toString() : "";
 };

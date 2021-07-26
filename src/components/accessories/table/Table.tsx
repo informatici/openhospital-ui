@@ -56,7 +56,12 @@ const Table: FunctionComponent<IProps> = ({
     switch (type) {
       case "edit":
         return (
-          <IconButton size="small" onClick={() => onEdit(row)}>
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onEdit) onEdit(row);
+            }}
+          >
             <Edit />
           </IconButton>
         );
@@ -128,7 +133,7 @@ const Table: FunctionComponent<IProps> = ({
                   rowIndex={index}
                   labelData={labelData}
                   tableHeader={tableHeader}
-                  renderActions={renderActions(row)}
+                  renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
                 />
               ))}

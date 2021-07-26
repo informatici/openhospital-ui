@@ -11,14 +11,17 @@ import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleEdit: <T>(row: T) => void;
 }
 
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
+  handleEdit,
 }) => {
   const { t } = useTranslation();
   const header = ["date"];
   const label = {
+    code: t("opd.code"),
     date: t("opd.dateopd"),
     disease: t("opd.disease1"),
     disease2: t("opd.disease2"),
@@ -47,6 +50,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     if (data)
       results = data.map((item) => {
         return {
+          code: item.code,
           date: item.date ? moment(item.date).format("DD/MM/YYYY") : "",
           disease: item.disease?.description || "",
           disease2: item.disease2?.description || "",
@@ -62,7 +66,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   const onEdit = (row?: OpdDTO) => {
-    console.log("row passed", row);
+    handleEdit(row);
   };
 
   const onEView = () => {};
