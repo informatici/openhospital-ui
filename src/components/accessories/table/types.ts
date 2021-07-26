@@ -1,3 +1,4 @@
+import { OpdDTO } from "../../../generated";
 import { TOrder } from "../../../libraries/sortUtils/types";
 
 export interface IProps {
@@ -12,7 +13,7 @@ export interface IProps {
     key: Key
   ) => (a: any, b: any) => number;
   onEdit?: () => void;
-  onDelete?: () => void;
+  onDelete?: (row?: OpdDTO) => void;
   onPrint?: () => void;
   onView?: () => void;
 }

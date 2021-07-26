@@ -61,8 +61,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     console.log("delete");
   };
 
-  const onEdit = () => {
-    console.log("update");
+  const onEdit = (row?: OpdDTO) => {
+    console.log("row passed", row);
   };
 
   const onEView = () => {};
