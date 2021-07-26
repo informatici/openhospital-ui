@@ -141,7 +141,8 @@
     "endDate": "End Date",
     "sendnotification": "Send notification",
     "sendsms": "Send SMS",
-    "note": "Note"
+    "note": "Note",
+    "validatelastdate": "should be greater or equal to start date"
   },
   "booking": {
     "category": "Category",
