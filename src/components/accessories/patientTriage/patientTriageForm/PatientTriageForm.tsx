@@ -10,7 +10,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
-import { object } from "yup";
+import { object, string } from "yup";
 import { TProps } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import TextButton from "../../textButton/TextButton";
@@ -32,11 +32,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const validationSchema = object({
-    // TODO
-  });
-
   const { t } = useTranslation();
+  const validationSchema = object({
+    pex_date: string().required(t("common.required")),
+  });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
 
@@ -110,10 +109,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("triageDate")}
-                errorText={getErrorText("triageDate")}
+                isValid={isValid("pex_date")}
+                errorText={getErrorText("pex_date")}
                 label={t("examination.datetriage")}
-                onChange={dateFieldHandleOnChange("triageDate")}
+                onChange={dateFieldHandleOnChange("pex_date")}
               />
             </div>
           </div>

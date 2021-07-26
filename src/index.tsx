@@ -15,6 +15,7 @@ import therapies from "./state/therapies/reducer";
 import summary from "./state/summary/reducer";
 import opds from "./state/opds/reducer";
 import diseases from "./state/diseases/reducer";
+import medicals from "./state/medicals/reducer";
 import { IState } from "./types";
 
 if (process.env.NODE_ENV === "development") {
@@ -29,6 +30,7 @@ const reducer = combineReducers<IState>({
   summary,
   opds,
   diseases,
+  medicals,
 });
 const store = createStore(
   reducer,
