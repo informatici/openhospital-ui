@@ -40,14 +40,10 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
-  /*load data when component load */
-  useEffect(() => {
-    dispatch(getOpds(patientCode));
-  }, [[], dispatch, patientCode, getOpds]);
 
   useEffect(() => {
-    if (shouldUpdateTable) dispatch(getOpds(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable, getOpds]);
+    if (shouldUpdateTable || patientCode) dispatch(getOpds(patientCode));
+  }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
     let results: any = [];

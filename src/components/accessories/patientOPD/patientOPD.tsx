@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { OpdDTO } from "../../../generated";
@@ -114,34 +114,28 @@ const PatientOPD: FunctionComponent = ({}) => {
       />
       <div ref={infoBoxRef}>
         {createStatus === "FAIL" && (
-          <InfoBox
-            type="error"
-            message="Something went wrong, please retry later."
-          />
+          <InfoBox type="error" message={t("common.somethingwrong")} />
         )}
       </div>
       <div ref={infoBoxRef}>
         {updateStatus === "FAIL" && (
-          <InfoBox
-            type="error"
-            message="Something went wrong, please retry later."
-          />
+          <InfoBox type="error" message={t("common.somethingwrong")} />
         )}
       </div>
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS"}
-        title="Opd Created"
+        title={t("opd.created")}
         icon={checkIcon}
-        info="The Opd registration was successful."
+        info={t("opd.createsuccess")}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
       <ConfirmationDialog
         isOpen={updateStatus === "SUCCESS"}
-        title="Opd updated"
+        title={t("opd.updated")}
         icon={checkIcon}
-        info="Opd updated successful!"
+        info={t("opd.updatesuccess", { code: opdToEdit.code })}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}

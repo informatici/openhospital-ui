@@ -48,7 +48,11 @@
     "validatedisease": "Ce diagnostic doit être différent",
     "code": "Code",
     "updateopd": "Mettre à jour",
-    "saveopd": "Enregistrer"
+    "saveopd": "Enregistrer",
+    "created": "Enregistrement OPD",
+    "updated": "Mis à jour OPD",
+    "createsuccess": "OPD créé avec succès!",
+    "updatesuccess": "OPD {{code}} mis à jour avec succès!"
   },
   "examination": {
     "ap": {

@@ -48,7 +48,11 @@
     "validatedisease": "This diagnostic should be different",
     "code": "Code",
     "updateopd": "update opd",
-    "saveopd": "save opd"
+    "saveopd": "save opd",
+    "created": "Opd Created",
+    "updated": "Opd updated",
+    "createsuccess": "Opd has been created successfully!",
+    "updatesuccess": "Opd {{code}} has been updated successfully!"
   },
   "examination": {
     "ap": {
