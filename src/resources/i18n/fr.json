@@ -46,7 +46,9 @@
     "disease2": "Diagnostic 2",
     "disease3": "Diagnostic 3",
     "validatedisease": "Ce diagnostic doit être différent",
-    "code": "Code"
+    "code": "Code",
+    "updateopd": "Mettre à jour",
+    "saveopd": "Enregistrer"
   },
   "examination": {
     "ap": {

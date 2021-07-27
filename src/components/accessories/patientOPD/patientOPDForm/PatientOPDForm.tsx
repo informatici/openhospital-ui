@@ -93,7 +93,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { values, setFieldValue, resetForm, handleBlur } = formik;
+  const { setFieldValue, resetForm, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
@@ -128,6 +128,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {

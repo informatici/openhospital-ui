@@ -116,7 +116,6 @@ export const updateOpd =
     dispatch({
       type: UPDATE_OPD_LOADING,
     });
-    console.log("date.....: ", opdValues.date);
     const opdDTO = opdDataFormatter(opdValues, diseaseList);
     opdControllerApi.updateOpdUsingPUT({ code, opdDTO }).subscribe(
       () => {

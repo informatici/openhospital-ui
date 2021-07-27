@@ -1,4 +1,3 @@
-import { OpdDTO } from "../../../../generated";
 import { IForm } from "../../../../libraries/formDataHandling/types";
 
 interface IOwnProps {

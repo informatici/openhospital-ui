@@ -71,6 +71,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
 
     case UPDATE_OPD_LOADING: {
       draft.updateOpd.status = "LOADING";
+      delete draft.updateOpd.error;
       break;
     }
 

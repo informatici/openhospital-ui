@@ -8,32 +8,18 @@ import {
   createOpd,
   createOpdReset,
   updateOpd,
-  getOpds,
   updateOpdReset,
 } from "../../../state/opds/actions";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
-import {
-  IDispatchProps,
-  IStateProps,
-  TActivityTransitionState,
-  TProps,
-} from "./types";
+import { TActivityTransitionState } from "./types";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 
-const PatientOPD: FunctionComponent<TProps> = ({
-  createOpd,
-  createOpdReset,
-  getDiseasesOpd,
-  getOpds,
-  isLoading,
-  hasSucceeded,
-  hasFailed,
-}) => {
+const PatientOPD: FunctionComponent = ({}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -41,32 +27,33 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(true);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
-  const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO | undefined);
+  const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
+  const [creationMode, setCreationMode] = useState(true);
 
   const updateStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.updateOpd.status
   );
 
+  const createStatus = useSelector<IState, string | undefined>(
+    (state) => state.opds.createOpd.status
+  );
+
   useEffect(() => {
-    if (hasFailed) {
+    if (createStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [hasFailed]);
+  }, [createStatus]);
 
   useEffect(() => {
-    getDiseasesOpd();
-  }, [getDiseasesOpd]);
+    dispatch(getDiseasesOpd());
+  }, [dispatch, getDiseasesOpd]);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-
-  useEffect(() => {
-    getOpds(patient?.code);
-  }, [patient?.code, shouldUpdateTable, getOpds]);
 
   const userId = useSelector(
     (state: IState) => state.main.authentication.data?.displayName
@@ -75,14 +62,16 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const diseasesData = useSelector(
     (state: IState) => state.diseases.diseasesOpd.data
   );
+
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      createOpdReset();
+      setShouldUpdateTable(true);
+      setCreationMode(true);
+      dispatch(createOpdReset());
       dispatch(updateOpdReset());
       setShouldResetForm(true);
-      setShouldUpdateTable(true);
     }
-  }, [activityTransitionState, createOpdReset, updateOpdReset]);
+  }, [dispatch, activityTransitionState, createOpdReset, updateOpdReset]);
 
   const onSubmit = (opdValuestoSave: OpdDTO) => {
     setShouldResetForm(false);
@@ -90,20 +79,24 @@ const PatientOPD: FunctionComponent<TProps> = ({
     opdValuestoSave.age = patient?.age;
     opdValuestoSave.sex = patient?.sex;
     opdValuestoSave.userID = userId;
-    if (opdToEdit && opdToEdit.code) {
+    if (!creationMode && opdToEdit.code) {
       dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
-    } else createOpd(opdValuestoSave, diseasesData);
+    } else dispatch(createOpd(opdValuestoSave, diseasesData));
   };
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
-    setShouldUpdateTable(false);
+    setCreationMode(true);
+    dispatch(createOpdReset());
+    dispatch(updateOpdReset());
     setActivityTransitionState("IDLE");
+    setShouldUpdateTable(false);
     scrollToElement(null);
   };
 
-  const onEdit = (row?: OpdDTO) => {
+  const onEdit = (row: OpdDTO) => {
     setOpdToEdit(row);
+    setCreationMode(false);
     scrollToElement(null);
   };
 
@@ -113,14 +106,14 @@ const PatientOPD: FunctionComponent<TProps> = ({
         fields={initialFields}
         opdToEdit={opdToEdit}
         onSubmit={onSubmit}
-        submitButtonLabel={t("common.saveopd")}
+        submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
         resetButtonLabel={t("common.discard")}
-        isLoading={isLoading}
+        isLoading={createStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
       />
       <div ref={infoBoxRef}>
-        {hasFailed && (
+        {createStatus === "FAIL" && (
           <InfoBox
             type="error"
             message="Something went wrong, please retry later."
@@ -136,7 +129,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
         )}
       </div>
       <ConfirmationDialog
-        isOpen={hasSucceeded}
+        isOpen={createStatus === "SUCCESS"}
         title="Opd Created"
         icon={checkIcon}
         info="The Opd registration was successful."
@@ -160,17 +153,5 @@ const PatientOPD: FunctionComponent<TProps> = ({
     </div>
   );
 };
-const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: state.opds.createOpd === "LOADING",
-  hasSucceeded: state.opds.createOpd.status === "SUCCESS",
-  hasFailed: state.opds.createOpd.status === "FAIL",
-});
 
-const mapDispatchToProps: IDispatchProps = {
-  createOpd,
-  createOpdReset,
-  getDiseasesOpd,
-  getOpds,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PatientOPD);
+export default PatientOPD;
