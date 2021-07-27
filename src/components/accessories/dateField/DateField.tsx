@@ -26,9 +26,13 @@ const DateField: FunctionComponent<IProps> = ({
   const [value, setValue] = useState<Date | null>(null);
 
   useEffect(() => {
-    setValue(
-      fieldValue === "" ? null : moment(fieldValue, "DD/MM/YYYY").toDate()
-    );
+    if (fieldValue === "") {
+      setValue(null);
+    } else if (moment(+fieldValue).isValid()) {
+      setValue(moment(+fieldValue).toDate());
+    } else {
+      setValue(moment(fieldValue, "DD/MM/YYYY").toDate());
+    }
   }, [fieldValue]);
 
   const handleDateChange = (date: Date | null) => {
