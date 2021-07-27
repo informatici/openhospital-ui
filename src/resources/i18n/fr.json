@@ -124,8 +124,8 @@
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
     "delete": "Suppression",
-    "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer cet élément?",
-    "deletesuccess": "L'élément a été supprimé avec succès"
+    "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
+    "deletesuccess": "L'élément de {{code}} a été supprimé avec succès"
 
   },
   "therapy": {

@@ -38,7 +38,7 @@ const Table: FunctionComponent<IProps> = ({
   const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
-  const [currentRow, setCurrentRow] = useState();
+  const [currentRow, setCurrentRow] = useState({} as any);
 
   const { t } = useTranslation();
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -168,7 +168,9 @@ const Table: FunctionComponent<IProps> = ({
       <ConfirmationDialog
         isOpen={openDeleteConfirmation}
         title={t("common.delete")}
-        info={t("common.deleteconfirmation")}
+        info={t("common.deleteconfirmation", {
+          code: currentRow.code,
+        })}
         icon={warningIcon}
         primaryButtonLabel="OK"
         secondaryButtonLabel="Dismiss"

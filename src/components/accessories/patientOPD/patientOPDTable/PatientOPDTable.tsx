@@ -39,6 +39,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.deleteOpd.status
   );
@@ -67,7 +69,10 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   const onDelete = (row: OpdDTO) => {
-    if (row.code) dispatch(deleteOpd(row.code));
+    if (row.code) {
+      setDeletedObjCode(row.code + "");
+      dispatch(deleteOpd(row.code));
+    }
   };
 
   const onEdit = () => {
@@ -130,7 +135,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
                 isOpen={openSuccessDialog}
                 title="Opd deleted"
                 icon={checkIcon}
-                info={t("common.deletesuccess")}
+                info={t("common.deletesuccess", { code: deletedObjCode })}
                 primaryButtonLabel="OK"
                 handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
                 handleSecondaryButtonClick={() => {}}
