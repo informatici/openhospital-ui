@@ -5,6 +5,7 @@
   "birthDate": "30/08/1991",
   "address": "Via Roma, 4",
   "city": "Milano",
+  "sex": "M",
   "telephone": "3335678455",
   "mother_name": "Rosa",
   "father_name": "Luigi",
