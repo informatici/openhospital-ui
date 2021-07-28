@@ -20,6 +20,7 @@ import {
   DELETE_OPD_LOADING,
   DELETE_OPD_SUCCESS,
   DELETE_OPD_FAIL,
+  DELETE_OPD_RESET,
 } from "./consts";
 
 const opdControllerApi = new OpdControllerApi(
@@ -94,6 +95,14 @@ export const getOpds =
         error: "patient code should not be empty",
       });
     }
+  };
+
+export const deleteOpdReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_OPD_RESET,
+    });
   };
 
 export const deleteOpd =

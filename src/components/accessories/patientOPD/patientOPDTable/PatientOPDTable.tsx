@@ -1,7 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO } from "../../../../generated";
-import { deleteOpd, getOpds } from "../../../../state/opds/actions";
+import {
+  deleteOpd,
+  deleteOpdReset,
+  getOpds,
+} from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
@@ -29,6 +33,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["date"];
   const dispatch = useDispatch();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
@@ -45,10 +50,18 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     (state) => state.opds.deleteOpd.status
   );
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+  useEffect(() => {
+    setOpenSuccessDialog(false);
+    dispatch(deleteOpdReset());
+  }, [dispatch, deleteOpdReset]);
 
   useEffect(() => {
     if (deleteStatus === "SUCCESS") setOpenSuccessDialog(true);
-    if (shouldUpdateTable || deleteStatus === "SUCCESS")
+    if (
+      shouldUpdateTable ||
+      deleteStatus === "SUCCESS" ||
+      (patientCode && opdStatus !== "SUCCESS")
+    )
       dispatch(getOpds(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable, deleteStatus]);
 
@@ -83,68 +96,46 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientOpdTable">
-      {(() => {
-        switch (opdStatus) {
-          case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
-          case "LOADING":
-            return (
-              <CircularProgress
-                style={{ marginLeft: "50%", position: "relative" }}
-              />
-            );
-          case "SUCCESS":
-            return (
-              <Table
-                rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
-                tableHeader={header}
-                labelData={label}
-                columnsOrder={order}
-                rowsPerPage={5}
-                onDelete={onDelete}
-                isCollapsabile={true}
-                onEdit={onEdit}
-                onView={onEView}
-              />
-            );
+      {opdStatus === "SUCCESS" ? (
+        <Table
+          rowData={formatDataToDisplay(data)}
+          compareRows={dateComparator}
+          tableHeader={header}
+          labelData={label}
+          columnsOrder={order}
+          rowsPerPage={5}
+          onDelete={onDelete}
+          isCollapsabile={true}
+          onEdit={onEdit}
+          onView={onEView}
+        />
+      ) : (
+        opdStatus === "SUCCESS_EMPTY" && (
+          <InfoBox type="warning" message={t("common.emptydata")} />
+        )
+      )}
 
-          case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+      {deleteStatus === "SUCCESS" && (
+        <ConfirmationDialog
+          isOpen={openSuccessDialog}
+          title="Opd deleted"
+          icon={checkIcon}
+          info={t("common.deletesuccess", { code: deletedObjCode })}
+          primaryButtonLabel="OK"
+          handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
+          handleSecondaryButtonClick={() => {}}
+        />
+      )}
 
-          case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+      {(deleteStatus === "LOADING" || opdStatus === "LOADING") && (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
 
-          default:
-            return;
-        }
-      })()}
-
-      {(() => {
-        switch (deleteStatus) {
-          case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
-
-          case "SUCCESS":
-            return (
-              <ConfirmationDialog
-                isOpen={openSuccessDialog}
-                title="Opd deleted"
-                icon={checkIcon}
-                info={t("common.deletesuccess", { code: deletedObjCode })}
-                primaryButtonLabel="OK"
-                handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
-                handleSecondaryButtonClick={() => {}}
-              />
-            );
-          default:
-            return;
-        }
-      })()}
+      {(opdStatus === "FAIL" || deleteStatus === "FAIL") && (
+        <div ref={infoBoxRef}>
+          <InfoBox type="error" message={t("common.somethingwrong")} />
+        </div>
+      )}
     </div>
   );
 };
