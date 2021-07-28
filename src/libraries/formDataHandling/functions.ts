@@ -14,7 +14,12 @@ export const getFromFields = (
 };
 
 const parseDate = (raw: string) => {
-  const unformatDate = new Date(+raw).toString();
+  let unformatDate = "";
+  if(moment(+raw).isValid()) {
+    unformatDate = moment(+raw).toDate().toString();
+  } else { 
+    unformatDate = moment(raw).toDate().toString();  
+  }
   return raw ? Date.parse(unformatDate).toString() : "";
 };
 
@@ -64,8 +69,8 @@ export const updateOpdFields = (
         return (draft[key as string].value =
           typeof value === "object"
             ? (value as DiseaseDTO).code
-            : value && moment(value).isValid()
-            ? moment(value)
+            :  moment(value).isValid()
+            ? moment(value).format("x")
             : value);
       }
     });
