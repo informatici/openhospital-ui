@@ -30,8 +30,10 @@ const DateField: FunctionComponent<IProps> = ({
       setValue(null);
     } else if (moment(+fieldValue).isValid()) {
       setValue(moment(+fieldValue).toDate());
-    } else {
+    } else if (moment(fieldValue, "DD/MM/YYYY").isValid()) {
       setValue(moment(fieldValue, "DD/MM/YYYY").toDate());
+    } else {
+      setValue(moment(fieldValue).toDate());
     }
   }, [fieldValue]);
 

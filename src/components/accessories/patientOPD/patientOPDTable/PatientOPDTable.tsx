@@ -66,7 +66,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   const onEdit = (row?: OpdDTO) => {
-    handleEdit(row);
+    handleEdit(data.find((item) => item.code === row?.code));
   };
 
   const onEView = () => {};

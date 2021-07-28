@@ -24,11 +24,9 @@ import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import SelectField from "../../selectField/SelectField";
-import moment from "moment";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
-  opdToEdit,
   onSubmit,
   submitButtonLabel,
   resetButtonLabel,
@@ -38,24 +36,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (opdToEdit) {
-      setFieldValue("date", moment(opdToEdit["date"], "DD/MM/YYYY").toDate());
-      const disease1 = diseasesOptions.find(
-        (el) => el.label === opdToEdit["disease"]
-      );
-      const disease2 = diseasesOptions.find(
-        (el) => el.label === opdToEdit["disease2"]
-      );
-      const disease3 = diseasesOptions.find(
-        (el) => el.label === opdToEdit["disease3"]
-      );
-      setFieldValue("disease", disease1?.value);
-      setFieldValue("disease2", disease2?.value);
-      setFieldValue("disease3", disease3?.value);
-      setFieldValue("note", opdToEdit["note"]);
-    }
-  }, [opdToEdit]);
   const validationSchema = object({
     date: string().required(t("common.required")),
     disease: string().required(t("common.required")),

@@ -62,14 +62,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       );
   };
 
-  const [
-    activityTransitionState,
-    setActivityTransitionState,
-  ] = useState<TActivityTransitionState>("IDLE");
-  const [
-    openConfirmationMessage,
-    setOpenConfirmationMessage,
-  ] = useState<boolean>(false);
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
+  const [openConfirmationMessage, setOpenConfirmationMessage] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {

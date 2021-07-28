@@ -18,6 +18,7 @@ import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
+import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 
 const PatientOPD: FunctionComponent = ({}) => {
   const { t } = useTranslation();
@@ -30,6 +31,7 @@ const PatientOPD: FunctionComponent = ({}) => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
   const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
+
   const [creationMode, setCreationMode] = useState(true);
 
   const updateStatus = useSelector<IState, string | undefined>(
@@ -48,6 +50,8 @@ const PatientOPD: FunctionComponent = ({}) => {
   }, [createStatus]);
 
   useEffect(() => {
+    dispatch(createOpdReset());
+    dispatch(updateOpdReset());
     dispatch(getDiseasesOpd());
   }, [dispatch, getDiseasesOpd]);
 
@@ -103,8 +107,11 @@ const PatientOPD: FunctionComponent = ({}) => {
   return (
     <div className="patientOpd">
       <PatientOPDForm
-        fields={initialFields}
-        opdToEdit={opdToEdit}
+        fields={
+          creationMode
+            ? initialFields
+            : updateOpdFields(initialFields, opdToEdit)
+        }
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
         resetButtonLabel={t("common.discard")}
