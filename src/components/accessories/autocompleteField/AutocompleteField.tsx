@@ -1,9 +1,10 @@
-import { FormControl, FormHelperText } from "@material-ui/core";
+import { debounce, FormControl, FormHelperText } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
   FunctionComponent,
   memo,
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -29,6 +30,11 @@ const AutocompleteField: FunctionComponent<IProps> = ({
     onBlur(e, value);
   };
 
+  const debounceUpdate = useCallback(
+    debounce((value: any) => setValue(value), 250),
+    []
+  );
+
   useEffect(() => {
     setValue(fieldValue);
   }, [fieldValue]);
@@ -43,7 +49,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
         getOptionSelected={(option, v) => option.value === v.value}
         renderOption={(option) => <Fragment>{option.label}</Fragment>}
         onChange={(e: object, val: any | null) => {
-          setValue(val?.value || "");
+          debounceUpdate(val?.value || "");
         }}
         onBlur={handleOnBlur}
         renderInput={(params) => (
