@@ -37,6 +37,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const order = ["startDate", "endDate"];
 
   const dispatch = useDispatch();
+
   const data = useSelector<IState, TherapyRowDTO[]>((state) =>
     state.therapies.therapiesByPatientId.data
       ? state.therapies.therapiesByPatientId.data
@@ -58,9 +59,11 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   }, [dispatch, getMedicals]);
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode)
+    if (shouldUpdateTable || patientCode) {
       dispatch(getTherapiesByPatientId(patientCode));
-  }, [shouldUpdateTable, dispatch, patientCode]);
+    }
+  }, [shouldUpdateTable, dispatch, patientCode, getTherapiesByPatientId]);
+
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data
       .map((item) => {

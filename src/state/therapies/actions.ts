@@ -31,7 +31,6 @@ export const createTherapy =
     dispatch({
       type: CREATE_THERAPY_LOADING,
     });
-
     therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       (payload) => {
         dispatch({
@@ -54,8 +53,7 @@ export const updateTherapy =
     dispatch({
       type: UPDATE_THERAPY_LOADING,
     });
-    const thRowDTOs = [thRowDTO];
-    therapyControllerApi.replaceTherapiesUsingPOST({ thRowDTOs }).subscribe(
+    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       (payload) => {
         dispatch({
           type: UPDATE_THERAPY_SUCCESS,

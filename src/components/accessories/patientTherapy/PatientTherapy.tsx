@@ -4,27 +4,22 @@ import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
 import {
   createTherapy,
-  getTherapiesByPatientId,
   createTherapyReset,
   updateTherapyReset,
   updateTherapy,
 } from "../../../state/therapies/actions";
-import { getMedicals } from "../../../state/medicals/actions";
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { TherapyRowDTO } from "../../../generated";
-import { connect, useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
-import {
-  updateFields,
-  updateTherapyFields,
-} from "../../../libraries/formDataHandling/functions";
+import { updateFields } from "../../../libraries/formDataHandling/functions";
+import { useDispatch, useSelector } from "react-redux";
 
-const PatientTherapy: FC = ({}) => {
+const PatientTherapy: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -59,8 +54,7 @@ const PatientTherapy: FC = ({}) => {
   useEffect(() => {
     dispatch(createTherapyReset());
     dispatch(updateTherapyReset());
-    dispatch(getMedicals());
-  }, [dispatch, getMedicals]);
+  }, [dispatch, updateTherapyReset, createTherapyReset]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -76,10 +70,6 @@ const PatientTherapy: FC = ({}) => {
     createTherapyReset,
     updateTherapyReset,
   ]);
-
-  useEffect(() => {
-    dispatch(getTherapiesByPatientId(patientData?.code));
-  }, [dispatch, patientData, getTherapiesByPatientId]);
 
   const onSubmit = (valuesToSave: TherapyRowDTO) => {
     setShouldResetForm(false);
