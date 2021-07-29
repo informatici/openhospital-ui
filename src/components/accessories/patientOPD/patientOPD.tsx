@@ -115,20 +115,17 @@ const PatientOPD: FunctionComponent = ({}) => {
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
         resetButtonLabel={t("common.discard")}
-        isLoading={createStatus === "LOADING"}
+        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
       />
-      <div ref={infoBoxRef}>
-        {createStatus === "FAIL" && (
+
+      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
+        <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
-        )}
-      </div>
-      <div ref={infoBoxRef}>
-        {updateStatus === "FAIL" && (
-          <InfoBox type="error" message={t("common.somethingwrong")} />
-        )}
-      </div>
+        </div>
+      )}
+
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS"}
         title={t("opd.created")}
