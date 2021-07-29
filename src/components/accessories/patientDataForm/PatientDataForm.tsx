@@ -168,6 +168,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("sex")}
               onBlur={onBlurCallback("sex")}
               options={options.sex}
+              translateOptions={true}
             />
           </div>
 
@@ -230,6 +231,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("parentTogether")}
               onBlur={onBlurCallback("parentTogether")}
               options={options.parentTogether}
+              translateOptions={true}
             />
           </div>
         </div>
@@ -284,6 +286,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("hasInsurance")}
               onBlur={onBlurCallback("hasInsurance")}
               options={options.hasInsurance}
+              translateOptions={true}
             />
           </div>
         </div>

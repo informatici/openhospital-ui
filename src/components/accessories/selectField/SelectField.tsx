@@ -18,6 +18,7 @@ const SelectField: FunctionComponent<IProps> = ({
   errorText,
   onBlur,
   options,
+  translateOptions = false,
 }) => {
   const [value, setValue] = useState("");
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ const SelectField: FunctionComponent<IProps> = ({
         </MenuItem>
         {options.map((option, index) => (
           <MenuItem value={option.value} key={index}>
-            {t(option.label)}
+            {translateOptions ? t(option.label) : option.label}
           </MenuItem>
         ))}
       </Select>
