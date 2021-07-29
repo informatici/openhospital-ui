@@ -87,7 +87,7 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
     }
 
     case UPDATE_THERAPY_SUCCESS: {
-      draft.createTherapy.status = "SUCCESS";
+      draft.updateTherapy.status = "SUCCESS";
       draft.updateTherapy.data = action.payload;
       delete draft.updateTherapy.error;
       break;

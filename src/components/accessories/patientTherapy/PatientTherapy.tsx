@@ -19,7 +19,10 @@ import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
-import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
+import {
+  updateFields,
+  updateTherapyFields,
+} from "../../../libraries/formDataHandling/functions";
 
 const PatientTherapy: FC = ({}) => {
   const { t } = useTranslation();
@@ -109,7 +112,7 @@ const PatientTherapy: FC = ({}) => {
         fields={
           creationMode
             ? initialFields
-            : updateTherapyFields(initialFields, therapyToEdit)
+            : updateFields(initialFields, therapyToEdit)
         }
         onSubmit={onSubmit}
         submitButtonLabel={

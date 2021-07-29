@@ -1,4 +1,5 @@
 import { produce } from "immer";
+import moment from "moment";
 import { MedicalDTO, PatientDTO, TherapyRowDTO } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
@@ -13,7 +14,15 @@ export const getFromFields = (
 };
 
 const parseDate = (raw: string) => {
-  const unformatDate = new Date(+raw).toString();
+  let unformatDate = "";
+  if (moment(+raw).isValid()) {
+    unformatDate = moment(+raw)
+      .toDate()
+      .toString();
+  } else {
+    unformatDate = moment(raw).toDate().toString();
+  }
+
   return raw ? Date.parse(unformatDate).toString() : "";
 };
 

@@ -10,7 +10,6 @@ import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
-import { rawListeners } from "process";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -26,6 +25,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const header = ["startDate", "endDate"];
 
   const label = {
+    therapyID: t("common.code"),
     startDate: t("therapy.startDate"),
     endDate: t("therapy.endDate"),
     qty: t("therapy.quantity"),
@@ -66,6 +66,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
       .map((item) => {
         const medical = medicals.find((medoc) => medoc.code === item.medicalId);
         return {
+          therapyID: item.therapyID,
           medicalId: medical ? medical.description : item.medicalId,
           startDate: item.startDate
             ? moment(item.startDate).format("DD/MM/YYYY")
