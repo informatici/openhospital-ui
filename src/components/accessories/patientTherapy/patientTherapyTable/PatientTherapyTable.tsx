@@ -10,12 +10,17 @@ import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
+import { rawListeners } from "process";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleEdit: <T>(row: T) => void;
 }
 
-const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
+const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+  handleEdit,
+}) => {
   const { t } = useTranslation();
 
   const header = ["startDate", "endDate"];
@@ -47,10 +52,15 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
+
   useEffect(() => {
     dispatch(getMedicals());
-    dispatch(getTherapiesByPatientId(patientCode));
-  }, [dispatch, patientCode]);
+  }, [dispatch, getMedicals]);
+
+  useEffect(() => {
+    if (shouldUpdateTable || patientCode)
+      dispatch(getTherapiesByPatientId(patientCode));
+  }, [shouldUpdateTable, dispatch, patientCode]);
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data
       .map((item) => {
@@ -78,8 +88,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
     console.log("delete");
   };
 
-  const onEdit = () => {
-    console.log("update");
+  const onEdit = (row: any) => {
+    handleEdit(data.find((item) => item.therapyID === row.therapyID));
   };
 
   const onEView = () => {};

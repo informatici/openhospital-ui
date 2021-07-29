@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { PatientDTO } from "../../generated";
+import { MedicalDTO, PatientDTO, TherapyRowDTO } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
 export const getFromFields = (
@@ -47,6 +47,21 @@ export const updateFields = (
     Object.keys(values!).forEach((key) => {
       if (draft[key as string])
         return (draft[key as string].value = values![key as keyof PatientDTO]);
+    });
+  });
+};
+
+export const updateTherapyFields = (
+  fields: TFields,
+  values: TherapyRowDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        let value = values![key as keyof TherapyRowDTO];
+        return (draft[key as string].value =
+          typeof value === "object" ? (value as MedicalDTO).code : value);
+      }
     });
   });
 };
