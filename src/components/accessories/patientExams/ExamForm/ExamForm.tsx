@@ -1,12 +1,10 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { object, string } from "yup";
+import { object } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
@@ -33,32 +31,23 @@ const ExamForm: FC<ExamProps> = ({
 }) => {
   const { t } = useTranslation();
   const validationSchema = object({
-    medicalId: string().required(t("common.required")),
-    startDate: string().required(t("common.required")),
-    endDate: string()
-      .required(t("common.required"))
-      .test({
-        name: "endDate",
-        message: t("therapy.validatelastdate"),
-        test: function (value) {
-          return moment(value).isSameOrAfter(moment(this.parent.startDate));
-        },
-      }),
+    //TODO
   });
 
   const initialValues = getFromFields(fields, "value");
+  const options = getFromFields(fields, "options");
 
   const medicalOptionsSelector = (state: IState) => {
-    if (state.medicals.medicalsOrderByName.data) {
-      return state.medicals.medicalsOrderByName.data.map((medical) => {
+    if (state.laboratories.materials.data) {
+      return state.laboratories.materials.data.map((item) => {
         return {
-          value: medical.code + "",
-          label: medical.description + "",
+          value: item + "",
+          label: item + "",
         };
       });
     } else return [];
   };
-  const medicalOptions = useSelector((state: IState) =>
+  const materials = useSelector((state: IState) =>
     medicalOptionsSelector(state)
   );
 
@@ -68,7 +57,7 @@ const ExamForm: FC<ExamProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      onSubmit(formattedValues, []);
     },
   });
 
@@ -119,171 +108,73 @@ const ExamForm: FC<ExamProps> = ({
 
   return (
     <>
-      <div className="patientTherapyForm">
-        <form
-          className="patientTherapyForm__form"
-          onSubmit={formik.handleSubmit}
-        >
+      <div className="patientExamForm">
+        <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item">
+            <div className="patientExamForm__item">
+              <DateField
+                fieldName="date"
+                fieldValue={formik.values.date}
+                disableFuture={false}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={isValid("date")}
+                errorText={getErrorText("date")}
+                label={t("lab.date")}
+                onChange={dateFieldHandleOnChange("date")}
+              />
+            </div>
+            <div className="patientExamForm__item">
               <SelectField
-                fieldName="medicalId"
-                fieldValue={formik.values.medicalId}
-                label={t("therapy.medical")}
-                isValid={isValid("medicalId")}
-                errorText={getErrorText("medicalId")}
-                onBlur={onBlurCallback("medicalId")}
-                options={medicalOptions}
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <TextField
-                field={formik.getFieldProps("qty")}
-                theme="regular"
-                label={t("therapy.quantity")}
-                isValid={isValid("qty")}
-                errorText={getErrorText("qty")}
-                onBlur={formik.handleBlur}
-                type="number"
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <TextField
-                field={formik.getFieldProps("freqInDay")}
-                theme="regular"
-                label={t("therapy.frequencyInDay")}
-                isValid={isValid("freqInDay")}
-                errorText={getErrorText("freqInDay")}
-                onBlur={formik.handleBlur}
-                type="number"
+                fieldName="exam"
+                fieldValue={formik.values.exam}
+                label={t("lab.exam")}
+                isValid={isValid("exam")}
+                errorText={getErrorText("exam")}
+                onBlur={onBlurCallback("exam")}
+                options={options.exam}
               />
             </div>
           </div>
           <div className="row start-sm center-xs bottom-sm">
-            <div className="patientTherapyForm__item">
-              <TextField
-                field={formik.getFieldProps("nbDays")}
-                theme="regular"
-                label={t("therapy.nbdays")}
-                isValid={isValid("nbDays")}
-                errorText={getErrorText("nbDays")}
-                onBlur={formik.handleBlur}
-                type="number"
+            <div className="patientExamForm__item">
+              <SelectField
+                fieldName="material"
+                fieldValue={formik.values.material}
+                label={t("lab.material")}
+                isValid={isValid("material")}
+                errorText={getErrorText("material")}
+                onBlur={onBlurCallback("material")}
+                options={materials}
               />
             </div>
-            <div className="patientTherapyForm__item">
-              <TextField
-                field={formik.getFieldProps("nbWeeks")}
-                theme="regular"
-                label={t("therapy.nbweeks")}
-                isValid={isValid("nbWeeks")}
-                errorText={getErrorText("nbWeeks")}
-                onBlur={formik.handleBlur}
-                type="number"
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <TextField
-                field={formik.getFieldProps("nbMonths")}
-                theme="regular"
-                label={t("therapy.nbmonths")}
-                isValid={isValid("nbMonths")}
-                errorText={getErrorText("nbMonths")}
-                onBlur={formik.handleBlur}
-                type="number"
+            <div className="patientExamForm__item">
+              <SelectField
+                fieldName="result"
+                fieldValue={formik.values.result}
+                label={t("lab.result")}
+                isValid={isValid("result")}
+                errorText={getErrorText("result")}
+                onBlur={onBlurCallback("result")}
+                options={options.result}
               />
             </div>
           </div>
-          <div className="row start-sm center-xs">
-            <div id="frequency" className="patientTherapyForm__item">
-              <TextField
-                field={formik.getFieldProps("freqInPeriod")}
-                theme="regular"
-                label={t("therapy.frequencyInPeriod")}
-                isValid={isValid("freqInPeriod")}
-                errorText={getErrorText("freqInPeriod")}
-                onBlur={formik.handleBlur}
-                type="number"
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <DateField
-                fieldName="startDate"
-                fieldValue={formik.values.startDate}
-                disableFuture={false}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("startDate")}
-                errorText={getErrorText("startDate")}
-                label={t("therapy.startDate")}
-                onChange={dateFieldHandleOnChange("startDate")}
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <DateField
-                fieldName="endDate"
-                fieldValue={formik.values.endDate}
-                disableFuture={false}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("endDate")}
-                errorText={getErrorText("endDate")}
-                label={t("therapy.endDate")}
-                onChange={dateFieldHandleOnChange("endDate")}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formik.values.notifyInt === 1}
-                    onChange={() =>
-                      setFieldValue(
-                        "notifyInt",
-                        formik.values.notifyInt === 1 ? 0 : 1
-                      )
-                    }
-                    name="notifyInt"
-                  />
-                }
-                label={<span>{t("therapy.sendnotification")}</span>}
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="smsInt"
-                    checked={formik.values.smsInt === 1}
-                    onChange={() =>
-                      setFieldValue(
-                        "smsInt",
-                        formik.values.smsInt === 1 ? 0 : 1
-                      )
-                    }
-                  />
-                }
-                label={<span>{t("therapy.sendsms")}</span>}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="fullWidth patientTherapyForm__item">
+          <div className="row start-sm center-xs bottom-sm">
+            <div className="fullWidth patientExamForm__item">
               <TextField
                 multiline={true}
-                theme="regular"
-                type="text"
                 field={formik.getFieldProps("note")}
-                label={t("therapy.note")}
+                theme="regular"
+                label={t("lab.note")}
                 isValid={isValid("note")}
                 errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
+                type="text"
               />
             </div>
           </div>
-          <div className="patientTherapyForm__buttonSet">
+          <div className="patientExamForm__buttonSet">
             <div className="submit_button">
               <SmallButton type="submit" disabled={isLoading}>
                 {submitButtonLabel}

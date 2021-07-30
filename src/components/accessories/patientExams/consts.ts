@@ -1,7 +1,7 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { ExamFormFieldName } from "./ExamForm/types";
 
-const examOptions = [
+const examsOptions = [
   {
     label: "exa1",
     value: "Exam1",
@@ -16,53 +16,69 @@ const examOptions = [
   },
 ];
 
+const resultsOptions = [
+  {
+    label: "result1",
+    value: "Positive",
+  },
+  {
+    label: "result2",
+    value: "Negative",
+  },
+];
+
+const typeOptions = [
+  {
+    label: "OPD",
+    value: "1",
+  },
+  {
+    label: "IPD",
+    value: "0",
+  },
+];
+const materialOptions = [
+  {
+    label: "mat1",
+    value: "Blood",
+  },
+  {
+    label: "mat2",
+    value: "Urine",
+  },
+  {
+    label: "mat3",
+    value: "Crachat",
+  },
+];
+
 export const initialFields: TFields<ExamFormFieldName> = {
-  examId: {
+  exam: {
     value: "",
     type: "text",
+    options: examsOptions,
   },
-  qty: {
-    value: "10",
-    type: "number",
-  },
-  nbDays: {
-    value: "10",
-    type: "number",
-  },
-  nbWeeks: {
-    value: "10",
-    type: "number",
-  },
-  nbMonths: {
-    value: "10",
-    type: "number",
-  },
-  freqInDay: {
-    value: "2",
-    type: "number",
-  },
-  freqInPeriod: {
-    value: "1",
-    type: "number",
-  },
-  startDate: {
+  date: {
     value: "",
-    type: "date",
-  },
-  endDate: {
-    value: "",
-    type: "date",
-  },
-  notifyInt: {
-    value: "0",
-    type: "number",
-  },
-  smsInt: {
-    value: "0",
-    type: "number",
+    type: "text",
   },
   note: {
-    value: "sample note",
+    value: "",
     type: "text",
+  },
+  result: {
+    value: "",
+    type: "text",
+    options: resultsOptions,
+  },
+  type: {
+    value: "",
+    type: "text",
+    options: typeOptions,
+  },
+  material: {
+    value: "",
+    type: "text",
+    options: materialOptions,
   },
 };

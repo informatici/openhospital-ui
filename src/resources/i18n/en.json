@@ -93,7 +93,8 @@
     "newpatient": "New patient",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
-    "patientdashboard": "Patient Dashboard"
+    "patientdashboard": "Patient Dashboard",
+    "exams": "Exams"
 
   },
   "common": {
@@ -121,7 +122,8 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "savetherapy": "Save Therapy",
     "required": "This field is required",
-    "emptydata": "No data found!"
+    "emptydata": "No data found!",
+    "save": "Save"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -153,5 +155,13 @@
     "therapy": "Therapy",    
     "opd": "Diagnostics",
     "booking": "Prescriptions"
+  },
+  "lab": {
+    "date": "Date",
+    "exam": "Exam",
+    "type": "IPD/OPD",
+    "material": "Material",
+    "note": "Note",
+    "result": "Results"
   }
 }

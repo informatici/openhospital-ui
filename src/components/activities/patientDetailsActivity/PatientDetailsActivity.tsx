@@ -32,6 +32,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
+import PatientExam from "../../accessories/patientExams/PatientExam";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -87,6 +88,12 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
+    {
+      label: t("nav.exams"),
+      path: "/exams",
+      content: <PatientDetailsContent title="Exams" content={PatientExam} />,
+    },
+
     {
       label: t("nav.booking"),
       path: "/booking",

@@ -1,16 +1,16 @@
 @import "../../../../styles/variables";
 @import "../../../../../node_modules/susy/sass/susy";
 
-.patientTherapyForm {
+.patientExamForm {
   display: inline-block;
   flex-direction: column;
   align-items: center;
   width: 100%;
 
-  .patientTherapyForm__item {
+  .patientExamForm__item {
     margin: 7px 0px;
     padding: 0px 15px;
-    width: 33%;
+    width: 50%;
     @include susy-media($narrow) {
       padding: 0px 10px;
     }
@@ -44,7 +44,7 @@
     }
   }
 
-  .patientTherapyForm__buttonSet {
+  .patientExamForm__buttonSet {
     display: flex;
     margin-top: 25px;
     padding: 0px 15px;
