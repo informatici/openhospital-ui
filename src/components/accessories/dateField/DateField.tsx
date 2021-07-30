@@ -7,6 +7,8 @@ import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
+import { ModeComment } from "@material-ui/icons";
+import moment from "moment";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -25,7 +27,11 @@ const DateField: FunctionComponent<IProps> = ({
   const [value, setValue] = useState<Date | null>(null);
 
   useEffect(() => {
-    setValue(fieldValue === "" ? null : new Date(+fieldValue));
+    if (fieldValue === "") {
+      setValue(null);
+    } else if (moment(+fieldValue).isValid()) {
+      moment(+fieldValue).toDate();
+    } else moment(fieldValue).toDate();
   }, [fieldValue]);
 
   const handleDateChange = (date: Date | null) => {

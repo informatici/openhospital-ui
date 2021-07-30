@@ -124,7 +124,9 @@
     "savetherapy": "Enregistrer",
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "code": "Code",
+    "update": "mettre à jour"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -172,5 +174,15 @@
     "material": "Matériel",
     "note": "Note",
     "result": "Resultats"
+  },
+  "angal": {
+    "lab.blood": "Blood",
+    "lab.urine": "Urine",
+    "lab.stool": "Stool",
+    "lab.sputum": "Sputum",
+    "lab.cfs": "cfs",
+    "lab.swabs": "swabs",
+    "lab.tissues": "tissues",
+    "lab.film": "Film"
   }
 }

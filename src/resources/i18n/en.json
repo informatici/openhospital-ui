@@ -123,7 +123,9 @@
     "savetherapy": "Save Therapy",
     "required": "This field is required",
     "emptydata": "No data found!",
-    "save": "Save"
+    "save": "Save",
+    "code": "Code",
+    "update": "update"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -163,5 +165,15 @@
     "material": "Material",
     "note": "Note",
     "result": "Results"
+  },
+  "angal": {
+    "lab.blood": "Blood",
+    "lab.urine": "Urine",
+    "lab.stool": "Stool",
+    "lab.sputum": "Sputum",
+    "lab.cfs": "cfs",
+    "lab.swabs": "swabs",
+    "lab.tissues": "tissues",
+    "lab.film": "Film"
   }
 }

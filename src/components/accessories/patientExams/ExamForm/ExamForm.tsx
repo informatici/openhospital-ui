@@ -3,13 +3,14 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { object } from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { getExamRows } from "../../../../state/exams/actions";
 import { IState } from "../../../../types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
@@ -30,14 +31,19 @@ const ExamForm: FC<ExamProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const validationSchema = object({
-    //TODO
+    date: string().required(t("common.required")),
+    exam: string().required(t("common.required")),
+    result: string().required(t("common.required")),
+    material: string().required(t("common.required")),
   });
 
+  const [currentExamCode, setCurrentExamCode] = useState("");
   const initialValues = getFromFields(fields, "value");
-  const options = getFromFields(fields, "options");
 
-  const medicalOptionsSelector = (state: IState) => {
+  const materialOptionsSelector = (state: IState) => {
     if (state.laboratories.materials.data) {
       return state.laboratories.materials.data.map((item) => {
         return {
@@ -48,7 +54,39 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
   const materials = useSelector((state: IState) =>
-    medicalOptionsSelector(state)
+    materialOptionsSelector(state)
+  );
+
+  const examOptionsSelector = (state: IState) => {
+    if (state.exams.examList.data) {
+      return state.exams.examList.data.map((item) => {
+        return {
+          value: item.code || "",
+          label:
+            (item.description &&
+              item.description?.length > 30 &&
+              item.description.slice(0, 30) + "...") ||
+            item.description + "",
+        };
+      });
+    } else return [];
+  };
+
+  const examList = useSelector((state: IState) => examOptionsSelector(state));
+
+  const examRowOptionsSelector = (state: IState) => {
+    if (state.exams.examRowsByExamCode.data) {
+      return state.exams.examRowsByExamCode.data.map((item) => {
+        return {
+          value: item.code + "",
+          label: item.description || "",
+        };
+      });
+    } else return [];
+  };
+
+  const examRows = useSelector((state: IState) =>
+    examRowOptionsSelector(state)
   );
 
   const formik = useFormik({
@@ -70,6 +108,10 @@ const ExamForm: FC<ExamProps> = ({
     [setFieldValue]
   );
 
+  useEffect(() => {
+    if (currentExamCode !== "") dispatch(getExamRows(currentExamCode));
+  }, [currentExamCode, dispatch, getExamRows]);
+
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
@@ -88,6 +130,7 @@ const ExamForm: FC<ExamProps> = ({
       ) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+        if (fieldName === "exam") setCurrentExamCode(value);
       },
     [setFieldValue, handleBlur]
   );
@@ -97,6 +140,7 @@ const ExamForm: FC<ExamProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {
@@ -105,6 +149,18 @@ const ExamForm: FC<ExamProps> = ({
       resetFormCallback();
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
+
+  const examRowsLaoding = useSelector(
+    (state: IState) => state.exams.examRowsByExamCode.status === "LOADING"
+  );
+
+  const materialsLoading = useSelector(
+    (state: IState) => state.laboratories.materials.status === "LOADING"
+  );
+
+  const examsLoading = useSelector(
+    (state: IState) => state.exams.examList.status === "LOADING"
+  );
 
   return (
     <>
@@ -132,7 +188,8 @@ const ExamForm: FC<ExamProps> = ({
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
-                options={options.exam}
+                options={examList}
+                isLoading={examsLoading}
               />
             </div>
           </div>
@@ -146,6 +203,8 @@ const ExamForm: FC<ExamProps> = ({
                 errorText={getErrorText("material")}
                 onBlur={onBlurCallback("material")}
                 options={materials}
+                isLoading={materialsLoading}
+                translateOptions={true}
               />
             </div>
             <div className="patientExamForm__item">
@@ -156,7 +215,8 @@ const ExamForm: FC<ExamProps> = ({
                 isValid={isValid("result")}
                 errorText={getErrorText("result")}
                 onBlur={onBlurCallback("result")}
-                options={options.result}
+                options={examRows}
+                isLoading={examRowsLaoding}
               />
             </div>
           </div>

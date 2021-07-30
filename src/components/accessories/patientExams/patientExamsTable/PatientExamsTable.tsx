@@ -11,17 +11,23 @@ import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
+import { handlePictureSelection } from "../../profilePicture/utils";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleEdit: (row: any) => void;
 }
 
-const PatientExamsTable: FunctionComponent<IOwnProps> = ({}) => {
+const PatientExamsTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+  handleEdit,
+}) => {
   const { t } = useTranslation();
 
   const header = ["date"];
 
   const label = {
+    code: t("common.code"),
     date: t("lab.date"),
     exam: t("lab.exam"),
     material: t("lab.material"),
@@ -64,12 +70,15 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({}) => {
   const labStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
+  const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
+    (state) => state.laboratories.labsByPatientId.data
+  );
   const onDelete = () => {
     console.log("delete");
   };
 
-  const onEdit = () => {
-    console.log("update");
+  const onEdit = (row: any) => {
+    handleEdit(labData?.find((item) => item.code === row.code));
   };
 
   const onEView = () => {};

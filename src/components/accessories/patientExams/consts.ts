@@ -27,16 +27,6 @@ const resultsOptions = [
   },
 ];
 
-const typeOptions = [
-  {
-    label: "OPD",
-    value: "1",
-  },
-  {
-    label: "IPD",
-    value: "0",
-  },
-];
 const materialOptions = [
   {
     label: "mat1",
@@ -70,11 +60,6 @@ export const initialFields: TFields<ExamFormFieldName> = {
     value: "",
     type: "text",
     options: resultsOptions,
-  },
-  type: {
-    value: "",
-    type: "text",
-    options: typeOptions,
   },
   material: {
     value: "",

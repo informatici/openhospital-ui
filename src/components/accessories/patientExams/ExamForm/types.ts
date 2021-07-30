@@ -17,6 +17,5 @@ export type ExamFormFieldName =
   | "exam"
   | "date"
   | "material"
-  | "type"
   | "result"
   | "note";

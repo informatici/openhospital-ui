@@ -52,11 +52,16 @@ const Table: FunctionComponent<IProps> = ({
     setOrderBy(property);
   };
 
-  const renderIcon = (type: TActions) => {
+  const renderIcon = (type: TActions, row?: any) => {
     switch (type) {
       case "edit":
         return (
-          <IconButton size="small" onClick={onEdit}>
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onEdit) onEdit(row);
+            }}
+          >
             <Edit />
           </IconButton>
         );
@@ -75,7 +80,7 @@ const Table: FunctionComponent<IProps> = ({
     }
   };
 
-  const renderActions = () => {
+  const renderActions = (row: any) => {
     if (onEdit || onDelete || onPrint || onView) {
       return (
         <TableCell
@@ -84,7 +89,7 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
-          {onEdit ? renderIcon("edit") : ""}
+          {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print") : ""}
           {onDelete ? renderIcon("delete") : ""}
         </TableCell>
@@ -128,7 +133,7 @@ const Table: FunctionComponent<IProps> = ({
                   rowIndex={index}
                   labelData={labelData}
                   tableHeader={tableHeader}
-                  renderActions={renderActions}
+                  renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
                 />
               ))}

@@ -19,9 +19,11 @@ import {
   updateLab,
   updateLabReset,
 } from "../../../state/laboratories/actions";
-import { LaboratoryDTO, LabWithRowsDTO } from "../../../generated";
+import { LaboratoryDTO } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
+import { getExams } from "../../../state/exams/actions";
+import { updateLabFields } from "../../../libraries/formDataHandling/functions";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
@@ -41,7 +43,9 @@ const PatientExams: FC = () => {
 
   useEffect(() => {
     dispatch(getMaterials());
-  }, [dispatch, getMaterials]);
+    dispatch(getExams());
+    setCreationMode(true);
+  }, [dispatch, getMaterials, getExams]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -62,10 +66,11 @@ const PatientExams: FC = () => {
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
   );
-
+  const exams = useSelector((state: IState) => state.exams.examList.data);
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
     lab.patientCode = patientData?.code;
+    lab.exam = exams?.find((item) => item.code === lab.exam);
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     const labWithRowsDTO = {
@@ -79,9 +84,16 @@ const PatientExams: FC = () => {
     }
   };
 
+  const onEdit = (row: LaboratoryDTO) => {
+    setLabToEdit(row);
+    setCreationMode(false);
+    scrollToElement(null);
+  };
+
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
+    setCreationMode(true);
     dispatch(createLabReset());
     dispatch(updateLabReset());
     setActivityTransitionState("IDLE");
@@ -91,13 +103,20 @@ const PatientExams: FC = () => {
   return (
     <div className="patientExam">
       <ExamForm
-        fields={initialFields}
+        fields={
+          creationMode
+            ? initialFields
+            : updateLabFields(initialFields, labToEdit)
+        }
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={true}
+        isLoading={
+          labStore.createLab.status === "LOADING" ||
+          labStore.updateLab.status === "LOADING"
+        }
       />
 
       {(labStore.createLab.status === "FAIL" ||
@@ -119,7 +138,10 @@ const PatientExams: FC = () => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
-      <PatientExamsTable shouldUpdateTable={shouldUpdateTable} />
+      <PatientExamsTable
+        handleEdit={onEdit}
+        shouldUpdateTable={shouldUpdateTable}
+      />
     </div>
   );
 };
