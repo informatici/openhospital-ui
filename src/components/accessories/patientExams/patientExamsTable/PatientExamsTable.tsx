@@ -1,17 +1,20 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LaboratoryDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
-import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
-import { getLabsByPatientId } from "../../../../state/laboratories/actions";
-import { handlePictureSelection } from "../../profilePicture/utils";
+import {
+  deleteLab,
+  deleteLabReset,
+  getLabsByPatientId,
+} from "../../../../state/laboratories/actions";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../assets/check-icon.png";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -23,6 +26,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date"];
 
@@ -42,18 +48,32 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       ? state.laboratories.labsByPatientId.data
       : []
   );
-  /*
-  const exams = useSelector<IState, ExamDTO[]>((state) =>
-    state.exams.getExams.data ? state.exams.getExams.data : []
+
+  const deleteStatus = useSelector<IState, string | undefined>(
+    (state) => state.laboratories.deleteLab.status
   );
-*/
+
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
+
   useEffect(() => {
-    dispatch(getMedicals());
-    dispatch(getLabsByPatientId(patientCode));
-  }, [dispatch, patientCode]);
+    setOpenSuccessDialog(false);
+    dispatch(deleteLabReset());
+  }, [dispatch, deleteLabReset]);
+
+  useEffect(() => {
+    if (deleteStatus === "SUCCESS") setOpenSuccessDialog(true);
+    if (shouldUpdateTable || deleteStatus === "SUCCESS" || patientCode)
+      dispatch(getLabsByPatientId(patientCode));
+  }, [
+    dispatch,
+    patientCode,
+    shouldUpdateTable,
+    deleteStatus,
+    getLabsByPatientId,
+  ]);
+
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
       return {
@@ -73,8 +93,11 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: LaboratoryDTO) => {
+    if (row.code) {
+      setDeletedObjCode(row.code + "");
+      dispatch(deleteLab(row.code));
+    }
   };
 
   const onEdit = (row: any) => {
@@ -85,42 +108,46 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientExamsTable">
-      {(() => {
-        switch (labStatus) {
-          case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
-          case "LOADING":
-            return (
-              <CircularProgress
-                style={{ marginLeft: "50%", position: "relative" }}
-              />
-            );
+      {labStatus === "SUCCESS" ? (
+        <Table
+          rowData={formatDataToDisplay(data)}
+          compareRows={dateComparator}
+          tableHeader={header}
+          labelData={label}
+          columnsOrder={order}
+          rowsPerPage={5}
+          onDelete={onDelete}
+          isCollapsabile={true}
+          onEdit={onEdit}
+          onView={onEView}
+        />
+      ) : (
+        labStatus === "SUCCESS_EMPTY" && (
+          <InfoBox type="warning" message={t("common.emptydata")} />
+        )
+      )}
 
-          case "SUCCESS":
-            return (
-              <Table
-                rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
-                tableHeader={header}
-                labelData={label}
-                columnsOrder={order}
-                rowsPerPage={5}
-                onDelete={onDelete}
-                isCollapsabile={true}
-                onEdit={onEdit}
-                onView={onEView}
-              />
-            );
+      {deleteStatus === "SUCCESS" && (
+        <ConfirmationDialog
+          isOpen={openSuccessDialog}
+          title="Patient exam deleted"
+          icon={checkIcon}
+          info={t("common.deletesuccess", { code: deletedObjCode })}
+          primaryButtonLabel="OK"
+          handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
+          handleSecondaryButtonClick={() => {}}
+        />
+      )}
 
-          case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+      {(deleteStatus === "LOADING" || labStatus === "LOADING") && (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
 
-          default:
-            return;
-        }
-      })()}
+      {(labStatus === "FAIL" || deleteStatus === "FAIL") && (
+        <div ref={infoBoxRef}>
+          <InfoBox type="error" message={t("common.somethingwrong")} />
+        </div>
+      )}
     </div>
   );
 };

@@ -19,7 +19,7 @@ import { IProps, TActions } from "./types";
 import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
-import warningIcon from "../../../assets/warnin-icon.png";
+import warningIcon from "../../../assets/warning-icon.png";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -77,7 +77,6 @@ const Table: FunctionComponent<IProps> = ({
             onClick={() => {
               setCurrentRow(row);
               setOpenDeleteConfirmation(true);
-              onDelete;
             }}
           >
             <Delete color="secondary" />
