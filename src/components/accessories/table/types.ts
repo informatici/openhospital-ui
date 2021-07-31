@@ -12,7 +12,7 @@ export interface IProps {
     key: Key
   ) => (a: any, b: any) => number;
   onEdit?: (row: any) => void;
-  onDelete?: () => void;
+  onDelete?: (row: any) => void;
   onPrint?: () => void;
   onView?: () => void;
 }
