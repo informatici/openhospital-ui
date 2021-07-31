@@ -133,7 +133,11 @@ const PatientExams: FC = () => {
         }
         title={creationMode ? t("lab.created") : t("lab.updated")}
         icon={checkIcon}
-        info={creationMode ? t("lab.createsuccess") : t("lab.updatesuccess")}
+        info={
+          creationMode
+            ? t("lab.createsuccess")
+            : t("lab.updatesuccess", { code: labToEdit.code })
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}

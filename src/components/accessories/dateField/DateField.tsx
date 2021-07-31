@@ -30,8 +30,10 @@ const DateField: FunctionComponent<IProps> = ({
     if (fieldValue === "") {
       setValue(null);
     } else if (moment(+fieldValue).isValid()) {
-      moment(+fieldValue).toDate();
-    } else moment(fieldValue).toDate();
+      setValue(moment(+fieldValue).toDate());
+    } else {
+      setValue(moment(fieldValue).toDate());
+    }
   }, [fieldValue]);
 
   const handleDateChange = (date: Date | null) => {

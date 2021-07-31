@@ -173,16 +173,10 @@
     "type": "Interne/Externe",
     "material": "Matériel",
     "note": "Note",
-    "result": "Resultats"
-  },
-  "angal": {
-    "lab.blood": "Blood",
-    "lab.urine": "Urine",
-    "lab.stool": "Stool",
-    "lab.sputum": "Sputum",
-    "lab.cfs": "cfs",
-    "lab.swabs": "swabs",
-    "lab.tissues": "tissues",
-    "lab.film": "Film"
+    "result": "Resultats",
+    "created": "Examen enregistré",
+    "updated": "Examen à jour",
+    "createsuccess": "Examen du patient enregistré avec succès!",
+    "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!"
   }
 }

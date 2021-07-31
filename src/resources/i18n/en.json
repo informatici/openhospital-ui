@@ -164,16 +164,10 @@
     "type": "IPD/OPD",
     "material": "Material",
     "note": "Note",
-    "result": "Results"
-  },
-  "angal": {
-    "lab.blood": "Blood",
-    "lab.urine": "Urine",
-    "lab.stool": "Stool",
-    "lab.sputum": "Sputum",
-    "lab.cfs": "cfs",
-    "lab.swabs": "swabs",
-    "lab.tissues": "tissues",
-    "lab.film": "Film"
+    "result": "Results",
+    "created": "Patient exam added",
+    "updated": "Patient exam updated",
+    "createsuccess": "Patient exam added successfully!",
+    "updatesuccess": "Patient exam {{code}} updated successfully!"
   }
 }
