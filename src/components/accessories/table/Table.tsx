@@ -17,6 +17,7 @@ import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
 import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -152,6 +153,19 @@ const Table: FunctionComponent<IProps> = ({
       ) : (
         ""
       )}
+
+      <ConfirmationDialog
+        isOpen={openDeleteConfirmation}
+        title={t("common.delete")}
+        info={t("common.deleteconfirmation", {
+          code: currentRow.code,
+        })}
+        icon={warningIcon}
+        primaryButtonLabel="OK"
+        secondaryButtonLabel="Dismiss"
+        handlePrimaryButtonClick={handleDelete}
+        handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
+      />
     </>
   );
 };
