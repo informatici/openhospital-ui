@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -18,6 +18,8 @@ import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
 import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { useTranslation } from "react-i18next";
+import warningIcon from "../../../assets/warnin-icon.png";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -32,13 +34,15 @@ const Table: FunctionComponent<IProps> = ({
   onPrint,
   onView,
 }) => {
+  const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
   const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [currentRow, setCurrentRow] = useState({} as any);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const createSortHandler =
     (property: any) => (event: React.MouseEvent<unknown>) => {
       handleRequestSort(event, property);
@@ -68,7 +72,14 @@ const Table: FunctionComponent<IProps> = ({
         );
       case "delete":
         return (
-          <IconButton size="small" onClick={onDelete}>
+          <IconButton
+            size="small"
+            onClick={() => {
+              setCurrentRow(row);
+              setOpenDeleteConfirmation(true);
+              onDelete;
+            }}
+          >
             <Delete color="secondary" />
           </IconButton>
         );
@@ -92,7 +103,7 @@ const Table: FunctionComponent<IProps> = ({
         >
           {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print") : ""}
-          {onDelete ? renderIcon("delete") : ""}
+          {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );
     }
