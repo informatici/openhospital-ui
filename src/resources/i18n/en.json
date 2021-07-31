@@ -125,7 +125,10 @@
     "emptydata": "No data found!",
     "save": "Save",
     "code": "Code",
-    "update": "update"
+    "update": "update",
+    "delete": "Delete",
+    "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
+    "deletesuccess": "The item with code {{code}} was deleted successfully!"
   },
   "therapy": {
     "newtherapy": "New Therapy",
