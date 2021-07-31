@@ -176,7 +176,6 @@ export const deleteLab =
     dispatch({
       type: DELETE_LAB_LOADING,
     });
-
     labControllerApi.deleteExamUsingDELETE2({ code }).subscribe(
       () => {
         dispatch({

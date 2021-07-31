@@ -126,7 +126,10 @@
     "emptydata": "Aucune donnée trouvée!",
     "save": "Enregistrer",
     "code": "Code",
-    "update": "mettre à jour"
+    "update": "mettre à jour",
+    "delete": "Suppression",
+    "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
+    "deletesuccess": "L'élément de {{code}} a été supprimé avec succès"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -177,6 +180,7 @@
     "created": "Examen enregistré",
     "updated": "Examen à jour",
     "createsuccess": "Examen du patient enregistré avec succès!",
-    "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!"
+    "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!",
+    "deleted": "L'examen du patient supprimé"
   }
 }

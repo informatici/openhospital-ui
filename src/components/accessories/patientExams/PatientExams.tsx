@@ -44,6 +44,8 @@ const PatientExams: FC = () => {
   useEffect(() => {
     dispatch(getMaterials());
     dispatch(getExams());
+    dispatch(createLabReset());
+    dispatch(updateLabReset());
     setCreationMode(true);
   }, [dispatch, getMaterials, getExams]);
 

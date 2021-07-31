@@ -63,16 +63,14 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   }, [dispatch, deleteLabReset]);
 
   useEffect(() => {
-    if (deleteStatus === "SUCCESS") setOpenSuccessDialog(true);
-    if (shouldUpdateTable || deleteStatus === "SUCCESS" || patientCode)
+    if (shouldUpdateTable || patientCode)
       dispatch(getLabsByPatientId(patientCode));
-  }, [
-    dispatch,
-    patientCode,
-    shouldUpdateTable,
-    deleteStatus,
-    getLabsByPatientId,
-  ]);
+  }, [dispatch, patientCode, shouldUpdateTable, getLabsByPatientId]);
+
+  useEffect(() => {
+    if (deleteStatus === "SUCCESS") setOpenSuccessDialog(true);
+    if (deleteStatus === "SUCCESS") dispatch(getLabsByPatientId(patientCode));
+  }, [dispatch, patientCode, deleteStatus, getLabsByPatientId]);
 
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
@@ -108,7 +106,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientExamsTable">
-      {labStatus === "SUCCESS" ? (
+      {labStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
           compareRows={dateComparator}
@@ -121,33 +119,29 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           onEdit={onEdit}
           onView={onEView}
         />
-      ) : (
-        labStatus === "SUCCESS_EMPTY" && (
+      )}
+      {labStatus === "SUCCESS_EMPTY" && (
+        <div ref={infoBoxRef}>
           <InfoBox type="warning" message={t("common.emptydata")} />
-        )
+        </div>
       )}
-
-      {deleteStatus === "SUCCESS" && (
-        <ConfirmationDialog
-          isOpen={openSuccessDialog}
-          title="Patient exam deleted"
-          icon={checkIcon}
-          info={t("common.deletesuccess", { code: deletedObjCode })}
-          primaryButtonLabel="OK"
-          handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
-          handleSecondaryButtonClick={() => {}}
-        />
-      )}
-
       {(deleteStatus === "LOADING" || labStatus === "LOADING") && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
-
       {(labStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
+      <ConfirmationDialog
+        isOpen={openSuccessDialog}
+        title={t("lab.deleted")}
+        icon={checkIcon}
+        info={t("common.deletesuccess", { code: deletedObjCode })}
+        primaryButtonLabel="OK"
+        handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
+        handleSecondaryButtonClick={() => {}}
+      />
     </div>
   );
 };
