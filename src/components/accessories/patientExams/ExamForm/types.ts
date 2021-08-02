@@ -3,7 +3,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IExamProps {
   fields: TFields<ExamFormFieldName>;
-  onSubmit: (lab: LaboratoryDTO, rows: string[]) => void;
+  onSubmit: (lab: LaboratoryDTO, rows: any[]) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;

@@ -8,4 +8,5 @@ export interface IProps {
   options: Array<{ value: string; label: string }>;
   isLoading?: boolean;
   translateOptions?: boolean;
+  disabled?: boolean;
 }

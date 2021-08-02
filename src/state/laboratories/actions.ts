@@ -151,7 +151,6 @@ export const updateLab =
     dispatch({
       type: UPDATE_LAB_LOADING,
     });
-
     labControllerApi
       .updateLaboratoryUsingPUT({ code, labWithRowsDTO })
       .subscribe(

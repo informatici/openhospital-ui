@@ -21,6 +21,7 @@ const SelectField: FunctionComponent<IProps> = ({
   isLoading = false,
   options,
   translateOptions = false,
+  disabled = false,
 }) => {
   const [value, setValue] = useState("");
   const { t } = useTranslation();
@@ -35,7 +36,12 @@ const SelectField: FunctionComponent<IProps> = ({
   };
 
   return (
-    <FormControl variant="outlined" className="selectField" size="small">
+    <FormControl
+      disabled={disabled}
+      variant="outlined"
+      className="selectField"
+      size="small"
+    >
       <InputLabel id={fieldName} error={isValid}>
         {label}
       </InputLabel>

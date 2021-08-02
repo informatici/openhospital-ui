@@ -22,7 +22,7 @@ import {
 import { LaboratoryDTO } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
-import { getExams } from "../../../state/exams/actions";
+import { getExamRows, getExams } from "../../../state/exams/actions";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
 
 const PatientExams: FC = () => {
@@ -75,6 +75,9 @@ const PatientExams: FC = () => {
     lab.exam = exams?.find((item) => item.code === lab.exam);
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
+    lab.examDate = lab.date;
+    lab.inOutPatient = "R";
+    if (labToEdit.code) lab.code = labToEdit.code;
     const labWithRowsDTO = {
       laboratoryDTO: lab,
       laboratoryRowList: rows,
@@ -87,6 +90,7 @@ const PatientExams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryDTO) => {
+    if (row.exam?.code) dispatch(getExamRows(row.exam.code));
     setLabToEdit(row);
     setCreationMode(false);
     scrollToElement(null);

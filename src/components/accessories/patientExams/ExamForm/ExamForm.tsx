@@ -1,4 +1,3 @@
-import { CircularProgress } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
@@ -7,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { ExamDTO } from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -19,6 +19,7 @@ import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
+import ExamRowTable from "../examRowTable/ExamRowTable";
 import "./styles.scss";
 import { ExamProps } from "./types";
 
@@ -33,16 +34,17 @@ const ExamForm: FC<ExamProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [currentExamCode, setCurrentExamCode] = useState("");
+  const [currentExamProcedure, setCurrentExamProcedure] = useState("");
 
   const validationSchema = object({
     date: string().required(t("common.required")),
     exam: string().required(t("common.required")),
-    result: string().required(t("common.required")),
     material: string().required(t("common.required")),
   });
 
-  const [currentExamCode, setCurrentExamCode] = useState("");
   const initialValues = getFromFields(fields, "value");
+  const [rowsData, setRowsData] = useState([{}] as { [k: string]: string }[]);
 
   const materialOptionsSelector = (state: IState) => {
     if (state.laboratories.materials.data) {
@@ -58,9 +60,9 @@ const ExamForm: FC<ExamProps> = ({
     materialOptionsSelector(state)
   );
 
-  const examOptionsSelector = (state: IState) => {
-    if (state.exams.examList.data) {
-      return state.exams.examList.data.map((item) => {
+  const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
+    if (exams) {
+      return exams.map((item) => {
         return {
           value: item.code || "",
           label:
@@ -73,13 +75,13 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
-  const examList = useSelector((state: IState) => examOptionsSelector(state));
+  const examList = useSelector((state: IState) => state.exams.examList.data);
 
   const examRowOptionsSelector = (state: IState) => {
     if (state.exams.examRowsByExamCode.data) {
       return state.exams.examRowsByExamCode.data.map((item) => {
         return {
-          value: item.code + "",
+          value: item.description || "",
           label: item.description || "",
         };
       });
@@ -96,7 +98,8 @@ const ExamForm: FC<ExamProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues, []);
+      console.log("data....: ", rowsData);
+      onSubmit(formattedValues, rowsData);
     },
   });
 
@@ -110,8 +113,15 @@ const ExamForm: FC<ExamProps> = ({
   );
 
   useEffect(() => {
-    if (currentExamCode !== "") dispatch(getExamRows(currentExamCode));
-  }, [currentExamCode, dispatch, getExamRows]);
+    if (currentExamCode) {
+      dispatch(getExamRows(currentExamCode));
+    }
+    if (currentExamCode && examList) {
+      setCurrentExamProcedure(
+        examList?.find((item) => item.code === currentExamCode)?.procedure + ""
+      );
+    }
+  }, [examList, currentExamCode, dispatch, currentExamCode]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -131,9 +141,21 @@ const ExamForm: FC<ExamProps> = ({
       ) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
-        if (fieldName === "exam") setCurrentExamCode(value);
+        if (fieldName === "exam") {
+          setCurrentExamCode(value);
+        }
       },
     [setFieldValue, handleBlur]
+  );
+
+  const onBlurCallbackForTableRow = useCallback(
+    () => (e: React.FocusEvent<any>, label: string, value: string) => {
+      handleBlur(e);
+      let obj: { [k: string]: string } = {};
+      obj[label] = value;
+      setRowsData((arr: any[]) => [...arr, obj]);
+    },
+    [handleBlur]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -189,12 +211,10 @@ const ExamForm: FC<ExamProps> = ({
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
-                options={examList}
+                options={examOptionsSelector(examList)}
                 isLoading={examsLoading}
               />
             </div>
-          </div>
-          <div className="row start-sm center-xs bottom-sm">
             <div className="patientExamForm__item">
               <SelectField
                 fieldName="material"
@@ -205,20 +225,30 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("material")}
                 options={materials}
                 isLoading={materialsLoading}
-                translateOptions={true}
+                translateOptions={false}
               />
             </div>
-            <div className="patientExamForm__item">
-              <SelectField
-                fieldName="result"
-                fieldValue={formik.values.result}
-                label={t("lab.result")}
-                isValid={isValid("result")}
-                errorText={getErrorText("result")}
-                onBlur={onBlurCallback("result")}
-                options={examRows}
-                isLoading={examRowsLaoding}
-              />
+          </div>
+          <div className="row start-sm center-xs bottom-sm">
+            <div className="fullWidth patientExamForm__item">
+              {currentExamProcedure === "2" ? (
+                <ExamRowTable
+                  onBlur={onBlurCallbackForTableRow()}
+                  rows={examRows}
+                />
+              ) : (
+                <SelectField
+                  fieldName="result"
+                  fieldValue={formik.values.result}
+                  label={t("lab.result")}
+                  isValid={isValid("result")}
+                  errorText={getErrorText("result")}
+                  onBlur={onBlurCallback("result")}
+                  options={examRows}
+                  isLoading={examRowsLaoding}
+                  disabled={currentExamCode === ""}
+                />
+              )}
             </div>
           </div>
           <div className="row start-sm center-xs bottom-sm">
