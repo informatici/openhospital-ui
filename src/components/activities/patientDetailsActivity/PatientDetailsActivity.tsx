@@ -15,6 +15,7 @@ import PatientTriage from "../../accessories/patientTriage/PatientTriage";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
 import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
+import Arrow from "../../../assets/arrow-w.svg";
 import {
   Accordion,
   AccordionDetails,
@@ -60,7 +61,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
-  const [expanded, setExpanded] = useState<string | false>("panel_1");
+  const [expanded, setExpanded] = useState<string | false>(false);
 
   const patientDetailTabs: TTabConfig = [
     {
@@ -95,6 +96,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
   ];
+
+  const handleOnExpanded = (section: string) => {
+    setExpanded(section === expanded ? false : section);
+  };
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
@@ -131,123 +136,161 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     </svg>
                   </div>
                   <div className="patientDetails__personalData_sidebar">
-                    <div
-                      className="patientDetails__personalData_edit_button"
-                      onClick={() =>
-                        setActivityTransitionState("TO_PATIENT_EDITING")
-                      }
-                    >
-                      <div className="profilePicture_editIcon">
-                        <EditRoundedIcon
-                          fontSize="small"
-                          style={{ color: "white" }}
-                        />
+                    <div className="patientDetails__personalData_sidebar_header">
+                      <div
+                        className="patientDetails__personalData_edit_button"
+                        onClick={() =>
+                          setActivityTransitionState("TO_PATIENT_EDITING")
+                        }
+                      >
+                        <div className="profilePicture_editIcon">
+                          <EditRoundedIcon
+                            fontSize="small"
+                            style={{ color: "white" }}
+                          />
+                        </div>
+                        <span>{t("patient.titleedit")}</span>
                       </div>
-                      <span>{t("patient.titleedit")}</span>
-                    </div>
-                    <div className="patientDetails__profilePictureContainer">
-                      <ProfilePicture
-                        isEditable={false}
-                        preLoadedPicture={patient.data?.blobPhoto}
-                      />
-                    </div>
-                    <Accordion expanded={expanded === "panel_1"}>
-                      <AccordionSummary onClick={() => setExpanded("panel_1")}>
-                        <p>{t("patient.personaldata")}</p>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.firstname")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
+                      <div className="patientDetails__profilePictureContainer_wrapper">
+                        <div className="patientDetails__profilePictureContainer">
+                          <ProfilePicture
+                            isEditable={false}
+                            preLoadedPicture={patient.data?.blobPhoto}
+                          />
+                        </div>
+                        <div className="patientDetails__header__info">
+                          <div className="patientDetails__header__info__item">
                             {patient.data?.firstName || "-"}
                           </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.secondname")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.secondName || "-"}
+                          <div className="patientDetails__header__info__item">
+                            <strong>{patient.data?.secondName || "-"}</strong>
                           </div>
                         </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.sex")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.sex || "-"}
-                          </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.bloodtype")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.bloodType || "-"}
-                          </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.patientID")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.code || "-"}
-                          </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.city")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.city || "-"}
-                          </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.taxcode")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.taxCode || "-"}
-                          </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.hasinsurance")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.hasInsurance || "-"}
-                          </div>
-                        </div>
-                        <div className="patientDetails__personalData__item">
-                          <div className="patientDetails__personalData__item__label">
-                            {t("patient.telephone")}:
-                          </div>
-                          <div className="patientDetails__personalData__item__value">
-                            {patient.data?.telephone || "-"}
-                          </div>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion>
-                    {patient.data?.note ? (
-                      <Accordion expanded={expanded === "panel_2"}>
+                      </div>
+                    </div>
+
+                    <div className="patientDetails__main_menu">
+                      <h6>User sections</h6>
+                      <div className="patientDetails__main_menu__item">
+                        <span>Esami</span>
+                        <img
+                          src={Arrow}
+                          className="icon_toggle"
+                          alt="Accordion toogle"
+                        />
+                      </div>
+                      <div className="patientDetails__main_menu__item">
+                        <span>Fatturazione</span>
+                        <img
+                          src={Arrow}
+                          className="icon_toggle"
+                          alt="Accordion toogle"
+                        />
+                      </div>
+                      <div className="patientDetails__main_menu__item">
+                        <span>Ricovero</span>
+                        <img
+                          src={Arrow}
+                          className="icon_toggle"
+                          alt="Accordion toogle"
+                        />
+                      </div>
+                      <div className="patientDetails__main_menu__item">
+                        <span>Clinica</span>
+                        <img
+                          src={Arrow}
+                          className="icon_toggle"
+                          alt="Accordion toogle"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="patientDetails__user_info">
+                      <h6>User info</h6>
+                      <Accordion expanded={expanded === "panel_1"}>
                         <AccordionSummary
-                          onClick={() => setExpanded("panel_2")}
+                          onClick={() => handleOnExpanded("panel_1")}
                         >
-                          {t("patient.note")}:
+                          <p>{t("patient.personaldata")}</p>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <div className="patientDetails__personalData__item longText">
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.sex")}:
+                            </div>
                             <div className="patientDetails__personalData__item__value">
-                              {patient.data.note}
+                              {patient.data?.sex || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.bloodtype")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.bloodType || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.patientID")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.code || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.city")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.city || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.taxcode")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.taxCode || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.hasinsurance")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.hasInsurance || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.telephone")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.telephone || "-"}
                             </div>
                           </div>
                         </AccordionDetails>
                       </Accordion>
-                    ) : (
-                      ""
-                    )}
+                      {patient.data?.note ? (
+                        <Accordion expanded={expanded === "panel_2"}>
+                          <AccordionSummary
+                            onClick={() => handleOnExpanded("panel_2")}
+                          >
+                            {t("patient.note")}:
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <div className="patientDetails__personalData__item longText">
+                              <div className="patientDetails__personalData__item__value">
+                                {patient.data.note}
+                              </div>
+                            </div>
+                          </AccordionDetails>
+                        </Accordion>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="patientDetails__content">

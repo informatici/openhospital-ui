@@ -27,6 +27,7 @@
     "secondname": "Second Name",
     "sex": "Sex",
     "opd": "OPD",
+    "menu": "Menu",
     "lastadminission": "Last admission",
     "reasonforvisit": "Reason for visit",
     "treatmentmade": "Treatment made",
@@ -94,7 +95,6 @@
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard"
-
   },
   "common": {
     "results": "Results",
@@ -150,7 +150,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Examinations",
-    "therapy": "Therapy",    
+    "therapy": "Therapy",
     "opd": "Diagnostics",
     "booking": "Prescriptions"
   }

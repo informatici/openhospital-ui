@@ -27,6 +27,7 @@
     "secondname": "2ème nom *",
     "sex": "Sexe",
     "opd": "OPD",
+    "menu": "Menu",
     "lastadminission": "Dernière admission",
     "reasonforvisit": "Raison de la consultation",
     "treatmentmade": "Traitement donné",
@@ -149,7 +150,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Paramètres",
-    "therapy": "Thérapie",    
+    "therapy": "Thérapie",
     "opd": "Diagnostiques",
     "booking": "Prescriptions",
     "bookingdate": "Date",
