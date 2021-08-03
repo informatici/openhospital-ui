@@ -65,7 +65,7 @@
       .patientDetails__personalData_sidebar {
         max-height: 1200px;
         .patientDetails__personalData__item:last-of-type {
-          margin: 10px 30px 20px;
+          // margin: 10px 30px 20px;
         }
       }
     }
@@ -83,38 +83,30 @@
   .patientDetails__personalData_sidebar {
     position: relative;
 
-    .patientDetails__personalData_edit_button {
-      position: relative;
-      cursor: pointer;
-      display: inline-block;
-      width: 100%;
-      top: 20px;
-      left: 20px;
-      .profilePicture_editIcon {
-        display: inline-flex;
-        position: initial;
-        bottom: initial;
-        left: initial;
-        height: 24px;
-        width: 24px;
-        border-width: 2px;
+    .patientDetails__personalData_edit_button_wrapper {
+      padding: 0px 20px;
+      margin-bottom: 20px;
+      .patientDetails__personalData_edit_button {
+        cursor: pointer;
+        width: 100%;
+
+        button {
+          width: 100%;
+        }
 
         svg {
-          font-size: 0.8rem;
+          font-size: 0.925rem;
+          margin-right: 7px;
         }
-      }
-      span {
-        text-decoration: underline;
-        position: relative;
-        margin-left: 5px;
-        color: $c-white;
-        font-size: 0.8rem;
-        top: -3px;
+
+        span {
+          color: $c-white;
+          font-size: 0.7rem;
+        }
       }
     }
 
     .patientDetails__main_menu {
-      padding: 20px 0px;
       margin-bottom: 40px;
 
       h6 {
@@ -134,6 +126,13 @@
 
         &:hover {
           background-color: lighten($c-gray, 10);
+        }
+
+        svg {
+          position: relative;
+          margin-right: 5px;
+          font-size: 1rem;
+          top: 3px;
         }
 
         .icon_toggle {
@@ -164,6 +163,13 @@
         padding: 20px;
         color: $c-grey-lighter;
         font-weight: bold;
+
+        svg {
+          position: relative;
+          margin-right: 5px;
+          font-size: 1rem;
+          top: 3px;
+        }
       }
 
       .accordion_details {
@@ -218,7 +224,7 @@
   .patientDetails__profilePictureContainer_wrapper {
     display: flex;
     padding: 20px;
-    margin: 40px 20px 20px;
+    margin: 20px;
     align-items: center;
     border-radius: 10px;
     background-color: lighten($c-gray, 10%);
@@ -244,11 +250,13 @@
   }
 
   .patientDetails__personalData__item {
+    width: 100%;
+    padding: 7px 20px;
     color: $c-white;
-    margin: 10px 20px;
-    & + .patientDetails__personalData__item {
-      padding-top: 15px;
-      border-top: 1px solid lighten($c-gray, 40%);
+    display: inline-block;
+
+    .patientDetails__personalData__item__label {
+      font-size: 0.85rem;
     }
 
     &:last-child {

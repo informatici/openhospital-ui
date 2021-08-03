@@ -1,7 +1,15 @@
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import {
+  EditRounded,
+  Assignment,
+  Payment,
+  LocalHotel,
+  LocalHospital,
+  Person,
+  Notes,
+} from "@material-ui/icons";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { useParams } from "react-router-dom";
@@ -33,6 +41,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
+import Button from "../../accessories/button/Button";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -137,20 +146,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                   <div className="patientDetails__personalData_sidebar">
                     <div className="patientDetails__personalData_sidebar_header">
-                      <div
-                        className="patientDetails__personalData_edit_button"
-                        onClick={() =>
-                          setActivityTransitionState("TO_PATIENT_EDITING")
-                        }
-                      >
-                        <div className="profilePicture_editIcon">
-                          <EditRoundedIcon
-                            fontSize="small"
-                            style={{ color: "white" }}
-                          />
-                        </div>
-                        <span>{t("patient.titleedit")}</span>
-                      </div>
                       <div className="patientDetails__profilePictureContainer_wrapper">
                         <div className="patientDetails__profilePictureContainer">
                           <ProfilePicture
@@ -169,9 +164,32 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </div>
                     </div>
 
+                    <div className="patientDetails__personalData_edit_button_wrapper">
+                      <div className="patientDetails__personalData_edit_button">
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          onClick={() =>
+                            setActivityTransitionState("TO_PATIENT_EDITING")
+                          }
+                        >
+                          <EditRounded
+                            fontSize="small"
+                            style={{ color: "white" }}
+                          />
+                          <span>{t("patient.titleedit")}</span>
+                        </Button>
+                      </div>
+                    </div>
+
                     <div className="patientDetails__main_menu">
                       <h6>User sections</h6>
                       <div className="patientDetails__main_menu__item">
+                        <Assignment
+                          fontSize="small"
+                          style={{ color: "white" }}
+                        />
                         <span>Esami</span>
                         <img
                           src={Arrow}
@@ -180,6 +198,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div className="patientDetails__main_menu__item">
+                        <Payment fontSize="small" style={{ color: "white" }} />
                         <span>Fatturazione</span>
                         <img
                           src={Arrow}
@@ -188,6 +207,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div className="patientDetails__main_menu__item">
+                        <LocalHotel
+                          fontSize="small"
+                          style={{ color: "white" }}
+                        />
                         <span>Ricovero</span>
                         <img
                           src={Arrow}
@@ -196,6 +219,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div className="patientDetails__main_menu__item">
+                        <LocalHospital
+                          fontSize="small"
+                          style={{ color: "white" }}
+                        />
                         <span>Clinica</span>
                         <img
                           src={Arrow}
@@ -211,7 +238,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         <AccordionSummary
                           onClick={() => handleOnExpanded("panel_1")}
                         >
-                          <p>{t("patient.personaldata")}</p>
+                          <Person fontSize="small" style={{ color: "white" }} />
+                          <span>{t("patient.personaldata")}</span>
                         </AccordionSummary>
                         <AccordionDetails>
                           <div className="patientDetails__personalData__item">
@@ -277,7 +305,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           <AccordionSummary
                             onClick={() => handleOnExpanded("panel_2")}
                           >
-                            {t("patient.note")}:
+                            <Notes
+                              fontSize="small"
+                              style={{ color: "white" }}
+                            />
+                            <span>{t("patient.note")}:</span>
                           </AccordionSummary>
                           <AccordionDetails>
                             <div className="patientDetails__personalData__item longText">
