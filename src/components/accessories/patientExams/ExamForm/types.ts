@@ -1,9 +1,9 @@
-import { LaboratoryDTO, LabWithRowsDTO } from "../../../../generated";
+import { LaboratoryDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IExamProps {
   fields: TFields<ExamFormFieldName>;
-  onSubmit: (lab: LaboratoryDTO, rows: any[]) => void;
+  onSubmit: (lab: LaboratoryDTO, rows: string[]) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;

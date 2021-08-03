@@ -176,11 +176,14 @@
     "type": "Interne/Externe",
     "material": "Matériel",
     "note": "Note",
-    "result": "Resultats",
+    "result": "Résultats",
     "created": "Examen enregistré",
     "updated": "Examen à jour",
     "createsuccess": "Examen du patient enregistré avec succès!",
     "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!",
-    "deleted": "L'examen du patient supprimé"
+    "deleted": "L'examen du patient supprimé",
+    "resultrow": "Entrée",
+    "value": "Valeur",
+    "resultstitle": "Résultats"
   }
 }

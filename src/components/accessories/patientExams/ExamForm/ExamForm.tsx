@@ -37,14 +37,26 @@ const ExamForm: FC<ExamProps> = ({
   const [currentExamCode, setCurrentExamCode] = useState("");
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
 
+  const rowTableHeaders: Array<{
+    label: string;
+    align: "left" | "right" | "center" | "justify";
+  }> = [
+    { label: t("lab.resultrow"), align: "left" },
+    { label: t("lab.value"), align: "right" },
+  ];
+
   const validationSchema = object({
     date: string().required(t("common.required")),
     exam: string().required(t("common.required")),
     material: string().required(t("common.required")),
+    result:
+      currentExamProcedure === "1"
+        ? string().required(t("common.required"))
+        : string(),
   });
 
   const initialValues = getFromFields(fields, "value");
-  const [rowsData, setRowsData] = useState([{}] as { [k: string]: string }[]);
+  const [rowsData, setRowsData] = useState({} as { [k: string]: string });
 
   const materialOptionsSelector = (state: IState) => {
     if (state.laboratories.materials.data) {
@@ -98,8 +110,10 @@ const ExamForm: FC<ExamProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      console.log("data....: ", rowsData);
-      onSubmit(formattedValues, rowsData);
+      onSubmit(
+        formattedValues,
+        Object.values(rowsData).filter((item) => item)
+      );
     },
   });
 
@@ -111,9 +125,14 @@ const ExamForm: FC<ExamProps> = ({
     },
     [setFieldValue]
   );
+  useEffect(() => {
+    if (initialValues["exam"] !== "") {
+      setCurrentExamCode(initialValues["exam"]);
+    }
+  }, [initialValues]);
 
   useEffect(() => {
-    if (currentExamCode) {
+    if (currentExamCode && !examList) {
       dispatch(getExamRows(currentExamCode));
     }
     if (currentExamCode && examList) {
@@ -121,7 +140,7 @@ const ExamForm: FC<ExamProps> = ({
         examList?.find((item) => item.code === currentExamCode)?.procedure + ""
       );
     }
-  }, [examList, currentExamCode, dispatch, currentExamCode]);
+  }, [examList, currentExamCode, dispatch, getExamRows]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -149,11 +168,11 @@ const ExamForm: FC<ExamProps> = ({
   );
 
   const onBlurCallbackForTableRow = useCallback(
-    () => (e: React.FocusEvent<any>, label: string, value: string) => {
-      handleBlur(e);
-      let obj: { [k: string]: string } = {};
-      obj[label] = value;
-      setRowsData((arr: any[]) => [...arr, obj]);
+    () => (label: string, value: string) => {
+      setRowsData((rowObjs: { [k: string]: string }) => {
+        rowObjs[label] = value;
+        return rowObjs;
+      });
     },
     [handleBlur]
   );
@@ -164,12 +183,16 @@ const ExamForm: FC<ExamProps> = ({
     setOpenResetConfirmation(false);
     formik.resetForm();
     resetFormCallback();
+    setCurrentExamProcedure("");
+    setCurrentExamCode("");
   };
 
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
+      setCurrentExamProcedure("");
+      setCurrentExamCode("");
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
@@ -225,7 +248,6 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("material")}
                 options={materials}
                 isLoading={materialsLoading}
-                translateOptions={false}
               />
             </div>
           </div>
@@ -233,6 +255,8 @@ const ExamForm: FC<ExamProps> = ({
             <div className="fullWidth patientExamForm__item">
               {currentExamProcedure === "2" ? (
                 <ExamRowTable
+                  title={t("lab.resultstitle")}
+                  headerData={rowTableHeaders}
                   onBlur={onBlurCallbackForTableRow()}
                   rows={examRows}
                 />
@@ -280,7 +304,7 @@ const ExamForm: FC<ExamProps> = ({
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            info={t("common.resetform", { resetButtonLabel })}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
             secondaryButtonLabel="Dismiss"

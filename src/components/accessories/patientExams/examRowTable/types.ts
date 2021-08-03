@@ -1,7 +1,10 @@
-import { makeStyles } from "@material-ui/core";
-
-export interface IExamRowTableProps {
+export interface IEditableTableProps {
   rows: Array<{ label: string; value: string }>;
-  onBlur: (e: React.FocusEvent<any>, label: string, value: string) => void;
+  onBlur: (label: string, value: string) => void;
   fieldValues?: string[];
+  headerData: Array<{
+    label: string;
+    align: "left" | "right" | "center" | "justify";
+  }>;
+  title: string;
 }

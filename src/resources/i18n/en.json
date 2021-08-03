@@ -172,6 +172,9 @@
     "updated": "Patient exam updated",
     "createsuccess": "Patient exam added successfully!",
     "updatesuccess": "Patient exam {{code}} updated successfully!",
-    "deleted": "Patient Exam deleted"
+    "deleted": "Patient Exam deleted",
+    "resultrow": "Result row",
+    "value": "Value",
+    "resultstitle": "Results"
   }
 }

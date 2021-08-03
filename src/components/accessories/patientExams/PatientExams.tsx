@@ -75,6 +75,7 @@ const PatientExams: FC = () => {
     lab.exam = exams?.find((item) => item.code === lab.exam);
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
+    lab.age = patientData?.age;
     lab.examDate = lab.date;
     lab.inOutPatient = "R";
     if (labToEdit.code) lab.code = labToEdit.code;
