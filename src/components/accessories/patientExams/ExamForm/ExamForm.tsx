@@ -132,7 +132,7 @@ const ExamForm: FC<ExamProps> = ({
   }, [initialValues]);
 
   useEffect(() => {
-    if (currentExamCode && !examList) {
+    if (currentExamCode) {
       dispatch(getExamRows(currentExamCode));
     }
     if (currentExamCode && examList) {
