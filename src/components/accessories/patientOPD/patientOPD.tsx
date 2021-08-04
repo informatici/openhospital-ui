@@ -127,19 +127,14 @@ const PatientOPD: FunctionComponent = ({}) => {
       )}
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS"}
-        title={t("opd.created")}
+        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        title={creationMode ? t("opd.created") : t("opd.updated")}
         icon={checkIcon}
-        info={t("opd.createsuccess")}
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <ConfirmationDialog
-        isOpen={updateStatus === "SUCCESS"}
-        title={t("opd.updated")}
-        icon={checkIcon}
-        info={t("opd.updatesuccess", { code: opdToEdit.code })}
+        info={
+          creationMode
+            ? t("opd.createsuccess")
+            : t("opd.updatesuccess", { code: opdToEdit.code })
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
