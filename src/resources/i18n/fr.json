@@ -35,7 +35,7 @@
     "telephone": "Téléphone",
     "titleedit": "Éditer Patient",
     "personaldata": "Donnés personnels",
-    "parentslivetoghether": "Les deux parents vivants",
+    "parentslivetoghether": "Parents ensemble",
     "insertdataofnewpatient": "Insérez les données du nouveau patient"
   },
   "opd": {
@@ -120,8 +120,14 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Enregistrer",
+    "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
+    "incorrectformat": "Format incorrect",
+    "yes": "Oui",
+    "no": "Non",
+    "unknown": "Inconnu",
+    "male": "Masculin",
+    "female": "Féminin",
     "emptydata": "Aucune donnée trouvée!"
   },
   "therapy": {

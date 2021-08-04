@@ -121,6 +121,12 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "savetherapy": "Save Therapy",
     "required": "This field is required",
+    "incorrectformat": "Is not in correct format",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "male": "Male",
+    "female": "Female",
     "emptydata": "No data found!"
   },
   "therapy": {
