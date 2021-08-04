@@ -14,14 +14,7 @@ export const getFromFields = (
 };
 
 const parseDate = (raw: string) => {
-  let unformatDate = "";
-
-  if (moment(+raw).isValid()) {
-    unformatDate = moment(+raw)
-      .toDate()
-      .toString();
-  } else unformatDate = moment(raw).toDate().toString();
-
+  const unformatDate = new Date(+raw).toString();
   return raw ? Date.parse(unformatDate).toString() : "";
 };
 
@@ -68,7 +61,11 @@ export const updateLabFields = (
       let value = values![key as keyof LaboratoryDTO];
       if (draft[key as string]) {
         return (draft[key as string].value =
-          typeof value === "object" ? (value as ExamDTO).code : value);
+          typeof value === "object"
+            ? (value as ExamDTO).code
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
       }
     });
   });
