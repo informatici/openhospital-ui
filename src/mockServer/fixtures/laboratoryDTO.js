@@ -1,12 +1,12 @@
 export const labDTO = [
     {
         "code": 222,
-        "material": "Blood",
+        "material": "angal.lab.sputum",
         "exam": {
             "code": "01.01",
             "description": "1.1 HB",
             "procedure": 1,
-            "defaultResult": ">=12 (NORMAL)",
+            "defaultResult": "POSITIVE",
             "examtype": {
                 "code": "HB",
                 "description": "1.Haematology"
@@ -14,9 +14,9 @@ export const labDTO = [
             "lock": 1
         },
         "examDate": "2006-11-03T00:00:00.000+0000",
-        "result": ">=12 (NORMAL)",
+        "result": "POSITIVE",
         "lock": 0,
-        "note": "",
+        "note": "After a two weeks",
         "patientCode": 200,
         "patName": "Abernitho Zakaria",
         "inOutPatient": "O",
@@ -26,12 +26,12 @@ export const labDTO = [
     },
     {
         "code": 224,
-        "material": "Blood",
+        "material": "angal.lab.sputum",
         "exam": {
             "code": "01.01",
             "description": "1.1 HB",
             "procedure": 1,
-            "defaultResult": ">=12 (NORMAL)",
+            "defaultResult": "NEGATIVE",
             "examtype": {
                 "code": "HB",
                 "description": "1.Haematology"
@@ -39,9 +39,9 @@ export const labDTO = [
             "lock": 1
         },
         "examDate": "2006-11-03T00:00:00.000+0000",
-        "result": ">=12 (NORMAL)",
+        "result": "NEGATIVE",
         "lock": 0,
-        "note": "",
+        "note": "should take exam after 1 month",
         "patientCode": 200,
         "patName": "Abernitho Zakaria",
         "inOutPatient": "O",
@@ -51,7 +51,7 @@ export const labDTO = [
     },
     {
         "code": 225,
-        "material": "Blood",
+        "material": "angal.lab.sputum",
         "exam": {
             "code": "05.05",
             "description": "5.5 ZN",
@@ -64,9 +64,9 @@ export const labDTO = [
             "lock": 1
         },
         "examDate": "2006-11-03T00:00:00.000+0000",
-        "result": ">=12 (NORMAL)",
+        "result": "POSITIVE",
         "lock": 0,
-        "note": "",
+        "note": "After a week",
         "patientCode": 200,
         "patName": "Abernitho Zakaria",
         "inOutPatient": "O",

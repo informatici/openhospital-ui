@@ -3,7 +3,7 @@ export const examsDTO = [
         "code": "01.01",
         "description": "1.1 HB",
         "procedure": 1,
-        "defaultResult": ">=12 (NORMAL)",
+        "defaultResult": "POSTIVE",
         "examtype": {
             "code": "HB",
             "description": "1.Haematology"
@@ -14,7 +14,7 @@ export const examsDTO = [
         "code": "01.02",
         "description": "1.2 WBC Count",
         "procedure": 1,
-        "defaultResult": "4000 - 7000 (NORMAL)",
+        "defaultResult": "POSTIVE",
         "examtype": {
             "code": "HB",
             "description": "1.Haematology"
