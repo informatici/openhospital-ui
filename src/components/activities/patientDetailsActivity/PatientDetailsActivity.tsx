@@ -34,6 +34,7 @@ import {
   IDispatchProps,
   IStateProps,
   TProps,
+  IUserSection,
   TActivityTransitionState,
 } from "./types";
 import { IState } from "../../../types";
@@ -71,8 +72,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
+  const [userSection, setUserSection] = useState<IUserSection>("exams");
 
-  const patientDetailTabs: TTabConfig = [
+  const defaultConfig: TTabConfig = [
     {
       label: t("nav.summary"),
       path: "/summary",
@@ -108,6 +110,23 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
+  };
+
+  const getRouteConfig = () => {
+    switch (userSection) {
+      case "exams":
+        return defaultConfig;
+        break;
+      case "billing":
+        return defaultConfig;
+        break;
+      case "hospital":
+        return defaultConfig;
+        break;
+      case "clinic":
+        return defaultConfig;
+        break;
+    }
   };
 
   switch (activityTransitionState) {
@@ -184,46 +203,58 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     </div>
 
                     <div className="patientDetails__main_menu">
-                      <h6>User sections</h6>
-                      <div className="patientDetails__main_menu__item">
+                      <h6>{t("patient.usersections")}</h6>
+                      <div
+                        className="patientDetails__main_menu__item"
+                        onClick={() => setUserSection("exams")}
+                      >
                         <Assignment
                           fontSize="small"
                           style={{ color: "white" }}
                         />
-                        <span>Esami</span>
+                        <span>{t("patient.userexams")}:</span>
                         <img
                           src={Arrow}
                           className="icon_toggle"
                           alt="Accordion toogle"
                         />
                       </div>
-                      <div className="patientDetails__main_menu__item">
+                      <div
+                        className="patientDetails__main_menu__item"
+                        onClick={() => setUserSection("billing")}
+                      >
                         <Payment fontSize="small" style={{ color: "white" }} />
-                        <span>Fatturazione</span>
+                        <span>{t("patient.userbilling")}</span>
                         <img
                           src={Arrow}
                           className="icon_toggle"
                           alt="Accordion toogle"
                         />
                       </div>
-                      <div className="patientDetails__main_menu__item">
+                      <div
+                        className="patientDetails__main_menu__item"
+                        onClick={() => setUserSection("hospital")}
+                      >
                         <LocalHotel
                           fontSize="small"
                           style={{ color: "white" }}
                         />
-                        <span>Ricovero</span>
+                        <span>{t("patient.userhospital")}</span>
                         <img
                           src={Arrow}
                           className="icon_toggle"
                           alt="Accordion toogle"
                         />
                       </div>
-                      <div className="patientDetails__main_menu__item">
+                      <div
+                        className="patientDetails__main_menu__item"
+                        onClick={() => setUserSection("clinic")}
+                      >
                         <LocalHospital
                           fontSize="small"
                           style={{ color: "white" }}
                         />
-                        <span>Clinica</span>
+                        <span>{t("patient.userclinic")}</span>
                         <img
                           src={Arrow}
                           className="icon_toggle"
@@ -233,7 +264,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     </div>
 
                     <div className="patientDetails__user_info">
-                      <h6>User info</h6>
+                      <h6>{t("patient.userinfo")}</h6>
                       <Accordion expanded={expanded === "panel_1"}>
                         <AccordionSummary
                           onClick={() => handleOnExpanded("panel_1")}
@@ -327,7 +358,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </div>
                 <div className="patientDetails__content">
                   <RouterTabs
-                    config={patientDetailTabs}
+                    config={getRouteConfig()}
                     defaultRoute="/summary"
                   />
                 </div>
