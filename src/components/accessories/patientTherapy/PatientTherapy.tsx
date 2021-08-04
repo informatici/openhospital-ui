@@ -120,19 +120,14 @@ const PatientTherapy: FC = () => {
       )}
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS"}
-        title={t("therapy.created")}
+        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        title={creationMode ? t("therapy.created") : t("therapy.updated")}
         icon={checkIcon}
-        info={t("therapy.createsuccess")}
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <ConfirmationDialog
-        isOpen={updateStatus === "SUCCESS"}
-        title={t("therapy.updated")}
-        icon={checkIcon}
-        info={t("therapy.updatesuccess", { code: therapyToEdit.therapyID })}
+        info={
+          creationMode
+            ? t("therapy.createsuccess")
+            : t("therapy.updatesuccess", { code: therapyToEdit.therapyID })
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
