@@ -122,13 +122,16 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
+    "emptydata": "Aucune donnée trouvée!",
+    "delete": "Suppression",
+    "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
+    "deletesuccess": "L'élément de {{code}} a été supprimé avec succès",
     "incorrectformat": "Format incorrect",
     "yes": "Oui",
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin",
-    "emptydata": "Aucune donnée trouvée!"
+    "female": "Féminin"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",

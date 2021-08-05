@@ -17,6 +17,10 @@ import {
   GET_OPD_LOADING,
   GET_OPD_SUCCESS,
   GET_OPD_SUCCESS_EMPTY,
+  DELETE_OPD_LOADING,
+  DELETE_OPD_SUCCESS,
+  DELETE_OPD_FAIL,
+  DELETE_OPD_RESET,
 } from "./consts";
 
 const opdControllerApi = new OpdControllerApi(
@@ -89,6 +93,42 @@ export const getOpds =
       dispatch({
         type: GET_OPD_FAIL,
         error: "patient code should not be empty",
+      });
+    }
+  };
+
+export const deleteOpdReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_OPD_RESET,
+    });
+  };
+
+export const deleteOpd =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    if (code) {
+      dispatch({
+        type: DELETE_OPD_LOADING,
+      });
+      opdControllerApi.deleteOpdUsingDELETE({ code }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_OPD_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_OPD_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_OPD_FAIL,
+        error: "OPD code should not be empty",
       });
     }
   };
