@@ -106,22 +106,29 @@ export const deleteOpdReset =
   };
 
 export const deleteOpd =
-  (code: number) =>
+  (code: number | undefined) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: DELETE_OPD_LOADING,
-    });
-    opdControllerApi.deleteOpdUsingDELETE({ code }).subscribe(
-      () => {
-        dispatch({
-          type: DELETE_OPD_SUCCESS,
-        });
-      },
-      (error) => {
-        dispatch({
-          type: DELETE_OPD_FAIL,
-          error,
-        });
-      }
-    );
+    if (code) {
+      dispatch({
+        type: DELETE_OPD_LOADING,
+      });
+      opdControllerApi.deleteOpdUsingDELETE({ code }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_OPD_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_OPD_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_OPD_FAIL,
+        error: "OPD code should not be empty",
+      });
+    }
   };

@@ -82,10 +82,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   const onDelete = (row: OpdDTO) => {
-    if (row.code) {
-      setDeletedObjCode(row.code + "");
-      dispatch(deleteOpd(row.code));
-    }
+    setDeletedObjCode(row.code + "");
+    dispatch(deleteOpd(row.code));
   };
 
   const onEdit = () => {
