@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
-import SelectField from "../../selectField/SelectField";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -119,12 +119,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-        value: string
-      ) => {
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
-
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]
@@ -165,7 +161,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease"
                 fieldValue={formik.values.disease}
                 label={t("opd.disease1")}
@@ -178,7 +174,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease2"
                 fieldValue={formik.values.disease2}
                 label={t("opd.disease2")}
@@ -191,7 +187,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease3"
                 fieldValue={formik.values.disease3}
                 label={t("opd.disease3")}
