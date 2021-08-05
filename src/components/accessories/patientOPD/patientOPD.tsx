@@ -148,7 +148,11 @@ const PatientOPD: FunctionComponent = ({}) => {
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
-
+      <PatientOPDTable
+        handleEdit={onEdit}
+        handleDelete={onDelete}
+        shouldUpdateTable={shouldUpdateTable}
+      />
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
         title={creationMode ? t("opd.created") : t("opd.updated")}
@@ -170,11 +174,6 @@ const PatientOPD: FunctionComponent = ({}) => {
         primaryButtonLabel="OK"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
-      />
-      <PatientOPDTable
-        handleEdit={onEdit}
-        handleDelete={onDelete}
-        shouldUpdateTable={shouldUpdateTable}
       />
     </div>
   );
