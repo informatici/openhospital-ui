@@ -52,7 +52,8 @@
     "created": "Opd Created",
     "updated": "Opd updated",
     "createsuccess": "Opd has been created successfully!",
-    "updatesuccess": "Opd {{code}} has been updated successfully!"
+    "updatesuccess": "Opd {{code}} has been updated successfully!",
+    "deleted": "Opd deleted"
   },
   "examination": {
     "ap": {
@@ -128,7 +129,16 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "savetherapy": "Save Therapy",
     "required": "This field is required",
-    "emptydata": "No data found!"
+    "emptydata": "No data found!",
+    "delete": "Delete",
+    "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
+    "deletesuccess": "The item with code {{code}} was deleted successfully!",
+    "incorrectformat": "Is not in correct format",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "male": "Male",
+    "female": "Female"
   },
   "therapy": {
     "newtherapy": "New Therapy",

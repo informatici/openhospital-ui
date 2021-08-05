@@ -62,7 +62,7 @@ export const updateOpdFields = (
         const value = values![key as keyof OpdDTO];
         return (draft[key as string].value =
           typeof value === "object"
-            ? (value as DiseaseDTO).code
+            ? `${(value as DiseaseDTO).code}`
             : moment(value).isValid()
             ? Date.parse(moment(value).toString())
             : value);

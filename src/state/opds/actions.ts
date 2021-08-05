@@ -21,6 +21,10 @@ import {
   UPDATE_OPD_SUCCESS,
   UPDATE_OPD_FAIL,
   UPDATE_OPD_RESET,
+  DELETE_OPD_LOADING,
+  DELETE_OPD_SUCCESS,
+  DELETE_OPD_FAIL,
+  DELETE_OPD_RESET,
 } from "./consts";
 
 const opdControllerApi = new OpdControllerApi(
@@ -130,4 +134,39 @@ export const updateOpd =
         });
       }
     );
+  };
+export const deleteOpdReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_OPD_RESET,
+    });
+  };
+
+export const deleteOpd =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    if (code) {
+      dispatch({
+        type: DELETE_OPD_LOADING,
+      });
+      opdControllerApi.deleteOpdUsingDELETE({ code }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_OPD_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_OPD_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_OPD_FAIL,
+        error: "OPD code should not be empty",
+      });
+    }
   };

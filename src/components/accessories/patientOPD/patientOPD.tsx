@@ -7,6 +7,8 @@ import { OpdDTO } from "../../../generated";
 import {
   createOpd,
   createOpdReset,
+  deleteOpd,
+  deleteOpdReset,
   updateOpd,
   updateOpdReset,
 } from "../../../state/opds/actions";
@@ -34,12 +36,17 @@ const PatientOPD: FunctionComponent = ({}) => {
 
   const [creationMode, setCreationMode] = useState(true);
 
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+
   const updateStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.updateOpd.status
   );
 
   const createStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.createOpd.status
+  );
+  const deleteStatus = useSelector<IState, string | undefined>(
+    (state) => state.opds.deleteOpd.status
   );
 
   useEffect(() => {
@@ -52,6 +59,7 @@ const PatientOPD: FunctionComponent = ({}) => {
   useEffect(() => {
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
+    dispatch(deleteOpdReset());
     dispatch(getDiseasesOpd());
   }, [dispatch, getDiseasesOpd]);
 
@@ -73,9 +81,16 @@ const PatientOPD: FunctionComponent = ({}) => {
       setCreationMode(true);
       dispatch(createOpdReset());
       dispatch(updateOpdReset());
+      dispatch(deleteOpdReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState, createOpdReset, updateOpdReset]);
+  }, [
+    dispatch,
+    activityTransitionState,
+    createOpdReset,
+    updateOpdReset,
+    deleteOpdReset,
+  ]);
 
   const onSubmit = (opdValuestoSave: OpdDTO) => {
     setShouldResetForm(false);
@@ -93,6 +108,7 @@ const PatientOPD: FunctionComponent = ({}) => {
     setCreationMode(true);
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
+    dispatch(deleteOpdReset());
     setActivityTransitionState("IDLE");
     setShouldUpdateTable(false);
     scrollToElement(null);
@@ -102,6 +118,11 @@ const PatientOPD: FunctionComponent = ({}) => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
+  };
+
+  const onDelete = (code: number | undefined) => {
+    setDeletedObjCode(`${code}` ?? "");
+    dispatch(deleteOpd(code));
   };
 
   return (
@@ -120,7 +141,9 @@ const PatientOPD: FunctionComponent = ({}) => {
         resetFormCallback={resetFormCallback}
       />
 
-      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
+      {(createStatus === "FAIL" ||
+        updateStatus === "FAIL" ||
+        deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -139,8 +162,18 @@ const PatientOPD: FunctionComponent = ({}) => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
+      <ConfirmationDialog
+        isOpen={deleteStatus === "SUCCESS"}
+        title={t("opd.deleted")}
+        icon={checkIcon}
+        info={t("common.deletesuccess", { code: deletedObjCode })}
+        primaryButtonLabel="OK"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => {}}
+      />
       <PatientOPDTable
         handleEdit={onEdit}
+        handleDelete={onDelete}
         shouldUpdateTable={shouldUpdateTable}
       />
     </div>

@@ -35,7 +35,7 @@
     "telephone": "Téléphone",
     "titleedit": "Éditer Patient",
     "personaldata": "Donnés personnels",
-    "parentslivetoghether": "Les deux parents vivants",
+    "parentslivetoghether": "Parents ensemble",
     "insertdataofnewpatient": "Insérez les données du nouveau patient"
   },
   "opd": {
@@ -52,7 +52,8 @@
     "created": "Enregistrement OPD",
     "updated": "Mis à jour OPD",
     "createsuccess": "OPD créé avec succès!",
-    "updatesuccess": "OPD {{code}} mis à jour avec succès!"
+    "updatesuccess": "OPD {{code}} mis à jour avec succès!",
+    "deleted": "Opd supprimée"
   },
   "examination": {
     "ap": {
@@ -127,9 +128,18 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Enregistrer",
+    "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
-    "emptydata": "Aucune donnée trouvée!"
+    "emptydata": "Aucune donnée trouvée!",
+    "delete": "Suppression",
+    "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
+    "deletesuccess": "L'élément de {{code}} a été supprimé avec succès",
+    "incorrectformat": "Format incorrect",
+    "yes": "Oui",
+    "no": "Non",
+    "unknown": "Inconnu",
+    "male": "Masculin",
+    "female": "Féminin"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",

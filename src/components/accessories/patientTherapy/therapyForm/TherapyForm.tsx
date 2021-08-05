@@ -13,9 +13,9 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
@@ -93,10 +93,7 @@ const TherapyForm: FC<TherapyProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-        value: string
-      ) => {
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
       },
@@ -126,7 +123,7 @@ const TherapyForm: FC<TherapyProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="patientTherapyForm__item">
-              <SelectField
+              <AutocompleteField
                 fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
                 label={t("therapy.medical")}

@@ -4,4 +4,5 @@ export const initial: IOpdState = {
   createOpd: { status: "IDLE" },
   updateOpd: { status: "IDLE" },
   getOpds: { status: "IDLE", data: [] },
+  deleteOpd: { status: "IDLE" },
 };

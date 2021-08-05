@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO } from "../../../../generated";
 import { getOpds } from "../../../../state/opds/actions";
@@ -12,11 +12,13 @@ import InfoBox from "../../infoBox/InfoBox";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: <T>(row: T) => void;
+  handleDelete: (code: number | undefined) => void;
 }
 
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
+  handleDelete,
 }) => {
   const { t } = useTranslation();
   const header = ["date"];
@@ -29,8 +31,9 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     note: t("opd.note"),
   };
   const order = ["date"];
-
   const dispatch = useDispatch();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const data = useSelector<IState, OpdDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
@@ -40,7 +43,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
-
   useEffect(() => {
     if (shouldUpdateTable || patientCode) dispatch(getOpds(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
@@ -61,8 +63,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     return results;
   };
 
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: OpdDTO) => {
+    handleDelete(row.code);
   };
 
   const onEdit = (row?: OpdDTO) => {
@@ -73,43 +75,34 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientOpdTable">
-      {(() => {
-        switch (opdStatus) {
-          case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
-          case "LOADING":
-            return (
-              <CircularProgress
-                style={{ marginLeft: "50%", position: "relative" }}
-              />
-            );
-          case "SUCCESS":
-            return (
-              <Table
-                rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
-                tableHeader={header}
-                labelData={label}
-                columnsOrder={order}
-                rowsPerPage={5}
-                onDelete={onDelete}
-                isCollapsabile={true}
-                onEdit={onEdit}
-                onView={onEView}
-              />
-            );
+      {opdStatus === "SUCCESS" ? (
+        <Table
+          rowData={formatDataToDisplay(data)}
+          compareRows={dateComparator}
+          tableHeader={header}
+          labelData={label}
+          columnsOrder={order}
+          rowsPerPage={5}
+          onDelete={onDelete}
+          isCollapsabile={true}
+          onEdit={onEdit}
+          onView={onEView}
+        />
+      ) : (
+        opdStatus === "SUCCESS_EMPTY" && (
+          <InfoBox type="warning" message={t("common.emptydata")} />
+        )
+      )}
+      {opdStatus === "LOADING" && (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
 
-          case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
-
-          default:
-            return;
-        }
-      })()}
+      {opdStatus === "FAIL" && (
+        <div ref={infoBoxRef}>
+          <InfoBox type="error" message={t("common.somethingwrong")} />
+        </div>
+      )}
     </div>
   );
 };
-
 export default PatientOPDTable;
