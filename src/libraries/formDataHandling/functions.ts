@@ -1,6 +1,5 @@
 import { produce } from "immer";
-import moment from "moment";
-import { MedicalDTO, PatientDTO, TherapyRowDTO } from "../../generated";
+import { PatientDTO } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
 export const getFromFields = (

@@ -41,7 +41,7 @@ const TherapyForm: FC<TherapyProps> = ({
         name: "endDate",
         message: t("therapy.validatelastdate"),
         test: function (value) {
-          return moment(value).isSameOrAfter(moment(this.parent.startDate));
+          return moment(+value).isSameOrAfter(moment(+this.parent.startDate));
         },
       }),
   });

@@ -122,7 +122,8 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "savetherapy": "Enregistrer",
     "required": "Ce champ est obligatoire",
-    "emptydata": "Aucune donnée trouvée!"
+    "emptydata": "Aucune donnée trouvée!",
+    "code": "Code"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",

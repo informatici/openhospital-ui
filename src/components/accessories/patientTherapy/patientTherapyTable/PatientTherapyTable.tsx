@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
-import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
+import moment from "moment";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -72,10 +72,14 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
           therapyID: item.therapyID,
           medicalId: medical ? medical.description : item.medicalId,
           startDate: item.startDate
-            ? moment(item.startDate).format("DD/MM/YYYY")
+            ? moment(item.startDate).isValid()
+              ? moment(item.startDate).format("DD/MM/YYYY")
+              : moment(+item.startDate).format("DD/MM/YYYY")
             : "",
           endDate: item.endDate
-            ? moment(item.endDate).format("DD/MM/YYYY")
+            ? moment(item.endDate).isValid()
+              ? moment(item.endDate).format("DD/MM/YYYY")
+              : moment(+item.endDate).format("DD/MM/YYYY")
             : "",
           qty: item.qty,
           freqInDay: item.freqInDay,

@@ -3,8 +3,8 @@ import patientDTO from "./patientDTO";
 const therapyDTO = {
     therapyID: Math.floor(Math.random() * 100 + 1),
     patID: patientDTO,
-    startDate: 1627657080000,
-    endDate: 1629040784000,
+    startDate: "1627657080000",
+    endDate: "1629040784000",
     medicalId: 16,
     qty: 48,
     unitID: 1,

@@ -120,7 +120,8 @@
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "required": "This field is required",
-    "emptydata": "No data found!"
+    "emptydata": "No data found!",
+    "code": "Code"
   },
   "therapy": {
     "newtherapy": "New Therapy",
