@@ -14,6 +14,7 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createLab,
   createLabReset,
+  deleteLab,
   deleteLabReset,
   getMaterials,
   updateLab,
@@ -33,6 +34,9 @@ const PatientExams: FC = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
+
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+
   const [labToEdit, setLabToEdit] = useState({} as LaboratoryDTO);
 
   const [creationMode, setCreationMode] = useState(true);
@@ -46,6 +50,7 @@ const PatientExams: FC = () => {
     dispatch(getExams());
     dispatch(createLabReset());
     dispatch(updateLabReset());
+    dispatch(deleteLabReset());
     setCreationMode(true);
   }, [dispatch, getMaterials, getExams]);
 
@@ -91,10 +96,15 @@ const PatientExams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryDTO) => {
-    if (row.exam?.code) dispatch(getExamRows(row.exam.code));
+    dispatch(getExamRows(row.exam?.code ?? ""));
     setLabToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
+  };
+
+  const onDelete = (code: number | undefined) => {
+    setDeletedObjCode(`${code}` ?? "");
+    dispatch(deleteLab(code));
   };
 
   const resetFormCallback = () => {
@@ -103,6 +113,7 @@ const PatientExams: FC = () => {
     setCreationMode(true);
     dispatch(createLabReset());
     dispatch(updateLabReset());
+    dispatch(deleteLabReset());
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -133,6 +144,12 @@ const PatientExams: FC = () => {
         </div>
       )}
 
+      <PatientExamsTable
+        handleEdit={onEdit}
+        handleDelete={onDelete}
+        shouldUpdateTable={shouldUpdateTable}
+      />
+
       <ConfirmationDialog
         isOpen={
           labStore.createLab.status === "SUCCESS" ||
@@ -149,9 +166,15 @@ const PatientExams: FC = () => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
-      <PatientExamsTable
-        handleEdit={onEdit}
-        shouldUpdateTable={shouldUpdateTable}
+
+      <ConfirmationDialog
+        isOpen={labStore.deleteLab.status === "SUCCESS"}
+        title={t("lab.deleted")}
+        icon={checkIcon}
+        info={t("common.deletesuccess", { code: deletedObjCode })}
+        primaryButtonLabel="OK"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => {}}
       />
     </div>
   );

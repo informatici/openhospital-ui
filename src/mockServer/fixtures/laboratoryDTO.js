@@ -13,7 +13,7 @@ export const labDTO = [
             },
             "lock": 1
         },
-        "examDate": "2006-11-03T00:00:00.000+0000",
+        "examDate": "1628176784000",
         "result": "POSITIVE",
         "lock": 0,
         "note": "After a two weeks",
@@ -22,7 +22,7 @@ export const labDTO = [
         "inOutPatient": "O",
         "age": 78,
         "sex": "M",
-        "date": "2006-11-12T11:37:02.000+0000"
+        "date": "1628176784000"
     },
     {
         "code": 224,
@@ -38,7 +38,7 @@ export const labDTO = [
             },
             "lock": 1
         },
-        "examDate": "2006-11-03T00:00:00.000+0000",
+        "examDate": "1628090384000",
         "result": "NEGATIVE",
         "lock": 0,
         "note": "should take exam after 1 month",
@@ -47,7 +47,7 @@ export const labDTO = [
         "inOutPatient": "O",
         "age": 78,
         "sex": "M",
-        "date": "2006-11-12T11:39:09.000+0000"
+        "date": "1628090384000"
     },
     {
         "code": 225,
@@ -63,7 +63,7 @@ export const labDTO = [
             },
             "lock": 1
         },
-        "examDate": "2006-11-03T00:00:00.000+0000",
+        "examDate": "1627831184000",
         "result": "POSITIVE",
         "lock": 0,
         "note": "After a week",
@@ -72,6 +72,6 @@ export const labDTO = [
         "inOutPatient": "O",
         "age": 78,
         "sex": "M",
-        "date": "2006-11-12T12:11:47.000+0000"
+        "date": "1627831184000"
     }
 ]

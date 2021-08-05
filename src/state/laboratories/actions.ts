@@ -170,22 +170,29 @@ export const updateLab =
   };
 
 export const deleteLab =
-  (code: number) =>
+  (code: number | undefined) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: DELETE_LAB_LOADING,
     });
-    labControllerApi.deleteExamUsingDELETE2({ code }).subscribe(
-      () => {
-        dispatch({
-          type: DELETE_LAB_SUCCESS,
-        });
-      },
-      (error) => {
-        dispatch({
-          type: DELETE_LAB_FAIL,
-          error: error,
-        });
-      }
-    );
+    if (code) {
+      labControllerApi.deleteExamUsingDELETE2({ code }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_LAB_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_LAB_FAIL,
+            error: error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_LAB_FAIL,
+        error: "The code should not be empty",
+      });
+    }
   };

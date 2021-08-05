@@ -111,6 +111,7 @@ const Table: FunctionComponent<IProps> = ({
     if (onDelete) onDelete(currentRow);
     setOpenDeleteConfirmation(false);
   };
+
   return (
     <>
       <TableContainer component={Paper}>

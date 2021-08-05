@@ -27,7 +27,6 @@ const PatientOPD: FunctionComponent<TProps> = ({
   createOpd,
   createOpdReset,
   getDiseasesOpd,
-  getOpds,
   isLoading,
   hasSucceeded,
   hasFailed,
@@ -38,7 +37,7 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(true);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
   useEffect(() => {
     if (hasFailed) {
@@ -54,10 +53,6 @@ const PatientOPD: FunctionComponent<TProps> = ({
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-
-  useEffect(() => {
-    getOpds(patient?.code);
-  }, [patient?.code, shouldUpdateTable, getOpds]);
 
   const userId = useSelector(
     (state: IState) => state.main.authentication.data?.displayName

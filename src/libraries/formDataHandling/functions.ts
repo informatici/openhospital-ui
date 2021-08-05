@@ -1,5 +1,4 @@
 import { produce } from "immer";
-import moment from "moment";
 import { ExamDTO, LaboratoryDTO, PatientDTO } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
@@ -61,11 +60,7 @@ export const updateLabFields = (
       let value = values![key as keyof LaboratoryDTO];
       if (draft[key as string]) {
         return (draft[key as string].value =
-          typeof value === "object"
-            ? (value as ExamDTO).code
-            : moment(value).isValid()
-            ? Date.parse(moment(value).toString())
-            : value);
+          typeof value === "object" ? (value as ExamDTO).code : value);
       }
     });
   });

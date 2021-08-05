@@ -8,26 +8,20 @@ import { CircularProgress } from "@material-ui/core";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
-import {
-  deleteLab,
-  deleteLabReset,
-  getLabsByPatientId,
-} from "../../../../state/laboratories/actions";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../../assets/check-icon.png";
+import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
+  handleDelete: (code: number | undefined) => void;
 }
 
 const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
+  handleDelete,
 }) => {
   const { t } = useTranslation();
-  const [deletedObjCode, setDeletedObjCode] = useState("");
-  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date"];
@@ -49,35 +43,25 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       : []
   );
 
-  const deleteStatus = useSelector<IState, string | undefined>(
-    (state) => state.laboratories.deleteLab.status
-  );
-
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
-
-  useEffect(() => {
-    setOpenSuccessDialog(false);
-    dispatch(deleteLabReset());
-  }, [dispatch, deleteLabReset]);
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode)
       dispatch(getLabsByPatientId(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable, getLabsByPatientId]);
 
-  useEffect(() => {
-    if (deleteStatus === "SUCCESS") setOpenSuccessDialog(true);
-    if (deleteStatus === "SUCCESS") dispatch(getLabsByPatientId(patientCode));
-  }, [dispatch, patientCode, deleteStatus, getLabsByPatientId]);
-
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
       return {
         code: item.code,
-        date: (item.date && moment(item.date).format("DD/MM/YYYY")) || "",
-        exam: item.exam?.description || "",
+        date: !item.date
+          ? ""
+          : moment(+item.date).isValid()
+          ? moment(+item.date).format("DD/MM/YYYY")
+          : moment(item.date).format("DD/MM/YYYY"),
+        exam: item.exam?.description ?? "",
         material: item.material,
         result: item.result,
         note: item.note,
@@ -92,10 +76,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     (state) => state.laboratories.labsByPatientId.data
   );
   const onDelete = (row: LaboratoryDTO) => {
-    if (row.code) {
-      setDeletedObjCode(row.code + "");
-      dispatch(deleteLab(row.code));
-    }
+    handleDelete(row.code);
   };
 
   const onEdit = (row: any) => {
@@ -125,23 +106,14 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           <InfoBox type="warning" message={t("common.emptydata")} />
         </div>
       )}
-      {(deleteStatus === "LOADING" || labStatus === "LOADING") && (
+      {labStatus === "LOADING" && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
-      {(labStatus === "FAIL" || deleteStatus === "FAIL") && (
+      {labStatus === "FAIL" && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
-      <ConfirmationDialog
-        isOpen={openSuccessDialog}
-        title={t("lab.deleted")}
-        icon={checkIcon}
-        info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
-        handlePrimaryButtonClick={() => setOpenSuccessDialog(false)}
-        handleSecondaryButtonClick={() => {}}
-      />
     </div>
   );
 };

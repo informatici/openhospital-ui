@@ -13,9 +13,9 @@ import {
 } from "../../../../libraries/formDataHandling/functions";
 import { getExamRows } from "../../../../state/exams/actions";
 import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
@@ -62,8 +62,8 @@ const ExamForm: FC<ExamProps> = ({
     if (state.laboratories.materials.data) {
       return state.laboratories.materials.data.map((item) => {
         return {
-          value: item + "",
-          label: item + "",
+          value: item,
+          label: item,
         };
       });
     } else return [];
@@ -76,7 +76,7 @@ const ExamForm: FC<ExamProps> = ({
     if (exams) {
       return exams.map((item) => {
         return {
-          value: item.code || "",
+          value: item.code ?? "",
           label:
             (item.description &&
               item.description?.length > 30 &&
@@ -93,8 +93,8 @@ const ExamForm: FC<ExamProps> = ({
     if (state.exams.examRowsByExamCode.data) {
       return state.exams.examRowsByExamCode.data.map((item) => {
         return {
-          value: item.description || "",
-          label: item.description || "",
+          value: item.description ?? "",
+          label: item.description ?? "",
         };
       });
     } else return [];
@@ -137,7 +137,10 @@ const ExamForm: FC<ExamProps> = ({
     }
     if (currentExamCode && examList) {
       setCurrentExamProcedure(
-        examList?.find((item) => item.code === currentExamCode)?.procedure + ""
+        `${
+          examList?.find((item) => item.code === currentExamCode)?.procedure ??
+          ""
+        }`
       );
     }
   }, [examList, currentExamCode, dispatch, getExamRows]);
@@ -154,10 +157,7 @@ const ExamForm: FC<ExamProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-        value: string
-      ) => {
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
         if (fieldName === "exam") {
@@ -227,7 +227,7 @@ const ExamForm: FC<ExamProps> = ({
               />
             </div>
             <div className="patientExamForm__item">
-              <SelectField
+              <AutocompleteField
                 fieldName="exam"
                 fieldValue={formik.values.exam}
                 label={t("lab.exam")}
@@ -239,7 +239,7 @@ const ExamForm: FC<ExamProps> = ({
               />
             </div>
             <div className="patientExamForm__item">
-              <SelectField
+              <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
                 label={t("lab.material")}
@@ -261,7 +261,7 @@ const ExamForm: FC<ExamProps> = ({
                   rows={examRows}
                 />
               ) : (
-                <SelectField
+                <AutocompleteField
                   fieldName="result"
                   fieldValue={formik.values.result}
                   label={t("lab.result")}

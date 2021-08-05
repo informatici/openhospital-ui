@@ -58,28 +58,37 @@ export const getExams =
 export const getExamRows =
   (examCode: string) =>
   (dispatch: Dispatch<IAction<ExamRowDTO[], {}>>): void => {
-    dispatch({
-      type: GET_EXAMROW_LOADING,
-    });
-    examRowControllerApi.getExamRowsByExamCodeUsingGET({ examCode }).subscribe(
-      (payload) => {
-        if (typeof payload === "object" && !isEmpty(payload)) {
-          dispatch({
-            type: GET_EXAMROW_SUCCESS,
-            payload: payload,
-          });
-        } else {
-          dispatch({
-            type: GET_EXAMROW_SUCCESS,
-            payload: [],
-          });
-        }
-      },
-      (error) => {
-        dispatch({
-          type: GET_EXAMROW_FAIL,
-          error,
-        });
-      }
-    );
+    if (examCode !== "") {
+      dispatch({
+        type: GET_EXAMROW_LOADING,
+      });
+      examRowControllerApi
+        .getExamRowsByExamCodeUsingGET({ examCode })
+        .subscribe(
+          (payload) => {
+            if (typeof payload === "object" && !isEmpty(payload)) {
+              dispatch({
+                type: GET_EXAMROW_SUCCESS,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: GET_EXAMROW_SUCCESS,
+                payload: [],
+              });
+            }
+          },
+          (error) => {
+            dispatch({
+              type: GET_EXAMROW_FAIL,
+              error,
+            });
+          }
+        );
+    } else {
+      dispatch({
+        type: GET_EXAMROW_FAIL,
+        error: "Exam code should not be null",
+      });
+    }
   };

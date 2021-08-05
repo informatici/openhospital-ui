@@ -11,8 +11,8 @@ export interface IProps {
     order: TOrder,
     key: Key
   ) => (a: any, b: any) => number;
-  onEdit?: (row: any) => void;
-  onDelete?: (row: any) => void;
+  onEdit?: <T>(row: T) => void;
+  onDelete?: <T>(row: T) => void;
   onPrint?: () => void;
   onView?: () => void;
 }
