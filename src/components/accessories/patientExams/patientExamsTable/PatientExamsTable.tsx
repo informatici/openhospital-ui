@@ -60,7 +60,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           ? ""
           : moment(+item.date).isValid()
           ? moment(+item.date).format("DD/MM/YYYY")
-          : moment(item.date).format("DD/MM/YYYY"),
+          : moment(item.date).isValid()
+          ? moment(item.date).format("DD/MM/YYYY")
+          : "",
         exam: item.exam?.description ?? "",
         material: item.material,
         result: item.result,

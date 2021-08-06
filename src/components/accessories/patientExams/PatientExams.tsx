@@ -25,6 +25,7 @@ import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
 import { getExamRows, getExams } from "../../../state/exams/actions";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
+import { CircularProgress } from "@material-ui/core";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
@@ -136,9 +137,13 @@ const PatientExams: FC = () => {
           labStore.updateLab.status === "LOADING"
         }
       />
+      {labStore.deleteLab.status === "LOADING" && (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
 
       {(labStore.createLab.status === "FAIL" ||
-        labStore.updateLab.status === "FAIL") && (
+        labStore.updateLab.status === "FAIL" ||
+        labStore.deleteLab.status === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
