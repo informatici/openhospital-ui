@@ -73,7 +73,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { values, setFieldValue, resetForm, handleBlur } = formik;
+  const { setFieldValue, resetForm, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
@@ -84,7 +84,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const diseasesOptionsSelector = (state: IState) => {
     return state.diseases.diseasesOpd.data
       ? state.diseases.diseasesOpd.data.map((item) => {
-          return { value: item.code + "", label: item.description + "" };
+          return {
+            value: `${item.code}` ?? "",
+            label: item.description ?? "",
+          };
         })
       : [];
   };
@@ -108,6 +111,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {

@@ -45,7 +45,15 @@
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
     "disease3": "Diagnostic 3",
-    "validatedisease": "Ce diagnostic doit être différent"
+    "validatedisease": "Ce diagnostic doit être différent",
+    "code": "Code",
+    "updateopd": "Mettre à jour",
+    "saveopd": "Enregistrer",
+    "created": "Enregistrement OPD",
+    "updated": "Mis à jour OPD",
+    "createsuccess": "OPD créé avec succès!",
+    "updatesuccess": "OPD {{code}} mis à jour avec succès!",
+    "deleted": "Opd supprimée"
   },
   "examination": {
     "ap": {

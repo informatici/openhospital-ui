@@ -17,6 +17,10 @@ import {
   GET_OPD_LOADING,
   GET_OPD_SUCCESS,
   GET_OPD_SUCCESS_EMPTY,
+  UPDATE_OPD_LOADING,
+  UPDATE_OPD_SUCCESS,
+  UPDATE_OPD_FAIL,
+  UPDATE_OPD_RESET,
   DELETE_OPD_LOADING,
   DELETE_OPD_SUCCESS,
   DELETE_OPD_FAIL,
@@ -57,12 +61,21 @@ export const createOpdReset =
     });
   };
 
+export const updateOpdReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_OPD_RESET,
+    });
+  };
+
 export const getOpds =
   (code: number | undefined) =>
   (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
     dispatch({
       type: GET_OPD_LOADING,
     });
+
     if (code) {
       opdControllerApi
         .getOpdByPatientUsingGET({
@@ -97,6 +110,31 @@ export const getOpds =
     }
   };
 
+export const updateOpd =
+  (
+    code: number,
+    opdValues: Record<string, any>,
+    diseaseList: DiseaseDTO[] | undefined
+  ) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_OPD_LOADING,
+    });
+    const opdDTO = opdDataFormatter(opdValues, diseaseList);
+    opdControllerApi.updateOpdUsingPUT({ code, opdDTO }).subscribe(
+      () => {
+        dispatch({
+          type: UPDATE_OPD_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_OPD_FAIL,
+          error,
+        });
+      }
+    );
+  };
 export const deleteOpdReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {

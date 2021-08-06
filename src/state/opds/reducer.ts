@@ -13,6 +13,10 @@ import {
   GET_OPD_LOADING,
   GET_OPD_SUCCESS,
   GET_OPD_SUCCESS_EMPTY,
+  UPDATE_OPD_FAIL,
+  UPDATE_OPD_LOADING,
+  UPDATE_OPD_RESET,
+  UPDATE_OPD_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IOpdState } from "./types";
@@ -69,6 +73,27 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       break;
     }
 
+    case UPDATE_OPD_LOADING: {
+      draft.updateOpd.status = "LOADING";
+      delete draft.updateOpd.error;
+      break;
+    }
+
+    case UPDATE_OPD_SUCCESS: {
+      draft.updateOpd.status = "SUCCESS";
+      delete draft.updateOpd.error;
+      break;
+    }
+
+    case UPDATE_OPD_FAIL: {
+      draft.updateOpd.status = "FAIL";
+      draft.updateOpd.error = action.error;
+      break;
+    }
+    case UPDATE_OPD_RESET: {
+      draft.updateOpd.status = "IDLE";
+      delete draft.updateOpd.error;
+    }
     case DELETE_OPD_SUCCESS: {
       draft.deleteOpd.status = "SUCCESS";
       delete draft.deleteOpd.error;

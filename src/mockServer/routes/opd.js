@@ -12,6 +12,17 @@ export const opdRoutes = (server) => {
                     break;
             }
         });
+        server.put("/:code").intercept((req, res) => {
+            const code = req.params.code;
+            switch (code) {
+                case "100":
+                    res.status(400);
+                    break;
+                default:
+                    res.status(201);
+                    break;
+            }
+        });
         server.get("/patient/:pcode").intercept((req, res) => {
             const code = req.params.code;
             switch (code) {
