@@ -1,4 +1,5 @@
 import { Checkbox, FormControlLabel } from "@material-ui/core";
+import id from "date-fns/esm/locale/id/index.js";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
@@ -13,9 +14,9 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
@@ -41,7 +42,10 @@ const TherapyForm: FC<TherapyProps> = ({
         name: "endDate",
         message: t("therapy.validatelastdate"),
         test: function (value) {
-          return moment(+value).isSameOrAfter(moment(+this.parent.startDate));
+          if (moment(+value).isValid()) {
+            return moment(+value).isSameOrAfter(moment(+this.parent.startDate));
+          } else
+            return moment(value).isSameOrAfter(moment(this.parent.startDate));
         },
       }),
   });
@@ -52,8 +56,8 @@ const TherapyForm: FC<TherapyProps> = ({
     if (state.medicals.medicalsOrderByName.data) {
       return state.medicals.medicalsOrderByName.data.map((medical) => {
         return {
-          value: medical.code + "",
-          label: medical.description + "",
+          value: medical.code ?? "",
+          label: medical.description ?? "",
         };
       });
     } else return [];
@@ -93,10 +97,7 @@ const TherapyForm: FC<TherapyProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-        value: string
-      ) => {
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
       },
@@ -127,7 +128,7 @@ const TherapyForm: FC<TherapyProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="patientTherapyForm__item">
-              <SelectField
+              <AutocompleteField
                 fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
                 label={t("therapy.medical")}

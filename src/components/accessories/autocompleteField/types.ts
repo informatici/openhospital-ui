@@ -4,7 +4,6 @@ export interface IProps {
   label: string;
   isValid: boolean;
   errorText: string;
-  onBlur: (e: any, value: string) => void;
-  options: Array<{ value: string; label: string }>;
-  translateOptions?: boolean;
+  onBlur: (e: any, value: any) => void;
+  options: Array<{ value: string | number; label: string }>;
 }

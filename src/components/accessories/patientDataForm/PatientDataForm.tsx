@@ -23,6 +23,7 @@ import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "@material-ui/core";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -37,10 +38,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const validationSchema = object({
-    firstName: string().required("This field is required"),
-    secondName: string().required("This field is required"),
-    birthDate: string().required("This field is required"),
-    sex: string().required("This field is required"),
+    firstName: string().required(t("common.required")),
+    secondName: string().required(t("common.required")),
+    birthDate: string().required(t("common.required")),
+    sex: string().required(t("common.required")),
+    telephone: string().matches(
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      t("common.incorrectformat")
+    ),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -163,6 +168,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("sex")}
               onBlur={onBlurCallback("sex")}
               options={options.sex}
+              translateOptions={true}
             />
           </div>
 
@@ -225,6 +231,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("parentTogether")}
               onBlur={onBlurCallback("parentTogether")}
               options={options.parentTogether}
+              translateOptions={true}
             />
           </div>
         </div>
@@ -253,15 +260,19 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("telephone")}
-              theme="regular"
-              label={t("patient.telephone")}
-              isValid={isValid("telephone")}
-              errorText={getErrorText("telephone")}
-              onBlur={formik.handleBlur}
-              type="tel"
-            />
+            <Tooltip title="ex: +237 690000000" placement="bottom">
+              <div>
+                <TextField
+                  field={formik.getFieldProps("telephone")}
+                  theme="regular"
+                  label={t("patient.telephone")}
+                  isValid={isValid("telephone")}
+                  errorText={getErrorText("telephone")}
+                  onBlur={formik.handleBlur}
+                  type="tel"
+                />
+              </div>
+            </Tooltip>
           </div>
         </div>
 
@@ -275,6 +286,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("hasInsurance")}
               onBlur={onBlurCallback("hasInsurance")}
               options={options.hasInsurance}
+              translateOptions={true}
             />
           </div>
         </div>

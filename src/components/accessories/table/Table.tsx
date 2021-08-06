@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -17,6 +17,9 @@ import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
 import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { useTranslation } from "react-i18next";
+import warningIcon from "../../../assets/warning-icon.png";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -34,6 +37,10 @@ const Table: FunctionComponent<IProps> = ({
   const [order, setOrder] = React.useState<TOrder>("desc");
   const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [currentRow, setCurrentRow] = useState({} as any);
+
+  const { t } = useTranslation();
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -67,7 +74,13 @@ const Table: FunctionComponent<IProps> = ({
         );
       case "delete":
         return (
-          <IconButton size="small" onClick={onDelete}>
+          <IconButton
+            size="small"
+            onClick={() => {
+              setOpenDeleteConfirmation(true);
+              setCurrentRow(row);
+            }}
+          >
             <Delete color="secondary" />
           </IconButton>
         );
@@ -91,10 +104,14 @@ const Table: FunctionComponent<IProps> = ({
         >
           {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print") : ""}
-          {onDelete ? renderIcon("delete") : ""}
+          {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );
     }
+  };
+  const handleDelete = () => {
+    if (onDelete) onDelete(currentRow);
+    setOpenDeleteConfirmation(false);
   };
 
   return (
@@ -152,6 +169,19 @@ const Table: FunctionComponent<IProps> = ({
       ) : (
         ""
       )}
+
+      <ConfirmationDialog
+        isOpen={openDeleteConfirmation}
+        title={t("common.delete")}
+        info={t("common.deleteconfirmation", {
+          code: currentRow.code,
+        })}
+        icon={warningIcon}
+        primaryButtonLabel="OK"
+        secondaryButtonLabel="Dismiss"
+        handlePrimaryButtonClick={handleDelete}
+        handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
+      />
     </>
   );
 };

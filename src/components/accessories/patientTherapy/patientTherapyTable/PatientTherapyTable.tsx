@@ -10,6 +10,7 @@ import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import moment from "moment";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -71,16 +72,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
         return {
           therapyID: item.therapyID,
           medicalId: medical ? medical.description : item.medicalId,
-          startDate: item.startDate
-            ? moment(item.startDate).isValid()
-              ? moment(item.startDate).format("DD/MM/YYYY")
-              : moment(+item.startDate).format("DD/MM/YYYY")
-            : "",
-          endDate: item.endDate
-            ? moment(item.endDate).isValid()
-              ? moment(item.endDate).format("DD/MM/YYYY")
-              : moment(+item.endDate).format("DD/MM/YYYY")
-            : "",
+          startDate: item.startDate ? renderDate(item.startDate) : "",
+          endDate: item.endDate ? renderDate(item.endDate) : "",
           qty: item.qty,
           freqInDay: item.freqInDay,
           freqInPeriod: item.freqInPeriod,
@@ -96,7 +89,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     console.log("delete");
   };
 
-  const onEdit = (row: any) => {
+  const onEdit = (row: TherapyRowDTO) => {
     handleEdit(data.find((item) => item.therapyID === row.therapyID));
   };
 

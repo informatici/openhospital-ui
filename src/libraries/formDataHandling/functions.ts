@@ -1,5 +1,6 @@
 import { produce } from "immer";
-import { PatientDTO } from "../../generated";
+import moment from "moment";
+import { DiseaseDTO, OpdDTO, PatientDTO } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
 export const getFromFields = (
@@ -45,8 +46,28 @@ export const updateFields = (
 ): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
-      if (draft[key as string])
+      if (draft[key as string]) {
         return (draft[key as string].value = values![key as keyof PatientDTO]);
+      }
+    });
+  });
+};
+
+export const updateOpdFields = (
+  fields: TFields,
+  values: OpdDTO | undefined
+) => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        const value = values![key as keyof OpdDTO];
+        return (draft[key as string].value =
+          typeof value === "object"
+            ? `${(value as DiseaseDTO).code}`
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
+      }
     });
   });
 };
