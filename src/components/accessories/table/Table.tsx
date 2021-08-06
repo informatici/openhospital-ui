@@ -63,7 +63,12 @@ const Table: FunctionComponent<IProps> = ({
     switch (type) {
       case "edit":
         return (
-          <IconButton size="small" onClick={onEdit}>
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onEdit) onEdit(row);
+            }}
+          >
             <Edit />
           </IconButton>
         );
@@ -97,7 +102,7 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
-          {onEdit ? renderIcon("edit") : ""}
+          {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print") : ""}
           {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
