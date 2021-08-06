@@ -102,18 +102,11 @@ export const getTherapiesByPatientId =
 export const deleteTherapy =
   (code: number | undefined) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
-    if (code) {
-      console.log("code....: ", code);
-      dispatch({
-        type: DELETE_THERAPY_SUCCESS,
-      });
-      /**
-       * endpoint not available
-       */
-    } else {
-      dispatch({
-        type: DELETE_THERAPY_FAIL,
-        error: "Therapy code should not be empty",
-      });
-    }
+    /**
+     * endpoint not available
+     */
+    dispatch({
+      type: DELETE_THERAPY_FAIL,
+      error: "delete feature not yet available!!!",
+    });
   };

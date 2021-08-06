@@ -9,7 +9,6 @@ import {
   deleteTherapy,
 } from "../../../state/therapies/actions";
 import { getMedicals } from "../../../state/medicals/actions";
-import { TherapyTransitionState } from "./types";
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -19,6 +18,8 @@ import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
+
+export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
 const PatientTherapy: FC = () => {
   const { t } = useTranslation();

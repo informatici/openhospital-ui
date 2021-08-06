@@ -5,6 +5,10 @@ import {
   CREATE_EXAMINATION_LOADING,
   CREATE_EXAMINATION_RESET,
   CREATE_EXAMINATION_SUCCESS,
+  DELETE_EXAMINATION_FAIL,
+  DELETE_EXAMINATION_LOADING,
+  DELETE_EXAMINATION_RESET,
+  DELETE_EXAMINATION_SUCCESS,
   SEARCH_EXAMINATION_FAIL,
   SEARCH_EXAMINATION_LOADING,
   SEARCH_EXAMINATION_SUCCESS,
@@ -65,6 +69,32 @@ export default produce(
       case SEARCH_EXAMINATION_FAIL: {
         draft.examinationsByPatientId.status = "FAIL";
         draft.examinationsByPatientId.error = action.error;
+        break;
+      }
+
+      /**
+       * DELETE_EXAMINATION
+       */
+      case DELETE_EXAMINATION_LOADING: {
+        draft.deleteExamination.status = "LOADING";
+        break;
+      }
+
+      case DELETE_EXAMINATION_SUCCESS: {
+        draft.deleteExamination.status = "SUCCESS";
+        delete draft.deleteExamination.error;
+        break;
+      }
+
+      case DELETE_EXAMINATION_FAIL: {
+        draft.deleteExamination.status = "FAIL";
+        draft.deleteExamination.error = action.error;
+        break;
+      }
+
+      case DELETE_EXAMINATION_RESET: {
+        draft.deleteExamination.status = "IDLE";
+        delete draft.deleteExamination.error;
         break;
       }
     }

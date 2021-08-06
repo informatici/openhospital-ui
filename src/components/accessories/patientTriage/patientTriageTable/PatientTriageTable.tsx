@@ -11,13 +11,16 @@ import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleDelete: (code: number | undefined) => void;
 }
 
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
+  handleDelete,
 }) => {
   const { t } = useTranslation();
   const label = {
+    pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),
     pex_height: t("examination.height"),
     pex_weight: t("examination.weight"),
@@ -48,6 +51,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
     return data.map((item) => {
       return {
+        pex_ID: item.pex_ID,
         pex_height: item.pex_height,
         pex_weight: item.pex_weight,
         pex_pa_max: item.pex_pa_max,
@@ -66,8 +70,8 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     (state) => state.examinations.examinationsByPatientId.status
   );
 
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: PatientExaminationDTO) => {
+    handleDelete(row.pex_ID);
   };
 
   return (
