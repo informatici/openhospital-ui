@@ -139,7 +139,8 @@
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin"
+    "female": "Féminin",
+    "code": "Code"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",

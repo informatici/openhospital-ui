@@ -11,6 +11,9 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
+  DELETE_THERAPY_FAIL,
+  DELETE_THERAPY_RESET,
+  DELETE_THERAPY_SUCCESS,
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
@@ -52,6 +55,14 @@ export const createTherapyReset =
     });
   };
 
+export const deleteTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_THERAPY_RESET,
+    });
+  };
+
 export const getTherapiesByPatientId =
   (codePatient: number | undefined) =>
   (dispatch: Dispatch<IAction<TherapyRowDTO[], {}>>): void => {
@@ -84,6 +95,25 @@ export const getTherapiesByPatientId =
       dispatch({
         type: GET_THERAPY_FAIL,
         error: "The patient code should not be null",
+      });
+    }
+  };
+
+export const deleteTherapy =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    if (code) {
+      console.log("code....: ", code);
+      dispatch({
+        type: DELETE_THERAPY_SUCCESS,
+      });
+      /**
+       * endpoint not available
+       */
+    } else {
+      dispatch({
+        type: DELETE_THERAPY_FAIL,
+        error: "Therapy code should not be empty",
       });
     }
   };

@@ -5,6 +5,10 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
+  DELETE_THERAPY_FAIL,
+  DELETE_THERAPY_LOADING,
+  DELETE_THERAPY_RESET,
+  DELETE_THERAPY_SUCCESS,
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
@@ -74,6 +78,29 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
     case GET_THERAPY_FAIL: {
       draft.therapiesByPatientId.status = "FAIL";
       draft.therapiesByPatientId.error = action.error;
+      break;
+    }
+
+    /**
+     * DELETE THERAPY
+     */
+    case DELETE_THERAPY_LOADING: {
+      draft.deleteTherapy.status = "LOADING";
+      break;
+    }
+    case DELETE_THERAPY_SUCCESS: {
+      draft.deleteTherapy.status = "SUCCESS";
+      delete draft.deleteTherapy.error;
+      break;
+    }
+    case DELETE_THERAPY_FAIL: {
+      draft.deleteTherapy.status = "FAIL";
+      draft.deleteTherapy.error = action.error;
+      break;
+    }
+    case DELETE_THERAPY_RESET: {
+      draft.deleteTherapy.status = "IDLE";
+      delete draft.deleteTherapy.error;
       break;
     }
   }

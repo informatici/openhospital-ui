@@ -6,21 +6,25 @@ import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleDelete: (code: number | undefined) => void;
 }
 
-const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
+const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+  handleDelete,
+}) => {
   const { t } = useTranslation();
 
   const header = ["startDate", "endDate"];
 
   const label = {
+    therapyID: t("common.code"),
     startDate: t("therapy.startDate"),
     endDate: t("therapy.endDate"),
     qty: t("therapy.quantity"),
@@ -30,7 +34,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
     medicalId: t("therapy.medical"),
   };
   const order = ["startDate", "endDate"];
-
   const dispatch = useDispatch();
   const data = useSelector<IState, TherapyRowDTO[]>((state) =>
     state.therapies.therapiesByPatientId.data
@@ -47,15 +50,18 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
+
   useEffect(() => {
-    dispatch(getMedicals());
-    dispatch(getTherapiesByPatientId(patientCode));
-  }, [dispatch, patientCode]);
+    if (shouldUpdateTable || patientCode)
+      dispatch(getTherapiesByPatientId(patientCode));
+  }, [dispatch, patientCode, shouldUpdateTable, getTherapiesByPatientId]);
+
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data
       .map((item) => {
         const medical = medicals.find((medoc) => medoc.code === item.medicalId);
         return {
+          therapyID: item.medicalId,
           medicalId: medical ? medical.description : item.medicalId,
           startDate: item.startDate
             ? moment(item.startDate).format("DD/MM/YYYY")
@@ -74,8 +80,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
   const therapyStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
   );
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: TherapyRowDTO) => {
+    handleDelete(row.therapyID);
   };
 
   const onEdit = () => {
