@@ -53,13 +53,10 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           code: item.code,
-          date: !item.date
-            ? ""
-            : moment(+item.date).isValid()
-            ? moment(+item.date).format("DD/MM/YYYY")
-            : moment(item.date).isValid()
-            ? moment(item.date).format("DD/MM/YYYY")
-            : "",
+          date:
+            item.date && moment(+item.date).isValid()
+              ? moment(+item.date).format("DD/MM/YYYY")
+              : "",
           disease: item.disease?.description || "",
           disease2: item.disease2?.description || "",
           disease3: item.disease3?.description || "",

@@ -81,7 +81,7 @@ const ExamForm: FC<ExamProps> = ({
             (item.description &&
               item.description?.length > 30 &&
               item.description.slice(0, 30) + "...") ||
-            item.description + "",
+            (item.description ?? ""),
         };
       });
     } else return [];
@@ -137,10 +137,9 @@ const ExamForm: FC<ExamProps> = ({
     }
     if (currentExamCode && examList) {
       setCurrentExamProcedure(
-        `${
-          examList?.find((item) => item.code === currentExamCode)?.procedure ??
-          ""
-        }`
+        examList
+          ?.find((item) => item.code === currentExamCode)
+          ?.procedure?.toString() ?? ""
       );
     }
   }, [examList, currentExamCode, dispatch, getExamRows]);

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LaboratoryDTO } from "../../../../generated";
 import { IState } from "../../../../types";
@@ -56,13 +56,10 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.code,
-        date: !item.date
-          ? ""
-          : moment(+item.date).isValid()
-          ? moment(+item.date).format("DD/MM/YYYY")
-          : moment(item.date).isValid()
-          ? moment(item.date).format("DD/MM/YYYY")
-          : "",
+        date:
+          item.date && moment(+item.date).isValid()
+            ? moment(+item.date).format("DD/MM/YYYY")
+            : "",
         exam: item.exam?.description ?? "",
         material: item.material,
         result: item.result,
