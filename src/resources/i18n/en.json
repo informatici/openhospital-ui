@@ -27,6 +27,12 @@
     "secondname": "Second Name",
     "sex": "Sex",
     "opd": "OPD",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Last admission",
     "reasonforvisit": "Reason for visit",
     "treatmentmade": "Treatment made",
@@ -102,7 +108,6 @@
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard"
-
   },
   "common": {
     "results": "Results",
@@ -167,7 +172,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Examinations",
-    "therapy": "Therapy",    
+    "therapy": "Therapy",
     "opd": "Diagnostics",
     "booking": "Prescriptions"
   }
