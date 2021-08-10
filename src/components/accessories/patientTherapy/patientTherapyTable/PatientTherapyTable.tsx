@@ -9,7 +9,6 @@ import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
-import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {

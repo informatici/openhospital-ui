@@ -7,9 +7,9 @@ export const convertToSummaryData = (
 ) => {
   const res = data.map(({ ...rest }) => ({
     type: field.type,
-    date: moment(rest[field.dateField]).isValid()
-      ? moment(rest[field.dateField]).format("DD/MM/YYYY")
-      : moment(+rest[field.dateField]).format("DD/MM/YYYY"),
+    date: moment(+rest[field.dateField]).isValid()
+      ? moment(+rest[field.dateField]).format("DD/MM/YYYY")
+      : "",
     note: field.noteField ? rest[field.noteField] : "",
     result: "",
   }));

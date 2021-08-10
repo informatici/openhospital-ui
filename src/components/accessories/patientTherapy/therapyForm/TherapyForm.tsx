@@ -44,8 +44,9 @@ const TherapyForm: FC<TherapyProps> = ({
         test: function (value) {
           if (moment(+value).isValid()) {
             return moment(+value).isSameOrAfter(moment(+this.parent.startDate));
-          } else
+          } else if (moment(value).isValid()) {
             return moment(value).isSameOrAfter(moment(this.parent.startDate));
+          } else return true;
         },
       }),
   });
