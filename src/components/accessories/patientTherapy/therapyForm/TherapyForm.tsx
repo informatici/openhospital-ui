@@ -1,5 +1,4 @@
 import { Checkbox, FormControlLabel } from "@material-ui/core";
-import id from "date-fns/esm/locale/id/index.js";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";

@@ -38,23 +38,21 @@ const PatientOPD: FunctionComponent = ({}) => {
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
-  const updateStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.updateOpd.status
-  );
-
-  const createStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.createOpd.status
-  );
+  const changeStatus = useSelector<IState, string | undefined>((state) => {
+    return state.opds.createOpd.status !== "IDLE"
+      ? state.opds.createOpd.status
+      : state.opds.updateOpd.status;
+  });
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.deleteOpd.status
   );
 
   useEffect(() => {
-    if (createStatus === "FAIL") {
+    if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [createStatus]);
+  }, [changeStatus]);
 
   useEffect(() => {
     dispatch(createOpdReset());
@@ -121,7 +119,7 @@ const PatientOPD: FunctionComponent = ({}) => {
   };
 
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(`${code}` ?? "");
+    setDeletedObjCode(code?.toString() ?? "");
     dispatch(deleteOpd(code));
   };
 
@@ -136,14 +134,12 @@ const PatientOPD: FunctionComponent = ({}) => {
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
         resetButtonLabel={t("common.discard")}
-        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
       />
 
-      {(createStatus === "FAIL" ||
-        updateStatus === "FAIL" ||
-        deleteStatus === "FAIL") && (
+      {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -154,7 +150,7 @@ const PatientOPD: FunctionComponent = ({}) => {
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        isOpen={changeStatus === "SUCCESS"}
         title={creationMode ? t("opd.created") : t("opd.updated")}
         icon={checkIcon}
         info={

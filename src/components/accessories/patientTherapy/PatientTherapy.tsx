@@ -32,24 +32,22 @@ const PatientTherapy: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const updateStatus = useSelector<IState, string | undefined>(
-    (state) => state.therapies.updateTherapy.status
-  );
-
-  const createStatus = useSelector<IState, string | undefined>(
-    (state: IState) => state.therapies.createTherapy.status
-  );
+  const status = useSelector<IState, string | undefined>((state) => {
+    return state.therapies.createTherapy.status !== "IDLE"
+      ? state.therapies.createTherapy.status
+      : state.therapies.updateTherapy.status;
+  });
 
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
   useEffect(() => {
-    if (createStatus === "FAIL") {
+    if (status === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [createStatus]);
+  }, [status]);
 
   useEffect(() => {
     dispatch(createTherapyReset());
@@ -111,16 +109,16 @@ const PatientTherapy: FC = () => {
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        isLoading={status === "LOADING"}
       />
-      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
+      {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        isOpen={status === "SUCCESS"}
         title={creationMode ? t("therapy.created") : t("therapy.updated")}
         icon={checkIcon}
         info={

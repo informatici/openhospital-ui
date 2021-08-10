@@ -85,7 +85,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     return state.diseases.diseasesOpd.data
       ? state.diseases.diseasesOpd.data.map((item) => {
           return {
-            value: `${item.code}` ?? "",
+            value: item.code?.toString() ?? "",
             label: item.description ?? "",
           };
         })
