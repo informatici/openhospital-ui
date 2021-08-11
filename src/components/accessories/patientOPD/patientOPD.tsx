@@ -39,6 +39,11 @@ const PatientOPD: FunctionComponent = ({}) => {
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
   const changeStatus = useSelector<IState, string | undefined>((state) => {
+    /*
+      Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
+      status at the same time,
+      because we use the same form for creation and modification. 
+    */
     return state.opds.createOpd.status !== "IDLE"
       ? state.opds.createOpd.status
       : state.opds.updateOpd.status;

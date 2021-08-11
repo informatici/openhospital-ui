@@ -33,6 +33,11 @@ const PatientTherapy: FC = () => {
   const [creationMode, setCreationMode] = useState(true);
 
   const status = useSelector<IState, string | undefined>((state) => {
+    /*
+      Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
+      status at the same time,
+      because we use the same form for creation and modification. 
+    */
     return state.therapies.createTherapy.status !== "IDLE"
       ? state.therapies.createTherapy.status
       : state.therapies.updateTherapy.status;
