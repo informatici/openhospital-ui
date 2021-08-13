@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import isfLogo from "../../../assets/isf-logo.png";
+import OHFeedback from "../feedback/OHFeedback";
 import "./styles.scss";
 
 const Footer: FunctionComponent = () => {
@@ -17,6 +18,7 @@ const Footer: FunctionComponent = () => {
         </div>
         <div className="footer__infoBox__row">C.F. 94106980264</div>
       </div>
+      <OHFeedback />
       <img src={isfLogo} alt="Open Hospital" />
     </div>
   );
