@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { IState } from "../../../types";
 import "./styles.scss";
+
 const OHFeedback: FC = () => {
   const user = useSelector((state: IState) => state.main.authentication.data);
   jQuery.ajax({
@@ -23,11 +24,14 @@ const OHFeedback: FC = () => {
       },
       // ==== we add the code below to set the field values ====
       fieldValues: {
-        summary: "Give the summary here",
-        description: "Describe your problem here",
+        summary: "Give your feedback...",
+        description: "Give description...",
         priority: "2",
         fullname: user?.displayName,
-        email: "example@gmail.com",
+        email: "example@email.com",
+      },
+      environment: {
+        "OH version": "0.1.0",
       },
     }
   );
