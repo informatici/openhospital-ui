@@ -24,8 +24,8 @@ const OHFeedback: FC = () => {
       },
       // ==== we add the code below to set the field values ====
       fieldValues: {
-        summary: "Give your feedback...",
-        description: "Give description...",
+        summary: "Give your feedback",
+        description: "Sample description",
         priority: "2",
         fullname: user?.displayName,
         email: "example@email.com",
@@ -38,7 +38,7 @@ const OHFeedback: FC = () => {
   return (
     <div className="feedback">
       <Help />
-      <a id="feedback-button">Report feedback</a>
+      <a id="feedback-button">Feedback</a>
     </div>
   );
 };

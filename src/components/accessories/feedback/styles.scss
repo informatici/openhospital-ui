@@ -4,12 +4,16 @@
   .feedback {
     display: flex;
     align-items: center;
+    line-height: 40px;
+    position: fixed;
+    right: 5px;
+    top: 75%;
     & {
       color: $c-color-primary;
       text-decoration: none;
     }
     &:hover{
-      color:$c-white;
+      color:$c-black;
       text-decoration:none; 
       cursor:pointer;  
     }
