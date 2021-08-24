@@ -37,8 +37,9 @@ const OHFeedback: FC = () => {
   );
   return (
     <div className="feedback">
-      <Help />
-      <a id="feedback-button">Feedback</a>
+      <a id="feedback-button">
+        <Help />
+      </a>
     </div>
   );
 };

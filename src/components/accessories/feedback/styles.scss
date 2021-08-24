@@ -2,18 +2,16 @@
 @import "../../../../node_modules/susy/sass/susy";
 
   .feedback {
-    display: flex;
-    align-items: center;
-    line-height: 40px;
-    position: fixed;
-    right: 5px;
-    top: 75%;
+    display: relative;
+    //position: fixed;
+    //right: 0px;
+    //top: 75%;
     & {
-      color: $c-color-primary;
+      color:$c-white;
       text-decoration: none;
     }
-    &:hover{
-      color:$c-black;
+    &:hover{      
+      color: $c-color-primary;
       text-decoration:none; 
       cursor:pointer;  
     }

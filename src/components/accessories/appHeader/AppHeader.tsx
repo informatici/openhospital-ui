@@ -17,6 +17,7 @@ import { connect, useSelector } from "react-redux";
 import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
+import OHFeedback from "../feedback/OHFeedback";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -62,6 +63,11 @@ const AppHeader: FunctionComponent<TProps> = ({
             />
           </Tooltip>
         </div>
+        {navigator.onLine && (
+          <div className="appHeader__help" title="Help">
+            <OHFeedback />
+          </div>
+        )}
       </div>
       <div className="appHeader__bottom">
         <div className="appHeader__background">

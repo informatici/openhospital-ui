@@ -93,7 +93,7 @@ const PatientTriage: FunctionComponent<TProps> = ({
       </div>
       <ConfirmationDialog
         isOpen={hasSucceeded}
-        title="Patient Created"
+        title="Patient Triage Created"
         icon={checkIcon}
         info="The examination registration was successful."
         primaryButtonLabel="Ok"
