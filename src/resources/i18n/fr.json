@@ -42,7 +42,8 @@
     "titleedit": "Éditer Patient",
     "personaldata": "Donnés personnels",
     "parentslivetoghether": "Parents ensemble",
-    "insertdataofnewpatient": "Insérez les données du nouveau patient"
+    "insertdataofnewpatient": "Insérez les données du nouveau patient",
+    "admissions": "Admissions"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -109,7 +110,9 @@
     "newtherapy": "Nouvelle Therapie",
     "managetherapy": "Manage Therapie",
     "editpatient": "Éditer Patient",
-    "searchpatient": "Recherche Patient"
+    "searchpatient": "Recherche Patient",
+    "admission": "Admission",
+    "discharge": "Décharges"
   },
   "common": {
     "results": "Résultats",
@@ -145,7 +148,8 @@
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin"
+    "female": "Féminin",
+    "save": "Enregistrer"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -185,5 +189,12 @@
     "patientregistrationsuccessfull": "Enregistrement du patient complété.",
     "somethingwrong": "Un erreur est survenu, veuillez réessayer plus tard.",
     "searchpatientinstruction": "Si vous n'avez pas de ID patient, remplissez autant de champs que vous pouvez et cliquez rechercher"
+  },
+  "admission": {
+    "admDate": "Date",
+    "admType": "Type",
+    "diseaseIn": "Diagnostic D'entrée",
+    "ward": "Pavillon",
+    "transUnit": "En provenance De l'unité"
   }
 }
