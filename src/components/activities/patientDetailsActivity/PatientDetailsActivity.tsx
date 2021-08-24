@@ -43,6 +43,7 @@ import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import Button from "../../accessories/button/Button";
+import { DischargeContent } from "../../accessories/discharge/discharge";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -104,6 +105,13 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       path: "/booking",
       content: (
         <PatientDetailsContent title="Booking" content={PatientBooking} />
+      ),
+    },
+    {
+      label: "Discharge", //t("nav.booking"),
+      path: "/discharge",
+      content: (
+        <PatientDetailsContent title="Discharge" content={DischargeContent} />
       ),
     },
   ];
