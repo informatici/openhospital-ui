@@ -123,7 +123,6 @@
         cursor: pointer;
         padding: 20px;
         transition: all 0.3s ease-in-out;
-
         &:hover {
           background-color: lighten($c-gray, 10);
         }
@@ -302,4 +301,16 @@
   .footer {
     position: relative;
   }
+    
+  .active {
+    background-color: lighten($c-gray, 10);
+  }
+
+  &.align__element{
+    display: "flex";
+    align-items: "center";
+  }
+
 }
+
+  
