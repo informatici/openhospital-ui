@@ -1,4 +1,4 @@
-import { debounce, FormControl, FormHelperText } from "@material-ui/core";
+import { debounce, FormControl } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
@@ -40,7 +40,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   }, [fieldValue]);
 
   return (
-    <FormControl variant="outlined" className="autocomplete" size="small">
+    <FormControl variant="outlined" className="autocomplete">
       <Autocomplete
         freeSolo
         options={options}
@@ -54,16 +54,15 @@ const AutocompleteField: FunctionComponent<IProps> = ({
         onBlur={handleOnBlur}
         renderInput={(params) => (
           <TextField
+            label={label}
             {...params}
             name={fieldName}
-            label={label}
             variant="outlined"
             error={isValid}
             fullWidth
           />
         )}
       />
-      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };
