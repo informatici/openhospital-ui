@@ -45,6 +45,7 @@ import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import Button from "../../accessories/button/Button";
 import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -85,9 +86,33 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
     {
+      label: t("nav.booking"),
+      path: "/booking",
+      content: (
+        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
+      ),
+    },
+    {
+      label: t("nav.surgicalrecord"),
+      path: "/surgicalRecord",
+      content: (
+        <PatientDetailsContent
+          title="SurgicalRecord"
+          content={SkeletonLoader}
+        />
+      ),
+    },
+    {
       label: t("nav.discharge"),
       path: "/discharge",
-      content: <PatientDetailsContent title="Discharge" content={PatientDischarge} />,
+      content: (
+        <PatientDetailsContent title="Discharge" content={PatientDischarge} />
+      ),
+    },
+    {
+      label: t("nav.note"),
+      path: "/note",
+      content: <PatientDetailsContent title="Note" content={SkeletonLoader} />,
     },
   ];
   const defaultConfig: TTabConfig = [
