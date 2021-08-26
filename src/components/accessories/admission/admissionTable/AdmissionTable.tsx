@@ -22,16 +22,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({}) => {
   };
   const order = ["admDate", "admType"];
 
-  const onDelete = () => {
-    console.log("delete");
-  };
-
-  const onEdit = () => {
-    console.log("update");
-  };
-
-  const onEView = () => {};
-
   return (
     <Table
       rowData={sampleData}
@@ -40,10 +30,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({}) => {
       labelData={label}
       columnsOrder={order}
       rowsPerPage={5}
-      onDelete={onDelete}
       isCollapsabile={true}
-      onEdit={onEdit}
-      onView={onEView}
     />
   );
 };
