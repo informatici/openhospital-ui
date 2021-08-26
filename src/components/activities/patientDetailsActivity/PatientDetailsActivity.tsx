@@ -43,7 +43,8 @@ import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import Button from "../../accessories/button/Button";
-import { DischargeContent } from "../../accessories/discharge/discharge";
+import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
+import PatientAdmission from "../../accessories/admission/PatientAdmission";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -74,6 +75,21 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
   const [userSection, setUserSection] = useState<IUserSection>("exams");
+
+  const admissionsConfig: TTabConfig = [
+    {
+      label: t("nav.admission"),
+      path: "/admission",
+      content: (
+        <PatientDetailsContent title="Admission" content={PatientAdmission} />
+      ),
+    },
+    {
+      label: t("nav.discharge"),
+      path: "/discharge",
+      content: <PatientDetailsContent title="Discharge" content={PatientDischarge} />,
+    },
+  ];
 
   const defaultConfig: TTabConfig = [
     {
@@ -107,13 +123,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         <PatientDetailsContent title="Booking" content={PatientBooking} />
       ),
     },
-    {
-      label: "Discharge", //t("nav.booking"),
-      path: "/discharge",
-      content: (
-        <PatientDetailsContent title="Discharge" content={DischargeContent} />
-      ),
-    },
   ];
 
   const handleOnExpanded = (section: string) => {
@@ -122,18 +131,16 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const getRouteConfig = () => {
     switch (userSection) {
+      case "admissions":
+        return admissionsConfig;
       case "exams":
         return defaultConfig;
-        break;
       case "billing":
         return defaultConfig;
-        break;
       case "hospital":
         return defaultConfig;
-        break;
       case "clinic":
         return defaultConfig;
-        break;
     }
   };
 
@@ -212,6 +219,23 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
                     <div className="patientDetails__main_menu">
                       <h6>{t("patient.usersections")}</h6>
+
+                      <div
+                        className="patientDetails__main_menu__item"
+                        onClick={() => setUserSection("admissions")}
+                      >
+                        <Assignment
+                          fontSize="small"
+                          style={{ color: "white" }}
+                        />
+                        <span>{t("patient.admissions")}:</span>
+                        <img
+                          src={Arrow}
+                          className="icon_toggle"
+                          alt="Accordion toogle"
+                        />
+                      </div>
+
                       <div
                         className="patientDetails__main_menu__item"
                         onClick={() => setUserSection("exams")}

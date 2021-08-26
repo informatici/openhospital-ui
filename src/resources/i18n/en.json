@@ -42,7 +42,8 @@
     "titleedit": "Edit Patient",
     "personaldata": "Personal Data",
     "parentslivetoghether": "Parents live together",
-    "insertdataofnewpatient": "Insert data of new Patient"
+    "insertdataofnewpatient": "Insert data of new Patient",
+    "admissions": "Admissions"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -107,7 +108,9 @@
     "newpatient": "New patient",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
-    "patientdashboard": "Patient Dashboard"
+    "patientdashboard": "Patient Dashboard",
+    "admission": "Admission",
+    "discharge": "Discharges"
   },
   "common": {
     "results": "Results",
@@ -143,7 +146,8 @@
     "no": "No",
     "unknown": "Unknown",
     "male": "Male",
-    "female": "Female"
+    "female": "Female",
+    "save": "Save"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -175,5 +179,20 @@
     "therapy": "Therapy",
     "opd": "Diagnostics",
     "booking": "Prescriptions"
+  },
+  "admission": {
+    "admDate": "Date",
+    "admType": "Type",
+    "diseaseIn": "Diagnosis In",
+    "ward": "Ward",
+    "transUnit": "From Health Unit",
+    "disType": "Discharge Type",
+    "disDate": "Discharge Date",
+    "bedDays": "Bed Days",
+    "diseaseOut1": "Diagnosis Out 1",
+    "diseaseOut2": "Diagnosis Out 2",
+    "diseaseOut3": "Diagnosis Out 3",
+    "cliDiaryCharge": "Clinical Diary Charge",
+    "imageryCharge": "Imagery Charge"
   }
 }
