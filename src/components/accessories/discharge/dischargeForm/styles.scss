@@ -35,6 +35,9 @@
 
     &.halfWidth {
       width: 50%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
     }
 
 
