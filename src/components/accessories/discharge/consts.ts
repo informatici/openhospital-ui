@@ -31,7 +31,7 @@ export const initialFields: TFields<DischargeFormFieldName> = {
   disType: {
     value: "",
     type: "text",
-    options: dischargeTypeOptions
+    options: dischargeTypeOptions,
   },
   bedDays: {
     value: "10",
