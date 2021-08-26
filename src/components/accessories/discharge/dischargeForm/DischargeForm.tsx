@@ -134,7 +134,7 @@ const DischargeForm: FC<DischargeProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientDischargeForm__itemFull row start-sm center-xs">
+            <div className="patientDischargeForm__item fullWidth">
               <AutocompleteField
                 fieldName="diseaseOut1"
                 fieldValue={formik.values.diseaseOut1}
@@ -145,7 +145,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 options={initialFields.diseaseOut1.options ?? []}
               />
             </div>
-            <div className="patientDischargeForm__itemFull row start-sm center-xs">
+            <div className="patientDischargeForm__item fullWidth">
               <AutocompleteField
                 fieldName="diseaseOut2"
                 fieldValue={formik.values.diseaseOut1}
@@ -156,7 +156,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 options={initialFields.diseaseOut2.options ?? []}
               />
             </div>
-            <div className="patientDischargeForm__itemFull row start-sm center-xs">
+            <div className="patientDischargeForm__item fullWidth">
               <AutocompleteField
                 fieldName="diseaseOut3"
                 fieldValue={formik.values.diseaseOut3}
