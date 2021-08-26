@@ -18,4 +18,8 @@
     margin: 0px;
     left: 0px;
   }
+
+  .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+    padding: 6px;
+  }
 }
