@@ -1,17 +1,23 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
-import { sampleData } from "../consts";
+import InfoBox from "../../infoBox/InfoBox";
+import { CircularProgress } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../../../../types";
+import { AdmissionDTO } from "../../../../generated";
+import { getAdmissionsByPatientId } from "../../../../state/admissions/actions";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
 }
 
-const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({}) => {
+const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+}) => {
   const { t } = useTranslation();
 
-  const header = ["admDate", "admType"];
+  const header = ["admDate"];
 
   const label = {
     admDate: t("admission.admDate"),
@@ -20,18 +26,76 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({}) => {
     transUnit: t("admission.transUnit"),
     ward: t("admission.ward"),
   };
-  const order = ["admDate", "admType"];
+  const order = ["admDate"];
+
+  const dispatch = useDispatch();
+
+  const data = useSelector<IState, AdmissionDTO[]>((state) =>
+    state.admissions.admissionsByPatientId.data
+      ? state.admissions.admissionsByPatientId.data
+      : []
+  );
+
+  const patientCode = useSelector<IState, number | undefined>(
+    (state) => state.patients.selectedPatient.data?.code
+  );
+
+  useEffect(() => {
+    if (shouldUpdateTable || patientCode) {
+      dispatch(getAdmissionsByPatientId(patientCode));
+    }
+  }, [shouldUpdateTable, dispatch, patientCode, getAdmissionsByPatientId]);
+
+  const formatDataToDisplay = (data: AdmissionDTO[]) => {
+    return data.map((item) => {
+      return {
+        admDate: item.admDate,
+        admType: item.admType?.description ?? "",
+        diseaseIn: item.diseaseIn?.description ?? "",
+        transUnit: item.userID,
+        ward: item.ward?.description ?? "",
+      };
+    });
+  };
+  const status = useSelector<IState, string | undefined>(
+    (state) => state.admissions.admissionsByPatientId.status
+  );
 
   return (
-    <Table
-      rowData={sampleData}
-      compareRows={dateComparator}
-      tableHeader={header}
-      labelData={label}
-      columnsOrder={order}
-      rowsPerPage={5}
-      isCollapsabile={true}
-    />
+    <div className="patientAdmissionTable">
+      {(() => {
+        switch (status) {
+          case "FAIL":
+            return (
+              <InfoBox type="error" message={t("common.somethingwrong")} />
+            );
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
+
+          case "SUCCESS":
+            return (
+              <Table
+                rowData={formatDataToDisplay(data)}
+                tableHeader={header}
+                labelData={label}
+                columnsOrder={order}
+                rowsPerPage={5}
+                isCollapsabile={true}
+              />
+            );
+
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+          default:
+            return;
+        }
+      })()}
+    </div>
   );
 };
 

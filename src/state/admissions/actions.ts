@@ -55,33 +55,35 @@ export const createAdmissionReset =
   };
 
 export const getAdmissionsByPatientId =
-  (id: number | undefined) =>
+  (patientcode: number | undefined) =>
   (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
     dispatch({
       type: GET_ADMISSION_LOADING,
     });
-    if (id) {
-      admissionControllerApi.getAdmissionsUsingGET({ id }).subscribe(
-        (payload) => {
-          if (Array.isArray(payload) && payload.length > 0) {
+    if (patientcode) {
+      admissionControllerApi
+        .getPatientAdmissionsUsingGET({ patientcode })
+        .subscribe(
+          (payload) => {
+            if (Array.isArray(payload) && payload.length > 0) {
+              dispatch({
+                type: GET_ADMISSION_SUCCESS,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: GET_ADMISSION_SUCCESS_EMPTY,
+                payload: [],
+              });
+            }
+          },
+          (error) => {
             dispatch({
-              type: GET_ADMISSION_SUCCESS,
-              payload: payload,
-            });
-          } else {
-            dispatch({
-              type: GET_ADMISSION_SUCCESS_EMPTY,
-              payload: [],
+              type: GET_ADMISSION_FAIL,
+              error,
             });
           }
-        },
-        (error) => {
-          dispatch({
-            type: GET_ADMISSION_FAIL,
-            error,
-          });
-        }
-      );
+        );
     } else {
       dispatch({
         type: GET_ADMISSION_FAIL,

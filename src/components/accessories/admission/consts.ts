@@ -71,5 +71,3 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     options: diagnosis,
   },
 };
-
-export const sampleData: Record<string, any>[] = [];
