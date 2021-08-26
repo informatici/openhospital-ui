@@ -43,8 +43,8 @@ import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import Button from "../../accessories/button/Button";
+import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
-import { Skeleton } from "@material-ui/lab";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -87,7 +87,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     {
       label: t("nav.discharge"),
       path: "/discharge",
-      content: <PatientDetailsContent title="Discharge" content={Skeleton} />,
+      content: <PatientDetailsContent title="Discharge" content={PatientDischarge} />,
     },
   ];
   const defaultConfig: TTabConfig = [

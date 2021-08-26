@@ -185,6 +185,14 @@
     "admType": "Type",
     "diseaseIn": "Diagnosis In",
     "ward": "Ward",
-    "transUnit": "From Health Unit"
+    "transUnit": "From Health Unit",
+    "disType": "Discharge Type",
+    "disDate": "Discharge Date",
+    "bedDays": "Bed Days",
+    "diseaseOut1": "Diagnosis Out 1",
+    "diseaseOut2": "Diagnosis Out 2",
+    "diseaseOut3": "Diagnosis Out 3",
+    "cliDiaryCharge": "Clinical Diary Charge",
+    "imageryCharge": "Imagery Charge"
   }
 }
