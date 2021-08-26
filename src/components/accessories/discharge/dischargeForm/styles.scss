@@ -7,42 +7,6 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  .patientDischargeForm__itemHalf {
-    margin: 7px 0px;
-    padding: 0px 15px;
-    width: 50%;
-    @include susy-media($narrow) {
-      padding: 0px 10px;
-    }
-    @include susy-media($tablet_land) {
-      padding: 0px 10px;
-    }
-    @include susy-media($tablet_port) {
-      width: 50%;
-    }
-    @include susy-media($smartphone) {
-      width: 100%;
-    }
-    .dateField,
-    .textField,
-    .selectField {
-      width: 100%;
-    }
-
-    &.fullWidth {
-      width: 100%;
-    }
-
-    &.compressed {
-      .textField {
-        float: left;
-        width: 50%;
-        &:nth-of-type(1) {
-          padding-right: 10px;
-        }
-      }
-    }
-  }
   .patientDischargeForm__item {
     margin: 7px 0px;
     padding: 0px 15px;
@@ -68,6 +32,11 @@
     &.fullWidth {
       width: 100%;
     }
+
+    &.halfWidth {
+      width: 50%;
+    }
+
 
     &.compressed {
       .textField {

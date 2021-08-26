@@ -110,7 +110,9 @@
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard",
     "admission": "Admission",
-    "discharge": "Discharges"
+    "discharge": "Discharges",
+    "surgicalrecord": "Surgical Record",
+    "note": "Note"
   },
   "common": {
     "results": "Results",

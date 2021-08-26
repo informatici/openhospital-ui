@@ -45,6 +45,7 @@ import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import Button from "../../accessories/button/Button";
 import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -74,7 +75,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("exams");
+  const [userSection, setUserSection] = useState<IUserSection>("admissions");
 
   const admissionsConfig: TTabConfig = [
     {
@@ -85,12 +86,35 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
     {
+      label: t("nav.booking"),
+      path: "/booking",
+      content: (
+        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
+      ),
+    },
+    {
+      label: t("nav.surgicalrecord"),
+      path: "/surgicalRecord",
+      content: (
+        <PatientDetailsContent
+          title="SurgicalRecord"
+          content={SkeletonLoader}
+        />
+      ),
+    },
+    {
       label: t("nav.discharge"),
       path: "/discharge",
-      content: <PatientDetailsContent title="Discharge" content={PatientDischarge} />,
+      content: (
+        <PatientDetailsContent title="Discharge" content={PatientDischarge} />
+      ),
+    },
+    {
+      label: t("nav.note"),
+      path: "/note",
+      content: <PatientDetailsContent title="Note" content={SkeletonLoader} />,
     },
   ];
-
   const defaultConfig: TTabConfig = [
     {
       label: t("nav.summary"),
@@ -391,7 +415,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 <div className="patientDetails__content">
                   <RouterTabs
                     config={getRouteConfig()}
-                    defaultRoute="/summary"
+                    defaultRoute="/admission"
                   />
                 </div>
               </div>

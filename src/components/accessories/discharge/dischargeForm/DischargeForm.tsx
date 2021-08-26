@@ -169,7 +169,7 @@ const DischargeForm: FC<DischargeProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientDischargeForm__itemHalf">
+            <div className="patientDischargeForm__item halfWidth">
               <TextField
                 field={formik.getFieldProps("cliDiaryCharge")}
                 theme="regular"
@@ -180,7 +180,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 type="text"
               />
             </div>
-            <div className="patientDischargeForm__itemHalf">
+            <div className="patientDischargeForm__item halfWidth">
               <TextField
                 field={formik.getFieldProps("imageryCharge")}
                 theme="regular"

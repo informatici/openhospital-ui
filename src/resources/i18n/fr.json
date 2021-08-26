@@ -112,7 +112,9 @@
     "editpatient": "Éditer Patient",
     "searchpatient": "Recherche Patient",
     "admission": "Admission",
-    "discharge": "Décharges"
+    "discharge": "Décharges",
+    "surgicalrecord": "Dossier Médical",
+    "note": "Note"
   },
   "common": {
     "results": "Résultats",
