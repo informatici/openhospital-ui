@@ -1,18 +1,14 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { object, string, number } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
@@ -36,9 +32,6 @@ const DischargeForm: FC<DischargeProps> = ({
   const validationSchema = object({
     disDate: string().required(t("common.required")),
     disType: string().required(t("common.required")),
-    bedDays: number()
-      .required(t("common.required"))
-      .min(1, t("common.invalidNumber")),
     diseaseOut1: string().required(t("common.required")),
   });
 

@@ -197,6 +197,14 @@
     "admType": "Type",
     "diseaseIn": "Diagnostic D'entrée",
     "ward": "Pavillon",
-    "transUnit": "En provenance De l'unité"
+    "transUnit": "En provenance De l'unité",
+    "disType": "Type de sortie",
+    "disDate": "Date de sortie",
+    "bedDays": "Nombre de jours",
+    "diseaseOut1": "Diagnostic de sortie 1",
+    "diseaseOut2": "Diagnostic de sortie 2",
+    "diseaseOut3": "Diagnostic de sortie 3",
+    "cliDiaryCharge": "Journal clinique",
+    "imageryCharge": "Imagerie"
   }
 }
