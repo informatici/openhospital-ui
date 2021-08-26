@@ -36,7 +36,9 @@ const DischargeForm: FC<DischargeProps> = ({
   const validationSchema = object({
     disDate: string().required(t("common.required")),
     disType: string().required(t("common.required")),
-    bedDays: number().required(t("common.required")).min(1, t("common.invalidNumber")),
+    bedDays: number()
+      .required(t("common.required"))
+      .min(1, t("common.invalidNumber")),
     diseaseOut1: string().required(t("common.required")),
   });
 
@@ -84,7 +86,7 @@ const DischargeForm: FC<DischargeProps> = ({
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
-    formik.resetForm({values: initialFields});
+    formik.resetForm({ values: initialFields });
   };
 
   useEffect(() => {
@@ -103,17 +105,17 @@ const DischargeForm: FC<DischargeProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="patientDischargeForm__item">
-                <DateField
-                    fieldName="disDate"
-                    fieldValue={formik.values.disDate}
-                    disableFuture={false}
-                    theme="regular"
-                    format="dd/MM/yyyy"
-                    isValid={isValid("disDate")}
-                    errorText={getErrorText("disDate")}
-                    label={t("admission.disDate")}
-                    onChange={dateFieldHandleOnChange("disDate")}
-                />
+              <DateField
+                fieldName="disDate"
+                fieldValue={formik.values.disDate}
+                disableFuture={false}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={isValid("disDate")}
+                errorText={getErrorText("disDate")}
+                label={t("admission.disDate")}
+                onChange={dateFieldHandleOnChange("disDate")}
+              />
             </div>
             <div className="patientDischargeForm__item">
               <TextField
@@ -134,47 +136,47 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("disType")}
                 errorText={getErrorText("disType")}
                 onBlur={onBlurCallback("disType")}
-                options={initialFields.disType.options??[]}
+                options={initialFields.disType.options ?? []}
               />
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientDischargeForm__itemFull row start-sm center-xs">
-                <AutocompleteField
-                  fieldName="diseaseOut1"
-                  fieldValue={formik.values.diseaseOut1}
-                  label={t("admission.diseaseOut1")}
-                  isValid={isValid("diseaseOut1")}
-                  errorText={getErrorText("diseaseOut1")}
-                  onBlur={onBlurCallback("diseaseOut1")}
-                  options={initialFields.diseaseOut1.options??[]}
-                />
+            <div className="patientDischargeForm__item fullWidth">
+              <AutocompleteField
+                fieldName="diseaseOut1"
+                fieldValue={formik.values.diseaseOut1}
+                label={t("admission.diseaseOut1")}
+                isValid={isValid("diseaseOut1")}
+                errorText={getErrorText("diseaseOut1")}
+                onBlur={onBlurCallback("diseaseOut1")}
+                options={initialFields.diseaseOut1.options ?? []}
+              />
             </div>
-            <div className="patientDischargeForm__itemFull row start-sm center-xs">
-                <AutocompleteField
-                  fieldName="diseaseOut2"
-                  fieldValue={formik.values.diseaseOut1}
-                  label={t("admission.diseaseOut2")}
-                  isValid={isValid("diseaseOut2")}
-                  errorText={getErrorText("diseaseOut2")}
-                  onBlur={onBlurCallback("diseaseOut2")}
-                  options={initialFields.diseaseOut2.options??[]}
-                />
+            <div className="patientDischargeForm__item fullWidth">
+              <AutocompleteField
+                fieldName="diseaseOut2"
+                fieldValue={formik.values.diseaseOut1}
+                label={t("admission.diseaseOut2")}
+                isValid={isValid("diseaseOut2")}
+                errorText={getErrorText("diseaseOut2")}
+                onBlur={onBlurCallback("diseaseOut2")}
+                options={initialFields.diseaseOut2.options ?? []}
+              />
             </div>
-            <div className="patientDischargeForm__itemFull row start-sm center-xs">
-                <AutocompleteField
-                  fieldName="diseaseOut3"
-                  fieldValue={formik.values.diseaseOut3}
-                  label={t("admission.diseaseOut3")}
-                  isValid={isValid("diseaseOut3")}
-                  errorText={getErrorText("diseaseOut3")}
-                  onBlur={onBlurCallback("diseaseOut3")}
-                  options={initialFields.diseaseOut3.options??[]}
-                />
+            <div className="patientDischargeForm__item fullWidth">
+              <AutocompleteField
+                fieldName="diseaseOut3"
+                fieldValue={formik.values.diseaseOut3}
+                label={t("admission.diseaseOut3")}
+                isValid={isValid("diseaseOut3")}
+                errorText={getErrorText("diseaseOut3")}
+                onBlur={onBlurCallback("diseaseOut3")}
+                options={initialFields.diseaseOut3.options ?? []}
+              />
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientDischargeForm__itemHalf">
+            <div className="patientDischargeForm__item halfWidth">
               <TextField
                 field={formik.getFieldProps("cliDiaryCharge")}
                 theme="regular"
@@ -185,7 +187,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 type="text"
               />
             </div>
-            <div className="patientDischargeForm__itemHalf">
+            <div className="patientDischargeForm__item halfWidth">
               <TextField
                 field={formik.getFieldProps("imageryCharge")}
                 theme="regular"

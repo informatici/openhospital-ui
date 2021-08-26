@@ -1,5 +1,4 @@
 import React, { FC, useRef, useState } from "react";
-import AdmissionsTable from "./admissionTable/AdmissionTable";
 import AdmissionForm from "./admissionForm/AdmissionForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
@@ -34,7 +33,7 @@ const PatientAdmission: FC = () => {
   };
 
   return (
-    <div className="patientTherapy">
+    <div className="patientAdmission">
       <AdmissionForm
         fields={initialFields}
         onSubmit={onSubmit}
@@ -44,7 +43,6 @@ const PatientAdmission: FC = () => {
         resetFormCallback={resetFormCallback}
         isLoading={false}
       />
-      <AdmissionsTable shouldUpdateTable={shouldUpdateTable} />
     </div>
   );
 };
