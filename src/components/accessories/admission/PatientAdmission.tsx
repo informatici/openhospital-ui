@@ -44,6 +44,8 @@ const PatientAdmission: FC = () => {
     setShouldResetForm(false);
     adm.patient = patientData;
     adm.userID = username;
+    adm.abortDate = adm.admDate;
+
     dispatch(createAdmission(adm));
   };
 

@@ -18,7 +18,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const header = ["admDate", "ward"];
+  const header = ["admDate"];
 
   const label = {
     admDate: t("admission.admDate"),
@@ -66,9 +66,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const status = useSelector<IState, string | undefined>(
     (state) => state.admissions.admissionsByPatientId.status
   );
-  const onDelete = () => {
-    console.log("delete");
-  };
 
   return (
     <div className="patientAdmissionTable">
@@ -94,7 +91,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onDelete={onDelete}
               />
             );
 
