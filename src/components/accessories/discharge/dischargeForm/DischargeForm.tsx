@@ -3,12 +3,16 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { object, string, number } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
+import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
@@ -29,6 +33,8 @@ const DischargeForm: FC<DischargeProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const validationSchema = object({
     disDate: string().required(t("common.required")),
     disType: string().required(t("common.required")),
@@ -36,6 +42,7 @@ const DischargeForm: FC<DischargeProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
+  const options = getFromFields(fields, "options");
 
   const formik = useFormik({
     initialValues,
@@ -81,6 +88,43 @@ const DischargeForm: FC<DischargeProps> = ({
     setOpenResetConfirmation(false);
     formik.resetForm({ values: initialFields });
   };
+
+  useEffect(() => {
+    dispatch(getDiseasesIpdOut());
+  }, [dispatch, getDiseasesIpdOut]);
+
+  useEffect(() => {
+    dispatch(getDischargeTypes());
+  }, [dispatch, getDischargeTypes]);
+
+  const diagnosisOptionsSelector = (state: IState) => {
+    if (state.diseases.diseasesIpdOut.data) {
+      return state.diseases.diseasesIpdOut.data.map((diseaseOut) => {
+        return {
+          value: diseaseOut.code?.toString() ?? "",
+          label: diseaseOut.description ?? "",
+        };
+      });
+    } else return [];
+  };
+
+  const diagnosisOptions = useSelector((state: IState) =>
+    diagnosisOptionsSelector(state)
+  );
+
+  const typesOptionsSelector = (state: IState) => {
+    if (state.dischargeTypes.allDischargeTypes.data) {
+      return state.dischargeTypes.allDischargeTypes.data.map((type) => {
+        return {
+          value: type.code ?? "",
+          label: type.description ?? "",
+        };
+      });
+    } else return [];
+  };
+  const typeOptions = useSelector((state: IState) =>
+    typesOptionsSelector(state)
+  );
 
   useEffect(() => {
     if (shouldResetForm) {
@@ -129,7 +173,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("disType")}
                 errorText={getErrorText("disType")}
                 onBlur={onBlurCallback("disType")}
-                options={initialFields.disType.options ?? []}
+                options={typeOptions}
               />
             </div>
           </div>
@@ -142,7 +186,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut1")}
                 errorText={getErrorText("diseaseOut1")}
                 onBlur={onBlurCallback("diseaseOut1")}
-                options={initialFields.diseaseOut1.options ?? []}
+                options={diagnosisOptions}
               />
             </div>
             <div className="patientDischargeForm__item fullWidth">
@@ -153,7 +197,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut2")}
                 errorText={getErrorText("diseaseOut2")}
                 onBlur={onBlurCallback("diseaseOut2")}
-                options={initialFields.diseaseOut2.options ?? []}
+                options={diagnosisOptions}
               />
             </div>
             <div className="patientDischargeForm__item fullWidth">
@@ -164,7 +208,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut3")}
                 errorText={getErrorText("diseaseOut3")}
                 onBlur={onBlurCallback("diseaseOut3")}
-                options={initialFields.diseaseOut3.options ?? []}
+                options={diagnosisOptions}
               />
             </div>
           </div>

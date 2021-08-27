@@ -12,6 +12,7 @@ import { therapyRoutes } from "./routes/therapies";
 import { medicalRoutes } from "./routes/medicals";
 import { admissionRoutes } from "./routes/admissions";
 import { admissionTypesRoutes } from "./routes/admissionTypes";
+import { dischargeTypesRoutes } from "./routes/dischargeTypes";
 import { wardsRoutes } from "./routes/wards";
 
 export function makeServer() {
@@ -24,9 +25,9 @@ export function makeServer() {
   const { server } = polly;
 
   server.host(BASE_PATH, () => {
+    userRoutes(server);
     authRoutes(server);
     patientRoutes(server);
-    userRoutes(server);
     visitRoutes(server);
     examinationsRoutes(server);
     therapyRoutes(server);
@@ -35,6 +36,7 @@ export function makeServer() {
     medicalRoutes(server);
     admissionRoutes(server);
     admissionTypesRoutes(server);
+    dischargeTypesRoutes(server);
     wardsRoutes(server);
   });
   return server;

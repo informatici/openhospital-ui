@@ -9,10 +9,6 @@ import {
   GET_ADMISSION_LOADING,
   GET_ADMISSION_SUCCESS,
   GET_ADMISSION_SUCCESS_EMPTY,
-  GET_CURRENTADMISSION_FAIL,
-  GET_CURRENTADMISSION_LOADING,
-  GET_CURRENTADMISSION_SUCCESS,
-  GET_CURRENTADMISSION_SUCCESS_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { IAdmissionsState } from "./types";
@@ -70,33 +66,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case GET_ADMISSION_FAIL: {
       draft.admissionsByPatientId.status = "FAIL";
       draft.admissionsByPatientId.error = action.error;
-      break;
-    }
-
-    /**
-     * GET_CURRENTADMISSION
-     */
-    case GET_CURRENTADMISSION_LOADING: {
-      draft.currentAdmissionByPatientId.status = "LOADING";
-      break;
-    }
-
-    case GET_CURRENTADMISSION_SUCCESS: {
-      draft.currentAdmissionByPatientId.status = "SUCCESS";
-      draft.currentAdmissionByPatientId.data = action.payload;
-      delete draft.currentAdmissionByPatientId.error;
-      break;
-    }
-
-    case GET_CURRENTADMISSION_SUCCESS_EMPTY: {
-      draft.currentAdmissionByPatientId.status = "SUCCESS_EMPTY";
-      draft.currentAdmissionByPatientId.data = undefined;
-      delete draft.currentAdmissionByPatientId.error;
-      break;
-    }
-    case GET_CURRENTADMISSION_FAIL: {
-      draft.currentAdmissionByPatientId.status = "FAIL";
-      draft.currentAdmissionByPatientId.error = action.error;
       break;
     }
   }

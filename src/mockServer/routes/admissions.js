@@ -29,5 +29,19 @@ export const admissionRoutes = (server) => {
                     res.status(200).json([admissionDTO, admissionDTO, admissionDTO]);
             }
         });
+        server.get("/current?patientcode").intercept((req, res) => {
+            const code = req.params.patientcode;
+            switch (code) {
+                case "10000":
+                    res.status(400);
+                    break;
+                case "21266":
+                    res.status(204);
+                    res.body = null;
+                    break;
+                default:
+                    res.status(200).json(admissionDTO);
+            }
+        });
     });
 };

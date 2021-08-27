@@ -9,6 +9,7 @@ import { IDiseaseState } from "./state/diseases/types";
 import { IAdmissionsState } from "./state/admissions/types";
 import { IAdmissionTypeState } from "./state/admissionTypes/types";
 import { IWardState } from "./state/ward/types";
+import { IDischargeTypeState } from "./state/dischargeTypes/types";
 export interface IState {
   main: IMainState;
   patients: IPatientsState;
@@ -20,6 +21,8 @@ export interface IState {
   medicals: IMedicalState;
   admissions: IAdmissionsState;
   admissionTypes: IAdmissionTypeState;
+  discharges: IAdmissionsState;
+  dischargeTypes: IDischargeTypeState;
   wards: IWardState;
 }
 
