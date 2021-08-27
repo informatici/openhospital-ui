@@ -7,6 +7,8 @@ import { ISummaryState } from "./state/summary/types";
 import { ITherapiesState } from "./state/therapies/types";
 import { IDiseaseState } from "./state/diseases/types";
 import { IAdmissionsState } from "./state/admissions/types";
+import { IAdmissionTypeState } from "./state/admissionTypes/types";
+import { IWardState } from "./state/ward/types";
 export interface IState {
   main: IMainState;
   patients: IPatientsState;
@@ -17,6 +19,8 @@ export interface IState {
   opds: IOpdState;
   medicals: IMedicalState;
   admissions: IAdmissionsState;
+  admissionTypes: IAdmissionTypeState;
+  wards: IWardState;
 }
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js

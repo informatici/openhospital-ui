@@ -3,12 +3,17 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
+import { getDiseasesIpdIn } from "../../../../state/diseases/actions";
+import { getWards } from "../../../../state/ward/actions";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
@@ -28,6 +33,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const validationSchema = object({
     ward: string().required(t("common.required")),
     admDate: string().required(t("common.required")),
@@ -89,6 +96,61 @@ const AdmissionForm: FC<AdmissionProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
+  useEffect(() => {
+    dispatch(getDiseasesIpdIn());
+  }, [dispatch, getDiseasesIpdIn]);
+
+  useEffect(() => {
+    dispatch(getAdmissionTypes());
+  }, [dispatch, getAdmissionTypes]);
+
+  useEffect(() => {
+    dispatch(getWards());
+  }, [dispatch, getWards]);
+
+  const diagnosisOptionsSelector = (state: IState) => {
+    if (state.diseases.diseasesIpdIn.data) {
+      return state.diseases.diseasesIpdIn.data.map((diseaseIn) => {
+        return {
+          value: diseaseIn.code?.toString() ?? "",
+          label: diseaseIn.description ?? "",
+        };
+      });
+    } else return [];
+  };
+
+  const diagnosisOptions = useSelector((state: IState) =>
+    diagnosisOptionsSelector(state)
+  );
+
+  const typesOptionsSelector = (state: IState) => {
+    if (state.admissionTypes.allAdmissionTypes.data) {
+      return state.admissionTypes.allAdmissionTypes.data.map((type) => {
+        return {
+          value: type.code ?? "",
+          label: type.description ?? "",
+        };
+      });
+    } else return [];
+  };
+  const typeOptions = useSelector((state: IState) =>
+    typesOptionsSelector(state)
+  );
+
+  const wardOptionsSelector = (state: IState) => {
+    if (state.wards.allWards.data) {
+      return state.wards.allWards.data.map((type) => {
+        return {
+          value: type.code ?? "",
+          label: type.description ?? "",
+        };
+      });
+    } else return [];
+  };
+  const wardOptions = useSelector((state: IState) =>
+    wardOptionsSelector(state)
+  );
+
   return (
     <>
       <div className="patientAdmissionForm">
@@ -105,7 +167,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("ward")}
                 errorText={getErrorText("ward")}
                 onBlur={onBlurCallback("ward")}
-                options={options.ward}
+                options={wardOptions}
               />
             </div>
             <div className="patientAdmissionForm__item">
@@ -143,7 +205,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("admType")}
                 errorText={getErrorText("admType")}
                 onBlur={onBlurCallback("admType")}
-                options={options.admType}
+                options={typeOptions}
               />
             </div>
           </div>
@@ -156,7 +218,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("diseaseIn")}
                 errorText={getErrorText("diseaseIn")}
                 onBlur={onBlurCallback("diseaseIn")}
-                options={options.diseaseIn}
+                options={diagnosisOptions}
               />
             </div>
           </div>

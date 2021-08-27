@@ -25,6 +25,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     diseaseIn: t("admission.diseaseIn"),
     transUnit: t("admission.transUnit"),
     ward: t("admission.ward"),
+    note: "Note",
   };
   const order = ["admDate"];
 
@@ -47,13 +48,15 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   }, [shouldUpdateTable, dispatch, patientCode, getAdmissionsByPatientId]);
 
   const formatDataToDisplay = (data: AdmissionDTO[]) => {
+    console.log("data.....: ", data);
     return data.map((item) => {
       return {
         admDate: item.admDate,
-        admType: item.admType?.description ?? "",
-        diseaseIn: item.diseaseIn?.description ?? "",
+        admType: item.admType?.description,
+        diseaseIn: item.diseaseIn?.description,
         transUnit: item.userID,
-        ward: item.ward?.description ?? "",
+        ward: item.ward?.description,
+        note: item.note,
       };
     });
   };
