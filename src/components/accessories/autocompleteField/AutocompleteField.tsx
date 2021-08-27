@@ -20,6 +20,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   errorText,
   onBlur,
   options,
+  loading = false,
 }) => {
   const [value, setValue] = useState("");
 
@@ -52,6 +53,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           debounceUpdate(val?.value || "");
         }}
         onBlur={handleOnBlur}
+        loading={loading}
         renderInput={(params) => (
           <TextField
             label={label}

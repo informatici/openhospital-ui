@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getAdmissionsByPatientId } from "../../../../state/admissions/actions";
+import { format } from "date-fns";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -17,7 +18,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const header = ["admDate"];
+  const header = ["admDate", "ward"];
 
   const label = {
     admDate: t("admission.admDate"),
@@ -25,7 +26,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     diseaseIn: t("admission.diseaseIn"),
     transUnit: t("admission.transUnit"),
     ward: t("admission.ward"),
-    note: "Note",
   };
   const order = ["admDate"];
 
@@ -48,21 +48,27 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   }, [shouldUpdateTable, dispatch, patientCode, getAdmissionsByPatientId]);
 
   const formatDataToDisplay = (data: AdmissionDTO[]) => {
-    console.log("data.....: ", data);
     return data.map((item) => {
       return {
-        admDate: item.admDate,
-        admType: item.admType?.description,
-        diseaseIn: item.diseaseIn?.description,
-        transUnit: item.userID,
-        ward: item.ward?.description,
-        note: item.note,
+        admDate: item.admDate
+          ? format(
+              new Date(isNaN(+item.admDate) ? item.admDate : +item.admDate),
+              "dd/MM/yyyy"
+            )
+          : "",
+        admType: item.admType?.description ?? "",
+        diseaseIn: item.diseaseIn?.description ?? "",
+        transUnit: item.transUnit,
+        ward: item.ward?.description ?? "",
       };
     });
   };
   const status = useSelector<IState, string | undefined>(
     (state) => state.admissions.admissionsByPatientId.status
   );
+  const onDelete = () => {
+    console.log("delete");
+  };
 
   return (
     <div className="patientAdmissionTable">
@@ -88,6 +94,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
+                onDelete={onDelete}
               />
             );
 

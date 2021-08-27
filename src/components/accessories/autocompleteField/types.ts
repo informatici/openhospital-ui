@@ -6,4 +6,5 @@ export interface IProps {
   errorText: string;
   onBlur: (e: any, value: any) => void;
   options: Array<{ value: string; label: string }>;
+  loading?: boolean;
 }

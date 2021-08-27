@@ -35,7 +35,7 @@ export default produce((draft: IDiseaseState, action: IAction<any, any>) => {
      * get diseases IPD IN
      */
     case GET_DISEASEIPDIN_LOADING: {
-      draft.diseasesOpd.status = "LOADING";
+      draft.diseasesIpdIn.status = "LOADING";
       break;
     }
 

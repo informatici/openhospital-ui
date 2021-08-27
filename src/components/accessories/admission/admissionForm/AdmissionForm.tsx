@@ -3,16 +3,14 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { AdmissionTypeDTO, DiseaseDTO, WardDTO } from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
-import { getDiseasesIpdIn } from "../../../../state/diseases/actions";
-import { getWards } from "../../../../state/ward/actions";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -33,7 +31,28 @@ const AdmissionForm: FC<AdmissionProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+
+  const diagnosisInList = useSelector(
+    (state: IState) => state.diseases.diseasesIpdIn.data
+  );
+
+  const admissionTypes = useSelector(
+    (state: IState) => state.admissionTypes.allAdmissionTypes.data
+  );
+  const wards = useSelector((state: IState) => state.wards.allWards.data);
+
+  const toOptions = (
+    data: (WardDTO | DiseaseDTO | AdmissionTypeDTO)[] | undefined
+  ) => {
+    if (data) {
+      return data.map((item) => {
+        return {
+          value: item.code?.toString() ?? "",
+          label: item.description ?? "",
+        };
+      });
+    } else return [];
+  };
 
   const validationSchema = object({
     ward: string().required(t("common.required")),
@@ -42,7 +61,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
-  const options = getFromFields(fields, "options");
 
   const formik = useFormik({
     initialValues,
@@ -50,6 +68,15 @@ const AdmissionForm: FC<AdmissionProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.diseaseIn = diagnosisInList?.find(
+        (item) => item.code == formattedValues.diseaseIn
+      );
+      formattedValues.admType = admissionTypes?.find(
+        (item) => item.code === formattedValues.admType
+      );
+      formattedValues.ward = wards?.find(
+        (item) => item.code === formattedValues.ward
+      );
       onSubmit(formattedValues);
     },
   });
@@ -96,59 +123,14 @@ const AdmissionForm: FC<AdmissionProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  useEffect(() => {
-    dispatch(getDiseasesIpdIn());
-  }, [dispatch, getDiseasesIpdIn]);
-
-  useEffect(() => {
-    dispatch(getAdmissionTypes());
-  }, [dispatch, getAdmissionTypes]);
-
-  useEffect(() => {
-    dispatch(getWards());
-  }, [dispatch, getWards]);
-
-  const diagnosisOptionsSelector = (state: IState) => {
-    if (state.diseases.diseasesIpdIn.data) {
-      return state.diseases.diseasesIpdIn.data.map((diseaseIn) => {
-        return {
-          value: diseaseIn.code?.toString() ?? "",
-          label: diseaseIn.description ?? "",
-        };
-      });
-    } else return [];
-  };
-
-  const diagnosisOptions = useSelector((state: IState) =>
-    diagnosisOptionsSelector(state)
+  const diagnosisStatus = useSelector(
+    (state: IState) => state.diseases.diseasesIpdIn.status
   );
-
-  const typesOptionsSelector = (state: IState) => {
-    if (state.admissionTypes.allAdmissionTypes.data) {
-      return state.admissionTypes.allAdmissionTypes.data.map((type) => {
-        return {
-          value: type.code ?? "",
-          label: type.description ?? "",
-        };
-      });
-    } else return [];
-  };
-  const typeOptions = useSelector((state: IState) =>
-    typesOptionsSelector(state)
+  const wardStatus = useSelector(
+    (state: IState) => state.wards.allWards.status
   );
-
-  const wardOptionsSelector = (state: IState) => {
-    if (state.wards.allWards.data) {
-      return state.wards.allWards.data.map((type) => {
-        return {
-          value: type.code ?? "",
-          label: type.description ?? "",
-        };
-      });
-    } else return [];
-  };
-  const wardOptions = useSelector((state: IState) =>
-    wardOptionsSelector(state)
+  const typeStatus = useSelector(
+    (state: IState) => state.admissionTypes.allAdmissionTypes.status
   );
 
   return (
@@ -167,7 +149,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("ward")}
                 errorText={getErrorText("ward")}
                 onBlur={onBlurCallback("ward")}
-                options={wardOptions}
+                options={toOptions(wards)}
+                loading={wardStatus === "LOADING"}
               />
             </div>
             <div className="patientAdmissionForm__item">
@@ -188,7 +171,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
               <DateField
                 fieldName="admDate"
                 fieldValue={formik.values.admDate}
-                disableFuture={false}
+                disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("admDate")}
@@ -205,7 +188,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("admType")}
                 errorText={getErrorText("admType")}
                 onBlur={onBlurCallback("admType")}
-                options={typeOptions}
+                options={toOptions(admissionTypes)}
+                loading={typeStatus === "LOADING"}
               />
             </div>
           </div>
@@ -218,7 +202,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("diseaseIn")}
                 errorText={getErrorText("diseaseIn")}
                 onBlur={onBlurCallback("diseaseIn")}
-                options={diagnosisOptions}
+                options={toOptions(diagnosisInList)}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
           </div>

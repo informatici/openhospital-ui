@@ -205,6 +205,8 @@
     "diseaseOut2": "Diagnostic de sortie 2",
     "diseaseOut3": "Diagnostic de sortie 3",
     "cliDiaryCharge": "Journal clinique",
-    "imageryCharge": "Imagerie"
+    "imageryCharge": "Imagerie",
+    "createsuccess": "Patient admis avec succès",
+    "created": "Patient admis"
   }
 }
