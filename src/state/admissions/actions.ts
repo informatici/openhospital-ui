@@ -1,3 +1,4 @@
+import { isObject } from "formik";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -15,6 +16,9 @@ import {
   GET_ADMISSION_LOADING,
   GET_ADMISSION_SUCCESS,
   GET_ADMISSION_SUCCESS_EMPTY,
+  GET_CURRENTADMISSION_FAIL,
+  GET_CURRENTADMISSION_LOADING,
+  GET_CURRENTADMISSION_SUCCESS,
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
@@ -87,6 +91,36 @@ export const getAdmissionsByPatientId =
     } else {
       dispatch({
         type: GET_ADMISSION_FAIL,
+        error: "The patient code should not be null",
+      });
+    }
+  };
+export const getCurrentAdmissionByPatientId =
+  (patientcode: number | undefined) =>
+  (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
+    dispatch({
+      type: GET_CURRENTADMISSION_LOADING,
+    });
+    if (patientcode) {
+      admissionControllerApi
+        .getCurrentAdmissionUsingGET({ patientcode })
+        .subscribe(
+          (payload) => {
+            dispatch({
+              type: GET_CURRENTADMISSION_SUCCESS,
+              payload: payload,
+            });
+          },
+          (error) => {
+            dispatch({
+              type: GET_CURRENTADMISSION_FAIL,
+              error,
+            });
+          }
+        );
+    } else {
+      dispatch({
+        type: GET_CURRENTADMISSION_FAIL,
         error: "The patient code should not be null",
       });
     }

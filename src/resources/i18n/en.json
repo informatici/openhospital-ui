@@ -197,6 +197,7 @@
     "cliDiaryCharge": "Clinical Diary Charge",
     "imageryCharge": "Imagery Charge",
     "createsuccess": "Patient admitted successfully",
-    "created": "Patient admitted"
+    "created": "Patient admitted",
+    "nocurrentadmission": "There is no current admission for the patient!"
   }
 }

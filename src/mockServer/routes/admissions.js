@@ -15,8 +15,8 @@ export const admissionRoutes = (server) => {
                     break;
             }
         });
-        server.get("?patientcode").intercept((req, res) => {
-            const code = req.params.codePatient;
+        server.get("/").intercept((req, res) => {
+            const code = req.query.patientcode;
             switch (code) {
                 case "10000":
                     res.status(400);
@@ -27,6 +27,20 @@ export const admissionRoutes = (server) => {
                     break;
                 default:
                     res.status(200).json([admissionDTO, admissionDTO, admissionDTO]);
+            }
+        });
+        server.get("/current").intercept((req, res) => {
+            const code = req.query.patientcode;
+            switch (code) {
+                case "50":
+                    res.status(400);
+                    break;
+                case "21266":
+                    res.status(204);
+                    res.body = null;
+                    break;
+                default:
+                    res.status(200).json(admissionDTO);
             }
         });
     });

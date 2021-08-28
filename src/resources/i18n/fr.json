@@ -207,6 +207,7 @@
     "cliDiaryCharge": "Journal clinique",
     "imageryCharge": "Imagerie",
     "createsuccess": "Patient admis avec succès",
-    "created": "Patient admis"
+    "created": "Patient admis",
+    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!"
   }
 }
