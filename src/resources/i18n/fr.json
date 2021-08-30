@@ -208,6 +208,8 @@
     "imageryCharge": "Imagerie",
     "createsuccess": "Patient admis avec succès",
     "created": "Patient admis",
+    "dischargesuccess": "Patient sorti avec succès",
+    "discharged": "Patient sorti",
     "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!"
   }
 }

@@ -5,6 +5,10 @@ import {
   CREATE_ADMISSION_LOADING,
   CREATE_ADMISSION_RESET,
   CREATE_ADMISSION_SUCCESS,
+  CREATE_DISCHARGE_FAIL,
+  CREATE_DISCHARGE_LOADING,
+  CREATE_DISCHARGE_RESET,
+  CREATE_DISCHARGE_SUCCESS,
   GET_ADMISSION_FAIL,
   GET_ADMISSION_LOADING,
   GET_ADMISSION_SUCCESS,
@@ -42,6 +46,33 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case CREATE_ADMISSION_RESET: {
       draft.createAdmission.status = "IDLE";
       delete draft.createAdmission.error;
+      break;
+    }
+
+    /**
+     * CREATE_DISCHARGE
+     */
+    case CREATE_DISCHARGE_LOADING: {
+      draft.updateAdmission.status = "LOADING";
+      break;
+    }
+
+    case CREATE_DISCHARGE_SUCCESS: {
+      draft.updateAdmission.status = "SUCCESS";
+      draft.updateAdmission.data = action.payload;
+      delete draft.updateAdmission.error;
+      break;
+    }
+
+    case CREATE_DISCHARGE_FAIL: {
+      draft.updateAdmission.status = "FAIL";
+      draft.updateAdmission.error = action.error;
+      break;
+    }
+
+    case CREATE_DISCHARGE_RESET: {
+      draft.updateAdmission.status = "IDLE";
+      delete draft.updateAdmission.error;
       break;
     }
 

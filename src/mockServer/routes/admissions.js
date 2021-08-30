@@ -15,6 +15,18 @@ export const admissionRoutes = (server) => {
                     break;
             }
         });
+        server.put("/").intercept((req, res) => {
+            const body = req.jsonBody();
+            body.disDate = format(new Date(+body.disDate), "yyyy-MM-dd HH:mm:ss");
+            switch (body.disDate) {
+                case "fail":
+                    res.status(400);
+                    break;
+                default:
+                    res.status(201).json(body);
+                    break;
+            }
+        });
         server.get("/").intercept((req, res) => {
             const code = req.query.patientcode;
             switch (code) {

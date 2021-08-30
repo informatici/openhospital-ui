@@ -12,7 +12,7 @@ interface IDischargeProps {
 }
 
 export type DischargeProps = IDischargeProps;
-
+export type DischargeTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 export type DischargeFormFieldName =
   | "disDate"
   | "disType"

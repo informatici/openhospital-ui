@@ -35,6 +35,14 @@ const DischargeForm: FC<DischargeProps> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const diagnosisOutList = useSelector(
+    (state: IState) => state.diseases.diseasesIpdOut.data
+  );
+
+  const dischargeTypes = useSelector(
+    (state: IState) => state.dischargeTypes.allDischargeTypes.data
+  );
+
   const validationSchema = object({
     disDate: string().required(t("common.required")),
     disType: string().required(t("common.required")),
@@ -48,7 +56,20 @@ const DischargeForm: FC<DischargeProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      console.log("Handling form");
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.diseaseOut1 = diagnosisOutList?.find(
+        (item) => item.code == formattedValues.diseaseOut1
+      );
+      formattedValues.diseaseOut2 = diagnosisOutList?.find(
+        (item) => item.code == formattedValues.diseaseOut2
+      );
+      formattedValues.diseaseOut3 = diagnosisOutList?.find(
+        (item) => item.code == formattedValues.diseaseOut3
+      );
+      formattedValues.disType = dischargeTypes?.find(
+        (item) => item.code === formattedValues.disType
+      );
       onSubmit(formattedValues);
     },
   });
@@ -109,6 +130,13 @@ const DischargeForm: FC<DischargeProps> = ({
 
   const diagnosisOptions = useSelector((state: IState) =>
     diagnosisOptionsSelector(state)
+  );
+
+  const diagnosisStatus = useSelector(
+    (state: IState) => state.diseases.diseasesIpdOut.status
+  );
+  const typeStatus = useSelector(
+    (state: IState) => state.dischargeTypes.allDischargeTypes.status
   );
 
   const typesOptionsSelector = (state: IState) => {
@@ -173,6 +201,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 errorText={getErrorText("disType")}
                 onBlur={onBlurCallback("disType")}
                 options={typeOptions}
+                loading={typeStatus === "LOADING"}
               />
             </div>
           </div>
@@ -186,6 +215,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 errorText={getErrorText("diseaseOut1")}
                 onBlur={onBlurCallback("diseaseOut1")}
                 options={diagnosisOptions}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
             <div className="patientDischargeForm__item fullWidth">
@@ -197,6 +227,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 errorText={getErrorText("diseaseOut2")}
                 onBlur={onBlurCallback("diseaseOut2")}
                 options={diagnosisOptions}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
             <div className="patientDischargeForm__item fullWidth">
@@ -208,6 +239,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 errorText={getErrorText("diseaseOut3")}
                 onBlur={onBlurCallback("diseaseOut3")}
                 options={diagnosisOptions}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
           </div>
