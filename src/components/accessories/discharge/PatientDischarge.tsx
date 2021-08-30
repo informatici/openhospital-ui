@@ -16,7 +16,6 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { DischargeTransitionState } from "./dischargeForm/types";
 import checkIcon from "../../../assets/check-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import moment from "moment";
 
 export const PatientDischarge: React.FC = () => {
   const { t } = useTranslation();
@@ -29,14 +28,13 @@ export const PatientDischarge: React.FC = () => {
   const onSubmit = (discharge: AdmissionDTO) => {
     setShouldResetForm(false);
     if (currentAdmission !== undefined) {
-      let current: AdmissionDTO = Object.assign({}, currentAdmission);
-      Object.assign(current, currentAdmission);
-      current.disDate = discharge.disDate;
-      current.disType = discharge.disType;
-      current.diseaseOut1 = discharge.diseaseOut1;
-      current.diseaseOut2 = discharge.diseaseOut2;
-      current.diseaseOut3 = discharge.diseaseOut3;
-      dispatch(updateAdmission(current));
+      const dischargeToSave: AdmissionDTO = { ...currentAdmission };
+      dischargeToSave.disDate = discharge.disDate;
+      dischargeToSave.disType = discharge.disType;
+      dischargeToSave.diseaseOut1 = discharge.diseaseOut1;
+      dischargeToSave.diseaseOut2 = discharge.diseaseOut2;
+      dischargeToSave.diseaseOut3 = discharge.diseaseOut3;
+      dispatch(updateAdmission(dischargeToSave));
     }
   };
 
