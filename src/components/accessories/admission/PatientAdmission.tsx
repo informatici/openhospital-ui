@@ -45,7 +45,6 @@ const PatientAdmission: FC = () => {
     adm.patient = patientData;
     adm.userID = username;
     adm.abortDate = adm.admDate;
-
     dispatch(createAdmission(adm));
   };
 

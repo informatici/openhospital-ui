@@ -23,7 +23,6 @@ export function makeServer() {
     logging: true,
   });
   const { server } = polly;
-
   server.host(BASE_PATH, () => {
     userRoutes(server);
     authRoutes(server);
