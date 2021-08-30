@@ -16,6 +16,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { DischargeTransitionState } from "./dischargeForm/types";
 import checkIcon from "../../../assets/check-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import moment from "moment";
 
 export const PatientDischarge: React.FC = () => {
   const { t } = useTranslation();
@@ -83,6 +84,7 @@ export const PatientDischarge: React.FC = () => {
     <div className="patientDischarge">
       {currentAdmission ? (
         <DischargeForm
+          currentAdmission={currentAdmission}
           fields={initialFields}
           onSubmit={onSubmit}
           submitButtonLabel={t("common.save")}

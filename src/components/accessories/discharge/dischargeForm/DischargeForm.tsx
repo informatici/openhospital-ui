@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,7 @@ const DischargeForm: FC<DischargeProps> = ({
   resetButtonLabel,
   isLoading,
   shouldResetForm,
+  currentAdmission,
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
@@ -154,6 +156,13 @@ const DischargeForm: FC<DischargeProps> = ({
   );
 
   useEffect(() => {
+    formik.setFieldValue(
+      "bedDays",
+      moment(new Date(parseInt(currentAdmission?.admDate ?? ""))).days()
+    );
+  }, [currentAdmission]);
+
+  useEffect(() => {
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
@@ -189,6 +198,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("bedDays")}
                 errorText={getErrorText("bedDays")}
                 onBlur={formik.handleBlur}
+                disabled={true}
                 type="number"
               />
             </div>

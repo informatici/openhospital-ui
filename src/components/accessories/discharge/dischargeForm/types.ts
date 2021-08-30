@@ -2,6 +2,7 @@ import { AdmissionDTO, PatientDTO, TherapyRowDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IDischargeProps {
+  currentAdmission: AdmissionDTO;
   fields: TFields<DischargeFormFieldName>;
   onSubmit: (discharge: AdmissionDTO) => void;
   submitButtonLabel: string;
