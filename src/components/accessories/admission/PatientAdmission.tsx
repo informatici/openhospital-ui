@@ -95,7 +95,7 @@ const PatientAdmission: FC = () => {
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={false}
+        isLoading={status === "LOADING"}
       />
       {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">

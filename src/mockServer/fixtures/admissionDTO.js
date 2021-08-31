@@ -44,7 +44,7 @@ export const admissionDTO =
         blobPhoto: "",
         hashCode: 0
     },
-    admDate: "1630077584911",
+    admDate: "1630059584000",
     admType: {
         code: "I",
         description: "SELF"

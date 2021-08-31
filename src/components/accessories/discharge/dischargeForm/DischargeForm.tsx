@@ -32,7 +32,6 @@ const DischargeForm: FC<DischargeProps> = ({
   resetButtonLabel,
   isLoading,
   shouldResetForm,
-  currentAdmission,
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
@@ -46,13 +45,23 @@ const DischargeForm: FC<DischargeProps> = ({
     (state: IState) => state.dischargeTypes.allDischargeTypes.data
   );
 
+  const initialValues = getFromFields(fields, "value");
+
   const validationSchema = object({
-    disDate: string().required(t("common.required")),
+    disDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "disDate",
+        message: t("admission.validatelastdate", {
+          admDate: moment(+initialValues.admDate).format("DD/MM/YYYY"),
+        }),
+        test: function (value) {
+          return moment(value).isSameOrAfter(moment(+this.parent.admDate));
+        },
+      }),
     disType: string().required(t("common.required")),
     diseaseOut1: string().required(t("common.required")),
   });
-
-  const initialValues = getFromFields(fields, "value");
 
   const formik = useFormik({
     initialValues,
@@ -138,16 +147,6 @@ const DischargeForm: FC<DischargeProps> = ({
   };
 
   useEffect(() => {
-    formik.setFieldValue(
-      "bedDays",
-      moment(new Date()).diff(
-        moment(new Date(parseInt(currentAdmission?.admDate ?? ""))),
-        "days"
-      )
-    );
-  }, [currentAdmission]);
-
-  useEffect(() => {
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
@@ -166,7 +165,7 @@ const DischargeForm: FC<DischargeProps> = ({
               <DateField
                 fieldName="disDate"
                 fieldValue={formik.values.disDate}
-                disableFuture={false}
+                disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("disDate")}

@@ -1,33 +1,11 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { DischargeFormFieldName } from "./dischargeForm/types";
 
-const dischargeTypeOptions = [
-  {
-    label: "Type 1",
-    value: "disType",
-  },
-  {
-    label: "Type 2",
-    value: "disType",
-  },
-];
-
-const diagnosis = [
-  {
-    label: "Disease 1",
-    value: "disease",
-  },
-  {
-    label: "Disease 2",
-    value: "disease",
-  },
-  {
-    label: "Disease 3",
-    value: "disease",
-  },
-];
-
 export const initialFields: TFields<DischargeFormFieldName> = {
+  admDate: {
+    value: "",
+    type: "date",
+  },
   disDate: {
     value: "",
     type: "date",
@@ -35,7 +13,6 @@ export const initialFields: TFields<DischargeFormFieldName> = {
   disType: {
     value: "",
     type: "text",
-    options: dischargeTypeOptions,
   },
   bedDays: {
     value: "0",
@@ -44,17 +21,17 @@ export const initialFields: TFields<DischargeFormFieldName> = {
   diseaseOut1: {
     value: "",
     type: "text",
-    options: diagnosis,
+    options: [],
   },
   diseaseOut2: {
     value: "",
     type: "text",
-    options: diagnosis,
+    options: [],
   },
   diseaseOut3: {
     value: "",
     type: "text",
-    options: diagnosis,
+    options: [],
   },
   cliDiaryCharge: {
     value: "",

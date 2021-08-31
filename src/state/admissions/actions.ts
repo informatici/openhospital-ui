@@ -11,10 +11,10 @@ import {
   CREATE_ADMISSION_LOADING,
   CREATE_ADMISSION_RESET,
   CREATE_ADMISSION_SUCCESS,
-  CREATE_DISCHARGE_FAIL,
-  CREATE_DISCHARGE_LOADING,
-  CREATE_DISCHARGE_RESET,
-  CREATE_DISCHARGE_SUCCESS,
+  UPDATE_ADMISSION_FAIL,
+  UPDATE_ADMISSION_LOADING,
+  UPDATE_ADMISSION_RESET,
+  UPDATE_ADMISSION_SUCCESS,
   GET_ADMISSION_FAIL,
   GET_ADMISSION_LOADING,
   GET_ADMISSION_SUCCESS,
@@ -57,7 +57,7 @@ export const updateAdmission =
   (updAdmissionDTO: AdmissionDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
-      type: CREATE_DISCHARGE_LOADING,
+      type: UPDATE_ADMISSION_LOADING,
     });
 
     admissionControllerApi
@@ -65,13 +65,13 @@ export const updateAdmission =
       .subscribe(
         (payload) => {
           dispatch({
-            type: CREATE_DISCHARGE_SUCCESS,
+            type: UPDATE_ADMISSION_SUCCESS,
             payload: payload,
           });
         },
         (error) => {
           dispatch({
-            type: CREATE_DISCHARGE_FAIL,
+            type: UPDATE_ADMISSION_FAIL,
             error: error,
           });
         }
@@ -86,11 +86,11 @@ export const createAdmissionReset =
     });
   };
 
-export const createDischargeReset =
+export const updateAdmissionReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
-      type: CREATE_DISCHARGE_RESET,
+      type: UPDATE_ADMISSION_RESET,
     });
   };
 

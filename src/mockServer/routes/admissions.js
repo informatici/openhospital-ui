@@ -5,7 +5,6 @@ export const admissionRoutes = (server) => {
     server.namespace("/admissions", () => {
         server.post("/").intercept((req, res) => {
             const body = req.jsonBody();
-            body.admDate = format(new Date(+body.admDate), "yyyy-MM-dd HH:mm:ss");
             switch (body.admDate) {
                 case "fail":
                     res.status(400);
@@ -17,7 +16,6 @@ export const admissionRoutes = (server) => {
         });
         server.put("/").intercept((req, res) => {
             const body = req.jsonBody();
-            body.disDate = format(new Date(+body.disDate), "yyyy-MM-dd HH:mm:ss");
             switch (body.disDate) {
                 case "fail":
                     res.status(400);
