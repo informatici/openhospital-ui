@@ -59,8 +59,33 @@ const DischargeForm: FC<DischargeProps> = ({
           return moment(value).isSameOrAfter(moment(+this.parent.admDate));
         },
       }),
+
     disType: string().required(t("common.required")),
     diseaseOut1: string().required(t("common.required")),
+
+    diseaseOut2: string().test({
+      name: "diseaseOut2",
+      message: t("opd.validatedisease"),
+      test: function (value) {
+        return (
+          !value ||
+          (this.parent.diseaseOut1 && value !== this.parent.diseaseOut1)
+        );
+      },
+    }),
+    diseaseOut3: string().test({
+      name: "diseaseOut3",
+      message: t("opd.validatedisease"),
+      test: function (value) {
+        return (
+          !value ||
+          (this.parent.diseaseOut1 &&
+            this.parent.diseaseOut2 &&
+            value !== this.parent.diseaseOut1 &&
+            value !== this.parent.diseaseOut2)
+        );
+      },
+    }),
   });
 
   const formik = useFormik({
