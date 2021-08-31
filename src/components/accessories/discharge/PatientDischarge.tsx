@@ -4,8 +4,8 @@ import { AdmissionDTO } from "../../../generated";
 import { initialFields } from "./consts";
 import DischargeForm from "./dischargeForm/DischargeForm";
 import {
-  updateAdmissionReset,
   getCurrentAdmissionByPatientId,
+  updateAdmissionReset,
 } from "../../../state/admissions/actions";
 import { IState } from "../../../types";
 import "./styles.scss";
@@ -13,9 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import InfoBox from "../infoBox/InfoBox";
 import { updateAdmission } from "../../../state/admissions/actions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { DischargeTransitionState } from "./dischargeForm/types";
+import {
+  DischargeFormFieldName,
+  DischargeTransitionState,
+} from "./dischargeForm/types";
 import checkIcon from "../../../assets/check-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import moment from "moment";
+import { TFields } from "../../../libraries/formDataHandling/types";
 
 export const PatientDischarge: React.FC = () => {
   const { t } = useTranslation();
@@ -25,17 +30,39 @@ export const PatientDischarge: React.FC = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<DischargeTransitionState>("IDLE");
 
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
+
+  const fields: TFields<DischargeFormFieldName> = {
+    ...initialFields,
+    admDate: {
+      value: currentAdmission?.admDate ?? "",
+      type: "date",
+    },
+    bedDays: {
+      value: moment(new Date())
+        .diff(
+          moment(new Date(parseInt(currentAdmission?.admDate ?? ""))),
+          "days"
+        )
+        .toString(),
+      type: "number",
+    },
+  };
+
   const onSubmit = (discharge: AdmissionDTO) => {
     setShouldResetForm(false);
-    if (currentAdmission !== undefined) {
-      const dischargeToSave: AdmissionDTO = { ...currentAdmission };
-      dischargeToSave.disDate = discharge.disDate;
-      dischargeToSave.disType = discharge.disType;
-      dischargeToSave.diseaseOut1 = discharge.diseaseOut1;
-      dischargeToSave.diseaseOut2 = discharge.diseaseOut2;
-      dischargeToSave.diseaseOut3 = discharge.diseaseOut3;
-      dispatch(updateAdmission(dischargeToSave));
-    }
+    const dischargeToSave: AdmissionDTO = {
+      ...currentAdmission,
+      disDate: discharge.disDate,
+      disType: discharge.disType,
+      diseaseOut1: discharge.diseaseOut1,
+      diseaseOut2: discharge.diseaseOut2,
+      diseaseOut3: discharge.diseaseOut3,
+      admitted: 0,
+    };
+    dispatch(updateAdmission(dischargeToSave));
   };
 
   const patient = useSelector(
@@ -44,10 +71,6 @@ export const PatientDischarge: React.FC = () => {
 
   const status = useSelector(
     (state: IState) => state.admissions.updateAdmission.status
-  );
-
-  const currentAdmission = useSelector(
-    (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
   useEffect(() => {
@@ -82,14 +105,13 @@ export const PatientDischarge: React.FC = () => {
     <div className="patientDischarge">
       {currentAdmission ? (
         <DischargeForm
-          currentAdmission={currentAdmission}
-          fields={initialFields}
+          fields={fields}
           onSubmit={onSubmit}
           submitButtonLabel={t("common.save")}
           resetButtonLabel={t("common.discard")}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
-          isLoading={false}
+          isLoading={status === "LOADING"}
         />
       ) : (
         <InfoBox type="warning" message={t("admission.nocurrentadmission")} />

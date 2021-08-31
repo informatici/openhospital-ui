@@ -213,6 +213,7 @@
     "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!",
     "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
     "noteadded": "Note Enregistrée",
-    "note": "Note"
+    "note": "Note",
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
   }
 }

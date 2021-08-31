@@ -2,7 +2,6 @@ import { AdmissionDTO, PatientDTO, TherapyRowDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IDischargeProps {
-  currentAdmission: AdmissionDTO;
   fields: TFields<DischargeFormFieldName>;
   onSubmit: (discharge: AdmissionDTO) => void;
   submitButtonLabel: string;
@@ -15,6 +14,7 @@ interface IDischargeProps {
 export type DischargeProps = IDischargeProps;
 export type DischargeTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 export type DischargeFormFieldName =
+  | "admDate"
   | "disDate"
   | "disType"
   | "bedDays"

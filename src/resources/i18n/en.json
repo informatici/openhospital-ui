@@ -203,6 +203,7 @@
     "nocurrentadmission": "There is no current admission for the patient!",
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
-    "note": "Note"
+    "note": "Note",
+    "validatelastdate":"should be greater or equal to admission date {{admDate}}"
   }
 }

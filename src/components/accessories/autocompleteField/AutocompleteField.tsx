@@ -1,4 +1,4 @@
-import { debounce, FormControl } from "@material-ui/core";
+import { debounce, FormControl, FormHelperText } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
@@ -65,6 +65,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           />
         )}
       />
+      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };
