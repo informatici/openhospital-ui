@@ -200,6 +200,9 @@
     "created": "Patient admitted",
     "dischargesuccess": "Patient discharged successfully",
     "discharged": "Patient discharged",
-    "nocurrentadmission": "There is no current admission for the patient!"
+    "nocurrentadmission": "There is no current admission for the patient!",
+    "noteaddedwithsuccess": "Admission Note added successfully",
+    "noteadded": "Note saved",
+    "note": "Note"
   }
 }

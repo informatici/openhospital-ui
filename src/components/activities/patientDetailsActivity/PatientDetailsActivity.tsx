@@ -46,6 +46,7 @@ import Button from "../../accessories/button/Button";
 import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import AdmissionNote from "../../accessories/admissionNote/AdmissionNote";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -112,7 +113,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     {
       label: t("nav.note"),
       path: "/note",
-      content: <PatientDetailsContent title="Note" content={SkeletonLoader} />,
+      content: <PatientDetailsContent title="Note" content={AdmissionNote} />,
     },
   ];
   const defaultConfig: TTabConfig = [

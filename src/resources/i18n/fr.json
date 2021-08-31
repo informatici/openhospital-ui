@@ -210,6 +210,9 @@
     "created": "Patient admis",
     "dischargesuccess": "Patient sorti avec succès",
     "discharged": "Patient sorti",
-    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!"
+    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!",
+    "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
+    "noteadded": "Note Enregistrée",
+    "note": "Note"
   }
 }

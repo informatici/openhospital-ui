@@ -1,40 +1,48 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AdmissionDTO } from "../../../generated";
-import { initialFields } from "./consts";
-import DischargeForm from "./dischargeForm/DischargeForm";
-import {
-  updateAdmissionReset,
-  getCurrentAdmissionByPatientId,
-} from "../../../state/admissions/actions";
-import { IState } from "../../../types";
 import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
-import InfoBox from "../infoBox/InfoBox";
-import { updateAdmission } from "../../../state/admissions/actions";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { DischargeTransitionState } from "./dischargeForm/types";
 import checkIcon from "../../../assets/check-icon.png";
+import { AdmissionDTO } from "../../../generated";
+import {
+  getCurrentAdmissionByPatientId,
+  updateAdmission,
+  updateAdmissionReset,
+} from "../../../state/admissions/actions";
+import { IState } from "../../../types";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import AdmissionNoteForm from "./admissionNoteForm/AdmissionNoteForm";
+import InfoBox from "../infoBox/InfoBox";
+import { AdmissionNoteFormFieldName } from "./admissionNoteForm/types";
+import { TFields } from "../../../libraries/formDataHandling/types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 
-export const PatientDischarge: React.FC = () => {
+export type AdmissionNoteTransitionState = "IDLE" | "TO_RESET" | "FAIL";
+
+export const AdmissionNote: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
-    useState<DischargeTransitionState>("IDLE");
+    useState<AdmissionNoteTransitionState>("IDLE");
 
-  const onSubmit = (discharge: AdmissionDTO) => {
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
+
+  const initialFields: TFields<AdmissionNoteFormFieldName> = {
+    note: {
+      value: currentAdmission?.note ?? "",
+      type: "text",
+    },
+  };
+
+  const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
     if (currentAdmission !== undefined) {
-      const dischargeToSave: AdmissionDTO = { ...currentAdmission };
-      dischargeToSave.disDate = discharge.disDate;
-      dischargeToSave.disType = discharge.disType;
-      dischargeToSave.diseaseOut1 = discharge.diseaseOut1;
-      dischargeToSave.diseaseOut2 = discharge.diseaseOut2;
-      dischargeToSave.diseaseOut3 = discharge.diseaseOut3;
-      dispatch(updateAdmission(dischargeToSave));
+      const admToUpdate: AdmissionDTO = { ...currentAdmission, note: adm.note };
+      dispatch(updateAdmission(admToUpdate));
     }
   };
 
@@ -44,10 +52,6 @@ export const PatientDischarge: React.FC = () => {
 
   const status = useSelector(
     (state: IState) => state.admissions.updateAdmission.status
-  );
-
-  const currentAdmission = useSelector(
-    (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
   useEffect(() => {
@@ -79,10 +83,9 @@ export const PatientDischarge: React.FC = () => {
   };
 
   return (
-    <div className="patientDischarge">
+    <div className="admissionNote">
       {currentAdmission ? (
-        <DischargeForm
-          currentAdmission={currentAdmission}
+        <AdmissionNoteForm
           fields={initialFields}
           onSubmit={onSubmit}
           submitButtonLabel={t("common.save")}
@@ -101,9 +104,9 @@ export const PatientDischarge: React.FC = () => {
       )}
       <ConfirmationDialog
         isOpen={status === "SUCCESS"}
-        title={t("admission.discharged")}
+        title={t("admission.noteadded")}
         icon={checkIcon}
-        info={t("admission.dischargesuccess")}
+        info={t("admission.noteaddedwithsuccess")}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
@@ -111,3 +114,5 @@ export const PatientDischarge: React.FC = () => {
     </div>
   );
 };
+
+export default AdmissionNote;

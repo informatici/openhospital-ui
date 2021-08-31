@@ -31,7 +31,7 @@ export const admissionDTO =
         city: "Verona",
         nextKin: null,
         telephone: "+393456789012",
-        note: "Test insert new patient+++++",
+        note: "Test insert new patient",
         mother_name: "Roberta",
         mother: "A",
         father_name: "Giuseppe",
@@ -69,7 +69,6 @@ export const admissionDTO =
     opResult: null,
     disDate: null,
     disType: null,
-    note: null,
     transUnit: 0,
     visitDate: null,
     pregTreatmentType: null,
@@ -83,5 +82,6 @@ export const admissionDTO =
     userID: "admin",
     lock: 0,
     deleted: "N",
-    fhu: null
+    fhu: null,
+    note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempor ac ipsum id luctus. Quisque fermentum commodo felis nec fermentum. In ut volutpat ligula. Praesent condimentum consequat urna vel accumsan. Cras venenatis nisi in ipsum malesuada malesuada. Donec dictum et mauris sed dapibus. Praesent metus dui, faucibus et rhoncus ut, vulputate ac massa. Donec sagittis massa nisl, et eleifend enim pharetra eu. Ut in lobortis enim. Duis in purus lectus. Morbi consectetur nisi vel rutrum porta. Fusce in vehicula justo. Duis scelerisque sem magna, eu facilisis ante gravida in. \nNam vel elit convallis, condimentum enim cursus, dapibus ligula.Phasellus in est in est interdum congue.Maecenas in egestas felis.Nunc lacinia urna ac enim varius hendrerit.Nam erat diam, fermentum vitae vulputate vel, tincidunt sed quam.Aliquam vehicula urna in maximus varius.Vivamus dignissim ipsum et laoreet eleifend.Suspendisse potenti.Sed at fermentum augue.Suspendisse cursus purus ut orci scelerisque, non tempor sem dignissim.Suspendisse potenti.Nunc consequat, tellus ac tempor aliquet, dui diam fringilla orci, vitae faucibus nunc orci rhoncus mauris.Vestibulum faucibus sapien id posuere maximus. \nDonec vehicula risus viverra facilisis commodo.Donec ultrices justo et lacus convallis convallis vel sed libero.Phasellus pellentesque faucibus vestibulum.Mauris ultricies."
 }
