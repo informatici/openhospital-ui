@@ -59,16 +59,15 @@ const DischargeForm: FC<DischargeProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("Handling form");
       const formattedValues = formatAllFieldValues(fields, values);
       formattedValues.diseaseOut1 = diagnosisOutList?.find(
-        (item) => item.code == formattedValues.diseaseOut1
+        (item) => item.code === formattedValues.diseaseOut1
       );
       formattedValues.diseaseOut2 = diagnosisOutList?.find(
-        (item) => item.code == formattedValues.diseaseOut2
+        (item) => item.code === formattedValues.diseaseOut2
       );
       formattedValues.diseaseOut3 = diagnosisOutList?.find(
-        (item) => item.code == formattedValues.diseaseOut3
+        (item) => item.code === formattedValues.diseaseOut3
       );
       formattedValues.disType = dischargeTypes?.find(
         (item) => item.code === formattedValues.disType

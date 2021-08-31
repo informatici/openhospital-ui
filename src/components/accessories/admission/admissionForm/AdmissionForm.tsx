@@ -69,7 +69,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       formattedValues.diseaseIn = diagnosisInList?.find(
-        (item) => item.code == formattedValues.diseaseIn
+        (item) => item.code === formattedValues.diseaseIn
       );
       formattedValues.admType = admissionTypes?.find(
         (item) => item.code === formattedValues.admType
