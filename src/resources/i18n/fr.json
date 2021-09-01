@@ -137,6 +137,7 @@
     "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
+    "code": "Code",
     "delete": "Suppression",
     "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
     "deletesuccess": "L'élément de {{code}} a été supprimé avec succès",
@@ -162,7 +163,13 @@
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
     "sendsms": "Envoyer les sms",
-    "validatelastdate": "doit être égale ou sup à la date de début"
+    "validatelastdate": "doit être égale ou sup à la date de début",
+    "savetherapy": "Enregistrer",
+    "updatetherapy": "Mettre à Jour",
+    "created": "Therapie créée",
+    "updated": "Therapie modifiée",
+    "createsuccess": "Ligne de thérapie enregistrée avec succès!",
+    "updatesuccess": "L'entrée de code {{code}} a été modifiée avec succès!"
   },
   "booking": {
     "category": "Catégorie",
