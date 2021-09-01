@@ -15,6 +15,10 @@ import {
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
   GET_THERAPY_SUCCESS_EMPTY,
+  UPDATE_THERAPY_FAIL,
+  UPDATE_THERAPY_LOADING,
+  UPDATE_THERAPY_RESET,
+  UPDATE_THERAPY_SUCCESS,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -27,7 +31,6 @@ export const createTherapy =
     dispatch({
       type: CREATE_THERAPY_LOADING,
     });
-
     therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       (payload) => {
         dispatch({
@@ -44,11 +47,41 @@ export const createTherapy =
     );
   };
 
+export const updateTherapy =
+  (thRowDTO: TherapyRowDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_THERAPY_LOADING,
+    });
+    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_THERAPY_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_THERAPY_FAIL,
+          error: error,
+        });
+      }
+    );
+  };
+
 export const createTherapyReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_THERAPY_RESET,
+    });
+  };
+
+export const updateTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_THERAPY_RESET,
     });
   };
 

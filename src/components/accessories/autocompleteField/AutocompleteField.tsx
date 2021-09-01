@@ -42,7 +42,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   }, [fieldValue]);
 
   return (
-    <FormControl variant="outlined" className="autocomplete" size="small">
+    <FormControl variant="outlined" className="autocomplete">
       <Autocomplete
         freeSolo
         disabled={disabled}
@@ -68,7 +68,6 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           />
         )}
       />
-      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };

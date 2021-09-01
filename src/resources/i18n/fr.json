@@ -27,6 +27,12 @@
     "secondname": "2ème nom *",
     "sex": "Sexe",
     "opd": "OPD",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Dernière admission",
     "reasonforvisit": "Raison de la consultation",
     "treatmentmade": "Traitement donné",
@@ -159,7 +165,13 @@
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
     "sendsms": "Envoyer les sms",
-    "validatelastdate": "doit être égale ou sup à la date de début"
+    "validatelastdate": "doit être égale ou sup à la date de début",
+    "savetherapy": "Enregistrer",
+    "updatetherapy": "Mettre à Jour",
+    "created": "Therapie créée",
+    "updated": "Therapie modifiée",
+    "createsuccess": "Ligne de thérapie enregistrée avec succès!",
+    "updatesuccess": "L'entrée de code {{code}} a été modifiée avec succès!"
   },
   "booking": {
     "category": "Catégorie",
@@ -169,7 +181,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Paramètres",
-    "therapy": "Thérapie",    
+    "therapy": "Thérapie",
     "opd": "Diagnostiques",
     "booking": "Prescriptions",
     "bookingdate": "Date",

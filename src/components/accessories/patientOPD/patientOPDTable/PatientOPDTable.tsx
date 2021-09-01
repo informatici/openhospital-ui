@@ -6,9 +6,9 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import moment from "moment";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: <T>(row: T) => void;
@@ -53,10 +53,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           code: item.code,
-          date:
-            item.date && moment(+item.date).isValid()
-              ? moment(+item.date).format("DD/MM/YYYY")
-              : "",
+          date: item.date ? renderDate(item.date) : "",
           disease: item.disease?.description || "",
           disease2: item.disease2?.description || "",
           disease3: item.disease3?.description || "",
