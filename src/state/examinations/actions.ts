@@ -1,4 +1,3 @@
-import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
   Configuration,

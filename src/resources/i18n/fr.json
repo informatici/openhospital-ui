@@ -109,7 +109,8 @@
     "newtherapy": "Nouvelle Therapie",
     "managetherapy": "Manage Therapie",
     "editpatient": "Éditer Patient",
-    "searchpatient": "Recherche Patient"
+    "searchpatient": "Recherche Patient",
+    "exams": "Examens"
   },
   "common": {
     "results": "Résultats",
@@ -137,10 +138,11 @@
     "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
+    "save": "Enregistrer",
     "code": "Code",
+    "update": "mettre à jour",
     "delete": "Suppression",
     "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
-    "deletesuccess": "L'élément de {{code}} a été supprimé avec succès",
     "incorrectformat": "Format incorrect",
     "yes": "Oui",
     "no": "Non",
@@ -192,5 +194,21 @@
     "patientregistrationsuccessfull": "Enregistrement du patient complété.",
     "somethingwrong": "Un erreur est survenu, veuillez réessayer plus tard.",
     "searchpatientinstruction": "Si vous n'avez pas de ID patient, remplissez autant de champs que vous pouvez et cliquez rechercher"
+  },
+  "lab": {
+    "date": "Date",
+    "exam": "Examen",
+    "type": "Interne/Externe",
+    "material": "Matériel",
+    "note": "Note",
+    "result": "Résultats",
+    "created": "Examen enregistré",
+    "updated": "Examen à jour",
+    "createsuccess": "Examen du patient enregistré avec succès!",
+    "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!",
+    "deleted": "L'examen du patient supprimé",
+    "resultrow": "Entrée",
+    "value": "Valeur",
+    "resultstitle": "Résultats"
   }
 }

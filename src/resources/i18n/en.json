@@ -107,7 +107,8 @@
     "newpatient": "New patient",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
-    "patientdashboard": "Patient Dashboard"
+    "patientdashboard": "Patient Dashboard",
+    "exams": "Exams"
   },
   "common": {
     "results": "Results",
@@ -134,7 +135,9 @@
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "required": "This field is required",
     "emptydata": "No data found!",
+    "save": "Save",
     "code": "Code",
+    "update": "update",
     "delete": "Delete",
     "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
     "deletesuccess": "The item with code {{code}} was deleted successfully!",
@@ -182,5 +185,21 @@
     "therapy": "Therapy",
     "opd": "Diagnostics",
     "booking": "Prescriptions"
+  },
+  "lab": {
+    "date": "Date",
+    "exam": "Exam",
+    "type": "IPD/OPD",
+    "material": "Material",
+    "note": "Note",
+    "result": "Results",
+    "created": "Patient exam added",
+    "updated": "Patient exam updated",
+    "createsuccess": "Patient exam added successfully!",
+    "updatesuccess": "Patient exam {{code}} updated successfully!",
+    "deleted": "Patient Exam deleted",
+    "resultrow": "Result row",
+    "value": "Value",
+    "resultstitle": "Results"
   }
 }
