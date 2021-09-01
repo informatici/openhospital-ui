@@ -2,7 +2,6 @@
   width: 100%;
   margin-top: 8px !important;
   label.MuiFormLabel-root {
-    top: 5px;
     &.MuiFormLabel-filled,
     &.Mui-focused {
       top: 2px;
@@ -17,5 +16,9 @@
     bottom: -20px;
     margin: 0px;
     left: 0px;
+  }
+
+  .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+    padding: 6px;
   }
 }

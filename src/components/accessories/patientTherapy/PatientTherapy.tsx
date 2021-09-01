@@ -7,6 +7,8 @@ import {
   createTherapyReset,
   deleteTherapyReset,
   deleteTherapy,
+  updateTherapyReset,
+  updateTherapy,
 } from "../../../state/therapies/actions";
 import { getMedicals } from "../../../state/medicals/actions";
 import { initialFields } from "./consts";
@@ -18,6 +20,7 @@ import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
+import { updateFields } from "../../../libraries/formDataHandling/functions";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
@@ -28,24 +31,32 @@ const PatientTherapy: FC = () => {
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
-    useState<TherapyTransitionState>("IDLE");
+    useState("IDLE");
+
+  const [therapyToEdit, setTherapyToEdit] = useState({} as TherapyRowDTO);
+
+  const [creationMode, setCreationMode] = useState(true);
+
+  const status = useSelector<IState, string | undefined>((state) => {
+    /*
+      Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
+      status at the same time,
+      because we use the same form for creation and modification. 
+    */
+    return state.therapies.createTherapy.status !== "IDLE"
+      ? state.therapies.createTherapy.status
+      : state.therapies.updateTherapy.status;
+  });
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-  const createStatus = useSelector<IState, string | undefined>(
-    (state) => state.therapies.createTherapy.status
-  );
+
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.deleteTherapy.status
   );
-  useEffect(() => {
-    if (createStatus === "FAIL") {
-      scrollToElement(infoBoxRef.current);
-    }
-  }, [createStatus]);
 
   useEffect(() => {
     dispatch(deleteTherapyReset());
@@ -54,58 +65,101 @@ const PatientTherapy: FC = () => {
   }, [dispatch, getMedicals]);
 
   useEffect(() => {
-    if (activityTransitionState === "TO_RESET") {
-      dispatch(createTherapyReset());
-      dispatch(deleteTherapyReset());
-      setShouldResetForm(true);
-      setShouldUpdateTable(true);
+    if (status === "FAIL") {
+      setActivityTransitionState("FAIL");
+      scrollToElement(infoBoxRef.current);
     }
-  }, [activityTransitionState, createTherapyReset]);
+  }, [status]);
 
-  const onSubmit = (therapy: TherapyRowDTO) => {
+  useEffect(() => {
+    dispatch(createTherapyReset());
+    dispatch(updateTherapyReset());
+  }, [dispatch, updateTherapyReset, createTherapyReset]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_RESET") {
+      setShouldUpdateTable(true);
+      setCreationMode(true);
+      dispatch(createTherapyReset());
+      dispatch(updateTherapyReset());
+      setShouldResetForm(true);
+    }
+  }, [
+    dispatch,
+    activityTransitionState,
+    createTherapyReset,
+    updateTherapyReset,
+  ]);
+
+  const onSubmit = (valuesToSave: TherapyRowDTO) => {
     setShouldResetForm(false);
-    therapy.patID = patientData;
-    createTherapy(therapy);
+    valuesToSave.therapyID = therapyToEdit.therapyID;
+    valuesToSave.patID = patientData;
+    if (!creationMode && therapyToEdit.therapyID) {
+      dispatch(updateTherapy(valuesToSave));
+    } else dispatch(createTherapy(valuesToSave));
   };
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
     dispatch(deleteTherapyReset());
+    setCreationMode(true);
+    dispatch(createTherapyReset());
+    dispatch(updateTherapyReset());
     setActivityTransitionState("IDLE");
+    setShouldUpdateTable(false);
+    scrollToElement(null);
+  };
+
+  const onEdit = (row: TherapyRowDTO) => {
+    setTherapyToEdit(row);
+    setCreationMode(false);
     scrollToElement(null);
   };
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(`${code ?? ""}`);
+    setDeletedObjCode(code?.toString() ?? "");
     dispatch(deleteTherapy(code));
   };
   return (
     <div className="patientTherapy">
       <TherapyForm
-        fields={initialFields}
+        fields={
+          creationMode
+            ? initialFields
+            : updateFields(initialFields, therapyToEdit)
+        }
         onSubmit={onSubmit}
-        submitButtonLabel={t("common.savetherapy")}
+        submitButtonLabel={
+          creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
+        }
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "SUCCESS"}
+        isLoading={status === "LOADING"}
       />
-      {(createStatus === "FAIL" || deleteStatus === "FAIL") && (
+      {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
+
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS"}
-        title={t("therapy.created")}
+        isOpen={status === "SUCCESS"}
+        title={creationMode ? t("therapy.created") : t("therapy.updated")}
         icon={checkIcon}
-        info="therapy.createsuccess"
+        info={
+          creationMode
+            ? t("therapy.createsuccess")
+            : t("therapy.updatesuccess", { code: therapyToEdit.therapyID })
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
       <PatientTherapyTable
         handleDelete={onDelete}
+        handleEdit={onEdit}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog

@@ -27,6 +27,12 @@
     "secondname": "2ème nom *",
     "sex": "Sexe",
     "opd": "OPD",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Dernière admission",
     "reasonforvisit": "Raison de la consultation",
     "treatmentmade": "Traitement donné",
@@ -135,6 +141,7 @@
     "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
+    "code": "Code",
     "delete": "Suppression",
     "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
     "deletesuccess": "L'élément de {{code}} a été supprimé avec succès",
@@ -143,8 +150,7 @@
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin",
-    "code": "Code"
+    "female": "Féminin"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -161,7 +167,13 @@
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
     "sendsms": "Envoyer les sms",
-    "validatelastdate": "doit être égale ou sup à la date de début"
+    "validatelastdate": "doit être égale ou sup à la date de début",
+    "savetherapy": "Enregistrer",
+    "updatetherapy": "Mettre à Jour",
+    "created": "Therapie créée",
+    "updated": "Therapie modifiée",
+    "createsuccess": "Ligne de thérapie enregistrée avec succès!",
+    "updatesuccess": "L'entrée de code {{code}} a été modifiée avec succès!"
   },
   "booking": {
     "category": "Catégorie",
@@ -171,7 +183,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Paramètres",
-    "therapy": "Thérapie",    
+    "therapy": "Thérapie",
     "opd": "Diagnostiques",
     "booking": "Prescriptions",
     "bookingdate": "Date",

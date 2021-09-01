@@ -1,9 +1,9 @@
 import { CircularProgress } from "@material-ui/core";
-import moment from "moment";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { examinationsByPatientId } from "../../../../state/examinations/actions";
 import { IState } from "../../../../types";
@@ -60,9 +60,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_temp: item.pex_temp,
         pex_sat: item.pex_sat,
         pex_note: item.pex_note,
-        pex_date: item.pex_date
-          ? moment(item.pex_date).format("DD/MM/YYYY")
-          : "",
+        pex_date: item.pex_date ? renderDate(item.pex_date) : "",
       };
     });
   };

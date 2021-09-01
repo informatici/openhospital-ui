@@ -1,6 +1,6 @@
 const patientExaminationDTO = {
   pex_ID: Math.floor(Math.random() * 100 + 1),
-  pex_date: "2021-03-19T14:58:00.000Z",
+  pex_date: "1616165880000",
   patientCode: 1,
   pex_height: 175,
   pex_weight: 70,

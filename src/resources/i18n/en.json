@@ -27,6 +27,12 @@
     "secondname": "Second Name",
     "sex": "Sex",
     "opd": "OPD",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Last admission",
     "reasonforvisit": "Reason for visit",
     "treatmentmade": "Treatment made",
@@ -106,7 +112,6 @@
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard"
-
   },
   "common": {
     "results": "Results",
@@ -131,9 +136,9 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Save Therapy",
     "required": "This field is required",
     "emptydata": "No data found!",
+    "code": "Code",
     "delete": "Delete",
     "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
     "deletesuccess": "The item with code {{code}} was deleted successfully!",
@@ -142,8 +147,7 @@
     "no": "No",
     "unknown": "Unknown",
     "male": "Male",
-    "female": "Female",
-    "code": "Code"
+    "female": "Female"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -161,7 +165,14 @@
     "sendnotification": "Send notification",
     "sendsms": "Send SMS",
     "note": "Note",
-    "validatelastdate": "should be greater or equal to start date"
+    "validatelastdate": "should be greater or equal to start date",
+    "savetherapy": "Save",
+    "updatetherapy": "Update",
+    "created": "Therapy created",
+    "updated": "Therapy updated",
+    "createsuccess": "A therapy row has been created successfully!",
+    "updatesuccess": "A therapy row with code {{code}} has been updated successfully!"
+
   },
   "booking": {
     "category": "Category",
@@ -172,7 +183,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Examinations",
-    "therapy": "Therapy",    
+    "therapy": "Therapy",
     "opd": "Diagnostics",
     "booking": "Prescriptions"
   }

@@ -13,6 +13,10 @@ import {
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
   GET_THERAPY_SUCCESS_EMPTY,
+  UPDATE_THERAPY_FAIL,
+  UPDATE_THERAPY_LOADING,
+  UPDATE_THERAPY_RESET,
+  UPDATE_THERAPY_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { ITherapiesState } from "./types";
@@ -101,6 +105,29 @@ export default produce((draft: ITherapiesState, action: IAction<any, any>) => {
     case DELETE_THERAPY_RESET: {
       draft.deleteTherapy.status = "IDLE";
       delete draft.deleteTherapy.error;
+      break;
+    }
+    case UPDATE_THERAPY_LOADING: {
+      draft.updateTherapy.status = "LOADING";
+      break;
+    }
+
+    case UPDATE_THERAPY_SUCCESS: {
+      draft.updateTherapy.status = "SUCCESS";
+      draft.updateTherapy.data = action.payload;
+      delete draft.updateTherapy.error;
+      break;
+    }
+
+    case UPDATE_THERAPY_FAIL: {
+      draft.updateTherapy.status = "FAIL";
+      draft.updateTherapy.error = action.error;
+      break;
+    }
+
+    case UPDATE_THERAPY_RESET: {
+      draft.updateTherapy.status = "IDLE";
+      delete draft.updateTherapy.error;
       break;
     }
   }

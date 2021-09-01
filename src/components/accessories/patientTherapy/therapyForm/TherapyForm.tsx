@@ -41,7 +41,11 @@ const TherapyForm: FC<TherapyProps> = ({
         name: "endDate",
         message: t("therapy.validatelastdate"),
         test: function (value) {
-          return moment(value).isSameOrAfter(moment(this.parent.startDate));
+          if (moment(+value).isValid()) {
+            return moment(+value).isSameOrAfter(moment(+this.parent.startDate));
+          } else if (moment(value).isValid()) {
+            return moment(value).isSameOrAfter(moment(this.parent.startDate));
+          } else return true;
         },
       }),
   });
@@ -52,8 +56,8 @@ const TherapyForm: FC<TherapyProps> = ({
     if (state.medicals.medicalsOrderByName.data) {
       return state.medicals.medicalsOrderByName.data.map((medical) => {
         return {
-          value: medical.code + "",
-          label: medical.description + "",
+          value: medical.code ?? "",
+          label: medical.description ?? "",
         };
       });
     } else return [];

@@ -46,8 +46,9 @@ export const updateFields = (
 ): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
-      if (draft[key as string])
+      if (draft[key as string]) {
         return (draft[key as string].value = values![key as keyof PatientDTO]);
+      }
     });
   });
 };
@@ -62,7 +63,7 @@ export const updateOpdFields = (
         const value = values![key as keyof OpdDTO];
         return (draft[key as string].value =
           typeof value === "object"
-            ? `${(value as DiseaseDTO).code}`
+            ? (value as DiseaseDTO)?.code?.toString() ?? ""
             : moment(value).isValid()
             ? Date.parse(moment(value).toString())
             : value);
