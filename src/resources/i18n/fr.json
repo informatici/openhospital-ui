@@ -92,7 +92,11 @@
     "temperature": "Température",
     "temperatureabbr": "T",
     "weight": "Poids",
-    "weightabbr": "(P)"
+    "weightabbr": "(P)",
+    "created": "Paramètres enregistré",
+    "deleted": "Paramètres supprimé",
+    "createsuccess": "Paramètres enregistré avec succès!",
+    "deletesuccess": "Paramètres supprimé avec succès!"
   },
   "nav": {
     "pharmacy": "Pharmacie",

@@ -11,6 +11,9 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
+  DELETE_THERAPY_FAIL,
+  DELETE_THERAPY_RESET,
+  DELETE_THERAPY_SUCCESS,
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
@@ -77,6 +80,14 @@ export const createTherapyReset =
     });
   };
 
+export const deleteTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_THERAPY_RESET,
+    });
+  };
+
 export const updateTherapyReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
@@ -119,4 +130,16 @@ export const getTherapiesByPatientId =
         error: "The patient code should not be null",
       });
     }
+  };
+
+export const deleteTherapy =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    /**
+     * endpoint not available
+     */
+    dispatch({
+      type: DELETE_THERAPY_FAIL,
+      error: "delete feature not yet available!!!",
+    });
   };

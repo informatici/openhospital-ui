@@ -6,18 +6,20 @@ import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { getMedicals } from "../../../../state/medicals/actions";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleDelete: (code: number | undefined) => void;
   handleEdit: <T>(row: T) => void;
 }
 
 const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
+  handleDelete,
   handleEdit,
 }) => {
   const { t } = useTranslation();
@@ -35,7 +37,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     medicalId: t("therapy.medical"),
   };
   const order = ["startDate", "endDate"];
-
   const dispatch = useDispatch();
 
   const data = useSelector<IState, TherapyRowDTO[]>((state) =>
@@ -84,8 +85,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const therapyStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
   );
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: TherapyRowDTO) => {
+    handleDelete(row.therapyID);
   };
 
   const onEdit = (row: TherapyRowDTO) => {

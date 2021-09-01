@@ -5,19 +5,24 @@ import "./styles.scss";
 import {
   createTherapy,
   createTherapyReset,
+  deleteTherapyReset,
+  deleteTherapy,
   updateTherapyReset,
   updateTherapy,
 } from "../../../state/therapies/actions";
+import { getMedicals } from "../../../state/medicals/actions";
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { TherapyRowDTO } from "../../../generated";
+import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
-import { useDispatch, useSelector } from "react-redux";
+
+export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
 const PatientTherapy: FC = () => {
   const { t } = useTranslation();
@@ -43,9 +48,21 @@ const PatientTherapy: FC = () => {
       : state.therapies.updateTherapy.status;
   });
 
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
+
+  const deleteStatus = useSelector<IState, string | undefined>(
+    (state) => state.therapies.deleteTherapy.status
+  );
+
+  useEffect(() => {
+    dispatch(deleteTherapyReset());
+    dispatch(deleteTherapyReset());
+    dispatch(getMedicals());
+  }, [dispatch, getMedicals]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -85,6 +102,8 @@ const PatientTherapy: FC = () => {
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
+    setShouldUpdateTable(false);
+    dispatch(deleteTherapyReset());
     setCreationMode(true);
     dispatch(createTherapyReset());
     dispatch(updateTherapyReset());
@@ -98,7 +117,10 @@ const PatientTherapy: FC = () => {
     setCreationMode(false);
     scrollToElement(null);
   };
-
+  const onDelete = (code: number | undefined) => {
+    setDeletedObjCode(code?.toString() ?? "");
+    dispatch(deleteTherapy(code));
+  };
   return (
     <div className="patientTherapy">
       <TherapyForm
@@ -136,8 +158,18 @@ const PatientTherapy: FC = () => {
         handleSecondaryButtonClick={() => ({})}
       />
       <PatientTherapyTable
+        handleDelete={onDelete}
         handleEdit={onEdit}
         shouldUpdateTable={shouldUpdateTable}
+      />
+      <ConfirmationDialog
+        isOpen={deleteStatus === "SUCCESS"}
+        title={t("common.delete")}
+        icon={checkIcon}
+        info={t("common.deletesuccess", { code: deletedObjCode })}
+        primaryButtonLabel="OK"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => {}}
       />
     </div>
   );

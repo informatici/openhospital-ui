@@ -4,4 +4,5 @@ import { IApiResponse } from "../types";
 export type IExaminationsState = {
   createExamination: IApiResponse<null>;
   examinationsByPatientId: IApiResponse<Array<PatientExaminationDTO>>;
+  deleteExamination: IApiResponse<null>;
 };
