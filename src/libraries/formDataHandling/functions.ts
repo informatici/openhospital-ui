@@ -1,3 +1,4 @@
+import { maskedDateFormatter } from "@material-ui/pickers/_helpers/text-field-helper";
 import { produce } from "immer";
 import moment from "moment";
 import {
@@ -94,4 +95,8 @@ export const updateOpdFields = (
       }
     });
   });
+};
+
+export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
+  return moment(dateTo).diff(moment(dateFrom), "days");
 };

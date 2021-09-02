@@ -3,12 +3,15 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { AdmissionTypeDTO, DiseaseDTO, WardDTO } from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
@@ -28,6 +31,29 @@ const AdmissionForm: FC<AdmissionProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
+
+  const diagnosisInList = useSelector(
+    (state: IState) => state.diseases.diseasesIpdIn.data
+  );
+
+  const admissionTypes = useSelector(
+    (state: IState) => state.admissionTypes.allAdmissionTypes.data
+  );
+  const wards = useSelector((state: IState) => state.wards.allWards.data);
+
+  const renderOptions = (
+    data: (WardDTO | DiseaseDTO | AdmissionTypeDTO)[] | undefined
+  ) => {
+    if (data) {
+      return data.map((item) => {
+        return {
+          value: item.code?.toString() ?? "",
+          label: item.description ?? "",
+        };
+      });
+    } else return [];
+  };
+
   const validationSchema = object({
     ward: string().required(t("common.required")),
     admDate: string().required(t("common.required")),
@@ -35,7 +61,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
-  const options = getFromFields(fields, "options");
 
   const formik = useFormik({
     initialValues,
@@ -43,6 +68,15 @@ const AdmissionForm: FC<AdmissionProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.diseaseIn = diagnosisInList?.find(
+        (item) => item.code === formattedValues.diseaseIn
+      );
+      formattedValues.admType = admissionTypes?.find(
+        (item) => item.code === formattedValues.admType
+      );
+      formattedValues.ward = wards?.find(
+        (item) => item.code === formattedValues.ward
+      );
       onSubmit(formattedValues);
     },
   });
@@ -89,6 +123,16 @@ const AdmissionForm: FC<AdmissionProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
+  const diagnosisStatus = useSelector(
+    (state: IState) => state.diseases.diseasesIpdIn.status
+  );
+  const wardStatus = useSelector(
+    (state: IState) => state.wards.allWards.status
+  );
+  const typeStatus = useSelector(
+    (state: IState) => state.admissionTypes.allAdmissionTypes.status
+  );
+
   return (
     <>
       <div className="patientAdmissionForm">
@@ -105,7 +149,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("ward")}
                 errorText={getErrorText("ward")}
                 onBlur={onBlurCallback("ward")}
-                options={options.ward}
+                options={renderOptions(wards)}
+                loading={wardStatus === "LOADING"}
               />
             </div>
             <div className="patientAdmissionForm__item">
@@ -126,7 +171,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
               <DateField
                 fieldName="admDate"
                 fieldValue={formik.values.admDate}
-                disableFuture={false}
+                disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("admDate")}
@@ -143,7 +188,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("admType")}
                 errorText={getErrorText("admType")}
                 onBlur={onBlurCallback("admType")}
-                options={options.admType}
+                options={renderOptions(admissionTypes)}
+                loading={typeStatus === "LOADING"}
               />
             </div>
           </div>
@@ -156,7 +202,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("diseaseIn")}
                 errorText={getErrorText("diseaseIn")}
                 onBlur={onBlurCallback("diseaseIn")}
-                options={options.diseaseIn}
+                options={renderOptions(diagnosisInList)}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
           </div>

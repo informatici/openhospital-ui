@@ -226,13 +226,22 @@
     "diseaseIn": "Diagnostic D'entrée",
     "ward": "Pavillon",
     "transUnit": "En provenance De l'unité",
-    "disType": "Type de Sortie",
+    "disType": "Type de sortie",
     "disDate": "Date de sortie",
     "bedDays": "Nuités",
     "diseaseOut1": "Diagnostic de sortie 1",
     "diseaseOut2": "Diagnostic de sortie 2",
     "diseaseOut3": "Diagnostic de sortie 3",
-    "cliDiaryCharge": "Clinical Diary Charge",
-    "imageryCharge": "Imagery Charge"
+    "cliDiaryCharge": "Journal clinique",
+    "imageryCharge": "Imagerie",
+    "createsuccess": "Patient admis avec succès",
+    "created": "Patient admis",
+    "dischargesuccess": "Patient sorti avec succès",
+    "discharged": "Patient sorti",
+    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!",
+    "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
+    "noteadded": "Note Enregistrée",
+    "note": "Note",
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
   }
 }

@@ -1,17 +1,20 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { object, string, number } from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { AdmissionTypeDTO, DiseaseDTO } from "../../../../generated";
 import {
+  differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
+import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -33,16 +36,58 @@ const DischargeForm: FC<DischargeProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
-  const validationSchema = object({
-    disDate: string().required(t("common.required")),
-    disType: string().required(t("common.required")),
-    bedDays: number()
-      .required(t("common.required"))
-      .min(1, t("common.invalidNumber")),
-    diseaseOut1: string().required(t("common.required")),
-  });
+  const dispatch = useDispatch();
+
+  const diagnosisOutList = useSelector(
+    (state: IState) => state.diseases.diseasesIpdOut.data
+  );
+
+  const dischargeTypes = useSelector(
+    (state: IState) => state.dischargeTypes.allDischargeTypes.data
+  );
 
   const initialValues = getFromFields(fields, "value");
+
+  const validationSchema = object({
+    disDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "disDate",
+        message: t("admission.validatelastdate", {
+          admDate: moment(+initialValues.admDate).format("DD/MM/YYYY"),
+        }),
+        test: function (value) {
+          return moment(value).isSameOrAfter(moment(+this.parent.admDate));
+        },
+      }),
+
+    disType: string().required(t("common.required")),
+    diseaseOut1: string().required(t("common.required")),
+
+    diseaseOut2: string().test({
+      name: "diseaseOut2",
+      message: t("opd.validatedisease"),
+      test: function (value) {
+        return (
+          !value ||
+          (this.parent.diseaseOut1 && value !== this.parent.diseaseOut1)
+        );
+      },
+    }),
+    diseaseOut3: string().test({
+      name: "diseaseOut3",
+      message: t("opd.validatedisease"),
+      test: function (value) {
+        return (
+          !value ||
+          (this.parent.diseaseOut1 &&
+            this.parent.diseaseOut2 &&
+            value !== this.parent.diseaseOut1 &&
+            value !== this.parent.diseaseOut2)
+        );
+      },
+    }),
+  });
 
   const formik = useFormik({
     initialValues,
@@ -50,6 +95,18 @@ const DischargeForm: FC<DischargeProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.diseaseOut1 = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut1
+      );
+      formattedValues.diseaseOut2 = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut2
+      );
+      formattedValues.diseaseOut3 = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut3
+      );
+      formattedValues.disType = dischargeTypes?.find(
+        (item) => item.code === formattedValues.disType
+      );
       onSubmit(formattedValues);
     },
   });
@@ -59,6 +116,14 @@ const DischargeForm: FC<DischargeProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      if (fieldName === "disDate") {
+        const days = differenceInDays(
+          new Date(+initialValues.admDate),
+          new Date(value)
+        ).toString();
+
+        setFieldValue("bedDays", days);
+      }
     },
     [setFieldValue]
   );
@@ -90,6 +155,34 @@ const DischargeForm: FC<DischargeProps> = ({
   };
 
   useEffect(() => {
+    dispatch(getDiseasesIpdOut());
+  }, [dispatch, getDiseasesIpdOut]);
+
+  useEffect(() => {
+    dispatch(getDischargeTypes());
+  }, [dispatch, getDischargeTypes]);
+
+  const diagnosisStatus = useSelector(
+    (state: IState) => state.diseases.diseasesIpdOut.status
+  );
+  const typeStatus = useSelector(
+    (state: IState) => state.dischargeTypes.allDischargeTypes.status
+  );
+
+  const renderOptions = (
+    data: (AdmissionTypeDTO | DiseaseDTO)[] | undefined
+  ) => {
+    if (data) {
+      return data.map((type) => {
+        return {
+          value: type.code?.toString() ?? "",
+          label: type.description ?? "",
+        };
+      });
+    } else return [];
+  };
+
+  useEffect(() => {
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
@@ -108,7 +201,7 @@ const DischargeForm: FC<DischargeProps> = ({
               <DateField
                 fieldName="disDate"
                 fieldValue={formik.values.disDate}
-                disableFuture={false}
+                disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("disDate")}
@@ -125,6 +218,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("bedDays")}
                 errorText={getErrorText("bedDays")}
                 onBlur={formik.handleBlur}
+                disabled={true}
                 type="number"
               />
             </div>
@@ -136,7 +230,8 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("disType")}
                 errorText={getErrorText("disType")}
                 onBlur={onBlurCallback("disType")}
-                options={initialFields.disType.options ?? []}
+                options={renderOptions(dischargeTypes)}
+                loading={typeStatus === "LOADING"}
               />
             </div>
           </div>
@@ -149,7 +244,8 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut1")}
                 errorText={getErrorText("diseaseOut1")}
                 onBlur={onBlurCallback("diseaseOut1")}
-                options={initialFields.diseaseOut1.options ?? []}
+                options={renderOptions(diagnosisOutList)}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
             <div className="patientDischargeForm__item fullWidth">
@@ -160,7 +256,8 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut2")}
                 errorText={getErrorText("diseaseOut2")}
                 onBlur={onBlurCallback("diseaseOut2")}
-                options={initialFields.diseaseOut2.options ?? []}
+                options={renderOptions(diagnosisOutList)}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
             <div className="patientDischargeForm__item fullWidth">
@@ -171,7 +268,8 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut3")}
                 errorText={getErrorText("diseaseOut3")}
                 onBlur={onBlurCallback("diseaseOut3")}
-                options={initialFields.diseaseOut3.options ?? []}
+                options={renderOptions(diagnosisOutList)}
+                loading={diagnosisStatus === "LOADING"}
               />
             </div>
           </div>

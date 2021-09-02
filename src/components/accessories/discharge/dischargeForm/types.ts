@@ -1,4 +1,4 @@
-import { AdmissionDTO, PatientDTO, TherapyRowDTO } from "../../../../generated";
+import { AdmissionDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IDischargeProps {
@@ -12,8 +12,9 @@ interface IDischargeProps {
 }
 
 export type DischargeProps = IDischargeProps;
-
+export type DischargeTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 export type DischargeFormFieldName =
+  | "admDate"
   | "disDate"
   | "disType"
   | "bedDays"

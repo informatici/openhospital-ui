@@ -20,7 +20,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   errorText,
   onBlur,
   options,
-  isLoading,
+  isLoading = false,
   disabled,
 }) => {
   const [value, setValue] = useState("");
@@ -58,9 +58,9 @@ const AutocompleteField: FunctionComponent<IProps> = ({
         onBlur={handleOnBlur}
         renderInput={(params) => (
           <TextField
+            label={label}
             {...params}
             name={fieldName}
-            label={label}
             variant="outlined"
             size="small"
             error={isValid}
@@ -68,6 +68,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           />
         )}
       />
+      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };

@@ -15,4 +15,4 @@ export interface IDispatchProps {
 
 export type TProps = IStateProps & IDispatchProps;
 
-export type AdmissionTransitionState = "IDLE" | "TO_RESET";
+export type AdmissionTransitionState = "IDLE" | "TO_RESET" | "FAIL";
