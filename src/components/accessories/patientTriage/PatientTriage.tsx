@@ -42,14 +42,6 @@ const PatientTriage: FC = () => {
     (state) => state.examinations.deleteExamination.status
   );
 
-  const deleteError = useSelector<IState, string | undefined>(
-    (state) => state.examinations.deleteExamination.error
-  );
-
-  const retrieveDataError = useSelector<IState, string | undefined>(
-    (state) => state.examinations.examinationsByPatientId.error
-  );
-
   useEffect(() => {
     if (createStatus === "FAIL") {
       setActivityTransitionState("FAIL");
@@ -87,7 +79,7 @@ const PatientTriage: FC = () => {
   };
 
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(`${code ?? ""}`);
+    setDeletedObjCode(code?.toString() ?? "");
     dispatch(deleteExamination(code));
   };
 

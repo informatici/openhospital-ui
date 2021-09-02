@@ -34,6 +34,7 @@
     "i18next": "^19.9.1",
     "i18next-browser-languagedetector": "^6.1.0",
     "immer": "^8.0.1",
+    "jquery": "^3.6.0",
     "js-resource-converter": "^1.0.1",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
