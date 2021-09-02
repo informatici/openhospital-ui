@@ -1,3 +1,4 @@
+import { maskedDateFormatter } from "@material-ui/pickers/_helpers/text-field-helper";
 import { produce } from "immer";
 import moment from "moment";
 import { DiseaseDTO, OpdDTO, PatientDTO } from "../../generated";
@@ -62,11 +63,15 @@ export const updateOpdFields = (
         const value = values![key as keyof OpdDTO];
         return (draft[key as string].value =
           typeof value === "object"
-            ? `${(value as DiseaseDTO).code}`
+            ? (value as DiseaseDTO).code?.toString()
             : moment(value).isValid()
             ? Date.parse(moment(value).toString())
             : value);
       }
     });
   });
+};
+
+export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
+  return moment(dateTo).diff(moment(dateFrom), "days");
 };

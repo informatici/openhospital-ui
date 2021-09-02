@@ -21,6 +21,7 @@ import checkIcon from "../../../assets/check-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
+import { differenceInDays } from "../../../libraries/formDataHandling/functions";
 
 export const PatientDischarge: React.FC = () => {
   const { t } = useTranslation();
@@ -41,12 +42,10 @@ export const PatientDischarge: React.FC = () => {
       type: "date",
     },
     bedDays: {
-      value: moment(new Date())
-        .diff(
-          moment(new Date(parseInt(currentAdmission?.admDate ?? ""))),
-          "days"
-        )
-        .toString(),
+      value: differenceInDays(
+        new Date(+(currentAdmission?.admDate ?? "")),
+        new Date()
+      ).toString(),
       type: "number",
     },
   };

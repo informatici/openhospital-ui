@@ -1,4 +1,4 @@
-import { AdmissionDTO, PatientDTO, TherapyRowDTO } from "../../../../generated";
+import { AdmissionDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IDischargeProps {

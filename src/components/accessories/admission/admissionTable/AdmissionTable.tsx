@@ -51,10 +51,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         admDate: item.admDate
-          ? format(
-              new Date(isNaN(+item.admDate) ? item.admDate : +item.admDate),
-              "dd/MM/yyyy"
-            )
+          ? format(new Date(+item.admDate), "dd/MM/yyyy")
           : "",
         admType: item.admType?.description ?? "",
         diseaseIn: item.diseaseIn?.description ?? "",

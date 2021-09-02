@@ -9,6 +9,7 @@ import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { AdmissionTypeDTO, DiseaseDTO } from "../../../../generated";
 import {
+  differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
@@ -115,6 +116,14 @@ const DischargeForm: FC<DischargeProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      if (fieldName === "disDate") {
+        const days = differenceInDays(
+          new Date(+initialValues.admDate),
+          new Date(value)
+        ).toString();
+
+        setFieldValue("bedDays", days);
+      }
     },
     [setFieldValue]
   );
