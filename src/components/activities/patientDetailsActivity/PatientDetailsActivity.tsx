@@ -258,7 +258,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           setUserSection("admissions");
                           setDefaultRoute("/admission");
                         }}
-                        style={{ display: "flex", alignItems: "center" }}
                       >
                         <Assignment
                           fontSize="small"
@@ -281,7 +280,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           setUserSection("exams");
                           setDefaultRoute("/summary");
                         }}
-                        style={{ display: "flex", alignItems: "center" }}
                       >
                         <Assignment
                           fontSize="small"
@@ -303,7 +301,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           setUserSection("billing");
                           setDefaultRoute("/summary");
                         }}
-                        style={{ display: "flex", alignItems: "center" }}
                       >
                         <Payment fontSize="small" style={{ color: "white" }} />
                         <span>{t("patient.userbilling")}</span>
@@ -322,7 +319,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           setUserSection("hospital");
                           setDefaultRoute("/summary");
                         }}
-                        style={{ display: "flex", alignItems: "center" }}
                       >
                         <LocalHotel
                           fontSize="small"
@@ -346,7 +342,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           setUserSection("clinic");
                           setDefaultRoute("/summary");
                         }}
-                        style={{ display: "flex", alignItems: "center" }}
                       >
                         <LocalHospital
                           fontSize="small"
@@ -367,15 +362,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         <AccordionSummary
                           onClick={() => handleOnExpanded("panel_1")}
                         >
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            <Person
-                              fontSize="small"
-                              style={{ color: "white" }}
-                            />
-                            <span>{t("patient.personaldata")}</span>
-                          </div>
+                          <Person fontSize="small" style={{ color: "white" }} />
+                          <span>{t("patient.personaldata")}</span>
                         </AccordionSummary>
                         <AccordionDetails>
                           <div className="patientDetails__personalData__item">
@@ -441,15 +429,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           <AccordionSummary
                             onClick={() => handleOnExpanded("panel_2")}
                           >
-                            <div
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
-                              <Notes
-                                fontSize="small"
-                                style={{ color: "white" }}
-                              />
-                              <span>{t("patient.note")}:</span>
-                            </div>
+                            <Notes
+                              fontSize="small"
+                              style={{ color: "white" }}
+                            />
+                            <span>{t("patient.note")}:</span>
                           </AccordionSummary>
                           <AccordionDetails>
                             <div className="patientDetails__personalData__item longText">
