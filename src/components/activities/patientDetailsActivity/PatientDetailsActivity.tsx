@@ -42,6 +42,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
+import PatientExams from "../../accessories/patientExams/PatientExams";
 import Button from "../../accessories/button/Button";
 import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
@@ -141,6 +142,12 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
+    {
+      label: t("nav.exams"),
+      path: "/exams",
+      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
+    },
+
     {
       label: t("nav.booking"),
       path: "/booking",

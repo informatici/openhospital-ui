@@ -34,17 +34,15 @@ const Table: FunctionComponent<IProps> = ({
   onPrint,
   onView,
 }) => {
+  const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
   const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
-
-  const { t } = useTranslation();
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
   const createSortHandler =
     (property: any) => (event: React.MouseEvent<unknown>) => {
       handleRequestSort(event, property);
@@ -77,8 +75,8 @@ const Table: FunctionComponent<IProps> = ({
           <IconButton
             size="small"
             onClick={() => {
-              setOpenDeleteConfirmation(true);
               setCurrentRow(row);
+              setOpenDeleteConfirmation(true);
             }}
           >
             <Delete color="secondary" />

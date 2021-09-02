@@ -1,4 +1,3 @@
-import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -12,6 +11,9 @@ import {
   CREATE_EXAMINATION_LOADING,
   CREATE_EXAMINATION_RESET,
   CREATE_EXAMINATION_SUCCESS,
+  DELETE_EXAMINATION_FAIL,
+  DELETE_EXAMINATION_RESET,
+  DELETE_EXAMINATION_SUCCESS,
   SEARCH_EXAMINATION_FAIL,
   SEARCH_EXAMINATION_LOADING,
   SEARCH_EXAMINATION_SUCCESS,
@@ -53,6 +55,14 @@ export const createExaminationReset =
     });
   };
 
+export const deleteExaminationReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_EXAMINATION_RESET,
+    });
+  };
+
 export const examinationsByPatientId =
   (patId: number | undefined) =>
   (dispatch: Dispatch<IAction<PatientExaminationDTO[], {}>>): void => {
@@ -88,4 +98,16 @@ export const examinationsByPatientId =
         type: SEARCH_EXAMINATION_FAIL,
         error: "patient object should not be empty",
       });
+  };
+
+export const deleteExamination =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    /**
+     * delete api not yet available
+     */
+    dispatch({
+      type: DELETE_EXAMINATION_FAIL,
+      error: "delete api not yet available !!!",
+    });
   };
