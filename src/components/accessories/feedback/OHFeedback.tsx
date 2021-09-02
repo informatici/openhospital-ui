@@ -31,6 +31,7 @@ const OHFeedback: FC = () => {
         email: "example@email.com",
       },
       environment: {
+        // this is custom environment field value, we can add what we need
         "OH version": "0.1.0",
       },
     }
