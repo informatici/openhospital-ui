@@ -20,8 +20,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   errorText,
   onBlur,
   options,
-  loading = false,
-  isLoading,
+  isLoading = false,
   disabled,
 }) => {
   const [value, setValue] = useState("");
@@ -69,6 +68,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           />
         )}
       />
+      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };
