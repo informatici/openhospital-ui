@@ -1,9 +1,9 @@
 import { CircularProgress } from "@material-ui/core";
-import moment from "moment";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { examinationsByPatientId } from "../../../../state/examinations/actions";
 import { IState } from "../../../../types";
@@ -11,13 +11,16 @@ import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleDelete: (code: number | undefined) => void;
 }
 
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
+  handleDelete,
 }) => {
   const { t } = useTranslation();
   const label = {
+    pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),
     pex_height: t("examination.height"),
     pex_weight: t("examination.weight"),
@@ -48,6 +51,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
     return data.map((item) => {
       return {
+        pex_ID: item.pex_ID,
         pex_height: item.pex_height,
         pex_weight: item.pex_weight,
         pex_pa_max: item.pex_pa_max,
@@ -56,9 +60,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_temp: item.pex_temp,
         pex_sat: item.pex_sat,
         pex_note: item.pex_note,
-        pex_date: item.pex_date
-          ? moment(item.pex_date).format("DD/MM/YYYY")
-          : "",
+        pex_date: item.pex_date ? renderDate(item.pex_date) : "",
       };
     });
   };
@@ -66,8 +68,8 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     (state) => state.examinations.examinationsByPatientId.status
   );
 
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: PatientExaminationDTO) => {
+    handleDelete(row.pex_ID);
   };
 
   return (

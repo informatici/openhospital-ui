@@ -20,6 +20,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   errorText,
   onBlur,
   options,
+  isLoading,
+  disabled,
 }) => {
   const [value, setValue] = useState("");
 
@@ -40,9 +42,11 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   }, [fieldValue]);
 
   return (
-    <FormControl variant="outlined" className="autocomplete" size="small">
+    <FormControl variant="outlined" className="autocomplete">
       <Autocomplete
         freeSolo
+        disabled={disabled}
+        loading={isLoading}
         options={options}
         getOptionLabel={(option) => option.label}
         value={geFullObj(value)}
@@ -58,12 +62,12 @@ const AutocompleteField: FunctionComponent<IProps> = ({
             name={fieldName}
             label={label}
             variant="outlined"
+            size="small"
             error={isValid}
             fullWidth
           />
         )}
       />
-      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };

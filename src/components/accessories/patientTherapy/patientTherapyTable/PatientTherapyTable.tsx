@@ -6,21 +6,28 @@ import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { getMedicals } from "../../../../state/medicals/actions";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
-import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { getMedicals } from "../../../../state/medicals/actions";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleDelete: (code: number | undefined) => void;
+  handleEdit: <T>(row: T) => void;
 }
 
-const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
+const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
+  shouldUpdateTable,
+  handleDelete,
+  handleEdit,
+}) => {
   const { t } = useTranslation();
 
   const header = ["startDate", "endDate"];
 
   const label = {
+    therapyID: t("common.code"),
     startDate: t("therapy.startDate"),
     endDate: t("therapy.endDate"),
     qty: t("therapy.quantity"),
@@ -30,8 +37,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
     medicalId: t("therapy.medical"),
   };
   const order = ["startDate", "endDate"];
-
   const dispatch = useDispatch();
+
   const data = useSelector<IState, TherapyRowDTO[]>((state) =>
     state.therapies.therapiesByPatientId.data
       ? state.therapies.therapiesByPatientId.data
@@ -47,22 +54,26 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
+
   useEffect(() => {
     dispatch(getMedicals());
-    dispatch(getTherapiesByPatientId(patientCode));
-  }, [dispatch, patientCode]);
+  }, [dispatch, getMedicals]);
+
+  useEffect(() => {
+    if (shouldUpdateTable || patientCode) {
+      dispatch(getTherapiesByPatientId(patientCode));
+    }
+  }, [shouldUpdateTable, dispatch, patientCode, getTherapiesByPatientId]);
+
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data
       .map((item) => {
         const medical = medicals.find((medoc) => medoc.code === item.medicalId);
         return {
+          therapyID: item.therapyID,
           medicalId: medical ? medical.description : item.medicalId,
-          startDate: item.startDate
-            ? moment(item.startDate).format("DD/MM/YYYY")
-            : "",
-          endDate: item.endDate
-            ? moment(item.endDate).format("DD/MM/YYYY")
-            : "",
+          startDate: item.startDate ? renderDate(item.startDate) : "",
+          endDate: item.endDate ? renderDate(item.endDate) : "",
           qty: item.qty,
           freqInDay: item.freqInDay,
           freqInPeriod: item.freqInPeriod,
@@ -74,12 +85,12 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({}) => {
   const therapyStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
   );
-  const onDelete = () => {
-    console.log("delete");
+  const onDelete = (row: TherapyRowDTO) => {
+    handleDelete(row.therapyID);
   };
 
-  const onEdit = () => {
-    console.log("update");
+  const onEdit = (row: TherapyRowDTO) => {
+    handleEdit(data.find((item) => item.therapyID === row.therapyID));
   };
 
   const onEView = () => {};

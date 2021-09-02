@@ -85,6 +85,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {

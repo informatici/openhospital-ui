@@ -5,5 +5,7 @@ export interface IProps {
   isValid: boolean;
   errorText: string;
   onBlur: (e: any, value: any) => void;
-  options: Array<{ value: string; label: string }>;
+  isLoading?: boolean;
+  disabled?: boolean;
+  options: Array<{ value: string | number; label: string }>;
 }

@@ -1,18 +1,14 @@
-import {
-  default as React,
-  FunctionComponent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { default as React, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createExamination,
   createExaminationReset,
+  deleteExamination,
+  deleteExaminationReset,
 } from "../../../state/examinations/actions";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -21,55 +17,70 @@ import { initialFields } from "./consts";
 import PatientTriageForm from "./patientTriageForm/PatientTriageForm";
 import PatientTriageTable from "./patientTriageTable/PatientTriageTable";
 import "./styles.scss";
-import {
-  IDispatchProps,
-  IStateProps,
-  TActivityTransitionState,
-  TProps,
-} from "./types";
+export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 
-const PatientTriage: FunctionComponent<TProps> = ({
-  createExamination,
-  createExaminationReset,
-  isLoading,
-  hasSucceeded,
-  hasFailed,
-}) => {
+const PatientTriage: FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+
   const patientDataCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
+
+  const createStatus = useSelector<IState, string | undefined>(
+    (state) => state.examinations.createExamination.status
+  );
+  const deleteStatus = useSelector<IState, string | undefined>(
+    (state) => state.examinations.deleteExamination.status
+  );
+
   useEffect(() => {
-    if (hasFailed) {
+    if (createStatus === "FAIL") {
+      setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [hasFailed]);
+  }, [createStatus]);
+
+  useEffect(() => {
+    dispatch(createExaminationReset());
+    dispatch(deleteExaminationReset());
+  }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      createExaminationReset();
+      dispatch(createExaminationReset());
+      dispatch(deleteExaminationReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
-  }, [activityTransitionState, createExaminationReset]);
+  }, [activityTransitionState, createExaminationReset, deleteExaminationReset]);
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode;
-    createExamination(triage);
+    dispatch(createExamination(triage));
   };
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
+    dispatch(createExaminationReset());
+    dispatch(deleteExaminationReset());
     setActivityTransitionState("IDLE");
     scrollToElement(null);
+  };
+
+  const onDelete = (code: number | undefined) => {
+    setDeletedObjCode(code?.toString() ?? "");
+    dispatch(deleteExamination(code));
   };
 
   return (
@@ -81,39 +92,39 @@ const PatientTriage: FunctionComponent<TProps> = ({
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={isLoading}
+        isLoading={createStatus === "LOADING"}
       />
-      <div ref={infoBoxRef}>
-        {hasFailed && (
-          <InfoBox
-            type="error"
-            message="Something went wrong, please retry later."
-          />
-        )}
-      </div>
+
+      {(createStatus === "FAIL" || deleteStatus === "FAIL") && (
+        <div ref={infoBoxRef}>
+          <InfoBox type="error" message={t("common.somethingwrong")} />
+        </div>
+      )}
+
+      <PatientTriageTable
+        handleDelete={onDelete}
+        shouldUpdateTable={shouldUpdateTable}
+      />
       <ConfirmationDialog
-        isOpen={hasSucceeded}
-        title="Patient Triage Created"
+        isOpen={createStatus === "SUCCESS"}
+        title={t("examination.created")}
         icon={checkIcon}
-        info="The examination registration was successful."
+        info={t("examination.createsuccess")}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
-      <PatientTriageTable shouldUpdateTable={shouldUpdateTable} />
+      <ConfirmationDialog
+        isOpen={deleteStatus === "SUCCESS"}
+        title={t("opd.deleted")}
+        icon={checkIcon}
+        info={t("common.deletesuccess", { code: deletedObjCode })}
+        primaryButtonLabel="OK"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => {}}
+      />
     </div>
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: state.examinations.createExamination.status === "LOADING",
-  hasSucceeded: state.examinations.createExamination.status === "SUCCESS",
-  hasFailed: state.examinations.createExamination.status === "FAIL",
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  createExamination,
-  createExaminationReset,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PatientTriage);
+export default PatientTriage;
