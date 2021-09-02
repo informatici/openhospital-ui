@@ -14,6 +14,9 @@ import { admissionRoutes } from "./routes/admissions";
 import { admissionTypesRoutes } from "./routes/admissionTypes";
 import { dischargeTypesRoutes } from "./routes/dischargeTypes";
 import { wardsRoutes } from "./routes/wards";
+import { labRoutes } from "./routes/lab";
+import { examRoutes } from "./routes/exam";
+import { examRowRoutes } from "./routes/examRow";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -37,6 +40,10 @@ export function makeServer() {
     admissionTypesRoutes(server);
     dischargeTypesRoutes(server);
     wardsRoutes(server);
+    examRoutes(server);
+    labRoutes(server);
+    examRowRoutes(server);
+
   });
   return server;
 }

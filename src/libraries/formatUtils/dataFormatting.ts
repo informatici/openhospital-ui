@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import moment from "moment";
 import { DiseaseDTO } from "../../generated";
 
 export const opdDataFormatter = (
@@ -14,9 +14,11 @@ export const opdDataFormatter = (
     diseases && data.disease3 !== ""
       ? diseases.find((el) => el.code === +data.disease3)
       : null;
-
-  data.date = format(+data.date, "yyyy-MM-dd");
+  data.date = Date.parse(new Date(+data.date).toString()).toString();
   data.visitDate = data.date;
-
   return data;
+};
+
+export const renderDate = (date: string) => {
+  return moment(+date).isValid() ? moment(+date).format("DD/MM/YYYY") : "";
 };

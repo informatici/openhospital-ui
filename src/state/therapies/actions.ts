@@ -11,10 +11,17 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
+  DELETE_THERAPY_FAIL,
+  DELETE_THERAPY_RESET,
+  DELETE_THERAPY_SUCCESS,
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
   GET_THERAPY_SUCCESS_EMPTY,
+  UPDATE_THERAPY_FAIL,
+  UPDATE_THERAPY_LOADING,
+  UPDATE_THERAPY_RESET,
+  UPDATE_THERAPY_SUCCESS,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -27,7 +34,6 @@ export const createTherapy =
     dispatch({
       type: CREATE_THERAPY_LOADING,
     });
-
     therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       (payload) => {
         dispatch({
@@ -44,11 +50,49 @@ export const createTherapy =
     );
   };
 
+export const updateTherapy =
+  (thRowDTO: TherapyRowDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_THERAPY_LOADING,
+    });
+    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_THERAPY_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_THERAPY_FAIL,
+          error: error,
+        });
+      }
+    );
+  };
+
 export const createTherapyReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_THERAPY_RESET,
+    });
+  };
+
+export const deleteTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_THERAPY_RESET,
+    });
+  };
+
+export const updateTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_THERAPY_RESET,
     });
   };
 
@@ -86,4 +130,16 @@ export const getTherapiesByPatientId =
         error: "The patient code should not be null",
       });
     }
+  };
+
+export const deleteTherapy =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    /**
+     * endpoint not available
+     */
+    dispatch({
+      type: DELETE_THERAPY_FAIL,
+      error: "delete feature not yet available!!!",
+    });
   };

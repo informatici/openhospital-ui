@@ -3,9 +3,9 @@ import patientDTO from "./patientDTO";
 
 const opdDTO = {
   code: Math.floor(Math.random() * 100 + 1),
-  date: "2021-06-02T15:19:44.911Z",
-  visitDate: "2021-06-02T15:19:44.911Z",
-  nextVisitDate: "2021-06-02T15:19:44.911Z",
+  date: "1627831184000",
+  visitDate: "1627831184000",
+  nextVisitDate: "1627831184000",
   patientCode: patientDTO.code,
   age: 18,
   sex: "M",

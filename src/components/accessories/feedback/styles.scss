@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+  .feedback {
+    display: relative;
+    //position: fixed;
+    //right: 0px;
+    //top: 75%;
+    & {
+      color:$c-white;
+      text-decoration: none;
+    }
+    &:hover{      
+      color: $c-color-primary;
+      text-decoration:none; 
+      cursor:pointer;  
+    }
+  }

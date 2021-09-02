@@ -21,6 +21,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   onBlur,
   options,
   loading = false,
+  isLoading,
+  disabled,
 }) => {
   const [value, setValue] = useState("");
 
@@ -44,6 +46,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
     <FormControl variant="outlined" className="autocomplete">
       <Autocomplete
         freeSolo
+        disabled={disabled}
+        loading={isLoading}
         options={options}
         getOptionLabel={(option) => option.label}
         value={geFullObj(value)}
@@ -53,19 +57,18 @@ const AutocompleteField: FunctionComponent<IProps> = ({
           debounceUpdate(val?.value || "");
         }}
         onBlur={handleOnBlur}
-        loading={loading}
         renderInput={(params) => (
           <TextField
             label={label}
             {...params}
             name={fieldName}
             variant="outlined"
+            size="small"
             error={isValid}
             fullWidth
           />
         )}
       />
-      <FormHelperText error>{errorText || ""}</FormHelperText>
     </FormControl>
   );
 };

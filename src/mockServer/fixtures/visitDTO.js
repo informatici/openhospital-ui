@@ -3,7 +3,7 @@ import patientDTO from "./patientDTO";
 const visitDTO = {
     visitID: Math.floor(Math.random() * 100 + 1),
     patient: patientDTO,
-    date: "2021-03-19T14:58:00.000Z",
+    date: "1616165880000",
     note: "last visit",
     sms: true
 }

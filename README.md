@@ -21,6 +21,11 @@ To install the project dependencies, issue:
 
 **It has to be done before any of the following activities**
 
+## How to publish on Github Pages
+
+    - npm run build:gh-pages
+    - git subtree push --prefix build intesys-oh gh-pages
+
 ## How to launch the application
 
 You can run a development build of the application by issuing:
@@ -60,7 +65,7 @@ A list of open issues is available on [Jira][jira].
 
 ## Community
 
-You can reach out to the community of contributors by joining 
+You can reach out to the community of contributors by joining
 our [Slack workspace][slack] or by subscribing to our [mailing list][ml].
 
 [openhospital]: https://www.open-hospital.org/

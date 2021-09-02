@@ -20,6 +20,8 @@ import admissions from "./state/admissions/reducer";
 import admissionTypes from "./state/admissionTypes/reducer";
 import dischargeTypes from "./state/dischargeTypes/reducer";
 import wards from "./state/ward/reducer";
+import laboratories from "./state/laboratories/reducer";
+import exams from "./state/exams/reducer";
 import { IState } from "./types";
 
 if (process.env.NODE_ENV === "development") {
@@ -39,6 +41,8 @@ const reducer = combineReducers<IState>({
   admissions,
   admissionTypes,
   wards,
+  laboratories,
+  exams,
 });
 const store = createStore(
   reducer,

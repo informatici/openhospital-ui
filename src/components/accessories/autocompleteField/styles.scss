@@ -7,9 +7,8 @@
       top: 2px;
     }
   }
-  .MuiSelect-select.MuiInputBase-input {
-    padding-top: 15px;
-    padding-bottom: 15px;
+  .MuiInputBase-input {    
+    height: 1.8rem;
   }
   .MuiFormHelperText-root.Mui-error{
     position: absolute;
@@ -21,4 +20,5 @@
   .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
     padding: 6px;
   }
+
 }

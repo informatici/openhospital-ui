@@ -93,7 +93,11 @@
     "temperature": "Température",
     "temperatureabbr": "T",
     "weight": "Poids",
-    "weightabbr": "(P)"
+    "weightabbr": "(P)",
+    "created": "Paramètres enregistré",
+    "deleted": "Paramètres supprimé",
+    "createsuccess": "Paramètres enregistré avec succès!",
+    "deletesuccess": "Paramètres supprimé avec succès!"
   },
   "nav": {
     "pharmacy": "Pharmacie",
@@ -114,7 +118,8 @@
     "admission": "Admission",
     "discharge": "Décharges",
     "surgicalrecord": "Dossier Médical",
-    "note": "Note"
+    "note": "Note",
+    "exams": "Examens"
   },
   "common": {
     "results": "Résultats",
@@ -142,16 +147,17 @@
     "savetherapy": "Enregistrer",    
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
+    "save": "Enregistrer",
+    "code": "Code",
+    "update": "mettre à jour",
     "delete": "Suppression",
     "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
-    "deletesuccess": "L'élément de {{code}} a été supprimé avec succès",
     "incorrectformat": "Format incorrect",
     "yes": "Oui",
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin",
-    "save": "Enregistrer"
+    "female": "Féminin"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -168,7 +174,13 @@
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
     "sendsms": "Envoyer les sms",
-    "validatelastdate": "doit être égale ou sup à la date de début"
+    "validatelastdate": "doit être égale ou sup à la date de début",
+    "savetherapy": "Enregistrer",
+    "updatetherapy": "Mettre à Jour",
+    "created": "Therapie créée",
+    "updated": "Therapie modifiée",
+    "createsuccess": "Ligne de thérapie enregistrée avec succès!",
+    "updatesuccess": "L'entrée de code {{code}} a été modifiée avec succès!"
   },
   "booking": {
     "category": "Catégorie",
@@ -191,6 +203,22 @@
     "patientregistrationsuccessfull": "Enregistrement du patient complété.",
     "somethingwrong": "Un erreur est survenu, veuillez réessayer plus tard.",
     "searchpatientinstruction": "Si vous n'avez pas de ID patient, remplissez autant de champs que vous pouvez et cliquez rechercher"
+  },
+  "lab": {
+    "date": "Date",
+    "exam": "Examen",
+    "type": "Interne/Externe",
+    "material": "Matériel",
+    "note": "Note",
+    "result": "Résultats",
+    "created": "Examen enregistré",
+    "updated": "Examen à jour",
+    "createsuccess": "Examen du patient enregistré avec succès!",
+    "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!",
+    "deleted": "L'examen du patient supprimé",
+    "resultrow": "Entrée",
+    "value": "Valeur",
+    "resultstitle": "Résultats"
   },
   "admission": {
     "admDate": "Date",
