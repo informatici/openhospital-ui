@@ -42,7 +42,8 @@
     "titleedit": "Éditer Patient",
     "personaldata": "Donnés personnels",
     "parentslivetoghether": "Parents ensemble",
-    "insertdataofnewpatient": "Insérez les données du nouveau patient"
+    "insertdataofnewpatient": "Insérez les données du nouveau patient",
+    "admissions": "Admissions"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -114,6 +115,10 @@
     "managetherapy": "Manage Therapie",
     "editpatient": "Éditer Patient",
     "searchpatient": "Recherche Patient",
+    "admission": "Admission",
+    "discharge": "Décharges",
+    "surgicalrecord": "Dossier Médical",
+    "note": "Note",
     "exams": "Examens"
   },
   "common": {
@@ -214,5 +219,20 @@
     "resultrow": "Entrée",
     "value": "Valeur",
     "resultstitle": "Résultats"
+  },
+  "admission": {
+    "admDate": "Date",
+    "admType": "Type",
+    "diseaseIn": "Diagnostic D'entrée",
+    "ward": "Pavillon",
+    "transUnit": "En provenance De l'unité",
+    "disType": "Type de Sortie",
+    "disDate": "Date de sortie",
+    "bedDays": "Nuités",
+    "diseaseOut1": "Diagnostic de sortie 1",
+    "diseaseOut2": "Diagnostic de sortie 2",
+    "diseaseOut3": "Diagnostic de sortie 3",
+    "cliDiaryCharge": "Clinical Diary Charge",
+    "imageryCharge": "Imagery Charge"
   }
 }

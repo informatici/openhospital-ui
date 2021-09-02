@@ -44,6 +44,9 @@ import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import PatientExams from "../../accessories/patientExams/PatientExams";
 import Button from "../../accessories/button/Button";
+import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
+import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -73,8 +76,47 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("exams");
+  const [userSection, setUserSection] = useState<IUserSection>("admissions");
+  const [defaultRoute, setDefaultRoute] = useState("/admission");
 
+  const admissionsConfig: TTabConfig = [
+    {
+      label: t("nav.admission"),
+      path: "/admission",
+      content: (
+        <PatientDetailsContent title="Admission" content={PatientAdmission} />
+      ),
+    },
+    {
+      label: t("nav.booking"),
+      path: "/booking",
+      content: (
+        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
+      ),
+    },
+    {
+      label: t("nav.surgicalrecord"),
+      path: "/surgicalRecord",
+      content: (
+        <PatientDetailsContent
+          title="SurgicalRecord"
+          content={SkeletonLoader}
+        />
+      ),
+    },
+    {
+      label: t("nav.discharge"),
+      path: "/discharge",
+      content: (
+        <PatientDetailsContent title="Discharge" content={PatientDischarge} />
+      ),
+    },
+    {
+      label: t("nav.note"),
+      path: "/note",
+      content: <PatientDetailsContent title="Note" content={SkeletonLoader} />,
+    },
+  ];
   const defaultConfig: TTabConfig = [
     {
       label: t("nav.summary"),
@@ -121,19 +163,21 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const getRouteConfig = () => {
     switch (userSection) {
+      case "admissions":
+        return admissionsConfig;
       case "exams":
         return defaultConfig;
-        break;
       case "billing":
         return defaultConfig;
-        break;
       case "hospital":
         return defaultConfig;
-        break;
       case "clinic":
         return defaultConfig;
-        break;
     }
+  };
+
+  const isActive = (value: string) => {
+    return value === userSection ? "active" : "default";
   };
 
   switch (activityTransitionState) {
@@ -211,9 +255,38 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
                     <div className="patientDetails__main_menu">
                       <h6>{t("patient.usersections")}</h6>
+
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("exams")}
+                        className={
+                          "patientDetails__main_menu__item " +
+                          isActive("admissions")
+                        }
+                        onClick={() => {
+                          setUserSection("admissions");
+                          setDefaultRoute("/admission");
+                        }}
+                      >
+                        <Assignment
+                          fontSize="small"
+                          style={{ color: "white" }}
+                        />
+                        <span>{t("patient.admissions")}:</span>
+                        <img
+                          src={Arrow}
+                          className="icon_toggle"
+                          alt="Accordion toogle"
+                        />
+                      </div>
+
+                      <div
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("exams")
+                        }
+                        onClick={() => {
+                          setUserSection("exams");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <Assignment
                           fontSize="small"
@@ -227,8 +300,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("billing")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("billing")
+                        }
+                        onClick={() => {
+                          setUserSection("billing");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <Payment fontSize="small" style={{ color: "white" }} />
                         <span>{t("patient.userbilling")}</span>
@@ -239,12 +318,20 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("hospital")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("hospital")
+                        }
+                        onClick={() => {
+                          setUserSection("hospital");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <LocalHotel
                           fontSize="small"
-                          style={{ color: "white" }}
+                          style={{
+                            color: "white",
+                          }}
                         />
                         <span>{t("patient.userhospital")}</span>
                         <img
@@ -254,8 +341,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("clinic")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("clinic")
+                        }
+                        onClick={() => {
+                          setUserSection("clinic");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <LocalHospital
                           fontSize="small"
@@ -366,7 +459,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 <div className="patientDetails__content">
                   <RouterTabs
                     config={getRouteConfig()}
-                    defaultRoute="/summary"
+                    defaultRoute={defaultRoute}
                   />
                 </div>
               </div>
