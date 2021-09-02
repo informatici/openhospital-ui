@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/oh20/static/css/main.284b5c6f.chunk.css",
+    "main.js": "/oh20/static/js/main.064063c8.chunk.js",
+    "main.js.map": "/oh20/static/js/main.064063c8.chunk.js.map",
+    "runtime-main.js": "/oh20/static/js/runtime-main.27dd184c.js",
+    "runtime-main.js.map": "/oh20/static/js/runtime-main.27dd184c.js.map",
+    "static/js/2.d6f3219c.chunk.js": "/oh20/static/js/2.d6f3219c.chunk.js",
+    "static/js/2.d6f3219c.chunk.js.map": "/oh20/static/js/2.d6f3219c.chunk.js.map",
+    "index.html": "/oh20/index.html",
+    "precache-manifest.3a752b6ff6e6ba18db63113cee8ac515.js": "/oh20/precache-manifest.3a752b6ff6e6ba18db63113cee8ac515.js",
+    "service-worker.js": "/oh20/service-worker.js",
+    "static/css/main.284b5c6f.chunk.css.map": "/oh20/static/css/main.284b5c6f.chunk.css.map",
+    "static/js/2.d6f3219c.chunk.js.LICENSE.txt": "/oh20/static/js/2.d6f3219c.chunk.js.LICENSE.txt",
+    "static/media/arrow-w.svg": "/oh20/static/media/arrow-w.193ed5ff.svg",
+    "static/media/logo-color.svg": "/oh20/static/media/logo-color.2feb9812.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.27dd184c.js",
+    "static/js/2.d6f3219c.chunk.js",
+    "static/css/main.284b5c6f.chunk.css",
+    "static/js/main.064063c8.chunk.js"
+  ]
+}
