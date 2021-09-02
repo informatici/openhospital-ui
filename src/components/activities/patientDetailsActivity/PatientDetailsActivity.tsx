@@ -78,6 +78,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
   const [userSection, setUserSection] = useState<IUserSection>("admissions");
+  const [defaultRoute, setDefaultRoute] = useState("/admission");
 
   const admissionsConfig: TTabConfig = [
     {
@@ -176,6 +177,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     }
   };
 
+  const isActive = (value: string) => {
+    return value === userSection ? "active" : "default";
+  };
+
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
       return <Redirect to={`/details/${patient.data?.code}/edit`} />;
@@ -253,8 +258,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       <h6>{t("patient.usersections")}</h6>
 
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("admissions")}
+                        className={
+                          "patientDetails__main_menu__item " +
+                          isActive("admissions")
+                        }
+                        onClick={() => {
+                          setUserSection("admissions");
+                          setDefaultRoute("/admission");
+                        }}
                       >
                         <Assignment
                           fontSize="small"
@@ -269,8 +280,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </div>
 
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("exams")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("exams")
+                        }
+                        onClick={() => {
+                          setUserSection("exams");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <Assignment
                           fontSize="small"
@@ -284,8 +301,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("billing")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("billing")
+                        }
+                        onClick={() => {
+                          setUserSection("billing");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <Payment fontSize="small" style={{ color: "white" }} />
                         <span>{t("patient.userbilling")}</span>
@@ -296,12 +319,20 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("hospital")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("hospital")
+                        }
+                        onClick={() => {
+                          setUserSection("hospital");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <LocalHotel
                           fontSize="small"
-                          style={{ color: "white" }}
+                          style={{
+                            color: "white",
+                          }}
                         />
                         <span>{t("patient.userhospital")}</span>
                         <img
@@ -311,8 +342,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
                       <div
-                        className="patientDetails__main_menu__item"
-                        onClick={() => setUserSection("clinic")}
+                        className={
+                          "align__element patientDetails__main_menu__item " +
+                          isActive("clinic")
+                        }
+                        onClick={() => {
+                          setUserSection("clinic");
+                          setDefaultRoute("/summary");
+                        }}
                       >
                         <LocalHospital
                           fontSize="small"
@@ -423,7 +460,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 <div className="patientDetails__content">
                   <RouterTabs
                     config={getRouteConfig()}
-                    defaultRoute="/admission"
+                    defaultRoute={defaultRoute}
                   />
                 </div>
               </div>
