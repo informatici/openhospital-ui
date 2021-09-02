@@ -41,7 +41,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   );
   const wards = useSelector((state: IState) => state.wards.allWards.data);
 
-  const toOptions = (
+  const renderOptions = (
     data: (WardDTO | DiseaseDTO | AdmissionTypeDTO)[] | undefined
   ) => {
     if (data) {
@@ -149,7 +149,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("ward")}
                 errorText={getErrorText("ward")}
                 onBlur={onBlurCallback("ward")}
-                options={toOptions(wards)}
+                options={renderOptions(wards)}
                 loading={wardStatus === "LOADING"}
               />
             </div>
@@ -188,7 +188,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("admType")}
                 errorText={getErrorText("admType")}
                 onBlur={onBlurCallback("admType")}
-                options={toOptions(admissionTypes)}
+                options={renderOptions(admissionTypes)}
                 loading={typeStatus === "LOADING"}
               />
             </div>
@@ -202,7 +202,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("diseaseIn")}
                 errorText={getErrorText("diseaseIn")}
                 onBlur={onBlurCallback("diseaseIn")}
-                options={toOptions(diagnosisInList)}
+                options={renderOptions(diagnosisInList)}
                 loading={diagnosisStatus === "LOADING"}
               />
             </div>

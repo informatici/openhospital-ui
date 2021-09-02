@@ -160,7 +160,9 @@ const DischargeForm: FC<DischargeProps> = ({
     (state: IState) => state.dischargeTypes.allDischargeTypes.status
   );
 
-  const toOptions = (data: (AdmissionTypeDTO | DiseaseDTO)[] | undefined) => {
+  const renderOptions = (
+    data: (AdmissionTypeDTO | DiseaseDTO)[] | undefined
+  ) => {
     if (data) {
       return data.map((type) => {
         return {
@@ -219,7 +221,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("disType")}
                 errorText={getErrorText("disType")}
                 onBlur={onBlurCallback("disType")}
-                options={toOptions(dischargeTypes)}
+                options={renderOptions(dischargeTypes)}
                 loading={typeStatus === "LOADING"}
               />
             </div>
@@ -233,7 +235,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut1")}
                 errorText={getErrorText("diseaseOut1")}
                 onBlur={onBlurCallback("diseaseOut1")}
-                options={toOptions(diagnosisOutList)}
+                options={renderOptions(diagnosisOutList)}
                 loading={diagnosisStatus === "LOADING"}
               />
             </div>
@@ -245,7 +247,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut2")}
                 errorText={getErrorText("diseaseOut2")}
                 onBlur={onBlurCallback("diseaseOut2")}
-                options={toOptions(diagnosisOutList)}
+                options={renderOptions(diagnosisOutList)}
                 loading={diagnosisStatus === "LOADING"}
               />
             </div>
@@ -257,7 +259,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 isValid={isValid("diseaseOut3")}
                 errorText={getErrorText("diseaseOut3")}
                 onBlur={onBlurCallback("diseaseOut3")}
-                options={toOptions(diagnosisOutList)}
+                options={renderOptions(diagnosisOutList)}
                 loading={diagnosisStatus === "LOADING"}
               />
             </div>
