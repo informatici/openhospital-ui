@@ -9,7 +9,7 @@ const PatientSummary: FunctionComponent = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMedicals());
-  }, [dispatch, getMedicals]);
+  }, [dispatch]);
 
   return (
     <div className="patientSummary">

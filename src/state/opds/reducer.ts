@@ -93,6 +93,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case UPDATE_OPD_RESET: {
       draft.updateOpd.status = "IDLE";
       delete draft.updateOpd.error;
+      break;
     }
     case DELETE_OPD_SUCCESS: {
       draft.deleteOpd.status = "SUCCESS";

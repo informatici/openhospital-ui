@@ -49,16 +49,11 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(createAdmissionReset());
     dispatch(getDiseasesIpdIn());
-  }, [dispatch, getDiseasesIpdIn]);
-
-  useEffect(() => {
     dispatch(getAdmissionTypes());
-  }, [dispatch, getAdmissionTypes]);
-
-  useEffect(() => {
     dispatch(getWards());
-  }, [dispatch, getWards]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -68,16 +63,12 @@ const PatientAdmission: FC = () => {
   }, [status]);
 
   useEffect(() => {
-    dispatch(createAdmissionReset());
-  }, [dispatch, createAdmissionReset]);
-
-  useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       setShouldUpdateTable(true);
       dispatch(createAdmissionReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState, createAdmissionReset]);
+  }, [dispatch, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);

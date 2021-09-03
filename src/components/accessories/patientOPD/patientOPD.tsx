@@ -22,7 +22,7 @@ import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 
-const PatientOPD: FunctionComponent = ({}) => {
+const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ const PatientOPD: FunctionComponent = ({}) => {
     dispatch(updateOpdReset());
     dispatch(deleteOpdReset());
     dispatch(getDiseasesOpd());
-  }, [dispatch, getDiseasesOpd]);
+  }, [dispatch]);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -87,13 +87,7 @@ const PatientOPD: FunctionComponent = ({}) => {
       dispatch(deleteOpdReset());
       setShouldResetForm(true);
     }
-  }, [
-    dispatch,
-    activityTransitionState,
-    createOpdReset,
-    updateOpdReset,
-    deleteOpdReset,
-  ]);
+  }, [dispatch, activityTransitionState]);
 
   const onSubmit = (opdValuestoSave: OpdDTO) => {
     setShouldResetForm(false);

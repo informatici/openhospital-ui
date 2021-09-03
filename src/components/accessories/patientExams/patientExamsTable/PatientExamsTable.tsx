@@ -50,7 +50,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   useEffect(() => {
     if (shouldUpdateTable || patientCode)
       dispatch(getLabsByPatientId(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable, getLabsByPatientId]);
+  }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {

@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { admissionDTO } from "../fixtures/admissionDTO";
 
 export const admissionRoutes = (server) => {

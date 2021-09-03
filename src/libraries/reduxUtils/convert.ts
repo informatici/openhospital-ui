@@ -34,6 +34,7 @@ export const renderSummary = (
       } else if (item[field]) {
         obj[field] = item[field];
       }
+      return obj[field];
     });
     return obj;
   };

@@ -56,14 +56,14 @@ export const AdmissionNote: React.FC = () => {
 
   useEffect(() => {
     dispatch(updateAdmissionReset());
-  }, [dispatch, updateAdmissionReset]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(updateAdmissionReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState, updateAdmissionReset]);
+  }, [dispatch, activityTransitionState]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -74,7 +74,7 @@ export const AdmissionNote: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCurrentAdmissionByPatientId(patient?.code));
-  }, [patient, dispatch, getCurrentAdmissionByPatientId]);
+  }, [patient, dispatch]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
