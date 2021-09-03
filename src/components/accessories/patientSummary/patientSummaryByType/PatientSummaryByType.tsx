@@ -37,6 +37,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
   const filterByType = (type: string) => {
     return summaryData.filter((item) => item.type === type);
   };
+
   return (
     <>
       {!isLoading ? (
@@ -88,10 +89,10 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 
           <div className="patientSummary_type_row">
             <h4>
-              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
+              {t("summary.exams")}({filterByType(SummaryType.EXAMS).length})
             </h4>
             <Table
-              rowData={filterByType(SummaryType.OPD)}
+              rowData={filterByType(SummaryType.EXAMS)}
               compareRows={dateComparator}
               tableHeader={header}
               labelData={label}

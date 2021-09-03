@@ -193,7 +193,8 @@
     "triage": "Examinations",
     "therapy": "Therapy",
     "opd": "Diagnostics",
-    "booking": "Prescriptions"
+    "booking": "Prescriptions",
+    "exams": "Exams"
   },
   "lab": {
     "date": "Date",

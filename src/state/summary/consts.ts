@@ -13,6 +13,11 @@ export const SummaryField = {
     dateField: "date",
     noteField: "note",
   },
+  exam: {
+    type: "exam",
+    dateField: "date",
+    noteField: "note",
+  },
   triage: {
     type: "triage",
     dateField: "pex_date",

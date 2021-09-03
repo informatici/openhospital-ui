@@ -18,6 +18,7 @@ export type SummaryTransitionState = "IDLE";
 export enum SummaryType {
   VISIT = "visit",
   OPD = "opd",
+  EXAMS = "exam",
   THERAPY = "therapy",
   TRIAGE = "triage",
 }
