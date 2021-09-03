@@ -192,9 +192,9 @@
   },
   "summary": {
     "visits": "Visites",
-    "triage": "Examinations",
+    "triage": "Triage",
     "therapy": "Therapy",
-    "opd": "Diagnostics",
+    "opd": "OPD",
     "booking": "Prescriptions"
   },
   "lab": {
@@ -231,7 +231,7 @@
     "created": "Patient admitted",
     "dischargesuccess": "Patient discharged successfully",
     "discharged": "Patient discharged",
-    "nocurrentadmission": "There is no current admission for the patient!",
+    "nocurrentadmission": "There is no current admission for the patient. You should admit the patient first",
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
     "note": "Note",

@@ -17,7 +17,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
   summaryData = [],
 }) => {
   const { t } = useTranslation();
-  const header = ["date", "type"];
+  const header = ["date"];
   const order = ["date"];
   const labels: any = {
     date: t("common.date"),

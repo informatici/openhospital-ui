@@ -67,11 +67,11 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
         <div className="patientSummary_type">
           <div className="patientSummary_type_row">
             <h4>
-              {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
+              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
             </h4>
             <Table
               rowData={renderSummary(
-                filterByType(SummaryType.VISIT),
+                filterByType(SummaryType.OPD),
                 dateFields,
                 labels,
                 medicals
@@ -114,27 +114,6 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
             <Table
               rowData={renderSummary(
                 filterByType(SummaryType.THERAPY),
-                dateFields,
-                labels,
-                medicals
-              )}
-              compareRows={dateComparator}
-              tableHeader={header}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
-
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.OPD),
                 dateFields,
                 labels,
                 medicals

@@ -6,7 +6,6 @@ import {
   ExaminationControllerApi,
   OpdControllerApi,
   TherapyControllerApi,
-  VisitsControllerApi,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
@@ -22,9 +21,6 @@ const therapyControllerApi = new TherapyControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 const opdControllerrApi = new OpdControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
-const visitsControllerApi = new VisitsControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
@@ -51,10 +47,6 @@ export const loadSummaryData =
         therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.therapy)),
           catchError((err) => of([]))
-        ),
-        visitsControllerApi.getVisitUsingGET({ patID: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.visit)),
-          catchError((err) => of([]))
         )
       )
         .pipe(toArray())
@@ -62,7 +54,7 @@ export const loadSummaryData =
           ([triages, opds, therapies, visits]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
-              payload: [...triages, ...opds, ...therapies, ...visits],
+              payload: [...triages, ...opds, ...therapies],
             });
           },
           (error) => {
