@@ -155,7 +155,9 @@
     "no": "No",
     "unknown": "Unknown",
     "male": "Male",
-    "female": "Female"
+    "female": "Female",
+    "date": "Date",
+    "type": "Type"
   },
   "therapy": {
     "newtherapy": "New Therapy",
