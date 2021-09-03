@@ -57,7 +57,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               <ul>
                 {Object.keys(_.omit(row, tableHeader)).map(
                   (key, index) =>
-                    (showEmptyCell || row[key]) && (
+                    (showEmptyCell || (row[key] && labelData[key])) && (
                       <li className="collapseItem_row" key={index}>
                         <strong>{labelData[key]}:&nbsp;</strong>
                         <span>{row[key]}</span>

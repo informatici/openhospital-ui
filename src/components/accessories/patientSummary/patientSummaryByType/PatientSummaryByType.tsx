@@ -41,6 +41,9 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
     pex_temp: t("examination.temperature"),
     pex_sat: t("examination.saturation"),
     pex_note: t("examination.note"),
+    exam: t("lab.exam"),
+    material: t("lab.material"),
+    result: t("lab.result"),
   };
   const dateFields = ["date", "startDate", "endDate"];
 
@@ -61,6 +64,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
   const filterByType = (type: string) => {
     return summaryData.filter((item) => item.type === type);
   };
+
   return (
     <>
       {!isLoading ? (
@@ -73,8 +77,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               rowData={renderSummary(
                 filterByType(SummaryType.OPD),
                 dateFields,
-                labels,
-                medicals
+                labels
               )}
               compareRows={dateComparator}
               tableHeader={header}
@@ -94,8 +97,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               rowData={renderSummary(
                 filterByType(SummaryType.TRIAGE),
                 dateFields,
-                labels,
-                medicals
+                labels
               )}
               compareRows={dateComparator}
               tableHeader={header}
@@ -117,6 +119,26 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 dateFields,
                 labels,
                 medicals
+              )}
+              compareRows={dateComparator}
+              tableHeader={header}
+              labelData={labels}
+              columnsOrder={order}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+              isCollapsabile={true}
+              showEmptyCell={false}
+            />
+          </div>
+
+          <div className="patientSummary_type_row">
+            <h4>
+              {t("summary.exams")}({filterByType(SummaryType.EXAMS).length})
+            </h4>
+            <Table
+              rowData={renderSummary(
+                filterByType(SummaryType.EXAMS),
+                dateFields,
+                labels
               )}
               compareRows={dateComparator}
               tableHeader={header}

@@ -40,6 +40,9 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
     pex_temp: t("examination.temperature"),
     pex_sat: t("examination.saturation"),
     pex_note: t("examination.note"),
+    exam: t("lab.exam"),
+    material: t("lab.material"),
+    result: t("lab.result"),
   };
   const dateFields = ["date", "startDate", "endDate"];
 

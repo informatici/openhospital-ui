@@ -8,6 +8,7 @@ import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getAdmissionsByPatientId } from "../../../../state/admissions/actions";
 import { format } from "date-fns";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -50,9 +51,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const formatDataToDisplay = (data: AdmissionDTO[]) => {
     return data.map((item) => {
       return {
-        admDate: item.admDate
-          ? format(new Date(+item.admDate), "dd/MM/yyyy")
-          : "",
+        admDate: item.admDate ? renderDate(item.admDate) : "",
         admType: item.admType?.description ?? "",
         diseaseIn: item.diseaseIn?.description ?? "",
         transUnit: item.transUnit,

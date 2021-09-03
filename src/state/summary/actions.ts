@@ -4,6 +4,7 @@ import { map, catchError, toArray } from "rxjs/operators";
 import {
   Configuration,
   ExaminationControllerApi,
+  LaboratoryControllerApi,
   OpdControllerApi,
   TherapyControllerApi,
 } from "../../generated";
@@ -28,6 +29,10 @@ const examinationControllerApi = new ExaminationControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
+const laboratoryControllerApi = new LaboratoryControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
+
 export const loadSummaryData =
   (code: number) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
@@ -44,6 +49,10 @@ export const loadSummaryData =
           map((res) => convertToSummaryData(res, SummaryField.opd)),
           catchError((err) => of([]))
         ),
+        laboratoryControllerApi.getLaboratoryUsingGET({ patId: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.exam)),
+          catchError((err) => of([]))
+        ),
         therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.therapy)),
           catchError((err) => of([]))
@@ -51,10 +60,10 @@ export const loadSummaryData =
       )
         .pipe(toArray())
         .subscribe(
-          ([triages, opds, therapies, visits]) => {
+          ([triages, opds, exams, therapies]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
-              payload: [...triages, ...opds, ...therapies],
+              payload: [...triages, ...opds, ...exams, ...therapies],
             });
           },
           (error) => {

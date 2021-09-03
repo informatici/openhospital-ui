@@ -1,6 +1,5 @@
-import { format } from "date-fns";
-import moment from "moment";
 import { MedicalDTO } from "../../generated";
+import { renderDate } from "../formatUtils/dataFormatting";
 import { SummaryFieldType } from "./SummaryFieldType";
 
 export const convertToSummaryData = (
@@ -19,20 +18,20 @@ export const renderSummary = (
   data: Array<any>,
   dateFields: string[],
   labels: any,
-  medicals: MedicalDTO[]
+  medicals: MedicalDTO[] = []
 ) => {
   const itemRender = (item: any) => {
     const obj: any = {};
     Object.keys(labels).map((field: string) => {
       if (typeof item[field] === "object") {
-        obj[field] = item[field].description ?? "";
+        obj[field] = item[field]?.description ?? "";
       } else if (dateFields.includes(field) && item[field]) {
-        obj[field] = format(new Date(+item[field]), "dd/MM/yyyy");
-      } else if (field === "medicalId") {
+        obj[field] = renderDate(item[field]);
+      } else if (field === "medicalId" && item[field]) {
         obj[field] =
           medicals.find((medoc) => medoc.code === item[field])?.description ??
           item[field];
-      } else {
+      } else if (item[field]) {
         obj[field] = item[field];
       }
     });

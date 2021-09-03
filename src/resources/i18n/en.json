@@ -195,7 +195,8 @@
     "triage": "Triage",
     "therapy": "Therapy",
     "opd": "OPD",
-    "booking": "Prescriptions"
+    "booking": "Reservation",
+    "exams": "Exams"
   },
   "lab": {
     "date": "Date",
