@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import moment from "moment";
 import { DiseaseDTO } from "../../generated";
 
 export const opdDataFormatter = (
@@ -20,6 +21,5 @@ export const opdDataFormatter = (
 };
 
 export const renderDate = (date: string) => {
-  const dateValue = isNaN(+date) ? new Date(date) : new Date(+date);
-  return format(dateValue, "dd/MM/yyyy");
+  return moment(+date).isValid() ? moment(+date).format("DD/MM/YYYY") : "";
 };
