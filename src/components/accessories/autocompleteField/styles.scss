@@ -7,10 +7,13 @@
       top: 2px;
     }
   }
-  .MuiInputBase-input {    
+  .MuiInputLabel-formControl {
+    top: 5px;
+  }
+  .MuiInputBase-input {
     height: 1.8rem;
   }
-  .MuiFormHelperText-root.Mui-error{
+  .MuiFormHelperText-root.Mui-error {
     position: absolute;
     bottom: -20px;
     margin: 0px;
@@ -20,5 +23,4 @@
   .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
     padding: 6px;
   }
-
 }
