@@ -48,6 +48,7 @@ const AutocompleteField: FunctionComponent<IProps> = ({
     <FormControl variant="outlined" className="autocomplete">
       <Autocomplete
         noOptionsText={t("common.nooptionsfound")}
+        autoSelect
         disabled={disabled}
         loading={isLoading}
         options={options}
@@ -76,4 +77,4 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   );
 };
 
-export default memo(AutocompleteField);
+export default AutocompleteField;
