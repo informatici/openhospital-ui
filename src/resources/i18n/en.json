@@ -157,7 +157,8 @@
     "male": "Male",
     "female": "Female",
     "date": "Date",
-    "type": "Type"
+    "type": "Type",
+    "nooptionsfound": "No options found"
   },
   "therapy": {
     "newtherapy": "New Therapy",
