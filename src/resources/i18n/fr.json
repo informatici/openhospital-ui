@@ -47,8 +47,8 @@
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
-    "anamnesis": "Anamnèse",
-    "note": "Remarques",
+    "note": "Notes et symptômes",
+    "complaint": "Plaintes du patient",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
     "disease3": "Diagnostic 3",
