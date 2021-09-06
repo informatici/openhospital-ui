@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
   FunctionComponent,
-  memo,
   useCallback,
   useEffect,
   useState,
@@ -73,4 +72,4 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   );
 };
 
-export default memo(AutocompleteField);
+export default AutocompleteField;
