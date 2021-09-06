@@ -236,6 +236,7 @@
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
     "note": "Note",
-    "validatelastdate":"should be greater or equal to admission date {{admDate}}"
+    "validatelastdate": "should be greater or equal to admission date {{admDate}}",
+    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
   }
 }

@@ -245,6 +245,7 @@
     "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
     "noteadded": "Note Enregistrée",
     "note": "Note",
-    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
+    "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
   }
 }
