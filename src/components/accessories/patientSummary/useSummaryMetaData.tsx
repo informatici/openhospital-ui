@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-const useSummaryLabel = () => {
+const useSummaryMetaData = () => {
   const { t } = useTranslation();
   const labels = {
     date: t("common.date"),
@@ -34,4 +34,4 @@ const useSummaryLabel = () => {
   return { labels, dateFields, header, order };
 };
 
-export default useSummaryLabel;
+export default useSummaryMetaData;

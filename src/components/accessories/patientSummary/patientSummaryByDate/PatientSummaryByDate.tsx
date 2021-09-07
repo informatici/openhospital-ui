@@ -8,7 +8,7 @@ import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_DATE_PAGE_SIZE } from "../consts";
-import useSummaryLabel from "../useSummaryLabel";
+import useSummaryMetaData from "../useSummaryMetaData";
 import { IDispatchProps, IStateProps, TProps } from "./../types";
 
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
@@ -16,7 +16,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
   isLoading,
   summaryData = [],
 }) => {
-  const { labels, dateFields, header, order } = useSummaryLabel();
+  const { labels, dateFields, header, order } = useSummaryMetaData();
   const patientCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );

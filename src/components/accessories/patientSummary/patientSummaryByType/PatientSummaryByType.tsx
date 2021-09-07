@@ -11,7 +11,7 @@ import Table from "../../table/Table";
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
 import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
-import useSummaryLabel from "../useSummaryLabel";
+import useSummaryMetaData from "../useSummaryMetaData";
 
 const PatientSummaryByType: FunctionComponent<TProps> = ({
   loadSummaryData,
@@ -19,7 +19,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
   summaryData = [],
 }) => {
   const { t } = useTranslation();
-  const { labels, dateFields, header, order } = useSummaryLabel();
+  const { labels, dateFields, header, order } = useSummaryMetaData();
 
   const patientCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
