@@ -118,6 +118,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       content: <PatientDetailsContent title="Note" content={AdmissionNote} />,
     },
   ];
+
+  const examsConfig: TTabConfig = [
+    {
+      label: t("nav.exams"),
+      path: "/exams",
+      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
+    },
+  ];
   const defaultConfig: TTabConfig = [
     {
       label: t("nav.summary"),
@@ -143,11 +151,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
-    {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
-    },
 
     {
       label: t("nav.booking"),
@@ -167,7 +170,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       case "admissions":
         return admissionsConfig;
       case "exams":
-        return defaultConfig;
+        return examsConfig;
       case "billing":
         return defaultConfig;
       case "hospital":
@@ -286,7 +289,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         }
                         onClick={() => {
                           setUserSection("exams");
-                          setDefaultRoute("/summary");
+                          setDefaultRoute("/exams");
                         }}
                       >
                         <Assignment
