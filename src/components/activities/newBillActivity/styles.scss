@@ -1,0 +1,121 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.new_Bill {
+  background-color: $c-color-secondary;
+
+  .newBill__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .newBill__content {
+    width: 80%;
+    @include susy-media($narrow) {
+      width: 90%;
+    }
+    @include susy-media($tablet_land) {
+      width: 90%;
+    }
+    @include susy-media($tablet_port) {
+      width: 90%;
+    }
+    @include susy-media($smartphone) {
+      width: 90%;
+    }
+  }
+
+  .newBill__title {
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+    margin: 45px 0px 70px 0px;
+    @include susy-media($tablet_port) {
+      font-size: x-large;
+    }
+    @include susy-media($smartphone) {
+      margin: 45px 0px 80px 0px;
+      font-size: x-large;
+    }
+  }
+
+  .newBill__panel {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-gap: 20px;
+    overflow:hidden;
+    flex-direction: column;
+    background-color: $c-white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    margin: 20px 80px 60px 80px;
+    @include susy-media($tablet_port) {
+      font-size: x-large;
+    }
+    @include susy-media($smartphone) {
+      margin: 45px 0px 80px 0px;
+      font-size: x-large;
+    }
+  }
+  
+
+  .billPanel {
+    .newBill_Date_Pat {
+      margin-top: 10px;
+      margin-left: 10px;
+      height: auto;
+      .bill_SelectPat {
+        height: 50px;
+        margin-left: 35px;
+      }
+    }
+
+    .newBill_InputPat {
+      display: inline-block;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      .patient_input {
+        margin-left: 15px;
+        width:40%;
+      }
+    }
+
+    .newBill_Rows {
+      margin-top: 15px;
+      margin-left: 5px;
+      margin-bottom: 15px;
+      width: 100%;
+      min-height: 250px;
+    }
+
+    .buttonBillSubmit {
+      margin-left: 30px;
+      
+      width: 30%;
+    }
+  }
+
+  .bill_Drawer {
+    width:100%;
+  }
+
+  .footer {
+    position: relative;
+  }
+
+  .bill_Modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bill_Modal {
+    background-Color: #a6d4fa;
+    border: 2px solid #000;
+    box-Shadow: #a6d4fa;
+    padding: (2, 4, 3),
+  }
+}

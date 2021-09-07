@@ -119,7 +119,10 @@
     "discharge": "Décharges",
     "surgicalrecord": "Dossier Médical",
     "note": "Note",
-    "exams": "Examens"
+    "exams": "Examens",
+    "newbill": "Nouvelle facture",
+    "searchbill": "Rechercher facture",
+    "bill_chose": "Choisir une option"
   },
   "common": {
     "results": "Résultats",

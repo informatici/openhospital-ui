@@ -112,7 +112,12 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav_items">
               <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
               <div className="appHeader__nav__item">{t("nav.ward")}</div>
-              <div className="appHeader__nav__item">{t("nav.billing")}</div>
+              <div
+                className="appHeader__nav__item"
+                onClick={() => history.push("/billing")}
+              >
+                {t("nav.billing")}
+              </div>
             </div>
           </div>
         </div>

@@ -1,0 +1,56 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.billing {
+    background-color: $c-color-secondary;
+
+    .billing__background {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .billing__title {
+      font-size: xx-large;
+      color: $c-black;
+      font-weight: bolder;
+      margin: 30px 20px;
+    }
+  
+    .billing__panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: $c-white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+        margin: 20px 80px 60px 80px;
+        overflow: hidden;
+        @include susy-media($smartphone) {
+          margin: 20px 20px 40px 20px;
+        }
+    }
+
+    .footer {
+        position: relative;
+        }
+
+    .bill_buttons__Container {
+        position: center;
+        bottom: 600px;
+    }
+
+    .new_bill__button {
+        background-color: #444444 !important;
+        color: $c-white !important;
+        margin: 50px;
+    }
+
+    .search_bill__button {
+        background-color: #444444 !important;
+        color: $c-white !important;
+        margin: 50px;
+    }
+    
+}
