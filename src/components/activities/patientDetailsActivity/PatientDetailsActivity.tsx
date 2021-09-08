@@ -119,14 +119,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     },
   ];
 
-  const examsConfig: TTabConfig = [
+  const examConfig: TTabConfig = [
     {
       label: t("nav.exams"),
       path: "/exams",
       content: <PatientDetailsContent title="Exams" content={PatientExams} />,
     },
   ];
-  const defaultConfig: TTabConfig = [
+  const clinicConfig: TTabConfig = [
     {
       label: t("nav.summary"),
       path: "/summary",
@@ -160,6 +160,15 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
   ];
+  const defaultConfig: TTabConfig = [
+    {
+      label: t("nav.summary"),
+      path: "/summary",
+      content: (
+        <PatientDetailsContent title="Default" content={SkeletonLoader} />
+      ),
+    },
+  ];
 
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
@@ -170,12 +179,12 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       case "admissions":
         return admissionsConfig;
       case "exams":
-        return examsConfig;
+        return examConfig;
       case "billing":
         return defaultConfig;
-      case "hospital":
-        return defaultConfig;
       case "clinic":
+        return clinicConfig;
+      default:
         return defaultConfig;
     }
   };
@@ -270,9 +279,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           setDefaultRoute("/admission");
                         }}
                       >
-                        <Assignment
+                        <LocalHotel
                           fontSize="small"
-                          style={{ color: "white" }}
+                          style={{
+                            color: "white",
+                          }}
                         />
                         <span>{t("patient.admissions")}:</span>
                         <img
@@ -315,29 +326,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       >
                         <Payment fontSize="small" style={{ color: "white" }} />
                         <span>{t("patient.userbilling")}</span>
-                        <img
-                          src={Arrow}
-                          className="icon_toggle"
-                          alt="Accordion toogle"
-                        />
-                      </div>
-                      <div
-                        className={
-                          "align__element patientDetails__main_menu__item " +
-                          isActive("hospital")
-                        }
-                        onClick={() => {
-                          setUserSection("hospital");
-                          setDefaultRoute("/summary");
-                        }}
-                      >
-                        <LocalHotel
-                          fontSize="small"
-                          style={{
-                            color: "white",
-                          }}
-                        />
-                        <span>{t("patient.userhospital")}</span>
                         <img
                           src={Arrow}
                           className="icon_toggle"
