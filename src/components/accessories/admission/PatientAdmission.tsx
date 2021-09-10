@@ -22,7 +22,10 @@ import {
 import { differenceInDays } from "../../../libraries/formDataHandling/functions";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 import { TFields } from "../../../libraries/formDataHandling/types";
-
+type ResultType = {
+  status: string | undefined;
+  action: "create" | "update";
+};
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -43,10 +46,17 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.main.authentication.data?.displayName
   );
 
-  const status = useSelector<IState, string | undefined>((state) => {
-    return state.admissions.createAdmission.status !== "IDLE"
-      ? state.admissions.createAdmission.status
-      : state.admissions.updateAdmission.status;
+  const result = useSelector<IState, ResultType>((state) => {
+    return {
+      status:
+        state.admissions.createAdmission.status !== "IDLE"
+          ? state.admissions.createAdmission.status
+          : state.admissions.updateAdmission.status,
+      action:
+        state.admissions.createAdmission.status !== "IDLE"
+          ? "create"
+          : "update",
+    };
   });
 
   const onSubmit = (adm: AdmissionDTO) => {
@@ -72,11 +82,11 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    if (status === "FAIL") {
+    if (result?.status === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [status]);
+  }, [result?.status]);
 
   useEffect(() => {
     dispatch(createAdmissionReset());
@@ -147,10 +157,10 @@ const PatientAdmission: FC = () => {
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={status === "LOADING"}
+        isLoading={result?.status === "LOADING"}
         admitted={currentAdmission?.admitted == 1}
       />
-      {status === "FAIL" && (
+      {result?.status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -159,13 +169,15 @@ const PatientAdmission: FC = () => {
       <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
 
       <ConfirmationDialog
-        isOpen={status === "SUCCESS"}
+        isOpen={result?.status === "SUCCESS"}
         title={
-          currentAdmission ? t("admission.discharged") : t("admission.created")
+          result?.action === "update"
+            ? t("admission.discharged")
+            : t("admission.created")
         }
         icon={checkIcon}
         info={
-          currentAdmission
+          result?.action === "update"
             ? t("admission.dischargesuccess")
             : t("admission.createsuccess")
         }
