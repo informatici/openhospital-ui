@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { admissionDTO } from "../fixtures/admissionDTO";
 
 export const admissionRoutes = (server) => {
@@ -21,7 +20,7 @@ export const admissionRoutes = (server) => {
                     res.status(400);
                     break;
                 default:
-                    res.status(201).json(body);
+                    res.status(201).json(null);
                     break;
             }
         });
@@ -50,7 +49,7 @@ export const admissionRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(200).json(admissionDTO);
+                    res.status(400).json(admissionDTO);
             }
         });
     });

@@ -44,10 +44,8 @@ import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import PatientExams from "../../accessories/patientExams/PatientExams";
 import Button from "../../accessories/button/Button";
-import { PatientDischarge } from "../../accessories/discharge/PatientDischarge";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import AdmissionNote from "../../accessories/admissionNote/AdmissionNote";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -104,18 +102,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
           content={SkeletonLoader}
         />
       ),
-    },
-    {
-      label: t("nav.discharge"),
-      path: "/discharge",
-      content: (
-        <PatientDetailsContent title="Discharge" content={PatientDischarge} />
-      ),
-    },
-    {
-      label: t("nav.note"),
-      path: "/note",
-      content: <PatientDetailsContent title="Note" content={AdmissionNote} />,
     },
   ];
   const examConfig: TTabConfig = [
