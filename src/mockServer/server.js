@@ -27,22 +27,22 @@ export function makeServer() {
   });
   const { server } = polly;
   server.host(BASE_PATH, () => {
-    //userRoutes(server);
-    //authRoutes(server);
-    //patientRoutes(server);
-    //visitRoutes(server);
-    //examinationsRoutes(server);
-    //therapyRoutes(server);
-    //opdRoutes(server);
-    //diseasesRoutes(server);
-    //medicalRoutes(server);
-    //admissionRoutes(server);
-    //admissionTypesRoutes(server);
-    //dischargeTypesRoutes(server);
-    //wardsRoutes(server);
-    //examRoutes(server);
-    //labRoutes(server);
-    //examRowRoutes(server);
+    userRoutes(server);
+    authRoutes(server);
+    patientRoutes(server);
+    visitRoutes(server);
+    examinationsRoutes(server);
+    therapyRoutes(server);
+    opdRoutes(server);
+    diseasesRoutes(server);
+    medicalRoutes(server);
+    admissionRoutes(server);
+    admissionTypesRoutes(server);
+    dischargeTypesRoutes(server);
+    wardsRoutes(server);
+    examRoutes(server);
+    labRoutes(server);
+    examRowRoutes(server);
 
   });
   return server;
