@@ -46,18 +46,13 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.main.authentication.data?.displayName
   );
 
-  const result = useSelector<IState, ResultType>((state) => {
-    return {
-      status:
-        state.admissions.createAdmission.status !== "IDLE"
-          ? state.admissions.createAdmission.status
-          : state.admissions.updateAdmission.status,
-      action:
-        state.admissions.createAdmission.status !== "IDLE"
-          ? "create"
-          : "update",
-    };
-  });
+  const createStatus = useSelector<IState>(
+    (state) => state.admissions.createAdmission.status
+  );
+
+  const updateStatus = useSelector<IState>(
+    (state) => state.admissions.updateAdmission.status
+  );
 
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
@@ -82,11 +77,11 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    if (result && result.status === "FAIL") {
+    if (createStatus === "FAIL" || updateStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [result]);
+  }, [createStatus, updateStatus]);
 
   useEffect(() => {
     dispatch(createAdmissionReset());
@@ -158,10 +153,10 @@ const PatientAdmission: FC = () => {
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={result?.status === "LOADING"}
-        admitted={currentAdmission?.admitted == 1}
+        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        admitted={currentAdmission?.admitted === 1}
       />
-      {result?.status === "FAIL" && (
+      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -170,15 +165,15 @@ const PatientAdmission: FC = () => {
       <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
 
       <ConfirmationDialog
-        isOpen={result?.status === "SUCCESS"}
+        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
         title={
-          result?.action === "update"
+          updateStatus === "SUCCESS"
             ? t("admission.discharged")
             : t("admission.created")
         }
         icon={checkIcon}
         info={
-          result?.action === "update"
+          updateStatus === "SUCCESS"
             ? t("admission.dischargesuccess")
             : t("admission.createsuccess")
         }

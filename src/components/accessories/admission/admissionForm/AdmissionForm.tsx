@@ -144,7 +144,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      console.log("data..to be sent....: ", formattedValues);
       formattedValues.diseaseIn = diagnosisInList?.find(
         (item) => item.code === formattedValues.diseaseIn
       );
