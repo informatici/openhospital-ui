@@ -2,7 +2,7 @@ export const examsDTO = [
     {
         "code": "01.01",
         "description": "1.1 HB",
-        "procedure": 1,
+        "procedure": 2,
         "defaultResult": "POSTIVE",
         "examtype": {
             "code": "HB",
