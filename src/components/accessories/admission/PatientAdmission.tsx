@@ -22,10 +22,7 @@ import {
 import { differenceInDays } from "../../../libraries/formDataHandling/functions";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 import { TFields } from "../../../libraries/formDataHandling/types";
-type ResultType = {
-  status: string | undefined;
-  action: "create" | "update";
-};
+
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();

@@ -181,11 +181,10 @@ const AdmissionForm: FC<AdmissionProps> = ({
           new Date(+initialValues.admDate),
           new Date(value)
         ).toString();
-
         setFieldValue("bedDays", days);
       }
     },
-    [setFieldValue]
+    [setFieldValue, initialValues.admDate]
   );
 
   const isValid = (fieldName: string): boolean => {
