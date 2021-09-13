@@ -82,11 +82,11 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    if (result?.status === "FAIL") {
+    if (result && result.status === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [result?.status]);
+  }, [result]);
 
   useEffect(() => {
     dispatch(createAdmissionReset());
@@ -97,6 +97,7 @@ const PatientAdmission: FC = () => {
     if (activityTransitionState === "TO_RESET") {
       setShouldUpdateTable(true);
       dispatch(updateAdmissionReset());
+      dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(createAdmissionReset());
       setShouldResetForm(true);
     }

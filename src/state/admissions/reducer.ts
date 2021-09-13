@@ -33,7 +33,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case CREATE_ADMISSION_SUCCESS: {
       draft.createAdmission.status = "SUCCESS";
       draft.createAdmission.data = action.payload;
-      draft.currentAdmissionByPatientId.data = action.payload;
       delete draft.createAdmission.error;
       break;
     }
@@ -61,7 +60,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case UPDATE_ADMISSION_SUCCESS: {
       draft.updateAdmission.status = "SUCCESS";
       draft.updateAdmission.data = action.payload;
-      draft.currentAdmissionByPatientId.data = action.payload;
       delete draft.updateAdmission.error;
       break;
     }
