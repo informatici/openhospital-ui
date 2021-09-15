@@ -60,8 +60,12 @@
   }
 
   .MuiTouchRipple-root {
-    color: #eeeeee;
+    color: #eeeeee !important;
   }
+  .MuiIconButton-root{
+    color: white !important;
+  }  
+
   .MuiInputBase-input {
     color: $c-white !important;
   }
