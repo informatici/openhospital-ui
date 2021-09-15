@@ -51,4 +51,8 @@ export type Item = {
   itemId: number | undefined; //doesn't match with directus
 };
 
-export type TActivityTransitionState = "IDLE" | "TO_BILL_HOME" | "TO_DASHBOARD";
+export type TActivityTransitionState =
+  | "IDLE"
+  | "TO_BILL_HOME"
+  | "TO_DASHBOARD"
+  | "TO_NEW_BILL";

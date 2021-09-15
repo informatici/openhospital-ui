@@ -6,11 +6,10 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-
   .filterBillForm__item {
-    margin: 7px 0px;
-    padding: 0px 15px;
-    width: 33%;
+    //background-color: $c-grey-lighter;
+    padding: 0px 10px;
+    width: 100%;
     @include susy-media($narrow) {
       padding: 0px 10px;
     }
@@ -25,8 +24,9 @@
     }
     .dateField,
     .textField,
-    .selectField {
+    .selectField .autocompleteField {
       width: 100%;
+      
     }
 
     &.fullWidth {

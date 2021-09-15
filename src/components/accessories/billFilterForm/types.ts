@@ -8,14 +8,16 @@ interface IBillFilterProps {
   isLoading?: boolean;
   shouldResetForm?: boolean;
   resetFormCallback?: () => void;
+  className: string;
+  theme: string;
 }
 
 export type BillFilterProps = IBillFilterProps;
 
 export type BillFilterFormFieldName =
   | "user"
-  | "startDate"
-  | "endDate"
+  | "fromDate"
+  | "toDate"
   | "patient"
   | "billItem"
   | "affiliate";

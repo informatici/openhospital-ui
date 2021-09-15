@@ -240,5 +240,23 @@
     "noteadded": "Note saved",
     "note": "Note",
     "validatelastdate":"should be greater or equal to admission date {{admDate}}"
+  },
+  "bill": {
+    "newbill": "New Bill",
+    "allbills": "All Bills",
+    "closed": "Closed",
+    "deleted": "Deleted", 
+    "pending": "Pending",
+    "user": "Current Cashier",
+    "patient": "Patient",
+    "billitem": "Bill Item",
+    "affiliate": "Affiliate person",
+    "fromdate": "Date From",
+    "todate": "Date To",
+    "today": "Today",
+    "period": "Period",
+    "notpaid": "Not paid",
+    "totalpaid": "Total Paid",
+    "totalnotpaid": "Total not paid"
   }
 }

@@ -17,7 +17,9 @@ import { BillFilterProps } from "./types";
 
 const BillFilterForm: FC<BillFilterProps> = ({
   fields,
+  theme,
   onSubmit,
+  className,
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
@@ -86,12 +88,13 @@ const BillFilterForm: FC<BillFilterProps> = ({
 
   return (
     <>
-      <div className="filterBillForm">
+      <div className={"filterBillForm " + className}>
         <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
-            <div className="filterBillForm__item">
+            <div className="fullWidth filterBillForm__item">
               <AutocompleteField
                 fieldName="user"
+                theme={"light"}
                 fieldValue={formik.values.user}
                 label={t("bill.user")}
                 isValid={isValid("user")}
@@ -101,36 +104,37 @@ const BillFilterForm: FC<BillFilterProps> = ({
               />
             </div>
 
-            <div className="filterBillForm__item">
+            <div className="fullWidth filterBillForm__item">
               <DateField
-                fieldName="startDate"
-                fieldValue={formik.values.startDate}
+                theme={"light"}
+                fieldName="fromDate"
+                fieldValue={formik.values.toDate}
                 disableFuture={false}
-                theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("startDate")}
-                errorText={getErrorText("startDate")}
-                label={t("bill.startDate")}
-                onChange={dateFieldHandleOnChange("startDate")}
+                isValid={isValid("fromDate")}
+                errorText={getErrorText("fromDate")}
+                label={t("bill.fromdate")}
+                onChange={dateFieldHandleOnChange("fromDate")}
               />
             </div>
-            <div className="filterBillForm__item">
+            <div className="fullWidth filterBillForm__item">
               <DateField
-                fieldName="endDate"
-                fieldValue={formik.values.endDate}
+                fieldName="toDate"
+                fieldValue={formik.values.toDate}
                 disableFuture={false}
-                theme="regular"
+                theme="light"
                 format="dd/MM/yyyy"
-                isValid={isValid("endDate")}
-                errorText={getErrorText("endDate")}
-                label={t("bill.endDate")}
-                onChange={dateFieldHandleOnChange("endDate")}
+                isValid={isValid("toDate")}
+                errorText={getErrorText("toDate")}
+                label={t("bill.todate")}
+                onChange={dateFieldHandleOnChange("toDate")}
               />
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="filterBillForm__item">
+            <div className="fullWidth filterBillForm__item">
               <AutocompleteField
+                theme={"light"}
                 fieldName="patient"
                 fieldValue={formik.values.patient}
                 label={t("bill.patient")}
@@ -140,19 +144,21 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 options={options.patient}
               />
             </div>
-            <div className="filterBillForm__item">
+            <div className="fullwidth filterBillForm__item">
               <AutocompleteField
+                theme={"light"}
                 fieldName="billItem"
                 fieldValue={formik.values.patient}
-                label={t("bill.billItem")}
+                label={t("bill.billitem")}
                 isValid={isValid("billItem")}
                 errorText={getErrorText("billItem")}
                 onBlur={onBlurCallback("billItem")}
                 options={options.billItem}
               />
             </div>
-            <div className="filterBillForm__item">
+            <div className="fullwidth filterBillForm__item">
               <AutocompleteField
+                theme={"light"}
                 fieldName="affiliate"
                 fieldValue={formik.values.patient}
                 label={t("bill.affiliate")}

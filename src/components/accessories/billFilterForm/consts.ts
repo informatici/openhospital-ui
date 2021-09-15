@@ -22,11 +22,11 @@ export const initialFields: TFields<BillFilterFormFieldName> = {
     type: "text",
     options: [],
   },
-  startDate: {
+  fromDate: {
     value: "",
     type: "date",
   },
-  endDate: {
+  toDate: {
     value: "",
     type: "date",
   },

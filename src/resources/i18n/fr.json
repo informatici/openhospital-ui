@@ -249,5 +249,23 @@
     "noteadded": "Note Enregistrée",
     "note": "Note",
     "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
+  },
+  "bill": {
+    "newbill": "Nouvelle facture",
+    "allbills": "Factures",
+    "closed": "Fermées",
+    "deleted": "Supprimées", 
+    "pending": "En attente",
+    "user": "Caissier courant",
+    "patient": "Patient",
+    "billitem": "Elément",
+    "affiliate": "Personne garante",
+    "fromdate": "Allant de",
+    "todate": "A",
+    "today": "Aujourd'hui",
+    "period": "Périod",
+    "notpaid": "Non payé",
+    "totalpaid": "Total Payé",
+    "totalnotpaid": "Total non payé"
   }
 }

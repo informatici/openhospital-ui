@@ -9,4 +9,5 @@ export interface IProps {
   isLoading?: boolean;
   disabled?: boolean;
   options: Array<{ value: string | number; label: string }>;
+  theme?: string;
 }
