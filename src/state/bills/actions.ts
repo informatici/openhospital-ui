@@ -27,61 +27,128 @@ const billControllerApi = new BillControllerApi(
 
 export const newBill =
   (newBillDto: FullBillDTO) =>
-    (dispatch: Dispatch<IAction<null, {}>>): void => {
-      dispatch({
-        type: NEW_BILL_LOADING,
-      });
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: NEW_BILL_LOADING,
+    });
 
-      billControllerApi.newBillUsingPOST({ newBillDto }).subscribe(
-        (payload) => {
-          dispatch({
-            type: NEW_BILL_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: NEW_BILL_FAIL,
-            error: error,
-          });
-        }
-      );
-    };
+    billControllerApi.newBillUsingPOST({ newBillDto }).subscribe(
+      (payload) => {
+        dispatch({
+          type: NEW_BILL_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: NEW_BILL_FAIL,
+          error: error,
+        });
+      }
+    );
+  };
 
 export const newBillReset =
   () =>
-    (dispatch: Dispatch<IAction<null, {}>>): void => {
-      dispatch({
-        type: NEW_BILL_RESET,
-      });
-    };
-
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: NEW_BILL_RESET,
+    });
+  };
 
 export const getBill =
   (code: number) =>
-    (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
-      dispatch({
-        type: GET_BILL_LOADING,
-      });
-      billControllerApi.getBillUsingGET({ id: code }).subscribe(
+  (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
+    dispatch({
+      type: GET_BILL_LOADING,
+    });
+    billControllerApi.getBillUsingGET({ id: code }).subscribe(
+      (payload) => {
+        if (typeof payload === "object" && !isEmpty(payload)) {
+          dispatch({
+            type: GET_BILL_SUCCESS,
+            payload: payload,
+          });
+        } else {
+          dispatch({
+            type: GET_BILL_SUCCESS,
+            payload: [],
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: GET_BILL_FAIL,
+          error,
+        });
+      }
+    );
+  };
+
+export const searchBills =
+  (datefrom: string, dateto: string, patientCode: number) =>
+  (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
+    dispatch({
+      type: SEARCH_BILL_LOADING,
+    });
+    billControllerApi
+      .searchBillsUsingGET({
+        datefrom,
+        dateto,
+        patientCode,
+      })
+      .subscribe(
         (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: GET_BILL_SUCCESS,
+              type: SEARCH_BILL_SUCCESS,
               payload: payload,
             });
           } else {
             dispatch({
-              type: GET_BILL_SUCCESS,
+              type: SEARCH_BILL_SUCCESS,
               payload: [],
             });
           }
         },
         (error) => {
           dispatch({
-            type: GET_BILL_FAIL,
+            type: SEARCH_BILL_FAIL,
             error,
           });
         }
       );
-    };
+  };
+
+export const getPendingBills =
+  (patientCode: number) =>
+  (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
+    dispatch({
+      type: SEARCH_BILL_LOADING,
+    });
+    billControllerApi
+      .getPendingBillsUsingGET({
+        patientCode,
+      })
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: SEARCH_BILL_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_BILL_SUCCESS,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_BILL_FAIL,
+            error,
+          });
+        }
+      );
+  };

@@ -1,12 +1,28 @@
 import patientDTO from "./patientDTO";
 
-const billDTO = {
-    id: 0,
+export const billDTO = {
+    id: 1,
     list: true,
     listId: 0,
     patient: patientDTO,
-    date: "2020-03-19T14:58:00.000Z",
-    update: "2020-03-19T14:58:00.000Z",
+    date: "1627831184000",
+    update: "1627831184000",
+    listName: "Basic",
+    patientTrue: true,
+    patName: "Antonio Carlos",
+    status: "C",
+    amount: 1000,
+    balance: 1500,
+    user: "admin"
+};
+
+export const pendingBillDTO = {
+    id: 3,
+    list: true,
+    listId: 0,
+    patient: patientDTO,
+    date: "1627831184000",
+    update: "1627831184000",
     listName: "Basic",
     patientTrue: true,
     patName: "Antonio Carlos",
@@ -15,5 +31,3 @@ const billDTO = {
     balance: 1500,
     user: "admin"
 };
-
-export default billDTO;

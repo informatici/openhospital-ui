@@ -22,6 +22,7 @@ import "./styles.scss";
 import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
 import { TActivityTransitionState } from "./types";
+import { BillTable } from "../../accessories/billTable/BillTable";
 
 export const SearchBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -49,7 +50,10 @@ export const SearchBillActivity: FC = () => {
       label: t("bill.allbills"),
       path: "/allBills",
       content: (
-        <SearchBillActivityContent title="All Bills" content={SkeletonLoader} />
+        <SearchBillActivityContent
+          title="All Bills"
+          content={<BillTable status="ALL" />}
+        />
       ),
     },
     {
@@ -58,7 +62,7 @@ export const SearchBillActivity: FC = () => {
       content: (
         <SearchBillActivityContent
           title="Pending Bills"
-          content={SkeletonLoader}
+          content={<BillTable status="PENDING" />}
         />
       ),
     },
@@ -67,8 +71,8 @@ export const SearchBillActivity: FC = () => {
       path: "/closedBills",
       content: (
         <SearchBillActivityContent
-          title="Pending Bills"
-          content={SkeletonLoader}
+          title="closed Bills"
+          content={<BillTable status="CLOSE" />}
         />
       ),
     },
@@ -78,7 +82,7 @@ export const SearchBillActivity: FC = () => {
       content: (
         <SearchBillActivityContent
           title="Deleted Bills"
-          content={SkeletonLoader}
+          content={<BillTable status="DELETE" />}
         />
       ),
     },

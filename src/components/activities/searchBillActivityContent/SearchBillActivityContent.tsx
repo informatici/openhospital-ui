@@ -9,9 +9,7 @@ const SearchBillActivityContent: FC<IProps> = ({ title, content }) => {
       <div className="searchBills__content_header">
         <h3>{title}</h3>
       </div>
-      <div className="searchBills__content_body">
-        <Content />
-      </div>
+      <div className="searchBills__content_body">{Content}</div>
     </Fragment>
   );
 };
