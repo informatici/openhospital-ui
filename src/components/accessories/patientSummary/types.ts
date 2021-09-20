@@ -16,8 +16,9 @@ export type TProps = IStateProps & IDispatchProps;
 export type SummaryTransitionState = "IDLE";
 
 export enum SummaryType {
-  VISIT = "visit",
-  OPD = "opd",
-  THERAPY = "therapy",
-  TRIAGE = "triage",
+  VISIT = "VISIT",
+  OPD = "OPD",
+  EXAMS = "EXAM",
+  THERAPY = "THERAPY",
+  TRIAGE = "TRIAGE",
 }

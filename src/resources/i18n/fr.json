@@ -47,8 +47,8 @@
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
-    "anamnesis": "Anamnèse",
-    "note": "Remarques",
+    "note": "Notes et symptômes",
+    "complaint": "Plaintes du patient",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
     "disease3": "Diagnostic 3",
@@ -157,7 +157,10 @@
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin"
+    "female": "Féminin",
+    "date": "Date",
+    "type": "Type",
+    "nooptionsfound": "Aucune option trouvée"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -189,10 +192,11 @@
   },
   "summary": {
     "visits": "Visites",
-    "triage": "Paramètres",
+    "triage": "Triage",
     "therapy": "Thérapie",
-    "opd": "Diagnostiques",
+    "opd": "OPD",
     "booking": "Prescriptions",
+    "exams": "Examens",
     "bookingdate": "Date",
     "gobackdashboard": "Retour à l'accueil",
     "keepediting": "Continuer à éditer",
@@ -238,10 +242,11 @@
     "created": "Patient admis",
     "dischargesuccess": "Patient sorti avec succès",
     "discharged": "Patient sorti",
-    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!",
+    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient. Admettez le patient d'abord.",
     "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
     "noteadded": "Note Enregistrée",
     "note": "Note",
-    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
+    "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
   }
 }

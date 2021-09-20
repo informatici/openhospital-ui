@@ -142,7 +142,7 @@ const ExamForm: FC<ExamProps> = ({
           ?.procedure?.toString() ?? ""
       );
     }
-  }, [examList, currentExamCode, dispatch, getExamRows]);
+  }, [examList, currentExamCode, dispatch]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);

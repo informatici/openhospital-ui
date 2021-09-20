@@ -57,13 +57,13 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     dispatch(getMedicals());
-  }, [dispatch, getMedicals]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode) {
       dispatch(getTherapiesByPatientId(patientCode));
     }
-  }, [shouldUpdateTable, dispatch, patientCode, getTherapiesByPatientId]);
+  }, [shouldUpdateTable, dispatch, patientCode]);
 
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data

@@ -4,22 +4,23 @@ export const GET_SUMMARY_FAIL = "summary/GET_SUMMARY_FAIL";
 
 export const SummaryField = {
   therapy: {
-    type: "therapy",
+    type: "THERAPY",
     dateField: "startDate",
-    noteField: "note",
   },
   opd: {
-    type: "opd",
+    type: "OPD",
     dateField: "date",
-    noteField: "note",
+  },
+  exam: {
+    type: "EXAM",
+    dateField: "date",
   },
   triage: {
-    type: "triage",
+    type: "TRIAGE",
     dateField: "pex_date",
-    noteField: "pex_note",
   },
   visit: {
-    type: "visit",
+    type: "VISIT",
     dateField: "date",
   },
 };

@@ -75,8 +75,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("admissions");
-  const [defaultRoute, setDefaultRoute] = useState("/admission");
+  const [userSection, setUserSection] = useState<IUserSection>("clinic");
+  const [defaultRoute, setDefaultRoute] = useState("/summary");
 
   const admissionsConfig: TTabConfig = [
     {
@@ -104,6 +104,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
   ];
+
   const examConfig: TTabConfig = [
     {
       label: t("nav.exams"),
@@ -135,11 +136,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       content: (
         <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
-    },
-    {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
     },
 
     {

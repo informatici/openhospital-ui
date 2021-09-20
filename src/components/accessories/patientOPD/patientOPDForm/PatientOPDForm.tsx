@@ -152,12 +152,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
               <TextField
-                field={formik.getFieldProps("anamnesis")}
+                field={formik.getFieldProps("complaint")}
                 multiline={true}
                 theme="regular"
-                label={t("opd.anamnesis")}
-                isValid={isValid("anamnesis")}
-                errorText={getErrorText("anamnesis")}
+                label={t("opd.complaint")}
+                isValid={isValid("complaint")}
+                errorText={getErrorText("complaint")}
                 onBlur={formik.handleBlur}
                 type="string"
               />

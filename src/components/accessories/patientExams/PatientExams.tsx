@@ -53,7 +53,7 @@ const PatientExams: FC = () => {
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
     setCreationMode(true);
-  }, [dispatch, getMaterials, getExams]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -63,13 +63,7 @@ const PatientExams: FC = () => {
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
-  }, [
-    dispatch,
-    createLabReset,
-    deleteLabReset,
-    updateLabReset,
-    activityTransitionState,
-  ]);
+  }, [dispatch, activityTransitionState]);
 
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
