@@ -15,10 +15,12 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
+  getCurrentAdmissionByPatientId,
 } from "../../../state/admissions/actions";
 import { getDiseasesIpdIn } from "../../../state/diseases/actions";
 import { getAdmissionTypes } from "../../../state/admissionTypes/actions";
 import { getWards } from "../../../state/ward/actions";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -29,7 +31,7 @@ const PatientAdmission: FC = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const patientData = useSelector(
+  const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
   const username = useSelector(
@@ -40,13 +42,22 @@ const PatientAdmission: FC = () => {
     return state.admissions.createAdmission.status;
   });
 
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
+
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
-    adm.patient = patientData;
+    adm.patient = patient;
     adm.userID = username;
     adm.abortDate = adm.admDate;
+    adm.admitted = 1;
     dispatch(createAdmission(adm));
   };
+
+  useEffect(() => {
+    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+  }, [patient, dispatch]);
 
   useEffect(() => {
     dispatch(createAdmissionReset());
@@ -79,15 +90,26 @@ const PatientAdmission: FC = () => {
 
   return (
     <div className="patientAdmission">
-      <AdmissionForm
-        fields={initialFields}
-        onSubmit={onSubmit}
-        submitButtonLabel={t("common.save")}
-        resetButtonLabel={t("common.discard")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={status === "LOADING"}
-      />
+      {!currentAdmission ? (
+        <AdmissionForm
+          fields={initialFields}
+          onSubmit={onSubmit}
+          submitButtonLabel={t("common.save")}
+          resetButtonLabel={t("common.discard")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={status === "LOADING"}
+        />
+      ) : (
+        <InfoBox
+          type="warning"
+          message={t("admission.currentadmissionexists", {
+            date: currentAdmission.admDate
+              ? renderDate(currentAdmission.admDate)
+              : "",
+          })}
+        />
+      )}
       {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
