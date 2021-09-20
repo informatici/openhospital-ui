@@ -33,7 +33,7 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const { fields } = useFields(currentAdmission);
+  const fields = useFields(currentAdmission);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data

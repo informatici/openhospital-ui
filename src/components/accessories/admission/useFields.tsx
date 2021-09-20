@@ -40,5 +40,5 @@ export const useFields = (admission?: AdmissionDTO) => {
     },
   };
 
-  return { fields };
+  return fields;
 };
