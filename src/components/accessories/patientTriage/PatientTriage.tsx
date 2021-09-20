@@ -61,7 +61,7 @@ const PatientTriage: FC = () => {
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
-  }, [activityTransitionState, createExaminationReset, deleteExaminationReset]);
+  }, [dispatch, activityTransitionState]);
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);

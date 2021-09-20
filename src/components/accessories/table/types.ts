@@ -15,6 +15,7 @@ export interface IProps {
   onDelete?: <T>(row: T) => void;
   onPrint?: () => void;
   onView?: () => void;
+  showEmptyCell?: boolean;
 }
 
 export interface IRowProps {
@@ -24,6 +25,7 @@ export interface IRowProps {
   tableHeader: Array<string>;
   isCollapsabile?: boolean;
   renderActions: () => void;
+  showEmptyCell?: boolean;
 }
 
 export type TActions = "edit" | "delete" | "view" | "print";

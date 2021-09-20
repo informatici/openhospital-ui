@@ -4,9 +4,9 @@ import { map, catchError, toArray } from "rxjs/operators";
 import {
   Configuration,
   ExaminationControllerApi,
+  LaboratoryControllerApi,
   OpdControllerApi,
   TherapyControllerApi,
-  VisitsControllerApi,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
@@ -24,11 +24,12 @@ const therapyControllerApi = new TherapyControllerApi(
 const opdControllerrApi = new OpdControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
-const visitsControllerApi = new VisitsControllerApi(
+
+const examinationControllerApi = new ExaminationControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
-const examinationControllerApi = new ExaminationControllerApi(
+const laboratoryControllerApi = new LaboratoryControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 
@@ -48,21 +49,21 @@ export const loadSummaryData =
           map((res) => convertToSummaryData(res, SummaryField.opd)),
           catchError((err) => of([]))
         ),
-        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.therapy)),
+        laboratoryControllerApi.getLaboratoryUsingGET({ patId: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.exam)),
           catchError((err) => of([]))
         ),
-        visitsControllerApi.getVisitUsingGET({ patID: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.visit)),
+        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.therapy)),
           catchError((err) => of([]))
         )
       )
         .pipe(toArray())
         .subscribe(
-          ([triages, opds, therapies, visits]) => {
+          ([triages, opds, exams, therapies]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
-              payload: [...triages, ...opds, ...therapies, ...visits],
+              payload: [...triages, ...opds, ...exams, ...therapies],
             });
           },
           (error) => {

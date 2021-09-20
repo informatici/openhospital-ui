@@ -125,7 +125,7 @@ const DischargeForm: FC<DischargeProps> = ({
         setFieldValue("bedDays", days);
       }
     },
-    [setFieldValue]
+    [setFieldValue, initialValues.admDate]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -156,11 +156,11 @@ const DischargeForm: FC<DischargeProps> = ({
 
   useEffect(() => {
     dispatch(getDiseasesIpdOut());
-  }, [dispatch, getDiseasesIpdOut]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getDischargeTypes());
-  }, [dispatch, getDischargeTypes]);
+  }, [dispatch]);
 
   const diagnosisStatus = useSelector(
     (state: IState) => state.diseases.diseasesIpdOut.status

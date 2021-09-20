@@ -155,7 +155,9 @@
     "no": "No",
     "unknown": "Unknown",
     "male": "Male",
-    "female": "Female"
+    "female": "Female",
+    "date": "Date",
+    "type": "Type"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -190,10 +192,11 @@
   },
   "summary": {
     "visits": "Visites",
-    "triage": "Examinations",
+    "triage": "Triage",
     "therapy": "Therapy",
-    "opd": "Diagnostics",
-    "booking": "Prescriptions"
+    "opd": "OPD",
+    "booking": "Reservation",
+    "exams": "Exams"
   },
   "lab": {
     "date": "Date",
@@ -229,7 +232,7 @@
     "created": "Patient admitted",
     "dischargesuccess": "Patient discharged successfully",
     "discharged": "Patient discharged",
-    "nocurrentadmission": "There is no current admission for the patient!",
+    "nocurrentadmission": "There is no current admission for the patient. You should admit the patient first",
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
     "note": "Note",

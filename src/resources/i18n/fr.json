@@ -157,7 +157,9 @@
     "no": "Non",
     "unknown": "Inconnu",
     "male": "Masculin",
-    "female": "Féminin"
+    "female": "Féminin",
+    "date": "Date",
+    "type": "Type"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -189,10 +191,11 @@
   },
   "summary": {
     "visits": "Visites",
-    "triage": "Paramètres",
+    "triage": "Triage",
     "therapy": "Thérapie",
-    "opd": "Diagnostiques",
+    "opd": "OPD",
     "booking": "Prescriptions",
+    "exams": "Examens",
     "bookingdate": "Date",
     "gobackdashboard": "Retour à l'accueil",
     "keepediting": "Continuer à éditer",
@@ -238,7 +241,7 @@
     "created": "Patient admis",
     "dischargesuccess": "Patient sorti avec succès",
     "discharged": "Patient sorti",
-    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient!",
+    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient. Admettez le patient d'abord.",
     "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
     "noteadded": "Note Enregistrée",
     "note": "Note",

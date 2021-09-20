@@ -19,7 +19,6 @@ import {
 } from "./dischargeForm/types";
 import checkIcon from "../../../assets/check-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { differenceInDays } from "../../../libraries/formDataHandling/functions";
 
@@ -74,14 +73,14 @@ export const PatientDischarge: React.FC = () => {
 
   useEffect(() => {
     dispatch(updateAdmissionReset());
-  }, [dispatch, updateAdmissionReset]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(updateAdmissionReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState, updateAdmissionReset]);
+  }, [dispatch, activityTransitionState]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -92,7 +91,7 @@ export const PatientDischarge: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCurrentAdmissionByPatientId(patient?.code));
-  }, [patient, dispatch, getCurrentAdmissionByPatientId]);
+  }, [patient, dispatch]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);

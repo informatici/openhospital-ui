@@ -14,6 +14,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   tableHeader,
   renderActions,
   isCollapsabile,
+  showEmptyCell = true,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -54,12 +55,15 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               className="collapseWrapper"
             >
               <ul>
-                {Object.keys(_.omit(row, tableHeader)).map((key, index) => (
-                  <li className="collapseItem_row" key={index}>
-                    <strong>{labelData[key]}:&nbsp;</strong>
-                    <span>{row[key]}</span>
-                  </li>
-                ))}
+                {Object.keys(_.omit(row, tableHeader)).map(
+                  (key, index) =>
+                    (showEmptyCell || (row[key] && labelData[key])) && (
+                      <li className="collapseItem_row" key={index}>
+                        <strong>{labelData[key]}:&nbsp;</strong>
+                        <span>{row[key]}</span>
+                      </li>
+                    )
+                )}
               </ul>
             </Collapse>
           </TableCell>

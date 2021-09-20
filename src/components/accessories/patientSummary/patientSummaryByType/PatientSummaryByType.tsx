@@ -2,6 +2,8 @@ import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
+import { MedicalDTO } from "../../../../generated";
+import { renderSummary } from "../../../../libraries/reduxUtils/convert";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
@@ -9,15 +11,7 @@ import Table from "../../table/Table";
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
 import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
-
-const header = ["date"];
-const order = ["date"];
-const label = {
-  date: "Date",
-  type: "Typology",
-  result: "Result",
-  note: "Additional notes",
-};
+import useSummaryMetaData from "../useSummaryMetaData";
 
 const PatientSummaryByType: FunctionComponent<TProps> = ({
   loadSummaryData,
@@ -25,6 +19,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
   summaryData = [],
 }) => {
   const { t } = useTranslation();
+  const { labels, dateFields, header, order } = useSummaryMetaData();
 
   const patientCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -34,25 +29,37 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
     if (patientCode) loadSummaryData(patientCode);
   }, [patientCode, loadSummaryData]);
 
+  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+    state.medicals.medicalsOrderByName.data
+      ? state.medicals.medicalsOrderByName.data
+      : []
+  );
+
   const filterByType = (type: string) => {
     return summaryData.filter((item) => item.type === type);
   };
+
   return (
     <>
       {!isLoading ? (
         <div className="patientSummary_type">
           <div className="patientSummary_type_row">
             <h4>
-              {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
+              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
             </h4>
             <Table
-              rowData={filterByType(SummaryType.VISIT)}
+              rowData={renderSummary(
+                filterByType(SummaryType.OPD),
+                dateFields,
+                labels
+              )}
               compareRows={dateComparator}
               tableHeader={header}
-              labelData={label}
+              labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
+              showEmptyCell={false}
             />
           </div>
 
@@ -61,13 +68,18 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
             </h4>
             <Table
-              rowData={filterByType(SummaryType.TRIAGE)}
+              rowData={renderSummary(
+                filterByType(SummaryType.TRIAGE),
+                dateFields,
+                labels
+              )}
               compareRows={dateComparator}
               tableHeader={header}
-              labelData={label}
+              labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
+              showEmptyCell={false}
             />
           </div>
 
@@ -76,28 +88,39 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               {t("summary.therapy")}({filterByType(SummaryType.THERAPY).length})
             </h4>
             <Table
-              rowData={filterByType(SummaryType.THERAPY)}
+              rowData={renderSummary(
+                filterByType(SummaryType.THERAPY),
+                dateFields,
+                labels,
+                medicals
+              )}
               compareRows={dateComparator}
               tableHeader={header}
-              labelData={label}
+              labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
+              showEmptyCell={false}
             />
           </div>
 
           <div className="patientSummary_type_row">
             <h4>
-              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
+              {t("summary.exams")}({filterByType(SummaryType.EXAMS).length})
             </h4>
             <Table
-              rowData={filterByType(SummaryType.OPD)}
+              rowData={renderSummary(
+                filterByType(SummaryType.EXAMS),
+                dateFields,
+                labels
+              )}
               compareRows={dateComparator}
               tableHeader={header}
-              labelData={label}
+              labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
               isCollapsabile={true}
+              showEmptyCell={false}
             />
           </div>
         </div>

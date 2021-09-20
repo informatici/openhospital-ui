@@ -33,6 +33,7 @@ const Table: FunctionComponent<IProps> = ({
   onDelete,
   onPrint,
   onView,
+  showEmptyCell = true,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -150,6 +151,7 @@ const Table: FunctionComponent<IProps> = ({
                   tableHeader={tableHeader}
                   renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
+                  showEmptyCell={showEmptyCell}
                 />
               ))}
           </TableBody>

@@ -62,7 +62,7 @@ const PatientTherapy: FC = () => {
     dispatch(deleteTherapyReset());
     dispatch(deleteTherapyReset());
     dispatch(getMedicals());
-  }, [dispatch, getMedicals]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -74,7 +74,7 @@ const PatientTherapy: FC = () => {
   useEffect(() => {
     dispatch(createTherapyReset());
     dispatch(updateTherapyReset());
-  }, [dispatch, updateTherapyReset, createTherapyReset]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -84,12 +84,7 @@ const PatientTherapy: FC = () => {
       dispatch(updateTherapyReset());
       setShouldResetForm(true);
     }
-  }, [
-    dispatch,
-    activityTransitionState,
-    createTherapyReset,
-    updateTherapyReset,
-  ]);
+  }, [dispatch, activityTransitionState]);
 
   const onSubmit = (valuesToSave: TherapyRowDTO) => {
     setShouldResetForm(false);
