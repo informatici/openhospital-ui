@@ -1,10 +1,13 @@
-import { Help } from "@material-ui/icons";
+import { Tooltip } from "@material-ui/core";
+import { Feedback } from "@material-ui/icons";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { IState } from "../../../types";
+import { useTranslation } from "react-i18next";
 import "./styles.scss";
 
 const OHFeedback: FC = () => {
+  const { t } = useTranslation();
   const user = useSelector((state: IState) => state.main.authentication.data);
   jQuery.ajax({
     url: "?collectorId=53f7755c",
@@ -38,8 +41,10 @@ const OHFeedback: FC = () => {
   );
   return (
     <div className="feedback">
-      <a href="#" id="feedback-button">
-        <Help />
+      <a href="#" id="feedback-button" title="Feedback">
+        <Tooltip title={t("common.feedback")!} aria-label="feedback">
+          <Feedback />
+        </Tooltip>
       </a>
     </div>
   );

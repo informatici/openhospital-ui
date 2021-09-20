@@ -1,18 +1,13 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 
-  .feedback {
-    display: relative;
-    //position: fixed;
-    //right: 0px;
-    //top: 75%;
-    & {
-      color:$c-white;
-      text-decoration: none;
-    }
-    &:hover{      
-      color: $c-color-primary;
-      text-decoration:none; 
-      cursor:pointer;  
-    }
+.feedback {
+  position: relative;
+  top: 2px;
+
+  svg {
+    fill: $c-white;
+    height: 22px;
+    width: 22px;
   }
+}

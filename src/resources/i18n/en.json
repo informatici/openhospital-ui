@@ -10,7 +10,7 @@
     "signout": "Sign Out"
   },
   "dashboard": {
-    "welcomename": "Welcome <strong>{{name}}<strong>",
+    "welcomename": "Welcome",
     "newpatient": "New patient",
     "searchpatients": "Search patients"
   },
@@ -121,6 +121,7 @@
   },
   "common": {
     "results": "Results",
+    "feedback": "Feedback",
     "submit": "Submit",
     "reset": "Reset",
     "search": "Search",
@@ -183,7 +184,6 @@
     "updated": "Therapy updated",
     "createsuccess": "A therapy row has been created successfully!",
     "updatesuccess": "A therapy row with code {{code}} has been updated successfully!"
-
   },
   "booking": {
     "category": "Category",
@@ -237,6 +237,6 @@
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
     "note": "Note",
-    "validatelastdate":"should be greater or equal to admission date {{admDate}}"
+    "validatelastdate": "should be greater or equal to admission date {{admDate}}"
   }
 }
