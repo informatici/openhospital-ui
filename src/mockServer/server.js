@@ -43,7 +43,6 @@ export function makeServer() {
     examRoutes(server);
     labRoutes(server);
     examRowRoutes(server);
-
   });
   return server;
 }

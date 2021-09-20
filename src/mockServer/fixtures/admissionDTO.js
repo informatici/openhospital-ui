@@ -50,7 +50,7 @@ export const admissionDTO =
         description: "SELF"
     },
     diseaseIn: {
-        code: 3,
+        code: 88,
         description: "Diarrhoea-Dysentry",
         diseaseType: {
             code: "ND",

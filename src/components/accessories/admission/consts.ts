@@ -1,56 +1,11 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 
-const wardOptions = [
-  {
-    label: "ward1",
-    value: "Ward1",
-  },
-  {
-    label: "ward2",
-    value: "Ward2",
-  },
-  {
-    label: "ward3",
-    value: "Ward3",
-  },
-];
-
-const admTyOptions = [
-  {
-    label: "type1",
-    value: "Ambulance",
-  },
-  {
-    label: "type2",
-    value: "Volontaire",
-  },
-  {
-    label: "type3",
-    value: "transfert",
-  },
-];
-
-const diagnosis = [
-  {
-    label: "disease1",
-    value: "disease",
-  },
-  {
-    label: "disease2",
-    value: "disease",
-  },
-  {
-    label: "disease3",
-    value: "disease",
-  },
-];
-
 export const initialFields: TFields<AdmissionFormFieldName> = {
   ward: {
     value: "",
     type: "text",
-    options: wardOptions,
+    options: [],
   },
   transUnit: {
     value: "10",
@@ -63,11 +18,50 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
   admType: {
     value: "",
     type: "text",
-    options: admTyOptions,
+    options: [],
   },
   diseaseIn: {
     value: "",
     type: "text",
-    options: diagnosis,
+    options: [],
+  },
+  note: {
+    value: "",
+    type: "text",
+  },
+  disDate: {
+    value: "",
+    type: "date",
+  },
+  disType: {
+    value: "",
+    type: "text",
+  },
+  bedDays: {
+    value: "0",
+    type: "number",
+  },
+  diseaseOut1: {
+    value: "",
+    type: "text",
+    options: [],
+  },
+  diseaseOut2: {
+    value: "",
+    type: "text",
+    options: [],
+  },
+  diseaseOut3: {
+    value: "",
+    type: "text",
+    options: [],
+  },
+  cliDiaryCharge: {
+    value: "",
+    type: "text",
+  },
+  imageryCharge: {
+    value: "",
+    type: "text",
   },
 };

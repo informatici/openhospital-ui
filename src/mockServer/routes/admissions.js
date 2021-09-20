@@ -1,6 +1,7 @@
 import { admissionDTO } from "../fixtures/admissionDTO";
 
 export const admissionRoutes = (server) => {
+    let rand = 0;
     server.namespace("/admissions", () => {
         server.post("/").intercept((req, res) => {
             const body = req.jsonBody();
@@ -9,7 +10,8 @@ export const admissionRoutes = (server) => {
                     res.status(400);
                     break;
                 default:
-                    res.status(201).json(body);
+                    res.status(201).json(202);
+                    rand = 1;
                     break;
             }
         });
@@ -20,7 +22,8 @@ export const admissionRoutes = (server) => {
                     res.status(400);
                     break;
                 default:
-                    res.status(201).json(body);
+                    res.status(201).json(null);
+                    rand = 0;
                     break;
             }
         });
@@ -49,7 +52,8 @@ export const admissionRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(200).json(admissionDTO);
+                    rand === 1 ? res.status(200).json(admissionDTO) : res.status(204);
+
             }
         });
     });

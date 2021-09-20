@@ -1,4 +1,10 @@
-import { MedicalDTO } from "../../generated";
+import {
+  LaboratoryDTO,
+  MedicalDTO,
+  OpdDTO,
+  PatientExaminationDTO,
+  TherapyRowDTO,
+} from "../../generated";
 import { renderDate } from "../formatUtils/dataFormatting";
 import { SummaryFieldType } from "./SummaryFieldType";
 
@@ -15,7 +21,7 @@ export const convertToSummaryData = (
 };
 
 export const renderSummary = (
-  data: Array<any>,
+  data: Array<PatientExaminationDTO | OpdDTO | LaboratoryDTO | TherapyRowDTO>,
   dateFields: string[],
   labels: any,
   medicals: MedicalDTO[] = []
