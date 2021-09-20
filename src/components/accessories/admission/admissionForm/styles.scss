@@ -33,6 +33,13 @@
       width: 100%;
     }
 
+    &.halfWidth {
+      width: 50%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+    }
+
     &.compressed {
       .textField {
         float: left;

@@ -8,6 +8,7 @@ interface IAdmissionProps {
   resetButtonLabel: string;
   isLoading: boolean;
   shouldResetForm: boolean;
+  admitted?: boolean;
   resetFormCallback: () => void;
 }
 
@@ -18,4 +19,14 @@ export type AdmissionFormFieldName =
   | "transUnit"
   | "admDate"
   | "admType"
-  | "diseaseIn";
+  | "diseaseIn"
+  | "note"
+  | "admDate"
+  | "disDate"
+  | "disType"
+  | "bedDays"
+  | "diseaseOut1"
+  | "diseaseOut2"
+  | "diseaseOut3"
+  | "cliDiaryCharge"
+  | "imageryCharge";
