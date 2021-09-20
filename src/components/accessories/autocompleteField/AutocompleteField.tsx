@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
   FunctionComponent,
-  memo,
   useCallback,
   useEffect,
   useState,
