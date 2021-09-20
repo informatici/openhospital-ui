@@ -1,6 +1,8 @@
+import { debounce } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
@@ -28,8 +30,20 @@ const BillFilterForm: FC<BillFilterProps> = ({
 }) => {
   const { t } = useTranslation();
   const validationSchema = object({
-    //
+    toDate: string().test({
+      name: "toDate",
+      message: t("bill.validatetodate"),
+      test: function (value) {
+        if (moment(+value).isValid()) {
+          return moment(+value).isSameOrAfter(moment(+this.parent.fromDate));
+        } else if (moment(value).isValid()) {
+          return moment(value).isSameOrAfter(moment(this.parent.fromDate));
+        } else return true;
+      },
+    }),
   });
+
+  //const handleFilterForm = ()
 
   const initialValues = getFromFields(initialFields, "value");
   const options = getFromFields(initialFields, "options");
@@ -48,8 +62,9 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      if (fieldName !== "fromDate") formik.handleSubmit();
     },
-    [setFieldValue]
+    [setFieldValue, formik.handleSubmit]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -65,8 +80,9 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
-        handleBlur(e);
+        formik.handleBlur(e);
         setFieldValue(fieldName, value);
+        formik.handleSubmit();
       },
     [setFieldValue, handleBlur]
   );
@@ -108,7 +124,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
               <DateField
                 theme={"light"}
                 fieldName="fromDate"
-                fieldValue={formik.values.toDate}
+                fieldValue={formik.values.fromDate}
                 disableFuture={false}
                 format="dd/MM/yyyy"
                 isValid={isValid("fromDate")}

@@ -8,8 +8,16 @@ import Table from "../table/Table";
 type IStatus = "ALL" | "PENDING" | "CLOSE" | "DELETE";
 interface IBillTableProps {
   status: IStatus;
+  fromDate: string;
+  toDate: string;
+  patientCode: number;
 }
-export const BillTable: FC<IBillTableProps> = ({ status }) => {
+export const BillTable: FC<IBillTableProps> = ({
+  status,
+  fromDate,
+  toDate,
+  patientCode,
+}) => {
   const header = ["date", "patient", "balance"];
   const label = {
     id: "Bill code",
@@ -22,24 +30,22 @@ export const BillTable: FC<IBillTableProps> = ({ status }) => {
   const order = ["date"];
   const dispatch = useDispatch();
 
-  const fromDate = "2019-02-10";
-  const toDate = "2021-10-10";
   useEffect(() => {
     switch (status) {
       case "PENDING":
-        dispatch(getPendingBills(200));
+        dispatch(getPendingBills(patientCode));
         break;
       case "CLOSE":
-        dispatch(searchBills(fromDate, toDate, 200));
+        dispatch(searchBills(fromDate, toDate, patientCode));
         break;
       case "DELETE":
-        dispatch(searchBills(fromDate, toDate, 200));
+        dispatch(searchBills(fromDate, toDate, patientCode));
         break;
       default:
-        dispatch(searchBills(fromDate, toDate, 200));
+        dispatch(searchBills(fromDate, toDate, patientCode));
         break;
     }
-  }, [status]);
+  }, [status, fromDate, toDate, patientCode]);
   const data = useSelector<IState, BillDTO[]>(
     (state) => state.bills.searchBills.data ?? []
   );

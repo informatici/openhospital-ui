@@ -14,7 +14,6 @@ import Button from "../../accessories/button/Button";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import BillFilterForm from "../../accessories/billFilterForm/BillFilterForm";
 import Footer from "../../accessories/footer/Footer";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
 import { TTabConfig } from "../../accessories/tabs/types";
 import SearchBillActivityContent from "../searchBillActivityContent/SearchBillActivityContent";
@@ -35,6 +34,9 @@ export const SearchBillActivity: FC = () => {
   };
   const [expanded, setExpanded] = useState<string | false>("form");
   const [isOpen, setIsOpen] = useState(false);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [patientCode, setPatientCode] = useState(200);
   const summary = {
     today: 500,
     todayNotPaid: 0,
@@ -52,7 +54,14 @@ export const SearchBillActivity: FC = () => {
       content: (
         <SearchBillActivityContent
           title="All Bills"
-          content={<BillTable status="ALL" />}
+          content={
+            <BillTable
+              status="ALL"
+              toDate={toDate}
+              fromDate={fromDate}
+              patientCode={patientCode}
+            />
+          }
         />
       ),
     },
@@ -62,7 +71,14 @@ export const SearchBillActivity: FC = () => {
       content: (
         <SearchBillActivityContent
           title="Pending Bills"
-          content={<BillTable status="PENDING" />}
+          content={
+            <BillTable
+              status="PENDING"
+              toDate={toDate}
+              fromDate={fromDate}
+              patientCode={patientCode}
+            />
+          }
         />
       ),
     },
@@ -72,7 +88,14 @@ export const SearchBillActivity: FC = () => {
       content: (
         <SearchBillActivityContent
           title="closed Bills"
-          content={<BillTable status="CLOSE" />}
+          content={
+            <BillTable
+              status="CLOSE"
+              toDate={toDate}
+              fromDate={fromDate}
+              patientCode={patientCode}
+            />
+          }
         />
       ),
     },
@@ -82,7 +105,14 @@ export const SearchBillActivity: FC = () => {
       content: (
         <SearchBillActivityContent
           title="Deleted Bills"
-          content={<BillTable status="DELETE" />}
+          content={
+            <BillTable
+              status="DELETE"
+              toDate={toDate}
+              fromDate={fromDate}
+              patientCode={patientCode}
+            />
+          }
         />
       ),
     },
@@ -91,7 +121,11 @@ export const SearchBillActivity: FC = () => {
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
-  const submit = (filter: any) => {};
+  const submit = (filter: any) => {
+    setFromDate(filter.fromDate);
+    setToDate(filter.toDate);
+    setPatientCode(filter.patient);
+  };
 
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? "form" : section);
