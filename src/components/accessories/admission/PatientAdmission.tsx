@@ -6,7 +6,6 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
-import { initialFields } from "./consts";
 import { AdmissionDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
@@ -19,9 +18,7 @@ import {
   updateAdmission,
   updateAdmissionReset,
 } from "../../../state/admissions/actions";
-import { differenceInDays } from "../../../libraries/formDataHandling/functions";
-import { AdmissionFormFieldName } from "./admissionForm/types";
-import { TFields } from "../../../libraries/formDataHandling/types";
+import { useFields } from "./useFields";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -35,6 +32,8 @@ const PatientAdmission: FC = () => {
   const currentAdmission = useSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
+
+  const { fields } = useFields(currentAdmission);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -102,41 +101,6 @@ const PatientAdmission: FC = () => {
     scrollToElement(null);
   };
 
-  const fields: TFields<AdmissionFormFieldName> = {
-    ...initialFields,
-    ward: {
-      value: currentAdmission?.ward?.code ?? "",
-      type: "text",
-    },
-    admType: {
-      value: currentAdmission?.admType?.code ?? "",
-      type: "text",
-    },
-    diseaseIn: {
-      value: currentAdmission?.diseaseIn?.code?.toString() ?? "",
-      type: "text",
-    },
-    admDate: {
-      value: currentAdmission?.admDate ?? "",
-      type: "date",
-    },
-    note: {
-      value: currentAdmission?.note ?? "",
-      type: "text",
-    },
-    bedDays: {
-      value: differenceInDays(
-        new Date(+(currentAdmission?.admDate ?? "")),
-        new Date()
-      ).toString(),
-      type: "number",
-    },
-    transUnit: {
-      value: currentAdmission?.transUnit?.toString() ?? "",
-      type: "text",
-    },
-  };
-
   useEffect(() => {
     dispatch(getCurrentAdmissionByPatientId(patient?.code));
   }, [patient, dispatch]);
@@ -144,7 +108,7 @@ const PatientAdmission: FC = () => {
   return (
     <div className="patientAdmission">
       <AdmissionForm
-        fields={currentAdmission ? fields : initialFields}
+        fields={fields}
         onSubmit={onSubmit}
         submitButtonLabel={t("common.save")}
         resetButtonLabel={t("common.discard")}
