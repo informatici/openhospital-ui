@@ -36,7 +36,7 @@ export const SearchBillActivity: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [patientCode, setPatientCode] = useState(200);
+  const [patientCode, setPatientCode] = useState(0);
   const summary = {
     today: 500,
     todayNotPaid: 0,
@@ -194,7 +194,6 @@ export const SearchBillActivity: FC = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                           <BillFilterForm
-                            theme="light"
                             className="searchBills__formData__item"
                             onSubmit={submit}
                           />

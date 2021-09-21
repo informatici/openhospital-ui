@@ -1,34 +1,42 @@
-import { debounce } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import moment from "moment";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import { IState } from "../../../types";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import DateField from "../dateField/DateField";
 import { initialFields } from "./consts";
+import { searchPatient } from "../../../state/patients/actions";
 
 import "./styles.scss";
-import { BillFilterProps } from "./types";
+import { BillFilterProps, TValues } from "./types";
+import { PatientDTO } from "../../../generated";
 
-const BillFilterForm: FC<BillFilterProps> = ({
-  fields,
-  theme,
-  onSubmit,
-  className,
-  submitButtonLabel,
-  resetButtonLabel,
-  isLoading,
-  shouldResetForm,
-  resetFormCallback,
-}) => {
+const BillFilterForm: FC<BillFilterProps> = ({ onSubmit, className }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const [searchPatientParams, setSearchPatientParams] = useState({} as TValues);
+
+  const handlePatientSearchChange = (event: any, value: string) => {
+    setSearchPatientParams({
+      id: !isNaN(+value) ? value : "",
+      firstName: isNaN(+value) ? value : "",
+      secondName: "",
+      birthDate: "",
+      address: "",
+    });
+    dispatch(searchPatient(searchPatientParams));
+  };
+
   const validationSchema = object({
     toDate: string().test({
       name: "toDate",
@@ -43,10 +51,25 @@ const BillFilterForm: FC<BillFilterProps> = ({
     }),
   });
 
-  //const handleFilterForm = ()
+  const patientSearchResults = useSelector<IState, PatientDTO[] | undefined>(
+    (state) => state.patients.searchResults.data
+  );
+  const searchStatus = useSelector<IState>(
+    (state) => state.patients.searchResults.status || "IDLE"
+  );
+
+  const renderOptions = (data: PatientDTO[] | undefined) => {
+    if (data) {
+      return data.map((item) => {
+        return {
+          value: item.code + "",
+          label: item.code + "-" + item.firstName + " " + item.secondName,
+        };
+      });
+    } else return [];
+  };
 
   const initialValues = getFromFields(initialFields, "value");
-  const options = getFromFields(initialFields, "options");
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -57,12 +80,14 @@ const BillFilterForm: FC<BillFilterProps> = ({
     },
   });
 
-  const { setFieldValue, resetForm, handleBlur } = formik;
+  const { setFieldValue, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
-      if (fieldName !== "fromDate") formik.handleSubmit();
+      if (fieldName !== "fromDate") {
+        formik.handleSubmit();
+      }
     },
     [setFieldValue, formik.handleSubmit]
   );
@@ -87,39 +112,11 @@ const BillFilterForm: FC<BillFilterProps> = ({
     [setFieldValue, handleBlur]
   );
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    formik.resetForm();
-    //resetFormCallback();
-  };
-
-  useEffect(() => {
-    if (shouldResetForm) {
-      resetForm();
-      // resetFormCallback();
-    }
-  }, [shouldResetForm, resetForm, resetFormCallback]);
-
   return (
     <>
       <div className={"filterBillForm " + className}>
         <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
-            <div className="fullWidth filterBillForm__item">
-              <AutocompleteField
-                fieldName="user"
-                theme={"light"}
-                fieldValue={formik.values.user}
-                label={t("bill.user")}
-                isValid={isValid("user")}
-                errorText={getErrorText("user")}
-                onBlur={onBlurCallback("user")}
-                options={options.user}
-              />
-            </div>
-
             <div className="fullWidth filterBillForm__item">
               <DateField
                 theme={"light"}
@@ -157,31 +154,10 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 isValid={isValid("patient")}
                 errorText={getErrorText("patient")}
                 onBlur={onBlurCallback("patient")}
-                options={options.patient}
-              />
-            </div>
-            <div className="fullwidth filterBillForm__item">
-              <AutocompleteField
-                theme={"light"}
-                fieldName="billItem"
-                fieldValue={formik.values.patient}
-                label={t("bill.billitem")}
-                isValid={isValid("billItem")}
-                errorText={getErrorText("billItem")}
-                onBlur={onBlurCallback("billItem")}
-                options={options.billItem}
-              />
-            </div>
-            <div className="fullwidth filterBillForm__item">
-              <AutocompleteField
-                theme={"light"}
-                fieldName="affiliate"
-                fieldValue={formik.values.patient}
-                label={t("bill.affiliate")}
-                isValid={isValid("affiliate")}
-                errorText={getErrorText("affiliate")}
-                onBlur={onBlurCallback("affiliate")}
-                options={options.affiliate}
+                isLoading={searchStatus === "LOADING"}
+                options={renderOptions(patientSearchResults)}
+                onInputChange={handlePatientSearchChange}
+                freeSolo={true}
               />
             </div>
           </div>

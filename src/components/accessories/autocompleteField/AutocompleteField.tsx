@@ -23,6 +23,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   isLoading = false,
   disabled,
   theme,
+  onInputChange,
+  freeSolo = false,
 }) => {
   const [value, setValue] = useState("");
 
@@ -42,16 +44,26 @@ const AutocompleteField: FunctionComponent<IProps> = ({
     setValue(fieldValue);
   }, [fieldValue]);
 
+  const handleOnInputChange = useCallback(
+    debounce(
+      (event: any, value: any) =>
+        onInputChange ? onInputChange(event, value) : null,
+      250
+    ),
+    []
+  );
+
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
 
   return (
     <FormControl variant="outlined" className={actualClassName}>
       <Autocomplete
-        freeSolo
+        freeSolo={freeSolo}
         disabled={disabled}
         loading={isLoading}
         options={options}
+        onInputChange={handleOnInputChange}
         getOptionLabel={(option) => option.label}
         value={geFullObj(value)}
         getOptionSelected={(option, v) => option.value === v.value}

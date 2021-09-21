@@ -1,4 +1,4 @@
-import { billDTO, pendingBillDTO } from "../fixtures/billDTO";
+import { billDTO, billDTO1, pendingBillDTO } from "../fixtures/billDTO";
 
 export const billRoutes = (server) => {
     server.namespace("/bills", () => {
@@ -14,12 +14,29 @@ export const billRoutes = (server) => {
             }
         });
         server.get("/pending").intercept((req, res) => {
-            const body = req.params;
-            res.status(201).json([pendingBillDTO, pendingBillDTO]);
+            const code = req.params.patientCode;
+
+            switch (code) {
+                case "1":
+                    res.status(201).json([billDTO1]);
+                    break;
+                default:
+                    res.status(201).json([pendingBillDTO, pendingBillDTO]);
+                    break;
+            }
         });
         server.get("/").intercept((req, res) => {
-            const body = req.params;
-            res.status(201).json([billDTO, billDTO]);
+            const code = req.params.patientCode;
+
+            switch (code) {
+                case "1":
+                    res.status(201).json([billDTO1]);
+                    break;
+                default:
+                    res.status(201).json([billDTO, billDTO]);
+                    break;
+            }
+
         });
     });
 };

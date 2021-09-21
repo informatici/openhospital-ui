@@ -1,18 +1,20 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
 
 interface IBillFilterProps {
-  fields?: TFields<BillFilterFormFieldName>;
   onSubmit: (filter: any) => void;
-  submitButtonLabel?: string;
-  resetButtonLabel?: string;
-  isLoading?: boolean;
-  shouldResetForm?: boolean;
-  resetFormCallback?: () => void;
   className: string;
-  theme: string;
 }
 
 export type BillFilterProps = IBillFilterProps;
+
+export type TValues = Record<TFieldName, string>;
+
+export type TFieldName =
+  | "id"
+  | "firstName"
+  | "secondName"
+  | "birthDate"
+  | "address";
 
 export type BillFilterFormFieldName =
   | "user"

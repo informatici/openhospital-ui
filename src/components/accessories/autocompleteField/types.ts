@@ -10,4 +10,6 @@ export interface IProps {
   disabled?: boolean;
   options: Array<{ value: string | number; label: string }>;
   theme?: string;
+  onInputChange?: (e: any, value: any) => void;
+  freeSolo?: boolean;
 }
