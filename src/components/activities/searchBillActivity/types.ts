@@ -56,3 +56,12 @@ export type TActivityTransitionState =
   | "TO_BILL_HOME"
   | "TO_DASHBOARD"
   | "TO_NEW_BILL";
+
+export type IBillSummary = {
+  today: number;
+  todayNotPaid: number;
+  period: number;
+  periodNotPaid: number;
+  user: number;
+  userNotPaid: number;
+};

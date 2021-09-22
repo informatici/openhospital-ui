@@ -46,6 +46,7 @@ export const BillTable: FC<IBillTableProps> = ({
         break;
     }
   }, [status, fromDate, toDate, patientCode]);
+
   const data = useSelector<IState, BillDTO[]>(
     (state) => state.bills.searchBills.data ?? []
   );

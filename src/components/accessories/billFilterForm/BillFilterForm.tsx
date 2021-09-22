@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import moment from "moment";
 import React, { FC, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,11 +41,8 @@ const BillFilterForm: FC<BillFilterProps> = ({ onSubmit, className }) => {
       name: "toDate",
       message: t("bill.validatetodate"),
       test: function (value) {
-        if (moment(+value).isValid()) {
-          return moment(+value).isSameOrAfter(moment(+this.parent.fromDate));
-        } else if (moment(value).isValid()) {
-          return moment(value).isSameOrAfter(moment(this.parent.fromDate));
-        } else return true;
+        //return value && this.parent.fromDate && +value >= +this.parent.fromDate;
+        return true;
       },
     }),
   });

@@ -23,11 +23,11 @@ export const initialFields: TFields<BillFilterFormFieldName> = {
     options: [],
   },
   fromDate: {
-    value: "",
+    value: new Date().setHours(0) + "",
     type: "date",
   },
   toDate: {
-    value: "",
+    value: new Date().setHours(23) + "",
     type: "date",
   },
 };

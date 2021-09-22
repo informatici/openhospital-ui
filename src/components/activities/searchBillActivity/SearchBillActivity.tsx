@@ -1,8 +1,8 @@
 import { Receipt, Search } from "@material-ui/icons";
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import {
@@ -20,8 +20,10 @@ import SearchBillActivityContent from "../searchBillActivityContent/SearchBillAc
 import "./styles.scss";
 import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
-import { TActivityTransitionState } from "./types";
+import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
+import { searchBills } from "../../../state/bills/actions";
+import { BillDTO } from "../../../generated";
 
 export const SearchBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -32,21 +34,97 @@ export const SearchBillActivity: FC = () => {
     [t("nav.newbill")]: "/bills",
     [t("nav.searchbill")]: "/searchbills",
   };
+  const dispatch = useDispatch();
+
   const [expanded, setExpanded] = useState<string | false>("form");
   const [isOpen, setIsOpen] = useState(false);
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState(
+    new Date().setDate(new Date().getDate() - 1) + ""
+  );
+  const [toDate, setToDate] = useState(new Date().setHours(23) + "");
   const [patientCode, setPatientCode] = useState(0);
-  const summary = {
-    today: 500,
+  const initSummary = {
+    today: 0,
     todayNotPaid: 0,
-    period: 1000,
+    period: 0,
     periodNotPaid: 0,
     user: 0,
     userNotPaid: 0,
-    totalpaid: 1000,
-    totalnotpaid: 0,
   };
+
+  useEffect(() => {
+    dispatch(searchBills(fromDate, toDate, patientCode));
+  }, [fromDate, toDate, patientCode]);
+
+  const userCredentials = useSelector<IState, TUserCredentials>(
+    (state) => state.main.authentication.data
+  );
+  const computeBillSummary = (bills: BillDTO[]): IBillSummary => {
+    const today = new Date().setHours(0);
+    const tomorrow = new Date().setDate(new Date().getDate() + 1);
+
+    const res = {
+      today: bills
+        .filter(
+          (item) => item.date && +item.date >= today && +item.date < tomorrow
+        )
+        .reduce(
+          (sum, current) =>
+            sum + ((current.amount || 0) - (current.balance || 0)),
+          0
+        ),
+      todayNotPaid: bills
+        .filter(
+          (item) => item.date && +item.date >= today && +item.date < tomorrow
+        )
+        .reduce((sum, current) => sum + (current.balance || 0), 0),
+      period: bills
+        .filter(
+          (item) =>
+            item.date && +item.date >= +fromDate && +item.date <= +toDate
+        )
+        .reduce(
+          (sum, current) =>
+            sum + ((current.amount || 0) - (current.balance || 0)),
+          0
+        ),
+      periodNotPaid: bills
+        .filter(
+          (item) =>
+            item.date && +item.date >= +fromDate && +item.date <= +toDate
+        )
+        .reduce((sum, current) => sum + (current.balance || 0), 0),
+      user: bills
+        .filter(
+          (item) =>
+            item.date &&
+            +item.date >= +fromDate &&
+            +item.date <= +toDate &&
+            item.user === "admin"
+        )
+        .reduce(
+          (sum, current) =>
+            sum + ((current.amount || 0) - (current.balance || 0)),
+          0
+        ),
+      userNotPaid: bills
+        .filter(
+          (item) =>
+            item.date &&
+            +item.date >= +fromDate &&
+            +item.date <= +toDate &&
+            item.user === "admin"
+        )
+        .reduce((sum, current) => sum + (current.balance || 0), 0),
+    };
+    return res;
+  };
+  const summary = useSelector<IState, IBillSummary>((state) =>
+    state.bills.searchBills.data
+      ? computeBillSummary(state.bills.searchBills.data)
+      : initSummary
+  );
+
   const tabConfig: TTabConfig = [
     {
       label: t("bill.allbills"),
@@ -118,9 +196,6 @@ export const SearchBillActivity: FC = () => {
     },
   ];
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
-    (state) => state.main.authentication.data
-  );
   const submit = (filter: any) => {
     setFromDate(filter.fromDate);
     setToDate(filter.toDate);
@@ -199,7 +274,7 @@ export const SearchBillActivity: FC = () => {
                           />
                         </AccordionDetails>
                       </Accordion>
-                      <Accordion expanded={expanded === "details"}>
+                      <Accordion expanded={true}>
                         <AccordionSummary
                           onClick={() => handleOnExpanded("details")}
                         >
@@ -256,22 +331,6 @@ export const SearchBillActivity: FC = () => {
                             </div>
                             <div className="searchBills__formData__item__value">
                               {summary.userNotPaid || "-"}
-                            </div>
-                          </div>
-                          <div className="searchBills__formData__item">
-                            <div className="searchBills__formData__item__label">
-                              {t("bill.totalpaid")}:
-                            </div>
-                            <div className="searchBills__formData__item__value">
-                              {summary.totalpaid || "-"}
-                            </div>
-                          </div>
-                          <div className="searchBills__formData__item">
-                            <div className="searchBills__formData__item__label">
-                              {t("bill.totalnotpaid")}:
-                            </div>
-                            <div className="searchBills__formData__item__value">
-                              {summary.totalnotpaid || "-"}
                             </div>
                           </div>
                         </AccordionDetails>
