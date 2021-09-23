@@ -23,7 +23,7 @@ import { Redirect } from "react-router";
 import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
 import { searchBills } from "../../../state/bills/actions";
-import { BillDTO } from "../../../generated";
+import { computeBillSummary, initializeBillFilter } from "./config";
 
 export const SearchBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -43,14 +43,6 @@ export const SearchBillActivity: FC = () => {
   );
   const [toDate, setToDate] = useState(new Date().setHours(23) + "");
   const [patientCode, setPatientCode] = useState(0);
-  const initSummary = {
-    today: 0,
-    todayNotPaid: 0,
-    period: 0,
-    periodNotPaid: 0,
-    user: 0,
-    userNotPaid: 0,
-  };
 
   useEffect(() => {
     dispatch(searchBills(fromDate, toDate, patientCode));
@@ -59,70 +51,14 @@ export const SearchBillActivity: FC = () => {
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
-  const computeBillSummary = (bills: BillDTO[]): IBillSummary => {
-    const today = new Date().setHours(0);
-    const tomorrow = new Date().setDate(new Date().getDate() + 1);
 
-    const res = {
-      today: bills
-        .filter(
-          (item) => item.date && +item.date >= today && +item.date < tomorrow
-        )
-        .reduce(
-          (sum, current) =>
-            sum + ((current.amount || 0) - (current.balance || 0)),
-          0
-        ),
-      todayNotPaid: bills
-        .filter(
-          (item) => item.date && +item.date >= today && +item.date < tomorrow
-        )
-        .reduce((sum, current) => sum + (current.balance || 0), 0),
-      period: bills
-        .filter(
-          (item) =>
-            item.date && +item.date >= +fromDate && +item.date <= +toDate
-        )
-        .reduce(
-          (sum, current) =>
-            sum + ((current.amount || 0) - (current.balance || 0)),
-          0
-        ),
-      periodNotPaid: bills
-        .filter(
-          (item) =>
-            item.date && +item.date >= +fromDate && +item.date <= +toDate
-        )
-        .reduce((sum, current) => sum + (current.balance || 0), 0),
-      user: bills
-        .filter(
-          (item) =>
-            item.date &&
-            +item.date >= +fromDate &&
-            +item.date <= +toDate &&
-            item.user === "admin"
-        )
-        .reduce(
-          (sum, current) =>
-            sum + ((current.amount || 0) - (current.balance || 0)),
-          0
-        ),
-      userNotPaid: bills
-        .filter(
-          (item) =>
-            item.date &&
-            +item.date >= +fromDate &&
-            +item.date <= +toDate &&
-            item.user === "admin"
-        )
-        .reduce((sum, current) => sum + (current.balance || 0), 0),
-    };
-    return res;
-  };
   const summary = useSelector<IState, IBillSummary>((state) =>
-    state.bills.searchBills.data
-      ? computeBillSummary(state.bills.searchBills.data)
-      : initSummary
+    computeBillSummary(
+      state.bills.searchBills.data,
+      fromDate,
+      toDate,
+      userCredentials?.displayName ?? ""
+    )
   );
 
   const tabConfig: TTabConfig = [
@@ -271,6 +207,7 @@ export const SearchBillActivity: FC = () => {
                           <BillFilterForm
                             className="searchBills__formData__item"
                             onSubmit={submit}
+                            fields={initializeBillFilter(fromDate, toDate)}
                           />
                         </AccordionDetails>
                       </Accordion>

@@ -3,6 +3,7 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 interface IBillFilterProps {
   onSubmit: (filter: any) => void;
   className: string;
+  fields: TFields<BillFilterFormFieldName>;
 }
 
 export type BillFilterProps = IBillFilterProps;

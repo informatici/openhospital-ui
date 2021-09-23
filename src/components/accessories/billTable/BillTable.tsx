@@ -26,6 +26,8 @@ export const BillTable: FC<IBillTableProps> = ({
     status: "Status",
     amount: "Amount",
     balance: "Balance",
+    items: "Items",
+    payments: "Payments",
   };
   const order = ["date"];
   const dispatch = useDispatch();
@@ -51,17 +53,19 @@ export const BillTable: FC<IBillTableProps> = ({
     (state) => state.bills.searchBills.data ?? []
   );
 
-  const formatDataToDisplay = (data: any[] | undefined) => {
-    let results: any = [];
+  const formatDataToDisplay = (data: BillDTO[] | undefined) => {
+    let results: any[] = [];
     if (data)
       results = data.map((item) => {
         return {
           id: item.id,
-          date: renderDate(item.date),
-          patient: item.patName || "",
-          amount: item.amount || "",
-          balance: item.balance || "",
-          status: item.status || "",
+          date: renderDate(item.date || ""),
+          patient: item.patName,
+          amount: item.amount,
+          balance: item.balance,
+          status: item.status,
+          items: "",
+          payments: "",
         };
       });
     return results;

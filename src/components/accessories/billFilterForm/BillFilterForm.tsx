@@ -19,7 +19,11 @@ import "./styles.scss";
 import { BillFilterProps, TValues } from "./types";
 import { PatientDTO } from "../../../generated";
 
-const BillFilterForm: FC<BillFilterProps> = ({ onSubmit, className }) => {
+const BillFilterForm: FC<BillFilterProps> = ({
+  onSubmit,
+  className,
+  fields,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -65,7 +69,7 @@ const BillFilterForm: FC<BillFilterProps> = ({ onSubmit, className }) => {
     } else return [];
   };
 
-  const initialValues = getFromFields(initialFields, "value");
+  const initialValues = getFromFields(fields, "value");
   const formik = useFormik({
     initialValues,
     validationSchema,

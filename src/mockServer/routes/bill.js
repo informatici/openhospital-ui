@@ -1,4 +1,5 @@
 import { billResults } from "../fixtures/billDTO";
+import billPaymentsDTO from "../fixtures/billPaymentsDTO";
 
 export const billRoutes = (server) => {
     server.namespace("/bills", () => {
@@ -34,6 +35,10 @@ export const billRoutes = (server) => {
                     return check;
                 }
             ))
+        });
+
+        server.get("/payments/:bill_id").intercept((req, res) => {
+            res.status(201).json([billPaymentsDTO]);
         });
     });
 };

@@ -1,8 +1,6 @@
-import { useHistory } from "react-router";
 import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
-import { AUTH_KEY } from "../../consts";
 import {
   Configuration,
   LoginApiApi,

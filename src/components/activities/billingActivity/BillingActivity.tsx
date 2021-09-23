@@ -9,7 +9,6 @@ import "./styles.scss";
 
 const BillingActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
   const { t } = useTranslation();
-
   const history = useHistory();
 
   const breadcrumbMap = {

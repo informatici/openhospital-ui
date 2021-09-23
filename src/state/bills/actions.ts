@@ -1,4 +1,6 @@
 import { Dispatch } from "redux";
+import { map, catchError, toArray } from "rxjs/operators";
+import { of, concat } from "rxjs";
 import isEmpty from "lodash.isempty";
 import {
   Configuration,
@@ -20,6 +22,7 @@ import {
   GET_BILL_SUCCESS,
   GET_BILL_FAIL,
 } from "./consts";
+import fullBillDTO from "../../mockServer/fixtures/fullBill";
 
 const billControllerApi = new BillControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
