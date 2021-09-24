@@ -1,7 +1,7 @@
 const billItemDTO = {
     id: 0,
     price: true,
-    billId: 0,
+    billId: 10,
     priceId: 104,
     itemDescription: "Acetone 99 % 1ltr",
     itemAmount: 1000,

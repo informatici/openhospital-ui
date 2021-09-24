@@ -1,10 +1,10 @@
-import { BillDTO } from "../../../generated";
+import { BillDTO, FullBillDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { BillFilterFormFieldName } from "../../accessories/billFilterForm/types";
 import { IBillSummary } from "./types";
 
 export const computeBillSummary = (
-  bills: BillDTO[] = [],
+  bills: FullBillDTO[] = [],
   fromDate: string,
   toDate: string,
   userName: string
@@ -15,54 +15,69 @@ export const computeBillSummary = (
   const res = {
     today: bills
       .filter(
-        (item) => item.date && +item.date >= today && +item.date < tomorrow
+        (item) =>
+          item.billDTO?.date &&
+          +item.billDTO?.date >= today &&
+          +item.billDTO?.date < tomorrow
       )
       .reduce(
         (sum, current) =>
-          sum + ((current.amount || 0) - (current.balance || 0)),
+          sum +
+          ((current.billDTO?.amount || 0) - (current.billDTO?.balance || 0)),
         0
       ),
     todayNotPaid: bills
       .filter(
-        (item) => item.date && +item.date >= today && +item.date < tomorrow
+        (item) =>
+          item.billDTO?.date &&
+          +item.billDTO?.date >= today &&
+          +item.billDTO?.date < tomorrow
       )
-      .reduce((sum, current) => sum + (current.balance || 0), 0),
+      .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
     period: bills
       .filter(
-        (item) => item.date && +item.date >= +fromDate && +item.date <= +toDate
+        (item) =>
+          item.billDTO?.date &&
+          +item.billDTO?.date >= +fromDate &&
+          +item.billDTO?.date <= +toDate
       )
       .reduce(
         (sum, current) =>
-          sum + ((current.amount || 0) - (current.balance || 0)),
+          sum +
+          ((current.billDTO?.amount || 0) - (current.billDTO?.balance || 0)),
         0
       ),
     periodNotPaid: bills
       .filter(
-        (item) => item.date && +item.date >= +fromDate && +item.date <= +toDate
+        (item) =>
+          item.billDTO?.date &&
+          +item.billDTO?.date >= +fromDate &&
+          +item.billDTO?.date <= +toDate
       )
-      .reduce((sum, current) => sum + (current.balance || 0), 0),
+      .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
     user: bills
       .filter(
         (item) =>
-          item.date &&
-          +item.date >= +fromDate &&
-          +item.date <= +toDate &&
-          item.user === userName
+          item.billDTO?.date &&
+          +item.billDTO?.date >= +fromDate &&
+          +item.billDTO?.date <= +toDate &&
+          item.billDTO?.user === userName
       )
       .reduce(
         (sum, current) =>
-          sum + ((current.amount || 0) - (current.balance || 0)),
+          sum +
+          ((current.billDTO?.amount || 0) - (current.billDTO?.balance || 0)),
         0
       ),
     userNotPaid: bills
       .filter(
         (item) =>
-          item.date &&
-          +item.date >= +fromDate &&
-          +item.date <= +toDate &&
-          item.user === userName
+          item.billDTO?.date &&
+          +item.billDTO?.date >= +fromDate &&
+          +item.billDTO?.date <= +toDate &&
+          item.billDTO?.user === userName
       )
-      .reduce((sum, current) => sum + (current.balance || 0), 0),
+      .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
   };
   return res;
 };

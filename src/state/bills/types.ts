@@ -5,5 +5,6 @@ import { IApiResponse } from "../types";
 export type IBillsState = {
   newBill: IApiResponse<FullBillDTO>;
   getBill: IApiResponse<BillDTO>;
-  searchBills: IApiResponse<BillDTO[]>;
+  searchBills: IApiResponse<FullBillDTO[]>;
+  getPendingBills: IApiResponse<FullBillDTO[]>;
 };

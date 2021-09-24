@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BillDTO } from "../../../generated";
+import { BillDTO, FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
@@ -49,21 +49,21 @@ export const BillTable: FC<IBillTableProps> = ({
     }
   }, [status, fromDate, toDate, patientCode]);
 
-  const data = useSelector<IState, BillDTO[]>(
+  const data = useSelector<IState, FullBillDTO[]>(
     (state) => state.bills.searchBills.data ?? []
   );
 
-  const formatDataToDisplay = (data: BillDTO[] | undefined) => {
+  const formatDataToDisplay = (data: FullBillDTO[] | undefined) => {
     let results: any[] = [];
     if (data)
       results = data.map((item) => {
         return {
-          id: item.id,
-          date: renderDate(item.date || ""),
-          patient: item.patName,
-          amount: item.amount,
-          balance: item.balance,
-          status: item.status,
+          id: item.billDTO?.id ?? "",
+          date: renderDate(item.billDTO?.date || ""),
+          patient: item.billDTO?.patName,
+          amount: item.billDTO?.amount,
+          balance: item.billDTO?.balance,
+          status: item.billDTO?.status,
           items: "",
           payments: "",
         };
