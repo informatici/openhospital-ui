@@ -1,10 +1,15 @@
+import { CircularProgress } from "@material-ui/core";
 import React, { FC, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { BillDTO, FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
+import InfoBox from "../infoBox/InfoBox";
 import Table from "../table/Table";
+import { RenderBillItems } from "./RenderBillItems";
+import { RenderBillPayments } from "./RenderBillPayments";
 type IStatus = "ALL" | "PENDING" | "CLOSE" | "DELETE";
 interface IBillTableProps {
   status: IStatus;
@@ -18,6 +23,7 @@ export const BillTable: FC<IBillTableProps> = ({
   toDate,
   patientCode,
 }) => {
+  const { t } = useTranslation();
   const header = ["date", "patient", "balance"];
   const label = {
     id: "Bill code",
@@ -52,33 +58,44 @@ export const BillTable: FC<IBillTableProps> = ({
   const data = useSelector<IState, FullBillDTO[]>(
     (state) => state.bills.searchBills.data ?? []
   );
-
+  const billsStatus = useSelector<IState, string | undefined>((state) => {
+    if (status === "ALL") return state.bills.searchBills.status;
+    else {
+      return state.bills.getPendingBills.status;
+    }
+  });
   const formatDataToDisplay = (data: FullBillDTO[] | undefined) => {
-    let results: any[] = [];
+    let results = new Array();
     if (data)
       results = data.map((item) => {
         return {
           id: item.billDTO?.id ?? "",
-          date: renderDate(item.billDTO?.date || ""),
+          date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
           patient: item.billDTO?.patName,
           amount: item.billDTO?.amount,
           balance: item.billDTO?.balance,
           status: item.billDTO?.status,
-          items: "",
-          payments: "",
+          items: item.billItemsDTO
+            ? RenderBillItems({ billItems: item.billItemsDTO })
+            : "",
+          payments: item.billPaymentsDTO
+            ? RenderBillPayments({ payments: item.billPaymentsDTO })
+            : "",
         };
       });
     return results;
   };
 
   return (
-    <Table
-      rowData={formatDataToDisplay(data)}
-      tableHeader={header}
-      labelData={label}
-      columnsOrder={order}
-      rowsPerPage={5}
-      isCollapsabile={true}
-    />
+    <div>
+      <Table
+        rowData={formatDataToDisplay(data)}
+        tableHeader={header}
+        labelData={label}
+        columnsOrder={order}
+        rowsPerPage={5}
+        isCollapsabile={true}
+      />
+    </div>
   );
 };

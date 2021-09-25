@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { map, catchError, toArray, switchMap, concatMap } from "rxjs/operators";
-import { of, Observable } from "rxjs";
+import { of, from, Observable, forkJoin } from "rxjs";
 import isEmpty from "lodash.isempty";
 import {
   Configuration,
@@ -8,6 +8,7 @@ import {
   BillDTO,
   FullBillDTO,
   BillPaymentsDTO,
+  BillItemsDTO,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -24,6 +25,7 @@ import {
   GET_BILL_FAIL,
 } from "./consts";
 import { concat } from "lodash";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 const billControllerApi = new BillControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -99,14 +101,8 @@ export const getPendingBills =
       .getPendingBillsUsingGET({
         patientCode,
       })
-      .pipe(
-        map((bills: BillDTO[]) => getBillAndPayments(bills)),
-        catchError((err) => of([]))
-      )
-      .pipe(
-        map((payments: FullBillDTO[]) => getBillAndItems(payments)),
-        catchError((err) => of([]))
-      )
+      .pipe(switchMap((bills) => getPayments(bills)))
+      .pipe(switchMap((payments) => getItems(payments)))
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
@@ -141,11 +137,12 @@ export const searchBills =
         dateto,
         patientCode,
       })
-      .pipe(switchMap((bills) => getBillAndPayments(bills)))
-      .pipe(switchMap((payments) => getBillAndItems(payments)))
+      .pipe(switchMap((bills) => getPayments(bills)))
+      .pipe(switchMap((payments) => getItems(payments)))
       .subscribe(
         (payload) => {
-          if (Array.isArray(payload)) {
+          if (Array.isArray(payload) && payload.length > 0) {
+            console.log("object in the state", payload);
             dispatch({
               type: SEARCH_BILL_SUCCESS,
               payload: payload,
@@ -166,49 +163,44 @@ export const searchBills =
       );
   };
 
-const getBillAndPayments = (bills: BillDTO[]): any[] => {
-  const fbills: any[] = [];
-  bills.map((bill: BillDTO) => {
-    billControllerApi
-      .getPaymentsByBillIdUsingGET({ billId: bill.id ? bill.id : 0 })
-      .subscribe(
-        (payload) => {
-          fbills.push({
+const getPayments = (bills: BillDTO[]): Observable<FullBillDTO[]> => {
+  const fbills = forkJoin(
+    bills.map((bill: BillDTO) => {
+      const obs = billControllerApi.getPaymentsByBillIdUsingGET({
+        billId: bill.id ? bill.id : 0,
+      });
+      return obs.pipe(
+        map((payments) => {
+          return {
             billDTO: bill,
-            billItemsDTO: [],
-            billPaymentsDTO: payload,
-          });
-        },
-        (error) => {
-          fbills.push({
-            billDTO: bill,
-            billItemsDTO: [],
-            billPaymentsDTO: [],
-          });
-        }
+            billItemsDTO: new Array<BillItemsDTO>(),
+            billPaymentsDTO: payments,
+          } as FullBillDTO;
+        }),
+        catchError((error) => of({ billDTO: bill } as FullBillDTO))
       );
-  });
-
+    })
+  );
   return fbills;
 };
 
-const getBillAndItems = (bills: any[]): any[] => {
-  const fbills: any[] = [];
-  bills.map((fbill: any) => {
-    billControllerApi
-      .getItemsUsingGET({ billId: fbill?.billDTO?.id ? fbill.billDTO.id : 0 })
-      .subscribe(
-        (payload) => {
-          const b = fbill;
-          b.billItemsDTO = payload;
-          fbills.push(b);
-        },
-        (error) => {
-          const b = fbill;
-          fbills.push(b);
-        }
+const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
+  const fbills = forkJoin(
+    bills.map((fbill: FullBillDTO) => {
+      const obs = billControllerApi.getItemsUsingGET({
+        billId: fbill?.billDTO?.id ? fbill.billDTO.id : 0,
+      });
+      return obs.pipe(
+        map((items) => {
+          return {
+            billDTO: fbill.billDTO,
+            billItemsDTO: items,
+            billPaymentsDTO: fbill.billPaymentsDTO,
+          } as FullBillDTO;
+        }),
+        catchError((error) => of({ ...fbill }))
       );
-  });
-
+    })
+  );
   return fbills;
 };
