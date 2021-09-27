@@ -1,13 +1,12 @@
 import { Dispatch } from "redux";
-import { map, catchError, toArray, switchMap, concatMap } from "rxjs/operators";
-import { of, from, Observable, forkJoin } from "rxjs";
+import { map, catchError, switchMap } from "rxjs/operators";
+import { of, Observable, forkJoin } from "rxjs";
 import isEmpty from "lodash.isempty";
 import {
   Configuration,
   BillControllerApi,
   BillDTO,
   FullBillDTO,
-  BillPaymentsDTO,
   BillItemsDTO,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
@@ -24,8 +23,6 @@ import {
   GET_BILL_SUCCESS,
   GET_BILL_FAIL,
 } from "./consts";
-import { concat } from "lodash";
-import { ContactSupportOutlined } from "@material-ui/icons";
 
 const billControllerApi = new BillControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -142,7 +139,6 @@ export const searchBills =
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
-            console.log("object in the state", payload);
             dispatch({
               type: SEARCH_BILL_SUCCESS,
               payload: payload,

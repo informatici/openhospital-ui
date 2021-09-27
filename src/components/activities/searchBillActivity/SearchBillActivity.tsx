@@ -39,7 +39,7 @@ export const SearchBillActivity: FC = () => {
   const [expanded, setExpanded] = useState<string | false>("form");
   const [isOpen, setIsOpen] = useState(false);
   const [fromDate, setFromDate] = useState(
-    new Date().setDate(new Date().getDate() - 1) + ""
+    new Date().setDate(new Date().getDate() - 6) + ""
   );
   const [toDate, setToDate] = useState(new Date().setHours(23) + "");
   const [patientCode, setPatientCode] = useState(0);

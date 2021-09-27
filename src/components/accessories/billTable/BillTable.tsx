@@ -1,15 +1,15 @@
 import { CircularProgress } from "@material-ui/core";
-import React, { FC, useEffect } from "react";
+import { StarRounded } from "@material-ui/icons";
+import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { BillDTO, FullBillDTO } from "../../../generated";
+import { FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
-import InfoBox from "../infoBox/InfoBox";
+import { CustomModal } from "../customModal/CustomModal";
 import Table from "../table/Table";
-import { RenderBillItems } from "./RenderBillItems";
-import { RenderBillPayments } from "./RenderBillPayments";
+import RenderBillDetails from "./RenderBillDetails";
 type IStatus = "ALL" | "PENDING" | "CLOSE" | "DELETE";
 interface IBillTableProps {
   status: IStatus;
@@ -32,11 +32,10 @@ export const BillTable: FC<IBillTableProps> = ({
     status: "Status",
     amount: "Amount",
     balance: "Balance",
-    items: "Items",
-    payments: "Payments",
   };
   const order = ["date"];
   const dispatch = useDispatch();
+  const [fullBill, setFullBill] = useState({} as FullBillDTO);
 
   useEffect(() => {
     switch (status) {
@@ -74,16 +73,37 @@ export const BillTable: FC<IBillTableProps> = ({
           patient: item.billDTO?.patName,
           amount: item.billDTO?.amount,
           balance: item.billDTO?.balance,
-          status: item.billDTO?.status,
-          items: item.billItemsDTO
-            ? RenderBillItems({ billItems: item.billItemsDTO })
-            : "",
-          payments: item.billPaymentsDTO
-            ? RenderBillPayments({ payments: item.billPaymentsDTO })
-            : "",
+          status: switchStatus(item.billDTO?.status),
         };
       });
     return results;
+  };
+
+  const switchStatus = (status: string | undefined) => {
+    switch (status) {
+      case "C":
+        return "Closed";
+      case "O":
+        return "Pending";
+      case "D":
+        return "Deleted";
+      default:
+        return "Unknown";
+    }
+  };
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleView = (row: any) => {
+    const bill = data.find((item) => item.billDTO?.id === row.id) ?? {};
+    setFullBill(bill);
+    handleOpen();
   };
 
   return (
@@ -95,6 +115,14 @@ export const BillTable: FC<IBillTableProps> = ({
         columnsOrder={order}
         rowsPerPage={5}
         isCollapsabile={true}
+        onView={handleView}
+      />
+      <CustomModal
+        open={open}
+        onClose={handleClose}
+        title={"Bill Details"}
+        description={"Bill details"}
+        content={<RenderBillDetails fullBill={fullBill} />}
       />
     </div>
   );
