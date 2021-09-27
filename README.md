@@ -61,7 +61,7 @@ Once the app is compiled and served, and the Cypress Test Runner is launched, cl
 ## How to contribute
 
 You can find the contribution guidelines in the [Open Hospital wiki][contribution-guide].  
-A list of open issues is available on [Jira][jira].
+A list of open issues is available on [Jira][jira]
 
 ## Community
 
