@@ -27,12 +27,20 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 340,
+    padding: 10,
+    whiteSpace: "nowrap",
   },
   tableCell: {
     paddingRight: 4,
     paddingLeft: 5,
   },
 }));
+
+const currencyFormat = (num: number | undefined) => {
+  return num
+    ? "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    : "";
+};
 
 const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
   const classes = useStyles();
@@ -42,7 +50,6 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
         <CardContent>
           <TableContainer style={{ maxHeight: 300 }}>
             <Table
-              style={{ whiteSpace: "nowrap" }}
               stickyHeader
               className={classes.table}
               size="small"
@@ -74,10 +81,10 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                     </Link>
                   </TableCell>
                   <TableCell className={classes.tableCell}>
-                    {fullBill.billDTO?.amount?.toFixed(2)}
+                    {currencyFormat(fullBill.billDTO?.amount)}
                   </TableCell>
                   <TableCell className={classes.tableCell}>
-                    {fullBill.billDTO?.balance?.toFixed(2)}
+                    {currencyFormat(fullBill.billDTO?.balance)}
                   </TableCell>
                   <TableCell className={classes.tableCell}>
                     {fullBill.billDTO?.status === "C" ? "Closed" : "Pending"}
@@ -87,9 +94,8 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
             </Table>
 
             <Table
-              style={{ whiteSpace: "nowrap" }}
+              className={classes.table}
               stickyHeader
-              className="table"
               size="small"
               aria-label="results table"
             >
@@ -108,7 +114,7 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                   <TableCell className={classes.tableCell}>
                     Designation
                   </TableCell>
-                  <TableCell className={classes.tableCell}>Quantity</TableCell>
+                  <TableCell className={classes.tableCell}>Qty</TableCell>
                   <TableCell>Amount</TableCell>
                 </TableRow>
               </TableHead>
@@ -135,10 +141,11 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                       </TableCell>
                       <TableCell
                         className={classes.tableCell}
+                        style={{ textAlign: "right" }}
                         component="td"
                         scope="row"
                       >
-                        {item.itemAmount?.toFixed(2)}
+                        {currencyFormat(item.itemAmount)}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -146,9 +153,8 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
             </Table>
 
             <Table
-              style={{ whiteSpace: "nowrap" }}
               stickyHeader
-              className="table"
+              className={classes.table}
               size="small"
               aria-label="results table"
             >
@@ -186,7 +192,7 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                         component="td"
                         scope="row"
                       >
-                        {pay.amount?.toFixed(2)}
+                        {currencyFormat(pay.amount)}
                       </TableCell>
                       <TableCell
                         className={classes.tableCell}
