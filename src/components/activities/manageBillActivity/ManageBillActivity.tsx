@@ -16,7 +16,6 @@ import BillFilterForm from "../../accessories/billFilterForm/BillFilterForm";
 import Footer from "../../accessories/footer/Footer";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
 import { TTabConfig } from "../../accessories/tabs/types";
-import SearchBillActivityContent from "../searchBillActivityContent/SearchBillActivityContent";
 import "./styles.scss";
 import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
@@ -24,15 +23,16 @@ import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
 import { searchBills } from "../../../state/bills/actions";
 import { computeBillSummary, initializeBillFilter } from "./config";
+import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
 
-export const SearchBillActivity: FC = () => {
+export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
 
   const breadcrumbMap = {
     [t("nav.dashboard")]: "/",
     [t("nav.billing")]: "/billing",
     [t("nav.newbill")]: "/bills",
-    [t("nav.searchbill")]: "/searchbills",
+    [t("nav.managebills")]: "/managebills",
   };
   const dispatch = useDispatch();
 
@@ -66,7 +66,7 @@ export const SearchBillActivity: FC = () => {
       label: t("bill.allbills"),
       path: "/allBills",
       content: (
-        <SearchBillActivityContent
+        <ManageBillActivityContent
           title="All Bills"
           content={
             <BillTable
@@ -83,7 +83,7 @@ export const SearchBillActivity: FC = () => {
       label: t("bill.pending"),
       path: "/pendingBills",
       content: (
-        <SearchBillActivityContent
+        <ManageBillActivityContent
           title="Pending Bills"
           content={
             <BillTable
@@ -100,7 +100,7 @@ export const SearchBillActivity: FC = () => {
       label: t("bill.closed"),
       path: "/closedBills",
       content: (
-        <SearchBillActivityContent
+        <ManageBillActivityContent
           title="closed Bills"
           content={
             <BillTable
@@ -117,7 +117,7 @@ export const SearchBillActivity: FC = () => {
       label: t("bill.deleted"),
       path: "/deletedBills",
       content: (
-        <SearchBillActivityContent
+        <ManageBillActivityContent
           title="Deleted Bills"
           content={
             <BillTable

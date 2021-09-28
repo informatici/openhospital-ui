@@ -122,7 +122,8 @@
     "exams": "Examens",
     "newbill": "Nouvelle facture",
     "searchbill": "Rechercher facture",
-    "bill_chose": "Choisir une option"
+    "bill_chose": "Choisir une option",
+    "managebills": "Manager Factures"
   },
   "common": {
     "results": "Résultats",
@@ -251,6 +252,7 @@
     "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
   },
   "bill": {
+    "title": "Bienvenue dans Facturation",
     "newbill": "Nouvelle facture",
     "allbills": "Factures",
     "closed": "Fermées",

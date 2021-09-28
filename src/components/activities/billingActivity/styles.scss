@@ -2,55 +2,40 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .billing {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  height: calc(100vh - 120px);
+  @include susy-media($smartphone){
+    height: 100%;
+  }
+  .billing__background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: $c-color-secondary;
+    @include susy-media($smartphone){
+      padding: 100px 0px;
+    }
+  }
 
-    .billing__background {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  
-    .billing__title {
-      font-size: xx-large;
-      color: $c-black;
-      font-weight: bolder;
-      margin: 30px 20px;
-    }
-  
-    .billing__panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: $c-white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-        margin: 20px 80px 60px 80px;
-        overflow: hidden;
-        @include susy-media($smartphone) {
-          margin: 20px 20px 40px 20px;
-        }
-    }
+  .billing__title {
+    width: fit-content;
+    margin-bottom: 20px;
+    font-size: larger;
+  }
 
-    .footer {
-        position: relative;
-        }
-
-    .bill_buttons__Container {
-        position: center;
-        bottom: 600px;
+  .billing__actions {
+    display: flex;
+    width: fit-content;
+    @include susy-media($smartphone){
+      display: block;
     }
+  }
 
-    .new_bill__button {
-        background-color: #444444 !important;
-        color: $c-white !important;
-        margin: 50px;
-    }
-
-    .search_bill__button {
-        background-color: #444444 !important;
-        color: $c-white !important;
-        margin: 50px;
-    }
-    
+  .billing__actions__button {
+    margin: 10px;
+  }
 }

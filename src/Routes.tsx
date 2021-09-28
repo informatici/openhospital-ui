@@ -7,11 +7,11 @@ import DashboardActivity from "./components/activities/dashboardActivity/Dashboa
 import EditPatientActivity from "./components/activities/editPatientActivity/EditPatientActivity";
 import LoginActivity from "./components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "./components/activities/loginActivity/RedirectAfterLogin";
+import { ManageBillActivity } from "./components/activities/manageBillActivity/ManageBillActivity";
 import NewBillActivity from "./components/activities/newBillActivity/NewBillActivity";
 import NewPatientActivity from "./components/activities/newPatientActivity/NewPatientActivity";
 import NotFound from "./components/activities/notFound/NotFound";
 import PatientDetailsActivity from "./components/activities/patientDetailsActivity/PatientDetailsActivity";
-import { SearchBillActivity } from "./components/activities/searchBillActivity/SearchBillActivity";
 import SearchPatientActivity from "./components/activities/searchPatientActivity/SearchPatientActivity";
 
 const Routes: FunctionComponent = () => {
@@ -28,10 +28,10 @@ const Routes: FunctionComponent = () => {
         </PrivateRoute>
         <PrivateRoute path="/bills">
           <NewBillActivity billHomeRoute="/billing" dashboardRoute="/" />
-          <SearchBillActivity />
+          <ManageBillActivity />
         </PrivateRoute>
-        <PrivateRoute path="/searchbills">
-          <SearchBillActivity />
+        <PrivateRoute path="/managebills">
+          <ManageBillActivity />
         </PrivateRoute>
         <PrivateRoute exact path="/">
           <DashboardActivity
