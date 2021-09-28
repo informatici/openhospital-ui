@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/openhospital-ui/static/css/main.ffa12c2b.chunk.css",
-    "main.js": "/openhospital-ui/static/js/main.38afa7be.chunk.js",
-    "main.js.map": "/openhospital-ui/static/js/main.38afa7be.chunk.js.map",
+    "main.css": "/openhospital-ui/static/css/main.02434b68.chunk.css",
+    "main.js": "/openhospital-ui/static/js/main.b899458a.chunk.js",
+    "main.js.map": "/openhospital-ui/static/js/main.b899458a.chunk.js.map",
     "runtime-main.js": "/openhospital-ui/static/js/runtime-main.a861650c.js",
     "runtime-main.js.map": "/openhospital-ui/static/js/runtime-main.a861650c.js.map",
-    "static/js/2.f7bb4b17.chunk.js": "/openhospital-ui/static/js/2.f7bb4b17.chunk.js",
-    "static/js/2.f7bb4b17.chunk.js.map": "/openhospital-ui/static/js/2.f7bb4b17.chunk.js.map",
+    "static/js/2.9495aa8c.chunk.js": "/openhospital-ui/static/js/2.9495aa8c.chunk.js",
+    "static/js/2.9495aa8c.chunk.js.map": "/openhospital-ui/static/js/2.9495aa8c.chunk.js.map",
     "index.html": "/openhospital-ui/index.html",
-    "precache-manifest.7a453c8630c7c7e13ab0c249e7ff64f3.js": "/openhospital-ui/precache-manifest.7a453c8630c7c7e13ab0c249e7ff64f3.js",
+    "precache-manifest.67ebcfed1892c2eb7f7a83285ff15bce.js": "/openhospital-ui/precache-manifest.67ebcfed1892c2eb7f7a83285ff15bce.js",
     "service-worker.js": "/openhospital-ui/service-worker.js",
-    "static/css/main.ffa12c2b.chunk.css.map": "/openhospital-ui/static/css/main.ffa12c2b.chunk.css.map",
-    "static/js/2.f7bb4b17.chunk.js.LICENSE.txt": "/openhospital-ui/static/js/2.f7bb4b17.chunk.js.LICENSE.txt",
+    "static/css/main.02434b68.chunk.css.map": "/openhospital-ui/static/css/main.02434b68.chunk.css.map",
+    "static/js/2.9495aa8c.chunk.js.LICENSE.txt": "/openhospital-ui/static/js/2.9495aa8c.chunk.js.LICENSE.txt",
     "static/media/arrow-w.svg": "/openhospital-ui/static/media/arrow-w.193ed5ff.svg",
     "static/media/logo-color.svg": "/openhospital-ui/static/media/logo-color.2feb9812.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.a861650c.js",
-    "static/js/2.f7bb4b17.chunk.js",
-    "static/css/main.ffa12c2b.chunk.css",
-    "static/js/main.38afa7be.chunk.js"
+    "static/js/2.9495aa8c.chunk.js",
+    "static/css/main.02434b68.chunk.css",
+    "static/js/main.b899458a.chunk.js"
   ]
 }

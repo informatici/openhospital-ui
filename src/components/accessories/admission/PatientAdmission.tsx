@@ -6,7 +6,6 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
-import { initialFields } from "./consts";
 import { AdmissionDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
@@ -15,10 +14,11 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
+  getCurrentAdmissionByPatientId,
+  updateAdmission,
+  updateAdmissionReset,
 } from "../../../state/admissions/actions";
-import { getDiseasesIpdIn } from "../../../state/diseases/actions";
-import { getAdmissionTypes } from "../../../state/admissionTypes/actions";
-import { getWards } from "../../../state/ward/actions";
+import { useFields } from "./useFields";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -29,42 +29,66 @@ const PatientAdmission: FC = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const patientData = useSelector(
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
+
+  const fields = useFields(currentAdmission);
+
+  const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.displayName
   );
 
-  const status = useSelector<IState, string | undefined>((state) => {
-    return state.admissions.createAdmission.status;
-  });
+  const createStatus = useSelector<IState>(
+    (state) => state.admissions.createAdmission.status
+  );
+
+  const updateStatus = useSelector<IState>(
+    (state) => state.admissions.updateAdmission.status
+  );
 
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
-    adm.patient = patientData;
-    adm.userID = username;
-    adm.abortDate = adm.admDate;
-    dispatch(createAdmission(adm));
+    if (!currentAdmission) {
+      adm.patient = patient;
+      adm.userID = username;
+      adm.abortDate = adm.admDate;
+      adm.admitted = 1;
+      dispatch(createAdmission(adm));
+    } else {
+      const dischargeToSave: AdmissionDTO = {
+        ...currentAdmission,
+        disDate: adm.disDate,
+        disType: adm.disType,
+        diseaseOut1: adm.diseaseOut1,
+        diseaseOut2: adm.diseaseOut2,
+        diseaseOut3: adm.diseaseOut3,
+        admitted: 0,
+      };
+      dispatch(updateAdmission(dischargeToSave));
+    }
   };
 
   useEffect(() => {
-    dispatch(createAdmissionReset());
-    dispatch(getDiseasesIpdIn());
-    dispatch(getAdmissionTypes());
-    dispatch(getWards());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (status === "FAIL") {
+    if (createStatus === "FAIL" || updateStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [status]);
+  }, [createStatus, updateStatus]);
+
+  useEffect(() => {
+    dispatch(createAdmissionReset());
+    dispatch(updateAdmissionReset());
+  }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       setShouldUpdateTable(true);
+      dispatch(updateAdmissionReset());
+      dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(createAdmissionReset());
       setShouldResetForm(true);
     }
@@ -77,18 +101,23 @@ const PatientAdmission: FC = () => {
     scrollToElement(null);
   };
 
+  useEffect(() => {
+    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+  }, [patient, dispatch]);
+
   return (
     <div className="patientAdmission">
       <AdmissionForm
-        fields={initialFields}
+        fields={fields}
         onSubmit={onSubmit}
         submitButtonLabel={t("common.save")}
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={status === "LOADING"}
+        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        admitted={currentAdmission?.admitted === 1}
       />
-      {status === "FAIL" && (
+      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -97,10 +126,18 @@ const PatientAdmission: FC = () => {
       <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
 
       <ConfirmationDialog
-        isOpen={status === "SUCCESS"}
-        title={t("admission.created")}
+        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        title={
+          updateStatus === "SUCCESS"
+            ? t("admission.discharged")
+            : t("admission.created")
+        }
         icon={checkIcon}
-        info={t("admission.createsuccess")}
+        info={
+          updateStatus === "SUCCESS"
+            ? t("admission.dischargesuccess")
+            : t("admission.createsuccess")
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}

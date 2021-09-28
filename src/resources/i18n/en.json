@@ -10,7 +10,7 @@
     "signout": "Sign Out"
   },
   "dashboard": {
-    "welcomename": "Welcome <strong>{{name}}<strong>",
+    "welcomename": "Welcome",
     "newpatient": "New patient",
     "searchpatients": "Search patients"
   },
@@ -47,8 +47,8 @@
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
-    "anamnesis": "Anamnesis",
-    "note": "Complain",
+    "note": "Notes and symptoms",
+    "complaint": "Patient complaints",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
     "disease3": "Diagnostic 3",
@@ -125,6 +125,7 @@
   },
   "common": {
     "results": "Results",
+    "feedback": "Feedback",
     "submit": "Submit",
     "reset": "Reset",
     "search": "Search",
@@ -161,7 +162,8 @@
     "male": "Male",
     "female": "Female",
     "date": "Date",
-    "type": "Type"
+    "type": "Type",
+    "nooptionsfound": "No options found"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -186,7 +188,6 @@
     "updated": "Therapy updated",
     "createsuccess": "A therapy row has been created successfully!",
     "updatesuccess": "A therapy row with code {{code}} has been updated successfully!"
-
   },
   "booking": {
     "category": "Category",
@@ -259,6 +260,8 @@
     "period": "Period",
     "notpaid": "Not paid",
     "totalpaid": "Total Paid",
-    "totalnotpaid": "Total not paid"
+    "totalnotpaid": "Total not paid",
+    "validatelastdate": "should be greater or equal to admission date {{admDate}}",
+    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
   }
 }

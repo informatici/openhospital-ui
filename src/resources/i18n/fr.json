@@ -10,7 +10,7 @@
     "signout": "Déconnection"
   },
   "dashboard": {
-    "welcomename": "Bienvenu/e <strong>{{name}}<strong>",
+    "welcomename": "Bienvenu/e",
     "newpatient": "Nouveau patient",
     "searchpatients": "Chercher patients"
   },
@@ -47,8 +47,8 @@
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
-    "anamnesis": "Anamnèse",
-    "note": "Remarques",
+    "note": "Notes et symptômes",
+    "complaint": "Plaintes du patient",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
     "disease3": "Diagnostic 3",
@@ -127,6 +127,7 @@
   },
   "common": {
     "results": "Résultats",
+    "feedback": "Feedback",
     "submit": "Envoyer",
     "reset": "Réinitialiser",
     "search": "Chercher",
@@ -148,7 +149,7 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Enregistrer",    
+    "savetherapy": "Enregistrer",
     "required": "Ce champ est obligatoire",
     "emptydata": "Aucune donnée trouvée!",
     "save": "Enregistrer",
@@ -163,7 +164,8 @@
     "male": "Masculin",
     "female": "Féminin",
     "date": "Date",
-    "type": "Type"
+    "type": "Type",
+    "nooptionsfound": "Aucune option trouvée"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -268,6 +270,8 @@
     "period": "Périod",
     "notpaid": "Non payé",
     "totalpaid": "Total Payé",
-    "totalnotpaid": "Total non payé"
+    "totalnotpaid": "Total non payé",
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
+    "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
   }
 }

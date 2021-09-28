@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import React, {
   Fragment,
   FunctionComponent,
-  memo,
   useCallback,
   useEffect,
   useState,
@@ -11,6 +10,7 @@ import React, {
 import { IProps } from "./types";
 import "./styles.scss";
 import { Autocomplete } from "@material-ui/lab";
+import { useTranslation } from "react-i18next";
 
 const AutocompleteField: FunctionComponent<IProps> = ({
   fieldName,
@@ -27,6 +27,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   freeSolo = false,
 }) => {
   const [value, setValue] = useState("");
+
+  const { t } = useTranslation();
 
   const geFullObj = (val: string) => {
     return options?.find((el) => el.value === val) || null;
@@ -60,6 +62,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
     <FormControl variant="outlined" className={actualClassName}>
       <Autocomplete
         freeSolo={freeSolo}
+        noOptionsText={t("common.nooptionsfound")}
+        autoSelect
         disabled={disabled}
         loading={isLoading}
         options={options}
@@ -89,4 +93,4 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   );
 };
 
-export default memo(AutocompleteField);
+export default AutocompleteField;

@@ -56,7 +56,7 @@ const ExamForm: FC<ExamProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
-  const [rowsData, setRowsData] = useState({} as { [k: string]: string });
+  const [rowsData, setRowsData] = useState([] as string[]);
 
   const materialOptionsSelector = (state: IState) => {
     if (state.laboratories.materials.data) {
@@ -167,9 +167,11 @@ const ExamForm: FC<ExamProps> = ({
   );
 
   const onBlurCallbackForTableRow = useCallback(
-    () => (label: string, value: string) => {
-      setRowsData((rowObjs: { [k: string]: string }) => {
-        rowObjs[label] = value;
+    () => (value: string) => {
+      setRowsData((rowObjs: string[]) => {
+        if (!rowObjs.includes(value)) {
+          rowObjs.push(value);
+        } else rowObjs = rowObjs.filter((e) => e != value);
         return rowObjs;
       });
     },

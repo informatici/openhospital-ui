@@ -10,7 +10,7 @@
     "signout": "Sign Out"
   },
   "dashboard": {
-    "welcomename": "Welcome <strong>{{name}}<strong>",
+    "welcomename": "Welcome",
     "newpatient": "Nuevo paciente",
     "searchpatients": "Search patients"
   },
@@ -104,6 +104,7 @@
   },
   "common": {
     "results": "Resultados",
+    "feedback": "Feedback",
     "submit": "Envía",
     "reset": "Restablecer",
     "search": "Buscar",

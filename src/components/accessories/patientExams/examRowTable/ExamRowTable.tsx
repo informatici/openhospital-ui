@@ -10,6 +10,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Checkbox from "@material-ui/core/Checkbox";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
 import { debounce } from "lodash";
@@ -20,12 +21,12 @@ const ExamRowTable: FC<IEditableTableProps> = ({
   headerData,
   title,
 }) => {
-  const handleOnBlur = (e: any, label: string) => {
-    debounceUpdate(label, e.target.innerHTML);
+  const handleOnBlur = (value: string) => {
+    debounceUpdate(value);
   };
 
   const debounceUpdate = useCallback(
-    debounce((label: string, value: string) => onBlur(label, value), 100),
+    debounce((value: string) => onBlur(value), 100),
     []
   );
   return (
@@ -62,13 +63,15 @@ const ExamRowTable: FC<IEditableTableProps> = ({
                   <TableCell component="td" scope="row">
                     {row.value}
                   </TableCell>
-                  <TableCell
-                    onBlur={(e: any) => handleOnBlur(e, row.value)}
-                    contentEditable={true}
-                    align="right"
-                    component="td"
-                    scope="row"
-                  ></TableCell>
+                  <TableCell align="right" component="td" scope="row">
+                    <Checkbox
+                      onChange={(e, value) => {
+                        handleOnBlur(row.label);
+                      }}
+                      value={row.label}
+                      inputProps={{ "aria-label": "primary checkbox" }}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
