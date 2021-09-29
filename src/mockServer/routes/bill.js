@@ -32,7 +32,7 @@ export const billRoutes = (server) => {
             res.status(201).json(billResults.filter(
                 item => {
                     const check = (+code === 0 || item.patient.code === +code) &&
-                        !datefrom || (+item.date >= +datefrom && +item.date <= +dateto);
+                        (+item.date >= +datefrom && +item.date <= +dateto);
                     return check;
                 }
             ))
