@@ -47,7 +47,7 @@ export const BillTable: FC<IBillTableProps> = ({
       case "DELETE":
         dispatch(searchBills(fromDate, toDate, patientCode));
         break;
-      default:
+      case "ALL":
         dispatch(searchBills(fromDate, toDate, patientCode));
         break;
     }
