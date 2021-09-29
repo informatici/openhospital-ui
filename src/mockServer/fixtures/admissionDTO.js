@@ -23,7 +23,7 @@ export const admissionDTO =
         firstName: "Mario",
         secondName: "Rossia",
         name: "Mario Rossia",
-        birthDate: "1630077584911",
+        birthDate: "1975-03-02T14:58:00.000Z",
         age: 0,
         agetype: "null",
         sex: "M",
