@@ -55,7 +55,7 @@ export const CustomModal: FC<ICustomModal> = ({
       open={open}
       onClose={onClose}
       BackdropProps={{
-        timeout: 500,
+        timeout: 200,
       }}
     >
       <div style={modalStyle} className={classes.paper}>
