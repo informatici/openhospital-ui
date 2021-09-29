@@ -20,5 +20,5 @@ export const opdDataFormatter = (
 };
 
 export const renderDate = (date: string) => {
-  return moment(+date).isValid() ? moment(+date).format("DD/MM/YYYY") : "";
+  return moment(date).isValid() ? moment(date).format("DD/MM/YYYY") : "";
 };
