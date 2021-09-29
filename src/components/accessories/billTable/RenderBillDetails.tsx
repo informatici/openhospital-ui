@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -44,6 +45,8 @@ const currencyFormat = (num: number | undefined) => {
 
 const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   return (
     <div className="bill_details">
       <Card className={classes.root}>
@@ -53,7 +56,7 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
               stickyHeader
               className={classes.table}
               size="small"
-              aria-label="results table"
+              aria-label="Summary table"
             >
               <TableHead>
                 <TableCell
@@ -61,13 +64,21 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                   style={{ fontWeight: "bold" }}
                   colSpan={4}
                 >
-                  Bill No: {fullBill.billDTO?.id}
+                  {t("bill.billid")} : {fullBill.billDTO?.id}
                 </TableCell>
                 <TableRow>
-                  <TableCell className={classes.tableCell}>Patient</TableCell>
-                  <TableCell className={classes.tableCell}>Amount</TableCell>
-                  <TableCell className={classes.tableCell}>Balance </TableCell>
-                  <TableCell className={classes.tableCell}>Status</TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.patient")}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.amount")}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.balance")}{" "}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.status")}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -87,7 +98,9 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                     {currencyFormat(fullBill.billDTO?.balance)}
                   </TableCell>
                   <TableCell className={classes.tableCell}>
-                    {fullBill.billDTO?.status === "C" ? "Closed" : "Pending"}
+                    {fullBill.billDTO?.status === "C"
+                      ? t("bill.closed")
+                      : t("bill.pending")}
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -97,7 +110,7 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
               className={classes.table}
               stickyHeader
               size="small"
-              aria-label="results table"
+              aria-label="Items table"
             >
               <TableHead>
                 <TableRow>
@@ -106,16 +119,18 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                     style={{ fontWeight: "bold" }}
                     colSpan={4}
                   >
-                    Items
+                    {t("bill.items")}
                   </TableCell>
                 </TableRow>
-                <TableRow key={"header1"}>
+                <TableRow>
                   <TableCell className={classes.tableCell}>#</TableCell>
                   <TableCell className={classes.tableCell}>
-                    Designation
+                    {t("bill.designation")}
                   </TableCell>
-                  <TableCell className={classes.tableCell}>Qty</TableCell>
-                  <TableCell>Amount</TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.qty")}
+                  </TableCell>
+                  <TableCell>{t("bill.amount")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -156,7 +171,7 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
               stickyHeader
               className={classes.table}
               size="small"
-              aria-label="results table"
+              aria-label="Payments table"
             >
               <TableHead>
                 <TableCell
@@ -164,13 +179,19 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                   style={{ fontWeight: "bold" }}
                   colSpan={4}
                 >
-                  Payments
+                  {t("bill.payments")}
                 </TableCell>
                 <TableRow className={classes.tableCell} key={"header2"}>
                   <TableCell className={classes.tableCell}>#</TableCell>
-                  <TableCell className={classes.tableCell}>Date</TableCell>
-                  <TableCell className={classes.tableCell}>Amount</TableCell>
-                  <TableCell className={classes.tableCell}>Cashier</TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.date")}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.amount")}
+                  </TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.cashier")}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

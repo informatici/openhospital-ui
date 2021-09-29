@@ -72,7 +72,7 @@ export const CustomModal: FC<ICustomModal> = ({
             </Box>
           </Box>
         </DialogTitle>
-        <DialogContent style={{ marginTop: 0 }}>{content}</DialogContent>
+        <DialogContent>{content}</DialogContent>
       </div>
     </Modal>
   );

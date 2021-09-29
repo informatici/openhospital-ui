@@ -45,8 +45,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
       name: "toDate",
       message: t("bill.validatetodate"),
       test: function (value) {
-        //return value && this.parent.fromDate && +value >= +this.parent.fromDate;
-        return true;
+        return +value >= +this.parent.fromDate;
       },
     }),
   });
@@ -85,9 +84,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
-      if (fieldName !== "fromDate") {
-        formik.handleSubmit();
-      }
+      formik.handleSubmit();
     },
     [setFieldValue, formik.handleSubmit]
   );

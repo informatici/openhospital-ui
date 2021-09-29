@@ -251,7 +251,8 @@
     "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
     "noteadded": "Note Enregistrée",
     "note": "Note",
-    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}"
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
+    "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
   },
   "bill": {
     "title": "Bienvenue dans Facturation",
@@ -271,7 +272,21 @@
     "notpaid": "Non payé",
     "totalpaid": "Total Payé",
     "totalnotpaid": "Total non payé",
-    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
-    "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
+    "validatetodate": "doit être égale ou sup à la date de début",    
+    "billid": "No Facture",
+    "amount": "Montant",
+    "balance": "Solde",
+    "status": "Status",
+    "items": "Items",
+    "designation": "Désignation",
+    "code": "Code",
+    "qty": "Qté",
+    "payments": "Paiements",
+    "date": "Date",
+    "cashier": "Cassier(e)",
+    "unknown": "Inconnu",
+    "details": "Détails facture",
+    "recap": "Recap factures",
+    "filter": "Filtre Factures"
   }
 }

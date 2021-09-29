@@ -63,8 +63,8 @@ const AutocompleteField: FunctionComponent<IProps> = ({
       <Autocomplete
         freeSolo={freeSolo}
         noOptionsText={t("common.nooptionsfound")}
-        autoSelect
         disabled={disabled}
+        autoSelect
         loading={isLoading}
         options={options}
         onInputChange={handleOnInputChange}

@@ -1,8 +1,7 @@
-import { CircularProgress } from "@material-ui/core";
-import { StarRounded } from "@material-ui/icons";
 import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
@@ -24,16 +23,16 @@ export const BillTable: FC<IBillTableProps> = ({
   patientCode,
 }) => {
   const { t } = useTranslation();
-  const header = ["date", "patient", "balance"];
+  const header = ["date", "patient", "balance", "status"];
   const label = {
-    id: "Bill code",
-    date: "Date",
-    patient: "Patient",
-    status: "Status",
-    amount: "Amount",
-    balance: "Balance",
+    id: t("bill.code"),
+    date: t("bill.date"),
+    patient: t("bill.patient"),
+    status: t("bill.status"),
+    amount: t("bill.amount"),
+    balance: t("bill.balance"),
   };
-  const order = ["date"];
+  const order = ["date", "balance"];
   const dispatch = useDispatch();
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
 
@@ -57,12 +56,7 @@ export const BillTable: FC<IBillTableProps> = ({
   const data = useSelector<IState, FullBillDTO[]>(
     (state) => state.bills.searchBills.data ?? []
   );
-  const billsStatus = useSelector<IState, string | undefined>((state) => {
-    if (status === "ALL") return state.bills.searchBills.status;
-    else {
-      return state.bills.getPendingBills.status;
-    }
-  });
+
   const formatDataToDisplay = (data: FullBillDTO[] | undefined) => {
     let results = new Array();
     if (data)
@@ -70,7 +64,14 @@ export const BillTable: FC<IBillTableProps> = ({
         return {
           id: item.billDTO?.id ?? "",
           date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
-          patient: item.billDTO?.patName,
+          patient: (
+            <Link
+              to={`/details/${item.billDTO?.patientDTO?.code}/edit`}
+              style={{ textDecoration: "none" }}
+            >
+              <strong>{item.billDTO?.patName}</strong>
+            </Link>
+          ),
           amount: item.billDTO?.amount,
           balance: item.billDTO?.balance,
           status: switchStatus(item.billDTO?.status),
@@ -82,13 +83,13 @@ export const BillTable: FC<IBillTableProps> = ({
   const switchStatus = (status: string | undefined) => {
     switch (status) {
       case "C":
-        return "Closed";
+        return t("bill.closed");
       case "O":
-        return "Pending";
+        return t("bill.pending");
       case "D":
-        return "Deleted";
+        return t("bill.deleted");
       default:
-        return "Unknown";
+        return t("bill.unknown");
     }
   };
   const [open, setOpen] = useState(false);
@@ -120,8 +121,8 @@ export const BillTable: FC<IBillTableProps> = ({
       <CustomModal
         open={open}
         onClose={handleClose}
-        title={"Bill Details"}
-        description={"Bill details"}
+        title={t("bill.details")}
+        description={t("bill.details")}
         content={<RenderBillDetails fullBill={fullBill} />}
       />
     </div>

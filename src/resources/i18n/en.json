@@ -241,7 +241,8 @@
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
     "note": "Note",
-    "validatelastdate":"should be greater or equal to admission date {{admDate}}"
+    "validatelastdate":"should be greater or equal to admission date {{admDate}}",
+    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
   },
   "bill": {
     "title": "Welcome to Billing",
@@ -261,7 +262,21 @@
     "notpaid": "Not paid",
     "totalpaid": "Total Paid",
     "totalnotpaid": "Total not paid",
-    "validatelastdate": "should be greater or equal to admission date {{admDate}}",
-    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
+    "validatetodate": "should be greater or equal to start date",
+    "billid": "Bill Code",
+    "amount": "Amount",
+    "balance": "Balance",
+    "status": "Status",
+    "items": "Items",
+    "designation": "Designation",
+    "code": "Code",
+    "qty": "Qty",
+    "payments": "Payments",
+    "date": "Date",
+    "cashier": "Cashier",
+    "unknown": "Unknown",
+    "details": "Bill Details",
+    "recap": "Bills Recap",
+    "filter": "Bills Filter"
   }
 }

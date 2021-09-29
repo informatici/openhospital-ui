@@ -1,4 +1,4 @@
-import { BillDTO, FullBillDTO } from "../../../generated";
+import { FullBillDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { BillFilterFormFieldName } from "../../accessories/billFilterForm/types";
 import { IBillSummary } from "./types";

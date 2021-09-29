@@ -201,7 +201,7 @@ export const ManageBillActivity: FC = () => {
                           onClick={() => handleOnExpanded("form")}
                         >
                           <Search fontSize="small" style={{ color: "white" }} />
-                          <span>Bills Filter</span>
+                          <span> {t("bill.filter")}</span>
                         </AccordionSummary>
                         <AccordionDetails>
                           <BillFilterForm
@@ -219,7 +219,7 @@ export const ManageBillActivity: FC = () => {
                             fontSize="small"
                             style={{ color: "white" }}
                           />
-                          <span>Bills Recap</span>
+                          <span> {t("bill.recap")}</span>
                         </AccordionSummary>
                         <AccordionDetails>
                           <div className="searchBills__formData__item">
