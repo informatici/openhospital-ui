@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/openhospital-ui/precache-manifest.67ebcfed1892c2eb7f7a83285ff15bce.js"
+  "/openhospital-ui/precache-manifest.c16acbb142c5365dce2699d788013ebc.js"
 );
 
 self.addEventListener('message', (event) => {
