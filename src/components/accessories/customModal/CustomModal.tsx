@@ -59,7 +59,7 @@ export const CustomModal: FC<ICustomModal> = ({
       }}
     >
       <div style={modalStyle} className={classes.paper}>
-        <DialogTitle style={{ marginBottom: 0 }}>
+        <DialogTitle>
           <Box display="flex" alignItems="center">
             <Box flexGrow={1}>
               <strong>{title}</strong>
