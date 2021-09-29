@@ -20,8 +20,8 @@ export const getFromFields = (
 };
 
 const parseDate = (raw: string) => {
-  const unformatDate = new Date(+raw).toString();
-  return raw ? Date.parse(unformatDate).toString() : "";
+  const isoDate = new Date(raw).toISOString();
+  return raw ? isoDate : "";
 };
 
 export const formatAllFieldValues = (
