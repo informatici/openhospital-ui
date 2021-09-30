@@ -287,6 +287,7 @@
     "unknown": "Inconnu",
     "details": "Détails facture",
     "recap": "Recap factures",
-    "filter": "Filtre Factures"
+    "filter": "Filtre Factures",
+    "filterbutton": "Filtrer"
   }
 }

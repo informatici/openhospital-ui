@@ -277,6 +277,7 @@
     "unknown": "Unknown",
     "details": "Bill Details",
     "recap": "Bills Recap",
-    "filter": "Bills Filter"
+    "filter": "Bills Filter",
+    "filterbutton": "Filter"
   }
 }

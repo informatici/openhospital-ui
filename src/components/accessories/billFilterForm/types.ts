@@ -17,10 +17,4 @@ export type TFieldName =
   | "birthDate"
   | "address";
 
-export type BillFilterFormFieldName =
-  | "user"
-  | "fromDate"
-  | "toDate"
-  | "patient"
-  | "billItem"
-  | "affiliate";
+export type BillFilterFormFieldName = "fromDate" | "toDate" | "patient";

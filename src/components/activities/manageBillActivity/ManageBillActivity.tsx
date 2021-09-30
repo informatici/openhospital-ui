@@ -39,9 +39,9 @@ export const ManageBillActivity: FC = () => {
   const [expanded, setExpanded] = useState<string | false>("form");
   const [isOpen, setIsOpen] = useState(false);
   const [fromDate, setFromDate] = useState(
-    new Date().setDate(new Date().getDate() - 6) + ""
+    new Date().setDate(new Date().getDate() - 6).toString()
   );
-  const [toDate, setToDate] = useState(new Date().setHours(23) + "");
+  const [toDate, setToDate] = useState(new Date().setHours(23).toString());
   const [patientCode, setPatientCode] = useState(0);
 
   useEffect(() => {

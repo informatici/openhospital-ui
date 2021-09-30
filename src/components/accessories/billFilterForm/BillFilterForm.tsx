@@ -18,6 +18,8 @@ import { searchPatient } from "../../../state/patients/actions";
 import "./styles.scss";
 import { BillFilterProps, TValues } from "./types";
 import { PatientDTO } from "../../../generated";
+import SmallButton from "../smallButton/SmallButton";
+import moment from "moment";
 
 const BillFilterForm: FC<BillFilterProps> = ({
   onSubmit,
@@ -31,21 +33,22 @@ const BillFilterForm: FC<BillFilterProps> = ({
 
   const handlePatientSearchChange = (event: any, value: string) => {
     setSearchPatientParams({
-      id: !isNaN(+value) ? value : "",
-      firstName: isNaN(+value) ? value : "",
-      secondName: "",
-      birthDate: "",
-      address: "",
-    });
+      secondName: value,
+    } as TValues);
     dispatch(searchPatient(searchPatientParams));
   };
 
   const validationSchema = object({
+    fromDate: string().required(),
     toDate: string().test({
       name: "toDate",
       message: t("bill.validatetodate"),
       test: function (value) {
-        return +value >= +this.parent.fromDate;
+        const dateFrom = isNaN(this.parent.fromDate)
+          ? this.parent.fromDate
+          : new Date(+this.parent.fromDate);
+        const dateTo = isNaN(value) ? value : new Date(+value);
+        return moment(dateTo) >= moment(dateFrom);
       },
     }),
   });
@@ -53,6 +56,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const patientSearchResults = useSelector<IState, PatientDTO[] | undefined>(
     (state) => state.patients.searchResults.data
   );
+
   const searchStatus = useSelector<IState>(
     (state) => state.patients.searchResults.status || "IDLE"
   );
@@ -72,7 +76,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const formik = useFormik({
     initialValues,
     validationSchema,
-    enableReinitialize: true,
+    enableReinitialize: false,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(initialFields, values);
       onSubmit(formattedValues);
@@ -84,9 +88,8 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
-      formik.handleSubmit();
     },
-    [setFieldValue, formik.handleSubmit]
+    [setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -102,9 +105,8 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
-        formik.handleBlur(e);
+        handleBlur(e);
         setFieldValue(fieldName, value);
-        formik.handleSubmit();
       },
     [setFieldValue, handleBlur]
   );
@@ -156,6 +158,11 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 onInputChange={handlePatientSearchChange}
                 freeSolo={true}
               />
+            </div>
+          </div>
+          <div className="filterForm__buttonSet">
+            <div className="submit_button">
+              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
             </div>
           </div>
         </form>

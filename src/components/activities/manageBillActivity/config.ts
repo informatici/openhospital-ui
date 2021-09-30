@@ -84,22 +84,7 @@ export const computeBillSummary = (
 
 export const initializeBillFilter = (fromDate: string, toDate: string) => {
   const fields: TFields<BillFilterFormFieldName> = {
-    user: {
-      value: "",
-      type: "text",
-      options: [],
-    },
     patient: {
-      value: "",
-      type: "text",
-      options: [],
-    },
-    billItem: {
-      value: "",
-      type: "text",
-      options: [],
-    },
-    affiliate: {
       value: "",
       type: "text",
       options: [],

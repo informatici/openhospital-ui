@@ -44,4 +44,27 @@
     }
   }
 
+  .filterForm__buttonSet {
+    width: 50%;
+    margin: 0 auto;
+    @include susy-media($smartphone_small) {
+      display: block;
+    }
+
+    .submit_button{
+      margin-top: 5px;
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button {
+        @include susy-media($smartphone_small) {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+
 }

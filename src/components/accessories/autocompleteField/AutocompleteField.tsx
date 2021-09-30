@@ -61,7 +61,6 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   return (
     <FormControl variant="outlined" className={actualClassName}>
       <Autocomplete
-        freeSolo={freeSolo}
         noOptionsText={t("common.nooptionsfound")}
         disabled={disabled}
         loading={isLoading}
