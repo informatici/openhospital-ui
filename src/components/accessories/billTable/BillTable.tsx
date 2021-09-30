@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { isJsxAttributes } from "typescript";
 import { FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
@@ -77,6 +78,12 @@ export const BillTable: FC<IBillTableProps> = ({
           status: switchStatus(item.billDTO?.status),
         };
       });
+    if (status === "CLOSE") {
+      results.filter((item) => item.status === "C");
+    }
+    if (status === "DELETE") {
+      results.filter((item) => item.status === "D");
+    }
     return results;
   };
 

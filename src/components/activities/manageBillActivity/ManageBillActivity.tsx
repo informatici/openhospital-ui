@@ -101,7 +101,7 @@ export const ManageBillActivity: FC = () => {
       path: "/closedBills",
       content: (
         <ManageBillActivityContent
-          title="closed Bills"
+          title="Closed Bills"
           content={
             <BillTable
               status="CLOSE"
