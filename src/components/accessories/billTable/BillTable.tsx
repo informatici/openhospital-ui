@@ -1,28 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { isJsxAttributes } from "typescript";
 import { FullBillDTO } from "../../../generated";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
 import { CustomModal } from "../customModal/CustomModal";
 import Table from "../table/Table";
+import useFormatData from "./useFormatData";
 import RenderBillDetails from "./RenderBillDetails";
-type IStatus = "ALL" | "PENDING" | "CLOSE" | "DELETE";
-interface IBillTableProps {
-  status: IStatus;
-  fromDate: string;
-  toDate: string;
-  patientCode: number;
-}
-export const BillTable: FC<IBillTableProps> = ({
-  status,
-  fromDate,
-  toDate,
-  patientCode,
-}) => {
+import { IBillTableProps } from "./types";
+
+export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
   const { t } = useTranslation();
   const header = ["date", "patient", "balance", "status"];
   const label = {
@@ -40,67 +28,31 @@ export const BillTable: FC<IBillTableProps> = ({
   useEffect(() => {
     switch (status) {
       case "PENDING":
-        dispatch(getPendingBills(patientCode));
+        dispatch(getPendingBills(filter.patientCode));
         break;
       case "CLOSE":
-        dispatch(searchBills(fromDate, toDate, patientCode));
+        dispatch(searchBills(filter));
         break;
       case "DELETE":
-        dispatch(searchBills(fromDate, toDate, patientCode));
+        dispatch(searchBills(filter));
         break;
-      case "ALL":
-        dispatch(searchBills(fromDate, toDate, patientCode));
-        break;
-    }
-  }, [status, fromDate, toDate, patientCode]);
-
-  const data = useSelector<IState, FullBillDTO[]>(
-    (state) => state.bills.searchBills.data ?? []
-  );
-
-  const formatDataToDisplay = (data: FullBillDTO[] | undefined) => {
-    let results = new Array();
-    if (data)
-      results = data.map((item) => {
-        return {
-          id: item.billDTO?.id ?? "",
-          date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
-          patient: (
-            <Link
-              to={`/details/${item.billDTO?.patientDTO?.code}/edit`}
-              style={{ textDecoration: "none" }}
-            >
-              <strong>{item.billDTO?.patName}</strong>
-            </Link>
-          ),
-          amount: item.billDTO?.amount,
-          balance: item.billDTO?.balance,
-          status: switchStatus(item.billDTO?.status),
-        };
-      });
-    if (status === "CLOSE") {
-      results.filter((item) => item.status === "C");
-    }
-    if (status === "DELETE") {
-      results.filter((item) => item.status === "D");
-    }
-    return results;
-  };
-
-  const switchStatus = (status: string | undefined) => {
-    switch (status) {
-      case "C":
-        return t("bill.closed");
-      case "O":
-        return t("bill.pending");
-      case "D":
-        return t("bill.deleted");
       default:
-        return t("bill.unknown");
+        dispatch(searchBills(filter));
+        break;
     }
-  };
-  const [open, setOpen] = useState(false);
+  }, [status, filter]);
 
+  const data = useSelector<IState, FullBillDTO[]>((state) => {
+    if (status === "PENDING") {
+      return state.bills.getPendingBills.data ?? [];
+    } else {
+      return state.bills.searchBills.data ?? [];
+    }
+  });
+
+  const formattedData = useFormatData(data, status);
+
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -117,7 +69,7 @@ export const BillTable: FC<IBillTableProps> = ({
   return (
     <div>
       <Table
-        rowData={formatDataToDisplay(data)}
+        rowData={formattedData}
         tableHeader={header}
         labelData={label}
         columnsOrder={order}

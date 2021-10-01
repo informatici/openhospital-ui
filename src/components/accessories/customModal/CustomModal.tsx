@@ -4,18 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import { Box, DialogContent, DialogTitle, IconButton } from "@material-ui/core";
 import "./styles.scss";
 import { GridCloseIcon } from "@material-ui/data-grid";
-
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-    display: "inline-block",
-    width: "auto",
-  };
-}
+import { ICustomModal } from "./types";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -30,14 +19,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface ICustomModal {
-  title: string;
-  description: string;
-  content: React.ReactElement;
-  open: boolean;
-  onClose: () => void;
-}
-
 export const CustomModal: FC<ICustomModal> = ({
   title,
   description,
@@ -46,7 +27,6 @@ export const CustomModal: FC<ICustomModal> = ({
   onClose,
 }) => {
   const classes = useStyles();
-  const [modalStyle] = React.useState(getModalStyle);
 
   return (
     <Modal
@@ -58,7 +38,7 @@ export const CustomModal: FC<ICustomModal> = ({
         timeout: 200,
       }}
     >
-      <div style={modalStyle} className={classes.paper}>
+      <div className={classes.paper + " custom__modal"}>
         <DialogTitle>
           <Box display="flex" alignItems="center">
             <Box flexGrow={1}>

@@ -22,7 +22,11 @@ import {
   GET_BILL_LOADING,
   GET_BILL_SUCCESS,
   GET_BILL_FAIL,
+  PENDING_BILL_SUCCESS,
+  PENDING_BILL_FAIL,
+  PENDING_BILL_LOADING,
 } from "./consts";
+import { TFilterValues } from "../../components/accessories/billTable/types";
 
 const billControllerApi = new BillControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -92,7 +96,7 @@ export const getPendingBills =
   (patientCode: number) =>
   (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
     dispatch({
-      type: SEARCH_BILL_LOADING,
+      type: PENDING_BILL_LOADING,
     });
     billControllerApi
       .getPendingBillsUsingGET({
@@ -104,35 +108,35 @@ export const getPendingBills =
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: SEARCH_BILL_SUCCESS,
+              type: PENDING_BILL_SUCCESS,
               payload: payload,
             });
           } else {
             dispatch({
-              type: SEARCH_BILL_SUCCESS,
+              type: PENDING_BILL_SUCCESS,
               payload: [],
             });
           }
         },
         (error) => {
           dispatch({
-            type: SEARCH_BILL_FAIL,
+            type: PENDING_BILL_FAIL,
             error,
           });
         }
       );
   };
 export const searchBills =
-  (datefrom: string, dateto: string, patientCode: number) =>
+  (filter: TFilterValues) =>
   (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
     dispatch({
       type: SEARCH_BILL_LOADING,
     });
     billControllerApi
       .searchBillsUsingGET({
-        datefrom,
-        dateto,
-        patientCode,
+        datefrom: filter.fromDate,
+        dateto: filter.toDate,
+        patientCode: filter.patientCode,
       })
       .pipe(switchMap((bills) => getPayments(bills)))
       .pipe(switchMap((payments) => getItems(payments)))

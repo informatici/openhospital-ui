@@ -1,3 +1,4 @@
+import moment from "moment";
 import { billResults } from "../fixtures/billDTO";
 import billItemDTO, { billItemDTOs } from "../fixtures/billItemDTO";
 import billPaymentsDTO, { billPaymentsDTOs } from "../fixtures/billPaymentsDTO";
@@ -27,11 +28,11 @@ export const billRoutes = (server) => {
 
         server.get("/").intercept((req, res) => {
             const code = req.query.patient_code;
-            const datefrom = req.query.datefrom;
-            const dateto = req.query.dateto;
+            const datefrom = moment(req.query.datefrom);
+            const dateto = moment(req.query.dateto);
             res.status(201).json(billResults.filter(
                 item => {
-                    const check = (+code === 0 || item.patient.code === +code) &&
+                    const check = (!code || item.patient.code === +code) &&
                         (+item.date >= +datefrom && +item.date <= +dateto);
                     return check;
                 }

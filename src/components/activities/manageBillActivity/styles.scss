@@ -3,7 +3,14 @@
 
 .searchBills {
   background-color: $c-color-secondary;
-
+    .sidebar_section_header {
+      color: $c-grey-medium;
+      align-items: center;
+      align-content: center;
+      position: relative;      
+      left: 20px;
+      margin: 0px;
+    }
   .container {
     @include susy-media($tablet_land) {
       width: 100%;
@@ -62,11 +69,8 @@
           top: 5px;
         }
       }
-      .searchBills__formData_sidebar {
+      .searchBills__formData_sidebar {        
         max-height: 1200px;
-        .patientDetails__personalData__item:last-of-type {
-          // margin: 10px 30px 20px;
-        }
       }
     }
 
@@ -82,7 +86,6 @@
 
   .searchBills__formData_sidebar {
     position: relative;
-
     .searchBills__formData_edit_button_wrapper {
       padding: 10px 20px;
       .searchBills__formData_edit_button {
@@ -104,7 +107,6 @@
         }
       }
     }
-
 
     .accordion {
       .accordion_summary {
@@ -170,34 +172,6 @@
     }
   }
 
-  .searchBills__profilePictureContainer_wrapper {
-    display: flex;
-    padding: 20px;
-    margin: 20px;
-    align-items: center;
-    border-radius: 10px;
-    background-color: lighten($c-gray, 10%);
-  }
-
-  .searchBills__profilePictureContainer {
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-    .profilePicture_mask {
-      width: 60px;
-      height: 60px;
-    }
-  }
-
-  .searchBills__header__info {
-    margin-left: 12px;
-    .searchBills__header__info__item {
-      color: $c-white;
-      display: block;
-      text-transform: uppercase;
-    }
-  }
-
   .searchBills__formData__item {
     width: 100%;
     padding: 7px 20px;
@@ -243,11 +217,6 @@
       box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     }
   }
-
-  .searchBills__content__header {
-    background-color: #f5f5f5;
-  }
-
   .footer {
     position: relative;
   }

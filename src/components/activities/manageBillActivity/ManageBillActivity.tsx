@@ -24,6 +24,8 @@ import { BillTable } from "../../accessories/billTable/BillTable";
 import { searchBills } from "../../../state/bills/actions";
 import { computeBillSummary, initializeBillFilter } from "./config";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
+import { TFilterValues } from "../../accessories/billTable/types";
+import { initialFilter } from "./consts";
 
 export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -36,17 +38,8 @@ export const ManageBillActivity: FC = () => {
   };
   const dispatch = useDispatch();
 
-  const [expanded, setExpanded] = useState<string | false>("form");
   const [isOpen, setIsOpen] = useState(false);
-  const [fromDate, setFromDate] = useState(
-    new Date().setDate(new Date().getDate() - 6).toString()
-  );
-  const [toDate, setToDate] = useState(new Date().setHours(23).toString());
-  const [patientCode, setPatientCode] = useState(0);
-
-  useEffect(() => {
-    dispatch(searchBills(fromDate, toDate, patientCode));
-  }, [fromDate, toDate, patientCode]);
+  const [filter, setFilter] = useState(initialFilter);
 
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
@@ -55,8 +48,8 @@ export const ManageBillActivity: FC = () => {
   const summary = useSelector<IState, IBillSummary>((state) =>
     computeBillSummary(
       state.bills.searchBills.data,
-      fromDate,
-      toDate,
+      filter.fromDate,
+      filter.toDate,
       userCredentials?.displayName ?? ""
     )
   );
@@ -68,14 +61,7 @@ export const ManageBillActivity: FC = () => {
       content: (
         <ManageBillActivityContent
           title="All Bills"
-          content={
-            <BillTable
-              status="ALL"
-              toDate={toDate}
-              fromDate={fromDate}
-              patientCode={patientCode}
-            />
-          }
+          content={<BillTable status="ALL" filter={filter} />}
         />
       ),
     },
@@ -85,14 +71,7 @@ export const ManageBillActivity: FC = () => {
       content: (
         <ManageBillActivityContent
           title="Pending Bills"
-          content={
-            <BillTable
-              status="PENDING"
-              toDate={toDate}
-              fromDate={fromDate}
-              patientCode={patientCode}
-            />
-          }
+          content={<BillTable status="PENDING" filter={filter} />}
         />
       ),
     },
@@ -102,14 +81,7 @@ export const ManageBillActivity: FC = () => {
       content: (
         <ManageBillActivityContent
           title="Closed Bills"
-          content={
-            <BillTable
-              status="CLOSE"
-              toDate={toDate}
-              fromDate={fromDate}
-              patientCode={patientCode}
-            />
-          }
+          content={<BillTable status="CLOSE" filter={filter} />}
         />
       ),
     },
@@ -119,27 +91,15 @@ export const ManageBillActivity: FC = () => {
       content: (
         <ManageBillActivityContent
           title="Deleted Bills"
-          content={
-            <BillTable
-              status="DELETE"
-              toDate={toDate}
-              fromDate={fromDate}
-              patientCode={patientCode}
-            />
-          }
+          content={<BillTable status="DELETE" filter={filter} />}
         />
       ),
     },
   ];
 
   const submit = (filter: any) => {
-    setFromDate(filter.fromDate);
-    setToDate(filter.toDate);
-    setPatientCode(filter.patient);
-  };
-
-  const handleOnExpanded = (section: string) => {
-    setExpanded(section === expanded ? "form" : section);
+    setFilter(filter);
+    dispatch(searchBills(filter));
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -196,10 +156,8 @@ export const ManageBillActivity: FC = () => {
                       </div>
                     </div>
                     <div className="searchBills__user_info">
-                      <Accordion expanded={expanded === "form"}>
-                        <AccordionSummary
-                          onClick={() => handleOnExpanded("form")}
-                        >
+                      <Accordion>
+                        <AccordionSummary>
                           <Search fontSize="small" style={{ color: "white" }} />
                           <span> {t("bill.filter")}</span>
                         </AccordionSummary>
@@ -207,14 +165,15 @@ export const ManageBillActivity: FC = () => {
                           <BillFilterForm
                             className="searchBills__formData__item"
                             onSubmit={submit}
-                            fields={initializeBillFilter(fromDate, toDate)}
+                            fields={initializeBillFilter(
+                              filter.fromDate,
+                              filter.toDate
+                            )}
                           />
                         </AccordionDetails>
                       </Accordion>
-                      <Accordion expanded={true}>
-                        <AccordionSummary
-                          onClick={() => handleOnExpanded("details")}
-                        >
+                      <Accordion>
+                        <AccordionSummary>
                           <Receipt
                             fontSize="small"
                             style={{ color: "white" }}

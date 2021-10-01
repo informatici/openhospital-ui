@@ -1,7 +1,7 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
 
 interface IBillFilterProps {
-  onSubmit: (filter: any) => void;
+  onSubmit: (filter: Record<string, BillFilterFormFieldName>) => void;
   className: string;
   fields: TFields<BillFilterFormFieldName>;
 }
@@ -17,4 +17,4 @@ export type TFieldName =
   | "birthDate"
   | "address";
 
-export type BillFilterFormFieldName = "fromDate" | "toDate" | "patient";
+export type BillFilterFormFieldName = "fromDate" | "toDate" | "patientCode";
