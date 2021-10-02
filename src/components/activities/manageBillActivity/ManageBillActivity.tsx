@@ -24,7 +24,6 @@ import { BillTable } from "../../accessories/billTable/BillTable";
 import { searchBills } from "../../../state/bills/actions";
 import { computeBillSummary, initializeBillFilter } from "./config";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
-import { TFilterValues } from "../../accessories/billTable/types";
 import { initialFilter } from "./consts";
 
 export const ManageBillActivity: FC = () => {
@@ -53,6 +52,10 @@ export const ManageBillActivity: FC = () => {
       userCredentials?.displayName ?? ""
     )
   );
+
+  useEffect(() => {
+    dispatch(searchBills(filter));
+  }, []);
 
   const tabConfig: TTabConfig = [
     {

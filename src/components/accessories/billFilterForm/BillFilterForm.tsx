@@ -72,6 +72,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
   };
 
   const initialValues = getFromFields(fields, "value");
+
   const formik = useFormik({
     initialValues,
     validationSchema,

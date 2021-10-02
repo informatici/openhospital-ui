@@ -3,4 +3,10 @@
 
 .new_Bill {
   background-color: $c-color-secondary;
+ .new_Bill__content {
+    margin: auto;
+    flex-direction: column;
+    width: 80%;
+  }
+    
 }

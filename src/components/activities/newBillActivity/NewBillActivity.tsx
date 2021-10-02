@@ -25,7 +25,9 @@ const NewBillActivity: FC = () => {
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
       />
-      <SkeletonLoader />
+      <div className="new_Bill__content">
+        <SkeletonLoader />
+      </div>
       <Footer />
     </div>
   );
