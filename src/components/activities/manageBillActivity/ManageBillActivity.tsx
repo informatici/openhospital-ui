@@ -1,8 +1,8 @@
 import { Receipt, Search } from "@material-ui/icons";
 import classNames from "classnames";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import {
@@ -21,10 +21,10 @@ import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
 import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
-import { searchBills } from "../../../state/bills/actions";
 import { computeBillSummary, initializeBillFilter } from "./config";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
 import { initialFilter } from "./consts";
+import { TBillFilterValues } from "../../accessories/billFilterForm/types";
 
 export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -35,7 +35,6 @@ export const ManageBillActivity: FC = () => {
     [t("nav.newbill")]: "/bills",
     [t("nav.managebills")]: "/managebills",
   };
-  const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
   const [filter, setFilter] = useState(initialFilter);
@@ -52,10 +51,6 @@ export const ManageBillActivity: FC = () => {
       userCredentials?.displayName ?? ""
     )
   );
-
-  useEffect(() => {
-    dispatch(searchBills(filter));
-  }, []);
 
   const tabConfig: TTabConfig = [
     {
@@ -100,9 +95,9 @@ export const ManageBillActivity: FC = () => {
     },
   ];
 
-  const submit = (filter: any) => {
-    setFilter(filter);
-    dispatch(searchBills(filter));
+  const submit = (filter: TBillFilterValues) => {
+    const formValues = { ...filter, patientCode: +filter.patientCode };
+    setFilter(formValues);
   };
 
   const [activityTransitionState, setActivityTransitionState] =

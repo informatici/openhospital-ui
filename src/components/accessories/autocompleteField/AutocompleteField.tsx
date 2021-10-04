@@ -24,7 +24,6 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   disabled,
   theme,
   onInputChange,
-  freeSolo = false,
 }) => {
   const [value, setValue] = useState("");
 

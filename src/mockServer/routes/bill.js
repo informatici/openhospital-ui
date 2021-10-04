@@ -1,4 +1,4 @@
-import moment from "moment";
+
 import { billResults } from "../fixtures/billDTO";
 import billItemDTO, { billItemDTOs } from "../fixtures/billItemDTO";
 import billPaymentsDTO, { billPaymentsDTOs } from "../fixtures/billPaymentsDTO";
@@ -20,7 +20,7 @@ export const billRoutes = (server) => {
         server.get("/pending").intercept((req, res) => {
             const code = req.query.patient_code;
             res.status(201).json(billResults.filter(
-                item => {
+                (item) => {
                     return (+code === 0 || item.patient.code === +code) && item.status === "O"
                 }
             ))
@@ -28,13 +28,12 @@ export const billRoutes = (server) => {
 
         server.get("/").intercept((req, res) => {
             const code = req.query.patient_code;
-            const datefrom = moment(req.query.datefrom);
-            const dateto = moment(req.query.dateto);
+            const datefrom = req.query.datefrom;
+            const dateto = req.query.dateto;
+
             res.status(201).json(billResults.filter(
-                item => {
-                    const check = (!code || item.patient.code === +code) &&
-                        (+item.date >= +datefrom && +item.date <= +dateto);
-                    return check;
+                (item) => {
+                    return (+code === 0 || item.patient.code === +code) && (+item.date >= +datefrom && +item.date <= +dateto);
                 }
             ))
         });

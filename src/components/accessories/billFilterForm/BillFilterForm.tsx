@@ -15,7 +15,7 @@ import DateField from "../dateField/DateField";
 import { searchPatient } from "../../../state/patients/actions";
 
 import "./styles.scss";
-import { BillFilterProps, TValues } from "./types";
+import { BillFilterProps, TBillFilterValues, TValues } from "./types";
 import { PatientDTO } from "../../../generated";
 import SmallButton from "../smallButton/SmallButton";
 import moment from "moment";
@@ -78,7 +78,10 @@ const BillFilterForm: FC<BillFilterProps> = ({
     validationSchema,
     enableReinitialize: false,
     onSubmit: (values) => {
-      const formattedValues = formatAllFieldValues(initialValues, values);
+      const formattedValues = formatAllFieldValues(
+        fields,
+        values
+      ) as TBillFilterValues;
       onSubmit(formattedValues);
     },
   });
