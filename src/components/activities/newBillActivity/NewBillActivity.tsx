@@ -8,6 +8,7 @@ import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import { useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { TUserCredentials } from "../../../state/main/types";
+import BillDataForm from "../../accessories/billDataForm/BillDataForm";
 
 const NewBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -20,12 +21,17 @@ const NewBillActivity: FC = () => {
     (state) => state.main.authentication.data
   );
   return (
-    <div className="new_Bill">
+    <div className="newBill">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
       />
-      <SkeletonLoader />
+      <div className="newBill__background">
+        <div className="newBill__content">
+          <div className="newBill__title">{t("nav.newbill")}</div>
+          <BillDataForm />
+        </div>
+      </div>
       <Footer />
     </div>
   );
