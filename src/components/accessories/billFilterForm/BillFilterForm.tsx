@@ -19,6 +19,7 @@ import { BillFilterProps, TBillFilterValues, TValues } from "./types";
 import { PatientDTO } from "../../../generated";
 import SmallButton from "../smallButton/SmallButton";
 import moment from "moment";
+import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 
 const BillFilterForm: FC<BillFilterProps> = ({
   onSubmit,
@@ -148,7 +149,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="fullWidth filterBillForm__item">
-              <AutocompleteField
+              <PatientAutocomplete
                 theme={"light"}
                 fieldName="patientCode"
                 fieldValue={formik.values.patient}
@@ -157,7 +158,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 errorText={getErrorText("patientCode")}
                 onBlur={onBlurCallback("patientCode")}
                 isLoading={searchStatus === "LOADING"}
-                options={renderOptions(patientSearchResults)}
+                options={patientSearchResults ?? []}
                 onInputChange={handlePatientSearchChange}
                 freeSolo={true}
               />
