@@ -25,6 +25,7 @@ import { computeBillSummary, initializeBillFilter } from "./config";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
 import { initialFilter } from "./consts";
 import { TBillFilterValues } from "../../accessories/billFilterForm/types";
+import { PaymentsTable } from "../../accessories/paymentsTable/PaymentsTable";
 
 export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -84,12 +85,12 @@ export const ManageBillActivity: FC = () => {
       ),
     },
     {
-      label: t("bill.deleted"),
-      path: "/deletedBills",
+      label: t("bill.payments"),
+      path: "/billpayments",
       content: (
         <ManageBillActivityContent
-          title="Deleted Bills"
-          content={<BillTable status="DELETE" filter={filter} />}
+          title="Payments"
+          content={<PaymentsTable filter={filter} />}
         />
       ),
     },

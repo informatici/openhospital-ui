@@ -430,8 +430,8 @@ export class BillControllerApi extends BaseAPI {
 
     const query: HttpQuery = {
       // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-      datefrom: (datefrom as any).toISOString(),
-      dateto: (dateto as any).toISOString(),
+      datefrom: datefrom,
+      dateto: dateto,
     };
 
     if (patientCode != null) {
