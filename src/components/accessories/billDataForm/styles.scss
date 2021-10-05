@@ -3,7 +3,7 @@
 
 .billDataForm {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   background-color: $c-white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
@@ -31,12 +31,10 @@
     width: 60%;
     row-gap: 8px;
     @include susy-media($narrow) {
-      border-right: 1px solid gray;
       padding: 10px;
       width: 60%;
     }
     @include susy-media($tablet_land) {
-      border-right: 1px solid gray;
       padding: 10px;
       width: 60%;
     }
@@ -121,12 +119,21 @@
     width: 50%;
   }
 
+  .autocomplete {
+    height: 50;
+  }
+
   .billDataForm__paymentForm {
+    display: flex;
+    flex-direction: column;
     width: 40%;
-    
+    border: 1px gray solid;
+    border-radius: .25em;
+    padding: 8px;
+    row-gap: 8px;
     @include susy-media($narrow) {
-      width: 40%;
       padding: 8px;
+      width: 40%;
     }
     @include susy-media($tablet_land) {
       padding: 8px;
@@ -135,6 +142,30 @@
     @include susy-media($tablet_port) {
     }
     @include susy-media($smartphone) {
+    }
+    .billDataForm__paymentForm_item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-content: space-between;
+      column-gap: 8px;
+      row-gap: 16px;
+      padding: 4px;
+      align-items: flex-start;
+
+      @include susy-media($tablet_land) {
+        grid-template-columns: 1fr;
+      }
+
+      @include susy-media($tablet_port) {
+        grid-template-columns: 1fr;
+      }
+      @include susy-media($smartphone) {
+        grid-template-columns: 1fr;
+      }
+
+      .autocomplete, .textField, .smallButton {
+        width: 100%;
+      }
     }
   }
 

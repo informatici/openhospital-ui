@@ -116,9 +116,9 @@ const BillDataForm: FunctionComponent = ({}) => {
             <TextField
               field={formik.getFieldProps("firstName")}
               theme="regular"
-              label={t("patient.firstname")}
+              label={t("bill.unit")}
               isValid={true}
-              errorText={"IvalidValue"}
+              errorText={"Ivalid Value"}
               onBlur={formik.handleBlur}
             />
             <SmallButton type="submit" disabled={false}>
@@ -127,7 +127,47 @@ const BillDataForm: FunctionComponent = ({}) => {
           </div>
         </fieldset>
       </form>
-      <form className="billDataForm__paymentForm"></form>
+      <form className="billDataForm__paymentForm">
+        <div className="billDataForm__paymentForm_item">
+          <AutocompleteField
+            fieldName="itemType"
+            fieldValue={formik.values.exam}
+            label={t("bill.itemType")}
+            isValid={true}
+            errorText={"Invalid Item Type"}
+            onBlur={() => {}}
+            options={[]}
+            isLoading={false}
+          />
+          <TextField
+            field={formik.getFieldProps("firstName")}
+            theme="regular"
+            label={t("bill.customDescription")}
+            isValid={true}
+            errorText={"Ivalid Value"}
+            onBlur={formik.handleBlur}
+          />
+          <TextField
+            field={formik.getFieldProps("firstName")}
+            theme="regular"
+            label={t("bill.customUnitPrice")}
+            isValid={true}
+            errorText={"Ivalid Value"}
+            onBlur={formik.handleBlur}
+          />
+          <TextField
+            field={formik.getFieldProps("firstName")}
+            theme="regular"
+            label={t("bill.unit")}
+            isValid={true}
+            errorText={"Ivalid Value"}
+            onBlur={formik.handleBlur}
+          />
+          <SmallButton type="submit" disabled={false}>
+            {t("bill.addPayment")}
+          </SmallButton>
+        </div>
+      </form>
     </div>
   );
 };
