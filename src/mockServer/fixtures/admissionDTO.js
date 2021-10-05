@@ -23,7 +23,7 @@ export const admissionDTO =
         firstName: "Mario",
         secondName: "Rossia",
         name: "Mario Rossia",
-        birthDate: "1630077584911",
+        birthDate: "1975-03-02T14:58:00.000Z",
         age: 0,
         agetype: "null",
         sex: "M",
@@ -44,7 +44,7 @@ export const admissionDTO =
         blobPhoto: "",
         hashCode: 0
     },
-    admDate: "1630059584000",
+    admDate: "2021-08-27T10:19:44.000Z",
     admType: {
         code: "I",
         description: "SELF"

@@ -2,7 +2,7 @@ const patientDTO = {
   code: 1,
   firstName: "Antonio Carlos",
   secondName: "Jobim",
-  birthDate: "683510400000",
+  birthDate: "1991-08-30T00:00:00.000Z",
   age: 40,
   agetype: "year",
   sex: "M",
