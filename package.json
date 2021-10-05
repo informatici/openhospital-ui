@@ -43,6 +43,7 @@
     "lodash.set": "^4.3.2",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
+    "numbro": "^2.3.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.8.8",

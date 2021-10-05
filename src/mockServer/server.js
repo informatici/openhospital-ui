@@ -47,7 +47,6 @@ export function makeServer() {
     examRowRoutes(server);
     pricesRoutes(server);
     billRoutes(server);
-
   });
   return server;
 }

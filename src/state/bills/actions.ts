@@ -22,7 +22,11 @@ import {
   GET_BILL_LOADING,
   GET_BILL_SUCCESS,
   GET_BILL_FAIL,
+  PENDING_BILL_SUCCESS,
+  PENDING_BILL_FAIL,
+  PENDING_BILL_LOADING,
 } from "./consts";
+import { TFilterValues } from "../../components/accessories/billTable/types";
 
 const billControllerApi = new BillControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -92,7 +96,7 @@ export const getPendingBills =
   (patientCode: number) =>
   (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
     dispatch({
-      type: SEARCH_BILL_LOADING,
+      type: PENDING_BILL_LOADING,
     });
     billControllerApi
       .getPendingBillsUsingGET({
@@ -104,38 +108,44 @@ export const getPendingBills =
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: SEARCH_BILL_SUCCESS,
+              type: PENDING_BILL_SUCCESS,
               payload: payload,
             });
           } else {
             dispatch({
-              type: SEARCH_BILL_SUCCESS,
+              type: PENDING_BILL_SUCCESS,
               payload: [],
             });
           }
         },
         (error) => {
           dispatch({
-            type: SEARCH_BILL_FAIL,
+            type: PENDING_BILL_FAIL,
             error,
           });
         }
       );
   };
 export const searchBills =
-  (datefrom: string, dateto: string, patientCode: number) =>
+  (filter: TFilterValues) =>
   (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
     dispatch({
       type: SEARCH_BILL_LOADING,
     });
     billControllerApi
       .searchBillsUsingGET({
-        datefrom,
-        dateto,
-        patientCode,
+        datefrom: filter.fromDate,
+        dateto: filter.toDate,
+        patientCode: filter.patientCode,
       })
-      .pipe(switchMap((bills) => getPayments(bills)))
-      .pipe(switchMap((payments) => getItems(payments)))
+      .pipe(
+        switchMap((bills) => getPayments(bills)),
+        catchError((error) => of([]))
+      )
+      .pipe(
+        switchMap((payments) => getItems(payments)),
+        catchError((error) => of([]))
+      )
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
@@ -160,6 +170,7 @@ export const searchBills =
   };
 
 const getPayments = (bills: BillDTO[]): Observable<FullBillDTO[]> => {
+  if (bills.length === 0) return of([]);
   const fbills = forkJoin(
     bills.map((bill: BillDTO) => {
       const obs = billControllerApi.getPaymentsByBillIdUsingGET({
@@ -181,6 +192,7 @@ const getPayments = (bills: BillDTO[]): Observable<FullBillDTO[]> => {
 };
 
 const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
+  if (bills.length === 0) return of([]);
   const fbills = forkJoin(
     bills.map((fbill: FullBillDTO) => {
       const obs = billControllerApi.getItemsUsingGET({
@@ -198,5 +210,6 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
       );
     })
   );
+
   return fbills;
 };

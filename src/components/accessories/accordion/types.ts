@@ -1,7 +1,7 @@
 export interface IPropsSummary {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export interface IProps {
-  expanded: boolean; 
+  expanded?: boolean;
 }

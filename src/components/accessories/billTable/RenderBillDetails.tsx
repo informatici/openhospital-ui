@@ -13,6 +13,7 @@ import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { FullBillDTO } from "../../../generated";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import "./styles.scss";
 
@@ -36,12 +37,6 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 5,
   },
 }));
-
-const currencyFormat = (num: number | undefined) => {
-  return num
-    ? "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-    : "";
-};
 
 const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
   const classes = useStyles();
@@ -85,7 +80,7 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
                 <TableRow>
                   <TableCell className={classes.tableCell}>
                     <Link
-                      to={`/details/${fullBill.billDTO?.patientDTO?.code}/edit`}
+                      to={`/details/${fullBill.billDTO?.patientDTO?.code}`}
                       style={{ textDecoration: "none" }}
                     >
                       <strong>{fullBill.billDTO?.patName}</strong>

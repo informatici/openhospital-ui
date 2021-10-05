@@ -12,11 +12,10 @@ import {
 import { IState } from "../../../types";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import DateField from "../dateField/DateField";
-import { initialFields } from "./consts";
 import { searchPatient } from "../../../state/patients/actions";
 
 import "./styles.scss";
-import { BillFilterProps, TValues } from "./types";
+import { BillFilterProps, TBillFilterValues, TValues } from "./types";
 import { PatientDTO } from "../../../generated";
 import SmallButton from "../smallButton/SmallButton";
 import moment from "moment";
@@ -73,12 +72,16 @@ const BillFilterForm: FC<BillFilterProps> = ({
   };
 
   const initialValues = getFromFields(fields, "value");
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: false,
     onSubmit: (values) => {
-      const formattedValues = formatAllFieldValues(initialFields, values);
+      const formattedValues = formatAllFieldValues(
+        fields,
+        values
+      ) as TBillFilterValues;
       onSubmit(formattedValues);
     },
   });
@@ -147,12 +150,12 @@ const BillFilterForm: FC<BillFilterProps> = ({
             <div className="fullWidth filterBillForm__item">
               <AutocompleteField
                 theme={"light"}
-                fieldName="patient"
+                fieldName="patientCode"
                 fieldValue={formik.values.patient}
                 label={t("bill.patient")}
-                isValid={isValid("patient")}
-                errorText={getErrorText("patient")}
-                onBlur={onBlurCallback("patient")}
+                isValid={isValid("patientCode")}
+                errorText={getErrorText("patientCode")}
+                onBlur={onBlurCallback("patientCode")}
                 isLoading={searchStatus === "LOADING"}
                 options={renderOptions(patientSearchResults)}
                 onInputChange={handlePatientSearchChange}
