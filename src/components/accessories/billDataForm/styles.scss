@@ -7,40 +7,68 @@
   background-color: $c-white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-  margin-bottom: 60px;
-  padding: 20px;
+  margin-bottom: 55px;
+  padding: 8px;
+  column-gap: 16px;
   width: 100%;
   @include susy-media($narrow) {
-    padding: 20px;
+    padding: 4px;
   }
   @include susy-media($tablet_land) {
-    padding: 20px;
+    padding: 4px;
   }
   @include susy-media($tablet_port) {
-    padding: 10px;
+    padding: 4px;
     flex-wrap: wrap;
   }
   @include susy-media($smartphone) {
-    padding: 10px;
+    padding: 4px;
     flex-wrap: wrap;
+  }
+
+  .billDataForm_footer {
+    display: flex;
+    padding-bottom: 8px;
+    font-weight: 500;
+    font-size: 16;
+    justify-content: center;
+    text-align: center;
+    justify-content: space-around;
+      :first-child {
+        text-align: start;
+      }
+      :last-child {
+        text-align: end;
+      }
+    
   }
 
   .billDataForm__billForm {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 55%;
     row-gap: 8px;
     @include susy-media($narrow) {
-      padding: 10px;
-      width: 60%;
+      padding: 4px;
+      width: 55%;
     }
     @include susy-media($tablet_land) {
-      padding: 10px;
-      width: 60%;
+      padding: 4px;
+      width: 55%;
     }
     @include susy-media($tablet_port) {
     }
     @include susy-media($smartphone) {
+    }
+
+    .autocomplete {
+      margin-top: 0px !important;
+    }
+
+    .autocomplete, .smallButton {
+      input{
+        height: 30px !important;
+      }
     }
 
     .billDataForm__billForm_item {
@@ -84,9 +112,9 @@
       border-radius: .25em;
     }
 
-    .billDataForm__billForm_item2 {
+    .billDataForm__billForm_item2  {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       justify-content: space-between;
       column-gap: 8px;
       row-gap: 16px;
@@ -98,10 +126,14 @@
       }
 
       @include susy-media($tablet_port) {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
       }
       @include susy-media($smartphone) {
         grid-template-columns: 1fr;
+      }
+
+      .smallButton {
+        margin-top: 12px !important;
       }
 
       .autocomplete, .textField, .smallButton {
@@ -119,25 +151,26 @@
     width: 50%;
   }
 
-  .autocomplete {
-    height: 50;
+  .billDataForm_subtitle {
+    padding-left: 4px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5em;
   }
 
   .billDataForm__paymentForm {
     display: flex;
     flex-direction: column;
-    width: 40%;
-    border: 1px gray solid;
+    width: 45%;
     border-radius: .25em;
-    padding: 8px;
     row-gap: 8px;
     @include susy-media($narrow) {
       padding: 8px;
-      width: 40%;
+      width: 45%;
     }
     @include susy-media($tablet_land) {
       padding: 8px;
-      width: 40%;
+      width: 45%;
     }
     @include susy-media($tablet_port) {
     }
@@ -165,6 +198,11 @@
 
       .autocomplete, .textField, .smallButton {
         width: 100%;
+      }
+      .textField {
+        input {
+          height: 10px;
+        }
       }
     }
   }
@@ -221,7 +259,7 @@
       .MuiButton-label {
         font-size: smaller;
         letter-spacing: 1px;
-        font-weight: 600;
+        font-weight: 550;
       }
       button {
         @include susy-media($smartphone_small) {

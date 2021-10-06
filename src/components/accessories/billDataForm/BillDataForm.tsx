@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,19 +25,29 @@ import { TProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
+import { PaymentTable } from "./PaymentTable";
+import Table from "../table/Table";
+import { BillItemTable } from "./BillItemTable";
 
 const BillDataForm: FunctionComponent = ({}) => {
   const { t } = useTranslation();
 
   const validationSchema = object({
-    firstName: string().required(t("common.required")),
-    secondName: string().required(t("common.required")),
-    birthDate: string().required(t("common.required")),
-    sex: string().required(t("common.required")),
-    telephone: string().matches(
-      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-      t("common.incorrectformat")
-    ),
+    date: string().required(t("common.required")),
+    listName: string().required(t("common.required")),
+    patName: string().required(t("common.required")),
+  });
+
+  const itemValidationSchema = object({
+    typeName: string().required(t("common.required")),
+    itemName: string().required(t("common.required")),
+    unit: number().required(t("common.required")),
+  });
+
+  const paymentValidationSchema = object({
+    typeName: string().required(t("common.required")),
+    itemName: string().required(t("common.required")),
+    unit: number().required(t("common.required")),
   });
 
   const initialValues = getFromFields({}, "value");
@@ -57,6 +67,7 @@ const BillDataForm: FunctionComponent = ({}) => {
   return (
     <div className="billDataForm">
       <form className="billDataForm__billForm">
+        <div className="billDataForm_subtitle">{t("bill.subtitle")}</div>
         <div className="billDataForm__billForm_item">
           <DateField
             label="Date"
@@ -122,17 +133,24 @@ const BillDataForm: FunctionComponent = ({}) => {
               onBlur={formik.handleBlur}
             />
             <SmallButton type="submit" disabled={false}>
-              Add Item
+              {t("bill.addItem")}
             </SmallButton>
           </div>
         </fieldset>
+        <div className="billItemContainer">
+          <BillItemTable></BillItemTable>
+        </div>
+        <div className="billDataForm_footer">
+          <span>{t("bill.total")} : $240</span>
+        </div>
       </form>
       <form className="billDataForm__paymentForm">
+        <div className="billDataForm_subtitle">{t("payment.subtitle")}</div>
         <div className="billDataForm__paymentForm_item">
           <AutocompleteField
             fieldName="itemType"
             fieldValue={formik.values.exam}
-            label={t("bill.itemType")}
+            label={t("payment.type")}
             isValid={true}
             errorText={"Invalid Item Type"}
             onBlur={() => {}}
@@ -142,23 +160,7 @@ const BillDataForm: FunctionComponent = ({}) => {
           <TextField
             field={formik.getFieldProps("firstName")}
             theme="regular"
-            label={t("bill.customDescription")}
-            isValid={true}
-            errorText={"Ivalid Value"}
-            onBlur={formik.handleBlur}
-          />
-          <TextField
-            field={formik.getFieldProps("firstName")}
-            theme="regular"
-            label={t("bill.customUnitPrice")}
-            isValid={true}
-            errorText={"Ivalid Value"}
-            onBlur={formik.handleBlur}
-          />
-          <TextField
-            field={formik.getFieldProps("firstName")}
-            theme="regular"
-            label={t("bill.unit")}
+            label={t("payment.amount")}
             isValid={true}
             errorText={"Ivalid Value"}
             onBlur={formik.handleBlur}
@@ -166,6 +168,13 @@ const BillDataForm: FunctionComponent = ({}) => {
           <SmallButton type="submit" disabled={false}>
             {t("bill.addPayment")}
           </SmallButton>
+        </div>
+        <div>
+          <PaymentTable></PaymentTable>
+        </div>
+        <div className="billDataForm_footer">
+          <span>{t("bill.toPay")} : $240</span>
+          <span>{t("bill.balance")} : $48</span>
         </div>
       </form>
     </div>
