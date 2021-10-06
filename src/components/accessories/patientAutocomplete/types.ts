@@ -12,6 +12,6 @@ export interface IProps {
   disabled?: boolean;
   options: Array<PatientDTO>;
   theme?: string;
-  onInputChange?: (e: any, value: any) => void;
+  onInputChange?: (e: any, value: string, criteria: string) => void;
   freeSolo?: boolean;
 }

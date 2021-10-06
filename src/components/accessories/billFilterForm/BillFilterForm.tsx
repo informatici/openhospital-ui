@@ -31,10 +31,19 @@ const BillFilterForm: FC<BillFilterProps> = ({
 
   const [searchPatientParams, setSearchPatientParams] = useState({} as TValues);
 
-  const handlePatientSearchChange = (event: any, value: string) => {
+  const handlePatientSearchChange = (
+    event: any,
+    value: string,
+    criteria: string
+  ) => {
     setSearchPatientParams({
-      secondName: value,
+      id: criteria === "C" ? value : "",
+      firstName: criteria === "F" ? value : "",
+      secondName: criteria === "S" ? value : "",
+      birthDate: criteria === "B" ? value : "",
+      address: criteria === "A" ? value : "",
     } as TValues);
+    console.log("criteria:", criteria);
     dispatch(searchPatient(searchPatientParams));
   };
 
@@ -60,17 +69,6 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const searchStatus = useSelector<IState>(
     (state) => state.patients.searchResults.status || "IDLE"
   );
-
-  const renderOptions = (data: PatientDTO[] | undefined) => {
-    if (data) {
-      return data.map((item) => {
-        return {
-          value: item.code + "",
-          label: item.code + "-" + item.firstName + " " + item.secondName,
-        };
-      });
-    } else return [];
-  };
 
   const initialValues = getFromFields(fields, "value");
 
@@ -110,6 +108,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
+        console.log("value patient choose", value);
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]

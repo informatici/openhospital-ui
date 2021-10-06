@@ -33,6 +33,7 @@
   input {
     padding-top: 15px;
     padding-bottom: 15px;
+    width: 70%;
     // font-size: small;
   }
   .MuiFormLabel-root {
@@ -87,7 +88,40 @@
   }
 
   .MuiAutocomplete-root fieldset:hover{
-   border-color: #2196F3 !important;
+    border-color: #2196F3 !important;
+  }
+
+  .inputSelect {
+    position: relative;
+   }
+
+  .inputSelect TextField{
+      width: 70%;
+      padding-left: 40px;     
+  }
+
+  .inputSelect select {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    z-index: 3;
+    border-color: $c-white;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .MuiAutocomplete-clearIndicator {
+    margin-right: 40px;
+  }
+  
+  .render_option {
+    display: flex;
+    align-items: center;
+    position: relative;
   }
 }
+
+
+
+
 
