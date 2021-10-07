@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -10,7 +10,6 @@ import {
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
 import { IState } from "../../../types";
-import AutocompleteField from "../autocompleteField/AutocompleteField";
 import DateField from "../dateField/DateField";
 import { searchPatient } from "../../../state/patients/actions";
 
@@ -29,22 +28,19 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [searchPatientParams, setSearchPatientParams] = useState({} as TValues);
-
   const handlePatientSearchChange = (
     event: any,
     value: string,
     criteria: string
   ) => {
-    setSearchPatientParams({
+    const searchValues: TValues = {
       id: criteria === "C" ? value : "",
       firstName: criteria === "F" ? value : "",
       secondName: criteria === "S" ? value : "",
       birthDate: criteria === "B" ? value : "",
       address: criteria === "A" ? value : "",
-    } as TValues);
-    console.log("criteria:", criteria);
-    dispatch(searchPatient(searchPatientParams));
+    };
+    dispatch(searchPatient(searchValues));
   };
 
   const validationSchema = object({
@@ -108,7 +104,6 @@ const BillFilterForm: FC<BillFilterProps> = ({
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
-        console.log("value patient choose", value);
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]

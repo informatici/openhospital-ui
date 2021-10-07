@@ -6,6 +6,7 @@ import {
 } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import React, {
+  FC,
   Fragment,
   FunctionComponent,
   useCallback,
@@ -19,6 +20,7 @@ import { IProps } from "./types";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 
 import $ from "jquery";
+import { Room, RoomOutlined } from "@material-ui/icons";
 
 const CustomPaper = (props: any) => {
   return (
@@ -71,12 +73,12 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
     ),
     []
   );
-
+  //this object is used as a prop for profile component style
   const profileStyle = {
     height: "50px",
     width: "50px",
-    paddingRight: "10px",
   };
+
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
 
@@ -106,7 +108,7 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
         getOptionSelected={(option, v) => option.code === v.code}
         PaperComponent={CustomPaper}
         renderOption={(option) => (
-          <div className="render_option">
+          <div>
             <span>
               <ProfilePicture
                 style={profileStyle}
@@ -142,7 +144,7 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
               <option value="C">Code</option>
               <option value="F">First</option>
               <option value="S">Last</option>
-              <option value="A">@</option>
+              <option value="A">Addr</option>
               <option value="B">Birth</option>
             </select>
             <TextField
