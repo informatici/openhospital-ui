@@ -34,12 +34,18 @@
     justify-content: center;
     text-align: center;
     justify-content: space-around;
-      :first-child {
-        text-align: start;
-      }
-      :last-child {
-        text-align: end;
-      }
+    :first-child {
+      text-align: start;
+    }
+    :last-child {
+      text-align: end;
+    }
+
+    :only-child, :not(:only-child) {
+      border: .5px solid gray;
+      padding: 8px;
+      border-bottom-right-radius: 10px;
+    }
     
   }
 
@@ -67,7 +73,13 @@
 
     .autocomplete, .smallButton {
       input{
-        height: 30px !important;
+        height: 28px !important;
+      }
+    }
+
+    .billDataForm__billForm_item .textField {
+      input{
+        height: 19px !important;
       }
     }
 
@@ -89,7 +101,7 @@
         flex-direction: column;
       }
 
-      .autocomplete, .dateField {
+      .autocomplete, .dateField, .textField {
         width: 48%;
         @include susy-media($tablet_land) {
           width: 100%;
@@ -110,6 +122,8 @@
       margin-top: 8px;
       border: 1px gray solid;
       border-radius: .25em;
+      display: flex;
+      flex-direction: column;
     }
 
     .billDataForm__billForm_item2  {
@@ -119,7 +133,7 @@
       column-gap: 8px;
       row-gap: 16px;
       padding: 4px;
-      align-items: center;
+      align-items: flex-end;
 
       @include susy-media($tablet_land) {
         grid-template-columns: 1fr 1fr;
@@ -156,6 +170,26 @@
     text-align: center;
     font-weight: 700;
     font-size: 1.5em;
+  }
+
+  .billDataForm_submit {
+    padding-inline: 4px;
+    align-self: center;
+    @include susy-media($narrow) {
+      align-self: center;
+    }
+    @include susy-media($tablet_land) {
+      align-self: center;
+    }
+    @include susy-media($tablet_port) {
+      align-self: center;
+    }
+    @include susy-media($smartphone) {
+      align-self: center;
+    }
+    .smallButton {
+      width: 150px;
+    }
   }
 
   .billDataForm__paymentForm {
@@ -203,6 +237,16 @@
         input {
           height: 10px;
         }
+      }
+    }
+
+    .billDataForm__paymentForm_item2 {
+      display: grid;
+      column-gap: 8px;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      .smallButton {
+        width: 100%;
       }
     }
   }

@@ -30,11 +30,10 @@ const PaymentTable: React.FC = () => {
       tableHeader={header}
       labelData={label}
       columnsOrder={order}
-      rowsPerPage={3}
+      rowsPerPage={20}
       onDelete={() => {}}
       isCollapsabile={false}
       onEdit={() => {}}
-      onView={() => {}}
     />
   );
 };

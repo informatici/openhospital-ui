@@ -5,6 +5,11 @@ interface IOwnProps {
   resetFormCallback: () => void;
 }
 
+export interface BillItemType {
+  value: string;
+  label: string;
+}
+
 export type TProps = IForm<TBillDataFormFieldName, BillDTO> & IOwnProps;
 
 export type TBillDataFormFieldName =

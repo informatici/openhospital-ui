@@ -1,43 +1,47 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { BillDTO, BillItemsDTO, FullBillDTO } from "../../../generated";
 import Table from "../table/Table";
 
-const createFakeBill = (item: string, quantity: number, amount: number) => {
-  return { item, quantity, amount };
-};
+interface IOwnProps {
+  shouldUpdateTable: boolean;
+  handleEdit: (row: any) => void;
+  handleDelete: (code: number | undefined) => void;
+  billItems: BillItemsDTO[];
+}
 
-const billItemRows = [
-  createFakeBill("Amoxiciline", 4, 3500),
-  createFakeBill("Amoxiciline", 5, 10000),
-  createFakeBill("Amoxiciline", 10, 6500),
-  createFakeBill("Amoxiciline", 8, 15000),
-];
-
-const BillItemTable: React.FC = () => {
+const BillItemTable: React.FC<IOwnProps> = ({
+  handleDelete,
+  handleEdit,
+  shouldUpdateTable,
+  billItems,
+}) => {
   const { t } = useTranslation();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["item", "quantity", "amount"];
+  const header = ["itemDescription", "itemQuantity", "itemAmount"];
 
   const label = {
-    item: t("billItem.item"),
-    quantity: t("billItem.quantity"),
-    amount: t("billItem.amount"),
+    itemDescription: t("bill.item"),
+    itemQuantity: t("bill.quantity"),
+    itemAmount: t("bill.amount"),
   };
-  const order = ["amount", "item"];
+  const order = ["itemAmount", "itemDescription", "itemAmount"];
+
+  useEffect(() => {});
 
   return (
     <Table
-      rowData={billItemRows}
+      rowData={billItems}
       tableHeader={header}
       labelData={label}
       columnsOrder={order}
-      rowsPerPage={3}
+      rowsPerPage={20}
       onDelete={() => {}}
       isCollapsabile={false}
       onEdit={() => {}}
-      onView={() => {}}
     />
   );
 };
 
-export { BillItemTable, billItemRows };
+export { BillItemTable };
