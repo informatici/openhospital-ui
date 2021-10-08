@@ -1,8 +1,8 @@
-import { TFields } from "../../../../libraries/formDataHandling/types";
-import { TPatientSearchFormFieldName } from "../types";
+import { TFields } from "../../../libraries/formDataHandling/types";
+import { TPatientSearchFormFieldName } from "./types";
 
 export const initialFields: TFields<TPatientSearchFormFieldName> = {
-  patientCode: {
+  id: {
     value: "",
     type: "number",
   },
@@ -18,7 +18,7 @@ export const initialFields: TFields<TPatientSearchFormFieldName> = {
     value: "",
     type: "text",
   },
-  birthDay: {
+  birthDate: {
     value: "",
     type: "date",
   },

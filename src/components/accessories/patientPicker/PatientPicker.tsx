@@ -12,10 +12,10 @@ import {
   InputAdornment,
   Toolbar,
   Typography,
-  Paper,
   SvgIcon,
+  FormHelperText,
 } from "@material-ui/core";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useState, useRef, useEffect } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
@@ -41,11 +41,22 @@ import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
 import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
+import InfoBox from "../infoBox/InfoBox";
+import { TValues } from "../../activities/searchPatientActivity/types";
 
-const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
+const PatientPicker: FC<IProps> = ({
+  fieldName,
+  fieldValue,
+  isValid,
+  errorText,
+  onBlur,
+  label,
+  theme,
+}) => {
   const [value, setValue] = useState({} as PatientDTO);
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const inputRef = useRef<any>(null);
 
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
@@ -60,10 +71,6 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
   const handleCriteriaChange = (event: any) => {
     handleOpen();
   };
-  const [change, setChange] = useState(false);
-  const handleMouseDownSearch = () => {
-    setChange(true);
-  };
 
   const initialValues = getFromFields(initialFields, "value");
 
@@ -75,7 +82,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(initialFields, values);
-      dispatch(searchPatient(formattedValues as any));
+      dispatch(searchPatient(formattedValues as TValues));
     },
   });
 
@@ -92,7 +99,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
     [setFieldValue]
   );
 
-  const isValid = (fieldName: string): boolean => {
+  const fieldIsValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
 
@@ -107,8 +114,121 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
     handleClose();
   };
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [value]);
+
+  useEffect(() => {
+    const pat = patientData?.find((item) => item.code === fieldValue);
+    pat ? setValue(pat) : setValue({});
+  }, [fieldValue]);
+
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    onBlur(e, value);
+    if (value) onBlur(e, value);
+  };
+
+  const searchStatus = useSelector<IState, string | undefined>(
+    (state) => state.patients.searchResults.status
+  );
+  const renderSearch = (): JSX.Element | undefined => {
+    switch (searchStatus) {
+      case "IDLE":
+        return;
+
+      case "LOADING":
+        return <h3>{t("common.searching")}</h3>;
+
+      case "SUCCESS":
+        return (
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            justify="flex-start"
+            alignItems="flex-start"
+          >
+            {patientData?.map((patient) => {
+              return (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={4}
+                  xl={3}
+                  key={patientData.indexOf(patient)}
+                >
+                  <Card
+                    className="patient_card"
+                    onClick={() => handleClick(patient)}
+                  >
+                    <CardActionArea>
+                      <ProfilePicture style={profileStyle} isEditable={false} />
+                      <CardContent className="patient_card_content">
+                        <Typography
+                          gutterBottom
+                          variant="h6"
+                          component="h6"
+                          style={{ fontSize: 16 }}
+                          className="attribute_item"
+                        >
+                          {patient.firstName}
+                          {patient.sex === "M" ? (
+                            <SvgIcon className="imageIcon">
+                              <MaleIcon />
+                            </SvgIcon>
+                          ) : (
+                            <SvgIcon className="imageIcon">
+                              <FemaleIcon />
+                            </SvgIcon>
+                          )}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                          className="attribute_item"
+                        >
+                          <Phone />
+                          {patient.telephone}
+                        </Typography>
+
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                          className="attribute_item"
+                        >
+                          <Room />
+                          {patient.address}
+                        </Typography>
+
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                          className="attribute_item"
+                        >
+                          <Cake />
+                          {patient.birthDate
+                            ? renderDate(patient.birthDate)
+                            : ""}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        );
+
+      case "SUCCESS_EMPTY":
+        return <InfoBox type="warning" message={t("common.searchnotfound")} />;
+
+      default:
+        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+    }
   };
 
   return (
@@ -116,23 +236,24 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
       <FormControl variant="outlined" className={actualClassName}>
         <MaterialComponent
           id="patient_search"
-          //autoFocus
+          inputRef={inputRef}
           label={label}
+          name={fieldName}
           variant="outlined"
-          value={value?.firstName}
+          value={value.firstName ?? ""}
           type={"text"}
           onBlur={handleOnBlur}
-          onMouseDown={handleMouseDownSearch}
           InputLabelProps={{ shrink: true }}
+          error={isValid}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {!value.firstName ? (
+                {!value?.firstName ? (
                   <IconButton
                     aria-label="toggle patient search"
                     onClick={handleCriteriaChange}
                   >
-                    {change && <Search style={{ color: "white", right: 0 }} />}
+                    <Search />
                   </IconButton>
                 ) : (
                   <IconButton
@@ -150,10 +271,11 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
             ),
           }}
         />
+        <FormHelperText error>{errorText || ""}</FormHelperText>
       </FormControl>
       <Dialog
         id="patient_search-dialog"
-        title="patient_search-dialog"
+        title="Patient Search Dialog"
         open={open}
         onClose={handleClose}
       >
@@ -167,7 +289,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
             >
               <GridCloseIcon />
             </IconButton>
-            <Typography style={{ flex: 3 }} variant="h6" component="div">
+            <Typography style={{ flex: 1 }} variant="h6" component="div">
               {t("patient.search")}
             </Typography>
           </Toolbar>
@@ -178,11 +300,11 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
               <div className="row start-sm center-xs">
                 <div className="patientSearchForm__item">
                   <TextField
-                    field={formik.getFieldProps("patientCode")}
+                    field={formik.getFieldProps("id")}
                     theme="regular"
                     label={t("patient.code")}
-                    isValid={isValid("patientCode")}
-                    errorText={getErrorText("patientCode")}
+                    isValid={fieldIsValid("id")}
+                    errorText={getErrorText("id")}
                     onBlur={formik.handleBlur}
                     type="number"
                   />
@@ -192,7 +314,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
                     field={formik.getFieldProps("firstName")}
                     theme="regular"
                     label={t("patient.firstname")}
-                    isValid={isValid("firstName")}
+                    isValid={fieldIsValid("firstName")}
                     errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
                     type="text"
@@ -203,7 +325,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
                     field={formik.getFieldProps("secondName")}
                     theme="regular"
                     label={t("patient.secondname")}
-                    isValid={isValid("secondName")}
+                    isValid={fieldIsValid("secondName")}
                     errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
                     type="text"
@@ -216,7 +338,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
                     field={formik.getFieldProps("address")}
                     theme="regular"
                     label={t("patient.address")}
-                    isValid={isValid("address")}
+                    isValid={fieldIsValid("address")}
                     errorText={getErrorText("address")}
                     onBlur={formik.handleBlur}
                     type="text"
@@ -224,15 +346,15 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
                 </div>
                 <div className="patientSearchForm__item">
                   <DateField
-                    fieldName="birthDay"
-                    fieldValue={formik.values.birthDay}
+                    fieldName="birthDate"
+                    fieldValue={formik.values.birthDate}
                     disableFuture={true}
                     theme="regular"
                     format="dd/MM/yyyy"
-                    isValid={isValid("birthDay")}
-                    errorText={getErrorText("birthDay")}
+                    isValid={fieldIsValid("birthDate")}
+                    errorText={getErrorText("birthDate")}
                     label={t("patient.birthdate")}
-                    onChange={dateFieldHandleOnChange("birthDay")}
+                    onChange={dateFieldHandleOnChange("birthDate")}
                   />
                 </div>
                 <div className="patientSearchForm__item submit_button">
@@ -240,96 +362,11 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, label, theme }) => {
                 </div>
               </div>
             </form>
-            <div className="patientSearchResult">
-              <Grid
-                container
-                spacing={2}
-                direction="row"
-                justify="flex-start"
-                alignItems="flex-start"
-              >
-                {patientData?.map((patient) => {
-                  return (
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={4}
-                      lg={4}
-                      xl={3}
-                      key={patientData.indexOf(patient)}
-                    >
-                      <Card
-                        className="patient_card"
-                        onClick={() => handleClick(patient)}
-                      >
-                        <CardActionArea>
-                          <ProfilePicture
-                            style={profileStyle}
-                            isEditable={false}
-                          />
-                          <CardContent className="patient_card_content">
-                            <Typography
-                              gutterBottom
-                              variant="h6"
-                              component="h6"
-                              style={{ fontSize: 16 }}
-                              className="attribute_item"
-                            >
-                              {patient.firstName}
-                              {patient.sex === "M" ? (
-                                <SvgIcon className="imageIcon">
-                                  <MaleIcon />
-                                </SvgIcon>
-                              ) : (
-                                <SvgIcon className="imageIcon">
-                                  <FemaleIcon />
-                                </SvgIcon>
-                              )}
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                              className="attribute_item"
-                            >
-                              <Phone />
-                              {patient.telephone}
-                            </Typography>
-
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                              className="attribute_item"
-                            >
-                              <Room />
-                              {patient.address}
-                            </Typography>
-
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                              className="attribute_item"
-                            >
-                              <Cake />
-                              {patient.birthDate
-                                ? renderDate(patient.birthDate)
-                                : ""}
-                            </Typography>
-                          </CardContent>
-                        </CardActionArea>
-                      </Card>
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </div>
+            <div className="patientSearchResult">{renderSearch()}</div>
           </div>
         </DialogContent>
       </Dialog>
     </div>
   );
 };
-export default PatientAutocomplete;
+export default PatientPicker;

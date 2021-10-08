@@ -3,22 +3,19 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FC, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { IState } from "../../../types";
 import DateField from "../dateField/DateField";
-import { searchPatient } from "../../../state/patients/actions";
 
 import "./styles.scss";
-import { BillFilterProps, TBillFilterValues, TValues } from "./types";
+import { BillFilterProps, TBillFilterValues } from "./types";
 import { PatientDTO } from "../../../generated";
 import SmallButton from "../smallButton/SmallButton";
 import moment from "moment";
-import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
+import PatientPicker from "../patientPicker/PatientPicker";
 
 const BillFilterForm: FC<BillFilterProps> = ({
   onSubmit,
@@ -26,23 +23,6 @@ const BillFilterForm: FC<BillFilterProps> = ({
   fields,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const handlePatientSearchChange = (
-    event: any,
-    value: string,
-    criteria: string
-  ) => {
-    const searchValues: TValues = {
-      id: criteria === "C" ? value : "",
-      firstName: criteria === "F" ? value : "",
-      secondName: criteria === "S" ? value : "",
-      birthDate: criteria === "B" ? value : "",
-      address: criteria === "A" ? value : "",
-    };
-    dispatch(searchPatient(searchValues));
-  };
-
   const validationSchema = object({
     fromDate: string().required(),
     toDate: string().test({
@@ -58,16 +38,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
     }),
   });
 
-  const patientSearchResults = useSelector<IState, PatientDTO[] | undefined>(
-    (state) => state.patients.searchResults.data
-  );
-
-  const searchStatus = useSelector<IState>(
-    (state) => state.patients.searchResults.status || "IDLE"
-  );
-
   const initialValues = getFromFields(fields, "value");
-
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -104,7 +75,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLInputElement>, value: PatientDTO) => {
         handleBlur(e);
-        setFieldValue(fieldName, value?.code);
+        setFieldValue(fieldName, value.code ?? "");
       },
     [setFieldValue, handleBlur]
   );
@@ -143,7 +114,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="fullWidth filterBillForm__item">
-              <PatientAutocomplete
+              <PatientPicker
                 theme={"light"}
                 fieldName="patientCode"
                 fieldValue={formik.values.patient}
@@ -151,10 +122,6 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 isValid={isValid("patientCode")}
                 errorText={getErrorText("patientCode")}
                 onBlur={onBlurCallback("patientCode")}
-                isLoading={searchStatus === "LOADING"}
-                options={patientSearchResults ?? []}
-                onInputChange={handlePatientSearchChange}
-                freeSolo={true}
               />
             </div>
           </div>
