@@ -29,7 +29,13 @@ import Table from "../table/Table";
 import { BillItemTable } from "./BillItemTable";
 import { BillDTO, BillItemsDTO, FullBillDTO } from "../../../generated";
 
-const BillDataForm: FunctionComponent = ({}) => {
+const BillDataForm: FunctionComponent<TProps> = ({
+  fields,
+  isLoading,
+  onSubmit,
+  submitButtonLabel,
+  shouldResetForm,
+}) => {
   const billItemRows: BillItemsDTO[] = [
     { itemAmount: 5000, itemQuantity: 10, itemDescription: "Amoxiciline" },
     {
@@ -41,30 +47,33 @@ const BillDataForm: FunctionComponent = ({}) => {
   ];
   const { t } = useTranslation();
 
-  const itemTypes: BillItemType[] = [
-    { value: "med", label: t("bill.medicalType") },
-    { value: "op", label: t("bill.operationType") },
-    { value: "exam", label: t("bill.examenType") },
-    { value: "custom", label: t("bill.customType") },
-  ];
-
-  const validationSchema = object({});
+  const validationSchema = object({
+    billDate: string().required(t("common.required")),
+    patName: string().required(t("common.required")),
+    listName: string().required(t("common.required")),
+  });
 
   const itemValidationSchema = object({
-    typeName: string().required(t("common.required")),
-    itemName: string().required(t("common.required")),
-    unit: number().required(t("common.required")),
+    itemType: string().required(t("common.required")),
+    itemDescription: string().required(t("common.required")),
+    itemAmount: number()
+      .required(t("common.required"))
+      .min(0, t("common.positiveValue")),
+    itemQuantity: number()
+      .required(t("common.required"))
+      .min(0, t("common.positiveValue")),
   });
 
   const paymentValidationSchema = object({
-    typeName: string().required(t("common.required")),
-    itemName: string().required(t("common.required")),
-    unit: number().required(t("common.required")),
+    paymentType: string().required(t("common.required")),
+    paymentAmount: number()
+      .required(t("common.required"))
+      .min(0, t("common.positiveValue")),
   });
 
-  const initialValues = getFromFields({}, "value");
+  const initialValues = getFromFields(fields, "value");
 
-  const options = getFromFields({}, "options");
+  const options = getFromFields(fields, "options");
 
   const handleItemType = (e: any, value: string) => {
     setSelectedItemType(value);
@@ -90,6 +99,90 @@ const BillDataForm: FunctionComponent = ({}) => {
     },
   });
 
+  const itemFormik = useFormik({
+    initialValues,
+    validationSchema: itemValidationSchema,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      //const formattedValues = formatAllFieldValues({}, values);
+      //onSubmit(formattedValues);
+    },
+  });
+
+  const paymentFormik = useFormik({
+    initialValues,
+    validationSchema: paymentValidationSchema,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      console.log(itemFormik.values.itemType);
+      //const formattedValues = formatAllFieldValues({}, values);
+      //onSubmit(formattedValues);
+    },
+  });
+
+  const { setFieldValue, resetForm, handleBlur } = formik;
+
+  const setItemFieldValue = itemFormik.setFieldValue;
+  const resetItemForm = itemFormik.resetForm;
+  const handleItemBlur = itemFormik.handleBlur;
+
+  const setPaymentFieldValue = paymentFormik.setFieldValue;
+  const resetPaymentForm = paymentFormik.resetForm;
+  const handlePaymentBlur = paymentFormik.handleBlur;
+
+  const isValid = (fieldName: string, f: typeof formik): boolean => {
+    return has(f.touched, fieldName) && has(f.errors, fieldName);
+  };
+
+  const getErrorText = (fieldName: string, f: typeof formik): string => {
+    return has(f.touched, fieldName)
+      ? (get(f.errors, fieldName) as string)
+      : "";
+  };
+
+  const dateFieldHandleOnChange = useCallback(
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
+
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
+    [setFieldValue, handleBlur]
+  );
+
+  const onItemBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleItemBlur(e);
+        setItemFieldValue(fieldName, value);
+      },
+    [setItemFieldValue, handleItemBlur]
+  );
+
+  const onPaymentBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handlePaymentBlur(e);
+        setPaymentFieldValue(fieldName, value);
+      },
+    [setPaymentFieldValue, handlePaymentBlur]
+  );
+
   return (
     <form className="billDataForm">
       <div className="billDataForm__billForm">
@@ -98,32 +191,32 @@ const BillDataForm: FunctionComponent = ({}) => {
           <DateField
             label="Date"
             format="dd/MM/yyyy"
-            fieldName="date"
-            errorText=""
+            fieldName="billDate"
+            errorText={getErrorText("billDate", formik)}
             fieldValue={Date.now().toLocaleString()}
-            isValid={false}
+            isValid={isValid("billDate", formik)}
             onChange={() => {}}
           />
           <AutocompleteField
-            fieldName="priceList"
-            fieldValue={formik.values.exam}
-            label={t("bill.priceList")}
-            isValid={false}
-            errorText={""}
-            onBlur={() => {}}
-            options={[]}
+            fieldName="listName"
+            fieldValue={formik.values.listName}
+            label={t("bill.listName")}
+            isValid={isValid("listName", formik)}
+            errorText={getErrorText("listName", formik)}
+            onBlur={onBlurCallback("listName")}
+            options={options.listName}
             isLoading={false}
           />
         </div>
         <div className="billDataForm__billForm_item">
           <AutocompleteField
-            fieldName="patient"
-            fieldValue={formik.values.exam}
+            fieldName="patName"
+            fieldValue={formik.values.patName}
             label={t("bill.patient")}
-            isValid={false}
-            errorText={""}
-            onBlur={() => {}}
-            options={[]}
+            isValid={isValid("patName", formik)}
+            errorText={getErrorText("patName", formik)}
+            onBlur={onBlurCallback("patName")}
+            options={options.patName}
             isLoading={false}
           />
         </div>
@@ -132,60 +225,59 @@ const BillDataForm: FunctionComponent = ({}) => {
           <div className="billDataForm__billForm_item">
             <AutocompleteField
               fieldName="itemType"
-              fieldValue={formik.values.exam}
+              fieldValue={itemFormik.values.itemType}
               label={t("bill.itemType")}
-              isValid={false}
-              errorText={""}
-              onBlur={() => {}}
-              options={itemTypes}
+              isValid={isValid("itemType", itemFormik)}
+              errorText={getErrorText("itemType", itemFormik)}
+              onBlur={onItemBlurCallback("itemType")}
+              options={options.itemType}
               isLoading={false}
-              onInputChange={handleItemType}
             />
             <TextField
-              field={formik.getFieldProps("unit")}
+              field={formik.getFieldProps("itemQuantity")}
               theme="regular"
-              label={t("bill.unit")}
-              isValid={false}
-              errorText={""}
-              onBlur={formik.handleBlur}
+              label={t("bill.itemQuantity")}
+              isValid={isValid("itemQuantity", itemFormik)}
+              errorText={getErrorText("itemQuantity", itemFormik)}
+              onBlur={itemFormik.handleBlur}
             />
           </div>
-          {selectedItemType !== "bill.customType" && (
+          {itemFormik.values.itemType !== "CST" && (
             <div className="billDataForm__billForm_item">
               <AutocompleteField
-                fieldName="item"
-                fieldValue={formik.values.exam}
-                label={t("bill.item")}
-                isValid={false}
-                errorText={""}
-                onBlur={() => {}}
-                options={[]}
+                fieldName="itemDescription"
+                fieldValue={itemFormik.values.itemDescription}
+                label={t("bill.itemDescription")}
+                isValid={isValid("itemDescription", itemFormik)}
+                errorText={getErrorText("itemDescription", itemFormik)}
+                onBlur={onItemBlurCallback("itemDescription")}
+                options={options.itemDescription}
                 isLoading={false}
               />
             </div>
           )}
-          {selectedItemType === "bill.customType" && (
+          {itemFormik.values.itemType === "CST" && (
             <div className="billDataForm__billForm_item">
               <TextField
-                field={formik.getFieldProps("description")}
+                field={itemFormik.getFieldProps("itemDescription")}
                 theme="regular"
-                label={t("bill.customDescription")}
-                isValid={false}
-                errorText={""}
-                onBlur={formik.handleBlur}
+                label={t("bill.itemDescription")}
+                isValid={isValid("itemDescription", itemFormik)}
+                errorText={getErrorText("itemDescription", itemFormik)}
+                onBlur={itemFormik.handleBlur}
               />
               <TextField
-                field={formik.getFieldProps("amount")}
+                field={itemFormik.getFieldProps("itemAmount")}
                 theme="regular"
                 label={t("bill.customAmount")}
-                isValid={false}
-                errorText={""}
-                onBlur={formik.handleBlur}
+                isValid={isValid("itemAmount", itemFormik)}
+                errorText={getErrorText("itemAmount", itemFormik)}
+                onBlur={itemFormik.handleBlur}
               />
             </div>
           )}
           <div className="billDataForm_submit">
-            <SmallButton type="submit" disabled={false}>
+            <SmallButton type="button" disabled={false}>
               {t("bill.addItem")}
             </SmallButton>
           </div>
@@ -206,26 +298,32 @@ const BillDataForm: FunctionComponent = ({}) => {
         <div className="billDataForm_subtitle">{t("bill.payment")}</div>
         <div className="billDataForm__paymentForm_item">
           <AutocompleteField
-            fieldName="itemType"
-            fieldValue={formik.values.exam}
-            label={t("payment.type")}
-            isValid={false}
-            errorText={""}
-            onBlur={() => {}}
-            options={[]}
+            fieldName="paymentType"
+            fieldValue={paymentFormik.values.paymentType}
+            label={t("bill.paymentType")}
+            isValid={isValid("paymentType", paymentFormik)}
+            errorText={getErrorText("paymentType", paymentFormik)}
+            onBlur={onPaymentBlurCallback("paymentType")}
+            options={options.paymentType}
             isLoading={false}
           />
           <TextField
-            field={formik.getFieldProps("firstName")}
+            field={paymentFormik.getFieldProps("paymentAmount")}
             theme="regular"
             label={t("payment.amount")}
-            isValid={false}
-            errorText={""}
-            onBlur={formik.handleBlur}
+            isValid={isValid("paymentAmount", paymentFormik)}
+            errorText={getErrorText("paymentAmount", paymentFormik)}
+            onBlur={paymentFormik.handleBlur}
           />
         </div>
         <div className="billDataForm_submit">
-          <SmallButton type="submit" disabled={false}>
+          <SmallButton
+            type="button"
+            disabled={false}
+            onClick={() => {
+              paymentFormik.handleSubmit();
+            }}
+          >
             {t("bill.addPayment")}
           </SmallButton>
         </div>

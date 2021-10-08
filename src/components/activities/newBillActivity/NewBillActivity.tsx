@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,9 @@ import { useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { TUserCredentials } from "../../../state/main/types";
 import BillDataForm from "../../accessories/billDataForm/BillDataForm";
+import { TActivityTransitionState } from "../billingActivity/types";
+import { FullBillDTO } from "../../../generated";
+import { initialFields } from "./consts";
 
 const NewBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -20,6 +23,30 @@ const NewBillActivity: FC = () => {
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
+
+  const onSubmit = (patient: FullBillDTO) => {};
+
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
+
+  useEffect(() => {
+    if (
+      activityTransitionState === "TO_NEW_BILL" ||
+      activityTransitionState === "TO_MANAGE_BILL"
+    ) {
+      setShouldResetForm(true);
+    }
+  }, [activityTransitionState]);
+
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+
+  const [shouldResetForm, setShouldResetForm] = useState(false);
+
+  const resetFormCallback = () => {
+    setShouldResetForm(false);
+    setActivityTransitionState("IDLE");
+  };
+
   return (
     <div className="newBill">
       <AppHeader
@@ -29,7 +56,15 @@ const NewBillActivity: FC = () => {
       <div className="newBill__background">
         <div className="newBill__content">
           <div className="newBill__title">{t("nav.newbill")}</div>
-          <BillDataForm />
+          <BillDataForm
+            fields={initialFields}
+            onSubmit={onSubmit}
+            submitButtonLabel={t("common.submit")}
+            resetButtonLabel={t("common.clearall")}
+            isLoading={false}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+          />
         </div>
       </div>
       <Footer />
