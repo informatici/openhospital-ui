@@ -2,11 +2,11 @@ import { PatientDTO } from "../../../generated";
 
 export interface IProps {
   fieldName: string;
-  fieldValue: number;
+  fieldValue: string;
   label: string;
   isValid: boolean;
   errorText: string;
-  onBlur: (e: any, value: any) => void;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>, value: PatientDTO) => void;
   loading?: boolean;
   isLoading?: boolean;
   disabled?: boolean;
@@ -15,3 +15,10 @@ export interface IProps {
   onInputChange?: (e: any, value: string, criteria: string) => void;
   freeSolo?: boolean;
 }
+
+export type TPatientSearchFormFieldName =
+  | "patientCode"
+  | "address"
+  | "firstName"
+  | "secondName"
+  | "birthDay";

@@ -102,9 +102,9 @@ const BillFilterForm: FC<BillFilterProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
+      (e: React.FocusEvent<HTMLInputElement>, value: PatientDTO) => {
         handleBlur(e);
-        setFieldValue(fieldName, value);
+        setFieldValue(fieldName, value?.code);
       },
     [setFieldValue, handleBlur]
   );

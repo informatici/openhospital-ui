@@ -1,4 +1,6 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
 .autocomplete {
   width: 100%;
   margin-top: 8px !important;
@@ -86,37 +88,104 @@
   .MuiFormHelperText-root.Mui-error {
     color: $c-error-light !important;
   }
-
   .MuiAutocomplete-root fieldset:hover{
     border-color: #2196F3 !important;
   }
 
-  .inputSelect {
-    position: relative;
-   }
-
-  .inputSelect TextField{
-    width: 70%;   
-  }
-
-  .inputSelect Select {
-    position: absolute;
-    right: 0;
-    height: 100%;
-    z-index: 3;
-    border-color: $c-white;
-    border-bottom-right-radius: 4px;
-    border-top-right-radius: 4px;
-    cursor: pointer;
-  }
-
-  .MuiAutocomplete-clearIndicator {
-    margin-right: 40px;
-  }
-
 }
 
+.patientSearch {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .patientSearchForm__item{
+    margin: 4px 0px;
+    padding: 0px 5px;
+    width: 33%;
+    @include susy-media($narrow) {
+      padding: 0px 5px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 0px 5px;
+    }
+    @include susy-media($tablet_port) {
+      width: 50%;
+    }
+    @include susy-media($smartphone) {
+      width: 100%;
+    }
+    .dateField,
+    .textField,
+    .selectField {
+      width: 100%;
+    }
 
+    &.fullWidth{
+      width: 100%;
+    }
 
+    &.compressed{
+      .textField {
+        float: left;
+        width: 50%;
+        &:nth-of-type(1){
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+  .submit_button {
+    display: flex;
+    margin-top: 25px;
+    flex-direction: row-reverse;
+    @include susy-media($smartphone_small) {
+      display: block;
+    }
 
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button {
+        @include susy-media($smartphone_small) {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+  }
+  .patientSearchResult {
+    display: flex;   
+    margin: 7px 0px;
+    padding: 0px 5px;
+  }
+
+  .patient_card {
+    :hover {
+      background-color: #f1f1f1;
+    }
+    .patient_card_content {
+        @include susy-media($tablet_port) {
+          display: flex;
+          align-items: center;
+    
+        }
+        @include susy-media($smartphone) {
+          align-items: center;  
+        }
+      .attribute_item {
+          display: flex;
+          align-items: center;  
+          white-space: nowrap;
+          overflow: hidden;
+        }
+    }
+
+    .imageIcon {
+      transform: scale(0.5);
+    }
+  }  
+
+}
 
