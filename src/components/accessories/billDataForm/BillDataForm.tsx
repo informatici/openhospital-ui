@@ -37,13 +37,12 @@ const BillDataForm: FunctionComponent<TProps> = ({
   shouldResetForm,
 }) => {
   const billItemRows: BillItemsDTO[] = [
-    { itemAmount: 5000, itemQuantity: 10, itemDescription: "Amoxiciline" },
     {
-      itemAmount: 7500,
+      itemId: "0",
+      itemAmount: 5000,
       itemQuantity: 10,
-      itemDescription: "Eferalgan Condeine",
+      itemDescription: "Amoxiciline",
     },
-    { itemAmount: 1000, itemQuantity: 10, itemDescription: "Paracetamol" },
   ];
   const { t } = useTranslation();
 
@@ -87,7 +86,18 @@ const BillDataForm: FunctionComponent<TProps> = ({
     billPaymentsDTO: [],
   });
 
-  useEffect(() => {}, []);
+  const handleDeleteItem = useCallback(
+    (row: BillItemsDTO) => {
+      let bill = fullBillDTO;
+      let items = bill.billItemsDTO ?? [];
+      items = items.filter((item) => item.itemId != row.itemId);
+      bill.billItemsDTO = items;
+      setFullBillDTO(bill);
+    },
+    [fullBillDTO]
+  );
+
+  useEffect(() => {}, [fullBillDTO]);
 
   const formik = useFormik({
     initialValues,
@@ -104,6 +114,15 @@ const BillDataForm: FunctionComponent<TProps> = ({
     validationSchema: itemValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      let bill = fullBillDTO;
+      bill.billItemsDTO?.push({
+        itemAmount: values.itemAmount,
+        itemDescription: values.itemDescription,
+        itemQuantity: values.itemQuantity,
+        itemId: (bill.billItemsDTO ?? []).length.toString(),
+      });
+      setFullBillDTO(bill);
+      itemFormik.resetForm();
       //const formattedValues = formatAllFieldValues({}, values);
       //onSubmit(formattedValues);
     },
@@ -114,7 +133,6 @@ const BillDataForm: FunctionComponent<TProps> = ({
     validationSchema: paymentValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log(itemFormik.values.itemType);
       //const formattedValues = formatAllFieldValues({}, values);
       //onSubmit(formattedValues);
     },
@@ -189,7 +207,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
         <div className="billDataForm_subtitle">{t("bill.bill")}</div>
         <div className="billDataForm__billForm_item">
           <DateField
-            label="Date"
+            label={t("bill.date")}
             format="dd/MM/yyyy"
             fieldName="billDate"
             errorText={getErrorText("billDate", formik)}
@@ -200,7 +218,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
           <AutocompleteField
             fieldName="listName"
             fieldValue={formik.values.listName}
-            label={t("bill.listName")}
+            label={t("bill.pricelist")}
             isValid={isValid("listName", formik)}
             errorText={getErrorText("listName", formik)}
             onBlur={onBlurCallback("listName")}
@@ -221,12 +239,12 @@ const BillDataForm: FunctionComponent<TProps> = ({
           />
         </div>
         <fieldset>
-          <legend>{t("bill.addItem")}</legend>
+          <legend>{t("bill.additem")}</legend>
           <div className="billDataForm__billForm_item">
             <AutocompleteField
               fieldName="itemType"
               fieldValue={itemFormik.values.itemType}
-              label={t("bill.itemType")}
+              label={t("bill.itemtype")}
               isValid={isValid("itemType", itemFormik)}
               errorText={getErrorText("itemType", itemFormik)}
               onBlur={onItemBlurCallback("itemType")}
@@ -234,9 +252,9 @@ const BillDataForm: FunctionComponent<TProps> = ({
               isLoading={false}
             />
             <TextField
-              field={formik.getFieldProps("itemQuantity")}
+              field={itemFormik.getFieldProps("itemQuantity")}
               theme="regular"
-              label={t("bill.itemQuantity")}
+              label={t("bill.quantity")}
               isValid={isValid("itemQuantity", itemFormik)}
               errorText={getErrorText("itemQuantity", itemFormik)}
               onBlur={itemFormik.handleBlur}
@@ -247,7 +265,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
               <AutocompleteField
                 fieldName="itemDescription"
                 fieldValue={itemFormik.values.itemDescription}
-                label={t("bill.itemDescription")}
+                label={t("bill.description")}
                 isValid={isValid("itemDescription", itemFormik)}
                 errorText={getErrorText("itemDescription", itemFormik)}
                 onBlur={onItemBlurCallback("itemDescription")}
@@ -261,7 +279,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
               <TextField
                 field={itemFormik.getFieldProps("itemDescription")}
                 theme="regular"
-                label={t("bill.itemDescription")}
+                label={t("bill.description")}
                 isValid={isValid("itemDescription", itemFormik)}
                 errorText={getErrorText("itemDescription", itemFormik)}
                 onBlur={itemFormik.handleBlur}
@@ -269,7 +287,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
               <TextField
                 field={itemFormik.getFieldProps("itemAmount")}
                 theme="regular"
-                label={t("bill.customAmount")}
+                label={t("bill.amount")}
                 isValid={isValid("itemAmount", itemFormik)}
                 errorText={getErrorText("itemAmount", itemFormik)}
                 onBlur={itemFormik.handleBlur}
@@ -277,14 +295,20 @@ const BillDataForm: FunctionComponent<TProps> = ({
             </div>
           )}
           <div className="billDataForm_submit">
-            <SmallButton type="button" disabled={false}>
-              {t("bill.addItem")}
+            <SmallButton
+              type="button"
+              disabled={!itemFormik.isValid}
+              onClick={() => {
+                itemFormik.handleSubmit();
+              }}
+            >
+              {t("button.add")}
             </SmallButton>
           </div>
         </fieldset>
         <div className="billItemContainer">
           <BillItemTable
-            handleDelete={(code: number | undefined) => {}}
+            handleDelete={handleDeleteItem}
             handleEdit={(row: any) => {}}
             shouldUpdateTable={true}
             billItems={fullBillDTO.billItemsDTO ?? []}
@@ -299,8 +323,8 @@ const BillDataForm: FunctionComponent<TProps> = ({
         <div className="billDataForm__paymentForm_item">
           <AutocompleteField
             fieldName="paymentType"
-            fieldValue={paymentFormik.values.paymentType}
-            label={t("bill.paymentType")}
+            fieldValue={t(paymentFormik.values.paymentType)}
+            label={t("bill.paymenttype")}
             isValid={isValid("paymentType", paymentFormik)}
             errorText={getErrorText("paymentType", paymentFormik)}
             onBlur={onPaymentBlurCallback("paymentType")}
@@ -310,7 +334,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
           <TextField
             field={paymentFormik.getFieldProps("paymentAmount")}
             theme="regular"
-            label={t("payment.amount")}
+            label={t("bill.amount")}
             isValid={isValid("paymentAmount", paymentFormik)}
             errorText={getErrorText("paymentAmount", paymentFormik)}
             onBlur={paymentFormik.handleBlur}
@@ -324,22 +348,22 @@ const BillDataForm: FunctionComponent<TProps> = ({
               paymentFormik.handleSubmit();
             }}
           >
-            {t("bill.addPayment")}
+            {t("button.add")}
           </SmallButton>
         </div>
         <div>
           <PaymentTable></PaymentTable>
         </div>
         <div className="billDataForm_footer">
-          <span>{t("bill.toPay")} : $240</span>
+          <span>{t("bill.topay")} : $240</span>
           <span>{t("bill.balance")} : $48</span>
         </div>
         <div className="billDataForm__paymentForm_item2">
           <SmallButton type="submit" disabled={false}>
-            {t("bill.save")}
+            {t("button.save")}
           </SmallButton>
-          <SmallButton disabled={false}>{t("bill.paid")}</SmallButton>
-          <SmallButton disabled={false}>{t("bill.close")}</SmallButton>
+          <SmallButton disabled={false}>{t("button.paid")}</SmallButton>
+          <SmallButton disabled={false}>{t("button.close")}</SmallButton>
         </div>
       </div>
     </form>

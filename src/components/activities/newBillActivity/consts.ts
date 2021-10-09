@@ -3,19 +3,19 @@ import { TBillDataFormFieldName } from "../../accessories/billDataForm/types";
 
 const itemTypeOptions = [
   {
-    label: "bill.medicalItem",
+    label: "bill.medical",
     value: "MED",
   },
   {
-    label: "bill.operationItem",
+    label: "bill.operation",
     value: "OP",
   },
   {
-    label: "bill.examenItem",
+    label: "bill.examen",
     value: "EXA",
   },
   {
-    label: "bill.customItem",
+    label: "bill.custom",
     value: "CST",
   },
 ];
@@ -63,11 +63,11 @@ const patientOptions = [
 
 const listPriceOptions = [
   {
-    label: "bill.basicPrice",
+    label: "bill.basicprice",
     value: "B",
   },
   {
-    label: "bill.standartPrice",
+    label: "bill.standartprice",
     value: "S",
   },
 ];
@@ -104,8 +104,12 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
   },
   itemType: {
     type: "text",
-    value: "bill.medicalItem",
+    value: "bill.medical",
     options: itemTypeOptions,
+  },
+  itemId: {
+    type: "text",
+    value: "0",
   },
   listName: {
     type: "text",

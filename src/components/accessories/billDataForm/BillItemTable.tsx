@@ -6,7 +6,7 @@ import Table from "../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
-  handleDelete: (code: number | undefined) => void;
+  handleDelete: (row: BillItemsDTO) => void;
   billItems: BillItemsDTO[];
 }
 
@@ -22,7 +22,7 @@ const BillItemTable: React.FC<IOwnProps> = ({
   const header = ["itemDescription", "itemQuantity", "itemAmount"];
 
   const label = {
-    itemDescription: t("bill.item"),
+    itemDescription: t("bill.description"),
     itemQuantity: t("bill.quantity"),
     itemAmount: t("bill.amount"),
   };
@@ -37,7 +37,7 @@ const BillItemTable: React.FC<IOwnProps> = ({
       labelData={label}
       columnsOrder={order}
       rowsPerPage={20}
-      onDelete={() => {}}
+      onDelete={handleDelete}
       isCollapsabile={false}
       onEdit={() => {}}
     />

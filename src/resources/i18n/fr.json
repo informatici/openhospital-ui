@@ -288,6 +288,30 @@
     "details": "Détails facture",
     "recap": "Recap factures",
     "filter": "Filtre Factures",
-    "filterbutton": "Filtrer"
+    "filterbutton": "Filtrer",
+    "pricelist": "Liste de prix",
+    "payment": "Paiement",
+    "refund": "Remboursement",
+    "itemtype": "Type d'article",
+    "additem": "Ajouter Un Article",
+    "addpayment": "Ajouter Un Payment",
+    "description": "Description",
+    "quantity": "Quantité",
+    "paymenttype": "Type de paiement",
+    "medical": "Médicament",
+    "operation": "Operation",
+    "examen": "Examen",
+    "custom": "Personalisé",
+    "basicprice": "Basic",
+    "standartprice": "Standart",
+    "topay": "A Payer",
+    "total": "Total",
+    "bill": "Facture"
+  },
+  "button": {
+    "save": "Sauvegarder",
+    "paid": "Payé",
+    "close":"Fermer",
+    "add": "Ajouter"
   }
 }

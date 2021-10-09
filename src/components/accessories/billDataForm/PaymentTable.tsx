@@ -19,7 +19,7 @@ const PaymentTable: React.FC = () => {
   ];
 
   const label = {
-    type: t("bill.paymentType"),
+    type: t("bill.paymenttype"),
     amount: t("bill.amount"),
   };
   const order = ["amount", "type"];
