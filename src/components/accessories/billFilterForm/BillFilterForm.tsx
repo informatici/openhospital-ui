@@ -11,11 +11,12 @@ import {
 import DateField from "../dateField/DateField";
 
 import "./styles.scss";
-import { BillFilterProps, TBillFilterValues } from "./types";
+import { BillFilterProps, TBillFilterValues, TValues } from "./types";
 import { PatientDTO } from "../../../generated";
 import SmallButton from "../smallButton/SmallButton";
 import moment from "moment";
 import PatientPicker from "../patientPicker/PatientPicker";
+import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 
 const BillFilterForm: FC<BillFilterProps> = ({
   onSubmit,
@@ -75,7 +76,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLInputElement>, value: PatientDTO) => {
         handleBlur(e);
-        setFieldValue(fieldName, value.code ?? "");
+        setFieldValue(fieldName, value?.code ?? "");
       },
     [setFieldValue, handleBlur]
   );
@@ -122,6 +123,18 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 isValid={isValid("patientCode")}
                 errorText={getErrorText("patientCode")}
                 onBlur={onBlurCallback("patientCode")}
+              />
+            </div>
+            <div className="fullWidth filterBillForm__item">
+              <PatientAutocomplete
+                theme={"light"}
+                fieldName="patientCode2"
+                fieldValue={formik.values.patient}
+                label={t("bill.patient")}
+                isValid={isValid("patientCode2")}
+                errorText={getErrorText("patientCode2")}
+                onBlur={onBlurCallback("patientCode2")}
+                freeSolo={true}
               />
             </div>
           </div>
