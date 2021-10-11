@@ -12,7 +12,9 @@ export const AccordionSummary: React.FC<IPropsSummary> = ({
   return (
     <div className="accordion_summary" onClick={onClick}>
       {children}
-      <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      {onClick && (
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      )}
     </div>
   );
 };
@@ -21,7 +23,7 @@ export const AccordionDetails: React.FC = ({ children }) => {
   return <div className="accordion_details">{children}</div>;
 };
 
-export const Accordion: React.FC<IProps> = ({ children, expanded }) => {
+export const Accordion: React.FC<IProps> = ({ children, expanded = true }) => {
   return (
     <div className={classNames("accordion", "collapse", { expanded })}>
       {children}

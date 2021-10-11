@@ -17,6 +17,8 @@ import { wardsRoutes } from "./routes/wards";
 import { labRoutes } from "./routes/lab";
 import { examRoutes } from "./routes/exam";
 import { examRowRoutes } from "./routes/examRow";
+import { billRoutes } from "./routes/bill";
+import { pricesRoutes } from "./routes/prices"
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -27,7 +29,7 @@ export function makeServer() {
   });
   const { server } = polly;
   server.host(BASE_PATH, () => {
-    /*userRoutes(server);
+    userRoutes(server);
     authRoutes(server);
     patientRoutes(server);
     visitRoutes(server);
@@ -42,7 +44,9 @@ export function makeServer() {
     wardsRoutes(server);
     examRoutes(server);
     labRoutes(server);
-    examRowRoutes(server);*/
+    examRowRoutes(server);
+    pricesRoutes(server);
+    billRoutes(server);
   });
   return server;
 }

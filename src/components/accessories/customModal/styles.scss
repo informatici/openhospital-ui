@@ -1,0 +1,18 @@
+.custom__modal{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: "inline-block";
+    width: "auto";
+
+    .MuiCardContent-root {
+        padding: 5px;
+        
+    }
+    .MuiDialogTitle-root {
+        padding-left: 20px;
+    }   
+    .MuiDialogContent-root {
+        padding: 0px;
+    }   
+}
