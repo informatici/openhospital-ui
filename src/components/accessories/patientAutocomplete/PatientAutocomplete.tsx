@@ -3,10 +3,10 @@ import {
   FormControl,
   FormHelperText,
   Paper,
+  SvgIcon,
 } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import React, {
-  Fragment,
   FunctionComponent,
   useCallback,
   useEffect,
@@ -23,15 +23,15 @@ import { TValues } from "../billFilterForm/types";
 import { searchPatient } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import { PatientDTO } from "../../../generated";
-import { CakeOutlined, Phone } from "@material-ui/icons";
+import { CakeOutlined, Phone, Room } from "@material-ui/icons";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import Home from "@material-ui/icons/Home";
+import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
+import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
 
 const CustomPaper = (props: any) => {
   return (
     <Paper
-      style={{ padding: "0px", display: "flex", alignItems: "center" }}
-      //elevation={5}
+      style={{ padding: "0", display: "flex", alignItems: "center" }}
       {...props}
     />
   );
@@ -59,11 +59,11 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
     (state) => state.patients.searchResults.status || "IDLE"
   );
 
-  const geFullObj = (val: number) => {
-    return patientSearchResults?.find((el) => el.code === val) || null;
+  const getFullObj = (val: number) => {
+    return patientSearchResults?.find((el) => el.code === val) || undefined;
   };
   const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    onBlur(e, value);
+    onBlur(e, getFullObj(value));
   };
 
   const debounceUpdate = useCallback(
@@ -85,13 +85,28 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
     }, 250),
     []
   );
-
+  // value used to style profile picture
   const profileStyle = {
     height: "50px",
     width: "50px",
   };
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
+
+  const renderMinimizeTitle = (patient: PatientDTO) => {
+    return (
+      (patient.sex === "M" ? " ♂ " : " ♀ ") +
+      patient.firstName +
+      " " +
+      patient.secondName +
+      " ✆ " +
+      patient.telephone +
+      " 📍 " +
+      patient.address +
+      " 🎂 " +
+      (patient.birthDate ? renderDate(patient.birthDate) : "")
+    );
+  };
 
   return (
     <FormControl variant="outlined" className={actualClassName}>
@@ -104,32 +119,43 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
         options={patientSearchResults}
         freeSolo
         onInputChange={handleOnInputChange}
-        getOptionLabel={(option) => option.firstName + ""}
-        value={geFullObj(value)}
+        getOptionLabel={(option) => option.firstName || ""}
+        value={getFullObj(value) || {}}
         getOptionSelected={(option, v) => option.code === v.code}
         PaperComponent={CustomPaper}
-        renderOption={(option) => (
-          <div className="render_option">
+        renderOption={(patient) => (
+          <div className="render_option" title={renderMinimizeTitle(patient)}>
             <ProfilePicture
               style={profileStyle}
               isEditable={false}
-              preLoadedPicture={geFullObj(value)?.blobPhoto}
+              preLoadedPicture={getFullObj(value)?.blobPhoto}
             />
-            <span className="info_item">
-              <Fragment>{option.firstName + " " + option.secondName}</Fragment>
-              <Fragment>
-                <Phone />
-                {option.telephone}
-              </Fragment>
-              <Fragment>
-                <Home />
-                {option.address}
-              </Fragment>
-              <Fragment>
-                <CakeOutlined />
-                {option.birthDate ? renderDate(option.birthDate) : ""}
-              </Fragment>
-            </span>
+            <div className="info_item">
+              <span>
+                {patient.sex === "M" ? (
+                  <SvgIcon className="small_icon">
+                    <MaleIcon style={{ fontSize: "small" }} />
+                  </SvgIcon>
+                ) : (
+                  <SvgIcon className="small_icon">
+                    <FemaleIcon style={{ fontSize: "small" }} />
+                  </SvgIcon>
+                )}
+                {patient.firstName + " " + patient.secondName}
+              </span>
+              <span>
+                <Phone className="small_icon" />
+                {patient.telephone}
+              </span>
+              <span className="item_info_address">
+                <Room className="small_icon" />
+                {patient.address}
+              </span>
+              <span>
+                <CakeOutlined className="small_icon" />
+                {patient.birthDate ? renderDate(patient.birthDate) : ""}
+              </span>
+            </div>
           </div>
         )}
         onChange={(e: object, val: any | null) => {

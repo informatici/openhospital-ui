@@ -11,11 +11,10 @@ import {
 import DateField from "../dateField/DateField";
 
 import "./styles.scss";
-import { BillFilterProps, TBillFilterValues, TValues } from "./types";
+import { BillFilterProps, TBillFilterValues } from "./types";
 import { PatientDTO } from "../../../generated";
 import SmallButton from "../smallButton/SmallButton";
 import moment from "moment";
-import PatientPicker from "../patientPicker/PatientPicker";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 
 const BillFilterForm: FC<BillFilterProps> = ({
@@ -74,7 +73,10 @@ const BillFilterForm: FC<BillFilterProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (e: React.FocusEvent<HTMLInputElement>, value: PatientDTO) => {
+      (
+        e: React.FocusEvent<HTMLInputElement>,
+        value: PatientDTO | undefined
+      ) => {
         handleBlur(e);
         setFieldValue(fieldName, value?.code ?? "");
       },
@@ -115,25 +117,14 @@ const BillFilterForm: FC<BillFilterProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="fullWidth filterBillForm__item">
-              <PatientPicker
+              <PatientAutocomplete
                 theme={"light"}
                 fieldName="patientCode"
-                fieldValue={formik.values.patient}
+                fieldValue={formik.values.patientCode}
                 label={t("bill.patient")}
                 isValid={isValid("patientCode")}
                 errorText={getErrorText("patientCode")}
                 onBlur={onBlurCallback("patientCode")}
-              />
-            </div>
-            <div className="fullWidth filterBillForm__item">
-              <PatientAutocomplete
-                theme={"light"}
-                fieldName="patientCode2"
-                fieldValue={formik.values.patient}
-                label={t("bill.patient")}
-                isValid={isValid("patientCode2")}
-                errorText={getErrorText("patientCode2")}
-                onBlur={onBlurCallback("patientCode2")}
                 freeSolo={true}
               />
             </div>

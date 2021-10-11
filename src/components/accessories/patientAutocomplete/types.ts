@@ -6,7 +6,7 @@ export interface IProps {
   label: string;
   isValid: boolean;
   errorText: string;
-  onBlur: (e: any, value: any) => void;
+  onBlur: (e: any, value: PatientDTO | undefined) => void;
   disabled?: boolean;
   theme?: string;
   freeSolo?: boolean;
