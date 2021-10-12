@@ -114,6 +114,7 @@ const ExamForm: FC<ExamProps> = ({
         formattedValues,
         Object.values(rowsData).filter((item) => item)
       );
+      setRowsData([]);
     },
   });
 
