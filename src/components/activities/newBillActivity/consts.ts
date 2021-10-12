@@ -89,6 +89,10 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
     type: "number",
     value: "0",
   },
+  paymentDate: {
+    type: "date",
+    value: "",
+  },
   billDate: {
     type: "date",
     value: "",

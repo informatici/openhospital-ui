@@ -297,7 +297,7 @@
     "addpayment": "Ajouter Un Payment",
     "description": "Description",
     "quantity": "Quantité",
-    "paymenttype": "Type de paiement",
+    "type": "Type",
     "medical": "Médicament",
     "operation": "Operation",
     "examen": "Examen",
@@ -306,7 +306,8 @@
     "standartprice": "Standart",
     "topay": "A Payer",
     "total": "Total",
-    "bill": "Facture"
+    "bill": "Facture",
+    "item": "Article"
   },
   "button": {
     "save": "Sauvegarder",

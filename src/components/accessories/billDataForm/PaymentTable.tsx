@@ -1,28 +1,43 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { BillPaymentsDTO } from "../../../generated";
 import Table from "../table/Table";
+import moment from "moment";
 
 const createFakePayment = (type: string, amount: number) => {
   return { type, amount };
 };
 
-const PaymentTable: React.FC = () => {
+interface IOwnProps {
+  shouldUpdateTable: boolean;
+  handleEdit: (row: any) => void;
+  handleDelete: (row: BillPaymentsDTO) => void;
+  payments: BillPaymentsDTO[];
+}
+
+const PaymentTable: React.FC<IOwnProps> = ({
+  handleDelete,
+  handleEdit,
+  shouldUpdateTable,
+  payments,
+}) => {
   const { t } = useTranslation();
 
-  const header = ["type", "amount"];
-
-  const paymentRows = [
-    createFakePayment(t("bill.payment"), 3500),
-    createFakePayment(t("bill.payment"), 10000),
-    createFakePayment(t("bill.refund"), 6500),
-    createFakePayment(t("bill.payment"), 15000),
-  ];
+  const header = ["date", "amount"];
 
   const label = {
-    type: t("bill.paymenttype"),
+    date: t("bill.date"),
     amount: t("bill.amount"),
   };
-  const order = ["amount", "type"];
+  const order = ["date", "amount"];
+
+  const paymentRows = payments.map((p) => {
+    return {
+      id: p.id,
+      date: moment(p.date).format("DD/MM/YYYY"),
+      amount: p.amount,
+    };
+  });
 
   return (
     <Table
@@ -31,9 +46,9 @@ const PaymentTable: React.FC = () => {
       labelData={label}
       columnsOrder={order}
       rowsPerPage={20}
-      onDelete={() => {}}
+      onDelete={handleDelete}
       isCollapsabile={false}
-      onEdit={() => {}}
+      onEdit={handleEdit}
     />
   );
 };

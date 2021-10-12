@@ -27,5 +27,6 @@ export type TBillDataFormFieldName =
   | "itemAmount"
   | "itemType"
   | "itemId"
+  | "paymentDate"
   | "paymentAmount"
   | "paymentType";
