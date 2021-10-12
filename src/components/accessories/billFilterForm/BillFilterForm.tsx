@@ -116,7 +116,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
 
   return (
     <>
-      <div className={"filterBillForm " + className}>
+      <div id="filterBillForm" className={"filterBillForm " + className}>
         <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="fullWidth filterBillForm__item">
@@ -151,7 +151,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
               <AutocompleteField
                 theme={"light"}
                 fieldName="patientCode"
-                fieldValue={formik.values.patient}
+                fieldValue={formik.values.patientCode}
                 label={t("bill.patient")}
                 isValid={isValid("patientCode")}
                 errorText={getErrorText("patientCode")}

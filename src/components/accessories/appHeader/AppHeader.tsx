@@ -1,6 +1,5 @@
 import { Tooltip, Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import { Trans } from "react-i18next";
 import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
@@ -114,7 +113,8 @@ const AppHeader: FunctionComponent<TProps> = ({
               <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
               <div className="appHeader__nav__item">{t("nav.ward")}</div>
               <div
-                className="appHeader__nav__item"
+                id="billing__nav__item"
+                className=" appHeader__nav__item"
                 onClick={() => history.push("/billing")}
               >
                 {t("nav.billing")}

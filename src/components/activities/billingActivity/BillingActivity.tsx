@@ -60,7 +60,10 @@ const BillingActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
                 >
                   <div className="largeButton__inner">
                     <MoneyRounded width="43" height="43" />
-                    <div className="largeButton__inner__label">
+                    <div
+                      id="manage__bills__button"
+                      className="largeButton__inner__label"
+                    >
                       {t("nav.managebills")}
                     </div>
                   </div>
