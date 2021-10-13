@@ -7,7 +7,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
-import moment from "moment";
+
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -23,16 +23,17 @@ const DateField: FunctionComponent<IProps> = ({
   shouldDisableDate,
   renderDay,
 }) => {
-  const [value, setValue] = useState<Date | null>(null);
+  const [value, setValue] = useState<Date | string>("");
 
   useEffect(() => {
-    // field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
-    setValue(fieldValue === "" ? null : new Date(fieldValue));
+    fieldValue === "" || fieldValue === null
+      ? setValue("")
+      : setValue(new Date(+fieldValue));
   }, [fieldValue]);
 
-  const handleDateChange = (date: Date | null) => {
-    onChange(date);
-    setValue(date);
+  const handleDateChange = (date: Date | string | null) => {
+    date ? onChange(date) : onChange("");
+    date ? setValue(date) : setValue("");
   };
 
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";

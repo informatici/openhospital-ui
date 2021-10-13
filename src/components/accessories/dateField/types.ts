@@ -10,7 +10,7 @@ export interface IProps {
   errorText: string;
   label: string;
   format: string;
-  onChange: (value: Date | null) => void;
+  onChange: (value: Date | string | null) => void;
   onMonthChange?: (date: MaterialUiPickersDate) => void | Promise<void>;
   shouldDisableDate?: (date: MaterialUiPickersDate) => boolean;
   renderDay?: (

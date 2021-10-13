@@ -25,17 +25,19 @@ const BillFilterForm: FC<BillFilterProps> = ({
   const { t } = useTranslation();
   const validationSchema = object({
     fromDate: string().required(),
-    toDate: string().test({
-      name: "toDate",
-      message: t("bill.validatetodate"),
-      test: function (value) {
-        const dateFrom = isNaN(this.parent.fromDate)
-          ? this.parent.fromDate
-          : new Date(+this.parent.fromDate);
-        const dateTo = isNaN(value) ? value : new Date(+value);
-        return moment(dateTo) >= moment(dateFrom);
-      },
-    }),
+    toDate: string()
+      .required()
+      .test({
+        name: "toDate",
+        message: t("bill.validatetodate"),
+        test: function (value) {
+          const dateFrom = isNaN(this.parent.fromDate)
+            ? this.parent.fromDate
+            : new Date(+this.parent.fromDate);
+          const dateTo = isNaN(value) ? value : new Date(+value);
+          return moment(dateTo) >= moment(dateFrom);
+        },
+      }),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -88,7 +90,10 @@ const BillFilterForm: FC<BillFilterProps> = ({
       <div id="filterBillForm" className={"filterBillForm " + className}>
         <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
-            <div className="fullWidth filterBillForm__item">
+            <div
+              id="filterBillForm__item__fromDate"
+              className="fullWidth filterBillForm__item"
+            >
               <DateField
                 theme={"light"}
                 fieldName="fromDate"
@@ -101,7 +106,10 @@ const BillFilterForm: FC<BillFilterProps> = ({
                 onChange={dateFieldHandleOnChange("fromDate")}
               />
             </div>
-            <div className="fullWidth filterBillForm__item">
+            <div
+              id="filterBillForm__item__toDate"
+              className="fullWidth filterBillForm__item"
+            >
               <DateField
                 fieldName="toDate"
                 fieldValue={formik.values.toDate}

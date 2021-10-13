@@ -111,7 +111,7 @@ const PatientAutocomplete: FunctionComponent<IProps> = ({
   return (
     <FormControl variant="outlined" className={actualClassName}>
       <Autocomplete
-        id="parent_element"
+        id={fieldName}
         className="main_field"
         noOptionsText={t("common.nooptionsfound")}
         disabled={disabled}
