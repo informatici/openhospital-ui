@@ -13,6 +13,7 @@ import {
 } from "./consts";
 import { PriceListControllerApi } from "../../generated/apis/PriceListControllerApi";
 import { PriceDTO } from "../../generated/models/PriceDTO";
+import { PriceListDTO } from "../../generated/models/PriceListDTO";
 
 const priceControllerApi = new PriceListControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
@@ -49,7 +50,7 @@ export const getPrices =
 
 export const getPriceLists =
   () =>
-  (dispatch: Dispatch<IAction<PriceDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<PriceListDTO[], {}>>): void => {
     dispatch({
       type: GET_PRICELISTS_LOADING,
     });

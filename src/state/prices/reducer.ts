@@ -32,8 +32,8 @@ export default produce((draft: IPricesState, action: IAction<any, any>) => {
     }
 
     case GET_PRICE_FAIL: {
-      draft.getPriceLists.status = "FAIL";
-      draft.getPriceLists.error = action.error;
+      draft.getPrices.status = "FAIL";
+      draft.getPrices.error = action.error;
       break;
     }
 

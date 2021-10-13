@@ -81,6 +81,10 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
     type: "number",
     value: "0",
   },
+  itemCode: {
+    type: "text",
+    value: "",
+  },
   balance: {
     type: "number",
     value: "0",

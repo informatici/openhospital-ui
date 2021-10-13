@@ -40,6 +40,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { getExams } from "../../../state/exams/actions";
 import { getMedicals } from "../../../state/medicals/actions";
+import { searchPatient } from "../../../state/patients/actions";
+import { getPriceLists, getPrices } from "../../../state/prices/actions";
+import { PriceListDTO } from "../../../generated/models/PriceListDTO";
 
 const BillDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -106,15 +109,20 @@ const BillDataForm: FunctionComponent<TProps> = ({
     billPaymentsDTO: billPaymentRows,
   });
 
+  const [billItemsDTO, setBillItemsDTO] =
+    useState<BillItemsDTO[]>(billItemRows);
+  const [billPaymentsDTO, setBillPaymentsDTO] =
+    useState<BillPaymentsDTO[]>(billPaymentRows);
+
+  const [currentPriceList, setCurrentPriceList] = useState<PriceListDTO>({});
+
   const handleDeleteItem = useCallback(
     (row: BillItemsDTO) => {
-      let bill = fullBillDTO;
-      let items = bill.billItemsDTO ?? [];
+      let items = billItemsDTO;
       items = items.filter((item) => item.itemId != row.itemId);
-      bill.billItemsDTO = items;
-      setFullBillDTO(bill);
+      setBillItemsDTO(items);
     },
-    [fullBillDTO]
+    [billItemsDTO]
   );
 
   const handleDeletePayment = useCallback(
@@ -127,8 +135,6 @@ const BillDataForm: FunctionComponent<TProps> = ({
     },
     [fullBillDTO]
   );
-
-  useEffect(() => {}, [fullBillDTO]);
 
   const formik = useFormik({
     initialValues,
@@ -146,12 +152,34 @@ const BillDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       let bill = fullBillDTO;
-      bill.billItemsDTO?.push({
-        itemAmount: values.itemAmount,
-        itemDescription: values.itemDescription,
+      let itemAmount = values.itemAmount;
+      let itemDescription = values.itemDescription;
+      if (values.itemType == "MED") {
+        let item = medicalList?.find((e) => e.code == values.itemCode);
+        if (item) {
+          const price = priceList?.find((e) => e.item == "test");
+          itemAmount =
+            parseFloat(price ? price?.price : itemAmount) *
+            parseFloat(values.itemQuantity);
+          itemDescription = item.description;
+        }
+      } else if (values.itemType == "EXA") {
+        let item = examList?.find((e) => e.code == values.itemCode);
+        if (item) {
+          const price = priceList?.find((e) => e.item == "test");
+          itemAmount =
+            parseFloat(price ? price?.price : itemAmount) *
+            parseFloat(values.itemQuantity);
+          itemDescription = item.description;
+        }
+      }
+      billItemsDTO.push({
+        itemAmount: itemAmount,
+        itemDescription: itemDescription,
         itemQuantity: values.itemQuantity,
         itemId: (bill.billItemsDTO ?? []).length.toString(),
       });
+      bill.billItemsDTO = billItemsDTO;
       setFullBillDTO(bill);
       itemFormik.resetForm();
       //const formattedValues = formatAllFieldValues({}, values);
@@ -246,6 +274,8 @@ const BillDataForm: FunctionComponent<TProps> = ({
   useEffect(() => {
     dispatch(getExams());
     dispatch(getMedicals());
+    dispatch(getPriceLists());
+    dispatch(getPrices());
   }, [dispatch]);
 
   const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
@@ -264,6 +294,8 @@ const BillDataForm: FunctionComponent<TProps> = ({
   };
 
   const examList = useSelector((state: IState) => state.exams.examList.data);
+
+  const priceList = useSelector((state: IState) => state.prices.getPrices.data);
 
   const examOptions = useSelector((state: IState) =>
     examOptionsSelector(state.exams.examList.data)
@@ -292,6 +324,29 @@ const BillDataForm: FunctionComponent<TProps> = ({
     medicalOptionsSelector(state.medicals.medicalsOrderByName.data)
   );
 
+  const priceListOptionsSelector = (priceList: PriceListDTO[] | undefined) => {
+    if (priceList) {
+      return priceList.map((item) => {
+        return {
+          value: item.code ?? "",
+          label:
+            (item.description &&
+              item.description?.length > 30 &&
+              item.description.slice(0, 30) + "...") ||
+            (item.description ?? ""),
+        };
+      });
+    } else return [];
+  };
+
+  const priceLList = useSelector(
+    (state: IState) => state.prices.getPriceLists.data
+  );
+
+  const priceListOptions = useSelector((state: IState) =>
+    priceListOptionsSelector(state.prices.getPriceLists.data)
+  );
+
   const billItemTypeOptions = (options.itemType ?? []).map(
     (e: { value: string; type: any }) => {
       e.value = t(e.value);
@@ -300,13 +355,6 @@ const BillDataForm: FunctionComponent<TProps> = ({
   );
 
   const paymentTypeOptions = (options.paymentType ?? []).map(
-    (e: { value: string; type: any }) => {
-      e.value = t(e.value);
-      return e;
-    }
-  );
-
-  const priceListOptions = (options.listName ?? []).map(
     (e: { value: string; type: any }) => {
       e.value = t(e.value);
       return e;
@@ -429,7 +477,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
             handleDelete={handleDeleteItem}
             handleEdit={(row: any) => {}}
             shouldUpdateTable={true}
-            billItems={fullBillDTO.billItemsDTO ?? []}
+            billItems={billItemsDTO ?? []}
           />
         </div>
         <div className="billDataForm_footer">
