@@ -82,8 +82,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     handleEdit(labData?.find((item) => item.code === row.code));
   };
 
-  const onEView = () => {};
-
   return (
     <div className="patientExamsTable">
       {labStatus === "SUCCESS" && (
@@ -97,7 +95,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           onDelete={onDelete}
           isCollapsabile={true}
           onEdit={onEdit}
-          onView={onEView}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (
