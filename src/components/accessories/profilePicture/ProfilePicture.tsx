@@ -5,15 +5,11 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
+import DeleteRoundedIcon from "@material-ui/icons/Clear";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
-import React, {
-  Fragment,
-  FunctionComponent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
 import { IProps } from "./types";
@@ -32,6 +28,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   });
 
   const [showError, setShowError] = React.useState("");
+  const { t } = useTranslation();
 
   const handleCloseError = () => {
     setShowError("");
@@ -80,18 +77,35 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         type="file"
         onChange={handlePictureSelection(setPicture, setShowError, 360000)}
       />
-      <div className="profilePicture_mask">
+      <div className="profilePicture_mask" onClick={editPicture}>
         <img src={picture.preview} alt="profilePicture" />
+        {picture.original ? (
+          <div
+            className="profilePicture_hoverButton profilePicture_editIcon"
+            onClick={editPicture}
+          >
+            <EditRoundedIcon fontSize="default" style={{ color: "white" }} />
+          </div>
+        ) : (
+          <div
+            className="profilePicture_hoverButton profilePicture_addIcon"
+            onClick={editPicture}
+          >
+            <AddRoundedIcon fontSize="default" style={{ color: "white" }} />
+          </div>
+        )}
       </div>
       {isEditable && (
-        <Fragment>
-          <div className="profilePicture_removeIcon" onClick={removePicture}>
-            <DeleteRoundedIcon fontSize="small" style={{ color: "white" }} />
-          </div>
-          <div className="profilePicture_editIcon" onClick={editPicture}>
-            <EditRoundedIcon fontSize="small" style={{ color: "white" }} />
-          </div>
-        </Fragment>
+        <div className="profilePicture_buttons">
+          {picture.original ? (
+            <div
+              className="profilePicture_button profilePicture_removeIcon"
+              onClick={removePicture}
+            >
+              <DeleteRoundedIcon fontSize="small" style={{ color: "white" }} />
+            </div>
+          ) : null}
+        </div>
       )}
       {showError ? (
         <Dialog
@@ -105,7 +119,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
             </DialogContentText>
             <DialogActions>
               <Button onClick={handleCloseError} color="primary">
-                Ok
+                {t("common.ok")}
               </Button>
             </DialogActions>
           </DialogContent>
