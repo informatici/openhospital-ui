@@ -1,0 +1,41 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.billing {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  height: calc(100vh - 120px);
+  @include susy-media($smartphone){
+    height: 100%;
+  }
+  .billing__background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $c-color-secondary;
+    @include susy-media($smartphone){
+      padding: 100px 0px;
+    }
+  }
+
+  .billing__title {
+    width: fit-content;
+    margin-bottom: 20px;
+    font-size: larger;
+  }
+
+  .billing__actions {
+    display: flex;
+    width: fit-content;
+    @include susy-media($smartphone){
+      display: block;
+    }
+  }
+
+  .billing__actions__button {
+    margin: 10px;
+  }
+}

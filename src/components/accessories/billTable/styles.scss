@@ -1,0 +1,21 @@
+
+@import "../../../styles/variables";
+.bill_details {  
+    ul {
+        white-space: nowrap;   
+        overflow-x: hidden; 
+        margin-left: 0; 
+        padding-left: 0;
+    }
+    li span .MuiTypography-h5 {
+        padding-left: 0;
+        margin-left: 0;
+        display: inline;
+        text-decoration: none;    
+        color: darken($c-gray, 25%)
+    }
+    .label{
+        font-weight: bold;
+    }
+
+}

@@ -12,7 +12,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Edit, Delete, Print } from "@material-ui/icons";
+import {
+  Edit,
+  Delete,
+  Print,
+  InfoRounded,
+  InfoOutlined,
+} from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
@@ -89,6 +95,18 @@ const Table: FunctionComponent<IProps> = ({
             <Print color="primary" />
           </IconButton>
         );
+
+      case "view":
+        return (
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onView) onView(row);
+            }}
+          >
+            <InfoOutlined color="primary" titleAccess={"View Details"} />
+          </IconButton>
+        );
     }
   };
 
@@ -101,6 +119,7 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
+          {onView ? renderIcon("view", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print") : ""}
           {onDelete ? renderIcon("delete", row) : ""}

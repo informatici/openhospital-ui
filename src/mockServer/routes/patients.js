@@ -1,4 +1,4 @@
-import patientDTO from "../fixtures/patientDTO";
+import patientDTO, { patientDTO2 } from "../fixtures/patientDTO";
 
 export const patientRoutes = (server) => {
   server.namespace("/patients", () => {
@@ -65,7 +65,7 @@ export const patientRoutes = (server) => {
               patientDTO,
               patientDTO,
               patientDTO,
-              patientDTO,
+              patientDTO2,
             ]);
       }
     });

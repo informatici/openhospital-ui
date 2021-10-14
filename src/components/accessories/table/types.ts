@@ -14,7 +14,7 @@ export interface IProps {
   onEdit?: <T>(row: T) => void;
   onDelete?: <T>(row: T) => void;
   onPrint?: () => void;
-  onView?: () => void;
+  onView?: <T>(row: T) => void;
   showEmptyCell?: boolean;
 }
 
