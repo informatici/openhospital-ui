@@ -19,20 +19,32 @@ const BillItemTable: React.FC<IOwnProps> = ({
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["itemDescription", "itemQuantity", "itemAmount"];
+  const header = [
+    "itemDescription",
+    "itemQuantity",
+    "itemAmount",
+    "totalAmount",
+  ];
 
   const label = {
     itemDescription: t("bill.description"),
     itemQuantity: t("bill.quantity"),
     itemAmount: t("bill.amount"),
+    totalAmount: t("bill.total"),
   };
-  const order = ["itemAmount", "itemDescription", "itemAmount"];
+  const order = ["itemAmount", "itemDescription", "itemAmount", "totalAmount"];
+  const rows = billItems.map((e) => {
+    return {
+      ...e,
+      totalAmount: (e.itemAmount ?? 0) * (e.itemQuantity ?? 0),
+    };
+  });
 
   useEffect(() => {});
 
   return (
     <Table
-      rowData={billItems}
+      rowData={rows}
       tableHeader={header}
       labelData={label}
       columnsOrder={order}

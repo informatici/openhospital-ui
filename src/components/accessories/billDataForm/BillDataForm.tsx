@@ -43,6 +43,8 @@ import { getMedicals } from "../../../state/medicals/actions";
 import { searchPatient } from "../../../state/patients/actions";
 import { getPriceLists, getPrices } from "../../../state/prices/actions";
 import { PriceListDTO } from "../../../generated/models/PriceListDTO";
+import { PriceDTO } from "../../../generated/models/PriceDTO";
+import { totalmem } from "os";
 
 const BillDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -51,20 +53,8 @@ const BillDataForm: FunctionComponent<TProps> = ({
   submitButtonLabel,
   shouldResetForm,
 }) => {
-  const billItemRows: BillItemsDTO[] = [
-    {
-      itemId: "0",
-      itemAmount: 5000,
-      itemQuantity: 10,
-      itemDescription: "Amoxiciline",
-    },
-  ];
-  const billPaymentRows: BillPaymentsDTO[] = [
-    {
-      date: moment(Date.now()).toString(),
-      amount: 180,
-    },
-  ];
+  const billItemRows: BillItemsDTO[] = [];
+  const billPaymentRows: BillPaymentsDTO[] = [];
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -76,7 +66,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
 
   const itemValidationSchema = object({
     itemType: string().required(t("common.required")),
-    itemDescription: string().required(t("common.required")),
+    itemCode: string().required(t("common.required")),
     itemAmount: number()
       .required(t("common.required"))
       .min(0, t("common.positiveValue")),
@@ -87,7 +77,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
 
   const paymentValidationSchema = object({
     paymentType: string().required(t("common.required")),
-    paymentDate: string().required("common.required"),
+    paymentDate: date().required(t("common.required")),
     paymentAmount: number()
       .required(t("common.required"))
       .min(0, t("common.positiveValue")),
@@ -97,11 +87,8 @@ const BillDataForm: FunctionComponent<TProps> = ({
 
   const options = getFromFields(fields, "options");
 
-  const handleItemType = (e: any, value: string) => {
-    setSelectedItemType(value);
-  };
-
-  const [selectedItemType, setSelectedItemType] = useState("");
+  const [billTotal, setBillTotal] = useState(0);
+  const [paymentTotal, setPaymentTotal] = useState(0);
   const [billDTO, setBillDTO] = useState<BillDTO>();
   const [fullBillDTO, setFullBillDTO] = useState<FullBillDTO>({
     billDTO: billDTO,
@@ -113,6 +100,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
     useState<BillItemsDTO[]>(billItemRows);
   const [billPaymentsDTO, setBillPaymentsDTO] =
     useState<BillPaymentsDTO[]>(billPaymentRows);
+  const [changeCount, setChangeCount] = useState(0);
 
   const [currentPriceList, setCurrentPriceList] = useState<PriceListDTO>({});
 
@@ -121,19 +109,41 @@ const BillDataForm: FunctionComponent<TProps> = ({
       let items = billItemsDTO;
       items = items.filter((item) => item.itemId != row.itemId);
       setBillItemsDTO(items);
+      setChangeCount(changeCount + 1);
     },
     [billItemsDTO]
   );
 
+  const computePaymentTotal = useCallback(() => {
+    let total = billPaymentsDTO
+      .map((e) => e?.amount ?? 0)
+      .reduce(
+        (previous, current) =>
+          parseFloat(previous.toString()) + parseFloat(current.toString()),
+        0
+      );
+    setPaymentTotal(total);
+  }, [changeCount]);
+
+  const computeBillTotal = useCallback(() => {
+    let total = billItemsDTO
+      .map((e) => (e.itemQuantity ?? 0) * (e?.itemAmount ?? 0))
+      .reduce(
+        (previous, current) =>
+          parseFloat(previous.toString()) + parseFloat(current.toString()),
+        0
+      );
+    setBillTotal(total);
+  }, [changeCount]);
+
   const handleDeletePayment = useCallback(
     (row: BillItemsDTO) => {
-      let bill = fullBillDTO;
-      let payments = bill.billPaymentsDTO ?? [];
+      let payments = billPaymentsDTO;
       payments = payments.filter((payment) => payment.id != row.id);
-      bill.billPaymentsDTO = payments;
-      setFullBillDTO(bill);
+      setBillPaymentsDTO(payments);
+      setChangeCount(changeCount + 1);
     },
-    [fullBillDTO]
+    [billPaymentsDTO]
   );
 
   const formik = useFormik({
@@ -151,36 +161,36 @@ const BillDataForm: FunctionComponent<TProps> = ({
     validationSchema: itemValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      let bill = fullBillDTO;
       let itemAmount = values.itemAmount;
       let itemDescription = values.itemDescription;
+      let price: PriceDTO | undefined;
+      let item: MedicalDTO | ExamDTO | undefined;
       if (values.itemType == "MED") {
-        let item = medicalList?.find((e) => e.code == values.itemCode);
+        item = medicalList?.find((e) => e.code == values.itemCode);
         if (item) {
-          const price = priceList?.find((e) => e.item == "test");
-          itemAmount =
-            parseFloat(price ? price?.price : itemAmount) *
-            parseFloat(values.itemQuantity);
-          itemDescription = item.description;
+          price = priceList?.find((e) => e.item == item?.code);
         }
       } else if (values.itemType == "EXA") {
-        let item = examList?.find((e) => e.code == values.itemCode);
+        item = examList?.find((e) => e.code == values.itemCode);
         if (item) {
-          const price = priceList?.find((e) => e.item == "test");
-          itemAmount =
-            parseFloat(price ? price?.price : itemAmount) *
-            parseFloat(values.itemQuantity);
-          itemDescription = item.description;
+          price = priceList?.find((e) => e.item == item?.code);
         }
+      } else if (values.itemType == "OP") {
+        //TODO
+      } else {
+        itemDescription = values.itemCode;
       }
+      itemAmount = price ? price?.price : itemAmount;
+      itemDescription = item ? item.description : itemDescription;
       billItemsDTO.push({
         itemAmount: itemAmount,
         itemDescription: itemDescription,
         itemQuantity: values.itemQuantity,
-        itemId: (bill.billItemsDTO ?? []).length.toString(),
+        itemId: billItemsDTO.length.toString(),
+        priceId: (price?.id ?? "").toString(),
       });
-      bill.billItemsDTO = billItemsDTO;
-      setFullBillDTO(bill);
+      setBillItemsDTO(billItemsDTO);
+      setChangeCount(changeCount + 1);
       itemFormik.resetForm();
       //const formattedValues = formatAllFieldValues({}, values);
       //onSubmit(formattedValues);
@@ -192,16 +202,17 @@ const BillDataForm: FunctionComponent<TProps> = ({
     validationSchema: paymentValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      let bill = fullBillDTO;
-      bill.billPaymentsDTO?.push({
+      let payments = billPaymentsDTO;
+      payments?.push({
         amount:
           values.paymentType == "P"
             ? values.paymentAmount
             : -values.paymentAmount,
         date: values.paymentDate,
-        id: (bill.billPaymentsDTO ?? []).length,
+        id: payments.length,
       });
-      setFullBillDTO(bill);
+      setBillPaymentsDTO(payments);
+      setChangeCount(changeCount + 1);
       paymentFormik.resetForm();
       //const formattedValues = formatAllFieldValues({}, values);
       //onSubmit(formattedValues);
@@ -233,6 +244,13 @@ const BillDataForm: FunctionComponent<TProps> = ({
       setFieldValue(fieldName, value);
     },
     [setFieldValue]
+  );
+
+  const paymentDateFieldHandleOnChange = useCallback(
+    (fieldName: string) => (value: any) => {
+      setPaymentFieldValue(fieldName, value);
+    },
+    [setPaymentFieldValue]
   );
 
   const onBlurCallback = useCallback(
@@ -277,6 +295,13 @@ const BillDataForm: FunctionComponent<TProps> = ({
     dispatch(getPriceLists());
     dispatch(getPrices());
   }, [dispatch]);
+
+  useEffect(() => {
+    computeBillTotal();
+  }, [computeBillTotal]);
+  useEffect(() => {
+    computePaymentTotal();
+  }, [computePaymentTotal]);
 
   const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
     if (exams) {
@@ -371,9 +396,9 @@ const BillDataForm: FunctionComponent<TProps> = ({
             format="dd/MM/yyyy"
             fieldName="billDate"
             errorText={getErrorText("billDate", formik)}
-            fieldValue={Date.now().toLocaleString()}
+            fieldValue={formik.values.billDate}
             isValid={isValid("billDate", formik)}
-            onChange={() => {}}
+            onChange={dateFieldHandleOnChange("billDate")}
           />
           <AutocompleteField
             fieldName="listName"
@@ -423,12 +448,12 @@ const BillDataForm: FunctionComponent<TProps> = ({
           {itemFormik.values.itemType !== "CST" && (
             <div className="billDataForm__billForm_item">
               <AutocompleteField
-                fieldName="itemDescription"
-                fieldValue={itemFormik.values.itemDescription}
+                fieldName="itemCode"
+                fieldValue={itemFormik.values.itemCode}
                 label={t("bill.item")}
-                isValid={isValid("itemDescription", itemFormik)}
-                errorText={getErrorText("itemDescription", itemFormik)}
-                onBlur={onItemBlurCallback("itemDescription")}
+                isValid={isValid("itemCode", itemFormik)}
+                errorText={getErrorText("itemCode", itemFormik)}
+                onBlur={onItemBlurCallback("itemCode")}
                 options={
                   itemFormik.values.itemType == "MED"
                     ? medicalOptions
@@ -443,11 +468,11 @@ const BillDataForm: FunctionComponent<TProps> = ({
           {itemFormik.values.itemType === "CST" && (
             <div className="billDataForm__billForm_item">
               <TextField
-                field={itemFormik.getFieldProps("itemDescription")}
+                field={itemFormik.getFieldProps("itemCode")}
                 theme="regular"
                 label={t("bill.description")}
-                isValid={isValid("itemDescription", itemFormik)}
-                errorText={getErrorText("itemDescription", itemFormik)}
+                isValid={isValid("itemCode", itemFormik)}
+                errorText={getErrorText("itemCode", itemFormik)}
                 onBlur={itemFormik.handleBlur}
               />
               <TextField
@@ -473,15 +498,19 @@ const BillDataForm: FunctionComponent<TProps> = ({
           </div>
         </fieldset>
         <div className="billItemContainer">
-          <BillItemTable
-            handleDelete={handleDeleteItem}
-            handleEdit={(row: any) => {}}
-            shouldUpdateTable={true}
-            billItems={billItemsDTO ?? []}
-          />
+          {billItemsDTO.length > 0 && (
+            <BillItemTable
+              handleDelete={handleDeleteItem}
+              handleEdit={(row: any) => {}}
+              shouldUpdateTable={true}
+              billItems={billItemsDTO ?? []}
+            />
+          )}
         </div>
         <div className="billDataForm_footer">
-          <span>{t("bill.total")} : $xxx</span>
+          <span>
+            {t("bill.total")} : ${billTotal}
+          </span>
         </div>
       </div>
       <div className="billDataForm__paymentForm">
@@ -492,9 +521,9 @@ const BillDataForm: FunctionComponent<TProps> = ({
             format="dd/MM/yyyy"
             fieldName="paymentDate"
             errorText={getErrorText("paymentDate", paymentFormik)}
-            fieldValue={Date.now().toLocaleString()}
+            fieldValue={paymentFormik.values.paymentDate}
             isValid={isValid("paymentDate", paymentFormik)}
-            onChange={() => {}}
+            onChange={paymentDateFieldHandleOnChange("paymentDate")}
           />
           <AutocompleteField
             fieldName="paymentType"
@@ -527,16 +556,22 @@ const BillDataForm: FunctionComponent<TProps> = ({
           </SmallButton>
         </div>
         <div>
-          <PaymentTable
-            handleEdit={(row) => {}}
-            handleDelete={handleDeletePayment}
-            shouldUpdateTable={true}
-            payments={fullBillDTO.billPaymentsDTO ?? []}
-          />
+          {billPaymentsDTO.length > 0 && (
+            <PaymentTable
+              handleEdit={(row) => {}}
+              handleDelete={handleDeletePayment}
+              shouldUpdateTable={true}
+              payments={billPaymentsDTO}
+            />
+          )}
         </div>
         <div className="billDataForm_footer">
-          <span>{t("bill.topay")} : $xxx</span>
-          <span>{t("bill.balance")} : $xxx</span>
+          <span>
+            {t("bill.topay")} : ${billTotal}
+          </span>
+          <span>
+            {t("bill.balance")} : ${billTotal - paymentTotal}
+          </span>
         </div>
         <div className="billDataForm__paymentForm_item2">
           <SmallButton type="submit" disabled={false}>
