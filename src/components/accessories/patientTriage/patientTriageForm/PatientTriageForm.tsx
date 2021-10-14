@@ -13,8 +13,7 @@ import DateField from "../../dateField/DateField";
 import { object, string } from "yup";
 import { TProps } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import TextButton from "../../textButton/TextButton";
-import SmallButton from "../../smallButton/SmallButton";
+import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
 import TextField from "../../textField/TextField";
 import has from "lodash.has";
@@ -274,14 +273,14 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
           <div className="patientTriageForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit" disabled={isLoading}>
+              <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
-              </SmallButton>
+              </Button>
             </div>
             <div className="reset_button">
-              <TextButton onClick={() => setOpenResetConfirmation(true)}>
+              <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
                 {resetButtonLabel}
-              </TextButton>
+              </Button>
             </div>
           </div>
           <ConfirmationDialog

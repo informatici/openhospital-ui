@@ -132,7 +132,7 @@ const PatientOPD: FunctionComponent = () => {
         }
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}

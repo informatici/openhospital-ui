@@ -124,7 +124,7 @@ const PatientExams: FC = () => {
         }
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={

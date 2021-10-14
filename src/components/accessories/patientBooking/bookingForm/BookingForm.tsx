@@ -1,8 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import DateField from "../../dateField/DateField";
 import SelectField from "../../selectField/SelectField";
-import SmallButton from "../../smallButton/SmallButton";
-import TextButton from "../../textButton/TextButton";
+import Button from "../../button/Button";
 import "./styles.scss";
 import { TBookingProps } from "./types";
 import { useTranslation } from "react-i18next";
@@ -210,14 +209,14 @@ const BookingForm: FC<TBookingProps> = ({
           </div>
           <div className="patientBookingForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit" disabled={isLoading}>
+              <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
-              </SmallButton>
+              </Button>
             </div>
             <div className="reset_button">
-              <TextButton onClick={() => setOpenResetConfirmation(true)}>
+              <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
                 {resetButtonLabel}
-              </TextButton>
+              </Button>
             </div>
           </div>
           <ConfirmationDialog

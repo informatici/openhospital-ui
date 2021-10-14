@@ -128,7 +128,7 @@ const PatientTherapy: FC = () => {
         submitButtonLabel={
           creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
         }
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={status === "LOADING"}

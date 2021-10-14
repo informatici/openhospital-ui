@@ -17,8 +17,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SelectField from "../selectField/SelectField";
-import SmallButton from "../smallButton/SmallButton";
-import TextButton from "../textButton/TextButton";
+import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
@@ -307,14 +306,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
-            <SmallButton type="submit" disabled={isLoading}>
+            <Button type="submit" variant="contained" disabled={isLoading}>
               {submitButtonLabel}
-            </SmallButton>
+            </Button>
           </div>
           <div className="reset_button">
-            <TextButton onClick={() => setOpenResetConfirmation(true)}>
+            <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
               {resetButtonLabel}
-            </TextButton>
+            </Button>
           </div>
         </div>
         <ConfirmationDialog

@@ -89,7 +89,7 @@ const PatientTriage: FC = () => {
         fields={initialFields}
         onSubmit={onSubmit}
         submitButtonLabel={t("common.savetriage")}
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={createStatus === "LOADING"}

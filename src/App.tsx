@@ -32,12 +32,13 @@ const App: FunctionComponent = () => {
   const pickerTheme = createMuiTheme({
     palette: {
       primary: {
-        main: "#444444",
+        main: "#fc1812",
+        contrastText: "#fff",
       },
       secondary: {
         light: "#444444",
         main: "#444444",
-        contrastText: "#444444",
+        contrastText: "#fff",
       },
     },
   });
