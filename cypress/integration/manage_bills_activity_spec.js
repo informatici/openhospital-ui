@@ -23,35 +23,32 @@ describe("ManageBillsActivity spec", () => {
         cy.get("#filterBillForm__item__toDate");
     });
 
-    it("should validate start period and end Dates", () => {
+    it("should validate start period", () => {
         cy.get("[id=fromDate]").focus().clear();
-        //cy.get("[id=fromDate]").focus().blur();
-        cy.get("[id=toDate]").focus().clear();
         cy.get("[class=filterForm__buttonSet]");
-        cy.get("[class=submit_button]").find("div");
         cy.get("[class=submit_button]").find("div").click();
         cy.get(".filterBillForm__form").eq(0).get("#filterBillForm__item__fromDate")
             .eq(0).get("p").contains("fromDate is a required field");
-        cy.get(".filterBillForm__form").eq(0).get("#filterBillForm__item__toDate").
-            eq(0).get("p").contains("toDate is a required field");
     })
 
-    it.skip("should pass in initialValues carrying only default values", () => {
 
+    it("should pass in initialValues carrying only default values", () => {
+        cy.get("#filterBillForm__item__fromDate");
         const fields = Object.keys(initialValues).map((fieldName) => ({
             fieldName,
             id: `[id=${fieldName.toString()}]`,
             value: initialValues[fieldName]
         }));
+        cy.get('#fromDate').next().click();
 
-        fields.forEach((field) => {
-            cy.get(field.id).type(field.value);
-        });
+        cy.get(".MuiPickersCalendarHeader-switchHeader").find('[tabindex="0"]').eq(0).type('{enter}', { force: true });
 
-        fields.forEach((field) => {
-            cy.get(field.id).should("have.value", initialValues[field.fieldName]);
-        });
     });
+
+    it("should pass the submit form button label", () => {
+        cy.get("[class=submit_button]").find("div").click();
+    });
+
 
 
 });
