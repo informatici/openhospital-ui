@@ -196,8 +196,8 @@ const Table: FunctionComponent<IProps> = ({
           code: currentRow.code,
         })}
         icon={warningIcon}
-        primaryButtonLabel="OK"
-        secondaryButtonLabel="Dismiss"
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleDelete}
         handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
       />

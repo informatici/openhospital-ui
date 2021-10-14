@@ -305,10 +305,10 @@ const ExamForm: FC<ExamProps> = ({
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={t("common.resetform", { resetButtonLabel })}
+            info={t("common.resetform")}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel="Dismiss"
+            secondaryButtonLabel={t("common.discard")}
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />

@@ -223,10 +223,10 @@ const BookingForm: FC<TBookingProps> = ({
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            info={t("common.resetform")}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel="Dismiss"
+            secondaryButtonLabel={t("common.discard")}
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />

@@ -119,7 +119,7 @@ const PatientTriage: FC = () => {
         title={t("opd.deleted")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
+        primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />

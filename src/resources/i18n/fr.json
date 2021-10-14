@@ -7,7 +7,8 @@
     "insertavalidusername": "Nom d'utlisateur invalid",
     "insertthepassword": "Enter le mot de passe",
     "login": "Login",
-    "signout": "Déconnection"
+    "signout": "Déconnection",
+    "signoutText": "Are you sure you want to Logout?"
   },
   "dashboard": {
     "welcomename": "Bienvenu/e",
@@ -126,6 +127,7 @@
     "managebills": "Manager Factures"
   },
   "common": {
+    "ok": "OK",
     "results": "Résultats",
     "feedback": "Feedback",
     "submit": "Envoyer",
@@ -143,7 +145,7 @@
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",
     "titleedited": "Patient Edited",
-    "resetform": "Are you sure to {{resetButtonLabel}} the Form?",
+    "resetform": "Are you sure to Reset the Form? All the unsaved data will be lost.",
     "searchnotfound": "We couldn't find a match, please try another search.",
     "patienteditsuccessfull": "The patient was edit successfully.",
     "patientregistrationsuccessfull": "The patient registration was successful.",

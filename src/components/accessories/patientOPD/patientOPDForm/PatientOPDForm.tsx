@@ -231,10 +231,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={t("common.resetform", { resetButtonLabel })}
+            info={t("common.resetform")}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel={t("common.dismiss")}
+            secondaryButtonLabel={t("common.discard")}
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />

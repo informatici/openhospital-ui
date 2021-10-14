@@ -126,10 +126,10 @@ const AppHeader: FunctionComponent<TProps> = ({
       <ConfirmationDialog
         isOpen={openLogoutConfirmation}
         title={t("login.signout")}
-        info={`Are you sure you want to ${t("login.signout")}?`}
+        info={t("login.signoutText")}
         icon={warningIcon}
         primaryButtonLabel={t("login.signout")}
-        secondaryButtonLabel="Dismiss"
+        secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleLogout}
         handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
       />
