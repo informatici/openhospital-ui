@@ -40,7 +40,7 @@ export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
         dispatch(searchBills(filter));
         break;
     }
-  }, [status, filter]);
+  }, [dispatch, status, filter]);
 
   const data = useSelector<IState, FullBillDTO[]>((state) => {
     if (status === "PENDING") {
@@ -77,7 +77,7 @@ export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
         isCollapsabile={true}
         onView={handleView}
       />
-      <CustomModal
+      <CustomModal        
         open={open}
         onClose={handleClose}
         title={t("bill.details")}
