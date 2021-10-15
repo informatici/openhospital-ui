@@ -28,7 +28,7 @@ const DateField: FunctionComponent<IProps> = ({
   useEffect(() => {
     fieldValue === "" || fieldValue === null
       ? setValue("")
-      : setValue(new Date(fieldValue));
+      : setValue(new Date(+fieldValue));
   }, [fieldValue]);
 
   const handleDateChange = (date: Date | string | null) => {
