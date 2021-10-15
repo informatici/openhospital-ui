@@ -24,7 +24,10 @@ import { LaboratoryDTO } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
 import { getExamRows, getExams } from "../../../state/exams/actions";
-import { parseDate, updateLabFields } from "../../../libraries/formDataHandling/functions";
+import {
+  parseDate,
+  updateLabFields,
+} from "../../../libraries/formDataHandling/functions";
 import { CircularProgress } from "@material-ui/core";
 
 const PatientExams: FC = () => {
@@ -69,6 +72,7 @@ const PatientExams: FC = () => {
     (state: IState) => state.laboratories
   );
   const exams = useSelector((state: IState) => state.exams.examList.data);
+
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
     lab.patientCode = patientData?.code;
@@ -97,7 +101,6 @@ const PatientExams: FC = () => {
     setCreationMode(false);
     scrollToElement(null);
   };
-
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
     dispatch(deleteLab(code));
