@@ -155,12 +155,12 @@ export const ManageBillActivity: FC = () => {
                       </div>
                     </div>
                     <div className="searchBills__user_info">
-                      <Accordion>
-                        <AccordionSummary>
+                      <div className="sidebar__section">
+                        <div className="sidebar__section__header">
                           <Search fontSize="small" style={{ color: "white" }} />
                           <span> {t("bill.filter")}</span>
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </div>
+                        <div>
                           <BillFilterForm
                             className="searchBills__formData__item"
                             onSubmit={submit}
@@ -169,17 +169,17 @@ export const ManageBillActivity: FC = () => {
                               filter.toDate
                             )}
                           />
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion>
-                        <AccordionSummary>
+                        </div>
+                      </div>
+                      <div className="sidebar__section">
+                        <div className="sidebar__section__header">
                           <Receipt
                             fontSize="small"
                             style={{ color: "white" }}
                           />
                           <span> {t("bill.recap")}</span>
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </div>
+                        <div>
                           <div className="searchBills__formData__item">
                             <div className="searchBills__formData__item__label">
                               {t("bill.today")}:
@@ -228,8 +228,8 @@ export const ManageBillActivity: FC = () => {
                               {summary.userNotPaid || "-"}
                             </div>
                           </div>
-                        </AccordionDetails>
-                      </Accordion>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
