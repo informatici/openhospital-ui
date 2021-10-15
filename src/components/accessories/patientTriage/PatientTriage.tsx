@@ -42,9 +42,7 @@ const PatientTriage: FC = () => {
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  const examination = useSelector(
-    (state: IState) => state.examinations.examinationsByPatientId.data
-  );
+  const examinationStore = useSelector((state: IState) => state.examinations);
 
   const createStatus = useSelector<IState, string | undefined>(
     (state) => state.examinations.createExamination.status
@@ -57,15 +55,17 @@ const PatientTriage: FC = () => {
   );
 
   useEffect(() => {
-    if (createStatus === "FAIL") {
+    if (createStatus === "FAIL" || updateStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [createStatus]);
+  }, [createStatus, updateStatus]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
+    dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    setCreationMode(true);
   }, [dispatch]);
 
   useEffect(() => {
@@ -92,7 +92,9 @@ const PatientTriage: FC = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
     dispatch(createExaminationReset());
+    dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    setCreationMode(true);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -123,7 +125,7 @@ const PatientTriage: FC = () => {
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "LOADING"}
+        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
       />
 
       {(createStatus === "FAIL" ||
@@ -140,10 +142,16 @@ const PatientTriage: FC = () => {
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS"}
-        title={t("examination.created")}
+        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        title={
+          creationMode ? t("examination.created") : t("examination.updated")
+        }
         icon={checkIcon}
-        info={t("examination.createsuccess")}
+        info={
+          creationMode
+            ? t("examination.createsuccess")
+            : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}

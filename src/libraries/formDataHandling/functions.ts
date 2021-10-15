@@ -85,9 +85,10 @@ export const updateTriageFields = (
     Object.keys(values!).forEach((key) => {
       let value = values![key as keyof PatientExaminationDTO];
       if (draft[key as string]) {
-        return (draft[key as string].value = moment(value).isValid()
-          ? Date.parse(moment(value).toString())
-          : value);
+        return (draft[key as string].value =
+          key == "pex_date" && moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
       }
     });
   });
