@@ -12,11 +12,13 @@ import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleDelete: (code: number | undefined) => void;
+  handleEdit: (row: PatientExaminationDTO) => void;
 }
 
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleDelete,
+  handleEdit,
 }) => {
   const { t } = useTranslation();
   const label = {
@@ -97,6 +99,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 onDelete={onDelete}
+                onEdit={handleEdit}
                 isCollapsabile={true}
               />
             );

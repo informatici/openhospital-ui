@@ -24,7 +24,10 @@ import { LaboratoryDTO } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
 import { getExamRows, getExams } from "../../../state/exams/actions";
-import { parseDate, updateLabFields } from "../../../libraries/formDataHandling/functions";
+import {
+  parseDate,
+  updateLabFields,
+} from "../../../libraries/formDataHandling/functions";
 import { CircularProgress } from "@material-ui/core";
 
 const PatientExams: FC = () => {
