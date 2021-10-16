@@ -63,6 +63,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_sat: item.pex_sat,
         pex_note: item.pex_note,
         pex_date: item.pex_date ? renderDate(item.pex_date) : "",
+        date: item.pex_date,
       };
     });
   };

@@ -81,8 +81,9 @@ const PatientTriage: FC = () => {
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode;
-    if (!creationMode && triage.pex_ID) {
-      dispatch(updateExamination(triage.pex_ID, triage));
+    if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
+    if (!creationMode && triageToEdit.pex_ID) {
+      dispatch(updateExamination(triageToEdit.pex_ID, triage));
     } else {
       dispatch(createExamination(triage));
     }
@@ -104,7 +105,8 @@ const PatientTriage: FC = () => {
     dispatch(deleteExamination(code));
   };
 
-  const onEdit = (row: PatientExaminationDTO) => {
+  const onEdit = (row: any) => {
+    row.pex_date = row.date;
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
