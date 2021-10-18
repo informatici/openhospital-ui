@@ -43,23 +43,25 @@ const PatientTriage: FC = () => {
   );
 
   const examinationStore = useSelector((state: IState) => state.examinations);
-
-  const createStatus = useSelector<IState, string | undefined>(
-    (state) => state.examinations.createExamination.status
-  );
-  const updateStatus = useSelector<IState, string | undefined>(
-    (state) => state.examinations.updateExamination.status
-  );
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.examinations.deleteExamination.status
   );
-
+  const status = useSelector<IState, string | undefined>((state) => {
+    /*
+      Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
+      status at the same time,
+      because we use the same form for creation and modification. 
+    */
+    return state.examinations.createExamination.status !== "IDLE"
+      ? state.examinations.createExamination.status
+      : state.examinations.updateExamination.status;
+  });
   useEffect(() => {
-    if (createStatus === "FAIL" || updateStatus === "FAIL") {
+    if (status === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [createStatus, updateStatus]);
+  }, [status]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
@@ -127,12 +129,10 @@ const PatientTriage: FC = () => {
         resetButtonLabel={t("common.discard")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        isLoading={status === "LOADING"}
       />
 
-      {(createStatus === "FAIL" ||
-        updateStatus === "FAIL" ||
-        deleteStatus === "FAIL") && (
+      {(status === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -144,7 +144,7 @@ const PatientTriage: FC = () => {
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        isOpen={status === "SUCCESS"}
         title={
           creationMode ? t("examination.created") : t("examination.updated")
         }
