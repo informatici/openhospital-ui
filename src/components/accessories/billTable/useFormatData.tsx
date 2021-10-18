@@ -32,7 +32,6 @@ const useFormatData = (data: FullBillDTO[] | undefined, status: IStatus) => {
           status === "ALL"
       )
       .map((item) => {
-        console.log("patient ohhhh....", item.billDTO);
         return {
           id: item.billDTO?.id ?? "",
           date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
