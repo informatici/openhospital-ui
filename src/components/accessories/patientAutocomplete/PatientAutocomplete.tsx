@@ -1,8 +1,6 @@
-import { debounce, Paper, SvgIcon } from "@material-ui/core";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import { debounce, SvgIcon } from "@material-ui/core";
+import React, { FC, useEffect, useState } from "react";
 import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { IProps } from "./types";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +14,10 @@ import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
 import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
 import { ReactComponent as TaxIcon } from "../../../assets/tax.svg";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
+import { IProps } from "./types";
 
 const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
-  const [value, setValue] = useState({} as PatientDTO);
+  const [value, setValue] = useState({} as PatientDTO | undefined);
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
 
@@ -32,13 +31,12 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
   const searchStatus = useSelector<IState>(
     (state) => state.patients.searchResults.status || "IDLE"
   );
-
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    onBlur(e, value || undefined);
+    onBlur(e, value ?? {});
   };
 
   const onChange = (e: object, val: PatientDTO | null) => {
-    setValue(val || {});
+    setValue(val ?? {});
   };
 
   useEffect(() => {
@@ -50,6 +48,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
   }, [inputValue]);
 
   const handleOnInputChange = (event: any, value: string) => {
+    if (value === "") setValue({});
     debounce(() => {
       setInputValue(value);
     }, 250);
@@ -79,7 +78,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
         <ProfilePicture
           style={profileStyle}
           isEditable={false}
-          preLoadedPicture={value?.blobPhoto}
+          preLoadedPicture={patient?.blobPhoto}
         />
         <div className="info_item">
           <span>

@@ -20,13 +20,10 @@ const AutocompleteField: FC<IProps> = ({
   theme,
   freeSolo,
   onInputChange,
-  getOptionLabel = (option: DefaultOptionType) => option.label,
-  renderOption = (option: DefaultOptionType) => (
-    <Fragment>{option.label}</Fragment>
-  ),
-  getOptionSelected = (option: DefaultOptionType, v: DefaultOptionType) =>
-    option.value === v.value,
-  onChange = (e: object, val: any | null) => debounceUpdate(val?.value || ""),
+  getOptionLabel,
+  renderOption,
+  getOptionSelected,
+  onChange,
 }) => {
   const [value, setValue] = useState("");
 
@@ -50,6 +47,25 @@ const AutocompleteField: FC<IProps> = ({
     setValue(fieldValue + "");
   }, [fieldValue]);
 
+  const handleOnChange = (e: object, val: any | null) => {
+    if (onChange) onChange(e, val);
+    else {
+      debounceUpdate(val?.value || "");
+    }
+  };
+
+  const optionLabel = (option: DefaultOptionType) => {
+    return option.label;
+  };
+
+  const isSelected = (option: DefaultOptionType, v: DefaultOptionType) => {
+    return option.value === v.value;
+  };
+
+  const rendOption = (option: DefaultOptionType) => {
+    return <Fragment>{option.label}</Fragment>;
+  };
+
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
   return (
@@ -62,11 +78,11 @@ const AutocompleteField: FC<IProps> = ({
         loading={isLoading}
         options={options}
         onInputChange={onInputChange}
-        getOptionLabel={getOptionLabel}
+        getOptionLabel={getOptionLabel ? getOptionLabel : optionLabel}
         value={getFullObj(value)}
-        getOptionSelected={getOptionSelected}
-        renderOption={renderOption}
-        onChange={onChange}
+        getOptionSelected={getOptionSelected ? getOptionSelected : isSelected}
+        renderOption={renderOption ? renderOption : rendOption}
+        onChange={handleOnChange}
         onBlur={handleOnBlur}
         renderInput={(params) => (
           <TextField
