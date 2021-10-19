@@ -1,19 +1,14 @@
 import { debounce, FormControl, FormHelperText } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import React, {
-  Fragment,
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import { IProps } from "./types";
+import React, { Fragment, FC, useCallback, useEffect, useState } from "react";
+import { DefaultOptionType, IProps } from "./types";
 import "./styles.scss";
-import { Autocomplete } from "@material-ui/lab";
 import { useTranslation } from "react-i18next";
+import { Autocomplete } from "@material-ui/lab";
 
-const AutocompleteField: FunctionComponent<IProps> = ({
+const AutocompleteField: FC<IProps> = ({
   fieldName,
+  id = fieldName,
   fieldValue,
   label,
   isValid,
@@ -23,13 +18,21 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   isLoading = false,
   disabled,
   theme,
+  freeSolo,
   onInputChange,
+  getOptionLabel = (option: DefaultOptionType) => option.label,
+  renderOption = (option: DefaultOptionType) => (
+    <Fragment>{option.label}</Fragment>
+  ),
+  getOptionSelected = (option: DefaultOptionType, v: DefaultOptionType) =>
+    option.value === v.value,
+  onChange = (e: object, val: any | null) => debounceUpdate(val?.value || ""),
 }) => {
   const [value, setValue] = useState("");
 
   const { t } = useTranslation();
 
-  const geFullObj = (val: string) => {
+  const getFullObj = (val: string) => {
     return options?.find((el) => el.value === val) || null;
   };
   const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -37,41 +40,33 @@ const AutocompleteField: FunctionComponent<IProps> = ({
   };
 
   const debounceUpdate = useCallback(
-    debounce((value: any) => setValue(value), 250),
+    debounce((value: any) => {
+      setValue(value);
+    }, 250),
     []
   );
 
   useEffect(() => {
-    setValue(fieldValue);
+    setValue(fieldValue + "");
   }, [fieldValue]);
-
-  const handleOnInputChange = useCallback(
-    debounce(
-      (event: any, value: any) =>
-        onInputChange ? onInputChange(event, value) : null,
-      250
-    ),
-    []
-  );
 
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
-
   return (
     <FormControl variant="outlined" className={actualClassName}>
       <Autocomplete
+        id={id}
         noOptionsText={t("common.nooptionsfound")}
         disabled={disabled}
+        freeSolo={freeSolo}
         loading={isLoading}
         options={options}
-        onInputChange={handleOnInputChange}
-        getOptionLabel={(option) => option.label}
-        value={geFullObj(value)}
-        getOptionSelected={(option, v) => option.value === v.value}
-        renderOption={(option) => <Fragment>{option.label}</Fragment>}
-        onChange={(e: object, val: any | null) => {
-          debounceUpdate(val?.value || "");
-        }}
+        onInputChange={onInputChange}
+        getOptionLabel={getOptionLabel}
+        value={getFullObj(value)}
+        getOptionSelected={getOptionSelected}
+        renderOption={renderOption}
+        onChange={onChange}
         onBlur={handleOnBlur}
         renderInput={(params) => (
           <TextField

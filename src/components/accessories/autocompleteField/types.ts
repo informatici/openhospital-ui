@@ -1,6 +1,6 @@
 export interface IProps {
   fieldName: string;
-  fieldValue: string;
+  fieldValue: string | number;
   label: string;
   isValid: boolean;
   errorText: string;
@@ -8,8 +8,14 @@ export interface IProps {
   loading?: boolean;
   isLoading?: boolean;
   disabled?: boolean;
-  options: Array<{ value: string | number; label: string }>;
+  options: Array<DefaultOptionType | any>;
   theme?: string;
   onInputChange?: (e: any, value: any) => void;
   freeSolo?: boolean;
+  getOptionLabel?: <T>(option: T) => string;
+  renderOption?: <T>(params: T) => JSX.Element;
+  getOptionSelected?: <T>(option: T, value: T) => boolean;
+  id?: string;
+  onChange?: (e: object, val: any | null) => void;
 }
+export type DefaultOptionType = { value: string | number; label: string };
