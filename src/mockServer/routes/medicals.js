@@ -13,7 +13,7 @@ export const medicalRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(200).json([medicalDTO]);
+                    res.status(200).json(medicalDTO);
             }
         });
     });

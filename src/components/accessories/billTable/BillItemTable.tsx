@@ -51,7 +51,7 @@ const BillItemTable: React.FC<IOwnProps> = ({
       rowsPerPage={20}
       onDelete={handleDelete}
       isCollapsabile={false}
-      onEdit={() => {}}
+      onEdit={handleEdit}
     />
   );
 };

@@ -11,7 +11,7 @@ import { TUserCredentials } from "../../../state/main/types";
 import BillDataForm from "../../accessories/billDataForm/BillDataForm";
 import { TActivityTransitionState } from "../billingActivity/types";
 import { FullBillDTO } from "../../../generated";
-import { initialFields } from "./consts";
+import PatientBill from "../../accessories/patientBill/PatientBill";
 
 const NewBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -56,15 +56,7 @@ const NewBillActivity: FC = () => {
       <div className="newBill__background">
         <div className="newBill__content">
           <div className="newBill__title">{t("nav.newbill")}</div>
-          <BillDataForm
-            fields={initialFields}
-            onSubmit={onSubmit}
-            submitButtonLabel={t("common.submit")}
-            resetButtonLabel={t("common.clearall")}
-            isLoading={false}
-            shouldResetForm={shouldResetForm}
-            resetFormCallback={resetFormCallback}
-          />
+          <PatientBill />
         </div>
       </div>
       <Footer />

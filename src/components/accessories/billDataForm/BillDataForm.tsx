@@ -11,6 +11,8 @@ import { date, number, object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
+  updateBillItemFields,
+  updateBillPaymentFields,
 } from "../../../libraries/formDataHandling/functions";
 import warningIcon from "../../../assets/warning-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -24,9 +26,9 @@ import { BillItemType, TProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
-import { PaymentTable } from "./PaymentTable";
+import { PaymentTable } from "../billTable/PaymentTable";
 import Table from "../table/Table";
-import { BillItemTable } from "./BillItemTable";
+import { BillItemTable } from "../billTable/BillItemTable";
 import {
   BillDTO,
   BillItemsDTO,
@@ -34,6 +36,7 @@ import {
   ExamDTO,
   FullBillDTO,
   MedicalDTO,
+  PatientDTO,
 } from "../../../generated";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,10 +48,17 @@ import { getPriceLists, getPrices } from "../../../state/prices/actions";
 import { PriceListDTO } from "../../../generated/models/PriceListDTO";
 import { PriceDTO } from "../../../generated/models/PriceDTO";
 import { totalmem } from "os";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 
 const BillDataForm: FunctionComponent<TProps> = ({
   fields,
+  itemFields,
+  paymentFields,
+  addItemButtonLabel,
+  addPaymentButtonLabel,
   isLoading,
+  handleItemEdit,
+  handlePaymentEdit,
   onSubmit,
   submitButtonLabel,
   shouldResetForm,
@@ -84,7 +94,11 @@ const BillDataForm: FunctionComponent<TProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
+  const itemInitialValues = getFromFields(itemFields, "value");
+  const paymentInitialValues = getFromFields(paymentFields, "value");
 
+  const itemOptions = getFromFields(itemFields, "options");
+  const paymentOptions = getFromFields(paymentFields, "options");
   const options = getFromFields(fields, "options");
 
   const [billTotal, setBillTotal] = useState(0);
@@ -157,7 +171,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
   });
 
   const itemFormik = useFormik({
-    initialValues,
+    initialValues: itemInitialValues,
     validationSchema: itemValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -198,7 +212,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
   });
 
   const paymentFormik = useFormik({
-    initialValues,
+    initialValues: paymentInitialValues,
     validationSchema: paymentValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -290,6 +304,15 @@ const BillDataForm: FunctionComponent<TProps> = ({
   );
 
   useEffect(() => {
+    dispatch(
+      searchPatient({
+        id: "",
+        address: "",
+        firstName: "",
+        birthDate: "",
+        secondName: "",
+      })
+    );
     dispatch(getExams());
     dispatch(getMedicals());
     dispatch(getPriceLists());
@@ -318,12 +341,30 @@ const BillDataForm: FunctionComponent<TProps> = ({
     } else return [];
   };
 
+  const patientOptionsSelector = (patients: PatientDTO[] | undefined) => {
+    if (patients) {
+      return patients.map((item) => {
+        return {
+          value: item.code ?? "",
+          label: item.firstName + " " + item.secondName,
+        };
+      });
+    } else return [];
+  };
+
   const examList = useSelector((state: IState) => state.exams.examList.data);
 
   const priceList = useSelector((state: IState) => state.prices.getPrices.data);
 
+  const patientList = useSelector(
+    (state: IState) => state.patients.searchResults.data
+  );
+
   const examOptions = useSelector((state: IState) =>
     examOptionsSelector(state.exams.examList.data)
+  );
+  const patientOptions = useSelector((state: IState) =>
+    patientOptionsSelector(state.patients.searchResults.data)
   );
 
   const medicalOptionsSelector = (medicals: MedicalDTO[] | undefined) => {
@@ -372,14 +413,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
     priceListOptionsSelector(state.prices.getPriceLists.data)
   );
 
-  const billItemTypeOptions = (options.itemType ?? []).map(
-    (e: { value: string; type: any }) => {
-      e.value = t(e.value);
-      return e;
-    }
-  );
-
-  const paymentTypeOptions = (options.paymentType ?? []).map(
+  const paymentTypeOptions = (paymentOptions.paymentType ?? []).map(
     (e: { value: string; type: any }) => {
       e.value = t(e.value);
       return e;
@@ -419,7 +453,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
             isValid={isValid("patName", formik)}
             errorText={getErrorText("patName", formik)}
             onBlur={onBlurCallback("patName")}
-            options={options.patName}
+            options={patientOptions}
             isLoading={false}
           />
         </div>
@@ -433,7 +467,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("itemType", itemFormik)}
               errorText={getErrorText("itemType", itemFormik)}
               onBlur={onItemBlurCallback("itemType")}
-              options={billItemTypeOptions}
+              options={itemOptions.itemType ?? []}
               isLoading={false}
             />
             <TextField
@@ -459,7 +493,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
                     ? medicalOptions
                     : itemFormik.values.itemType == "EXA"
                     ? examOptions
-                    : options.itemDescription
+                    : itemOptions.itemDescription
                 }
                 isLoading={false}
               />
@@ -493,7 +527,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
                 itemFormik.handleSubmit();
               }}
             >
-              {t("button.add")}
+              {addItemButtonLabel}
             </SmallButton>
           </div>
         </fieldset>
@@ -501,7 +535,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
           {billItemsDTO.length > 0 && (
             <BillItemTable
               handleDelete={handleDeleteItem}
-              handleEdit={(row: any) => {}}
+              handleEdit={handleItemEdit}
               shouldUpdateTable={true}
               billItems={billItemsDTO ?? []}
             />
@@ -532,7 +566,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
             isValid={isValid("paymentType", paymentFormik)}
             errorText={getErrorText("paymentType", paymentFormik)}
             onBlur={onPaymentBlurCallback("paymentType")}
-            options={paymentTypeOptions}
+            options={paymentTypeOptions ?? []}
             isLoading={false}
           />
           <TextField
@@ -552,13 +586,13 @@ const BillDataForm: FunctionComponent<TProps> = ({
               paymentFormik.handleSubmit();
             }}
           >
-            {t("button.add")}
+            {addPaymentButtonLabel}
           </SmallButton>
         </div>
         <div>
           {billPaymentsDTO.length > 0 && (
             <PaymentTable
-              handleEdit={(row) => {}}
+              handleEdit={handlePaymentEdit}
               handleDelete={handleDeletePayment}
               shouldUpdateTable={true}
               payments={billPaymentsDTO}

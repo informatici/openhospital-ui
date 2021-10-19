@@ -1,5 +1,9 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { TBillDataFormFieldName } from "../../accessories/billDataForm/types";
+import {
+  TBillDataFormFieldName,
+  TBillItemDataFormFieldName,
+  TBillPaymentDataFormFieldName,
+} from "../../accessories/billDataForm/types";
 
 const itemTypeOptions = [
   {
@@ -72,33 +76,13 @@ const listPriceOptions = [
   },
 ];
 
-export const initialFields: TFields<TBillDataFormFieldName> = {
-  amount: {
-    type: "number",
-    value: "0",
-  },
+export const billItemInitialFields: TFields<TBillItemDataFormFieldName> = {
   itemAmount: {
     type: "number",
     value: "0",
   },
   itemCode: {
     type: "text",
-    value: "",
-  },
-  balance: {
-    type: "number",
-    value: "0",
-  },
-  paymentAmount: {
-    type: "number",
-    value: "0",
-  },
-  paymentDate: {
-    type: "date",
-    value: "",
-  },
-  billDate: {
-    type: "date",
     value: "",
   },
   itemDescription: {
@@ -119,6 +103,38 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
     type: "text",
     value: "0",
   },
+};
+
+export const billPaymentInitialFields: TFields<TBillPaymentDataFormFieldName> =
+  {
+    paymentType: {
+      type: "text",
+      value: "",
+      options: paymentOptions,
+    },
+    paymentAmount: {
+      type: "number",
+      value: "0",
+    },
+    paymentDate: {
+      type: "date",
+      value: "",
+    },
+  };
+
+export const initialFields: TFields<TBillDataFormFieldName> = {
+  amount: {
+    type: "number",
+    value: "0",
+  },
+  balance: {
+    type: "number",
+    value: "0",
+  },
+  billDate: {
+    type: "date",
+    value: "",
+  },
   listName: {
     type: "text",
     value: "",
@@ -128,10 +144,5 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
     type: "text",
     value: "",
     options: patientOptions,
-  },
-  paymentType: {
-    type: "text",
-    value: "",
-    options: paymentOptions,
   },
 };

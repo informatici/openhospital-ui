@@ -4,9 +4,15 @@ import {
   FullBillDTO,
   PatientDTO,
 } from "../../../generated";
-import { IForm } from "../../../libraries/formDataHandling/types";
+import { IForm, TFields } from "../../../libraries/formDataHandling/types";
 interface IOwnProps {
   shouldResetForm: boolean;
+  itemFields: TFields<TBillItemDataFormFieldName>;
+  paymentFields: TFields<TBillPaymentDataFormFieldName>;
+  addItemButtonLabel: string;
+  addPaymentButtonLabel: string;
+  handleItemEdit: (row: any) => void;
+  handlePaymentEdit: (row: any) => void;
   resetFormCallback: () => void;
 }
 
@@ -16,18 +22,20 @@ export interface BillItemType {
 }
 
 export type TProps = IForm<TBillDataFormFieldName, FullBillDTO> & IOwnProps;
-export type TBillDataFormFieldName =
-  | "billDate"
-  | "listName"
-  | "patName"
-  | "amount"
-  | "balance"
+export type TBillItemDataFormFieldName =
   | "itemDescription"
   | "itemQuantity"
   | "itemAmount"
   | "itemType"
   | "itemCode"
-  | "itemId"
+  | "itemId";
+export type TBillPaymentDataFormFieldName =
   | "paymentDate"
   | "paymentAmount"
   | "paymentType";
+export type TBillDataFormFieldName =
+  | "billDate"
+  | "listName"
+  | "patName"
+  | "amount"
+  | "balance";

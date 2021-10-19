@@ -1,6 +1,8 @@
 import { produce } from "immer";
 import moment from "moment";
 import {
+  BillItemsDTO,
+  BillPaymentsDTO,
   DiseaseDTO,
   ExamDTO,
   LaboratoryDTO,
@@ -76,6 +78,43 @@ export const updateLabFields = (
     });
   });
 };
+
+export const updateBillItemFields = (
+  fields: TFields,
+  values: BillItemsDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      let value = values![key as keyof BillItemsDTO];
+      if (draft[key as string]) {
+        return (draft[key as string].value = parseFloat(value as string)
+          ? value
+          : moment(value as string).isValid()
+          ? Date.parse(moment(value as string).toString())
+          : value);
+      }
+    });
+  });
+};
+
+export const updateBillPaymentFields = (
+  fields: TFields,
+  values: BillPaymentsDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      let value = values![key as keyof BillPaymentsDTO];
+      if (draft[key as string]) {
+        return (draft[key as string].value = parseFloat(value as string)
+          ? value
+          : moment(value as string).isValid()
+          ? Date.parse(moment(value as string).toString())
+          : value);
+      }
+    });
+  });
+};
+
 export const updateOpdFields = (
   fields: TFields,
   values: OpdDTO | undefined
