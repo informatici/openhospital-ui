@@ -72,7 +72,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   }, [shouldReset, resetCallback]);
 
   return (
-    <div className={`profilePicture ${style ? "" : "prop_style"}`}>
+    <div className={"profilePicture " + ` ${style ? "" : "prop_style"}`}>
       <input
         id="profilePicture_input"
         ref={pictureInputRef}
