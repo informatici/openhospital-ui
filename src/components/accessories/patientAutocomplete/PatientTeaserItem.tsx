@@ -13,6 +13,7 @@ const PatientTeaserItem = (patient: PatientDTO) => {
   const profileStyle = {
     height: "50px",
     width: "50px",
+    marginBottom: "0px",
   };
 
   const renderMinimizeTitle = (patient: PatientDTO) => {
