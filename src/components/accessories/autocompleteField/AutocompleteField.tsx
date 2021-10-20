@@ -24,13 +24,14 @@ const AutocompleteField: FC<IProps> = ({
   renderOption,
   getOptionSelected,
   onChange,
+  optionsComparator = (option: DefaultOptionType, val: string | number) =>
+    option.value + "" === val + "",
 }) => {
   const [value, setValue] = useState("");
-
   const { t } = useTranslation();
 
-  const getFullObj = (val: string) => {
-    return options?.find((el) => el.value === val) || null;
+  const getFullObject = (val: string | number) => {
+    return options?.find((el) => optionsComparator(el, val)) || null;
   };
   const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     onBlur(e, value);
@@ -79,7 +80,7 @@ const AutocompleteField: FC<IProps> = ({
         options={options}
         onInputChange={onInputChange}
         getOptionLabel={getOptionLabel ? getOptionLabel : optionLabel}
-        value={getFullObj(value)}
+        value={getFullObject(value)}
         getOptionSelected={getOptionSelected ? getOptionSelected : isSelected}
         renderOption={renderOption ? renderOption : rendOption}
         onChange={handleOnChange}

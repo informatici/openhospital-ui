@@ -17,5 +17,6 @@ export interface IProps {
   getOptionSelected?: <T>(option: T, value: T) => boolean;
   id?: string;
   onChange?: (e: object, val: any | null) => void;
+  optionsComparator?: <T>(option: T, val: string | number) => boolean;
 }
 export type DefaultOptionType = { value: string | number; label: string };
