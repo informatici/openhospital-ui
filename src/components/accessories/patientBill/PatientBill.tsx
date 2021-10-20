@@ -43,6 +43,9 @@ const PatientBill: FC = () => {
   const [itemCreationMode, setItemCreationMode] = useState(true);
   const [paymentCreationMode, setPaymentCreationMode] = useState(true);
 
+  const [billItemsDTO, setBillItemsDTO] = useState<BillItemsDTO[]>([]);
+  const [billPaymentsDTO, setBillPaymentsDTO] = useState<BillPaymentsDTO[]>([]);
+
   const [creationMode, setCreationMode] = useState(true);
 
   const patientData = useSelector(
@@ -77,6 +80,7 @@ const PatientBill: FC = () => {
   };
 
   const onItemEdit = (row: BillItemsDTO) => {
+    console.log(JSON.stringify(row));
     setItemToEdit(row);
     setItemCreationMode(false);
     scrollToElement(null);
@@ -115,12 +119,22 @@ const PatientBill: FC = () => {
             : updateBillPaymentFields(billPaymentInitialFields, paymentToEdit)
         }
         onSubmit={onSubmit}
+        itemToEdit={itemToEdit}
+        paymentToEdit={paymentToEdit}
+        billItemsDTO={billItemsDTO}
+        setBillItemsDTO={setBillItemsDTO}
+        billPaymentsDTO={billPaymentsDTO}
+        setBillPaymentsDTO={setBillPaymentsDTO}
         addItemButtonLabel={
-          itemCreationMode ? t("button.add") : t("common.update")
+          itemCreationMode ? t("common.save") : t("common.update")
         }
         addPaymentButtonLabel={
-          paymentCreationMode ? t("button.add") : t("common.update")
+          paymentCreationMode ? t("common.save") : t("common.update")
         }
+        itemCreationMode={itemCreationMode}
+        paymentCreationMode={paymentCreationMode}
+        setPaymentCreationMode={setPaymentCreationMode}
+        setItemCreationMode={setItemCreationMode}
         submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
         handleItemEdit={onItemEdit}
         handlePaymentEdit={onPaymentEdit}

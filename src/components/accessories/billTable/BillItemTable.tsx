@@ -40,8 +40,6 @@ const BillItemTable: React.FC<IOwnProps> = ({
     };
   });
 
-  useEffect(() => {});
-
   return (
     <Table
       rowData={rows}

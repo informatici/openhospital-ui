@@ -27,15 +27,15 @@ const itemTypeOptions = [
 const itemOptions = [
   {
     label: "Paracetamol",
-    value: "PARA",
+    value: "118",
   },
   {
     label: "Amoxiciline",
-    value: "AMOX",
+    value: "119",
   },
   {
     label: "Eferalgan",
-    value: "EFG",
+    value: "120",
   },
 ];
 
@@ -81,14 +81,14 @@ export const billItemInitialFields: TFields<TBillItemDataFormFieldName> = {
     type: "number",
     value: "0",
   },
-  itemCode: {
+  itemId: {
     type: "text",
     value: "",
+    options: itemOptions,
   },
   itemDescription: {
     type: "text",
     value: "",
-    options: itemOptions,
   },
   itemQuantity: {
     type: "number",
@@ -98,10 +98,6 @@ export const billItemInitialFields: TFields<TBillItemDataFormFieldName> = {
     type: "text",
     value: "bill.medical",
     options: itemTypeOptions,
-  },
-  itemId: {
-    type: "text",
-    value: "0",
   },
 };
 

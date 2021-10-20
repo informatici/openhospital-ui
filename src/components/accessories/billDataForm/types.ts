@@ -1,5 +1,6 @@
 import {
   BillDTO,
+  BillItemsDTO,
   BillPaymentsDTO,
   FullBillDTO,
   PatientDTO,
@@ -11,6 +12,16 @@ interface IOwnProps {
   paymentFields: TFields<TBillPaymentDataFormFieldName>;
   addItemButtonLabel: string;
   addPaymentButtonLabel: string;
+  itemCreationMode: boolean;
+  paymentCreationMode: Boolean;
+  itemToEdit: BillItemsDTO;
+  paymentToEdit: BillPaymentsDTO;
+  setItemCreationMode: (mode: boolean) => void;
+  setPaymentCreationMode: (mode: boolean) => void;
+  billItemsDTO: BillItemsDTO[];
+  setBillItemsDTO: (items: BillItemsDTO[]) => void;
+  billPaymentsDTO: BillPaymentsDTO[];
+  setBillPaymentsDTO: (payments: BillItemsDTO[]) => void;
   handleItemEdit: (row: any) => void;
   handlePaymentEdit: (row: any) => void;
   resetFormCallback: () => void;
@@ -27,7 +38,6 @@ export type TBillItemDataFormFieldName =
   | "itemQuantity"
   | "itemAmount"
   | "itemType"
-  | "itemCode"
   | "itemId";
 export type TBillPaymentDataFormFieldName =
   | "paymentDate"

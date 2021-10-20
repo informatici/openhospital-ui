@@ -57,6 +57,16 @@ const BillDataForm: FunctionComponent<TProps> = ({
   addItemButtonLabel,
   addPaymentButtonLabel,
   isLoading,
+  itemToEdit,
+  paymentToEdit,
+  billItemsDTO,
+  billPaymentsDTO,
+  itemCreationMode,
+  paymentCreationMode,
+  setItemCreationMode,
+  setPaymentCreationMode,
+  setBillItemsDTO,
+  setBillPaymentsDTO,
   handleItemEdit,
   handlePaymentEdit,
   onSubmit,
@@ -76,7 +86,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
 
   const itemValidationSchema = object({
     itemType: string().required(t("common.required")),
-    itemCode: string().required(t("common.required")),
+    itemId: string().required(t("common.required")),
     itemAmount: number()
       .required(t("common.required"))
       .min(0, t("common.positiveValue")),
@@ -97,7 +107,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
   const itemInitialValues = getFromFields(itemFields, "value");
   const paymentInitialValues = getFromFields(paymentFields, "value");
 
-  const itemOptions = getFromFields(itemFields, "options");
+  const billItemOptions = getFromFields(itemFields, "options");
   const paymentOptions = getFromFields(paymentFields, "options");
   const options = getFromFields(fields, "options");
 
@@ -110,10 +120,6 @@ const BillDataForm: FunctionComponent<TProps> = ({
     billPaymentsDTO: billPaymentRows,
   });
 
-  const [billItemsDTO, setBillItemsDTO] =
-    useState<BillItemsDTO[]>(billItemRows);
-  const [billPaymentsDTO, setBillPaymentsDTO] =
-    useState<BillPaymentsDTO[]>(billPaymentRows);
   const [changeCount, setChangeCount] = useState(0);
 
   const [currentPriceList, setCurrentPriceList] = useState<PriceListDTO>({});
@@ -176,35 +182,45 @@ const BillDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       let itemAmount = values.itemAmount;
-      let itemDescription = values.itemDescription;
+      let itemDescription = values.itemDescription as string;
       let price: PriceDTO | undefined;
       let item: MedicalDTO | ExamDTO | undefined;
+      let bItem: BillItemsDTO;
+      let items = billItemsDTO;
+      let itemId = values.itemId;
       if (values.itemType == "MED") {
-        item = medicalList?.find((e) => e.code == values.itemCode);
+        item = medicalList?.find((e) => e.code == values.itemId);
         if (item) {
           price = priceList?.find((e) => e.item == item?.code);
         }
       } else if (values.itemType == "EXA") {
-        item = examList?.find((e) => e.code == values.itemCode);
+        item = examList?.find((e) => e.code == values.itemId);
         if (item) {
           price = priceList?.find((e) => e.item == item?.code);
         }
       } else if (values.itemType == "OP") {
         //TODO
-      } else {
-        itemDescription = values.itemCode;
+      } else if (values.itemType == "CST") {
+        itemId = (1000 + itemDescription.length + items.length).toString();
       }
       itemAmount = price ? price?.price : itemAmount;
-      itemDescription = item ? item.description : itemDescription;
-      billItemsDTO.push({
+      itemDescription = item ? item.description ?? "" : itemDescription;
+      if (!itemCreationMode) {
+        items = items.filter(
+          (e) => e.itemDisplayCode != itemToEdit.itemDisplayCode
+        );
+      }
+      items.push({
         itemAmount: itemAmount,
         itemDescription: itemDescription,
+        itemDisplayCode: itemDescription.slice(0, 4),
         itemQuantity: values.itemQuantity,
-        itemId: billItemsDTO.length.toString(),
         priceId: (price?.id ?? "").toString(),
+        itemId: itemId,
       });
-      setBillItemsDTO(billItemsDTO);
+      setBillItemsDTO(items);
       setChangeCount(changeCount + 1);
+      setItemCreationMode(true);
       itemFormik.resetForm();
       //const formattedValues = formatAllFieldValues({}, values);
       //onSubmit(formattedValues);
@@ -217,16 +233,29 @@ const BillDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       let payments = billPaymentsDTO;
+      let maxIndex = payments
+        .sort((a, b) => {
+          return (
+            parseFloat((a.id ?? 0).toString()) -
+            parseFloat((b.id ?? 0).toString())
+          );
+        })
+        .reverse()[0];
+      let paymentId = payments.length;
+      if (!paymentCreationMode) {
+        payments = payments.filter((e) => e.id != paymentToEdit.id);
+      }
       payments?.push({
         amount:
           values.paymentType == "P"
             ? values.paymentAmount
             : -values.paymentAmount,
         date: values.paymentDate,
-        id: payments.length,
+        id: paymentId,
       });
       setBillPaymentsDTO(payments);
       setChangeCount(changeCount + 1);
+      setPaymentCreationMode(true);
       paymentFormik.resetForm();
       //const formattedValues = formatAllFieldValues({}, values);
       //onSubmit(formattedValues);
@@ -242,6 +271,11 @@ const BillDataForm: FunctionComponent<TProps> = ({
   const setPaymentFieldValue = paymentFormik.setFieldValue;
   const resetPaymentForm = paymentFormik.resetForm;
   const handlePaymentBlur = paymentFormik.handleBlur;
+
+  const getBillItemType = (itemId: string, pList: PriceDTO[]) => {
+    let price = pList.find((e) => e.item == itemId);
+    return price ? price.group ?? "" : "CST";
+  };
 
   const isValid = (fieldName: string, f: typeof formik): boolean => {
     return has(f.touched, fieldName) && has(f.errors, fieldName);
@@ -462,12 +496,19 @@ const BillDataForm: FunctionComponent<TProps> = ({
           <div className="billDataForm__billForm_item">
             <AutocompleteField
               fieldName="itemType"
-              fieldValue={itemFormik.values.itemType}
+              fieldValue={
+                itemCreationMode
+                  ? itemFormik.values.itemType
+                  : getBillItemType(
+                      itemFormik.values.itemId ?? "",
+                      priceList ?? []
+                    )
+              }
               label={t("bill.itemtype")}
               isValid={isValid("itemType", itemFormik)}
               errorText={getErrorText("itemType", itemFormik)}
               onBlur={onItemBlurCallback("itemType")}
-              options={itemOptions.itemType ?? []}
+              options={billItemOptions.itemType ?? []}
               isLoading={false}
             />
             <TextField
@@ -482,18 +523,18 @@ const BillDataForm: FunctionComponent<TProps> = ({
           {itemFormik.values.itemType !== "CST" && (
             <div className="billDataForm__billForm_item">
               <AutocompleteField
-                fieldName="itemCode"
-                fieldValue={itemFormik.values.itemCode}
+                fieldName="itemId"
+                fieldValue={itemFormik.values.itemId}
                 label={t("bill.item")}
-                isValid={isValid("itemCode", itemFormik)}
-                errorText={getErrorText("itemCode", itemFormik)}
-                onBlur={onItemBlurCallback("itemCode")}
+                isValid={isValid("itemId", itemFormik)}
+                errorText={getErrorText("itemId", itemFormik)}
+                onBlur={onItemBlurCallback("itemId")}
                 options={
                   itemFormik.values.itemType == "MED"
                     ? medicalOptions
                     : itemFormik.values.itemType == "EXA"
                     ? examOptions
-                    : itemOptions.itemDescription
+                    : billItemOptions.itemId
                 }
                 isLoading={false}
               />
@@ -502,11 +543,11 @@ const BillDataForm: FunctionComponent<TProps> = ({
           {itemFormik.values.itemType === "CST" && (
             <div className="billDataForm__billForm_item">
               <TextField
-                field={itemFormik.getFieldProps("itemCode")}
+                field={itemFormik.getFieldProps("itemDescription")}
                 theme="regular"
                 label={t("bill.description")}
-                isValid={isValid("itemCode", itemFormik)}
-                errorText={getErrorText("itemCode", itemFormik)}
+                isValid={isValid("itemDescription", itemFormik)}
+                errorText={getErrorText("itemDescription", itemFormik)}
                 onBlur={itemFormik.handleBlur}
               />
               <TextField

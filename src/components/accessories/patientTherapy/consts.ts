@@ -3,7 +3,7 @@ import { TherapyFormFieldName } from "./therapyForm/types";
 
 export const initialFields: TFields<TherapyFormFieldName> = {
   medicalId: {
-    value: "",
+    value: "16",
     type: "text",
     options: [],
   },
