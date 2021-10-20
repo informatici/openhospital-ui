@@ -10,6 +10,7 @@ import {
   GET_BILL_FAIL,
   SEARCH_BILL_LOADING,
   SEARCH_BILL_SUCCESS,
+  SEARCH_BILL_FAIL,
   PENDING_BILL_LOADING,
   PENDING_BILL_SUCCESS,
   PENDING_BILL_FAIL,
@@ -85,7 +86,7 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
       break;
     }
 
-    case GET_BILL_FAIL: {
+    case SEARCH_BILL_FAIL: {
       draft.searchBills.status = "FAIL";
       draft.searchBills.error = action.error;
       break;
