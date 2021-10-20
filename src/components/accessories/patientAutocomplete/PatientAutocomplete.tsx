@@ -50,7 +50,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
   };
 
   const getOptionLabel = (option: PatientDTO | undefined) => {
-    return option?.firstName || "";
+    return option?.firstName ?? "";
   };
 
   const optionsComparator = (patient: PatientDTO, val: string | number) => {
