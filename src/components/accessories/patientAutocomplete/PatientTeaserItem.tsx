@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import { PatientDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { CakeOutlined } from "@material-ui/icons";
