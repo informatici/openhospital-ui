@@ -83,12 +83,10 @@ const PatientBill: FC = () => {
     console.log(JSON.stringify(row));
     setItemToEdit(row);
     setItemCreationMode(false);
-    scrollToElement(null);
   };
   const onPaymentEdit = (row: BillPaymentsDTO) => {
     setPaymentToEdit(row);
     setPaymentCreationMode(false);
-    scrollToElement(null);
   };
 
   const onDelete = (code: number | undefined) => {

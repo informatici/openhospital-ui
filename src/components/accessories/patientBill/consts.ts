@@ -83,7 +83,7 @@ export const billItemInitialFields: TFields<TBillItemDataFormFieldName> = {
   },
   itemId: {
     type: "text",
-    value: "",
+    value: "18",
     options: itemOptions,
   },
   itemDescription: {
@@ -92,11 +92,11 @@ export const billItemInitialFields: TFields<TBillItemDataFormFieldName> = {
   },
   itemQuantity: {
     type: "number",
-    value: "0",
+    value: "1",
   },
   itemType: {
     type: "text",
-    value: "bill.medical",
+    value: "MED",
     options: itemTypeOptions,
   },
 };
@@ -105,16 +105,16 @@ export const billPaymentInitialFields: TFields<TBillPaymentDataFormFieldName> =
   {
     paymentType: {
       type: "text",
-      value: "",
+      value: "P",
       options: paymentOptions,
     },
-    paymentAmount: {
+    amount: {
       type: "number",
       value: "0",
     },
-    paymentDate: {
+    date: {
       type: "date",
-      value: "",
+      value: new Date(Date.now()).toLocaleString(),
     },
   };
 
@@ -127,18 +127,18 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
     type: "number",
     value: "0",
   },
-  billDate: {
+  date: {
     type: "date",
-    value: "",
+    value: new Date(Date.now()).toLocaleString(),
   },
-  listName: {
-    type: "text",
-    value: "",
+  listId: {
+    type: "number",
+    value: "0",
     options: listPriceOptions,
   },
   patName: {
     type: "text",
-    value: "",
+    value: "JD",
     options: patientOptions,
   },
 };

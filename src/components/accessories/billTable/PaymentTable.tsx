@@ -39,6 +39,14 @@ const PaymentTable: React.FC<IOwnProps> = ({
     };
   });
 
+  const onEdit = (row: any) => {
+    let p = payments.find((e) => e.id == row.id);
+    handleEdit({
+      ...row,
+      date: p?.date,
+    });
+  };
+
   return (
     <Table
       rowData={paymentRows}
@@ -48,7 +56,7 @@ const PaymentTable: React.FC<IOwnProps> = ({
       rowsPerPage={20}
       onDelete={handleDelete}
       isCollapsabile={false}
-      onEdit={handleEdit}
+      onEdit={onEdit}
     />
   );
 };

@@ -81,7 +81,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
   const validationSchema = object({
     billDate: string().required(t("common.required")),
     patName: string().required(t("common.required")),
-    listName: string().required(t("common.required")),
+    listId: string().required(t("common.required")),
   });
 
   const itemValidationSchema = object({
@@ -97,8 +97,8 @@ const BillDataForm: FunctionComponent<TProps> = ({
 
   const paymentValidationSchema = object({
     paymentType: string().required(t("common.required")),
-    paymentDate: date().required(t("common.required")),
-    paymentAmount: number()
+    date: date().required(t("common.required")),
+    amount: number()
       .required(t("common.required"))
       .min(0, t("common.positiveValue")),
   });
@@ -121,8 +121,6 @@ const BillDataForm: FunctionComponent<TProps> = ({
   });
 
   const [changeCount, setChangeCount] = useState(0);
-
-  const [currentPriceList, setCurrentPriceList] = useState<PriceListDTO>({});
 
   const handleDeleteItem = useCallback(
     (row: BillItemsDTO) => {
@@ -191,12 +189,19 @@ const BillDataForm: FunctionComponent<TProps> = ({
       if (values.itemType == "MED") {
         item = medicalList?.find((e) => e.code == values.itemId);
         if (item) {
-          price = priceList?.find((e) => e.item == item?.code);
+          price = priceList?.find(
+            (e) =>
+              e.item == item?.code &&
+              e?.group == "MED" &&
+              e?.list?.id?.toString() == formik.values.listId
+          );
         }
       } else if (values.itemType == "EXA") {
         item = examList?.find((e) => e.code == values.itemId);
         if (item) {
-          price = priceList?.find((e) => e.item == item?.code);
+          price = priceList?.find(
+            (e) => e.item == item?.code && e?.group == "EXA"
+          );
         }
       } else if (values.itemType == "OP") {
         //TODO
@@ -205,10 +210,10 @@ const BillDataForm: FunctionComponent<TProps> = ({
       }
       itemAmount = price ? price?.price : itemAmount;
       itemDescription = item ? item.description ?? "" : itemDescription;
+      console.log(JSON.stringify(itemToEdit));
+      console.log(JSON.stringify(items));
       if (!itemCreationMode) {
-        items = items.filter(
-          (e) => e.itemDisplayCode != itemToEdit.itemDisplayCode
-        );
+        items = items.filter((e) => e.itemId != itemToEdit.itemId);
       }
       items.push({
         itemAmount: itemAmount,
@@ -233,25 +238,23 @@ const BillDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       let payments = billPaymentsDTO;
-      let maxIndex = payments
-        .sort((a, b) => {
-          return (
-            parseFloat((a.id ?? 0).toString()) -
-            parseFloat((b.id ?? 0).toString())
-          );
-        })
-        .reverse()[0];
-      let paymentId = payments.length;
+      let maxIndex =
+        payments
+          .sort((a, b) => {
+            return (
+              parseFloat((a.id ?? 0).toString()) -
+              parseFloat((b.id ?? 0).toString())
+            );
+          })
+          .reverse()[0]?.id ?? -1;
+      let paymentId = maxIndex + 1;
       if (!paymentCreationMode) {
         payments = payments.filter((e) => e.id != paymentToEdit.id);
       }
       payments?.push({
-        amount:
-          values.paymentType == "P"
-            ? values.paymentAmount
-            : -values.paymentAmount,
-        date: values.paymentDate,
-        id: paymentId,
+        amount: values.paymentType == "P" ? values.amount : -values.amount,
+        date: values.date,
+        id: paymentCreationMode ? paymentId : paymentToEdit.id,
       });
       setBillPaymentsDTO(payments);
       setChangeCount(changeCount + 1);
@@ -261,6 +264,10 @@ const BillDataForm: FunctionComponent<TProps> = ({
       //onSubmit(formattedValues);
     },
   });
+
+  const [currentPriceList, setCurrentPriceList] = useState<string>(
+    formik.values.listId
+  );
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -275,6 +282,10 @@ const BillDataForm: FunctionComponent<TProps> = ({
   const getBillItemType = (itemId: string, pList: PriceDTO[]) => {
     let price = pList.find((e) => e.item == itemId);
     return price ? price.group ?? "" : "CST";
+  };
+
+  const getBillPaymentType = (amount: number) => {
+    return amount >= 0 ? "P" : "R";
   };
 
   const isValid = (fieldName: string, f: typeof formik): boolean => {
@@ -309,6 +320,19 @@ const BillDataForm: FunctionComponent<TProps> = ({
       ) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+      },
+    [setFieldValue, handleBlur]
+  );
+
+  const onListPriceBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+        setCurrentPriceList(value);
       },
     [setFieldValue, handleBlur]
   );
@@ -428,7 +452,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
     if (priceList) {
       return priceList.map((item) => {
         return {
-          value: item.code ?? "",
+          value: item?.id?.toString() ?? "",
           label:
             (item.description &&
               item.description?.length > 30 &&
@@ -447,12 +471,7 @@ const BillDataForm: FunctionComponent<TProps> = ({
     priceListOptionsSelector(state.prices.getPriceLists.data)
   );
 
-  const paymentTypeOptions = (paymentOptions.paymentType ?? []).map(
-    (e: { value: string; type: any }) => {
-      e.value = t(e.value);
-      return e;
-    }
-  );
+  const paymentTypeOptions = paymentOptions.paymentType;
 
   return (
     <form className="billDataForm">
@@ -469,12 +488,12 @@ const BillDataForm: FunctionComponent<TProps> = ({
             onChange={dateFieldHandleOnChange("billDate")}
           />
           <AutocompleteField
-            fieldName="listName"
-            fieldValue={formik.values.listName}
+            fieldName="listId"
+            fieldValue={formik.values.listId}
             label={t("bill.pricelist")}
-            isValid={isValid("listName", formik)}
-            errorText={getErrorText("listName", formik)}
-            onBlur={onBlurCallback("listName")}
+            isValid={isValid("listId", formik)}
+            errorText={getErrorText("listId", formik)}
+            onBlur={onListPriceBlurCallback("listId")}
             options={priceListOptions}
             isLoading={false}
           />
@@ -530,7 +549,16 @@ const BillDataForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("itemId", itemFormik)}
                 onBlur={onItemBlurCallback("itemId")}
                 options={
-                  itemFormik.values.itemType == "MED"
+                  !itemCreationMode &&
+                  getBillItemType(
+                    itemFormik.values.itemId ?? "",
+                    priceList ?? []
+                  ) == "MED"
+                    ? medicalOptions
+                    : itemFormik.values.itemType == "EXA"
+                    ? examOptions
+                    : billItemOptions.itemId ||
+                      itemFormik.values.itemType == "MED"
                     ? medicalOptions
                     : itemFormik.values.itemType == "EXA"
                     ? examOptions
@@ -594,15 +622,19 @@ const BillDataForm: FunctionComponent<TProps> = ({
           <DateField
             label={t("bill.date")}
             format="dd/MM/yyyy"
-            fieldName="paymentDate"
-            errorText={getErrorText("paymentDate", paymentFormik)}
-            fieldValue={paymentFormik.values.paymentDate}
-            isValid={isValid("paymentDate", paymentFormik)}
-            onChange={paymentDateFieldHandleOnChange("paymentDate")}
+            fieldName="date"
+            errorText={getErrorText("date", paymentFormik)}
+            fieldValue={paymentFormik.values.date}
+            isValid={isValid("date", paymentFormik)}
+            onChange={paymentDateFieldHandleOnChange("date")}
           />
           <AutocompleteField
             fieldName="paymentType"
-            fieldValue={t(paymentFormik.values.paymentType)}
+            fieldValue={
+              paymentCreationMode
+                ? paymentFormik.values.paymentType
+                : getBillPaymentType(paymentToEdit.amount ?? 0)
+            }
             label={t("bill.type")}
             isValid={isValid("paymentType", paymentFormik)}
             errorText={getErrorText("paymentType", paymentFormik)}
@@ -611,11 +643,11 @@ const BillDataForm: FunctionComponent<TProps> = ({
             isLoading={false}
           />
           <TextField
-            field={paymentFormik.getFieldProps("paymentAmount")}
+            field={paymentFormik.getFieldProps("amount")}
             theme="regular"
             label={t("bill.amount")}
-            isValid={isValid("paymentAmount", paymentFormik)}
-            errorText={getErrorText("paymentAmount", paymentFormik)}
+            isValid={isValid("amount", paymentFormik)}
+            errorText={getErrorText("amount", paymentFormik)}
             onBlur={paymentFormik.handleBlur}
           />
         </div>

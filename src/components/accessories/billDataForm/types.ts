@@ -39,13 +39,10 @@ export type TBillItemDataFormFieldName =
   | "itemAmount"
   | "itemType"
   | "itemId";
-export type TBillPaymentDataFormFieldName =
-  | "paymentDate"
-  | "paymentAmount"
-  | "paymentType";
+export type TBillPaymentDataFormFieldName = "date" | "amount" | "paymentType";
 export type TBillDataFormFieldName =
-  | "billDate"
-  | "listName"
+  | "date"
+  | "listId"
   | "patName"
   | "amount"
   | "balance";

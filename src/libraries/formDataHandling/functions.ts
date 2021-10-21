@@ -102,16 +102,23 @@ export const updateBillPaymentFields = (
   values: BillPaymentsDTO | undefined
 ): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      let value = values![key as keyof BillPaymentsDTO];
-      if (draft[key as string]) {
-        return (draft[key as string].value = parseFloat(value as string)
-          ? value
-          : moment(value as string).isValid()
-          ? Date.parse(moment(value as string).toString())
-          : value);
-      }
-    });
+    Object.keys(values!)
+      .concat("paymentType")
+      .forEach((key) => {
+        let value: string | number | undefined = "";
+        if (key != "paymentType") {
+          value = values![key as keyof BillPaymentsDTO];
+        }
+        if (key == "paymentType") {
+          let amount = values!["amount"];
+          value = amount ?? 0 >= 0 ? "P" : "R";
+        }
+        if (draft[key as string]) {
+          return (draft[key as string].value = parseFloat(value as string)
+            ? Math.abs(parseFloat(value?.toString() ?? ""))
+            : value);
+        }
+      });
   });
 };
 
