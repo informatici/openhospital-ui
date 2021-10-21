@@ -6,9 +6,9 @@ import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
-import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -56,10 +56,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.code,
-        date:
-          item.date && moment(+item.date).isValid()
-            ? moment(+item.date).format("DD/MM/YYYY")
-            : "",
+        date: item.date ? renderDate(item.date) : "",
         exam: item.exam?.description ?? "",
         material: item.material,
         result: item.result,
