@@ -10,6 +10,8 @@ import NewPatientActivity from "./components/activities/newPatientActivity/NewPa
 import NotFound from "./components/activities/notFound/NotFound";
 import PatientDetailsActivity from "./components/activities/patientDetailsActivity/PatientDetailsActivity";
 import SearchPatientActivity from "./components/activities/searchPatientActivity/SearchPatientActivity";
+import NewMedicalActivity from "./components/activities/newMedicalActivity/NewMedicalActivity";
+import MedicalsActivity from "./components/activities/MedicalsActivity/MedicalsActivity";
 
 const Routes: FunctionComponent = () => {
   return (
@@ -24,6 +26,8 @@ const Routes: FunctionComponent = () => {
           <DashboardActivity
             newPatientRoute="/new"
             searchPatientRoute="/search"
+            newMedicalRoute="/newMedical"
+            medicalsRoute="/Medicals"
           />
         </PrivateRoute>
         <PrivateRoute path="/new">
@@ -37,6 +41,12 @@ const Routes: FunctionComponent = () => {
         </PrivateRoute>
         <PrivateRoute path="/details/:id">
           <PatientDetailsActivity />
+        </PrivateRoute>
+        <PrivateRoute path="/newMedical">
+          <NewMedicalActivity dashboardRoute="/"  />
+        </PrivateRoute>
+        <PrivateRoute path="/Medicals">
+          <MedicalsActivity />
         </PrivateRoute>
         <PrivateRoute>
           <NotFound />

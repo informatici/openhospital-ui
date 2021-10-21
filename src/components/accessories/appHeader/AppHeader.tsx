@@ -7,7 +7,7 @@ import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, TProps } from "./types";
@@ -17,6 +17,7 @@ import { connect, useSelector } from "react-redux";
 import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
+import SplitButton from "../splitButton/SplitButton";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -38,6 +39,32 @@ const AppHeader: FunctionComponent<TProps> = ({
   };
   const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
 
+  const pharmacyTypes =[
+    t("nav.pharmaceuticals"),
+    t("nav.pharmaceuticalstock"),
+    t("nav.pharmaceuticalstockward")
+    ];
+
+    const useDescription = (
+      event: React.MouseEvent<Element, MouseEvent>,
+      index: number,
+    ) => {  
+        switch(index)
+        {
+          case 0: 
+          return <Redirect to={`/Medicals/`} />; 
+          break;
+          case 1: //Report of order
+            //will call a component
+          break;
+          case 2: //Report of stock card
+            //will call a component
+          break;
+          default: //No valid choice
+            return;
+        }
+    }
+  
   const handleLogout = () => {
     setOpenLogoutConfirmation(false);
     setLogoutThunk();
@@ -104,7 +131,23 @@ const AppHeader: FunctionComponent<TProps> = ({
           </div>
           <div className="appHeader__nav">
             <div className="appHeader__nav_items">
-              <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
+            <div className="appHeader__nav__item">{t("nav.pharmacy")}
+              <SplitButton
+                type="button"
+                descriptions={pharmacyTypes}
+                label={""}
+                onClick={useDescription}
+              >
+                <div className="medicals__button__label">
+                  {t("common.report")}
+                </div>
+              </SplitButton>
+              </div> 
+              {/* <div className="appHeader__nav__item">{t("nav.pharmacy")}
+                <div className="appHeader__nav__subitem">{t("nav.pharmaceuticals")}</div>
+                <div className="appHeader__nav__subitem">{t("nav.pharmaceuticalstock")}</div>
+                <div className="appHeader__nav__subitem">{t("nav.pharmaceuticalstockward")}</div>
+              </div> */}
               <div className="appHeader__nav__item">{t("nav.ward")}</div>
               <div className="appHeader__nav__item">{t("nav.billing")}</div>
             </div>

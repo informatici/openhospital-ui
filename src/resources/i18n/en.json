@@ -38,6 +38,17 @@
     "parentslivetoghether": "Parents live together",
     "insertdataofnewpatient": "Insert data of new Patient"
   },
+  "medical": {
+    "code": "Code",
+    "prod_code": "Product code",
+    "type": "Type",
+    "description": "Description",
+    "initialqty": "Initial quantity",
+    "pcsperpck": "Pieces per package",
+    "inqty": "In quantity",
+    "outqty": "Out quantity",
+    "minqty": "Minimum quantity"
+  },
   "opd": {
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnesis",
@@ -81,6 +92,9 @@
   },
   "nav": {
     "pharmacy": "Pharmacy",
+    "pharmaceuticals": "Pharmaceuticals",
+    "pharmaceuticalstock": "Pharmaceutical Stock",
+    "pharmaceuticalstockward": "Pharmaceutical Stock Ward",
     "ward": "Ward",
     "billing": "Billing",
     "summary": "Summary",
@@ -90,6 +104,7 @@
     "booking": "Booking",
     "dashboard": "Dashboard",
     "newpatient": "New patient",
+    "newmedical": "New medical",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard"
@@ -99,7 +114,10 @@
     "results": "Results",
     "submit": "Submit",
     "reset": "Reset",
-    "search": "Search",
+    "search": "Search",   
+    "new": "New",
+    "export": "Export",
+    "report": "Report",
     "searching": "Searching",
     "patient": "Patient",
     "clearall": "Clear All",
