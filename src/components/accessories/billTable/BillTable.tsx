@@ -8,10 +8,10 @@ import { CustomModal } from "../customModal/CustomModal";
 import Table from "../table/Table";
 import useFormatData from "./useFormatData";
 import RenderBillDetails from "./RenderBillDetails";
-import { IBillTableProps, TBillFilterValues, TFilterValues } from "./types";
+import { IBillTableProps, TFilterValues } from "./types";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import DateField from "../dateField/DateField";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import SmallButton from "../smallButton/SmallButton";
 import { object, string } from "yup";
 import moment from "moment";
@@ -23,6 +23,7 @@ import { get, has } from "lodash";
 import { computeBillSummary } from "../../activities/manageBillActivity/config";
 import { TUserCredentials } from "../../../state/main/types";
 import { IBillSummary } from "../../activities/manageBillActivity/types";
+import SelectField from "../selectField/SelectField";
 
 export const BillTable: FC<IBillTableProps> = ({
   fields,
@@ -46,9 +47,10 @@ export const BillTable: FC<IBillTableProps> = ({
   );
 
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
-  const [filter, setFilter] = useState({} as TFilterValues);
+
   const validationSchema = object({
     fromDate: string().required(),
+    status: string().required(),
     toDate: string().test({
       name: "toDate",
       message: t("bill.validatetodate"),
@@ -61,8 +63,25 @@ export const BillTable: FC<IBillTableProps> = ({
       },
     }),
   });
+  const search = (filter: TFilterValues) => {
+    switch (filter.status) {
+      case "PENDING":
+        dispatch(getPendingBills(+filter.patientCode));
+        break;
+      case "CLOSE":
+        dispatch(searchBills(filter));
+        break;
+      case "DELETE":
+        dispatch(searchBills(filter));
+        break;
+      default:
+        dispatch(searchBills(filter));
+        break;
+    }
+  };
 
   const initialValues = getFromFields(fields, "value");
+  const [filter, setFilter] = useState(initialValues as TFilterValues);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -73,6 +92,7 @@ export const BillTable: FC<IBillTableProps> = ({
         values
       ) as TFilterValues;
       setFilter(formattedValues);
+      search(formattedValues);
     },
   });
 
@@ -108,23 +128,6 @@ export const BillTable: FC<IBillTableProps> = ({
       },
     [setFieldValue, handleBlur]
   );
-
-  useEffect(() => {
-    switch (filter.status) {
-      case "PENDING":
-        dispatch(getPendingBills(+filter.patientCode));
-        break;
-      case "CLOSE":
-        dispatch(searchBills(filter));
-        break;
-      case "DELETE":
-        dispatch(searchBills(filter));
-        break;
-      default:
-        dispatch(searchBills(filter));
-        break;
-    }
-  }, [filter]);
 
   const data = useSelector<IState, FullBillDTO[]>((state) => {
     if (filter.status === "PENDING") {
@@ -162,12 +165,42 @@ export const BillTable: FC<IBillTableProps> = ({
     handleOpen();
   };
 
+  const statusOptions = [
+    {
+      label: t("bill.allbills"),
+      value: "ALL",
+    },
+    {
+      label: t("bill.pending"),
+      value: "PENDING",
+    },
+    {
+      label: t("bill.closed"),
+      value: "CLOSE",
+    },
+    {
+      label: t("bill.deleted"),
+      value: "DELETE",
+    },
+  ];
+
   return (
     <div className="patients__bills">
       <div className={"filterBillForm "}>
         <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
-            <div className="fullWidth filterBillForm__item">
+            <div className="filterBillForm__item">
+              <SelectField
+                fieldName="status"
+                fieldValue={formik.values.status}
+                label={t("bill.status")}
+                isValid={isValid("status")}
+                errorText={getErrorText("status")}
+                onBlur={onBlurCallback("status")}
+                options={statusOptions}
+              />
+            </div>
+            <div className="filterBillForm__item">
               <DateField
                 theme={"regular"}
                 fieldName="fromDate"
@@ -180,7 +213,7 @@ export const BillTable: FC<IBillTableProps> = ({
                 onChange={dateFieldHandleOnChange("fromDate")}
               />
             </div>
-            <div className="fullWidth filterBillForm__item">
+            <div className="filterBillForm__item">
               <DateField
                 fieldName="toDate"
                 fieldValue={formik.values.toDate}
@@ -195,7 +228,7 @@ export const BillTable: FC<IBillTableProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="filterBillForm__item">
+            <div className="halfwidth filterBillForm__item">
               <PatientAutocomplete
                 theme={"regular"}
                 fieldName="patientCode"

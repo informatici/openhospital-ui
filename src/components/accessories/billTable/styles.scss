@@ -60,32 +60,29 @@
             }
 
             &.compressed {
-            .textField {
-                float: left;
-                width: 50%;
-                &:nth-of-type(1) {
-                padding-right: 10px;
+                .textField {
+                    float: left;
+                    width: 50%;
+                    &:nth-of-type(1) {
+                    padding-right: 10px;
+                    }
                 }
             }
-        }
-        .submit_button{
-        margin-top: 5px;
-        .MuiButton-label {
-            font-size: 0.7rem;        
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-        button {
-            @include susy-media($smartphone_small) {
-                width: 100%;
+            .submit_button{
+                margin-top: 5px;
+                .MuiButton-label {
+                    font-size: 0.7rem;        
+                    letter-spacing: 1px;
+                    font-weight: 600;
+                }
+                button {
+                    @include susy-media($smartphone_small) {
+                        width: 100%;
+                    }
+                }
             }
-            }
-        }
-    }     
-
-    
-}
-
+        }     
+    }
     .bills_table {
         padding: 10px 5px;
     }

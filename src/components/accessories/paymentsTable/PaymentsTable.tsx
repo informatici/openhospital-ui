@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { BillPaymentsDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import { searchPayments } from "../../../state/bills/actions";
 import { IState } from "../../../types";
+import { TFilterValues } from "../billTable/types";
 import Table from "../table/Table";
-import { IPaymentsTableProps } from "./types";
+import { IPaymentsTableProps, TPaymentsFilterValues } from "./types";
 
-export const PaymentsTable: FC<IPaymentsTableProps> = ({ filter }) => {
+export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();
   const header = ["date", "amount"];
   const label = {
@@ -22,8 +24,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ filter }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(searchPayments(filter));
-  }, [filter]);
+    const initialValues = getFromFields(fields, "value");
+    dispatch(searchPayments(initialValues as TFilterValues));
+  }, [fields]);
 
   const data = useSelector<IState, {}[]>(
     (state) =>

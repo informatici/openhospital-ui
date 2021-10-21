@@ -1,18 +1,12 @@
-import { Receipt, Search } from "@material-ui/icons";
+import { Receipt } from "@material-ui/icons";
 import classNames from "classnames";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-} from "../../accessories/accordion/Accordion";
 import Button from "../../accessories/button/Button";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import BillFilterForm from "../../accessories/billFilterForm/BillFilterForm";
 import Footer from "../../accessories/footer/Footer";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
 import { TTabConfig } from "../../accessories/tabs/types";
@@ -21,11 +15,14 @@ import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
 import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
-import { computeBillSummary, initializeBillFilter } from "./config";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
-import { initialFilter } from "./consts";
+
 import { TBillFilterValues } from "../../accessories/billFilterForm/types";
 import { PaymentsTable } from "../../accessories/paymentsTable/PaymentsTable";
+import {
+  FilterBillsInitialFields,
+  paymentsFilterInitialFields,
+} from "./consts";
 
 export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -38,24 +35,21 @@ export const ManageBillActivity: FC = () => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const [filter, setFilter] = useState(initialFilter);
-
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
-
   const [summary, billSummaryChange] = useState({} as IBillSummary);
 
   const tabConfig: TTabConfig = [
     {
-      label: t("bill.allbills"),
-      path: "/allBills",
+      label: t("bill.bills"),
+      path: "/billstable",
       content: (
         <ManageBillActivityContent
-          title="All Bills"
+          title="Bills"
           content={
             <BillTable
-              fields={initializeBillFilter(filter.fromDate, filter.toDate)}
+              fields={FilterBillsInitialFields}
               handleSummaryChange={billSummaryChange}
             />
           }
@@ -69,16 +63,11 @@ export const ManageBillActivity: FC = () => {
       content: (
         <ManageBillActivityContent
           title="Payments"
-          content={<PaymentsTable filter={filter} />}
+          content={<PaymentsTable fields={paymentsFilterInitialFields} />}
         />
       ),
     },
   ];
-
-  const submit = (filter: TBillFilterValues) => {
-    const formValues = { ...filter, patientCode: +filter.patientCode };
-    setFilter(formValues);
-  };
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
@@ -197,7 +186,7 @@ export const ManageBillActivity: FC = () => {
                   </div>
                 </div>
                 <div className="searchBills__content">
-                  <RouterTabs config={tabConfig} defaultRoute={"/allBills"} />
+                  <RouterTabs config={tabConfig} defaultRoute={"/billstable"} />
                 </div>
               </div>
             </div>

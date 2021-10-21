@@ -1,6 +1,4 @@
 import { FullBillDTO } from "../../../generated";
-import { TFields } from "../../../libraries/formDataHandling/types";
-import { BillFilterFormFieldName } from "../../accessories/billFilterForm/types";
 import { IBillSummary } from "./types";
 
 export const computeBillSummary = (
@@ -80,26 +78,4 @@ export const computeBillSummary = (
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
   };
   return res;
-};
-
-export const initializeBillFilter = (fromDate: string, toDate: string) => {
-  const fields: TFields<BillFilterFormFieldName> = {
-    patientCode: {
-      value: "",
-      type: "text",
-    },
-    fromDate: {
-      value: fromDate,
-      type: "date",
-    },
-    toDate: {
-      value: toDate,
-      type: "date",
-    },
-    status: {
-      value: "ALL",
-      type: "text",
-    },
-  };
-  return fields;
 };
