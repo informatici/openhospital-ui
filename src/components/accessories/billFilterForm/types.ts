@@ -19,4 +19,8 @@ export type TFieldName =
 
 export type TBillFilterValues = Record<BillFilterFormFieldName, string>;
 
-export type BillFilterFormFieldName = "fromDate" | "toDate" | "patientCode";
+export type BillFilterFormFieldName =
+  | "fromDate"
+  | "toDate"
+  | "patientCode"
+  | "status";

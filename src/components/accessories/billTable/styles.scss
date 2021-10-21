@@ -1,21 +1,92 @@
 
 @import "../../../styles/variables";
-.bill_details {  
-    ul {
-        white-space: nowrap;   
-        overflow-x: hidden; 
-        margin-left: 0; 
-        padding-left: 0;
-    }
-    li span .MuiTypography-h5 {
-        padding-left: 0;
-        margin-left: 0;
-        display: inline;
-        text-decoration: none;    
-        color: darken($c-gray, 25%)
-    }
-    .label{
-        font-weight: bold;
+@import "../../../../node_modules/susy/sass/susy";
+.patients__bills {
+    .bill_details {  
+        ul {
+            white-space: nowrap;   
+            overflow-x: hidden; 
+            margin-left: 0; 
+            padding-left: 0;
+        }
+        li span .MuiTypography-h5 {
+            padding-left: 0;
+            margin-left: 0;
+            display: inline;
+            text-decoration: none;    
+            color: darken($c-gray, 25%)
+        }
+        .label{
+            font-weight: bold;
+        }
     }
 
+    .filterBillForm {
+        display: inline-block;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .filterBillForm__item {
+            //background-color: $c-grey-lighter;
+            padding: 0px 10px;
+            width: 33%;
+            @include susy-media($narrow) {
+                padding: 0px 10px;
+            }
+            @include susy-media($tablet_land) {
+                padding: 0px 10px;
+            }
+            @include susy-media($tablet_port) {
+                width: 50%;
+            }
+            @include susy-media($smartphone) {
+                width: 100%;
+            }
+            .dateField,
+            .textField,
+            .selectField .autocompleteField {
+                width: 100%;      
+            }
+
+            &.fullWidth {
+                width: 100%;
+            }
+
+            &.halfWidth {
+                width: 66%;
+                @include susy-media($smartphone) {
+                    width: 100%;
+                }
+            }
+
+            &.compressed {
+            .textField {
+                float: left;
+                width: 50%;
+                &:nth-of-type(1) {
+                padding-right: 10px;
+                }
+            }
+        }
+        .submit_button{
+        margin-top: 5px;
+        .MuiButton-label {
+            font-size: 0.7rem;        
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        button {
+            @include susy-media($smartphone_small) {
+                width: 100%;
+            }
+            }
+        }
+    }     
+
+    
+}
+
+    .bills_table {
+        padding: 10px 5px;
+    }
 }

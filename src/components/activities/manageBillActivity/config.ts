@@ -96,6 +96,10 @@ export const initializeBillFilter = (fromDate: string, toDate: string) => {
       value: toDate,
       type: "date",
     },
+    status: {
+      value: "ALL",
+      type: "text",
+    },
   };
   return fields;
 };

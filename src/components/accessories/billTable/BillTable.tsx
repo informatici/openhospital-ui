@@ -1,17 +1,36 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { FullBillDTO } from "../../../generated";
+import { FullBillDTO, PatientDTO } from "../../../generated";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
 import { CustomModal } from "../customModal/CustomModal";
 import Table from "../table/Table";
 import useFormatData from "./useFormatData";
 import RenderBillDetails from "./RenderBillDetails";
-import { IBillTableProps } from "./types";
+import { IBillTableProps, TBillFilterValues, TFilterValues } from "./types";
+import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
+import DateField from "../dateField/DateField";
+import { Formik, useFormik } from "formik";
+import SmallButton from "../smallButton/SmallButton";
+import { object, string } from "yup";
+import moment from "moment";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../libraries/formDataHandling/functions";
+import { get, has } from "lodash";
+import { computeBillSummary } from "../../activities/manageBillActivity/config";
+import { TUserCredentials } from "../../../state/main/types";
+import { IBillSummary } from "../../activities/manageBillActivity/types";
 
-export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
+export const BillTable: FC<IBillTableProps> = ({
+  fields,
+  handleSummaryChange,
+}) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const header = ["date", "patient", "balance", "status"];
   const label = {
     id: t("bill.code"),
@@ -22,13 +41,78 @@ export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
     balance: t("bill.balance"),
   };
   const order = ["date", "balance"];
-  const dispatch = useDispatch();
+  const userCredentials = useSelector<IState, TUserCredentials>(
+    (state) => state.main.authentication.data
+  );
+
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
+  const [filter, setFilter] = useState({} as TFilterValues);
+  const validationSchema = object({
+    fromDate: string().required(),
+    toDate: string().test({
+      name: "toDate",
+      message: t("bill.validatetodate"),
+      test: function (value) {
+        const dateFrom = isNaN(this.parent.fromDate)
+          ? this.parent.fromDate
+          : new Date(+this.parent.fromDate);
+        const dateTo = isNaN(value) ? value : new Date(+value);
+        return moment(dateTo) >= moment(dateFrom);
+      },
+    }),
+  });
+
+  const initialValues = getFromFields(fields, "value");
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    enableReinitialize: false,
+    onSubmit: (values) => {
+      const formattedValues = formatAllFieldValues(
+        fields,
+        values
+      ) as TFilterValues;
+      setFilter(formattedValues);
+    },
+  });
+
+  const { setFieldValue, handleBlur } = formik;
+
+  const dateFieldHandleOnChange = useCallback(
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
+
+  const isValid = (fieldName: string): boolean => {
+    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+  };
+
+  const getErrorText = (fieldName: string): string => {
+    return has(formik.touched, fieldName)
+      ? (get(formik.errors, fieldName) as string)
+      : "";
+  };
+
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement>,
+        value: PatientDTO | string | undefined
+      ) => {
+        handleBlur(e);
+        typeof value === "string"
+          ? setFieldValue(fieldName, value)
+          : setFieldValue(fieldName, value?.code ?? "");
+      },
+    [setFieldValue, handleBlur]
+  );
 
   useEffect(() => {
-    switch (status) {
+    switch (filter.status) {
       case "PENDING":
-        dispatch(getPendingBills(filter.patientCode));
+        dispatch(getPendingBills(+filter.patientCode));
         break;
       case "CLOSE":
         dispatch(searchBills(filter));
@@ -40,17 +124,29 @@ export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
         dispatch(searchBills(filter));
         break;
     }
-  }, [status, filter]);
+  }, [filter]);
 
   const data = useSelector<IState, FullBillDTO[]>((state) => {
-    if (status === "PENDING") {
+    if (filter.status === "PENDING") {
       return state.bills.getPendingBills.data ?? [];
     } else {
       return state.bills.searchBills.data ?? [];
     }
   });
 
-  const formattedData = useFormatData(data, status);
+  const formattedData = useFormatData(data, filter.status);
+
+  const summary = useSelector<IState, IBillSummary>((state) =>
+    computeBillSummary(
+      state.bills.searchBills.data ?? [],
+      filter.fromDate,
+      filter.toDate,
+      userCredentials?.displayName ?? ""
+    )
+  );
+  useEffect(() => {
+    handleSummaryChange(summary);
+  }, [summary]);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -67,23 +163,76 @@ export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
   };
 
   return (
-    <div>
-      <Table
-        rowData={formattedData}
-        tableHeader={header}
-        labelData={label}
-        columnsOrder={order}
-        rowsPerPage={5}
-        isCollapsabile={true}
-        onView={handleView}
-      />
-      <CustomModal
-        open={open}
-        onClose={handleClose}
-        title={t("bill.details")}
-        description={t("bill.details")}
-        content={<RenderBillDetails fullBill={fullBill} />}
-      />
+    <div className="patients__bills">
+      <div className={"filterBillForm "}>
+        <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
+          <div className="row start-sm center-xs">
+            <div className="fullWidth filterBillForm__item">
+              <DateField
+                theme={"regular"}
+                fieldName="fromDate"
+                fieldValue={formik.values.fromDate}
+                disableFuture={false}
+                format="dd/MM/yyyy"
+                isValid={isValid("fromDate")}
+                errorText={getErrorText("fromDate")}
+                label={t("bill.fromdate")}
+                onChange={dateFieldHandleOnChange("fromDate")}
+              />
+            </div>
+            <div className="fullWidth filterBillForm__item">
+              <DateField
+                fieldName="toDate"
+                fieldValue={formik.values.toDate}
+                disableFuture={false}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={isValid("toDate")}
+                errorText={getErrorText("toDate")}
+                label={t("bill.todate")}
+                onChange={dateFieldHandleOnChange("toDate")}
+              />
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="filterBillForm__item">
+              <PatientAutocomplete
+                theme={"regular"}
+                fieldName="patientCode"
+                fieldValue={formik.values.patientCode}
+                label={t("bill.patient")}
+                isValid={isValid("patientCode")}
+                errorText={getErrorText("patientCode")}
+                onBlur={onBlurCallback("patientCode")}
+                freeSolo={true}
+              />
+            </div>
+          </div>
+          <div className="filterBillForm__item">
+            <div className="submit_button">
+              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div className="bills__table">
+        <Table
+          rowData={formattedData}
+          tableHeader={header}
+          labelData={label}
+          columnsOrder={order}
+          rowsPerPage={5}
+          isCollapsabile={true}
+          onView={handleView}
+        />
+        <CustomModal
+          open={open}
+          onClose={handleClose}
+          title={t("bill.details")}
+          description={t("bill.details")}
+          content={<RenderBillDetails fullBill={fullBill} />}
+        />
+      </div>
     </div>
   );
 };

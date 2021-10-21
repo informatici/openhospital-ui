@@ -44,14 +44,7 @@ export const ManageBillActivity: FC = () => {
     (state) => state.main.authentication.data
   );
 
-  const summary = useSelector<IState, IBillSummary>((state) =>
-    computeBillSummary(
-      state.bills.searchBills.data,
-      filter.fromDate,
-      filter.toDate,
-      userCredentials?.displayName ?? ""
-    )
-  );
+  const [summary, billSummaryChange] = useState({} as IBillSummary);
 
   const tabConfig: TTabConfig = [
     {
@@ -60,30 +53,16 @@ export const ManageBillActivity: FC = () => {
       content: (
         <ManageBillActivityContent
           title="All Bills"
-          content={<BillTable status="ALL" filter={filter} />}
+          content={
+            <BillTable
+              fields={initializeBillFilter(filter.fromDate, filter.toDate)}
+              handleSummaryChange={billSummaryChange}
+            />
+          }
         />
       ),
     },
-    {
-      label: t("bill.pending"),
-      path: "/pendingBills",
-      content: (
-        <ManageBillActivityContent
-          title="Pending Bills"
-          content={<BillTable status="PENDING" filter={filter} />}
-        />
-      ),
-    },
-    {
-      label: t("bill.closed"),
-      path: "/closedBills",
-      content: (
-        <ManageBillActivityContent
-          title="Closed Bills"
-          content={<BillTable status="CLOSE" filter={filter} />}
-        />
-      ),
-    },
+
     {
       label: t("bill.payments"),
       path: "/billpayments",
@@ -155,22 +134,6 @@ export const ManageBillActivity: FC = () => {
                       </div>
                     </div>
                     <div className="searchBills__user_info">
-                      <div className="sidebar__section">
-                        <div className="sidebar__section__header">
-                          <Search fontSize="small" style={{ color: "white" }} />
-                          <span> {t("bill.filter")}</span>
-                        </div>
-                        <div>
-                          <BillFilterForm
-                            className="searchBills__formData__item"
-                            onSubmit={submit}
-                            fields={initializeBillFilter(
-                              filter.fromDate,
-                              filter.toDate
-                            )}
-                          />
-                        </div>
-                      </div>
                       <div className="sidebar__section">
                         <div className="sidebar__section__header">
                           <Receipt
