@@ -17,7 +17,6 @@ import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
 
-import { TBillFilterValues } from "../../accessories/billFilterForm/types";
 import { PaymentsTable } from "../../accessories/paymentsTable/PaymentsTable";
 import {
   FilterBillsInitialFields,

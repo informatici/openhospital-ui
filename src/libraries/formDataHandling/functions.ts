@@ -20,7 +20,11 @@ export const getFromFields = (
 };
 
 export const parseDate = (raw: string) => {
-  return raw ? new Date(raw).toISOString() : "";
+  return raw
+    ? isNaN(+raw)
+      ? new Date(raw).toISOString()
+      : new Date(+raw).toISOString()
+    : "";
 };
 
 export const formatAllFieldValues = (

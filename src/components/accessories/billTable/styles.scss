@@ -68,6 +68,18 @@
                     }
                 }
             }
+
+        }    
+        .filterForm__buttonSet {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            line-height: 1.75;
+            @include susy-media($smartphone_small) {
+                display: block;
+            }
+
             .submit_button{
                 margin-top: 5px;
                 .MuiButton-label {
@@ -81,9 +93,9 @@
                     }
                 }
             }
-        }     
+        } 
     }
-    .bills_table {
-        padding: 10px 5px;
+    .bills__table {
+        padding: 20px 5px;
     }
 }

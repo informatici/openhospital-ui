@@ -22,7 +22,6 @@ import {
 import { get, has } from "lodash";
 import { computeBillSummary } from "../../activities/manageBillActivity/config";
 import { TUserCredentials } from "../../../state/main/types";
-import { IBillSummary } from "../../activities/manageBillActivity/types";
 import SelectField from "../selectField/SelectField";
 
 export const BillTable: FC<IBillTableProps> = ({
@@ -92,9 +91,12 @@ export const BillTable: FC<IBillTableProps> = ({
         values
       ) as TFilterValues;
       setFilter(formattedValues);
-      search(formattedValues);
     },
   });
+
+  useEffect(() => {
+    search(filter);
+  }, [filter]);
 
   const { setFieldValue, handleBlur } = formik;
 
@@ -139,17 +141,17 @@ export const BillTable: FC<IBillTableProps> = ({
 
   const formattedData = useFormatData(data, filter.status);
 
-  const summary = useSelector<IState, IBillSummary>((state) =>
-    computeBillSummary(
-      state.bills.searchBills.data ?? [],
-      filter.fromDate,
-      filter.toDate,
-      userCredentials?.displayName ?? ""
-    )
-  );
   useEffect(() => {
-    handleSummaryChange(summary);
-  }, [summary]);
+    if (data && filter.status === "ALL") {
+      const summary = computeBillSummary(
+        data,
+        filter.fromDate,
+        filter.toDate,
+        userCredentials?.displayName ?? ""
+      );
+      handleSummaryChange(summary);
+    }
+  }, [filter, data]);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -228,7 +230,7 @@ export const BillTable: FC<IBillTableProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="halfwidth filterBillForm__item">
+            <div className="halfWidth filterBillForm__item">
               <PatientAutocomplete
                 theme={"regular"}
                 fieldName="patientCode"
@@ -240,10 +242,12 @@ export const BillTable: FC<IBillTableProps> = ({
                 freeSolo={true}
               />
             </div>
-          </div>
-          <div className="filterBillForm__item">
-            <div className="submit_button">
-              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
+            <div className="filterForm__buttonSet filterBillForm__item">
+              <div className="submit_button">
+                <SmallButton type="submit">
+                  {t("bill.filterbutton")}
+                </SmallButton>
+              </div>
             </div>
           </div>
         </form>
