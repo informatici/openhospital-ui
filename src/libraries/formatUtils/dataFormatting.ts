@@ -21,7 +21,7 @@ export const opdDataFormatter = (
 };
 
 export const renderDate = (date: string) => {
-  return moment(date).isValid()
+  return isNaN(+date)
     ? moment(date).format("DD/MM/YYYY")
     : moment(+date).isValid()
     ? moment(+date).format("DD/MM/YYYY")

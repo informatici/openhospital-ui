@@ -14,15 +14,15 @@ import DateField from "../dateField/DateField";
 import { useFormik } from "formik";
 import SmallButton from "../smallButton/SmallButton";
 import { object, string } from "yup";
-import moment from "moment";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
 import { get, has } from "lodash";
-import { computeBillSummary } from "../../activities/manageBillActivity/config";
+import { computeBillSummary } from "./config";
 import { TUserCredentials } from "../../../state/main/types";
 import SelectField from "../selectField/SelectField";
+import "./styles.scss";
 
 export const BillTable: FC<IBillTableProps> = ({
   fields,
@@ -30,7 +30,6 @@ export const BillTable: FC<IBillTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
   const header = ["date", "patient", "balance", "status"];
   const label = {
     id: t("bill.code"),
@@ -55,10 +54,10 @@ export const BillTable: FC<IBillTableProps> = ({
       message: t("bill.validatetodate"),
       test: function (value) {
         const dateFrom = isNaN(this.parent.fromDate)
-          ? this.parent.fromDate
+          ? new Date(this.parent.fromDate)
           : new Date(+this.parent.fromDate);
-        const dateTo = isNaN(value) ? value : new Date(+value);
-        return moment(dateTo) >= moment(dateFrom);
+        const dateTo = isNaN(value) ? new Date(value) : new Date(+value);
+        return +dateTo >= +dateFrom;
       },
     }),
   });
@@ -230,7 +229,7 @@ export const BillTable: FC<IBillTableProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="halfWidth filterBillForm__item">
+            <div className="fullWidth filterBillForm__item">
               <PatientAutocomplete
                 theme={"regular"}
                 fieldName="patientCode"
@@ -242,12 +241,10 @@ export const BillTable: FC<IBillTableProps> = ({
                 freeSolo={true}
               />
             </div>
-            <div className="filterForm__buttonSet filterBillForm__item">
-              <div className="submit_button">
-                <SmallButton type="submit">
-                  {t("bill.filterbutton")}
-                </SmallButton>
-              </div>
+          </div>
+          <div className="filterForm__buttonSet">
+            <div className="submit_button">
+              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
             </div>
           </div>
         </form>

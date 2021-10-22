@@ -22,6 +22,7 @@ import {
   FilterBillsInitialFields,
   paymentsFilterInitialFields,
 } from "./consts";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 
 export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -136,7 +137,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.today")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.today || "-"}
+                              {summary.today
+                                ? currencyFormat(summary.today)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -144,7 +147,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.notpaid")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.todayNotPaid || "-"}
+                              {summary.todayNotPaid
+                                ? currencyFormat(summary.todayNotPaid)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -152,7 +157,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.period")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.period || "-"}
+                              {summary.period
+                                ? currencyFormat(summary.period)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -160,7 +167,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.notpaid")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.periodNotPaid || "-"}
+                              {summary.periodNotPaid
+                                ? currencyFormat(summary.periodNotPaid)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -168,7 +177,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.user")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.user || "-"}
+                              {summary.user
+                                ? currencyFormat(summary.user)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -176,7 +187,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.notpaid")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.userNotPaid || "-"}
+                              {summary.userNotPaid
+                                ? currencyFormat(summary.userNotPaid)
+                                : "-"}
                             </div>
                           </div>
                         </div>

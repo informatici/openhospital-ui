@@ -1,32 +1,14 @@
 
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
-.patients__bills {
-    .bill_details {  
-        ul {
-            white-space: nowrap;   
-            overflow-x: hidden; 
-            margin-left: 0; 
-            padding-left: 0;
-        }
-        li span .MuiTypography-h5 {
-            padding-left: 0;
-            margin-left: 0;
-            display: inline;
-            text-decoration: none;    
-            color: darken($c-gray, 25%)
-        }
-        .label{
-            font-weight: bold;
-        }
-    }
+.bill__payments {
 
-    .filterBillForm {
+    .filterForm {
         display: inline-block;
         flex-direction: column;
         align-items: center;
         width: 100%;
-        .filterBillForm__item {
+        .filterForm__item {
             //background-color: $c-grey-lighter;
             padding: 0px 10px;
             width: 33.33%;
@@ -88,7 +70,7 @@
             }
         } 
     }
-    .bills__table {
+    .payments__table {
         padding: 20px 5px;
     }
 }

@@ -1,15 +1,17 @@
 import { FullBillDTO } from "../../../generated";
-import { IBillSummary } from "./types";
+import { IBillSummary } from "../../activities/manageBillActivity/types";
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],
-  fromDate: string,
-  toDate: string,
+  dateFrom: string,
+  dateTo: string,
   userName: string
 ): IBillSummary => {
   const today = new Date().setHours(0);
   const tomorrow = new Date().setDate(new Date().getDate() + 1);
 
+  const fromDate = isNaN(+dateFrom) ? new Date(dateFrom) : new Date(+dateFrom);
+  const toDate = isNaN(+dateTo) ? new Date(dateTo) : new Date(+dateTo);
   const res = {
     today: bills
       .filter(
