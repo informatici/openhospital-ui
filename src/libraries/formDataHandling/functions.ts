@@ -87,10 +87,8 @@ export const updateBillItemFields = (
     Object.keys(values!).forEach((key) => {
       let value = values![key as keyof BillItemsDTO];
       if (draft[key as string]) {
-        return (draft[key as string].value = parseFloat(value as string)
-          ? value
-          : moment(value as string).isValid()
-          ? Date.parse(moment(value as string).toString())
+        return (draft[key as string].value = key.toLowerCase().includes("date")
+          ? moment(value as string).toISOString()
           : value);
       }
     });
@@ -102,23 +100,17 @@ export const updateBillPaymentFields = (
   values: BillPaymentsDTO | undefined
 ): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!)
-      .concat("paymentType")
-      .forEach((key) => {
-        let value: string | number | undefined = "";
-        if (key != "paymentType") {
-          value = values![key as keyof BillPaymentsDTO];
-        }
-        if (key == "paymentType") {
-          let amount = values!["amount"];
-          value = amount ?? 0 >= 0 ? "P" : "R";
-        }
-        if (draft[key as string]) {
-          return (draft[key as string].value = parseFloat(value as string)
-            ? Math.abs(parseFloat(value?.toString() ?? ""))
-            : value);
-        }
-      });
+    Object.keys(values!).forEach((key) => {
+      let value: string | number | undefined = "";
+      value = values![key as keyof BillPaymentsDTO];
+      if (draft[key as string]) {
+        return (draft[key as string].value = key.toLowerCase().includes("date")
+          ? moment(value).toISOString()
+          : key == "amount"
+          ? Math.abs(parseFloat(value as string))
+          : value);
+      }
+    });
   });
 };
 

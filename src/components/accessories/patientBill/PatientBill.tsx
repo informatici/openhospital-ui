@@ -26,6 +26,7 @@ import { CircularProgress } from "@material-ui/core";
 import { getMedicals } from "../../../state/medicals/actions";
 import { getExams } from "../../../state/exams/actions";
 import BillDataForm from "../billDataForm/BillDataForm";
+import { TActivityTransitionState } from "../../activities/billingActivity/types";
 
 const PatientBill: FC = () => {
   const { t } = useTranslation();
@@ -42,6 +43,8 @@ const PatientBill: FC = () => {
   const [paymentToEdit, setPaymentToEdit] = useState({} as BillPaymentsDTO);
   const [itemCreationMode, setItemCreationMode] = useState(true);
   const [paymentCreationMode, setPaymentCreationMode] = useState(true);
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<TActivityTransitionState>("IDLE");
 
   const [billItemsDTO, setBillItemsDTO] = useState<BillItemsDTO[]>([]);
   const [billPaymentsDTO, setBillPaymentsDTO] = useState<BillPaymentsDTO[]>([]);
@@ -52,6 +55,8 @@ const PatientBill: FC = () => {
     (state: IState) => state.patients.selectedPatient.data
   );
 
+  const status = useSelector((state: IState) => state.bills.newBill.status);
+
   useEffect(() => {
     dispatch(getMedicals());
     dispatch(getExams());
@@ -60,6 +65,14 @@ const PatientBill: FC = () => {
     setItemCreationMode(true);
     setPaymentCreationMode(true);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_NEW_BILL") {
+      dispatch(newBillReset());
+      setShouldResetForm(true);
+      setShouldUpdateTable(true);
+    }
+  }, [dispatch, activityTransitionState]);
 
   const billStore = useSelector<IState, IBillsState>(
     (state: IState) => state.bills
@@ -98,6 +111,7 @@ const PatientBill: FC = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
     setCreationMode(true);
+    setActivityTransitionState("IDLE");
     dispatch(newBillReset());
     scrollToElement(null);
   };
@@ -149,7 +163,7 @@ const PatientBill: FC = () => {
       )}
 
       <ConfirmationDialog
-        isOpen={billStore.newBill.status === "SUCCESS"}
+        isOpen={status === "SUCCESS"}
         title={creationMode ? t("bill.created") : t("bill.updated")}
         icon={checkIcon}
         info={
@@ -158,7 +172,9 @@ const PatientBill: FC = () => {
             : t("bill.updatesuccess", { code: billToEdit?.billDTO?.id })
         }
         primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => {}}
+        handlePrimaryButtonClick={() =>
+          setActivityTransitionState("TO_NEW_BILL")
+        }
         handleSecondaryButtonClick={() => ({})}
       />
     </div>

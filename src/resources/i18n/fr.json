@@ -307,7 +307,11 @@
     "topay": "A Payer",
     "total": "Total",
     "bill": "Facture",
-    "item": "Article"
+    "item": "Article",
+    "created": "Facture créée",
+    "createsuccess": "Facture créée avec succès.",
+    "updated": "Facture mise à jour",
+    "updatesuccess": "Bill mise à jour avec succès."
   },
   "button": {
     "save": "Sauvegarder",

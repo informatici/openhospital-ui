@@ -297,7 +297,11 @@
     "topay": "To Pay",
     "total": "Total",
     "bill": "Bill",
-    "item": "Item"
+    "item": "Item",
+    "created": "Bill created",
+    "createsuccess": "Bill created successfully.",
+    "updated": "Bill created",
+    "updatesuccess": "Bill updated successfully."
   },
   "button": {
     "save": "Save",

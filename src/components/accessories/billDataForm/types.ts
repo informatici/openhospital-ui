@@ -43,6 +43,6 @@ export type TBillPaymentDataFormFieldName = "date" | "amount" | "paymentType";
 export type TBillDataFormFieldName =
   | "date"
   | "listId"
-  | "patName"
+  | "patId"
   | "amount"
   | "balance";

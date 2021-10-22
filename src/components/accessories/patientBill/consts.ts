@@ -53,15 +53,15 @@ const paymentOptions = [
 const patientOptions = [
   {
     label: "John Doe",
-    value: "JD",
+    value: "0",
   },
   {
     label: "Jack Williams",
-    value: "JW",
+    value: "1",
   },
   {
     label: "Peter Bride",
-    value: "PB",
+    value: "2",
   },
 ];
 
@@ -136,9 +136,9 @@ export const initialFields: TFields<TBillDataFormFieldName> = {
     value: "0",
     options: listPriceOptions,
   },
-  patName: {
-    type: "text",
-    value: "JD",
+  patId: {
+    type: "number",
+    value: "1",
     options: patientOptions,
   },
 };
