@@ -229,9 +229,7 @@
     align-items: center;
     color: $c-white;
     padding: 5px 20px;
-  }
-  div.sidebar__section:last-of-type { 
-    border-top: 1px solid $c-white;
+    border-bottom: 1px solid $c-white;
   }
 
 }

@@ -30,7 +30,6 @@ export const billRoutes = (server) => {
             const code = req.query.patient_code;
             const datefrom = +new Date(req.query.datefrom);
             const dateto = req.query.dateto;
-            console.log("date from ...: ", datefrom);
             res.status(201).json(billResults.filter(
                 (item) => {
                     return (+code === 0 || item.patientDTO.code === +code)
