@@ -26,11 +26,7 @@ const DateField: FunctionComponent<IProps> = ({
 
   useEffect(() => {
     // field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
-    fieldValue === ""
-      ? setValue(null)
-      : isNaN(+fieldValue)
-      ? setValue(new Date(fieldValue))
-      : setValue(new Date(+fieldValue));
+    fieldValue === "" ? setValue(null) : setValue(new Date(fieldValue));
   }, [fieldValue]);
 
   const handleDateChange = (date: Date | null) => {

@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import SmallButton from "../smallButton/SmallButton";
 import { object, string } from "yup";
 import {
+  differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
@@ -53,11 +54,9 @@ export const BillTable: FC<IBillTableProps> = ({
       name: "toDate",
       message: t("bill.validatetodate"),
       test: function (value) {
-        const dateFrom = isNaN(this.parent.fromDate)
-          ? new Date(this.parent.fromDate)
-          : new Date(+this.parent.fromDate);
-        const dateTo = isNaN(value) ? new Date(value) : new Date(+value);
-        return +dateTo >= +dateFrom;
+        return (
+          differenceInDays(new Date(this.parent.fromDate), new Date(value)) >= 0
+        );
       },
     }),
   });
@@ -100,7 +99,7 @@ export const BillTable: FC<IBillTableProps> = ({
   const { setFieldValue, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
-    (fieldName: string) => (value: any) => {
+    (fieldName: string) => (value: Date | null) => {
       setFieldValue(fieldName, value);
     },
     [setFieldValue]

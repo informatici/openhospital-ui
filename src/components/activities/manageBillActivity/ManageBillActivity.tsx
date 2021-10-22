@@ -122,7 +122,7 @@ export const ManageBillActivity: FC = () => {
                         </Button>
                       </div>
                     </div>
-                    <div className="searchBills__user_info">
+                    <div className="searchBills__info">
                       <div className="sidebar__section">
                         <div className="sidebar__section__header">
                           <Receipt

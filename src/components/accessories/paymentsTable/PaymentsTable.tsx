@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { get, has } from "lodash";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -8,6 +8,7 @@ import { BillPaymentsDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import {
+  differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
@@ -51,11 +52,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       name: "toDate",
       message: t("bill.validatetodate"),
       test: function (value) {
-        const dateFrom = isNaN(this.parent.fromDate)
-          ? new Date(this.parent.fromDate)
-          : new Date(+this.parent.fromDate);
-        const dateTo = isNaN(value) ? new Date(value) : new Date(+value);
-        return +dateTo >= +dateFrom;
+        return (
+          differenceInDays(new Date(this.parent.fromDate), new Date(value)) >= 0
+        );
       },
     }),
   });
@@ -82,7 +81,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { setFieldValue, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
-    (fieldName: string) => (value: any) => {
+    (fieldName: string) => (value: Date | null) => {
       setFieldValue(fieldName, value);
     },
     [setFieldValue]
