@@ -8,11 +8,6 @@ interface IOwnProps {
 
 export type TProps = IForm<TMedicalDataFormFieldName, MedicalDTO> & IDispatchProps & IOwnProps & IStateProps;
 
-export interface MedicalType {
-  code: string;
-  description: string;
-}
-
 export interface IDispatchProps {
   getMedicalTypes: (operation: any) => void;
 }

@@ -17,7 +17,6 @@ import therapies from "./state/therapies/reducer";
 import summary from "./state/summary/reducer";
 import opds from "./state/opds/reducer";
 import diseases from "./state/diseases/reducer";
-import medicals from "./state/medicals/reducer";
 import admissions from "./state/admissions/reducer";
 import admissionTypes from "./state/admissionTypes/reducer";
 import dischargeTypes from "./state/dischargeTypes/reducer";
@@ -40,7 +39,6 @@ const reducer = combineReducers<IState>({
   summary,
   opds,
   diseases,
-  medicals,
   dischargeTypes,
   admissions,
   admissionTypes,

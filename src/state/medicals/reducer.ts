@@ -1,9 +1,9 @@
 import produce from "immer";
 import { IAction } from "../types";
 import {
-  SEARCH_MEDICAL_FAIL,
-  SEARCH_MEDICAL_LOADING,
-  SEARCH_MEDICAL_SUCCESS,
+  GET_MEDICALS_FAIL,
+  GET_MEDICALS_LOADING,
+  GET_MEDICALS_SUCCESS,
   GET_MEDICAL_FAIL,
   GET_MEDICAL_LOADING,
   GET_MEDICAL_SUCCESS,
@@ -58,25 +58,25 @@ export default produce((draft: IMedicalsState, action: IAction<any, any>) => {
     /**
      * SEARCH_MEDICAL
      */
-    case SEARCH_MEDICAL_LOADING: {
-      draft.searchMedical.status = "LOADING";
+    case GET_MEDICALS_LOADING: {
+      draft.getMedicals.status = "LOADING";
       break;
     }
 
-    case SEARCH_MEDICAL_SUCCESS: {
+    case GET_MEDICALS_SUCCESS: {
       if (action.payload.length > 0) {
-        draft.searchMedical.status = "SUCCESS";
+        draft.getMedicals.status = "SUCCESS";
       } else {
-        draft.searchMedical.status = "SUCCESS_EMPTY";
+        draft.getMedicals.status = "SUCCESS_EMPTY";
       }
-      draft.searchMedical.data = action.payload;
-      delete draft.searchMedical.error;
+      draft.getMedicals.data = action.payload;
+      delete draft.getMedicals.error;
       break;
     }
 
-    case SEARCH_MEDICAL_FAIL: {
-      draft.searchMedical.status = "FAIL";
-      draft.searchMedical.error = action.error;
+    case GET_MEDICALS_FAIL: {
+      draft.getMedicals.status = "FAIL";
+      draft.getMedicals.error = action.error;
       break;
     }
 
@@ -84,19 +84,19 @@ export default produce((draft: IMedicalsState, action: IAction<any, any>) => {
      * GET_MEDICAL
      */
     case GET_MEDICAL_LOADING: {
-      draft.searchMedical.status = "LOADING";
+      draft.getMedicals.status = "LOADING";
       break;
     }
 
     case GET_MEDICAL_SUCCESS: {
-      draft.searchMedical.status = "SUCCESS";
-      draft.searchMedical.data = action.payload;
-      delete draft.searchMedical.error;
+      draft.getMedicals.status = "SUCCESS";
+      draft.getMedicals.data = action.payload;
+      delete draft.getMedicals.error;
       break;
     }
 
     case GET_MEDICAL_FAIL: {
-      draft.searchMedical.status = "FAIL";
+      draft.getMedicals.status = "FAIL";
       break;
     }
 

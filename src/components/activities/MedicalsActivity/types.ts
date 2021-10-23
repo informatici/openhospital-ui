@@ -10,7 +10,7 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  searchMedical: (values: TValues) => void; //, sorting: GetMedicalsUsingGETSortByEnum
+  getMedicals: (sortBy?: GetMedicalsUsingGETSortByEnum) => void; //, sorting: GetMedicalsUsingGETSortByEnum
 }
 
 export type TProps = IStateProps & IDispatchProps ; 

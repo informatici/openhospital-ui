@@ -58,6 +58,9 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      //Use correct MedicalTypeDTO
+      var medType = medicalTypes.find(mt => mt.code == formattedValues.type);
+      formattedValues.type = medType;
       onSubmit(formattedValues);
     },
   });

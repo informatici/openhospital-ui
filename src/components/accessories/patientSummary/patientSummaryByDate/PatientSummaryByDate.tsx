@@ -26,8 +26,8 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
   }, [patientCode, loadSummaryData]);
 
   const medicals = useSelector<IState, MedicalDTO[]>((state) =>
-    state.medicals.medicalsOrderByName.data
-      ? state.medicals.medicalsOrderByName.data
+    state.medicals.getMedicals.data
+      ? state.medicals.getMedicals.data
       : []
   );
 

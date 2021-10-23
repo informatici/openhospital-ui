@@ -14,7 +14,7 @@ import  'ag-grid-community/dist/ag-grid-community';
 import SearchIcon from "../../../assets/SearchIcon";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
-  searchMedical,
+  getMedicals,
 } from "../../../state/medicals/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -28,10 +28,11 @@ import { useIsSearchByCode } from "./useIsSearchByCode";
 import isEmpty from "lodash.isempty";
 import iconDelete from "@material-ui/icons/DeleteOutlined"
 import iconEdit from "@material-ui/icons/EditOutlined"
+import { GetMedicalsUsingGETSortByEnum } from "../../../generated";
 
 const MedicalsActivity: FunctionComponent<TProps> = ({
   userCredentials,
-  searchMedical,
+  getMedicals,
   medicalSearchResults,
   searchStatus,
 }) => {
@@ -64,9 +65,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: TValues) => {
-      // First scroll to show searching message
       scrollToElement(resultsRef.current);
-      searchMedical(values);
+      // getMedicals(values);
     },
   });
 
@@ -86,7 +86,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if(searchStatus === 'IDLE' && isEmpty(medicalSearchResults))
-      searchMedical(initialValues);
+       getMedicals(GetMedicalsUsingGETSortByEnum.NONE);
 
       renderSearchResults();
   }, [searchStatus]);
@@ -110,14 +110,14 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
             iconEditRenderer: () => IconButton({ url: "bla", svgImage: iconEdit}),
             iconDeleteRenderer: () => IconButton({url: "bla" , svgImage:  iconDelete }),
           }}>
-              <AgGridColumn headerName="Type" field="type.description" resizable={true} sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="Code" field="prod_code" resizable={true} sortable={true} filter={true}></AgGridColumn>
+              <AgGridColumn headerName="Type" field="type.description" resizable={true}></AgGridColumn>
+              <AgGridColumn headerName="Code" field="prod_code" resizable={true} ></AgGridColumn>
               <AgGridColumn headerName="Description" field="description" resizable={true} sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="PcsXPck" field="pcsperpck" resizable={true} sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" resizable={true} sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" resizable={true} sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}" resizable={true} sortable={true} filter={true} checkboxSelection={true}></AgGridColumn>
-              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" resizable={true} sortable={true} filter={true}></AgGridColumn>
+              <AgGridColumn headerName="PcsXPck" field="pcsperpck" resizable={true} ></AgGridColumn>
+              <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" resizable={true} ></AgGridColumn>
+              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" resizable={true} ></AgGridColumn>
+              <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}" resizable={true}  checkboxSelection={true}></AgGridColumn>
+              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" resizable={true} ></AgGridColumn>
               <AgGridColumn headerName="" cellRenderer="iconEditRenderer" resizable={true}></AgGridColumn>
               <AgGridColumn headerName="" cellRenderer="iconDeleteRenderer" resizable={true}></AgGridColumn>
             </AgGridReact> 
@@ -245,12 +245,12 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
-  searchStatus: state.medicals.searchMedical.status || "IDLE",
-  medicalSearchResults: state.medicals.searchMedical.data,
+  searchStatus: state.medicals.getMedicals.status || "IDLE",
+  medicalSearchResults: state.medicals.getMedicals.data,
 });
 
 const mapDispatchToProps: IDispatchProps = {
-  searchMedical,
+  getMedicals,
 };
 
 export default connect(

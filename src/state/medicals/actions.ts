@@ -13,9 +13,9 @@ import {
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
 import {
-  SEARCH_MEDICAL_FAIL,
-  SEARCH_MEDICAL_LOADING,
-  SEARCH_MEDICAL_SUCCESS,
+  GET_MEDICALS_FAIL,
+  GET_MEDICALS_LOADING,
+  GET_MEDICALS_SUCCESS,
   GET_MEDICAL_FAIL,
   GET_MEDICAL_LOADING,
   GET_MEDICAL_SUCCESS,
@@ -137,56 +137,56 @@ export const editMedical =
     });
   };
 
-export const searchMedical =
-  (values: TValues) => //, sorting: GetMedicalsUsingGETSortByEnum
+export const getMedicals =
+  (sortBy?: GetMedicalsUsingGETSortByEnum) => //, sorting: GetMedicalsUsingGETSortByEnum
   (dispatch: Dispatch<IAction<MedicalDTO[], {}>>): void => {
     dispatch({
-      type: SEARCH_MEDICAL_LOADING,
+      type: GET_MEDICALS_LOADING,
     });
 
-    // if (values.code) {
-      // medicalControllerApi
-      //   .getMedicalUsingGET({ code: parseInt(values.code) })
-      //   .subscribe(
-      //     (payload) => {
-      //       if (typeof payload === "object" && !isEmpty(payload)) {
-      //         dispatch({
-      //           type: GET_MEDICAL_SUCCESS,
-      //           payload: [payload],
-      //         });
-      //       } else {
-      //         dispatch({
-      //           type: GET_MEDICAL_SUCCESS,
-      //           payload: [],
-      //         });
-      //       }
-      //     },
-      //     (error) => {
-      //       dispatch({
-      //         type: GET_MEDICAL_FAIL,
-      //         error,
-      //       });
-      //     }
-      //   );
+    // if (sortBy) {
+    //   medicalControllerApi
+    //     .getMedicalUsingGET({ code: parseInt(values.code) })
+    //     .subscribe(
+    //       (payload) => {
+    //         if (typeof payload === "object" && !isEmpty(payload)) {
+    //           dispatch({
+    //             type: GET_MEDICAL_SUCCESS,
+    //             payload: [payload],
+    //           });
+    //         } else {
+    //           dispatch({
+    //             type: GET_MEDICAL_SUCCESS,
+    //             payload: [],
+    //           });
+    //         }
+    //       },
+    //       (error) => {
+    //         dispatch({
+    //           type: GET_MEDICAL_FAIL,
+    //           error,
+    //         });
+    //       }
+    //     );
     // } else {
-      var getMedicalRequest: GetMedicalsUsingGETRequest ={ sortBy: GetMedicalsUsingGETSortByEnum.NONE } //sortBy: sorting 
+      var getMedicalRequest: GetMedicalsUsingGETRequest ={ sortBy: sortBy || GetMedicalsUsingGETSortByEnum.NONE } //sortBy: sorting 
       medicalControllerApi.getMedicalsUsingGET(getMedicalRequest).subscribe(
         (payload) => {
           if (Array.isArray(payload)) {
             dispatch({
-              type: SEARCH_MEDICAL_SUCCESS,
+              type: GET_MEDICALS_SUCCESS,
               payload,
             });
           } else {
             dispatch({
-              type: SEARCH_MEDICAL_FAIL,
+              type: GET_MEDICALS_FAIL,
               error: { message: "Unexpected response payload" },
             });
           }
         },
         (error) => {
           dispatch({
-            type: SEARCH_MEDICAL_FAIL,
+            type: GET_MEDICALS_FAIL,
             error,
           });
         }

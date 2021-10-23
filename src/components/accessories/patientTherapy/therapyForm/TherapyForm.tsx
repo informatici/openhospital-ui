@@ -53,8 +53,8 @@ const TherapyForm: FC<TherapyProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const medicalOptionsSelector = (state: IState) => {
-    if (state.medicals.medicalsOrderByName.data) {
-      return state.medicals.medicalsOrderByName.data.map((medical) => {
+    if (state.medicals.getMedicals.data) {
+      return state.medicals.getMedicals.data.map((medical) => {
         return {
           value: medical.code ?? "",
           label: medical.description ?? "",
