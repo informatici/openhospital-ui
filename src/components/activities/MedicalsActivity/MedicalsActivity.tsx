@@ -158,6 +158,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
   switch (activityTransitionState) {
     case "TO_NEW_MEDICAL":
       return <Redirect to={`/newMedical/`} />; 
+      case "TO_EDIT_MEDICAL":
+        return <Redirect to={`/editMedical/`} />; 
      default:
      
   return (
@@ -179,6 +181,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                 descriptions={reportTypes}
                 label={t("common.report")}
                 onClick={useDescription}
+                className="medicals__button medicals__button__label"
               >
                 <div className="medicals__button__label">
                   {t("common.report")}

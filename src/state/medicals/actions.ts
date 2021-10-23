@@ -73,7 +73,7 @@ export const newMedical =
   };
 
 export const editMedical =
-  ( updateMedical: MedicalDTO, ignSimilar: boolean) =>
+  (updateMedical: MedicalDTO, ignSimilar: boolean) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: EDIT_MEDICAL_LOADING,
@@ -143,32 +143,6 @@ export const getMedicals =
     dispatch({
       type: GET_MEDICALS_LOADING,
     });
-
-    // if (sortBy) {
-    //   medicalControllerApi
-    //     .getMedicalUsingGET({ code: parseInt(values.code) })
-    //     .subscribe(
-    //       (payload) => {
-    //         if (typeof payload === "object" && !isEmpty(payload)) {
-    //           dispatch({
-    //             type: GET_MEDICAL_SUCCESS,
-    //             payload: [payload],
-    //           });
-    //         } else {
-    //           dispatch({
-    //             type: GET_MEDICAL_SUCCESS,
-    //             payload: [],
-    //           });
-    //         }
-    //       },
-    //       (error) => {
-    //         dispatch({
-    //           type: GET_MEDICAL_FAIL,
-    //           error,
-    //         });
-    //       }
-    //     );
-    // } else {
       var getMedicalRequest: GetMedicalsUsingGETRequest ={ sortBy: sortBy || GetMedicalsUsingGETSortByEnum.NONE } //sortBy: sorting 
       medicalControllerApi.getMedicalsUsingGET(getMedicalRequest).subscribe(
         (payload) => {

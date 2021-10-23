@@ -15,6 +15,7 @@ const SplitButton: FunctionComponent<IProps> = ({
   type,
   label,
   descriptions,
+  className,
   onClick
 }) => {
   const [open, setOpen] = React.useState(false);
@@ -57,18 +58,19 @@ const SplitButton: FunctionComponent<IProps> = ({
             // variant="contained"
             // color="primary"
             // size="small"
-            className="ohsplitbutton"  
+            className={className}
             aria-controls={open ? 'split-button-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
             // aria-label={label}
             aria-haspopup="menu"
             onClick={handleToggle}
           > 
-            <div className="button__label"> {label}</div>
-            <ArrowDropDownIcon />
+          {label}
+            {/* <div className="button__label"> {label}</div> */}
+            {/* <ArrowDropDownIcon /> */}
           </Button>
         {/* </ButtonGroup> */}
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition>
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}

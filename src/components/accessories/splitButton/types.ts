@@ -5,5 +5,6 @@ export interface IProps {
   label?: string;
   disabled?: boolean;
   descriptions: string[];
+  className: string;
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>, index: number) => void;
 }

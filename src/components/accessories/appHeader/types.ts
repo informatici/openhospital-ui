@@ -17,3 +17,5 @@ export interface IDispatchProps {
 }
 
 export type TProps = IOwnProps & IStateProps & IDispatchProps;
+
+export type TActivityTransitionState = "IDLE" | "TO_PHARMACEUTICALS" | "TO_PHARMACEUTICAL_STOCK" | "TO_PHARMACEUTICAL_STOCK_WARD";

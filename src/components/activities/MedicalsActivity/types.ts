@@ -10,7 +10,7 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  getMedicals: (sortBy?: GetMedicalsUsingGETSortByEnum) => void; //, sorting: GetMedicalsUsingGETSortByEnum
+  getMedicals: (sortBy?: GetMedicalsUsingGETSortByEnum) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps ; 
@@ -28,4 +28,4 @@ export type TFieldName =
   | "outqty"
   | "minqty";
 
-export type TActivityTransitionState = "IDLE" | "TO_NEW_MEDICAL";
+export type TActivityTransitionState = "IDLE" | "TO_NEW_MEDICAL" | "TO_EDIT_MEDICAL";
