@@ -39,10 +39,12 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           />
           <div className="dashboard__background">
             <div className="dashboard__greeter">
-              <Trans
-                i18nKey="dashboard.welcomename"
-                values={{ name: userCredentials?.displayName }}
-              />
+              <span className="user-welcome">{t("dashboard.welcomename")}</span>
+              {userCredentials?.displayName ? (
+                <strong className="user-name">
+                  &nbsp;{userCredentials?.displayName}
+                </strong>
+              ) : null}
             </div>
             <div className="dashboard__actions">
               <div className="dashboard__actions__button">

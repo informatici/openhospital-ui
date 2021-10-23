@@ -18,6 +18,7 @@ import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import SplitButton from "../splitButton/SplitButton";
+import OHFeedback from "../feedback/OHFeedback";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -74,20 +75,26 @@ const AppHeader: FunctionComponent<TProps> = ({
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__top">
         <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
-        <div className="userInfo__toolbar">
-          <span>
-            <Trans
-              i18nKey="dashboard.welcomename"
-              values={{ name: username }}
-            />
-          </span>
-          <Tooltip title={t("login.signout")!} aria-label="sign out">
-            <ExitToAppIcon
-              className="userInfo__toolbar_icon"
-              id="signout_icon"
-              onClick={() => setOpenLogoutConfirmation(true)}
-            />
-          </Tooltip>
+        <div className="userInfo__wrapper">
+          <div className="userInfo__toolbar">
+            <span>
+              <span className="user-welcome">{t("dashboard.welcomename")}</span>
+              &nbsp;
+              <strong className="user-name">{username}</strong>
+            </span>
+            <Tooltip title={t("login.signout")!} aria-label="sign out">
+              <ExitToAppIcon
+                className="userInfo__toolbar_icon"
+                id="signout_icon"
+                onClick={() => setOpenLogoutConfirmation(true)}
+              />
+            </Tooltip>
+          </div>
+          {navigator.onLine && (
+            <div className="appHeader__help" title="Help">
+              <OHFeedback />
+            </div>
+          )}
         </div>
       </div>
       <div className="appHeader__bottom">

@@ -8,7 +8,7 @@ export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
 
 export type TPatientOPDFormFieldName =
   | "date"
-  | "anamnesis"
+  | "complaint"
   | "disease"
   | "disease2"
   | "disease3"

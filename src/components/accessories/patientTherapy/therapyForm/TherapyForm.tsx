@@ -2,17 +2,20 @@ import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { object } from "yup";
+import { useSelector } from "react-redux";
+import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import SelectField from "../../selectField/SelectField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
@@ -28,12 +31,40 @@ const TherapyForm: FC<TherapyProps> = ({
   shouldResetForm,
   resetFormCallback,
 }) => {
-  const validationSchema = object({
-    // TODO
-  });
   const { t } = useTranslation();
+  const validationSchema = object({
+    medicalId: string().required(t("common.required")),
+    startDate: string().required(t("common.required")),
+    endDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "endDate",
+        message: t("therapy.validatelastdate"),
+        test: function (value) {
+          if (moment(+value).isValid()) {
+            return moment(+value).isSameOrAfter(moment(+this.parent.startDate));
+          } else if (moment(value).isValid()) {
+            return moment(value).isSameOrAfter(moment(this.parent.startDate));
+          } else return true;
+        },
+      }),
+  });
+
   const initialValues = getFromFields(fields, "value");
-  const options = getFromFields(fields, "options");
+
+  const medicalOptionsSelector = (state: IState) => {
+    if (state.medicals.medicalsOrderByName.data) {
+      return state.medicals.medicalsOrderByName.data.map((medical) => {
+        return {
+          value: medical.code ?? "",
+          label: medical.description ?? "",
+        };
+      });
+    } else return [];
+  };
+  const medicalOptions = useSelector((state: IState) =>
+    medicalOptionsSelector(state)
+  );
 
   const formik = useFormik({
     initialValues,
@@ -66,10 +97,7 @@ const TherapyForm: FC<TherapyProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-        value: string
-      ) => {
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
       },
@@ -81,6 +109,7 @@ const TherapyForm: FC<TherapyProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {
@@ -99,14 +128,14 @@ const TherapyForm: FC<TherapyProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="patientTherapyForm__item">
-              <SelectField
+              <AutocompleteField
                 fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
                 label={t("therapy.medical")}
                 isValid={isValid("medicalId")}
                 errorText={getErrorText("medicalId")}
                 onBlur={onBlurCallback("medicalId")}
-                options={options.medicalId}
+                options={medicalOptions}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -183,7 +212,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <DateField
                 fieldName="startDate"
                 fieldValue={formik.values.startDate}
-                disableFuture={true}
+                disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("startDate")}

@@ -1,3 +1,5 @@
+import { TOrder } from "../../../libraries/sortUtils/types";
+
 export interface IProps {
   rowData: Array<Record<string, any>>;
   labelData: Record<string, any>;
@@ -5,10 +7,15 @@ export interface IProps {
   isCollapsabile?: boolean;
   rowsPerPage: number;
   columnsOrder: Array<string>;
-  onEdit?: () => void;
-  onDelete?: () => void;
+  compareRows?: <Key extends string | number | symbol>(
+    order: TOrder,
+    key: Key
+  ) => (a: any, b: any) => number;
+  onEdit?: <T>(row: T) => void;
+  onDelete?: <T>(row: T) => void;
   onPrint?: () => void;
   onView?: () => void;
+  showEmptyCell?: boolean;
 }
 
 export interface IRowProps {
@@ -18,6 +25,7 @@ export interface IRowProps {
   tableHeader: Array<string>;
   isCollapsabile?: boolean;
   renderActions: () => void;
+  showEmptyCell?: boolean;
 }
 
 export type TActions = "edit" | "delete" | "view" | "print";

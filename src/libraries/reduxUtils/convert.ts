@@ -1,4 +1,11 @@
-import { format } from "date-fns";
+import {
+  LaboratoryDTO,
+  MedicalDTO,
+  OpdDTO,
+  PatientExaminationDTO,
+  TherapyRowDTO,
+} from "../../generated";
+import { renderDate } from "../formatUtils/dataFormatting";
 import { SummaryFieldType } from "./SummaryFieldType";
 
 export const convertToSummaryData = (
@@ -6,10 +13,38 @@ export const convertToSummaryData = (
   field: SummaryFieldType
 ) => {
   const res = data.map(({ ...rest }) => ({
+    ...rest,
     type: field.type,
-    date: format(new Date(rest[field.dateField]), "yyyy-MM-dd"),
-    note: field.noteField ? rest[field.noteField] : "",
-    result: "",
+    date: rest[field.dateField],
   }));
   return res;
+};
+
+export const renderSummary = (
+  data: Array<PatientExaminationDTO | OpdDTO | LaboratoryDTO | TherapyRowDTO>,
+  dateFields: string[],
+  labels: any,
+  medicals: MedicalDTO[] = []
+) => {
+  const itemRender = (item: any) => {
+    const obj: any = {};
+    Object.keys(labels).map((field: string) => {
+      if (typeof item[field] === "object") {
+        obj[field] = item[field]?.description ?? "";
+      } else if (dateFields.includes(field) && item[field]) {
+        obj[field] = renderDate(item[field]);
+      } else if (field === "medicalId" && item[field]) {
+        obj[field] =
+          medicals.find((medoc) => medoc.code === item[field])?.description ??
+          item[field];
+      } else if (item[field]) {
+        obj[field] = item[field];
+      }
+      return obj[field];
+    });
+    return obj;
+  };
+  return data.map((item: any) => {
+    return itemRender(item);
+  });
 };

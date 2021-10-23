@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
-import SelectField from "../../selectField/SelectField";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -34,21 +34,21 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   shouldResetForm,
   resetFormCallback,
 }) => {
+  const { t } = useTranslation();
+
   const validationSchema = object({
-    date: string().required("This field is required"),
-    disease: string().required("This field is required"),
+    date: string().required(t("common.required")),
+    disease: string().required(t("common.required")),
     disease2: string().test({
       name: "disease2",
-      message:
-        "Diagnostic 2 must be different to diagnostic 1 and diagnostic 1 cannot be empty.",
+      message: t("opd.validatedisease"),
       test: function (value) {
         return !value || (this.parent.disease && value !== this.parent.disease);
       },
     }),
     disease3: string().test({
       name: "disease3",
-      message:
-        "Diagnostic 3 must be different to diagnostics 1 & 2 and those should be set",
+      message: t("opd.validatedisease"),
       test: function (value) {
         return (
           !value ||
@@ -73,8 +73,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
   });
 
-  const { values, setFieldValue, resetForm, handleBlur } = formik;
-  const { t } = useTranslation();
+  const { setFieldValue, resetForm, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
@@ -85,7 +84,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const diseasesOptionsSelector = (state: IState) => {
     return state.diseases.diseasesOpd.data
       ? state.diseases.diseasesOpd.data.map((item) => {
-          return { value: item.code + "", label: item.description + "" };
+          return {
+            value: item.code?.toString() ?? "",
+            label: item.description ?? "",
+          };
         })
       : [];
   };
@@ -109,6 +111,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {
@@ -120,12 +123,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-        value: string
-      ) => {
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
-
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]
@@ -153,12 +152,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
               <TextField
-                field={formik.getFieldProps("anamnesis")}
+                field={formik.getFieldProps("complaint")}
                 multiline={true}
                 theme="regular"
-                label={t("opd.anamnesis")}
-                isValid={isValid("anamnesis")}
-                errorText={getErrorText("anamnesis")}
+                label={t("opd.complaint")}
+                isValid={isValid("complaint")}
+                errorText={getErrorText("complaint")}
                 onBlur={formik.handleBlur}
                 type="string"
               />
@@ -166,7 +165,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease"
                 fieldValue={formik.values.disease}
                 label={t("opd.disease1")}
@@ -179,7 +178,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease2"
                 fieldValue={formik.values.disease2}
                 label={t("opd.disease2")}
@@ -192,7 +191,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWith">
-              <SelectField
+              <AutocompleteField
                 fieldName="disease3"
                 fieldValue={formik.values.disease3}
                 label={t("opd.disease3")}

@@ -10,7 +10,7 @@
     "signout": "Sign Out"
   },
   "dashboard": {
-    "welcomename": "Welcome <strong>{{name}}<strong>",
+    "welcomename": "Welcome",
     "newpatient": "New patient",
     "searchpatients": "Search patients"
   },
@@ -27,6 +27,12 @@
     "secondname": "Second Name",
     "sex": "Sex",
     "opd": "OPD",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Last admission",
     "reasonforvisit": "Reason for visit",
     "treatmentmade": "Treatment made",
@@ -36,7 +42,8 @@
     "titleedit": "Edit Patient",
     "personaldata": "Personal Data",
     "parentslivetoghether": "Parents live together",
-    "insertdataofnewpatient": "Insert data of new Patient"
+    "insertdataofnewpatient": "Insert data of new Patient",
+    "admissions": "Admissions"
   },
   "medical": {
     "code": "Code",
@@ -51,11 +58,20 @@
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
-    "anamnesis": "Anamnesis",
-    "note": "Complain",
+    "note": "Notes and symptoms",
+    "complaint": "Patient complaints",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3"
+    "disease3": "Diagnostic 3",
+    "validatedisease": "This diagnostic should be different",
+    "code": "Code",
+    "updateopd": "update opd",
+    "saveopd": "save opd",
+    "created": "Opd Created",
+    "updated": "Opd updated",
+    "createsuccess": "Opd has been created successfully!",
+    "updatesuccess": "Opd {{code}} has been updated successfully!",
+    "deleted": "Opd deleted"
   },
   "examination": {
     "ap": {
@@ -88,7 +104,11 @@
     "temperature": "Temperature",
     "temperatureabbr": "T",
     "weight": "Weight",
-    "weightabbr": "(W)"
+    "weightabbr": "(W)",
+    "created": "Examiniation created",
+    "deleted": "Examination deleted",
+    "createsuccess": "Examination created successfully",
+    "deletesuccess": "Examination deleted successfully"
   },
   "nav": {
     "pharmacy": "Pharmacy",
@@ -107,11 +127,16 @@
     "newmedical": "New medical",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
-    "patientdashboard": "Patient Dashboard"
-
+    "patientdashboard": "Patient Dashboard",
+    "admission": "Admission",
+    "discharge": "Discharges",
+    "surgicalrecord": "Surgical Record",
+    "note": "Note",
+    "exams": "Exams"
   },
   "common": {
     "results": "Results",
+    "feedback": "Feedback",
     "submit": "Submit",
     "reset": "Reset",
     "search": "Search",   
@@ -136,7 +161,23 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Save Therapy"
+    "required": "This field is required",
+    "emptydata": "No data found!",
+    "save": "Save",
+    "code": "Code",
+    "update": "update",
+    "delete": "Delete",
+    "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
+    "deletesuccess": "The item with code {{code}} was deleted successfully!",
+    "incorrectformat": "Is not in correct format",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "male": "Male",
+    "female": "Female",
+    "date": "Date",
+    "type": "Type",
+    "nooptionsfound": "No options found"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -153,7 +194,14 @@
     "endDate": "End Date",
     "sendnotification": "Send notification",
     "sendsms": "Send SMS",
-    "note": "Note"
+    "note": "Note",
+    "validatelastdate": "should be greater or equal to start date",
+    "savetherapy": "Save",
+    "updatetherapy": "Update",
+    "created": "Therapy created",
+    "updated": "Therapy updated",
+    "createsuccess": "A therapy row has been created successfully!",
+    "updatesuccess": "A therapy row with code {{code}} has been updated successfully!"
   },
   "booking": {
     "category": "Category",
@@ -163,9 +211,51 @@
   },
   "summary": {
     "visits": "Visites",
-    "triage": "Examinations",
-    "therapy": "Therapy",    
-    "opd": "Diagnostics",
-    "booking": "Prescriptions"
+    "triage": "Triage",
+    "therapy": "Therapy",
+    "opd": "OPD",
+    "booking": "Reservation",
+    "exams": "Exams"
+  },
+  "lab": {
+    "date": "Date",
+    "exam": "Exam",
+    "type": "IPD/OPD",
+    "material": "Material",
+    "note": "Note",
+    "result": "Results",
+    "created": "Patient exam added",
+    "updated": "Patient exam updated",
+    "createsuccess": "Patient exam added successfully!",
+    "updatesuccess": "Patient exam {{code}} updated successfully!",
+    "deleted": "Patient Exam deleted",
+    "resultrow": "Result row",
+    "value": "Value",
+    "resultstitle": "Results"
+  },
+  "admission": {
+    "admDate": "Date",
+    "admType": "Type",
+    "diseaseIn": "Diagnosis In",
+    "ward": "Ward",
+    "transUnit": "From Health Unit",
+    "disType": "Discharge Type",
+    "disDate": "Discharge Date",
+    "bedDays": "Bed Days",
+    "diseaseOut1": "Diagnosis Out 1",
+    "diseaseOut2": "Diagnosis Out 2",
+    "diseaseOut3": "Diagnosis Out 3",
+    "cliDiaryCharge": "Clinical Diary Charge",
+    "imageryCharge": "Imagery Charge",
+    "createsuccess": "Patient admitted successfully",
+    "created": "Patient admitted",
+    "dischargesuccess": "Patient discharged successfully",
+    "discharged": "Patient discharged",
+    "nocurrentadmission": "There is no current admission for the patient. You should admit the patient first",
+    "noteaddedwithsuccess": "Admission Note added successfully",
+    "noteadded": "Note saved",
+    "note": "Note",
+    "validatelastdate": "should be greater or equal to admission date {{admDate}}",
+    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
   }
 }

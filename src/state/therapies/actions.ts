@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -13,9 +11,16 @@ import {
   CREATE_THERAPY_LOADING,
   CREATE_THERAPY_RESET,
   CREATE_THERAPY_SUCCESS,
+  DELETE_THERAPY_FAIL,
+  DELETE_THERAPY_RESET,
   GET_THERAPY_FAIL,
   GET_THERAPY_LOADING,
   GET_THERAPY_SUCCESS,
+  GET_THERAPY_SUCCESS_EMPTY,
+  UPDATE_THERAPY_FAIL,
+  UPDATE_THERAPY_LOADING,
+  UPDATE_THERAPY_RESET,
+  UPDATE_THERAPY_SUCCESS,
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
@@ -28,39 +33,39 @@ export const createTherapy =
     dispatch({
       type: CREATE_THERAPY_LOADING,
     });
-
-    const parseObject: TherapyRowDTO = {
-      endDate: format(new Date(parseInt(thRowDTO.endDate!)), "dd/MM/yyyy"),
-      freqInDay: thRowDTO.freqInDay,
-      freqInPeriod: thRowDTO.freqInPeriod,
-      medicalId: thRowDTO.medicalId,
-      note: thRowDTO.note,
-      notifyInt: thRowDTO.notifyInt,
-      patID: thRowDTO.patID,
-      qty: thRowDTO.qty,
-      smsInt: thRowDTO.smsInt,
-      startDate: format(new Date(parseInt(thRowDTO.startDate!)), "dd/MM/yyyy"),
-    };
-    thRowDTO = { ...parseObject };
-
     therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
       (payload) => {
-        if (typeof payload === "object" && !isEmpty(payload)) {
-          dispatch({
-            type: GET_THERAPY_SUCCESS,
-            payload: [payload],
-          });
-        } else {
-          dispatch({
-            type: GET_THERAPY_SUCCESS,
-            payload: [],
-          });
-        }
+        dispatch({
+          type: CREATE_THERAPY_SUCCESS,
+          payload: payload,
+        });
       },
       (error) => {
         dispatch({
-          type: GET_THERAPY_FAIL,
-          error,
+          type: CREATE_THERAPY_FAIL,
+          error: error,
+        });
+      }
+    );
+  };
+
+export const updateTherapy =
+  (thRowDTO: TherapyRowDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_THERAPY_LOADING,
+    });
+    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_THERAPY_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_THERAPY_FAIL,
+          error: error,
         });
       }
     );
@@ -74,24 +79,39 @@ export const createTherapyReset =
     });
   };
 
-export const therapiesByPatientId =
-  (codePatient: number) =>
+export const deleteTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_THERAPY_RESET,
+    });
+  };
+
+export const updateTherapyReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_THERAPY_RESET,
+    });
+  };
+
+export const getTherapiesByPatientId =
+  (codePatient: number | undefined) =>
   (dispatch: Dispatch<IAction<TherapyRowDTO[], {}>>): void => {
     dispatch({
       type: GET_THERAPY_LOADING,
     });
-
     if (codePatient) {
       therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
         (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
               type: GET_THERAPY_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
           } else {
             dispatch({
-              type: GET_THERAPY_SUCCESS,
+              type: GET_THERAPY_SUCCESS_EMPTY,
               payload: [],
             });
           }
@@ -103,5 +123,22 @@ export const therapiesByPatientId =
           });
         }
       );
+    } else {
+      dispatch({
+        type: GET_THERAPY_FAIL,
+        error: "The patient code should not be null",
+      });
     }
+  };
+
+export const deleteTherapy =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    /**
+     * endpoint not available
+     */
+    dispatch({
+      type: DELETE_THERAPY_FAIL,
+      error: "delete feature not yet available!!!",
+    });
   };

@@ -1,24 +1,22 @@
 import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
+import { MedicalDTO } from "../../../../generated";
+import { renderSummary } from "../../../../libraries/reduxUtils/convert";
+import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_DATE_PAGE_SIZE } from "../consts";
+import useSummaryMetaData from "../useSummaryMetaData";
 import { IDispatchProps, IStateProps, TProps } from "./../types";
-
-const header = ["date", "type"];
-const order = ["date"];
-const label = {
-  date: "Date",
-  type: "Typology",
-};
 
 const PatientSummaryByDate: FunctionComponent<TProps> = ({
   loadSummaryData,
   isLoading,
   summaryData = [],
 }) => {
+  const { labels, dateFields, header, order } = useSummaryMetaData();
   const patientCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
@@ -27,17 +25,25 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
     if (patientCode) loadSummaryData(patientCode);
   }, [patientCode, loadSummaryData]);
 
+  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+    state.medicals.medicalsOrderByName.data
+      ? state.medicals.medicalsOrderByName.data
+      : []
+  );
+
   return (
     <>
       <div className="patientSummary_date">
         {!isLoading ? (
           <Table
-            rowData={summaryData}
+            rowData={renderSummary(summaryData, dateFields, labels, medicals)}
+            compareRows={dateComparator}
             tableHeader={header}
-            labelData={label}
+            labelData={labels}
             columnsOrder={order}
             rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
             isCollapsabile={true}
+            showEmptyCell={false}
           />
         ) : (
           <CircularProgress

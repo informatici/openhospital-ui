@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientOPDFormFieldName } from "./patientOPDForm/types";
 
@@ -7,7 +6,7 @@ export const initialFields: TFields<TPatientOPDFormFieldName> = {
     value: "",
     type: "date",
   },
-  anamnesis: {
+  complaint: {
     value: "",
     type: "text",
   },

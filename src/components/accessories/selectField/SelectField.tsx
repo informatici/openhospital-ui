@@ -1,4 +1,5 @@
 import {
+  CircularProgress,
   FormControl,
   FormHelperText,
   InputLabel,
@@ -8,6 +9,7 @@ import {
 import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
+import { useTranslation } from "react-i18next";
 
 const SelectField: FunctionComponent<IProps> = ({
   fieldName,
@@ -16,10 +18,13 @@ const SelectField: FunctionComponent<IProps> = ({
   isValid,
   errorText,
   onBlur,
+  isLoading = false,
   options,
+  translateOptions = false,
+  disabled = false,
 }) => {
   const [value, setValue] = useState("");
-
+  const { t } = useTranslation();
   useEffect(() => {
     setValue(fieldValue);
   }, [fieldValue]);
@@ -31,7 +36,12 @@ const SelectField: FunctionComponent<IProps> = ({
   };
 
   return (
-    <FormControl variant="outlined" className="selectField" size="small">
+    <FormControl
+      disabled={disabled}
+      variant="outlined"
+      className="selectField"
+      size="small"
+    >
       <InputLabel id={fieldName} error={isValid}>
         {label}
       </InputLabel>
@@ -45,12 +55,25 @@ const SelectField: FunctionComponent<IProps> = ({
         label={label}
         error={isValid}
       >
-        <MenuItem value="" key={"nano"}>
-          {" "}
-        </MenuItem>
+        {isLoading ? (
+          <MenuItem value="" key={"nano"}>
+            <CircularProgress
+              style={{
+                marginLeft: "50%",
+                position: "relative",
+              }}
+              size={20}
+            />
+          </MenuItem>
+        ) : (
+          <MenuItem value="" key={"nano"}>
+            {""}
+          </MenuItem>
+        )}
+
         {options.map((option, index) => (
           <MenuItem value={option.value} key={index}>
-            {option.label}
+            {translateOptions ? t(option.label) : option.label}
           </MenuItem>
         ))}
       </Select>

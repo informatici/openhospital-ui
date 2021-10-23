@@ -56,7 +56,7 @@ export default produce((draft: IMedicalsState, action: IAction<any, any>) => {
     }
 
     /**
-     * SEARCH_PATIENT
+     * SEARCH_MEDICAL
      */
     case SEARCH_MEDICAL_LOADING: {
       draft.searchMedical.status = "LOADING";

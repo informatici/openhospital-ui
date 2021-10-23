@@ -1,5 +1,5 @@
 export const diseaseDTO = {
-  code: Math.floor(Math.random() * 100 + 1),
+  code: 88,
   description: "Abortions",
   diseaseType: {
     code: "MP",

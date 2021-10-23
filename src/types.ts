@@ -1,12 +1,19 @@
 import { IExaminationsState } from "./state/examinations/types";
 import { IMainState } from "./state/main/types";
 import { IOpdState } from "./state/opds/types";
+import { IMedicalState } from "./state/medicals/types";
 import { IPatientsState } from "./state/patients/types";
 import { IMedicalsState } from "./state/medicals/types";
 import { IMedicalTypesState } from "./state/medicaltypes/types";
 import { ISummaryState } from "./state/summary/types";
 import { ITherapiesState } from "./state/therapies/types";
 import { IDiseaseState } from "./state/diseases/types";
+import { IAdmissionsState } from "./state/admissions/types";
+import { IAdmissionTypeState } from "./state/admissionTypes/types";
+import { IWardState } from "./state/ward/types";
+import { IDischargeTypeState } from "./state/dischargeTypes/types";
+import { ILaboratoriesState } from "./state/laboratories/types";
+import { IExamState } from "./state/exams/types";
 
 export interface IState {
   main: IMainState;
@@ -15,9 +22,16 @@ export interface IState {
   medicaltypes: IMedicalTypesState;
   examinations: IExaminationsState;
   therapies: ITherapiesState;
+  diseases: IDiseaseState;
   summary: ISummaryState;
   opds: IOpdState;
-  diseases: IDiseaseState;
+  medicals: IMedicalState;
+  admissions: IAdmissionsState;
+  admissionTypes: IAdmissionTypeState;
+  dischargeTypes: IDischargeTypeState;
+  wards: IWardState;
+  laboratories: ILaboratoriesState;
+  exams: IExamState;
 }
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js

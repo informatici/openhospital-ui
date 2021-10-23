@@ -10,7 +10,7 @@
     "signout": "Déconnection"
   },
   "dashboard": {
-    "welcomename": "Bienvenu/e <strong>{{name}}<strong>",
+    "welcomename": "Bienvenu/e",
     "newpatient": "Nouveau patient",
     "searchpatients": "Chercher patients"
   },
@@ -27,6 +27,12 @@
     "secondname": "2ème nom *",
     "sex": "Sexe",
     "opd": "OPD",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Dernière admission",
     "reasonforvisit": "Raison de la consultation",
     "treatmentmade": "Traitement donné",
@@ -35,16 +41,26 @@
     "telephone": "Téléphone",
     "titleedit": "Éditer Patient",
     "personaldata": "Donnés personnels",
-    "parentslivetoghether": "Les deux parents vivants",
-    "insertdataofnewpatient": "Insérez les données du nouveau patient"
+    "parentslivetoghether": "Parents ensemble",
+    "insertdataofnewpatient": "Insérez les données du nouveau patient",
+    "admissions": "Admissions"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
-    "anamnesis": "Anamnèse",
-    "note": "Remarques",
+    "note": "Notes et symptômes",
+    "complaint": "Plaintes du patient",
     "disease1": "Diagnostic 1",
     "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3"
+    "disease3": "Diagnostic 3",
+    "validatedisease": "Ce diagnostic doit être différent",
+    "code": "Code",
+    "updateopd": "Mettre à jour",
+    "saveopd": "Enregistrer",
+    "created": "Enregistrement OPD",
+    "updated": "Mis à jour OPD",
+    "createsuccess": "OPD créé avec succès!",
+    "updatesuccess": "OPD {{code}} mis à jour avec succès!",
+    "deleted": "Opd supprimée"
   },
   "examination": {
     "ap": {
@@ -64,7 +80,7 @@
     "diuresisvolume24habbr": "D24H",
     "heartrate": "Fréquence Cardiaque",
     "heartrateabbr": "FC",
-    "height": "Hauteur",
+    "height": "Taille",
     "heightabbr": "(H)",
     "hemoglucosetest": "Hemo Glucose Test",
     "hgt": "HGT",
@@ -77,7 +93,11 @@
     "temperature": "Température",
     "temperatureabbr": "T",
     "weight": "Poids",
-    "weightabbr": "(P)"
+    "weightabbr": "(P)",
+    "created": "Paramètres enregistré",
+    "deleted": "Paramètres supprimé",
+    "createsuccess": "Paramètres enregistré avec succès!",
+    "deletesuccess": "Paramètres supprimé avec succès!"
   },
   "nav": {
     "pharmacy": "Pharmacie",
@@ -94,10 +114,16 @@
     "newtherapy": "Nouvelle Therapie",
     "managetherapy": "Manage Therapie",
     "editpatient": "Éditer Patient",
-    "searchpatient": "Recherche Patient"
+    "searchpatient": "Recherche Patient",
+    "admission": "Admission",
+    "discharge": "Décharges",
+    "surgicalrecord": "Dossier Médical",
+    "note": "Note",
+    "exams": "Examens"
   },
   "common": {
     "results": "Résultats",
+    "feedback": "Feedback",
     "submit": "Envoyer",
     "reset": "Réinitialiser",
     "search": "Chercher",
@@ -119,7 +145,23 @@
     "patientregistrationsuccessfull": "The patient registration was successful.",
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
-    "savetherapy": "Enregistrer"
+    "savetherapy": "Enregistrer",
+    "required": "Ce champ est obligatoire",
+    "emptydata": "Aucune donnée trouvée!",
+    "save": "Enregistrer",
+    "code": "Code",
+    "update": "mettre à jour",
+    "delete": "Suppression",
+    "deleteconfirmation": "Etes-vous-sûr de vouloir supprimer l'élément ayant pour code {{code}}?",
+    "incorrectformat": "Format incorrect",
+    "yes": "Oui",
+    "no": "Non",
+    "unknown": "Inconnu",
+    "male": "Masculin",
+    "female": "Féminin",
+    "date": "Date",
+    "type": "Type",
+    "nooptionsfound": "Aucune option trouvée"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -135,7 +177,14 @@
     "startDate": "Date début",
     "endDate": "Date Fin",
     "sendnotification": "Envoyer la notification",
-    "sendsms": "Envoyer les sms"
+    "sendsms": "Envoyer les sms",
+    "validatelastdate": "doit être égale ou sup à la date de début",
+    "savetherapy": "Enregistrer",
+    "updatetherapy": "Mettre à Jour",
+    "created": "Therapie créée",
+    "updated": "Therapie modifiée",
+    "createsuccess": "Ligne de thérapie enregistrée avec succès!",
+    "updatesuccess": "L'entrée de code {{code}} a été modifiée avec succès!"
   },
   "booking": {
     "category": "Catégorie",
@@ -144,10 +193,11 @@
   },
   "summary": {
     "visits": "Visites",
-    "triage": "Paramètres",
-    "therapy": "Thérapie",    
-    "opd": "Diagnostiques",
+    "triage": "Triage",
+    "therapy": "Thérapie",
+    "opd": "OPD",
     "booking": "Prescriptions",
+    "exams": "Examens",
     "bookingdate": "Date",
     "gobackdashboard": "Retour à l'accueil",
     "keepediting": "Continuer à éditer",
@@ -158,5 +208,46 @@
     "patientregistrationsuccessfull": "Enregistrement du patient complété.",
     "somethingwrong": "Un erreur est survenu, veuillez réessayer plus tard.",
     "searchpatientinstruction": "Si vous n'avez pas de ID patient, remplissez autant de champs que vous pouvez et cliquez rechercher"
+  },
+  "lab": {
+    "date": "Date",
+    "exam": "Examen",
+    "type": "Interne/Externe",
+    "material": "Matériel",
+    "note": "Note",
+    "result": "Résultats",
+    "created": "Examen enregistré",
+    "updated": "Examen à jour",
+    "createsuccess": "Examen du patient enregistré avec succès!",
+    "updatesuccess": "Examen du patient avec pour code {{code}} mis à jour avec succès!",
+    "deleted": "L'examen du patient supprimé",
+    "resultrow": "Entrée",
+    "value": "Valeur",
+    "resultstitle": "Résultats"
+  },
+  "admission": {
+    "admDate": "Date",
+    "admType": "Type",
+    "diseaseIn": "Diagnostic D'entrée",
+    "ward": "Pavillon",
+    "transUnit": "En provenance De l'unité",
+    "disType": "Type de sortie",
+    "disDate": "Date de sortie",
+    "bedDays": "Nuités",
+    "diseaseOut1": "Diagnostic de sortie 1",
+    "diseaseOut2": "Diagnostic de sortie 2",
+    "diseaseOut3": "Diagnostic de sortie 3",
+    "cliDiaryCharge": "Journal clinique",
+    "imageryCharge": "Imagerie",
+    "createsuccess": "Patient admis avec succès",
+    "created": "Patient admis",
+    "dischargesuccess": "Patient sorti avec succès",
+    "discharged": "Patient sorti",
+    "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient. Admettez le patient d'abord.",
+    "noteaddedwithsuccess": "Note d'admission enregistrée avec succès",
+    "noteadded": "Note Enregistrée",
+    "note": "Note",
+    "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
+    "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
   }
 }

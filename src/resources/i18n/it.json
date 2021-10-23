@@ -10,7 +10,7 @@
     "signout": "Sign Out"
   },
   "dashboard": {
-    "welcomename": "Benvenuto/a <strong>{{name}}<strong>",
+    "welcomename": "Benvenuto/a",
     "newpatient": "Nuovo Paziente",
     "searchpatients": "Cerca pazienti"
   },
@@ -27,6 +27,12 @@
     "secondname": "Cognome *",
     "sex": "Sesso",
     "opd": "Visita",
+    "usersections": "User sections",
+    "userinfo": "User info",
+    "userexams": "Exams",
+    "userbilling": "Billing",
+    "userhospital": "Hospital",
+    "userclinic": "Clinic",
     "lastadminission": "Ultima ammissione",
     "reasonforvisit": "Motivo della visita",
     "treatmentmade": "Trattamento dato",
@@ -98,6 +104,7 @@
   },
   "common": {
     "results": "Risultati",
+    "feedback": "Feedback",
     "submit": "Invia",
     "reset": "Resetta",
     "search": "Cerca",
@@ -145,7 +152,7 @@
   "summary": {
     "visits": "Visites",
     "triage": "Esame obiettivo",
-    "therapy": "Prestazioni specialistiche",    
+    "therapy": "Prestazioni specialistiche",
     "opd": "Prestazioni diagnostiche",
     "booking": "Interventi operatori",
     "dismiss": "Rifiuta",

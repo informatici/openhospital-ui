@@ -1,0 +1,26 @@
+.autocomplete {
+  width: 100%;
+  margin-top: 8px !important;
+  label.MuiFormLabel-root {
+    &.MuiFormLabel-filled,
+    &.Mui-focused {
+      top: 2px;
+    }
+  }
+  .MuiInputLabel-formControl {
+    top: 5px;
+  }
+  .MuiInputBase-input {
+    height: 1.8rem;
+  }
+  .MuiFormHelperText-root.Mui-error {
+    position: absolute;
+    bottom: -20px;
+    margin: 0px;
+    left: 0px;
+  }
+
+  .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+    padding: 6px;
+  }
+}

@@ -1,12 +1,14 @@
-const medicalDTO = {
-  code: 1,
-  prod_code: "102943",
-  type: "Lab",
-  description: "Medical Test",
-  initialqty: 40,
-  inqty: 0,
-  outqty: 0,
-  minqty: 0,
-};
-
-export default medicalDTO;
+export const medicalDTO = {
+    "code": 16,
+    "prod_code": "PARA",
+    "type": {
+        "code": "M",
+        "description": "Medical material"
+    },
+    "description": "Paracétamol",
+    "initialqty": 21,
+    "pcsperpck": 100,
+    "inqty": 340,
+    "outqty": 8,
+    "minqty": 15
+}
