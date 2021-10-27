@@ -42,9 +42,7 @@
     }
 
     :only-child, :not(:only-child) {
-      border: .5px solid gray;
       padding: 8px;
-      border-bottom-right-radius: 10px;
     }
     
   }
