@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MedicalDTO, TherapyRowDTO } from "../../../../generated";
+import { GetMedicalsUsingGETSortByEnum, MedicalDTO, TherapyRowDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
@@ -56,7 +56,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    dispatch(getMedicals());
+    dispatch(getMedicals(GetMedicalsUsingGETSortByEnum.NAME));
   }, [dispatch]);
 
   useEffect(() => {
