@@ -31,10 +31,6 @@ import {
   DELETE_MEDICAL_FAIL,
   DELETE_MEDICAL_RESET,
   DELETE_MEDICAL_SUCCESS,
-  EXPORT_MEDICAL_LOADING,
-  EXPORT_MEDICAL_FAIL,
-  EXPORT_MEDICAL_RESET,
-  EXPORT_MEDICAL_SUCCESS,
 } from "./consts";
 
 const medicalControllerApi = new MedicalControllerApi(
@@ -72,14 +68,14 @@ export const newMedical =
     });
   };
 
-export const editMedical =
+export const updateMedical =
   (updateMedical: MedicalDTO, ignSimilar: boolean) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: EDIT_MEDICAL_LOADING,
     });
 
-    var updateMedicalRequest: UpdateMedicalUsingPUTRequest = { medicalDTO: updateMedical, ignoreSimilar: ignSimilar }
+    var updateMedicalRequest: UpdateMedicalUsingPUTRequest = { medicalDTO: updateMedical }
     medicalControllerApi
       .updateMedicalUsingPUT(updateMedicalRequest)
       .subscribe(
@@ -97,7 +93,7 @@ export const editMedical =
       );
   };
 
-  export const editMedicalReset =
+  export const updateMedicalReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
@@ -180,6 +176,9 @@ export const getMedicals =
   export const getMedical =
   (myCode: number) => //, sorting: GetMedicalsUsingGETSortByEnum
   (dispatch: Dispatch<IAction<MedicalDTO, {}>>): void => {
+    dispatch({
+    type: GET_MEDICAL_LOADING,
+  });
     medicalControllerApi
       .getMedicalUsingGET({ code: myCode })
       .subscribe(

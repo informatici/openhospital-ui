@@ -1,7 +1,7 @@
 import { string } from "yup";
 import { MedicalDTO, GetMedicalsUsingGETSortByEnum } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
-import { IAction, TAPIResponseStatus } from "../../../state/types";
+import { TAPIResponseStatus } from "../../../state/types";
 
 export interface IStateProps {
   userCredentials: TUserCredentials;

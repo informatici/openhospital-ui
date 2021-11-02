@@ -3,7 +3,8 @@ import { IApiResponse } from "../types";
 
 export type IMedicalsState = {
   newMedical: IApiResponse<null>;
-  editMedical: IApiResponse<null>;
-  deleteMedical: IApiResponse<MedicalDTO>;
   getMedicals: IApiResponse<Array<MedicalDTO>>;
+  selectedMedical: IApiResponse<MedicalDTO>;
+  editMedical: IApiResponse<null>;
+  deleteMedical: IApiResponse<null>;
 };

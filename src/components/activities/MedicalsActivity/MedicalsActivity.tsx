@@ -124,8 +124,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
           <div className="medicalsGrid_main">
             <AgGridReact onGridReady={onGridReady} onFirstDataRendered={() => autoSizeAll(false)} defaultColDef={{ resizable: true }} rowData={medicalSearchResults} rowHeight={40} pagination={true} paginationAutoPageSize={true} 
             frameworkComponents={{
-            iconEditRenderer: () => IconButton({ url: "bla", svgImage: iconEdit}),
-            iconDeleteRenderer: () => IconButton({url: "bla" , svgImage:  iconDelete }),
+            iconEditRenderer: (params: any) => IconButton({ url: '/editMedical/' + params.data.code, svgImage: iconEdit}),
+            iconDeleteRenderer: (params: any) => IconButton({url: "deleteMedical/" + params.data.code, svgImage:  iconDelete }),
           }}>
               <AgGridColumn headerName="Type" field="type.description"></AgGridColumn>
               <AgGridColumn headerName="Code" field="prod_code"></AgGridColumn>

@@ -36,6 +36,7 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const breadcrumbMap = {
     [t("nav.dashboard")]: "/",
+    [t("nav.pharmaceuticals")]: "/Medicals",
     [t("nav.newmedical")]: "/newMedical",
   };
 

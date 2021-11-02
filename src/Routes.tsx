@@ -12,6 +12,7 @@ import PatientDetailsActivity from "./components/activities/patientDetailsActivi
 import SearchPatientActivity from "./components/activities/searchPatientActivity/SearchPatientActivity";
 import NewMedicalActivity from "./components/activities/newMedicalActivity/NewMedicalActivity";
 import MedicalsActivity from "./components/activities/MedicalsActivity/MedicalsActivity";
+import EditMedicalActivity from "./components/activities/editMedicalActivity/EditMedicalActivity";
 
 const Routes: FunctionComponent = () => {
   return (
@@ -47,6 +48,9 @@ const Routes: FunctionComponent = () => {
         </PrivateRoute>
         <PrivateRoute path="/Medicals">
           <MedicalsActivity />
+        </PrivateRoute>
+        <PrivateRoute path="/editMedical/:code">
+          <EditMedicalActivity />
         </PrivateRoute>
         <PrivateRoute>
           <NotFound />

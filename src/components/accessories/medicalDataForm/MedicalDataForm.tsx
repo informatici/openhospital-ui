@@ -39,7 +39,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
   hasMedTypeFailed,
   medicalTypes,
   medicalTypesOptions,
-  getMedicalTypes,
+  getMedicalTypes
 }) => {
   
   const { t } = useTranslation();
@@ -72,9 +72,12 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
     {  
       medicalTypesOptions = setupOptions(medicalTypes);
       setOptions(medicalTypesOptions);
+      //Custom management of medical type
+      if(!isEmpty(fields.type.value))
+      {setFieldValue('type', medicalTypes.find(x => x.code == (fields.type.value as MedicalTypeDTO).code)?.code);}
     }
   }
-  , [isMedTypeLoading, hasMedTypeFailed, hasMedTypeSucceeded]);
+  , [isMedTypeLoading, hasMedTypeFailed, hasMedTypeSucceeded, medicalTypesOptions]);
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -126,6 +129,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
             errorText={getErrorText("type")}
             onBlur={onBlurCallback("type")}
             options={options || []}
+            disabled={initialValues.code != '' || isLoading}
           />
           </div>
 
@@ -137,6 +141,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("code")}
               errorText={getErrorText("code")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -148,6 +153,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("description")}
               errorText={getErrorText("description")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -159,6 +165,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("pcsperpck")}
               errorText={getErrorText("pcsperpck")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -172,6 +179,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("minqty")}
               errorText={getErrorText("minqty")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
         </div>

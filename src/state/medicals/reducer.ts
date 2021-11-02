@@ -19,10 +19,6 @@ import {
   DELETE_MEDICAL_FAIL,
   DELETE_MEDICAL_RESET,
   DELETE_MEDICAL_SUCCESS,
-  EXPORT_MEDICAL_LOADING,
-  EXPORT_MEDICAL_FAIL,
-  EXPORT_MEDICAL_RESET,
-  EXPORT_MEDICAL_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IMedicalsState } from "./types";
@@ -84,19 +80,19 @@ export default produce((draft: IMedicalsState, action: IAction<any, any>) => {
      * GET_MEDICAL
      */
     case GET_MEDICAL_LOADING: {
-      draft.getMedicals.status = "LOADING";
+      draft.selectedMedical.status = "LOADING";
       break;
     }
 
     case GET_MEDICAL_SUCCESS: {
-      draft.getMedicals.status = "SUCCESS";
-      draft.getMedicals.data = action.payload;
-      delete draft.getMedicals.error;
+      draft.selectedMedical.status = "SUCCESS";
+      draft.selectedMedical.data = action.payload;
+      delete draft.selectedMedical.error;
       break;
     }
 
     case GET_MEDICAL_FAIL: {
-      draft.getMedicals.status = "FAIL";
+      draft.selectedMedical.status = "FAIL";
       break;
     }
 
