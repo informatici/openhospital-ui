@@ -91,6 +91,23 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       renderSearchResults();
   }, [searchStatus]);
 
+  const [gridApi, setGridApi] = useState(null);
+  const [gridColumnApi, setGridColumnApi] = useState<any>(null);
+
+  const onGridReady = (params: any) => {
+    setGridApi(params.api);
+    setGridColumnApi(params.columnApi);
+  };
+
+  const autoSizeAll = (skipHeader: boolean) => {
+    var allColumnIds: any = [];
+    console.log('gridColumnApi: ', gridColumnApi);
+    gridColumnApi?.getAllColumns().forEach(function (column: any) {
+      allColumnIds.push(column.colId);
+    });
+    gridColumnApi?.autoSizeColumns(allColumnIds, skipHeader);
+  };
+
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
@@ -105,21 +122,21 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
         return (
           // <!-- USARE MATERIAL UI GRID? -->
           <div className="medicalsGrid_main">
-            <AgGridReact rowData={medicalSearchResults} rowHeight={40} pagination={true} paginationAutoPageSize={true} 
+            <AgGridReact onGridReady={onGridReady} onFirstDataRendered={() => autoSizeAll(false)} defaultColDef={{ resizable: true }} rowData={medicalSearchResults} rowHeight={40} pagination={true} paginationAutoPageSize={true} 
             frameworkComponents={{
             iconEditRenderer: () => IconButton({ url: "bla", svgImage: iconEdit}),
             iconDeleteRenderer: () => IconButton({url: "bla" , svgImage:  iconDelete }),
           }}>
-              <AgGridColumn headerName="Type" field="type.description" resizable={true}></AgGridColumn>
-              <AgGridColumn headerName="Code" field="prod_code" resizable={true} ></AgGridColumn>
-              <AgGridColumn headerName="Description" field="description" resizable={true} sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="PcsXPck" field="pcsperpck" resizable={true} ></AgGridColumn>
-              <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" resizable={true} ></AgGridColumn>
-              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" resizable={true} ></AgGridColumn>
-              <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}" resizable={true}  checkboxSelection={true}></AgGridColumn>
-              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" resizable={true} ></AgGridColumn>
-              <AgGridColumn headerName="" cellRenderer="iconEditRenderer" resizable={true}></AgGridColumn>
-              <AgGridColumn headerName="" cellRenderer="iconDeleteRenderer" resizable={true}></AgGridColumn>
+              <AgGridColumn headerName="Type" field="type.description"></AgGridColumn>
+              <AgGridColumn headerName="Code" field="prod_code"></AgGridColumn>
+              <AgGridColumn headerName="Description" field="description" sortable={true} filter={true}></AgGridColumn>
+              <AgGridColumn headerName="PcsXPck" field="pcsperpck" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}"  checkboxSelection={true}></AgGridColumn>
+              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Edit" cellRenderer="iconEditRenderer" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Delete" cellRenderer="iconDeleteRenderer" maxWidth={100}></AgGridColumn>
             </AgGridReact> 
           </div>
         );
