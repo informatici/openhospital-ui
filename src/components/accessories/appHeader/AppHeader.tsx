@@ -163,12 +163,6 @@ const AppHeader: FunctionComponent<TProps> = ({
                       {t("nav.pharmacy")}
                     </div>
                   </SplitButton>
-                  {/* </div>  */}
-                  {/* <div className="appHeader__nav__item">{t("nav.pharmacy")}
-                    <div className="appHeader__nav__subitem">{t("nav.pharmaceuticals")}</div>
-                    <div className="appHeader__nav__subitem">{t("nav.pharmaceuticalstock")}</div>
-                    <div className="appHeader__nav__subitem">{t("nav.pharmaceuticalstockward")}</div>
-                  </div> */}
                   <div className="appHeader__nav__item">{t("nav.ward")}</div>
                   <div className="appHeader__nav__item">{t("nav.billing")}</div>
                 </div>
