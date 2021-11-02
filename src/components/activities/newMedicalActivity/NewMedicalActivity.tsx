@@ -103,9 +103,9 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
           </div>
           <ConfirmationDialog
             isOpen={hasSucceeded}
-            title="Medical Created"
+            title="Pharmaceutical Created"
             icon={checkIcon}
-            info={t("common.patientregistrationsuccessfull")}
+            info={t("medical.medicalregistrationsuccessfull")}
             primaryButtonLabel={t("common.dashboard")}
             secondaryButtonLabel={t("common.keepediting")}
             handlePrimaryButtonClick={() =>

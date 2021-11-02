@@ -204,15 +204,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                   {t("common.report")}
                 </div>
               </SplitButton>
-              {/* <Button
-                className="medicals__button"
-                type="submit"
-                disabled={searchStatus === "LOADING"}
-              >
-                <div className="medicals__button__label">
-                  {t("common.report")}
-                </div>
-              </Button> */}
               <Button
                 className="medicals__button"
                 type="submit"
