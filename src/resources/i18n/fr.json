@@ -123,7 +123,8 @@
     "newbill": "Nouvelle facture",
     "searchbill": "Rechercher facture",
     "bill_chose": "Choisir une option",
-    "managebills": "Manager Factures"
+    "managebills": "Manager Factures",
+    "billrecords": "Liste Factures"
   },
   "common": {
     "results": "Résultats",
