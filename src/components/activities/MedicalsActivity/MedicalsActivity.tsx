@@ -134,7 +134,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
               <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" maxWidth={100}></AgGridColumn>
               <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" maxWidth={100}></AgGridColumn>
               <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}"  checkboxSelection={true}></AgGridColumn>
-              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" maxWidth={100}></AgGridColumn>
               <AgGridColumn headerName="Edit" cellRenderer="iconEditRenderer" maxWidth={100}></AgGridColumn>
               <AgGridColumn headerName="Delete" cellRenderer="iconDeleteRenderer" maxWidth={100}></AgGridColumn>
             </AgGridReact> 
