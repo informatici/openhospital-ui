@@ -13,6 +13,17 @@ export const examinationsRoutes = (server) => {
                     break;
             }
         });
+        server.put("/:code").intercept((req, res) => {
+            const body = req.jsonBody();
+            switch (body.patientCode) {
+                case "fail":
+                    res.status(400);
+                    break;
+                default:
+                    res.status(201);
+                    break;
+            }
+        });
         server.get("/byPatientId/:patId").intercept((req, res) => {
             const code = req.params.code;
             switch (code) {
