@@ -111,7 +111,7 @@ const PatientAdmission: FC = () => {
         fields={fields}
         onSubmit={onSubmit}
         submitButtonLabel={t("common.save")}
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}

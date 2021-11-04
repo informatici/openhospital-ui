@@ -37,6 +37,7 @@ const BillRecords = () => {
         searchBills({
           fromDate: "",
           toDate: "",
+          status: "PENDING",
           patientCode: patient.code,
         })
       );

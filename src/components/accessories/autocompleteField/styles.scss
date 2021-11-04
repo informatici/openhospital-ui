@@ -3,13 +3,14 @@
   width: 100%;
   margin-top: 8px !important;
   label.MuiFormLabel-root {
+    top: 5px;
     &.MuiFormLabel-filled,
     &.Mui-focused {
       top: 2px;
     }
   }
 
-  .MuiFormHelperText-root.Mui-error{
+  .MuiFormHelperText-root.Mui-error {
     position: absolute;
     bottom: -20px;
     margin: 0px;
@@ -17,7 +18,7 @@
   }
 
   .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
-    padding: 6px;
+    padding: 10px !important;
   }
 }
 
@@ -61,9 +62,9 @@
   .MuiTouchRipple-root {
     color: #eeeeee !important;
   }
-  .MuiIconButton-root{
+  .MuiIconButton-root {
     color: white !important;
-  }  
+  }
 
   .MuiInputBase-input {
     color: $c-white !important;
@@ -86,4 +87,3 @@
     color: $c-error-light !important;
   }
 }
-

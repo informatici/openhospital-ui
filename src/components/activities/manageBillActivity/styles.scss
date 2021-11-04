@@ -177,7 +177,6 @@
     padding: 7px 20px;
     color: $c-white;
     display: inline-block;
-
     .searchBills__formData__item__label {
       font-size: 0.85rem;
     }
@@ -223,6 +222,14 @@
     
   .active {
     background-color: lighten($c-gray, 10);
+  }
+
+  .sidebar__section__header {
+    display: flex;
+    align-items: center;
+    color: $c-white;
+    padding: 5px 20px;
+    border-bottom: 1px solid $c-white;
   }
 
 }

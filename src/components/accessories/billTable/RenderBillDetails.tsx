@@ -21,15 +21,14 @@ interface IBillProps {
   fullBill: FullBillDTO;
   skipHeader?: boolean;
 }
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
     overflow: "hide",
     border: "none",
     boxShadow: "none",
   },
   table: {
-    minWidth: 340,
+    minWidth: 300,
     padding: 10,
     whiteSpace: "nowrap",
   },
@@ -127,7 +126,9 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill, skipHeader = true }) => {
                   <TableCell className={classes.tableCell}>
                     {t("bill.qty")}
                   </TableCell>
-                  <TableCell>{t("bill.amount")}</TableCell>
+                  <TableCell className={classes.tableCell}>
+                    {t("bill.amount")}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -153,7 +154,6 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill, skipHeader = true }) => {
                       </TableCell>
                       <TableCell
                         className={classes.tableCell}
-                        style={{ textAlign: "right" }}
                         component="td"
                         scope="row"
                       >

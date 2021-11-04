@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 import isfLogo from "../../../assets/isf-logo.png";
 import "./styles.scss";
 
@@ -17,7 +18,13 @@ const Footer: FunctionComponent = () => {
         </div>
         <div className="footer__infoBox__row">C.F. 94106980264</div>
       </div>
-      <img src={isfLogo} alt="Open Hospital" />
+      <a
+        href={"https://www.informaticisenzafrontiere.org/"}
+        title="Informatici Senza Frontiere"
+        target="_blank"
+      >
+        <img src={isfLogo} alt="Informatici Senza Frontiere" />
+      </a>
     </div>
   );
 };

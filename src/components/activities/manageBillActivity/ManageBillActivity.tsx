@@ -1,18 +1,12 @@
-import { Receipt, Search } from "@material-ui/icons";
+import { Receipt } from "@material-ui/icons";
 import classNames from "classnames";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-} from "../../accessories/accordion/Accordion";
 import Button from "../../accessories/button/Button";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import BillFilterForm from "../../accessories/billFilterForm/BillFilterForm";
 import Footer from "../../accessories/footer/Footer";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
 import { TTabConfig } from "../../accessories/tabs/types";
@@ -21,10 +15,14 @@ import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
 import { IBillSummary, TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
-import { computeBillSummary, initializeBillFilter } from "./config";
 import ManageBillActivityContent from "../manageBillActivityContent/ManageBillActivityContent";
-import { initialFilter } from "./consts";
-import { TBillFilterValues } from "../../accessories/billFilterForm/types";
+
+import { PaymentsTable } from "../../accessories/paymentsTable/PaymentsTable";
+import {
+  FilterBillsInitialFields,
+  paymentsFilterInitialFields,
+} from "./consts";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 
 export const ManageBillActivity: FC = () => {
   const { t } = useTranslation();
@@ -37,68 +35,39 @@ export const ManageBillActivity: FC = () => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
-  const [filter, setFilter] = useState(initialFilter);
-
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
-
-  const summary = useSelector<IState, IBillSummary>((state) =>
-    computeBillSummary(
-      state.bills.searchBills.data,
-      filter.fromDate,
-      filter.toDate,
-      userCredentials?.displayName ?? ""
-    )
-  );
+  const [summary, billSummaryChange] = useState({} as IBillSummary);
 
   const tabConfig: TTabConfig = [
     {
-      label: t("bill.allbills"),
-      path: "/allBills",
+      label: t("bill.bills"),
+      path: "/billstable",
       content: (
         <ManageBillActivityContent
-          title="All Bills"
-          content={<BillTable status="ALL" filter={filter} />}
+          title="Bills"
+          content={
+            <BillTable
+              fields={FilterBillsInitialFields}
+              handleSummaryChange={billSummaryChange}
+            />
+          }
         />
       ),
     },
+
     {
-      label: t("bill.pending"),
-      path: "/pendingBills",
+      label: t("bill.payments"),
+      path: "/billpayments",
       content: (
         <ManageBillActivityContent
-          title="Pending Bills"
-          content={<BillTable status="PENDING" filter={filter} />}
-        />
-      ),
-    },
-    {
-      label: t("bill.closed"),
-      path: "/closedBills",
-      content: (
-        <ManageBillActivityContent
-          title="Closed Bills"
-          content={<BillTable status="CLOSE" filter={filter} />}
-        />
-      ),
-    },
-    {
-      label: t("bill.deleted"),
-      path: "/deletedBills",
-      content: (
-        <ManageBillActivityContent
-          title="Deleted Bills"
-          content={<BillTable status="DELETE" filter={filter} />}
+          title="Payments"
+          content={<PaymentsTable fields={paymentsFilterInitialFields} />}
         />
       ),
     },
   ];
-
-  const submit = (filter: TBillFilterValues) => {
-    const formValues = { ...filter, patientCode: +filter.patientCode };
-    setFilter(formValues);
-  };
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
@@ -153,38 +122,24 @@ export const ManageBillActivity: FC = () => {
                         </Button>
                       </div>
                     </div>
-                    <div className="searchBills__user_info">
-                      <Accordion>
-                        <AccordionSummary>
-                          <Search fontSize="small" style={{ color: "white" }} />
-                          <span> {t("bill.filter")}</span>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <BillFilterForm
-                            className="searchBills__formData__item"
-                            onSubmit={submit}
-                            fields={initializeBillFilter(
-                              filter.fromDate,
-                              filter.toDate
-                            )}
-                          />
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion>
-                        <AccordionSummary>
+                    <div className="searchBills__info">
+                      <div className="sidebar__section">
+                        <div className="sidebar__section__header">
                           <Receipt
                             fontSize="small"
                             style={{ color: "white" }}
                           />
                           <span> {t("bill.recap")}</span>
-                        </AccordionSummary>
-                        <AccordionDetails>
+                        </div>
+                        <div>
                           <div className="searchBills__formData__item">
                             <div className="searchBills__formData__item__label">
                               {t("bill.today")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.today || "-"}
+                              {summary.today
+                                ? currencyFormat(summary.today)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -192,7 +147,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.notpaid")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.todayNotPaid || "-"}
+                              {summary.todayNotPaid
+                                ? currencyFormat(summary.todayNotPaid)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -200,7 +157,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.period")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.period || "-"}
+                              {summary.period
+                                ? currencyFormat(summary.period)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -208,7 +167,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.notpaid")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.periodNotPaid || "-"}
+                              {summary.periodNotPaid
+                                ? currencyFormat(summary.periodNotPaid)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -216,7 +177,9 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.user")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.user || "-"}
+                              {summary.user
+                                ? currencyFormat(summary.user)
+                                : "-"}
                             </div>
                           </div>
                           <div className="searchBills__formData__item">
@@ -224,16 +187,18 @@ export const ManageBillActivity: FC = () => {
                               {t("bill.notpaid")}:
                             </div>
                             <div className="searchBills__formData__item__value">
-                              {summary.userNotPaid || "-"}
+                              {summary.userNotPaid
+                                ? currencyFormat(summary.userNotPaid)
+                                : "-"}
                             </div>
                           </div>
-                        </AccordionDetails>
-                      </Accordion>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className="searchBills__content">
-                  <RouterTabs config={tabConfig} defaultRoute={"/allBills"} />
+                  <RouterTabs config={tabConfig} defaultRoute={"/billstable"} />
                 </div>
               </div>
             </div>

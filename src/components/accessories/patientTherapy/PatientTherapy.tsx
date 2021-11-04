@@ -128,7 +128,7 @@ const PatientTherapy: FC = () => {
         submitButtonLabel={
           creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
         }
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={status === "LOADING"}
@@ -162,7 +162,7 @@ const PatientTherapy: FC = () => {
         title={t("common.delete")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
+        primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />

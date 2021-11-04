@@ -7,11 +7,6 @@ import { GridCloseIcon } from "@material-ui/data-grid";
 import { ICustomModal } from "./types";
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   paper: {
     position: "absolute",
     backgroundColor: theme.palette.background.paper,

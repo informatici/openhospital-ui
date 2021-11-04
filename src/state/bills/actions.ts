@@ -25,6 +25,9 @@ import {
   PENDING_BILL_SUCCESS,
   PENDING_BILL_FAIL,
   PENDING_BILL_LOADING,
+  SEARCH_PAYMENTS_SUCCESS,
+  SEARCH_PAYMENTS_FAIL,
+  SEARCH_PAYMENTS_LOADING,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -219,3 +222,38 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
 
   return fbills;
 };
+
+export const searchPayments =
+  (filter: TFilterValues) =>
+  (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
+    dispatch({
+      type: SEARCH_PAYMENTS_LOADING,
+    });
+    billControllerApi
+      .searchBillsPaymentsUsingGET({
+        datefrom: filter.fromDate,
+        dateto: filter.toDate,
+        patientCode: filter.patientCode,
+      })
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: SEARCH_PAYMENTS_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_PAYMENTS_SUCCESS,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_PAYMENTS_FAIL,
+            error,
+          });
+        }
+      );
+  };

@@ -8,7 +8,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=newPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => {});
+  it.skip("should have access to the user credentials", () => { });
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");
@@ -51,7 +51,7 @@ describe("NewPatientActivity spec", () => {
             expect(nextSrc).to.not.equal(placeholder);
           });
 
-        cy.get("[class=profilePicture_removeIcon]").click();
+        cy.get(".profilePicture_removeIcon").click();
         cy.wait(1000);
         cy.get("[class=profilePicture]")
           .find("img")
