@@ -13,7 +13,7 @@ import DateField from "../dateField/DateField";
 import "./styles.scss";
 import { BillFilterProps, TBillFilterValues } from "./types";
 import { PatientDTO } from "../../../generated";
-import SmallButton from "../smallButton/SmallButton";
+import Button from "../button/Button";
 import moment from "moment";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 
@@ -131,7 +131,7 @@ const BillFilterForm: FC<BillFilterProps> = ({
           </div>
           <div className="filterForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
+              <Button type="submit" variant="contained">{t("bill.filterbutton")}</Button>
             </div>
           </div>
         </form>

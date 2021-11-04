@@ -133,7 +133,7 @@ const PatientOPD: FunctionComponent = () => {
         }
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
@@ -167,7 +167,7 @@ const PatientOPD: FunctionComponent = () => {
         title={t("opd.deleted")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
+        primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />

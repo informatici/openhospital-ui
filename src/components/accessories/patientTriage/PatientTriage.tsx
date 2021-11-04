@@ -126,7 +126,7 @@ const PatientTriage: FC = () => {
         submitButtonLabel={
           creationMode ? t("common.savetriage") : t("common.update")
         }
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={status === "LOADING"}
@@ -163,7 +163,7 @@ const PatientTriage: FC = () => {
         title={t("opd.deleted")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
+        primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />
