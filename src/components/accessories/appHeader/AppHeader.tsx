@@ -74,7 +74,9 @@ const AppHeader: FunctionComponent<TProps> = ({
         <div className="appHeader__background">
           <div className="appHeader__identifier">
             <div className="appHeader__identifier__logo">
-              <img src={logo} alt="Open Hospital" height="45px" />
+              <Link to={"/"}>
+                <img src={logo} alt="Open Hospital" height="45px" />
+              </Link>
             </div>
             <div
               onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
