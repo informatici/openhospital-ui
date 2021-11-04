@@ -17,7 +17,10 @@
   }
 
   .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
-    padding: 10px !important;
+    padding: 8px;
+  }
+  .MuiAutocomplete-input{
+    padding: 8px;
   }
 }
 
@@ -33,6 +36,7 @@
   input {
     padding-top: 15px;
     padding-bottom: 15px;
+    width: 100%;
     // font-size: small;
   }
   .MuiFormLabel-root {
@@ -85,5 +89,39 @@
   .MuiFormHelperText-root.Mui-error {
     color: $c-error-light !important;
   }
+
+  .MuiAutocomplete-root fieldset:hover{
+    border-color: #2196F3 !important;
+  }
+  .MuiAutocomplete-input{
+    padding: 8px !important;
+  }
 }
+
+.render_option {
+  display: flex;
+  .info_item {    
+    position: relative;
+    align-items: center;   
+    span {
+      font-size: small;
+      white-space: nowrap;
+      align-items: center;   
+      display: flex; 
+      padding-left: 10px;
+    }
+    .small_icon {
+      font-size: small;
+    }
+    .item_info_address {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+
+
+
 

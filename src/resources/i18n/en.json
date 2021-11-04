@@ -43,7 +43,9 @@
     "personaldata": "Personal Data",
     "parentslivetoghether": "Parents live together",
     "insertdataofnewpatient": "Insert data of new Patient",
-    "admissions": "Admissions"
+    "admissions": "Admissions",
+    "code": "Code",
+    "search": "Search"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
