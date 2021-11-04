@@ -11,3 +11,12 @@ export interface IProps {
   theme?: string;
   freeSolo?: boolean;
 }
+
+export type TValues = Record<TFieldName, string>;
+
+export type TFieldName =
+  | "id"
+  | "firstName"
+  | "secondName"
+  | "birthDate"
+  | "address";

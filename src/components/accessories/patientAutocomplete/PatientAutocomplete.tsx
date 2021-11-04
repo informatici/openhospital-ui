@@ -2,13 +2,12 @@ import { debounce } from "@material-ui/core";
 import React, { FC, useEffect, useState } from "react";
 import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { TValues } from "../billFilterForm/types";
 import { searchPatient } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import { PatientDTO } from "../../../generated";
 
 import AutocompleteField from "../autocompleteField/AutocompleteField";
-import { IProps } from "./types";
+import { IProps, TValues } from "./types";
 import PatientTeaserItem from "./PatientTeaserItem";
 
 const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {

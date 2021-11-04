@@ -294,6 +294,7 @@
     "details": "Détails facture",
     "recap": "Recap factures",
     "filter": "Filtre Factures",
-    "filterbutton": "Filtrer"
+    "filterbutton": "Filtrer",
+    "bills": "Factures"
   }
 }

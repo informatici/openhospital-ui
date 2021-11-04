@@ -1,24 +1,17 @@
 import { FullBillDTO } from "../../../generated";
-import { TFields } from "../../../libraries/formDataHandling/types";
-import { BillFilterFormFieldName } from "../../accessories/billFilterForm/types";
-import { IBillSummary } from "./types";
+import { IBillSummary } from "../../activities/manageBillActivity/types";
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],
-  fromDate: string,
-  toDate: string,
+  dateFrom: string,
+  dateTo: string,
   userName: string
 ): IBillSummary => {
-  const today = new Date().setHours(0);
-  const tomorrow = new Date().setDate(new Date().getDate() + 1);
-
+  const today = new Date().setTime(0);
   const res = {
     today: bills
       .filter(
-        (item) =>
-          item.billDTO?.date &&
-          +item.billDTO?.date >= today &&
-          +item.billDTO?.date < tomorrow
+        (item) => item.billDTO?.date && +new Date(item.billDTO.date) >= today
       )
       .reduce(
         (sum, current) =>
@@ -28,18 +21,15 @@ export const computeBillSummary = (
       ),
     todayNotPaid: bills
       .filter(
-        (item) =>
-          item.billDTO?.date &&
-          +item.billDTO?.date >= today &&
-          +item.billDTO?.date < tomorrow
+        (item) => item.billDTO?.date && +new Date(item.billDTO.date) >= today
       )
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
     period: bills
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +item.billDTO?.date >= +fromDate &&
-          +item.billDTO?.date <= +toDate
+          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
+          +new Date(item.billDTO.date) <= +new Date(dateTo)
       )
       .reduce(
         (sum, current) =>
@@ -51,16 +41,16 @@ export const computeBillSummary = (
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +item.billDTO?.date >= +fromDate &&
-          +item.billDTO?.date <= +toDate
+          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
+          +new Date(item.billDTO.date) <= +new Date(dateTo)
       )
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
     user: bills
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +item.billDTO?.date >= +fromDate &&
-          +item.billDTO?.date <= +toDate &&
+          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
+          +new Date(item.billDTO.date) <= +new Date(dateTo) &&
           item.billDTO?.user === userName
       )
       .reduce(
@@ -73,29 +63,11 @@ export const computeBillSummary = (
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +item.billDTO?.date >= +fromDate &&
-          +item.billDTO?.date <= +toDate &&
+          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
+          +new Date(item.billDTO.date) <= +new Date(dateTo) &&
           item.billDTO?.user === userName
       )
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
   };
   return res;
-};
-
-export const initializeBillFilter = (fromDate: string, toDate: string) => {
-  const fields: TFields<BillFilterFormFieldName> = {
-    patientCode: {
-      value: "",
-      type: "text",
-    },
-    fromDate: {
-      value: fromDate,
-      type: "date",
-    },
-    toDate: {
-      value: toDate,
-      type: "date",
-    },
-  };
-  return fields;
 };
