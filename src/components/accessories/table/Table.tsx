@@ -40,6 +40,8 @@ const Table: FunctionComponent<IProps> = ({
   onPrint,
   onView,
   showEmptyCell = true,
+  renderItemDetails,
+  getCoreRow,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -164,6 +166,7 @@ const Table: FunctionComponent<IProps> = ({
               .map((row, index) => (
                 <TableBodyRow
                   row={row}
+                  coreRow={getCoreRow && getCoreRow(row)}
                   key={index}
                   rowIndex={index}
                   labelData={labelData}
@@ -171,6 +174,7 @@ const Table: FunctionComponent<IProps> = ({
                   renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
                   showEmptyCell={showEmptyCell}
+                  renderCellDetails={renderItemDetails}
                 />
               ))}
           </TableBody>

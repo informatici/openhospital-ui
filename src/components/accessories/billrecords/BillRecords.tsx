@@ -6,18 +6,18 @@ import { currencyFormat } from "../../../libraries/formatUtils/currencyFormattin
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { getPendingBills, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
+import RenderBillDetails from "../billTable/RenderBillDetails";
 import Table from "../table/Table";
 
 const BillRecords = () => {
   const { t } = useTranslation();
-
   const pendingHeader = ["date", "amount", "balance"];
   const pendingLabel = {
     date: t("bill.date"),
     amount: t("bill.amount"),
     balance: t("bill.balance"),
   };
-
+  const identifierColumn = "billDTO";
   const closedHeader = ["date", "amount"];
   const closedLabel = {
     date: t("bill.date"),
@@ -32,7 +32,7 @@ const BillRecords = () => {
 
   useEffect(() => {
     if (patient && patient.code) {
-      dispatch(getPendingBills(patient?.code));
+      dispatch(getPendingBills(patient.code));
       dispatch(
         searchBills({
           fromDate: "",
@@ -41,7 +41,7 @@ const BillRecords = () => {
         })
       );
     }
-  }, [patient]);
+  }, [patient, dispatch]);
 
   const pendingBills = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.getPendingBills.data ?? [];
@@ -50,6 +50,7 @@ const BillRecords = () => {
   const formatDataToDisplay = (data: FullBillDTO[]) => {
     return data.map((item) => {
       return {
+        billDTO: item.billDTO,
         date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
         amount: currencyFormat(item.billDTO?.amount),
         balance: currencyFormat(item.billDTO?.balance),
@@ -58,13 +59,20 @@ const BillRecords = () => {
     //   .sort(dateComparator("desc", "date"));
   };
 
+  const getCoreRow = (row: any) => {
+    return {
+      fullBill: pendingBills?.find(
+        (item) => item["billDTO"] === row["billDTO"]
+      ),
+    };
+  };
   const closedBills = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
   return (
     <div className="patientBillRecords">
-      <h3>Pending Bills</h3>
+      <h3>{`${t("bill.pending")} (${pendingBills.length})`}</h3>
       <Table
         rowData={formatDataToDisplay(pendingBills)}
         tableHeader={pendingHeader}
@@ -72,8 +80,10 @@ const BillRecords = () => {
         columnsOrder={order}
         rowsPerPage={5}
         isCollapsabile={true}
+        renderItemDetails={RenderBillDetails}
+        getCoreRow={getCoreRow}
       />
-      <h3>Closed Bills</h3>
+      <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>
       <Table
         rowData={formatDataToDisplay(closedBills)}
         tableHeader={closedHeader}
@@ -81,6 +91,7 @@ const BillRecords = () => {
         columnsOrder={order}
         rowsPerPage={5}
         isCollapsabile={true}
+        getCoreRow={getCoreRow}
       />
     </div>
   );

@@ -102,8 +102,14 @@ export const getPendingBills =
       .getPendingBillsUsingGET({
         patientCode,
       })
-      .pipe(switchMap((bills) => getPayments(bills)))
-      .pipe(switchMap((payments) => getItems(payments)))
+      .pipe(
+        switchMap((bills) => getPayments(bills)),
+        catchError((error) => of([]))
+      )
+      .pipe(
+        switchMap((payments) => getItems(payments)),
+        catchError((error) => of([]))
+      )
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {

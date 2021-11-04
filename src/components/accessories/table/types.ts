@@ -16,6 +16,10 @@ export interface IProps {
   onPrint?: () => void;
   onView?: <T>(row: T) => void;
   showEmptyCell?: boolean;
+  renderItemDetails?: (row: any) => void;
+  coreData?: Array<any>;
+  identifierColumn?: string;
+  getCoreRow?: <T>(val: T) => any | undefined;
 }
 
 export interface IRowProps {
@@ -26,6 +30,8 @@ export interface IRowProps {
   isCollapsabile?: boolean;
   renderActions: () => void;
   showEmptyCell?: boolean;
+  renderCellDetails?: <T>(row: T) => any;
+  coreRow?: any;
 }
 
 export type TActions = "edit" | "delete" | "view" | "print";
