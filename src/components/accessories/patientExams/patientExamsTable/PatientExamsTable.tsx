@@ -9,6 +9,7 @@ import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import moment from "moment";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -56,10 +57,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.code,
-        date:
-          item.date && moment(+item.date).isValid()
-            ? moment(+item.date).format("DD/MM/YYYY")
-            : "",
+        date: item.date ? renderDate(item.date) : "",
         exam: item.exam?.description ?? "",
         material: item.material,
         result: item.result,
@@ -82,8 +80,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     handleEdit(labData?.find((item) => item.code === row.code));
   };
 
-  const onEView = () => {};
-
   return (
     <div className="patientExamsTable">
       {labStatus === "SUCCESS" && (
@@ -97,7 +93,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           onDelete={onDelete}
           isCollapsabile={true}
           onEdit={onEdit}
-          onView={onEView}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (

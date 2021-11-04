@@ -95,6 +95,7 @@ const PatientOPD: FunctionComponent = () => {
     opdValuestoSave.age = patient?.age;
     opdValuestoSave.sex = patient?.sex;
     opdValuestoSave.userID = userId;
+
     if (!creationMode && opdToEdit.code) {
       dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
     } else dispatch(createOpd(opdValuestoSave, diseasesData));

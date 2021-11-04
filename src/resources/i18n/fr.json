@@ -44,7 +44,9 @@
     "personaldata": "Donnés personnels",
     "parentslivetoghether": "Parents ensemble",
     "insertdataofnewpatient": "Insérez les données du nouveau patient",
-    "admissions": "Admissions"
+    "admissions": "Admissions",
+    "code": "Code",
+    "search": "Chercher"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -97,6 +99,8 @@
     "weightabbr": "(P)",
     "created": "Paramètres enregistré",
     "deleted": "Paramètres supprimé",
+    "updated": "Paramètres mis à jour",
+    "updatesuccess": "Paramètres mis à jour avec succès!",
     "createsuccess": "Paramètres enregistré avec succès!",
     "deletesuccess": "Paramètres supprimé avec succès!"
   },
