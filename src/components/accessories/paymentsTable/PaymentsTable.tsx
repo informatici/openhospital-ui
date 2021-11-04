@@ -17,7 +17,7 @@ import { IState } from "../../../types";
 import { TFilterValues } from "../billTable/types";
 import DateField from "../dateField/DateField";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
-import SmallButton from "../smallButton/SmallButton";
+import Button from "../button/Button";
 import Table from "../table/Table";
 import { IPaymentsTableProps } from "./types";
 import "./styles.scss";
@@ -155,7 +155,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
           </div>
           <div className="filterForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
+              <Button variant="contained" type="submit">
+                {t("bill.filterbutton")}
+              </Button>
             </div>
           </div>
         </form>

@@ -12,7 +12,7 @@ import { IBillTableProps, TFilterValues } from "./types";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import DateField from "../dateField/DateField";
 import { useFormik } from "formik";
-import SmallButton from "../smallButton/SmallButton";
+import Button from "../button/Button";
 import { object, string } from "yup";
 import {
   differenceInDays,
@@ -243,7 +243,9 @@ export const BillTable: FC<IBillTableProps> = ({
           </div>
           <div className="filterForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit">{t("bill.filterbutton")}</SmallButton>
+              <Button variant="contained" type="submit">
+                {t("bill.filterbutton")}
+              </Button>
             </div>
           </div>
         </form>
