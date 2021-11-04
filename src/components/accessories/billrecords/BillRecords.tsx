@@ -89,6 +89,9 @@ const BillRecords = () => {
         isCollapsabile={true}
         renderItemDetails={RenderBillDetails}
         getCoreRow={getCoreRowPending}
+        onDelete={() => {}}
+        onPrint={() => {}}
+        onPay={() => {}}
       />
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>
       <Table

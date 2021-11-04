@@ -20,6 +20,7 @@ export interface IProps {
   coreData?: Array<any>;
   identifierColumn?: string;
   getCoreRow?: <T>(val: T) => any | undefined;
+  onPay?: () => void;
 }
 
 export interface IRowProps {
@@ -34,4 +35,4 @@ export interface IRowProps {
   coreRow?: any;
 }
 
-export type TActions = "edit" | "delete" | "view" | "print";
+export type TActions = "edit" | "delete" | "view" | "print" | "pay";

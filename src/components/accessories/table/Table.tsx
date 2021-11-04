@@ -18,6 +18,7 @@ import {
   Print,
   InfoRounded,
   InfoOutlined,
+  Payment,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -38,6 +39,7 @@ const Table: FunctionComponent<IProps> = ({
   onEdit,
   onDelete,
   onPrint,
+  onPay,
   onView,
   showEmptyCell = true,
   renderItemDetails,
@@ -107,6 +109,12 @@ const Table: FunctionComponent<IProps> = ({
             }}
           >
             <InfoOutlined color="primary" titleAccess={"View Details"} />
+          </IconButton>
+        );
+      case "pay":
+        return (
+          <IconButton size="small" onClick={onPay}>
+            <Payment color="primary" />
           </IconButton>
         );
     }

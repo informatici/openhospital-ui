@@ -3,6 +3,7 @@
 @import "../../../../node_modules/susy/sass/susy";
 .patients__bills {
     .bill_details {  
+        background-color: inherit;
         ul {
             white-space: nowrap;   
             overflow-x: hidden; 

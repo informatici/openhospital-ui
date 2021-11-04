@@ -47,8 +47,13 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
         {renderActions()}
       </TableRow>
       {isCollapsabile ? (
-        <TableRow>
-          <TableCell style={{ padding: 0, borderBottom: 0 }} colSpan={6}>
+        <TableRow
+          style={{ padding: 0, borderBottom: 0, margin: 0, width: "100%" }}
+        >
+          <TableCell
+            style={{ padding: 0, borderBottom: 0, margin: 0, width: "40" }}
+            colSpan={6}
+          >
             <Collapse
               in={open}
               timeout="auto"

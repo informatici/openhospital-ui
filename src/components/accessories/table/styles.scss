@@ -11,12 +11,12 @@
   .table_body{
     tr{
       td.MuiTableCell-root{
-        padding: 14px;
+        padding: 5px;
       }
     }
     .collapseWrapper{
       background: lighten($c-grey-lighter, 22%);
-      padding: 20px 75px;
+      padding: 5px 5px;
       ul{
         column-count: 2;
         margin: 0px;

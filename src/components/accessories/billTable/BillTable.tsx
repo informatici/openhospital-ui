@@ -265,7 +265,9 @@ export const BillTable: FC<IBillTableProps> = ({
           onClose={handleClose}
           title={t("bill.details")}
           description={t("bill.details")}
-          content={<RenderBillDetails fullBill={fullBill} skipHeader={false} />}
+          content={
+            <RenderBillDetails fullBill={fullBill} skipPatientHeader={false} />
+          }
         />
       </div>
     </div>
