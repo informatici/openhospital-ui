@@ -5,4 +5,5 @@ export const initial: IBillsState = {
   getBill: { status: "IDLE", data: {} },
   searchBills: { status: "IDLE", data: [] },
   getPendingBills: { status: "IDLE", data: [] },
+  searchPayments: { status: "IDLE", data: [] },
 };

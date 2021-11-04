@@ -98,6 +98,8 @@
     "weightabbr": "(W)",
     "created": "Examiniation created",
     "deleted": "Examination deleted",
+    "updated": "Examination updated",
+    "updatesuccess": "Examination updated successfully",
     "createsuccess": "Examination created successfully",
     "deletesuccess": "Examination deleted successfully"
   },

@@ -24,7 +24,10 @@ import { LaboratoryDTO } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
 import { getExamRows, getExams } from "../../../state/exams/actions";
-import { updateLabFields } from "../../../libraries/formDataHandling/functions";
+import {
+  parseDate,
+  updateLabFields,
+} from "../../../libraries/formDataHandling/functions";
 import { CircularProgress } from "@material-ui/core";
 
 const PatientExams: FC = () => {
@@ -76,7 +79,8 @@ const PatientExams: FC = () => {
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.examDate = lab.date;
+    lab.date = parseDate(lab.date ?? "");
+    lab.examDate = parseDate(lab.date ?? "");
     lab.inOutPatient = "R";
     if (labToEdit.code) lab.code = labToEdit.code;
     const labWithRowsDTO = {

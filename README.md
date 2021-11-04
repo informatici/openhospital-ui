@@ -26,6 +26,11 @@ To install the project dependencies, issue:
     - npm run build:gh-pages
     - git subtree push --prefix build intesys-oh gh-pages
 
+    or
+
+    - git subtree split --prefix build develop
+    - git push intesys-oh GIT_ID:gh-pages --force
+
 ## How to launch the application
 
 You can run a development build of the application by issuing:

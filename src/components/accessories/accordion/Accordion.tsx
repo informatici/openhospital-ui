@@ -12,9 +12,7 @@ export const AccordionSummary: React.FC<IPropsSummary> = ({
   return (
     <div className="accordion_summary" onClick={onClick}>
       {children}
-      {onClick && (
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      )}
+      <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
     </div>
   );
 };

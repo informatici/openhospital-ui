@@ -5,6 +5,10 @@ import {
   CREATE_EXAMINATION_LOADING,
   CREATE_EXAMINATION_RESET,
   CREATE_EXAMINATION_SUCCESS,
+  UPDATE_EXAMINATION_SUCCESS,
+  UPDATE_EXAMINATION_RESET,
+  UPDATE_EXAMINATION_LOADING,
+  UPDATE_EXAMINATION_FAIL,
   DELETE_EXAMINATION_FAIL,
   DELETE_EXAMINATION_LOADING,
   DELETE_EXAMINATION_RESET,
@@ -43,6 +47,32 @@ export default produce(
       case CREATE_EXAMINATION_RESET: {
         draft.createExamination.status = "IDLE";
         delete draft.createExamination.error;
+        break;
+      }
+
+      /**
+       * UPDATE_EXAMINATION
+       */
+      case UPDATE_EXAMINATION_LOADING: {
+        draft.updateExamination.status = "LOADING";
+        break;
+      }
+
+      case UPDATE_EXAMINATION_SUCCESS: {
+        draft.updateExamination.status = "SUCCESS";
+        delete draft.updateExamination.error;
+        break;
+      }
+
+      case UPDATE_EXAMINATION_FAIL: {
+        draft.updateExamination.status = "FAIL";
+        draft.updateExamination.error = action.error;
+        break;
+      }
+
+      case UPDATE_EXAMINATION_RESET: {
+        draft.updateExamination.status = "IDLE";
+        delete draft.updateExamination.error;
         break;
       }
 
