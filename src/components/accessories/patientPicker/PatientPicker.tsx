@@ -34,7 +34,7 @@ import { IState } from "../../../types";
 import { PatientDTO } from "../../../generated";
 import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
-import SmallButton from "../smallButton/SmallButton";
+import Button from "../button/Button";
 import { TextField as MaterialComponent } from "@material-ui/core";
 import { searchPatient } from "../../../state/patients/actions";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
@@ -358,7 +358,7 @@ const PatientPicker: FC<IProps> = ({
                   />
                 </div>
                 <div className="patientSearchForm__item submit_button">
-                  <SmallButton type="submit">{t("common.search")}</SmallButton>
+                  <Button type="submit">{t("common.search")}</Button>
                 </div>
               </div>
             </form>
