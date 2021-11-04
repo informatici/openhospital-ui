@@ -95,6 +95,7 @@ const PatientOPD: FunctionComponent = () => {
     opdValuestoSave.age = patient?.age;
     opdValuestoSave.sex = patient?.sex;
     opdValuestoSave.userID = userId;
+
     if (!creationMode && opdToEdit.code) {
       dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
     } else dispatch(createOpd(opdValuestoSave, diseasesData));
@@ -132,7 +133,7 @@ const PatientOPD: FunctionComponent = () => {
         }
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
-        resetButtonLabel={t("common.discard")}
+        resetButtonLabel={t("common.reset")}
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
@@ -166,7 +167,7 @@ const PatientOPD: FunctionComponent = () => {
         title={t("opd.deleted")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
+        primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />

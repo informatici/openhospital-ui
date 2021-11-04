@@ -17,6 +17,10 @@ import {
   SEARCH_EXAMINATION_LOADING,
   SEARCH_EXAMINATION_SUCCESS,
   SEARCH_EXAMINATION_SUCCESS_EMPTY,
+  UPDATE_EXAMINATION_FAIL,
+  UPDATE_EXAMINATION_LOADING,
+  UPDATE_EXAMINATION_RESET,
+  UPDATE_EXAMINATION_SUCCESS,
 } from "./consts";
 
 const examinationControllerApi = new ExaminationControllerApi(
@@ -51,6 +55,34 @@ export const createExaminationReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_EXAMINATION_RESET,
+    });
+  };
+export const updateExamination =
+  (id: number, dto: PatientExaminationDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_EXAMINATION_LOADING,
+    });
+    examinationControllerApi.updateExaminationUsingPUT({ id, dto }).subscribe(
+      () => {
+        dispatch({
+          type: UPDATE_EXAMINATION_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_EXAMINATION_FAIL,
+          error,
+        });
+      }
+    );
+  };
+
+export const updateExaminationReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_EXAMINATION_RESET,
     });
   };
 

@@ -2,8 +2,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import React, { FunctionComponent } from "react";
-import SmallButton from "../smallButton/SmallButton";
-import TextButton from "../textButton/TextButton";
+import Button from "../button/Button";
 import "./styles.scss";
 import { IProps } from "./types";
 
@@ -29,15 +28,15 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
           <div className="dialog__info">{info}</div>
           <div className="dialog__buttonSet">
             <div className="return_button">
-              <SmallButton onClick={handlePrimaryButtonClick}>
+              <Button type="submit" variant="contained" onClick={handlePrimaryButtonClick}>
                 {primaryButtonLabel}
-              </SmallButton>
+              </Button>
             </div>
             {secondaryButtonLabel ? (
               <div className="reset_button">
-                <TextButton onClick={handleSecondaryButtonClick}>
+                <Button type="reset" variant="text" onClick={handleSecondaryButtonClick}>
                   {secondaryButtonLabel}
-                </TextButton>
+                </Button>
               </div>
             ) : (
               ""
