@@ -13,6 +13,9 @@ import {
   PENDING_BILL_LOADING,
   PENDING_BILL_SUCCESS,
   PENDING_BILL_FAIL,
+  SEARCH_PAYMENTS_LOADING,
+  SEARCH_PAYMENTS_SUCCESS,
+  SEARCH_PAYMENTS_FAIL,
 } from "./consts";
 import { initial } from "./initial";
 import { IBillsState } from "./types";
@@ -112,6 +115,30 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
     case PENDING_BILL_FAIL: {
       draft.getPendingBills.status = "FAIL";
       draft.getPendingBills.error = action.error;
+      break;
+    }
+
+    //search payments
+
+    case SEARCH_PAYMENTS_LOADING: {
+      draft.searchPayments.status = "LOADING";
+      break;
+    }
+
+    case SEARCH_PAYMENTS_SUCCESS: {
+      if (action.payload.length > 0) {
+        draft.searchPayments.status = "SUCCESS";
+      } else {
+        draft.searchPayments.status = "SUCCESS_EMPTY";
+      }
+      draft.searchPayments.data = action.payload;
+      delete draft.searchPayments.error;
+      break;
+    }
+
+    case SEARCH_PAYMENTS_FAIL: {
+      draft.searchPayments.status = "FAIL";
+      draft.searchPayments.error = action.error;
       break;
     }
   }

@@ -45,5 +45,19 @@ export const billRoutes = (server) => {
         server.get('/items/:bill_id').intercept((req, res) => {
             res.status(201).json(billItemDTOs);
         });
+
+        server.get('/payments').intercept((req, res) => {
+            const code = req.query.patient_code;
+            const datefrom = req.query.datefrom;
+            const dateto = req.query.dateto;
+            res.status(200).json(billPaymentsDTOs
+                .filter(item => {
+                    return (+item.date >= +datefrom && +item.date <= +dateto);
+                })
+
+            );
+
+        })
+
     });
 };
