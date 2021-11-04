@@ -9,28 +9,34 @@ import { useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { TUserCredentials } from "../../../state/main/types";
 
-const NewBillActivity: FC = () => {
+const NewBillingActivity: FC = () => {
   const { t } = useTranslation();
 
   const breadcrumbMap = {
     [t("nav.dashboard")]: "/",
-    [t("nav.newbill")]: "/bills",
+    [t("nav.billing")]: "/billing",
+    [t("nav.newbill")]: "/billing/new",
   };
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
   return (
-    <div className="new_Bill">
+    <div className="newBill">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
       />
-      <div className="new_Bill__content">
-        <SkeletonLoader />
+      <div className="newBill__background">
+        <div className="newBill__content">
+          <div className="newBill__title">{t("nav.newbill")}</div>
+          <div style={{ marginBottom: "100px" }}>
+            <SkeletonLoader />
+          </div>
+        </div>
       </div>
       <Footer />
     </div>
   );
 };
 
-export default NewBillActivity;
+export default NewBillingActivity;

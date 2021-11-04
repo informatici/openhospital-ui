@@ -285,6 +285,10 @@
     "recap": "Bills Recap",
     "filter": "Bills Filter",
     "filterbutton": "Filter",
-    "bills": "Bills"
+    "bills": "Bills",
+    "dashboard": "Dashboard",
+    "billSection": "Bills sections",
+    "filterBills": "Bills filter",
+    "filterPayments": "Payments filter"
   }
 }

@@ -113,7 +113,7 @@
         color: $c-grey-medium;
         position: relative;
         left: 20px;
-        margin: 0px;
+        margin: 0px 0px 10px;
       }
 
       .patientDetails__main_menu__item {
@@ -301,11 +301,8 @@
   .footer {
     position: relative;
   }
-    
+
   .active {
     background-color: lighten($c-gray, 10);
   }
-
 }
-
-  
