@@ -24,6 +24,12 @@ import { computeBillSummary } from "./config";
 import { TUserCredentials } from "../../../state/main/types";
 import SelectField from "../selectField/SelectField";
 import "./styles.scss";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "@material-ui/core";
+import { FilterList, Person } from "@material-ui/icons";
 
 export const BillTable: FC<IBillTableProps> = ({
   fields,
@@ -152,6 +158,7 @@ export const BillTable: FC<IBillTableProps> = ({
   }, [filter, data]);
 
   const [open, setOpen] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -186,69 +193,80 @@ export const BillTable: FC<IBillTableProps> = ({
 
   return (
     <div className="patients__bills">
-      <div className={"filterBillForm "}>
-        <form className="filterBillForm__form" onSubmit={formik.handleSubmit}>
-          <div className="row start-sm center-xs">
-            <div className="filterBillForm__item">
-              <SelectField
-                fieldName="status"
-                fieldValue={formik.values.status}
-                label={t("bill.status")}
-                isValid={isValid("status")}
-                errorText={getErrorText("status")}
-                onBlur={onBlurCallback("status")}
-                options={statusOptions}
-              />
-            </div>
-            <div className="filterBillForm__item">
-              <DateField
-                theme={"regular"}
-                fieldName="fromDate"
-                fieldValue={formik.values.fromDate}
-                disableFuture={false}
-                format="dd/MM/yyyy"
-                isValid={isValid("fromDate")}
-                errorText={getErrorText("fromDate")}
-                label={t("bill.fromdate")}
-                onChange={dateFieldHandleOnChange("fromDate")}
-              />
-            </div>
-            <div className="filterBillForm__item">
-              <DateField
-                fieldName="toDate"
-                fieldValue={formik.values.toDate}
-                disableFuture={false}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("toDate")}
-                errorText={getErrorText("toDate")}
-                label={t("bill.todate")}
-                onChange={dateFieldHandleOnChange("toDate")}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="fullWidth filterBillForm__item">
-              <PatientAutocomplete
-                theme={"regular"}
-                fieldName="patientCode"
-                fieldValue={formik.values.patientCode}
-                label={t("bill.patient")}
-                isValid={isValid("patientCode")}
-                errorText={getErrorText("patientCode")}
-                onBlur={onBlurCallback("patientCode")}
-                freeSolo={true}
-              />
-            </div>
-          </div>
-          <div className="filterForm__buttonSet">
-            <div className="submit_button">
-              <Button variant="contained" type="submit">
-                {t("bill.filterbutton")}
-              </Button>
-            </div>
-          </div>
-        </form>
+      <div className="filterBillForm">
+        <Accordion expanded={openFilter}>
+          <AccordionSummary onClick={() => setOpenFilter(!openFilter)}>
+            <FilterList fontSize="small" />
+            <h5>{t("bill.filterBills")}</h5>
+          </AccordionSummary>
+          <AccordionDetails>
+            <form
+              className="filterBillForm__form"
+              onSubmit={formik.handleSubmit}
+            >
+              <div className="row start-sm center-xs">
+                <div className="filterBillForm__item">
+                  <SelectField
+                    fieldName="status"
+                    fieldValue={formik.values.status}
+                    label={t("bill.status")}
+                    isValid={isValid("status")}
+                    errorText={getErrorText("status")}
+                    onBlur={onBlurCallback("status")}
+                    options={statusOptions}
+                  />
+                </div>
+                <div className="filterBillForm__item">
+                  <DateField
+                    theme={"regular"}
+                    fieldName="fromDate"
+                    fieldValue={formik.values.fromDate}
+                    disableFuture={false}
+                    format="dd/MM/yyyy"
+                    isValid={isValid("fromDate")}
+                    errorText={getErrorText("fromDate")}
+                    label={t("bill.fromdate")}
+                    onChange={dateFieldHandleOnChange("fromDate")}
+                  />
+                </div>
+                <div className="filterBillForm__item">
+                  <DateField
+                    fieldName="toDate"
+                    fieldValue={formik.values.toDate}
+                    disableFuture={false}
+                    theme="regular"
+                    format="dd/MM/yyyy"
+                    isValid={isValid("toDate")}
+                    errorText={getErrorText("toDate")}
+                    label={t("bill.todate")}
+                    onChange={dateFieldHandleOnChange("toDate")}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="fullWidth filterBillForm__item">
+                  <PatientAutocomplete
+                    theme={"regular"}
+                    fieldName="patientCode"
+                    fieldValue={formik.values.patientCode}
+                    label={t("bill.patient")}
+                    isValid={isValid("patientCode")}
+                    errorText={getErrorText("patientCode")}
+                    onBlur={onBlurCallback("patientCode")}
+                    freeSolo={true}
+                  />
+                </div>
+              </div>
+              <div className="filterForm__buttonSet">
+                <div className="submit_button">
+                  <Button variant="contained" type="submit">
+                    {t("bill.filterbutton")}
+                  </Button>
+                </div>
+              </div>
+            </form>
+          </AccordionDetails>
+        </Accordion>
       </div>
       <div className="bills__table">
         <Table

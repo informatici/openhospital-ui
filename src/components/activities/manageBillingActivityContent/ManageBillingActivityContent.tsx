@@ -2,7 +2,7 @@ import React, { Fragment, FC } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
 
-const ManageBillActivityContent: FC<IProps> = ({ title, content }) => {
+const ManageBillingActivityContent: FC<IProps> = ({ title, content }) => {
   const Content = content;
   return (
     <Fragment>
@@ -14,4 +14,4 @@ const ManageBillActivityContent: FC<IProps> = ({ title, content }) => {
   );
 };
 
-export default ManageBillActivityContent;
+export default ManageBillingActivityContent;
