@@ -118,10 +118,13 @@
     "surgicalrecord": "Surgical Record",
     "note": "Note",
     "exams": "Exams",
-    "newbill": "New Patient Bill",
+    "newbill": "New Bill",
+    "billsrecords": "Bills Records",
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
-    "managebills": "Manage Bills"
+    "managebills": "Manage Bills",
+    "clicktoaddpayment": "Click on \"ADD\" to start a new bill",
+    "nopendingbill": "There is not pending bill"
   },
   "common": {
     "results": "Results",

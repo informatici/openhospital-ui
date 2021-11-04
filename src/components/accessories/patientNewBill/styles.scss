@@ -1,0 +1,82 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientNewBill {
+  display: flex;
+  flex-flow: column;
+  border: 1px solid hsl(2, 98%, 53%, .075);
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px hsl(2, 98%, 53%, .075);
+  padding: 16px 4px 16px 4px;
+  & > div:first-child {
+    display: flex;
+    flex-flow: row;
+    padding-bottom: 1em;
+    & > .patientNewBill_right {
+      flex: 9;
+      display: flex;
+      justify-content: space-between;
+      flex-flow: column;
+      background-color: white;
+      .addpayment {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
+      }
+    }
+    & > .patientNewBill_left {
+      flex: 3;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      background-color: hsl(2, 98%, 53%, .2);
+      border-radius: 8px;
+      padding: 1.5em .25em 1.5em .25em;
+      row-gap: 1em;
+      .smallButton, .textButton {
+        width: 10em;
+        margin: 0px;
+      }
+      .textButton {
+        background-color: rgba(75, 30, 29, 0.15) !important;
+      }
+      .two-row {
+        display: flex;
+        width:  9em;
+        justify-content: space-between;
+        & > span:first-child {
+          font-weight: 200;
+        }
+        & > span:last-child {
+          font-size: 1.25em;
+        }
+      }
+      .xs-divider, .lg-divider {
+        height: 1px;
+        background-color: black;
+      }
+      .xs-divider {
+        width: 3.75em;
+      }
+      .lg-divider {
+        width: 11.5em;
+      }
+    }
+  }
+  & > div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6em;
+    border-radius: 20px;
+    background: hsl(2, 98%, 53%, .1);
+    span {
+      font-size: large;
+      color: black;
+    }
+  }
+  .hidden {
+    display: none !important;
+  }
+}
