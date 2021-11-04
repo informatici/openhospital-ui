@@ -72,6 +72,7 @@ const PatientExams: FC = () => {
     (state: IState) => state.laboratories
   );
   const exams = useSelector((state: IState) => state.exams.examList.data);
+
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
     lab.patientCode = patientData?.code;
@@ -100,7 +101,6 @@ const PatientExams: FC = () => {
     setCreationMode(false);
     scrollToElement(null);
   };
-
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
     dispatch(deleteLab(code));
