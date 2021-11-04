@@ -17,7 +17,6 @@ const BillRecords = () => {
     amount: t("bill.amount"),
     balance: t("bill.balance"),
   };
-  const identifierColumn = "billDTO";
   const closedHeader = ["date", "amount"];
   const closedLabel = {
     date: t("bill.date"),
@@ -25,6 +24,7 @@ const BillRecords = () => {
   };
 
   const order = ["date", "balance"];
+
   const dispatch = useDispatch();
   const patient = useSelector<IState, PatientDTO | undefined>(
     (state) => state.patients.selectedPatient.data
@@ -59,17 +59,23 @@ const BillRecords = () => {
     //   .sort(dateComparator("desc", "date"));
   };
 
-  const getCoreRow = (row: any) => {
+  const getCoreRowPending = (row: any) => {
     return {
       fullBill: pendingBills?.find(
         (item) => item["billDTO"] === row["billDTO"]
       ),
     };
   };
+
   const closedBills = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
+  const getCoreRowClosed = (row: any) => {
+    return {
+      fullBill: closedBills?.find((item) => item["billDTO"] === row["billDTO"]),
+    };
+  };
   return (
     <div className="patientBillRecords">
       <h3>{`${t("bill.pending")} (${pendingBills.length})`}</h3>
@@ -81,7 +87,7 @@ const BillRecords = () => {
         rowsPerPage={5}
         isCollapsabile={true}
         renderItemDetails={RenderBillDetails}
-        getCoreRow={getCoreRow}
+        getCoreRow={getCoreRowPending}
       />
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>
       <Table
@@ -91,7 +97,8 @@ const BillRecords = () => {
         columnsOrder={order}
         rowsPerPage={5}
         isCollapsabile={true}
-        getCoreRow={getCoreRow}
+        renderItemDetails={RenderBillDetails}
+        getCoreRow={getCoreRowClosed}
       />
     </div>
   );

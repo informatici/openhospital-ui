@@ -19,6 +19,7 @@ import "./styles.scss";
 
 interface IBillProps {
   fullBill: FullBillDTO;
+  skipHeader?: boolean;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
+const RenderBillDetails: FC<IBillProps> = ({ fullBill, skipHeader = true }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -46,61 +47,62 @@ const RenderBillDetails: FC<IBillProps> = ({ fullBill }) => {
     <div className="bill_details">
       <Card className={classes.root}>
         <CardContent>
-          <TableContainer style={{ maxHeight: 300 }}>
-            <Table
-              stickyHeader
-              className={classes.table}
-              size="small"
-              aria-label="Summary table"
-            >
-              <TableHead>
-                <TableCell
-                  className={classes.tableCell}
-                  style={{ fontWeight: "bold" }}
-                  colSpan={4}
-                >
-                  {t("bill.billid")} : {fullBill.billDTO?.id}
-                </TableCell>
-                <TableRow>
-                  <TableCell className={classes.tableCell}>
-                    {t("bill.patient")}
+          <TableContainer style={{ maxHeight: 400 }}>
+            {!skipHeader && (
+              <Table
+                stickyHeader
+                className={classes.table}
+                size="small"
+                aria-label="Summary table"
+              >
+                <TableHead>
+                  <TableCell
+                    className={classes.tableCell}
+                    style={{ fontWeight: "bold" }}
+                    colSpan={4}
+                  >
+                    {t("bill.billid")} : {fullBill.billDTO?.id}
                   </TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {t("bill.amount")}
-                  </TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {t("bill.balance")}{" "}
-                  </TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {t("bill.status")}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell className={classes.tableCell}>
-                    <Link
-                      to={`/details/${fullBill.billDTO?.patientDTO?.code}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <strong>{fullBill.billDTO?.patName}</strong>
-                    </Link>
-                  </TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {currencyFormat(fullBill.billDTO?.amount)}
-                  </TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {currencyFormat(fullBill.billDTO?.balance)}
-                  </TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {fullBill.billDTO?.status === "C"
-                      ? t("bill.closed")
-                      : t("bill.pending")}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-
+                  <TableRow>
+                    <TableCell className={classes.tableCell}>
+                      {t("bill.patient")}
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {t("bill.amount")}
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {t("bill.balance")}{" "}
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {t("bill.status")}
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className={classes.tableCell}>
+                      <Link
+                        to={`/details/${fullBill.billDTO?.patientDTO?.code}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <strong>{fullBill.billDTO?.patName}</strong>
+                      </Link>
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {currencyFormat(fullBill.billDTO?.amount)}
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {currencyFormat(fullBill.billDTO?.balance)}
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {fullBill.billDTO?.status === "C"
+                        ? t("bill.closed")
+                        : t("bill.pending")}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            )}
             <Table
               className={classes.table}
               stickyHeader

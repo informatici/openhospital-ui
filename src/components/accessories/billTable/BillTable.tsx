@@ -82,7 +82,7 @@ export const BillTable: FC<IBillTableProps> = ({ status, filter }) => {
         onClose={handleClose}
         title={t("bill.details")}
         description={t("bill.details")}
-        content={<RenderBillDetails fullBill={fullBill} />}
+        content={<RenderBillDetails fullBill={fullBill} skipHeader={false} />}
       />
     </div>
   );
