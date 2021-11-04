@@ -14,6 +14,7 @@ import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder
 import "./styles.scss";
 import { IProps } from "./types";
 import { handlePictureSelection, preprocessImage } from "./utils";
+import classNames from "classnames";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
@@ -78,7 +79,11 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         type="file"
         onChange={handlePictureSelection(setPicture, setShowError, 360000)}
       />
-      <div className="profilePicture_mask" style={style} onClick={editPicture}>
+      <div
+        className={classNames("profilePicture_mask", { editable: isEditable })}
+        style={style}
+        onClick={editPicture}
+      >
         <img src={picture.preview} alt="profilePicture" />
         {picture.original ? (
           <div

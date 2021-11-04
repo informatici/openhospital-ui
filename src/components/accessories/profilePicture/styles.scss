@@ -18,16 +18,18 @@
   overflow: hidden;
   position: relative;
 
-  &:hover {
-    &:after {
-      border: 6px solid $c-grey-lighter;
-      background-color: rgba(#000, 0.35);
-    }
+  &.editable {
+    &:hover {
+      &:after {
+        border: 6px solid $c-grey-lighter;
+        background-color: rgba(#000, 0.35);
+      }
 
-    .profilePicture_hoverButton {
-      opacity: 1;
-      transition: opacity 0.3s;
-      transition-delay: 0.5s;
+      .profilePicture_hoverButton {
+        opacity: 1;
+        transition: opacity 0.3s;
+        transition-delay: 0.5s;
+      }
     }
   }
 
@@ -40,18 +42,20 @@
     transition: none;
   }
 
-  &:after {
-    content: "";
-    display: inline-block;
-    background-color: transparent;
-    border: 4px solid $c-grey-lighter;
-    border-radius: 100px;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0px;
-    top: 0px;
-    transition: border 0.3s, background-color 0.3s;
+  &.editable {
+    &:after {
+      content: "";
+      display: inline-block;
+      background-color: transparent;
+      border: 4px solid $c-grey-lighter;
+      border-radius: 100px;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0px;
+      top: 0px;
+      transition: border 0.3s, background-color 0.3s;
+    }
   }
 }
 
