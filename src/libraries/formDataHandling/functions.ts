@@ -6,6 +6,7 @@ import {
   LaboratoryDTO,
   OpdDTO,
   PatientDTO,
+  PatientExaminationDTO,
 } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
@@ -72,6 +73,23 @@ export const updateLabFields = (
             : moment(value).isValid()
             ? Date.parse(moment(value).toString())
             : value);
+      }
+    });
+  });
+};
+export const updateTriageFields = (
+  fields: TFields,
+  values: PatientExaminationDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      let value = values![key as keyof PatientExaminationDTO];
+      if (draft[key as string]) {
+        return (draft[key as string].value = parseFloat(value as string)
+          ? value
+          : moment(value).isValid()
+          ? Date.parse(moment(value).toString())
+          : value);
       }
     });
   });

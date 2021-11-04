@@ -8,7 +8,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=newPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => {});
+  it.skip("should have access to the user credentials", () => { });
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");

@@ -21,6 +21,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   onChange,
   shouldReset,
   resetCallback,
+  style,
 }) => {
   const [picture, setPicture] = useState({
     preview: profilePicturePlaceholder,
@@ -77,7 +78,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         type="file"
         onChange={handlePictureSelection(setPicture, setShowError, 360000)}
       />
-      <div className="profilePicture_mask" onClick={editPicture}>
+      <div className="profilePicture_mask" style={style} onClick={editPicture}>
         <img src={picture.preview} alt="profilePicture" />
         {picture.original ? (
           <div

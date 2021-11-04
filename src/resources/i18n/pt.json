@@ -7,7 +7,8 @@
     "insertavalidusername": "Insert a valid user name",
     "insertthepassword": "Insert the password",
     "login": "Login",
-    "signout": "Sign Out"
+    "signout": "Logout",
+    "signoutText": "Are you sure you want to Logout?"
   },
   "dashboard": {
     "welcomename": "Welcome",
@@ -103,6 +104,7 @@
     "managetherapy": "Manage Therapy"
   },
   "common": {
+    "ok": "OK",
     "results": "Resultados",
     "feedback": "Feedback",
     "submit": "Enviar",
@@ -120,7 +122,7 @@
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",
     "titleedited": "Patient Edited",
-    "resetform": "Are you sure to {{resetButtonLabel}} the Form?",
+    "resetform": "Are you sure to Reset the Form? All the unsaved data will be lost.",
     "searchnotfound": "We couldn't find a match, please try another search.",
     "patienteditsuccessfull": "The patient was edit successfully.",
     "patientregistrationsuccessfull": "The patient registration was successful.",

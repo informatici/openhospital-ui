@@ -7,7 +7,8 @@
     "insertavalidusername": "Inserisci uno username valido",
     "insertthepassword": "Inserisci una password valida",
     "login": "Login",
-    "signout": "Sign Out"
+    "signout": "Disconnessione",
+    "signoutText": "Vuoi disconnetterti?"
   },
   "dashboard": {
     "welcomename": "Benvenuto/a",
@@ -103,6 +104,7 @@
     "patientdashboard": "Pannello di controllo Paziente"
   },
   "common": {
+    "ok": "OK",
     "results": "Risultati",
     "feedback": "Feedback",
     "submit": "Invia",
@@ -120,7 +122,7 @@
     "gobackdashboard": "Torna alla dashboard",
     "keepediting": "Continua a modificare",
     "titleedited": "Paziente modificato",
-    "resetform": "Sei sicuro di {{resetButtonLabel}} il Form?",
+    "resetform": "Sei sicuro di voler resettare il Form? Tutte le informazioni non salvate verranno perse.",
     "searchnotfound": "Non siamo riusciti a trovare una corrispondenza, riprova con un altro termine.",
     "patienteditsuccessfull": "Il paziente è stato modificato correttamente.",
     "patientregistrationsuccessfull": "Il paziente è stato registrato correttamente.",
