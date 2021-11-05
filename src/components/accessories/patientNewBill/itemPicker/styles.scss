@@ -1,3 +1,26 @@
 @import "../../../../styles/variables";
 @import "../../../../../node_modules/susy/sass/susy";
 
+
+.itemPicker {
+    display: flex;
+    flex-flow: column;
+    padding: 1em;
+    & > #first {
+        display: flex;
+        .checked:hover, .MuiRadio-root:hover {
+            color: $c-color-primary !important;
+        }
+        .checked, .checked .MuiRadio-root {
+            color: $c-color-primary !important;
+        }
+    }
+
+    & > #second {
+        display: flex;
+    }
+
+    & > #third {
+         display: flex;
+    }
+}

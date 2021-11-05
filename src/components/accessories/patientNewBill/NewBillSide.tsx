@@ -11,7 +11,7 @@ const NewBillSide: FC = () => {
     <>
       <div className="two-row">
         <span>Total:</span>
-        <span>20$</span>
+        <span>120$</span>
       </div>
       <div className="two-row">
         <span>Paid:</span>
@@ -20,7 +20,7 @@ const NewBillSide: FC = () => {
       <div className="xs-divider"></div>
       <div className="two-row">
         <span>To be paid:</span>
-        <span>20$</span>
+        <span>120$</span>
       </div>
       <div>
         <SmallButton>{t("bill.pay")}</SmallButton>

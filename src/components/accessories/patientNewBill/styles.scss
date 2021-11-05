@@ -7,16 +7,18 @@
   border: 1px solid hsl(2, 98%, 53%, .075);
   border-radius: 8px;
   box-shadow: 2px 2px 2px hsl(2, 98%, 53%, .075);
-  padding: 16px 4px 16px 4px;
+  padding: 16px 8px 16px 8px;
+  row-gap: 1em;
   & > div:first-child {
     display: flex;
     flex-flow: row;
-    padding-bottom: 1em;
-    & > .patientNewBill_right {
+    column-gap: 1em;
+    & > .patientNewBill_left {
       flex: 9;
       display: flex;
       justify-content: space-between;
       flex-flow: column;
+      row-gap: 1em;
       background-color: white;
       .addpayment {
         display: flex;
@@ -25,12 +27,12 @@
         color: gray;
       }
     }
-    & > .patientNewBill_left {
+    & > .patientNewBill_right {
       flex: 3;
       display: flex;
       flex-flow: column;
       align-items: center;
-      background-color: hsl(2, 98%, 53%, .2);
+      background-color: hsl(2, 98%, 53%, .3);
       border-radius: 8px;
       padding: 1.5em .25em 1.5em .25em;
       row-gap: 1em;

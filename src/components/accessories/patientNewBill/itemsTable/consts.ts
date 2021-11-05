@@ -1,15 +1,34 @@
-export const header = [
-  "startDate",
-  "endDate",
-];
+export const header = ["type", "description", "qty", "cost"];
 export const label = {
-  startDate: "Start",
-  endDate: "End",
-  medicalId: "Medical",
-  qty: "Quantity",
-  freqInDay: "FID",
-  unitID: "unitID",
-  note: "Note",
-  freqInPeriod: "FIP",
+  type: "Type",
+  description: "Description",
+  qty: "Qty",
+  cost: "Cost",
 };
-export const order = ["startDate"];
+export const order = ["type", "description"];
+export const mockData = [
+  {
+    type: "Medecine",
+    description: "Penicillin",
+    qty: 4,
+    cost: 20,
+  },
+  {
+    type: "Exam",
+    description: "ECG",
+    qty: 1,
+    cost: 20,
+  },
+  {
+    type: "Surgery",
+    description: "Appendicitis",
+    qty: 1,
+    cost: 40,
+  },
+  {
+    type: "Other",
+    description: "Lorem Ipsum",
+    qty: 1,
+    cost: 40,
+  },
+];

@@ -12,6 +12,8 @@ import { updateFields } from "../../../libraries/formDataHandling/functions";
 import SmallButton from "../smallButton/SmallButton";
 import BillItemsTable from "./itemsTable/BillItemsTable";
 import { NewBillSide } from "./NewBillSide";
+import { CustomModal } from "../customModal/CustomModal";
+import BillItemPickerForm from "./itemPicker/BillItemPicker";
 
 export type BillItemTransitionState = "IDLE" | "TO_RESET";
 
@@ -26,22 +28,35 @@ const PatientNewBill: FC = () => {
   return (
     <div className="patientNewBill">
       <div className="">
-        <div className="patientNewBill_right">
+        <div className="patientNewBill_left">
           <div>
-            <span className="addpayment">{t("bill.clicktoaddpayment")}</span>
+            <span className="addpayment hidden">
+              {t("bill.clicktoaddpayment")}
+            </span>
           </div>
-          <BillItemsTable />
+          <BillItemsTable
+            shouldUpdateTable={true}
+            handleDelete={(row) => {}}
+            handleEdit={(row) => {}}
+          />
           <div>
             <SmallButton>{t(" button.add")}</SmallButton>
           </div>
         </div>
-        <div className="patientNewBill_left">
+        <div className="patientNewBill_right">
           <NewBillSide />
         </div>
       </div>
-      <div className="">
+      <div className="hidden">
         <span>{t("bill.nopendingbill")}</span>
       </div>
+      <CustomModal
+        title={"Pick an item"}
+        description="pick-item"
+        onClose={() => {}}
+        open={true}
+        content={<BillItemPickerForm />}
+      />
     </div>
   );
 };
