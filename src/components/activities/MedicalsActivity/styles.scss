@@ -67,17 +67,17 @@
     align-items: flex-start;
     background-color: $c-color-secondary;
     width: 100%;
-    padding: 0px 0px;
-    flex: 0 0 90px;
+    padding: 20px 0px;
+    // flex: 0 0 90px;
     @include susy-media($smartphone) {
       display: block;
       text-align: center;
       justify-content: initial;
       align-items: initial;
-      padding: 25px 25px 50px 25px;
+      // padding: 25px 25px 50px 25px;
     }
     .row {
-      width: 80%;
+      width: 100%;
       flex-wrap: initial;
       @include susy-media($smartphone) {
         width: 100%;
@@ -87,8 +87,15 @@
     }
     .medicals__formItem {
       width: 100%;
+      display: flex;
+      .selectField {
+        width: 30%;
+      }
       @include susy-media($smartphone) {
         width: 100%;
+      }
+      .MuiFormControl-marginDense {
+        background-color: #fff;
       }
     }
   }
