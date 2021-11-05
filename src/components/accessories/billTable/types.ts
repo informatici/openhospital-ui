@@ -11,7 +11,7 @@ export type TFilterValues = {
   fromDate: string;
   toDate: string;
   patientCode: number;
-  status: IStatus;
+  status?: IStatus;
 };
 
 export type TValues = Record<TFieldName, string>;

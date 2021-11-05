@@ -16,9 +16,8 @@ import {
   Edit,
   Delete,
   Print,
-  InfoRounded,
   InfoOutlined,
-  Payment,
+  LocalAtm,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -90,13 +89,13 @@ const Table: FunctionComponent<IProps> = ({
               setOpenDeleteConfirmation(true);
             }}
           >
-            <Delete color="secondary" />
+            <Delete color="primary" />
           </IconButton>
         );
       case "print":
         return (
           <IconButton size="small" onClick={onPrint}>
-            <Print color="primary" />
+            <Print color="secondary" />
           </IconButton>
         );
 
@@ -113,8 +112,13 @@ const Table: FunctionComponent<IProps> = ({
         );
       case "pay":
         return (
-          <IconButton size="small" onClick={onPay}>
-            <Payment color="primary" />
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onPay) onPay(row);
+            }}
+          >
+            <LocalAtm color="secondary" />
           </IconButton>
         );
     }
@@ -130,6 +134,7 @@ const Table: FunctionComponent<IProps> = ({
           style={{ minWidth: 125 }}
         >
           {onView ? renderIcon("view", row) : ""}
+          {onPay ? renderIcon("pay", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print") : ""}
           {onDelete ? renderIcon("delete", row) : ""}

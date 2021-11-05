@@ -2,26 +2,6 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 .patients__bills {
-    .bill_details {  
-        background-color: inherit;
-        ul {
-            white-space: nowrap;   
-            overflow-x: hidden; 
-            margin-left: 0; 
-            padding-left: 0;
-        }
-        li span .MuiTypography-h5 {
-            padding-left: 0;
-            margin-left: 0;
-            display: inline;
-            text-decoration: none;    
-            color: darken($c-gray, 25%)
-        }
-        .label{
-            font-weight: bold;
-        }
-    }
-
     .filterBillForm {
         display: inline-block;
         flex-direction: column;

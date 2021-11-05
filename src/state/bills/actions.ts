@@ -28,6 +28,10 @@ import {
   SEARCH_PAYMENTS_SUCCESS,
   SEARCH_PAYMENTS_FAIL,
   SEARCH_PAYMENTS_LOADING,
+  DELETE_BILL_FAIL,
+  DELETE_BILL_LOADING,
+  DELETE_BILL_SUCCESS,
+  DELETE_BILL_RESET,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -256,4 +260,40 @@ export const searchPayments =
           });
         }
       );
+  };
+
+export const deleteBill =
+  (id: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_BILL_LOADING,
+    });
+    if (id) {
+      billControllerApi.deleteBillUsingDELETE({ id }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_BILL_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_BILL_FAIL,
+            error: error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_BILL_FAIL,
+        error: "The id should not be empty",
+      });
+    }
+  };
+
+export const deleteBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_BILL_RESET,
+    });
   };

@@ -20,7 +20,7 @@ export interface IProps {
   coreData?: Array<any>;
   identifierColumn?: string;
   getCoreRow?: <T>(val: T) => any | undefined;
-  onPay?: () => void;
+  onPay?: (row: any) => void;
 }
 
 export interface IRowProps {

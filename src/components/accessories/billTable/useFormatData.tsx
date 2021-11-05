@@ -6,7 +6,10 @@ import React from "react";
 import { IStatus } from "./types";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 
-const useFormatData = (data: FullBillDTO[] | undefined, status: IStatus) => {
+const useFormatData = (
+  data: FullBillDTO[] | undefined,
+  status: IStatus | undefined
+) => {
   const { t } = useTranslation();
   const switchStatus = (status: string | undefined) => {
     switch (status) {

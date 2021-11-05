@@ -58,5 +58,17 @@ export const billRoutes = (server) => {
 
         })
 
+        server.delete("/:id").intercept((req, res) => {
+            const code = req.params.id;
+            switch (code) {
+                case "-1":
+                    res.status(400);
+                    break;
+                default:
+                    res.status(201);
+                    break;
+            }
+        });
+
     });
 };

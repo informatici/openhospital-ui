@@ -19,8 +19,8 @@
       padding: 5px 5px;
       ul{
         column-count: 2;
-        margin: 0px;
-        padding: 0px;
+        margin: 14px;
+        padding: 15px 27px;
         @include susy-media($smartphone){
           column-count: 1;
         }
