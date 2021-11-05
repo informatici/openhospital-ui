@@ -95,7 +95,7 @@ const BillRecords = () => {
 
   const getCoreRowPending = (row: any) => {
     return {
-      fullBill: pendingBills?.find((item) => item.billDTO?.id === row.code),
+      fullBill: pendingBills?.find((item) => item.billDTO === row.billDTO),
     };
   };
 
@@ -105,7 +105,7 @@ const BillRecords = () => {
 
   const getCoreRowClosed = (row: any) => {
     return {
-      fullBill: closedBills?.find((item) => item.billDTO?.id === row.code),
+      fullBill: closedBills?.find((item) => item.billDTO === row.billDTO),
     };
   };
 
@@ -128,7 +128,7 @@ const BillRecords = () => {
       .required(t("common.required"))
       .test({
         message: t("bill.invalidpayment"),
-        test: function (value) {
+        test: (value) => {
           return value > seletedObj.balance;
         },
       }),
