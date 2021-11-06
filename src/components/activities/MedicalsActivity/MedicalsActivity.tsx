@@ -81,12 +81,16 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       label: "All",
     },
     {
-      value: "All",
-      label: "All",
+      value: "Surgery",
+      label: "Surgery",
     },
     {
-      value: "All",
-      label: "All",
+      value: "Chemicals",
+      label: "Chemicals",
+    },
+    {
+      value: "Drugs",
+      label: "Drugs",
     },
   ];
 
@@ -293,13 +297,13 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
               <form className="medicals__panel" onSubmit={formik.handleSubmit}>
                 <div className="medicals__primary">
                   <div className="row left-xs">
-                    <div className="medicals__formItem">
+                    <div className="medicals__formItem fast__search">
                       <SelectField
-                        fieldName="diuresis"
-                        fieldValue="auuu"
+                        fieldName="Types"
+                        fieldValue="Types"
                         label="Select type"
                         isValid={true}
-                        errorText="ciaoasas"
+                        errorText="Generic Error"
                         onBlur={() => console.log("ciao")}
                         options={test}
                       />
@@ -311,13 +315,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         errorText={getErrorText("id")}
                         onBlur={formik.handleBlur}
                       />
-                      <Button
-                        className="medicals__button"
-                        type="submit"
-                        disabled={searchStatus === "LOADING"}
-                      >
-                        <div className="medicals__button__label">{"Cerca"}</div>
-                      </Button>
                     </div>
                   </div>
                 </div>

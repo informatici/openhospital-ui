@@ -63,18 +63,16 @@
 
   .medicals__primary {
     display: flex;
-    justify-content: left;
+    justify-content: space-around;
     align-items: flex-start;
     background-color: $c-color-secondary;
     width: 100%;
     padding: 20px 0px;
-    // flex: 0 0 90px;
     @include susy-media($smartphone) {
       display: block;
       text-align: center;
       justify-content: initial;
       align-items: initial;
-      // padding: 25px 25px 50px 25px;
     }
     .row {
       width: 100%;
@@ -88,14 +86,31 @@
     .medicals__formItem {
       width: 100%;
       display: flex;
-      .selectField {
-        width: 30%;
-      }
       @include susy-media($smartphone) {
         width: 100%;
       }
-      .MuiFormControl-marginDense {
-        background-color: #fff;
+    }
+
+    .medicals__formItem.fast__search {
+      input,
+      select {
+        background-color: white;
+      }
+      .selectField {
+        width: 40%;
+        .MuiFormLabel-root.Mui-error {
+          color: #757575;
+          // &:hover {
+          //   border-color: rgba(0, 0, 0, 0.87);
+          // }
+        }
+        .MuiOutlinedInput-root {
+          margin-right: 10px;
+          background-color: white;
+        }
+        .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+          border-color: rgba(194, 194, 194, 0.87);
+        }
       }
     }
   }
