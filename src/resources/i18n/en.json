@@ -170,7 +170,8 @@
     "female": "Female",
     "date": "Date",
     "type": "Type",
-    "nooptionsfound": "No options found"
+    "nooptionsfound": "No options found",
+    "close": "CLOSE"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -286,6 +287,12 @@
     "recap": "Bills Recap",
     "filter": "Bills Filter",
     "filterbutton": "Filter",
-    "bills": "Bills"
+    "bills": "Bills",
+    "enterpayment": "Enter payment",
+    "amounttopay": "Total amount to pay: {{amount}}",
+    "pay": "PAY",
+    "paymentdialog": "PAIEMENT DIALOG",
+    "paymentamount": "Payment amount",
+    "paymentdate": "Payment date"
   }
 }

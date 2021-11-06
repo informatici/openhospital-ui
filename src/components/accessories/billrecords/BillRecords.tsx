@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { FullBillDTO, PatientDTO } from "../../../generated";
@@ -15,20 +15,9 @@ import RenderBillDetails from "../billTable/RenderBillDetails";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import Table from "../table/Table";
 import checkIcon from "../../../assets/check-icon.png";
-import {
-  AppBar,
-  Dialog,
-  DialogContent,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import { useFormik } from "formik";
-import { object, string } from "yup";
-import TextField from "../textField/TextField";
-import DateField from "../dateField/DateField";
-import { get, has } from "lodash";
-import Button from "../button/Button";
+
 import "./styles.scss";
+import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 
 const BillRecords = () => {
   const { t } = useTranslation();
@@ -122,47 +111,6 @@ const BillRecords = () => {
     setSeletedObj(row);
     setOpenPaymentDialog(true);
   };
-  const validationSchema = object({
-    paymentDate: string().required(t("common.required")),
-    paymentAmount: string()
-      .required(t("common.required"))
-      .test({
-        message: t("bill.invalidpayment"),
-        test: (value) => {
-          return value > seletedObj.balance;
-        },
-      }),
-  });
-  const formik = useFormik({
-    initialValues: {
-      paymentDate: new Date().toString(),
-      paymentAmount: getCoreRowPending(seletedObj).fullBill?.billDTO?.balance,
-    },
-    enableReinitialize: true,
-    validationSchema,
-    onSubmit: (values) => {
-      //dispatch here
-    },
-  });
-
-  const { setFieldValue, resetForm, handleBlur } = formik;
-
-  const dateFieldHandleOnChange = useCallback(
-    (fieldName: string) => (value: any) => {
-      setFieldValue(fieldName, value);
-    },
-    [setFieldValue]
-  );
-
-  const isValid = (fieldName: string): boolean => {
-    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
-  };
-
-  const getErrorText = (fieldName: string): string => {
-    return has(formik.touched, fieldName)
-      ? (get(formik.errors, fieldName) as string)
-      : "";
-  };
 
   return (
     <div className="patientBillRecords">
@@ -200,70 +148,11 @@ const BillRecords = () => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />
-
-      <Dialog
-        id="paymentDialog"
-        title="Payment Dialog"
+      <PaymentDialog
         open={openPaymentDialog}
-        onClose={handleClose}
-      >
-        <AppBar style={{ position: "relative" }}>
-          <Toolbar style={{ display: "inline-block" }}>
-            <Typography style={{ flex: 1 }} variant="h6" component="div">
-              Enter the amount you are receiving
-            </Typography>
-            <Typography style={{ flex: 1 }} variant="body2" component="div">
-              {"Total Amount To Pay: " + seletedObj.balance}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <DialogContent>
-          <form className="paymentForm" onSubmit={formik.handleSubmit}>
-            <div className="row start-sm center-xs">
-              <div className="paymentForm__item">
-                <DateField
-                  fieldName="paymentDate"
-                  fieldValue={formik.values.paymentDate}
-                  disableFuture={true}
-                  theme="regular"
-                  format="dd/MM/yyyy"
-                  isValid={isValid("paymentDate")}
-                  errorText={getErrorText("paymentDate")}
-                  label={"Payment Date"}
-                  onChange={dateFieldHandleOnChange("paymentDate")}
-                />
-              </div>
-              <div className="paymentForm__item">
-                <TextField
-                  field={formik.getFieldProps("paymentAmount")}
-                  theme="regular"
-                  label={"Payment Amount"}
-                  isValid={isValid("paymentAmount")}
-                  errorText={getErrorText("paymentAmount")}
-                  onBlur={formik.handleBlur}
-                  type="number"
-                />
-              </div>
-            </div>
-            <div className="paymentForm__buttonSet">
-              <div className="submit_button">
-                <Button type="submit" variant="contained" disabled={false}>
-                  PAY
-                </Button>
-              </div>
-              <div className="reset_button">
-                <Button
-                  type="reset"
-                  variant="text"
-                  onClick={() => setOpenPaymentDialog(false)}
-                >
-                  CLOSE
-                </Button>
-              </div>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
+        handleClose={handleClose}
+        bill={seletedObj}
+      />
     </div>
   );
 };

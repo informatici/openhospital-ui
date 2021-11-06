@@ -172,7 +172,8 @@
     "female": "Féminin",
     "date": "Date",
     "type": "Type",
-    "nooptionsfound": "Aucune option trouvée"
+    "nooptionsfound": "Aucune option trouvée",
+    "close": "FERMER"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -296,6 +297,12 @@
     "recap": "Recap factures",
     "filter": "Filtre Factures",
     "filterbutton": "Filtrer",
-    "bills": "Factures"
+    "bills": "Factures",
+    "enterpayment": "Entrer le paiement",
+    "amounttopay": "Montant total à payer: {{amount}}",
+    "pay": "PAYER",
+    "paymentdialog": "FENETRE DE PAIMENT",
+    "paymentamount": "Montant perçu",
+    "paymentdate": "Date de paiment"
   }
 }
