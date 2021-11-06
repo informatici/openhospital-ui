@@ -5,7 +5,9 @@
 .itemPicker {
     display: flex;
     flex-flow: column;
+    justify-content: start;
     padding: 1em;
+    height: 320px;
     & > #first {
         display: flex;
         .checked:hover, .MuiRadio-root:hover {
@@ -18,9 +20,15 @@
 
     & > #second {
         display: flex;
+        flex-flow: column;
+        .textField {
+            height: 1px;
+            width: 100%;
+        }
     }
 
     & > #third {
-         display: flex;
+        display: flex;
+        
     }
 }

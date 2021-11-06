@@ -95,8 +95,36 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
           />
         </RadioGroup>
       </div>
-      <div id="second"></div>
-      <div id="third"></div>
+      <div id="second">
+        <AutocompleteField
+          fieldName="material"
+          fieldValue={"value"}
+          label={t("lab.material")}
+          isValid={false}
+          errorText={""}
+          onBlur={(e, v) => {}}
+          options={[{ value: "item1", label: "Item 1" }]}
+          isLoading={false}
+        />
+        <TextField
+          theme="regular"
+          field={{
+            name: "amount",
+            value: 1,
+            onBlur: (e: any) => {},
+            onChange: (e: any) => {},
+          }}
+          label={t("lab.material")}
+          isValid={false}
+          errorText={""}
+          onBlur={(e) => {}}
+          type="number"
+        />
+      </div>
+      <div id="third">
+        <TextButton onClick={() => {}}>{t(" button.discard")}</TextButton>
+        <SmallButton>{t("bill.save")}</SmallButton>
+      </div>
     </div>
   );
 };
