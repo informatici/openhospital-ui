@@ -7,7 +7,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { object, string } from "yup";
+import { object, string, number } from "yup";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   formatAllFieldValues,
@@ -46,11 +47,13 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
 
   const validationSchema = object({
     type: string().required("This field is required"),
-    code: string().required("This field is required"),
+    code: number().required("This field is required"),
     description: string().required("This field is required"),
   });
 
   const initialValues = getFromFields(fields, "value");
+
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues,
@@ -184,15 +187,20 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
         <div className="medicalDataForm__buttonSet">
-          <div className="submit_button">
-            <SmallButton type="submit" disabled={isLoading}>
-              {submitButtonLabel}
+          <div className="cancel_button">
+            <SmallButton type="button" disabled={isLoading} onClick={() => { history.goBack() }}>
+            {t("common.discard")}
             </SmallButton>
           </div>
           <div className="reset_button">
             <TextButton onClick={() => setOpenResetConfirmation(true)}>
               {resetButtonLabel}
             </TextButton>
+          </div>
+          <div className="submit_button">
+            <SmallButton type="submit" disabled={isLoading}>
+              {submitButtonLabel}
+            </SmallButton>
           </div>
         </div>
         <ConfirmationDialog
