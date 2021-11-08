@@ -24,9 +24,14 @@ import "./styles.scss";
 import { IState } from "../../../types";
 import { TProps, IDispatchProps, IStateProps } from "./types";
 import { useTranslation } from "react-i18next";
-import { getMedicalTypes, getMedicalTypesSuccess } from "../../../state/medicaltypes/actions";
-import {MedicalTypeDTO } from "../../../generated";
+import {
+  getMedicalTypes,
+  getMedicalTypesSuccess,
+} from "../../../state/medicaltypes/actions";
+import { MedicalTypeDTO } from "../../../generated";
 import isEmpty from "lodash.isempty";
+
+import { medicalTypesFormatter } from "../../../libraries/formatUtils/optionFormatting";
 
 const MedicalDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -40,9 +45,8 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
   hasMedTypeFailed,
   medicalTypes,
   medicalTypesOptions,
-  getMedicalTypes
+  getMedicalTypes,
 }) => {
-  
   const { t } = useTranslation();
 
   const validationSchema = object({
@@ -62,25 +66,34 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       //Use correct MedicalTypeDTO
-      var medType = medicalTypes.find(mt => mt.code == formattedValues.type);
+      var medType = medicalTypes.find((mt) => mt.code == formattedValues.type);
       formattedValues.type = medType;
       onSubmit(formattedValues);
     },
   });
 
   useEffect(() => {
-    if(!isMedTypeLoading && !hasMedTypeFailed && !hasMedTypeSucceeded)
+    if (!isMedTypeLoading && !hasMedTypeFailed && !hasMedTypeSucceeded)
       getMedicalTypes({});
-    if(!isEmpty(medicalTypes) && isEmpty(medicalTypesOptions))
-    {  
-      medicalTypesOptions = setupOptions(medicalTypes);
+    if (!isEmpty(medicalTypes) && isEmpty(medicalTypesOptions)) {
+      medicalTypesOptions = medicalTypesFormatter(medicalTypes);
       setOptions(medicalTypesOptions);
       //Custom management of medical type
-      if(!isEmpty(fields.type.value))
-      {setFieldValue('type', medicalTypes.find(x => x.code == (fields.type.value as MedicalTypeDTO).code)?.code);}
+      if (!isEmpty(fields.type.value)) {
+        setFieldValue(
+          "type",
+          medicalTypes.find(
+            (x) => x.code == (fields.type.value as MedicalTypeDTO).code
+          )?.code
+        );
+      }
     }
-  }
-  , [isMedTypeLoading, hasMedTypeFailed, hasMedTypeSucceeded, medicalTypesOptions]);
+  }, [
+    isMedTypeLoading,
+    hasMedTypeFailed,
+    hasMedTypeSucceeded,
+    medicalTypesOptions,
+  ]);
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -122,8 +135,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
   return (
     <div className="medicalDataForm">
       <form className="medicalDataForm__form" onSubmit={formik.handleSubmit}>
-      
-          <div className="medicalDataForm__item">  
+        <div className="medicalDataForm__item">
           <SelectField
             fieldName="type"
             fieldValue={formik.values.type}
@@ -132,48 +144,47 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
             errorText={getErrorText("type")}
             onBlur={onBlurCallback("type")}
             options={options || []}
-            disabled={initialValues.code != '' || isLoading}
+            disabled={initialValues.code != "" || isLoading}
           />
-          </div>
-
-          <div className="medicalDataForm__item">
-            <TextField
-              field={formik.getFieldProps("code")}
-              theme="regular"
-              label={t("medical.code")}
-              isValid={isValid("code")}
-              errorText={getErrorText("code")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="medicalDataForm__item">
-            <TextField
-              field={formik.getFieldProps("description")}
-              theme="regular"
-              label={t("medical.description")}
-              isValid={isValid("description")}
-              errorText={getErrorText("description")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
+        </div>
 
         <div className="medicalDataForm__item">
-            <TextField
-              field={formik.getFieldProps("pcsperpck")}
-              theme="regular"
-              label={t("medical.pcsperpck")}
-              isValid={isValid("pcsperpck")}
-              errorText={getErrorText("pcsperpck")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
+          <TextField
+            field={formik.getFieldProps("code")}
+            theme="regular"
+            label={t("medical.code")}
+            isValid={isValid("code")}
+            errorText={getErrorText("code")}
+            onBlur={formik.handleBlur}
+            disabled={isLoading}
+          />
+        </div>
+
+        <div className="medicalDataForm__item">
+          <TextField
+            field={formik.getFieldProps("description")}
+            theme="regular"
+            label={t("medical.description")}
+            isValid={isValid("description")}
+            errorText={getErrorText("description")}
+            onBlur={formik.handleBlur}
+            disabled={isLoading}
+          />
+        </div>
+
+        <div className="medicalDataForm__item">
+          <TextField
+            field={formik.getFieldProps("pcsperpck")}
+            theme="regular"
+            label={t("medical.pcsperpck")}
+            isValid={isValid("pcsperpck")}
+            errorText={getErrorText("pcsperpck")}
+            onBlur={formik.handleBlur}
+            disabled={isLoading}
+          />
+        </div>
 
         <div className="row start-sm center-xs">
-
           <div className="medicalDataForm__item">
             <TextField
               field={formik.getFieldProps("minqty")}
@@ -218,33 +229,16 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
   );
 };
 
-const setupOptions = (medicalTypes: Array<MedicalTypeDTO>) : {value: string, label: string}[] => {
-  let options: {value: string, label: string}[] = [];
-  if(medicalTypes)
-  {
-    medicalTypes.forEach(el => {
-      let option: { value: string, label: string} =
-       {
-          value: el.code ?? '',
-          label: el.description ?? ''
-       };
-       options.push(option);
-    });
-  }
-  
-  return options;
-};
-
 const mapStateToProps = (state: IState): IStateProps => ({
-  isMedTypeLoading: state.medicaltypes.getMedicalType.status == 'LOADING',
-  hasMedTypeSucceeded: state.medicaltypes.getMedicalType.status == 'SUCCESS',
-  hasMedTypeFailed: state.medicaltypes.getMedicalType.status == 'FAIL',
-  medicalTypes: state.medicaltypes.getMedicalType.data || new Array,
+  isMedTypeLoading: state.medicaltypes.getMedicalType.status == "LOADING",
+  hasMedTypeSucceeded: state.medicaltypes.getMedicalType.status == "SUCCESS",
+  hasMedTypeFailed: state.medicaltypes.getMedicalType.status == "FAIL",
+  medicalTypes: state.medicaltypes.getMedicalType.data || new Array(),
   medicalTypesOptions: [],
-}); 
+});
 
 const mapDispatchToProps: IDispatchProps = {
-  getMedicalTypes
+  getMedicalTypes,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MedicalDataForm); //

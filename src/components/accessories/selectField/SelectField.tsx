@@ -16,7 +16,7 @@ const SelectField: FunctionComponent<IProps> = ({
   fieldValue,
   label,
   isValid,
-  errorText,
+  errorText = false,
   onBlur,
   isLoading = false,
   options,
