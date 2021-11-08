@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import SplitButton from "../../accessories/splitButton/SplitButton";
 import { useFormik } from "formik";
-import { Redirect } from "react-router";
+import { useHistory } from "react-router";
 import get from "lodash.get";
 import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
@@ -50,6 +50,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const history = useHistory();
+
   const breadcrumbMap = {
     [t("nav.dashboard")]: "/",
     [t("nav.pharmaceuticals")]: "/Medicals",
@@ -78,7 +80,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     validationSchema,
     onSubmit: (values: TValues) => {
       scrollToElement(resultsRef.current);
-      // getMedicals(values);
     },
   });
 
@@ -220,12 +221,12 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                 checkboxSelection={true}
               ></AgGridColumn>
               <AgGridColumn
-                headerName="Edit"
+                headerName=""
                 cellRenderer="iconEditRenderer"
                 maxWidth={100}
               ></AgGridColumn>
               <AgGridColumn
-                headerName="Delete"
+                headerName=""
                 cellRenderer="iconDeleteRenderer"
                 maxWidth={100}
               ></AgGridColumn>
@@ -266,9 +267,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_NEW_MEDICAL":
-      return <Redirect to={`/newMedical/`} />;
-    case "TO_EDIT_MEDICAL":
-      return <Redirect to={`/editMedical/`} />;
+      if (!history.location.pathname.includes("newMedical"))
+        history.push("/newMedical/");
     default:
       return (
         <div className="medicals">

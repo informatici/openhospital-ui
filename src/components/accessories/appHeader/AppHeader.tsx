@@ -7,7 +7,7 @@ import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory, Redirect, useLocation, Route  } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, TProps, TActivityTransitionState } from "./types";
@@ -19,6 +19,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import SplitButton from "../splitButton/SplitButton";
 import OHFeedback from "../feedback/OHFeedback";
+import Medicals from "../../activities/MedicalsActivity/MedicalsActivity";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -76,9 +77,16 @@ const AppHeader: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
   useState<TActivityTransitionState>("IDLE");
   
+  var location = useLocation();
+
   switch (activityTransitionState) {
     case "TO_PHARMACEUTICALS":
-      return <Redirect to={`/Medicals/`} />; 
+      // if(!location.pathname.endsWith('/Medicals/'))
+        return (<div><Redirect exact from="/"  to={`/Medicals/`} />
+             <Route component={Medicals} exact path="/Medicals" />
+             </div>);
+      // else;
+      //   return null;
     case "TO_PHARMACEUTICAL_STOCK":
       return <Redirect to={`/MedicalStock/`} />; 
     case "TO_PHARMACEUTICAL_STOCK_WARD":
