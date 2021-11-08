@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { FullBillDTO, PatientDTO } from "../../../generated";
+import { BillPaymentsDTO, FullBillDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import {
   deleteBill,
   deleteBillReset,
   getPendingBills,
+  payBill,
   searchBills,
 } from "../../../state/bills/actions";
 import { IState } from "../../../types";
@@ -18,6 +19,7 @@ import checkIcon from "../../../assets/check-icon.png";
 
 import "./styles.scss";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
+import numbro from "numbro";
 
 const BillRecords = () => {
   const { t } = useTranslation();
@@ -112,6 +114,10 @@ const BillRecords = () => {
     setOpenPaymentDialog(true);
   };
 
+  const handlePayment = (payment: BillPaymentsDTO) => {
+    dispatch(payBill(payment));
+  };
+
   return (
     <div className="patientBillRecords">
       <h3>{`${t("bill.pending")} (${pendingBills.length})`}</h3>
@@ -152,7 +158,9 @@ const BillRecords = () => {
       <PaymentDialog
         open={openPaymentDialog}
         handleClose={handleClose}
-        bill={seletedObj}
+        balance={numbro.unformat(seletedObj.balance)}
+        billCode={seletedObj.code}
+        handlePayment={handlePayment}
       />
     </div>
   );

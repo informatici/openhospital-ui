@@ -21,6 +21,9 @@ import {
   DELETE_BILL_LOADING,
   DELETE_BILL_SUCCESS,
   DELETE_BILL_RESET,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
 } from "./consts";
 import { initial } from "./initial";
 import { IBillsState } from "./types";
@@ -168,6 +171,24 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
     case DELETE_BILL_RESET: {
       draft.delete.status = "IDLE";
       delete draft.delete.error;
+      break;
+    }
+
+    // pay bill
+    case EDIT_BILL_LOADING: {
+      draft.payBill.status = "LOADING";
+      break;
+    }
+
+    case EDIT_BILL_SUCCESS: {
+      draft.payBill.status = "SUCCESS";
+      delete draft.payBill.error;
+      break;
+    }
+
+    case EDIT_BILL_FAIL: {
+      draft.payBill.status = "FAIL";
+      draft.payBill.error = action.error;
       break;
     }
   }

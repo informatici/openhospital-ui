@@ -13,19 +13,28 @@ import Button from "../button/Button";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { get, has } from "lodash";
-import { BillDTO } from "../../../generated";
-import numbro from "numbro";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
+import { BillPaymentsDTO } from "../../../generated";
+import { useSelector } from "react-redux";
+import { IState } from "../../../types";
 
 export const PaymentDialog = ({
-  bill,
+  billCode,
+  balance,
   open,
   handleClose,
+  handlePayment,
 }: {
-  bill: BillDTO;
+  billCode: number;
+  balance: number;
   open: boolean;
   handleClose: () => void;
+  handlePayment: (payment: BillPaymentsDTO) => void;
 }) => {
   const { t } = useTranslation();
+  const user = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
   const validationSchema = object({
     paymentDate: string().required(t("common.required")),
     paymentAmount: string()
@@ -33,24 +42,26 @@ export const PaymentDialog = ({
       .test({
         message: t("bill.invalidpayment"),
         test: (value) => {
-          return (
-            value > 0 &&
-            value <= numbro.unformat(bill?.balance?.toString() ?? "")
-          );
+          return value > 0 && value <= balance;
         },
       }),
   });
 
-  const initFields = {
-    paymentDate: new Date().toString(),
-    paymentAmount: numbro.unformat(bill?.balance?.toString() ?? ""),
-  };
   const formik = useFormik({
-    initialValues: initFields,
-    enableReinitialize: true,
+    initialValues: {
+      paymentDate: new Date().toString(),
+      paymentAmount: balance + "",
+    },
+    enableReinitialize: false,
     validationSchema,
     onSubmit: (values) => {
-      //dispatch here
+      const payment: BillPaymentsDTO = {
+        billId: billCode,
+        amount: parseInt(values.paymentAmount),
+        date: new Date(values.paymentDate).toISOString(),
+        user: user,
+      };
+      handlePayment(payment);
     },
   });
 
@@ -72,6 +83,7 @@ export const PaymentDialog = ({
       ? (get(formik.errors, fieldName) as string)
       : "";
   };
+
   return (
     <Dialog
       id="paymentDialog"
@@ -94,7 +106,7 @@ export const PaymentDialog = ({
               component="div"
               className="paymentForm__item"
             >
-              {t("bill.amounttopay", { amount: bill.balance })}
+              {t("bill.amounttopay", { amount: currencyFormat(balance) })}
             </Typography>
             <div className="paymentForm__item">
               <DateField

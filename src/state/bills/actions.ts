@@ -8,6 +8,7 @@ import {
   BillDTO,
   FullBillDTO,
   BillItemsDTO,
+  BillPaymentsDTO,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -32,6 +33,9 @@ import {
   DELETE_BILL_LOADING,
   DELETE_BILL_SUCCESS,
   DELETE_BILL_RESET,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -296,4 +300,30 @@ export const deleteBillReset =
     dispatch({
       type: DELETE_BILL_RESET,
     });
+  };
+
+export const payBill =
+  (payment: BillPaymentsDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: EDIT_BILL_LOADING,
+    });
+    if (payment.billId) {
+      billControllerApi
+        .updateBillUsingPUT({ id: payment.billId, odBillDto: {} })
+        .subscribe(
+          (payload) => {
+            dispatch({
+              type: EDIT_BILL_SUCCESS,
+              payload: payload,
+            });
+          },
+          (error) => {
+            dispatch({
+              type: EDIT_BILL_FAIL,
+              error: error,
+            });
+          }
+        );
+    }
   };

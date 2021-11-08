@@ -28,3 +28,7 @@ export const DELETE_BILL_LOADING = "bills/DELETE_BILL_LOADING";
 export const DELETE_BILL_SUCCESS = "bills/DELETE_BILL_SUCCESS";
 
 export const DELETE_BILL_RESET = "bills/DELETE_BILL_RESET";
+
+export const EDIT_BILL_LOADING = "bills/EDIT_BILL_LOADING";
+export const EDIT_BILL_SUCCESS = "bills/EDIT_BILL_SUCCESS";
+export const EDIT_BILL_FAIL = "bills/EDIT_BILL_FAIL";
