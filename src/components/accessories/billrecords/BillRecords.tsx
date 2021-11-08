@@ -138,6 +138,7 @@ const BillRecords = () => {
         isCollapsabile={true}
         renderItemDetails={RenderBillDetails}
         getCoreRow={getCoreRowClosed}
+        onPrint={() => {}}
       />
       <ConfirmationDialog
         isOpen={deleteStatus === "SUCCESS"}
