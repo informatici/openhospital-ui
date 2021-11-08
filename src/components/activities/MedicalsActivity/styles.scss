@@ -96,13 +96,11 @@
       select {
         background-color: white;
       }
+
       .selectField {
         width: 40%;
         .MuiFormLabel-root.Mui-error {
           color: #757575;
-          // &:hover {
-          //   border-color: rgba(0, 0, 0, 0.87);
-          // }
         }
         .MuiOutlinedInput-root {
           margin-right: 10px;
@@ -110,6 +108,16 @@
         }
         .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
           border-color: rgba(194, 194, 194, 0.87);
+        }
+      }
+
+      .search__button {
+        align-self: center;
+        .smallButton {
+          background-color: transparent !important;
+          color: red !important;
+          width: 40px !important;
+          padding: 4px;
         }
       }
     }

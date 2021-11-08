@@ -36,6 +36,7 @@ import iconDelete from "@material-ui/icons/DeleteOutlined";
 import iconEdit from "@material-ui/icons/EditOutlined";
 import { GetMedicalsUsingGETSortByEnum } from "../../../generated";
 import { medicalTypesFormatter } from "../../../libraries/formatUtils/optionFormatting";
+import SmallButton from "../../accessories/smallButton/SmallButton";
 
 const MedicalsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -337,6 +338,12 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         errorText={getErrorText("id")}
                         onBlur={formik.handleBlur}
                       />
+                      <div className="search__button">
+                        <SmallButton type="submit">
+                          {""}
+                          <SearchIcon width="30" height="30" />
+                        </SmallButton>
+                      </div>
                     </div>
                   </div>
                 </div>
