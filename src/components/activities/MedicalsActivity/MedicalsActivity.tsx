@@ -14,6 +14,7 @@ import "ag-grid-community/dist/ag-grid-community";
 import SearchIcon from "../../../assets/SearchIcon";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getMedicals } from "../../../state/medicals/actions";
+import { getMedicalTypes } from "../../../state/medicaltypes/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
@@ -34,12 +35,17 @@ import isEmpty from "lodash.isempty";
 import iconDelete from "@material-ui/icons/DeleteOutlined";
 import iconEdit from "@material-ui/icons/EditOutlined";
 import { GetMedicalsUsingGETSortByEnum } from "../../../generated";
+import { medicalTypesFormatter } from "../../../libraries/formatUtils/optionFormatting";
 
 const MedicalsActivity: FunctionComponent<TProps> = ({
   userCredentials,
   getMedicals,
+  getMedicalTypes,
   medicalSearchResults,
   searchStatus,
+  medicalTypeResults,
+  medicalTypeStatus,
+  medicalTypesOptions,
 }) => {
   const { t } = useTranslation();
 
@@ -112,11 +118,16 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     if (searchStatus === "IDLE" && isEmpty(medicalSearchResults))
       getMedicals(GetMedicalsUsingGETSortByEnum.NONE);
 
+    if (medicalTypeStatus === "IDLE" && isEmpty(medicalTypeResults))
+      getMedicalTypes({});
+
     renderSearchResults();
-  }, [searchStatus]);
+    renderMedicalTypesResults();
+  }, [searchStatus, medicalTypeStatus]);
 
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState<any>(null);
+  const [options, setOptions] = useState(medicalTypesOptions);
 
   const onGridReady = (params: any) => {
     setGridApi(params.api);
@@ -130,6 +141,17 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       allColumnIds.push(column.colId);
     });
     gridColumnApi?.autoSizeColumns(allColumnIds, skipHeader);
+  };
+
+  const renderMedicalTypesResults = (): void => {
+    switch (medicalTypeStatus) {
+      case "IDLE":
+      case "LOADING":
+        return;
+      case "SUCCESS":
+        medicalTypesOptions = medicalTypesFormatter(medicalTypeResults);
+        setOptions(medicalTypesOptions);
+    }
   };
 
   const renderSearchResults = (): JSX.Element | undefined => {
@@ -302,10 +324,10 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         fieldName="Types"
                         fieldValue="Types"
                         label="Select type"
-                        isValid={true}
-                        errorText="Generic Error"
+                        isValid={isValid("type")}
+                        errorText={getErrorText("type")}
                         onBlur={() => console.log("ciao")}
-                        options={test}
+                        options={options || []}
                       />
                       <TextField
                         theme="regular"
@@ -332,10 +354,14 @@ const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
   searchStatus: state.medicals.getMedicals.status || "IDLE",
   medicalSearchResults: state.medicals.getMedicals.data,
+  medicalTypeStatus: state.medicaltypes.getMedicalType.status || "IDLE",
+  medicalTypeResults: state.medicaltypes.getMedicalType.data,
+  medicalTypesOptions: [],
 });
 
 const mapDispatchToProps: IDispatchProps = {
   getMedicals,
+  getMedicalTypes,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MedicalsActivity);
