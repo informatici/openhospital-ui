@@ -15,8 +15,6 @@ import { object, string } from "yup";
 import { get, has } from "lodash";
 import { BillDTO } from "../../../generated";
 import numbro from "numbro";
-import { getFromFields } from "../../../libraries/formDataHandling/functions";
-import { TFields } from "../../../libraries/formDataHandling/types";
 
 export const PaymentDialog = ({
   bill,
