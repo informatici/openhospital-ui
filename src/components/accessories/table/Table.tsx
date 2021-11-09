@@ -94,7 +94,12 @@ const Table: FunctionComponent<IProps> = ({
         );
       case "print":
         return (
-          <IconButton size="small" onClick={onPrint}>
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onPrint) onPrint(row);
+            }}
+          >
             <Print color="secondary" />
           </IconButton>
         );
@@ -136,7 +141,7 @@ const Table: FunctionComponent<IProps> = ({
           {onView ? renderIcon("view", row) : ""}
           {onPay ? renderIcon("pay", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
-          {onPrint ? renderIcon("print") : ""}
+          {onPrint ? renderIcon("print", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );

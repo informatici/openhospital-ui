@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { FullBillDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -76,12 +75,7 @@ const RenderBillDetails: FC<IBillProps> = ({
               <TableBody>
                 <TableRow>
                   <Cell>
-                    <Link
-                      to={`/details/${fullBill.billDTO?.patientDTO?.code}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <strong>{fullBill.billDTO?.patName}</strong>
-                    </Link>
+                    <strong>{fullBill.billDTO?.patName}</strong>
                   </Cell>
                   <Cell>{currencyFormat(fullBill.billDTO?.amount)}</Cell>
                   <Cell>{currencyFormat(fullBill.billDTO?.balance)}</Cell>

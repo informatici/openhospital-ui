@@ -24,9 +24,11 @@ import numbro from "numbro";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import InfoBox from "../infoBox/InfoBox";
 import moment from "moment";
+import { renderToString } from "react-dom/server";
 
 const BillRecords = () => {
   const { t } = useTranslation();
+
   const pendingHeader = ["date", "amount", "balance"];
   const pendingLabel = {
     date: t("bill.date"),
@@ -90,8 +92,9 @@ const BillRecords = () => {
   };
 
   const getCoreRowPending = (row: any) => {
+    const val = pendingBills?.find((item) => item.billDTO?.id === row.code);
     return {
-      fullBill: pendingBills?.find((item) => item.billDTO === row.billDTO),
+      fullBill: val,
     };
   };
 
@@ -140,8 +143,27 @@ const BillRecords = () => {
     },
   };
 
+  const onPrint = (row: any) => {
+    let bill =
+      [...pendingBills, ...closedBills].find(
+        (item) => item.billDTO?.id === row.code
+      ) ?? {};
+
+    const content = (
+      <RenderBillDetails fullBill={bill} skipPatientHeader={false} />
+    );
+    const frame = (
+      document.getElementById("ifmcontentstoprint") as HTMLIFrameElement
+    )?.contentWindow;
+    frame?.document.open();
+    frame?.document.write(renderToString(content));
+    frame?.document.close();
+    frame?.focus();
+    frame?.print();
+  };
+
   return (
-    <div className="patientBillRecords">
+    <div className="patientBillRecords" id="patientBillRecords">
       <h3>{`${t("bill.pending")} (${pendingBills.length})`}</h3>
       <Table
         rowData={formatDataToDisplay(pendingBills)}
@@ -153,7 +175,7 @@ const BillRecords = () => {
         renderItemDetails={RenderBillDetails}
         getCoreRow={getCoreRowPending}
         onDelete={onDelete}
-        onPrint={() => {}}
+        onPrint={onPrint}
         onPay={(row) => {
           setSeletedObj(row);
           setOpenPaymentDialog(true);
@@ -174,7 +196,7 @@ const BillRecords = () => {
         isCollapsabile={true}
         renderItemDetails={RenderBillDetails}
         getCoreRow={getCoreRowClosed}
-        onPrint={() => {}}
+        onPrint={onPrint}
       />
       <ConfirmationDialog
         isOpen={deleteStatus === "SUCCESS"}
@@ -203,6 +225,7 @@ const BillRecords = () => {
         fields={initialFields}
         billDate={moment(selectedObj.date, "DD/MM/YYYY").toDate()}
       />
+      <iframe id="ifmcontentstoprint"></iframe>
     </div>
   );
 };

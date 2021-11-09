@@ -13,7 +13,7 @@ export interface IProps {
   ) => (a: any, b: any) => number;
   onEdit?: <T>(row: T) => void;
   onDelete?: <T>(row: T) => void;
-  onPrint?: () => void;
+  onPrint?: <T>(row: T) => void;
   onView?: <T>(row: T) => void;
   showEmptyCell?: boolean;
   renderItemDetails?: (row: any) => void;
