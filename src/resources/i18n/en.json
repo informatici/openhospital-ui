@@ -122,9 +122,7 @@
     "billsrecords": "Bills Records",
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
-    "managebills": "Manage Bills",
-    "clicktoaddpayment": "Click on \"ADD\" to start a new bill",
-    "nopendingbill": "There is not pending bill"
+    "managebills": "Manage Bills"
   },
   "common": {
     "results": "Results",
@@ -281,6 +279,18 @@
     "details": "Bill Details",
     "recap": "Bills Recap",
     "filter": "Bills Filter",
-    "filterbutton": "Filter"
+    "filterbutton": "Filter",
+    "clicktoaddpayment": "Click on \"ADD\" to start a new bill",
+    "nopendingbill": "There is not pending bill",
+    "quantity": "Quantity",
+    "item": "Item",
+    "pay": "Pay"
+  },
+  "button": {
+    "save": "Save",
+    "delete": "Delete",
+    "discard": "Discard",
+    "suspend": "Suspend",
+    "add": "Add"
   }
 }

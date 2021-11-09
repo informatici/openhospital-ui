@@ -27,10 +27,10 @@ const NewBillSide: FC = () => {
       </div>
       <div className="lg-divider"></div>
       <div>
-        <TextButton onClick={() => {}}>{t(" button.suspend")}</TextButton>
+        <TextButton onClick={() => {}}>{t("button.suspend")}</TextButton>
       </div>
       <div>
-        <TextButton onClick={() => {}}>{t(" button.delete")}</TextButton>
+        <TextButton onClick={() => {}}>{t("button.delete")}</TextButton>
       </div>
     </>
   );

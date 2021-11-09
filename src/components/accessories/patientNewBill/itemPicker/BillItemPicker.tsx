@@ -96,25 +96,59 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         </RadioGroup>
       </div>
       <div id="second">
-        <AutocompleteField
-          fieldName="material"
-          fieldValue={"value"}
-          label={t("lab.material")}
-          isValid={false}
-          errorText={""}
-          onBlur={(e, v) => {}}
-          options={[{ value: "item1", label: "Item 1" }]}
-          isLoading={false}
-        />
+        {true && (
+          <AutocompleteField
+            fieldName="itemId"
+            fieldValue={"value"}
+            label={t("bill.item")}
+            isValid={false}
+            errorText={""}
+            onBlur={(e, v) => {}}
+            options={[{ value: "item1", label: "Item 1" }]}
+            isLoading={false}
+          />
+        )}
+        {false && (
+          <TextField
+            theme="regular"
+            field={{
+              name: "item",
+              value: "",
+              onBlur: (e: any) => {},
+              onChange: (e: any) => {},
+            }}
+            label={t("bill.item")}
+            isValid={false}
+            errorText={""}
+            onBlur={(e) => {}}
+            type="text"
+          />
+        )}
+        {false && (
+          <TextField
+            theme="regular"
+            field={{
+              name: "amount",
+              value: 1,
+              onBlur: (e: any) => {},
+              onChange: (e: any) => {},
+            }}
+            label={t("bill.amount")}
+            isValid={false}
+            errorText={""}
+            onBlur={(e) => {}}
+            type="number"
+          />
+        )}
         <TextField
           theme="regular"
           field={{
-            name: "amount",
+            name: "quantity",
             value: 1,
             onBlur: (e: any) => {},
             onChange: (e: any) => {},
           }}
-          label={t("lab.material")}
+          label={t("bill.quantity")}
           isValid={false}
           errorText={""}
           onBlur={(e) => {}}
@@ -122,8 +156,8 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         />
       </div>
       <div id="third">
-        <TextButton onClick={() => {}}>{t(" button.discard")}</TextButton>
-        <SmallButton>{t("bill.save")}</SmallButton>
+        <TextButton onClick={() => {}}>{t("button.discard")}</TextButton>
+        <SmallButton>{t("button.save")}</SmallButton>
       </div>
     </div>
   );

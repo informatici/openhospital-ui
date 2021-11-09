@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { getMedicals } from "../../../state/medicals/actions";
 import { useTranslation } from "react-i18next";
@@ -22,8 +22,13 @@ const PatientNewBill: FC = () => {
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
+  const [showItemPicker, setShowItemPicker] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [deletedObjCode, setDeletedObjCode] = useState("");
+
+  const handleItemPickerShow = useCallback(() => {
+    setShowItemPicker(showItemPicker ? false : true);
+  }, []);
 
   return (
     <div className="patientNewBill">
@@ -40,7 +45,9 @@ const PatientNewBill: FC = () => {
             handleEdit={(row) => {}}
           />
           <div>
-            <SmallButton>{t(" button.add")}</SmallButton>
+            <SmallButton onClick={handleItemPickerShow}>
+              {t("button.add")}
+            </SmallButton>
           </div>
         </div>
         <div className="patientNewBill_right">
@@ -53,8 +60,8 @@ const PatientNewBill: FC = () => {
       <CustomModal
         title={"Pick an item"}
         description="pick-item"
-        onClose={() => {}}
-        open={true}
+        onClose={handleItemPickerShow}
+        open={showItemPicker}
         content={<BillItemPickerForm />}
       />
     </div>

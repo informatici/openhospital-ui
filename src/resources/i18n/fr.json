@@ -124,9 +124,7 @@
     "billsrecords": "Factures",
     "searchbill": "Rechercher facture",
     "bill_chose": "Choisir une option",
-    "managebills": "Manager Factures",
-    "clicktoaddpayment": "Clickez sur \"AJOUTER\" pour commencer avec une nouvelle facture",
-    "nopendingbill": "Pas de facture ouverte pour ce patient"
+    "managebills": "Manager Factures"
   },
   "common": {
     "results": "Résultats",
@@ -291,6 +289,18 @@
     "details": "Détails facture",
     "recap": "Recap factures",
     "filter": "Filtre Factures",
-    "filterbutton": "Filtrer"
+    "filterbutton": "Filtrer",
+    "clicktoaddpayment": "Clickez sur \"AJOUTER\" pour commencer avec une nouvelle facture",
+    "nopendingbill": "Pas de facture ouverte pour ce patient",
+    "quantity": "Quantité",
+    "item": "Article",
+    "pay": "Payer"
+  },
+  "button": {
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "discard": "Annuler",
+    "suspend": "Annuler",
+    "add": "Ajouter"
   }
 }
