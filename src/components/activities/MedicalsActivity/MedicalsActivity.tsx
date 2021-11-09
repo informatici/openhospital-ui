@@ -28,7 +28,9 @@ import { useIsSearchByCode } from "./useIsSearchByCode";
 import isEmpty from "lodash.isempty";
 import iconDelete from "@material-ui/icons/DeleteOutlined"
 import iconEdit from "@material-ui/icons/EditOutlined"
-import { GetMedicalsUsingGETSortByEnum } from "../../../generated";
+import { GetMedicalsUsingGETSortByEnum, MedicalDTO } from "../../../generated";
+import { CSVLink } from "react-csv"
+import { CsvDownloadDTO } from "../../../generated/models/CsvDownloadDTO";
 
 const MedicalsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -101,7 +103,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 
   const autoSizeAll = (skipHeader: boolean) => {
     var allColumnIds: any = [];
-    console.log('gridColumnApi: ', gridColumnApi);
     gridColumnApi?.getAllColumns().forEach(function (column: any) {
       allColumnIds.push(column.colId);
     });
@@ -150,6 +151,28 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 
   const [activityTransitionState, setActivityTransitionState] =
   useState<TActivityTransitionState>("IDLE");
+
+  //method to prepare .csv export
+  const csvDownload = (props: MedicalDTO[] | undefined): any => {
+    if(props) {
+      let obj: CsvDownloadDTO = {};
+      let dataDownload: CsvDownloadDTO[] = [];
+      props.forEach((e: MedicalDTO) => {
+        obj = {
+          "ID": e.code ? e.code : 0,
+          "Type": e.type?.description,
+          "Code": e.prod_code ? e.prod_code : "",
+          "Description": e.description ? e.description : "",
+          "PcsXPck": e.pcsperpck ? e.pcsperpck : 0,
+          "Stock": e.inqty && e.outqty ? (e.inqty - e.outqty) : 0,
+          "Crit_Level": e.inqty && e.outqty && e.minqty ?  ((e.inqty - e.outqty) <= e.minqty) ? "Yes" : "No" : "",
+          "Out_Of_Stock": e.inqty && e.outqty ? (e.inqty - e.outqty) === 0 ? "Yes" : "No" : ""
+        }
+        dataDownload.push(obj);
+      })
+      return dataDownload
+    }
+  };
   
   const useDescription = (
     event: React.MouseEvent<Element, MouseEvent>,
@@ -203,15 +226,19 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                   {t("common.report")}
                 </div>
               </SplitButton>
-              <Button
-                className="medicals__button"
-                type="submit"
-                disabled={searchStatus === "LOADING"}
-              >
-                <div className="medicals__button__label">
-                  {t("common.export")}
-                </div>
-              </Button>
+              <CSVLink
+              className="medicals__export__button"
+              filename={"Pharmaceuticals_list.csv"}
+              data={csvDownload(medicalSearchResults)}>
+                <Button
+                  className="medicals__button"
+                  disabled={searchStatus === "LOADING"}
+                >
+                  <div className="medicals__button__label">
+                    {t("common.export")}
+                  </div>
+                </Button>
+              </CSVLink>
               <Button
                 className="medicals__button"
                 type="submit"
@@ -256,7 +283,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
   searchStatus: state.medicals.getMedicals.status || "IDLE",
-  medicalSearchResults: state.medicals.getMedicals.data,
+  medicalSearchResults: state.medicals.getMedicals.data
 });
 
 const mapDispatchToProps: IDispatchProps = {
