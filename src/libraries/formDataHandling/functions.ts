@@ -120,3 +120,7 @@ export const updateOpdFields = (
 export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
   return moment(dateTo).diff(moment(dateFrom), "days");
 };
+
+export const differenceInSeconds = (dateFrom: Date, dateTo: Date) => {
+  return moment(dateTo).diff(moment(dateFrom), "ms");
+};

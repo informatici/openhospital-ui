@@ -293,6 +293,10 @@
     "pay": "PAY",
     "paymentdialog": "PAIEMENT DIALOG",
     "paymentamount": "Payment amount",
-    "paymentdate": "Payment date"
+    "paymentdate": "Payment date",
+    "invalidpayment": "Invalid amount",
+    "paymentsuccess": "Payment save with success",
+    "payment": "Payment",
+    "invalidpaymentdate": "Date less than bill date"
   }
 }

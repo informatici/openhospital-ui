@@ -24,6 +24,7 @@ import {
   EDIT_BILL_LOADING,
   EDIT_BILL_SUCCESS,
   EDIT_BILL_FAIL,
+  EDIT_BILL_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IBillsState } from "./types";
@@ -189,6 +190,12 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
     case EDIT_BILL_FAIL: {
       draft.payBill.status = "FAIL";
       draft.payBill.error = action.error;
+      break;
+    }
+
+    case EDIT_BILL_RESET: {
+      draft.payBill.status = "IDLE";
+      delete draft.payBill.error;
       break;
     }
   }

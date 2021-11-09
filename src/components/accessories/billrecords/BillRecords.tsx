@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { BillPaymentsDTO, FullBillDTO, PatientDTO } from "../../../generated";
@@ -9,6 +9,7 @@ import {
   deleteBillReset,
   getPendingBills,
   payBill,
+  payBillReset,
   searchBills,
 } from "../../../state/bills/actions";
 import { IState } from "../../../types";
@@ -20,6 +21,9 @@ import checkIcon from "../../../assets/check-icon.png";
 import "./styles.scss";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import numbro from "numbro";
+import { TFields } from "../../../libraries/formDataHandling/types";
+import InfoBox from "../infoBox/InfoBox";
+import moment from "moment";
 
 const BillRecords = () => {
   const { t } = useTranslation();
@@ -34,10 +38,13 @@ const BillRecords = () => {
     date: t("bill.date"),
     amount: t("bill.amount"),
   };
-  const [activityTransitionState, setActivityTransitionState] =
-    useState("IDLE");
+  const user = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
+
   const order = ["date", "balance"];
-  //const []
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const dispatch = useDispatch();
   const patient = useSelector<IState, PatientDTO | undefined>(
     (state) => state.patients.selectedPatient.data
@@ -49,10 +56,9 @@ const BillRecords = () => {
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
 
   useEffect(() => {
-    if (activityTransitionState === "TO_RESET") {
-      dispatch(deleteBillReset());
-    }
-  }, [activityTransitionState]);
+    dispatch(deleteBillReset());
+    dispatch(payBillReset());
+  }, []);
 
   useEffect(() => {
     if (patient && patient.code) {
@@ -81,7 +87,6 @@ const BillRecords = () => {
         balance: currencyFormat(item.billDTO?.balance),
       };
     });
-    //   .sort(dateComparator("desc", "date"));
   };
 
   const getCoreRowPending = (row: any) => {
@@ -100,22 +105,39 @@ const BillRecords = () => {
     };
   };
 
-  const [seletedObj, setSeletedObj] = useState({} as any);
+  const [selectedObj, setSeletedObj] = useState({} as any);
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.bills.delete.status
   );
+  const paymentStatus = useSelector<IState, string | undefined>(
+    (state) => state.bills.payBill.status
+  );
+
   const onDelete = (row: any) => {
     setSeletedObj(row);
     dispatch(deleteBill(row.code));
   };
 
-  const onPay = (row: any) => {
-    setSeletedObj(row);
-    setOpenPaymentDialog(true);
+  const handlePayment = (values: Record<string, any>) => {
+    const newPayment: BillPaymentsDTO = {
+      billId: selectedObj.code,
+      date: values.paymentDate,
+      amount: values.paymentAmount,
+      user: user,
+    };
+    dispatch(payBill(newPayment));
+    setOpenPaymentDialog(false);
   };
 
-  const handlePayment = (payment: BillPaymentsDTO) => {
-    dispatch(payBill(payment));
+  const initialFields: TFields = {
+    paymentDate: {
+      value: new Date().toString(),
+      type: "date",
+    },
+    paymentAmount: {
+      value: numbro.unformat(selectedObj?.balance ?? "0") + "",
+      type: "number",
+    },
   };
 
   return (
@@ -132,8 +154,16 @@ const BillRecords = () => {
         getCoreRow={getCoreRowPending}
         onDelete={onDelete}
         onPrint={() => {}}
-        onPay={onPay}
+        onPay={(row) => {
+          setSeletedObj(row);
+          setOpenPaymentDialog(true);
+        }}
       />
+      {(deleteStatus === "FAIL" || paymentStatus === "FAIL") && (
+        <div ref={infoBoxRef}>
+          <InfoBox type="error" message={t("common.somethingwrong")} />
+        </div>
+      )}
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>
       <Table
         rowData={formatDataToDisplay(closedBills)}
@@ -150,17 +180,28 @@ const BillRecords = () => {
         isOpen={deleteStatus === "SUCCESS"}
         title={t("common.delete")}
         icon={checkIcon}
-        info={t("common.deletesuccess", { code: seletedObj.code })}
+        info={t("common.deletesuccess", { code: selectedObj.code })}
         primaryButtonLabel={t("common.ok")}
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handlePrimaryButtonClick={() => dispatch(deleteBillReset())}
         handleSecondaryButtonClick={() => {}}
+      />
+      <ConfirmationDialog
+        isOpen={paymentStatus === "SUCCESS"}
+        title={t("bill.payment")}
+        icon={checkIcon}
+        info={t("bill.paymentsuccess")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => {
+          dispatch(payBillReset());
+        }}
+        handleSecondaryButtonClick={() => ({})}
       />
       <PaymentDialog
         open={openPaymentDialog}
         handleClose={handleClose}
-        balance={numbro.unformat(seletedObj.balance)}
-        billCode={seletedObj.code}
         handlePayment={handlePayment}
+        fields={initialFields}
+        billDate={moment(selectedObj.date, "DD/MM/YYYY").toDate()}
       />
     </div>
   );

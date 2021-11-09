@@ -303,6 +303,10 @@
     "pay": "PAYER",
     "paymentdialog": "FENETRE DE PAIMENT",
     "paymentamount": "Montant perçu",
-    "paymentdate": "Date de paiment"
+    "paymentdate": "Date de paiment",
+    "invalidpayment": "Montant invalide",
+    "paymentsuccess": "Paiement effectué avec succès!",
+    "payment": "Paiement",
+    "invalidpaymentdate": "Date inférieure à la date de la facture"
   }
 }

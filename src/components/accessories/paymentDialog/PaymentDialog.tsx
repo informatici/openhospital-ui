@@ -15,53 +15,56 @@ import { object, string } from "yup";
 import { get, has } from "lodash";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { BillPaymentsDTO } from "../../../generated";
-import { useSelector } from "react-redux";
-import { IState } from "../../../types";
+import { TFields } from "../../../libraries/formDataHandling/types";
+import {
+  differenceInSeconds,
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../libraries/formDataHandling/functions";
 
 export const PaymentDialog = ({
-  billCode,
-  balance,
   open,
   handleClose,
   handlePayment,
+  fields,
+  billDate,
 }: {
-  billCode: number;
-  balance: number;
   open: boolean;
   handleClose: () => void;
   handlePayment: (payment: BillPaymentsDTO) => void;
+  fields: TFields<"paymentDate" | "paymentAmount">;
+  billDate: Date;
 }) => {
   const { t } = useTranslation();
-  const user = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
-  );
+
+  const initialValues = getFromFields(fields, "value");
+
   const validationSchema = object({
-    paymentDate: string().required(t("common.required")),
+    paymentDate: string()
+      .required(t("common.required"))
+      .test({
+        message: t("bill.invalidpaymentdate"),
+        test: function (value) {
+          return differenceInSeconds(billDate, new Date(value)) >= 0;
+        },
+      }),
     paymentAmount: string()
       .required(t("common.required"))
       .test({
         message: t("bill.invalidpayment"),
         test: (value) => {
-          return value > 0 && value <= balance;
+          return value > 0 && value <= parseInt(initialValues.paymentAmount);
         },
       }),
   });
 
   const formik = useFormik({
-    initialValues: {
-      paymentDate: new Date().toString(),
-      paymentAmount: balance + "",
-    },
-    enableReinitialize: false,
+    initialValues,
+    enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
-      const payment: BillPaymentsDTO = {
-        billId: billCode,
-        amount: parseInt(values.paymentAmount),
-        date: new Date(values.paymentDate).toISOString(),
-        user: user,
-      };
-      handlePayment(payment);
+      const formattedValues = formatAllFieldValues(fields, values);
+      handlePayment(formattedValues);
     },
   });
 
@@ -99,14 +102,22 @@ export const PaymentDialog = ({
         </Toolbar>
       </AppBar>
       <DialogContent>
-        <form className="paymentForm" onSubmit={formik.handleSubmit}>
+        <form
+          className="paymentForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit(e);
+          }}
+        >
           <div className="row start-sm center-xs">
             <Typography
               variant="h6"
               component="div"
               className="paymentForm__item"
             >
-              {t("bill.amounttopay", { amount: currencyFormat(balance) })}
+              {t("bill.amounttopay", {
+                amount: currencyFormat(initialValues.paymentAmount),
+              })}
             </Typography>
             <div className="paymentForm__item">
               <DateField

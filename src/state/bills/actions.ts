@@ -36,6 +36,7 @@ import {
   EDIT_BILL_LOADING,
   EDIT_BILL_SUCCESS,
   EDIT_BILL_FAIL,
+  EDIT_BILL_RESET,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -299,6 +300,14 @@ export const deleteBillReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: DELETE_BILL_RESET,
+    });
+  };
+
+export const payBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: EDIT_BILL_RESET,
     });
   };
 
