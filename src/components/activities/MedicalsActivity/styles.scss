@@ -47,6 +47,10 @@
     text-align: end;
   }
 
+  &__export__button{
+    text-decoration: none;
+  }
+
   .medicals__button {
     background-color: $c-color-primary !important;
     color: $c-white !important;
