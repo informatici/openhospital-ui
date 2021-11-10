@@ -164,7 +164,7 @@ const Table: FunctionComponent<IProps> = ({
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[rowsPerPage]}
           page={page}
-          onPageChange={handleChangePage}
+          onChangePage={handleChangePage}
         />
       ) : (
         ""
