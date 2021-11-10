@@ -195,43 +195,14 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                 field="type.description"
               ></AgGridColumn>
               <AgGridColumn headerName="Code" field="prod_code"></AgGridColumn>
-              <AgGridColumn
-                headerName="Description"
-                field="description"
-                sortable={true}
-                filter={true}
-              ></AgGridColumn>
-              <AgGridColumn
-                headerName="PcsXPck"
-                field="pcsperpck"
-                maxWidth={100}
-              ></AgGridColumn>
-              <AgGridColumn
-                headerName="Stock"
-                field="{{inqty - outqty}}"
-                maxWidth={100}
-              ></AgGridColumn>
-              <AgGridColumn
-                headerName="Crit. Level"
-                field="{{(inqty - outqty) <= minqty}}"
-                maxWidth={100}
-              ></AgGridColumn>
-              <AgGridColumn
-                headerName="Out of Stock"
-                field="{{(inqty - outqty) == 0}}"
-                checkboxSelection={true}
-              ></AgGridColumn>
-              <AgGridColumn
-                headerName="Edit"
-                cellRenderer="iconEditRenderer"
-                maxWidth={100}
-              ></AgGridColumn>
-              <AgGridColumn
-                headerName="Delete"
-                cellRenderer="iconDeleteRenderer"
-                maxWidth={100}
-              ></AgGridColumn>
-            </AgGridReact>
+              <AgGridColumn headerName="Description" field="description" sortable={true} filter={true}></AgGridColumn>
+              <AgGridColumn headerName="PcsXPck" field="pcsperpck" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}"  checkboxSelection={true}></AgGridColumn>
+              <AgGridColumn headerName="" cellRenderer="iconEditRenderer" maxWidth={100}></AgGridColumn>
+              <AgGridColumn headerName="" cellRenderer="iconDeleteRenderer" maxWidth={100}></AgGridColumn>
+            </AgGridReact> 
           </div>
         );
 
@@ -253,31 +224,21 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       let dataDownload: CsvDownloadDTO[] = [];
       props.forEach((e: MedicalDTO) => {
         obj = {
-          ID: e.code ? e.code : 0,
-          Type: e.type?.description,
-          Code: e.prod_code ? e.prod_code : "",
-          Description: e.description ? e.description : "",
-          PcsXPck: e.pcsperpck ? e.pcsperpck : 0,
-          Stock: e.inqty && e.outqty ? e.inqty - e.outqty : 0,
-          Crit_Level:
-            e.inqty && e.outqty && e.minqty
-              ? e.inqty - e.outqty <= e.minqty
-                ? "Yes"
-                : "No"
-              : "",
-          Out_Of_Stock:
-            e.inqty && e.outqty
-              ? e.inqty - e.outqty === 0
-                ? "Yes"
-                : "No"
-              : "",
-        };
+          "ID": e.code ? e.code : 0,
+          "Type": e.type?.description,
+          "Code": e.prod_code ? e.prod_code : "",
+          "Description": e.description ? e.description : "",
+          "PcsXPck": e.pcsperpck ? e.pcsperpck : 0,
+          "Stock": e.inqty && e.outqty ? (e.inqty - e.outqty) : 0,
+          "Crit_Level": e.inqty && e.outqty && e.minqty ?  ((e.inqty - e.outqty) <= e.minqty) ? "Yes" : "No" : "",
+          "Out_Of_Stock": e.inqty && e.outqty ? (e.inqty - e.outqty) === 0 ? "Yes" : "No" : ""
+        }
         dataDownload.push(obj);
-      });
-      return dataDownload;
+      })
+      return dataDownload
     }
   };
-
+  
   const useDescription = (
     event: React.MouseEvent<Element, MouseEvent>,
     index: number
