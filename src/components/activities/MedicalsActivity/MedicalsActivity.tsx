@@ -11,7 +11,6 @@ import { object } from "yup";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/ag-grid-community";
-import SearchIcon from "../../../assets/SearchIcon";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getMedicals } from "../../../state/medicals/actions";
 import { getMedicalTypes } from "../../../state/medicaltypes/actions";
@@ -30,9 +29,9 @@ import {
   TProps,
   TActivityTransitionState,
 } from "./types";
-import { useIsSearchByCode } from "./useIsSearchByCode";
 import isEmpty from "lodash.isempty";
 import iconDelete from "@material-ui/icons/DeleteOutlined";
+import SearchIcon from "@material-ui/icons/Search";
 import iconEdit from "@material-ui/icons/EditOutlined";
 import { GetMedicalsUsingGETSortByEnum, MedicalDTO } from "../../../generated";
 import { medicalTypesFormatter } from "../../../libraries/formatUtils/optionFormatting";
@@ -339,8 +338,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                       />
                       <div className="search__button">
                         <SmallButton type="submit">
-                          {""}
-                          <SearchIcon width="30" height="30" />
+                          <SearchIcon fontSize="large" />
                         </SmallButton>
                       </div>
                     </div>
