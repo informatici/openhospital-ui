@@ -18,6 +18,7 @@ import {
   Print,
   InfoOutlined,
   LocalAtm,
+  Cancel,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -43,6 +44,7 @@ const Table: FunctionComponent<IProps> = ({
   showEmptyCell = true,
   renderItemDetails,
   getCoreRow,
+  onClose,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -72,6 +74,7 @@ const Table: FunctionComponent<IProps> = ({
       case "edit":
         return (
           <IconButton
+            title="edit"
             size="small"
             onClick={() => {
               if (onEdit) onEdit(row);
@@ -84,6 +87,7 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
+            title="delete"
             onClick={() => {
               setCurrentRow(row);
               setOpenDeleteConfirmation(true);
@@ -96,6 +100,7 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
+            title="print"
             onClick={() => {
               if (onPrint) onPrint(row);
             }}
@@ -108,6 +113,7 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
+            title="view details"
             onClick={() => {
               if (onView) onView(row);
             }}
@@ -119,11 +125,25 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
+            title="Pay"
             onClick={() => {
               if (onPay) onPay(row);
             }}
           >
             <LocalAtm color="secondary" />
+          </IconButton>
+        );
+
+      case "close":
+        return (
+          <IconButton
+            size="small"
+            title="Close the bill"
+            onClick={() => {
+              if (onClose) onClose(row);
+            }}
+          >
+            <Cancel color="secondary" />
           </IconButton>
         );
     }
@@ -142,6 +162,7 @@ const Table: FunctionComponent<IProps> = ({
           {onPay ? renderIcon("pay", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print", row) : ""}
+          {onClose ? renderIcon("close", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );

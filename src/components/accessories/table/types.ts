@@ -21,6 +21,7 @@ export interface IProps {
   identifierColumn?: string;
   getCoreRow?: <T>(val: T) => any | undefined;
   onPay?: (row: any) => void;
+  onClose?: (row: any) => void;
 }
 
 export interface IRowProps {
@@ -35,4 +36,4 @@ export interface IRowProps {
   coreRow?: any;
 }
 
-export type TActions = "edit" | "delete" | "view" | "print" | "pay";
+export type TActions = "edit" | "delete" | "view" | "print" | "pay" | "close";

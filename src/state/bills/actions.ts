@@ -37,6 +37,10 @@ import {
   EDIT_BILL_SUCCESS,
   EDIT_BILL_FAIL,
   EDIT_BILL_RESET,
+  CLOSE_BILL_FAIL,
+  CLOSE_BILL_SUCCESS,
+  CLOSE_BILL_LOADING,
+  CLOSE_BILL_RESET,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -319,7 +323,10 @@ export const payBill =
     });
     if (payment.billId) {
       billControllerApi
-        .updateBillUsingPUT({ id: payment.billId, odBillDto: {} })
+        .updateBillUsingPUT({
+          id: payment.billId,
+          odBillDto: { billPaymentsDTO: [payment] },
+        })
         .subscribe(
           (payload) => {
             dispatch({
@@ -335,4 +342,36 @@ export const payBill =
           }
         );
     }
+  };
+
+export const closeBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CLOSE_BILL_RESET,
+    });
+  };
+
+export const closeBill =
+  (id: number, bill: BillDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CLOSE_BILL_LOADING,
+    });
+    billControllerApi
+      .updateBillUsingPUT({ id: id, odBillDto: { billDTO: bill } })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: CLOSE_BILL_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: CLOSE_BILL_FAIL,
+            error: error,
+          });
+        }
+      );
   };
