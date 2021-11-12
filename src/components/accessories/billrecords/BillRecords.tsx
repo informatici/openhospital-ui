@@ -197,6 +197,7 @@ const BillRecords = () => {
         renderItemDetails={RenderBillDetails}
         getCoreRow={getCoreRowClosed}
         onPrint={onPrint}
+        onDelete={onDelete}
       />
       <ConfirmationDialog
         isOpen={deleteStatus === "SUCCESS"}
