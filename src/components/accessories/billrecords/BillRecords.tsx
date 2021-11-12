@@ -224,6 +224,7 @@ const BillRecords = () => {
         handlePayment={handlePayment}
         fields={initialFields}
         billDate={moment(selectedObj.date, "DD/MM/YYYY").toDate()}
+        billId={selectedObj.code}
       />
       <iframe id="ifmcontentstoprint"></iframe>
     </div>
