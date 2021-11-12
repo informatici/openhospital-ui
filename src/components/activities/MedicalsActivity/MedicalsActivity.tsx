@@ -111,6 +111,39 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+
+  const searchValue = (value: MedicalDTO[] | undefined): any[] | undefined => {
+    var filterDesc = formik.getFieldProps("id").value ? formik.getFieldProps("id").value.toLowerCase() : '';
+    var filterType = formik.getFieldProps("type").value ? formik.getFieldProps("type").value : '';
+    let result = value?.filter((element) => {
+      return element.description?.toLowerCase().includes(filterDesc) &&
+        element.type?.description?.includes(filterType)
+    })
+    return result;
+  };
+
+  const onBlurSelect = (e: React.FocusEvent<any>): void => {
+    let selectedType: string;
+    switch (e.target.value) {
+      case "L":
+        selectedType = "Laboratory";
+        break;
+      case "S":
+        selectedType = "Surgery";
+        break;
+      case "D":
+        selectedType = "Drugs";
+        break;
+      case "K":
+        selectedType = "Chemicals";
+        break;
+      default:
+        selectedType = "";
+        break;
+    }
+    formik.setFieldValue("type", selectedType);
+  };
+
   const reportTypes = [
     "Report of stock",
     "Report of order",
@@ -172,7 +205,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
               onGridReady={onGridReady}
               onFirstDataRendered={() => autoSizeAll(false)}
               defaultColDef={{ resizable: true }}
-              rowData={medicalSearchResults}
+              rowData={searchValue(medicalSearchResults)}
               rowHeight={40}
               pagination={true}
               paginationAutoPageSize={true}
@@ -325,7 +358,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         label="Select type"
                         isValid={isValid("type")}
                         errorText={getErrorText("type")}
-                        onBlur={() => console.log("ciao")}
+                        onBlur={onBlurSelect}
                         options={options || []}
                       />
                       <TextField
