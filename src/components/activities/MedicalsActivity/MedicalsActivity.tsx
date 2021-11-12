@@ -324,7 +324,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                   <CSVLink
                     className="medicals__export__button"
                     filename={"Pharmaceuticals_list.csv"}
-                    data={csvDownload(medicalSearchResults)}
+                    data={csvDownload(searchValue(medicalSearchResults))}
                   >
                     <Button
                       className="medicals__button"
