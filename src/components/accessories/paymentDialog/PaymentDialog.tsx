@@ -8,7 +8,6 @@ import {
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import DateField from "../dateField/DateField";
-import TextField from "../textField/TextField";
 import Button from "../button/Button";
 import { useFormik } from "formik";
 import { object, string } from "yup";
@@ -23,7 +22,6 @@ import {
 } from "../../../libraries/formDataHandling/functions";
 import NumberFormat, { NumberFormatValues } from "react-number-format";
 import { TextField as MaterialComponent } from "@material-ui/core";
-import { initialFields } from "../../activities/newPatientActivity/consts";
 
 export const PaymentDialog = ({
   open,
@@ -51,14 +49,7 @@ export const PaymentDialog = ({
           return differenceInSeconds(billDate, new Date(value)) >= 0;
         },
       }),
-    paymentAmount: string()
-      .required(t("common.required"))
-      .test({
-        message: t("bill.invalidpayment"),
-        test: (value) => {
-          return value > 0 && value <= parseInt(initialValues.paymentAmount);
-        },
-      }),
+    paymentAmount: string().required(t("common.required")),
   });
 
   const formik = useFormik({
@@ -66,6 +57,7 @@ export const PaymentDialog = ({
     enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
+      console.log("values....: ", values);
       const formattedValues = formatAllFieldValues(fields, values);
       handlePayment(formattedValues);
     },
@@ -91,7 +83,11 @@ export const PaymentDialog = ({
   };
 
   const withValueLimit = (values: NumberFormatValues) => {
-    return values.floatValue! <= initialValues.paymentAmount;
+    if (values.floatValue)
+      return values.floatValue <= initialValues.paymentAmount;
+    else {
+      return false;
+    }
   };
 
   return (
@@ -154,6 +150,7 @@ export const PaymentDialog = ({
               label={t("bill.paymentamount")}
               allowNegative={false}
               decimalScale={2}
+              decimalSeparator="."
             />
           </div>
           <div className="paymentForm__buttonSet">
