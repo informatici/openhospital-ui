@@ -13,11 +13,9 @@ import { useFormik } from "formik";
 import { object, string } from "yup";
 import { get, has } from "lodash";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
-import { BillPaymentsDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import {
   differenceInSeconds,
-  formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
 import NumberFormat, { NumberFormatValues } from "react-number-format";
@@ -32,7 +30,7 @@ export const PaymentDialog = ({
 }: {
   open: boolean;
   handleClose: () => void;
-  handlePayment: (payment: BillPaymentsDTO) => void;
+  handlePayment: (payment: Record<string, any>) => void;
   fields: TFields<"paymentDate" | "paymentAmount">;
   billDate: Date;
 }) => {
@@ -57,9 +55,7 @@ export const PaymentDialog = ({
     enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
-      console.log("values....: ", values);
-      const formattedValues = formatAllFieldValues(fields, values);
-      handlePayment(formattedValues);
+      handlePayment(values);
     },
   });
 
@@ -136,7 +132,9 @@ export const PaymentDialog = ({
               />
             </div>
             <NumberFormat
-              {...formik.getFieldProps("paymentAmount")}
+              name="paymentAmount"
+              value={formik.getFieldProps("paymentAmount").value}
+              onBlur={formik.getFieldProps("paymentAmount").onBlur}
               className="paymentForm__item"
               id="paymentAmount"
               prefix={"$"}
@@ -151,6 +149,10 @@ export const PaymentDialog = ({
               allowNegative={false}
               decimalScale={2}
               decimalSeparator="."
+              onValueChange={(values) => {
+                const { floatValue } = values;
+                setFieldValue("paymentAmount", floatValue);
+              }}
             />
           </div>
           <div className="paymentForm__buttonSet">

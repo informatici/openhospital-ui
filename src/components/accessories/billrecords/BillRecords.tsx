@@ -124,8 +124,8 @@ const BillRecords = () => {
   const handlePayment = (values: Record<string, any>) => {
     const newPayment: BillPaymentsDTO = {
       billId: selectedObj.code,
-      date: values.paymentDate,
-      amount: values.paymentAmount,
+      date: new Date(values.paymentDate).toISOString(),
+      amount: parseFloat(values.paymentAmount),
       user: user,
     };
     dispatch(payBill(newPayment));
