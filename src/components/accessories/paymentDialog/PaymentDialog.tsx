@@ -21,6 +21,9 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import NumberFormat, { NumberFormatValues } from "react-number-format";
+import { TextField as MaterialComponent } from "@material-ui/core";
+import { initialFields } from "../../activities/newPatientActivity/consts";
 
 export const PaymentDialog = ({
   open,
@@ -87,6 +90,10 @@ export const PaymentDialog = ({
       : "";
   };
 
+  const withValueLimit = (values: NumberFormatValues) => {
+    return values.floatValue! <= initialValues.paymentAmount;
+  };
+
   return (
     <Dialog
       id="paymentDialog"
@@ -132,17 +139,22 @@ export const PaymentDialog = ({
                 onChange={dateFieldHandleOnChange("paymentDate")}
               />
             </div>
-            <div className="paymentForm__item">
-              <TextField
-                field={formik.getFieldProps("paymentAmount")}
-                theme="regular"
-                label={t("bill.paymentamount")}
-                isValid={isValid("paymentAmount")}
-                errorText={getErrorText("paymentAmount")}
-                onBlur={formik.handleBlur}
-                type="number"
-              />
-            </div>
+            <NumberFormat
+              {...formik.getFieldProps("paymentAmount")}
+              className="paymentForm__item"
+              id="paymentAmount"
+              prefix={"$"}
+              customInput={MaterialComponent}
+              isAllowed={withValueLimit}
+              type="text"
+              thousandSeparator={" "}
+              errorText={getErrorText("paymentAmount")}
+              isValid={isValid("paymentAmount")}
+              variant="outlined"
+              label={t("bill.paymentamount")}
+              allowNegative={false}
+              decimalScale={2}
+            />
           </div>
           <div className="paymentForm__buttonSet">
             <div className="submit_button">
