@@ -17,6 +17,14 @@ import {
   SEARCH_PAYMENTS_LOADING,
   SEARCH_PAYMENTS_SUCCESS,
   SEARCH_PAYMENTS_FAIL,
+  DELETE_BILL_FAIL,
+  DELETE_BILL_LOADING,
+  DELETE_BILL_SUCCESS,
+  DELETE_BILL_RESET,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
+  EDIT_BILL_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IBillsState } from "./types";
@@ -140,6 +148,54 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
     case SEARCH_PAYMENTS_FAIL: {
       draft.searchPayments.status = "FAIL";
       draft.searchPayments.error = action.error;
+      break;
+    }
+
+    //delete bill
+    case DELETE_BILL_LOADING: {
+      draft.delete.status = "LOADING";
+      break;
+    }
+
+    case DELETE_BILL_SUCCESS: {
+      draft.delete.status = "SUCCESS";
+      delete draft.delete.error;
+      break;
+    }
+
+    case DELETE_BILL_FAIL: {
+      draft.delete.status = "FAIL";
+      draft.delete.error = action.error;
+      break;
+    }
+
+    case DELETE_BILL_RESET: {
+      draft.delete.status = "IDLE";
+      delete draft.delete.error;
+      break;
+    }
+
+    // pay bill
+    case EDIT_BILL_LOADING: {
+      draft.payBill.status = "LOADING";
+      break;
+    }
+
+    case EDIT_BILL_SUCCESS: {
+      draft.payBill.status = "SUCCESS";
+      delete draft.payBill.error;
+      break;
+    }
+
+    case EDIT_BILL_FAIL: {
+      draft.payBill.status = "FAIL";
+      draft.payBill.error = action.error;
+      break;
+    }
+
+    case EDIT_BILL_RESET: {
+      draft.payBill.status = "IDLE";
+      delete draft.payBill.error;
       break;
     }
   }

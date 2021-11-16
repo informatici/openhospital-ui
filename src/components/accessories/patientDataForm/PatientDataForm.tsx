@@ -311,7 +311,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
+            <Button
+              type="reset"
+              variant="text"
+              onClick={() => setOpenResetConfirmation(true)}
+            >
               {resetButtonLabel}
             </Button>
           </div>

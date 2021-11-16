@@ -8,6 +8,7 @@ import {
   BillDTO,
   FullBillDTO,
   BillItemsDTO,
+  BillPaymentsDTO,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -28,6 +29,14 @@ import {
   SEARCH_PAYMENTS_SUCCESS,
   SEARCH_PAYMENTS_FAIL,
   SEARCH_PAYMENTS_LOADING,
+  DELETE_BILL_FAIL,
+  DELETE_BILL_LOADING,
+  DELETE_BILL_SUCCESS,
+  DELETE_BILL_RESET,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
+  EDIT_BILL_RESET,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -105,8 +114,14 @@ export const getPendingBills =
       .getPendingBillsUsingGET({
         patientCode,
       })
-      .pipe(switchMap((bills) => getPayments(bills)))
-      .pipe(switchMap((payments) => getItems(payments)))
+      .pipe(
+        switchMap((bills) => getPayments(bills)),
+        catchError((error) => of([]))
+      )
+      .pipe(
+        switchMap((payments) => getItems(payments)),
+        catchError((error) => of([]))
+      )
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
@@ -250,4 +265,74 @@ export const searchPayments =
           });
         }
       );
+  };
+
+export const deleteBill =
+  (id: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_BILL_LOADING,
+    });
+    if (id) {
+      billControllerApi.deleteBillUsingDELETE({ id }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_BILL_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_BILL_FAIL,
+            error: error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_BILL_FAIL,
+        error: "The id should not be empty",
+      });
+    }
+  };
+
+export const deleteBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_BILL_RESET,
+    });
+  };
+
+export const payBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: EDIT_BILL_RESET,
+    });
+  };
+
+export const payBill =
+  (payment: BillPaymentsDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: EDIT_BILL_LOADING,
+    });
+    if (payment.billId) {
+      billControllerApi
+        .updateBillUsingPUT({ id: payment.billId, odBillDto: {} })
+        .subscribe(
+          (payload) => {
+            dispatch({
+              type: EDIT_BILL_SUCCESS,
+              payload: payload,
+            });
+          },
+          (error) => {
+            dispatch({
+              type: EDIT_BILL_FAIL,
+              error: error,
+            });
+          }
+        );
+    }
   };

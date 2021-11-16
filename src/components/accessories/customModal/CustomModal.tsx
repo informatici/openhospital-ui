@@ -22,7 +22,6 @@ export const CustomModal: FC<ICustomModal> = ({
   onClose,
 }) => {
   const classes = useStyles();
-
   return (
     <Modal
       aria-labelledby={title}

@@ -8,4 +8,6 @@ export type IBillsState = {
   searchBills: IApiResponse<FullBillDTO[]>;
   getPendingBills: IApiResponse<FullBillDTO[]>;
   searchPayments: IApiResponse<BillPaymentsDTO[]>;
+  delete: IApiResponse<void>;
+  payBill: IApiResponse<void>;
 };

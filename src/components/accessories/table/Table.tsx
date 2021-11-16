@@ -16,8 +16,8 @@ import {
   Edit,
   Delete,
   Print,
-  InfoRounded,
   InfoOutlined,
+  LocalAtm,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -38,8 +38,11 @@ const Table: FunctionComponent<IProps> = ({
   onEdit,
   onDelete,
   onPrint,
+  onPay,
   onView,
   showEmptyCell = true,
+  renderItemDetails,
+  getCoreRow,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -86,13 +89,18 @@ const Table: FunctionComponent<IProps> = ({
               setOpenDeleteConfirmation(true);
             }}
           >
-            <Delete color="secondary" />
+            <Delete color="primary" />
           </IconButton>
         );
       case "print":
         return (
-          <IconButton size="small" onClick={onPrint}>
-            <Print color="primary" />
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onPrint) onPrint(row);
+            }}
+          >
+            <Print color="secondary" />
           </IconButton>
         );
 
@@ -105,6 +113,17 @@ const Table: FunctionComponent<IProps> = ({
             }}
           >
             <InfoOutlined color="primary" titleAccess={"View Details"} />
+          </IconButton>
+        );
+      case "pay":
+        return (
+          <IconButton
+            size="small"
+            onClick={() => {
+              if (onPay) onPay(row);
+            }}
+          >
+            <LocalAtm color="secondary" />
           </IconButton>
         );
     }
@@ -120,8 +139,9 @@ const Table: FunctionComponent<IProps> = ({
           style={{ minWidth: 125 }}
         >
           {onView ? renderIcon("view", row) : ""}
+          {onPay ? renderIcon("pay", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
-          {onPrint ? renderIcon("print") : ""}
+          {onPrint ? renderIcon("print", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );
@@ -164,6 +184,7 @@ const Table: FunctionComponent<IProps> = ({
               .map((row, index) => (
                 <TableBodyRow
                   row={row}
+                  coreRow={getCoreRow && getCoreRow(row)}
                   key={index}
                   rowIndex={index}
                   labelData={labelData}
@@ -171,6 +192,7 @@ const Table: FunctionComponent<IProps> = ({
                   renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
                   showEmptyCell={showEmptyCell}
+                  renderCellDetails={renderItemDetails}
                 />
               ))}
           </TableBody>

@@ -15,7 +15,7 @@ import { useFormik } from "formik";
 import Button from "../button/Button";
 import { object, string } from "yup";
 import {
-  differenceInDays,
+  differenceInSeconds,
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
@@ -61,7 +61,10 @@ export const BillTable: FC<IBillTableProps> = ({
       message: t("bill.validatetodate"),
       test: function (value) {
         return (
-          differenceInDays(new Date(this.parent.fromDate), new Date(value)) >= 0
+          differenceInSeconds(
+            new Date(this.parent.fromDate),
+            new Date(value)
+          ) >= 0
         );
       },
     }),
@@ -283,7 +286,9 @@ export const BillTable: FC<IBillTableProps> = ({
           onClose={handleClose}
           title={t("bill.details")}
           description={t("bill.details")}
-          content={<RenderBillDetails fullBill={fullBill} />}
+          content={
+            <RenderBillDetails fullBill={fullBill} skipPatientHeader={false} />
+          }
         />
       </div>
     </div>

@@ -126,7 +126,8 @@
     "newbill": "New Patient Bill",
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
-    "managebills": "Manage Bills"
+    "managebills": "Manage Bills",
+    "billrecords": "Bill Records"
   },
   "common": {
     "ok": "OK",
@@ -169,7 +170,8 @@
     "female": "Female",
     "date": "Date",
     "type": "Type",
-    "nooptionsfound": "No options found"
+    "nooptionsfound": "No options found",
+    "close": "CLOSE"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -286,6 +288,16 @@
     "filter": "Bills Filter",
     "filterbutton": "Filter",
     "bills": "Bills",
+    "enterpayment": "Enter payment",
+    "amounttopay": "Total amount to pay: {{amount}}",
+    "pay": "PAY",
+    "paymentdialog": "PAIEMENT DIALOG",
+    "paymentamount": "Payment amount",
+    "paymentdate": "Payment date",
+    "invalidpayment": "Invalid amount",
+    "paymentsuccess": "Payment save with success",
+    "payment": "Payment",
+    "invalidpaymentdate": "Date less than bill date",
     "dashboard": "Dashboard",
     "billSection": "Bills sections",
     "filterBills": "Bills filter",

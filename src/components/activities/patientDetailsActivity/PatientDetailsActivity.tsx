@@ -46,6 +46,7 @@ import PatientExams from "../../accessories/patientExams/PatientExams";
 import Button from "../../accessories/button/Button";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import BillRecords from "../../accessories/billrecords/BillRecords";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -146,6 +147,13 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
   ];
+  const billingConfig: TTabConfig = [
+    {
+      label: t("nav.billrecords"),
+      path: "/billrecords",
+      content: <PatientDetailsContent title="RECORDS" content={BillRecords} />,
+    },
+  ];
   const defaultConfig: TTabConfig = [
     {
       label: t("nav.summary"),
@@ -167,7 +175,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       case "exams":
         return examConfig;
       case "billing":
-        return defaultConfig;
+        return billingConfig;
       case "clinic":
         return clinicConfig;
       default:
@@ -307,7 +315,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         }
                         onClick={() => {
                           setUserSection("billing");
-                          setDefaultRoute("/summary");
+                          setDefaultRoute("/billrecords");
                         }}
                       >
                         <Payment fontSize="small" style={{ color: "white" }} />
