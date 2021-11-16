@@ -28,8 +28,8 @@ const useSummaryMetaData = () => {
     result: t("lab.result"),
   };
   const dateFields = ["date", "startDate", "endDate"];
-  const header = ["date"];
-  const order = ["date"];
+  const header = ["date", "type"];
+  const order = ["date", "type"];
 
   return { labels, dateFields, header, order };
 };

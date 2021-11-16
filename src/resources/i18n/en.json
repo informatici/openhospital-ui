@@ -277,7 +277,7 @@
     "status": "Status",
     "items": "Items",
     "designation": "Designation",
-    "code": "Code",
+    "code": "Bill Code",
     "qty": "Qty",
     "payments": "Payments",
     "date": "Date",
@@ -300,6 +300,11 @@
     "invalidpaymentdate": "Date less than bill date",
     "close": "Close Bill",
     "closesuccess": "Bill closed successfully!!!",
-    "doyouwanttoclose": "Do you want to close the bill with id {{code}}? This operation cannot be undone."
+    "doyouwanttoclose": "Do you want to close the bill with id {{code}}? This operation cannot be undone.",
+    "billdate": "Bill Date",
+    "dashboard": "Dashboard",
+    "billSection": "Bills sections",
+    "filterBills": "Bills filter",
+    "filterPayments": "Payments filter"
   }
 }

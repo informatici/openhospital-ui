@@ -20,7 +20,11 @@
   .paymentForm__item {
     margin: 7px 0px;
     padding: 0px 15px;
+    display: flex;
     width: 100%;
+    .info {
+      width: 100%;
+    }
     @include susy-media($narrow) {
       padding: 0px 10px;
     }

@@ -1,5 +1,5 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { IBillSummary } from "../../activities/manageBillActivity/types";
+import { IBillSummary } from "../../activities/billingActivity/types";
 
 export type IStatus = "ALL" | "PENDING" | "CLOSE" | "DELETE";
 export interface IBillTableProps {

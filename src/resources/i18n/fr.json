@@ -287,7 +287,7 @@
     "status": "Status",
     "items": "Items",
     "designation": "Désignation",
-    "code": "Code",
+    "code": "Code facture",
     "qty": "Qté",
     "payments": "Paiements",
     "date": "Date",
@@ -310,6 +310,7 @@
     "invalidpaymentdate": "Date inférieure à la date de la facture",
     "close": "Fermeture de Facture",
     "closesuccess": "Facture cloturée avec succès!!!",
-    "doyouwanttoclose": "Voulez-vous fermer la facture avec l'id {{code}} ? Cette opération ne pourra plus être défaite."
+    "doyouwanttoclose": "Voulez-vous fermer la facture avec l'id {{code}} ? Cette opération ne pourra plus être défaite.",
+    "billdate": "Date Facture"
   }
 }

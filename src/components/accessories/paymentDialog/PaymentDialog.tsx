@@ -21,6 +21,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 
 export const PaymentDialog = ({
   open,
@@ -28,12 +29,14 @@ export const PaymentDialog = ({
   handlePayment,
   fields,
   billDate,
+  billId,
 }: {
   open: boolean;
   handleClose: () => void;
   handlePayment: (payment: BillPaymentsDTO) => void;
   fields: TFields<"paymentDate" | "paymentAmount">;
   billDate: Date;
+  billId: number;
 }) => {
   const { t } = useTranslation();
 
@@ -110,15 +113,20 @@ export const PaymentDialog = ({
           }}
         >
           <div className="row start-sm center-xs">
-            <Typography
-              variant="h6"
-              component="div"
-              className="paymentForm__item"
-            >
+            <Typography className="paymentForm__item">
+              <span className="info">
+                {t("bill.code")}: {billId}
+              </span>
+              <span className="info">
+                {t("bill.billdate")}:{renderDate(billDate.toString())}
+              </span>
+            </Typography>
+            <Typography className="paymentForm__item">
               {t("bill.amounttopay", {
                 amount: currencyFormat(initialValues.paymentAmount),
               })}
             </Typography>
+
             <div className="paymentForm__item">
               <DateField
                 fieldName="paymentDate"
