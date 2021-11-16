@@ -17,7 +17,8 @@ import {
   Delete,
   Print,
   InfoOutlined,
-  LocalAtm,
+  MonetizationOn,
+  Archive,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -43,6 +44,7 @@ const Table: FunctionComponent<IProps> = ({
   showEmptyCell = true,
   renderItemDetails,
   getCoreRow,
+  onClose,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -72,10 +74,9 @@ const Table: FunctionComponent<IProps> = ({
       case "edit":
         return (
           <IconButton
+            title="Edit"
             size="small"
-            onClick={() => {
-              if (onEdit) onEdit(row);
-            }}
+            onClick={() => onEdit && onEdit(row)}
           >
             <Edit />
           </IconButton>
@@ -84,6 +85,7 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
+            title="Delete"
             onClick={() => {
               setCurrentRow(row);
               setOpenDeleteConfirmation(true);
@@ -96,9 +98,8 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
-            onClick={() => {
-              if (onPrint) onPrint(row);
-            }}
+            title="Print"
+            onClick={() => onPrint && onPrint(row)}
           >
             <Print color="secondary" />
           </IconButton>
@@ -108,9 +109,8 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
-            onClick={() => {
-              if (onView) onView(row);
-            }}
+            title="View details"
+            onClick={() => onView && onView(row)}
           >
             <InfoOutlined color="primary" titleAccess={"View Details"} />
           </IconButton>
@@ -119,11 +119,21 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
-            onClick={() => {
-              if (onPay) onPay(row);
-            }}
+            title="Add a payment"
+            onClick={() => onPay && onPay(row)}
           >
-            <LocalAtm color="secondary" />
+            <MonetizationOn htmlColor="#00912c" />
+          </IconButton>
+        );
+
+      case "close":
+        return (
+          <IconButton
+            size="small"
+            title="Close the bill"
+            onClick={() => onClose && onClose(row)}
+          >
+            <Archive htmlColor="#0373fc" />
           </IconButton>
         );
     }
@@ -142,6 +152,7 @@ const Table: FunctionComponent<IProps> = ({
           {onPay ? renderIcon("pay", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
           {onPrint ? renderIcon("print", row) : ""}
+          {onClose ? renderIcon("close", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );

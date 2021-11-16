@@ -8,4 +8,5 @@ export const initial: IBillsState = {
   searchPayments: { status: "IDLE", data: [] },
   delete: { status: "IDLE" },
   payBill: { status: "IDLE" },
+  closeBill: { status: "IDLE" },
 };

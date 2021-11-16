@@ -34,3 +34,9 @@ export const EDIT_BILL_SUCCESS = "bills/EDIT_BILL_SUCCESS";
 export const EDIT_BILL_FAIL = "bills/EDIT_BILL_FAIL";
 
 export const EDIT_BILL_RESET = "bills/EDIT_BILL_RESET";
+
+export const CLOSE_BILL_LOADING = "bills/CLOSE_BILL_LOADING";
+export const CLOSE_BILL_SUCCESS = "bills/CLOSE_BILL_SUCCESS";
+export const CLOSE_BILL_FAIL = "bills/CLOSE_BILL_FAIL";
+
+export const CLOSE_BILL_RESET = "bills/CLOSE_BILL_RESET";
