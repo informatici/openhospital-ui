@@ -4,6 +4,7 @@ import {
   DialogContent,
   Toolbar,
   Typography,
+  TextField as MaterialComponent,
 } from "@material-ui/core";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,7 +20,6 @@ import {
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
 import NumberFormat, { NumberFormatValues } from "react-number-format";
-import { TextField as MaterialComponent } from "@material-ui/core";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 
 export const PaymentDialog = ({
