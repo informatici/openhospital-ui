@@ -308,6 +308,9 @@
     "paymentsuccess": "Paiement effectué avec succès!",
     "payment": "Paiement",
     "invalidpaymentdate": "Date inférieure à la date de la facture",
+    "close": "Fermeture de Facture",
+    "closesuccess": "Facture cloturée avec succès!!!",
+    "doyouwanttoclose": "Voulez-vous fermer la facture avec l'id {{code}} ? Cette opération ne pourra plus être défaite.",
     "billdate": "Date Facture"
   }
 }

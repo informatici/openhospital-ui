@@ -5,6 +5,8 @@ import { BillPaymentsDTO, FullBillDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import {
+  closeBill,
+  closeBillReset,
   deleteBill,
   deleteBillReset,
   getPendingBills,
@@ -17,7 +19,7 @@ import RenderBillDetails from "../billTable/RenderBillDetails";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import Table from "../table/Table";
 import checkIcon from "../../../assets/check-icon.png";
-
+import warningIcon from "../../../assets/warning-icon.png";
 import "./styles.scss";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import numbro from "numbro";
@@ -56,10 +58,12 @@ const BillRecords = () => {
   };
 
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
+  const [openCloseBillDialog, setOpenCloseBillDialog] = useState(false);
 
   useEffect(() => {
     dispatch(deleteBillReset());
     dispatch(payBillReset());
+    dispatch(closeBillReset());
   }, []);
 
   useEffect(() => {
@@ -109,11 +113,16 @@ const BillRecords = () => {
   };
 
   const [selectedObj, setSeletedObj] = useState({} as any);
+
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.bills.delete.status
   );
   const paymentStatus = useSelector<IState, string | undefined>(
     (state) => state.bills.payBill.status
+  );
+
+  const closeStatus = useSelector<IState, string | undefined>(
+    (state) => state.bills.closeBill.status
   );
 
   const onDelete = (row: any) => {
@@ -162,6 +171,11 @@ const BillRecords = () => {
     frame?.print();
   };
 
+  const handleCloseBill = (row: any) => {
+    setSeletedObj(row);
+    setOpenCloseBillDialog(true);
+  };
+
   return (
     <div className="patientBillRecords" id="patientBillRecords">
       <h3>{`${t("bill.pending")} (${pendingBills.length})`}</h3>
@@ -176,12 +190,15 @@ const BillRecords = () => {
         getCoreRow={getCoreRowPending}
         onDelete={onDelete}
         onPrint={onPrint}
+        onClose={handleCloseBill}
         onPay={(row) => {
           setSeletedObj(row);
           setOpenPaymentDialog(true);
         }}
       />
-      {(deleteStatus === "FAIL" || paymentStatus === "FAIL") && (
+      {(deleteStatus === "FAIL" ||
+        paymentStatus === "FAIL" ||
+        closeStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -225,6 +242,30 @@ const BillRecords = () => {
         fields={initialFields}
         billDate={moment(selectedObj.date, "DD/MM/YYYY").toDate()}
         billId={selectedObj.code}
+      />
+      <ConfirmationDialog
+        isOpen={openCloseBillDialog}
+        title={t("bill.close")}
+        icon={warningIcon}
+        info={t("bill.doyouwanttoclose", { code: selectedObj.code })}
+        primaryButtonLabel="YES"
+        secondaryButtonLabel="NO"
+        handlePrimaryButtonClick={() => {
+          dispatch(closeBill(selectedObj.code, selectedObj));
+          setOpenCloseBillDialog(false);
+        }}
+        handleSecondaryButtonClick={() => setOpenCloseBillDialog(false)}
+      />
+      <ConfirmationDialog
+        isOpen={closeStatus === "SUCCESS"}
+        title={t("bill.close")}
+        icon={checkIcon}
+        info={t("bill.closesuccess")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => {
+          dispatch(closeBillReset());
+        }}
+        handleSecondaryButtonClick={() => ({})}
       />
       <iframe id="ifmcontentstoprint"></iframe>
     </div>
