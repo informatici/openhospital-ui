@@ -297,6 +297,10 @@
     "invalidpayment": "Invalid amount",
     "paymentsuccess": "Payment save with success",
     "payment": "Payment",
-    "invalidpaymentdate": "Date less than bill date"
+    "invalidpaymentdate": "Date less than bill date",
+    "dashboard": "Dashboard",
+    "billSection": "Bills sections",
+    "filterBills": "Bills filter",
+    "filterPayments": "Payments filter"
   }
 }
