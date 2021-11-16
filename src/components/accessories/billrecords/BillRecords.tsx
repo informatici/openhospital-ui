@@ -253,7 +253,7 @@ const BillRecords = () => {
           dispatch(closeBill(selectedObj.code, selectedObj));
           setOpenCloseBillDialog(false);
         }}
-        handleSecondaryButtonClick={() => ({})}
+        handleSecondaryButtonClick={() => setOpenCloseBillDialog(false)}
       />
       <ConfirmationDialog
         isOpen={closeStatus === "SUCCESS"}
