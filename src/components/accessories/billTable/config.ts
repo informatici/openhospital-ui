@@ -1,5 +1,5 @@
 import { FullBillDTO } from "../../../generated";
-import { IBillSummary } from "../../activities/manageBillActivity/types";
+import { IBillSummary } from "../../activities/billingActivity/types";
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],

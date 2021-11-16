@@ -10,4 +10,5 @@ export type IBillsState = {
   searchPayments: IApiResponse<BillPaymentsDTO[]>;
   delete: IApiResponse<void>;
   payBill: IApiResponse<void>;
+  closeBill: IApiResponse<void>;
 };

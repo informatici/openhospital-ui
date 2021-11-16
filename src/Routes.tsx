@@ -7,8 +7,7 @@ import DashboardActivity from "./components/activities/dashboardActivity/Dashboa
 import EditPatientActivity from "./components/activities/editPatientActivity/EditPatientActivity";
 import LoginActivity from "./components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "./components/activities/loginActivity/RedirectAfterLogin";
-import { ManageBillActivity } from "./components/activities/manageBillActivity/ManageBillActivity";
-import NewBillActivity from "./components/activities/newBillActivity/NewBillActivity";
+import NewBillingActivity from "./components/activities/newBillingActivity/NewBillingActivity";
 import NewPatientActivity from "./components/activities/newPatientActivity/NewPatientActivity";
 import NotFound from "./components/activities/notFound/NotFound";
 import PatientDetailsActivity from "./components/activities/patientDetailsActivity/PatientDetailsActivity";
@@ -23,14 +22,11 @@ const Routes: FunctionComponent = () => {
             <LoginActivity />
           </RedirectAfterLogin>
         </Route>
+        <PrivateRoute path="/billing/new">
+          <NewBillingActivity />
+        </PrivateRoute>
         <PrivateRoute path="/billing">
           <BillingActivity />
-        </PrivateRoute>
-        <PrivateRoute path="/bills">
-          <NewBillActivity />
-        </PrivateRoute>
-        <PrivateRoute path="/managebills">
-          <ManageBillActivity />
         </PrivateRoute>
         <PrivateRoute exact path="/">
           <DashboardActivity
