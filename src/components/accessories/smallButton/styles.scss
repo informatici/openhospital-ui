@@ -1,0 +1,8 @@
+@import "../../../styles/variables";
+
+.smallButton {
+  background-color: $c-color-primary !important;
+  color: $c-white !important;
+  height: 40px;
+  width: 120px;
+}

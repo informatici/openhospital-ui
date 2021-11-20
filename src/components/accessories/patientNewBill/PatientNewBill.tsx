@@ -14,6 +14,9 @@ import BillItemsTable from "./itemsTable/BillItemsTable";
 import { NewBillSide } from "./NewBillSide";
 import { CustomModal } from "../customModal/CustomModal";
 import BillItemPickerForm from "./itemPicker/BillItemPicker";
+import { PaymentDialog } from "../paymentDialog/PaymentDialog";
+import { BillPaymentsDTO } from "../../../generated";
+import { FormatColorReset } from "@material-ui/icons";
 
 export type BillItemTransitionState = "IDLE" | "TO_RESET";
 
@@ -22,12 +25,18 @@ const PatientNewBill: FC = () => {
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [showItemPicker, setShowItemPicker] = useState(false);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
   const handleItemPickerShow = useCallback(() => {
-    setShowItemPicker(showItemPicker ? false : true);
+    setShowItemPicker(false);
   }, []);
+  const handlePaymentDialogClose = useCallback(() => {
+    setShowPaymentDialog(false);
+  }, []);
+
+  const handlePayment = useCallback((payment: BillPaymentsDTO) => {}, []);
 
   return (
     <div className="patientNewBill">
@@ -44,13 +53,17 @@ const PatientNewBill: FC = () => {
             handleEdit={(row) => {}}
           />
           <div>
-            <SmallButton onClick={handleItemPickerShow}>
+            <SmallButton
+              onClick={() => {
+                setShowItemPicker(true);
+              }}
+            >
               {t("button.add")}
             </SmallButton>
           </div>
         </div>
         <div className="patientNewBill_right">
-          <NewBillSide />
+          <NewBillSide handlePaymentDialog={setShowPaymentDialog} />
         </div>
       </div>
       <div className="hidden">
@@ -62,6 +75,17 @@ const PatientNewBill: FC = () => {
         onClose={handleItemPickerShow}
         open={showItemPicker}
         content={<BillItemPickerForm />}
+      />
+      <PaymentDialog
+        open={showPaymentDialog}
+        billId={0}
+        billDate={new Date(Date.now())}
+        fields={{
+          paymentAmount: { value: "240", type: "number" },
+          paymentDate: { value: "", type: "date" },
+        }}
+        handleClose={handlePaymentDialogClose}
+        handlePayment={handlePayment}
       />
     </div>
   );

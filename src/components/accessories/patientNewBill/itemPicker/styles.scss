@@ -10,6 +10,7 @@
     row-gap: 1em;
     & > #first {
         display: flex;
+        justify-content: center;
         .checked:hover, .MuiRadio-root:hover {
             color: $c-color-primary !important;
         }
@@ -24,7 +25,7 @@
         .textField {
             width: 100%;
             input {
-                height: 1em;
+                height: 1.5em;
             }
         }
         .autocomplete input {
@@ -34,6 +35,7 @@
 
     & > #third {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        column-gap: 2em;
     }
 }

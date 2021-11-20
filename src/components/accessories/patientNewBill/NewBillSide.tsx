@@ -5,7 +5,11 @@ import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
 import "./styles.scss";
 
-const NewBillSide: FC = () => {
+interface IOwnProps {
+  handlePaymentDialog: (value: boolean) => void;
+}
+
+const NewBillSide: FC<IOwnProps> = ({ handlePaymentDialog }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -23,7 +27,13 @@ const NewBillSide: FC = () => {
         <span>120$</span>
       </div>
       <div>
-        <SmallButton>{t("bill.pay")}</SmallButton>
+        <SmallButton
+          onClick={() => {
+            handlePaymentDialog(true);
+          }}
+        >
+          {t("bill.pay")}
+        </SmallButton>
       </div>
       <div className="lg-divider"></div>
       <div>
