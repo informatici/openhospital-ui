@@ -10,9 +10,25 @@ import {
   GET_BILL_FAIL,
   SEARCH_BILL_LOADING,
   SEARCH_BILL_SUCCESS,
+  SEARCH_BILL_FAIL,
   PENDING_BILL_LOADING,
   PENDING_BILL_SUCCESS,
   PENDING_BILL_FAIL,
+  SEARCH_PAYMENTS_LOADING,
+  SEARCH_PAYMENTS_SUCCESS,
+  SEARCH_PAYMENTS_FAIL,
+  DELETE_BILL_FAIL,
+  DELETE_BILL_LOADING,
+  DELETE_BILL_SUCCESS,
+  DELETE_BILL_RESET,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
+  EDIT_BILL_RESET,
+  CLOSE_BILL_LOADING,
+  CLOSE_BILL_SUCCESS,
+  CLOSE_BILL_FAIL,
+  CLOSE_BILL_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IBillsState } from "./types";
@@ -85,7 +101,7 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
       break;
     }
 
-    case GET_BILL_FAIL: {
+    case SEARCH_BILL_FAIL: {
       draft.searchBills.status = "FAIL";
       draft.searchBills.error = action.error;
       break;
@@ -112,6 +128,102 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
     case PENDING_BILL_FAIL: {
       draft.getPendingBills.status = "FAIL";
       draft.getPendingBills.error = action.error;
+      break;
+    }
+
+    //search payments
+
+    case SEARCH_PAYMENTS_LOADING: {
+      draft.searchPayments.status = "LOADING";
+      break;
+    }
+
+    case SEARCH_PAYMENTS_SUCCESS: {
+      if (action.payload.length > 0) {
+        draft.searchPayments.status = "SUCCESS";
+      } else {
+        draft.searchPayments.status = "SUCCESS_EMPTY";
+      }
+      draft.searchPayments.data = action.payload;
+      delete draft.searchPayments.error;
+      break;
+    }
+
+    case SEARCH_PAYMENTS_FAIL: {
+      draft.searchPayments.status = "FAIL";
+      draft.searchPayments.error = action.error;
+      break;
+    }
+
+    //delete bill
+    case DELETE_BILL_LOADING: {
+      draft.delete.status = "LOADING";
+      break;
+    }
+
+    case DELETE_BILL_SUCCESS: {
+      draft.delete.status = "SUCCESS";
+      delete draft.delete.error;
+      break;
+    }
+
+    case DELETE_BILL_FAIL: {
+      draft.delete.status = "FAIL";
+      draft.delete.error = action.error;
+      break;
+    }
+
+    case DELETE_BILL_RESET: {
+      draft.delete.status = "IDLE";
+      delete draft.delete.error;
+      break;
+    }
+
+    // pay bill
+    case EDIT_BILL_LOADING: {
+      draft.payBill.status = "LOADING";
+      break;
+    }
+
+    case EDIT_BILL_SUCCESS: {
+      draft.payBill.status = "SUCCESS";
+      delete draft.payBill.error;
+      break;
+    }
+
+    case EDIT_BILL_FAIL: {
+      draft.payBill.status = "FAIL";
+      draft.payBill.error = action.error;
+      break;
+    }
+
+    case EDIT_BILL_RESET: {
+      draft.payBill.status = "IDLE";
+      delete draft.payBill.error;
+      break;
+    }
+
+    // pay bill
+    case CLOSE_BILL_LOADING: {
+      draft.closeBill.status = "LOADING";
+      break;
+    }
+
+    case CLOSE_BILL_SUCCESS: {
+      draft.closeBill.status = "SUCCESS";
+      delete draft.closeBill.error;
+      break;
+    }
+
+    case CLOSE_BILL_FAIL: {
+      draft.closeBill.status = "FAIL";
+      draft.closeBill.error = action.error;
+      break;
+    }
+
+    case CLOSE_BILL_RESET: {
+      draft.closeBill.status = "IDLE";
+      delete draft.closeBill.error;
       break;
     }
   }

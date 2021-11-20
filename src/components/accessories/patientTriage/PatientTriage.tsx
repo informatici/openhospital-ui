@@ -3,12 +3,15 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
+import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createExamination,
   createExaminationReset,
   deleteExamination,
   deleteExaminationReset,
+  updateExamination,
+  updateExaminationReset,
 } from "../../../state/examinations/actions";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -31,32 +34,46 @@ const PatientTriage: FC = () => {
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
+  const [triageToEdit, setTriageToEdit] = useState({} as PatientExaminationDTO);
+
+  const [creationMode, setCreationMode] = useState(true);
+
   const patientDataCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  const createStatus = useSelector<IState, string | undefined>(
-    (state) => state.examinations.createExamination.status
-  );
+  const examinationStore = useSelector((state: IState) => state.examinations);
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.examinations.deleteExamination.status
   );
-
+  const status = useSelector<IState, string | undefined>((state) => {
+    /*
+      Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
+      status at the same time,
+      because we use the same form for creation and modification. 
+    */
+    return state.examinations.createExamination.status !== "IDLE"
+      ? state.examinations.createExamination.status
+      : state.examinations.updateExamination.status;
+  });
   useEffect(() => {
-    if (createStatus === "FAIL") {
+    if (status === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [createStatus]);
+  }, [status]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
+    dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    setCreationMode(true);
   }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(createExaminationReset());
+      dispatch(updateExaminationReset());
       dispatch(deleteExaminationReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
@@ -66,14 +83,21 @@ const PatientTriage: FC = () => {
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode;
-    dispatch(createExamination(triage));
+    if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
+    if (!creationMode && triageToEdit.pex_ID) {
+      dispatch(updateExamination(triageToEdit.pex_ID, triage));
+    } else {
+      dispatch(createExamination(triage));
+    }
   };
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
     dispatch(createExaminationReset());
+    dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    setCreationMode(true);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -83,19 +107,32 @@ const PatientTriage: FC = () => {
     dispatch(deleteExamination(code));
   };
 
+  const onEdit = (row: any) => {
+    row.pex_date = row.date;
+    setTriageToEdit(row);
+    setCreationMode(false);
+    scrollToElement(null);
+  };
+
   return (
     <div className="patientTriage">
       <PatientTriageForm
-        fields={initialFields}
+        fields={
+          creationMode
+            ? initialFields
+            : updateTriageFields(initialFields, triageToEdit)
+        }
         onSubmit={onSubmit}
-        submitButtonLabel={t("common.savetriage")}
-        resetButtonLabel={t("common.discard")}
+        submitButtonLabel={
+          creationMode ? t("common.savetriage") : t("common.update")
+        }
+        resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "LOADING"}
+        isLoading={status === "LOADING"}
       />
 
-      {(createStatus === "FAIL" || deleteStatus === "FAIL") && (
+      {(status === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -103,13 +140,20 @@ const PatientTriage: FC = () => {
 
       <PatientTriageTable
         handleDelete={onDelete}
+        handleEdit={onEdit}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS"}
-        title={t("examination.created")}
+        isOpen={status === "SUCCESS"}
+        title={
+          creationMode ? t("examination.created") : t("examination.updated")
+        }
         icon={checkIcon}
-        info={t("examination.createsuccess")}
+        info={
+          creationMode
+            ? t("examination.createsuccess")
+            : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
@@ -119,7 +163,7 @@ const PatientTriage: FC = () => {
         title={t("opd.deleted")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel="OK"
+        primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />

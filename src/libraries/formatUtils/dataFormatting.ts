@@ -10,7 +10,10 @@ export const opdDataFormatter = (
    * get entire disease object from code
    */
   data.disease = diseases?.find((el) => el.code === +data.disease);
-  data.disease2 = diseases?.find((el) => el.code === +data.disease2);
+  data.disease2 =
+    diseases &&
+    data.disease2 !== "" &&
+    diseases?.find((el) => el.code === +data.disease2);
   data.disease3 =
     diseases && data.disease3 !== ""
       ? diseases.find((el) => el.code === +data.disease3)
@@ -22,4 +25,10 @@ export const opdDataFormatter = (
 
 export const renderDate = (date: string) => {
   return moment(date).isValid() ? moment(date).format("DD/MM/YYYY") : "";
+};
+
+export const unformatRenderDate = (value: string) => {
+  return moment(value, "DD/MM/YYYY").isValid()
+    ? moment(value, "DD/MM/YYYY").toDate()
+    : undefined;
 };

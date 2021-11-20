@@ -7,7 +7,8 @@
     "insertavalidusername": "Insert a valid user name",
     "insertthepassword": "Insert the password",
     "login": "Login",
-    "signout": "Sign Out"
+    "signout": "Logout",
+    "signoutText": "Are you sure you want to Logout?"
   },
   "dashboard": {
     "welcomename": "Welcome",
@@ -43,7 +44,9 @@
     "personaldata": "Personal Data",
     "parentslivetoghether": "Parents live together",
     "insertdataofnewpatient": "Insert data of new Patient",
-    "admissions": "Admissions"
+    "admissions": "Admissions",
+    "code": "Code",
+    "search": "Search"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -96,6 +99,8 @@
     "weightabbr": "(W)",
     "created": "Examiniation created",
     "deleted": "Examination deleted",
+    "updated": "Examination updated",
+    "updatesuccess": "Examination updated successfully",
     "createsuccess": "Examination created successfully",
     "deletesuccess": "Examination deleted successfully"
   },
@@ -122,9 +127,11 @@
     "billsrecords": "Bills Records",
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
-    "managebills": "Manage Bills"
+    "managebills": "Manage Bills",
+    "billrecords": "Bill Records"
   },
   "common": {
+    "ok": "OK",
     "results": "Results",
     "feedback": "Feedback",
     "submit": "Submit",
@@ -142,7 +149,7 @@
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",
     "titleedited": "Patient Edited",
-    "resetform": "Are you sure to {{resetButtonLabel}} the Form?",
+    "resetform": "Are you sure to Reset the Form? All the unsaved data will be lost.",
     "searchnotfound": "We couldn't find a match, please try another search.",
     "patienteditsuccessfull": "The patient was edit successfully.",
     "patientregistrationsuccessfull": "The patient registration was successful.",
@@ -164,7 +171,8 @@
     "female": "Female",
     "date": "Date",
     "type": "Type",
-    "nooptionsfound": "No options found"
+    "nooptionsfound": "No options found",
+    "close": "CLOSE"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -270,7 +278,7 @@
     "status": "Status",
     "items": "Items",
     "designation": "Designation",
-    "code": "Code",
+    "code": "Bill Code",
     "qty": "Qty",
     "payments": "Payments",
     "date": "Date",
@@ -291,6 +299,25 @@
     "delete": "Delete",
     "discard": "Discard",
     "suspend": "Suspend",
-    "add": "Add"
+    "add": "Add",
+    "bills": "Bills",
+    "enterpayment": "Enter payment",
+    "amounttopay": "Total amount to pay: {{amount}}",
+    "pay": "PAY",
+    "paymentdialog": "PAIEMENT DIALOG",
+    "paymentamount": "Payment amount",
+    "paymentdate": "Payment date",
+    "invalidpayment": "Invalid amount",
+    "paymentsuccess": "Payment save with success",
+    "payment": "Payment",
+    "invalidpaymentdate": "Date less than bill date",
+    "close": "Close Bill",
+    "closesuccess": "Bill closed successfully!!!",
+    "doyouwanttoclose": "Do you want to close the bill with id {{code}}? This operation cannot be undone.",
+    "billdate": "Bill Date",
+    "dashboard": "Dashboard",
+    "billSection": "Bills sections",
+    "filterBills": "Bills filter",
+    "filterPayments": "Payments filter"
   }
 }

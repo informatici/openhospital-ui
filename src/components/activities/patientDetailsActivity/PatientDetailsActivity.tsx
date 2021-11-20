@@ -47,6 +47,7 @@ import Button from "../../accessories/button/Button";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
+import BillRecords from "../../accessories/billrecords/BillRecords";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,

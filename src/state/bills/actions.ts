@@ -8,6 +8,7 @@ import {
   BillDTO,
   FullBillDTO,
   BillItemsDTO,
+  BillPaymentsDTO,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -25,6 +26,21 @@ import {
   PENDING_BILL_SUCCESS,
   PENDING_BILL_FAIL,
   PENDING_BILL_LOADING,
+  SEARCH_PAYMENTS_SUCCESS,
+  SEARCH_PAYMENTS_FAIL,
+  SEARCH_PAYMENTS_LOADING,
+  DELETE_BILL_FAIL,
+  DELETE_BILL_LOADING,
+  DELETE_BILL_SUCCESS,
+  DELETE_BILL_RESET,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
+  EDIT_BILL_RESET,
+  CLOSE_BILL_FAIL,
+  CLOSE_BILL_SUCCESS,
+  CLOSE_BILL_LOADING,
+  CLOSE_BILL_RESET,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -102,8 +118,14 @@ export const getPendingBills =
       .getPendingBillsUsingGET({
         patientCode,
       })
-      .pipe(switchMap((bills) => getPayments(bills)))
-      .pipe(switchMap((payments) => getItems(payments)))
+      .pipe(
+        switchMap((bills) => getPayments(bills)),
+        catchError((error) => of([]))
+      )
+      .pipe(
+        switchMap((payments) => getItems(payments)),
+        catchError((error) => of([]))
+      )
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
@@ -213,3 +235,143 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
 
   return fbills;
 };
+
+export const searchPayments =
+  (filter: TFilterValues) =>
+  (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
+    dispatch({
+      type: SEARCH_PAYMENTS_LOADING,
+    });
+    billControllerApi
+      .searchBillsPaymentsUsingGET({
+        datefrom: filter.fromDate,
+        dateto: filter.toDate,
+        patientCode: filter.patientCode,
+      })
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: SEARCH_PAYMENTS_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_PAYMENTS_SUCCESS,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_PAYMENTS_FAIL,
+            error,
+          });
+        }
+      );
+  };
+
+export const deleteBill =
+  (id: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_BILL_LOADING,
+    });
+    if (id) {
+      billControllerApi.deleteBillUsingDELETE({ id }).subscribe(
+        () => {
+          dispatch({
+            type: DELETE_BILL_SUCCESS,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: DELETE_BILL_FAIL,
+            error: error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: DELETE_BILL_FAIL,
+        error: "The id should not be empty",
+      });
+    }
+  };
+
+export const deleteBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_BILL_RESET,
+    });
+  };
+
+export const payBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: EDIT_BILL_RESET,
+    });
+  };
+
+export const payBill =
+  (payment: BillPaymentsDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: EDIT_BILL_LOADING,
+    });
+    if (payment.billId) {
+      billControllerApi
+        .updateBillUsingPUT({
+          id: payment.billId,
+          odBillDto: { billPaymentsDTO: [payment] },
+        })
+        .subscribe(
+          (payload) => {
+            dispatch({
+              type: EDIT_BILL_SUCCESS,
+              payload: payload,
+            });
+          },
+          (error) => {
+            dispatch({
+              type: EDIT_BILL_FAIL,
+              error: error,
+            });
+          }
+        );
+    }
+  };
+
+export const closeBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CLOSE_BILL_RESET,
+    });
+  };
+
+export const closeBill =
+  (id: number, bill: BillDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CLOSE_BILL_LOADING,
+    });
+    billControllerApi
+      .updateBillUsingPUT({ id: id, odBillDto: { billDTO: bill } })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: CLOSE_BILL_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: CLOSE_BILL_FAIL,
+            error: error,
+          });
+        }
+      );
+  };

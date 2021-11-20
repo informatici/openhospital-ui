@@ -74,7 +74,9 @@ const AppHeader: FunctionComponent<TProps> = ({
         <div className="appHeader__background">
           <div className="appHeader__identifier">
             <div className="appHeader__identifier__logo">
-              <img src={logo} alt="Open Hospital" height="45px" />
+              <Link to={"/"}>
+                <img src={logo} alt="Open Hospital" height="45px" />
+              </Link>
             </div>
             <div
               onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
@@ -126,10 +128,10 @@ const AppHeader: FunctionComponent<TProps> = ({
       <ConfirmationDialog
         isOpen={openLogoutConfirmation}
         title={t("login.signout")}
-        info={`Are you sure you want to ${t("login.signout")}?`}
+        info={t("login.signoutText")}
         icon={warningIcon}
         primaryButtonLabel={t("login.signout")}
-        secondaryButtonLabel="Dismiss"
+        secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleLogout}
         handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
       />

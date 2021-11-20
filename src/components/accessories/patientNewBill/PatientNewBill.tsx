@@ -21,7 +21,6 @@ const PatientNewBill: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-
   const [showItemPicker, setShowItemPicker] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [deletedObjCode, setDeletedObjCode] = useState("");
