@@ -23,6 +23,7 @@
       & > .patientNewBill_buttons {
         display: flex;
         column-gap: 2em;
+        justify-content: space-between;
       }
       .addpayment {
         display: flex;
