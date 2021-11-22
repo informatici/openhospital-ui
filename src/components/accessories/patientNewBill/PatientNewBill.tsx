@@ -63,7 +63,7 @@ const PatientNewBill: FC = () => {
               >
                 {t("button.add")}
               </SmallButton>
-              {false && (
+              {true && (
                 <SmallButton onClick={() => {}}>{t("button.save")}</SmallButton>
               )}
             </div>
