@@ -11,21 +11,19 @@
   row-gap: 1em;
   & > div:first-child {
     display: flex;
-    flex-flow: row;
     column-gap: 1em;
+    @include susy-media($smartphone) {
+      row-gap: 2em;
+      flex-flow: column; 
+      align-items: center; 
+    }
     & > .patientNewBill_left {
-      flex: 9;
       display: flex;
+      flex: 9;
       justify-content: space-between;
       flex-flow: column;
       row-gap: 1em;
       background-color: white;
-      @include susy-media($tablet_port) {
-        
-      }
-      @include susy-media($smartphone) {
-        
-      }
       & > .patientNewBill_buttons {
         display: flex;
         column-gap: 2em;
@@ -37,9 +35,11 @@
         align-items: center;
         color: gray;
       }
+      @include susy-media($smartphone) {
+        width: 1fr;
+      }
     }
     & > .patientNewBill_right {
-      flex: 3;
       display: flex;
       flex-flow: column;
       align-items: center;
@@ -74,6 +74,29 @@
       }
       .lg-divider {
         width: 11.5em;
+      }
+      @include susy-media($tablet_port) {
+        flex: 3; 
+      }
+      @include susy-media($smartphone) {
+        width: 75%;
+        justify-self: center;
+
+        .smallButton, .textButton {
+          width: 20em;
+          margin: 0px;
+        }
+        .two-row {
+          display: flex;
+          width:  18em;
+          justify-content: space-between;
+        }
+        .xs-divider {
+          width: 7em;
+        }
+        .lg-divider {
+          width: 15em;
+        }
       }
     }
   }
