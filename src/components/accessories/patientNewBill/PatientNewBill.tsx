@@ -39,43 +39,48 @@ const PatientNewBill: FC = () => {
   const handlePayment = useCallback((payment: BillPaymentsDTO) => {}, []);
 
   return (
-    <div className="patientNewBill">
-      <div className="">
-        <div className="patientNewBill_left">
-          <div>
-            <span className="addpayment hidden">
-              {t("bill.clicktoaddpayment")}
-            </span>
-          </div>
-          <BillItemsTable
-            shouldUpdateTable={true}
-            handleDelete={(row) => {}}
-            handleEdit={(row) => {}}
-          />
-          <div>
-            <SmallButton
-              onClick={() => {
+    <>
+      <div className="patientNewBill">
+        <div className="">
+          <div className="patientNewBill_left">
+            <div>
+              <span className="addpayment hidden">
+                {t("bill.clicktoaddpayment")}
+              </span>
+            </div>
+            <BillItemsTable
+              shouldUpdateTable={true}
+              handleDelete={(row) => {}}
+              handleEdit={(row) => {
                 setShowItemPicker(true);
               }}
-            >
-              {t("button.add")}
-            </SmallButton>
+            />
+            <div className="patientNewBill_buttons">
+              <SmallButton
+                onClick={() => {
+                  setShowItemPicker(true);
+                }}
+              >
+                {t("button.add")}
+              </SmallButton>
+              <SmallButton onClick={() => {}}>{t("button.save")}</SmallButton>
+            </div>
+          </div>
+          <div className="patientNewBill_right">
+            <NewBillSide handlePaymentDialog={setShowPaymentDialog} />
           </div>
         </div>
-        <div className="patientNewBill_right">
-          <NewBillSide handlePaymentDialog={setShowPaymentDialog} />
+        <div className="hidden">
+          <span>{t("bill.nopendingbill")}</span>
         </div>
+        <CustomModal
+          title={"Pick an item"}
+          description="pick-item"
+          onClose={handleItemPickerShow}
+          open={showItemPicker}
+          content={<BillItemPickerForm />}
+        />
       </div>
-      <div className="hidden">
-        <span>{t("bill.nopendingbill")}</span>
-      </div>
-      <CustomModal
-        title={"Pick an item"}
-        description="pick-item"
-        onClose={handleItemPickerShow}
-        open={showItemPicker}
-        content={<BillItemPickerForm />}
-      />
       <PaymentDialog
         open={showPaymentDialog}
         billId={0}
@@ -87,7 +92,7 @@ const PatientNewBill: FC = () => {
         handleClose={handlePaymentDialogClose}
         handlePayment={handlePayment}
       />
-    </div>
+    </>
   );
 };
 export default PatientNewBill;

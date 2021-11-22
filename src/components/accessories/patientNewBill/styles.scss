@@ -20,6 +20,10 @@
       flex-flow: column;
       row-gap: 1em;
       background-color: white;
+      & > .patientNewBill_buttons {
+        display: flex;
+        column-gap: 2em;
+      }
       .addpayment {
         display: flex;
         justify-content: center;

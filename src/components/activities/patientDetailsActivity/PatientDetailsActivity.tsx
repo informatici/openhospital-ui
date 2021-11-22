@@ -175,7 +175,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       content: (
         <PatientDetailsContent
           title={t("nav.billsrecords")}
-          content={SkeletonLoader}
+          content={BillRecords}
         />
       ),
     },
