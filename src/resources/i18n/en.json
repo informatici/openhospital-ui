@@ -292,14 +292,6 @@
     "nopendingbill": "There is not pending bill",
     "quantity": "Quantity",
     "item": "Item",
-    "pay": "Pay"
-  },
-  "button": {
-    "save": "Save",
-    "delete": "Delete",
-    "discard": "Discard",
-    "suspend": "Suspend",
-    "add": "Add",
     "bills": "Bills",
     "enterpayment": "Enter payment",
     "amounttopay": "Total amount to pay: {{amount}}",
@@ -319,5 +311,12 @@
     "billSection": "Bills sections",
     "filterBills": "Bills filter",
     "filterPayments": "Payments filter"
+  },
+  "button": {
+    "save": "Save",
+    "delete": "Delete",
+    "discard": "Discard",
+    "suspend": "Suspend",
+    "add": "Add"
   }
 }

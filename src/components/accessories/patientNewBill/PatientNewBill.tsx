@@ -41,7 +41,7 @@ const PatientNewBill: FC = () => {
   return (
     <>
       <div className="patientNewBill">
-        <div className="">
+        <div className="main">
           <div className="patientNewBill_left">
             <div>
               <span className="addpayment hidden">

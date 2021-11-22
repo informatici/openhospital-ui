@@ -20,6 +20,12 @@
       flex-flow: column;
       row-gap: 1em;
       background-color: white;
+      @include susy-media($tablet_port) {
+        
+      }
+      @include susy-media($smartphone) {
+        
+      }
       & > .patientNewBill_buttons {
         display: flex;
         column-gap: 2em;
