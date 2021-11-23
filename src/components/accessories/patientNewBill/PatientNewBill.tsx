@@ -20,7 +20,6 @@ const PatientNewBill: FC = () => {
   const handlePaymentDialogClose = useCallback(() => {
     setShowPaymentDialog(false);
   }, []);
-
   const handlePayment = useCallback((payment: BillPaymentsDTO) => {}, []);
 
   return (
