@@ -79,23 +79,23 @@
         flex: 3; 
       }
       @include susy-media($smartphone) {
-        width: 75%;
+        width: 100%;
         justify-self: center;
 
         .smallButton, .textButton {
-          width: 20em;
+          width: 23em;
           margin: 0px;
         }
         .two-row {
           display: flex;
-          width:  18em;
+          width:  21em;
           justify-content: space-between;
         }
         .xs-divider {
-          width: 7em;
+          width: 10em;
         }
         .lg-divider {
-          width: 15em;
+          width: 18em;
         }
       }
     }

@@ -1,33 +1,28 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import "./styles.scss";
+import React, { FC } from "react";
 import Table from "../../table/Table";
+import { header, mockData, order } from "./consts";
+import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-import { header, label, mockData, order } from "./consts";
 
 interface IOwnProps {
-  shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
   handleDelete: (row: any) => void;
 }
 
-export type BillItemTransitionState = "IDLE" | "TO_RESET";
-
-const BillItemsTable: FC<IOwnProps> = ({
-  shouldUpdateTable,
-  handleEdit,
-  handleDelete,
-}) => {
+const BillItemsTable: FC<IOwnProps> = ({ handleEdit, handleDelete }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const infoBoxRef = useRef<HTMLDivElement>(null);
+  const label = {
+    type: t("bill.type"),
+    description: t("bill.description"),
+    qty: t("bill.quantity"),
+    cost: t("bill.amount"),
+  };
 
   const formatDataToDisplay = (data: typeof mockData) => {
     return data.map((item) => {
       return {
         ...item,
-        cost: item.cost.toString().concat("$"),
+        cost: currencyFormat(item.cost),
       };
     });
     //   .sort(dateComparator("desc", "date"));

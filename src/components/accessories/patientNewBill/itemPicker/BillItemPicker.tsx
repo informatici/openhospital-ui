@@ -1,28 +1,7 @@
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core";
-import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
-import moment from "moment";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
+import React, { FC, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { object, string } from "yup";
-import warningIcon from "../../../../assets/warning-icon.png";
-import {
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../../libraries/formDataHandling/functions";
-import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import DateField from "../../dateField/DateField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
@@ -39,20 +18,6 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
       setItemType(value);
     },
     [itemType]
-  );
-
-  const medicalOptionsSelector = (state: IState) => {
-    if (state.medicals.medicalsOrderByName.data) {
-      return state.medicals.medicalsOrderByName.data.map((medical) => {
-        return {
-          value: medical.code ?? "",
-          label: medical.description ?? "",
-        };
-      });
-    } else return [];
-  };
-  const medicalOptions = useSelector((state: IState) =>
-    medicalOptionsSelector(state)
   );
 
   return (
@@ -96,7 +61,7 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         </RadioGroup>
       </div>
       <div id="second">
-        {true && (
+        {itemType != "custom" && (
           <AutocompleteField
             fieldName="itemId"
             fieldValue={"value"}
@@ -108,37 +73,37 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
             isLoading={false}
           />
         )}
-        {false && (
-          <TextField
-            theme="regular"
-            field={{
-              name: "item",
-              value: "",
-              onBlur: (e: any) => {},
-              onChange: (e: any) => {},
-            }}
-            label={t("bill.item")}
-            isValid={false}
-            errorText={""}
-            onBlur={(e) => {}}
-            type="text"
-          />
-        )}
-        {false && (
-          <TextField
-            theme="regular"
-            field={{
-              name: "amount",
-              value: 1,
-              onBlur: (e: any) => {},
-              onChange: (e: any) => {},
-            }}
-            label={t("bill.amount")}
-            isValid={false}
-            errorText={""}
-            onBlur={(e) => {}}
-            type="number"
-          />
+        {itemType == "custom" && (
+          <>
+            <TextField
+              theme="regular"
+              field={{
+                name: "item",
+                value: "",
+                onBlur: (e: any) => {},
+                onChange: (e: any) => {},
+              }}
+              label={t("bill.item")}
+              isValid={false}
+              errorText={""}
+              onBlur={(e) => {}}
+              type="text"
+            />
+            <TextField
+              theme="regular"
+              field={{
+                name: "amount",
+                value: 1,
+                onBlur: (e: any) => {},
+                onChange: (e: any) => {},
+              }}
+              label={t("bill.amount")}
+              isValid={false}
+              errorText={""}
+              onBlur={(e) => {}}
+              type="number"
+            />
+          </>
         )}
         <TextField
           theme="regular"

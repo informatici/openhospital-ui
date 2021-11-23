@@ -1,10 +1,4 @@
 export const header = ["type", "description", "qty", "cost"];
-export const label = {
-  type: "Type",
-  description: "Description",
-  qty: "Qty",
-  cost: "Cost",
-};
 export const order = ["type", "description"];
 export const mockData = [
   {

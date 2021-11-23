@@ -310,7 +310,8 @@
     "dashboard": "Dashboard",
     "billSection": "Bills sections",
     "filterBills": "Bills filter",
-    "filterPayments": "Payments filter"
+    "filterPayments": "Payments filter",
+    "pickitem": "Pick a item"
   },
   "button": {
     "save": "Save",
