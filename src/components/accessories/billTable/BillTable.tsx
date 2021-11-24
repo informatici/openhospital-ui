@@ -20,8 +20,6 @@ import {
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
 import { get, has } from "lodash";
-import { computeBillSummary } from "./config";
-import { TUserCredentials } from "../../../state/main/types";
 import SelectField from "../selectField/SelectField";
 import "./styles.scss";
 import {
@@ -29,15 +27,21 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
-import { FilterList, Person } from "@material-ui/icons";
+import { FilterList } from "@material-ui/icons";
 
-export const BillTable: FC<IBillTableProps> = ({
-  fields,
-  handleSummaryChange,
-}) => {
+export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const header = ["date", "patient", "balance", "status"];
+  const header = [
+    "id",
+    "patient",
+    "patId",
+    "date",
+    "status",
+    "lastPayment",
+    "amount",
+    "balance",
+  ];
   const label = {
     id: t("bill.code"),
     date: t("bill.date"),
@@ -45,12 +49,10 @@ export const BillTable: FC<IBillTableProps> = ({
     status: t("bill.status"),
     amount: t("bill.amount"),
     balance: t("bill.balance"),
+    patId: t("bill.patId"),
+    lastPayment: t("bill.lastPayment"),
   };
   const order = ["date", "balance"];
-  const userCredentials = useSelector<IState, TUserCredentials>(
-    (state) => state.main.authentication.data
-  );
-
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
 
   const validationSchema = object({
@@ -147,18 +149,6 @@ export const BillTable: FC<IBillTableProps> = ({
   });
 
   const formattedData = useFormatData(data, filter.status);
-
-  useEffect(() => {
-    if (data && filter.status === "ALL") {
-      const summary = computeBillSummary(
-        data,
-        filter.fromDate,
-        filter.toDate,
-        userCredentials?.displayName ?? ""
-      );
-      handleSummaryChange(summary);
-    }
-  }, [filter, data]);
 
   const [open, setOpen] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -278,7 +268,7 @@ export const BillTable: FC<IBillTableProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          isCollapsabile={true}
+          isCollapsabile={false}
           onView={handleView}
         />
         <CustomModal

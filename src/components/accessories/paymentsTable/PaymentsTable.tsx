@@ -30,7 +30,7 @@ import { FilterList } from "@material-ui/icons";
 
 export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();
-  const header = ["date", "amount"];
+  const header = ["date", "amount", "user"];
   const label = {
     id: t("bill.code"),
     date: t("bill.date"),
@@ -184,7 +184,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          isCollapsabile={true}
+          isCollapsabile={false}
         />
       </div>
     </div>

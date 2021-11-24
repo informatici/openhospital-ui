@@ -269,7 +269,7 @@
     "closed": "Fermées",
     "deleted": "Supprimées", 
     "pending": "En attente",
-    "user": "Caissier courant",
+    "user": "Caissier",
     "patient": "Patient",
     "billitem": "Elément",
     "affiliate": "Personne garante",
@@ -311,6 +311,8 @@
     "close": "Fermeture de Facture",
     "closesuccess": "Facture cloturée avec succès!!!",
     "doyouwanttoclose": "Voulez-vous fermer la facture avec l'id {{code}} ? Cette opération ne pourra plus être défaite.",
-    "billdate": "Date Facture"
+    "billdate": "Date Facture",
+    "lastPayment": "Dernier Paiement",
+    "patId": "ID Pat."
   }
 }
