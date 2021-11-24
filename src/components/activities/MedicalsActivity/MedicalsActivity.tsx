@@ -11,7 +11,6 @@ import { object } from "yup";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/ag-grid-community";
-import SearchIcon from "../../../assets/SearchIcon";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getMedicals } from "../../../state/medicals/actions";
 import { getMedicalTypes } from "../../../state/medicaltypes/actions";
@@ -30,9 +29,9 @@ import {
   TProps,
   TActivityTransitionState,
 } from "./types";
-import { useIsSearchByCode } from "./useIsSearchByCode";
 import isEmpty from "lodash.isempty";
 import iconDelete from "@material-ui/icons/DeleteOutlined";
+import SearchIcon from "@material-ui/icons/Search";
 import iconEdit from "@material-ui/icons/EditOutlined";
 import { GetMedicalsUsingGETSortByEnum, MedicalDTO } from "../../../generated";
 import { medicalTypesFormatter } from "../../../libraries/formatUtils/optionFormatting";
@@ -112,6 +111,39 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+
+  const searchValue = (value: MedicalDTO[] | undefined): any[] | undefined => {
+    var filterDesc = formik.getFieldProps("id").value ? formik.getFieldProps("id").value.toLowerCase() : '';
+    var filterType = formik.getFieldProps("type").value ? formik.getFieldProps("type").value : '';
+    let result = value?.filter((element) => {
+      return element.description?.toLowerCase().includes(filterDesc) &&
+        element.type?.description?.includes(filterType)
+    })
+    return result;
+  };
+
+  const onBlurSelect = (e: React.FocusEvent<any>): void => {
+    let selectedType: string;
+    switch (e.target.value) {
+      case "L":
+        selectedType = "Laboratory";
+        break;
+      case "S":
+        selectedType = "Surgery";
+        break;
+      case "D":
+        selectedType = "Drugs";
+        break;
+      case "K":
+        selectedType = "Chemicals";
+        break;
+      default:
+        selectedType = "";
+        break;
+    }
+    formik.setFieldValue("type", selectedType);
+  };
+
   const reportTypes = [
     "Report of stock",
     "Report of order",
@@ -173,7 +205,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
               onGridReady={onGridReady}
               onFirstDataRendered={() => autoSizeAll(false)}
               defaultColDef={{ resizable: true }}
-              rowData={medicalSearchResults}
+              rowData={searchValue(medicalSearchResults)}
               rowHeight={40}
               pagination={true}
               paginationAutoPageSize={true}
@@ -292,7 +324,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                   <CSVLink
                     className="medicals__export__button"
                     filename={"Pharmaceuticals_list.csv"}
-                    data={csvDownload(medicalSearchResults)}
+                    data={csvDownload(searchValue(medicalSearchResults))}
                   >
                     <Button
                       className="medicals__button"
@@ -326,7 +358,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         label="Select type"
                         isValid={isValid("type")}
                         errorText={getErrorText("type")}
-                        onBlur={() => console.log("ciao")}
+                        onBlur={onBlurSelect}
                         options={options || []}
                       />
                       <TextField
@@ -339,8 +371,7 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                       />
                       <div className="search__button">
                         <SmallButton type="submit">
-                          {""}
-                          <SearchIcon width="30" height="30" />
+                          <SearchIcon fontSize="large" />
                         </SmallButton>
                       </div>
                     </div>

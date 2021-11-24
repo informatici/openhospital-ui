@@ -96,32 +96,30 @@
     }
 
     .medicals__formItem.fast__search {
-      input,
-      select {
-        background-color: white;
+      background-color: #fff;
+      border: solid 0.5px lightgrey;
+      border-radius: 5px;
+      .MuiOutlinedInput-notchedOutline {
+        border: none !important;
       }
 
       .selectField {
-        width: 40%;
+        width: 30%;
         .MuiFormLabel-root.Mui-error {
           color: #757575;
         }
-        .MuiOutlinedInput-root {
-          margin-right: 10px;
-          background-color: white;
-        }
-        .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-          border-color: rgba(194, 194, 194, 0.87);
+        .MuiSelect-select.MuiInputBase-input {
+          border-right: solid 1px lightgrey;
+          border-radius: 0;
         }
       }
 
       .search__button {
-        align-self: center;
         .smallButton {
-          background-color: transparent !important;
+          background-color: #fff !important;
           color: red !important;
-          width: 40px !important;
-          padding: 4px;
+          height: 60px;
+          width: 90px;
         }
       }
     }
@@ -134,7 +132,6 @@
     background-color: $c-white;
     border-radius: 10px;
     border-style: none;
-    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     margin: 20px 80px 60px 80px;
     overflow: hidden;
     @include susy-media($smartphone) {
@@ -218,7 +215,7 @@
   }
 
   .medicals__formItem {
-    margin: 5px 10px;
+    // margin: 5px 10px;
     @include susy-media($smartphone) {
       margin: 10px 0px;
     }
