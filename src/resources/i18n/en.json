@@ -311,7 +311,11 @@
     "billSection": "Bills sections",
     "filterBills": "Bills filter",
     "filterPayments": "Payments filter",
-    "pickitem": "Pick a item"
+    "pickitem": "Pick a item",
+    "savebill": "Save bill",
+    "additem": "Add an item",
+    "type": "Type",
+    "description": "Description"
   },
   "button": {
     "save": "Save",

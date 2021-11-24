@@ -1,9 +1,11 @@
 import React from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "@material-ui/core";
 import SmallButton from "../smallButton/SmallButton";
 import TextButton from "../textButton/TextButton";
 import "./styles.scss";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 
 interface IOwnProps {
   handlePaymentDialog: (value: boolean) => void;
@@ -15,16 +17,16 @@ const NewBillSide: FC<IOwnProps> = ({ handlePaymentDialog }) => {
     <>
       <div className="two-row">
         <span>Total:</span>
-        <span>120$</span>
+        <span>{currencyFormat("120")}</span>
       </div>
       <div className="two-row">
         <span>Paid:</span>
-        <span>0$</span>
+        <span>{currencyFormat("0")}</span>
       </div>
       <div className="xs-divider"></div>
       <div className="two-row">
         <span>To be paid:</span>
-        <span>120$</span>
+        <span>{currencyFormat("120")}</span>
       </div>
       <div>
         <SmallButton
@@ -37,10 +39,7 @@ const NewBillSide: FC<IOwnProps> = ({ handlePaymentDialog }) => {
       </div>
       <div className="lg-divider"></div>
       <div>
-        <TextButton onClick={() => {}}>{t("button.suspend")}</TextButton>
-      </div>
-      <div>
-        <TextButton onClick={() => {}}>{t("button.delete")}</TextButton>
+        <SmallButton>{t("bill.savebill")}</SmallButton>
       </div>
     </>
   );

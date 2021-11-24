@@ -8,6 +8,7 @@ import { CustomModal } from "../customModal/CustomModal";
 import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import { BillPaymentsDTO } from "../../../generated";
+import { Add } from "@material-ui/icons";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
@@ -44,9 +45,9 @@ const PatientNewBill: FC = () => {
                   setShowItemPicker(true);
                 }}
               >
-                {t("button.add")}
+                <Add />
+                {t("bill.additem")}
               </SmallButton>
-              <SmallButton onClick={() => {}}>{t("button.save")}</SmallButton>{" "}
             </div>
           </div>
           <div className="patientNewBill_right">

@@ -4,16 +4,13 @@
 .patientNewBill {
   display: flex;
   flex-flow: column;
-  border: 1px solid hsl(2, 98%, 53%, .075);
-  border-radius: 8px;
-  box-shadow: 2px 2px 2px hsl(2, 98%, 53%, .075);
   padding: 16px 8px 16px 8px;
-  row-gap: 1em;
+  row-gap: 12px;
   & > div:first-child {
     display: flex;
-    column-gap: 1em;
+    column-gap: 12px;
     @include susy-media($smartphone) {
-      row-gap: 2em;
+      row-gap: 24px;
       flex-flow: column; 
       align-items: center; 
     }
@@ -22,41 +19,41 @@
       flex: 9;
       justify-content: space-between;
       flex-flow: column;
-      row-gap: 1em;
+      row-gap: 12px;
       background-color: white;
       & > .patientNewBill_buttons {
         display: flex;
-        column-gap: 2em;
-        justify-content: space-between;
+        justify-content: flex-end;
+        .MuiButton-root {
+          width: 175px;
+        }
       }
       .addpayment {
         display: flex;
         justify-content: center;
         align-items: center;
-        color: gray;
+        color: $c-gray;
       }
       @include susy-media($smartphone) {
-        width: 1fr;
+        width: 100%;
       }
     }
     & > .patientNewBill_right {
+      flex: 4;
       display: flex;
       flex-flow: column;
       align-items: center;
-      background-color: hsl(2, 98%, 53%, .3);
+      background-color: $c-grey-lighter;
       border-radius: 8px;
-      padding: 1.5em .25em 1.5em .25em;
-      row-gap: 1em;
-      .smallButton, .textButton {
-        width: 10em;
-        margin: 0px;
-      }
-      .textButton {
-        background-color: rgba(75, 30, 29, 0.15) !important;
+      padding: 16px 4px 16px 4px;
+      row-gap: 12px;
+      .MuiButton-root {
+        width: 175px;
       }
       .two-row {
         display: flex;
-        width:  9em;
+        max-width: 300px;
+        width:  85%;
         justify-content: space-between;
         & > span:first-child {
           font-weight: 200;
@@ -70,32 +67,25 @@
         background-color: black;
       }
       .xs-divider {
-        width: 3.75em;
+        width: 35%;
       }
       .lg-divider {
-        width: 11.5em;
-      }
-      @include susy-media($tablet_port) {
-        flex: 3; 
+        width: 90%;
       }
       @include susy-media($smartphone) {
         width: 100%;
         justify-self: center;
 
-        .smallButton, .textButton {
-          width: 23em;
-          margin: 0px;
+        .MuiButton-root {
+          width: 300px;
+          min-width: 200px;
         }
-        .two-row {
-          display: flex;
-          width:  21em;
-          justify-content: space-between;
-        }
+
         .xs-divider {
-          width: 10em;
+          width: 25%;
         }
         .lg-divider {
-          width: 18em;
+          width: 80%;
         }
       }
     }
@@ -104,7 +94,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 6em;
+    height: 72px;
     border-radius: 20px;
     background: hsl(2, 98%, 53%, .1);
     span {

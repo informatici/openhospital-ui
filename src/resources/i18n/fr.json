@@ -321,7 +321,11 @@
     "billSection": "Bills sections",
     "filterBills": "Bills filter",
     "filterPayments": "Payments filter",
-    "pickitem": "Choisir un article"
+    "pickitem": "Choisir un article",
+    "savebill": "Enregistrer facture",
+    "additem": "Nouvel article",
+    "type": "Type",
+    "description": "Description"
   },
   "button": {
     "save": "Enregistrer",
