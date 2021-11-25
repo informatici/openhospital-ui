@@ -6,21 +6,26 @@
   flex-flow: column;
   padding: 16px 8px 16px 8px;
   row-gap: 12px;
-  & > div:first-child {
+  & > .patientNewBill_main {
     display: flex;
-    column-gap: 12px;
-    @include susy-media($smartphone) {
-      row-gap: 24px;
-      flex-flow: column; 
-      align-items: center; 
+    row-gap: 24px;
+    flex-flow: column; 
+    justify-content: start;
+    @include susy-media(1024px) {
+      column-gap: 12px;
+      flex-flow: row;
+      width: 100%;
     }
     & > .patientNewBill_left {
       display: flex;
-      flex: 9;
+      width: 100%;
       justify-content: space-between;
+      background-color: white;
       flex-flow: column;
       row-gap: 12px;
-      background-color: white;
+      @include susy-media(1024px) {
+        flex: 9;
+      }
       & > .patientNewBill_buttons {
         display: flex;
         justify-content: flex-end;
@@ -34,25 +39,20 @@
         align-items: center;
         color: $c-gray;
       }
-      @include susy-media($smartphone) {
-        width: 100%;
-      }
     }
     & > .patientNewBill_right {
-      flex: 4;
       display: flex;
       flex-flow: column;
       align-items: center;
-      background-color: $c-grey-lighter;
-      border-radius: 8px;
+      background-color: lightgray;
       padding: 16px 4px 16px 4px;
+      border-radius: 8px;
       row-gap: 12px;
-      .MuiButton-root {
-        width: 175px;
+      .smallButton {
+        width: 300px;
       }
       .two-row {
         display: flex;
-        max-width: 300px;
         width:  85%;
         justify-content: space-between;
         & > span:first-child {
@@ -67,36 +67,33 @@
         background-color: black;
       }
       .xs-divider {
-        width: 35%;
+        width: 25%;
       }
       .lg-divider {
-        width: 90%;
+        width: 80%;
       }
-      @include susy-media($smartphone) {
-        width: 100%;
-        justify-self: center;
-
-        .MuiButton-root {
-          width: 300px;
-          min-width: 200px;
+      @include susy-media(1024px) {
+        flex: 4;
+        padding: 16px 4px 16px 4px;
+        .smallButton {
+          width: 175px;
         }
-
         .xs-divider {
-          width: 25%;
+          width: 35%;
         }
         .lg-divider {
-          width: 80%;
+          width: 90%;
         }
       }
     }
   }
-  & > div:last-child {
+  & > .patientNewBill_nopayment {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 72px;
     border-radius: 20px;
-    background: hsl(2, 98%, 53%, .1);
+    background: lightgray;
     span {
       font-size: large;
       color: black;

@@ -26,7 +26,7 @@ const PatientNewBill: FC = () => {
   return (
     <>
       <div className="patientNewBill">
-        <div className="main">
+        <div className="patientNewBill_main">
           <div className="patientNewBill_left">
             <div>
               <span className="addpayment hidden">
@@ -54,7 +54,7 @@ const PatientNewBill: FC = () => {
             <NewBillSide handlePaymentDialog={setShowPaymentDialog} />
           </div>
         </div>
-        <div className="hidden">
+        <div className="patientNewBill_nopayment hidden">
           <span>{t("bill.nopendingbill")}</span>
         </div>
       </div>

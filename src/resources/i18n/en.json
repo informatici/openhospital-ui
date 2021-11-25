@@ -315,7 +315,9 @@
     "savebill": "Save bill",
     "additem": "Add an item",
     "type": "Type",
-    "description": "Description"
+    "description": "Description",
+    "unitamount": "Amount per item",
+    "totalamount": "Total Amount"
   },
   "button": {
     "save": "Save",
