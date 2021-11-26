@@ -27,4 +27,6 @@ export type BillFilterFormFieldName =
   | "fromDate"
   | "toDate"
   | "patientCode"
-  | "status";
+  | "status"
+  | "month"
+  | "year";

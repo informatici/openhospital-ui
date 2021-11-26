@@ -93,7 +93,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    enableReinitialize: false,
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(
         fields,
@@ -107,11 +107,23 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     search(filter);
   }, [filter]);
 
-  const { setFieldValue, handleBlur } = formik;
+  const { setFieldValue, getFieldProps, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: Date | null) => {
       setFieldValue(fieldName, value);
+      if (["month", "year"].includes(fieldName)) {
+        const month = getFieldProps("month").value
+          ? getFieldProps("month").value.getMonth()
+          : value?.getMonth();
+        const year = getFieldProps("year").value
+          ? getFieldProps("year").value.getUTCFullYear()
+          : value?.getUTCFullYear();
+        const start = new Date(year, month, 1);
+        const end = new Date(year, month + 1, 0);
+        setFieldValue("fromDate", start);
+        setFieldValue("toDate", end);
+      }
     },
     [setFieldValue]
   );
@@ -240,9 +252,9 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                     fieldName="month"
                     views={["month"]}
                     fieldValue={formik.values.month}
-                    disableFuture={false}
+                    disableFuture={true}
                     theme="regular"
-                    format="dd/MM/yyyy"
+                    format="MMMM"
                     isValid={isValid("month")}
                     errorText={getErrorText("month")}
                     label={t("bill.month")}
@@ -254,9 +266,9 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                     fieldName="year"
                     views={["year"]}
                     fieldValue={formik.values.year}
-                    disableFuture={false}
+                    disableFuture={true}
                     theme="regular"
-                    format="dd/MM/yyyy"
+                    format="yyyy"
                     isValid={isValid("year")}
                     errorText={getErrorText("year")}
                     label={t("bill.year")}

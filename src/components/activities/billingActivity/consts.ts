@@ -17,10 +17,17 @@ export const FilterBillsInitialFields: TFields<BillFilterFormFieldName> = {
     value: moment().toISOString(),
     type: "date",
   },
-
   status: {
     value: "ALL",
     type: "text",
+  },
+  month: {
+    value: "",
+    type: "date",
+  },
+  year: {
+    value: "",
+    type: "date",
   },
 };
 
