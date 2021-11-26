@@ -9,7 +9,6 @@ import Table from "../table/Table";
 import useFormatData from "./useFormatData";
 import RenderBillDetails from "./RenderBillDetails";
 import { IBillTableProps, TFilterValues } from "./types";
-import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import DateField from "../dateField/DateField";
 import { useFormik } from "formik";
 import Button from "../button/Button";
@@ -28,6 +27,7 @@ import {
   AccordionSummary,
 } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
+import PatientPicker from "../patientPicker/PatientPicker";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
@@ -235,10 +235,36 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                     onChange={dateFieldHandleOnChange("toDate")}
                   />
                 </div>
-              </div>
-              <div className="row start-sm center-xs">
-                <div className="fullWidth filterBillForm__item">
-                  <PatientAutocomplete
+                <div className="filterBillForm__item">
+                  <DateField
+                    fieldName="month"
+                    views={["month"]}
+                    fieldValue={formik.values.month}
+                    disableFuture={false}
+                    theme="regular"
+                    format="dd/MM/yyyy"
+                    isValid={isValid("month")}
+                    errorText={getErrorText("month")}
+                    label={t("bill.month")}
+                    onChange={dateFieldHandleOnChange("month")}
+                  />
+                </div>
+                <div className="filterBillForm__item">
+                  <DateField
+                    fieldName="year"
+                    views={["year"]}
+                    fieldValue={formik.values.year}
+                    disableFuture={false}
+                    theme="regular"
+                    format="dd/MM/yyyy"
+                    isValid={isValid("year")}
+                    errorText={getErrorText("year")}
+                    label={t("bill.year")}
+                    onChange={dateFieldHandleOnChange("year")}
+                  />
+                </div>
+                <div className="filterBillForm__item">
+                  <PatientPicker
                     theme={"regular"}
                     fieldName="patientCode"
                     fieldValue={formik.values.patientCode}
@@ -246,15 +272,14 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                     isValid={isValid("patientCode")}
                     errorText={getErrorText("patientCode")}
                     onBlur={onBlurCallback("patientCode")}
-                    freeSolo={true}
                   />
                 </div>
-              </div>
-              <div className="filterForm__buttonSet">
-                <div className="submit_button">
-                  <Button variant="contained" type="submit">
-                    {t("bill.filterbutton")}
-                  </Button>
+                <div className="filterForm__buttonSet">
+                  <div className="submit_button">
+                    <Button variant="contained" type="submit">
+                      {t("bill.filterbutton")}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </form>

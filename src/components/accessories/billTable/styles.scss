@@ -39,13 +39,13 @@
     }
     .filterBillForm__item {
       //background-color: $c-grey-lighter;
-      padding: 0px 10px;
-      width: 33.33%;
+      padding: 0px 3px;
+      width: 14.28%;
       @include susy-media($narrow) {
-        padding: 0px 10px;
+        width: 50%;
       }
       @include susy-media($tablet_land) {
-        padding: 0px 10px;
+        width: 50%;
       }
       @include susy-media($tablet_port) {
         width: 50%;

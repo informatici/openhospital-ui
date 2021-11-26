@@ -307,6 +307,8 @@
     "filterBills": "Bills filter",
     "filterPayments": "Payments filter",
     "lastPayment": "Last Payment",
-    "patId": "Pat. ID"
+    "patId": "Pat. ID",
+    "month": "Month",
+    "year": "Year"
   }
 }

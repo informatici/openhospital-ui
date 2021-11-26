@@ -313,6 +313,8 @@
     "doyouwanttoclose": "Voulez-vous fermer la facture avec l'id {{code}} ? Cette opération ne pourra plus être défaite.",
     "billdate": "Date Facture",
     "lastPayment": "Dernier Paiement",
-    "patId": "ID Pat."
+    "patId": "ID Pat.",
+    "month": "Mois",
+    "year": "Année"
   }
 }
