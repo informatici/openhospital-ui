@@ -27,6 +27,7 @@ import {
   AccordionSummary,
 } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
+import PatientPicker from "../patientPicker/PatientPicker";
 
 export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();
@@ -154,7 +155,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
                   />
                 </div>
                 <div className="filterForm__item">
-                  <PatientAutocomplete
+                  <PatientPicker
                     theme={"regular"}
                     fieldName="patientCode"
                     fieldValue={formik.values.patientCode}
@@ -162,15 +163,14 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
                     isValid={isValid("patientCode")}
                     errorText={getErrorText("patientCode")}
                     onBlur={onBlurCallback("patientCode")}
-                    freeSolo={true}
                   />
                 </div>
-              </div>
-              <div className="filterForm__buttonSet">
-                <div className="submit_button">
-                  <Button variant="contained" type="submit">
-                    {t("bill.filterbutton")}
-                  </Button>
+                <div className="filterForm__item filterForm__buttonSet">
+                  <div className="submit_button">
+                    <Button variant="contained" type="submit">
+                      {t("bill.filterbutton")}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </form>

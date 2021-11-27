@@ -21,7 +21,7 @@
   }
 
   .filterBillForm {
-    display: inline-block;
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -38,7 +38,6 @@
       width: 100%;
     }
     .filterBillForm__item {
-      //background-color: $c-grey-lighter;
       padding: 0px 3px;
       width: 14.28%;
       @include susy-media($narrow) {
