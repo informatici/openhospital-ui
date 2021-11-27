@@ -125,7 +125,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
         setFieldValue("toDate", end);
       }
     },
-    [setFieldValue]
+    [setFieldValue, getFieldProps]
   );
 
   const isValid = (fieldName: string): boolean => {
