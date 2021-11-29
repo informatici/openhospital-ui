@@ -16,7 +16,6 @@ import { searchPayments } from "../../../state/bills/actions";
 import { IState } from "../../../types";
 import { TFilterValues } from "../billTable/types";
 import DateField from "../dateField/DateField";
-import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import Button from "../button/Button";
 import Table from "../table/Table";
 import { IPaymentsTableProps } from "./types";
