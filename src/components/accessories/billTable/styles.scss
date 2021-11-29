@@ -100,4 +100,29 @@
   .bills__table {
     padding: 20px 0px;
   }
+  .billing_actions {
+    display: flex;    
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+    @include susy-media($smartphone_small) {
+      display: block;
+    }
+
+    &{
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button {   
+        @include susy-media($smartphone_small) {
+          width: 100%;
+          margin-top: 0px;
+          .new__button__label{
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }

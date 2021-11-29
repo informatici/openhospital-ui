@@ -17,6 +17,10 @@ import {
   FilterBillsInitialFields,
   paymentsFilterInitialFields,
 } from "./consts";
+import RouterTabs from "../../accessories/tabs/RouterTabs";
+import ManageBillingActivityContent from "../manageBillingActivityContent/ManageBillingActivityContent";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import { TTabConfig } from "../../accessories/tabs/types";
 
 const BillingActivity: FC = () => {
   const { t } = useTranslation();
@@ -25,7 +29,42 @@ const BillingActivity: FC = () => {
     [t("nav.dashboard")]: "/",
     [t("nav.billing")]: "/billing",
   };
+  const billingConfigs: TTabConfig = [
+    {
+      label: t("bill.dashboard"),
+      path: "/dashboard",
+      content: (
+        <ManageBillingActivityContent
+          title="Dashboard"
+          content={<SkeletonLoader />}
+        />
+      ),
+    },
+    {
+      label: t("bill.bills"),
+      path: "/bills",
+      content: (
+        <ManageBillingActivityContent
+          title="Bills"
+          content={<BillTable fields={FilterBillsInitialFields} />}
+        />
+      ),
+    },
+    {
+      label: t("bill.payments"),
+      path: "/payments",
+      content: (
+        <ManageBillingActivityContent
+          title="Payments"
+          content={<PaymentsTable fields={paymentsFilterInitialFields} />}
+        />
+      ),
+    },
+  ];
 
+  const getRouteConfig = () => {
+    return billingConfigs;
+  };
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
@@ -45,48 +84,7 @@ const BillingActivity: FC = () => {
           />
           <div className="billing__background">
             <div className="billing__content">
-              {activityTransitionState === "TO_BILLS" && (
-                <div className="billing__title">{t("nav.billing")}</div>
-              )}
-              {activityTransitionState === "TO_PAYMENTS" && (
-                <div className="billing__title">{t("bill.payments")}</div>
-              )}
-              <div className="billing_actions">
-                <Button
-                  onClick={() => setActivityTransitionState("TO_NEW_BILL")}
-                  type="button"
-                  variant="text"
-                >
-                  <Add fontSize="small" /> {t("bill.newbill")}
-                </Button>
-                <Button
-                  onClick={() => setActivityTransitionState("TO_PAYMENTS")}
-                  type="button"
-                  variant={
-                    activityTransitionState === "TO_PAYMENTS"
-                      ? "outlined"
-                      : "text"
-                  }
-                >
-                  {t("bill.payments")}
-                </Button>
-
-                <Button
-                  onClick={() => setActivityTransitionState("TO_BILLS")}
-                  type="button"
-                  variant={
-                    activityTransitionState === "TO_BILLS" ? "outlined" : "text"
-                  }
-                >
-                  {t("bill.bills")}
-                </Button>
-              </div>
-              {activityTransitionState === "TO_BILLS" && (
-                <BillTable fields={FilterBillsInitialFields} />
-              )}
-              {activityTransitionState === "TO_PAYMENTS" && (
-                <PaymentsTable fields={paymentsFilterInitialFields} />
-              )}
+              <RouterTabs config={getRouteConfig()} defaultRoute="/dashboard" />
             </div>
           </div>
           <Footer />

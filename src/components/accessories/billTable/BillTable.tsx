@@ -26,22 +26,14 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
+import { Add, FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
+import { useHistory } from "react-router";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const header = [
-    "id",
-    "patient",
-    "patId",
-    "date",
-    "status",
-    "lastPayment",
-    "amount",
-    "balance",
-  ];
+  const header = ["patient", "date", "balance"];
   const label = {
     id: t("bill.code"),
     date: t("bill.date"),
@@ -54,6 +46,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   };
   const order = ["date", "balance"];
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
+  const history = useHistory();
 
   const validationSchema = object({
     fromDate: string().required(),
@@ -198,6 +191,16 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
 
   return (
     <div className="patients__bills">
+      <div className="billing_actions">
+        <Button
+          onClick={() => history.push("/search")}
+          type="button"
+          variant="contained"
+        >
+          <Add fontSize="small" />{" "}
+          <span className="new__button__label">{t("bill.newbill")}</span>
+        </Button>
+      </div>
       <div className="filterBillForm">
         <Accordion expanded={openFilter}>
           <AccordionSummary onClick={() => setOpenFilter(!openFilter)}>
@@ -305,7 +308,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          isCollapsabile={false}
+          isCollapsabile={true}
           onView={handleView}
         />
         <CustomModal
