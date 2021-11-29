@@ -167,11 +167,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
                   />
                 </div>
                 <div className="filterForm__item filterForm__buttonSet">
-                  <div className="submit_button">
-                    <Button variant="contained" type="submit">
-                      {t("bill.filterbutton")}
-                    </Button>
-                  </div>
+                  <Button variant="contained" type="submit">
+                    {t("bill.filterbutton")}
+                  </Button>
                 </div>
               </div>
             </form>

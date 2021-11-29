@@ -36,65 +36,26 @@
       }
       .filterBillForm__form {
         width: 100%;
-      }
-      .filterBillForm__item {
-        padding: 0px 3px;
-        width: 14.28%;
-        @include susy-media($narrow) {
-          width: 50%;
-        }
-        @include susy-media($tablet_land) {
-          width: 50%;
-        }
-        @include susy-media($tablet_port) {
-          width: 50%;
-        }
-        @include susy-media($smartphone) {
-          width: 100%;
-        }
-        .dateField,
-        .textField,
-        .selectField .autocompleteField {
-          width: 100%;
-        }
-
-        &.fullWidth {
-          width: 100%;
-        }
-
-        &.compressed {
-          .textField {
-            float: left;
-            width: 50%;
-            &:nth-of-type(1) {
-              padding-right: 10px;
-            }
-          }
-        }
-      }
-      .filterForm__buttonSet {
         display: flex;
-        justify-content: right;
-        align-items: right;
-        margin: 0 auto;
-        line-height: 1.75;
-        @include susy-media($smartphone_small) {
-          display: block;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .filterBillForm__item {
+          flex: 1 1 auto;        
+          margin: 5px;       
+          .dateField,
+          .textField,
+          .selectField .autocompleteField {
+            width: 100%;
+          }
+        }      
+        .filterForm__buttonSet {
+          display: flex;
+          align-items: center;
+          justify-content: right;
         }
 
-        .submit_button {
-          margin-top: 10px;
-          .MuiButton-label {
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            font-weight: 600;
-          }
-          button {
-            @include susy-media($smartphone_small) {
-              width: 100%;
-            }
-          }
-        }
       }
     }
     .bills__table {
@@ -104,11 +65,10 @@
       display: flex;
       align-items: center;
       flex-direction: row;
-      justify-content: space-between;      
-      margin: 15px 0px 25px 0px;
-
+      justify-content: space-between;     
+      flex-wrap: wrap;
+      padding: 15px;
       @include susy-media($smartphone_small) {
-        flex-direction: column;
         .new__button__label{
           display: none;
         }
@@ -118,11 +78,14 @@
         font-size: xx-large;
         color: $c-black;
         font-weight: bolder;
+        margin: 10px;
         @include susy-media($tablet_port) {
           font-size: x-large;
         }
         @include susy-media($smartphone) {
-          margin: 15px 0px 25px 0px;
+          font-size: x-large;
+        }
+        @include susy-media($smartphone_small) {
           font-size: x-large;
         }
       }

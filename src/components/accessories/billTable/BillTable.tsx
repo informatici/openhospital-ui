@@ -292,12 +292,10 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                     onBlur={onBlurCallback("patientCode")}
                   />
                 </div>
-                <div className="filterForm__buttonSet">
-                  <div className="submit_button">
-                    <Button variant="contained" type="submit">
-                      {t("bill.filterbutton")}
-                    </Button>
-                  </div>
+                <div className="filterBillForm__item filterForm__buttonSet">
+                  <Button variant="contained" type="submit">
+                    {t("bill.filterbutton")}
+                  </Button>
                 </div>
               </div>
             </form>
