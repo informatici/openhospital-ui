@@ -119,6 +119,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
 
   return (
     <div className="bill__payments">
+      <div className="title">{t("bill.payments")}</div>
       <div className="filterForm">
         <Accordion expanded={openFilter}>
           <AccordionSummary onClick={() => setOpenFilter(!openFilter)}>

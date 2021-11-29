@@ -3,11 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
-import Button from "../../accessories/button/Button";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import "./styles.scss";
-import Add from "@material-ui/icons/Add";
 import { Redirect } from "react-router";
 import { TActivityTransitionState } from "./types";
 import { BillTable } from "../../accessories/billTable/BillTable";
@@ -33,19 +31,13 @@ const BillingActivity: FC = () => {
     {
       label: t("bill.dashboard"),
       path: "/dashboard",
-      content: (
-        <ManageBillingActivityContent
-          title="Dashboard"
-          content={<SkeletonLoader />}
-        />
-      ),
+      content: <ManageBillingActivityContent content={<SkeletonLoader />} />,
     },
     {
       label: t("bill.bills"),
       path: "/bills",
       content: (
         <ManageBillingActivityContent
-          title="Bills"
           content={<BillTable fields={FilterBillsInitialFields} />}
         />
       ),
@@ -55,7 +47,6 @@ const BillingActivity: FC = () => {
       path: "/payments",
       content: (
         <ManageBillingActivityContent
-          title="Payments"
           content={<PaymentsTable fields={paymentsFilterInitialFields} />}
         />
       ),

@@ -33,7 +33,7 @@ import { useHistory } from "react-router";
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const header = ["patient", "date", "balance"];
+  const header = ["patient", "date", "status"];
   const label = {
     id: t("bill.code"),
     date: t("bill.date"),
@@ -44,7 +44,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     patId: t("bill.patId"),
     lastPayment: t("bill.lastPayment"),
   };
-  const order = ["date", "balance"];
+  const order = ["patient", "date", "status"];
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
   const history = useHistory();
 
@@ -191,15 +191,18 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
 
   return (
     <div className="patients__bills">
-      <div className="billing_actions">
-        <Button
-          onClick={() => history.push("/search")}
-          type="button"
-          variant="contained"
-        >
-          <Add fontSize="small" />{" "}
-          <span className="new__button__label">{t("bill.newbill")}</span>
-        </Button>
+      <div className="billing__header">
+        <div className="billing__title">{t("nav.billing")}</div>
+        <div className="billing__actions">
+          <Button
+            onClick={() => history.push("/search")}
+            type="button"
+            variant="contained"
+          >
+            <Add fontSize="small" />
+            <span className="new__button__label">{t("bill.newbill")}</span>
+          </Button>
+        </div>
       </div>
       <div className="filterBillForm">
         <Accordion expanded={openFilter}>
