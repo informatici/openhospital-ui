@@ -64,16 +64,6 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
       },
     }),
   });
-  const search = (filter: TFilterValues) => {
-    switch (filter.status) {
-      case "PENDING":
-        dispatch(getPendingBills(+filter.patientCode));
-        break;
-      default:
-        dispatch(searchBills(filter));
-        break;
-    }
-  };
 
   const initialValues = getFromFields(fields, "value");
   const [filter, setFilter] = useState(initialValues as TFilterValues);
@@ -91,10 +81,17 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   });
 
   useEffect(() => {
-    search(filter);
+    switch (filter.status) {
+      case "PENDING":
+        dispatch(getPendingBills(+filter.patientCode));
+        break;
+      default:
+        dispatch(searchBills(filter));
+        break;
+    }
   }, [filter]);
 
-  const { setFieldValue, getFieldProps, handleBlur } = formik;
+  const { setFieldValue, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
@@ -116,7 +113,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
         setFieldValue("toDate", end);
       }
     },
-    [setFieldValue, getFieldProps]
+    [setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
