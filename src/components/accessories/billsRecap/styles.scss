@@ -2,7 +2,6 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .bills__recap{
-    margin-bottom: 100px;
     .bills__recap__title {        
         font-size: xx-large;
         color: $c-black;
@@ -28,9 +27,4 @@
             margin: 10px;
         } 
     }
-    
-    .footer {
-        position: relative;
-    }
-
 }
