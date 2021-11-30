@@ -32,7 +32,11 @@ const BillingActivity: FC = () => {
     {
       label: t("bill.dashboard"),
       path: "/dashboard",
-      content: <ManageBillingActivityContent content={<BillsRecap />} />,
+      content: (
+        <ManageBillingActivityContent
+          content={<BillsRecap fields={FilterBillsInitialFields} />}
+        />
+      ),
     },
     {
       label: t("bill.bills"),

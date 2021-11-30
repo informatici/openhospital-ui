@@ -315,6 +315,7 @@
     "lastPayment": "Dernier Paiement",
     "patId": "ID Pat.",
     "month": "Mois",
-    "year": "Année"
+    "year": "Année",
+    "recaps": "Récapitulatif"
   }
 }

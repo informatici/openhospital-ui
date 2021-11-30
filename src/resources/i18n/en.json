@@ -309,6 +309,7 @@
     "lastPayment": "Last Payment",
     "patId": "Pat. ID",
     "month": "Month",
-    "year": "Year"
+    "year": "Year",
+    "recaps": "Bill Recaps"
   }
 }

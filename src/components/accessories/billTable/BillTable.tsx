@@ -69,12 +69,6 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
       case "PENDING":
         dispatch(getPendingBills(+filter.patientCode));
         break;
-      case "CLOSE":
-        dispatch(searchBills(filter));
-        break;
-      case "DELETE":
-        dispatch(searchBills(filter));
-        break;
       default:
         dispatch(searchBills(filter));
         break;
