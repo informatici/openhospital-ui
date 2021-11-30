@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.bills__recap{
+    margin-bottom: 100px;
+    .bills__recap__title {        
+        font-size: xx-large;
+        color: $c-black;
+        font-weight: bolder;
+        margin-bottom: 25px;
+        @include susy-media($tablet_port) {
+        font-size: x-large;
+        }
+        @include susy-media($smartphone) {
+        margin: 15px 0px 25px 0px;
+        font-size: x-large;
+        }
+    }
+
+    .bills__recap__content {
+        display: flex;
+        align-items: center;    
+        flex-direction: row;  
+        justify-content: space-between;      
+        flex-wrap: wrap;  
+        .item__card{
+            flex: 1 1 auto;
+            margin: 10px;
+        } 
+    }
+    
+    .footer {
+        position: relative;
+    }
+
+}
