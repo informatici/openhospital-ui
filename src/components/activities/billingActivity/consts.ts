@@ -22,11 +22,11 @@ export const FilterBillsInitialFields: TFields<BillFilterFormFieldName> = {
     type: "text",
   },
   month: {
-    value: "",
+    value: moment().toISOString(),
     type: "date",
   },
   year: {
-    value: "",
+    value: moment().toISOString(),
     type: "date",
   },
 };

@@ -103,17 +103,21 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { setFieldValue, getFieldProps, handleBlur } = formik;
 
   const dateFieldHandleOnChange = useCallback(
-    (fieldName: string) => (value: Date | null) => {
-      setFieldValue(fieldName, value);
-      if (["month", "year"].includes(fieldName)) {
-        const month = getFieldProps("month").value
-          ? getFieldProps("month").value.getMonth()
-          : value?.getMonth();
-        const year = getFieldProps("year").value
-          ? getFieldProps("year").value.getUTCFullYear()
-          : value?.getUTCFullYear();
+    (fieldName: string) => (val: Date | null) => {
+      setFieldValue(fieldName, val);
+      if (fieldName === "month") {
+        const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
+        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
         const start = new Date(year, month, 1);
         const end = new Date(year, month + 1, 0);
+        setFieldValue("fromDate", start);
+        setFieldValue("toDate", end);
+      }
+
+      if (fieldName === "year") {
+        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
+        const start = new Date(year, 0, 1);
+        const end = new Date(year, 11, 31);
         setFieldValue("fromDate", start);
         setFieldValue("toDate", end);
       }
