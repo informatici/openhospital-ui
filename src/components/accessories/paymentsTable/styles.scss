@@ -36,6 +36,7 @@
         align-items: center;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: space-around;
 
         .filterForm__item {
           flex: 1 1 auto;        

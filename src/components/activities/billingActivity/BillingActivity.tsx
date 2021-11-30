@@ -19,6 +19,7 @@ import RouterTabs from "../../accessories/tabs/RouterTabs";
 import ManageBillingActivityContent from "../manageBillingActivityContent/ManageBillingActivityContent";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import { TTabConfig } from "../../accessories/tabs/types";
+import { BillsRecap } from "../../accessories/billsRecap/BillsRecap";
 
 const BillingActivity: FC = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const BillingActivity: FC = () => {
     {
       label: t("bill.dashboard"),
       path: "/dashboard",
-      content: <ManageBillingActivityContent content={<SkeletonLoader />} />,
+      content: <ManageBillingActivityContent content={<BillsRecap />} />,
     },
     {
       label: t("bill.bills"),
