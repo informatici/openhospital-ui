@@ -16,7 +16,6 @@ import "./styles.scss";
 export const BillsRecap: FC = () => {
   const { t } = useTranslation();
   const [summary, billSummaryChange] = useState({} as IBillSummary);
-
   const dispatch = useDispatch();
   const data = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.searchBills.data ?? [];
