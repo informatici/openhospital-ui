@@ -3,14 +3,12 @@ import { IAction } from "../types";
 import {
   CREATE_MEDICALTYPE_FAIL,
   CREATE_MEDICALTYPE_LOADING,
-  CREATE_MEDICALTYPE_RESET,
   CREATE_MEDICALTYPE_SUCCESS,
   GET_MEDICALTYPE_SUCCESS,
   GET_MEDICALTYPE_LOADING,
   GET_MEDICALTYPE_FAIL,
   EDIT_MEDICALTYPE_FAIL,
   EDIT_MEDICALTYPE_LOADING,
-  EDIT_MEDICALTYPE_RESET,
   EDIT_MEDICALTYPE_SUCCESS,
   DELETE_MEDICALTYPE_LOADING,
   DELETE_MEDICALTYPE_SUCCESS,
@@ -38,12 +36,6 @@ export default produce((draft: IMedicalTypesState, action: IAction<any, any>) =>
     case CREATE_MEDICALTYPE_FAIL: {
       draft.createMedicalType.status = "FAIL";
       draft.createMedicalType.error = action.error;
-      break;
-    }
-
-    case CREATE_MEDICALTYPE_RESET: {
-      draft.createMedicalType.status = "IDLE";
-      delete draft.createMedicalType.error;
       break;
     }
 
@@ -86,11 +78,6 @@ export default produce((draft: IMedicalTypesState, action: IAction<any, any>) =>
       break;
     }
 
-    case EDIT_MEDICALTYPE_RESET: {
-      draft.editMedicalType.status = "IDLE";
-      delete draft.editMedicalType.error;
-      break;
-    }
     /**
      * DELETE_MEDICALTYPE
      */

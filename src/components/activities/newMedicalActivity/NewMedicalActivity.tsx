@@ -7,7 +7,6 @@ import { MedicalDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   newMedical,
-  newMedicalReset,
 } from "../../../state/medicals/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -27,11 +26,9 @@ import {
 const NewMedicalActivity: FunctionComponent<TProps> = ({
   userCredentials,
   newMedical,
-  newMedicalReset,
   isLoading,
   hasSucceeded,
   hasFailed,
-  dashboardRoute,
 }) => {
   const { t } = useTranslation();
   const breadcrumbMap = {
@@ -41,21 +38,17 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
   };
 
   const onSubmit = (medical: MedicalDTO) => {
-    newMedical(medical); //per ora false
+    newMedical(medical, true); //per ora true
   };
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
-    if (
-      activityTransitionState === "TO_NEW_MEDICAL_RESET" ||
-      activityTransitionState === "TO_DASHBOARD"
-    ) {
-      newMedicalReset();
+    if (activityTransitionState === "TO_MEDICALS") {
       setShouldResetForm(true);
     }
-  }, [activityTransitionState, newMedicalReset]);
+  }, [activityTransitionState]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -73,8 +66,8 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
   };
 
   switch (activityTransitionState) {
-    case "TO_DASHBOARD":
-      return <Redirect to={dashboardRoute} />;
+    case "TO_MEDICALS":
+      return <Redirect to="/Medicals" />;
     default:
       return (
         <div className="newMedical">
@@ -109,7 +102,7 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
             primaryButtonLabel={t("common.dashboard")}
             secondaryButtonLabel={t("common.keepediting")}
             handlePrimaryButtonClick={() =>
-              setActivityTransitionState("TO_DASHBOARD")
+              setActivityTransitionState("TO_MEDICALS")
             }
             handleSecondaryButtonClick={() =>
               setActivityTransitionState("TO_NEW_MEDICAL_RESET")
@@ -129,7 +122,6 @@ const mapStateToProps = (state: IState): IStateProps => ({
 });
 
 const mapDispatchToProps: IDispatchProps = {
-  newMedicalReset,
   newMedical,
 };
 

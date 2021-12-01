@@ -1,7 +1,14 @@
 import { MedicalDTO } from "../../../generated";
 import { IForm } from "../../../libraries/formDataHandling/types";
 import { MedicalTypeDTO } from "../../../generated";
+import { TAPIResponseStatus } from "../../../state/types";
+
 interface IOwnProps {
+  fields: any,
+  isLoading: boolean,
+  onSubmit: (medical: MedicalDTO) => void,
+  submitButtonLabel: string,
+  resetButtonLabel: string,
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }
@@ -13,9 +20,7 @@ export interface IDispatchProps {
 }
 
 export interface IStateProps {
-  isMedTypeLoading: boolean;
-  hasMedTypeSucceeded: boolean;
-  hasMedTypeFailed: boolean;
+  medicalTypeStatus: TAPIResponseStatus;
   medicalTypes: Array<MedicalTypeDTO>;
   medicalTypesOptions: {value: string, label: string}[];
 }

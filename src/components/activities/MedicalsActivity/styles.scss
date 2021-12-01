@@ -22,6 +22,14 @@
   }
 }
 
+.MuiIconButton-root.icon-button {
+  padding: 6px;
+}
+
+.MuiButtonBase-root.icon-button {
+  vertical-align: baseline;
+}
+
 .medicals {
   background-color: $c-color-secondary;
 
@@ -47,7 +55,7 @@
     text-align: end;
   }
 
-  &__export__button{
+  &__export__button {
     text-decoration: none;
   }
 

@@ -2,7 +2,6 @@ import { MedicalDTO } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
 
 export interface IOwnProps {
-  dashboardRoute: string;
   isLoading: boolean;
 }
 
@@ -14,8 +13,7 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  newMedical: (medical: MedicalDTO) => any;
-  newMedicalReset: () => any;
+  newMedical: (medical: MedicalDTO, ignoreSimilar: boolean) => any;
 }
 
 export type TProps = IOwnProps & IStateProps & IDispatchProps;
@@ -23,4 +21,4 @@ export type TProps = IOwnProps & IStateProps & IDispatchProps;
 export type TActivityTransitionState =
   | "IDLE"
   | "TO_NEW_MEDICAL_RESET"
-  | "TO_DASHBOARD";
+  | "TO_MEDICALS";

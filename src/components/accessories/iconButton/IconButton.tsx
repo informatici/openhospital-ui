@@ -9,7 +9,7 @@ const IconButtonComponent: FunctionComponent<IProps> = (
 
   return (
    <span>
-         {new Array(<a href={props.url}><SvgIcon component={props.svgImage}/></a>)}
+         {new Array(<a href={props.url} onClick={props.onClick}><SvgIcon component={props.svgImage} /></a>)}
       </span>
   );
 };

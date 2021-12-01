@@ -3,7 +3,7 @@ import { TMedicalDataFormFieldName } from "../../accessories/medicalDataForm/typ
 
 export const initialFields: TFields<TMedicalDataFormFieldName> = {
   code: {
-    value: "",
+    value: "0",
     type: "number",
   },
   prod_code: {

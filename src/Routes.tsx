@@ -44,7 +44,7 @@ const Routes: FunctionComponent = () => {
           <PatientDetailsActivity />
         </PrivateRoute>
         <PrivateRoute path="/newMedical">
-          <NewMedicalActivity dashboardRoute="/"  />
+          <NewMedicalActivity />
         </PrivateRoute>
         <PrivateRoute path="/Medicals">
           <MedicalsActivity />

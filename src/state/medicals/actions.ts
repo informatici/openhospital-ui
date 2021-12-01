@@ -6,9 +6,6 @@ import {
   GetMedicalsUsingGETSortByEnum,
   MedicalControllerApi,
   MedicalDTO,
-  NewMedicalUsingPOSTRequest,
-  UpdateMedicalUsingPUTRequest,
-  GetMedicalsUsingGETRequest
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -16,20 +13,20 @@ import {
   GET_MEDICALS_FAIL,
   GET_MEDICALS_LOADING,
   GET_MEDICALS_SUCCESS,
+  FILTER_MEDICALS_FAIL,
+  FILTER_MEDICALS_LOADING,
+  FILTER_MEDICALS_SUCCESS,
   GET_MEDICAL_FAIL,
   GET_MEDICAL_LOADING,
   GET_MEDICAL_SUCCESS,
   NEW_MEDICAL_FAIL,
   NEW_MEDICAL_LOADING,
-  NEW_MEDICAL_RESET,
   NEW_MEDICAL_SUCCESS,
   EDIT_MEDICAL_LOADING,
   EDIT_MEDICAL_FAIL,
-  EDIT_MEDICAL_RESET,
   EDIT_MEDICAL_SUCCESS,
   DELETE_MEDICAL_LOADING,
   DELETE_MEDICAL_FAIL,
-  DELETE_MEDICAL_RESET,
   DELETE_MEDICAL_SUCCESS,
 } from "./consts";
 
@@ -38,14 +35,13 @@ const medicalControllerApi = new MedicalControllerApi(
 );
 
 export const newMedical =
-  ( medical: MedicalDTO) => //, ignSimilar: boolean
+  (medical: MedicalDTO, ignSimilar: boolean) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: NEW_MEDICAL_LOADING,
     });
 
-    var newMedicalRequest: NewMedicalUsingPOSTRequest = { medicalDTO: medical, ignoreSimilar: true }
-    medicalControllerApi.newMedicalUsingPOST(newMedicalRequest).subscribe( 
+    medicalControllerApi.newMedicalUsingPOST({ medicalDTO: medical, ignoreSimilar: ignSimilar}).subscribe( 
       () => {
         dispatch({
           type: NEW_MEDICAL_SUCCESS,
@@ -60,14 +56,6 @@ export const newMedical =
     );
   };
 
-  export const newMedicalReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: NEW_MEDICAL_RESET,
-    });
-  };
-
 export const updateMedical =
   (updateMedical: MedicalDTO, ignSimilar: boolean) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
@@ -75,9 +63,8 @@ export const updateMedical =
       type: EDIT_MEDICAL_LOADING,
     });
 
-    var updateMedicalRequest: UpdateMedicalUsingPUTRequest = { medicalDTO: updateMedical }
     medicalControllerApi
-      .updateMedicalUsingPUT(updateMedicalRequest)
+      .updateMedicalUsingPUT({ medicalDTO: updateMedical })
       .subscribe(
         () => {
           dispatch({
@@ -93,16 +80,8 @@ export const updateMedical =
       );
   };
 
-  export const updateMedicalReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: EDIT_MEDICAL_RESET,
-    });
-  };
-
   export const deleteMedical =
-  (code: number, updateMedical: MedicalDTO) =>
+  (code: number) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: DELETE_MEDICAL_LOADING,
@@ -125,22 +104,13 @@ export const updateMedical =
       );
   };
 
-  export const deleteMedicalReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: DELETE_MEDICAL_RESET,
-    });
-  };
-
 export const getMedicals =
-  (sortBy?: GetMedicalsUsingGETSortByEnum) => //, sorting: GetMedicalsUsingGETSortByEnum
+  (sortBy?: GetMedicalsUsingGETSortByEnum) => 
   (dispatch: Dispatch<IAction<MedicalDTO[], {}>>): void => {
     dispatch({
       type: GET_MEDICALS_LOADING,
     });
-      var getMedicalRequest: GetMedicalsUsingGETRequest ={ sortBy: sortBy || GetMedicalsUsingGETSortByEnum.NONE } //sortBy: sorting 
-      medicalControllerApi.getMedicalsUsingGET(getMedicalRequest).subscribe(
+      medicalControllerApi.getMedicalsUsingGET({ sortBy: sortBy || GetMedicalsUsingGETSortByEnum.NONE }).subscribe(
         (payload) => {
           if (Array.isArray(payload)) {
             dispatch({
@@ -161,18 +131,37 @@ export const getMedicals =
           });
         }
       );
-    // }
   };
 
-  export const getMedicalSuccess = (
-    medical: MedicalDTO
-  ): IAction<MedicalDTO, {}> => {
-    return {
-      type: GET_MEDICAL_SUCCESS,
-      payload: medical,
-    };
+  export const filterMedicals =
+  (critical?: boolean, desc?: string, nameSorted?: boolean, type?: string) =>
+  (dispatch: Dispatch<IAction<MedicalDTO[], {}>>): void => {
+    dispatch({
+      type: FILTER_MEDICALS_LOADING,
+    });
+      medicalControllerApi.filterMedicalsUsingGET({ critical, desc, nameSorted, type }).subscribe(
+        (payload) => {
+          if (Array.isArray(payload)) {
+            dispatch({
+              type: FILTER_MEDICALS_SUCCESS,
+              payload,
+            });
+          } else {
+            dispatch({
+              type: FILTER_MEDICALS_FAIL,
+              error: { message: "Unexpected response payload" },
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: FILTER_MEDICALS_FAIL,
+            error,
+          });
+        }
+      );
   };
-  
+
   export const getMedical =
   (myCode: number) => //, sorting: GetMedicalsUsingGETSortByEnum
   (dispatch: Dispatch<IAction<MedicalDTO, {}>>): void => {
@@ -182,16 +171,7 @@ export const getMedicals =
     medicalControllerApi
       .getMedicalUsingGET({ code: myCode })
       .subscribe(
-        (payload) => {
-          if (typeof payload === "object" && !isEmpty(payload)) {
-            dispatch(getMedicalSuccess(payload));
-          } else {
-            dispatch({
-              type: GET_MEDICAL_SUCCESS,
-              payload: [],
-            });
-          }
-        },
+        (payload) => { dispatch(getMedicalSuccess(payload)); },
         (error) => {
           dispatch({
             type: GET_MEDICAL_FAIL,
@@ -201,41 +181,19 @@ export const getMedicals =
       );
   }
 
-// export const exportMedicalSuccess = (
-//   medical: MedicalDTO
-// ): IAction<MedicalDTO, {}> => {
-//   return {
-//     type: EXPORT_MEDICAL_SUCCESS,
-//     payload: medical,
-//   };
-// };
+  export const getMedicalSuccess = (
+    medical: MedicalDTO
+  ): IAction<MedicalDTO, {}> => {
+    if (typeof medical === "object" && !isEmpty(medical)) {
+    return {
+      type: GET_MEDICAL_SUCCESS,
+      payload: medical,
+    };
+  }else {
+    return {
+      type: GET_MEDICAL_SUCCESS,
+      payload: [],
+    };
+  };
+}
 
-// export const exportMedical =
-//   (newMedical: MedicalDTO) =>
-//   (dispatch: Dispatch<IAction<null, {}>>): void => {
-//     dispatch({
-//       type: NEW_MEDICAL_LOADING,
-//     });
-
-//     medicalControllerApi.newMedicalUsingPOST({ newMedical }).subscribe( //usingPOST???
-//       () => {
-//         dispatch({
-//           type: NEW_MEDICAL_SUCCESS,
-//         });
-//       },
-//       (error) => {
-//         dispatch({
-//           type: NEW_MEDICAL_FAIL,
-//           error,
-//         });
-//       }
-//     );
-//   };
-
-//   export const exportMedicalReset =
-//   () =>
-//   (dispatch: Dispatch<IAction<null, {}>>): void => {
-//     dispatch({
-//       type: NEW_MEDICAL_RESET,
-//     });
-//   };

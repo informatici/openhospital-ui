@@ -1,19 +1,11 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { object, string, number } from "yup";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../libraries/formDataHandling/functions";
+import { formatAllFieldValues, getFromFields } from "../../../libraries/formDataHandling/functions";
 import warningIcon from "../../../assets/warning-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import SmallButton from "../smallButton/SmallButton";
@@ -24,38 +16,26 @@ import "./styles.scss";
 import { IState } from "../../../types";
 import { TProps, IDispatchProps, IStateProps } from "./types";
 import { useTranslation } from "react-i18next";
-import {
-  getMedicalTypes,
-  getMedicalTypesSuccess,
-} from "../../../state/medicaltypes/actions";
+import { getMedicalTypes } from "../../../state/medicaltypes/actions";
 import { MedicalTypeDTO } from "../../../generated";
 import isEmpty from "lodash.isempty";
 
 import { medicalTypesFormatter } from "../../../libraries/formatUtils/optionFormatting";
 
-const MedicalDataForm: FunctionComponent<TProps> = ({
-  fields,
-  onSubmit,
-  submitButtonLabel,
-  resetButtonLabel,
-  isLoading,
-  shouldResetForm,
-  isMedTypeLoading,
-  hasMedTypeSucceeded,
-  hasMedTypeFailed,
-  medicalTypes,
-  medicalTypesOptions,
-  getMedicalTypes,
-}) => {
+const MedicalDataForm: FunctionComponent<TProps> = (
+  props
+  ) => {
   const { t } = useTranslation();
 
   const validationSchema = object({
-    type: string().required("This field is required"),
-    code: number().required("This field is required"),
-    description: string().required("This field is required"),
+    type: string().required(t("common.required")),
+    prod_code: string().required(t("common.required")),
+    description: string().required(t("common.required")),
+    pcsperpck: number(),
+    minqty: number()
   });
 
-  const initialValues = getFromFields(fields, "value");
+  const initialValues = getFromFields(props.fields, "value");
 
   const history = useHistory();
 
@@ -64,35 +44,31 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      const formattedValues = formatAllFieldValues(fields, values);
+      const formattedValues = formatAllFieldValues(props.fields, values);
       //Use correct MedicalTypeDTO
-      var medType = medicalTypes.find((mt) => mt.code == formattedValues.type);
-      formattedValues.type = medType;
-      onSubmit(formattedValues);
+      formattedValues.type = props.medicalTypes.find((mt: MedicalTypeDTO) => mt.code === formattedValues.type);
+      props.onSubmit(formattedValues);
     },
   });
 
   useEffect(() => {
-    if (!isMedTypeLoading && !hasMedTypeFailed && !hasMedTypeSucceeded)
-      getMedicalTypes({});
-    if (!isEmpty(medicalTypes) && isEmpty(medicalTypesOptions)) {
-      medicalTypesOptions = medicalTypesFormatter(medicalTypes);
-      setOptions(medicalTypesOptions);
+    if (props.medicalTypeStatus == "IDLE")
+      props.getMedicalTypes({});
+    if (!isEmpty(props.medicalTypes) && isEmpty(props.medicalTypesOptions)) {
+      setOptions(medicalTypesFormatter(props.medicalTypes));
       //Custom management of medical type
-      if (!isEmpty(fields.type.value)) {
+      if (!isEmpty(props.fields.type.value)) {
         setFieldValue(
           "type",
-          medicalTypes.find(
-            (x) => x.code == (fields.type.value as MedicalTypeDTO).code
+          props.medicalTypes.find(
+            (x: MedicalTypeDTO) => x.code == (props.fields.type.value as MedicalTypeDTO).code
           )?.code
         );
       }
     }
   }, [
-    isMedTypeLoading,
-    hasMedTypeFailed,
-    hasMedTypeSucceeded,
-    medicalTypesOptions,
+    props.medicalTypeStatus,
+    props.medicalTypesOptions,
   ]);
 
   const { setFieldValue, resetForm, handleBlur } = formik;
@@ -108,10 +84,10 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
   };
 
   useEffect(() => {
-    if (shouldResetForm) {
+    if (props.shouldResetForm) {
       resetForm();
     }
-  }, [shouldResetForm, resetForm]);
+  }, [props.shouldResetForm, resetForm]);
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
@@ -126,7 +102,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  const [options, setOptions] = useState(medicalTypesOptions);
+  const [options, setOptions] = useState(props.medicalTypesOptions);
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
@@ -144,19 +120,19 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
             errorText={getErrorText("type")}
             onBlur={onBlurCallback("type")}
             options={options || []}
-            disabled={initialValues.code != "" || isLoading}
+            disabled={initialValues.code != "0" || props.isLoading}
           />
         </div>
 
         <div className="medicalDataForm__item">
           <TextField
-            field={formik.getFieldProps("code")}
+            field={formik.getFieldProps("prod_code")}
             theme="regular"
-            label={t("medical.code")}
-            isValid={isValid("code")}
-            errorText={getErrorText("code")}
+            label={t("medical.prod_code")}
+            isValid={isValid("prod_code")}
+            errorText={getErrorText("prod_code")}
             onBlur={formik.handleBlur}
-            disabled={isLoading}
+            disabled={props.isLoading}
           />
         </div>
 
@@ -168,7 +144,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
             isValid={isValid("description")}
             errorText={getErrorText("description")}
             onBlur={formik.handleBlur}
-            disabled={isLoading}
+            disabled={props.isLoading}
           />
         </div>
 
@@ -180,46 +156,45 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
             isValid={isValid("pcsperpck")}
             errorText={getErrorText("pcsperpck")}
             onBlur={formik.handleBlur}
-            disabled={isLoading}
+            disabled={props.isLoading}
           />
         </div>
 
-        <div className="row start-sm center-xs">
-          <div className="medicalDataForm__item">
-            <TextField
-              field={formik.getFieldProps("minqty")}
-              theme="regular"
-              label={t("medical.minqty")}
-              isValid={isValid("minqty")}
-              errorText={getErrorText("minqty")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
+        <div className="medicalDataForm__item">
+          <TextField
+            field={formik.getFieldProps("minqty")}
+            theme="regular"
+            label={t("medical.minqty")}
+            isValid={isValid("minqty")}
+            errorText={getErrorText("minqty")}
+            onBlur={formik.handleBlur}
+            disabled={props.isLoading}
+          />
         </div>
+
         <div className="medicalDataForm__buttonSet">
           <div className="cancel_button">
-            <SmallButton type="button" disabled={isLoading} onClick={() => { history.goBack() }}>
+            <SmallButton type="button" disabled={props.isLoading} onClick={() => { history.goBack() }}>
             {t("common.discard")}
             </SmallButton>
           </div>
           <div className="reset_button">
             <TextButton onClick={() => setOpenResetConfirmation(true)}>
-              {resetButtonLabel}
+              {props.resetButtonLabel}
             </TextButton>
           </div>
           <div className="submit_button">
-            <SmallButton type="submit" disabled={isLoading}>
-              {submitButtonLabel}
+            <SmallButton type="submit" disabled={props.isLoading}>
+              {props.submitButtonLabel}
             </SmallButton>
           </div>
         </div>
         <ConfirmationDialog
           isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={`Are you sure to ${resetButtonLabel} the Form?`}
+          title={props.resetButtonLabel.toUpperCase()}
+          info={`Are you sure to ${props.resetButtonLabel} the Form?`}
           icon={warningIcon}
-          primaryButtonLabel={resetButtonLabel}
+          primaryButtonLabel={props.resetButtonLabel}
           secondaryButtonLabel="Dismiss"
           handlePrimaryButtonClick={handleResetConfirmation}
           handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
@@ -230,9 +205,7 @@ const MedicalDataForm: FunctionComponent<TProps> = ({
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
-  isMedTypeLoading: state.medicaltypes.getMedicalType.status == "LOADING",
-  hasMedTypeSucceeded: state.medicaltypes.getMedicalType.status == "SUCCESS",
-  hasMedTypeFailed: state.medicaltypes.getMedicalType.status == "FAIL",
+  medicalTypeStatus: state.medicaltypes.getMedicalType.status || "IDLE",
   medicalTypes: state.medicaltypes.getMedicalType.data || new Array(),
   medicalTypesOptions: [],
 });

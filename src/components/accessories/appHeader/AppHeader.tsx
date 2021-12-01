@@ -82,12 +82,9 @@ const AppHeader: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_PHARMACEUTICALS":
-      //if(!location.pathname.endsWith('/Medicals/'))
         return (<div><Redirect exact from="/"  to={`/Medicals/`} />
              <Route component={Medicals} exact path="/Medicals" />
              </div>);
-      // else;
-      //   return null;
     case "TO_PHARMACEUTICAL_STOCK":
       return <Redirect to={`/MedicalStock/`} />; 
     case "TO_PHARMACEUTICAL_STOCK_WARD":

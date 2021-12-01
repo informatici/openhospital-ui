@@ -16,15 +16,12 @@ import {
   GET_MEDICALTYPE_SUCCESS,
   CREATE_MEDICALTYPE_FAIL,
   CREATE_MEDICALTYPE_LOADING,
-  CREATE_MEDICALTYPE_RESET,
   CREATE_MEDICALTYPE_SUCCESS,
   EDIT_MEDICALTYPE_LOADING,
   EDIT_MEDICALTYPE_FAIL,
-  EDIT_MEDICALTYPE_RESET,
   EDIT_MEDICALTYPE_SUCCESS,
   DELETE_MEDICALTYPE_LOADING,
   DELETE_MEDICALTYPE_FAIL,
-  DELETE_MEDICALTYPE_RESET,
   DELETE_MEDICALTYPE_SUCCESS,
 } from "./consts";
 
@@ -39,8 +36,7 @@ export const newMedicalType =
       type: CREATE_MEDICALTYPE_LOADING,
     });
 
-    var newMedicalTypeRequest: CreateMedicalTypeUsingPOSTRequest = { medicalTypeDTO: medicalType }
-    medicalTypeControllerApi.createMedicalTypeUsingPOST(newMedicalTypeRequest).subscribe( 
+    medicalTypeControllerApi.createMedicalTypeUsingPOST({ medicalTypeDTO: medicalType }).subscribe( 
       () => {
         dispatch({
           type: CREATE_MEDICALTYPE_SUCCESS,
@@ -55,14 +51,6 @@ export const newMedicalType =
     );
   };
 
-  export const createMedicalReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: CREATE_MEDICALTYPE_RESET,
-    });
-  };
-
 export const editMedicalType =
   ( updateMedicalType: MedicalTypeDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
@@ -70,9 +58,8 @@ export const editMedicalType =
       type: EDIT_MEDICALTYPE_LOADING,
     });
 
-    var updateMedicalTypeRequest: UpdateMedicalTypeUsingPUTRequest = { medicalTypeDTO: updateMedicalType }
     medicalTypeControllerApi
-      .updateMedicalTypeUsingPUT(updateMedicalTypeRequest)
+      .updateMedicalTypeUsingPUT({ medicalTypeDTO: updateMedicalType })
       .subscribe(
         () => {
           dispatch({
@@ -86,14 +73,6 @@ export const editMedicalType =
           });
         }
       );
-  };
-
-  export const editMedicalTypeReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: EDIT_MEDICALTYPE_RESET,
-    });
   };
 
   export const deleteMedicalType =
@@ -118,14 +97,6 @@ export const editMedicalType =
           });
         }
       );
-  };
-
-  export const deleteMedicalTypeReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: DELETE_MEDICALTYPE_RESET,
-    });
   };
 
 export const getMedicalTypes =

@@ -8,7 +8,6 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   getMedical,
   updateMedical,
-  updateMedicalReset,
 } from "../../../state/medicals/actions";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
 import { IState } from "../../../types";
@@ -31,7 +30,6 @@ import { MedicalDTO } from "../../../generated";
 const EditMedicalActivity: FunctionComponent<TProps> = ({
   userCredentials,
   getMedical,
-  updateMedicalReset,
   updateMedical,
   isLoading, //on edit call
   hasSucceeded, //on edit call
@@ -75,7 +73,7 @@ const EditMedicalActivity: FunctionComponent<TProps> = ({
     if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
     }
-  }, [activityTransitionState, updateMedicalReset, getMedical, code]);
+  }, [activityTransitionState, getMedical, code]);
 
   useEffect(() => {
     setOpenConfirmationMessage(hasSucceeded);
@@ -200,7 +198,6 @@ const mapStateToProps = (state: IState): IStateProps => ({
 
 const mapDispatchToProps: IDispatchProps = {
   getMedical,
-  updateMedicalReset,
   updateMedical,
 };
 

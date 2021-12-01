@@ -13,7 +13,6 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   getMedical: (code: number) => void;
-  updateMedicalReset: () => any;
   updateMedical: (medicalDTO: MedicalDTO, ignoreSimilar: boolean ) => any;
 }
 
