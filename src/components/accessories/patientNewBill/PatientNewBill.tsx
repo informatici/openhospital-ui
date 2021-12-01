@@ -9,11 +9,25 @@ import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import { BillPaymentsDTO } from "../../../generated";
 import { Add } from "@material-ui/icons";
+import { useFullBill, useItems } from "./hooks";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
   const [showItemPicker, setShowItemPicker] = useState(false);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+
+  const {
+    fullBill,
+    bill,
+    billItems,
+    billPayments,
+    handleBillDTO,
+    handleAddItem,
+    handleAddPayment,
+    handleRemoveItem,
+    handleRemovePayment,
+  } = useFullBill();
+  const { dispatch, medicals, exams, surgeries } = useItems();
 
   const handleItemPickerShow = useCallback(() => {
     setShowItemPicker(false);
