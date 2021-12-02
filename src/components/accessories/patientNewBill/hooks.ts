@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BillDTO,
@@ -12,6 +12,32 @@ import {
 import { getExams } from "../../../state/exams/actions";
 import { getMedicals } from "../../../state/medicals/actions";
 import { IState } from "../../../types";
+
+export const useDialogStatus = () => {
+  const [showItemPicker, setShowPicker] = useState(false);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+
+  const handleItemPicker = useCallback(() => {
+    setShowPicker(!showItemPicker);
+  }, [showItemPicker]);
+  const handlePaymentDialog = useCallback(() => {
+    setShowPaymentDialog(!showPaymentDialog);
+  }, [showPaymentDialog]);
+
+  return {
+    showItemPicker,
+    showPaymentDialog,
+    handleItemPicker,
+    handlePaymentDialog,
+  };
+};
+
+export const useSelectedPatient = () => {
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+  return { patient };
+};
 
 export const useItems = () => {
   const dispatch = useDispatch();
@@ -42,7 +68,7 @@ export const useFullBill = () => {
     billItemsDTO: billItems,
     billPaymentsDTO: billPayments,
   });
-  const handleBillDTO = useCallback(
+  const handleBillEdit = useCallback(
     (billDTO: BillDTO) => setBill({ ...billDTO }),
     [bill]
   );
@@ -53,6 +79,15 @@ export const useFullBill = () => {
   );
   const handleAddItem = useCallback(
     (itemDTO: BillItemsDTO) => setBillItems([...billItems, itemDTO]),
+    [billItems]
+  );
+  const handleEditItem = useCallback(
+    (itemDTO: BillItemsDTO) => {
+      const items = billItems.map((item) =>
+        item.id == itemDTO.id ? itemDTO : item
+      );
+      setBillItems([...items]);
+    },
     [billItems]
   );
   const handleRemovePayment = useCallback(
@@ -88,13 +123,28 @@ export const useFullBill = () => {
     });
   }, [billPayments]);
 
+  const billTotal = useMemo(() => {
+    return billItems
+      .map((e) => (e.itemQuantity ?? 0) * (e.itemAmount ?? 0))
+      .reduce((previous, current) => previous + current, 0);
+  }, [billItems]);
+
+  const paymentTotal = useMemo(() => {
+    return billPayments
+      .map((e) => e?.amount ?? 0)
+      .reduce((previous, current) => previous + current, 0);
+  }, [billPayments]);
+
   return {
     fullBill,
     bill,
     billItems,
     billPayments,
-    handleBillDTO,
+    billTotal,
+    paymentTotal,
+    handleBillEdit,
     handleAddItem,
+    handleEditItem,
     handleAddPayment,
     handleRemoveItem,
     handleRemovePayment,

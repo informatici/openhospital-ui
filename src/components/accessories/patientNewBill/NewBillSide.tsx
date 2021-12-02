@@ -9,24 +9,30 @@ import { currencyFormat } from "../../../libraries/formatUtils/currencyFormattin
 
 interface IOwnProps {
   handlePaymentDialog: (value: boolean) => void;
+  billTotal: number;
+  paymentTotal: number;
 }
 
-const NewBillSide: FC<IOwnProps> = ({ handlePaymentDialog }) => {
+const NewBillSide: FC<IOwnProps> = ({
+  handlePaymentDialog,
+  billTotal,
+  paymentTotal,
+}) => {
   const { t } = useTranslation();
   return (
     <>
       <div className="two-row">
         <span>Total:</span>
-        <span>{currencyFormat("120")}</span>
+        <span>{currencyFormat(billTotal)}</span>
       </div>
       <div className="two-row">
         <span>Paid:</span>
-        <span>{currencyFormat("0")}</span>
+        <span>{currencyFormat(paymentTotal)}</span>
       </div>
       <div className="xs-divider"></div>
       <div className="two-row">
         <span>To be paid:</span>
-        <span>{currencyFormat("120")}</span>
+        <span>{currencyFormat(billTotal - paymentTotal)}</span>
       </div>
       <div>
         <SmallButton

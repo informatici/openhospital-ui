@@ -12,6 +12,7 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
   const { t } = useTranslation();
 
   const [itemType, setItemType] = useState("medical");
+  const [creationMode, setCreationMode] = useState(false);
 
   const handleItemTypeChange = useCallback(
     (e: any, value: string) => {
@@ -21,7 +22,7 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
   );
 
   return (
-    <div className="itemPicker">
+    <form className="itemPicker">
       <div id="first">
         <RadioGroup
           aria-label="gender"
@@ -61,7 +62,7 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         </RadioGroup>
       </div>
       <div id="second">
-        {itemType != "custom" && (
+        {itemType != "other" && (
           <AutocompleteField
             fieldName="itemId"
             fieldValue={"value"}
@@ -73,7 +74,7 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
             isLoading={false}
           />
         )}
-        {itemType == "custom" && (
+        {itemType == "other" && (
           <>
             <TextField
               theme="regular"
@@ -124,7 +125,7 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         <TextButton onClick={() => {}}>{t("button.discard")}</TextButton>
         <SmallButton>{t("button.save")}</SmallButton>
       </div>
-    </div>
+    </form>
   );
 };
 

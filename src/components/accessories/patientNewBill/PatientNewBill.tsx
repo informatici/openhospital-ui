@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import SmallButton from "../smallButton/SmallButton";
@@ -9,33 +9,41 @@ import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import { BillPaymentsDTO } from "../../../generated";
 import { Add } from "@material-ui/icons";
-import { useFullBill, useItems } from "./hooks";
+import {
+  useDialogStatus,
+  useFullBill,
+  useItems,
+  useSelectedPatient,
+} from "./hooks";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
-  const [showItemPicker, setShowItemPicker] = useState(false);
-  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+
+  const { patient } = useSelectedPatient();
 
   const {
     fullBill,
     bill,
     billItems,
     billPayments,
-    handleBillDTO,
+    billTotal,
+    paymentTotal,
+    handleBillEdit,
     handleAddItem,
+    handleEditItem,
     handleAddPayment,
     handleRemoveItem,
     handleRemovePayment,
   } = useFullBill();
-  const { dispatch, medicals, exams, surgeries } = useItems();
 
-  const handleItemPickerShow = useCallback(() => {
-    setShowItemPicker(false);
-  }, []);
-  const handlePaymentDialogClose = useCallback(() => {
-    setShowPaymentDialog(false);
-  }, []);
-  const handlePayment = useCallback((payment: BillPaymentsDTO) => {}, []);
+  const {
+    showItemPicker,
+    showPaymentDialog,
+    handleItemPicker,
+    handlePaymentDialog,
+  } = useDialogStatus();
+
+  const { dispatch, medicals, exams, surgeries } = useItems();
 
   return (
     <>
@@ -50,13 +58,13 @@ const PatientNewBill: FC = () => {
             <BillItemsTable
               handleDelete={(row) => {}}
               handleEdit={(row) => {
-                setShowItemPicker(true);
+                handleItemPicker();
               }}
             />
             <div className="patientNewBill_buttons">
               <SmallButton
                 onClick={() => {
-                  setShowItemPicker(true);
+                  handleItemPicker();
                 }}
               >
                 <Add />
@@ -65,7 +73,11 @@ const PatientNewBill: FC = () => {
             </div>
           </div>
           <div className="patientNewBill_right">
-            <NewBillSide handlePaymentDialog={setShowPaymentDialog} />
+            <NewBillSide
+              handlePaymentDialog={handlePaymentDialog}
+              billTotal={billTotal}
+              paymentTotal={paymentTotal}
+            />
           </div>
         </div>
         <div className="patientNewBill_nopayment hidden">
@@ -75,7 +87,7 @@ const PatientNewBill: FC = () => {
       <CustomModal
         title={t("bill.pickitem")}
         description="pick-item"
-        onClose={handleItemPickerShow}
+        onClose={handleItemPicker}
         open={showItemPicker}
         content={<BillItemPickerForm />}
       />
@@ -87,8 +99,8 @@ const PatientNewBill: FC = () => {
           paymentAmount: { value: "240", type: "number" },
           paymentDate: { value: "", type: "date" },
         }}
-        handleClose={handlePaymentDialogClose}
-        handlePayment={handlePayment}
+        handleClose={handlePaymentDialog}
+        handlePayment={handleAddPayment}
       />
     </>
   );
