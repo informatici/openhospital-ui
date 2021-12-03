@@ -1,18 +1,44 @@
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
-import React, { FC, useCallback, useState } from "react";
+import { useFormik } from "formik";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { number, object, string } from "yup";
+import { BillItemsDTO } from "../../../../generated";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../../libraries/formDataHandling/functions";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
+import { useItems, useItemPrices } from "../hooks";
+import { useItemFormik } from "./hooks";
 import "./styles.scss";
-import { BillItemPickerProps } from "./types";
+import { BillItemProps } from "./types";
 
-const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
+const BillItemPickerForm: FC<BillItemProps> = ({
+  onSubmit,
+  resetFormCallback,
+  shouldResetForm,
+  fields,
+}) => {
   const { t } = useTranslation();
 
   const [itemType, setItemType] = useState("medical");
   const [creationMode, setCreationMode] = useState(false);
+
+  const { dispatch, medicals, exams, surgeries } = useItems();
+
+  const { examsOptions, medicalsOptions, surgeriesOptions } = useItemPrices();
+  const {
+    getErrorText,
+    getFieldProps,
+    handleResetConfirmation,
+    isValid,
+    onBlurCallback,
+    values,
+  } = useItemFormik(fields, onSubmit);
 
   const handleItemTypeChange = useCallback(
     (e: any, value: string) => {
@@ -20,6 +46,25 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
     },
     [itemType]
   );
+
+  const handleSubmit = (values: Record<string, any>) => {
+    let item: BillItemsDTO = {
+      itemId: values?.itemId,
+      itemQuantity: values?.itemQuantity,
+    };
+    if (itemType == "other") {
+      item.itemId = "0";
+    }
+  };
+
+  const options = useMemo(() => {
+    return (
+      (itemType == "medical" && medicalsOptions) ||
+      (itemType == "exam" && examsOptions) ||
+      (itemType == "surgery" && surgeriesOptions) ||
+      []
+    );
+  }, [itemType]);
 
   return (
     <form className="itemPicker">
@@ -65,12 +110,12 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         {itemType != "other" && (
           <AutocompleteField
             fieldName="itemId"
-            fieldValue={"value"}
+            fieldValue={values.itemId}
             label={t("bill.item")}
-            isValid={false}
-            errorText={""}
-            onBlur={(e, v) => {}}
-            options={[{ value: "item1", label: "Item 1" }]}
+            isValid={isValid("itemId")}
+            errorText={getErrorText("itemId")}
+            onBlur={onBlurCallback("itemId")}
+            options={options}
             isLoading={false}
           />
         )}
@@ -122,8 +167,10 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
         />
       </div>
       <div id="third">
-        <TextButton onClick={() => {}}>{t("button.discard")}</TextButton>
-        <SmallButton>{t("button.save")}</SmallButton>
+        <TextButton onClick={handleResetConfirmation}>
+          {t("button.discard")}
+        </TextButton>
+        <SmallButton type="submit">{t("button.save")}</SmallButton>
       </div>
     </form>
   );

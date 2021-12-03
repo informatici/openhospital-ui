@@ -8,10 +8,15 @@ import {
   FullBillDTO,
   MedicalDTO,
   OperationDTO,
+  PatientDTO,
 } from "../../../generated";
+import { PriceDTO } from "../../../generated/models/PriceDTO";
+import { PriceListDTO } from "../../../generated/models/PriceListDTO";
 import { getExams } from "../../../state/exams/actions";
 import { getMedicals } from "../../../state/medicals/actions";
+import { getPriceLists, getPrices } from "../../../state/prices/actions";
 import { IState } from "../../../types";
+import { ItemGroups } from "./consts";
 
 export const useDialogStatus = () => {
   const [showItemPicker, setShowPicker] = useState(false);
@@ -33,10 +38,111 @@ export const useDialogStatus = () => {
 };
 
 export const useSelectedPatient = () => {
-  const patient = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
+  const patient = useSelector<IState, PatientDTO>(
+    (state: IState) => state.patients.selectedPatient.data ?? {}
   );
   return { patient };
+};
+
+export const usePriceLists = () => {
+  const dispatch = useDispatch();
+  const priceLists = useSelector<IState, PriceListDTO[]>(
+    (state: IState) => state.prices.getPriceLists?.data ?? []
+  );
+
+  useEffect(() => {
+    dispatch(getPriceLists);
+  }, [dispatch]);
+
+  return priceLists;
+};
+
+export const useItemPrices = (code?: string) => {
+  const dispatch = useDispatch();
+  const [listCode, setListCode] = useState(code ?? "LIST001");
+
+  const medicalPrices = useSelector<IState, PriceDTO[]>((state: IState) =>
+    (state.prices.getPrices?.data ?? []).filter(
+      (e) => e.group == ItemGroups.medical && e.list?.code == listCode
+    )
+  );
+  const examPrices = useSelector<IState, PriceDTO[]>((state: IState) =>
+    (state.prices.getPrices?.data ?? []).filter(
+      (e) => e.group == ItemGroups.exam && e.list?.code == listCode
+    )
+  );
+  const surgeryPrices = useSelector<IState, PriceDTO[]>((state: IState) =>
+    (state.prices.getPrices?.data ?? []).filter(
+      (e) => e.group == ItemGroups.surgery && e.list?.code == listCode
+    )
+  );
+
+  const examsOptionsSelector = (state: IState) => {
+    return state.prices.getPrices.data
+      ? state.prices.getPrices.data
+          .filter((e) => e.group == ItemGroups.exam && e.list?.code == listCode)
+          .map((item) => {
+            return {
+              value: item.item ?? "",
+              label: item.description ?? "",
+            };
+          })
+      : [];
+  };
+
+  const medicalsOptionsSelector = (state: IState) => {
+    return state.prices.getPrices.data
+      ? state.prices.getPrices.data
+          .filter(
+            (e) => e.group == ItemGroups.medical && e.list?.code == listCode
+          )
+          .map((item) => {
+            return {
+              value: item.item ?? "",
+              label: item.description ?? "",
+            };
+          })
+      : [];
+  };
+
+  const surgeriesOptionsSelector = (state: IState) => {
+    return state.prices.getPrices.data
+      ? state.prices.getPrices.data
+          .filter(
+            (e) => e.group == ItemGroups.surgery && e.list?.code == listCode
+          )
+          .map((item) => {
+            return {
+              value: item.item ?? "",
+              label: item.description ?? "",
+            };
+          })
+      : [];
+  };
+
+  const examsOptions = useSelector<IState, { value: string; label: string }[]>(
+    (state: IState) => examsOptionsSelector(state)
+  );
+
+  const medicalsOptions = useSelector<
+    IState,
+    { value: string; label: string }[]
+  >((state: IState) => medicalsOptionsSelector(state));
+
+  const surgeriesOptions = useSelector<
+    IState,
+    { value: string; label: string }[]
+  >((state: IState) => surgeriesOptionsSelector(state));
+
+  return {
+    examPrices,
+    medicalPrices,
+    surgeryPrices,
+    setListCode,
+    medicalsOptions,
+    examsOptions,
+    surgeriesOptions,
+  };
 };
 
 export const useItems = () => {
@@ -56,7 +162,12 @@ export const useItems = () => {
     dispatch(getExams());
   }, [dispatch]);
 
-  return { medicals, exams, surgeries, dispatch };
+  return {
+    medicals,
+    exams,
+    surgeries,
+    dispatch,
+  };
 };
 
 export const useFullBill = () => {

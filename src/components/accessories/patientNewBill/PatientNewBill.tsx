@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import SmallButton from "../smallButton/SmallButton";
@@ -7,7 +7,7 @@ import { NewBillSide } from "./NewBillSide";
 import { CustomModal } from "../customModal/CustomModal";
 import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
-import { BillPaymentsDTO } from "../../../generated";
+import { BillItemsDTO, BillPaymentsDTO } from "../../../generated";
 import { Add } from "@material-ui/icons";
 import {
   useDialogStatus,
@@ -15,9 +15,13 @@ import {
   useItems,
   useSelectedPatient,
 } from "./hooks";
+import { initialFields } from "./consts";
+import { getPrices } from "../../../state/prices/actions";
+import { useDispatch } from "react-redux";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const { patient } = useSelectedPatient();
 
@@ -43,7 +47,16 @@ const PatientNewBill: FC = () => {
     handlePaymentDialog,
   } = useDialogStatus();
 
-  const { dispatch, medicals, exams, surgeries } = useItems();
+  const onSubmitItem = (item: BillItemsDTO) => {
+    handleAddItem(item);
+    handleItemPicker();
+  };
+
+  const resetItemFormCallback = () => {};
+
+  useEffect(() => {
+    dispatch(getPrices());
+  }, []);
 
   return (
     <>
@@ -89,7 +102,15 @@ const PatientNewBill: FC = () => {
         description="pick-item"
         onClose={handleItemPicker}
         open={showItemPicker}
-        content={<BillItemPickerForm />}
+        content={
+          <BillItemPickerForm
+            fields={initialFields}
+            onSubmit={onSubmitItem}
+            isLoading={false}
+            shouldResetForm={true}
+            resetFormCallback={resetItemFormCallback}
+          />
+        }
       />
       <PaymentDialog
         open={showPaymentDialog}
