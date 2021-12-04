@@ -1,5 +1,5 @@
-export const header = ["type", "description", "qty", "cost"];
-export const order = ["type", "description"];
+export const header = ["group", "description", "quantity", "amount"];
+export const order = ["group", "description", "quantity", "amount"];
 export const mockData = [
   {
     type: "Medecine",

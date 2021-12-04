@@ -4,6 +4,7 @@ import React, { FC, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { number, object, string } from "yup";
 import { BillItemsDTO } from "../../../../generated";
+import { PriceDTO } from "../../../../generated/models/PriceDTO";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -12,6 +13,7 @@ import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
+import { ItemGroups } from "../consts";
 import { useItems, useItemPrices } from "../hooks";
 import { useItemFormik } from "./hooks";
 import "./styles.scss";
@@ -25,12 +27,38 @@ const BillItemPickerForm: FC<BillItemProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const [itemType, setItemType] = useState("medical");
+  const [itemType, setItemType] = useState(ItemGroups.medical);
   const [creationMode, setCreationMode] = useState(false);
 
-  const { dispatch, medicals, exams, surgeries } = useItems();
+  const { prices, examsOptions, medicalsOptions, surgeriesOptions } =
+    useItemPrices();
 
-  const { examsOptions, medicalsOptions, surgeriesOptions } = useItemPrices();
+  const handleSubmit = useCallback(
+    (values: Record<string, any>) => {
+      let item: BillItemsDTO = {};
+      item.itemQuantity = values?.itemQuantity;
+      if (itemType == ItemGroups.other) {
+        item.itemAmount = values?.itemAmount;
+        item.itemDescription = values?.itemDescription;
+        onSubmit(item);
+        return;
+      }
+      let priceDTO: PriceDTO | undefined = prices.find(
+        (e) => e?.item == values?.itemId
+      );
+
+      if (priceDTO) {
+        item.itemAmount = priceDTO.price;
+        item.itemDescription = priceDTO.description;
+        item.itemId = priceDTO.item;
+        item.price = true;
+        item.priceId = priceDTO.id?.toString();
+        onSubmit(item);
+      }
+    },
+    [itemType]
+  );
+
   const {
     getErrorText,
     getFieldProps,
@@ -38,7 +66,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
     isValid,
     onBlurCallback,
     values,
-  } = useItemFormik(fields, onSubmit);
+  } = useItemFormik(fields, handleSubmit);
 
   const handleItemTypeChange = useCallback(
     (e: any, value: string) => {
@@ -47,21 +75,11 @@ const BillItemPickerForm: FC<BillItemProps> = ({
     [itemType]
   );
 
-  const handleSubmit = (values: Record<string, any>) => {
-    let item: BillItemsDTO = {
-      itemId: values?.itemId,
-      itemQuantity: values?.itemQuantity,
-    };
-    if (itemType == "other") {
-      item.itemId = "0";
-    }
-  };
-
   const options = useMemo(() => {
     return (
-      (itemType == "medical" && medicalsOptions) ||
-      (itemType == "exam" && examsOptions) ||
-      (itemType == "surgery" && surgeriesOptions) ||
+      (itemType == ItemGroups.medical && medicalsOptions) ||
+      (itemType == ItemGroups.exam && examsOptions) ||
+      (itemType == ItemGroups.surgery && surgeriesOptions) ||
       []
     );
   }, [itemType]);
@@ -123,46 +141,31 @@ const BillItemPickerForm: FC<BillItemProps> = ({
           <>
             <TextField
               theme="regular"
-              field={{
-                name: "item",
-                value: "",
-                onBlur: (e: any) => {},
-                onChange: (e: any) => {},
-              }}
+              field={getFieldProps("itemDescription")}
+              isValid={isValid("itemDescription")}
+              errorText={getErrorText("itemDescription")}
+              onBlur={onBlurCallback}
               label={t("bill.item")}
-              isValid={false}
-              errorText={""}
-              onBlur={(e) => {}}
               type="text"
             />
             <TextField
               theme="regular"
-              field={{
-                name: "amount",
-                value: 1,
-                onBlur: (e: any) => {},
-                onChange: (e: any) => {},
-              }}
+              field={getFieldProps("itemAmount")}
+              isValid={isValid("itemAmount")}
+              errorText={getErrorText("itemAmount")}
+              onBlur={onBlurCallback}
               label={t("bill.amount")}
-              isValid={false}
-              errorText={""}
-              onBlur={(e) => {}}
               type="number"
             />
           </>
         )}
         <TextField
           theme="regular"
-          field={{
-            name: "quantity",
-            value: 1,
-            onBlur: (e: any) => {},
-            onChange: (e: any) => {},
-          }}
+          field={getFieldProps("itemQuantity")}
+          isValid={isValid("itemQuantity")}
+          errorText={getErrorText("itemQuantity")}
+          onBlur={onBlurCallback}
           label={t("bill.quantity")}
-          isValid={false}
-          errorText={""}
-          onBlur={(e) => {}}
           type="number"
         />
       </div>

@@ -12,6 +12,8 @@ import {
 } from "../../../generated";
 import { PriceDTO } from "../../../generated/models/PriceDTO";
 import { PriceListDTO } from "../../../generated/models/PriceListDTO";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
+import { priceDTO } from "../../../mockServer/fixtures/priceDTO";
 import { getExams } from "../../../state/exams/actions";
 import { getMedicals } from "../../../state/medicals/actions";
 import { getPriceLists, getPrices } from "../../../state/prices/actions";
@@ -61,20 +63,8 @@ export const useItemPrices = (code?: string) => {
   const dispatch = useDispatch();
   const [listCode, setListCode] = useState(code ?? "LIST001");
 
-  const medicalPrices = useSelector<IState, PriceDTO[]>((state: IState) =>
-    (state.prices.getPrices?.data ?? []).filter(
-      (e) => e.group == ItemGroups.medical && e.list?.code == listCode
-    )
-  );
-  const examPrices = useSelector<IState, PriceDTO[]>((state: IState) =>
-    (state.prices.getPrices?.data ?? []).filter(
-      (e) => e.group == ItemGroups.exam && e.list?.code == listCode
-    )
-  );
-  const surgeryPrices = useSelector<IState, PriceDTO[]>((state: IState) =>
-    (state.prices.getPrices?.data ?? []).filter(
-      (e) => e.group == ItemGroups.surgery && e.list?.code == listCode
-    )
+  const prices = useSelector<IState, PriceDTO[]>((state: IState) =>
+    (state.prices.getPrices?.data ?? []).filter((e) => e.list?.code == listCode)
   );
 
   const examsOptionsSelector = (state: IState) => {
@@ -135,9 +125,7 @@ export const useItemPrices = (code?: string) => {
   >((state: IState) => surgeriesOptionsSelector(state));
 
   return {
-    examPrices,
-    medicalPrices,
-    surgeryPrices,
+    prices,
     setListCode,
     medicalsOptions,
     examsOptions,
@@ -179,6 +167,21 @@ export const useFullBill = () => {
     billItemsDTO: billItems,
     billPaymentsDTO: billPayments,
   });
+
+  const { prices } = useItemPrices();
+
+  const itemsRowData = useMemo(() => {
+    return billItems.map((item) => {
+      const priceDTO = prices.find((e) => e.item == item.itemId);
+      return {
+        group: priceDTO?.group ?? ItemGroups.other,
+        description: item.itemDescription,
+        quantity: item.itemQuantity,
+        amount: currencyFormat(item.itemAmount),
+      };
+    });
+  }, [billItems]);
+
   const handleBillEdit = useCallback(
     (billDTO: BillDTO) => setBill({ ...billDTO }),
     [bill]
@@ -253,6 +256,7 @@ export const useFullBill = () => {
     billPayments,
     billTotal,
     paymentTotal,
+    itemsRowData,
     handleBillEdit,
     handleAddItem,
     handleEditItem,

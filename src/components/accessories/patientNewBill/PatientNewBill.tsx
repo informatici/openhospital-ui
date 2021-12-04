@@ -30,6 +30,7 @@ const PatientNewBill: FC = () => {
     bill,
     billItems,
     billPayments,
+    itemsRowData,
     billTotal,
     paymentTotal,
     handleBillEdit,
@@ -64,16 +65,21 @@ const PatientNewBill: FC = () => {
         <div className="patientNewBill_main">
           <div className="patientNewBill_left">
             <div>
-              <span className="addpayment hidden">
-                {t("bill.clicktoaddpayment")}
-              </span>
+              {paymentTotal == 0 && (
+                <span className={"addpayment"}>
+                  {t("bill.clicktoaddpayment")}
+                </span>
+              )}
             </div>
-            <BillItemsTable
-              handleDelete={(row) => {}}
-              handleEdit={(row) => {
-                handleItemPicker();
-              }}
-            />
+            {billItems.length != 0 && (
+              <BillItemsTable
+                rowData={itemsRowData}
+                handleDelete={(row) => {}}
+                handleEdit={(row) => {
+                  handleItemPicker();
+                }}
+              />
+            )}
             <div className="patientNewBill_buttons">
               <SmallButton
                 onClick={() => {
@@ -85,17 +91,21 @@ const PatientNewBill: FC = () => {
               </SmallButton>
             </div>
           </div>
-          <div className="patientNewBill_right">
-            <NewBillSide
-              handlePaymentDialog={handlePaymentDialog}
-              billTotal={billTotal}
-              paymentTotal={paymentTotal}
-            />
+          {billPayments.length != 0 && (
+            <div className="patientNewBill_right">
+              <NewBillSide
+                handlePaymentDialog={handlePaymentDialog}
+                billTotal={billTotal}
+                paymentTotal={paymentTotal}
+              />
+            </div>
+          )}
+        </div>
+        {billItems.length == 0 && (
+          <div className="patientNewBill_nopayment">
+            <span>{t("bill.nopendingbill")}</span>
           </div>
-        </div>
-        <div className="patientNewBill_nopayment hidden">
-          <span>{t("bill.nopendingbill")}</span>
-        </div>
+        )}
       </div>
       <CustomModal
         title={t("bill.pickitem")}
