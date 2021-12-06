@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BillDTO,
@@ -70,7 +71,9 @@ export const useItemPrices = (code?: string) => {
   const examsOptionsSelector = (state: IState) => {
     return state.prices.getPrices.data
       ? state.prices.getPrices.data
-          .filter((e) => e.group == ItemGroups.exam && e.list?.code == listCode)
+          .filter(
+            (e) => e.group == ItemGroups.exam.id && e.list?.code == listCode
+          )
           .map((item) => {
             return {
               value: item.item ?? "",
@@ -84,7 +87,7 @@ export const useItemPrices = (code?: string) => {
     return state.prices.getPrices.data
       ? state.prices.getPrices.data
           .filter(
-            (e) => e.group == ItemGroups.medical && e.list?.code == listCode
+            (e) => e.group == ItemGroups.medical.id && e.list?.code == listCode
           )
           .map((item) => {
             return {
@@ -99,7 +102,7 @@ export const useItemPrices = (code?: string) => {
     return state.prices.getPrices.data
       ? state.prices.getPrices.data
           .filter(
-            (e) => e.group == ItemGroups.surgery && e.list?.code == listCode
+            (e) => e.group == ItemGroups.surgery.id && e.list?.code == listCode
           )
           .map((item) => {
             return {
@@ -160,6 +163,7 @@ export const useItems = () => {
 
 export const useFullBill = () => {
   const [bill, setBill] = useState<BillDTO>({});
+  const { t } = useTranslation();
   const [billItems, setBillItems] = useState<BillItemsDTO[]>([]);
   const [billPayments, setBillPayments] = useState<BillPaymentsDTO[]>([]);
   const [fullBill, setFullBill] = useState<FullBillDTO>({
@@ -173,8 +177,11 @@ export const useFullBill = () => {
   const itemsRowData = useMemo(() => {
     return billItems.map((item) => {
       const priceDTO = prices.find((e) => e.item == item.itemId);
+      const groupLabel = Object.entries(ItemGroups).find(
+        (e) => e[1].id == priceDTO?.group
+      );
       return {
-        group: priceDTO?.group ?? ItemGroups.other,
+        group: t(groupLabel ? groupLabel[1].value : ItemGroups.other.value),
         description: item.itemDescription,
         quantity: item.itemQuantity,
         amount: currencyFormat(item.itemAmount),
@@ -187,8 +194,15 @@ export const useFullBill = () => {
     [bill]
   );
   const handleAddPayment = useCallback(
-    (paymentDTO: BillPaymentsDTO) =>
-      setBillPayments([...billPayments, paymentDTO]),
+    (values: Record<string, any>) =>
+      setBillPayments([
+        ...billPayments,
+        {
+          amount: values?.paymentAmount,
+          date: values?.paymentDate,
+          id: billPayments.length + 1,
+        },
+      ]),
     [billPayments]
   );
   const handleAddItem = useCallback(

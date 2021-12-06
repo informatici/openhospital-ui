@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { has, get } from "lodash";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { number, object, string } from "yup";
 import { BillItemsDTO } from "../../../../generated";
 import {
@@ -13,15 +14,37 @@ import { BillItemFormFieldName } from "./types";
 
 export const useItemFormik = (
   fields: TFields<BillItemFormFieldName>,
+  itemType: string,
+  items: BillItemsDTO[],
   onSubmit: (item: BillItemsDTO) => void
 ) => {
-  const validationSchema = object({
-    itemId: string().required(),
-    itemDescription: string().required(),
-    itemAmount: number().required().min(0),
-    itemQuantity: number().required().min(1),
-  });
-
+  const { t } = useTranslation();
+  const validationSchema = useMemo(() => {
+    return object({
+      itemId: string()
+        .required()
+        .test({
+          name: "item",
+          message: t("bill.itemalreadypresent"),
+          test: (value) => {
+            const item = items.find((e) => e.itemId == value);
+            return item == null;
+          },
+        }),
+      itemDescription: string()
+        .required()
+        .test({
+          name: "item",
+          message: t("bill.itemalreadypresent"),
+          test: (value) => {
+            const item = items.find((e) => e.itemDescription == value);
+            return item == null;
+          },
+        }),
+      itemAmount: number().required().min(0),
+      itemQuantity: number().min(1),
+    });
+  }, [itemType]);
   const initialValues = getFromFields(fields, "value");
 
   const formik = useFormik({
@@ -34,8 +57,15 @@ export const useItemFormik = (
     },
   });
 
-  const { setFieldValue, getFieldProps, values, resetForm, handleBlur } =
-    formik;
+  const {
+    setFieldValue,
+    getFieldProps,
+    values,
+    resetForm,
+    handleBlur,
+    handleSubmit,
+    isValid: isFormValid,
+  } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -67,11 +97,13 @@ export const useItemFormik = (
   };
 
   return {
+    handleSubmit,
     onBlurCallback,
     handleResetConfirmation,
     openResetConfirmation,
     getFieldProps,
     getErrorText,
+    isFormValid,
     isValid,
     values,
   };

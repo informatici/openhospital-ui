@@ -3,6 +3,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IBillItemProps {
   fields: TFields<BillItemFormFieldName>;
+  items: BillItemsDTO[];
   onSubmit: (item: BillItemsDTO) => void;
   isLoading: boolean;
   shouldResetForm: boolean;

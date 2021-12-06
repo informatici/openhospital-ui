@@ -298,7 +298,7 @@
     "recap": "Recap factures",
     "filter": "Filtre Factures",
     "filterbutton": "Filtrer",
-    "clicktoaddpayment": "Clickez sur \"AJOUTER\" pour commencer avec une nouvelle facture",
+    "clicktoadditem": "Clickez sur \"NOUVEL ARTICLE\" pour commencer avec une nouvelle facture",
     "nopendingbill": "Pas de facture ouverte pour ce patient",
     "quantity": "Quantité",
     "item": "Article",
@@ -327,7 +327,13 @@
     "type": "Type",
     "description": "Description",
     "unitamount": "Prix par Article",
-    "totalamount": "Montant Total"
+    "totalamount": "Montant Total",
+    "exam": "Examen",
+    "medical": "Médicament",
+    "surgery": "Opération",
+    "other": "Autre",
+    "itemalreadypresent": "Article déjà présent dans la liste.",
+    "quantitynotallowed": "Cette quantité n'est pas autorisée."
   },
   "button": {
     "save": "Enregistrer",

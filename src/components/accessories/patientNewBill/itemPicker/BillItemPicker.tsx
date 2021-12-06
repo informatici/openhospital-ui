@@ -23,21 +23,22 @@ const BillItemPickerForm: FC<BillItemProps> = ({
   onSubmit,
   resetFormCallback,
   shouldResetForm,
+  items,
   fields,
 }) => {
   const { t } = useTranslation();
 
-  const [itemType, setItemType] = useState(ItemGroups.medical);
+  const [itemType, setItemType] = useState(ItemGroups.medical.id);
   const [creationMode, setCreationMode] = useState(false);
 
   const { prices, examsOptions, medicalsOptions, surgeriesOptions } =
     useItemPrices();
 
-  const handleSubmit = useCallback(
+  const handleFormSubmit = useCallback(
     (values: Record<string, any>) => {
       let item: BillItemsDTO = {};
       item.itemQuantity = values?.itemQuantity;
-      if (itemType == ItemGroups.other) {
+      if (itemType == ItemGroups.other.id) {
         item.itemAmount = values?.itemAmount;
         item.itemDescription = values?.itemDescription;
         onSubmit(item);
@@ -64,9 +65,11 @@ const BillItemPickerForm: FC<BillItemProps> = ({
     getFieldProps,
     handleResetConfirmation,
     isValid,
+    isFormValid,
     onBlurCallback,
+    handleSubmit,
     values,
-  } = useItemFormik(fields, handleSubmit);
+  } = useItemFormik(fields, itemType, items, handleFormSubmit);
 
   const handleItemTypeChange = useCallback(
     (e: any, value: string) => {
@@ -77,15 +80,21 @@ const BillItemPickerForm: FC<BillItemProps> = ({
 
   const options = useMemo(() => {
     return (
-      (itemType == ItemGroups.medical && medicalsOptions) ||
-      (itemType == ItemGroups.exam && examsOptions) ||
-      (itemType == ItemGroups.surgery && surgeriesOptions) ||
+      (itemType == ItemGroups.medical.id && medicalsOptions) ||
+      (itemType == ItemGroups.exam.id && examsOptions) ||
+      (itemType == ItemGroups.surgery.id && surgeriesOptions) ||
       []
     );
   }, [itemType]);
 
   return (
-    <form className="itemPicker">
+    <form
+      className="itemPicker"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e);
+      }}
+    >
       <div id="first">
         <RadioGroup
           aria-label="gender"
@@ -95,37 +104,37 @@ const BillItemPickerForm: FC<BillItemProps> = ({
           onChange={handleItemTypeChange}
         >
           <FormControlLabel
-            value="medical"
-            className={itemType == "medical" ? "checked" : ""}
+            value={ItemGroups.medical.id}
+            className={itemType == ItemGroups.medical.id ? "checked" : ""}
             control={<Radio />}
-            label="Medical"
+            label={t("bill.medical")}
             labelPlacement="top"
           />
           <FormControlLabel
-            value="exam"
-            className={itemType == "exam" ? "checked" : ""}
+            value={ItemGroups.exam.id}
+            className={itemType == ItemGroups.exam.id ? "checked" : ""}
             control={<Radio />}
-            label="Exam"
+            label={t("bill.exam")}
             labelPlacement="top"
           />
           <FormControlLabel
-            value="surgery"
-            className={itemType == "surgery" ? "checked" : ""}
+            value={ItemGroups.surgery.id}
+            className={itemType == ItemGroups.surgery.id ? "checked" : ""}
             control={<Radio />}
-            label="Surgery"
+            label={t("bill.surgery")}
             labelPlacement="top"
           />
           <FormControlLabel
-            value="other"
-            className={itemType == "other" ? "checked" : ""}
+            value={ItemGroups.other.id}
+            className={itemType == ItemGroups.other.id ? "checked" : ""}
             control={<Radio />}
-            label="Other"
+            label={t("bill.other")}
             labelPlacement="top"
           />
         </RadioGroup>
       </div>
       <div id="second">
-        {itemType != "other" && (
+        {itemType != ItemGroups.other.id && (
           <AutocompleteField
             fieldName="itemId"
             fieldValue={values.itemId}
@@ -137,7 +146,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
             isLoading={false}
           />
         )}
-        {itemType == "other" && (
+        {itemType == ItemGroups.other.id && (
           <>
             <TextField
               theme="regular"
@@ -173,7 +182,15 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         <TextButton onClick={handleResetConfirmation}>
           {t("button.discard")}
         </TextButton>
-        <SmallButton type="submit">{t("button.save")}</SmallButton>
+        <SmallButton
+          disabled={isFormValid}
+          onClick={(e) => {
+            e.preventDefault();
+            handleFormSubmit(formatAllFieldValues(fields, values));
+          }}
+        >
+          {t("button.save")}
+        </SmallButton>
       </div>
     </form>
   );

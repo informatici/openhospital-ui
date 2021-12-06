@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Table from "../../table/Table";
-import { header, mockData, order } from "./consts";
+import { header, order } from "./consts";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 import { useTranslation } from "react-i18next";
 

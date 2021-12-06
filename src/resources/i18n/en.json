@@ -288,7 +288,7 @@
     "recap": "Bills Recap",
     "filter": "Bills Filter",
     "filterbutton": "Filter",
-    "clicktoaddpayment": "Click on \"ADD\" to start a new bill",
+    "clicktoadditem": "Click on \"ADD ITEM\" to start a new bill",
     "nopendingbill": "There is not pending bill",
     "quantity": "Quantity",
     "item": "Item",
@@ -317,7 +317,13 @@
     "type": "Type",
     "description": "Description",
     "unitamount": "Amount per item",
-    "totalamount": "Total Amount"
+    "totalamount": "Total Amount",
+    "exam": "Exam",
+    "medical": "Medical",
+    "surgery": "Surgery",
+    "other": "Other",
+    "itemalreadypresent": "Item already present in the list.",
+    "quantitynotallowed": "This quantity is not allowed."
   },
   "button": {
     "save": "Save",

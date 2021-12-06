@@ -2,27 +2,20 @@ import { BillItemFormFieldName } from "./itemPicker/types";
 import { TFields } from "../../../libraries/formDataHandling/types";
 
 export const ItemGroups = {
-  medical: "MED",
-  surgery: "OPE",
-  other: "CST",
-  exam: "EXA",
-};
-
-export const initialFields: TFields<BillItemFormFieldName> = {
-  itemAmount: {
-    type: "number",
-    value: "0",
+  medical: {
+    id: "MED",
+    value: "bill.medical",
   },
-  itemQuantity: {
-    type: "number",
-    value: "1",
+  surgery: {
+    id: "OPE",
+    value: "bill.surgery",
   },
-  itemId: {
-    type: "text",
-    value: "",
+  other: {
+    id: "CST",
+    value: "bill.other",
   },
-  itemDescription: {
-    type: "text",
-    value: "",
+  exam: {
+    id: "EXA",
+    value: "bill.exam",
   },
 };

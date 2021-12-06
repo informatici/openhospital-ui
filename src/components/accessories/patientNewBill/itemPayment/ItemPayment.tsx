@@ -2,10 +2,10 @@ import React from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
-import SmallButton from "../smallButton/SmallButton";
-import TextButton from "../textButton/TextButton";
-import "./styles.scss";
-import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
+import SmallButton from "../../smallButton/SmallButton";
+import TextButton from "../../textButton/TextButton";
+import "../styles.scss";
+import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 
 interface IOwnProps {
   handlePaymentDialog: (value: boolean) => void;
@@ -13,7 +13,7 @@ interface IOwnProps {
   paymentTotal: number;
 }
 
-const NewBillSide: FC<IOwnProps> = ({
+const ItemPayment: FC<IOwnProps> = ({
   handlePaymentDialog,
   billTotal,
   paymentTotal,
@@ -51,4 +51,4 @@ const NewBillSide: FC<IOwnProps> = ({
   );
 };
 
-export { NewBillSide };
+export { ItemPayment };
