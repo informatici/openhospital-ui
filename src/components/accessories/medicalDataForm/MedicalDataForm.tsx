@@ -4,7 +4,7 @@ import has from "lodash.has";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { object, string, number } from "yup";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { formatAllFieldValues, getFromFields } from "../../../libraries/formDataHandling/functions";
 import warningIcon from "../../../assets/warning-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -14,7 +14,7 @@ import TextField from "../textField/TextField";
 import SelectField from "../selectField/SelectField";
 import "./styles.scss";
 import { IState } from "../../../types";
-import { TProps, IDispatchProps, IStateProps } from "./types";
+import { TProps, IDispatchProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { getMedicalTypes } from "../../../state/medicaltypes/actions";
 import { MedicalTypeDTO } from "../../../generated";
@@ -46,30 +46,35 @@ const MedicalDataForm: FunctionComponent<TProps> = (
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(props.fields, values);
       //Use correct MedicalTypeDTO
-      formattedValues.type = props.medicalTypes.find((mt: MedicalTypeDTO) => mt.code === formattedValues.type);
+      formattedValues.type = medicalTypesOptions.find((mt: { value: string, label: string}) => mt.value === formattedValues.type);
       props.onSubmit(formattedValues);
     },
   });
 
+  const medicalTypeStatus = useSelector((state: IState) => state.medicaltypes.getMedicalType.status);
+  const medicalTypesOptions = useSelector((state: IState) => medicalTypesFormatter( state.medicaltypes.getMedicalType.data));
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (props.medicalTypeStatus == "IDLE")
-      props.getMedicalTypes({});
-    if (!isEmpty(props.medicalTypes) && isEmpty(props.medicalTypesOptions)) {
-      setOptions(medicalTypesFormatter(props.medicalTypes));
-      //Custom management of medical type
-      if (!isEmpty(props.fields.type.value)) {
-        setFieldValue(
-          "type",
-          props.medicalTypes.find(
-            (x: MedicalTypeDTO) => x.code == (props.fields.type.value as MedicalTypeDTO).code
-          )?.code
-        );
-      }
+    switch(medicalTypeStatus)
+    {
+      case "IDLE":
+        dispatch(getMedicalTypes({}));
+        break;
+        case "SUCCESS":
+          setOptions(medicalTypesOptions);
+          if (!isEmpty(props.fields.type.value)) {
+            setFieldValue(
+              "type",
+              medicalTypesOptions.find(
+                (x: {value: string, label: string}) => x.value == (props.fields.type.value as MedicalTypeDTO).code
+                )?.value
+              );
+            }
+        break;
     }
-  }, [
-    props.medicalTypeStatus,
-    props.medicalTypesOptions,
-  ]);
+  }, [dispatch, props.fields])
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -102,7 +107,7 @@ const MedicalDataForm: FunctionComponent<TProps> = (
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  const [options, setOptions] = useState(props.medicalTypesOptions);
+  const [options, setOptions] = useState(medicalTypesOptions);
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
@@ -204,14 +209,8 @@ const MedicalDataForm: FunctionComponent<TProps> = (
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  medicalTypeStatus: state.medicaltypes.getMedicalType.status || "IDLE",
-  medicalTypes: state.medicaltypes.getMedicalType.data || new Array(),
-  medicalTypesOptions: [],
-});
-
 const mapDispatchToProps: IDispatchProps = {
   getMedicalTypes,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalDataForm); //
+export default connect(null, mapDispatchToProps)(MedicalDataForm); //

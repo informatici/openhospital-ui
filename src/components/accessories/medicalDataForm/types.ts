@@ -13,16 +13,10 @@ interface IOwnProps {
   resetFormCallback: () => void;
 }
 
-export type TProps = IForm<TMedicalDataFormFieldName, MedicalDTO> & IDispatchProps & IOwnProps & IStateProps;
+export type TProps = IForm<TMedicalDataFormFieldName, MedicalDTO> & IDispatchProps & IOwnProps;
 
 export interface IDispatchProps {
   getMedicalTypes: (operation: any) => void;
-}
-
-export interface IStateProps {
-  medicalTypeStatus: TAPIResponseStatus;
-  medicalTypes: Array<MedicalTypeDTO>;
-  medicalTypesOptions: {value: string, label: string}[];
 }
 
 export type TMedicalDataFormFieldName =
