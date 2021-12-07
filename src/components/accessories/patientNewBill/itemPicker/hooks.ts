@@ -9,6 +9,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../../libraries/formDataHandling/types";
+import { ItemGroups } from "../consts";
 import { useItems } from "../hooks";
 import { BillItemFormFieldName } from "./types";
 
@@ -16,36 +17,83 @@ export const useItemFormik = (
   fields: TFields<BillItemFormFieldName>,
   itemType: string,
   items: BillItemsDTO[],
+  itemToEdit: Record<string, any> | undefined,
   onSubmit: (item: BillItemsDTO) => void
 ) => {
   const { t } = useTranslation();
+
   const validationSchema = useMemo(() => {
+    if (itemType == ItemGroups.other.id) {
+      return object({
+        itemAmount: number()
+          .required(t("common.required"))
+          .min(0, t("common.greaterthan", { value: "0" })),
+        itemQuantity: number().min(1, t("common.greaterthan", { value: "1" })),
+        itemDescription: string()
+          .test({
+            name: "item",
+            message: t("bill.itemalreadypresent"),
+            test: (value) => {
+              const item = items.find(
+                (e) =>
+                  e.itemDescription?.toLocaleLowerCase() ==
+                  value?.toLocaleLowerCase()
+              );
+              return item == null || itemToEdit != undefined;
+            },
+          })
+          .required(t("common.required")),
+      });
+    }
     return object({
       itemId: string()
-        .required()
         .test({
           name: "item",
           message: t("bill.itemalreadypresent"),
           test: (value) => {
             const item = items.find((e) => e.itemId == value);
-            return item == null;
+            return item == null || itemToEdit != undefined;
           },
-        }),
-      itemDescription: string()
-        .required()
+        })
+        .required(t("common.required")),
+      itemQuantity: number()
         .test({
-          name: "item",
-          message: t("bill.itemalreadypresent"),
+          name: "quantity",
+          message: t("common.lessthan", { value: "1" }),
           test: (value) => {
-            const item = items.find((e) => e.itemDescription == value);
-            return item == null;
+            if (itemType == ItemGroups.medical.id) return true;
+            return value > 1 ? false : true;
           },
-        }),
-      itemAmount: number().required().min(0),
-      itemQuantity: number().min(1),
+        })
+        .min(1, t("common.greaterthan", { value: "1" })),
     });
   }, [itemType]);
-  const initialValues = getFromFields(fields, "value");
+  const initialValues = useMemo(() => {
+    if (itemToEdit != undefined) {
+      return getFromFields(
+        {
+          itemAmount: {
+            type: "number",
+            value: (itemToEdit?.amount ?? 0).toString(),
+          },
+          itemQuantity: {
+            type: "number",
+            value: (itemToEdit?.quantity ?? 1).toString(),
+          },
+          itemId: {
+            type: "text",
+            value: itemToEdit?.itemId ?? "",
+          },
+          itemDescription: {
+            type: "text",
+            value: itemToEdit?.description,
+          },
+        },
+        "value"
+      );
+    }
+    return getFromFields(fields, "value");
+  }, [itemToEdit]);
 
   const formik = useFormik({
     initialValues,
@@ -67,16 +115,6 @@ export const useItemFormik = (
     isValid: isFormValid,
   } = formik;
 
-  const isValid = (fieldName: string): boolean => {
-    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
-  };
-
-  const getErrorText = (fieldName: string): string => {
-    return has(formik.touched, fieldName)
-      ? (get(formik.errors, fieldName) as string)
-      : "";
-  };
-
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (
@@ -89,6 +127,16 @@ export const useItemFormik = (
     [setFieldValue, handleBlur]
   );
 
+  const isValid = (fieldName: string): boolean => {
+    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+  };
+
+  const getErrorText = (fieldName: string): string => {
+    return has(formik.touched, fieldName)
+      ? (get(formik.errors, fieldName) as string)
+      : "";
+  };
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const handleResetConfirmation = () => {
@@ -98,6 +146,7 @@ export const useItemFormik = (
 
   return {
     handleSubmit,
+    handleBlur,
     onBlurCallback,
     handleResetConfirmation,
     openResetConfirmation,

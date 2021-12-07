@@ -1,6 +1,6 @@
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import { useFormik } from "formik";
-import React, { FC, useCallback, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { number, object, string } from "yup";
 import { BillItemsDTO } from "../../../../generated";
@@ -23,25 +23,35 @@ const BillItemPickerForm: FC<BillItemProps> = ({
   onSubmit,
   resetFormCallback,
   shouldResetForm,
+  itemToEdit,
   items,
   fields,
 }) => {
   const { t } = useTranslation();
 
   const [itemType, setItemType] = useState(ItemGroups.medical.id);
-  const [creationMode, setCreationMode] = useState(false);
 
   const { prices, examsOptions, medicalsOptions, surgeriesOptions } =
     useItemPrices();
 
+  useEffect(() => {
+    if (itemToEdit) {
+      setItemType(itemToEdit?.groupId);
+    }
+  }, [itemToEdit]);
+
   const handleFormSubmit = useCallback(
     (values: Record<string, any>) => {
-      let item: BillItemsDTO = {};
+      const id =
+        itemToEdit == undefined
+          ? (items.map((e) => e.id).sort()[items.length - 1] ?? 0) + 1
+          : itemToEdit?.id;
+      let item: BillItemsDTO = { id: id };
       item.itemQuantity = values?.itemQuantity;
       if (itemType == ItemGroups.other.id) {
         item.itemAmount = values?.itemAmount;
         item.itemDescription = values?.itemDescription;
-        onSubmit(item);
+        onSubmit(item, itemToEdit == undefined ? true : false);
         return;
       }
       let priceDTO: PriceDTO | undefined = prices.find(
@@ -54,7 +64,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         item.itemId = priceDTO.item;
         item.price = true;
         item.priceId = priceDTO.id?.toString();
-        onSubmit(item);
+        onSubmit(item, itemToEdit == undefined ? true : false);
       }
     },
     [itemType]
@@ -64,12 +74,13 @@ const BillItemPickerForm: FC<BillItemProps> = ({
     getErrorText,
     getFieldProps,
     handleResetConfirmation,
+    onBlurCallback,
+    handleBlur,
     isValid,
     isFormValid,
-    onBlurCallback,
     handleSubmit,
     values,
-  } = useItemFormik(fields, itemType, items, handleFormSubmit);
+  } = useItemFormik(fields, itemType, items, itemToEdit, handleFormSubmit);
 
   const handleItemTypeChange = useCallback(
     (e: any, value: string) => {
@@ -153,7 +164,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
               field={getFieldProps("itemDescription")}
               isValid={isValid("itemDescription")}
               errorText={getErrorText("itemDescription")}
-              onBlur={onBlurCallback}
+              onBlur={handleBlur}
               label={t("bill.item")}
               type="text"
             />
@@ -162,7 +173,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
               field={getFieldProps("itemAmount")}
               isValid={isValid("itemAmount")}
               errorText={getErrorText("itemAmount")}
-              onBlur={onBlurCallback}
+              onBlur={handleBlur}
               label={t("bill.amount")}
               type="number"
             />
@@ -173,7 +184,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
           field={getFieldProps("itemQuantity")}
           isValid={isValid("itemQuantity")}
           errorText={getErrorText("itemQuantity")}
-          onBlur={onBlurCallback}
+          onBlur={handleBlur}
           label={t("bill.quantity")}
           type="number"
         />
@@ -183,7 +194,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
           {t("button.discard")}
         </TextButton>
         <SmallButton
-          disabled={isFormValid}
+          disabled={!isFormValid}
           onClick={(e) => {
             e.preventDefault();
             handleFormSubmit(formatAllFieldValues(fields, values));

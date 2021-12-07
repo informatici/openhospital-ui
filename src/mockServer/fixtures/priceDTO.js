@@ -98,7 +98,7 @@ export const priceDTO = [
       "currency": ""
     },
     "group": "OPE",
-    "item": "SRG01",
+    "item": "SRG02",
     "description": "Surgery 02",
     "price": 68,
     "editable": false,

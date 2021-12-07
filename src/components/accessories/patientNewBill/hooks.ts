@@ -164,6 +164,8 @@ export const useItems = () => {
 export const useFullBill = () => {
   const [bill, setBill] = useState<BillDTO>({});
   const { t } = useTranslation();
+  const [itemToEdit, setItemToEdit] =
+    useState<Record<string, any> | undefined>();
   const [billItems, setBillItems] = useState<BillItemsDTO[]>([]);
   const [billPayments, setBillPayments] = useState<BillPaymentsDTO[]>([]);
   const [fullBill, setFullBill] = useState<FullBillDTO>({
@@ -181,6 +183,9 @@ export const useFullBill = () => {
         (e) => e[1].id == priceDTO?.group
       );
       return {
+        id: item.id,
+        itemId: item?.itemId,
+        groupId: groupLabel ? groupLabel[1].id : ItemGroups.other.id,
         group: t(groupLabel ? groupLabel[1].value : ItemGroups.other.value),
         description: item.itemDescription,
         quantity: item.itemQuantity,
@@ -215,20 +220,21 @@ export const useFullBill = () => {
         item.id == itemDTO.id ? itemDTO : item
       );
       setBillItems([...items]);
+      setItemToEdit(undefined);
     },
     [billItems]
   );
-  const handleRemovePayment = useCallback(
+  const handleDeletePayment = useCallback(
     (paymentDTO: BillPaymentsDTO) => {
       let payments = billPayments.filter((value) => value.id != paymentDTO.id);
       setBillPayments([...payments]);
     },
     [billPayments]
   );
-  const handleRemoveItem = useCallback(
-    (itemDTO: BillItemsDTO) => {
+  const handleDeleteItem = useCallback(
+    (itemDTO: any) => {
       let items = billItems.filter((value) => value.id != itemDTO.id);
-      setBillPayments([...items]);
+      setBillItems([...items]);
     },
     [billItems]
   );
@@ -271,11 +277,13 @@ export const useFullBill = () => {
     billTotal,
     paymentTotal,
     itemsRowData,
+    itemToEdit,
+    setItemToEdit,
     handleBillEdit,
     handleAddItem,
     handleEditItem,
     handleAddPayment,
-    handleRemoveItem,
-    handleRemovePayment,
+    handleDeleteItem,
+    handleDeletePayment,
   };
 };

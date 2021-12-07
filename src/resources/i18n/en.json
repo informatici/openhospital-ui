@@ -172,7 +172,9 @@
     "date": "Date",
     "type": "Type",
     "nooptionsfound": "No options found",
-    "close": "CLOSE"
+    "close": "CLOSE",
+    "greaterthan": "The value must be at least {{value}}.",
+    "lessthan": "The value must not exceed {{value}}."
   },
   "therapy": {
     "newtherapy": "New Therapy",

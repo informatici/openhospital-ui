@@ -4,7 +4,8 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 interface IBillItemProps {
   fields: TFields<BillItemFormFieldName>;
   items: BillItemsDTO[];
-  onSubmit: (item: BillItemsDTO) => void;
+  itemToEdit: Record<string, any> | undefined;
+  onSubmit: (item: BillItemsDTO, isNew: boolean) => void;
   isLoading: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;

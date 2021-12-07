@@ -28,12 +28,14 @@ const PatientNewBill: FC = () => {
     itemsRowData,
     billTotal,
     paymentTotal,
+    itemToEdit,
+    setItemToEdit,
     handleBillEdit,
     handleAddItem,
     handleEditItem,
     handleAddPayment,
-    handleRemoveItem,
-    handleRemovePayment,
+    handleDeleteItem,
+    handleDeletePayment,
   } = useFullBill();
 
   const {
@@ -43,12 +45,17 @@ const PatientNewBill: FC = () => {
     handlePaymentDialog,
   } = useDialogStatus();
 
-  const onSubmitItem = (item: BillItemsDTO) => {
-    handleAddItem(item);
+  const onSubmitItem = (item: BillItemsDTO, isNew: boolean) => {
+    isNew ? handleAddItem(item) : handleEditItem(item);
     handleItemPicker();
   };
 
   const resetItemFormCallback = () => {};
+
+  const handleTableEdit = useCallback((row) => {
+    setItemToEdit(row);
+    handleItemPicker();
+  }, []);
 
   const handlePayment = useCallback(
     (values: Record<string, any>) => {
@@ -75,10 +82,8 @@ const PatientNewBill: FC = () => {
             {billItems.length != 0 && (
               <BillItemsTable
                 rowData={itemsRowData}
-                handleDelete={(row) => {}}
-                handleEdit={(row) => {
-                  handleItemPicker();
-                }}
+                handleDelete={handleDeleteItem}
+                handleEdit={handleTableEdit}
               />
             )}
             <div className="patientNewBill_buttons">
@@ -117,6 +122,7 @@ const PatientNewBill: FC = () => {
           <BillItemPickerForm
             fields={initialItemFields}
             items={billItems}
+            itemToEdit={itemToEdit}
             onSubmit={onSubmitItem}
             isLoading={false}
             shouldResetForm={true}
