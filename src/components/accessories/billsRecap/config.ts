@@ -1,65 +1,24 @@
 import moment from "moment";
-import { BillItemsDTO, FullBillDTO } from "../../../generated";
+import { FullBillDTO } from "../../../generated";
 import { IBillSummary } from "../../activities/billingActivity/types";
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],
-  dateFrom: string,
-  dateTo: string,
   userName: string
 ): IBillSummary => {
-  const today = new Date().setTime(0);
-
   const sortAndSlice: any = (data: any[]) => {
-    return Object.keys(data)
-      .sort(function (a, b) {
-        return (data as any)[a] - (data as any)[b];
-      })
-      .slice(0, 10);
+    return Object.entries(data)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10)
+      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
   };
   const res = {
-    today: bills
-      .filter(
-        (item) => item.billDTO?.date && +new Date(item.billDTO.date) >= today
-      )
-      .reduce(
-        (sum, current) =>
-          sum +
-          ((current.billDTO?.amount || 0) - (current.billDTO?.balance || 0)),
-        0
-      ),
-    todayNotPaid: bills
-      .filter(
-        (item) => item.billDTO?.date && +new Date(item.billDTO.date) >= today
-      )
-      .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
-    period: bills
+    currentUserCashIn: bills
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
-          +new Date(item.billDTO.date) <= +new Date(dateTo)
-      )
-      .reduce(
-        (sum, current) =>
-          sum +
-          ((current.billDTO?.amount || 0) - (current.billDTO?.balance || 0)),
-        0
-      ),
-    periodNotPaid: bills
-      .filter(
-        (item) =>
-          item.billDTO?.date &&
-          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
-          +new Date(item.billDTO.date) <= +new Date(dateTo)
-      )
-      .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
-    user: bills
-      .filter(
-        (item) =>
-          item.billDTO?.date &&
-          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
-          +new Date(item.billDTO.date) <= +new Date(dateTo) &&
+          +new Date(item.billDTO.date) >= +moment().startOf("year").toDate() &&
+          +new Date(item.billDTO.date) <= +moment().endOf("year").toDate() &&
           item.billDTO?.user === userName
       )
       .reduce(
@@ -68,12 +27,12 @@ export const computeBillSummary = (
           ((current.billDTO?.amount || 0) - (current.billDTO?.balance || 0)),
         0
       ),
-    userNotPaid: bills
+    currentUserDebt: bills
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +new Date(item.billDTO.date) >= +new Date(dateFrom) &&
-          +new Date(item.billDTO.date) <= +new Date(dateTo) &&
+          +new Date(item.billDTO.date) >= +moment().startOf("year").toDate() &&
+          +new Date(item.billDTO.date) <= +moment().endOf("year").toDate() &&
           item.billDTO?.user === userName
       )
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
@@ -82,10 +41,8 @@ export const computeBillSummary = (
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +new Date(item.billDTO.date) >=
-            +new Date(new Date().getFullYear(), 0, 1) &&
-          +new Date(item.billDTO.date) <=
-            +new Date(new Date().getFullYear(), 11, 31)
+          +new Date(item.billDTO.date) >= +moment().startOf("year").toDate() &&
+          +new Date(item.billDTO.date) <= +moment().endOf("year").toDate()
       )
       .reduce(
         (sum, current) =>
@@ -98,10 +55,8 @@ export const computeBillSummary = (
       .filter(
         (item) =>
           item.billDTO?.date &&
-          +new Date(item.billDTO.date) >=
-            +new Date(new Date().getFullYear(), 0, 1) &&
-          +new Date(item.billDTO.date) <=
-            +new Date(new Date().getFullYear(), 11, 31) &&
+          +new Date(item.billDTO.date) >= +moment().startOf("year").toDate() &&
+          +new Date(item.billDTO.date) <= +moment().endOf("year").toDate() &&
           item.billDTO.status === "O"
       )
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
@@ -178,7 +133,70 @@ export const computeBillSummary = (
       )
       .reduce((sum, current) => sum + (current.billDTO?.balance || 0), 0),
 
-    top10MostSaleArticles: sortAndSlice(
+    bestSellingByQuantity: sortAndSlice(
+      bills
+        .filter(
+          (item) =>
+            item.billDTO?.date &&
+            +new Date(item.billDTO.date) >=
+              +moment().startOf("year").toDate() &&
+            +new Date(item.billDTO.date) <= +moment().endOf("year").toDate()
+        )
+        .map((item) => item.billItemsDTO)
+        .flat()
+        .reduce((p, c) => {
+          const name: string = c?.itemDisplayCode + "-" + c?.itemDescription;
+          if (p && !p.hasOwnProperty(name)) {
+            (p as any)[name] = 0;
+          }
+          (p as any)[name] += c?.itemQuantity ?? 0;
+          return p;
+        }, {} as { [key: string]: number })
+    ),
+
+    bestSellingByOccurence: sortAndSlice(
+      bills
+        .filter(
+          (item) =>
+            item.billDTO?.date &&
+            +new Date(item.billDTO.date) >=
+              +moment().startOf("year").toDate() &&
+            +new Date(item.billDTO.date) <= +moment().endOf("year").toDate()
+        )
+        .map((item) => item.billItemsDTO)
+        .flat()
+        .reduce((p, c) => {
+          const name: string = c?.itemDisplayCode + "-" + c?.itemDescription;
+          if (p && !p.hasOwnProperty(name)) {
+            (p as any)[name] = 0;
+          }
+          (p as any)[name]++;
+          return p;
+        }, {})
+    ),
+
+    bestPatientsByPayments: sortAndSlice(
+      bills
+        .filter(
+          (item) =>
+            item.billDTO?.date &&
+            +new Date(item.billDTO.date) >=
+              +moment().startOf("year").toDate() &&
+            +new Date(item.billDTO.date) <= +moment().endOf("year").toDate()
+        )
+        .reduce((p, c) => {
+          const name: string =
+            c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
+          if (p && !p.hasOwnProperty(name)) {
+            (p as any)[name] = 0;
+          }
+          (p as any)[name] +=
+            (c.billDTO?.amount ?? 0) - (c.billDTO?.balance ?? 0);
+          return p;
+        }, {})
+    ),
+
+    mostIndebtedPatients: sortAndSlice(
       bills
         .filter(
           (item) =>
@@ -188,14 +206,13 @@ export const computeBillSummary = (
             +new Date(item.billDTO.date) <= +moment().endOf("year").toDate() &&
             item.billDTO.status === "O"
         )
-        .map((item) => item.billItemsDTO)
-        .flat()
         .reduce((p, c) => {
-          const name: string = c?.itemDescription ?? "other";
+          const name: string =
+            c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
-          (p as any)[name]++;
+          (p as any)[name] += c.billDTO?.balance ?? 0;
           return p;
         }, {})
     ),

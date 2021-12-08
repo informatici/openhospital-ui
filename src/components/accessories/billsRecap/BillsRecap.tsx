@@ -33,8 +33,6 @@ export const BillsRecap: FC = () => {
   useEffect(() => {
     const summary = computeBillSummary(
       data,
-      filter.fromDate,
-      filter.toDate,
       userCredentials?.displayName ?? ""
     );
     billSummaryChange(summary);
@@ -60,15 +58,23 @@ export const BillsRecap: FC = () => {
               component="p"
               className="item__value"
             >
-              {summary.today ? currencyFormat(summary.today) : "-"}
+              {summary.dailyRevenue
+                ? currencyFormat(summary.dailyRevenue)
+                : "-"}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="item__value"
+            >
+              {summary.dailyDebt ? currencyFormat(summary.dailyDebt) : "-"}
             </Typography>
           </CardContent>
         </Card>
+
         <Card className="item__card">
-          <CardHeader
-            title={`${t("bill.notpaid")} (${moment().format("DD/MM/YYYY")})`}
-            avatar={<CalendarToday />}
-          />
+          <CardHeader title={`${t("bill.week")}`} avatar={<DateRange />} />
           <CardContent>
             <Typography
               variant="body2"
@@ -76,13 +82,20 @@ export const BillsRecap: FC = () => {
               component="p"
               className="item__value"
             >
-              {summary.todayNotPaid
-                ? currencyFormat(summary.todayNotPaid)
+              {summary.weeklyRevenue
+                ? currencyFormat(summary.weeklyRevenue)
                 : "-"}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="item__value"
+            >
+              {summary.weeklyDebt ? currencyFormat(summary.weeklyDebt) : "-"}
             </Typography>
           </CardContent>
         </Card>
-
         <Card className="item__card">
           <CardHeader
             title={`${t("bill.month")} (${moment().format("MMMM")})`}
@@ -95,21 +108,44 @@ export const BillsRecap: FC = () => {
               component="p"
               className="item__value"
             >
-              {summary.period ? currencyFormat(summary.period) : "-"}
+              {summary.monthlyRevenue
+                ? currencyFormat(summary.monthlyRevenue)
+                : "-"}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="item__value"
+            >
+              {summary.monthlyDebt ? currencyFormat(summary.monthlyDebt) : "-"}
             </Typography>
           </CardContent>
         </Card>
 
         <Card className="item__card">
           <CardHeader
-            title={`${t("bill.notpaid")} (${moment().format("MMMM")})`}
+            title={`${t("bill.year")} (${moment().format("YYYY")})`}
             avatar={<DateRange />}
           />
-          <CardContent className="item__card__content">
-            <Typography variant="body2" color="textSecondary" component="h3">
-              {summary.periodNotPaid
-                ? currencyFormat(summary.periodNotPaid)
+          <CardContent>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="item__value"
+            >
+              {summary.annualRevenue
+                ? currencyFormat(summary.annualRevenue)
                 : "-"}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="item__value"
+            >
+              {summary.annualDebt ? currencyFormat(summary.annualDebt) : "-"}
             </Typography>
           </CardContent>
         </Card>
@@ -123,21 +159,20 @@ export const BillsRecap: FC = () => {
               component="p"
               className="item__value"
             >
-              {summary.user ? currencyFormat(summary.user) : "-"}
+              {summary.currentUserCashIn
+                ? currencyFormat(summary.currentUserCashIn)
+                : "-"}
             </Typography>
-          </CardContent>
-        </Card>
 
-        <Card className="item__card">
-          <CardHeader title={t("bill.notpaid")} avatar={<Person />} />
-          <CardContent className="item__card__content">
             <Typography
               variant="body2"
               color="textSecondary"
               component="p"
               className="item__value"
             >
-              {summary.userNotPaid ? currencyFormat(summary.userNotPaid) : "-"}
+              {summary.currentUserDebt
+                ? currencyFormat(summary.currentUserDebt)
+                : "-"}
             </Typography>
           </CardContent>
         </Card>

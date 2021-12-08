@@ -60,12 +60,26 @@ export type TActivityTransitionState =
   | "TO_BILLS";
 
 export type IBillSummary = {
-  today: number;
-  todayNotPaid: number;
-  period: number;
-  periodNotPaid: number;
-  user: number;
-  userNotPaid: number;
+  dailyRevenue: number;
+  dailyDebt: number;
+
+  monthlyRevenue: number;
+  monthlyDebt: number;
+
+  weeklyRevenue: number;
+  weeklyDebt: number;
+
+  annualRevenue: number;
+  annualDebt: number;
+
+  bestSellingByQuantity: { [key: string]: number }[];
+  bestSellingByOccurence: { [key: string]: number }[];
+
+  bestPatientsByPayments: { [key: string]: number }[];
+  mostIndebtedPatients: { [key: string]: number }[];
+
+  currentUserCashIn: number;
+  currentUserDebt: number;
 };
 
 export type IBillingSection = "dashboard" | "bills" | "payments";
