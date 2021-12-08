@@ -180,6 +180,14 @@ export const computeBillSummary = (
 
     top10MostSaleArticles: sortAndSlice(
       bills
+        .filter(
+          (item) =>
+            item.billDTO?.date &&
+            +new Date(item.billDTO.date) >=
+              +moment().startOf("year").toDate() &&
+            +new Date(item.billDTO.date) <= +moment().endOf("year").toDate() &&
+            item.billDTO.status === "O"
+        )
         .map((item) => item.billItemsDTO)
         .flat()
         .reduce((p, c) => {
