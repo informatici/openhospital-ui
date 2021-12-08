@@ -26,7 +26,7 @@ export const BillsRecap: FC = () => {
   );
 
   const filter = {
-    fromDate: moment().startOf("month").toISOString(),
+    fromDate: moment().startOf("year").toISOString(),
     toDate: moment().toISOString(),
     patientCode: 0,
   };
