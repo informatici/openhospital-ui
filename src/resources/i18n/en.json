@@ -325,7 +325,8 @@
     "surgery": "Surgery",
     "other": "Other",
     "itemalreadypresent": "Item already present in the list.",
-    "quantitynotallowed": "This quantity is not allowed."
+    "quantitynotallowed": "This quantity is not allowed.",
+    "paid": "Paid"
   },
   "button": {
     "save": "Save",

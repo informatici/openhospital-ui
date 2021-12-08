@@ -162,7 +162,9 @@ export const useItems = () => {
 };
 
 export const useFullBill = () => {
-  const [bill, setBill] = useState<BillDTO>({});
+  const [bill, setBill] = useState<BillDTO>({
+    date: new Date(Date.now()).toISOString(),
+  });
   const { t } = useTranslation();
   const [itemToEdit, setItemToEdit] =
     useState<Record<string, any> | undefined>();
@@ -190,6 +192,7 @@ export const useFullBill = () => {
         description: item.itemDescription,
         quantity: item.itemQuantity,
         amount: currencyFormat(item.itemAmount),
+        itemAmount: item.itemAmount,
       };
     });
   }, [billItems]);

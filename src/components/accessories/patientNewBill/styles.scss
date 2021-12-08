@@ -10,7 +10,7 @@
     display: flex;
     row-gap: 24px;
     flex-flow: column; 
-    justify-content: start;
+    justify-content: flex-start;
     @include susy-media(1024px) {
       column-gap: 12px;
       flex-flow: row;
@@ -51,6 +51,10 @@
       row-gap: 12px;
       .smallButton {
         width: 300px;
+      }
+      .paid {
+        background-color: $c-color-info;
+        color: white;
       }
       .two-row {
         display: flex;

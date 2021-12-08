@@ -335,7 +335,8 @@
     "surgery": "Opération",
     "other": "Autre",
     "itemalreadypresent": "Article déjà présent dans la liste.",
-    "quantitynotallowed": "Cette quantité n'est pas autorisée."
+    "quantitynotallowed": "Cette quantité n'est pas autorisée.",
+    "paid": "Payé"
   },
   "button": {
     "save": "Enregistrer",

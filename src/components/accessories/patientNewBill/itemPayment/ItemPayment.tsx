@@ -1,14 +1,15 @@
 import React from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Tooltip } from "@material-ui/core";
+import { Button, IconButton, Tooltip } from "@material-ui/core";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import "../styles.scss";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
+import { CheckCircleRounded } from "@material-ui/icons";
 
 interface IOwnProps {
-  handlePaymentDialog: (value: boolean) => void;
+  handlePaymentDialog: () => void;
   billTotal: number;
   paymentTotal: number;
 }
@@ -35,13 +36,23 @@ const ItemPayment: FC<IOwnProps> = ({
         <span>{currencyFormat(billTotal - paymentTotal)}</span>
       </div>
       <div>
-        <SmallButton
-          onClick={() => {
-            handlePaymentDialog(true);
-          }}
-        >
-          {t("bill.pay")}
-        </SmallButton>
+        {(billTotal > 0 && billTotal - paymentTotal == 0 && (
+          <Button
+            className={"paid"}
+            variant="outlined"
+            startIcon={<CheckCircleRounded />}
+          >
+            {t("bill.paid")}
+          </Button>
+        )) || (
+          <SmallButton
+            onClick={() => {
+              handlePaymentDialog();
+            }}
+          >
+            {t("bill.pay")}
+          </SmallButton>
+        )}
       </div>
       <div className="lg-divider"></div>
       <div>

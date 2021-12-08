@@ -46,16 +46,14 @@ export const useItemFormik = (
       });
     }
     return object({
-      itemId: string()
-        .test({
-          name: "item",
-          message: t("bill.itemalreadypresent"),
-          test: (value) => {
-            const item = items.find((e) => e.itemId == value);
-            return item == null || itemToEdit != undefined;
-          },
-        })
-        .required(t("common.required")),
+      itemId: string().test({
+        name: "item",
+        message: t("bill.itemalreadypresent"),
+        test: (value) => {
+          const item = items.find((e) => e.itemId == value);
+          return item == null || itemToEdit != undefined;
+        },
+      }),
       itemQuantity: number()
         .test({
           name: "quantity",
@@ -74,7 +72,7 @@ export const useItemFormik = (
         {
           itemAmount: {
             type: "number",
-            value: (itemToEdit?.amount ?? 0).toString(),
+            value: (itemToEdit?.itemAmount ?? 0).toString(),
           },
           itemQuantity: {
             type: "number",
@@ -110,6 +108,7 @@ export const useItemFormik = (
     getFieldProps,
     values,
     resetForm,
+    handleChange,
     handleBlur,
     handleSubmit,
     isValid: isFormValid,
@@ -124,7 +123,7 @@ export const useItemFormik = (
         handleBlur(e);
         setFieldValue(fieldName, value);
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, handleChange]
   );
 
   const isValid = (fieldName: string): boolean => {

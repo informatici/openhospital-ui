@@ -50,6 +50,13 @@ const PatientNewBill: FC = () => {
     handleItemPicker();
   };
 
+  const handleItemDialog = () => {
+    handleItemPicker();
+    if (itemToEdit) {
+      setItemToEdit(undefined);
+    }
+  };
+
   const resetItemFormCallback = () => {};
 
   const handleTableEdit = useCallback((row) => {
@@ -57,13 +64,10 @@ const PatientNewBill: FC = () => {
     handleItemPicker();
   }, []);
 
-  const handlePayment = useCallback(
-    (values: Record<string, any>) => {
-      handleAddPayment(values);
-      handlePaymentDialog();
-    },
-    [handleAddPayment]
-  );
+  const handlePayment = (values: Record<string, any>) => {
+    handleAddPayment(values);
+    handlePaymentDialog();
+  };
 
   useEffect(() => {
     dispatch(getPrices());
@@ -116,7 +120,7 @@ const PatientNewBill: FC = () => {
       <CustomModal
         title={t("bill.pickitem")}
         description="pick-item"
-        onClose={handleItemPicker}
+        onClose={handleItemDialog}
         open={showItemPicker}
         content={
           <BillItemPickerForm
@@ -133,7 +137,7 @@ const PatientNewBill: FC = () => {
       <PaymentDialog
         open={showPaymentDialog}
         billId={0}
-        billDate={new Date(Date.parse("2021-10-12"))}
+        billDate={new Date(Date.parse(bill?.date ?? ""))}
         fields={{
           paymentAmount: {
             type: "number",
