@@ -5,7 +5,7 @@
 .itemPicker {
     display: flex;
     flex-flow: column;
-    justify-content: start;
+    justify-content: flex-start;
     padding: 1em;
     row-gap: 1em;
     & > #first {
@@ -21,21 +21,21 @@
     & > #second {
         display: flex;
         flex-flow: column;
-        row-gap: .5em;
+        row-gap: 8px;
         .textField {
             width: 100%;
             input {
-                height: 1.5em;
+                height: 24px;
             }
         }
         .autocomplete input {
-            height: 1.5em;
+            height: 24px;
         }
     }
 
     & > #third {
         display: flex;
         justify-content: center;
-        column-gap: 2em;
+        column-gap: 24px;
     }
 }
