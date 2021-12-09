@@ -18,17 +18,17 @@ export const billDTO = {
 };
 
 export const billResults = [{
-    id: 5,
+    id: 10,
     list: true,
-    listId: 0,
+    listId: 1,
     patientDTO: patientDTO,
     date: moment().toISOString(),
     update: moment().toISOString(),
     listName: "Basic",
     patientTrue: true,
     patName: "Antonio Carlos",
-    status: "C",
-    amount: 1000,
+    status: "0",
+    amount: 604,
     balance: 0,
     user: "admin"
 },

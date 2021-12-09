@@ -10,7 +10,6 @@ import {
 } from "../../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 import { ItemGroups } from "../consts";
-import { useItems } from "../hooks";
 import { BillItemFormFieldName } from "./types";
 
 export const useItemFormik = (

@@ -11,28 +11,28 @@ export const billPaymentsDTOs = [
         id: 10,
         billId: 10,
         date: new Date().toISOString(),
-        amount: 1000,
+        amount: 50,
         user: "admin"
     },
     {
         id: 4,
         billId: 10,
         date: new Date().toISOString(),
-        amount: 500,
+        amount: 100,
         user: "admin"
     },
     {
         id: 5,
-        billId: 10,
+        billId: 5,
         date: new Date().toISOString(),
-        amount: 1000,
+        amount: 50,
         user: "admin"
     },
     {
         "id": 8,
         "billId": 5,
         "date": new Date().toISOString(),
-        "amount": 500,
+        "amount": 100,
         "user": "admin"
     }
 

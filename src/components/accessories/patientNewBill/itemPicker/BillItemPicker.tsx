@@ -14,7 +14,7 @@ import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
 import { ItemGroups } from "../consts";
-import { useItems, useItemPrices } from "../hooks";
+import { useItemPrices } from "../hooks/price.hooks";
 import { useItemFormik } from "./hooks";
 import "./styles.scss";
 import { BillItemProps } from "./types";

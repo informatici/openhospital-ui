@@ -12,7 +12,8 @@ import { Add } from "@material-ui/icons";
 import { initialFields as initialItemFields } from "./itemPicker/consts";
 import { getPrices } from "../../../state/prices/actions";
 import { useDispatch } from "react-redux";
-import { useSelectedPatient, useFullBill, useDialogStatus } from "./hooks";
+import { useSelectedPatient, useFullBill } from "./hooks/full_bill.hooks";
+import { useDialogStatus } from "./hooks/dialog.hooks";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
