@@ -15,16 +15,24 @@
         font-size: x-large;
         }
     }
-
     .bills__recap__content {
         display: flex;
         align-items: center;    
         flex-direction: row;  
         justify-content: space-between;      
-        flex-wrap: wrap;  
+        flex-wrap: wrap;             
         .item__card{
-            flex: 1 1 auto;
-            margin: 10px;
+            flex: 1 0 1;
+            margin: 5px;
+            .item__value {
+                display: flex;
+                align-items: center;                
+                *{
+                    margin:5px;
+                }
+            }            
         } 
+            
     }
+    
 }

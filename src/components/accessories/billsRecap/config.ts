@@ -145,7 +145,8 @@ export const computeBillSummary = (
         .map((item) => item.billItemsDTO)
         .flat()
         .reduce((p, c) => {
-          const name: string = c?.itemDisplayCode + "-" + c?.itemDescription;
+          const name: string =
+            "#" + c?.itemDisplayCode + " " + c?.itemDescription;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -166,7 +167,8 @@ export const computeBillSummary = (
         .map((item) => item.billItemsDTO)
         .flat()
         .reduce((p, c) => {
-          const name: string = c?.itemDisplayCode + "-" + c?.itemDescription;
+          const name: string =
+            "#" + c?.itemDisplayCode + " " + c?.itemDescription;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -186,7 +188,7 @@ export const computeBillSummary = (
         )
         .reduce((p, c) => {
           const name: string =
-            c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
+            "#" + c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -208,7 +210,7 @@ export const computeBillSummary = (
         )
         .reduce((p, c) => {
           const name: string =
-            c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
+            "#" + c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
