@@ -4,13 +4,26 @@ import { IBillSummary } from "../../activities/billingActivity/types";
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],
-  userName: string
+  userName: string = "admin"
 ): IBillSummary => {
-  const sortAndSlice: any = (data: any[]) => {
+  const sortAndSlice: any = (data: any) => {
     return Object.entries(data)
-      .sort(([, a], [, b]) => b - a)
+      .sort(([, a], [, b]) => (b as number) - +(a as number))
       .slice(0, 10)
       .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+  };
+  const sortByMonthAndSlice: any = (data: any) => {
+    return Object.entries(data)
+      .sort(([a], [b]) => +a - +b)
+      .reduce(
+        (r, [k, v]) => ({
+          ...r,
+          [moment()
+            .set("month", +k)
+            .format("MMMM")]: v,
+        }),
+        {}
+      );
   };
   const res = {
     currentUserCashIn: bills
@@ -145,8 +158,7 @@ export const computeBillSummary = (
         .map((item) => item.billItemsDTO)
         .flat()
         .reduce((p, c) => {
-          const name: string =
-            "#" + c?.itemDisplayCode + " " + c?.itemDescription;
+          const name: string = "#" + c?.itemDisplayCode;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -167,8 +179,7 @@ export const computeBillSummary = (
         .map((item) => item.billItemsDTO)
         .flat()
         .reduce((p, c) => {
-          const name: string =
-            "#" + c?.itemDisplayCode + " " + c?.itemDescription;
+          const name: string = "#" + c?.itemDisplayCode;
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -211,6 +222,51 @@ export const computeBillSummary = (
         .reduce((p, c) => {
           const name: string =
             "#" + c?.billDTO?.patientDTO?.code + " " + c?.billDTO?.patName;
+          if (p && !p.hasOwnProperty(name)) {
+            (p as any)[name] = 0;
+          }
+          (p as any)[name] += c.billDTO?.balance ?? 0;
+          return p;
+        }, {})
+    ),
+
+    paymentsByMonthsOfYear: sortByMonthAndSlice(
+      bills
+        .filter(
+          (item) =>
+            item.billDTO?.date &&
+            +new Date(item.billDTO.date) >=
+              +moment().startOf("year").toDate() &&
+            +new Date(item.billDTO.date) <= +moment().endOf("year").toDate()
+        )
+        .map((item) => item.billPaymentsDTO)
+        .flat()
+        .reduce((p, c) => {
+          const name: number = c?.date
+            ? new Date(c?.date).getUTCMonth()
+            : new Date().getUTCMonth();
+          if (p && !p.hasOwnProperty(name)) {
+            (p as any)[name] = 0;
+          }
+          (p as any)[name] += c?.amount ?? 0;
+          return p;
+        }, {})
+    ),
+
+    debtsByMonthsOfYear: sortByMonthAndSlice(
+      bills
+        .filter(
+          (item) =>
+            item.billDTO?.date &&
+            +new Date(item.billDTO.date) >=
+              +moment().startOf("year").toDate() &&
+            +new Date(item.billDTO.date) <= +moment().endOf("year").toDate() &&
+            item.billDTO.status === "O"
+        )
+        .reduce((p, c) => {
+          const name: number = c.billDTO?.date
+            ? new Date(c.billDTO?.date).getUTCMonth()
+            : new Date().getUTCMonth();
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }

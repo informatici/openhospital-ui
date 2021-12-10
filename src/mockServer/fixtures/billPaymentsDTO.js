@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const billPaymentsDTO = {
     id: 0,
     billId: 10,
@@ -17,7 +19,14 @@ export const billPaymentsDTOs = [
     {
         id: 4,
         billId: 10,
-        date: new Date().toISOString(),
+        date: moment().day(-40).toDate().toISOString(),
+        amount: 500,
+        user: "admin"
+    },
+    {
+        id: 4,
+        billId: 10,
+        date: moment().day(-20).toDate().toISOString(),
         amount: 500,
         user: "admin"
     },

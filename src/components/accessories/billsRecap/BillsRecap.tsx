@@ -1,10 +1,9 @@
 import moment from "moment";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { FullBillDTO } from "../../../generated";
 import { searchBills } from "../../../state/bills/actions";
-import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import { IBillSummary } from "../../activities/billingActivity/types";
 import { TFilterValues } from "../billTable/types";
@@ -17,17 +16,24 @@ import {
   Title,
   Tooltip,
   Legend,
+  PointElement,
+  LineElement,
 } from "chart.js";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 
 import { computeBillSummary } from "./config";
 
 import "./styles.scss";
+import { TUserCredentials } from "../../../state/main/types";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
@@ -52,10 +58,7 @@ export const BillsRecap: FC = () => {
     patientCode: 0,
   };
   useEffect(() => {
-    const summary = computeBillSummary(
-      data,
-      userCredentials?.displayName ?? ""
-    );
+    const summary = computeBillSummary(data);
     billSummaryChange(summary);
   }, [data]);
 
@@ -65,10 +68,14 @@ export const BillsRecap: FC = () => {
 
   const getOptions = (title: string) => {
     return {
-      responsive: true,
+      responsive: false,
       plugins: {
         legend: {
+          display: true,
           position: "top" as const,
+          labels: {
+            boxWidth: 10,
+          },
         },
         title: {
           display: true,
@@ -79,11 +86,7 @@ export const BillsRecap: FC = () => {
   };
 
   const getDataFromObject = useCallback(
-    (
-      obj: string,
-      label: string,
-      bgColor: string = "rgba(255, 99, 132, 0.5)"
-    ) => {
+    (obj: string, label: string) => {
       return {
         labels: (summary as any)[obj] ? Object.keys((summary as any)[obj]) : [],
         datasets: [
@@ -91,8 +94,10 @@ export const BillsRecap: FC = () => {
             data: (summary as any)[obj]
               ? Object.values((summary as any)[obj])
               : [],
-            backgroundColor: bgColor,
+            backgroundColor: ["#87CEEB"],
+            hoverBackgroundColor: ["#501800", "#4B5000"],
             label: label,
+            borderWidth: 10,
           },
         ],
       };
@@ -101,17 +106,19 @@ export const BillsRecap: FC = () => {
   );
 
   const getDataFromTwoObjects = useCallback(
-    (obj1: string, obj2: string) => {
+    (totalPayment: string, totalPending: string) => {
       return {
-        labels: ["Total Payment", "Total Pending"],
+        labels: [t("bill.totalpayment"), t("bill.totalpending")],
         datasets: [
           {
             data:
-              (summary as any)[obj1] && (summary as any)[obj2]
-                ? [(summary as any)[obj1], (summary as any)[obj2]]
+              (summary as any)[totalPayment] && (summary as any)[totalPending]
+                ? [
+                    (summary as any)[totalPayment],
+                    (summary as any)[totalPending],
+                  ]
                 : [],
-            label: "# Of bills",
-            backgroundColor: ["#B21F00", "#C9DE00"],
+            backgroundColor: ["#FF1493", "#87CEEB"],
             hoverBackgroundColor: ["#501800", "#4B5000"],
           },
         ],
@@ -120,57 +127,108 @@ export const BillsRecap: FC = () => {
     [summary]
   );
 
+  const paymentsVariationsData = useMemo(() => {
+    return {
+      labels: summary.paymentsByMonthsOfYear
+        ? Object.keys(summary.paymentsByMonthsOfYear)
+        : [],
+      datasets: [
+        {
+          label: t("bill.payments"),
+          data: summary.paymentsByMonthsOfYear
+            ? Object.values(summary.paymentsByMonthsOfYear)
+            : [],
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+        },
+      ],
+    };
+  }, [summary]);
+
+  const debtsVariationsData = useMemo(() => {
+    return {
+      labels: summary.debtsByMonthsOfYear
+        ? Object.keys(summary.debtsByMonthsOfYear)
+        : [],
+      datasets: [
+        {
+          label: t("bill.debts"),
+          data: summary.debtsByMonthsOfYear
+            ? Object.values(summary.debtsByMonthsOfYear)
+            : [],
+          borderColor: "rgb(53, 162, 235)",
+          backgroundColor: "rgba(53, 162, 235, 0.5)",
+        },
+      ],
+    };
+  }, [summary]);
+
   return (
     <div className="bills__recap">
       <div className="bills__recap__content">
-        <div className="info__area">
-          <Doughnut
-            data={getDataFromTwoObjects("dailyRevenue", "dailyDebt")}
-            options={getOptions(
-              `${t("bill.today")} (${moment().format("DD/MM/YYYY")})`
-            )}
-          />
-          <Doughnut
-            data={getDataFromTwoObjects("weeklyRevenue", "weeklyDebt")}
-            options={getOptions(`${t("bill.week")}`)}
-          />
-          <Doughnut
-            data={getDataFromTwoObjects("monthlyRevenue", "monthlyDebt")}
-            options={getOptions(
-              `${t("bill.month")} (${moment().format("MMMM")})`
-            )}
-          />
-          <Doughnut
-            data={getDataFromTwoObjects("annualRevenue", "annualDebt")}
-            options={getOptions(
-              `${t("bill.year")} (${moment().format("YYYY")})`
-            )}
-          />
-        </div>
-        <div className="chart__area">
-          <Bar
-            options={getOptions("Best products By quantity")}
-            data={getDataFromObject("bestSellingByQuantity", "Total Quantity")}
-          />
-
-          <Bar
-            options={getOptions("Best products By occurence")}
-            data={getDataFromObject(
-              "bestSellingByOccurence",
-              "Total Occuence",
-              "rgba(53, 162, 235, 0.5)"
-            )}
-          />
-
-          <Bar
-            options={getOptions("Best patients")}
-            data={getDataFromObject("bestPatientsByPayments", "Total payments")}
-          />
-          <Bar
-            options={getOptions("Most Indebt patients")}
-            data={getDataFromObject("mostIndebtedPatients", "Total balance")}
-          />
-        </div>
+        <Doughnut
+          data={getDataFromTwoObjects("dailyRevenue", "dailyDebt")}
+          options={getOptions(
+            `${t("bill.today")} (${moment().format("DD/MM/YYYY")})`
+          )}
+        />
+        <Pie
+          data={getDataFromTwoObjects("weeklyRevenue", "weeklyDebt")}
+          options={getOptions(
+            `${t("bill.week", {
+              start: moment().startOf("week").format("DD/MM/YYYY"),
+            })}`
+          )}
+        />
+        <Pie
+          data={getDataFromTwoObjects("monthlyRevenue", "monthlyDebt")}
+          options={getOptions(
+            `${moment().format("MMMM")} ${moment().format("YYYY")}`
+          )}
+        />
+        <Doughnut
+          data={getDataFromTwoObjects("annualRevenue", "annualDebt")}
+          options={getOptions(`${t("bill.year")} ${moment().format("YYYY")}`)}
+        />
+        <Doughnut
+          data={getDataFromTwoObjects("currentUserCashIn", "currentUserDebt")}
+          options={getOptions(
+            t("bill.currentuser", { name: userCredentials?.displayName ?? "" })
+          )}
+        />
+        <Bar
+          options={getOptions(t("bill.bestsellingbyquantity"))}
+          data={getDataFromObject(
+            "bestSellingByQuantity",
+            t("bill.totalquantity")
+          )}
+        />
+        <Bar
+          options={getOptions(t("bill.bestsellingbyoccurence"))}
+          data={getDataFromObject(
+            "bestSellingByOccurence",
+            t("bill.totaloccurence")
+          )}
+        />
+        <Bar
+          options={getOptions(t("bill.bestpatients"))}
+          data={getDataFromObject(
+            "bestPatientsByPayments",
+            t("bill.totalpayment")
+          )}
+        />
+        <Bar
+          options={getOptions(t("bill.mostindebtpatients"))}
+          data={getDataFromObject("mostIndebtedPatients", t("bill.totaldebt"))}
+        />
+        <Line
+          options={getOptions(t("bill.paymentsvariations"))}
+          data={paymentsVariationsData}
+        />
+        <Line
+          options={getOptions(t("bill.debtsvariations"))}
+          data={debtsVariationsData}
+        />
       </div>
     </div>
   );

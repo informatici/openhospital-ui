@@ -39,7 +39,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -50,7 +50,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -61,7 +61,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -72,7 +72,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -83,7 +83,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -94,7 +94,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -105,7 +105,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -116,7 +116,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -127,7 +127,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -138,7 +138,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -149,7 +149,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -160,7 +160,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -171,7 +171,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -182,7 +182,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -193,7 +193,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -204,7 +204,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -215,7 +215,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -226,7 +226,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -237,7 +237,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -248,7 +248,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -259,7 +259,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -270,7 +270,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -281,7 +281,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -292,7 +292,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -303,7 +303,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -314,7 +314,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -325,7 +325,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -336,7 +336,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -347,7 +347,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -358,7 +358,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -369,7 +369,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -380,7 +380,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -391,7 +391,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -402,7 +402,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -413,7 +413,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -424,7 +424,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -435,7 +435,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -446,7 +446,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -457,7 +457,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -468,7 +468,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -479,7 +479,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -490,7 +490,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -501,7 +501,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -512,7 +512,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -523,7 +523,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -534,7 +534,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -545,7 +545,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -556,7 +556,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -567,7 +567,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -578,7 +578,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -589,7 +589,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -600,7 +600,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -611,7 +611,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -622,63 +622,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 
@@ -690,7 +634,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -701,7 +645,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -712,31 +656,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
-    itemId: 5
-},
-
-{
-    id: 0,
-    price: true,
-    billId: 10,
-    priceId: 104,
-    itemDescription: "Effelalgan Codéine",
-    itemAmount: 500,
-    itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -747,7 +667,18 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "Effelalgan Codéine",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 
@@ -759,7 +690,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -770,7 +701,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -781,7 +712,7 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 
@@ -793,7 +724,19 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "Effelalgan Codéine",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "Effelalgan",
     itemId: 5
 },
 {
@@ -804,7 +747,64 @@ export const billItemDTOs = [{
     itemDescription: "Effelalgan Codéine",
     itemAmount: 500,
     itemQuantity: 10,
-    itemDisplayCode: "Acetone",
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "Effelalgan Codéine",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "Effelalgan Codéine",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "Effelalgan Codéine",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "Effelalgan Codéine",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "Effelalgan",
+    itemId: 5
+},
+{
+    id: 0,
+    price: true,
+    billId: 10,
+    priceId: 104,
+    itemDescription: "1.Haematology",
+    itemAmount: 500,
+    itemQuantity: 10,
+    itemDisplayCode: "1.1 HB",
     itemId: 5
 },
 ]

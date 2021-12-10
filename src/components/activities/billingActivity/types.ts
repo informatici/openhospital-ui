@@ -72,14 +72,18 @@ export type IBillSummary = {
   annualRevenue: number;
   annualDebt: number;
 
-  bestSellingByQuantity: { [key: string]: number }[];
-  bestSellingByOccurence: { [key: string]: number }[];
+  bestSellingByQuantity: { [key: string]: number };
+  bestSellingByOccurence: { [key: string]: number };
 
-  bestPatientsByPayments: { [key: string]: number }[];
-  mostIndebtedPatients: { [key: string]: number }[];
+  bestPatientsByPayments: { [key: string]: number };
+  mostIndebtedPatients: { [key: string]: number };
 
   currentUserCashIn: number;
   currentUserDebt: number;
+
+  debtsByMonthsOfYear: { [key: string]: number };
+
+  paymentsByMonthsOfYear: { [key: string]: number };
 };
 
 export type IBillingSection = "dashboard" | "bills" | "payments";

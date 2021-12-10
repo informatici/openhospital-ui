@@ -316,6 +316,20 @@
     "patId": "ID Pat.",
     "month": "Mois",
     "year": "Année",
-    "recaps": "Récapitulatif"
+    "recaps": "Récapitulatif",
+    "totalpending": "Total non payé",
+    "totalpayment": "Total payé",
+    "week": "Semaine du {{start}} à maintenant",
+    "totaldebt": "Total Dette",
+    "bestpatients": "Meilleurs Patients",
+    "mostindebtpatients": "Patients plus endettés",
+    "bestsellingbyquantity": "Meilleures ventes par qté",
+    "totaloccurence": "Occurence Totale",
+    "currentuser": "Cassier {{name}}",
+    "bestsellingbyoccurence": "Meilleures ventes par occurence",
+    "totalquantity": "Qté Totale",
+    "debts": "Dettes",
+    "paymentsvariations": "Variations mensuelles des entrées",
+    "debtsvariations": "Variations mensuelles des dettes"
   }
 }

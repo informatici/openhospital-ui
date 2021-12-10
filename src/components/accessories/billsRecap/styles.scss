@@ -16,39 +16,15 @@
         }
     }
     .bills__recap__content {
-        
-        .info__area {
-            display: flex;
-            flex: 1 1 0;
-            flex-wrap: wrap;
-            flex-direction: row;
-            canvas {
-                width: 50% !important;
-                height: 50% !important;
-                @include susy-media($narrow) {
-                     width: 50% !important;
-                    height: 50% !important;
-                }
-                @include susy-media($tablet_land) {
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-                @include susy-media($tablet_port) {
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-                @include susy-media($smartphone) {
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-            }
-        }    
-        .chart__area {
-            display: flex;
-            flex-direction: column;
-        } 
-        
-        
+        display: flex;
+        flex-direction: row;
+        padding: 0;  
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        canvas {
+            padding: 5px;
+        }         
     }
     
 }
