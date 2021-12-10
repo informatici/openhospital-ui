@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PriceDTO } from "../../../../generated/models/PriceDTO";
 import { PriceListDTO } from "../../../../generated/models/PriceListDTO";
@@ -19,20 +19,18 @@ export const usePriceLists = () => {
   return priceLists;
 };
 
-export const useItemPrices = (code?: string) => {
+export const useItemPrices = (idList?: number) => {
   const dispatch = useDispatch();
-  const [listCode, setListCode] = useState(code ?? "LIST001");
+  const listId = useMemo(() => idList ?? 0, [idList]);
 
   const prices = useSelector<IState, PriceDTO[]>((state: IState) =>
-    (state.prices.getPrices?.data ?? []).filter((e) => e.list?.code == listCode)
+    (state.prices.getPrices?.data ?? []).filter((e) => e.list?.id == listId)
   );
 
   const examsOptionsSelector = (state: IState) => {
     return state.prices.getPrices.data
       ? state.prices.getPrices.data
-          .filter(
-            (e) => e.group == ItemGroups.exam.id && e.list?.code == listCode
-          )
+          .filter((e) => e.group == ItemGroups.exam.id && e.list?.id == listId)
           .map((item) => {
             return {
               value: item.item ?? "",
@@ -46,7 +44,7 @@ export const useItemPrices = (code?: string) => {
     return state.prices.getPrices.data
       ? state.prices.getPrices.data
           .filter(
-            (e) => e.group == ItemGroups.medical.id && e.list?.code == listCode
+            (e) => e.group == ItemGroups.medical.id && e.list?.id == listId
           )
           .map((item) => {
             return {
@@ -61,7 +59,7 @@ export const useItemPrices = (code?: string) => {
     return state.prices.getPrices.data
       ? state.prices.getPrices.data
           .filter(
-            (e) => e.group == ItemGroups.surgery.id && e.list?.code == listCode
+            (e) => e.group == ItemGroups.surgery.id && e.list?.id == listId
           )
           .map((item) => {
             return {
@@ -88,7 +86,6 @@ export const useItemPrices = (code?: string) => {
 
   return {
     prices,
-    setListCode,
     medicalsOptions,
     examsOptions,
     surgeriesOptions,

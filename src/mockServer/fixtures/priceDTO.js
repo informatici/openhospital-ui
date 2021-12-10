@@ -56,7 +56,7 @@ export const priceDTO = [
       "currency": ""
     },
     "group": "MED",
-    "item": "PARA",
+    "item": "12",
     "description": "Paracétamol",
     "price": 24,
     "editable": false,
@@ -77,7 +77,7 @@ export const priceDTO = [
       "currency": ""
     },
     "group": "MED",
-    "item": "Acetone",
+    "item": "11",
     "description": "Acetone 99 % 1ltr",
     "price": 100,
     "editable": false,
@@ -98,7 +98,7 @@ export const priceDTO = [
       "currency": ""
     },
     "group": "MED",
-    "item": "EFRAC",
+    "item": "10",
     "description": "Eféralgan Codéine",
     "price": 48,
     "editable": false,

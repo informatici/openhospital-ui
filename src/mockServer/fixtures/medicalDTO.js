@@ -1,5 +1,5 @@
 export const medicalDTO = {
-    "code": 16,
+    "code": 12,
     "prod_code": "PARA",
     "type": {
         "code": "M",

@@ -19,7 +19,7 @@ export const billItemDTOs = [
         itemAmount: 24,
         itemQuantity: 1,
         itemDisplayCode: "Paracétamol",
-        itemId: "PARA"
+        itemId: "12"
     },
     {
         "hashCode": 0,
@@ -31,7 +31,7 @@ export const billItemDTOs = [
         "itemAmount": 100,
         "itemQuantity": 1,
         "itemDisplayCode": "Acetone",
-        "itemId": "Acetone"
+        "itemId": "11"
     },
     {
         id: 8,
@@ -42,7 +42,7 @@ export const billItemDTOs = [
         itemAmount: 48,
         itemQuantity: 10,
         itemDisplayCode: "EFRAC",
-        itemId: "EFRAC"
+        itemId: "10"
     },
     {
         id: 9,

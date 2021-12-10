@@ -21,7 +21,7 @@ export const billRoutes = (server) => {
             const code = req.query.patient_code;
             res.status(201).json(billResults.filter(
                 (item) => {
-                    return (+code === 1 || item.patientDTO.code === +code) && item.status === "O"
+                    return (+code === 1 || item.id == 10 || item.patientDTO.code === +code) && item.status === "O"
                 }
             ))
         });

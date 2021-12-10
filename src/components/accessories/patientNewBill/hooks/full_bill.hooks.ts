@@ -40,11 +40,13 @@ export const useFullBill = () => {
     billPaymentsDTO: billPayments,
   });
 
-  const { prices } = useItemPrices();
-
+  console.log(pendings[0]?.billDTO?.listId);
+  const { prices } = useItemPrices(pendings[0]?.billDTO?.listId);
   const itemsRowData = useMemo(() => {
     return billItems.map((item) => {
-      const priceDTO = prices.find((e) => e.item == item.itemId);
+      const priceDTO = prices.find(
+        (e) => e.id == item.priceId || e.item == item.itemId
+      );
       const groupLabel = Object.entries(ItemGroups).find(
         (e) => e[1].id == priceDTO?.group
       );

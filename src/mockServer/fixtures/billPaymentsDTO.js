@@ -20,22 +20,7 @@ export const billPaymentsDTOs = [
         date: new Date().toISOString(),
         amount: 100,
         user: "admin"
-    },
-    {
-        id: 5,
-        billId: 5,
-        date: new Date().toISOString(),
-        amount: 50,
-        user: "admin"
-    },
-    {
-        "id": 8,
-        "billId": 5,
-        "date": new Date().toISOString(),
-        "amount": 100,
-        "user": "admin"
     }
-
 ]
 
 export default billPaymentsDTO;
