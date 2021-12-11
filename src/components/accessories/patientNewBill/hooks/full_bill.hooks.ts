@@ -26,8 +26,13 @@ export const useFullBill = () => {
 
   const { data: pendings, status } = usePendingBills(patient.code ?? 0);
 
-  const [bill, setBill] = useState<BillDTO>({
-    date: new Date(Date.now()).toISOString(),
+  const [bill, setBill] = useState<BillDTO>(() => {
+    return {
+      date:
+        pendings.length == 0
+          ? new Date(Date.now()).toISOString()
+          : pendings[0].billDTO?.date,
+    };
   });
   const { t } = useTranslation();
   const [itemToEdit, setItemToEdit] =

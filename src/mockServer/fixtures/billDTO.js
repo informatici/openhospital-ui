@@ -23,14 +23,14 @@ export const billResults = [
         list: true,
         listId: 0,
         patientDTO: patientDTO,
-        date: moment().toISOString(),
-        update: moment().toISOString(),
+        date: moment().add(-6, 'days').toISOString(),
+        update: moment().add(-6, 'days').toISOString(),
         listName: "Basic",
         patientTrue: true,
         patName: "Antonio Carlos",
         status: "O",
-        amount: 604,
-        balance: 0,
+        amount: 844,
+        balance: 694,
         user: "admin"
     },
     {
