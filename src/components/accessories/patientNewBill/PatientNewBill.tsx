@@ -12,14 +12,16 @@ import { Add } from "@material-ui/icons";
 import { initialFields as initialItemFields } from "./itemPicker/consts";
 import { getPrices } from "../../../state/prices/actions";
 import { useDispatch } from "react-redux";
-import { useSelectedPatient, useFullBill } from "./hooks/full_bill.hooks";
+import {
+  useSelectedPatient,
+  useFullBill,
+  useCurrentUser,
+} from "./hooks/full_bill.hooks";
 import { useDialogStatus } from "./hooks/dialog.hooks";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
-  const { patient } = useSelectedPatient();
 
   const {
     fullBill,
@@ -30,6 +32,7 @@ const PatientNewBill: FC = () => {
     billTotal,
     paymentTotal,
     itemToEdit,
+    creationMode,
     setItemToEdit,
     handleBillEdit,
     handleAddItem,
@@ -72,7 +75,7 @@ const PatientNewBill: FC = () => {
 
   useEffect(() => {
     dispatch(getPrices());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -137,7 +140,7 @@ const PatientNewBill: FC = () => {
       />
       <PaymentDialog
         open={showPaymentDialog}
-        billId={0}
+        billId={bill.id ?? 0}
         billDate={new Date(Date.parse(bill?.date ?? ""))}
         fields={{
           paymentAmount: {

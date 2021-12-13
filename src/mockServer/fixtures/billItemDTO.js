@@ -51,7 +51,7 @@ export const billItemDTOs = [
         priceId: 17550,
         itemDescription: "1.2 WBC Count",
         itemAmount: 24,
-        itemQuantity: 10,
+        itemQuantity: 1,
         itemDisplayCode: "WBC",
         itemId: "01.02"
     },

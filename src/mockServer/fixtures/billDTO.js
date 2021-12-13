@@ -29,8 +29,8 @@ export const billResults = [
         patientTrue: true,
         patName: "Antonio Carlos",
         status: "O",
-        amount: 844,
-        balance: 694,
+        amount: 628,
+        balance: 478,
         user: "admin"
     },
     {
