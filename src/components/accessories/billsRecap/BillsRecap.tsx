@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment, { months } from "moment";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,8 @@ import { computeBillSummary } from "./billsMining";
 
 import "./styles.scss";
 import { TUserCredentials } from "../../../state/main/types";
+import { union } from "lodash";
+import { monthList } from "./consts";
 
 ChartJS.register(
   CategoryScale,
@@ -128,34 +130,31 @@ export const BillsRecap: FC = () => {
   );
 
   const paymentsVariationsData = useMemo(() => {
+    const labels =
+      summary.debtsByMonthsOfYear && summary.paymentsByMonthsOfYear
+        ? union(
+            Object.keys(summary.debtsByMonthsOfYear),
+            Object.keys(summary.paymentsByMonthsOfYear)
+          ).sort((a, b) => monthList.indexOf(a) - monthList.indexOf(b))
+        : [];
     return {
-      labels: summary.paymentsByMonthsOfYear
-        ? Object.keys(summary.paymentsByMonthsOfYear)
-        : [],
+      labels,
       datasets: [
         {
           label: t("bill.payments"),
-          data: summary.paymentsByMonthsOfYear
-            ? Object.values(summary.paymentsByMonthsOfYear)
-            : [],
+          data:
+            labels.length != 0
+              ? labels.map((item) => summary.paymentsByMonthsOfYear[item] ?? 0)
+              : [],
           borderColor: "rgb(255, 99, 132)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
         },
-      ],
-    };
-  }, [summary]);
-
-  const debtsVariationsData = useMemo(() => {
-    return {
-      labels: summary.debtsByMonthsOfYear
-        ? Object.keys(summary.debtsByMonthsOfYear)
-        : [],
-      datasets: [
         {
           label: t("bill.debts"),
-          data: summary.debtsByMonthsOfYear
-            ? Object.values(summary.debtsByMonthsOfYear)
-            : [],
+          data:
+            labels.length != 0
+              ? labels.map((item) => summary.debtsByMonthsOfYear[item] ?? 0)
+              : [],
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(53, 162, 235, 0.5)",
         },
@@ -224,10 +223,6 @@ export const BillsRecap: FC = () => {
         <Line
           options={getOptions(t("bill.paymentsvariations"))}
           data={paymentsVariationsData}
-        />
-        <Line
-          options={getOptions(t("bill.debtsvariations"))}
-          data={debtsVariationsData}
         />
       </div>
     </div>

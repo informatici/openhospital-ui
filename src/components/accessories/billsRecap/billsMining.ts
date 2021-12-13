@@ -1,31 +1,16 @@
 import moment from "moment";
 import { FullBillDTO } from "../../../generated";
+import {
+  combineData,
+  sortAndSlice,
+} from "../../../libraries/formatUtils/dataFormatting";
 import { IBillSummary } from "../../activities/billingActivity/types";
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],
   userName: string = "admin"
 ): IBillSummary => {
-  const sortAndSlice: any = (data: any) => {
-    return Object.entries(data)
-      .sort(([, a], [, b]) => (b as number) - +(a as number))
-      .slice(0, 10)
-      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-  };
-  const sortByMonthAndSlice: any = (data: any) => {
-    return Object.entries(data)
-      .sort(([a], [b]) => +a - +b)
-      .reduce(
-        (r, [k, v]) => ({
-          ...r,
-          [moment()
-            .set("month", +k)
-            .format("MMMM")]: v,
-        }),
-        {}
-      );
-  };
-  const res = {
+  const results = {
     currentUserCashIn: bills
       .filter(
         (item) =>
@@ -230,7 +215,7 @@ export const computeBillSummary = (
         }, {})
     ),
 
-    paymentsByMonthsOfYear: sortByMonthAndSlice(
+    paymentsByMonthsOfYear: combineData(
       bills
         .filter(
           (item) =>
@@ -242,9 +227,9 @@ export const computeBillSummary = (
         .map((item) => item.billPaymentsDTO)
         .flat()
         .reduce((p, c) => {
-          const name: number = c?.date
-            ? new Date(c?.date).getUTCMonth()
-            : new Date().getUTCMonth();
+          const name = c?.date
+            ? moment(c?.date).format("MMMM")
+            : moment().format("MMMM");
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -253,7 +238,7 @@ export const computeBillSummary = (
         }, {})
     ),
 
-    debtsByMonthsOfYear: sortByMonthAndSlice(
+    debtsByMonthsOfYear: combineData(
       bills
         .filter(
           (item) =>
@@ -264,9 +249,9 @@ export const computeBillSummary = (
             item.billDTO.status === "O"
         )
         .reduce((p, c) => {
-          const name: number = c.billDTO?.date
-            ? new Date(c.billDTO?.date).getUTCMonth()
-            : new Date().getUTCMonth();
+          const name = c.billDTO?.date
+            ? moment(c.billDTO?.date).format("MMMM")
+            : moment().format("MMMM");
           if (p && !p.hasOwnProperty(name)) {
             (p as any)[name] = 0;
           }
@@ -275,5 +260,5 @@ export const computeBillSummary = (
         }, {})
     ),
   };
-  return res;
+  return results;
 };

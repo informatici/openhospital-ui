@@ -19,7 +19,7 @@ export const billPaymentsDTOs = [
     {
         id: 4,
         billId: 10,
-        date: moment().day(-40).toDate().toISOString(),
+        date: moment().day(-330).toDate().toISOString(),
         amount: 500,
         user: "admin"
     },
