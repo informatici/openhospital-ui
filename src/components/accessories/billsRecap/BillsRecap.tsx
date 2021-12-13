@@ -1,4 +1,4 @@
-import moment, { months } from "moment";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
