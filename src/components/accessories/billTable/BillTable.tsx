@@ -29,6 +29,7 @@ import {
 import { Add, FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
 import { useHistory } from "react-router";
+import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
@@ -286,7 +287,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                   />
                 </div>
                 <div className="filterBillForm__item">
-                  <PatientPicker
+                  <PatientAutocomplete
                     theme={"regular"}
                     fieldName="patientCode"
                     fieldValue={formik.values.patientCode}
