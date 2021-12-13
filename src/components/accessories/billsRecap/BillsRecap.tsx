@@ -21,7 +21,7 @@ import {
 } from "chart.js";
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 
-import { computeBillSummary } from "./config";
+import { computeBillSummary } from "./billsMining";
 
 import "./styles.scss";
 import { TUserCredentials } from "../../../state/main/types";
