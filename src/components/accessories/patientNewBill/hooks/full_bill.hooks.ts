@@ -9,7 +9,12 @@ import {
   PatientDTO,
 } from "../../../../generated";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
-import { newBill } from "../../../../state/bills/actions";
+import {
+  newBill,
+  newBillReset,
+  updateBill,
+  updateBillReset,
+} from "../../../../state/bills/actions";
 import { IState } from "../../../../types";
 import { ItemGroups } from "../consts";
 import { usePendingBills } from "./pending_bill.hooks";
@@ -33,14 +38,17 @@ export const useFullBill = () => {
   const { patient } = useSelectedPatient();
   const user = useCurrentUser();
 
-  const status = useSelector<IState, string>(
-    (state: IState) => state.bills.newBill.status ?? "IDLE"
-  );
-
   const { data: pendings, status: pendingStatus } = usePendingBills(
     patient.code ?? 0
   );
   const creationMode = useMemo(() => !(pendings?.length > 0), [pendings]);
+
+  const status = useSelector<IState, string>((state: IState) =>
+    creationMode
+      ? state.bills.newBill.status ?? "IDLE"
+      : state.bills.updateBill.status ?? "IDLE"
+  );
+
   const [bill, setBill] = useState<BillDTO>(() => {
     return (
       pendings[0]?.billDTO ?? {
@@ -66,8 +74,10 @@ export const useFullBill = () => {
   });
 
   const saveBill = useCallback(() => {
-    dispatch(newBill(fullBill));
-  }, [fullBill, dispatch]);
+    creationMode
+      ? dispatch(newBill(fullBill))
+      : dispatch(updateBill(bill.id ?? 0, fullBill));
+  }, [fullBill, creationMode, dispatch]);
 
   const { prices } = useItemPrices(pendings[0]?.billDTO?.listId);
   const itemsRowData = useMemo(() => {
@@ -144,7 +154,6 @@ export const useFullBill = () => {
     setFullBill(() => {
       return { ...fullBill, billDTO: bill };
     });
-    console.log(JSON.stringify(fullBill?.billDTO?.amount));
   }, [bill]);
   useEffect(() => {
     setFullBill(() => {
@@ -186,6 +195,12 @@ export const useFullBill = () => {
     }));
   }, [billTotal, paymentTotal]);
 
+  useEffect(() => {
+    if (status === "SUCCESS") {
+      creationMode ? dispatch(newBillReset()) : dispatch(updateBillReset());
+    }
+  }, [status]);
+
   return {
     fullBill,
     bill,
@@ -196,6 +211,7 @@ export const useFullBill = () => {
     itemsRowData,
     itemToEdit,
     creationMode,
+    status,
     saveBill,
     setItemToEdit,
     handleBillEdit,

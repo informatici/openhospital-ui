@@ -1,5 +1,13 @@
 import { BillItemFormFieldName } from "./itemPicker/types";
 import { TFields } from "../../../libraries/formDataHandling/types";
+import { makeStyles } from "@material-ui/core";
+
+export const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
 
 export const ItemGroups = {
   medical: {

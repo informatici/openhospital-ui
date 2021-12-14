@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import SmallButton from "../smallButton/SmallButton";
@@ -18,6 +25,13 @@ import {
   useCurrentUser,
 } from "./hooks/full_bill.hooks";
 import { useDialogStatus } from "./hooks/dialog.hooks";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { useHistory } from "react-router";
+import { Backdrop, CircularProgress, Theme } from "@material-ui/core";
+import { useStyles } from "./consts";
+import { newBillReset, updateBillReset } from "../../../state/bills/actions";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
@@ -33,6 +47,8 @@ const PatientNewBill: FC = () => {
     paymentTotal,
     itemToEdit,
     creationMode,
+    status,
+    saveBill,
     setItemToEdit,
     handleBillEdit,
     handleAddItem,
@@ -45,6 +61,8 @@ const PatientNewBill: FC = () => {
   const {
     showItemPicker,
     showPaymentDialog,
+    openSaveDialog,
+    handleSaveDialog,
     handleItemPicker,
     handlePaymentDialog,
   } = useDialogStatus();
@@ -61,6 +79,10 @@ const PatientNewBill: FC = () => {
     }
   };
 
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+  const history = useHistory();
+  const { patient } = useSelectedPatient();
+
   const resetItemFormCallback = () => {};
 
   const handleTableEdit = useCallback((row) => {
@@ -76,6 +98,18 @@ const PatientNewBill: FC = () => {
   useEffect(() => {
     dispatch(getPrices());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(status);
+    if (status === "FAIL") {
+      scrollToElement(infoBoxRef.current);
+    }
+    if (status === "SUCCESS") {
+      history.push(`/details/${patient.code ?? ""}/billsrecord`);
+    }
+  }, [status]);
+
+  const classes = useStyles();
 
   return (
     <>
@@ -108,6 +142,7 @@ const PatientNewBill: FC = () => {
           {billItems.length != 0 && (
             <div className="patientNewBill_right">
               <ItemPayment
+                saveBill={saveBill}
                 handlePaymentDialog={handlePaymentDialog}
                 billTotal={billTotal}
                 paymentTotal={paymentTotal}
@@ -120,7 +155,20 @@ const PatientNewBill: FC = () => {
             <span>{t("bill.nopendingbill")}</span>
           </div>
         )}
+        {status === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox
+              type="error"
+              message={
+                creationMode ? t("bill.createfailed") : t("bill.updatefailed")
+              }
+            />
+          </div>
+        )}
       </div>
+      <Backdrop className={classes.backdrop} open={status == "LOADING"}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <CustomModal
         title={t("bill.pickitem")}
         description="pick-item"

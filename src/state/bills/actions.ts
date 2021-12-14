@@ -41,6 +41,10 @@ import {
   CLOSE_BILL_SUCCESS,
   CLOSE_BILL_LOADING,
   CLOSE_BILL_RESET,
+  UPDATE_BILL_LOADING,
+  UPDATE_BILL_SUCCESS,
+  UPDATE_BILL_FAIL,
+  UPDATE_BILL_RESET,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -71,11 +75,41 @@ export const newBill =
     );
   };
 
+export const updateBill =
+  (id: number, odBillDto: FullBillDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_BILL_LOADING,
+    });
+
+    billControllerApi.updateBillUsingPUT({ id, odBillDto }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_BILL_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_BILL_FAIL,
+          error: error,
+        });
+      }
+    );
+  };
+
 export const newBillReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: NEW_BILL_RESET,
+    });
+  };
+export const updateBillReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_BILL_RESET,
     });
   };
 

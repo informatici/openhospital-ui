@@ -10,12 +10,14 @@ import { CheckCircleRounded } from "@material-ui/icons";
 
 interface IOwnProps {
   handlePaymentDialog: () => void;
+  saveBill: () => void;
   billTotal: number;
   paymentTotal: number;
 }
 
 const ItemPayment: FC<IOwnProps> = ({
   handlePaymentDialog,
+  saveBill,
   billTotal,
   paymentTotal,
 }) => {
@@ -56,7 +58,7 @@ const ItemPayment: FC<IOwnProps> = ({
       </div>
       <div className="lg-divider"></div>
       <div>
-        <SmallButton>{t("bill.savebill")}</SmallButton>
+        <SmallButton onClick={saveBill}>{t("bill.savebill")}</SmallButton>
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+import { argv } from "process";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MedicalDTO, ExamDTO, OperationDTO } from "../../../../generated";
@@ -10,9 +11,11 @@ export const useItems = () => {
   const medicals = useSelector<IState, MedicalDTO[]>(
     (state) => state.medicals.medicalsOrderByName.data || []
   );
+
   const exams = useSelector<IState, ExamDTO[]>(
     (state) => state.exams.examList.data || []
   );
+
   const surgeries: OperationDTO[] = [
     { code: "srg1", description: "Surgery 1" },
     { code: "srg2", description: "Surgery 2" },
