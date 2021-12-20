@@ -55,7 +55,10 @@
     "inqty": "In quantity",
     "outqty": "Out quantity",
     "minqty": "Minimum quantity",
-    "medicalregistrationsuccessfull": "The pharmaceutical registration was successful."
+    "medicalregistrationsuccessfull": "The pharmaceutical registration was successful.",
+    "stockreport":"Report of stock",
+    "orderreport": "Report of order",
+    "cardreport": "Report of stock card"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -135,6 +138,11 @@
     "surgicalrecord": "Surgical Record",
     "note": "Note",
     "exams": "Exams"
+  },
+  "pharmacy": {
+    "pharmaceuticals": "Pharmaceuticals",
+    "pharmaceuticalstock": "Pharmaceutical Stock",
+    "pharmaceuticalstockward": "Pharmaceutical Stock Ward"
   },
   "common": {
     "results": "Results",

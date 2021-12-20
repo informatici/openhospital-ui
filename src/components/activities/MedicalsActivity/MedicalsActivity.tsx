@@ -68,9 +68,9 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
   });
 
   const reportTypes = [
-    "Report of stock",
-    "Report of order",
-    "Report of stock card",
+    t("medical.stockreport"),
+    t("medical.orderreport"),
+    t("medical.cardreport"),
   ];
 
   const isValid = (fieldName: string): boolean => {
