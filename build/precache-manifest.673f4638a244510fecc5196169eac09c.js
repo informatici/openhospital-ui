@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8a4ebdf48c5cc2fae4ba1746b80793d6",
+    "revision": "68f7ef812b710b26413240b2c92c65fa",
     "url": "/openhospital-ui/index.html"
   },
   {
-    "revision": "2df5064e5079b6d56af7",
+    "revision": "c80d84beea85d26daba0",
     "url": "/openhospital-ui/static/css/main.9e46600a.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/openhospital-ui/static/js/2.fca9c732.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2df5064e5079b6d56af7",
-    "url": "/openhospital-ui/static/js/main.8bd8605b.chunk.js"
+    "revision": "c80d84beea85d26daba0",
+    "url": "/openhospital-ui/static/js/main.e8f33900.chunk.js"
   },
   {
     "revision": "c12a7ec583034f96a0b9",
