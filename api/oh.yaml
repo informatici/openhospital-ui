@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0"
-host: www.open-hospital.org
+host: oh2.open-hospital.org
 basePath: /oh-api
 tags:
   - name: admission-controller
