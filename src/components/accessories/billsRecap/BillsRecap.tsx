@@ -109,17 +109,20 @@ export const BillsRecap: FC = () => {
 
   const getDataFromTwoObjects = useCallback(
     (totalPayment: string, totalPending: string) => {
+      const labels = [t("bill.totalpayment"), t("bill.totalpending")];
+      const dataset =
+        (summary as any)[totalPayment] && (summary as any)[totalPending]
+          ? [(summary as any)[totalPayment], (summary as any)[totalPending]]
+          : [];
+      let customLabels = labels.map(
+        (label, index) => `${label}: ${dataset[index]}`
+      );
+
       return {
-        labels: [t("bill.totalpayment"), t("bill.totalpending")],
+        labels: customLabels,
         datasets: [
           {
-            data:
-              (summary as any)[totalPayment] && (summary as any)[totalPending]
-                ? [
-                    (summary as any)[totalPayment],
-                    (summary as any)[totalPending],
-                  ]
-                : [],
+            data: dataset,
             backgroundColor: ["#FF1493", "#87CEEB"],
             hoverBackgroundColor: ["#501800", "#4B5000"],
           },
