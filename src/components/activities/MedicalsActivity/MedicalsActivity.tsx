@@ -26,7 +26,6 @@ import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import TextField from "../../accessories/textField/TextField";
 import SelectField from "../../accessories/selectField/SelectField";
-import SmallButton from "../../accessories/smallButton/SmallButton";
 import { CsvDownloadDTO } from "../../../generated/models/CsvDownloadDTO";
 import IconButton from "../../accessories/iconButton/IconButton"
 import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
@@ -160,7 +159,9 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       case "LOADING":
         return;
       case "SUCCESS":
-        return (<InfoBox type="warning" message={t("common.deletesuccess", { code: `${medicalToDelete}`})} />);
+        if(medicalToDelete > 0)
+          return (<InfoBox type="warning" message={t("common.deletesuccess", { code: `${medicalToDelete}`})} />);
+        else return;
       case "FAIL":
         return (<InfoBox type="error" message={t("common.somethingwrong")} />);
     }
@@ -376,9 +377,9 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         onBlur={formik.handleBlur}
                       />
                       <div className="search__button">
-                        <SmallButton type="submit">
+                        <Button type="submit">
                           <SearchIcon fontSize="large" />
-                        </SmallButton>
+                        </Button>
                       </div>
                     </div>
                   </div>

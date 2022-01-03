@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import { Button } from "@material-ui/core";
 import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { object, string, number } from "yup";
 import { useHistory } from "react-router-dom";
@@ -8,8 +9,6 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { formatAllFieldValues, getFromFields } from "../../../libraries/formDataHandling/functions";
 import warningIcon from "../../../assets/warning-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import SmallButton from "../smallButton/SmallButton";
-import TextButton from "../textButton/TextButton";
 import TextField from "../textField/TextField";
 import SelectField from "../selectField/SelectField";
 import "./styles.scss";
@@ -178,20 +177,19 @@ const MedicalDataForm: FunctionComponent<TProps> = (
         </div>
 
         <div className="medicalDataForm__buttonSet">
-          <div className="cancel_button">
-            <SmallButton type="button" disabled={props.isLoading} onClick={() => { history.goBack() }}>
-            {t("common.discard")}
-            </SmallButton>
-          </div>
-          <div className="reset_button">
-            <TextButton onClick={() => setOpenResetConfirmation(true)}>
-              {props.resetButtonLabel}
-            </TextButton>
-          </div>
           <div className="submit_button">
-            <SmallButton type="submit" disabled={props.isLoading}>
-              {props.submitButtonLabel}
-            </SmallButton>
+              <Button type="submit" variant="contained" disabled={props.isLoading}>
+                {props.submitButtonLabel}
+              </Button>
+            </div>
+            <div className="reset_button">
+              <Button
+                type="reset"
+                variant="text"
+                onClick={() => setOpenResetConfirmation(true)}
+              >
+                {props.resetButtonLabel}
+              </Button>
           </div>
         </div>
         <ConfirmationDialog
