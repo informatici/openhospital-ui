@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { MedicalDTO } from "../../../generated";
@@ -26,9 +26,6 @@ import {
 const NewMedicalActivity: FunctionComponent<TProps> = ({
   userCredentials,
   newMedical,
-  isLoading,
-  hasSucceeded,
-  hasFailed,
 }) => {
   const { t } = useTranslation();
   const breadcrumbMap = {
@@ -37,13 +34,18 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
     [t("nav.newmedical")]: "/newMedical",
   };
 
+  const newMedicalStatus = useSelector((state: IState) => state.medicals.newMedical.status);
+  
+  const dispatch = useDispatch();
+
   const onSubmit = (medical: MedicalDTO) => {
-    newMedical(medical, true); //per ora true
+    dispatch(newMedical(medical, true)); 
   };
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
+  
   useEffect(() => {
     if (activityTransitionState === "TO_MEDICALS") {
       setShouldResetForm(true);
@@ -52,10 +54,10 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (hasFailed) {
+    if (newMedicalStatus === "FAIL") {
       scrollToElement(infoBoxRef.current);
     }
-  }, [hasFailed]);
+  }, [newMedicalStatus]);
 
   const [shouldResetForm, setShouldResetForm] = useState(false);
 
@@ -66,7 +68,7 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
   };
 
   switch (activityTransitionState) {
-    case "TO_MEDICALS":
+  case "TO_MEDICALS":
       return <Redirect to="/Medicals" />;
     default:
       return (
@@ -83,23 +85,23 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
                 onSubmit={onSubmit}
                 submitButtonLabel={t("common.submit")}
                 resetButtonLabel={t("common.clearall")}
-                isLoading={isLoading}
+                isLoading={newMedicalStatus === "LOADING"}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
               />
             </div>
           </div>
           <div ref={infoBoxRef}>
-            {hasFailed && (
+            {newMedicalStatus === "FAIL" && (
               <InfoBox type="error" message={t("common.somethingwrong")} />
             )}
           </div>
           <ConfirmationDialog
-            isOpen={hasSucceeded}
+            isOpen={newMedicalStatus === "SUCCESS"}
             title="Pharmaceutical Created"
             icon={checkIcon}
             info={t("medical.medicalregistrationsuccessfull")}
-            primaryButtonLabel={t("common.dashboard")}
+            primaryButtonLabel={t("common.medicals")}
             secondaryButtonLabel={t("common.keepediting")}
             handlePrimaryButtonClick={() =>
               setActivityTransitionState("TO_MEDICALS")
@@ -116,9 +118,7 @@ const NewMedicalActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
-  isLoading: state.medicals.newMedical.status === "LOADING",
-  hasSucceeded: state.medicals.newMedical.status === "SUCCESS",
-  hasFailed: state.medicals.newMedical.status === "FAIL",
+  isLoading: state.medicals.newMedical.status === "LOADING"
 });
 
 const mapDispatchToProps: IDispatchProps = {

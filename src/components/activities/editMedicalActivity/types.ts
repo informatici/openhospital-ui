@@ -23,4 +23,5 @@ export type TActivityTransitionState =
   | "LOADING"
   | "SUCCESS"
   | "FAIL"
-  | "TO_KEEP_EDITING";
+  | "TO_KEEP_EDITING"
+  | "TO_MEDICALS";

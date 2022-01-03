@@ -1,14 +1,10 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import {useLocation} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import {
-  getMedical,
-  updateMedical,
-} from "../../../state/medicals/actions";
+import { getMedical, updateMedical } from "../../../state/medicals/actions";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -18,12 +14,7 @@ import InfoBox from "../../accessories/infoBox/InfoBox";
 import MedicalDataForm from "../../accessories/medicalDataForm/MedicalDataForm";
 import { initialFields } from "../newMedicalActivity/consts";
 import "./styles.scss";
-import {
-  IDispatchProps,
-  IStateProps,
-  TActivityTransitionState,
-  TProps,
-} from "./types";
+import {IDispatchProps, IStateProps, TActivityTransitionState, TProps,} from "./types";
 import isEmpty from "lodash.isempty";
 import { MedicalDTO } from "../../../generated";
 
@@ -123,6 +114,8 @@ const switchGetMedicalStatus = () =>
 const EditForm = (): JSX.Element | undefined => {
   switch(activityTransitionState)
   {
+    case "TO_MEDICALS":
+      return <Redirect to="/Medicals" />;
     case "LOADING":
       return (
         <h3 className="medicals__loading">{t("common.loading")}</h3>
@@ -172,10 +165,10 @@ const EditForm = (): JSX.Element | undefined => {
         title="Medical Updated"
         icon={checkIcon}
         info={t("common.medicalregistrationsuccessfull")}
-        primaryButtonLabel={t("common.dashboard")}
+        primaryButtonLabel={t("common.medicals")}
         secondaryButtonLabel={t("common.keepediting")}
         handlePrimaryButtonClick={() =>
-          setActivityTransitionState("LOADING")
+          setActivityTransitionState("TO_MEDICALS")
         }
         handleSecondaryButtonClick={() =>
           setActivityTransitionState("IDLE")
