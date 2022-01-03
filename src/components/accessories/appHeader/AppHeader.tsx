@@ -74,31 +74,34 @@ const AppHeader: FunctionComponent<TProps> = ({
                     onClick={() => setOpenLogoutConfirmation(true)}
                   />
                 </Tooltip>
-              </div>
-              {navigator.onLine && (
-                <div className="appHeader__help" title="Help">
-                  <OHFeedback />
-                </div>
-              )}
-            </div>
           </div>
-          <div className="appHeader__bottom">
-            <div className="appHeader__background">
-              <div className="appHeader__identifier">
-                <div className="appHeader__identifier__logo">
-                  <img src={logo} alt="Open Hospital" height="45px" />
-                </div>
-                <div
-                  onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
-                  className={classNames("appHeader__navigate_before", {
-                    hidden: trailEdgeKey === "Dashboard",
-                  })}
-                >
-                  <NavigateBefore fontSize="large" style={{ color: "#fc1812" }} />
-                </div>
-                <div className="appHeader__identified__main">
-                  <div className="appHeader__identified__main__headline">
-                    Princeton-Plainsboro Teaching Hospital
+          {navigator.onLine && (
+            <div className="appHeader__help" title="Help">
+              <OHFeedback />
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="appHeader__bottom">
+        <div className="appHeader__background">
+          <div className="appHeader__identifier">
+            <div className="appHeader__identifier__logo">
+              <Link to={"/"}>
+                <img src={logo} alt="Open Hospital" height="45px" />
+              </Link>
+            </div>
+            <div
+              onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
+              className={classNames("appHeader__navigate_before", {
+                hidden: trailEdgeKey === "Dashboard",
+              })}
+            >
+              <NavigateBefore fontSize="large" style={{ color: "#fc1812" }} />
+            </div>
+            <div className="appHeader__identified__main">
+              <div className="appHeader__identified__main__headline">
+                Princeton-Plainsboro Teaching Hospital
+
                   </div>
                   <Breadcrumbs>
                     <div className="appHeader__home_icon">
@@ -130,18 +133,18 @@ const AppHeader: FunctionComponent<TProps> = ({
                 </div>
               </div>
             </div>
-          </div>
-          <ConfirmationDialog
-            isOpen={openLogoutConfirmation}
-            title={t("login.signout")}
-            info={`Are you sure you want to ${t("login.signout")}?`}
-            icon={warningIcon}
-            primaryButtonLabel={t("login.signout")}
-            secondaryButtonLabel="Dismiss"
-            handlePrimaryButtonClick={handleLogout}
-            handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
-          />
-        </div>
+      </div>
+      <ConfirmationDialog
+        isOpen={openLogoutConfirmation}
+        title={t("login.signout")}
+        info={t("login.signoutText")}
+        icon={warningIcon}
+        primaryButtonLabel={t("login.signout")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleLogout}
+        handleSecondaryButtonClick={() => setOpenLogoutConfirmation(false)}
+      />
+    </div>
   );
 }
 };

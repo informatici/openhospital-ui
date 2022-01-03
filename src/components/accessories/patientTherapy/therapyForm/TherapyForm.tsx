@@ -16,8 +16,7 @@ import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import SmallButton from "../../smallButton/SmallButton";
-import TextButton from "../../textButton/TextButton";
+import Button from "../../button/Button";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { TherapyProps } from "./types";
@@ -287,23 +286,23 @@ const TherapyForm: FC<TherapyProps> = ({
           </div>
           <div className="patientTherapyForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit" disabled={isLoading}>
+              <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
-              </SmallButton>
+              </Button>
             </div>
             <div className="reset_button">
-              <TextButton onClick={() => setOpenResetConfirmation(true)}>
+              <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
                 {resetButtonLabel}
-              </TextButton>
+              </Button>
             </div>
           </div>
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            info={t("common.resetform")}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel="Dismiss"
+            secondaryButtonLabel={t("common.discard")}
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />

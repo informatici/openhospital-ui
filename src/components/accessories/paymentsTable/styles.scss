@@ -1,0 +1,85 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+.bill__payments {
+  .filterForm {
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .MuiAccordionSummary-content {
+      svg {
+        position: relative;
+        top: -2px;
+      }
+      h5 {
+        margin: 0px 10px;
+      }
+    }
+    .filterForm__form {
+      width: 100%;
+    }
+    .filterForm__item {
+      //background-color: $c-grey-lighter;
+      padding: 0px 10px;
+      width: 33.33%;
+      @include susy-media($narrow) {
+        padding: 0px 10px;
+      }
+      @include susy-media($tablet_land) {
+        padding: 0px 10px;
+      }
+      @include susy-media($tablet_port) {
+        width: 50%;
+      }
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+      .dateField,
+      .textField,
+      .selectField .autocompleteField {
+        width: 100%;
+      }
+
+      &.fullWidth {
+        width: 100%;
+      }
+
+      &.compressed {
+        .textField {
+          float: left;
+          width: 50%;
+          &:nth-of-type(1) {
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+    .filterForm__buttonSet {
+      display: flex;
+      justify-content: right;
+      align-items: right;
+      margin: 0 auto;
+      line-height: 1.75;
+      @include susy-media($smartphone_small) {
+        display: block;
+      }
+
+      .submit_button {
+        margin-top: 10px;
+        .MuiButton-label {
+          font-size: 0.7rem;
+          letter-spacing: 1px;
+          font-weight: 600;
+        }
+        button {
+          @include susy-media($smartphone_small) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .payments__table {
+    padding: 20px 5px;
+  }
+}

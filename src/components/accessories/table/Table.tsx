@@ -12,7 +12,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Edit, Delete, Print } from "@material-ui/icons";
+import {
+  Edit,
+  Delete,
+  Print,
+  InfoOutlined,
+  MonetizationOn,
+  Archive,
+} from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
@@ -32,8 +39,12 @@ const Table: FunctionComponent<IProps> = ({
   onEdit,
   onDelete,
   onPrint,
+  onPay,
   onView,
   showEmptyCell = true,
+  renderItemDetails,
+  getCoreRow,
+  onClose,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -63,10 +74,9 @@ const Table: FunctionComponent<IProps> = ({
       case "edit":
         return (
           <IconButton
+            title="Edit"
             size="small"
-            onClick={() => {
-              if (onEdit) onEdit(row);
-            }}
+            onClick={() => onEdit && onEdit(row)}
           >
             <Edit />
           </IconButton>
@@ -75,18 +85,55 @@ const Table: FunctionComponent<IProps> = ({
         return (
           <IconButton
             size="small"
+            title="Delete"
             onClick={() => {
               setCurrentRow(row);
               setOpenDeleteConfirmation(true);
             }}
           >
-            <Delete color="secondary" />
+            <Delete color="primary" />
           </IconButton>
         );
       case "print":
         return (
-          <IconButton size="small" onClick={onPrint}>
-            <Print color="primary" />
+          <IconButton
+            size="small"
+            title="Print"
+            onClick={() => onPrint && onPrint(row)}
+          >
+            <Print color="secondary" />
+          </IconButton>
+        );
+
+      case "view":
+        return (
+          <IconButton
+            size="small"
+            title="View details"
+            onClick={() => onView && onView(row)}
+          >
+            <InfoOutlined color="primary" titleAccess={"View Details"} />
+          </IconButton>
+        );
+      case "pay":
+        return (
+          <IconButton
+            size="small"
+            title="Add a payment"
+            onClick={() => onPay && onPay(row)}
+          >
+            <MonetizationOn htmlColor="#00912c" />
+          </IconButton>
+        );
+
+      case "close":
+        return (
+          <IconButton
+            size="small"
+            title="Close the bill"
+            onClick={() => onClose && onClose(row)}
+          >
+            <Archive htmlColor="#0373fc" />
           </IconButton>
         );
     }
@@ -101,8 +148,11 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
+          {onView ? renderIcon("view", row) : ""}
+          {onPay ? renderIcon("pay", row) : ""}
           {onEdit ? renderIcon("edit", row) : ""}
-          {onPrint ? renderIcon("print") : ""}
+          {onPrint ? renderIcon("print", row) : ""}
+          {onClose ? renderIcon("close", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );
@@ -145,6 +195,7 @@ const Table: FunctionComponent<IProps> = ({
               .map((row, index) => (
                 <TableBodyRow
                   row={row}
+                  coreRow={getCoreRow && getCoreRow(row)}
                   key={index}
                   rowIndex={index}
                   labelData={labelData}
@@ -152,6 +203,7 @@ const Table: FunctionComponent<IProps> = ({
                   renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
                   showEmptyCell={showEmptyCell}
+                  renderCellDetails={renderItemDetails}
                 />
               ))}
           </TableBody>
@@ -177,8 +229,8 @@ const Table: FunctionComponent<IProps> = ({
           code: currentRow.code,
         })}
         icon={warningIcon}
-        primaryButtonLabel="OK"
-        secondaryButtonLabel="Dismiss"
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleDelete}
         handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
       />

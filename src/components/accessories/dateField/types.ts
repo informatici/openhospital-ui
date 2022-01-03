@@ -5,7 +5,7 @@ export interface IProps {
   fieldValue: string;
   disableFuture?: boolean;
   disabled?: boolean;
-  theme: "light" | "regular";
+  theme?: "light" | "regular";
   isValid: boolean;
   errorText: string;
   label: string;

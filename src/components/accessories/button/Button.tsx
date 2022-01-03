@@ -6,6 +6,7 @@ import "./styles.scss";
 const Button: FunctionComponent<IProps> = ({
   children,
   type,
+  color = "primary",
   variant,
   disabled,
   onClick,
@@ -15,6 +16,7 @@ const Button: FunctionComponent<IProps> = ({
       <MaterialComponent
         className="button"
         type={type}
+        color={color}
         variant={variant}
         disableElevation
         disabled={disabled}

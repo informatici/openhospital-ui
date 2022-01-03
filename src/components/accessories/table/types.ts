@@ -13,9 +13,15 @@ export interface IProps {
   ) => (a: any, b: any) => number;
   onEdit?: <T>(row: T) => void;
   onDelete?: <T>(row: T) => void;
-  onPrint?: () => void;
-  onView?: () => void;
+  onPrint?: <T>(row: T) => void;
+  onView?: <T>(row: T) => void;
   showEmptyCell?: boolean;
+  renderItemDetails?: (row: any) => void;
+  coreData?: Array<any>;
+  identifierColumn?: string;
+  getCoreRow?: <T>(val: T) => any | undefined;
+  onPay?: (row: any) => void;
+  onClose?: (row: any) => void;
 }
 
 export interface IRowProps {
@@ -26,6 +32,8 @@ export interface IRowProps {
   isCollapsabile?: boolean;
   renderActions: () => void;
   showEmptyCell?: boolean;
+  renderCellDetails?: <T>(row: T) => any;
+  coreRow?: any;
 }
 
-export type TActions = "edit" | "delete" | "view" | "print";
+export type TActions = "edit" | "delete" | "view" | "print" | "pay" | "close";

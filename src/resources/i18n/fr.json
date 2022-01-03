@@ -7,7 +7,8 @@
     "insertavalidusername": "Nom d'utlisateur invalid",
     "insertthepassword": "Enter le mot de passe",
     "login": "Login",
-    "signout": "Déconnection"
+    "signout": "Déconnection",
+    "signoutText": "Are you sure you want to Logout?"
   },
   "dashboard": {
     "welcomename": "Bienvenu/e",
@@ -43,7 +44,9 @@
     "personaldata": "Donnés personnels",
     "parentslivetoghether": "Parents ensemble",
     "insertdataofnewpatient": "Insérez les données du nouveau patient",
-    "admissions": "Admissions"
+    "admissions": "Admissions",
+    "code": "Code",
+    "search": "Chercher"
   },
   "opd": {
     "dateopd": "Date (d/m/y)",
@@ -96,6 +99,8 @@
     "weightabbr": "(P)",
     "created": "Paramètres enregistré",
     "deleted": "Paramètres supprimé",
+    "updated": "Paramètres mis à jour",
+    "updatesuccess": "Paramètres mis à jour avec succès!",
     "createsuccess": "Paramètres enregistré avec succès!",
     "deletesuccess": "Paramètres supprimé avec succès!"
   },
@@ -119,9 +124,15 @@
     "discharge": "Décharges",
     "surgicalrecord": "Dossier Médical",
     "note": "Note",
-    "exams": "Examens"
+    "exams": "Examens",
+    "newbill": "Nouvelle facture",
+    "searchbill": "Rechercher facture",
+    "bill_chose": "Choisir une option",
+    "managebills": "Manager Factures",
+    "billrecords": "Liste Factures"
   },
   "common": {
+    "ok": "OK",
     "results": "Résultats",
     "feedback": "Feedback",
     "submit": "Envoyer",
@@ -139,7 +150,7 @@
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",
     "titleedited": "Patient Edited",
-    "resetform": "Are you sure to {{resetButtonLabel}} the Form?",
+    "resetform": "Are you sure to Reset the Form? All the unsaved data will be lost.",
     "searchnotfound": "We couldn't find a match, please try another search.",
     "patienteditsuccessfull": "The patient was edit successfully.",
     "patientregistrationsuccessfull": "The patient registration was successful.",
@@ -161,7 +172,8 @@
     "female": "Féminin",
     "date": "Date",
     "type": "Type",
-    "nooptionsfound": "Aucune option trouvée"
+    "nooptionsfound": "Aucune option trouvée",
+    "close": "FERMER"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -249,5 +261,56 @@
     "note": "Note",
     "validatelastdate": "doit être égale ou sup à la date d'admission {{admDate}}",
     "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Déchargez le d'abord."
+  },
+  "bill": {
+    "title": "Bienvenue dans Facturation",
+    "newbill": "Nouvelle facture",
+    "allbills": "Factures",
+    "closed": "Fermées",
+    "deleted": "Supprimées", 
+    "pending": "En attente",
+    "user": "Caissier courant",
+    "patient": "Patient",
+    "billitem": "Elément",
+    "affiliate": "Personne garante",
+    "fromdate": "Allant de",
+    "todate": "A",
+    "today": "Aujourd'hui",
+    "period": "Périod",
+    "notpaid": "Non payé",
+    "totalpaid": "Total Payé",
+    "totalnotpaid": "Total non payé",
+    "validatetodate": "doit être égale ou sup à la date de début",    
+    "billid": "No Facture",
+    "amount": "Montant",
+    "balance": "Solde",
+    "status": "Status",
+    "items": "Items",
+    "designation": "Désignation",
+    "code": "Code facture",
+    "qty": "Qté",
+    "payments": "Paiements",
+    "date": "Date",
+    "cashier": "Cassier(e)",
+    "unknown": "Inconnu",
+    "details": "Détails facture",
+    "recap": "Recap factures",
+    "filter": "Filtre Factures",
+    "filterbutton": "Filtrer",
+    "bills": "Factures",
+    "enterpayment": "Entrer le paiement",
+    "amounttopay": "Montant total à payer: {{amount}}",
+    "pay": "PAYER",
+    "paymentdialog": "FENETRE DE PAIMENT",
+    "paymentamount": "Montant perçu",
+    "paymentdate": "Date de paiment",
+    "invalidpayment": "Montant invalide",
+    "paymentsuccess": "Paiement effectué avec succès!",
+    "payment": "Paiement",
+    "invalidpaymentdate": "Date inférieure à la date de la facture",
+    "close": "Fermeture de Facture",
+    "closesuccess": "Facture cloturée avec succès!!!",
+    "doyouwanttoclose": "Voulez-vous fermer la facture avec l'id {{code}} ? Cette opération ne pourra plus être défaite.",
+    "billdate": "Date Facture"
   }
 }

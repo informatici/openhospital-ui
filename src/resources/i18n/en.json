@@ -7,7 +7,8 @@
     "insertavalidusername": "Insert a valid user name",
     "insertthepassword": "Insert the password",
     "login": "Login",
-    "signout": "Sign Out"
+    "signout": "Logout",
+    "signoutText": "Are you sure you want to Logout?"
   },
   "dashboard": {
     "welcomename": "Welcome",
@@ -43,7 +44,9 @@
     "personaldata": "Personal Data",
     "parentslivetoghether": "Parents live together",
     "insertdataofnewpatient": "Insert data of new Patient",
-    "admissions": "Admissions"
+    "admissions": "Admissions",
+    "code": "Code",
+    "search": "Search"
   },
   "medical": {
     "code": "Code",
@@ -111,6 +114,8 @@
     "weightabbr": "(W)",
     "created": "Examiniation created",
     "deleted": "Examination deleted",
+    "updated": "Examination updated",
+    "updatesuccess": "Examination updated successfully",
     "createsuccess": "Examination created successfully",
     "deletesuccess": "Examination deleted successfully"
   },
@@ -137,7 +142,12 @@
     "discharge": "Discharges",
     "surgicalrecord": "Surgical Record",
     "note": "Note",
-    "exams": "Exams"
+    "exams": "Exams",
+    "newbill": "New Patient Bill",
+    "searchbill": "Search facture",
+    "bill_chose": "Choose an option",
+    "managebills": "Manage Bills",
+    "billrecords": "Bill Records"
   },
   "pharmacy": {
     "pharmaceuticals": "Pharmaceuticals",
@@ -145,6 +155,7 @@
     "pharmaceuticalstockward": "Pharmaceutical Stock Ward"
   },
   "common": {
+    "ok": "OK",
     "results": "Results",
     "feedback": "Feedback",
     "submit": "Submit",
@@ -167,7 +178,7 @@
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",
     "titleedited": "Patient Edited",
-    "resetform": "Are you sure to {{resetButtonLabel}} the Form?",
+    "resetform": "Are you sure to Reset the Form? All the unsaved data will be lost.",
     "searchnotfound": "We couldn't find a match, please try another search.",
     "patienteditsuccessfull": "The patient was edit successfully.",
     "patientregistrationsuccessfull": "The patient registration was successful.",
@@ -189,7 +200,8 @@
     "female": "Female",
     "date": "Date",
     "type": "Type",
-    "nooptionsfound": "No options found"
+    "nooptionsfound": "No options found",
+    "close": "CLOSE"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -267,7 +279,62 @@
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
     "note": "Note",
-    "validatelastdate": "should be greater or equal to admission date {{admDate}}",
+    "validatelastdate":"should be greater or equal to admission date {{admDate}}",
     "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
+  },
+  "bill": {
+    "title": "Welcome to Billing",
+    "newbill": "New Bill",
+    "allbills": "All Bills",
+    "closed": "Closed",
+    "deleted": "Deleted", 
+    "pending": "Pending",
+    "user": "Current Cashier",
+    "patient": "Patient",
+    "billitem": "Bill Item",
+    "affiliate": "Affiliate person",
+    "fromdate": "Date From",
+    "todate": "Date To",
+    "today": "Today",
+    "period": "Period",
+    "notpaid": "Not paid",
+    "totalpaid": "Total Paid",
+    "totalnotpaid": "Total not paid",
+    "validatetodate": "should be greater or equal to start date",
+    "billid": "Bill Code",
+    "amount": "Amount",
+    "balance": "Balance",
+    "status": "Status",
+    "items": "Items",
+    "designation": "Designation",
+    "code": "Bill Code",
+    "qty": "Qty",
+    "payments": "Payments",
+    "date": "Date",
+    "cashier": "Cashier",
+    "unknown": "Unknown",
+    "details": "Bill Details",
+    "recap": "Bills Recap",
+    "filter": "Bills Filter",
+    "filterbutton": "Filter",
+    "bills": "Bills",
+    "enterpayment": "Enter payment",
+    "amounttopay": "Total amount to pay: {{amount}}",
+    "pay": "PAY",
+    "paymentdialog": "PAIEMENT DIALOG",
+    "paymentamount": "Payment amount",
+    "paymentdate": "Payment date",
+    "invalidpayment": "Invalid amount",
+    "paymentsuccess": "Payment save with success",
+    "payment": "Payment",
+    "invalidpaymentdate": "Date less than bill date",
+    "close": "Close Bill",
+    "closesuccess": "Bill closed successfully!!!",
+    "doyouwanttoclose": "Do you want to close the bill with id {{code}}? This operation cannot be undone.",
+    "billdate": "Bill Date",
+    "dashboard": "Dashboard",
+    "billSection": "Bills sections",
+    "filterBills": "Bills filter",
+    "filterPayments": "Payments filter"
   }
 }
