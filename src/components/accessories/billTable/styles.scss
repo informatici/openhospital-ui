@@ -40,13 +40,16 @@
         align-items: center;
         flex-direction: row;
         flex-wrap: wrap;
-
         .filterBillForm__item {
           flex: 1 1 auto;        
-          margin: 5px;       
+          margin: 5px;  
+          align-items: center;     
           .dateField,
           .textField,
           .selectField .autocompleteField {
+            width: 100%;       
+          }
+          .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
             width: 100%;
           }
         }      

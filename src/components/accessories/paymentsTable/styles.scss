@@ -30,19 +30,21 @@
         margin: 0px 10px;
       }
     }
-     .filterForm__form {
+     .filterForm__form{
         width: 100%;
         display: flex;
-        align-items: center;
         flex-direction: row;
         flex-wrap: wrap;
-
+        align-items: center;
         .filterForm__item {
-          flex: 1 1 auto;        
+          flex: 1 1 auto;         
           margin: 5px;       
           .dateField,
           .textField,
           .selectField .autocompleteField {
+            width: 100%;
+          }
+          .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
             width: 100%;
           }
         }      
