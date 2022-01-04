@@ -150,7 +150,7 @@ export const BillsRecap: FC = () => {
         {
           label: t("bill.payments"),
           data:
-            labels.length != 0
+            labels.length > 0
               ? labels.map((item) => summary.paymentsByMonthsOfYear[item] ?? 0)
               : [],
           borderColor: "rgb(255, 99, 132)",
