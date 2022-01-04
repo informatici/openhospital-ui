@@ -41,7 +41,6 @@ const DateField: FunctionComponent<IProps> = ({
   return (
     <DatePickerWrapper utils={DateFnsUtils}>
       <KeyboardDatePicker
-        clearable
         views={views}
         format={format}
         id={fieldName}
