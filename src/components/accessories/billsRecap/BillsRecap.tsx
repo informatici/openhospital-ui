@@ -72,12 +72,10 @@ export const BillsRecap: FC = () => {
   const getOptions = (title: string, enableTooltip: boolean = true) => {
     return {
       responsive: false,
-
       plugins: {
         tooltip: {
           enabled: enableTooltip,
         },
-
         legend: {
           display: true,
           position: "top" as const,
@@ -85,7 +83,6 @@ export const BillsRecap: FC = () => {
             boxWidth: 10,
           },
         },
-
         title: {
           display: true,
           text: title,
