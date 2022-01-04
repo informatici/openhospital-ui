@@ -27,6 +27,7 @@ import "./styles.scss";
 import { TUserCredentials } from "../../../state/main/types";
 import { union } from "lodash";
 import { monthList } from "./consts";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 
 ChartJS.register(
   CategoryScale,
@@ -68,10 +69,15 @@ export const BillsRecap: FC = () => {
     dispatch(searchBills(filter as TFilterValues));
   }, [dispatch]);
 
-  const getOptions = (title: string) => {
+  const getOptions = (title: string, enableTooltip: boolean = true) => {
     return {
       responsive: false,
+
       plugins: {
+        tooltip: {
+          enabled: enableTooltip,
+        },
+
         legend: {
           display: true,
           position: "top" as const,
@@ -79,6 +85,7 @@ export const BillsRecap: FC = () => {
             boxWidth: 10,
           },
         },
+
         title: {
           display: true,
           text: title,
@@ -115,7 +122,7 @@ export const BillsRecap: FC = () => {
           ? [(summary as any)[totalPayment], (summary as any)[totalPending]]
           : [];
       let customLabels = labels.map(
-        (label, index) => `${label}: ${dataset[index]}`
+        (label, index) => `${label}: ${currencyFormat(dataset[index])}`
       );
 
       return {
@@ -171,7 +178,8 @@ export const BillsRecap: FC = () => {
         <Doughnut
           data={getDataFromTwoObjects("dailyRevenue", "dailyDebt")}
           options={getOptions(
-            `${t("bill.today")} (${moment().format("DD/MM/YYYY")})`
+            `${t("bill.today")} (${moment().format("DD/MM/YYYY")})`,
+            false
           )}
         />
         <Pie
@@ -179,23 +187,29 @@ export const BillsRecap: FC = () => {
           options={getOptions(
             `${t("bill.week", {
               start: moment().startOf("week").format("DD/MM/YYYY"),
-            })}`
+            })}`,
+            false
           )}
         />
         <Pie
           data={getDataFromTwoObjects("monthlyRevenue", "monthlyDebt")}
           options={getOptions(
-            `${moment().format("MMMM")} ${moment().format("YYYY")}`
+            `${moment().format("MMMM")} ${moment().format("YYYY")}`,
+            false
           )}
         />
         <Doughnut
           data={getDataFromTwoObjects("annualRevenue", "annualDebt")}
-          options={getOptions(`${t("bill.year")} ${moment().format("YYYY")}`)}
+          options={getOptions(
+            `${t("bill.year")} ${moment().format("YYYY")}`,
+            false
+          )}
         />
         <Doughnut
           data={getDataFromTwoObjects("currentUserCashIn", "currentUserDebt")}
           options={getOptions(
-            t("bill.currentuser", { name: userCredentials?.displayName ?? "" })
+            t("bill.currentuser", { name: userCredentials?.displayName ?? "" }),
+            false
           )}
         />
         <Bar
