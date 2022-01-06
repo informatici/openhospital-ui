@@ -4,8 +4,6 @@ import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 import { CSVLink } from "react-csv";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
 import isEmpty from "lodash.isempty";
 import { Button } from "@material-ui/core";
 import iconDelete from "@material-ui/icons/DeleteOutlined";
@@ -72,14 +70,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     t("medical.cardreport"),
   ];
 
-  const isValid = (fieldName: string): boolean => {
-    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
-  };
-
-  const getErrorText = (fieldName: string): string => {
-    return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
-  };
-
   const searchValue = (value: MedicalDTO[] | undefined): any[] => {
     var filterDesc = formik.getFieldProps("id").value ? formik.getFieldProps("id").value.toLowerCase() : '';
     var filterType = formik.getFieldProps("type").value ? formik.getFieldProps("type").value : '';
@@ -92,26 +82,32 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     return result;
   };
 
+  let selectedType: string;
+
   const onBlurSelect = (e: React.FocusEvent<any>): void => {
-    let selectedType: string;
     switch (e.target.value) {
       case "L":
-        selectedType = "Laboratory";
+        selectedType = t("medicaltype.lab");
+        formik.setFieldValue("type", selectedType);
         break;
       case "S":
-        selectedType = "Surgery";
+        selectedType = t("medicaltype.surg");
+        formik.setFieldValue("type", selectedType);
         break;
       case "D":
-        selectedType = "Drugs";
+        selectedType = t("medicaltype.drug");
+        formik.setFieldValue("type", selectedType);
         break;
       case "K":
-        selectedType = "Chemicals";
+        selectedType = t("medicaltype.chem");
+        formik.setFieldValue("type", selectedType);
         break;
-      default:
-        selectedType = "";
+        case "":
+        default:
+          selectedType = t("medicaltype.all");
+          formik.setFieldValue("type", "");
         break;
     }
-    formik.setFieldValue("type", selectedType);
   };
 
   const [options, setOptions] = useState(medicalTypesOptions);
@@ -173,7 +169,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       case "LOADING":
         return;
       case "SUCCESS":
-        medicalTypesOptions = medicalTypesFormatter(medicalTypeResults);
+        medicalTypesOptions.push({ value: "", label: t("medicaltype.all")});
+        medicalTypesOptions = [...medicalTypesOptions, ...medicalTypesFormatter(medicalTypeResults)] ;
         setOptions(medicalTypesOptions);
     }
   };
@@ -194,6 +191,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                 <Table aria-label="simple table" size="small">
                   <TableHead>
                     <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>Type</TableCell>
                       <TableCell>Code</TableCell>
                       <TableCell align="right">Description</TableCell>
                       <TableCell align="right">PcsXPck</TableCell>
@@ -208,28 +207,16 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                     {searchValue(medicalSearchResults)?.slice(page * pagedRows, page * pagedRows + pagedRows)
                       .map((row) => (
                       <TableRow key={row?.code}>
-                        <TableCell component="th" scope="row">
-                          {row.prod_code}
-                        </TableCell>
-                        <TableCell align="right">{row.description}</TableCell>
-                        <TableCell align="right">{row.pcsperpck}</TableCell>
-                        <TableCell align="right">
-                          {row.inqty && row.outqty ? row.inqty - row.outqty : 0}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.inqty && row.outqty && row.minqty
-                            ? row.inqty - row.outqty <= row.minqty
-                            : 0}
-                        </TableCell>
+                        <TableCell component="th" scope="row"></TableCell>
+                        <TableCell align="center">{row?.type.description}</TableCell>
+                        <TableCell align="right">{row?.prod_code}</TableCell>
+                        <TableCell align="right">{row?.description}</TableCell>
+                        <TableCell align="right">{row?.pcsperpck}</TableCell>
+                        <TableCell align="right">{row.inqty - row.outqty}</TableCell>
+                        <TableCell align="right">{row.inqty - row.outqty <= row.minqty}</TableCell>
                         <TableCell padding="checkbox">
                           <Checkbox
-                            checked={
-                              row.inqty && row.outqty
-                                ? row.inqty - row.outqty === 0
-                                  ? true
-                                  : false
-                                : false
-                            }
+                            checked={ row.inqty - row.outqty === 0}
                             inputProps={{ "aria-label": "Out of Stock" }}
                           />
                         </TableCell>
@@ -388,11 +375,11 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                   <div className="row left-xs">
                     <div className="medicals__formItem fast__search">
                       <SelectField
-                        fieldName="Types"
-                        fieldValue="Types"
-                        label="Select type"
-                        isValid={isValid("type")}
-                        errorText={getErrorText("type")}
+                        fieldName={"type"}
+                        fieldValue={"type"}
+                        label={t("medicaltype.select")}
+                        isValid={true}
+                        errorText={""}
                         onBlur={onBlurSelect}
                         options={options || []}
                       />
@@ -400,8 +387,8 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
                         theme="regular"
                         field={formik.getFieldProps("id")}
                         label={t("common.search")}
-                        isValid={isValid("id")}
-                        errorText={getErrorText("id")}
+                        isValid={true}
+                        errorText={""}
                         onBlur={formik.handleBlur}
                       />
                       <div className="search__button">

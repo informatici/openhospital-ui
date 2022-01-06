@@ -63,6 +63,14 @@
     "orderreport": "Report of order",
     "cardreport": "Report of stock card"
   },
+  "medicaltype": {
+    "lab": "Laboratory",
+    "drug": "Drugs",
+    "chem": "Chemical",
+    "surg": "Surgery",
+    "all": "All Types",
+    "select": "Select type"
+  },
   "opd": {
     "dateopd": "Date (d/m/y)",
     "note": "Notes and symptoms",

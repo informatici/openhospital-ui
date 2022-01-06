@@ -1,12 +1,6 @@
-import {
-  MedicalDTO,
-  GetMedicalsUsingGETSortByEnum,
-  MedicalTypeDTO,
-  OperationOpts,
-} from "../../../generated";
+import { MedicalDTO, GetMedicalsUsingGETSortByEnum, MedicalTypeDTO, OperationOpts, } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
 import { TAPIResponseStatus } from "../../../state/types";
-import { TMedicalDataFormFieldName } from "../../accessories/medicalDataForm/types";
 
 export interface IStateProps {
   userCredentials: TUserCredentials;
