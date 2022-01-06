@@ -11,9 +11,9 @@ import { Button } from "@material-ui/core";
 import iconDelete from "@material-ui/icons/DeleteOutlined";
 import iconEdit from "@material-ui/icons/EditOutlined";
 import SearchIcon from "@material-ui/icons/Search";
-import { AgGridColumn, AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/ag-grid-community";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableFooter, TablePagination, } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Checkbox from "@material-ui/core/Checkbox";
 import { IState } from "../../../types";
 import { GetMedicalsUsingGETSortByEnum, MedicalDTO } from "../../../generated";
 import "./styles.scss";
@@ -80,14 +80,15 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
-
-  const searchValue = (value: MedicalDTO[] | undefined): any[] | undefined => {
+  const searchValue = (value: MedicalDTO[] | undefined): any[] => {
     var filterDesc = formik.getFieldProps("id").value ? formik.getFieldProps("id").value.toLowerCase() : '';
     var filterType = formik.getFieldProps("type").value ? formik.getFieldProps("type").value : '';
-    let result = value?.filter((element) => {
-      return element.description?.toLowerCase().includes(filterDesc) &&
-        element.type?.description?.includes(filterType)
-    })
+    let result = Array<MedicalDTO>();
+    if(value)
+      result = value?.filter((element) => {
+        return element.description?.toLowerCase().includes(filterDesc) &&
+          element.type?.description?.includes(filterType)
+      })
     return result;
   };
 
@@ -113,13 +114,12 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     formik.setFieldValue("type", selectedType);
   };
 
-  const [, setGridApi] = useState(null);
-  const [gridColumnApi, setGridColumnApi] = useState<any>(null);
   const [options, setOptions] = useState(medicalTypesOptions);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
-  const [activityTransitionState, setActivityTransitionState] =
-    useState<TActivityTransitionState>("IDLE");
-  const [medicalToDelete, setMedicalToDelete] = useState(-1);
+  const [activityTransitionState, setActivityTransitionState] =  useState<TActivityTransitionState>("IDLE");
+  const [medicalToDelete, setMedicalToDelete] = useState(-1);  
+  const [page, setPage] = React.useState(0);  
+  const [pagedRows, setPagedRows] = React.useState(10);
 
   useEffect(() => {
     if (searchStatus === "IDLE" && isEmpty(medicalSearchResults))
@@ -167,19 +167,6 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
     }
   };
 
-  const onGridReady = (params: any) => {
-    setGridApi(params.api);
-    setGridColumnApi(params.columnApi);
-  };
-
-  const autoSizeAll = (skipHeader: boolean) => {
-    var allColumnIds: any = [];
-    gridColumnApi?.getAllColumns().forEach(function (column: any) {
-      allColumnIds.push(column.colId);
-    });
-    gridColumnApi?.autoSizeColumns(allColumnIds, skipHeader);
-  };
-
   const renderMedicalTypesResults = (): void => {
     switch (medicalTypeStatus) {
       case "IDLE":
@@ -202,47 +189,85 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
       case "SUCCESS":
         return (
           <div className="medicalsGrid_main">
-            <AgGridReact
-              onGridReady={onGridReady}
-              onFirstDataRendered={() => autoSizeAll(false)}
-              defaultColDef={{ resizable: true }}
-              rowData={searchValue(medicalSearchResults)}
-              rowHeight={40}
-              pagination={true}
-              paginationAutoPageSize={true}
-              frameworkComponents={{
-                iconEditRenderer: (params: any) => (
-                  <IconButton 
-                  svgImage={iconEdit}
-                    url={"/editMedical/" + params.data.code}
-                  >
-                  </IconButton>
-                ),
-
-                iconDeleteRenderer: (params: any) => (
-                  <IconButton
-                  svgImage={iconDelete}
-                    onClick={() =>
-                      handleOpenDeleteConfirmation(params.data.code)
-                    }
-                  >
-                  </IconButton>
-                ),
-              }}
-            >
-              <AgGridColumn
-                headerName="Type"
-                field="type.description"
-              ></AgGridColumn>
-              <AgGridColumn headerName="Code" field="prod_code"></AgGridColumn>
-              <AgGridColumn headerName="Description" field="description" sortable={true} filter={true}></AgGridColumn>
-              <AgGridColumn headerName="PcsXPck" field="pcsperpck" maxWidth={100}></AgGridColumn>
-              <AgGridColumn headerName="Stock" field="{{inqty - outqty}}" maxWidth={100}></AgGridColumn>
-              <AgGridColumn headerName="Crit. Level" field="{{(inqty - outqty) <= minqty}}" maxWidth={100}></AgGridColumn>
-              <AgGridColumn headerName="Out of Stock" field="{{(inqty - outqty) == 0}}"  checkboxSelection={true}></AgGridColumn>
-              <AgGridColumn headerName="" cellRenderer="iconEditRenderer" maxWidth={100}></AgGridColumn>
-              <AgGridColumn headerName="" cellRenderer="iconDeleteRenderer" maxWidth={100}></AgGridColumn>
-            </AgGridReact> 
+            <Paper>
+              <TableContainer>
+                <Table aria-label="simple table" size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Code</TableCell>
+                      <TableCell align="right">Description</TableCell>
+                      <TableCell align="right">PcsXPck</TableCell>
+                      <TableCell align="right">Stock</TableCell>
+                      <TableCell align="right">Crit. Level</TableCell>
+                      <TableCell align="right">Out of Stock</TableCell>
+                      <TableCell align="right"></TableCell>
+                      <TableCell align="right"></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {searchValue(medicalSearchResults)?.slice(page * pagedRows, page * pagedRows + pagedRows)
+                      .map((row) => (
+                      <TableRow key={row?.code}>
+                        <TableCell component="th" scope="row">
+                          {row.prod_code}
+                        </TableCell>
+                        <TableCell align="right">{row.description}</TableCell>
+                        <TableCell align="right">{row.pcsperpck}</TableCell>
+                        <TableCell align="right">
+                          {row.inqty && row.outqty ? row.inqty - row.outqty : 0}
+                        </TableCell>
+                        <TableCell align="right">
+                          {row.inqty && row.outqty && row.minqty
+                            ? row.inqty - row.outqty <= row.minqty
+                            : 0}
+                        </TableCell>
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={
+                              row.inqty && row.outqty
+                                ? row.inqty - row.outqty === 0
+                                  ? true
+                                  : false
+                                : false
+                            }
+                            inputProps={{ "aria-label": "Out of Stock" }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            svgImage={iconEdit}
+                            url={"/editMedical/" + row.code}
+                          ></IconButton>
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            svgImage={iconDelete}
+                            onClick={() =>
+                              handleOpenDeleteConfirmation(
+                                row.code ? row.code : 0
+                              )
+                            }
+                          ></IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                  <TableFooter>
+                  </TableFooter>
+                </Table>
+              </TableContainer>
+              {searchValue(medicalSearchResults)?.length > pagedRows ? (
+                <TablePagination
+                  component="div"
+                  count={searchValue(medicalSearchResults)?.length | 0}
+                  rowsPerPage={pagedRows}
+                  rowsPerPageOptions={[10, 25, 100]}
+                  onChangePage={(event: unknown, newPage: number) => setPage(newPage)}
+                  page={page}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />) : ("") 
+              }
+            </Paper>
           </div>
         );
 
@@ -253,9 +278,12 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
         return <InfoBox type="error" message={t("common.somethingwrong")} />;
     }
   };
-
-  const searchText = '';
   
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setPagedRows(parseInt(event.target.value));
+    setPage(0);
+  };
+
   //method to prepare .csv export
   const csvDownload = (props: MedicalDTO[] | undefined): any => {
     if (props) {
@@ -284,16 +312,16 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
   ) => {
     switch (index) {
       case 0: //Report of stock
-        //will call a component
+        //TO DO - will call a component
         break;
       case 1: //Report of order
-        //will call a component
+        //TO DO - will call a component
         break;
       case 2: //Report of stock card
-        //will call a component
+        //TO DO - will call a component
         break;
       default:
-        //No valid choice
+        //TO DO - No valid choice
         return;
     }
   };

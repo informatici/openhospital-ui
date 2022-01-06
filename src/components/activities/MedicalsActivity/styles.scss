@@ -1,21 +1,12 @@
-@import "../../../../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine.scss";
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 
 .medicalsGrid_main {
-  @include ag-theme-alpine;
-  height: 800px;
+  height: fit-content;
   width: 100%;
   margin: 0px 0px 10px 10px;
   font-size: 11px;
   border-style: none;
-  .ag-header {
-    border-style: none;
-    background-color: white;
-  }
-  .ag-row {
-    font-size: 11px;
-  }
 
   @include susy-media($smartphone) {
     margin: 0px 10px 40px 10px;
