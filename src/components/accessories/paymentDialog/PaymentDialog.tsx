@@ -4,23 +4,22 @@ import {
   DialogContent,
   Toolbar,
   Typography,
+  TextField as MaterialComponent,
 } from "@material-ui/core";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import DateField from "../dateField/DateField";
-import TextField from "../textField/TextField";
 import Button from "../button/Button";
 import { useFormik } from "formik";
 import { object, string } from "yup";
 import { get, has } from "lodash";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
-import { BillPaymentsDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import {
   differenceInSeconds,
-  formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
+import NumberFormat, { NumberFormatValues } from "react-number-format";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 
 export const PaymentDialog = ({
@@ -33,7 +32,7 @@ export const PaymentDialog = ({
 }: {
   open: boolean;
   handleClose: () => void;
-  handlePayment: (payment: BillPaymentsDTO) => void;
+  handlePayment: (payment: Record<string, any>) => void;
   fields: TFields<"paymentDate" | "paymentAmount">;
   billDate: Date;
   billId: number;
@@ -51,14 +50,7 @@ export const PaymentDialog = ({
           return differenceInSeconds(billDate, new Date(value)) >= 0;
         },
       }),
-    paymentAmount: string()
-      .required(t("common.required"))
-      .test({
-        message: t("bill.invalidpayment"),
-        test: (value) => {
-          return value > 0 && value <= parseInt(initialValues.paymentAmount);
-        },
-      }),
+    paymentAmount: string().required(t("common.required")),
   });
 
   const formik = useFormik({
@@ -66,8 +58,7 @@ export const PaymentDialog = ({
     enableReinitialize: true,
     validationSchema,
     onSubmit: (values) => {
-      const formattedValues = formatAllFieldValues(fields, values);
-      handlePayment(formattedValues);
+      handlePayment(values);
     },
   });
 
@@ -88,6 +79,14 @@ export const PaymentDialog = ({
     return has(formik.touched, fieldName)
       ? (get(formik.errors, fieldName) as string)
       : "";
+  };
+
+  const withValueLimit = (values: NumberFormatValues) => {
+    if (values.floatValue)
+      return values.floatValue <= initialValues.paymentAmount;
+    else {
+      return false;
+    }
   };
 
   return (
@@ -140,17 +139,29 @@ export const PaymentDialog = ({
                 onChange={dateFieldHandleOnChange("paymentDate")}
               />
             </div>
-            <div className="paymentForm__item">
-              <TextField
-                field={formik.getFieldProps("paymentAmount")}
-                theme="regular"
-                label={t("bill.paymentamount")}
-                isValid={isValid("paymentAmount")}
-                errorText={getErrorText("paymentAmount")}
-                onBlur={formik.handleBlur}
-                type="number"
-              />
-            </div>
+            <NumberFormat
+              name="paymentAmount"
+              value={formik.getFieldProps("paymentAmount").value}
+              onBlur={formik.getFieldProps("paymentAmount").onBlur}
+              className="paymentForm__item"
+              id="paymentAmount"
+              prefix={"$"}
+              customInput={MaterialComponent}
+              isAllowed={withValueLimit}
+              type="text"
+              thousandSeparator={" "}
+              errorText={getErrorText("paymentAmount")}
+              isValid={isValid("paymentAmount")}
+              variant="outlined"
+              label={t("bill.paymentamount")}
+              allowNegative={false}
+              decimalScale={2}
+              decimalSeparator="."
+              onValueChange={(values) => {
+                const { floatValue } = values;
+                setFieldValue("paymentAmount", floatValue);
+              }}
+            />
           </div>
           <div className="paymentForm__buttonSet">
             <div className="submit_button">
