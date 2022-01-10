@@ -1,10 +1,8 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { IBillSummary } from "../../activities/billingActivity/types";
 
 export type IStatus = "ALL" | "PENDING" | "CLOSE" | "DELETE";
 export interface IBillTableProps {
   fields: TFields<BillFilterFormFieldName>;
-  handleSummaryChange: (summary: IBillSummary) => void;
 }
 
 export type TFilterValues = {
@@ -29,4 +27,6 @@ export type BillFilterFormFieldName =
   | "fromDate"
   | "toDate"
   | "patientCode"
-  | "status";
+  | "status"
+  | "month"
+  | "year";
