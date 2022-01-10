@@ -55,7 +55,9 @@ export type TActivityTransitionState =
   | "IDLE"
   | "TO_BILL_HOME"
   | "TO_DASHBOARD"
-  | "TO_NEW_BILL";
+  | "TO_NEW_BILL"
+  | "TO_PAYMENTS"
+  | "TO_BILLS";
 
 export type IBillSummary = {
   today: number;

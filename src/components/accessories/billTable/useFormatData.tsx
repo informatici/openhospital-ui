@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { FullBillDTO } from "../../../generated";
+import { BillPaymentsDTO, FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -22,6 +22,15 @@ const useFormatData = (
       default:
         return t("bill.unknown");
     }
+  };
+
+  const getLastPayment = (payments: BillPaymentsDTO[]) => {
+    return payments.reduce((p, v) => {
+      return new Date(p.date ?? "").getTime() <=
+        new Date(v.date ?? "").getTime()
+        ? p
+        : v;
+    });
   };
 
   let results = new Array();
@@ -49,6 +58,10 @@ const useFormatData = (
           amount: currencyFormat(item.billDTO?.amount),
           balance: currencyFormat(item.billDTO?.balance),
           status: switchStatus(item.billDTO?.status),
+          patId: item.billDTO?.patientDTO?.code,
+          lastPayment: renderDate(
+            getLastPayment(item.billPaymentsDTO ?? []).date ?? ""
+          ),
         };
       });
   return results;
