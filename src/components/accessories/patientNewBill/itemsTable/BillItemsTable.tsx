@@ -31,7 +31,7 @@ const BillItemsTable: FC<IOwnProps> = ({
       columnsOrder={order}
       rowsPerPage={5}
       onDelete={handleDelete}
-      isCollapsabile={false}
+      isCollapsabile={true}
       onEdit={handleEdit}
     />
   );

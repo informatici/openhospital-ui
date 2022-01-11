@@ -3,29 +3,17 @@
 
 .patientNewBill {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   padding: 16px 8px 16px 8px;
   row-gap: 12px;
   & > .patientNewBill_main {
     display: flex;
-    row-gap: 24px;
-    flex-flow: column; 
-    justify-content: flex-start;
-    @include susy-media(1024px) {
-      column-gap: 12px;
-      flex-flow: row;
-      width: 100%;
-    }
-    & > .patientNewBill_left {
+    flex-direction: column;
+    & > .patientNewBill_items {
       display: flex;
-      width: 100%;
-      justify-content: space-between;
-      background-color: white;
-      flex-flow: column;
+      background-color: $c-white;
+      flex-direction: column;
       row-gap: 12px;
-      @include susy-media(1024px) {
-        flex: 9;
-      }
       & > .patientNewBill_buttons {
         display: flex;
         justify-content: flex-end;
@@ -41,53 +29,74 @@
       }
     }
     
-    & > .patientNewBill_right {
+    & > .patientNewBill_payment {
       display: flex;
-      flex-flow: column;
-      align-items: center;
-      background-color: lightgray;
-      padding: 16px 4px 16px 4px;
+      padding: 8px 4px;
       border-radius: 8px;
-      row-gap: 12px;
-      .smallButton {
-        width: 300px;
+      flex-direction: column;
+      
+      .MuiAccordion-root.Mui-expanded {
+          margin: 16px 0;
+          width: 100%;
+          align-self: center;
       }
-      .paid {
-        background-color: $c-color-info;
-        color: white;
-      }
-      .two-row {
+      .payment {
         display: flex;
-        width:  85%;
-        justify-content: space-between;
-        & > span:first-child {
-          font-weight: 200;
-        }
-        & > span:last-child {
-          font-size: 1.25em;
-        }
-      }
-      .xs-divider, .lg-divider {
-        height: 1px;
-        background-color: black;
-      }
-      .xs-divider {
-        width: 25%;
-      }
-      .lg-divider {
-        width: 80%;
-      }
-      @include susy-media(1024px) {
-        flex: 4;
-        padding: 16px 4px 16px 4px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        row-gap: 8px;
         .smallButton {
-          width: 175px;
+          width: 300px;
+          @include susy-media($smartphone_small) {
+            width: 175px;
+          }
+          @include susy-media($smartphone_big) {
+            width: 240px;
+          }
+        }
+        .paid {
+          background-color: $c-color-info;
+          color: white;
+        }
+        .two-row {
+          display: flex;
+          width:  85%;
+          justify-content: space-between;
+          & > span:first-child {
+            font-weight: 200;
+          }
+          & > span:last-child {
+            font-size: 1.25em;
+          }
+        }
+        .xs-divider, .lg-divider {
+          height: 1px;
+          background-color: black;
         }
         .xs-divider {
-          width: 35%;
+          width: 25%;
         }
         .lg-divider {
-          width: 90%;
+          width: 80%;
+        }
+        @include susy-media($smartphone) {
+          padding: 16px 4px 16px 4px;
+          .xs-divider {
+            width: 35%;
+          }
+          .lg-divider {
+            width: 90%;
+          }
+        }
+      }
+      .MuiAccordionSummary-content {
+        svg {
+          position: relative;
+          top: -2px;
+        }
+        h5 {
+          margin: 0px 10px;
         }
       }
     }

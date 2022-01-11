@@ -15,7 +15,7 @@ import { CustomModal } from "../customModal/CustomModal";
 import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import { BillItemsDTO, BillPaymentsDTO } from "../../../generated";
-import { Add } from "@material-ui/icons";
+import { Add, FilterList } from "@material-ui/icons";
 import { initialFields as initialItemFields } from "./itemPicker/consts";
 import { getPrices } from "../../../state/prices/actions";
 import { useDispatch } from "react-redux";
@@ -29,13 +29,22 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useHistory } from "react-router";
-import { Backdrop, CircularProgress, Theme } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Backdrop,
+  CircularProgress,
+  Theme,
+} from "@material-ui/core";
 import { useStyles } from "./consts";
 import { newBillReset, updateBillReset } from "../../../state/bills/actions";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+  const [openPayment, setOpenPayment] = useState(false);
 
   const {
     fullBill,
@@ -115,7 +124,25 @@ const PatientNewBill: FC = () => {
     <>
       <div className="patientNewBill">
         <div className="patientNewBill_main">
-          <div className="patientNewBill_left">
+          {billItems.length != 0 && (
+            <div className="patientNewBill_payment">
+              <Accordion expanded={openPayment}>
+                <AccordionSummary onClick={() => setOpenPayment(!openPayment)}>
+                  <FilterList fontSize="small" />
+                  <h5>{t("bill.payment")}</h5>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <ItemPayment
+                    saveBill={saveBill}
+                    handlePaymentDialog={handlePaymentDialog}
+                    billTotal={billTotal}
+                    paymentTotal={paymentTotal}
+                  />
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          )}
+          <div className="patientNewBill_items">
             <div>
               {billTotal == 0 && (
                 <span className={"additem"}>{t("bill.clicktoadditem")}</span>
@@ -139,16 +166,6 @@ const PatientNewBill: FC = () => {
               </SmallButton>
             </div>
           </div>
-          {billItems.length != 0 && (
-            <div className="patientNewBill_right">
-              <ItemPayment
-                saveBill={saveBill}
-                handlePaymentDialog={handlePaymentDialog}
-                billTotal={billTotal}
-                paymentTotal={paymentTotal}
-              />
-            </div>
-          )}
         </div>
         {billTotal == 0 && (
           <div className="patientNewBill_nopayment">

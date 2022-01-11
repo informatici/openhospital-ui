@@ -23,7 +23,7 @@ const ItemPayment: FC<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <>
+    <div className="payment">
       <div className="two-row">
         <span>Total:</span>
         <span>{currencyFormat(billTotal)}</span>
@@ -60,7 +60,7 @@ const ItemPayment: FC<IOwnProps> = ({
       <div>
         <SmallButton onClick={saveBill}>{t("bill.savebill")}</SmallButton>
       </div>
-    </>
+    </div>
   );
 };
 
