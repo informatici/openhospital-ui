@@ -73,7 +73,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
                       {t("dashboard.searchpatients")}
                     </div>
                   </div>
-                </LargeButton>
+                </LargeButton> 
               </div>
             </div>
           </div>

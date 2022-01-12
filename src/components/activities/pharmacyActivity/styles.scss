@@ -1,0 +1,41 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  height: calc(100vh - 120px);
+  @include susy-media($smartphone){
+    height: 100%;
+  }
+  .dashboard__background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $c-color-secondary;
+    @include susy-media($smartphone){
+      padding: 100px 0px;
+    }
+  }
+
+  .dashboard__greeter {
+    width: fit-content;
+    margin-bottom: 20px;
+    font-size: larger;
+  }
+
+  .dashboard__actions {
+    display: flex;
+    width: fit-content;
+    @include susy-media($smartphone){
+      display: block;
+    }
+  }
+
+  .dashboard__actions__button {
+    margin: 10px;
+  }
+}
