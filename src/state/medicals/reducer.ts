@@ -12,11 +12,9 @@ import {
   GET_MEDICAL_SUCCESS,
   NEW_MEDICAL_FAIL,
   NEW_MEDICAL_LOADING,
-  NEW_MEDICAL_RESET,
   NEW_MEDICAL_SUCCESS,
   EDIT_MEDICAL_LOADING,
   EDIT_MEDICAL_FAIL,
-  EDIT_MEDICAL_RESET,
   EDIT_MEDICAL_SUCCESS,
   DELETE_MEDICAL_LOADING,
   DELETE_MEDICAL_FAIL,
@@ -44,12 +42,6 @@ export default produce((draft: IMedicalsState, action: IAction<any, any>) => {
     case NEW_MEDICAL_FAIL: {
       draft.newMedical.status = "FAIL";
       draft.newMedical.error = action.error;
-      break;
-    }
-
-    case NEW_MEDICAL_RESET: {
-      draft.newMedical.status = "IDLE";
-      delete draft.newMedical.error;
       break;
     }
 
@@ -139,12 +131,6 @@ export default produce((draft: IMedicalsState, action: IAction<any, any>) => {
 
     case EDIT_MEDICAL_FAIL: {
       draft.editMedical.status = "FAIL";
-      break;
-    }
-
-    case EDIT_MEDICAL_RESET: {
-      draft.editMedical.status = "IDLE";
-      delete draft.editMedical.error;
       break;
     }
 
