@@ -87,19 +87,19 @@ const MedicalsActivity: FunctionComponent<TProps> = ({
   const onBlurSelect = (e: React.FocusEvent<any>): void => {
     switch (e.target.value) {
       case "L":
-        selectedType = t("medicaltype.lab");
+        selectedType = t("medicaltype.laboratory");
         formik.setFieldValue("type", selectedType);
         break;
       case "S":
-        selectedType = t("medicaltype.surg");
+        selectedType = t("medicaltype.surgery");
         formik.setFieldValue("type", selectedType);
         break;
       case "D":
-        selectedType = t("medicaltype.drug");
+        selectedType = t("medicaltype.drugs");
         formik.setFieldValue("type", selectedType);
         break;
       case "K":
-        selectedType = t("medicaltype.chem");
+        selectedType = t("medicaltype.chemical");
         formik.setFieldValue("type", selectedType);
         break;
         case "":

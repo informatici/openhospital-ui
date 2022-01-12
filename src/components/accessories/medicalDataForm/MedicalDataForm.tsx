@@ -73,7 +73,7 @@ const MedicalDataForm: FunctionComponent<TProps> = (
             }
         break;
     }
-  }, [dispatch, props.fields])
+  }, [dispatch, props.fields, medicalTypeStatus])
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -124,7 +124,7 @@ const MedicalDataForm: FunctionComponent<TProps> = (
             errorText={getErrorText("type")}
             onBlur={onBlurCallback("type")}
             options={options || []}
-            disabled={initialValues.code != "0" || props.isLoading}
+            disabled={initialValues.code > 0 || props.isLoading}
           />
         </div>
 

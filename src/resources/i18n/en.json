@@ -188,6 +188,30 @@
     "nooptionsfound": "No options found",
     "close": "CLOSE"
   },
+  
+  "medicaltype": {
+    "laboratory": "Laboratory",
+    "surgery": "Surgery",
+    "chemical": "Chemical",
+    "drugs": "Drugs",
+    "select": "Select",
+    "all": "All"
+  },
+  "medical": {
+    "code": "Code",
+    "prod_code": "Product code",
+    "type": "Type",
+    "description": "Description",
+    "initialqty": "Initial quantity",
+    "pcsperpck": "Pieces per package",
+    "inqty": "In quantity",
+    "outqty": "Out quantity",
+    "minqty": "Minimum quantity",
+    "medicalregistrationsuccessfull": "The pharmaceutical registration was successful.",
+    "stockreport":"Report of stock",
+    "orderreport": "Report of order",
+    "cardreport": "Report of stock card"
+  },
   "therapy": {
     "newtherapy": "New Therapy",
     "managetherapy": "Manage Therapy",

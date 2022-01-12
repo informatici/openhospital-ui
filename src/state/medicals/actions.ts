@@ -1,12 +1,6 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { TValues } from "../../components/activities/MedicalsActivity/types";
-import {
-  Configuration,
-  GetMedicalsUsingGETSortByEnum,
-  MedicalControllerApi,
-  MedicalDTO,
-} from "../../generated";
+import { Configuration, GetMedicalsUsingGETSortByEnum, MedicalControllerApi, MedicalDTO } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
 import {

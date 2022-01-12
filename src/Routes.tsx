@@ -13,7 +13,7 @@ import NotFound from "./components/activities/notFound/NotFound";
 import PatientDetailsActivity from "./components/activities/patientDetailsActivity/PatientDetailsActivity";
 import SearchPatientActivity from "./components/activities/searchPatientActivity/SearchPatientActivity";
 import NewMedicalActivity from "./components/activities/newMedicalActivity/NewMedicalActivity";
-import MedicalsActivity from "./components/activities/MedicalsActivity/MedicalsActivity";
+import MedicalsActivity from "./components/activities/medicalsActivity/MedicalsActivity";
 import EditMedicalActivity from "./components/activities/editMedicalActivity/EditMedicalActivity";
 import PharmacyActivity from "./components/activities/pharmacyActivity/PharmacyActivity";
 
@@ -53,7 +53,7 @@ const Routes: FunctionComponent = () => {
           <PatientDetailsActivity />
         </PrivateRoute>
         <PrivateRoute path="/Pharmacy">
-          <PharmacyActivity 
+        <PharmacyActivity 
             medicalsRoute="/Medicals"/>
         </PrivateRoute>
         <PrivateRoute path="/newMedical">
