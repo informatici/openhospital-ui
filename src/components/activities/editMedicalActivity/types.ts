@@ -13,7 +13,7 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   getMedical: (code: number) => void;
-  updateMedical: (medicalDTO: MedicalDTO, ignoreSimilar: boolean ) => any;
+  updateMedical: (medicalDTO: MedicalDTO, ignoreSimilar: boolean ) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;

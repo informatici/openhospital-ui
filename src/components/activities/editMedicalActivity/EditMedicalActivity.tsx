@@ -90,9 +90,6 @@ const switchGetMedicalStatus = () =>
   switch(getMedicalStatus)
   {
     case "IDLE":
-      // if(isEmpty(medical.data))
-      //   setActivityTransitionState("LOADING");
-      // else
         setActivityTransitionState("IDLE");
       break;
     case "LOADING":
