@@ -14,7 +14,7 @@ import { getMedicals } from "../../../state/medicals/actions";
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyRowDTO } from "../../../generated";
+import { GetMedicalsUsingGETSortByEnum, TherapyRowDTO } from "../../../generated";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -61,7 +61,7 @@ const PatientTherapy: FC = () => {
   useEffect(() => {
     dispatch(deleteTherapyReset());
     dispatch(deleteTherapyReset());
-    dispatch(getMedicals());
+    dispatch(getMedicals(GetMedicalsUsingGETSortByEnum.NAME));
   }, [dispatch]);
 
   useEffect(() => {

@@ -1,16 +1,15 @@
 import { Tooltip, Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import { Trans } from "react-i18next";
 import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect, useLocation, Route  } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, TProps } from "./types";
+import { IDispatchProps, IStateProps, TProps, TActivityTransitionState } from "./types";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IState } from "../../../types";
 import { connect, useSelector } from "react-redux";
@@ -18,6 +17,7 @@ import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
+import Pharmacy from "../../activities/pharmacyActivity/PharmacyActivity";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -26,6 +26,8 @@ const AppHeader: FunctionComponent<TProps> = ({
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
 
+  const location = useLocation();
+  
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const username = useSelector(
@@ -44,24 +46,34 @@ const AppHeader: FunctionComponent<TProps> = ({
     setLogoutThunk();
   };
   const history = useHistory();
-  return (
-    <div className={classNames("appHeader", { open_menu: isOpen })}>
-      <div className="appHeader__top">
-        <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
-        <div className="userInfo__wrapper">
-          <div className="userInfo__toolbar">
-            <span>
-              <span className="user-welcome">{t("dashboard.welcomename")}</span>
-              &nbsp;
-              <strong className="user-name">{username}</strong>
-            </span>
-            <Tooltip title={t("login.signout")!} aria-label="sign out">
-              <ExitToAppIcon
-                className="userInfo__toolbar_icon"
-                id="signout_icon"
-                onClick={() => setOpenLogoutConfirmation(true)}
-              />
-            </Tooltip>
+
+  const [activityTransitionState, setActivityTransitionState] =
+  useState<TActivityTransitionState>("IDLE");
+  
+  switch (activityTransitionState) {
+    case "TO_PHARMACY":
+        return (<div><Redirect exact from="/"  to={`/Pharmacy/`} />
+             <Route component={Pharmacy} exact path="/Pharmacy" />
+             </div>);
+    default:
+      return (
+        <div className={classNames("appHeader", { open_menu: isOpen })}>
+          <div className="appHeader__top">
+            <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
+            <div className="userInfo__wrapper">
+              <div className="userInfo__toolbar">
+                <span>
+                  <span className="user-welcome">{t("dashboard.welcomename")}</span>
+                  &nbsp;
+                  <strong className="user-name">{username}</strong>
+                </span>
+                <Tooltip title={t("login.signout")!} aria-label="sign out">
+                  <ExitToAppIcon
+                    className="userInfo__toolbar_icon"
+                    id="signout_icon"
+                    onClick={() => setOpenLogoutConfirmation(true)}
+                  />
+                </Tooltip>
           </div>
           {navigator.onLine && (
             <div className="appHeader__help" title="Help">
@@ -89,41 +101,46 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__identified__main">
               <div className="appHeader__identified__main__headline">
                 Princeton-Plainsboro Teaching Hospital
-              </div>
-              <Breadcrumbs>
-                <div className="appHeader__home_icon">
-                  <HomeIcon fontSize="small" style={{ color: "#fff" }} />
+
+                  </div>
+                  <Breadcrumbs>
+                    <div className="appHeader__home_icon">
+                      <HomeIcon fontSize="small" style={{ color: "#fff" }} />
+                    </div>
+                    {keys.map((key, index) => (
+                      <Link key={index} to={breadcrumbMap[key]}>
+                        <Typography color="textPrimary">{key}</Typography>
+                      </Link>
+                    ))}
+                    <Typography color="textPrimary">{trailEdgeKey}</Typography>
+                  </Breadcrumbs>
                 </div>
-                {keys.map((key, index) => (
-                  <Link key={index} to={breadcrumbMap[key]}>
-                    <Typography color="textPrimary">{key}</Typography>
-                  </Link>
-                ))}
-                <Typography color="textPrimary">{trailEdgeKey}</Typography>
-              </Breadcrumbs>
-            </div>
-            <div
-              className="appHeader__identified__trigger"
-              onClick={() => openMenu(!isOpen)}
-            >
-              <div className="trigger_x"></div>
-              <div className="trigger_y"></div>
-              <div className="trigger_z"></div>
-            </div>
-          </div>
-          <div className="appHeader__nav">
-            <div className="appHeader__nav_items">
-              <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
-              <div className="appHeader__nav__item">{t("nav.ward")}</div>
-              <div
-                className="appHeader__nav__item"
-                onClick={() => history.push("/billing")}
-              >
-                {t("nav.billing")}
+                <div
+                  className="appHeader__identified__trigger"
+                  onClick={() => openMenu(!isOpen)}
+                >
+                  <div className="trigger_x"></div>
+                  <div className="trigger_y"></div>
+                  <div className="trigger_z"></div>
+                </div>
+              </div>
+              <div className="appHeader__nav">
+                <div className="appHeader__nav_items">
+                  <div className="appHeader__nav__item" onClick={() => { 
+                    if(location.pathname != "/Pharmacy/") 
+                      setActivityTransitionState("TO_PHARMACY"); }}
+                      >
+                      {t("nav.pharmacy")} 
+                  </div>
+                  <div className="appHeader__nav__item">{t("nav.ward")}</div>
+                  <div 
+                    className="appHeader__nav__item"
+                    onClick={() => history.push("/billing")}
+                  >
+                      {t("nav.billing")}</div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
       </div>
       <ConfirmationDialog
         isOpen={openLogoutConfirmation}
@@ -137,6 +154,7 @@ const AppHeader: FunctionComponent<TProps> = ({
       />
     </div>
   );
+}
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({

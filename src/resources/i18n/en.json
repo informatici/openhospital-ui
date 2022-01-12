@@ -106,6 +106,9 @@
   },
   "nav": {
     "pharmacy": "Pharmacy",
+    "pharmaceuticals": "Pharmaceuticals",
+    "pharmaceuticalstock": "Pharmaceutical Stock",
+    "pharmaceuticalstockward": "Pharmaceutical Stock Ward",
     "ward": "Ward",
     "billing": "Billing",
     "summary": "Summary",
@@ -115,6 +118,8 @@
     "booking": "Booking",
     "dashboard": "Dashboard",
     "newpatient": "New patient",
+    "newmedical": "New Pharmaceutical",
+    "editmedical": "Edit Pharmaceutical",
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard",
@@ -122,7 +127,7 @@
     "discharge": "Discharges",
     "surgicalrecord": "Surgical Record",
     "note": "Note",
-    "exams": "Exams",
+    "exams": "Exams",    
     "newbill": "New Bill",
     "billsrecords": "Bills Records",
     "searchbill": "Search facture",
@@ -130,17 +135,27 @@
     "managebills": "Manage Bills",
     "billrecords": "Bill Records"
   },
+  "pharmacy": {
+    "pharmaceuticals": "Pharmaceuticals",
+    "pharmaceuticalstock": "Pharmaceutical Stock",
+    "pharmaceuticalstockward": "Pharmaceutical Stock Ward"
+  },
   "common": {
     "ok": "OK",
     "results": "Results",
     "feedback": "Feedback",
     "submit": "Submit",
     "reset": "Reset",
-    "search": "Search",
+    "search": "Search",   
+    "new": "New",
+    "export": "Export",
+    "report": "Report",
     "searching": "Searching",
+    "loading": "Loading",
     "patient": "Patient",
     "clearall": "Clear All",
     "dashboard": "Dashboard",
+    "medicals": "Pharmaceuticals",
     "saveopd": "Save OPD",
     "discard": "Discard",
     "dismiss": "Dismiss",
@@ -173,6 +188,30 @@
     "type": "Type",
     "nooptionsfound": "No options found",
     "close": "CLOSE"
+  },
+  
+  "medicaltype": {
+    "laboratory": "Laboratory",
+    "surgery": "Surgery",
+    "chemical": "Chemical",
+    "drugs": "Drugs",
+    "select": "Select",
+    "all": "All"
+  },
+  "medical": {
+    "code": "Code",
+    "prod_code": "Product code",
+    "type": "Type",
+    "description": "Description",
+    "initialqty": "Initial quantity",
+    "pcsperpck": "Pieces per package",
+    "inqty": "In quantity",
+    "outqty": "Out quantity",
+    "minqty": "Minimum quantity",
+    "medicalregistrationsuccessfull": "The pharmaceutical registration was successful.",
+    "stockreport":"Report of stock",
+    "orderreport": "Report of order",
+    "cardreport": "Report of stock card"
   },
   "therapy": {
     "newtherapy": "New Therapy",

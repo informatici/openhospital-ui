@@ -1,8 +1,9 @@
 import { IExaminationsState } from "./state/examinations/types";
 import { IMainState } from "./state/main/types";
 import { IOpdState } from "./state/opds/types";
-import { IMedicalState } from "./state/medicals/types";
 import { IPatientsState } from "./state/patients/types";
+import { IMedicalsState } from "./state/medicals/types";
+import { IMedicalTypesState } from "./state/medicaltypes/types";
 import { ISummaryState } from "./state/summary/types";
 import { ITherapiesState } from "./state/therapies/types";
 import { IDiseaseState } from "./state/diseases/types";
@@ -18,12 +19,13 @@ import { IPricesState } from "./state/prices/types";
 export interface IState {
   main: IMainState;
   patients: IPatientsState;
+  medicals: IMedicalsState;
+  medicaltypes: IMedicalTypesState;
   examinations: IExaminationsState;
   therapies: ITherapiesState;
   diseases: IDiseaseState;
   summary: ISummaryState;
   opds: IOpdState;
-  medicals: IMedicalState;
   admissions: IAdmissionsState;
   admissionTypes: IAdmissionTypeState;
   dischargeTypes: IDischargeTypeState;

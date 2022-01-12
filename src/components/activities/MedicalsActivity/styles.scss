@@ -1,0 +1,257 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.medicalsGrid_main {
+  height: fit-content;
+  width: 100%;
+  margin: 0px 0px 10px 10px;
+  font-size: 11px;
+  border-style: none;
+
+  @include susy-media($smartphone) {
+    margin: 0px 10px 40px 10px;
+  }
+}
+
+.MuiIconButton-root.icon-button {
+  padding: 6px;
+}
+
+.MuiButtonBase-root.icon-button {
+  vertical-align: baseline;
+}
+
+.medicals {
+  background-color: $c-color-secondary;
+
+  .medicals__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .headContainer {
+    display: flex;
+    margin: 20px 80px 20px 80px;
+  }
+  .medicals__title {
+    flex: 0 0 40%;
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+  }
+  .medicals_buttonset {
+    flex: 1;
+    text-align: end;
+  }
+
+  &__export__button {
+    text-decoration: none;
+  }
+
+  .medicals__button {
+    background-color: $c-color-primary !important;
+    color: $c-white !important;
+    border-radius: 30px;
+    height: 30px;
+    width: 60px;
+    margin: 10px;
+  }
+
+  .medicals__button__label {
+    font-size: 9px;
+    font-weight: bold;
+  }
+
+  .medicals__primary {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: $c-color-secondary;
+    width: 100%;
+    padding: 20px 0px;
+    @include susy-media($smartphone) {
+      display: block;
+      text-align: center;
+      justify-content: initial;
+      align-items: initial;
+    }
+    .row {
+      width: 100%;
+      flex-wrap: initial;
+      @include susy-media($smartphone) {
+        width: 100%;
+        display: block;
+        margin: 0px;
+      }
+    }
+    .medicals__formItem {
+      width: 100%;
+      display: flex;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+    }
+
+    .medicals__formItem.fast__search {
+      background-color: #fff;
+      border: solid 0.5px lightgrey;
+      border-radius: 5px;
+      .MuiOutlinedInput-notchedOutline {
+        border: none !important;
+      }
+
+      .selectField {
+        width: 30%;
+        .MuiFormLabel-root.Mui-error {
+          color: #757575;
+        }
+        .MuiSelect-select.MuiInputBase-input {
+          border-right: solid 1px lightgrey;
+          border-radius: 0;
+        }
+      }
+
+      .search__button {
+        .smallButton {
+          background-color: #fff !important;
+          color: red !important;
+          height: 60px;
+          width: 90px;
+        }
+      }
+    }
+  }
+
+  .medicals__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $c-white;
+    border-radius: 10px;
+    border-style: none;
+    margin: 20px 80px 60px 80px;
+    overflow: hidden;
+    @include susy-media($smartphone) {
+      margin: 20px 20px 40px 20px;
+    }
+  }
+
+  .medicals__loading {
+    font-size: x-large;
+    margin: 0px 20px 50px;
+    &:after {
+      display: inline-block;
+      animation: dotty steps(1, end) 1s infinite;
+      content: "";
+    }
+
+    @keyframes dotty {
+      0% {
+        content: "";
+      }
+      25% {
+        content: ".";
+      }
+      50% {
+        content: "..";
+      }
+      75% {
+        content: "...";
+      }
+      100% {
+        content: "";
+      }
+    }
+  }
+
+  .medicals__results_none {
+    padding: 20px;
+    margin: 0px 20px 50px;
+    &.error {
+      color: $c-color-primary;
+      border: 1px solid $c-color-primary;
+      background-color: lighten($c-color-primary, 40%);
+    }
+    &.warning {
+      color: $c-black;
+      border: 1px solid $c-grey-lighter;
+      background-color: lighten($c-black, 80%);
+    }
+
+    h4 {
+      margin: 0px;
+    }
+  }
+
+  .medicals__primary__divider {
+    color: $c-white;
+    font-weight: 500;
+    padding: 15px 0px 10px 0px;
+    margin: 10px;
+  }
+
+  .medicals__secondary {
+    padding-bottom: 100%;
+    .medicals__formItem {
+      width: 35%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+      .MuiFormControl-marginDense {
+        margin: 0px;
+      }
+    }
+    .row {
+      @include susy-media($smartphone) {
+        width: 100%;
+        display: block;
+        padding: 0px 20px;
+        margin: 0px;
+      }
+    }
+  }
+
+  .medicals__formItem {
+    // margin: 5px 10px;
+    @include susy-media($smartphone) {
+      margin: 10px 0px;
+    }
+    .MuiFormControl-marginDense {
+      width: 100%;
+    }
+  }
+
+  .medicals__info {
+    margin: 20px;
+    @include susy-media($smartphone) {
+      text-align: center;
+      margin: 0px 20px 20px;
+    }
+  }
+
+  .medicals__results {
+    .medicals__results_list {
+      display: flex;
+      flex: 0 1 auto;
+      flex-wrap: wrap;
+      margin: 0px 20px 60px 20px;
+      @include susy-media($smartphone) {
+        margin: 0px 10px 40px 10px;
+      }
+    }
+    .medicals__results_count {
+      font-size: x-large;
+      margin-bottom: 30px;
+      margin-left: 20px;
+      @include susy-media($smartphone) {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .footer {
+    position: relative;
+  }
+}
