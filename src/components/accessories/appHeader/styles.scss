@@ -235,19 +235,6 @@
     }
   }
 
-  .MuiButton-root {
-    border-radius: 0;
-    &:hover, :active {
-      background-color: transparent;
-    }
-  }
-
-  .MuiButton-label {
-    font-size: medium;
-    text-transform: none;
-    margin-top: -2px;
-  }
-
   .appHeader__nav {
     @include susy-media($tablet_land) {
       display: block;
@@ -333,31 +320,6 @@
     }
   }
 
-  .appHeader__nav__subitem {
-    visibility: collapse;
-    font-size: small;
-    margin: 0px 15px;
-    padding: 2px;
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
-    border-bottom: 1px solid transparent;
-    @include susy-media($tablet_land) {
-      font-size: 1.5rem;
-      color: $c-white;
-      margin: 0px 20px 35px 20px;
-    }
-    @include susy-media($tablet_port) {
-      font-size: 1.5rem;
-      color: $c-white;
-      margin: 0px 20px 35px 20px;
-    }
-    @include susy-media($smartphone) {
-      font-size: 1.5rem;
-      color: $c-white;
-      margin: 0px 20px 35px 20px;
-    }
-  }
-
   a {
     display: inline-block;
     text-decoration: none;
@@ -365,9 +327,6 @@
   }
 
   .appHeader__nav__item:hover {
-    ~ .appHeader__nav__subitem {
-      visibility: visible;
-    }
     border-bottom: 1px solid;
     @include susy-media($tablet_land) {
       border-bottom: 2px solid;

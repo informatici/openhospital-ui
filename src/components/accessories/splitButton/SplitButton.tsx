@@ -18,20 +18,8 @@ const SplitButton: FunctionComponent<IProps> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const { t } = useTranslation();
-
-  // const handleClick = () => {
-  //   console.info(`You clicked ${descriptions[selectedIndex]}`);
-  // };
-
-  // const handleMenuItemClick = (
-  //   event: React.MouseEvent<Element, MouseEvent>,
-  //   index: number,
-  // ) => {
-  //   onClick(index);
-  // };
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -47,27 +35,16 @@ const SplitButton: FunctionComponent<IProps> = ({
 
   return (
     <span ref={anchorRef} >
-      {/*   <ButtonGroup  aria-label="split button"> color="primary" ref={anchorRef} */}
-          {/* <Button
-            onClick={handleClick}>{label}
-          </Button> */}
           <Button
             type={type}
-            // variant="contained"
-            // color="primary"
-            // size="small"
             className={className}
             aria-controls={open ? 'split-button-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
-            // aria-label={label}
             aria-haspopup="menu"
             onClick={handleToggle}
           > 
           {label}
-            {/* <div className="button__label"> {label}</div> */}
-            {/* <ArrowDropDownIcon /> */}
           </Button>
-        {/* </ButtonGroup> */}
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition>
           {({ TransitionProps, placement }) => (
             <Grow

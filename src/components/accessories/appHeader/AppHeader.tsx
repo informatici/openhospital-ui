@@ -129,7 +129,11 @@ const AppHeader: FunctionComponent<TProps> = ({
                   <div className="appHeader__nav__item" onClick={() => { 
                     if(location.pathname != "/Pharmacy/") setActivityTransitionState("TO_PHARMACY"); }}>{t("nav.pharmacy")} </div>
                   <div className="appHeader__nav__item">{t("nav.ward")}</div>
-                  <div className="appHeader__nav__item">{t("nav.billing")}</div>
+                  <div 
+                    className="appHeader__nav__item"
+                    onClick={() => history.push("/billing")}
+                  >
+                      {t("nav.billing")}</div>
                 </div>
               </div>
             </div>

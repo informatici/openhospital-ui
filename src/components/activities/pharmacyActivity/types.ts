@@ -1,6 +1,4 @@
-// import { LoginResponse } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
-// import { IAction } from "../../../state/types";
 
 export interface IOwnProps {
   medicalsRoute: string;
