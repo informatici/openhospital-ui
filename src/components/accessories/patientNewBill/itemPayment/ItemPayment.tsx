@@ -37,15 +37,17 @@ const ItemPayment: FC<IOwnProps> = ({
         <span>To be paid:</span>
         <span>{currencyFormat(billTotal - paymentTotal)}</span>
       </div>
-      <div>
+      <div className="payment__buttons">
         {(billTotal > 0 && billTotal - paymentTotal == 0 && (
-          <Button
-            className={"paid"}
-            variant="outlined"
-            startIcon={<CheckCircleRounded />}
-          >
-            {t("bill.paid")}
-          </Button>
+          <div>
+            <Button
+              className={"paid"}
+              variant="outlined"
+              startIcon={<CheckCircleRounded />}
+            >
+              {t("bill.paid")}
+            </Button>
+          </div>
         )) || (
           <SmallButton
             onClick={() => {
@@ -55,9 +57,7 @@ const ItemPayment: FC<IOwnProps> = ({
             {t("bill.pay")}
           </SmallButton>
         )}
-      </div>
-      <div className="lg-divider"></div>
-      <div>
+        <div className="lg-divider"></div>
         <SmallButton onClick={saveBill}>{t("bill.savebill")}</SmallButton>
       </div>
     </div>

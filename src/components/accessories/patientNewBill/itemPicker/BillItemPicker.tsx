@@ -189,20 +189,15 @@ const BillItemPickerForm: FC<BillItemProps> = ({
           type="number"
         />
       </div>
-      <div id="third">
-        <TextButton onClick={handleResetConfirmation}>
-          {t("button.discard")}
-        </TextButton>
-        <SmallButton
-          disabled={!isFormValid}
-          onClick={(e) => {
-            e.preventDefault();
-            handleFormSubmit(formatAllFieldValues(fields, values));
-          }}
-        >
-          {t("button.save")}
-        </SmallButton>
-      </div>
+      <SmallButton
+        disabled={!isFormValid}
+        onClick={(e) => {
+          e.preventDefault();
+          handleFormSubmit(formatAllFieldValues(fields, values));
+        }}
+      >
+        {t("button.save")}
+      </SmallButton>
     </form>
   );
 };
