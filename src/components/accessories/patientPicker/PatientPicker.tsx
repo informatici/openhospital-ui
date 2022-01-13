@@ -281,17 +281,19 @@ const PatientPicker: FC<IProps> = ({
       >
         <AppBar style={{ position: "relative" }}>
           <Toolbar>
+            <Typography style={{ flex: 1 }} variant="h6" component="div">
+              {t("patient.search")}
+            </Typography>
             <IconButton
-              edge="start"
+              edge="end"
               color="inherit"
-              onClick={handleClose}
+              onClick={() => {
+                handleClose();
+              }}
               aria-label="close"
             >
               <GridCloseIcon />
             </IconButton>
-            <Typography style={{ flex: 1 }} variant="h6" component="div">
-              {t("patient.search")}
-            </Typography>
           </Toolbar>
         </AppBar>
         <DialogContent>
