@@ -68,7 +68,7 @@ const PatientPicker: FC<IProps> = ({
   const handleClose = () => {
     setOpen(false);
   };
-  const handleCriteriaChange = (event: any) => {
+  const handleCriteriaChange = () => {
     handleOpen();
   };
 
@@ -109,7 +109,7 @@ const PatientPicker: FC<IProps> = ({
       : "";
   };
 
-  const handleClick = (patient: PatientDTO) => {
+  const handleClick = (event: any, patient: PatientDTO) => {
     setValue(patient);
     handleClose();
   };
@@ -160,7 +160,7 @@ const PatientPicker: FC<IProps> = ({
                 >
                   <Card
                     className="patient_card"
-                    onClick={() => handleClick(patient)}
+                    onClick={(event: any) => handleClick(event, patient)}
                   >
                     <CardActionArea>
                       <ProfilePicture style={profileStyle} isEditable={false} />
@@ -232,7 +232,7 @@ const PatientPicker: FC<IProps> = ({
   };
 
   return (
-    <div>
+    <>
       <FormControl variant="outlined" className={actualClassName}>
         <MaterialComponent
           id="patient_search"
@@ -243,6 +243,7 @@ const PatientPicker: FC<IProps> = ({
           value={value.firstName ?? ""}
           type={"text"}
           onBlur={handleOnBlur}
+          onMouseDown={handleCriteriaChange}
           InputLabelProps={{ shrink: true }}
           error={isValid}
           InputProps={{
@@ -251,7 +252,7 @@ const PatientPicker: FC<IProps> = ({
                 {!value?.firstName ? (
                   <IconButton
                     aria-label="toggle patient search"
-                    onClick={handleCriteriaChange}
+                    onMouseDown={handleCriteriaChange}
                   >
                     <Search />
                   </IconButton>
@@ -259,7 +260,7 @@ const PatientPicker: FC<IProps> = ({
                   <IconButton
                     edge="start"
                     color="inherit"
-                    onClick={() => {
+                    onMouseDown={() => {
                       setValue({});
                     }}
                     aria-label="close"
@@ -287,7 +288,7 @@ const PatientPicker: FC<IProps> = ({
             <IconButton
               edge="end"
               color="inherit"
-              onClick={() => {
+              onClick={(event: any) => {
                 handleClose();
               }}
               aria-label="close"
@@ -368,7 +369,7 @@ const PatientPicker: FC<IProps> = ({
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 export default PatientPicker;
