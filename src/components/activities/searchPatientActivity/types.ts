@@ -10,7 +10,7 @@ export interface IStateProps {
 
 export interface IPatientSearchItemProps {
   patient: PatientDTO;
-  getPatientSuccessCallback: (patient: PatientDTO) => void;
+  getPatientSuccessCallback?: (patient: PatientDTO) => void;
 }
 
 export interface IDispatchProps {

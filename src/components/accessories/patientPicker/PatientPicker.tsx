@@ -36,13 +36,17 @@ import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
 import Button from "../button/Button";
 import { TextField as MaterialComponent } from "@material-ui/core";
-import { searchPatient } from "../../../state/patients/actions";
+import {
+  getPatientSuccess,
+  searchPatient,
+} from "../../../state/patients/actions";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
 import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
+import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
 
 const PatientPicker: FC<IProps> = ({
   fieldName,
@@ -109,7 +113,7 @@ const PatientPicker: FC<IProps> = ({
       : "";
   };
 
-  const handleClick = (event: any, patient: PatientDTO) => {
+  const handleClick = (patient: PatientDTO) => {
     setValue(patient);
     handleClose();
   };
@@ -130,97 +134,30 @@ const PatientPicker: FC<IProps> = ({
   const searchStatus = useSelector<IState, string | undefined>(
     (state) => state.patients.searchResults.status
   );
-  const renderSearch = (): JSX.Element | undefined => {
+  const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
         return;
 
       case "LOADING":
-        return <h3>{t("common.searching")}</h3>;
+        return (
+          <h3 className="searchPatient__loading">{t("common.searching")}</h3>
+        );
 
       case "SUCCESS":
         return (
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            justify="flex-start"
-            alignItems="flex-start"
-          >
-            {patientData?.map((patient) => {
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={4}
-                  xl={3}
-                  key={patientData.indexOf(patient)}
-                >
-                  <Card
-                    className="patient_card"
-                    onClick={(event: any) => handleClick(event, patient)}
-                  >
-                    <CardActionArea>
-                      <ProfilePicture style={profileStyle} isEditable={false} />
-                      <CardContent className="patient_card_content">
-                        <Typography
-                          gutterBottom
-                          variant="h6"
-                          component="h6"
-                          style={{ fontSize: 16 }}
-                          className="attribute_item"
-                        >
-                          {patient.firstName}
-                          {patient.sex === "M" ? (
-                            <SvgIcon className="imageIcon">
-                              <MaleIcon />
-                            </SvgIcon>
-                          ) : (
-                            <SvgIcon className="imageIcon">
-                              <FemaleIcon />
-                            </SvgIcon>
-                          )}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                          className="attribute_item"
-                        >
-                          <Phone />
-                          {patient.telephone}
-                        </Typography>
-
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                          className="attribute_item"
-                        >
-                          <Room />
-                          {patient.address}
-                        </Typography>
-
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                          className="attribute_item"
-                        >
-                          <Cake />
-                          {patient.birthDate
-                            ? renderDate(patient.birthDate)
-                            : ""}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-              );
-            })}
-          </Grid>
+          <div className="searchPatient__results">
+            <div className="searchPatient__results_count">
+              {t("common.results")}: <strong>{patientData?.length}</strong>
+            </div>
+            <div className="searchPatient__results_list">
+              {patientData?.map((patient, index) => (
+                <div onClick={() => handleClick(patient)}>
+                  <PatientSearchItem key={index} patient={patient} />
+                </div>
+              ))}
+            </div>
+          </div>
         );
 
       case "SUCCESS_EMPTY":
@@ -260,7 +197,8 @@ const PatientPicker: FC<IProps> = ({
                   <IconButton
                     edge="start"
                     color="inherit"
-                    onMouseDown={() => {
+                    onMouseDown={(event: any) => {
+                      event.stopPropagation();
                       setValue({});
                     }}
                     aria-label="close"
@@ -365,7 +303,7 @@ const PatientPicker: FC<IProps> = ({
                 </div>
               </div>
             </form>
-            <div className="patientSearchResult">{renderSearch()}</div>
+            <div className="patientSearchResult">{renderSearchResults()}</div>
           </div>
         </DialogContent>
       </Dialog>

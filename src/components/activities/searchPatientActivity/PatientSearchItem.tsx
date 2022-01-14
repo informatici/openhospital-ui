@@ -13,7 +13,10 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
     useState<TActivityTransitionState>("IDLE");
 
   useEffect(() => {
-    if (activityTransitionState === "TO_PATIENT_DETAILS") {
+    if (
+      getPatientSuccessCallback &&
+      activityTransitionState === "TO_PATIENT_DETAILS"
+    ) {
       getPatientSuccessCallback(patient);
     }
   }, [activityTransitionState, getPatientSuccessCallback, patient]);
@@ -24,7 +27,9 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
 
   switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":
-      return <Redirect to={`/details/${patient.code}`} />; //TODO: use actual patient id instead
+      return getPatientSuccessCallback ? (
+        <Redirect to={`/details/${patient.code}`} />
+      ) : null; //TODO: use actual patient id instead
     default:
       return (
         <div className="patientSearchItem col-xs-12">

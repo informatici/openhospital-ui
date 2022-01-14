@@ -28,6 +28,7 @@ import { TUserCredentials } from "../../../state/main/types";
 import { union } from "lodash";
 import { monthList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
+import SelectField from "../selectField/SelectField";
 
 ChartJS.register(
   CategoryScale,
@@ -46,6 +47,12 @@ export const BillsRecap: FC = () => {
   const { t } = useTranslation();
   const [summary, billSummaryChange] = useState({} as IBillSummary);
   const dispatch = useDispatch();
+  const [year, setYear] = useState(() => {
+    return {
+      value: new Date().getFullYear().toString(),
+      label: new Date().getFullYear().toString(),
+    };
+  });
 
   const data = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.searchBills.data ?? [];
@@ -69,7 +76,11 @@ export const BillsRecap: FC = () => {
     dispatch(searchBills(filter as TFilterValues));
   }, [dispatch]);
 
-  const getOptions = (title: string, enableTooltip: boolean = true) => {
+  const getOptions = (
+    title: string,
+    enableTooltip: boolean = true,
+    chosenYear: string = ""
+  ) => {
     return {
       responsive: false,
       plugins: {
@@ -85,14 +96,14 @@ export const BillsRecap: FC = () => {
         },
         title: {
           display: true,
-          text: title,
+          text: title + " " + chosenYear,
         },
       },
     };
   };
 
   const getDataFromObject = useCallback(
-    (obj: string, label: string) => {
+    (obj: string, label: string, year: number) => {
       return {
         labels: (summary as any)[obj] ? Object.keys((summary as any)[obj]) : [],
         datasets: [
@@ -209,34 +220,64 @@ export const BillsRecap: FC = () => {
             false
           )}
         />
-        <Bar
-          options={getOptions(t("bill.bestsellingbyquantity"))}
-          data={getDataFromObject(
-            "bestSellingByQuantity",
-            t("bill.totalquantity")
-          )}
-        />
-        <Bar
-          options={getOptions(t("bill.bestsellingbyoccurence"))}
-          data={getDataFromObject(
-            "bestSellingByOccurence",
-            t("bill.totaloccurence")
-          )}
-        />
-        <Bar
-          options={getOptions(t("bill.bestpatients"))}
-          data={getDataFromObject(
-            "bestPatientsByPayments",
-            t("bill.totalpayment")
-          )}
-        />
-        <Bar
-          options={getOptions(t("bill.mostindebtpatients"))}
-          data={getDataFromObject("mostIndebtedPatients", t("bill.totaldebt"))}
-        />
         <Line
           options={getOptions(t("bill.paymentsvariations"))}
           data={paymentsVariationsData}
+        />
+        <SelectField
+          fieldName="status"
+          fieldValue={year.value}
+          label={t("bill.year")}
+          isValid={false}
+          errorText={""}
+          onBlur={(e: any, value: any) => {
+            setYear({ value: value, label: value });
+          }}
+          options={[
+            { value: "2021", label: "2021" },
+            { value: "2022", label: "2022" },
+            { value: "2023", label: "2023" },
+          ]}
+        />
+        <Bar
+          options={getOptions(
+            t("bill.bestsellingbyquantity"),
+            true,
+            year.value
+          )}
+          data={getDataFromObject(
+            "bestSellingByQuantity",
+            t("bill.totalquantity"),
+            +year.value
+          )}
+        />
+        <Bar
+          options={getOptions(
+            t("bill.bestsellingbyoccurence"),
+            true,
+            year.value
+          )}
+          data={getDataFromObject(
+            "bestSellingByOccurence",
+            t("bill.totaloccurence"),
+            +year.value
+          )}
+        />
+        <Bar
+          options={getOptions(t("bill.bestpatients"), true, year.value)}
+          data={getDataFromObject(
+            "bestPatientsByPayments",
+            t("bill.totalpayment"),
+            +year.value
+          )}
+        />
+        <Bar
+          options={getOptions(t("bill.mostindebtpatients"), true, year.value)}
+          data={getDataFromObject(
+            "mostIndebtedPatients",
+            t("bill.totaldebt"),
+            +year.value
+          )}
         />
       </div>
     </div>

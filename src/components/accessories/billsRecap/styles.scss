@@ -21,10 +21,19 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-         margin: 0 auto;
+        margin: 0 auto;
         canvas {
             padding: 5px;
-        }         
+        } 
+
+        .filter__by__years {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 auto;
+        }
     }
     
 }
