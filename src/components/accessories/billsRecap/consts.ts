@@ -12,3 +12,8 @@ export const monthList = [
   "November",
   "December",
 ];
+
+export const yearList = Array.from(
+  new Array(10),
+  (val, index) => new Date().getFullYear() - index
+);

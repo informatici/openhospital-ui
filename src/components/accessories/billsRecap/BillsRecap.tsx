@@ -3,7 +3,7 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { FullBillDTO } from "../../../generated";
-import { searchBills } from "../../../state/bills/actions";
+import { getBillsByYear, searchBills } from "../../../state/bills/actions";
 import { IState } from "../../../types";
 import { IBillSummary } from "../../activities/billingActivity/types";
 import { TFilterValues } from "../billTable/types";
@@ -26,7 +26,7 @@ import { computeBillSummary } from "./billsMining";
 import "./styles.scss";
 import { TUserCredentials } from "../../../state/main/types";
 import { union } from "lodash";
-import { monthList } from "./consts";
+import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import SelectField from "../selectField/SelectField";
 
@@ -45,7 +45,10 @@ ChartJS.register(
 );
 export const BillsRecap: FC = () => {
   const { t } = useTranslation();
-  const [summary, billSummaryChange] = useState({} as IBillSummary);
+  const [summaryCurrentYear, summaryCurrentYearChange] = useState(
+    {} as IBillSummary
+  );
+  const [summaryByYear, summaryByYearChange] = useState({} as IBillSummary);
   const dispatch = useDispatch();
   const [year, setYear] = useState(() => {
     return {
@@ -54,8 +57,12 @@ export const BillsRecap: FC = () => {
     };
   });
 
-  const data = useSelector<IState, FullBillDTO[]>((state) => {
+  const currentData = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.searchBills.data ?? [];
+  });
+
+  const dataByYear = useSelector<IState, FullBillDTO[]>((state) => {
+    return state.bills.getBillsByYear.data ?? [];
   });
 
   const userCredentials = useSelector<IState, TUserCredentials>(
@@ -68,13 +75,22 @@ export const BillsRecap: FC = () => {
     patientCode: 0,
   };
   useEffect(() => {
-    const summary = computeBillSummary(data);
-    billSummaryChange(summary);
-  }, [data]);
+    const summary = computeBillSummary(currentData);
+    summaryCurrentYearChange(summary);
+  }, [currentData]);
+
+  useEffect(() => {
+    const summaryData = computeBillSummary(dataByYear);
+    summaryByYearChange(summaryData);
+  }, [dataByYear]);
 
   useEffect(() => {
     dispatch(searchBills(filter as TFilterValues));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getBillsByYear(+year.value));
+  }, [dispatch, year]);
 
   const getOptions = (
     title: string,
@@ -103,13 +119,15 @@ export const BillsRecap: FC = () => {
   };
 
   const getDataFromObject = useCallback(
-    (obj: string, label: string, year: number) => {
+    (obj: string, label: string) => {
       return {
-        labels: (summary as any)[obj] ? Object.keys((summary as any)[obj]) : [],
+        labels: (summaryByYear as any)[obj]
+          ? Object.keys((summaryByYear as any)[obj])
+          : [],
         datasets: [
           {
-            data: (summary as any)[obj]
-              ? Object.values((summary as any)[obj])
+            data: (summaryByYear as any)[obj]
+              ? Object.values((summaryByYear as any)[obj])
               : [],
             backgroundColor: ["#87CEEB"],
             hoverBackgroundColor: ["#501800", "#4B5000"],
@@ -119,15 +137,19 @@ export const BillsRecap: FC = () => {
         ],
       };
     },
-    [summary]
+    [summaryByYear]
   );
 
   const getDataFromTwoObjects = useCallback(
     (totalPayment: string, totalPending: string) => {
       const labels = [t("bill.totalpayment"), t("bill.totalpending")];
       const dataset =
-        (summary as any)[totalPayment] && (summary as any)[totalPending]
-          ? [(summary as any)[totalPayment], (summary as any)[totalPending]]
+        (summaryCurrentYear as any)[totalPayment] &&
+        (summaryCurrentYear as any)[totalPending]
+          ? [
+              (summaryCurrentYear as any)[totalPayment],
+              (summaryCurrentYear as any)[totalPending],
+            ]
           : [];
       let customLabels = labels.map(
         (label, index) => `${label}: ${currencyFormat(dataset[index])}`
@@ -144,15 +166,16 @@ export const BillsRecap: FC = () => {
         ],
       };
     },
-    [summary]
+    [summaryCurrentYear]
   );
 
   const paymentsVariationsData = useMemo(() => {
     const labels =
-      summary.debtsByMonthsOfYear && summary.paymentsByMonthsOfYear
+      summaryCurrentYear.debtsByMonthsOfYear &&
+      summaryCurrentYear.paymentsByMonthsOfYear
         ? union(
-            Object.keys(summary.debtsByMonthsOfYear),
-            Object.keys(summary.paymentsByMonthsOfYear)
+            Object.keys(summaryCurrentYear.debtsByMonthsOfYear),
+            Object.keys(summaryCurrentYear.paymentsByMonthsOfYear)
           ).sort((a, b) => monthList.indexOf(a) - monthList.indexOf(b))
         : [];
     return {
@@ -162,7 +185,9 @@ export const BillsRecap: FC = () => {
           label: t("bill.payments"),
           data:
             labels.length != 0
-              ? labels.map((item) => summary.paymentsByMonthsOfYear[item] ?? 0)
+              ? labels.map(
+                  (item) => summaryCurrentYear.paymentsByMonthsOfYear[item] ?? 0
+                )
               : [],
           borderColor: "rgb(255, 99, 132)",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
@@ -171,14 +196,25 @@ export const BillsRecap: FC = () => {
           label: t("bill.debts"),
           data:
             labels.length != 0
-              ? labels.map((item) => summary.debtsByMonthsOfYear[item] ?? 0)
+              ? labels.map(
+                  (item) => summaryCurrentYear.debtsByMonthsOfYear[item] ?? 0
+                )
               : [],
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(53, 162, 235, 0.5)",
         },
       ],
     };
-  }, [summary]);
+  }, [summaryCurrentYear]);
+
+  const getOptionsFromYears = (years: number[]) => {
+    return years.map((item) => {
+      return {
+        label: item + "",
+        value: item + "",
+      };
+    });
+  };
 
   return (
     <div className="bills__recap">
@@ -233,11 +269,8 @@ export const BillsRecap: FC = () => {
           onBlur={(e: any, value: any) => {
             setYear({ value: value, label: value });
           }}
-          options={[
-            { value: "2021", label: "2021" },
-            { value: "2022", label: "2022" },
-            { value: "2023", label: "2023" },
-          ]}
+          options={getOptionsFromYears(yearList)}
+          variant="standard"
         />
         <Bar
           options={getOptions(
@@ -247,8 +280,7 @@ export const BillsRecap: FC = () => {
           )}
           data={getDataFromObject(
             "bestSellingByQuantity",
-            t("bill.totalquantity"),
-            +year.value
+            t("bill.totalquantity")
           )}
         />
         <Bar
@@ -259,25 +291,19 @@ export const BillsRecap: FC = () => {
           )}
           data={getDataFromObject(
             "bestSellingByOccurence",
-            t("bill.totaloccurence"),
-            +year.value
+            t("bill.totaloccurence")
           )}
         />
         <Bar
           options={getOptions(t("bill.bestpatients"), true, year.value)}
           data={getDataFromObject(
             "bestPatientsByPayments",
-            t("bill.totalpayment"),
-            +year.value
+            t("bill.totalpayment")
           )}
         />
         <Bar
           options={getOptions(t("bill.mostindebtpatients"), true, year.value)}
-          data={getDataFromObject(
-            "mostIndebtedPatients",
-            t("bill.totaldebt"),
-            +year.value
-          )}
+          data={getDataFromObject("mostIndebtedPatients", t("bill.totaldebt"))}
         />
       </div>
     </div>
