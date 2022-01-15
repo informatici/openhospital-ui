@@ -1,5 +1,12 @@
 import moment from "moment";
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { FullBillDTO } from "../../../generated";
@@ -29,6 +36,7 @@ import { union } from "lodash";
 import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import SelectField from "../selectField/SelectField";
+import InfoBox from "../infoBox/InfoBox";
 
 ChartJS.register(
   CategoryScale,
@@ -215,6 +223,7 @@ export const BillsRecap: FC = () => {
       };
     });
   };
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="bills__recap">
@@ -272,39 +281,54 @@ export const BillsRecap: FC = () => {
           options={getOptionsFromYears(yearList)}
           variant="standard"
         />
-        <Bar
-          options={getOptions(
-            t("bill.bestsellingbyquantity"),
-            true,
-            year.value
-          )}
-          data={getDataFromObject(
-            "bestSellingByQuantity",
-            t("bill.totalquantity")
-          )}
-        />
-        <Bar
-          options={getOptions(
-            t("bill.bestsellingbyoccurence"),
-            true,
-            year.value
-          )}
-          data={getDataFromObject(
-            "bestSellingByOccurence",
-            t("bill.totaloccurence")
-          )}
-        />
-        <Bar
-          options={getOptions(t("bill.bestpatients"), true, year.value)}
-          data={getDataFromObject(
-            "bestPatientsByPayments",
-            t("bill.totalpayment")
-          )}
-        />
-        <Bar
-          options={getOptions(t("bill.mostindebtpatients"), true, year.value)}
-          data={getDataFromObject("mostIndebtedPatients", t("bill.totaldebt"))}
-        />
+        {dataByYear.length > 0 ? (
+          [
+            <Bar
+              options={getOptions(
+                t("bill.bestsellingbyquantity"),
+                true,
+                year.value
+              )}
+              data={getDataFromObject(
+                "bestSellingByQuantity",
+                t("bill.totalquantity")
+              )}
+            />,
+            <Bar
+              options={getOptions(
+                t("bill.bestsellingbyoccurence"),
+                true,
+                year.value
+              )}
+              data={getDataFromObject(
+                "bestSellingByOccurence",
+                t("bill.totaloccurence")
+              )}
+            />,
+            <Bar
+              options={getOptions(t("bill.bestpatients"), true, year.value)}
+              data={getDataFromObject(
+                "bestPatientsByPayments",
+                t("bill.totalpayment")
+              )}
+            />,
+            <Bar
+              options={getOptions(
+                t("bill.mostindebtpatients"),
+                true,
+                year.value
+              )}
+              data={getDataFromObject(
+                "mostIndebtedPatients",
+                t("bill.totaldebt")
+              )}
+            />,
+          ]
+        ) : (
+          <div ref={infoBoxRef} className="info-box-container">
+            <InfoBox type="warning" message={t("common.emptydata")} />
+          </div>
+        )}
       </div>
     </div>
   );

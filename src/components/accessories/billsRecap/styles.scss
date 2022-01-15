@@ -20,19 +20,18 @@
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: space-between;
-        margin: 0 auto;
+        justify-content: space-around;        
         canvas {
             padding: 5px;
         } 
 
-        .filter__by__years {
+        .info-box-container {
+            flex: 1 1 auto;
+            margin-top: 24px;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 auto;
+           .infoBox{
+                width: 100%;
+           } 
         }
     }
     
