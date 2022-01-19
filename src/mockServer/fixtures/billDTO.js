@@ -44,7 +44,7 @@ export const billResults = [{
     patName: "Cedimo Andrea",
     status: "O",
     amount: 2000,
-    balance: 1500,
+    balance: 1500.50,
     user: "admin"
 },
 {
@@ -74,7 +74,7 @@ export const billResults = [{
     patName: "Antonio Carlos",
     status: "O",
     amount: 1500,
-    balance: 1500,
+    balance: 1500.25,
     user: "admin"
 },
 {
@@ -89,7 +89,7 @@ export const billResults = [{
     patName: "Antonio Carlos",
     status: "O",
     amount: 850,
-    balance: 150,
+    balance: 150.50,
     user: "admin"
 }
 ];

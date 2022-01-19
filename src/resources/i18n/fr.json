@@ -126,6 +126,7 @@
     "note": "Note",
     "exams": "Examens",
     "newbill": "Nouvelle facture",
+    "billsrecords": "Factures",
     "searchbill": "Rechercher facture",
     "bill_chose": "Choisir une option",
     "managebills": "Manager Factures",
@@ -297,6 +298,10 @@
     "recap": "Recap factures",
     "filter": "Filtre Factures",
     "filterbutton": "Filtrer",
+    "clicktoaddpayment": "Clickez sur \"AJOUTER\" pour commencer avec une nouvelle facture",
+    "nopendingbill": "Pas de facture ouverte pour ce patient",
+    "quantity": "Quantité",
+    "item": "Article",
     "bills": "Factures",
     "enterpayment": "Entrer le paiement",
     "amounttopay": "Montant total à payer: {{amount}}",
@@ -316,7 +321,6 @@
     "patId": "ID Pat.",
     "month": "Mois",
     "year": "Année",
-    "recaps": "Récapitulatif",
     "totalpending": "Total non payé",
     "totalpayment": "Total payé",
     "week": "Semaine du {{start}} à maintenant",
@@ -330,6 +334,23 @@
     "totalquantity": "Qté Totale",
     "debts": "Dettes",
     "paymentsvariations": "Variations mensuelles des entrées",
-    "debtsvariations": "Variations mensuelles des dettes"
+    "debtsvariations": "Variations mensuelles des dettes",
+    "dashboard": "Dashboard",
+    "filterBills": "Bills filter",
+    "filterPayments": "Payments filter",
+    "pickitem": "Choisir un article",
+    "savebill": "Enregistrer facture",
+    "additem": "Nouvel article",
+    "type": "Type",
+    "description": "Description",
+    "unitamount": "Prix par Article",
+    "totalamount": "Montant Total"
+  },
+  "button": {
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "discard": "Annuler",
+    "suspend": "Annuler",
+    "add": "Ajouter"
   }
 }

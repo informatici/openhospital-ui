@@ -123,7 +123,8 @@
     "surgicalrecord": "Surgical Record",
     "note": "Note",
     "exams": "Exams",
-    "newbill": "New Patient Bill",
+    "newbill": "New Bill",
+    "billsrecords": "Bills Records",
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
     "managebills": "Manage Bills",
@@ -287,6 +288,10 @@
     "recap": "Bills Recap",
     "filter": "Bills Filter",
     "filterbutton": "Filter",
+    "clicktoaddpayment": "Click on \"ADD\" to start a new bill",
+    "nopendingbill": "There is not pending bill",
+    "quantity": "Quantity",
+    "item": "Item",
     "bills": "Bills",
     "enterpayment": "Enter payment",
     "amounttopay": "Total amount to pay: {{amount}}",
@@ -310,7 +315,6 @@
     "patId": "Pat. ID",
     "month": "Month",
     "year": "Year",
-    "recaps": "Bill Recaps",
     "totalpending": "Total Pending",
     "totalpayment": "Total Payment",
     "week": "Week from {{start}} to now",
@@ -324,6 +328,19 @@
     "totalquantity": "Total Quantity",
     "debts": "Debts",
     "paymentsvariations": "Monthly payments Variations",
-    "debtsvariations": "Monthly debts Variations"
+    "debtsvariations": "Monthly debts Variations",
+    "pickitem": "Pick a item",
+    "additem": "Add an item",
+    "type": "Type",
+    "description": "Description",
+    "unitamount": "Amount per item",
+    "totalamount": "Total Amount"
+  },
+  "button": {
+    "save": "Save",
+    "delete": "Delete",
+    "discard": "Discard",
+    "suspend": "Suspend",
+    "add": "Add"
   }
 }
