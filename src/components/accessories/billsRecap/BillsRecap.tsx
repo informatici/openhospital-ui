@@ -269,18 +269,20 @@ export const BillsRecap: FC = () => {
           options={getOptions(t("bill.paymentsvariations"))}
           data={paymentsVariationsData}
         />
-        <SelectField
-          fieldName="status"
-          fieldValue={year.value}
-          label={t("bill.year")}
-          isValid={false}
-          errorText={""}
-          onBlur={(e: any, value: any) => {
-            setYear({ value: value, label: value });
-          }}
-          options={getOptionsFromYears(yearList)}
-          variant="standard"
-        />
+        <div className="year__picker">
+          <SelectField
+            fieldName="status"
+            fieldValue={year.value}
+            label={t("bill.year")}
+            isValid={false}
+            errorText={""}
+            onBlur={(e: any, value: any) => {
+              setYear({ value: value, label: value });
+            }}
+            options={getOptionsFromYears(yearList)}
+            variant="standard"
+          />
+        </div>
         {dataByYear.length > 0 ? (
           [
             <Bar

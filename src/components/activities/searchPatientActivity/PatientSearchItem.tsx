@@ -7,6 +7,7 @@ import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
 const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   patient,
   getPatientSuccessCallback,
+  hideAdditionalInformation = false,
 }) => {
   const { t } = useTranslation();
   const [activityTransitionState, setActivityTransitionState] =
@@ -55,21 +56,27 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
                   <div className="patientSearchItem__profile__content__item">
                     <strong>{t("patient.sex")}:</strong> {patient.sex || "-"}
                   </div>
-                  <div className="patientSearchItem__profile__content__item">
-                    <strong>{t("patient.birthdate")}:</strong> {patientDate}
-                  </div>
-                  <div className="patientSearchItem__profile__content__item">
-                    <strong>{t("patient.hasinsurance")}:</strong>{" "}
-                    {patient.hasInsurance || "-"}
-                  </div>
+                  {!hideAdditionalInformation && (
+                    <div className="patientSearchItem__profile__content__item">
+                      <strong>{t("patient.birthdate")}:</strong> {patientDate}
+                    </div>
+                  )}
+                  {!hideAdditionalInformation && (
+                    <div className="patientSearchItem__profile__content__item">
+                      <strong>{t("patient.hasinsurance")}:</strong>{" "}
+                      {patient.hasInsurance || "-"}
+                    </div>
+                  )}
                 </div>
                 <div className="patientSearchItem__profile__content__contact">
-                  <div className="patientSearchItem__profile__content__item">
-                    <strong>{t("patient.address")}:</strong>{" "}
-                    {`${patient.address || ""} ${
-                      patient.city ? " - " + patient.city : ""
-                    }`}
-                  </div>
+                  {!hideAdditionalInformation && (
+                    <div className="patientSearchItem__profile__content__item">
+                      <strong>{t("patient.address")}:</strong>{" "}
+                      {`${patient.address || ""} ${
+                        patient.city ? " - " + patient.city : ""
+                      }`}
+                    </div>
+                  )}
                   <div className="patientSearchItem__profile__content__item">
                     <strong>{t("patient.telephone")}:</strong>{" "}
                     {patient.telephone || "-"}

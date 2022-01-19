@@ -24,11 +24,16 @@
         canvas {
             padding: 5px;
         } 
-        .selectField {
-            display: flex;
-            width: 30%;
-            align-content: flex-start;
+        .year__picker {
+            display: "block";
+            width: 100%;
+            .selectField {
+                display: flex;
+                width: 30%;
+                align-content: flex-start;
+            }
         }
+        
         .info-box-container {
             flex: 1 1 auto;
             margin-top: 24px;

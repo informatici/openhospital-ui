@@ -278,7 +278,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
                 />
               </div>
               <div className="filterBillForm__item">
-                <PatientAutocomplete
+                <PatientPicker
                   theme={"regular"}
                   fieldName="patientCode"
                   fieldValue={formik.values.patientCode}

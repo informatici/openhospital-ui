@@ -153,7 +153,11 @@ const PatientPicker: FC<IProps> = ({
             <div className="searchPatient__results_list">
               {patientData?.map((patient, index) => (
                 <div onClick={() => handleClick(patient)}>
-                  <PatientSearchItem key={index} patient={patient} />
+                  <PatientSearchItem
+                    key={index}
+                    patient={patient}
+                    hideAdditionalInformation={true}
+                  />
                 </div>
               ))}
             </div>

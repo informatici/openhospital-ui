@@ -11,6 +11,7 @@ export interface IStateProps {
 export interface IPatientSearchItemProps {
   patient: PatientDTO;
   getPatientSuccessCallback?: (patient: PatientDTO) => void;
+  hideAdditionalInformation?: boolean;
 }
 
 export interface IDispatchProps {
