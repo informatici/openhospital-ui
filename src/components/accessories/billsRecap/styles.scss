@@ -24,12 +24,17 @@
         canvas {
             padding: 5px;
         } 
-
+        .selectField {
+            display: flex;
+            width: 30%;
+            align-content: flex-start;
+        }
         .info-box-container {
             flex: 1 1 auto;
             margin-top: 24px;
             display: flex;
            .infoBox{
+               display: inline-block;
                 width: 100%;
            } 
         }
