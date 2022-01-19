@@ -35,7 +35,11 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        .filterForm__item {
           flex: 1 1 auto;         
+          margin: 5px;       
           .dateField,
           .textField,
           .selectField .autocompleteField {
@@ -51,7 +55,8 @@
           justify-content: right;
         }
       }
-      
+    
+  }
   .payments__table {
     padding: 20px 0px;
   }
