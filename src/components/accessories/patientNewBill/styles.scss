@@ -3,37 +3,34 @@
 
 .patientNewBill {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   padding: 16px 8px 16px 8px;
   row-gap: 12px;
   & > .patientNewBill_main {
     display: flex;
-    row-gap: 24px;
-    flex-flow: column; 
-    justify-content: start;
-    @include susy-media(1024px) {
-      column-gap: 12px;
-      flex-flow: row;
-      width: 100%;
-    }
-    & > .patientNewBill_left {
+    flex-direction: column;
+    & > .patientNewBill_items {
       display: flex;
-      width: 100%;
-      justify-content: space-between;
-      background-color: white;
-      flex-flow: column;
+      background-color: $c-white;
+      flex-direction: column;
       row-gap: 12px;
-      @include susy-media(1024px) {
-        flex: 9;
-      }
       & > .patientNewBill_buttons {
         display: flex;
+        flex-flow: column;
         justify-content: flex-end;
-        .MuiButton-root {
-          width: 175px;
+        div {
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+          .MuiButton-root {
+            width: 35%;
+            @include susy-media($smartphone) {
+              width: 50%;
+            }
+          }
         }
       }
-      .addpayment {
+      .additem {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -41,49 +38,92 @@
       }
     }
     
-    & > .patientNewBill_right {
+    & > .patientNewBill_payment {
       display: flex;
-      flex-flow: column;
-      align-items: center;
-      background-color: lightgray;
-      padding: 16px 4px 16px 4px;
+      padding: 8px 4px;
       border-radius: 8px;
-      row-gap: 12px;
-      .smallButton {
-        width: 300px;
+      flex-direction: column;
+      
+      .MuiAccordion-root.Mui-expanded {
+          margin: 16px 0;
+          width: 100%;
+          align-self: center;
       }
-      .two-row {
+      .payment {
         display: flex;
-        width:  85%;
-        justify-content: space-between;
-        & > span:first-child {
-          font-weight: 200;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        row-gap: 8px;
+        .payment__buttons {
+          display: flex;
+          width: 85%;
+          column-gap: 8px;
+          .lg-divider {
+            display: none;
+          }
+          & > div {
+            display: flex;
+            flex: 1;
+            button {
+              width: 100%;
+            }
+          }
+          .paid {
+            background-color: $c-color-info;
+            color: white;
+          }
+          @include susy-media($smartphone) {
+            flex-flow: column;
+            align-items: center;
+            row-gap: 8px;
+            & > .lg-divider {
+              display: inline-block;
+              width: 80%;
+              border: 1px $c-grey-medium solid;
+              background-color: $c-gray;
+            }
+            & > div {
+              display: flex;
+              width: 100%;
+              button {
+                width: 100%;
+              }
+            }
+          }
         }
-        & > span:last-child {
-          font-size: 1.25em;
-        }
-      }
-      .xs-divider, .lg-divider {
-        height: 1px;
-        background-color: black;
-      }
-      .xs-divider {
-        width: 25%;
-      }
-      .lg-divider {
-        width: 80%;
-      }
-      @include susy-media(1024px) {
-        flex: 4;
-        padding: 16px 4px 16px 4px;
-        .smallButton {
-          width: 175px;
+        .two-row {
+          display: flex;
+          width:  85%;
+          justify-content: space-between;
+          & > span:first-child {
+            font-weight: 200;
+          }
+          & > span:last-child {
+            font-size: 1.25em;
+          }
         }
         .xs-divider {
-          width: 35%;
+          height: 1px;
+          background-color: black;
         }
-        .lg-divider {
-          width: 90%;
+        .xs-divider {
+          width: 25%;
+        }
+        @include susy-media($smartphone) {
+          padding: 16px 4px;
+          .xs-divider {
+            width: 35%;
+          }
+        }
+      }
+      .MuiAccordionSummary-content {
+        svg {
+          position: relative;
+          top: -2px;
+        }
+        h5 {
+          margin: 0px 10px;
         }
       }
     }

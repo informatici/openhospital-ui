@@ -1,42 +1,37 @@
 import React, { FC } from "react";
 import Table from "../../table/Table";
-import { header, mockData, order } from "./consts";
+import { header, order } from "./consts";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 import { useTranslation } from "react-i18next";
 
 interface IOwnProps {
   handleEdit: (row: any) => void;
   handleDelete: (row: any) => void;
+  rowData: Record<string, any>[];
 }
 
-const BillItemsTable: FC<IOwnProps> = ({ handleEdit, handleDelete }) => {
+const BillItemsTable: FC<IOwnProps> = ({
+  handleEdit,
+  handleDelete,
+  rowData,
+}) => {
   const { t } = useTranslation();
   const label = {
-    type: t("bill.type"),
+    group: t("bill.type"),
     description: t("bill.description"),
-    qty: t("bill.quantity"),
-    cost: t("bill.amount"),
-  };
-
-  const formatDataToDisplay = (data: typeof mockData) => {
-    return data.map((item) => {
-      return {
-        ...item,
-        cost: currencyFormat(item.cost),
-      };
-    });
-    //   .sort(dateComparator("desc", "date"));
+    quantity: t("bill.quantity"),
+    amount: t("bill.amount"),
   };
 
   return (
     <Table
-      rowData={formatDataToDisplay(mockData)}
+      rowData={rowData}
       tableHeader={header}
       labelData={label}
       columnsOrder={order}
       rowsPerPage={5}
       onDelete={handleDelete}
-      isCollapsabile={false}
+      isCollapsabile={true}
       onEdit={handleEdit}
     />
   );

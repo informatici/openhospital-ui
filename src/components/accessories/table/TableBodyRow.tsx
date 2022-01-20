@@ -62,15 +62,17 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                 renderCellDetails({ ...coreRow })
               ) : (
                 <ul>
-                  {Object.keys(_.omit(row, tableHeader)).map(
-                    (key, index) =>
-                      (showEmptyCell || (row[key] && labelData[key])) && (
-                        <li className="collapseItem_row" key={index}>
-                          <strong>{labelData[key]}:&nbsp;</strong>
-                          <span>{row[key]}</span>
-                        </li>
-                      )
-                  )}
+                  {Object.keys(_.omit(row, tableHeader))
+                    .filter((key) => labelData[key] != undefined)
+                    .map(
+                      (key, index) =>
+                        (showEmptyCell || (row[key] && labelData[key])) && (
+                          <li className="collapseItem_row" key={index}>
+                            <strong>{labelData[key]}:&nbsp;</strong>
+                            <span>{row[key]}</span>
+                          </li>
+                        )
+                    )}
                 </ul>
               )}
             </Collapse>

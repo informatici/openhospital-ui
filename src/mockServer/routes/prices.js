@@ -15,7 +15,7 @@ export const pricesRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(200).json([priceDTO]);
+                    res.status(200).json(priceDTO);
             }
         });
     });

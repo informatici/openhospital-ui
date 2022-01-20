@@ -9,8 +9,9 @@
     padding: 1em;
     row-gap: 1em;
     & > #first {
-        display: flex;
-        justify-content: center;
+        .MuiFormGroup-root {
+            justify-content: center;
+        }
         .checked:hover, .MuiRadio-root:hover {
             color: $c-color-primary !important;
         }
@@ -20,22 +21,31 @@
     }
     & > #second {
         display: flex;
-        flex-flow: column;
-        row-gap: 8px;
-        .textField {
-            width: 100%;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        @include susy-media($smartphone) {
+            flex-flow: column;
+            row-gap: 8px;
+        }
+        .textField, .autocomplete {
+            width: 49%;
             input {
                 height: 24px;
             }
-        }
-        .autocomplete input {
-            height: 24px;
+            @include susy-media($smartphone) {
+                width: 100%;
+            }
         }
     }
 
-    & > #third {
+    & > div {
         display: flex;
         justify-content: center;
-        column-gap: 24px;
+        .smallButton {
+            width: 50%;
+            @include susy-media($smartphone) {
+                width: 100%;
+            }
+        }
     }
 }
