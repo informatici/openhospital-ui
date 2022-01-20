@@ -172,7 +172,9 @@
     "date": "Date",
     "type": "Type",
     "nooptionsfound": "No options found",
-    "close": "CLOSE"
+    "close": "CLOSE",
+    "greaterthan": "The value must be at least {{value}}.",
+    "lessthan": "The value must not exceed {{value}}."
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -288,7 +290,7 @@
     "recap": "Bills Recap",
     "filter": "Bills Filter",
     "filterbutton": "Filter",
-    "clicktoaddpayment": "Click on \"ADD\" to start a new bill",
+    "clicktoadditem": "Click on \"ADD ITEM\" to start a new bill",
     "nopendingbill": "There is not pending bill",
     "quantity": "Quantity",
     "item": "Item",
@@ -330,11 +332,19 @@
     "paymentsvariations": "Monthly payments Variations",
     "debtsvariations": "Monthly debts Variations",
     "pickitem": "Pick a item",
-    "additem": "Add an item",
+    "savebill": "Save bill",
+    "additem": "Add item",
     "type": "Type",
     "description": "Description",
     "unitamount": "Amount per item",
-    "totalamount": "Total Amount"
+    "totalamount": "Total Amount",
+    "exam": "Exam",
+    "medical": "Medical",
+    "surgery": "Surgery",
+    "other": "Other",
+    "itemalreadypresent": "Item already present in the list.",
+    "quantitynotallowed": "This quantity is not allowed.",
+    "paid": "Paid"
   },
   "button": {
     "save": "Save",

@@ -29,6 +29,10 @@ import {
   CLOSE_BILL_SUCCESS,
   CLOSE_BILL_FAIL,
   CLOSE_BILL_RESET,
+  UPDATE_BILL_LOADING,
+  UPDATE_BILL_SUCCESS,
+  UPDATE_BILL_FAIL,
+  UPDATE_BILL_RESET,
   SEARCH_BILLS_BY_YEAR_LOADING,
   SEARCH_BILLS_BY_YEAR_SUCCESS,
   SEARCH_BILLS_BY_YEAR_FAIL,
@@ -64,6 +68,35 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
       break;
     }
 
+    /**
+     * UPDATE_BILL
+     */
+    case UPDATE_BILL_LOADING: {
+      draft.updateBill.status = "LOADING";
+      break;
+    }
+
+    case UPDATE_BILL_SUCCESS: {
+      draft.updateBill.status = "SUCCESS";
+      delete draft.updateBill.error;
+      break;
+    }
+
+    case UPDATE_BILL_FAIL: {
+      draft.updateBill.status = "FAIL";
+      draft.updateBill.error = action.error;
+      break;
+    }
+
+    case UPDATE_BILL_RESET: {
+      draft.updateBill.status = "IDLE";
+      delete draft.updateBill.error;
+      break;
+    }
+
+    /**
+     * GET_BILL
+     */
     case GET_BILL_LOADING: {
       draft.getBill.status = "LOADING";
       break;

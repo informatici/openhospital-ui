@@ -1,17 +1,86 @@
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
-import React, { FC, useCallback, useState } from "react";
+import { useFormik } from "formik";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { number, object, string } from "yup";
+import { BillItemsDTO } from "../../../../generated";
+import { PriceDTO } from "../../../../generated/models/PriceDTO";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../../libraries/formDataHandling/functions";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import SmallButton from "../../smallButton/SmallButton";
 import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
+import { ItemGroups } from "../consts";
+import { useItemPrices } from "../hooks/price.hooks";
+import { useItemFormik } from "./hooks";
 import "./styles.scss";
-import { BillItemPickerProps } from "./types";
+import { BillItemProps } from "./types";
 
-const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
+const BillItemPickerForm: FC<BillItemProps> = ({
+  onSubmit,
+  resetFormCallback,
+  shouldResetForm,
+  itemToEdit,
+  items,
+  fields,
+}) => {
   const { t } = useTranslation();
 
-  const [itemType, setItemType] = useState("medical");
+  const [itemType, setItemType] = useState(ItemGroups.medical.id);
+
+  const { prices, examsOptions, medicalsOptions, surgeriesOptions } =
+    useItemPrices();
+
+  useEffect(() => {
+    if (itemToEdit) {
+      setItemType(itemToEdit?.groupId);
+    }
+  }, [itemToEdit]);
+
+  const handleFormSubmit = useCallback(
+    (values: Record<string, any>) => {
+      const id =
+        itemToEdit == undefined
+          ? (items.map((e) => e.id).sort()[items.length - 1] ?? 0) + 1
+          : itemToEdit?.id;
+      let item: BillItemsDTO = { id: id };
+      item.itemQuantity = values?.itemQuantity;
+      if (itemType == ItemGroups.other.id) {
+        item.itemAmount = values?.itemAmount;
+        item.itemDescription = values?.itemDescription;
+        onSubmit(item, itemToEdit == undefined ? true : false);
+        return;
+      }
+      let priceDTO: PriceDTO | undefined = prices.find(
+        (e) => e?.item == values?.itemId
+      );
+
+      if (priceDTO) {
+        item.itemAmount = priceDTO.price;
+        item.itemDescription = priceDTO.description;
+        item.itemId = priceDTO.item;
+        item.price = true;
+        item.priceId = priceDTO.id?.toString();
+        onSubmit(item, itemToEdit == undefined ? true : false);
+      }
+    },
+    [itemType]
+  );
+
+  const {
+    getErrorText,
+    getFieldProps,
+    handleResetConfirmation,
+    onBlurCallback,
+    handleBlur,
+    isValid,
+    isFormValid,
+    handleSubmit,
+    values,
+  } = useItemFormik(fields, itemType, items, itemToEdit, handleFormSubmit);
 
   const handleItemTypeChange = useCallback(
     (e: any, value: string) => {
@@ -20,8 +89,23 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
     [itemType]
   );
 
+  const options = useMemo(() => {
+    return (
+      (itemType == ItemGroups.medical.id && medicalsOptions) ||
+      (itemType == ItemGroups.exam.id && examsOptions) ||
+      (itemType == ItemGroups.surgery.id && surgeriesOptions) ||
+      []
+    );
+  }, [itemType]);
+
   return (
-    <div className="itemPicker">
+    <form
+      className="itemPicker"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e);
+      }}
+    >
       <div id="first">
         <RadioGroup
           aria-label="gender"
@@ -31,100 +115,90 @@ const BillItemPickerForm: FC<BillItemPickerProps> = ({}) => {
           onChange={handleItemTypeChange}
         >
           <FormControlLabel
-            value="medical"
-            className={itemType == "medical" ? "checked" : ""}
+            value={ItemGroups.medical.id}
+            className={itemType == ItemGroups.medical.id ? "checked" : ""}
             control={<Radio />}
-            label="Medical"
+            label={t("bill.medical")}
             labelPlacement="top"
           />
           <FormControlLabel
-            value="exam"
-            className={itemType == "exam" ? "checked" : ""}
+            value={ItemGroups.exam.id}
+            className={itemType == ItemGroups.exam.id ? "checked" : ""}
             control={<Radio />}
-            label="Exam"
+            label={t("bill.exam")}
             labelPlacement="top"
           />
           <FormControlLabel
-            value="surgery"
-            className={itemType == "surgery" ? "checked" : ""}
+            value={ItemGroups.surgery.id}
+            className={itemType == ItemGroups.surgery.id ? "checked" : ""}
             control={<Radio />}
-            label="Surgery"
+            label={t("bill.surgery")}
             labelPlacement="top"
           />
           <FormControlLabel
-            value="other"
-            className={itemType == "other" ? "checked" : ""}
+            value={ItemGroups.other.id}
+            className={itemType == ItemGroups.other.id ? "checked" : ""}
             control={<Radio />}
-            label="Other"
+            label={t("bill.other")}
             labelPlacement="top"
           />
         </RadioGroup>
       </div>
       <div id="second">
-        {itemType != "custom" && (
+        {itemType != ItemGroups.other.id && (
           <AutocompleteField
             fieldName="itemId"
-            fieldValue={"value"}
+            fieldValue={values.itemId}
             label={t("bill.item")}
-            isValid={false}
-            errorText={""}
-            onBlur={(e, v) => {}}
-            options={[{ value: "item1", label: "Item 1" }]}
+            isValid={isValid("itemId")}
+            errorText={getErrorText("itemId")}
+            onBlur={onBlurCallback("itemId")}
+            options={options}
             isLoading={false}
           />
         )}
-        {itemType == "custom" && (
+        {itemType == ItemGroups.other.id && (
           <>
             <TextField
               theme="regular"
-              field={{
-                name: "item",
-                value: "",
-                onBlur: (e: any) => {},
-                onChange: (e: any) => {},
-              }}
+              field={getFieldProps("itemDescription")}
+              isValid={isValid("itemDescription")}
+              errorText={getErrorText("itemDescription")}
+              onBlur={handleBlur}
               label={t("bill.item")}
-              isValid={false}
-              errorText={""}
-              onBlur={(e) => {}}
               type="text"
             />
             <TextField
               theme="regular"
-              field={{
-                name: "amount",
-                value: 1,
-                onBlur: (e: any) => {},
-                onChange: (e: any) => {},
-              }}
+              field={getFieldProps("itemAmount")}
+              isValid={isValid("itemAmount")}
+              errorText={getErrorText("itemAmount")}
+              onBlur={handleBlur}
               label={t("bill.amount")}
-              isValid={false}
-              errorText={""}
-              onBlur={(e) => {}}
               type="number"
             />
           </>
         )}
         <TextField
           theme="regular"
-          field={{
-            name: "quantity",
-            value: 1,
-            onBlur: (e: any) => {},
-            onChange: (e: any) => {},
-          }}
+          field={getFieldProps("itemQuantity")}
+          isValid={isValid("itemQuantity")}
+          errorText={getErrorText("itemQuantity")}
+          onBlur={handleBlur}
           label={t("bill.quantity")}
-          isValid={false}
-          errorText={""}
-          onBlur={(e) => {}}
           type="number"
         />
       </div>
-      <div id="third">
-        <TextButton onClick={() => {}}>{t("button.discard")}</TextButton>
-        <SmallButton>{t("button.save")}</SmallButton>
-      </div>
-    </div>
+      <SmallButton
+        disabled={!isFormValid}
+        onClick={(e) => {
+          e.preventDefault();
+          handleFormSubmit(formatAllFieldValues(fields, values));
+        }}
+      >
+        {t("button.save")}
+      </SmallButton>
+    </form>
   );
 };
 

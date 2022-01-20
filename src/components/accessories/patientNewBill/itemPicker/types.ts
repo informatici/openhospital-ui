@@ -1,5 +1,20 @@
-interface IBillItemPickerProps {}
+import { BillItemsDTO } from "../../../../generated";
+import { TFields } from "../../../../libraries/formDataHandling/types";
 
-export type BillItemPickerProps = IBillItemPickerProps;
+interface IBillItemProps {
+  fields: TFields<BillItemFormFieldName>;
+  items: BillItemsDTO[];
+  itemToEdit: Record<string, any> | undefined;
+  onSubmit: (item: BillItemsDTO, isNew: boolean) => void;
+  isLoading: boolean;
+  shouldResetForm: boolean;
+  resetFormCallback: () => void;
+}
 
-export type BillItemPickerFormFieldName = "itemId" | "quantity" | "amount";
+export type BillItemProps = IBillItemProps;
+
+export type BillItemFormFieldName =
+  | "itemId"
+  | "itemDescription"
+  | "itemQuantity"
+  | "itemAmount";
