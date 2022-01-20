@@ -1,104 +1,114 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 .patients__bills {
-  .bill_details {
-    ul {
-      white-space: nowrap;
-      overflow-x: hidden;
-      margin-left: 0;
-      padding-left: 0;
+    .bill_details {
+      ul {
+        white-space: nowrap;
+        overflow-x: hidden;
+        margin-left: 0;
+        padding-left: 0;
+      }
+      li span .MuiTypography-h5 {
+        padding-left: 0;
+        margin-left: 0;
+        display: inline;
+        text-decoration: none;
+        color: darken($c-gray, 25%);
+      }
+      .label {
+        font-weight: bold;
+      }
     }
-    li span .MuiTypography-h5 {
-      padding-left: 0;
-      margin-left: 0;
-      display: inline;
-      text-decoration: none;
-      color: darken($c-gray, 25%);
-    }
-    .label {
-      font-weight: bold;
-    }
-  }
 
-  .filterBillForm {
-    display: inline-block;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    .MuiAccordionSummary-content {
-      svg {
-        position: relative;
-        top: -2px;
-      }
-      h5 {
-        margin: 0px 10px;
-      }
-    }
-    .filterBillForm__form {
-      width: 100%;
-    }
-    .filterBillForm__item {
-      //background-color: $c-grey-lighter;
-      padding: 0px 10px;
-      width: 33.33%;
-      @include susy-media($narrow) {
-        padding: 0px 10px;
-      }
-      @include susy-media($tablet_land) {
-        padding: 0px 10px;
-      }
-      @include susy-media($tablet_port) {
-        width: 50%;
-      }
-      @include susy-media($smartphone) {
-        width: 100%;
-      }
-      .dateField,
-      .textField,
-      .selectField .autocompleteField {
-        width: 100%;
-      }
-
-      &.fullWidth {
-        width: 100%;
-      }
-
-      &.compressed {
-        .textField {
-          float: left;
-          width: 50%;
-          &:nth-of-type(1) {
-            padding-right: 10px;
-          }
-        }
-      }
-    }
-    .filterForm__buttonSet {
+    .filterBillForm {
       display: flex;
-      justify-content: right;
-      align-items: right;
-      margin: 0 auto;
-      line-height: 1.75;
-      @include susy-media($smartphone_small) {
-        display: block;
-      }
-
-      .submit_button {
-        margin-top: 10px;
-        .MuiButton-label {
-          font-size: 0.7rem;
-          letter-spacing: 1px;
-          font-weight: 600;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      .MuiAccordionSummary-content {
+        svg {
+          position: relative;
+          top: -2px;
         }
-        button {
-          @include susy-media($smartphone_small) {
+        h5 {
+          margin: 0px 10px;
+        }
+      }
+      .filterBillForm__form {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .filterBillForm__item {
+          flex: 1 1 auto;        
+          margin: 5px;  
+          align-items: center;     
+          .dateField,
+          .textField,
+          .selectField .autocompleteField {
+            width: 100%;       
+          }
+          .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
             width: 100%;
           }
+        }      
+        .filterForm__buttonSet {
+          display: flex;
+          align-items: center;
+          justify-content: right;
         }
       }
     }
-  }
-  .bills__table {
-    padding: 20px 5px;
-  }
+    .bills__table {
+      padding: 20px 0px;
+    }
+    .billing__header {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;     
+      flex-wrap: wrap;
+      padding: 15px;
+      @include susy-media($smartphone_small) {
+        .new__button__label{
+          display: none;
+        }
+      }
+
+      .billing__title {        
+        font-size: xx-large;
+        color: $c-black;
+        font-weight: bolder;
+        margin: 10px;
+        @include susy-media($tablet_port) {
+          font-size: x-large;
+        }
+        @include susy-media($smartphone) {
+          font-size: x-large;
+        }
+        @include susy-media($smartphone_small) {
+          font-size: x-large;
+        }
+      }
+      .billing_actions {        
+        @include susy-media($smartphone_small) {
+          display: block;
+        } 
+        &{
+          .MuiButton-label {
+            font-size: smaller;
+            letter-spacing: 1px;
+            font-weight: 600;
+          }
+          button {   
+            @include susy-media($smartphone_small) {
+              width: 100%;
+              margin-top: 0px;
+            }
+          }
+        }
+      }
+    }
+
 }

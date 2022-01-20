@@ -21,6 +21,10 @@
   .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
     padding: 6px;
   }
+
+  .MuiOutlinedInput-input {
+    padding: 14px 14px;
+  }
 }
 
 .autocomplete__light {
@@ -185,7 +189,9 @@
     .imageIcon {
       transform: scale(0.5);
     }
-  }  
+  } 
+  
+  
 
 }
 

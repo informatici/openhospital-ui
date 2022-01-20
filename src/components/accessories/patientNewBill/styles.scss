@@ -1,0 +1,107 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientNewBill {
+  display: flex;
+  flex-flow: column;
+  padding: 16px 8px 16px 8px;
+  row-gap: 12px;
+  & > .patientNewBill_main {
+    display: flex;
+    row-gap: 24px;
+    flex-flow: column; 
+    justify-content: start;
+    @include susy-media(1024px) {
+      column-gap: 12px;
+      flex-flow: row;
+      width: 100%;
+    }
+    & > .patientNewBill_left {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      background-color: white;
+      flex-flow: column;
+      row-gap: 12px;
+      @include susy-media(1024px) {
+        flex: 9;
+      }
+      & > .patientNewBill_buttons {
+        display: flex;
+        justify-content: flex-end;
+        .MuiButton-root {
+          width: 175px;
+        }
+      }
+      .addpayment {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $c-gray;
+      }
+    }
+    
+    & > .patientNewBill_right {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      background-color: lightgray;
+      padding: 16px 4px 16px 4px;
+      border-radius: 8px;
+      row-gap: 12px;
+      .smallButton {
+        width: 300px;
+      }
+      .two-row {
+        display: flex;
+        width:  85%;
+        justify-content: space-between;
+        & > span:first-child {
+          font-weight: 200;
+        }
+        & > span:last-child {
+          font-size: 1.25em;
+        }
+      }
+      .xs-divider, .lg-divider {
+        height: 1px;
+        background-color: black;
+      }
+      .xs-divider {
+        width: 25%;
+      }
+      .lg-divider {
+        width: 80%;
+      }
+      @include susy-media(1024px) {
+        flex: 4;
+        padding: 16px 4px 16px 4px;
+        .smallButton {
+          width: 175px;
+        }
+        .xs-divider {
+          width: 35%;
+        }
+        .lg-divider {
+          width: 90%;
+        }
+      }
+    }
+  }
+  
+  & > .patientNewBill_nopayment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+    border-radius: 20px;
+    background: lightgray;
+    span {
+      font-size: large;
+      color: black;
+    }
+  }
+  .hidden {
+    display: none !important;
+  }
+}
