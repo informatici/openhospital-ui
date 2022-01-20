@@ -1,0 +1,48 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.bills__recap{
+    .bills__recap__title {        
+        font-size: xx-large;
+        color: $c-black;
+        font-weight: bolder;
+        margin-bottom: 25px;
+        @include susy-media($tablet_port) {
+        font-size: x-large;
+        }
+        @include susy-media($smartphone) {
+        margin: 15px 0px 25px 0px;
+        font-size: x-large;
+        }
+    }
+    .bills__recap__content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;        
+        canvas {
+            padding: 5px;
+        } 
+        .year__picker {
+            display: "block";
+            width: 100%;
+            .selectField {
+                display: flex;
+                width: 30%;
+                align-content: flex-start;
+            }
+        }
+        
+        .info-box-container {
+            flex: 1 1 auto;
+            margin-top: 24px;
+            display: flex;
+           .infoBox{
+               display: inline-block;
+                width: 100%;
+           } 
+        }
+    }
+    
+}

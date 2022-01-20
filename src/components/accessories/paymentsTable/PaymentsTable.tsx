@@ -155,7 +155,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
                 />
               </div>
               <div className="filterForm__item">
-                <PatientAutocomplete
+                <PatientPicker
                   theme={"regular"}
                   fieldName="patientCode"
                   fieldValue={formik.values.patientCode}
