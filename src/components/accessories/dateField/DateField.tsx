@@ -42,6 +42,7 @@ const DateField: FunctionComponent<IProps> = ({
       <KeyboardDatePicker
         format={format}
         id={fieldName}
+        name={fieldName}
         label={label}
         disabled={disabled}
         disableFuture={disableFuture}
