@@ -8,6 +8,7 @@ import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
 const DateField: FunctionComponent<IProps> = ({
+  fieldName,
   fieldValue,
   disableFuture,
   disabled,
@@ -40,6 +41,7 @@ const DateField: FunctionComponent<IProps> = ({
     <DatePickerWrapper utils={DateFnsUtils}>
       <KeyboardDatePicker
         format={format}
+        id={fieldName}
         label={label}
         disabled={disabled}
         disableFuture={disableFuture}
