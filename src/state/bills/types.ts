@@ -12,4 +12,5 @@ export type IBillsState = {
   delete: IApiResponse<void>;
   payBill: IApiResponse<void>;
   closeBill: IApiResponse<void>;
+  getBillsByYear: IApiResponse<FullBillDTO[]>;
 };

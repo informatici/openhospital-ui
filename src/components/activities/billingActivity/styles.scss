@@ -2,27 +2,8 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .billing {
-  background-color: $c-color-secondary;
-  .sidebar_section_header {
-    color: $c-grey-medium;
-    align-items: center;
-    align-content: center;
-    position: relative;
-    left: 20px;
-    margin: 0px;
-  }
-  .container {
-    @include susy-media($tablet_land) {
-      width: 100%;
-    }
-    @include susy-media($tablet_port) {
-      width: 100%;
-    }
-    @include susy-media($smartphone) {
-      width: 100%;
-    }
-  }
-
+  background-color: $c-white; 
+  
   .billing__background {
     display: flex;
     flex-direction: column;
@@ -30,247 +11,25 @@
     align-items: center;
   }
 
-  .billing__title {
-    font-size: xx-large;
-    color: $c-black;
-    font-weight: bolder;
-    margin: 30px 20px;
-  }
-
-  .billing__panel {
-    display: flex;
-    align-items: stretch;
-    background-color: $c-white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-    margin: 20px 20px 40px 20px;
-    overflow: hidden;
+  .billing__content {    
+    margin-top: 20px;
+    width: 80%;
+    @include susy-media($narrow) {
+      width: 90%;
+    }
+    @include susy-media($tablet_land) {
+      width: 90%;
+    }
+    @include susy-media($tablet_port) {
+      width: 90%;
+    }
     @include susy-media($smartphone) {
-      display: block;
-      align-items: initial;
-      background-color: transparent;
-      margin: 40px 20px 80px 20px;
-      border-radius: initial;
-      box-shadow: initial;
+      width: 90%;
     }
   }
 
-  .billing__formData {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    background-color: $c-gray;
-    padding: 0px;
-
-    &.open_sidebar {
-      .billing__formData__trigger_mobile {
-        svg {
-          transform: rotate(180deg);
-          top: 5px;
-        }
-      }
-      .billing__formData_sidebar {
-        max-height: 1200px;
-      }
-    }
-
-    @include susy-media($smartphone) {
-      display: block;
-      flex: initial;
-      padding: 0px;
-      flex-direction: initial;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-    }
-  }
-
-  .billing__formData_sidebar {
-    position: relative;
-    .billing__formData_edit_button_wrapper {
-      padding: 20px;
-      .billing__formData_edit_button {
-        cursor: pointer;
-        width: 100%;
-
-        button {
-          width: 100%;
-        }
-
-        svg {
-          font-size: 0.925rem;
-          margin-right: 7px;
-        }
-
-        span {
-          color: $c-white;
-          font-size: 0.7rem;
-        }
-      }
-    }
-
-    .patientDetails__main_menu {
-      margin-bottom: 40px;
-
-      h6 {
-        color: $c-grey-medium;
-        position: relative;
-        left: 20px;
-        margin: 0px 0px 10px;
-      }
-
-      .patientDetails__main_menu__item {
-        color: $c-grey-lighter;
-        font-weight: bold;
-        position: relative;
-        cursor: pointer;
-        padding: 20px;
-        transition: all 0.3s ease-in-out;
-        &:hover {
-          background-color: lighten($c-gray, 10);
-        }
-
-        svg {
-          position: relative;
-          margin-right: 5px;
-          font-size: 1rem;
-          top: 3px;
-        }
-
-        .icon_toggle {
-          position: absolute;
-          top: calc(50% - 10px);
-          right: 15px;
-          width: 20px;
-          transform: rotate(-90deg);
-        }
-
-        & + .patientDetails__main_menu__item {
-          border-top: 1px solid $c-grey-medium;
-        }
-      }
-    }
-
-    .accordion {
-      .accordion_summary {
-        padding-left: 20px;
-        color: $c-grey-lighter;
-        font-weight: bold;
-
-        svg {
-          position: relative;
-          margin-right: 5px;
-          font-size: 1rem;
-          top: 3px;
-        }
-      }
-
-      .accordion_details {
-        &::-webkit-scrollbar {
-          width: 5px;
-        }
-
-        &::-webkit-scrollbar-track {
-          box-shadow: inset 0 0 5px grey;
-          border-radius: 10px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: darken($c-gray, 25%);
-          border-radius: 10px;
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-          background: darken($c-gray, 10%);
-        }
-      }
-      & + .accordion {
-        border-top: 1px solid $c-grey-medium;
-        //border-top: 1px $c-grey-medium;
-      }
-    }
-
-    @include susy-media($smartphone) {
-      overflow: hidden;
-      max-height: 0px;
-      transition: 0.5s max-height ease-in-out;
-    }
-  }
-
-  .billing__formData__trigger_mobile {
-    display: none;
-    color: $c-white;
-    position: relative;
-    padding: 15px 40px 15px 15px;
-    @include susy-media($smartphone) {
-      display: block;
-    }
-    svg.arrow_icon {
-      position: absolute;
-      top: 12px;
-      width: 30px;
-      right: 10px;
-      fill: $c-white;
-      transition: 0.3s transform ease-in-out;
-    }
-  }
-
-  .billing__formData__item {
-    width: 100%;
-    padding: 7px 20px;
-    color: $c-white;
-    display: inline-block;
-    .billing__formData__item__label {
-      font-size: 0.85rem;
-    }
-
-    &:last-child {
-      margin-bottom: 10px;
-    }
-
-    &.longText {
-      .billing__formData__item__label {
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-      .billing__formData__item__value {
-        font-weight: initial;
-        font-size: smaller;
-      }
-    }
-  }
-
-  .billing__formData__item__value {
-    font-weight: bold;
-  }
-
-  .billing__content {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    @include susy-media($smartphone) {
-      display: block;
-      flex: initial;
-      margin-top: 35px;
-      border-radius: 10px;
-      padding: 40px 25px 25px;
-      flex-direction: initial;
-      background-color: $c-white;
-      box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-    }
-  }
   .footer {
-    position: relative;
+     position: relative;
   }
 
-  .active {
-    background-color: lighten($c-gray, 10);
-  }
-
-  .sidebar__section__header {
-    display: flex;
-    align-items: center;
-    color: $c-white;
-    padding: 5px 20px;
-    border-bottom: 1px solid $c-white;
-  }
 }

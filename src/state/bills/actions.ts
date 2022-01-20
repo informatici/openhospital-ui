@@ -45,6 +45,9 @@ import {
   UPDATE_BILL_SUCCESS,
   UPDATE_BILL_FAIL,
   UPDATE_BILL_RESET,
+  SEARCH_BILLS_BY_YEAR_LOADING,
+  SEARCH_BILLS_BY_YEAR_SUCCESS,
+  SEARCH_BILLS_BY_YEAR_FAIL,
 } from "./consts";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
@@ -405,6 +408,49 @@ export const closeBill =
           dispatch({
             type: CLOSE_BILL_FAIL,
             error: error,
+          });
+        }
+      );
+  };
+
+export const getBillsByYear =
+  (year: number) =>
+  (dispatch: Dispatch<IAction<BillDTO, {}>>): void => {
+    dispatch({
+      type: SEARCH_BILLS_BY_YEAR_LOADING,
+    });
+    billControllerApi
+      .searchBillsUsingGET({
+        datefrom: new Date(year, 0, 1).toISOString(),
+        dateto: new Date(year, 11, 31).toISOString(),
+        patientCode: 0,
+      })
+      .pipe(
+        switchMap((bills) => getPayments(bills)),
+        catchError((error) => of([]))
+      )
+      .pipe(
+        switchMap((payments) => getItems(payments)),
+        catchError((error) => of([]))
+      )
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: SEARCH_BILLS_BY_YEAR_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_BILLS_BY_YEAR_SUCCESS,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_BILLS_BY_YEAR_FAIL,
+            error,
           });
         }
       );

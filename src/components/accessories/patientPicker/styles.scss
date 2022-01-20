@@ -21,6 +21,10 @@
   .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
     padding: 6px;
   }
+
+  .MuiOutlinedInput-input {
+    padding: 14px 14px;
+  }
 }
 
 .autocomplete__light {
@@ -155,11 +159,7 @@
         }
       }
   }
-  .patientSearchResult {
-    display: flex;   
-    margin: 7px 0px;
-    padding: 0px 5px;
-  }
+ 
 
   .patient_card {
     :hover {
@@ -185,7 +185,9 @@
     .imageIcon {
       transform: scale(0.5);
     }
-  }  
+  } 
+  
+  
 
 }
 

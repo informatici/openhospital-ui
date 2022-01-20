@@ -10,4 +10,5 @@ export const initial: IBillsState = {
   delete: { status: "IDLE" },
   payBill: { status: "IDLE" },
   closeBill: { status: "IDLE" },
+  getBillsByYear: { status: "IDLE", data: [] },
 };

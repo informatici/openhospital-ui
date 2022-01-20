@@ -1,3 +1,4 @@
+import { DatePickerView } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
 export interface IProps {
@@ -19,4 +20,5 @@ export interface IProps {
     dayInCurrentMonth: boolean,
     dayComponent: JSX.Element
   ) => JSX.Element;
+  views?: DatePickerView[];
 }
