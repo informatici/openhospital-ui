@@ -9,4 +9,5 @@ export interface IProps {
   isLoading?: boolean;
   translateOptions?: boolean;
   disabled?: boolean;
+  variant?: "standard" | "outlined" | "filled";
 }

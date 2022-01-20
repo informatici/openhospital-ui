@@ -8,27 +8,27 @@ export const initialFields: TFields<TherapyFormFieldName> = {
     options: [],
   },
   qty: {
-    value: "10",
+    value: "",
     type: "number",
   },
   nbDays: {
-    value: "10",
+    value: "",
     type: "number",
   },
   nbWeeks: {
-    value: "10",
+    value: "",
     type: "number",
   },
   nbMonths: {
-    value: "10",
+    value: "",
     type: "number",
   },
   freqInDay: {
-    value: "2",
+    value: "",
     type: "number",
   },
   freqInPeriod: {
-    value: "1",
+    value: "",
     type: "number",
   },
   startDate: {

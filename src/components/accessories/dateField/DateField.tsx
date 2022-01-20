@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {
-  KeyboardDatePicker as DatePicker,
   KeyboardDatePicker,
   MuiPickersUtilsProvider as DatePickerWrapper,
 } from "@material-ui/pickers";
@@ -41,10 +40,9 @@ const DateField: FunctionComponent<IProps> = ({
   return (
     <DatePickerWrapper utils={DateFnsUtils}>
       <KeyboardDatePicker
-        clearable
-        views={views}
         format={format}
         id={fieldName}
+        name={fieldName}
         label={label}
         disabled={disabled}
         disableFuture={disableFuture}

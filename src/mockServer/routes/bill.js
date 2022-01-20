@@ -33,6 +33,7 @@ export const billRoutes = (server) => {
             res.status(201).json(billResults.filter(
                 (item) => {
                     return (+code === 0 || item.patientDTO.code === +code)
+                        && (!req.query.datefrom || new Date(req.query.datefrom).getFullYear() === new Date(item.date).getFullYear());
                 }
             ))
         });

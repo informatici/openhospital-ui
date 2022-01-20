@@ -29,6 +29,9 @@ import {
   CLOSE_BILL_SUCCESS,
   CLOSE_BILL_FAIL,
   CLOSE_BILL_RESET,
+  SEARCH_BILLS_BY_YEAR_LOADING,
+  SEARCH_BILLS_BY_YEAR_SUCCESS,
+  SEARCH_BILLS_BY_YEAR_FAIL,
 } from "./consts";
 import { initial } from "./initial";
 import { IBillsState } from "./types";
@@ -224,6 +227,30 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
     case CLOSE_BILL_RESET: {
       draft.closeBill.status = "IDLE";
       delete draft.closeBill.error;
+      break;
+    }
+
+    //get bills by year
+
+    case SEARCH_BILLS_BY_YEAR_LOADING: {
+      draft.getBillsByYear.status = "LOADING";
+      break;
+    }
+
+    case SEARCH_BILLS_BY_YEAR_SUCCESS: {
+      if (action.payload.length > 0) {
+        draft.getBillsByYear.status = "SUCCESS";
+      } else {
+        draft.getBillsByYear.status = "SUCCESS_EMPTY";
+      }
+      draft.getBillsByYear.data = action.payload;
+      delete draft.getBillsByYear.error;
+      break;
+    }
+
+    case SEARCH_BILLS_BY_YEAR_FAIL: {
+      draft.getBillsByYear.status = "FAIL";
+      draft.getBillsByYear.error = action.error;
       break;
     }
   }
