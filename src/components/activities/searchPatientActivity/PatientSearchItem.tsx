@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
 
@@ -22,9 +23,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
     }
   }, [activityTransitionState, getPatientSuccessCallback, patient]);
 
-  const patientDate = patient.birthDate
-    ? new Date(+patient.birthDate).toLocaleDateString("it-IT")
-    : "-";
+  const patientDate = renderDate(patient.birthDate ?? "");
 
   switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":

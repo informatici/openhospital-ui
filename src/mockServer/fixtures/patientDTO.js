@@ -29,7 +29,7 @@ export const patientDTO2 = {
   code: 2,
   firstName: "Cedimo Andrea",
   secondName: "Fada",
-  birthDate: "683510400000",
+  birthDate: "1960-08-30T00:00:00.000Z",
   age: 40,
   agetype: "year",
   sex: "M",
