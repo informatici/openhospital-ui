@@ -15,7 +15,10 @@ import { Observable, of, Subscriber } from "rxjs";
 import { ajax, AjaxRequest, AjaxResponse } from "rxjs/ajax";
 import { map, concatMap } from "rxjs/operators";
 
-export const BASE_PATH = "https://www.open-hospital.org/oh-api".replace(/\/+$/, "");
+export const BASE_PATH = "https://oh2.open-hospital.org/oh-api".replace(
+  /\/+$/,
+  ""
+);
 
 export interface ConfigurationParameters {
   basePath?: string; // override base path
