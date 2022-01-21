@@ -120,6 +120,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
           },
         })
       : string(),
+
     diseaseOut3: admitted
       ? string().test({
           name: "diseaseOut3",
