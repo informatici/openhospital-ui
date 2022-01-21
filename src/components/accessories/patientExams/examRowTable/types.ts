@@ -7,4 +7,5 @@ export interface IEditableTableProps {
     align: "left" | "right" | "center" | "justify";
   }>;
   title: string;
+  disabled?: boolean;
 }

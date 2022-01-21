@@ -132,6 +132,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("firstName")}
               errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
           <div className="patientDataForm__item">
@@ -142,6 +143,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("secondName")}
               errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -153,6 +155,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("taxCode")}
               errorText={getErrorText("taxCode")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -168,6 +171,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={onBlurCallback("sex")}
               options={options.sex}
               translateOptions={true}
+              disabled={isLoading}
             />
           </div>
 
@@ -182,6 +186,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("birthDate")}
               label={t("patient.birthdate")}
               onChange={dateFieldHandleOnChange("birthDate")}
+              disabled={isLoading}
             />
           </div>
 
@@ -194,6 +199,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("bloodType")}
               onBlur={onBlurCallback("bloodType")}
               options={options.bloodType}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -207,6 +213,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("mother_name")}
               errorText={getErrorText("mother_name")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -218,6 +225,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("father_name")}
               errorText={getErrorText("father_name")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -231,6 +239,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={onBlurCallback("parentTogether")}
               options={options.parentTogether}
               translateOptions={true}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -244,6 +253,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("address")}
               errorText={getErrorText("address")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -255,6 +265,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("city")}
               errorText={getErrorText("city")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -269,6 +280,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   errorText={getErrorText("telephone")}
                   onBlur={formik.handleBlur}
                   type="tel"
+                  disabled={isLoading}
                 />
               </div>
             </Tooltip>
@@ -286,6 +298,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={onBlurCallback("hasInsurance")}
               options={options.hasInsurance}
               translateOptions={true}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -300,6 +313,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("note")}
               errorText={getErrorText("note")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
         </div>

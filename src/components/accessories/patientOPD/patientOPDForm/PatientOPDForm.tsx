@@ -145,6 +145,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("date")}
                 label={t("opd.dateopd")}
                 onChange={dateFieldHandleOnChange("date")}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -159,6 +160,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("complaint")}
                 onBlur={formik.handleBlur}
                 type="string"
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -172,6 +174,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("disease")}
                 onBlur={onBlurCallback("disease")}
                 options={diseasesOptions}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -185,6 +188,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("disease2")}
                 onBlur={onBlurCallback("disease2")}
                 options={diseasesOptions}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -198,6 +202,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("disease3")}
                 onBlur={onBlurCallback("disease3")}
                 options={diseasesOptions}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -212,6 +217,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
                 type="string"
+                disabled={isLoading}
               />
             </div>
           </div>

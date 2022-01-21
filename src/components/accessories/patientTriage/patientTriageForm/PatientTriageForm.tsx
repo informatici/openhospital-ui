@@ -113,6 +113,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_date")}
                 label={t("examination.datetriage")}
                 onChange={dateFieldHandleOnChange("pex_date")}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -126,6 +127,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_height")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -138,6 +140,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_weight")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -150,6 +153,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_temp")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -162,6 +166,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_sat")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -174,6 +179,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_pa_min")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
 
               <TextField
@@ -184,6 +190,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_pa_max")}
                 onBlur={formik.handleBlur}
                 type="string"
+                disabled={isLoading}
               />
             </div>
 
@@ -196,6 +203,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_fc")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -208,6 +216,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("diuresis_vol")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
             <div className="patientTriageForm__item">
@@ -219,6 +228,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("respiratory_rate")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
             <div className="patientTriageForm__item">
@@ -230,6 +240,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("hgt")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -243,6 +254,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("diuresis")}
                 onBlur={onBlurCallback("diuresis")}
                 options={options.diuresis}
+                disabled={isLoading}
               />
             </div>
 
@@ -255,6 +267,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("bowel")}
                 onBlur={onBlurCallback("bowel")}
                 options={options.bowel}
+                disabled={isLoading}
               />
             </div>
 
@@ -267,6 +280,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("auscultation")}
                 onBlur={onBlurCallback("auscultation")}
                 options={options.auscultation}
+                disabled={isLoading}
               />
             </div>
           </div>
