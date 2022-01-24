@@ -20,7 +20,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
 
-import { Cake, Phone, Room, Search } from "@material-ui/icons";
+import { Search } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { GridCloseIcon } from "@material-ui/data-grid";
 import { get, has } from "lodash";
@@ -36,14 +36,7 @@ import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
 import Button from "../button/Button";
 import { TextField as MaterialComponent } from "@material-ui/core";
-import {
-  getPatientSuccess,
-  searchPatient,
-} from "../../../state/patients/actions";
-import { ProfilePicture } from "../profilePicture/ProfilePicture";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
-import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
+import { searchPatient } from "../../../state/patients/actions";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
@@ -77,9 +70,6 @@ const PatientPicker: FC<IProps> = ({
   };
 
   const initialValues = getFromFields(initialFields, "value");
-
-  //this object is used as a prop for profile component style
-  const profileStyle = { height: "80px", width: "80px" };
 
   const formik = useFormik({
     initialValues,
@@ -303,7 +293,9 @@ const PatientPicker: FC<IProps> = ({
                   />
                 </div>
                 <div className="patientSearchForm__item submit_button">
-                  <Button type="submit">{t("common.search")}</Button>
+                  <Button type="submit" variant="contained">
+                    {t("common.search")}
+                  </Button>
                 </div>
               </div>
             </form>
