@@ -37,6 +37,8 @@ import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import SelectField from "../selectField/SelectField";
 import InfoBox from "../infoBox/InfoBox";
+import { useWindowWidth } from "../../../libraries/hooks/useWindowsWidth";
+import { isMobile } from "../../../libraries/uiUtils/screenUtils";
 
 ChartJS.register(
   CategoryScale,
@@ -56,6 +58,7 @@ export const BillsRecap: FC = () => {
   const [summaryCurrentYear, summaryCurrentYearChange] = useState(
     {} as IBillSummary
   );
+  const width = useWindowWidth();
   const [summaryByYear, summaryByYearChange] = useState({} as IBillSummary);
   const dispatch = useDispatch();
   const [year, setYear] = useState(() => {
@@ -103,10 +106,13 @@ export const BillsRecap: FC = () => {
   const getOptions = (
     title: string,
     enableTooltip: boolean = true,
+    aspectRatio: number,
     chosenYear: string = ""
   ) => {
     return {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: aspectRatio,
       plugins: {
         tooltip: {
           enabled: enableTooltip,
@@ -121,6 +127,13 @@ export const BillsRecap: FC = () => {
         title: {
           display: true,
           text: title + " " + chosenYear,
+          padding: {
+            top: 0,
+            bottom: 20,
+          },
+          font: {
+            size: 16,
+          },
         },
       },
     };
@@ -228,47 +241,73 @@ export const BillsRecap: FC = () => {
   return (
     <div className="bills__recap">
       <div className="bills__recap__content">
-        <Doughnut
-          data={getDataFromTwoObjects("dailyRevenue", "dailyDebt")}
-          options={getOptions(
-            `${t("bill.today")} (${moment().format("DD/MM/YYYY")})`,
-            false
-          )}
-        />
-        <Pie
-          data={getDataFromTwoObjects("weeklyRevenue", "weeklyDebt")}
-          options={getOptions(
-            `${t("bill.week", {
-              start: moment().startOf("week").format("DD/MM/YYYY"),
-            })}`,
-            false
-          )}
-        />
-        <Pie
-          data={getDataFromTwoObjects("monthlyRevenue", "monthlyDebt")}
-          options={getOptions(
-            `${moment().format("MMMM")} ${moment().format("YYYY")}`,
-            false
-          )}
-        />
-        <Doughnut
-          data={getDataFromTwoObjects("annualRevenue", "annualDebt")}
-          options={getOptions(
-            `${t("bill.year")} ${moment().format("YYYY")}`,
-            false
-          )}
-        />
-        <Doughnut
-          data={getDataFromTwoObjects("currentUserCashIn", "currentUserDebt")}
-          options={getOptions(
-            t("bill.currentuser", { name: userCredentials?.displayName ?? "" }),
-            false
-          )}
-        />
-        <Line
-          options={getOptions(t("bill.paymentsvariations"))}
-          data={paymentsVariationsData}
-        />
+        <div className="bills__recap__items">
+          <div className="bills__recap__item">
+            <Doughnut
+              data={getDataFromTwoObjects("dailyRevenue", "dailyDebt")}
+              options={getOptions(
+                `${t("bill.today")} (${moment().format("DD/MM/YYYY")})`,
+                false,
+                1
+              )}
+            />
+          </div>
+          <div className="bills__recap__item">
+            <Pie
+              data={getDataFromTwoObjects("weeklyRevenue", "weeklyDebt")}
+              options={getOptions(
+                `${t("bill.week", {
+                  start: moment().startOf("week").format("DD/MM/YYYY"),
+                })}`,
+                false,
+                1
+              )}
+            />
+          </div>
+          <div className="bills__recap__item">
+            <Pie
+              data={getDataFromTwoObjects("monthlyRevenue", "monthlyDebt")}
+              options={getOptions(
+                `${moment().format("MMMM")} ${moment().format("YYYY")}`,
+                false,
+                1
+              )}
+            />
+          </div>
+          <div className="bills__recap__item">
+            <Doughnut
+              data={getDataFromTwoObjects("annualRevenue", "annualDebt")}
+              options={getOptions(
+                `${t("bill.year")} ${moment().format("YYYY")}`,
+                false,
+                1
+              )}
+            />
+          </div>
+          <div className="bills__recap__item">
+            <Doughnut
+              data={getDataFromTwoObjects(
+                "currentUserCashIn",
+                "currentUserDebt"
+              )}
+              options={getOptions(
+                t("bill.currentuser", {
+                  name: userCredentials?.displayName ?? "",
+                }),
+                false,
+                1
+              )}
+            />
+          </div>
+        </div>
+        <div className="bills__recap__items">
+          <div className="bills__recap__item inline">
+            <Line
+              options={getOptions(t("bill.paymentsvariations"), false, 3)}
+              data={paymentsVariationsData}
+            />
+          </div>
+        </div>
         <div className="year__picker">
           <SelectField
             fieldName="status"
@@ -283,54 +322,72 @@ export const BillsRecap: FC = () => {
             variant="standard"
           />
         </div>
-        {dataByYear.length > 0 ? (
-          [
-            <Bar
-              options={getOptions(
-                t("bill.bestsellingbyquantity"),
-                true,
-                year.value
-              )}
-              data={getDataFromObject(
-                "bestSellingByQuantity",
-                t("bill.totalquantity")
-              )}
-            />,
-            <Bar
-              options={getOptions(
-                t("bill.bestsellingbyoccurence"),
-                true,
-                year.value
-              )}
-              data={getDataFromObject(
-                "bestSellingByOccurence",
-                t("bill.totaloccurence")
-              )}
-            />,
-            <Bar
-              options={getOptions(t("bill.bestpatients"), true, year.value)}
-              data={getDataFromObject(
-                "bestPatientsByPayments",
-                t("bill.totalpayment")
-              )}
-            />,
-            <Bar
-              options={getOptions(
-                t("bill.mostindebtpatients"),
-                true,
-                year.value
-              )}
-              data={getDataFromObject(
-                "mostIndebtedPatients",
-                t("bill.totaldebt")
-              )}
-            />,
-          ]
-        ) : (
-          <div ref={infoBoxRef} className="info-box-container">
-            <InfoBox type="warning" message={t("common.emptydata")} />
-          </div>
-        )}
+        <div className="bills__recap__items">
+          {dataByYear.length > 0 ? (
+            [
+              <div className="bills__recap__item inline">
+                <Bar
+                  options={getOptions(
+                    t("bill.bestsellingbyquantity"),
+                    true,
+                    isMobile(width) ? 1 : 3,
+                    year.value
+                  )}
+                  data={getDataFromObject(
+                    "bestSellingByQuantity",
+                    t("bill.totalquantity")
+                  )}
+                />
+              </div>,
+              <div className="bills__recap__item inline">
+                <Bar
+                  options={getOptions(
+                    t("bill.bestsellingbyoccurence"),
+                    true,
+                    isMobile(width) ? 1 : 3,
+                    year.value
+                  )}
+                  data={getDataFromObject(
+                    "bestSellingByOccurence",
+                    t("bill.totaloccurence")
+                  )}
+                />
+              </div>,
+              <div className="bills__recap__item inline">
+                <Bar
+                  options={getOptions(
+                    t("bill.bestpatients"),
+                    true,
+                    isMobile(width) ? 1 : 3,
+                    year.value
+                  )}
+                  data={getDataFromObject(
+                    "bestPatientsByPayments",
+                    t("bill.totalpayment")
+                  )}
+                />
+              </div>,
+              <div className="bills__recap__item inline">
+                <Bar
+                  options={getOptions(
+                    t("bill.mostindebtpatients"),
+                    true,
+                    isMobile(width) ? 1 : 3,
+                    year.value
+                  )}
+                  data={getDataFromObject(
+                    "mostIndebtedPatients",
+                    t("bill.totaldebt")
+                  )}
+                />
+              </div>,
+            ]
+          ) : (
+            <div ref={infoBoxRef} className="info-box-container">
+              <InfoBox type="warning" message={t("common.emptydata")} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
