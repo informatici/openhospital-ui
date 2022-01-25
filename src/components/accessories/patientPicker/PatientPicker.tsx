@@ -9,6 +9,7 @@ import {
   Toolbar,
   Typography,
   FormHelperText,
+  CircularProgress,
 } from "@material-ui/core";
 import { FC, useCallback, useState, useRef, useEffect } from "react";
 import "./styles.scss";
@@ -311,6 +312,11 @@ const PatientPicker: FC<IProps> = ({
                     {t("common.search")}
                   </Button>
                 </div>
+                {searchStatus === "LOADING" && (
+                  <CircularProgress
+                    style={{ marginLeft: "50%", position: "absolute" }}
+                  />
+                )}
               </div>
             </form>
             <div className="patientSearchResult">
