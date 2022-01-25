@@ -225,6 +225,7 @@ const ExamForm: FC<ExamProps> = ({
                 errorText={getErrorText("date")}
                 label={t("lab.date")}
                 onChange={dateFieldHandleOnChange("date")}
+                disabled={isLoading}
               />
             </div>
             <div className="patientExamForm__item">
@@ -237,6 +238,7 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("exam")}
                 options={examOptionsSelector(examList)}
                 isLoading={examsLoading}
+                disabled={isLoading}
               />
             </div>
             <div className="patientExamForm__item">
@@ -249,6 +251,7 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("material")}
                 options={materials}
                 isLoading={materialsLoading}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -260,6 +263,7 @@ const ExamForm: FC<ExamProps> = ({
                   headerData={rowTableHeaders}
                   onBlur={onBlurCallbackForTableRow()}
                   rows={examRows}
+                  disabled={isLoading}
                 />
               ) : (
                 <AutocompleteField
@@ -271,7 +275,7 @@ const ExamForm: FC<ExamProps> = ({
                   onBlur={onBlurCallback("result")}
                   options={examRows}
                   isLoading={examRowsLaoding}
-                  disabled={currentExamCode === ""}
+                  disabled={currentExamCode === "" || isLoading}
                 />
               )}
             </div>
@@ -287,6 +291,7 @@ const ExamForm: FC<ExamProps> = ({
                 errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
                 type="text"
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -300,6 +305,7 @@ const ExamForm: FC<ExamProps> = ({
               <Button
                 type="reset"
                 variant="text"
+                disabled={isLoading}
                 onClick={() => setOpenResetConfirmation(true)}
               >
                 {resetButtonLabel}
