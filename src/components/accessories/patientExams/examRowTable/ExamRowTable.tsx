@@ -20,6 +20,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
   onBlur,
   headerData,
   title,
+  disabled = false,
 }) => {
   const handleOnBlur = (value: string) => {
     debounceUpdate(value);
@@ -30,7 +31,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
     []
   );
   return (
-    <Accordion>
+    <Accordion disabled={disabled}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1bh-content"

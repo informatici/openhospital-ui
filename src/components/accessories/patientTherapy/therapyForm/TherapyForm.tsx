@@ -135,6 +135,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("medicalId")}
                 onBlur={onBlurCallback("medicalId")}
                 options={medicalOptions}
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -146,6 +147,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("qty")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -157,6 +159,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("freqInDay")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -170,6 +173,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("nbDays")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -181,6 +185,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("nbWeeks")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -192,6 +197,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("nbMonths")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -205,6 +211,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("freqInPeriod")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -218,6 +225,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("startDate")}
                 label={t("therapy.startDate")}
                 onChange={dateFieldHandleOnChange("startDate")}
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -231,6 +239,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("endDate")}
                 label={t("therapy.endDate")}
                 onChange={dateFieldHandleOnChange("endDate")}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -250,6 +259,7 @@ const TherapyForm: FC<TherapyProps> = ({
                   />
                 }
                 label={<span>{t("therapy.sendnotification")}</span>}
+                disabled={isLoading}
               />
             </div>
             <div className="patientTherapyForm__item">
@@ -267,6 +277,7 @@ const TherapyForm: FC<TherapyProps> = ({
                   />
                 }
                 label={<span>{t("therapy.sendsms")}</span>}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -281,6 +292,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 isValid={isValid("note")}
                 errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -291,7 +303,12 @@ const TherapyForm: FC<TherapyProps> = ({
               </Button>
             </div>
             <div className="reset_button">
-              <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
+              <Button
+                type="reset"
+                variant="text"
+                disabled={isLoading}
+                onClick={() => setOpenResetConfirmation(true)}
+              >
                 {resetButtonLabel}
               </Button>
             </div>
