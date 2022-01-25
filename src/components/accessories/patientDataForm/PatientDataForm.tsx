@@ -115,7 +115,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
         <ProfilePicture
-          isEditable
+          isEditable={!isLoading}
           preLoadedPicture={profilePicture}
           onChange={onProfilePictureChange}
           shouldReset={shouldResetForm}
@@ -328,6 +328,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <Button
               type="reset"
               variant="text"
+              disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
               {resetButtonLabel}

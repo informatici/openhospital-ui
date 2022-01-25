@@ -45,7 +45,6 @@ export const patientRoutes = (server) => {
     });
 
     server.get("/search").intercept((req, res) => {
-      console.log("search invoked");
       switch (req.query.firstName) {
         case "empty":
           res.status(200).json([]);

@@ -305,6 +305,7 @@ const ExamForm: FC<ExamProps> = ({
               <Button
                 type="reset"
                 variant="text"
+                disabled={isLoading}
                 onClick={() => setOpenResetConfirmation(true)}
               >
                 {resetButtonLabel}

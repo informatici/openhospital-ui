@@ -214,7 +214,12 @@ const BookingForm: FC<TBookingProps> = ({
               </Button>
             </div>
             <div className="reset_button">
-              <Button type="reset" variant="text" onClick={() => setOpenResetConfirmation(true)}>
+              <Button
+                type="reset"
+                variant="text"
+                disabled={isLoading}
+                onClick={() => setOpenResetConfirmation(true)}
+              >
                 {resetButtonLabel}
               </Button>
             </div>

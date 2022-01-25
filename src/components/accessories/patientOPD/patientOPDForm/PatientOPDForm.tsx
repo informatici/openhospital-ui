@@ -231,6 +231,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               <Button
                 type="reset"
                 variant="text"
+                disabled={isLoading}
                 onClick={() => setOpenResetConfirmation(true)}
               >
                 {resetButtonLabel}

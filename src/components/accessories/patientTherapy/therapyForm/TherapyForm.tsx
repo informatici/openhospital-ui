@@ -306,6 +306,7 @@ const TherapyForm: FC<TherapyProps> = ({
               <Button
                 type="reset"
                 variant="text"
+                disabled={isLoading}
                 onClick={() => setOpenResetConfirmation(true)}
               >
                 {resetButtonLabel}
