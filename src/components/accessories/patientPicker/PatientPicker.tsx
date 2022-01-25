@@ -1,10 +1,6 @@
 import * as React from "react";
 import {
   AppBar,
-  Card,
-  Grid,
-  CardActionArea,
-  CardContent,
   Dialog,
   DialogContent,
   FormControl,
@@ -12,7 +8,6 @@ import {
   InputAdornment,
   Toolbar,
   Typography,
-  SvgIcon,
   FormHelperText,
 } from "@material-ui/core";
 import { FC, useCallback, useState, useRef, useEffect } from "react";
@@ -40,6 +35,7 @@ import { searchPatient } from "../../../state/patients/actions";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
+import { Pagination } from "@material-ui/lab";
 
 const PatientPicker: FC<IProps> = ({
   fieldName,
@@ -54,7 +50,16 @@ const PatientPicker: FC<IProps> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef<any>(null);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [patientsPerPage] = useState(5);
+  const handlePageChange = (event: any, value: number) => {
+    setCurrentPage(value);
+  };
+  function getCurrentPatients(patients: PatientDTO[] | undefined) {
+    const indexOfLastItem = currentPage * patientsPerPage;
+    const indexOfFirstItem = indexOfLastItem - patientsPerPage;
+    return patients?.slice(indexOfFirstItem, indexOfLastItem);
+  }
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
   const [open, setOpen] = useState(false);
@@ -141,7 +146,7 @@ const PatientPicker: FC<IProps> = ({
               {t("common.results")}: <strong>{patientData?.length}</strong>
             </div>
             <div className="searchPatient__results_list">
-              {patientData?.map((patient, index) => (
+              {getCurrentPatients(patientData)?.map((patient, index) => (
                 <div onClick={() => handleClick(patient)}>
                   <PatientSearchItem
                     key={index}
@@ -242,6 +247,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("id")}
                     onBlur={formik.handleBlur}
                     type="number"
+                    disabled={searchStatus === "LOADING"}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -253,6 +259,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
                     type="text"
+                    disabled={searchStatus === "LOADING"}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -264,6 +271,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
                     type="text"
+                    disabled={searchStatus === "LOADING"}
                   />
                 </div>
               </div>
@@ -277,6 +285,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("address")}
                     onBlur={formik.handleBlur}
                     type="text"
+                    disabled={searchStatus === "LOADING"}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -290,16 +299,34 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("birthDate")}
                     label={t("patient.birthdate")}
                     onChange={dateFieldHandleOnChange("birthDate")}
+                    disabled={searchStatus === "LOADING"}
                   />
                 </div>
                 <div className="patientSearchForm__item submit_button">
-                  <Button type="submit" variant="contained">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={searchStatus === "LOADING"}
+                  >
                     {t("common.search")}
                   </Button>
                 </div>
               </div>
             </form>
-            <div className="patientSearchResult">{renderSearchResults()}</div>
+            <div className="patientSearchResult">
+              {renderSearchResults()}
+              {(patientData?.length ?? 0) > 0 && (
+                <Pagination
+                  className="resultPagination"
+                  onChange={handlePageChange}
+                  count={Math.ceil(
+                    (patientData?.length ?? 0) / patientsPerPage
+                  )}
+                  page={currentPage}
+                  color="primary"
+                />
+              )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>

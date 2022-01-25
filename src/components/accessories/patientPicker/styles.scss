@@ -154,7 +154,6 @@
       }
     }
   }
- 
 
   .patient_card {
     :hover {
@@ -184,5 +183,10 @@
   
   
 
+}
+
+.patientSearchResult .resultPagination {
+  display: flex;
+  justify-content: center;
 }
 
