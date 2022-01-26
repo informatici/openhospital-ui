@@ -37,6 +37,7 @@ import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import SelectField from "../selectField/SelectField";
 import InfoBox from "../infoBox/InfoBox";
+import { CircularProgress } from "@material-ui/core";
 
 ChartJS.register(
   CategoryScale,
@@ -71,6 +72,10 @@ export const BillsRecap: FC = () => {
 
   const dataByYear = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.getBillsByYear.data ?? [];
+  });
+
+  const dataByYearIsLoading = useSelector<IState, boolean>((state) => {
+    return state.bills.getBillsByYear.status === "LOADING";
   });
 
   const userCredentials = useSelector<IState, TUserCredentials>(
@@ -160,7 +165,7 @@ export const BillsRecap: FC = () => {
             ]
           : [];
       let customLabels = labels.map(
-        (label, index) => `${label}: ${currencyFormat(dataset[index])}`
+        (label, index) => `${label}: ${currencyFormat(dataset[index] ?? " ")}`
       );
 
       return {
@@ -265,6 +270,7 @@ export const BillsRecap: FC = () => {
             false
           )}
         />
+
         <Line
           options={getOptions(t("bill.paymentsvariations"))}
           data={paymentsVariationsData}
@@ -283,53 +289,51 @@ export const BillsRecap: FC = () => {
             variant="standard"
           />
         </div>
-        {dataByYear.length > 0 ? (
-          [
-            <Bar
-              options={getOptions(
-                t("bill.bestsellingbyquantity"),
-                true,
-                year.value
-              )}
-              data={getDataFromObject(
-                "bestSellingByQuantity",
-                t("bill.totalquantity")
-              )}
-            />,
-            <Bar
-              options={getOptions(
-                t("bill.bestsellingbyoccurence"),
-                true,
-                year.value
-              )}
-              data={getDataFromObject(
-                "bestSellingByOccurence",
-                t("bill.totaloccurence")
-              )}
-            />,
-            <Bar
-              options={getOptions(t("bill.bestpatients"), true, year.value)}
-              data={getDataFromObject(
-                "bestPatientsByPayments",
-                t("bill.totalpayment")
-              )}
-            />,
-            <Bar
-              options={getOptions(
-                t("bill.mostindebtpatients"),
-                true,
-                year.value
-              )}
-              data={getDataFromObject(
-                "mostIndebtedPatients",
-                t("bill.totaldebt")
-              )}
-            />,
-          ]
-        ) : (
-          <div ref={infoBoxRef} className="info-box-container">
-            <InfoBox type="warning" message={t("common.emptydata")} />
-          </div>
+        <Bar
+          options={getOptions(
+            t("bill.bestsellingbyquantity"),
+            true,
+            year.value
+          )}
+          data={getDataFromObject(
+            "bestSellingByQuantity",
+            t("bill.totalquantity")
+          )}
+        />
+
+        {dataByYearIsLoading && (
+          <CircularProgress style={{ position: "relative" }} />
+        )}
+        <Bar
+          options={getOptions(
+            t("bill.bestsellingbyoccurence"),
+            true,
+            year.value
+          )}
+          data={getDataFromObject(
+            "bestSellingByOccurence",
+            t("bill.totaloccurence")
+          )}
+        />
+        {dataByYearIsLoading && (
+          <CircularProgress style={{ position: "relative" }} />
+        )}
+        <Bar
+          options={getOptions(t("bill.bestpatients"), true, year.value)}
+          data={getDataFromObject(
+            "bestPatientsByPayments",
+            t("bill.totalpayment")
+          )}
+        />
+        {dataByYearIsLoading && (
+          <CircularProgress style={{ position: "absolute" }} />
+        )}
+        <Bar
+          options={getOptions(t("bill.mostindebtpatients"), true, year.value)}
+          data={getDataFromObject("mostIndebtedPatients", t("bill.totaldebt"))}
+        />
+        {dataByYearIsLoading && (
+          <CircularProgress style={{ position: "absolute" }} />
         )}
       </div>
     </div>
