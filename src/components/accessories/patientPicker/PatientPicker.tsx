@@ -1,10 +1,6 @@
 import * as React from "react";
 import {
   AppBar,
-  Card,
-  Grid,
-  CardActionArea,
-  CardContent,
   Dialog,
   DialogContent,
   FormControl,
@@ -12,15 +8,15 @@ import {
   InputAdornment,
   Toolbar,
   Typography,
-  SvgIcon,
   FormHelperText,
+  CircularProgress,
 } from "@material-ui/core";
 import { FC, useCallback, useState, useRef, useEffect } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
 
-import { Cake, Phone, Room, Search } from "@material-ui/icons";
+import { Search } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { GridCloseIcon } from "@material-ui/data-grid";
 import { get, has } from "lodash";
@@ -28,7 +24,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { initialFields } from "./consts";
+import { currentPageConst, initialFields, itemsPerPageConst } from "./consts";
 import { useFormik } from "formik";
 import { IState } from "../../../types";
 import { PatientDTO } from "../../../generated";
@@ -36,17 +32,11 @@ import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
 import Button from "../button/Button";
 import { TextField as MaterialComponent } from "@material-ui/core";
-import {
-  getPatientSuccess,
-  searchPatient,
-} from "../../../state/patients/actions";
-import { ProfilePicture } from "../profilePicture/ProfilePicture";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
-import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
+import { searchPatient } from "../../../state/patients/actions";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
+import { Pagination } from "@material-ui/lab";
 
 const PatientPicker: FC<IProps> = ({
   fieldName,
@@ -61,9 +51,17 @@ const PatientPicker: FC<IProps> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef<any>(null);
+  const [currentPage, setCurrentPage] = useState(currentPageConst);
+  const [patientsPerPage] = useState(itemsPerPageConst);
+  const handlePageChange = (event: any, value: number) => {
+    setCurrentPage(value);
+  };
+  function getCurrentPatients(patients: PatientDTO[] | undefined) {
+    const indexOfLastItem = currentPage * patientsPerPage;
+    const indexOfFirstItem = indexOfLastItem - patientsPerPage;
+    return patients?.slice(indexOfFirstItem, indexOfLastItem);
+  }
 
-  const actualClassName =
-    theme === "light" ? "autocomplete__light" : "autocomplete";
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -77,9 +75,6 @@ const PatientPicker: FC<IProps> = ({
   };
 
   const initialValues = getFromFields(initialFields, "value");
-
-  //this object is used as a prop for profile component style
-  const profileStyle = { height: "80px", width: "80px" };
 
   const formik = useFormik({
     initialValues,
@@ -134,6 +129,11 @@ const PatientPicker: FC<IProps> = ({
   const searchStatus = useSelector<IState, string | undefined>(
     (state) => state.patients.searchResults.status
   );
+
+  const isLoading = useSelector<IState, boolean>(
+    (state) => state.patients.searchResults.status === "LOADING"
+  );
+
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
@@ -151,7 +151,7 @@ const PatientPicker: FC<IProps> = ({
               {t("common.results")}: <strong>{patientData?.length}</strong>
             </div>
             <div className="searchPatient__results_list">
-              {patientData?.map((patient, index) => (
+              {getCurrentPatients(patientData)?.map((patient, index) => (
                 <div onClick={() => handleClick(patient)}>
                   <PatientSearchItem
                     key={index}
@@ -174,7 +174,7 @@ const PatientPicker: FC<IProps> = ({
 
   return (
     <>
-      <FormControl variant="outlined" className={actualClassName}>
+      <FormControl variant="outlined" className="autocomplete">
         <MaterialComponent
           id="patient_search"
           inputRef={inputRef}
@@ -252,6 +252,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("id")}
                     onBlur={formik.handleBlur}
                     type="number"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -263,6 +264,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
                     type="text"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -274,6 +276,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
                     type="text"
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -287,6 +290,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("address")}
                     onBlur={formik.handleBlur}
                     type="text"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -300,14 +304,39 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("birthDate")}
                     label={t("patient.birthdate")}
                     onChange={dateFieldHandleOnChange("birthDate")}
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item submit_button">
-                  <Button type="submit">{t("common.search")}</Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={isLoading}
+                  >
+                    {t("common.search")}
+                  </Button>
                 </div>
+                {isLoading && (
+                  <CircularProgress
+                    style={{ left: "50%", top: "50%", position: "absolute" }}
+                  />
+                )}
               </div>
             </form>
-            <div className="patientSearchResult">{renderSearchResults()}</div>
+            <div className="patientSearchResult">
+              {renderSearchResults()}
+              {searchStatus === "SUCCESS" && (
+                <Pagination
+                  className="resultPagination"
+                  onChange={handlePageChange}
+                  count={Math.ceil(
+                    (patientData?.length ?? 0) / patientsPerPage
+                  )}
+                  page={currentPage}
+                  color="primary"
+                />
+              )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>

@@ -1,6 +1,9 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientSearchFormFieldName } from "./types";
 
+export const itemsPerPageConst = 5;
+export const currentPageConst = 1;
+
 export const initialFields: TFields<TPatientSearchFormFieldName> = {
   id: {
     value: "",
