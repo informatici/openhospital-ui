@@ -77,7 +77,7 @@
       padding: 0px 10px;
     }
     @include susy-media($tablet_port) {
-      width: 50%;
+      width: 100%;
     }
     @include susy-media($smartphone) {
       width: 100%;
