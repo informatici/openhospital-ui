@@ -2,6 +2,7 @@ import { CircularProgress } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { date } from "yup";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
@@ -11,8 +12,8 @@ import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleDelete: (code: number | undefined) => void;
-  handleEdit: (row: PatientExaminationDTO) => void;
+  handleDelete?: (code: number | undefined) => void;
+  handleEdit?: (row: PatientExaminationDTO) => void;
 }
 
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
@@ -72,7 +73,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   );
 
   const onDelete = (row: PatientExaminationDTO) => {
-    handleDelete(row.pex_ID);
+    handleDelete && handleDelete(row.pex_ID);
   };
 
   return (
@@ -93,13 +94,14 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
           case "SUCCESS":
             return (
               <Table
+                title={`${t("summary.triage")} (${data.length})`}
                 rowData={formatDataToDisplay(data)}
                 compareRows={dateComparator}
                 tableHeader={header}
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                onDelete={onDelete}
+                onDelete={handleDelete ? onDelete : undefined}
                 onEdit={handleEdit}
                 isCollapsabile={true}
               />

@@ -12,8 +12,8 @@ import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
-  handleDelete: (code: number | undefined) => void;
+  handleEdit?: (row: any) => void;
+  handleDelete?: (code: number | undefined) => void;
 }
 
 const PatientExamsTable: FunctionComponent<IOwnProps> = ({
@@ -72,26 +72,27 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     (state) => state.laboratories.labsByPatientId.data
   );
   const onDelete = (row: LaboratoryDTO) => {
-    handleDelete(row.code);
+    handleDelete && handleDelete(row.code);
   };
 
   const onEdit = (row: any) => {
-    handleEdit(labData?.find((item) => item.code === row.code));
+    handleEdit && handleEdit(labData?.find((item) => item.code === row.code));
   };
 
   return (
     <div className="patientExamsTable">
       {labStatus === "SUCCESS" && (
         <Table
+          title={`${t("summary.exams")} (${data.length})`}
           rowData={formatDataToDisplay(data)}
           compareRows={dateComparator}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={onDelete}
+          onDelete={handleDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={onEdit}
+          onEdit={handleEdit ? onEdit : undefined}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (

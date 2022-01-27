@@ -22,6 +22,7 @@ export interface IProps {
   getCoreRow?: <T>(val: T) => any | undefined;
   onPay?: (row: any) => void;
   onClose?: (row: any) => void;
+  title?: string;
 }
 
 export interface IRowProps {

@@ -13,8 +13,8 @@ import { getMedicals } from "../../../../state/medicals/actions";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleDelete: (code: number | undefined) => void;
-  handleEdit: <T>(row: T) => void;
+  handleDelete?: (code: number | undefined) => void;
+  handleEdit?: <T>(row: T) => void;
 }
 
 const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
@@ -86,14 +86,13 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     (state) => state.therapies.therapiesByPatientId.status
   );
   const onDelete = (row: TherapyRowDTO) => {
-    handleDelete(row.therapyID);
+    handleDelete && handleDelete(row.therapyID);
   };
 
   const onEdit = (row: TherapyRowDTO) => {
-    handleEdit(data.find((item) => item.therapyID === row.therapyID));
+    handleEdit &&
+      handleEdit(data.find((item) => item.therapyID === row.therapyID));
   };
-
-  const onEView = () => {};
 
   return (
     <div className="patientTherapyTable">
@@ -113,16 +112,16 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
           case "SUCCESS":
             return (
               <Table
+                title={`${t("summary.therapy")} (${data.length})`}
                 rowData={formatDataToDisplay(data)}
                 compareRows={dateComparator}
                 tableHeader={header}
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                onDelete={onDelete}
+                onDelete={handleDelete ? onDelete : undefined}
                 isCollapsabile={true}
-                onEdit={onEdit}
-                onView={onEView}
+                onEdit={handleEdit ? onEdit : undefined}
               />
             );
 

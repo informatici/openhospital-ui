@@ -45,6 +45,7 @@ const Table: FunctionComponent<IProps> = ({
   renderItemDetails,
   getCoreRow,
   onClose,
+  title,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -167,6 +168,7 @@ const Table: FunctionComponent<IProps> = ({
     <>
       <TableContainer component={Paper}>
         <MaterialComponent className="table" aria-label="simple table">
+          {title && <caption className="caption"> {title}</caption>}
           <TableHead className="table_header">
             <TableRow>
               {isCollapsabile ? <TableCell /> : ""}

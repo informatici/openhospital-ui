@@ -11,8 +11,8 @@ import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: <T>(row: T) => void;
-  handleDelete: (code: number | undefined) => void;
+  handleEdit?: <T>(row: T) => void;
+  handleDelete?: (code: number | undefined) => void;
 }
 
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
@@ -64,11 +64,11 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   const onDelete = (row: OpdDTO) => {
-    handleDelete(row.code);
+    handleDelete && handleDelete(row.code);
   };
 
   const onEdit = (row?: OpdDTO) => {
-    handleEdit(data.find((item) => item.code === row?.code));
+    handleEdit && handleEdit(data.find((item) => item.code === row?.code));
   };
 
   const onEView = () => {};
@@ -77,16 +77,16 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     <div className="patientOpdTable">
       {opdStatus === "SUCCESS" ? (
         <Table
+          title={`${t("summary.opd")} (${data.length})`}
           rowData={formatDataToDisplay(data)}
           compareRows={dateComparator}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={onDelete}
+          onDelete={handleDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={onEdit}
-          onView={onEView}
+          onEdit={handleEdit ? onEdit : undefined}
         />
       ) : (
         opdStatus === "SUCCESS_EMPTY" && (

@@ -5,6 +5,5 @@ import PatientSummaryByDate from "./patientSummaryByDate/PatientSummaryByDate";
 
 export const patientSummaryTabs: TTabConfig = [
   { label: "Order by date", content: <PatientSummaryByDate /> },
-  { label: "Order by type", content: <PatientSummaryByType /> }
+  { label: "Order by type", content: <PatientSummaryByType /> },
 ];
-
