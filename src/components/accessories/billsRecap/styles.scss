@@ -37,6 +37,21 @@
         }
         &.inline {
           width: 100%;
+          position: relative;
+        }
+
+        .loader {
+          position: absolute;
+          margin: auto;
+          width: 100px !important;
+          height: 100px !important;
+          left: 50%;
+          top: 50%;
+
+          @include susy-media($smartphone) {
+            width:  50px !important;
+            height: 50px !important;
+          }
         }
       }
     }
