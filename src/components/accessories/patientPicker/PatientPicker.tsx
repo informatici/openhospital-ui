@@ -24,7 +24,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { initialFields } from "./consts";
+import { currentPageConst, initialFields, itemsPerPageConst } from "./consts";
 import { useFormik } from "formik";
 import { IState } from "../../../types";
 import { PatientDTO } from "../../../generated";
@@ -51,8 +51,8 @@ const PatientPicker: FC<IProps> = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef<any>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [patientsPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(currentPageConst);
+  const [patientsPerPage] = useState(itemsPerPageConst);
   const handlePageChange = (event: any, value: number) => {
     setCurrentPage(value);
   };
@@ -61,8 +61,7 @@ const PatientPicker: FC<IProps> = ({
     const indexOfFirstItem = indexOfLastItem - patientsPerPage;
     return patients?.slice(indexOfFirstItem, indexOfLastItem);
   }
-  const actualClassName =
-    theme === "light" ? "autocomplete__light" : "autocomplete";
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -130,6 +129,11 @@ const PatientPicker: FC<IProps> = ({
   const searchStatus = useSelector<IState, string | undefined>(
     (state) => state.patients.searchResults.status
   );
+
+  const isLoading = useSelector<IState, boolean>(
+    (state) => state.patients.searchResults.status === "LOADING"
+  );
+
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
@@ -170,7 +174,7 @@ const PatientPicker: FC<IProps> = ({
 
   return (
     <>
-      <FormControl variant="outlined" className={actualClassName}>
+      <FormControl variant="outlined" className="autocomplete">
         <MaterialComponent
           id="patient_search"
           inputRef={inputRef}
@@ -248,7 +252,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("id")}
                     onBlur={formik.handleBlur}
                     type="number"
-                    disabled={searchStatus === "LOADING"}
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -260,7 +264,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("firstName")}
                     onBlur={formik.handleBlur}
                     type="text"
-                    disabled={searchStatus === "LOADING"}
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -272,7 +276,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("secondName")}
                     onBlur={formik.handleBlur}
                     type="text"
-                    disabled={searchStatus === "LOADING"}
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -286,7 +290,7 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("address")}
                     onBlur={formik.handleBlur}
                     type="text"
-                    disabled={searchStatus === "LOADING"}
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -300,28 +304,28 @@ const PatientPicker: FC<IProps> = ({
                     errorText={getErrorText("birthDate")}
                     label={t("patient.birthdate")}
                     onChange={dateFieldHandleOnChange("birthDate")}
-                    disabled={searchStatus === "LOADING"}
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="patientSearchForm__item submit_button">
                   <Button
                     type="submit"
                     variant="contained"
-                    disabled={searchStatus === "LOADING"}
+                    disabled={isLoading}
                   >
                     {t("common.search")}
                   </Button>
                 </div>
-                {searchStatus === "LOADING" && (
+                {isLoading && (
                   <CircularProgress
-                    style={{ marginLeft: "50%", position: "absolute" }}
+                    style={{ left: "50%", top: "50%", position: "absolute" }}
                   />
                 )}
               </div>
             </form>
             <div className="patientSearchResult">
               {renderSearchResults()}
-              {(patientData?.length ?? 0) > 0 && (
+              {searchStatus === "SUCCESS" && (
                 <Pagination
                   className="resultPagination"
                   onChange={handlePageChange}
