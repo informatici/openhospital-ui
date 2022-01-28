@@ -14,12 +14,14 @@ export interface JwtTokenModel {
 export const applyTokenMiddleware: Middleware = {
   pre(request: RequestArgs): RequestArgs {
     const userCredentials = SessionStorage.read(AUTH_KEY);
+
     const { exp } = jwtDecode<JwtTokenModel>(userCredentials.token);
     const expirationTime = exp * 1000 - 60000;
     if (Date.now() >= expirationTime) {
       SessionStorage.clear();
       history.replace("/login");
     }
+
     return produce(request, (draft) => {
       if (userCredentials.token) {
         draft.headers = set(
