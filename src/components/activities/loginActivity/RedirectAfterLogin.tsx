@@ -18,6 +18,7 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
   useEffect(() => {
     if (status === "SUCCESS") {
       const from = location.state?.from || { pathname: successRoute };
+      console.log("LOCATION....:", from);
       history.replace(from);
     }
   }, [status, location.state, history, successRoute]);
