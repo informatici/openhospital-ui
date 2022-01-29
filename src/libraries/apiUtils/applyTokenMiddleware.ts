@@ -7,8 +7,6 @@ import history from "../../history";
 import jwtDecode from "jwt-decode";
 
 export interface JwtTokenModel {
-  //auth: string;
-  //sub: string;
   exp: number;
 }
 export const applyTokenMiddleware: Middleware = {
