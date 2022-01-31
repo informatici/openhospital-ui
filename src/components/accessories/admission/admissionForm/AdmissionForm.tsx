@@ -107,7 +107,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
 
     disType: admitted ? string().required(t("common.required")) : string(),
     diseaseOut1: admitted ? string().required(t("common.required")) : string(),
-
     diseaseOut2: admitted
       ? string().test({
           name: "diseaseOut2",
@@ -229,10 +228,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const admTypeStatus = useSelector(
     (state: IState) => state.admissionTypes.allAdmissionTypes.status
   );
-
-  useEffect(() => {
-    dispatch(getDiseasesIpdOut());
-  }, [dispatch, getDiseasesIpdOut]);
 
   useEffect(() => {
     dispatch(getDiseasesIpdIn());

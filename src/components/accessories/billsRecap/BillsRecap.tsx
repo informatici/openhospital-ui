@@ -36,7 +36,7 @@ import { union } from "lodash";
 import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import SelectField from "../selectField/SelectField";
-import InfoBox from "../infoBox/InfoBox";
+import { CircularProgress } from "@material-ui/core";
 import { useWindowWidth } from "../../../libraries/hooks/useWindowsWidth";
 import { isMobile } from "../../../libraries/uiUtils/screenUtils";
 
@@ -74,6 +74,10 @@ export const BillsRecap: FC = () => {
 
   const dataByYear = useSelector<IState, FullBillDTO[]>((state) => {
     return state.bills.getBillsByYear.data ?? [];
+  });
+
+  const dataByYearIsLoading = useSelector<IState, boolean>((state) => {
+    return state.bills.getBillsByYear.status === "LOADING";
   });
 
   const userCredentials = useSelector<IState, TUserCredentials>(
@@ -173,7 +177,7 @@ export const BillsRecap: FC = () => {
             ]
           : [];
       let customLabels = labels.map(
-        (label, index) => `${label}: ${currencyFormat(dataset[index])}`
+        (label, index) => `${label}: ${currencyFormat(dataset[index] ?? " ")}`
       );
 
       return {
@@ -323,70 +327,66 @@ export const BillsRecap: FC = () => {
           />
         </div>
         <div className="bills__recap__items">
-          {dataByYear.length > 0 ? (
-            [
-              <div className="bills__recap__item inline">
-                <Bar
-                  options={getOptions(
-                    t("bill.bestsellingbyquantity"),
-                    true,
-                    isMobile(width) ? 1 : 3,
-                    year.value
-                  )}
-                  data={getDataFromObject(
-                    "bestSellingByQuantity",
-                    t("bill.totalquantity")
-                  )}
-                />
-              </div>,
-              <div className="bills__recap__item inline">
-                <Bar
-                  options={getOptions(
-                    t("bill.bestsellingbyoccurence"),
-                    true,
-                    isMobile(width) ? 1 : 3,
-                    year.value
-                  )}
-                  data={getDataFromObject(
-                    "bestSellingByOccurence",
-                    t("bill.totaloccurence")
-                  )}
-                />
-              </div>,
-              <div className="bills__recap__item inline">
-                <Bar
-                  options={getOptions(
-                    t("bill.bestpatients"),
-                    true,
-                    isMobile(width) ? 1 : 3,
-                    year.value
-                  )}
-                  data={getDataFromObject(
-                    "bestPatientsByPayments",
-                    t("bill.totalpayment")
-                  )}
-                />
-              </div>,
-              <div className="bills__recap__item inline">
-                <Bar
-                  options={getOptions(
-                    t("bill.mostindebtpatients"),
-                    true,
-                    isMobile(width) ? 1 : 3,
-                    year.value
-                  )}
-                  data={getDataFromObject(
-                    "mostIndebtedPatients",
-                    t("bill.totaldebt")
-                  )}
-                />
-              </div>,
-            ]
-          ) : (
-            <div ref={infoBoxRef} className="info-box-container">
-              <InfoBox type="warning" message={t("common.emptydata")} />
-            </div>
-          )}
+          <div className="bills__recap__item inline">
+            {dataByYearIsLoading && <CircularProgress className="loader" />}
+            <Bar
+              options={getOptions(
+                t("bill.bestsellingbyquantity"),
+                true,
+                isMobile(width) ? 1 : 3,
+                year.value
+              )}
+              data={getDataFromObject(
+                "bestSellingByQuantity",
+                t("bill.totalquantity")
+              )}
+            />
+          </div>
+          <div className="bills__recap__item inline">
+            {dataByYearIsLoading && <CircularProgress className="loader" />}
+            <Bar
+              options={getOptions(
+                t("bill.bestsellingbyoccurence"),
+                true,
+                isMobile(width) ? 1 : 3,
+                year.value
+              )}
+              data={getDataFromObject(
+                "bestSellingByOccurence",
+                t("bill.totaloccurence")
+              )}
+            />
+          </div>
+          <div className="bills__recap__item inline">
+            {dataByYearIsLoading && <CircularProgress className="loader" />}
+            <Bar
+              options={getOptions(
+                t("bill.bestpatients"),
+                true,
+                isMobile(width) ? 1 : 3,
+                year.value
+              )}
+              data={getDataFromObject(
+                "bestPatientsByPayments",
+                t("bill.totalpayment")
+              )}
+            />
+          </div>
+          <div className="bills__recap__item inline">
+            {dataByYearIsLoading && <CircularProgress className="loader" />}
+            <Bar
+              options={getOptions(
+                t("bill.mostindebtpatients"),
+                true,
+                isMobile(width) ? 1 : 3,
+                year.value
+              )}
+              data={getDataFromObject(
+                "mostIndebtedPatients",
+                t("bill.totaldebt")
+              )}
+            />
+          </div>
         </div>
       </div>
     </div>

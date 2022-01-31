@@ -140,26 +140,20 @@
     }
   }
   .submit_button {
-    display: flex;
-    margin-top: 25px;
-    flex-direction: row-reverse;
-    @include susy-media($smartphone_small) {
-      display: block;
+    margin-top: 10px;  
+    .MuiButton-label {
+      padding: 5px;      
+      font-size: smaller;
+      letter-spacing: 1px;
+      font-weight: 600;
     }
-
-      .MuiButton-label {
-        font-size: smaller;
-        letter-spacing: 1px;
-        font-weight: 600;
+    button {
+      width: 100%;
+      @include susy-media($smartphone_small) {
+        margin-top: 10px;
       }
-      button {
-        @include susy-media($smartphone_small) {
-          width: 100%;
-          margin-top: 10px;
-        }
-      }
+    }
   }
- 
 
   .patient_card {
     :hover {
@@ -189,5 +183,10 @@
   
   
 
+}
+
+.patientSearchResult .resultPagination {
+  display: flex;
+  justify-content: center;
 }
 
