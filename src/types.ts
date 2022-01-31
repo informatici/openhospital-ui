@@ -8,6 +8,7 @@ import { ITherapiesState } from "./state/therapies/types";
 import { IDiseaseState } from "./state/diseases/types";
 import { IAdmissionsState } from "./state/admissions/types";
 import { IAdmissionTypeState } from "./state/admissionTypes/types";
+import { IAdmissionBookingsState } from "./state/admissionBookings/types";
 import { IWardState } from "./state/ward/types";
 import { IDischargeTypeState } from "./state/dischargeTypes/types";
 import { ILaboratoriesState } from "./state/laboratories/types";
@@ -26,6 +27,7 @@ export interface IState {
   medicals: IMedicalState;
   admissions: IAdmissionsState;
   admissionTypes: IAdmissionTypeState;
+  admissionBookings: IAdmissionBookingsState;
   dischargeTypes: IDischargeTypeState;
   wards: IWardState;
   laboratories: ILaboratoriesState;

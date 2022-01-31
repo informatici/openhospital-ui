@@ -45,6 +45,7 @@ import PatientBooking from "../../accessories/patientBooking/PatientBooking";
 import PatientExams from "../../accessories/patientExams/PatientExams";
 import Button from "../../accessories/button/Button";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import PatientAdmissionBooking from "../../accessories/admissionBooking/PatientAdmissionBooking";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
 import BillRecords from "../../accessories/billrecords/BillRecords";
@@ -92,7 +93,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.booking"),
       path: "/booking",
       content: (
-        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
+        <PatientDetailsContent title="Booking" content={PatientAdmissionBooking} />
       ),
     },
     {
