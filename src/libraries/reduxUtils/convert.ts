@@ -28,7 +28,7 @@ export const renderSummary = (
 ) => {
   const itemRender = (item: any) => {
     const obj: any = {};
-    Object.keys(labels).map((field: string) => {
+    Object.keys(labels).forEach((field: string) => {
       if (typeof item[field] === "object") {
         obj[field] = item[field]?.description ?? "";
       } else if (dateFields.includes(field) && item[field]) {

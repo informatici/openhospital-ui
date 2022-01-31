@@ -27,11 +27,11 @@ import {
 } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
-import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 
 export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();
   const header = ["date", "amount", "user"];
+  const dateFields = ["date"];
   const label = {
     id: t("bill.code"),
     date: t("bill.date"),
@@ -178,6 +178,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
         <Table
           rowData={data}
           tableHeader={header}
+          dateFields={dateFields}
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}

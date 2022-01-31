@@ -19,6 +19,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
 
   const header = ["admDate"];
+  const dateFields = ["admDate"];
 
   const label = {
     admDate: t("admission.admDate"),
@@ -81,6 +82,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
             return (
               <Table
                 rowData={formatDataToDisplay(data)}
+                dateFields={dateFields}
                 tableHeader={header}
                 labelData={label}
                 columnsOrder={order}

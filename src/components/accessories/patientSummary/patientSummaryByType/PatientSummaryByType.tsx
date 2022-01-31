@@ -53,7 +53,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 dateFields,
                 labels
               )}
-              compareRows={dateComparator}
+              dateFields={dateFields}
               tableHeader={header}
               labelData={labels}
               columnsOrder={order}
@@ -73,7 +73,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 dateFields,
                 labels
               )}
-              compareRows={dateComparator}
+              dateFields={dateFields}
               tableHeader={header}
               labelData={labels}
               columnsOrder={order}
@@ -94,7 +94,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 labels,
                 medicals
               )}
-              compareRows={dateComparator}
+              dateFields={dateFields}
               tableHeader={header}
               labelData={labels}
               columnsOrder={order}
@@ -114,7 +114,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 dateFields,
                 labels
               )}
-              compareRows={dateComparator}
+              dateFields={dateFields}
               tableHeader={header}
               labelData={labels}
               columnsOrder={order}

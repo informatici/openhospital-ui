@@ -25,6 +25,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date"];
+  const dateFields = ["date"];
 
   const label = {
     code: t("common.code"),
@@ -84,7 +85,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       {labStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
-          compareRows={dateComparator}
+          dateFields={dateFields}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}

@@ -25,6 +25,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
 
   const header = ["startDate", "endDate"];
+  const dateFields = ["startDate", "endDate"];
 
   const label = {
     therapyID: t("common.code"),
@@ -114,7 +115,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
             return (
               <Table
                 rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
+                dateFields={dateFields}
                 tableHeader={header}
                 labelData={label}
                 columnsOrder={order}

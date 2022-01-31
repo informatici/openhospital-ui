@@ -37,7 +37,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
         {!isLoading ? (
           <Table
             rowData={renderSummary(summaryData, dateFields, labels, medicals)}
-            compareRows={dateComparator}
+            dateFields={dateFields}
             tableHeader={header}
             labelData={labels}
             columnsOrder={order}

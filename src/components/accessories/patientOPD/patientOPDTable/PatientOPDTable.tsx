@@ -22,6 +22,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
   const header = ["date"];
+  const dateFields = ["date"];
   const label = {
     code: t("opd.code"),
     date: t("opd.dateopd"),
@@ -78,7 +79,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       {opdStatus === "SUCCESS" ? (
         <Table
           rowData={formatDataToDisplay(data)}
-          compareRows={dateComparator}
+          dateFields={dateFields}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}

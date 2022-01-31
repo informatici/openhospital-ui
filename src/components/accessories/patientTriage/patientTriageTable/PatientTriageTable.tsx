@@ -35,6 +35,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   };
   const header = ["pex_date"];
   const order = ["pex_date"];
+  const dateFields = ["pex_date"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, PatientExaminationDTO[]>((state) =>
@@ -94,8 +95,8 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
             return (
               <Table
                 rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
                 tableHeader={header}
+                dateFields={dateFields}
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}

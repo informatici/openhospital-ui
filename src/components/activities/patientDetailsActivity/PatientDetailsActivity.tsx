@@ -48,6 +48,7 @@ import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
 import BillRecords from "../../accessories/billrecords/BillRecords";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -254,6 +255,12 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           <div className="patientDetails__header__info__item">
                             <strong>{patient.data?.secondName || "-"}</strong>
                           </div>
+                          <div className="patientDetails__header__info__item">
+                            <small>
+                              {t("patient.patientID")}:&nbsp;
+                              {patient.data?.code || "-"}
+                            </small>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -378,6 +385,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         <AccordionDetails>
                           <div className="patientDetails__personalData__item">
                             <div className="patientDetails__personalData__item__label">
+                              {t("patient.birthdate")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {renderDate(patient.data?.birthDate || "-")}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
                               {t("patient.sex")}:
                             </div>
                             <div className="patientDetails__personalData__item__value">
@@ -394,10 +409,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           </div>
                           <div className="patientDetails__personalData__item">
                             <div className="patientDetails__personalData__item__label">
-                              {t("patient.patientID")}:
+                              {t("patient.address")}:
                             </div>
                             <div className="patientDetails__personalData__item__value">
-                              {patient.data?.code || "-"}
+                              {patient.data?.address || "-"}
                             </div>
                           </div>
                           <div className="patientDetails__personalData__item">
@@ -406,6 +421,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             </div>
                             <div className="patientDetails__personalData__item__value">
                               {patient.data?.city || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.telephone")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.telephone || "-"}
                             </div>
                           </div>
                           <div className="patientDetails__personalData__item">
@@ -426,10 +449,26 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           </div>
                           <div className="patientDetails__personalData__item">
                             <div className="patientDetails__personalData__item__label">
-                              {t("patient.telephone")}:
+                              {t("patient.parentslivetoghether")}:
                             </div>
                             <div className="patientDetails__personalData__item__value">
-                              {patient.data?.telephone || "-"}
+                              {patient.data?.parentTogether || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.mothername")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.mother_name || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.fathername")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.father_name || "-"}
                             </div>
                           </div>
                         </AccordionDetails>
