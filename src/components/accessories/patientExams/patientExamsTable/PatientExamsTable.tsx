@@ -5,7 +5,6 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";

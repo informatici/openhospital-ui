@@ -6,7 +6,6 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 interface IOwnProps {

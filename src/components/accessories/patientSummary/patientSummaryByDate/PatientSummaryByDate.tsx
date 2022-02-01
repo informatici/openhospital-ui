@@ -3,7 +3,6 @@ import React, { FunctionComponent, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { MedicalDTO } from "../../../../generated";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";

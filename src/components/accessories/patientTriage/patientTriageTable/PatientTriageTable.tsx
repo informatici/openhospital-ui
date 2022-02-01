@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { examinationsByPatientId } from "../../../../state/examinations/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
