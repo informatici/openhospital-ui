@@ -27,6 +27,7 @@ export * from './ReportsControllerApi';
 export * from './SmsControllerApi';
 export * from './StockMovementControllerApi';
 export * from './SupplierControllerApi';
+export * from './SurgicalRecordControllerApi';
 export * from './TherapyControllerApi';
 export * from './UserControllerApi';
 export * from './VaccineControllerApi';
