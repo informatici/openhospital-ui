@@ -1,3 +1,43 @@
+import isEmpty from "lodash.isempty";
+import { Dispatch } from "redux";
+import { AdmissionBookingControllerApi, Configuration } from "../../generated";
+import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { IAction } from "../types";
+import { GET_ADMISSIONBOOKING_LOADING, GET_ADMISSIONBOOKING_SUCCESS, GET_ADMISSIONBOOKING_FAIL } from "./consts";
+
+const controllerApi = new AdmissionBookingControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
+
+const getAdmissionBookingsSuccess = (payload: any): IAction<any, any> => {
+  return {
+    type: GET_ADMISSIONBOOKING_SUCCESS,
+    payload,
+  };
+};
+
+export const getAdmissionBookings = () => (dispatch: Dispatch<IAction<any, any>>): void => {
+  dispatch({ type: GET_ADMISSIONBOOKING_LOADING });
+
+  controllerApi.getAdmissionBookingsUsingGET().subscribe(
+    (payload) => {
+      if (typeof payload === "object" && !isEmpty(payload)) {
+        dispatch(getAdmissionBookingsSuccess(payload));
+      } else {
+        dispatch({
+          type: GET_ADMISSIONBOOKING_FAIL,
+          error: { message: "Unexpected response payload" },
+        });
+      }
+    },
+    (error) => {
+      dispatch({
+        type: GET_ADMISSIONBOOKING_FAIL,
+        error,
+      });
+    }
+  );
+};
 // import { Dispatch } from "redux";
 // import {
 //   Configuration,

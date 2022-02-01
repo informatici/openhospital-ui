@@ -1,3 +1,4 @@
+export * from './AdmissionBookingControllerApi';
 export * from './AdmissionControllerApi';
 export * from './AdmissionTypeControllerApi';
 export * from './AgeTypeControllerApi';
