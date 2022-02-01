@@ -23,7 +23,10 @@ import {
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
-import { defaultComparator } from "../../../libraries/sortUtils/sortUtils";
+import {
+  dateComparator,
+  defaultComparator,
+} from "../../../libraries/sortUtils/sortUtils";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
@@ -31,11 +34,11 @@ import warningIcon from "../../../assets/warning-icon.png";
 const Table: FunctionComponent<IProps> = ({
   rowData,
   tableHeader,
+  dateFields = [],
   labelData,
   isCollapsabile,
   rowsPerPage,
   columnsOrder,
-  compareRows = defaultComparator,
   onEdit,
   onDelete,
   onPrint,
@@ -190,7 +193,11 @@ const Table: FunctionComponent<IProps> = ({
           </TableHead>
           <TableBody className="table_body">
             {[...rowData]
-              .sort(compareRows(order, orderBy))
+              .sort(
+                dateFields.includes(orderBy)
+                  ? dateComparator(order, orderBy)
+                  : defaultComparator(order, orderBy)
+              )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
                 <TableBodyRow

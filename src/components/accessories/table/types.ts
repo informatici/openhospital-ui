@@ -4,13 +4,10 @@ export interface IProps {
   rowData: Array<Record<string, any>>;
   labelData: Record<string, any>;
   tableHeader: Array<string>;
+  dateFields?: string[];
   isCollapsabile?: boolean;
   rowsPerPage: number;
   columnsOrder: Array<string>;
-  compareRows?: <Key extends string | number | symbol>(
-    order: TOrder,
-    key: Key
-  ) => (a: any, b: any) => number;
   onEdit?: <T>(row: T) => void;
   onDelete?: <T>(row: T) => void;
   onPrint?: <T>(row: T) => void;

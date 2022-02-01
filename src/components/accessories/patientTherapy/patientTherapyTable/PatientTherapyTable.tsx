@@ -6,7 +6,6 @@ import Table from "../../table/Table";
 import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getMedicals } from "../../../../state/medicals/actions";
@@ -25,6 +24,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
 
   const header = ["startDate", "endDate"];
+  const dateFields = ["startDate", "endDate"];
 
   const label = {
     therapyID: t("common.code"),
@@ -66,21 +66,20 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   }, [shouldUpdateTable, dispatch, patientCode]);
 
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
-    return data
-      .map((item) => {
-        const medical = medicals.find((medoc) => medoc.code === item.medicalId);
-        return {
-          therapyID: item.therapyID,
-          medicalId: medical ? medical.description : item.medicalId,
-          startDate: item.startDate ? renderDate(item.startDate) : "",
-          endDate: item.endDate ? renderDate(item.endDate) : "",
-          qty: item.qty,
-          freqInDay: item.freqInDay,
-          freqInPeriod: item.freqInPeriod,
-          note: item.note,
-        };
-      })
-      .sort(dateComparator("desc", "startDate"));
+    return data.map((item) => {
+      const medical = medicals.find((medoc) => medoc.code === item.medicalId);
+      return {
+        therapyID: item.therapyID,
+        medicalId: medical ? medical.description : item.medicalId,
+        startDate: item.startDate ? renderDate(item.startDate) : "",
+        endDate: item.endDate ? renderDate(item.endDate) : "",
+        qty: item.qty,
+        freqInDay: item.freqInDay,
+        freqInPeriod: item.freqInPeriod,
+        note: item.note,
+      };
+    });
+    //.sort(dateComparator("desc", "startDate"));
   };
   const therapyStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
@@ -114,7 +113,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
             return (
               <Table
                 rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
+                dateFields={dateFields}
                 tableHeader={header}
                 labelData={label}
                 columnsOrder={order}

@@ -32,12 +32,14 @@ const BillRecords = () => {
   const { t } = useTranslation();
 
   const pendingHeader = ["date", "amount", "balance"];
+  const pendingDateFields = ["date"];
   const pendingLabel = {
     date: t("bill.date"),
     amount: t("bill.amount"),
     balance: t("bill.balance"),
   };
   const closedHeader = ["date", "amount"];
+  const closedDateFields = ["date"];
   const closedLabel = {
     date: t("bill.date"),
     amount: t("bill.amount"),
@@ -182,6 +184,7 @@ const BillRecords = () => {
       <Table
         rowData={formatDataToDisplay(pendingBills)}
         tableHeader={pendingHeader}
+        dateFields={pendingDateFields}
         labelData={pendingLabel}
         columnsOrder={order}
         rowsPerPage={5}
@@ -206,6 +209,7 @@ const BillRecords = () => {
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>
       <Table
         rowData={formatDataToDisplay(closedBills)}
+        dateFields={closedDateFields}
         tableHeader={closedHeader}
         labelData={closedLabel}
         columnsOrder={order}

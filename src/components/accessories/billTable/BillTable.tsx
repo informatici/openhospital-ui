@@ -35,6 +35,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const header = ["patient", "date", "status"];
+  const dateFields = ["date"];
   const label = {
     id: t("bill.code"),
     date: t("bill.date"),
@@ -45,7 +46,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     patId: t("bill.patId"),
     lastPayment: t("bill.lastPayment"),
   };
-  const order = ["patient", "date", "status"];
+  const order = ["date", "status"];
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
   const history = useHistory();
 
@@ -300,6 +301,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
       <div className="bills__table">
         <Table
           rowData={formattedData}
+          dateFields={dateFields}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}

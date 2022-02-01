@@ -5,7 +5,6 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
@@ -25,6 +24,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date"];
+  const dateFields = ["date"];
 
   const label = {
     code: t("common.code"),
@@ -84,7 +84,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       {labStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
-          compareRows={dateComparator}
+          dateFields={dateFields}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}

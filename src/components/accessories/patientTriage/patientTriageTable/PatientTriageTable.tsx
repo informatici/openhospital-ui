@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import { examinationsByPatientId } from "../../../../state/examinations/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
@@ -35,6 +34,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   };
   const header = ["pex_date"];
   const order = ["pex_date"];
+  const dateFields = ["pex_date"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, PatientExaminationDTO[]>((state) =>
@@ -94,8 +94,8 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
             return (
               <Table
                 rowData={formatDataToDisplay(data)}
-                compareRows={dateComparator}
                 tableHeader={header}
+                dateFields={dateFields}
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}

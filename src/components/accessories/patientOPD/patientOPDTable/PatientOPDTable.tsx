@@ -6,7 +6,6 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { dateComparator } from "../../../../libraries/sortUtils/sortUtils";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 interface IOwnProps {
@@ -22,6 +21,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
   const header = ["date"];
+  const dateFields = ["date"];
   const label = {
     code: t("opd.code"),
     date: t("opd.dateopd"),
@@ -78,7 +78,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       {opdStatus === "SUCCESS" ? (
         <Table
           rowData={formatDataToDisplay(data)}
-          compareRows={dateComparator}
+          dateFields={dateFields}
           tableHeader={header}
           labelData={label}
           columnsOrder={order}
