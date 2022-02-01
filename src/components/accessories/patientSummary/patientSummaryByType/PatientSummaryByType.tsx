@@ -7,6 +7,7 @@ import { renderSummary } from "../../../../libraries/reduxUtils/convert";
 import { loadSummaryData } from "../../../../state/summary/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
+
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
 import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
