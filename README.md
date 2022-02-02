@@ -24,6 +24,9 @@ To install the project dependencies, issue:
 ## How to publish on Github Pages
 
     - npm run build:gh-pages
+    - git commit
+
+    then
 
     - git subtree push --prefix build intesys-oh gh-pages
 
