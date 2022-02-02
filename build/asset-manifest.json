@@ -1,27 +1,24 @@
 {
   "files": {
-    "main.css": "/openhospital-ui/static/css/main.31bad639.chunk.css",
-    "main.js": "/openhospital-ui/static/js/main.12aa623c.chunk.js",
-    "main.js.map": "/openhospital-ui/static/js/main.12aa623c.chunk.js.map",
+    "main.css": "/openhospital-ui/static/css/main.87b4db7e.chunk.css",
+    "main.js": "/openhospital-ui/static/js/main.dabcfefd.chunk.js",
+    "main.js.map": "/openhospital-ui/static/js/main.dabcfefd.chunk.js.map",
     "runtime-main.js": "/openhospital-ui/static/js/runtime-main.a861650c.js",
     "runtime-main.js.map": "/openhospital-ui/static/js/runtime-main.a861650c.js.map",
-    "static/js/2.3f3c9989.chunk.js": "/openhospital-ui/static/js/2.3f3c9989.chunk.js",
-    "static/js/2.3f3c9989.chunk.js.map": "/openhospital-ui/static/js/2.3f3c9989.chunk.js.map",
+    "static/js/2.2f0a15df.chunk.js": "/openhospital-ui/static/js/2.2f0a15df.chunk.js",
+    "static/js/2.2f0a15df.chunk.js.map": "/openhospital-ui/static/js/2.2f0a15df.chunk.js.map",
     "index.html": "/openhospital-ui/index.html",
-    "precache-manifest.ac028d134c21f6adca084cb1ce7cee31.js": "/openhospital-ui/precache-manifest.ac028d134c21f6adca084cb1ce7cee31.js",
+    "precache-manifest.32599b2daca4def347951374b178985f.js": "/openhospital-ui/precache-manifest.32599b2daca4def347951374b178985f.js",
     "service-worker.js": "/openhospital-ui/service-worker.js",
-    "static/css/main.31bad639.chunk.css.map": "/openhospital-ui/static/css/main.31bad639.chunk.css.map",
-    "static/js/2.3f3c9989.chunk.js.LICENSE.txt": "/openhospital-ui/static/js/2.3f3c9989.chunk.js.LICENSE.txt",
+    "static/css/main.87b4db7e.chunk.css.map": "/openhospital-ui/static/css/main.87b4db7e.chunk.css.map",
+    "static/js/2.2f0a15df.chunk.js.LICENSE.txt": "/openhospital-ui/static/js/2.2f0a15df.chunk.js.LICENSE.txt",
     "static/media/arrow-w.svg": "/openhospital-ui/static/media/arrow-w.193ed5ff.svg",
-    "static/media/gender-female.15d8fc84.svg": "/openhospital-ui/static/media/gender-female.15d8fc84.svg",
-    "static/media/gender-male.d281d8c5.svg": "/openhospital-ui/static/media/gender-male.d281d8c5.svg",
-    "static/media/logo-color.svg": "/openhospital-ui/static/media/logo-color.2feb9812.svg",
-    "static/media/tax.3d7e2682.svg": "/openhospital-ui/static/media/tax.3d7e2682.svg"
+    "static/media/logo-color.svg": "/openhospital-ui/static/media/logo-color.2feb9812.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.a861650c.js",
-    "static/js/2.3f3c9989.chunk.js",
-    "static/css/main.31bad639.chunk.css",
-    "static/js/main.12aa623c.chunk.js"
+    "static/js/2.2f0a15df.chunk.js",
+    "static/css/main.87b4db7e.chunk.css",
+    "static/js/main.dabcfefd.chunk.js"
   ]
 }
