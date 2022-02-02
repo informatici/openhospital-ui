@@ -92,8 +92,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     handleEdit(data.find((item) => item.therapyID === row.therapyID));
   };
 
-  const onEView = () => {};
-
   return (
     <div className="patientTherapyTable">
       {(() => {
@@ -121,7 +119,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
                 onDelete={onDelete}
                 isCollapsabile={true}
                 onEdit={onEdit}
-                onView={onEView}
               />
             );
 

@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import SmallButton from "../smallButton/SmallButton";
@@ -14,18 +7,13 @@ import { ItemPayment } from "./itemPayment/ItemPayment";
 import { CustomModal } from "../customModal/CustomModal";
 import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
-import { BillItemsDTO, BillPaymentsDTO } from "../../../generated";
-import { Add, FilterList } from "@material-ui/icons";
+import { BillItemsDTO } from "../../../generated";
+import { Add, Payment } from "@material-ui/icons";
 import { initialFields as initialItemFields } from "./itemPicker/consts";
 import { getPrices } from "../../../state/prices/actions";
 import { useDispatch } from "react-redux";
-import {
-  useSelectedPatient,
-  useFullBill,
-  useCurrentUser,
-} from "./hooks/full_bill.hooks";
+import { useSelectedPatient, useFullBill } from "./hooks/full_bill.hooks";
 import { useDialogStatus } from "./hooks/dialog.hooks";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useHistory } from "react-router";
@@ -35,16 +23,14 @@ import {
   AccordionSummary,
   Backdrop,
   CircularProgress,
-  Theme,
 } from "@material-ui/core";
 import { useStyles } from "./consts";
-import { newBillReset, updateBillReset } from "../../../state/bills/actions";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [openPayment, setOpenPayment] = useState(false);
+  const [openPayment, setOpenPayment] = useState(true);
 
   const {
     fullBill,
@@ -128,7 +114,7 @@ const PatientNewBill: FC = () => {
             <div className="patientNewBill_payment">
               <Accordion expanded={openPayment}>
                 <AccordionSummary onClick={() => setOpenPayment(!openPayment)}>
-                  <FilterList fontSize="small" />
+                  <Payment fontSize="small" />
                   <h5>{t("bill.payment")}</h5>
                 </AccordionSummary>
                 <AccordionDetails>
