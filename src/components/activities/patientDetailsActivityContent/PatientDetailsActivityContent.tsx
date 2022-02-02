@@ -12,7 +12,7 @@ const PatientDetailsActivityContent: FunctionComponent<IProps> = ({
       <div className="patientDetils__content_header">
         <h3>{title}</h3>
       </div>
-      <div className="patientDetils__content_body1">
+      <div className="patientDetils__content_body">
         <Content />
       </div>
     </Fragment>
