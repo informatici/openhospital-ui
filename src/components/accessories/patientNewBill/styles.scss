@@ -4,7 +4,7 @@
 .patientNewBill {
   display: flex;
   flex-direction: column;
-  padding: 16px 8px 16px 8px;
+  //padding: 16px 8px 16px 8px;
   row-gap: 12px;
   & > .patientNewBill_main {
     display: flex;
@@ -37,17 +37,17 @@
         color: $c-gray;
       }
     }
-    
+
     & > .patientNewBill_payment {
       display: flex;
-      padding: 8px 4px;
+      //padding: 8px 4px;
       border-radius: 8px;
       flex-direction: column;
-      
+
       .MuiAccordion-root.Mui-expanded {
-          margin: 16px 0;
-          width: 100%;
-          align-self: center;
+        margin: 0 0 16px;
+        width: 100%;
+        align-self: center;
       }
       .payment {
         display: flex;
@@ -94,7 +94,7 @@
         }
         .two-row {
           display: flex;
-          width:  85%;
+          width: 85%;
           justify-content: space-between;
           & > span:first-child {
             font-weight: 200;
@@ -128,7 +128,7 @@
       }
     }
   }
-  
+
   & > .patientNewBill_nopayment {
     display: flex;
     justify-content: center;

@@ -25,11 +25,13 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  CircularProgress,
 } from "@material-ui/core";
 import { Add, FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
 import { useHistory } from "react-router";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
+import InfoBox from "../infoBox/InfoBox";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
@@ -150,6 +152,14 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
+  const status = useSelector<IState, string | undefined>((state) => {
+    if (filter.status === "PENDING") {
+      return state.bills.getPendingBills.status;
+    } else {
+      return state.bills.searchBills.status;
+    }
+  });
+
   const formattedData = useFormatData(data, filter.status);
 
   const [open, setOpen] = useState(false);
@@ -187,7 +197,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   ];
 
   return (
-    <div className="patients__bills">
+    <div className="billing_bills">
       <div className="billing__header">
         <div className="billing__title">{t("nav.billing")}</div>
         <div className="billing__actions">
@@ -201,124 +211,154 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
           </Button>
         </div>
       </div>
-      <div className="filterBillForm">
-        <Accordion expanded={openFilter}>
-          <AccordionSummary onClick={() => setOpenFilter(!openFilter)}>
-            <FilterList fontSize="small" />
-            <h5>{t("bill.filterBills")}</h5>
-          </AccordionSummary>
-          <AccordionDetails>
-            <form
-              className="filterBillForm__form"
-              onSubmit={formik.handleSubmit}
-            >
-              <div className="filterBillForm__item">
-                <SelectField
-                  fieldName="status"
-                  fieldValue={formik.values.status}
-                  label={t("bill.status")}
-                  isValid={isValid("status")}
-                  errorText={getErrorText("status")}
-                  onBlur={onBlurCallback("status")}
-                  options={statusOptions}
-                />
-              </div>
-              <div className="filterBillForm__item">
-                <DateField
-                  theme={"regular"}
-                  fieldName="fromDate"
-                  fieldValue={formik.values.fromDate}
-                  disableFuture={false}
-                  format="dd/MM/yyyy"
-                  isValid={isValid("fromDate")}
-                  errorText={getErrorText("fromDate")}
-                  label={t("bill.fromdate")}
-                  onChange={dateFieldHandleOnChange("fromDate")}
-                />
-              </div>
-              <div className="filterBillForm__item">
-                <DateField
-                  fieldName="toDate"
-                  fieldValue={formik.values.toDate}
-                  disableFuture={false}
-                  theme="regular"
-                  format="dd/MM/yyyy"
-                  isValid={isValid("toDate")}
-                  errorText={getErrorText("toDate")}
-                  label={t("bill.todate")}
-                  onChange={dateFieldHandleOnChange("toDate")}
-                />
-              </div>
 
-              <div className="filterBillForm__item">
-                <DateField
-                  fieldName="month"
-                  views={["month"]}
-                  fieldValue={formik.values.month}
-                  disableFuture={true}
-                  theme="regular"
-                  format="MMMM"
-                  isValid={isValid("month")}
-                  errorText={getErrorText("month")}
-                  label={t("bill.month")}
-                  onChange={dateFieldHandleOnChange("month")}
-                />
-              </div>
-              <div className="filterBillForm__item">
-                <DateField
-                  fieldName="year"
-                  views={["year"]}
-                  fieldValue={formik.values.year}
-                  disableFuture={true}
-                  theme="regular"
-                  format="yyyy"
-                  isValid={isValid("year")}
-                  errorText={getErrorText("year")}
-                  label={t("bill.year")}
-                  onChange={dateFieldHandleOnChange("year")}
-                />
-              </div>
-              <div className="filterBillForm__item">
-                <PatientPicker
-                  theme={"regular"}
-                  fieldName="patientCode"
-                  fieldValue={formik.values.patientCode}
-                  label={t("bill.patient")}
-                  isValid={isValid("patientCode")}
-                  errorText={getErrorText("patientCode")}
-                  onBlur={onBlurCallback("patientCode")}
-                />
-              </div>
-              <div className="filterBillForm__item filterForm__buttonSet">
-                <Button variant="contained" type="submit">
-                  {t("bill.filterbutton")}
-                </Button>
-              </div>
-            </form>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-      <div className="bills__table">
-        <Table
-          rowData={formattedData}
-          dateFields={dateFields}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={5}
-          isCollapsabile={true}
-          onView={handleView}
-        />
-        <CustomModal
-          open={open}
-          onClose={handleClose}
-          title={t("bill.details")}
-          description={t("bill.details")}
-          content={
-            <RenderBillDetails fullBill={fullBill} skipPatientHeader={false} />
-          }
-        />
-      </div>
+      {(() => {
+        switch (status) {
+          case "FAIL":
+            return (
+              <InfoBox type="error" message={t("common.somethingwrong")} />
+            );
+
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
+
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+          case "SUCCESS":
+            return (
+              <>
+                <div className="filterBillForm">
+                  <Accordion expanded={openFilter}>
+                    <AccordionSummary
+                      onClick={() => setOpenFilter(!openFilter)}
+                    >
+                      <FilterList fontSize="small" />
+                      <h5>{t("bill.filterBills")}</h5>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <form
+                        className="filterBillForm__form"
+                        onSubmit={formik.handleSubmit}
+                      >
+                        <div className="filterBillForm__item">
+                          <SelectField
+                            fieldName="status"
+                            fieldValue={formik.values.status}
+                            label={t("bill.status")}
+                            isValid={isValid("status")}
+                            errorText={getErrorText("status")}
+                            onBlur={onBlurCallback("status")}
+                            options={statusOptions}
+                          />
+                        </div>
+                        <div className="filterBillForm__item">
+                          <DateField
+                            theme={"regular"}
+                            fieldName="fromDate"
+                            fieldValue={formik.values.fromDate}
+                            disableFuture={false}
+                            format="dd/MM/yyyy"
+                            isValid={isValid("fromDate")}
+                            errorText={getErrorText("fromDate")}
+                            label={t("bill.fromdate")}
+                            onChange={dateFieldHandleOnChange("fromDate")}
+                          />
+                        </div>
+                        <div className="filterBillForm__item">
+                          <DateField
+                            fieldName="toDate"
+                            fieldValue={formik.values.toDate}
+                            disableFuture={false}
+                            theme="regular"
+                            format="dd/MM/yyyy"
+                            isValid={isValid("toDate")}
+                            errorText={getErrorText("toDate")}
+                            label={t("bill.todate")}
+                            onChange={dateFieldHandleOnChange("toDate")}
+                          />
+                        </div>
+
+                        <div className="filterBillForm__item">
+                          <DateField
+                            fieldName="month"
+                            views={["month"]}
+                            fieldValue={formik.values.month}
+                            disableFuture={true}
+                            theme="regular"
+                            format="MMMM"
+                            isValid={isValid("month")}
+                            errorText={getErrorText("month")}
+                            label={t("bill.month")}
+                            onChange={dateFieldHandleOnChange("month")}
+                          />
+                        </div>
+                        <div className="filterBillForm__item">
+                          <DateField
+                            fieldName="year"
+                            views={["year"]}
+                            fieldValue={formik.values.year}
+                            disableFuture={true}
+                            theme="regular"
+                            format="yyyy"
+                            isValid={isValid("year")}
+                            errorText={getErrorText("year")}
+                            label={t("bill.year")}
+                            onChange={dateFieldHandleOnChange("year")}
+                          />
+                        </div>
+                        <div className="filterBillForm__item">
+                          <PatientPicker
+                            theme={"regular"}
+                            fieldName="patientCode"
+                            fieldValue={formik.values.patientCode}
+                            label={t("bill.patient")}
+                            isValid={isValid("patientCode")}
+                            errorText={getErrorText("patientCode")}
+                            onBlur={onBlurCallback("patientCode")}
+                          />
+                        </div>
+                        <div className="filterBillForm__item filterForm__buttonSet">
+                          <Button variant="contained" type="submit">
+                            {t("bill.filterbutton")}
+                          </Button>
+                        </div>
+                      </form>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+                <div className="bills__table">
+                  <Table
+                    rowData={formattedData}
+                    dateFields={dateFields}
+                    tableHeader={header}
+                    labelData={label}
+                    columnsOrder={order}
+                    rowsPerPage={5}
+                    isCollapsabile={true}
+                    onView={handleView}
+                  />
+                  <CustomModal
+                    open={open}
+                    onClose={handleClose}
+                    title={t("bill.details")}
+                    description={t("bill.details")}
+                    content={
+                      <RenderBillDetails
+                        fullBill={fullBill}
+                        skipPatientHeader={false}
+                      />
+                    }
+                  />
+                </div>
+              </>
+            );
+        }
+      })()}
     </div>
   );
 };

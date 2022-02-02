@@ -1,9 +1,8 @@
 import React from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, IconButton, Tooltip } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import SmallButton from "../../smallButton/SmallButton";
-import TextButton from "../../textButton/TextButton";
 import "../styles.scss";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 import { CheckCircleRounded } from "@material-ui/icons";

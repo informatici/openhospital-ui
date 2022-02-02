@@ -24,9 +24,11 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  CircularProgress,
 } from "@material-ui/core";
 import { FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
+import InfoBox from "../infoBox/InfoBox";
 
 export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();
@@ -52,6 +54,10 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
           user: item.user,
         };
       }) ?? []
+  );
+
+  const status = useSelector<IState, string | undefined>(
+    (state) => state.bills.searchPayments.status
   );
 
   const validationSchema = object({
@@ -120,71 +126,101 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   return (
     <div className="bill__payments">
       <div className="title">{t("bill.payments")}</div>
-      <div className="filterForm">
-        <Accordion expanded={openFilter}>
-          <AccordionSummary onClick={() => setOpenFilter(!openFilter)}>
-            <FilterList fontSize="small" />
-            <h5>{t("bill.filterPayments")}</h5>
-          </AccordionSummary>
-          <AccordionDetails>
-            <form className="filterForm__form" onSubmit={formik.handleSubmit}>
-              <div className="filterForm__item">
-                <DateField
-                  theme={"regular"}
-                  fieldName="fromDate"
-                  fieldValue={formik.values.fromDate}
-                  disableFuture={false}
-                  format="dd/MM/yyyy"
-                  isValid={isValid("fromDate")}
-                  errorText={getErrorText("fromDate")}
-                  label={t("bill.fromdate")}
-                  onChange={dateFieldHandleOnChange("fromDate")}
-                />
-              </div>
-              <div className="filterForm__item">
-                <DateField
-                  fieldName="toDate"
-                  fieldValue={formik.values.toDate}
-                  disableFuture={false}
-                  theme="regular"
-                  format="dd/MM/yyyy"
-                  isValid={isValid("toDate")}
-                  errorText={getErrorText("toDate")}
-                  label={t("bill.todate")}
-                  onChange={dateFieldHandleOnChange("toDate")}
-                />
-              </div>
-              <div className="filterForm__item">
-                <PatientPicker
-                  theme={"regular"}
-                  fieldName="patientCode"
-                  fieldValue={formik.values.patientCode}
-                  label={t("bill.patient")}
-                  isValid={isValid("patientCode")}
-                  errorText={getErrorText("patientCode")}
-                  onBlur={onBlurCallback("patientCode")}
-                />
-              </div>
-              <div className="filterForm__item filterForm__buttonSet">
-                <Button variant="contained" type="submit">
-                  {t("bill.filterbutton")}
-                </Button>
-              </div>
-            </form>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-      <div className="payments__table">
-        <Table
-          rowData={data}
-          tableHeader={header}
-          dateFields={dateFields}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={5}
-          isCollapsabile={false}
-        />
-      </div>
+
+      {(() => {
+        switch (status) {
+          case "FAIL":
+            return (
+              <InfoBox type="error" message={t("common.somethingwrong")} />
+            );
+
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
+
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+          case "SUCCESS":
+            return (
+              <>
+                <div className="filterForm">
+                  <Accordion expanded={openFilter}>
+                    <AccordionSummary
+                      onClick={() => setOpenFilter(!openFilter)}
+                    >
+                      <FilterList fontSize="small" />
+                      <h5>{t("bill.filterPayments")}</h5>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <form
+                        className="filterForm__form"
+                        onSubmit={formik.handleSubmit}
+                      >
+                        <div className="filterForm__item">
+                          <DateField
+                            theme={"regular"}
+                            fieldName="fromDate"
+                            fieldValue={formik.values.fromDate}
+                            disableFuture={false}
+                            format="dd/MM/yyyy"
+                            isValid={isValid("fromDate")}
+                            errorText={getErrorText("fromDate")}
+                            label={t("bill.fromdate")}
+                            onChange={dateFieldHandleOnChange("fromDate")}
+                          />
+                        </div>
+                        <div className="filterForm__item">
+                          <DateField
+                            fieldName="toDate"
+                            fieldValue={formik.values.toDate}
+                            disableFuture={false}
+                            theme="regular"
+                            format="dd/MM/yyyy"
+                            isValid={isValid("toDate")}
+                            errorText={getErrorText("toDate")}
+                            label={t("bill.todate")}
+                            onChange={dateFieldHandleOnChange("toDate")}
+                          />
+                        </div>
+                        <div className="filterForm__item">
+                          <PatientPicker
+                            theme={"regular"}
+                            fieldName="patientCode"
+                            fieldValue={formik.values.patientCode}
+                            label={t("bill.patient")}
+                            isValid={isValid("patientCode")}
+                            errorText={getErrorText("patientCode")}
+                            onBlur={onBlurCallback("patientCode")}
+                          />
+                        </div>
+                        <div className="filterForm__item filterForm__buttonSet">
+                          <Button variant="contained" type="submit">
+                            {t("bill.filterbutton")}
+                          </Button>
+                        </div>
+                      </form>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+                <div className="payments__table">
+                  <Table
+                    rowData={data}
+                    tableHeader={header}
+                    dateFields={dateFields}
+                    labelData={label}
+                    columnsOrder={order}
+                    rowsPerPage={5}
+                    isCollapsabile={false}
+                  />
+                </div>
+              </>
+            );
+        }
+      })()}
     </div>
   );
 };
