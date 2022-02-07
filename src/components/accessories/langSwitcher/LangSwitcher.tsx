@@ -6,16 +6,16 @@ import "./styles.scss";
 const languageVocabolary: Record<string, string> = {
   en: "English",
   it: "Italian",
-  de: "German",
+  // de: "German",
   fr: "French",
-  es: "Spanish",
-  pt: "Portoguese",
-  ar: "Arabic",
-  sw: "Swahili",
-  am: "Amharic",
-  cs: "Czech",
-  sq: "Albanian",
-  zh: "Chinese",
+  // es: "Spanish",
+  // pt: "Portoguese",
+  // ar: "Arabic",
+  // sw: "Swahili",
+  // am: "Amharic",
+  // cs: "Czech",
+  // sq: "Albanian",
+  // zh: "Chinese",
 };
 
 const LangSwitcher: FunctionComponent = () => {
@@ -23,12 +23,15 @@ const LangSwitcher: FunctionComponent = () => {
   const currentLang = i18n.language;
   const { changeLang } = useContext(LangContext);
 
-  const renderOptions = (): JSX.Element[] => {
-    return languages.map((code: string) => (
-      <option key={code} value={code}>
-        {languageVocabolary[code] || "undefined"}
-      </option>
-    ));
+  const renderOptions = (): (JSX.Element | null)[] => {
+    return languages.map((code: string) => languageVocabolary[code]
+      ? (
+        <option key={code} value={code}>
+          {languageVocabolary[code]}
+        </option>
+      )
+      : null
+    );
   };
 
   const getCurrentLang = () => {
