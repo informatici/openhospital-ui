@@ -60,7 +60,10 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   const editPicture = () => pictureInputRef.current?.click();
 
   const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  const closeModal = () => {
+    setShowModal(false);
+    closeWebcam();
+  }
 
   const openWebcam = () => setShowWebcam(true);
   const closeWebcam = () => setShowWebcam(false);
@@ -152,15 +155,14 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       >
         <DialogContent>
           <DialogContentText>
-            {showWebcam && <Webcam mirrored onCapture={(image) => preprocessImage(setWebcamPicture, image)} />}
-            {webcamPicture.original && <img src={webcamPicture.original} alt="" />}
+            {showWebcam && <Webcam mirrored onCapture={(image) => setWebcamPicture({ original: image, preview: webcamPicture.preview })} />}
           </DialogContentText>
           <DialogActions>
             <Button onClick={() => {
               closeModal();
               editPicture();
             }} color="primary" variant="contained">Scegli una foto dal computer</Button>
-            <Button onClick={openWebcam} color="primary" variant="contained">Scatta una foto</Button>
+            {!showWebcam && <Button onClick={openWebcam} color="primary" variant="contained">Scatta una foto</Button>}
           </DialogActions>
         </DialogContent>
       </Dialog>
