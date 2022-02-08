@@ -176,7 +176,8 @@
     "nooptionsfound": "Aucune option trouvée",
     "close": "FERMER",
     "greaterthan": "La valeur doît être au moins {{value}}.",
-    "lessthan": "La valeur ne doit pas depasser {{value}}."
+    "lessthan": "La valeur ne doit pas depasser {{value}}.",
+    "confirm": "Confirmer"
   },
   "therapy": {
     "newtherapy": "Nouvelle Therapie",
@@ -361,5 +362,11 @@
     "discard": "Annuler",
     "suspend": "Annuler",
     "add": "Ajouter"
+  },
+  "picture": {
+    "edit": "Éditer l'image",
+    "upload": "Charger une photo",
+    "useWebcam": "Prendre une photo",
+    "useWebcamAgain": "Prendre une autre photo"
   }
 }

@@ -1,5 +1,8 @@
 import React, {useCallback, useRef, useState} from "react";
 import ImageCrop, { Crop } from "react-image-crop";
+import { useTranslation } from "react-i18next";
+import Button from "@material-ui/core/Button";
+import CheckIcon from "@material-ui/icons/Check";
 import 'react-image-crop/dist/ReactCrop.css';
 
 interface Props {
@@ -10,6 +13,7 @@ interface Props {
 const ImageResize: React.FC<Props> = ({ imageToResize, onConfirm }) => {
   const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
   const [crop, setCrop] = useState<Crop>({ aspect: 1, x: 50, y: 50, width: 300, height: 300, unit: 'px' });
+  const { t } = useTranslation();
 
   const confirm = useCallback(
     () => {
@@ -55,7 +59,7 @@ const ImageResize: React.FC<Props> = ({ imageToResize, onConfirm }) => {
         onChange={newCrop => setCrop(newCrop)}
         // onComplete={(finalCrop) => onCropComplete(finalCrop)}
       />
-      <button onClick={() => confirm()}>Conferma</button>
+      <Button onClick={confirm} variant="contained" startIcon={<CheckIcon />}>{t("common.confirm")}</Button>
     </>
   );
 }

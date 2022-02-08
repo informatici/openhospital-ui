@@ -174,7 +174,8 @@
     "nooptionsfound": "No options found",
     "close": "CLOSE",
     "greaterthan": "The value must be at least {{value}}.",
-    "lessthan": "The value must not exceed {{value}}."
+    "lessthan": "The value must not exceed {{value}}.",
+    "confirm": "Confirm"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -352,5 +353,11 @@
     "discard": "Discard",
     "suspend": "Suspend",
     "add": "Add"
+  },
+  "picture": {
+    "edit": "Edit picture",
+    "upload": "Upload",
+    "useWebcam": "Take a picture",
+    "useWebcamAgain": "Take another picture"
   }
 }

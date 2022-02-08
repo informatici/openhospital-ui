@@ -9,6 +9,8 @@ import {
 import DeleteRoundedIcon from "@material-ui/icons/Clear";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Webcam from "../../accessories/webcam/Webcam";
@@ -27,10 +29,6 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   style,
 }) => {
   const [picture, setPicture] = useState({
-    preview: profilePicturePlaceholder,
-    original: "",
-  });
-  const [webcamPicture, setWebcamPicture] = useState({
     preview: profilePicturePlaceholder,
     original: "",
   });
@@ -159,20 +157,32 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         open={showModal}
         onClose={closeModal}
       >
-        <DialogContent>
-          <DialogTitle>Modifica immagine</DialogTitle>
+        <DialogContent style={{ textAlign: 'center' }}>
+          <DialogTitle>{t("picture.edit")}</DialogTitle>
           {showWebcam && (
             <Webcam
               mirrored
               onResizeConfirm={confirmWebcamPicture}
             />
           )}
-          <DialogActions>
-            <Button onClick={() => {
-              closeModal();
-              choosePicture();
-            }} color="primary" variant="contained">Carica foto</Button>
-            {!showWebcam && <Button onClick={openWebcam} color="primary" variant="contained">Scatta una foto</Button>}
+          <DialogActions style={{ justifyContent: 'center' }}>
+            <Button
+              onClick={() => {
+                closeModal();
+                choosePicture();
+              }}
+              color="primary"
+              variant="contained"
+              startIcon={<AddPhotoAlternateIcon />}
+            >{t("picture.upload")}</Button>
+            {!showWebcam && (
+              <Button
+                onClick={openWebcam}
+                color="primary"
+                variant="contained"
+                startIcon={<PhotoCameraIcon />}
+              >{t("picture.useWebcam")}</Button>
+            )}
           </DialogActions>
         </DialogContent>
       </Dialog>

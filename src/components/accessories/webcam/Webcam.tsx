@@ -1,5 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
 import Camera, { WebcamProps } from "react-webcam";
+import { useTranslation } from "react-i18next";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import CameraIcon from "@material-ui/icons/Camera";
+import ClearIcon from "@material-ui/icons/Clear";
 import ImageResize from "../imageResize/ImageResize";
 
 export type Props = Partial<WebcamProps> & {
@@ -15,6 +20,7 @@ const Webcam: React.FC<Props> = ({
   const ref = useRef<null | Camera>(null);
   const [image, setImage] = useState<string | null>(null);
   const resetImage = () => setImage(null);
+  const { t } = useTranslation();
 
   const capture = useCallback(
     () => {
@@ -32,12 +38,17 @@ const Webcam: React.FC<Props> = ({
   return image ? (
     <>
       <ImageResize imageToResize={image} onConfirm={onResizeConfirm} />
-      <button onClick={resetImage}>Scatta un'altra foto</button>
+      <Button
+        onClick={resetImage}
+        variant="contained"
+        startIcon={<ClearIcon />}
+        style={{ marginLeft: 8 }}
+      >{t("picture.useWebcamAgain")}</Button>
     </>
   ) : (
     <>
       <Camera screenshotFormat="image/jpeg" style={{maxWidth: "100%"}} {...props} ref={ref} />
-      <button onClick={capture}>Scatta</button>
+      <IconButton onClick={capture}><CameraIcon /></IconButton>
     </>
   );
 };
