@@ -1,12 +1,15 @@
 import React, { useCallback, useRef, useState } from "react";
 import Camera, { WebcamProps } from "react-webcam";
+import ImageResize from "../imageResize/ImageResize";
 
 export type Props = Partial<WebcamProps> & {
   onCapture?: (image: string) => void;
+  onResizeConfirm: (image: string) => void;
 };
 
 const Webcam: React.FC<Props> = ({
   onCapture = () => {},
+  onResizeConfirm,
   ...props
 }) => {
   const ref = useRef<null | Camera>(null);
@@ -19,17 +22,17 @@ const Webcam: React.FC<Props> = ({
         const shot = ref.current.getScreenshot();
         if (shot) {
           setImage(shot);
+          onCapture(shot);
         }
       }
     },
-    [ref, setImage]
+    [ref, setImage, onCapture]
   );
 
   return image ? (
     <>
-      <img src={image} alt="" />
-      <button onClick={resetImage}>Reset</button>
-      <button onClick={() => onCapture(image)}>Scegli</button>
+      <ImageResize imageToResize={image} onConfirm={onResizeConfirm} />
+      <button onClick={resetImage}>Scatta un'altra foto</button>
     </>
   ) : (
     <>

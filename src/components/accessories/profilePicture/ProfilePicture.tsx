@@ -4,11 +4,12 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  DialogTitle,
 } from "@material-ui/core";
 import DeleteRoundedIcon from "@material-ui/icons/Clear";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Webcam from "../../accessories/webcam/Webcam";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
@@ -57,7 +58,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
-  const editPicture = () => pictureInputRef.current?.click();
+  const choosePicture = () => pictureInputRef.current?.click();
 
   const openModal = () => setShowModal(true);
   const closeModal = () => {
@@ -77,6 +78,11 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       pictureInputRef.current.value = "";
     }
   };
+
+  const confirmWebcamPicture = useCallback((image: string) => {
+    preprocessImage(setPicture, image);
+    closeModal();
+  }, [setPicture]);
 
   useEffect(() => {
     if (shouldReset && resetCallback) {
@@ -154,14 +160,18 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         onClose={closeModal}
       >
         <DialogContent>
-          <DialogContentText>
-            {showWebcam && <Webcam mirrored onCapture={(image) => setWebcamPicture({ original: image, preview: webcamPicture.preview })} />}
-          </DialogContentText>
+          <DialogTitle>Modifica immagine</DialogTitle>
+          {showWebcam && (
+            <Webcam
+              mirrored
+              onResizeConfirm={confirmWebcamPicture}
+            />
+          )}
           <DialogActions>
             <Button onClick={() => {
               closeModal();
-              editPicture();
-            }} color="primary" variant="contained">Scegli una foto dal computer</Button>
+              choosePicture();
+            }} color="primary" variant="contained">Carica foto</Button>
             {!showWebcam && <Button onClick={openWebcam} color="primary" variant="contained">Scatta una foto</Button>}
           </DialogActions>
         </DialogContent>
