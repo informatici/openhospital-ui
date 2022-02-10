@@ -59,6 +59,23 @@
   }
 }
 
+.dialog_takePicture {
+  .MuiDialogTitle-root {
+    padding: 16px;
+  }
+  .MuiDialogContent-root {
+    padding: 0px 16px 16px;
+  }
+
+  .takePicture_icon {
+    position: absolute;
+    bottom: 40px;
+    margin: auto;
+    right: 0px;
+    left: 0px;
+  }
+}
+
 .profilePicture_buttons {
   position: absolute;
   display: flex;

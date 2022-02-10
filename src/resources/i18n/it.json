@@ -175,6 +175,7 @@
     "edit": "Modifica immagine",
     "upload": "Carica una foto",
     "useWebcam": "Scatta una foto",
-    "useWebcamAgain": "Scatta un'altra foto"
+    "useWebcamAgain": "Scatta un'altra foto",
+    "takePhoto": "Scatta"
   }
 }
