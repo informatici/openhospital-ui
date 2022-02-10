@@ -12,19 +12,17 @@ const Button: FunctionComponent<IProps> = ({
   onClick,
 }) => {
   return (
-    <div>
-      <MaterialComponent
-        className="button"
-        type={type}
-        color={color}
-        variant={variant}
-        disableElevation
-        disabled={disabled}
-        onClick={onClick}
-      >
-        {children}
-      </MaterialComponent>
-    </div>
+    <MaterialComponent
+      className="button"
+      type={type}
+      color={color}
+      variant={variant}
+      disableElevation
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {children}
+    </MaterialComponent>
   );
 };
 
