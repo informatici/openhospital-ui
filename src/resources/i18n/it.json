@@ -127,7 +127,8 @@
     "patienteditsuccessfull": "Il paziente è stato modificato correttamente.",
     "patientregistrationsuccessfull": "Il paziente è stato registrato correttamente.",
     "somethingwrong": "Qualcosa è andato storto, riprova più tardi.",
-    "searchpatientinstruction": "Se non hai l'ID del Paziente, compila più compi possibili e poi clicca su Cerca."
+    "searchpatientinstruction": "Se non hai l'ID del Paziente, compila più compi possibili e poi clicca su Cerca.",
+    "confirm": "Conferma"
   },
   "therapy": {
     "newtherapy": "New Therapy",
@@ -169,5 +170,12 @@
     "patientregistrationsuccessfull": "Registrazione paziente completata.",
     "somethingwrong": "C'é un errore, riprova più tardi.",
     "searchpatientinstruction": "Se non hai il patient ID, riempi più campi possibili e clicca su cerca"
+  },
+  "picture": {
+    "edit": "Modifica immagine",
+    "upload": "Carica una foto",
+    "useWebcam": "Scatta una foto",
+    "useWebcamAgain": "Scatta un'altra foto",
+    "takePhoto": "Scatta"
   }
 }
