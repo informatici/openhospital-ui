@@ -114,20 +114,20 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       <div
         className={classNames("profilePicture_mask", { editable: isEditable })}
         style={style}
-        onClick={openModal}
+        onClick={isEditable ? openModal : () => {}}
       >
         <img src={picture.preview} alt="profilePicture" />
         {picture.original ? (
           <div
             className="profilePicture_hoverButton profilePicture_editIcon"
-            onClick={openModal}
+            onClick={isEditable ? openModal : () => {}}
           >
             <EditRoundedIcon fontSize="default" style={{ color: "white" }} />
           </div>
         ) : (
           <div
             className="profilePicture_hoverButton profilePicture_addIcon"
-            onClick={openModal}
+            onClick={isEditable ? openModal : () => {}}
           >
             <AddRoundedIcon fontSize="default" style={{ color: "white" }} />
           </div>
