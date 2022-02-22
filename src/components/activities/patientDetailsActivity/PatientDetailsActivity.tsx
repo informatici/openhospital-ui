@@ -3,8 +3,6 @@ import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {
   EditRounded,
-  Assignment,
-  Payment,
   LocalHotel,
   LocalHospital,
   Person,
@@ -42,13 +40,13 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientBooking from "../../accessories/patientBooking/PatientBooking";
-import PatientExams from "../../accessories/patientExams/PatientExams";
 import Button from "../../accessories/button/Button";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
 import BillRecords from "../../accessories/billrecords/BillRecords";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import PatientExams from "../../accessories/patientExams/PatientExams";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -90,13 +88,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
     {
-      label: t("nav.booking"),
-      path: "/booking",
-      content: (
-        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
-      ),
-    },
-    {
       label: t("nav.surgicalrecord"),
       path: "/surgicalRecord",
       content: (
@@ -108,13 +99,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     },
   ];
 
-  const examConfig: TTabConfig = [
-    {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
-    },
-  ];
   const clinicConfig: TTabConfig = [
     {
       label: t("nav.summary"),
@@ -140,7 +124,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         <PatientDetailsContent title="Therapy" content={PatientTherapy} />
       ),
     },
-
+    {
+      label: t("nav.exams"),
+      path: "/exams",
+      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
+    },
     {
       label: t("nav.booking"),
       path: "/booking",
@@ -190,8 +178,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     switch (userSection) {
       case "admissions":
         return admissionsConfig;
-      case "exams":
-        return examConfig;
       case "billing":
         return billingConfig;
       case "clinic":
@@ -311,28 +297,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </div>
 
-                      <div
-                        className={
-                          "align__element patientDetails__main_menu__item " +
-                          isActive("exams")
-                        }
-                        onClick={() => {
-                          setUserSection("exams");
-                          setDefaultRoute("/exams");
-                        }}
-                      >
-                        <Assignment
-                          fontSize="small"
-                          style={{ color: "white" }}
-                        />
-                        <span>{t("patient.userexams")}:</span>
-                        <img
-                          src={Arrow}
-                          className="icon_toggle"
-                          alt="Accordion toogle"
-                        />
-                      </div>
-                      <div
+                      {/*<div
                         className={
                           "align__element patientDetails__main_menu__item " +
                           isActive("billing")
@@ -349,7 +314,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           className="icon_toggle"
                           alt="Accordion toogle"
                         />
-                      </div>
+                      </div>*/}
                       <div
                         className={
                           "align__element patientDetails__main_menu__item " +
