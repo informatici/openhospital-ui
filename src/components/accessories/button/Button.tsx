@@ -6,23 +6,23 @@ import "./styles.scss";
 const Button: FunctionComponent<IProps> = ({
   children,
   type,
+  color = "primary",
   variant,
   disabled,
   onClick,
 }) => {
   return (
-    <div>
-      <MaterialComponent
-        className="button"
-        type={type}
-        variant={variant}
-        disableElevation
-        disabled={disabled}
-        onClick={onClick}
-      >
-        {children}
-      </MaterialComponent>
-    </div>
+    <MaterialComponent
+      className="button"
+      type={type}
+      color={color}
+      variant={variant}
+      disableElevation
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {children}
+    </MaterialComponent>
   );
 };
 

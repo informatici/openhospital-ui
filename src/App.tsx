@@ -8,6 +8,7 @@ import { LangContext } from "./libraries/langContext/langContext";
 import { initReactI18next } from "react-i18next";
 import resources from "./resources";
 import { I18N_FALLBACK_LNG } from "./resources/config";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 
 i18n
   .use(LanguageDetector)
@@ -28,11 +29,27 @@ const App: FunctionComponent = () => {
     });
   };
 
+  const pickerTheme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#fc1812",
+        contrastText: "#fff",
+      },
+      secondary: {
+        light: "#444444",
+        main: "#444444",
+        contrastText: "#fff",
+      },
+    },
+  });
+
   return (
     <div className="App">
-      <LangContext.Provider value={{ changeLang }}>
-        <Routes />
-      </LangContext.Provider>
+      <MuiThemeProvider theme={pickerTheme}>
+        <LangContext.Provider value={{ changeLang }}>
+          <Routes />
+        </LangContext.Provider>
+      </MuiThemeProvider>
     </div>
   );
 };

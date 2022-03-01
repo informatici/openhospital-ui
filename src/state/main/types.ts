@@ -10,4 +10,5 @@ export interface IAuthentication extends LoginResponse {
 
 export interface IMainState {
   authentication: IApiResponse<IAuthentication>;
+  logout: IApiResponse<void>;
 }

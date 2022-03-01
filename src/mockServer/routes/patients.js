@@ -1,4 +1,4 @@
-import patientDTO from "../fixtures/patientDTO";
+import patientDTO, { patientDTO2 } from "../fixtures/patientDTO";
 
 export const patientRoutes = (server) => {
   server.namespace("/patients", () => {
@@ -45,7 +45,6 @@ export const patientRoutes = (server) => {
     });
 
     server.get("/search").intercept((req, res) => {
-      console.log("search invoked");
       switch (req.query.firstName) {
         case "empty":
           res.status(200).json([]);
@@ -65,7 +64,7 @@ export const patientRoutes = (server) => {
               patientDTO,
               patientDTO,
               patientDTO,
-              patientDTO,
+              patientDTO2,
             ]);
       }
     });

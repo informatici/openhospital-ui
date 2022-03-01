@@ -1,13 +1,15 @@
 import { IForm } from "../../../../libraries/formDataHandling/types";
 
-export type TProps = IForm<TPatientOPDFormFieldName, any>;
+interface IOwnProps {
+  shouldResetForm: boolean;
+  resetFormCallback: () => void;
+}
+export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
 
 export type TPatientOPDFormFieldName =
-  | "opdDate"
-  | "anamnesis"
-  | "opd_1"
-  | "opd_2"
-  | "opd_3"
+  | "date"
+  | "complaint"
+  | "disease"
+  | "disease2"
+  | "disease3"
   | "note";
-  
-  

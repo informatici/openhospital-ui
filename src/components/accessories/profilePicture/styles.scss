@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: -60px;
+  position: relative;
 }
 
 .profilePicture_mask {
@@ -14,42 +14,89 @@
   border-radius: 100px;
   height: 140px;
   width: 140px;
+  cursor: pointer;
   overflow: hidden;
   position: relative;
+
+  &.editable {
+    &:hover {
+      &:after {
+        border: 6px solid $c-grey-lighter;
+        background-color: rgba(#000, 0.35);
+      }
+
+      .profilePicture_hoverButton {
+        opacity: 1;
+        transition: opacity 0.3s;
+        transition-delay: 0.5s;
+      }
+    }
+  }
+
+  .profilePicture_hoverButton {
+    position: absolute;
+    margin: -8px auto auto;
+    z-index: 5;
+    opacity: 0;
+    top: 50%;
+    transition: none;
+  }
+
+  &.editable {
+    &:after {
+      content: "";
+      display: inline-block;
+      background-color: transparent;
+      border: 4px solid $c-grey-lighter;
+      border-radius: 100px;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0px;
+      top: 0px;
+      transition: border 0.3s, background-color 0.3s;
+    }
+  }
+}
+
+.dialog_takePicture {
+  .MuiDialogTitle-root {
+    padding: 16px;
+  }
+  .MuiDialogContent-root {
+    padding: 0px 16px 16px;
+  }
+
+  .takePicture_icon {
+    position: absolute;
+    bottom: 40px;
+    margin: auto;
+    right: 0px;
+    left: 0px;
+  }
+}
+
+.profilePicture_buttons {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 7px;
+  right: 10px;
+}
+
+.profilePicture_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
 }
 
 .profilePicture_removeIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100px;
-  height: 30px;
-  width: 30px;
   background-color: $c-color-primary;
-  position: relative;
-  bottom: 60px;
-  left: 65px;
-  border-style: solid;
-  border-width: medium;
-  border-color: white;
-  cursor: pointer;
-}
-
-.profilePicture_editIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100px;
-  height: 30px;
-  width: 30px;
-  background-color: $c-error-light;
-  position: relative;
-  bottom: 65px;
-  left: 40px;
-  border-style: solid;
-  border-width: medium;
-  border-color: white;
-  cursor: pointer;
 }
 
 .profilePicture img {

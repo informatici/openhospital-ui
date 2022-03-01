@@ -1,17 +1,31 @@
 import { produce } from "immer";
-import { PatientDTO } from "../../generated";
+import moment from "moment";
+import {
+  DiseaseDTO,
+  ExamDTO,
+  LaboratoryDTO,
+  OpdDTO,
+  PatientDTO,
+  PatientExaminationDTO,
+} from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
-export const getFromFields = (fields: TFields, fieldAddress: TFieldAddress): Record<string, any> => {
+export const getFromFields = (
+  fields: TFields,
+  fieldAddress: TFieldAddress
+): Record<string, any> => {
   return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
     acc[key] = fields[key][fieldAddress];
     return acc;
   }, {});
 };
 
-const parseDate = (raw: string) => {
-  const unformatDate = new Date(+raw).toString();
-  return Date.parse(unformatDate).toString();
+export const parseDate = (raw: string) => {
+  return raw
+    ? isNaN(+raw)
+      ? new Date(raw).toISOString()
+      : new Date(+raw).toISOString()
+    : "";
 };
 
 export const formatAllFieldValues = (
@@ -36,11 +50,77 @@ export const formatAllFieldValues = (
   );
 };
 
-export const updateFields = (fields: TFields, values: PatientDTO | undefined): TFields => {
+export const updateFields = (
+  fields: TFields,
+  values: PatientDTO | undefined
+): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach(key => {
-      if(draft[key as string])
-        return draft[key as string].value = values![key as keyof PatientDTO];
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        return (draft[key as string].value = values![key as keyof PatientDTO]);
+      }
     });
   });
-}
+};
+
+export const updateLabFields = (
+  fields: TFields,
+  values: LaboratoryDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      let value = values![key as keyof LaboratoryDTO];
+      if (draft[key as string]) {
+        return (draft[key as string].value =
+          typeof value === "object"
+            ? (value as ExamDTO)?.code ?? ""
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
+      }
+    });
+  });
+};
+export const updateTriageFields = (
+  fields: TFields,
+  values: PatientExaminationDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      let value = values![key as keyof PatientExaminationDTO];
+      if (draft[key as string]) {
+        return (draft[key as string].value = parseFloat(value as string)
+          ? value
+          : moment(value).isValid()
+          ? Date.parse(moment(value).toString())
+          : value);
+      }
+    });
+  });
+};
+export const updateOpdFields = (
+  fields: TFields,
+  values: OpdDTO | undefined
+) => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        const value = values![key as keyof OpdDTO];
+        return (draft[key as string].value =
+          typeof value === "object"
+            ? (value as DiseaseDTO)?.code?.toString() ?? ""
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
+      }
+    });
+  });
+};
+
+export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
+  return moment(dateTo).diff(moment(dateFrom), "days");
+};
+
+export const differenceInSeconds = (dateFrom: Date, dateTo: Date) => {
+  return moment(dateTo).diff(moment(dateFrom), "ms");
+};

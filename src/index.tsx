@@ -11,13 +11,43 @@ import * as serviceWorker from "./serviceWorker";
 import examinations from "./state/examinations/reducer";
 import main from "./state/main/reducer";
 import patients from "./state/patients/reducer";
+import therapies from "./state/therapies/reducer";
+import summary from "./state/summary/reducer";
+import opds from "./state/opds/reducer";
+import diseases from "./state/diseases/reducer";
+import medicals from "./state/medicals/reducer";
+import admissions from "./state/admissions/reducer";
+import admissionTypes from "./state/admissionTypes/reducer";
+import dischargeTypes from "./state/dischargeTypes/reducer";
+import wards from "./state/ward/reducer";
+import laboratories from "./state/laboratories/reducer";
+import exams from "./state/exams/reducer";
 import { IState } from "./types";
+import bills from "./state/bills/reducer";
+import prices from "./state/prices/reducer";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();
 }
 
-const reducer = combineReducers<IState>({ main, patients, examinations });
+const reducer = combineReducers<IState>({
+  main,
+  patients,
+  examinations,
+  therapies,
+  summary,
+  opds,
+  diseases,
+  medicals,
+  dischargeTypes,
+  admissions,
+  admissionTypes,
+  wards,
+  laboratories,
+  exams,
+  bills,
+  prices,
+});
 const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunkMiddleware))

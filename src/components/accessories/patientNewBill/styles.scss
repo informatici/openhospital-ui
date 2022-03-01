@@ -1,0 +1,147 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientNewBill {
+  display: flex;
+  flex-direction: column;
+  //padding: 16px 8px 16px 8px;
+  row-gap: 12px;
+  & > .patientNewBill_main {
+    display: flex;
+    flex-direction: column;
+    & > .patientNewBill_items {
+      display: flex;
+      background-color: $c-white;
+      flex-direction: column;
+      row-gap: 12px;
+      & > .patientNewBill_buttons {
+        display: flex;
+        flex-flow: column;
+        justify-content: flex-end;
+        div {
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+          .MuiButton-root {
+            width: 35%;
+            @include susy-media($smartphone) {
+              width: 50%;
+            }
+          }
+        }
+      }
+      .additem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $c-gray;
+      }
+    }
+
+    & > .patientNewBill_payment {
+      display: flex;
+      //padding: 8px 4px;
+      border-radius: 8px;
+      flex-direction: column;
+
+      .MuiAccordion-root.Mui-expanded {
+        margin: 0 0 16px;
+        width: 100%;
+        align-self: center;
+      }
+      .payment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        row-gap: 8px;
+        .payment__buttons {
+          display: flex;
+          width: 85%;
+          column-gap: 8px;
+          .lg-divider {
+            display: none;
+          }
+          & > div {
+            display: flex;
+            flex: 1;
+            button {
+              width: 100%;
+            }
+          }
+          .paid {
+            background-color: $c-color-info;
+            color: white;
+          }
+          @include susy-media($smartphone) {
+            flex-flow: column;
+            align-items: center;
+            row-gap: 8px;
+            & > .lg-divider {
+              display: inline-block;
+              width: 80%;
+              border: 1px $c-grey-medium solid;
+              background-color: $c-gray;
+            }
+            & > div {
+              display: flex;
+              width: 100%;
+              button {
+                width: 100%;
+              }
+            }
+          }
+        }
+        .two-row {
+          display: flex;
+          width: 85%;
+          justify-content: space-between;
+          & > span:first-child {
+            font-weight: 200;
+          }
+          & > span:last-child {
+            font-size: 1.25em;
+          }
+        }
+        .xs-divider {
+          height: 1px;
+          background-color: black;
+        }
+        .xs-divider {
+          width: 25%;
+        }
+        @include susy-media($smartphone) {
+          padding: 16px 4px;
+          .xs-divider {
+            width: 35%;
+          }
+        }
+      }
+      .MuiAccordionSummary-content {
+        svg {
+          position: relative;
+          top: -2px;
+        }
+        h5 {
+          margin: 0px 10px;
+        }
+      }
+    }
+  }
+
+  & > .patientNewBill_nopayment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+    border-radius: 20px;
+    background: lightgray;
+    span {
+      font-size: large;
+      color: black;
+    }
+  }
+  .hidden {
+    display: none !important;
+  }
+}

@@ -10,11 +10,10 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
-import { object } from "yup";
+import { object, string } from "yup";
 import { TProps } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import TextButton from "../../textButton/TextButton";
-import SmallButton from "../../smallButton/SmallButton";
+import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
 import TextField from "../../textField/TextField";
 import has from "lodash.has";
@@ -32,11 +31,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const validationSchema = object({
-    // TODO
-  });
-
   const { t } = useTranslation();
+  const validationSchema = object({
+    pex_date: string().required(t("common.required")),
+  });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
 
@@ -70,13 +68,14 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   };
 
   const onBlurCallback = useCallback(
-    (fieldName: string) => (
-      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-      value: string
-    ) => {
-      handleBlur(e);
-      setFieldValue(fieldName, value);
-    },
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
     [setFieldValue, handleBlur]
   );
 
@@ -85,6 +84,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {
@@ -109,10 +109,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("triageDate")}
-                errorText={getErrorText("triageDate")}
+                isValid={isValid("pex_date")}
+                errorText={getErrorText("pex_date")}
                 label={t("examination.datetriage")}
-                onChange={dateFieldHandleOnChange("triageDate")}
+                onChange={dateFieldHandleOnChange("pex_date")}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -126,6 +127,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_height")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -138,6 +140,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_weight")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -150,6 +153,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_temp")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -162,6 +166,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_sat")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -173,7 +178,8 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 isValid={isValid("pex_pa_min")}
                 errorText={getErrorText("pex_pa_min")}
                 onBlur={formik.handleBlur}
-                type="string"
+                type="number"
+                disabled={isLoading}
               />
 
               <TextField
@@ -184,6 +190,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_pa_max")}
                 onBlur={formik.handleBlur}
                 type="string"
+                disabled={isLoading}
               />
             </div>
 
@@ -196,6 +203,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_fc")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
 
@@ -208,9 +216,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("diuresis_vol")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
-
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("respiratory_rate")}
@@ -220,9 +228,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("respiratory_rate")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
-
             <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("hgt")}
@@ -232,6 +240,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("hgt")}
                 onBlur={formik.handleBlur}
                 type="number"
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -245,6 +254,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("diuresis")}
                 onBlur={onBlurCallback("diuresis")}
                 options={options.diuresis}
+                disabled={isLoading}
               />
             </div>
 
@@ -257,6 +267,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("bowel")}
                 onBlur={onBlurCallback("bowel")}
                 options={options.bowel}
+                disabled={isLoading}
               />
             </div>
 
@@ -269,29 +280,35 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("auscultation")}
                 onBlur={onBlurCallback("auscultation")}
                 options={options.auscultation}
+                disabled={isLoading}
               />
             </div>
           </div>
 
           <div className="patientTriageForm__buttonSet">
             <div className="submit_button">
-              <SmallButton type="submit" disabled={isLoading}>
+              <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
-              </SmallButton>
+              </Button>
             </div>
             <div className="reset_button">
-              <TextButton onClick={() => setOpenResetConfirmation(true)}>
+              <Button
+                type="reset"
+                variant="text"
+                disabled={isLoading}
+                onClick={() => setOpenResetConfirmation(true)}
+              >
                 {resetButtonLabel}
-              </TextButton>
+              </Button>
             </div>
           </div>
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
-            info={`Are you sure to ${resetButtonLabel} the Form?`}
+            info={t("common.resetform")}
             icon={warningIcon}
             primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel="Dismiss"
+            secondaryButtonLabel={t("common.discard")}
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />

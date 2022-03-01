@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientTherapy {
+  .info-box-container {
+    margin-top: 24px;
+  }
+
+  .patientTherapyTable {
+    margin-top: 50px;
+  }
+  .printTherapy__button {
+    margin-top: 20px;
+    button {
+      width: 200px;
+    }
+  }
+}

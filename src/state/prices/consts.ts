@@ -1,0 +1,21 @@
+export const CREATE_PRICE_LOADING = "prices/CREATE_PRICE_LOADING";
+export const CREATE_PRICE_SUCCESS = "prices/CREATE_PRICE_SUCCESS";
+export const CREATE_PRICE_FAIL = "prices/CREATE_PRICE_FAIL";
+export const CREATE_PRICE_RESET = "prices/CREATE_PRICE_RESET";
+
+export const SEARCH_PRICE_LOADING = "prices/SEARCH_PRICE_LOADING";
+export const SEARCH_PRICE_SUCCESS = "prices/SEARCH_PRICE_SUCCESS";
+export const SEARCH_PRICE_FAIL = "prices/SEARCH_PRICE_FAIL";
+
+export const GET_PRICE_LOADING = "prices/GET_PRICE_LOADING";
+export const GET_PRICE_SUCCESS = "prices/GET_PRICE_SUCCESS";
+export const GET_PRICE_FAIL = "prices/GET_PRICE_FAIL";
+
+export const UPDATE_PRICE_LOADING = "prices/UPDATE_PRICE_LOADING";
+export const UPDATE_PRICE_SUCCESS = "prices/UPDATE_PRICE_SUCCESS";
+export const UPDATE_PRICE_FAIL = "prices/UPDATE_PRICE_FAIL";
+export const UPDATE_PRICE_RESET = "prices/UPDATE_PRICE_RESET";
+
+export const GET_PRICELISTS_LOADING = "prices/GET_PRICE_LOADING";
+export const GET_PRICELISTS_SUCCESS = "prices/GET_PRICE_SUCCESS";
+export const GET_PRICELISTS_FAIL = "prices/GET_PRICE_FAIL";

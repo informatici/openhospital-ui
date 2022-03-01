@@ -13,6 +13,11 @@ export interface IDispatchProps {
 
 export type TProps = IStateProps & IDispatchProps;
 
-export type TActivityTransitionState =
-  | "IDLE"
-  | "TO_PATIENT_EDITING";
+export type TActivityTransitionState = "IDLE" | "TO_PATIENT_EDITING";
+
+export type IUserSection =
+  | "admissions"
+  | "exams"
+  | "billing"
+  | "hospital"
+  | "clinic";

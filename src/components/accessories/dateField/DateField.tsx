@@ -1,13 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {
-  KeyboardDatePicker as DatePicker,
+  KeyboardDatePicker,
   MuiPickersUtilsProvider as DatePickerWrapper,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
-
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -19,11 +18,16 @@ const DateField: FunctionComponent<IProps> = ({
   errorText,
   format,
   onChange,
+  onMonthChange,
+  shouldDisableDate,
+  renderDay,
+  views,
 }) => {
   const [value, setValue] = useState<Date | null>(null);
 
   useEffect(() => {
-    setValue(fieldValue === "" ? null : new Date(+fieldValue));
+    // field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
+    fieldValue === "" ? setValue(null) : setValue(new Date(fieldValue));
   }, [fieldValue]);
 
   const handleDateChange = (date: Date | null) => {
@@ -35,9 +39,10 @@ const DateField: FunctionComponent<IProps> = ({
 
   return (
     <DatePickerWrapper utils={DateFnsUtils}>
-      <DatePicker
+      <KeyboardDatePicker
         format={format}
         id={fieldName}
+        name={fieldName}
         label={label}
         disabled={disabled}
         disableFuture={disableFuture}
@@ -46,6 +51,9 @@ const DateField: FunctionComponent<IProps> = ({
         inputVariant="outlined"
         margin="dense"
         value={value}
+        onMonthChange={onMonthChange}
+        shouldDisableDate={shouldDisableDate}
+        renderDay={renderDay}
         TextFieldComponent={(props): any => (
           <TextField
             {...props}

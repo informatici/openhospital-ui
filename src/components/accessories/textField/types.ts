@@ -20,4 +20,5 @@ export interface IProps {
     | Partial<InputProps>
     | Partial<FilledInputProps>
     | Partial<OutlinedInputProps>;
+  rows?: number;
 }

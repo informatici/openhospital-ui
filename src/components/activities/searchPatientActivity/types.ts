@@ -10,7 +10,8 @@ export interface IStateProps {
 
 export interface IPatientSearchItemProps {
   patient: PatientDTO;
-  getPatientSuccessCallback: (patient: PatientDTO) => void;
+  getPatientSuccessCallback?: (patient: PatientDTO) => void;
+  hideAdditionalInformation?: boolean;
 }
 
 export interface IDispatchProps {
@@ -20,7 +21,13 @@ export interface IDispatchProps {
 
 export type TProps = IStateProps & IDispatchProps;
 
-export type TValues = Record<TFieldName, string>;
+export type TValues = {
+  id: string;
+  firstName: string;
+  secondName: string;
+  birthDate: string;
+  address: string;
+};
 
 export type TFieldName =
   | "id"

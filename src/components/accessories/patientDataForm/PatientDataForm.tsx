@@ -17,12 +17,12 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SelectField from "../selectField/SelectField";
-import SmallButton from "../smallButton/SmallButton";
-import TextButton from "../textButton/TextButton";
+import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "@material-ui/core";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -37,10 +37,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const validationSchema = object({
-    firstName: string().required("This field is required"),
-    secondName: string().required("This field is required"),
-    birthDate: string().required("This field is required"),
-    sex: string().required("This field is required"),
+    firstName: string().required(t("common.required")),
+    secondName: string().required(t("common.required")),
+    birthDate: string().required(t("common.required")),
+    sex: string().required(t("common.required")),
+    telephone: string().matches(
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      t("common.incorrectformat")
+    ),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -90,13 +94,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   );
 
   const onBlurCallback = useCallback(
-    (fieldName: string) => (
-      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-      value: string
-    ) => {
-      handleBlur(e);
-      setFieldValue(fieldName, value);
-    },
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string
+      ) => {
+        handleBlur(e);
+        setFieldValue(fieldName, value);
+      },
     [setFieldValue, handleBlur]
   );
 
@@ -110,7 +115,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
         <ProfilePicture
-          isEditable
+          isEditable={!isLoading}
           preLoadedPicture={profilePicture}
           onChange={onProfilePictureChange}
           shouldReset={shouldResetForm}
@@ -127,6 +132,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("firstName")}
               errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
           <div className="patientDataForm__item">
@@ -137,6 +143,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("secondName")}
               errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -148,6 +155,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("taxCode")}
               errorText={getErrorText("taxCode")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -162,6 +170,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("sex")}
               onBlur={onBlurCallback("sex")}
               options={options.sex}
+              translateOptions={true}
+              disabled={isLoading}
             />
           </div>
 
@@ -176,6 +186,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("birthDate")}
               label={t("patient.birthdate")}
               onChange={dateFieldHandleOnChange("birthDate")}
+              disabled={isLoading}
             />
           </div>
 
@@ -188,6 +199,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("bloodType")}
               onBlur={onBlurCallback("bloodType")}
               options={options.bloodType}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -201,6 +213,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("mother_name")}
               errorText={getErrorText("mother_name")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -212,6 +225,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("father_name")}
               errorText={getErrorText("father_name")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -224,6 +238,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("parentTogether")}
               onBlur={onBlurCallback("parentTogether")}
               options={options.parentTogether}
+              translateOptions={true}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -237,6 +253,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("address")}
               errorText={getErrorText("address")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
@@ -248,19 +265,25 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("city")}
               errorText={getErrorText("city")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("telephone")}
-              theme="regular"
-              label={t("patient.telephone")}
-              isValid={isValid("telephone")}
-              errorText={getErrorText("telephone")}
-              onBlur={formik.handleBlur}
-              type="tel"
-            />
+            <Tooltip title="ex: +237 690000000" placement="bottom">
+              <div>
+                <TextField
+                  field={formik.getFieldProps("telephone")}
+                  theme="regular"
+                  label={t("patient.telephone")}
+                  isValid={isValid("telephone")}
+                  errorText={getErrorText("telephone")}
+                  onBlur={formik.handleBlur}
+                  type="tel"
+                  disabled={isLoading}
+                />
+              </div>
+            </Tooltip>
           </div>
         </div>
 
@@ -274,6 +297,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("hasInsurance")}
               onBlur={onBlurCallback("hasInsurance")}
               options={options.hasInsurance}
+              translateOptions={true}
+              disabled={isLoading}
             />
           </div>
         </div>
@@ -288,29 +313,35 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("note")}
               errorText={getErrorText("note")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
             />
           </div>
         </div>
 
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
-            <SmallButton type="submit" disabled={isLoading}>
+            <Button type="submit" variant="contained" disabled={isLoading}>
               {submitButtonLabel}
-            </SmallButton>
+            </Button>
           </div>
           <div className="reset_button">
-            <TextButton onClick={() => setOpenResetConfirmation(true)}>
+            <Button
+              type="reset"
+              variant="text"
+              disabled={isLoading}
+              onClick={() => setOpenResetConfirmation(true)}
+            >
               {resetButtonLabel}
-            </TextButton>
+            </Button>
           </div>
         </div>
         <ConfirmationDialog
           isOpen={openResetConfirmation}
           title={resetButtonLabel.toUpperCase()}
-          info={`Are you sure to ${resetButtonLabel} the Form?`}
+          info={t("common.resetform")}
           icon={warningIcon}
           primaryButtonLabel={resetButtonLabel}
-          secondaryButtonLabel="Dismiss"
+          secondaryButtonLabel={t("common.discard")}
           handlePrimaryButtonClick={handleResetConfirmation}
           handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
         />

@@ -220,17 +220,15 @@
         p,
         a {
           color: $c-black;
+          font-size: small;
           @include susy-media($tablet_land) {
             color: $c-white;
-            font-size: small;
           }
           @include susy-media($tablet_port) {
             color: $c-white;
-            font-size: small;
           }
           @include susy-media($smartphone) {
             color: $c-white;
-            font-size: small;
           }
         }
       }
@@ -279,28 +277,21 @@
     }
   }
 
-  .appHeader__nav_lang_switcher {
-    text-align: right;
-    position: relative;
-    right: 15px;
-    margin-bottom: 10px;
-  }
-
   .appHeader__nav_items {
     display: flex;
     @include susy-media($tablet_land) {
       display: block;
-      margin-top: 100px;
+      margin-top: 145px;
       padding-top: 70px;
     }
     @include susy-media($tablet_port) {
       display: block;
-      margin-top: 100px;
+      margin-top: 145px;
       padding-top: 70px;
     }
     @include susy-media($smartphone) {
       display: block;
-      margin-top: 100px;
+      margin-top: 145px;
       padding-top: 70px;
     }
   }
@@ -450,6 +441,72 @@
     &:hover .trigger_z {
       transition: all 0.5s ease-in-out;
       width: 30px;
+    }
+  }
+
+  .appHeader__top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background: $c-gray;
+    padding: 10px 30px;
+    @include susy-media($tablet_land) {
+      padding: 10px 20px;
+    }
+    @include susy-media($tablet_port) {
+      justify-content: flex-start;
+      padding: 10px 20px;
+    }
+    @include susy-media($smartphone) {
+      justify-content: flex-start;
+      padding: 10px;
+    }
+    .userInfo__wrapper {
+      display: flex;
+      @include susy-media($tablet_land) {
+        margin-left: auto;
+      }
+      @include susy-media($tablet_port) {
+        margin-left: auto;
+      }
+      @include susy-media($smartphone) {
+        margin-left: auto;
+      }
+    }
+    .userInfo__toolbar {
+      margin-left: 25px;
+      line-height: 1.5rem;
+      font-size: 0.9rem;
+      color: #fff;
+      .userInfo__toolbar_icon {
+        margin-left: 7px;
+        cursor: pointer;
+        float: right;
+      }
+      span.user-welcome {
+        @include susy-media($smartphone) {
+          display: none;
+        }
+      }
+      strong.user-name {
+        @include susy-media($smartphone) {
+          display: inline-block;
+          width: 120px;
+          white-space: nowrap;
+          overflow: hidden !important;
+          text-align: right;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .appHeader__nav_lang_switcher {
+      text-align: left;
+      position: relative;
+    }
+
+    .appHeader__help {
+      padding-left: 10px;
     }
   }
 }

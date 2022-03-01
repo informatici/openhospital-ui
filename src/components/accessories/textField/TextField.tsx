@@ -14,6 +14,7 @@ const TextField: FunctionComponent<IProps> = ({
   onBlur,
   disabled,
   InputProps,
+  rows = 10,
 }) => {
   const actualClassName = theme === "light" ? "textField__light" : "textField";
   return (
@@ -31,7 +32,7 @@ const TextField: FunctionComponent<IProps> = ({
         className={actualClassName}
         size="small"
         multiline={multiline || false}
-        rows={10}
+        rows={rows}
         margin="dense"
         disabled={disabled}
         InputProps={InputProps}

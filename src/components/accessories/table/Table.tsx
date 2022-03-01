@@ -1,8 +1,4 @@
-import React, { FunctionComponent } from "react";
-import {
-  getComparator,
-  stableSort,
-} from "../../../libraries/sortUtils/sortUtils";
+import React, { FunctionComponent, useState } from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -16,14 +12,29 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Edit, Delete, Print } from "@material-ui/icons";
+import {
+  Edit,
+  Delete,
+  Print,
+  InfoOutlined,
+  MonetizationOn,
+  Archive,
+} from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
+import {
+  dateComparator,
+  defaultComparator,
+} from "../../../libraries/sortUtils/sortUtils";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { useTranslation } from "react-i18next";
+import warningIcon from "../../../assets/warning-icon.png";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
   tableHeader,
+  dateFields = [],
   labelData,
   isCollapsabile,
   rowsPerPage,
@@ -31,21 +42,26 @@ const Table: FunctionComponent<IProps> = ({
   onEdit,
   onDelete,
   onPrint,
+  onPay,
   onView,
+  showEmptyCell = true,
+  renderItemDetails,
+  getCoreRow,
+  onClose,
 }) => {
+  const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
   const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
-
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [currentRow, setCurrentRow] = useState({} as any);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
-  const createSortHandler = (property: any) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    handleRequestSort(event, property);
-  };
+  const createSortHandler =
+    (property: any) => (event: React.MouseEvent<unknown>) => {
+      handleRequestSort(event, property);
+    };
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -56,30 +72,77 @@ const Table: FunctionComponent<IProps> = ({
     setOrderBy(property);
   };
 
-  const renderIcon = (type: TActions) => {
+  const renderIcon = (type: TActions, row?: any) => {
     switch (type) {
       case "edit":
         return (
-          <IconButton size="small" onClick={onEdit}>
+          <IconButton
+            title="Edit"
+            size="small"
+            onClick={() => onEdit && onEdit(row)}
+          >
             <Edit />
           </IconButton>
         );
       case "delete":
         return (
-          <IconButton size="small" onClick={onDelete}>
-            <Delete color="secondary" />
+          <IconButton
+            size="small"
+            title="Delete"
+            onClick={() => {
+              setCurrentRow(row);
+              setOpenDeleteConfirmation(true);
+            }}
+          >
+            <Delete color="primary" />
           </IconButton>
         );
       case "print":
         return (
-          <IconButton size="small" onClick={onPrint}>
-            <Print color="primary" />
+          <IconButton
+            size="small"
+            title="Print"
+            onClick={() => onPrint && onPrint(row)}
+          >
+            <Print color="secondary" />
+          </IconButton>
+        );
+
+      case "view":
+        return (
+          <IconButton
+            size="small"
+            title="View details"
+            onClick={() => onView && onView(row)}
+          >
+            <InfoOutlined color="primary" titleAccess={"View Details"} />
+          </IconButton>
+        );
+      case "pay":
+        return (
+          <IconButton
+            size="small"
+            title="Add a payment"
+            onClick={() => onPay && onPay(row)}
+          >
+            <MonetizationOn htmlColor="#00912c" />
+          </IconButton>
+        );
+
+      case "close":
+        return (
+          <IconButton
+            size="small"
+            title="Close the bill"
+            onClick={() => onClose && onClose(row)}
+          >
+            <Archive htmlColor="#0373fc" />
           </IconButton>
         );
     }
   };
 
-  const renderActions = () => {
+  const renderActions = (row: any) => {
     if (onEdit || onDelete || onPrint || onView) {
       return (
         <TableCell
@@ -88,12 +151,19 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
-          {onEdit ? renderIcon("edit") : ""}
-          {onPrint ? renderIcon("print") : ""}
-          {onDelete ? renderIcon("delete") : ""}
+          {onView ? renderIcon("view", row) : ""}
+          {onPay ? renderIcon("pay", row) : ""}
+          {onEdit ? renderIcon("edit", row) : ""}
+          {onPrint ? renderIcon("print", row) : ""}
+          {onClose ? renderIcon("close", row) : ""}
+          {onDelete ? renderIcon("delete", row) : ""}
         </TableCell>
       );
     }
+  };
+  const handleDelete = () => {
+    if (onDelete) onDelete(currentRow);
+    setOpenDeleteConfirmation(false);
   };
 
   return (
@@ -122,17 +192,25 @@ const Table: FunctionComponent<IProps> = ({
             </TableRow>
           </TableHead>
           <TableBody className="table_body">
-            {stableSort(rowData, getComparator(order, orderBy))
+            {[...rowData]
+              .sort(
+                dateFields.includes(orderBy)
+                  ? dateComparator(order, orderBy)
+                  : defaultComparator(order, orderBy)
+              )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => (
                 <TableBodyRow
                   row={row}
+                  coreRow={getCoreRow && getCoreRow(row)}
                   key={index}
                   rowIndex={index}
                   labelData={labelData}
                   tableHeader={tableHeader}
-                  renderActions={renderActions}
+                  renderActions={() => renderActions(row)}
                   isCollapsabile={isCollapsabile}
+                  showEmptyCell={showEmptyCell}
+                  renderCellDetails={renderItemDetails}
                 />
               ))}
           </TableBody>
@@ -150,6 +228,19 @@ const Table: FunctionComponent<IProps> = ({
       ) : (
         ""
       )}
+
+      <ConfirmationDialog
+        isOpen={openDeleteConfirmation}
+        title={t("common.delete")}
+        info={t("common.deleteconfirmation", {
+          code: currentRow.code,
+        })}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleDelete}
+        handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
+      />
     </>
   );
 };

@@ -1,0 +1,121 @@
+@import "../../../../styles/variables";
+@import "../../../../../node_modules/susy/sass/susy";
+
+.patientBookingForm {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .patientBookingForm__item {
+    margin: 7px 0px;
+    padding: 0px 15px;
+    width: 50%;
+    @include susy-media($narrow) {
+      padding: 0px 10px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 0px 10px;
+      width: 100%;
+    }
+    @include susy-media($tablet_port) {
+      width: 100%;
+    }
+    @include susy-media($smartphone) {
+      width: 100%;
+    }
+
+    &.dateVisit {
+      width: 100%;
+    }
+
+    .dateField,
+    .textField,
+    .selectField {
+      width: 100%;
+    }
+
+    &.fullWidth {
+      width: 100%;
+    }
+
+    &.compressed {
+      .textField {
+        float: left;
+        width: 50%;
+        &:nth-of-type(1) {
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+
+  .patientBookingForm__buttonSet {
+    display: flex;
+    margin-top: 25px;
+    padding: 0px 15px;
+    flex-direction: row-reverse;
+    @include susy-media($smartphone_small) {
+      display: block;
+    }
+
+    .submit_button,
+    .reset_button {
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button {
+        @include susy-media($smartphone_small) {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+.badge {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  display: inline-block;
+
+  &.available {
+    background-color: #2e8b57;
+  }
+
+  &.u-available {
+    background-color: #dc143c;
+  }
+
+  &.b-available {
+    background-color: #f0f000;
+  }
+}
+
+.custom-date {
+  position: relative;
+  .badge {
+    position: absolute;
+    margin: auto;
+    bottom: 3px;
+    z-index: 1;
+    right: 0;
+    left: 0;
+  }
+}
+
+.helper-text {
+  position: relative;
+  margin-top: 15px;
+  .badge {
+    margin-right: 10px;
+  }
+  p {
+    font-size: 0.8rem;
+    color: $c-grey-lighter;
+    margin: 0px;
+  }
+}

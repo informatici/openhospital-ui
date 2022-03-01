@@ -1,0 +1,51 @@
+@import "../../../../styles/variables";
+@import "../../../../../node_modules/susy/sass/susy";
+
+
+.itemPicker {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    padding: 1em;
+    row-gap: 1em;
+    & > #first {
+        .MuiFormGroup-root {
+            justify-content: center;
+        }
+        .checked:hover, .MuiRadio-root:hover {
+            color: $c-color-primary !important;
+        }
+        .checked, .checked .MuiRadio-root {
+            color: $c-color-primary !important;
+        }
+    }
+    & > #second {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        @include susy-media($smartphone) {
+            flex-flow: column;
+            row-gap: 8px;
+        }
+        .textField, .autocomplete {
+            width: 49%;
+            input {
+                height: 24px;
+            }
+            @include susy-media($smartphone) {
+                width: 100%;
+            }
+        }
+    }
+
+    & > div {
+        display: flex;
+        justify-content: center;
+        .smallButton {
+            width: 50%;
+            @include susy-media($smartphone) {
+                width: 100%;
+            }
+        }
+    }
+}
