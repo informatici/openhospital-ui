@@ -94,10 +94,10 @@ describe("LoginActivity spec", () => {
   });
   it("should display the logout confirmation when the logout icon is clicked", () => {
     //If the reduce menu icon is present, open the menu page and click on signout icon
-    // else click directly on the signout icon 
-    
-      cy.get("[id=signout_icon]").click();
-    
+    // else click directly on the signout icon
+
+    cy.get("[id=signout_icon]").click();
+
     //check if the confirmation dialog is rendered
     cy.get(".MuiDialog-paper");
     //dismiss the confirmation dialog
@@ -109,7 +109,6 @@ describe("LoginActivity spec", () => {
 
     //check if the dashbaord is rendered
     cy.get("div.dashboard");
-
   });
   it("should display the login page when the logout is confirmed on the dialog", () => {
     //If the reduce menu icon is present, open the menu page and click on signout icon
@@ -124,7 +123,6 @@ describe("LoginActivity spec", () => {
     cy.get(".dialog__content .dialog__buttonSet .return_button button").click();
 
     //check if the login page is displayed
-    cy.get("[class=login__panel]")
-
+    cy.get("[class=login__panel]");
   });
 });
