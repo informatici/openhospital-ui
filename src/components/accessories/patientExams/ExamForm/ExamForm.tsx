@@ -209,6 +209,8 @@ const ExamForm: FC<ExamProps> = ({
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 
+  console.log(formik.values.exam);
+
   return (
     <>
       <div className="patientExamForm">

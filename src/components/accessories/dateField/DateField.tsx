@@ -47,24 +47,13 @@ const DateField: FunctionComponent<IProps> = ({
         disabled={disabled}
         disableFuture={disableFuture}
         className={actualClassName}
-        onChange={handleDateChange}
+        onChange={(date) => handleDateChange(date)}
         inputVariant="outlined"
         margin="dense"
         value={value}
         onMonthChange={onMonthChange}
         shouldDisableDate={shouldDisableDate}
         renderDay={renderDay}
-        TextFieldComponent={(props): any => (
-          <TextField
-            {...props}
-            name={""}
-            error={isValid}
-            variant="outlined"
-            margin="dense"
-            helperText={errorText}
-            autoComplete={"off"}
-          />
-        )}
       />
     </DatePickerWrapper>
   );
