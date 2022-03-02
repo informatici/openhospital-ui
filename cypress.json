@@ -1,1 +1,4 @@
-{}
+{
+  "API_BASE_PATH": "https://oh2.open-hospital.org/oh-api",
+  "HOSTNAME": "http://localhost:3000"
+}
