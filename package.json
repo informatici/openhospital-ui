@@ -73,7 +73,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:cypress": "start-server-and-test start http://localhost:3000 cypress:open",
+    "e2e": "start-server-and-test start http://localhost:3000 cypress:open",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
     "build:staging": "env-cmd -f .env.staging npm run build",

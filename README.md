@@ -51,7 +51,7 @@ To run unit tests, issue:
 
 Run:
 
-    - npm run test:cypress
+    - npm run e2e
 
 it launches application in development mode and starts cypress, in a single process.
 
