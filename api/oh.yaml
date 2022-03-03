@@ -7590,6 +7590,13 @@ definitions:
         type: integer
         format: int32
         description: Patient type code
+      status:
+        type: string
+        example: I
+        description: Inpatient or Outpatient
+        enum:
+          - I
+          - O
       firstName:
         type: string
         example: Mario
