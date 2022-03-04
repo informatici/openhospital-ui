@@ -23,7 +23,7 @@ export const examsDTO = [
     },
     {
         "code": "01.03",
-        "description": "1.3 Differential ",
+        "description": "1.3 Differential",
         "procedure": 1,
         "defaultResult": "",
         "examtype": {
