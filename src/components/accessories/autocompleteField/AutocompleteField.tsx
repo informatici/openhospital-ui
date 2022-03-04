@@ -1,10 +1,18 @@
 import { debounce, FormControl, FormHelperText } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import React, { Fragment, FC, useCallback, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+  ChangeEvent,
+} from "react";
 import { DefaultOptionType, IProps } from "./types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { Autocomplete } from "@material-ui/lab";
+import _ from "lodash";
 
 const AutocompleteField: FC<IProps> = ({
   fieldName,
@@ -28,13 +36,24 @@ const AutocompleteField: FC<IProps> = ({
     option.value + "" === val + "",
 }) => {
   const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const { t } = useTranslation();
 
   const getFullObject = (val: string | number) => {
     return options?.find((el) => optionsComparator(el, val)) || null;
   };
+
   const handleOnBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    onBlur(e, value);
+    const result = _.filter(options, (obj) =>
+      obj.label === inputValue ? obj.value : ""
+    );
+
+    if (result?.[0]?.value) {
+      setValue(result[0].value);
+      onBlur(e, result[0].value);
+    } else {
+      onBlur(e, "");
+    }
   };
 
   const debounceUpdate = useCallback(
@@ -53,6 +72,11 @@ const AutocompleteField: FC<IProps> = ({
     else {
       debounceUpdate(val?.value || "");
     }
+  };
+
+  const handleOnInputChange = (event: ChangeEvent<{}>, value: string) => {
+    setInputValue(value);
+    onInputChange && onInputChange(event, value);
   };
 
   const optionLabel = (option: DefaultOptionType) => {
@@ -78,7 +102,8 @@ const AutocompleteField: FC<IProps> = ({
         freeSolo={freeSolo}
         loading={isLoading}
         options={options}
-        onInputChange={onInputChange}
+        clearOnBlur={false}
+        onInputChange={handleOnInputChange}
         getOptionLabel={getOptionLabel ? getOptionLabel : optionLabel}
         value={getFullObject(value)}
         getOptionSelected={getOptionSelected ? getOptionSelected : isSelected}
