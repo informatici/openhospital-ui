@@ -178,8 +178,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     },
   ];*/
 
-  console.log(defaultRoute);
-
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
   };
