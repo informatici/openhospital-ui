@@ -248,6 +248,64 @@
     }
   }
 
+  .patientDetails_status {
+    margin: 20px;
+    .patientDetails_status_wrapper {
+      display: flex;
+      color: $c-white;
+      span:before {
+        content: "";
+        display: inline-block;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        margin-right: 3px;
+        margin-left: 3px;
+      }
+
+      &.patientDetails_status_in {
+        span:before {
+          background-color: $c-red;
+          animation: bump 3s infinite;
+        }
+      }
+
+      &.patientDetails_status_out {
+        span:before {
+          background-color: $c-green;
+        }
+      }
+      h6 {
+        margin: 0px;
+      }
+      .patientDetails_status_button {
+        border-bottom: 1px solid transparent;
+        display: inline-block;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-left: 3px;
+        &:hover {
+          border-bottom: 1px solid $c-white;
+        }
+      }
+    }
+  }
+
+  @keyframes bump {
+    0% {
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   .patientDetails__personalData__item {
     width: 100%;
     padding: 7px 20px;

@@ -1,15 +1,7 @@
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import {
-  EditRounded,
-  Assignment,
-  Payment,
-  LocalHotel,
-  LocalHospital,
-  Person,
-  Notes,
-} from "@material-ui/icons";
+import { EditRounded, Person, Notes } from "@material-ui/icons";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { useParams } from "react-router-dom";
@@ -23,7 +15,6 @@ import PatientTriage from "../../accessories/patientTriage/PatientTriage";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
 import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
-import Arrow from "../../../assets/arrow-w.svg";
 import {
   Accordion,
   AccordionDetails,
@@ -49,6 +40,9 @@ import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
 import BillRecords from "../../accessories/billrecords/BillRecords";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import InPatientDashboardMenu from "./InPatientDashboardMenu";
+import { PatientDTOStatusEnum } from "../../../generated";
+import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -84,9 +78,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const admissionsConfig: TTabConfig = [
     {
       label: t("nav.admission"),
-      path: "/admission",
+      path: "/admissions",
       content: (
-        <PatientDetailsContent title="Admission" content={PatientAdmission} />
+        <PatientDetailsContent title="Admissions" content={PatientAdmission} />
       ),
     },
     {
@@ -107,12 +101,27 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
   ];
-
-  const examConfig: TTabConfig = [
+  const opdConfig: TTabConfig = [
     {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
+      label: t("nav.opd"),
+      path: "/OPD",
+      content: <PatientDetailsContent title="OPD" content={PatientOPD} />,
+    },
+  ];
+  const triageConfig: TTabConfig = [
+    {
+      label: t("nav.triage"),
+      path: "/triage",
+      content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
+    },
+  ];
+  const therapyConfig: TTabConfig = [
+    {
+      label: t("nav.therapy"),
+      path: "/therapy",
+      content: (
+        <PatientDetailsContent title="Therapy" content={PatientTherapy} />
+      ),
     },
   ];
   const clinicConfig: TTabConfig = [
@@ -124,23 +133,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
     {
-      label: t("nav.opd"),
-      path: "/OPD",
-      content: <PatientDetailsContent title="OPD" content={PatientOPD} />,
+      label: t("nav.exams"),
+      path: "/exams",
+      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
     },
-    {
-      label: t("nav.triage"),
-      path: "/triage",
-      content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
-    },
-    {
-      label: t("nav.therapy"),
-      path: "/therapy",
-      content: (
-        <PatientDetailsContent title="Therapy" content={PatientTherapy} />
-      ),
-    },
-
     {
       label: t("nav.booking"),
       path: "/booking",
@@ -159,7 +155,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     },
   ];
 
-  const billingConfig: TTabConfig = [
+  /*const billingConfig: TTabConfig = [
     {
       label: t("nav.newbill"),
       path: "/newbill",
@@ -180,7 +176,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         />
       ),
     },
-  ];
+  ];*/
 
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
@@ -190,19 +186,23 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     switch (userSection) {
       case "admissions":
         return admissionsConfig;
-      case "exams":
-        return examConfig;
-      case "billing":
-        return billingConfig;
+      case "opd":
+        return opdConfig;
+      case "triage":
+        return triageConfig;
+      case "laboratory":
+        return defaultConfig;
+      case "therapy":
+        return therapyConfig;
+      case "operation":
+        return defaultConfig;
+      case "discharge":
+        return defaultConfig;
       case "clinic":
         return clinicConfig;
       default:
         return defaultConfig;
     }
-  };
-
-  const isActive = (value: string) => {
-    return value === userSection ? "active" : "default";
   };
 
   switch (activityTransitionState) {
@@ -284,94 +284,53 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </div>
                     </div>
 
-                    <div className="patientDetails__main_menu">
-                      <h6>{t("patient.usersections")}</h6>
-
-                      <div
-                        className={
-                          "patientDetails__main_menu__item " +
-                          isActive("admissions")
-                        }
-                        onClick={() => {
-                          setUserSection("admissions");
-                          setDefaultRoute("/admission");
-                        }}
-                      >
-                        <LocalHotel
-                          fontSize="small"
-                          style={{
-                            color: "white",
-                          }}
-                        />
-                        <span>{t("patient.admissions")}:</span>
-                        <img
-                          src={Arrow}
-                          className="icon_toggle"
-                          alt="Accordion toogle"
-                        />
-                      </div>
-
-                      <div
-                        className={
-                          "align__element patientDetails__main_menu__item " +
-                          isActive("exams")
-                        }
-                        onClick={() => {
-                          setUserSection("exams");
-                          setDefaultRoute("/exams");
-                        }}
-                      >
-                        <Assignment
-                          fontSize="small"
-                          style={{ color: "white" }}
-                        />
-                        <span>{t("patient.userexams")}:</span>
-                        <img
-                          src={Arrow}
-                          className="icon_toggle"
-                          alt="Accordion toogle"
-                        />
-                      </div>
-                      <div
-                        className={
-                          "align__element patientDetails__main_menu__item " +
-                          isActive("billing")
-                        }
-                        onClick={() => {
-                          setUserSection("billing");
-                          setDefaultRoute("/newbill");
-                        }}
-                      >
-                        <Payment fontSize="small" style={{ color: "white" }} />
-                        <span>{t("patient.userbilling")}</span>
-                        <img
-                          src={Arrow}
-                          className="icon_toggle"
-                          alt="Accordion toogle"
-                        />
-                      </div>
-                      <div
-                        className={
-                          "align__element patientDetails__main_menu__item " +
-                          isActive("clinic")
-                        }
-                        onClick={() => {
-                          setUserSection("clinic");
-                          setDefaultRoute("/summary");
-                        }}
-                      >
-                        <LocalHospital
-                          fontSize="small"
-                          style={{ color: "white" }}
-                        />
-                        <span>{t("patient.userclinic")}</span>
-                        <img
-                          src={Arrow}
-                          className="icon_toggle"
-                          alt="Accordion toogle"
-                        />
-                      </div>
+                    <div className="patientDetails_status">
+                      {patient?.data?.status === PatientDTOStatusEnum.I ? (
+                        <div className="patientDetails_status_wrapper patientDetails_status_in">
+                          <h6>
+                            Status: <span>Inpatient</span>
+                            <div
+                              className="patientDetails_status_button"
+                              onClick={() => {
+                                setUserSection("discharge");
+                                setDefaultRoute("/discharge");
+                              }}
+                            >
+                              (change)
+                            </div>
+                          </h6>
+                        </div>
+                      ) : (
+                        <div className="patientDetails_status_wrapper patientDetails_status_out">
+                          <h6>
+                            Status: <span>Outpatient</span>
+                            <div
+                              className="patientDetails_status_button"
+                              onClick={() => {
+                                setUserSection("admissions");
+                                setDefaultRoute("/admissions");
+                              }}
+                            >
+                              (change)
+                            </div>
+                          </h6>
+                        </div>
+                      )}
                     </div>
+
+                    {patient?.data?.status === PatientDTOStatusEnum.I ? (
+                      <InPatientDashboardMenu
+                        setDefaultRoute={setDefaultRoute}
+                        setUserSection={setUserSection}
+                        userSection={userSection}
+                      />
+                    ) : (
+                      <OutPatientDashboardMenu
+                        setDefaultRoute={setDefaultRoute}
+                        setUserSection={setUserSection}
+                        userSection={userSection}
+                      />
+                    )}
 
                     <div className="patientDetails__user_info">
                       <h6>{t("patient.userinfo")}</h6>

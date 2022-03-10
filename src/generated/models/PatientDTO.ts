@@ -24,6 +24,12 @@ export interface PatientDTO {
    */
   code?: number;
   /**
+   * Inpatient or Outpatient
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  status?: PatientDTOStatusEnum;
+  /**
    * First name of the patient
    * @type {string}
    * @memberof PatientDTO
@@ -139,6 +145,14 @@ export interface PatientDTO {
   blobPhoto?: string;
 }
 
+/**
+ * @export
+ * @enum {string}
+ */
+export enum PatientDTOStatusEnum {
+  I = "I",
+  O = "O",
+}
 /**
  * @export
  * @enum {string}
