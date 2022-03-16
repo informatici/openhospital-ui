@@ -5,7 +5,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
@@ -18,6 +18,7 @@ import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
+import { FEEDBACKPARAMS } from "../feedback/utils";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -38,6 +39,10 @@ const AppHeader: FunctionComponent<TProps> = ({
     setIsOpen(isOpen);
   };
   const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  useEffect(() => {
+    setShowHelp(navigator.onLine && FEEDBACKPARAMS.enabled);
+  }, [navigator.onLine]);
 
   const handleLogout = () => {
     setOpenLogoutConfirmation(false);
@@ -63,7 +68,7 @@ const AppHeader: FunctionComponent<TProps> = ({
               />
             </Tooltip>
           </div>
-          {navigator.onLine && (
+          {showHelp && (
             <div className="appHeader__help" title="Help">
               <OHFeedback />
             </div>
