@@ -7,7 +7,7 @@ const collectorUrl =
 export const FEEDBACKPARAMS: FeedbackParams = {
   enabled: params?.enabled ?? true,
   url: params?.url ?? collectorUrl,
-  email: params?.email ?? "example@gmail.com",
-  version: params?.version ?? "0.0.0",
+  email: params?.email ?? "example@mail.com",
+  version: params?.version ?? "0.0.1",
   priority: params?.priority ?? "2",
 };
