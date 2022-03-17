@@ -9,12 +9,6 @@ import "./styles.scss";
 const OHFeedback: FC = () => {
   const { t } = useTranslation();
   const user = useSelector((state: IState) => state.main.authentication.data);
-  jQuery.ajax({
-    url: "?collectorId=53f7755c",
-    type: "get",
-    cache: true,
-    dataType: "script",
-  });
   (window as any).ATL_JQ_PAGE_PROPS = $.extend(
     (window as any).ATL_JQ_PAGE_PROPS,
     {

@@ -24,11 +24,10 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
   };
 
   useEffect(() => {
-    if (defaultRoute && !currentPath) {
-      // default tab route
+    if (defaultRoute) {
       history.push(url + defaultRoute);
     }
-  }, [history, defaultRoute, currentPath, url]);
+  }, [history, defaultRoute, url]);
 
   const renderHeader = (mobile = false): JSX.Element[] => {
     if (!mobile) {
