@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { useTranslation } from "react-i18next";
 import "./styles.scss";
-import { FEEDBACKPARAMS } from "./utils";
+import { FEEDBACKPROPS } from "./utils";
 
 const OHFeedback: FC = () => {
   const { t } = useTranslation();
@@ -30,13 +30,13 @@ const OHFeedback: FC = () => {
       fieldValues: {
         summary: "Give your feedback",
         description: "Sample description",
-        priority: FEEDBACKPARAMS.priority,
+        priority: FEEDBACKPROPS.priority,
         fullname: user?.displayName ?? "",
-        email: FEEDBACKPARAMS.email,
+        email: FEEDBACKPROPS.email,
       },
       environment: {
         // this is custom environment field value, we can add what we need
-        "OH version": FEEDBACKPARAMS.version,
+        "OH version": FEEDBACKPROPS.version,
       },
     }
   );

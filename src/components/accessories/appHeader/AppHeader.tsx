@@ -18,7 +18,7 @@ import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
-import { FEEDBACKPARAMS } from "../feedback/utils";
+import { FEEDBACKPROPS } from "../feedback/utils";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -41,7 +41,7 @@ const AppHeader: FunctionComponent<TProps> = ({
   const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   useEffect(() => {
-    setShowHelp(navigator.onLine && FEEDBACKPARAMS.enabled);
+    setShowHelp(navigator.onLine && FEEDBACKPROPS.enabled);
   }, [navigator.onLine]);
 
   const handleLogout = () => {

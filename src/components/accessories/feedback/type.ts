@@ -1,4 +1,4 @@
-export interface FeedbackParams {
+export interface IFeedbackProps {
   enabled: boolean;
   url: string;
   email: string;
