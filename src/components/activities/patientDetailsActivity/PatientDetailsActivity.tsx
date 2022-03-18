@@ -133,16 +133,25 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
     {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
-    },
-    {
       label: t("nav.booking"),
       path: "/booking",
       content: (
         <PatientDetailsContent title="Booking" content={PatientBooking} />
       ),
+    },
+  ];
+  const laboratoryConfig: TTabConfig = [
+    {
+      label: t("nav.summary"),
+      path: "/summary",
+      content: (
+        <PatientDetailsContent title="Summary" content={SkeletonLoader} />
+      ),
+    },
+    {
+      label: t("nav.exams"),
+      path: "/exams",
+      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
     },
   ];
   const defaultConfig: TTabConfig = [
@@ -191,7 +200,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       case "triage":
         return triageConfig;
       case "laboratory":
-        return defaultConfig;
+        return laboratoryConfig;
       case "therapy":
         return therapyConfig;
       case "operation":
