@@ -1,8 +1,8 @@
-import feedback from "./feedback.json";
-import default_config from "./default-config.json";
+import customs from "./customs.json";
+import default_ from "./default.json";
 import { IFeedbackProps } from "./type";
 
 export const feedbackConfig: IFeedbackProps = {
-  ...default_config,
-  ...feedback,
+  ...default_,
+  ...customs,
 };
