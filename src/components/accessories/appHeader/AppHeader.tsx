@@ -45,6 +45,7 @@ const AppHeader: FunctionComponent<TProps> = ({
     setLogoutThunk();
   };
   const history = useHistory();
+
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__top">

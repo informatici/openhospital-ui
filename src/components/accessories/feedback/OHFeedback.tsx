@@ -19,14 +19,13 @@ const OHFeedback: FC = () => {
   (window as any).ATL_JQ_PAGE_PROPS = $.extend(
     (window as any).ATL_JQ_PAGE_PROPS,
     {
-      // ==== custom trigger function ====
       triggerFunction: (showCollectorDialog: any) => {
         $("#feedback-button").on("click", (e) => {
           e.preventDefault();
           showCollectorDialog();
         });
       },
-      // ==== we add the code below to set the field values ====
+
       fieldValues: {
         summary: "Give your feedback",
         description: "Sample description",
