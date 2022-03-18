@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { feedbackConfig } from "../../components/accessories/feedback/utils";
+import { feedbackConfig } from "../../customization/feedback";
 import { useOnlineStatus } from "./useOnlineStatus";
 
 export const useShowHelp = () => {

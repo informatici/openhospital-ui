@@ -1,4 +1,4 @@
-import feedback from "../../../customization/feedback.json";
+import feedback from "./feedback.json";
 import default_config from "./default-config.json";
 import { IFeedbackProps } from "./type";
 

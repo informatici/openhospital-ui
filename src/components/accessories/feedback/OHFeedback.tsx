@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { useTranslation } from "react-i18next";
 import "./styles.scss";
-import { feedbackConfig } from "./utils";
+import { feedbackConfig } from "../../../customization/feedback";
 
 const OHFeedback: FC = () => {
   const { t } = useTranslation();
