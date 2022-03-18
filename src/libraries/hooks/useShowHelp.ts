@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { feedbackProps } from "../../components/accessories/feedback/utils";
+import { feedbackConfig } from "../../components/accessories/feedback/utils";
 import { useOnlineStatus } from "./useOnlineStatus";
 
 export const useShowHelp = () => {
   const online = useOnlineStatus();
-  const [showHelp, setShowHelp] = useState(online && feedbackProps.enabled);
+  const [showHelp, setShowHelp] = useState(online && feedbackConfig.enabled);
 
   useEffect(() => {
-    setShowHelp(online && feedbackProps.enabled);
+    setShowHelp(online && feedbackConfig.enabled);
   }, [online]);
 
   return showHelp;
