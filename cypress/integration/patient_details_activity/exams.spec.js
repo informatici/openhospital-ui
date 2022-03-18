@@ -11,7 +11,9 @@ describe("Patient Details / Exams", () => {
   });
 
   it("should have a menu item for Exams", () => {
-    cy.get("[class='patientDetails__main_menu']").contains("Exams:").click();
+    cy.get("[class='patientDetails__main_menu']")
+      .contains("Laboratory:")
+      .click();
   });
 
   it("should make it possible for the user to fill out the form to create a new exam", () => {
