@@ -140,13 +140,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
   ];
-  const laboratoryConfig: TTabConfig = [
-    {
-      label: "",
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
-    },
-  ];
   const defaultConfig: TTabConfig = [
     {
       label: t("nav.summary"),
@@ -192,8 +185,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         return opdConfig;
       case "triage":
         return triageConfig;
-      case "laboratory":
-        return laboratoryConfig;
       case "therapy":
         return therapyConfig;
       case "operation":
