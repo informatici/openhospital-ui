@@ -142,14 +142,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   ];
   const laboratoryConfig: TTabConfig = [
     {
-      label: t("nav.summary"),
-      path: "/summary",
-      content: (
-        <PatientDetailsContent title="Summary" content={SkeletonLoader} />
-      ),
-    },
-    {
-      label: t("nav.exams"),
+      label: "",
       path: "/exams",
       content: <PatientDetailsContent title="Exams" content={PatientExams} />,
     },
@@ -467,10 +460,19 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <RouterTabs
-                    config={getRouteConfig()}
-                    defaultRoute={defaultRoute}
-                  />
+                  {userSection == "laboratory" ? (
+                    <div className="patientDetails__lab_content">
+                      <PatientDetailsContent
+                        title="Laboratory"
+                        content={PatientExams}
+                      />
+                    </div>
+                  ) : (
+                    <RouterTabs
+                      config={getRouteConfig()}
+                      defaultRoute={defaultRoute}
+                    />
+                  )}
                 </div>
               </div>
             </div>
