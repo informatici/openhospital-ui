@@ -23,6 +23,13 @@
     align-items: center;
   }
 
+  .patientDetails__lab_content {
+    padding: 30px;
+    @include susy-media($smartphone) {
+        padding: 30px 0;
+    }
+  }
+
   .patientDetails__title {
     font-size: xx-large;
     color: $c-black;

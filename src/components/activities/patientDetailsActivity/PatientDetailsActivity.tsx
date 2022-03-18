@@ -133,11 +133,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       ),
     },
     {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
-    },
-    {
       label: t("nav.booking"),
       path: "/booking",
       content: (
@@ -190,8 +185,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         return opdConfig;
       case "triage":
         return triageConfig;
-      case "laboratory":
-        return defaultConfig;
       case "therapy":
         return therapyConfig;
       case "operation":
@@ -458,10 +451,19 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <RouterTabs
-                    config={getRouteConfig()}
-                    defaultRoute={defaultRoute}
-                  />
+                  {userSection == "laboratory" ? (
+                    <div className="patientDetails__lab_content">
+                      <PatientDetailsContent
+                        title="Laboratory"
+                        content={PatientExams}
+                      />
+                    </div>
+                  ) : (
+                    <RouterTabs
+                      config={getRouteConfig()}
+                      defaultRoute={defaultRoute}
+                    />
+                  )}
                 </div>
               </div>
             </div>
