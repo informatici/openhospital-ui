@@ -134,7 +134,8 @@
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
     "managebills": "Manage Bills",
-    "billrecords": "Bill Records"
+    "billrecords": "Bill Records",
+    "visits": "Visits"
   },
   "common": {
     "ok": "OK",

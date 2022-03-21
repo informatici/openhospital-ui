@@ -130,7 +130,8 @@
     "searchbill": "Rechercher facture",
     "bill_chose": "Choisir une option",
     "managebills": "Manager Factures",
-    "billrecords": "Liste Factures"
+    "billrecords": "Liste Factures",
+    "visits": "Visites"
   },
   "common": {
     "ok": "OK",

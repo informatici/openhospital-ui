@@ -72,7 +72,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("clinic");
+  const [userSection, setUserSection] = useState<IUserSection>("laboratory");
   const [defaultRoute, setDefaultRoute] = useState("/summary");
 
   const admissionsConfig: TTabConfig = [
