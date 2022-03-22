@@ -131,7 +131,8 @@
     "bill_chose": "Choisir une option",
     "managebills": "Manager Factures",
     "billrecords": "Liste Factures",
-    "visits": "Visites"
+    "visits": "Visites",
+    "patients": "Patients"
   },
   "common": {
     "ok": "OK",

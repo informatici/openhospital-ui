@@ -135,7 +135,8 @@
     "bill_chose": "Choose an option",
     "managebills": "Manage Bills",
     "billrecords": "Bill Records",
-    "visits": "Visits"
+    "visits": "Visits",
+    "patients": "Patients"
   },
   "common": {
     "ok": "OK",
