@@ -130,9 +130,7 @@
     "searchbill": "Rechercher facture",
     "bill_chose": "Choisir une option",
     "managebills": "Manager Factures",
-    "billrecords": "Liste Factures",
-    "visits": "Visites",
-    "patients": "Patients"
+    "billrecords": "Liste Factures"
   },
   "common": {
     "ok": "OK",
