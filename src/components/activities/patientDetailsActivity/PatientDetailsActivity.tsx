@@ -43,6 +43,7 @@ import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import { PatientDTOStatusEnum } from "../../../generated";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
+import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -80,7 +81,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.admission"),
       path: "/admissions",
       content: (
-        <PatientDetailsContent title="Admissions" content={PatientAdmission} />
+        <PatientDetailsContent title="Admissions" content={PatientAdmissions} />
       ),
     },
     {
