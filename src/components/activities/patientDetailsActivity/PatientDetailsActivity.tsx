@@ -84,23 +84,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
         <PatientDetailsContent title="Admissions" content={PatientAdmissions} />
       ),
     },
-    {
-      label: t("nav.booking"),
-      path: "/booking",
-      content: (
-        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
-      ),
-    },
-    {
-      label: t("nav.surgicalrecord"),
-      path: "/surgicalRecord",
-      content: (
-        <PatientDetailsContent
-          title="SurgicalRecord"
-          content={SkeletonLoader}
-        />
-      ),
-    },
   ];
   const opdConfig: TTabConfig = [
     {
@@ -180,8 +163,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const getRouteConfig = () => {
     switch (userSection) {
-      case "admissions":
-        return admissionsConfig;
       case "opd":
         return opdConfig;
       case "triage":
@@ -453,10 +434,17 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </div>
                 <div className="patientDetails__content">
                   {userSection == "laboratory" ? (
-                    <div className="patientDetails__lab_content">
+                    <div className="patientDetails__nested_content">
                       <PatientDetailsContent
                         title="Laboratory"
                         content={PatientExams}
+                      />
+                    </div>
+                  ) : userSection == "admissions" ? (
+                    <div className="patientDetails__nested_content">
+                      <PatientDetailsContent
+                        title="Admissions"
+                        content={PatientAdmissions}
                       />
                     </div>
                   ) : (
