@@ -23,6 +23,13 @@ import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -135,6 +142,34 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         <form className="patientOpdForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">
+              <FormControl component="fieldset">
+                <FormLabel component="legend">{t("opd.newpatient")}</FormLabel>
+                <RadioGroup
+                  aria-label="newpatient"
+                  name="newpatient"
+                  value={formik.values["newPatient"]}
+                  onChange={(event) => {
+                    formik.setFieldValue("newPatient", event.target.value);
+                  }}
+                >
+                  <FormControlLabel
+                    value="R"
+                    control={<Radio />}
+                    label={t("opd.reattendance")}
+                    checked={formik.values["newPatient"] == "R"}
+                  />
+                  <FormControlLabel
+                    value="N"
+                    control={<Radio />}
+                    label={t("opd.newadmittance")}
+                    checked={formik.values["newPatient"] == "N"}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="patientOpdForm__item">
               <DateField
                 fieldName="date"
                 fieldValue={formik.values.date}
@@ -146,6 +181,28 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 label={t("opd.dateopd")}
                 onChange={dateFieldHandleOnChange("date")}
                 disabled={isLoading}
+              />
+            </div>
+            <div className="patientOpdForm__item">
+              <TextField
+                field={formik.getFieldProps("referralFrom")}
+                theme="regular"
+                label={t("opd.referralfrom")}
+                isValid={isValid("referralFrom")}
+                errorText={getErrorText("referralFrom")}
+                onBlur={formik.handleBlur}
+                type="string"
+              />
+            </div>
+            <div className="patientOpdForm__item">
+              <TextField
+                field={formik.getFieldProps("referralTo")}
+                theme="regular"
+                label={t("opd.referralto")}
+                isValid={isValid("referralTo")}
+                errorText={getErrorText("referralTo")}
+                onBlur={formik.handleBlur}
+                type="string"
               />
             </div>
           </div>

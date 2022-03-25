@@ -26,4 +26,16 @@ export const initialFields: TFields<TPatientOPDFormFieldName> = {
     value: "",
     type: "text",
   },
+  newPatient: {
+    value: "N",
+    type: "text",
+  },
+  referralFrom: {
+    value: "",
+    type: "text",
+  },
+  referralTo: {
+    value: "",
+    type: "text",
+  },
 };

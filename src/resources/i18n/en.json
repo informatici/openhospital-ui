@@ -65,7 +65,12 @@
     "updated": "Opd updated",
     "createsuccess": "Opd has been created successfully!",
     "updatesuccess": "Opd {{code}} has been updated successfully!",
-    "deleted": "Opd deleted"
+    "deleted": "Opd deleted",
+    "referralfrom": "Referral From",
+    "referralto": "Referral To",
+    "newpatient": "Attendance Type",
+    "newadmittance": "New Admittance",
+    "reattendance": "Re-attendance"
   },
   "examination": {
     "ap": {
