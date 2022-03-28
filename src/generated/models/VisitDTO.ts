@@ -14,6 +14,7 @@
 import {
     GregorianCalendar,
     PatientDTO,
+    WardDTO,
 } from './';
 
 /**
@@ -44,4 +45,21 @@ export interface VisitDTO {
      * @memberof VisitDTO
      */
     sms?: boolean;
+    /**
+     * @type {WardDTO}
+     * @memberof VisitDTO
+     */
+    ward?: WardDTO;
+    /**
+     * Service accomplished during the visit
+     * @type {string}
+     * @memberof VisitDTO
+     */
+    service?: string;
+    /**
+     * Duration of the visit
+     * @type {string}
+     * @memberof VisitDTO
+     */
+    duration?: string;
 }

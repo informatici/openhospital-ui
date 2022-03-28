@@ -1,28 +1,36 @@
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { TPatientOPDFormFieldName } from "./patientOPDForm/types";
+import { TPatientVisitFormFieldName } from "./patientVisitForm/types";
 
-export const initialFields: TFields<TPatientOPDFormFieldName> = {
+export const initialFields: TFields<TPatientVisitFormFieldName> = {
   date: {
     value: "",
     type: "date",
   },
-  complaint: {
+  patient: {
+    value: "",
+    type: "text",
+    options: [
+      {
+        label: "John Doe",
+        value: "jdoe",
+      },
+    ],
+  },
+  ward: {
+    value: "",
+    type: "text",
+    options: [
+      {
+        label: "Medecine",
+        value: "M",
+      },
+    ],
+  },
+  service: {
     value: "",
     type: "text",
   },
-  disease: {
-    value: "",
-    type: "text",
-  },
-  disease2: {
-    value: "",
-    type: "text",
-  },
-  disease3: {
-    value: "",
-    type: "text",
-  },
-  note: {
+  duration: {
     value: "",
     type: "text",
   },

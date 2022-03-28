@@ -37,27 +37,9 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
 
   const validationSchema = object({
     date: string().required(t("common.required")),
-    disease: string().required(t("common.required")),
-    disease2: string().test({
-      name: "disease2",
-      message: t("opd.validatedisease"),
-      test: function (value) {
-        return !value || (this.parent.disease && value !== this.parent.disease);
-      },
-    }),
-    disease3: string().test({
-      name: "disease3",
-      message: t("opd.validatedisease"),
-      test: function (value) {
-        return (
-          !value ||
-          (this.parent.disease &&
-            this.parent.disease2 &&
-            value !== this.parent.disease &&
-            value !== this.parent.disease2)
-        );
-      },
-    }),
+    patient: string().required(t("common.required")),
+    service: string().required(t("common.required")),
+    duration: string().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -80,9 +62,24 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
     },
     [setFieldValue]
   );
-  const diseasesOptionsSelector = (state: IState) => {
-    return state.diseases.diseasesOpd.data
-      ? state.diseases.diseasesOpd.data.map((item) => {
+  const patientOptionsSelector = (state: IState) => {
+    return state.patients.searchResults.data
+      ? state.patients.searchResults.data.map((item) => {
+          return {
+            value: item.code?.toString() ?? "",
+            label: `${item.firstName ?? ""} ${item.secondName ?? ""}`,
+          };
+        })
+      : [];
+  };
+  const patientOptions = useSelector<
+    IState,
+    { value: string; label: string }[]
+  >((state: IState) => patientOptionsSelector(state));
+
+  const wardOptionsSelector = (state: IState) => {
+    return state.wards.allWards.data
+      ? state.wards.allWards.data.map((item) => {
           return {
             value: item.code?.toString() ?? "",
             label: item.description ?? "",
@@ -90,10 +87,9 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
         })
       : [];
   };
-  const diseasesOptions = useSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => diseasesOptionsSelector(state));
+  const wardOptions = useSelector<IState, { value: string; label: string }[]>(
+    (state: IState) => wardOptionsSelector(state)
+  );
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -131,10 +127,38 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
 
   return (
     <>
-      <div className="patientOpdForm">
-        <form className="patientOpdForm__form" onSubmit={formik.handleSubmit}>
+      <div className="patientVisitForm">
+        <form className="patientVisitForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item">
+            <div className="patientVisitForm__item fullWith">
+              <AutocompleteField
+                fieldName="patient"
+                fieldValue={formik.values.patient}
+                label={t("visit.patient")}
+                isValid={isValid("patient")}
+                errorText={getErrorText("patient")}
+                onBlur={onBlurCallback("patient")}
+                options={patientOptions}
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="patientVisitForm__item fullWith">
+              <AutocompleteField
+                fieldName="ward"
+                fieldValue={formik.values.ward}
+                label={t("visit.ward")}
+                isValid={isValid("ward")}
+                errorText={getErrorText("ward")}
+                onBlur={onBlurCallback("ward")}
+                options={wardOptions}
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="patientVisitForm__item">
               <DateField
                 fieldName="date"
                 fieldValue={formik.values.date}
@@ -143,21 +167,19 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
                 format="dd/MM/yyyy"
                 isValid={isValid("date")}
                 errorText={getErrorText("date")}
-                label={t("opd.dateopd")}
+                label={t("visit.date")}
                 onChange={dateFieldHandleOnChange("date")}
                 disabled={isLoading}
               />
             </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
+            <div className="patientVisitForm__item">
               <TextField
-                field={formik.getFieldProps("complaint")}
+                field={formik.getFieldProps("duration")}
                 multiline={true}
                 theme="regular"
-                label={t("opd.complaint")}
-                isValid={isValid("complaint")}
-                errorText={getErrorText("complaint")}
+                label={t("visit.duration")}
+                isValid={isValid("duration")}
+                errorText={getErrorText("duration")}
                 onBlur={formik.handleBlur}
                 type="string"
                 disabled={isLoading}
@@ -165,54 +187,27 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
-              <AutocompleteField
-                fieldName="disease"
-                fieldValue={formik.values.disease}
-                label={t("opd.disease1")}
-                isValid={isValid("disease")}
-                errorText={getErrorText("disease")}
-                onBlur={onBlurCallback("disease")}
-                options={diseasesOptions}
+            <div className="patientVisitForm__item fullWith">
+              <TextField
+                field={formik.getFieldProps("service")}
+                multiline={true}
+                theme="regular"
+                label={t("visit.service")}
+                isValid={isValid("service")}
+                errorText={getErrorText("service")}
+                onBlur={formik.handleBlur}
+                type="string"
                 disabled={isLoading}
               />
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
-              <AutocompleteField
-                fieldName="disease2"
-                fieldValue={formik.values.disease2}
-                label={t("opd.disease2")}
-                isValid={isValid("disease2")}
-                errorText={getErrorText("disease2")}
-                onBlur={onBlurCallback("disease2")}
-                options={diseasesOptions}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
-              <AutocompleteField
-                fieldName="disease3"
-                fieldValue={formik.values.disease3}
-                label={t("opd.disease3")}
-                isValid={isValid("disease3")}
-                errorText={getErrorText("disease3")}
-                onBlur={onBlurCallback("disease3")}
-                options={diseasesOptions}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
+            <div className="patientVisitForm__item fullWith">
               <TextField
                 field={formik.getFieldProps("note")}
                 multiline={true}
                 theme="regular"
-                label={t("opd.note")}
+                label={t("visit.note")}
                 isValid={isValid("note")}
                 errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
@@ -221,7 +216,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
               />
             </div>
           </div>
-          <div className="patientOpdForm__buttonSet">
+          <div className="patientVisitForm__buttonSet">
             <div className="submit_button">
               <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}

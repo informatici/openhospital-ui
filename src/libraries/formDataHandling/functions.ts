@@ -7,6 +7,8 @@ import {
   OpdDTO,
   PatientDTO,
   PatientExaminationDTO,
+  VisitDTO,
+  WardDTO,
 } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
 
@@ -109,6 +111,29 @@ export const updateOpdFields = (
         return (draft[key as string].value =
           typeof value === "object"
             ? (value as DiseaseDTO)?.code?.toString() ?? ""
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
+      }
+    });
+  });
+};
+
+export const updateVisitFields = (
+  fields: TFields,
+  values: VisitDTO | undefined
+) => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        const value = values![key as keyof VisitDTO];
+        if (key === "ward")
+          return (draft[key as string].value =
+            (value as PatientDTO)?.code?.toString() ?? "");
+
+        return (draft[key as string].value =
+          typeof value === "object"
+            ? (value as WardDTO)?.code?.toString() ?? ""
             : moment(value).isValid()
             ? Date.parse(moment(value).toString())
             : value);

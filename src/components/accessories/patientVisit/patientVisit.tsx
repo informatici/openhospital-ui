@@ -3,26 +3,29 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { OpdDTO } from "../../../generated";
+import { VisitDTO } from "../../../generated";
 import {
-  createOpd,
-  createOpdReset,
-  deleteOpd,
-  deleteOpdReset,
-  updateOpd,
-  updateOpdReset,
-} from "../../../state/opds/actions";
-import { getDiseasesOpd } from "../../../state/diseases/actions";
+  getVisits,
+  deleteVisits,
+  deleteVisitsReset,
+  createVisit,
+  createVisitReset,
+  deleteVisit,
+  deleteVisitReset,
+  updateVisit,
+  updateVisitReset,
+} from "../../../state/visits/actions";
+import { searchPatient } from "../../../state/patients/actions";
 import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
 import { TActivityTransitionState } from "./types";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
-import PatientOPDTable from "./patientVisitTable/PatientVisitTable";
-import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
+import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
+import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
 
-const PatientOPD: FunctionComponent = () => {
+const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -32,7 +35,7 @@ const PatientOPD: FunctionComponent = () => {
     useState<TActivityTransitionState>("IDLE");
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
-  const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
+  const [visitToEdit, setVisitToEdit] = useState({} as VisitDTO);
 
   const [creationMode, setCreationMode] = useState(true);
 
@@ -44,12 +47,12 @@ const PatientOPD: FunctionComponent = () => {
       status at the same time,
       because we use the same form for creation and modification. 
     */
-    return state.opds.createOpd.status !== "IDLE"
-      ? state.opds.createOpd.status
-      : state.opds.updateOpd.status;
+    return state.visits.createVisit.status !== "IDLE"
+      ? state.visits.createVisit.status
+      : state.visits.updateVisit.status;
   });
   const deleteStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.deleteOpd.status
+    (state) => state.visits.deleteVisit.status
   );
 
   useEffect(() => {
@@ -60,10 +63,10 @@ const PatientOPD: FunctionComponent = () => {
   }, [changeStatus]);
 
   useEffect(() => {
-    dispatch(createOpdReset());
-    dispatch(updateOpdReset());
-    dispatch(deleteOpdReset());
-    dispatch(getDiseasesOpd());
+    dispatch(createVisitReset());
+    dispatch(updateVisitReset());
+    dispatch(deleteVisitReset());
+    dispatch(getDiseasesVisit());
   }, [dispatch]);
 
   const patient = useSelector(
@@ -75,63 +78,65 @@ const PatientOPD: FunctionComponent = () => {
   );
 
   const diseasesData = useSelector(
-    (state: IState) => state.diseases.diseasesOpd.data
+    (state: IState) => state.diseases.diseasesVisit.data
   );
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       setShouldUpdateTable(true);
       setCreationMode(true);
-      dispatch(createOpdReset());
-      dispatch(updateOpdReset());
-      dispatch(deleteOpdReset());
+      dispatch(createVisitReset());
+      dispatch(updateVisitReset());
+      dispatch(deleteVisitReset());
       setShouldResetForm(true);
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (opdValuestoSave: OpdDTO) => {
+  const onSubmit = (visitValuestoSave: VisitDTO) => {
     setShouldResetForm(false);
-    opdValuestoSave.patientCode = patient?.code;
-    opdValuestoSave.age = patient?.age;
-    opdValuestoSave.sex = patient?.sex;
-    opdValuestoSave.userID = userId;
-    if (!creationMode && opdToEdit.code) {
-      dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
-    } else dispatch(createOpd(opdValuestoSave, diseasesData));
+    visitValuestoSave.patientCode = patient?.code;
+    visitValuestoSave.age = patient?.age;
+    visitValuestoSave.sex = patient?.sex;
+    visitValuestoSave.userID = userId;
+    if (!creationMode && visitToEdit.code) {
+      dispatch(updateVisit(visitToEdit.code, visitValuestoSave, diseasesData));
+    } else dispatch(createVisit(visitValuestoSave, diseasesData));
   };
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setCreationMode(true);
-    dispatch(createOpdReset());
-    dispatch(updateOpdReset());
-    dispatch(deleteOpdReset());
+    dispatch(createVisitReset());
+    dispatch(updateVisitReset());
+    dispatch(deleteVisitReset());
     setActivityTransitionState("IDLE");
     setShouldUpdateTable(false);
     scrollToElement(null);
   };
 
-  const onEdit = (row: OpdDTO) => {
-    setOpdToEdit(row);
+  const onEdit = (row: VisitDTO) => {
+    setVisitToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
   };
 
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteOpd(code));
+    dispatch(deleteVisit(code));
   };
 
   return (
-    <div className="patientOpd">
+    <div className="patientVisit">
       <PatientVisitForm
         fields={
           creationMode
             ? initialFields
-            : updateOpdFields(initialFields, opdToEdit)
+            : updateVisitFields(initialFields, visitToEdit)
         }
         onSubmit={onSubmit}
-        submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
+        submitButtonLabel={
+          creationMode ? t("visit.savevisit") : t("visit.updatevisit")
+        }
         resetButtonLabel={t("common.reset")}
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
@@ -143,19 +148,19 @@ const PatientOPD: FunctionComponent = () => {
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
-      <PatientOPDTable
+      <PatientVisitTable
         handleEdit={onEdit}
         handleDelete={onDelete}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
         isOpen={changeStatus === "SUCCESS"}
-        title={creationMode ? t("opd.created") : t("opd.updated")}
+        title={creationMode ? t("visit.created") : t("visit.updated")}
         icon={checkIcon}
         info={
           creationMode
-            ? t("opd.createsuccess")
-            : t("opd.updatesuccess", { code: opdToEdit.code })
+            ? t("visit.createsuccess")
+            : t("visit.updatesuccess", { code: visitToEdit.code })
         }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
@@ -163,7 +168,7 @@ const PatientOPD: FunctionComponent = () => {
       />
       <ConfirmationDialog
         isOpen={deleteStatus === "SUCCESS"}
-        title={t("opd.deleted")}
+        title={t("visit.deleted")}
         icon={checkIcon}
         info={t("common.deletesuccess", { code: deletedObjCode })}
         primaryButtonLabel={t("common.ok")}
@@ -174,4 +179,4 @@ const PatientOPD: FunctionComponent = () => {
   );
 };
 
-export default PatientOPD;
+export default PatientVisit;

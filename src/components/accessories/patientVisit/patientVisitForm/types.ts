@@ -4,12 +4,11 @@ interface IOwnProps {
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }
-export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
+export type TProps = IForm<TPatientVisitFormFieldName, any> & IOwnProps;
 
-export type TPatientOPDFormFieldName =
+export type TPatientVisitFormFieldName =
   | "date"
-  | "complaint"
-  | "disease"
-  | "disease2"
-  | "disease3"
-  | "note";
+  | "patient"
+  | "ward"
+  | "duration"
+  | "service";

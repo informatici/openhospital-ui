@@ -18,6 +18,10 @@ import {
     VisitDTO,
 } from '../models';
 
+export interface DeleteVisitUsingDELETERequest {
+    code: number;
+}
+
 export interface DeleteVisitsRelatedToPatientUsingDELETERequest {
     patID: number;
 }
@@ -34,10 +38,34 @@ export interface NewVisitsUsingPOSTRequest {
     newVisits: Array<VisitDTO>;
 }
 
+export interface UpdateVisitUsingPUTRequest {
+    code: number;
+    updateVisit: VisitDTO;
+}
+
 /**
  * no description
  */
 export class VisitsControllerApi extends BaseAPI {
+
+    /**
+     * deleteVisit
+     */
+    deleteVisitUsingDELETE({ code }: DeleteVisitUsingDELETERequest): Observable<ResponseEntity>
+    deleteVisitUsingDELETE({ code }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteVisitUsingDELETE({ code }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteVisitUsingDELETE');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<ResponseEntity>({
+            url: '/visit/{code}'.replace('{code}', encodeURI(code)),
+            method: 'DELETE',
+            headers,
+        }, opts?.responseOpts);
+    };
 
     /**
      * deleteVisitsRelatedToPatient
@@ -116,6 +144,28 @@ export class VisitsControllerApi extends BaseAPI {
             method: 'POST',
             headers,
             body: newVisits,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * updateVisit
+     */
+    updateVisitUsingPUT({ code, updateVisit }: UpdateVisitUsingPUTRequest): Observable<VisitDTO>
+    updateVisitUsingPUT({ code, updateVisit }: UpdateVisitUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
+    updateVisitUsingPUT({ code, updateVisit }: UpdateVisitUsingPUTRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'updateVisitUsingPUT');
+        throwIfNullOrUndefined(updateVisit, 'updateVisit', 'updateVisitUsingPUT');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<VisitDTO>({
+            url: '/visit/{code}'.replace('{code}', encodeURI(code)),
+            method: 'PUT',
+            headers,
+            body: updateVisit,
         }, opts?.responseOpts);
     };
 

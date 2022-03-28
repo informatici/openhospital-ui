@@ -6355,6 +6355,69 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  "/visit/{code}":
+    put:
+      tags:
+        - visits-controller
+      summary: updateVisit
+      operationId: updateVisitUsingPUT
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: code
+          description: Visit Code
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: updateVisit
+          description: updateVisit
+          required: true
+          schema:
+            $ref: "#/definitions/VisitDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/VisitDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    delete:
+      tags:
+        - visits-controller
+      summary: deleteVisit
+      operationId: deleteVisitUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: Visit Code
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/ResponseEntity"
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
   /visits:
     post:
       tags:
@@ -8176,6 +8239,15 @@ definitions:
       sms:
         type: boolean
         description: Sms of the visit
+      ward:
+        description: Ward of the visit
+        $ref: "#/definitions/WardDTO"
+      service:
+        type: string
+        description: Service accomplished during the visit
+      duration:
+        type: string
+        description: Duration of the visit
     title: VisitDTO
     description: Class representing a vaccine type
   WardDTO:
