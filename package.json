@@ -38,6 +38,7 @@
     "immer": "^9.0.6",
     "jquery": "^3.6.0",
     "js-resource-converter": "^1.0.1",
+    "jwt-decode": "^3.1.2",
     "lodash.get": "^4.4.2",
     "lodash.has": "^4.5.2",
     "lodash.isempty": "^4.4.0",
