@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
+import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -47,10 +48,15 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
-    [t("nav.searchpatient")]: "/search",
-    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
-    [t("nav.editpatient")]: `/details/${patient.data?.code}/edit`,
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
+    [t("nav.searchpatient")]: PATHS.patients_search,
+    [t(
+      "nav.patientdashboard"
+    )]: `${PATHS.patients_details}/${patient.data?.code}`,
+    [t(
+      "nav.editpatient"
+    )]: `${PATHS.patients_details}/${patient.data?.code}/edit`,
   };
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
@@ -98,7 +104,9 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_PATIENT":
-      return <Redirect to={`/details/${patient.data?.code}`} />;
+      return (
+        <Redirect to={`${PATHS.patients_details}/${patient.data?.code}`} />
+      );
     default:
       return (
         <div className="editPatient">

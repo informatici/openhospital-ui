@@ -44,6 +44,7 @@ import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import { PatientDTOStatusEnum } from "../../../generated";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
 import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
+import { PATHS } from "../../../consts";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -64,9 +65,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
-    [t("nav.searchpatient")]: "/search",
-    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
+    [t("nav.searchpatient")]: PATHS.patients_search,
+    [t("nav.patientdashboard")]: `${PATHS.patients}/${patient.data?.code}`,
   };
 
   const [activityTransitionState, setActivityTransitionState] =

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
+import { PATHS } from "../../../consts";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   searchPatient,
@@ -32,8 +33,9 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
-    [t("nav.searchpatient")]: "/search",
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
+    [t("nav.searchpatient")]: PATHS.patients_new,
   };
 
   const resultsRef = useRef<HTMLDivElement>(null);

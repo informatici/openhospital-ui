@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
 import SearchIcon from "../../../assets/SearchIcon";
+import { PATHS } from "../../../consts";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
@@ -19,7 +20,8 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
   };
 
   const [activityTransitionState, setActivityTransitionState] =
