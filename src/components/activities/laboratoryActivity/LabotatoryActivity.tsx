@@ -16,6 +16,7 @@ const LaboratoryActivity: FC = () => {
     [t("nav.dashboard")]: PATHS.home,
     [t("nav.laboratory")]: PATHS.laboratory,
   };
+
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data
   );
