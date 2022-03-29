@@ -1,6 +1,16 @@
 @import "../../../../styles/variables";
 @import "../../../../../node_modules/susy/sass/susy";
 
+.MuiFormGroup-root {
+  flex-wrap: none !important;
+  flex-direction: row !important;
+  width: 320px;
+}
+
+.Mui-checked {
+  color: $c-color-primary !important;
+}
+
 .patientOpdForm {
   display: inline-block;
   flex-direction: column;
