@@ -19,7 +19,7 @@ import {
 } from '../models';
 
 export interface DeleteVisitUsingDELETERequest {
-    code: number;
+    visitID: number;
 }
 
 export interface DeleteVisitsRelatedToPatientUsingDELETERequest {
@@ -39,7 +39,7 @@ export interface NewVisitsUsingPOSTRequest {
 }
 
 export interface UpdateVisitUsingPUTRequest {
-    code: number;
+    visitID: number;
     updateVisit: VisitDTO;
 }
 
@@ -51,17 +51,17 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * deleteVisit
      */
-    deleteVisitUsingDELETE({ code }: DeleteVisitUsingDELETERequest): Observable<ResponseEntity>
-    deleteVisitUsingDELETE({ code }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteVisitUsingDELETE({ code }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
-        throwIfNullOrUndefined(code, 'code', 'deleteVisitUsingDELETE');
+    deleteVisitUsingDELETE({ visitID }: DeleteVisitUsingDELETERequest): Observable<ResponseEntity>
+    deleteVisitUsingDELETE({ visitID }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    deleteVisitUsingDELETE({ visitID }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+        throwIfNullOrUndefined(visitID, 'visitID', 'deleteVisitUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<ResponseEntity>({
-            url: '/visit/{code}'.replace('{code}', encodeURI(code)),
+            url: '/visit/{visitID}'.replace('{visitID}', encodeURI(visitID)),
             method: 'DELETE',
             headers,
         }, opts?.responseOpts);
@@ -150,10 +150,10 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * updateVisit
      */
-    updateVisitUsingPUT({ code, updateVisit }: UpdateVisitUsingPUTRequest): Observable<VisitDTO>
-    updateVisitUsingPUT({ code, updateVisit }: UpdateVisitUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
-    updateVisitUsingPUT({ code, updateVisit }: UpdateVisitUsingPUTRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'updateVisitUsingPUT');
+    updateVisitUsingPUT({ visitID, updateVisit }: UpdateVisitUsingPUTRequest): Observable<VisitDTO>
+    updateVisitUsingPUT({ visitID, updateVisit }: UpdateVisitUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
+    updateVisitUsingPUT({ visitID, updateVisit }: UpdateVisitUsingPUTRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
+        throwIfNullOrUndefined(visitID, 'visitID', 'updateVisitUsingPUT');
         throwIfNullOrUndefined(updateVisit, 'updateVisit', 'updateVisitUsingPUT');
 
         const headers: HttpHeaders = {
@@ -162,7 +162,7 @@ export class VisitsControllerApi extends BaseAPI {
         };
 
         return this.request<VisitDTO>({
-            url: '/visit/{code}'.replace('{code}', encodeURI(code)),
+            url: '/visit/{visitID}'.replace('{visitID}', encodeURI(visitID)),
             method: 'PUT',
             headers,
             body: updateVisit,

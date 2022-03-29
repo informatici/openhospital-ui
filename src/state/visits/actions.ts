@@ -115,7 +115,7 @@ export const getVisits =
 
 export const updateVisit =
   (
-    code: number,
+    visitID: number,
     visitValues: Record<string, any>,
     patients: PatientDTO[] | undefined,
     wards: WardDTO[] | undefined
@@ -125,7 +125,7 @@ export const updateVisit =
       type: UPDATE_VISIT_LOADING,
     });
     const updateVisit = visitDataFormatter(visitValues, patients, wards);
-    visitsControllerApi.updateVisitUsingPUT({ code, updateVisit }).subscribe(
+    visitsControllerApi.updateVisitUsingPUT({ visitID, updateVisit }).subscribe(
       () => {
         dispatch({
           type: UPDATE_VISIT_SUCCESS,
@@ -148,13 +148,13 @@ export const deleteVisitReset =
   };
 
 export const deleteVisit =
-  (code: number | undefined) =>
+  (visitID: number | undefined) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
-    if (code) {
+    if (visitID) {
       dispatch({
         type: DELETE_VISIT_LOADING,
       });
-      visitsControllerApi.deleteVisitUsingDELETE({ code }).subscribe(
+      visitsControllerApi.deleteVisitUsingDELETE({ visitID }).subscribe(
         () => {
           dispatch({
             type: DELETE_VISIT_SUCCESS,

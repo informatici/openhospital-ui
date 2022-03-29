@@ -6355,7 +6355,7 @@ paths:
       security:
         - JWT: []
       deprecated: false
-  "/visit/{code}":
+  "/visit/{visitID}":
     put:
       tags:
         - visits-controller
@@ -6365,8 +6365,8 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: code
-          description: Visit Code
+          name: visitID
+          description: Visit ID
           required: true
           type: integer
           format: int32
@@ -6398,9 +6398,9 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: code
+        - name: visitID
           in: path
-          description: Visit Code
+          description: Visit ID
           required: true
           type: integer
           format: int32
@@ -8227,9 +8227,9 @@ definitions:
   VisitDTO:
     type: object
     properties:
-      code:
+      visitID:
         type: integer
-        description: Code of the visit
+        description: ID of the visit
       patient:
         description: Patient related to visitor
         $ref: "#/definitions/PatientDTO"

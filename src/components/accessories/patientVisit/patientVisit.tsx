@@ -106,10 +106,10 @@ const PatientVisit: FunctionComponent = () => {
   const onSubmit = (visitValuestoSave: VisitDTO) => {
     setShouldResetForm(false);
     //visitValuestoSave.patient = patient;
-    if (!creationMode && visitToEdit.code) {
+    if (!creationMode && visitToEdit.visitID) {
       dispatch(
         updateVisit(
-          visitToEdit.code,
+          visitToEdit.visitID,
           visitValuestoSave,
           patientsData,
           wardsData
@@ -175,7 +175,7 @@ const PatientVisit: FunctionComponent = () => {
         info={
           creationMode
             ? t("visit.createsuccess")
-            : t("visit.updatesuccess", { code: visitToEdit.code })
+            : t("visit.updatesuccess", { code: visitToEdit.visitID })
         }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
