@@ -24,6 +24,12 @@ import {
  */
 export interface VisitDTO {
     /**
+     * Code of the visit
+     * @type {number}
+     * @memberof VisitDTO
+     */
+    code?: number;
+    /**
      * @type {PatientDTO}
      * @memberof VisitDTO
      */

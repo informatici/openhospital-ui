@@ -8227,6 +8227,9 @@ definitions:
   VisitDTO:
     type: object
     properties:
+      code:
+        type: integer
+        description: Code of the visit
       patient:
         description: Patient related to visitor
         $ref: "#/definitions/PatientDTO"

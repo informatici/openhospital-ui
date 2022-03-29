@@ -66,7 +66,16 @@ const PatientVisit: FunctionComponent = () => {
     dispatch(createVisitReset());
     dispatch(updateVisitReset());
     dispatch(deleteVisitReset());
-    dispatch(getDiseasesVisit());
+    dispatch(
+      searchPatient({
+        firstName: "",
+        address: "",
+        birthDate: "",
+        id: "",
+        secondName: "",
+      })
+    );
+    dispatch(getVisits(patient?.code ?? -1));
   }, [dispatch]);
 
   const patient = useSelector(
@@ -77,8 +86,10 @@ const PatientVisit: FunctionComponent = () => {
     (state: IState) => state.main.authentication.data?.displayName
   );
 
-  const diseasesData = useSelector(
-    (state: IState) => state.diseases.diseasesVisit.data
+  const wardsData = useSelector((state: IState) => state.wards.allWards.data);
+
+  const patientsData = useSelector(
+    (state: IState) => state.patients.searchResults.data
   );
 
   useEffect(() => {
@@ -94,13 +105,17 @@ const PatientVisit: FunctionComponent = () => {
 
   const onSubmit = (visitValuestoSave: VisitDTO) => {
     setShouldResetForm(false);
-    visitValuestoSave.patientCode = patient?.code;
-    visitValuestoSave.age = patient?.age;
-    visitValuestoSave.sex = patient?.sex;
-    visitValuestoSave.userID = userId;
+    //visitValuestoSave.patient = patient;
     if (!creationMode && visitToEdit.code) {
-      dispatch(updateVisit(visitToEdit.code, visitValuestoSave, diseasesData));
-    } else dispatch(createVisit(visitValuestoSave, diseasesData));
+      dispatch(
+        updateVisit(
+          visitToEdit.code,
+          visitValuestoSave,
+          patientsData,
+          wardsData
+        )
+      );
+    } else dispatch(createVisit(visitValuestoSave, patientsData, wardsData));
   };
 
   const resetFormCallback = () => {
