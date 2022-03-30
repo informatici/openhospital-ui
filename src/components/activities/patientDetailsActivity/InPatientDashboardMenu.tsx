@@ -54,15 +54,15 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 
       <div
         className={
-          "align__element patientDetails__main_menu__item " + isActive("opd")
+          "align__element patientDetails__main_menu__item " + isActive("visits")
         }
         onClick={() => {
-          setUserSection("opd");
-          setDefaultRoute("/opd");
+          setUserSection("visits");
+          setDefaultRoute("/visits");
         }}
       >
         <Pageview fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.opd")}:</span>
+        <span>{t("nav.visits")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 

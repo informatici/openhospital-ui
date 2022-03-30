@@ -25,13 +25,11 @@ export const opdDataFormatter = (
 
 export const visitDataFormatter = (
   data: Record<string, any>,
-  patients: PatientDTO[] | undefined,
   wards: WardDTO[] | undefined
 ) => {
   /**
    * get entire disease object from code
    */
-  data.patient = patients?.find((el) => el.code === +data.patient);
   data.ward = wards?.find((el) => el.code === data.ward);
   data.date = parseDate(data.date);
   return data;

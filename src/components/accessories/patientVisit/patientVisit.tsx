@@ -24,6 +24,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
 import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
+import { getWards } from "../../../state/ward/actions";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -66,15 +67,7 @@ const PatientVisit: FunctionComponent = () => {
     dispatch(createVisitReset());
     dispatch(updateVisitReset());
     dispatch(deleteVisitReset());
-    dispatch(
-      searchPatient({
-        firstName: "",
-        address: "",
-        birthDate: "",
-        id: "",
-        secondName: "",
-      })
-    );
+    dispatch(getWards());
     dispatch(getVisits(patient?.code ?? -1));
   }, [dispatch]);
 
@@ -87,10 +80,6 @@ const PatientVisit: FunctionComponent = () => {
   );
 
   const wardsData = useSelector((state: IState) => state.wards.allWards.data);
-
-  const patientsData = useSelector(
-    (state: IState) => state.patients.searchResults.data
-  );
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -105,17 +94,10 @@ const PatientVisit: FunctionComponent = () => {
 
   const onSubmit = (visitValuestoSave: VisitDTO) => {
     setShouldResetForm(false);
-    //visitValuestoSave.patient = patient;
+    visitValuestoSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
-      dispatch(
-        updateVisit(
-          visitToEdit.visitID,
-          visitValuestoSave,
-          patientsData,
-          wardsData
-        )
-      );
-    } else dispatch(createVisit(visitValuestoSave, patientsData, wardsData));
+      dispatch(updateVisit(visitToEdit.visitID, visitValuestoSave, wardsData));
+    } else dispatch(createVisit(visitValuestoSave, wardsData));
   };
 
   const resetFormCallback = () => {

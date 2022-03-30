@@ -8234,8 +8234,9 @@ definitions:
         description: Patient related to visitor
         $ref: "#/definitions/PatientDTO"
       date:
+        type: string
+        format: date-time
         description: Date of the visit
-        $ref: "#/definitions/GregorianCalendar"
       note:
         type: string
         description: Note of the visit
@@ -8247,9 +8248,11 @@ definitions:
         $ref: "#/definitions/WardDTO"
       service:
         type: string
+        example:  Advanced consultation
         description: Service accomplished during the visit
       duration:
-        type: string
+        type: integer
+        example: 30
         description: Duration of the visit
     title: VisitDTO
     description: Class representing a vaccine type

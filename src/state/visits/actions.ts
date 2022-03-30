@@ -39,16 +39,12 @@ const visitsControllerApi = new VisitsControllerApi(
 );
 
 export const createVisit =
-  (
-    visitValues: Record<string, any>,
-    patients: PatientDTO[] | undefined,
-    wards: WardDTO[] | undefined
-  ) =>
+  (visitValues: Record<string, any>, wards: WardDTO[] | undefined) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_VISIT_LOADING,
     });
-    const newVisit = visitDataFormatter(visitValues, patients, wards);
+    const newVisit = visitDataFormatter(visitValues, wards);
     visitsControllerApi.newVisitUsingPOST({ newVisit }).subscribe(
       () => {
         dispatch({
@@ -117,14 +113,13 @@ export const updateVisit =
   (
     visitID: number,
     visitValues: Record<string, any>,
-    patients: PatientDTO[] | undefined,
     wards: WardDTO[] | undefined
   ) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_VISIT_LOADING,
     });
-    const updateVisit = visitDataFormatter(visitValues, patients, wards);
+    const updateVisit = visitDataFormatter(visitValues, wards);
     visitsControllerApi.updateVisitUsingPUT({ visitID, updateVisit }).subscribe(
       () => {
         dispatch({

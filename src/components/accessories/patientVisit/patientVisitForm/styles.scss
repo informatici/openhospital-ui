@@ -14,6 +14,9 @@
     &.fullWith{
       width: 100%;
     }
+    &.halfWidth{
+      width: 50%;
+    }
     @include susy-media($narrow) {
       padding: 0px 10px;
     }

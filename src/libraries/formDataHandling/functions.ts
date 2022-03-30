@@ -129,11 +129,19 @@ export const updateVisitFields = (
         const value = values![key as keyof VisitDTO];
         if (key === "ward")
           return (draft[key as string].value =
+            (value as WardDTO)?.code?.toString() ?? "");
+
+        if (key === "patient")
+          return (draft[key as string].value =
             (value as PatientDTO)?.code?.toString() ?? "");
 
         return (draft[key as string].value =
           typeof value === "object"
-            ? (value as WardDTO)?.code?.toString() ?? ""
+            ? (key === "patient"
+                ? (value as PatientDTO)?.code?.toString()
+                : (value as WardDTO)?.code?.toString()) ?? ""
+            : typeof value == "boolean"
+            ? value
             : moment(value).isValid()
             ? Date.parse(moment(value).toString())
             : value);

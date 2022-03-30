@@ -6,22 +6,12 @@ export const initialFields: TFields<TPatientVisitFormFieldName> = {
     value: "",
     type: "date",
   },
-  patient: {
-    value: "",
-    type: "text",
-    options: [
-      {
-        label: "John Doe",
-        value: "jdoe",
-      },
-    ],
-  },
   ward: {
     value: "",
     type: "text",
     options: [
       {
-        label: "Medecine",
+        label: "MALE WARD",
         value: "M",
       },
     ],
@@ -32,6 +22,6 @@ export const initialFields: TFields<TPatientVisitFormFieldName> = {
   },
   duration: {
     value: "",
-    type: "text",
+    type: "number",
   },
 };

@@ -162,8 +162,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const getRouteConfig = () => {
     switch (userSection) {
-      case "opd":
-        return opdConfig;
       case "triage":
         return triageConfig;
       case "therapy":
@@ -455,6 +453,22 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         content={PatientAdmissions}
                       />
                     </div>
+                  ) : userSection === "visits" ? (
+                    patient?.data?.status === PatientDTOStatusEnum.O ? (
+                      <div className="patientDetails__nested_content">
+                        <PatientDetailsContent
+                          title="Visits"
+                          content={PatientOPD}
+                        />
+                      </div>
+                    ) : (
+                      <div className="patientDetails__nested_content">
+                        <PatientDetailsContent
+                          title="Visits"
+                          content={PatientVisit}
+                        />
+                      </div>
+                    )
                   ) : (
                     <RouterTabs
                       config={getRouteConfig()}

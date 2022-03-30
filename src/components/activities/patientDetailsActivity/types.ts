@@ -17,7 +17,7 @@ export type TActivityTransitionState = "IDLE" | "TO_PATIENT_EDITING";
 
 export type IUserSection =
   | "admissions"
-  | "opd"
+  | "visits"
   | "triage"
   | "therapy"
   | "laboratory"

@@ -72,6 +72,21 @@
     "newadmittance": "New Admittance",
     "reattendance": "Re-attendance"
   },
+  "visit": {
+    "date": "Date (d/m/y)",
+    "note": "Notes and symptoms",
+    "duration": "Duration",
+    "ward": "Ward",
+    "service": "Service",
+    "visitID": "ID",
+    "updatevisit": "Update Visit",
+    "savevisit": "Save Visit",
+    "created": "Visit created",
+    "updated": "Visit updated",
+    "createsuccess": "Visit has been created successfully!",
+    "updatesuccess": "Visit {{code}} has been updated successfully!",
+    "deleted": "Visit deleted"
+  },
   "examination": {
     "ap": {
       "max": "max",

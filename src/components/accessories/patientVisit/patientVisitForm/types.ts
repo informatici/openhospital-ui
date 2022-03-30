@@ -8,7 +8,6 @@ export type TProps = IForm<TPatientVisitFormFieldName, any> & IOwnProps;
 
 export type TPatientVisitFormFieldName =
   | "date"
-  | "patient"
   | "ward"
   | "duration"
   | "service";

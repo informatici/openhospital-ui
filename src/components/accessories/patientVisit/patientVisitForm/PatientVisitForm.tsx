@@ -62,30 +62,16 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
     },
     [setFieldValue]
   );
-  const patientOptionsSelector = (state: IState) => {
-    return state.patients.searchResults.data
-      ? state.patients.searchResults.data.map((item) => {
-          return {
-            value: item.code?.toString() ?? "",
-            label: `${item.firstName ?? ""} ${item.secondName ?? ""}`,
-          };
-        })
-      : [];
-  };
-  const patientOptions = useSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => patientOptionsSelector(state));
 
   const wardOptionsSelector = (state: IState) => {
-    return state.wards.allWards.data
-      ? state.wards.allWards.data.map((item) => {
-          return {
-            value: item.code?.toString() ?? "",
-            label: item.description ?? "",
-          };
-        })
-      : [];
+    return (
+      state.wards.allWards.data?.map((item) => {
+        return {
+          value: item.code?.toString() ?? "",
+          label: item.description ?? "",
+        };
+      }) ?? []
+    );
   };
   const wardOptions = useSelector<IState, { value: string; label: string }[]>(
     (state: IState) => wardOptionsSelector(state)
@@ -132,20 +118,6 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientVisitForm__item fullWith">
               <AutocompleteField
-                fieldName="patient"
-                fieldValue={formik.values.patient}
-                label={t("visit.patient")}
-                isValid={isValid("patient")}
-                errorText={getErrorText("patient")}
-                onBlur={onBlurCallback("patient")}
-                options={patientOptions}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientVisitForm__item fullWith">
-              <AutocompleteField
                 fieldName="ward"
                 fieldValue={formik.values.ward}
                 label={t("visit.ward")}
@@ -158,7 +130,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientVisitForm__item">
+            <div className="patientVisitForm__item halfWidth">
               <DateField
                 fieldName="date"
                 fieldValue={formik.values.date}
@@ -172,10 +144,9 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientVisitForm__item">
+            <div className="patientVisitForm__item halfWidth">
               <TextField
                 field={formik.getFieldProps("duration")}
-                multiline={true}
                 theme="regular"
                 label={t("visit.duration")}
                 isValid={isValid("duration")}

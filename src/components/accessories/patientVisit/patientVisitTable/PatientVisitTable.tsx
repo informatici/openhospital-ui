@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { OpdDTO } from "../../../../generated";
-import { getOpds } from "../../../../state/opds/actions";
+import { VisitDTO } from "../../../../generated";
+import { getVisits } from "../../../../state/visits/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
@@ -20,62 +20,64 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
-  const header = ["date"];
+  const header = ["date", "duration"];
   const dateFields = ["date"];
   const label = {
-    code: t("opd.code"),
-    date: t("opd.dateopd"),
-    disease: t("opd.disease1"),
-    disease2: t("opd.disease2"),
-    disease3: t("opd.disease3"),
-    note: t("opd.note"),
+    visitID: t("visit.id"),
+    date: t("visit.date"),
+    duration: t("visit.duration"),
+    service: t("visit.service"),
+    ward: t("visit.ward"),
+    note: t("visit.note"),
+    sms: t("visit.sms"),
   };
-  const order = ["date"];
+  const order = ["date", "duration"];
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, OpdDTO[]>((state) =>
-    state.opds.getOpds.data ? state.opds.getOpds.data : []
+  const data = useSelector<IState, VisitDTO[]>(
+    (state) => state.visits.getVisits.data ?? []
   );
-  const opdStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.getOpds.status
+  const visitStatus = useSelector<IState, string | undefined>(
+    (state) => state.visits.getVisits.status
   );
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
-    if (shouldUpdateTable || patientCode) dispatch(getOpds(patientCode));
+    if (shouldUpdateTable || patientCode)
+      dispatch(getVisits(patientCode ?? -1));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
-  const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
+  const formatDataToDisplay = (data: VisitDTO[] | undefined) => {
     let results: any = [];
     if (data)
       results = data.map((item) => {
         return {
-          code: item.code,
+          id: item.visitID,
           date: item.date ? renderDate(item.date) : "",
-          disease: item.disease?.description || "",
-          disease2: item.disease2?.description || "",
-          disease3: item.disease3?.description || "",
+          ward: item.ward?.description || "",
+          service: item.service || "",
           note: item.note || "",
+          sms: item.sms || false,
         };
       });
     return results;
   };
 
-  const onDelete = (row: OpdDTO) => {
-    handleDelete(row.code);
+  const onDelete = (row: VisitDTO) => {
+    handleDelete(row.visitID);
   };
 
-  const onEdit = (row?: OpdDTO) => {
-    handleEdit(data.find((item) => item.code === row?.code));
+  const onEdit = (row?: VisitDTO) => {
+    handleEdit(data.find((item) => item.visitID === row?.visitID));
   };
 
   const onEView = () => {};
 
   return (
     <div className="PatientVisitTable">
-      {opdStatus === "SUCCESS" ? (
+      {visitStatus === "SUCCESS" ? (
         <Table
           rowData={formatDataToDisplay(data)}
           dateFields={dateFields}
@@ -89,15 +91,15 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
           onView={onEView}
         />
       ) : (
-        opdStatus === "SUCCESS_EMPTY" && (
+        visitStatus === "SUCCESS_EMPTY" && (
           <InfoBox type="warning" message={t("common.emptydata")} />
         )
       )}
-      {opdStatus === "LOADING" && (
+      {visitStatus === "LOADING" && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
 
-      {opdStatus === "FAIL" && (
+      {visitStatus === "FAIL" && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
