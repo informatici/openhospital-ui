@@ -3,7 +3,7 @@ import { TPatientVisitFormFieldName } from "./patientVisitForm/types";
 
 export const initialFields: TFields<TPatientVisitFormFieldName> = {
   date: {
-    value: "",
+    value: new Date(Date.now()).toISOString(),
     type: "date",
   },
   ward: {

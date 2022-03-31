@@ -135,6 +135,9 @@ export const updateVisitFields = (
           return (draft[key as string].value =
             (value as PatientDTO)?.code?.toString() ?? "");
 
+        if (key === "duration")
+          return (draft[key as string].value = value ?? "");
+
         return (draft[key as string].value =
           typeof value === "object"
             ? (key === "patient"

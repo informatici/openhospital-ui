@@ -78,7 +78,7 @@
     "duration": "Duration",
     "ward": "Ward",
     "service": "Service",
-    "visitID": "ID",
+    "id": "ID",
     "updatevisit": "Update Visit",
     "savevisit": "Save Visit",
     "created": "Visit created",

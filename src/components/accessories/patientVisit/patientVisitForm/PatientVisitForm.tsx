@@ -37,7 +37,6 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
 
   const validationSchema = object({
     date: string().required(t("common.required")),
-    patient: string().required(t("common.required")),
     service: string().required(t("common.required")),
     duration: string().required(t("common.required")),
   });
@@ -50,6 +49,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      console.log(formattedValues);
       onSubmit(formattedValues);
     },
   });
@@ -152,7 +152,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
                 isValid={isValid("duration")}
                 errorText={getErrorText("duration")}
                 onBlur={formik.handleBlur}
-                type="string"
+                type="number"
                 disabled={isLoading}
               />
             </div>
@@ -166,21 +166,6 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
                 label={t("visit.service")}
                 isValid={isValid("service")}
                 errorText={getErrorText("service")}
-                onBlur={formik.handleBlur}
-                type="string"
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientVisitForm__item fullWith">
-              <TextField
-                field={formik.getFieldProps("note")}
-                multiline={true}
-                theme="regular"
-                label={t("visit.note")}
-                isValid={isValid("note")}
-                errorText={getErrorText("note")}
                 onBlur={formik.handleBlur}
                 type="string"
                 disabled={isLoading}

@@ -60,6 +60,7 @@ const PatientVisit: FunctionComponent = () => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
+      setShouldResetForm(true);
     }
   }, [changeStatus]);
 

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { VisitDTO } from "../../../../generated";
 import { getVisits } from "../../../../state/visits/actions";
@@ -28,8 +28,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     duration: t("visit.duration"),
     service: t("visit.service"),
     ward: t("visit.ward"),
-    note: t("visit.note"),
-    sms: t("visit.sms"),
   };
   const order = ["date", "duration"];
   const dispatch = useDispatch();
@@ -49,20 +47,13 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
       dispatch(getVisits(patientCode ?? -1));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
-  const formatDataToDisplay = (data: VisitDTO[] | undefined) => {
-    let results: any = [];
-    if (data)
-      results = data.map((item) => {
-        return {
-          id: item.visitID,
-          date: item.date ? renderDate(item.date) : "",
-          ward: item.ward?.description || "",
-          service: item.service || "",
-          note: item.note || "",
-          sms: item.sms || false,
-        };
-      });
-    return results;
+  const formatDataToDisplay = (data: VisitDTO[]) => {
+    return data.map((item) => ({
+      visitID: item.visitID ?? "",
+      duration: item.duration ?? "",
+      date: item.date ? renderDate(item.date) : "",
+      ward: item.ward?.description ?? "",
+    }));
   };
 
   const onDelete = (row: VisitDTO) => {

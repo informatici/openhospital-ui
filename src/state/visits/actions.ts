@@ -91,7 +91,7 @@ export const getVisits =
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: GET_VISIT_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
           } else {
             dispatch({
