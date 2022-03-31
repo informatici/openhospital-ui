@@ -64,8 +64,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     handleEdit(data.find((item) => item.visitID === row?.visitID));
   };
 
-  const onEView = () => {};
-
   return (
     <div className="PatientVisitTable">
       {visitStatus === "SUCCESS" ? (
@@ -79,7 +77,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
           onDelete={onDelete}
           isCollapsabile={true}
           onEdit={onEdit}
-          onView={onEView}
         />
       ) : (
         visitStatus === "SUCCESS_EMPTY" && (
