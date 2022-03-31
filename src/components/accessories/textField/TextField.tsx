@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { TextField as MaterialComponent } from "@material-ui/core";
 import "./styles.scss";
 import { IProps } from "./types";
+import { FIELD_VALIDATION } from "../../../types";
 
 const TextField: FunctionComponent<IProps> = ({
   field,
@@ -15,14 +16,14 @@ const TextField: FunctionComponent<IProps> = ({
   disabled,
   InputProps,
   rows = 10,
-  required = false,
+  required = FIELD_VALIDATION.IDLE,
 }) => {
   const actualClassName = theme === "light" ? "textField__light" : "textField";
   return (
     <React.Fragment>
       <MaterialComponent
         id={field.name}
-        label={label}
+        label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
         type={type || ""}
         onChange={field.onChange}
         onBlur={onBlur}
@@ -37,7 +38,7 @@ const TextField: FunctionComponent<IProps> = ({
         margin="dense"
         disabled={disabled}
         InputProps={InputProps}
-        required={required}
+        required={required === FIELD_VALIDATION.REQUIRED}
       />
     </React.Fragment>
   );

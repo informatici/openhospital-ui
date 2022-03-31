@@ -7,6 +7,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import TextField from "@material-ui/core/TextField";
+import { FIELD_VALIDATION } from "../../../types";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -22,7 +23,7 @@ const DateField: FunctionComponent<IProps> = ({
   shouldDisableDate,
   renderDay,
   views,
-  required = false,
+  required = FIELD_VALIDATION.IDLE,
 }) => {
   const [value, setValue] = useState<Date | null>(null);
 
@@ -44,7 +45,7 @@ const DateField: FunctionComponent<IProps> = ({
         format={format}
         id={fieldName}
         name={fieldName}
-        label={label}
+        label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
         disabled={disabled}
         disableFuture={disableFuture}
         className={actualClassName}
@@ -55,7 +56,7 @@ const DateField: FunctionComponent<IProps> = ({
         onMonthChange={onMonthChange}
         shouldDisableDate={shouldDisableDate}
         renderDay={renderDay}
-        required={required}
+        required={required === FIELD_VALIDATION.REQUIRED}
       />
     </DatePickerWrapper>
   );

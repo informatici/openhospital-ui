@@ -1,5 +1,6 @@
 import { DatePickerView } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
   fieldName: string;
@@ -21,5 +22,5 @@ export interface IProps {
     dayComponent: JSX.Element
   ) => JSX.Element;
   views?: DatePickerView[];
-  required?: boolean;
+  required?: FIELD_VALIDATION;
 }

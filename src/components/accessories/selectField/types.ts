@@ -1,3 +1,5 @@
+import { FIELD_VALIDATION } from "../../../types";
+
 export interface IProps {
   fieldName: string;
   fieldValue: string;
@@ -10,5 +12,5 @@ export interface IProps {
   translateOptions?: boolean;
   disabled?: boolean;
   variant?: "standard" | "outlined" | "filled";
-  required?: boolean;
+  required?: FIELD_VALIDATION;
 }

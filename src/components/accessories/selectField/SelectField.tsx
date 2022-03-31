@@ -10,6 +10,7 @@ import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import { FIELD_VALIDATION } from "../../../types";
 
 const SelectField: FunctionComponent<IProps> = ({
   fieldName,
@@ -23,7 +24,7 @@ const SelectField: FunctionComponent<IProps> = ({
   translateOptions = false,
   disabled = false,
   variant = "outlined",
-  required = false,
+  required = FIELD_VALIDATION.IDLE,
 }) => {
   const [value, setValue] = useState("");
   const { t } = useTranslation();
@@ -41,12 +42,12 @@ const SelectField: FunctionComponent<IProps> = ({
     <FormControl
       disabled={disabled}
       variant={variant}
-      required={required}
+      required={required === FIELD_VALIDATION.REQUIRED}
       className="selectField"
       size="small"
     >
       <InputLabel id={fieldName} error={isValid}>
-        {label}
+        {required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
       </InputLabel>
       <Select
         labelId={`${fieldName}-label`}
@@ -55,7 +56,7 @@ const SelectField: FunctionComponent<IProps> = ({
         value={value}
         onChange={(e) => setValue(e.target.value as string)}
         onBlur={handleOnBlur}
-        label={label}
+        label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
         error={isValid}
       >
         {isLoading ? (
