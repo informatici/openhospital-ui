@@ -49,7 +49,6 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      console.log(formattedValues);
       onSubmit(formattedValues);
     },
   });

@@ -1,8 +1,8 @@
 import { EditRounded, Notes, Person } from "@material-ui/icons";
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import { EditRounded, Person, Notes } from "@material-ui/icons";
 import { connect } from "react-redux";
 import { Redirect, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
@@ -99,31 +99,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
     },
   ];
-  const visitsConfig: TTabConfig = [
-    {
-      label: "nav.visits",
-      path: "/visits",
-      content: (
-        <PatientDetailsContent
-          title="Visits"
-          content={
-            patient?.data?.status === PatientDTOStatusEnum.O
-              ? PatientOPD
-              : PatientVisit
-          }
-        />
-      ),
-    },
-  ];
-  const laboratoryConfig: TTabConfig = [
-    {
-      label: "nav.laboratory",
-      path: "/laboratory",
-      content: (
-        <PatientDetailsContent title="Laboratory" content={PatientExams} />
-      ),
-    },
-  ];
   const therapyConfig: TTabConfig = [
     {
       label: t("nav.therapy"),
@@ -204,6 +179,33 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   };
 
   const { path } = useRouteMatch();
+  const sectionContent = useMemo(() => {
+    switch (userSection) {
+      case "visits":
+        return (
+          <div className={"patientDetails__nested_content"}>
+            <PatientDetailsContent
+              title="Visits"
+              content={
+                patient?.data?.status === PatientDTOStatusEnum.O
+                  ? PatientOPD
+                  : PatientVisit
+              }
+            />
+          </div>
+        );
+      case "laboratory":
+        return (
+          <div className={"patientDetails__nested_content"}>
+            <PatientDetailsContent title="Laboratory" content={PatientExams} />
+          </div>
+        );
+      default:
+        return (
+          <RouterTabs config={getRouteConfig()} defaultRoute={defaultRoute} />
+        );
+    }
+  }, [userSection, patient]);
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
@@ -464,48 +466,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                     </div>
                   </div>
                 </div>
-                <div className="patientDetails__content">
-                  {userSection === "laboratory" ? (
-                    <div className="patientDetails__nested_content">
-                      <PatientDetailsContent
-                        title="Laboratory"
-                        content={PatientExams}
-                      />
-                    </div>
-                  ) : userSection === "admissions" ? (
-                    <div className="patientDetails__nested_content">
-                      <PatientDetailsContent
-                        title="Admissions"
-                        content={PatientAdmissions}
-                      />
-                    </div>
-                  ) : userSection === "visits" ? (
-                    patient?.data?.status === PatientDTOStatusEnum.O ? (
-                      <div className="patientDetails__nested_content">
-                        <PatientDetailsContent
-                          title="Visits"
-                          content={PatientOPD}
-                        />
-                      </div>
-                    ) : (
-                      <div className="patientDetails__nested_content">
-                        <PatientDetailsContent
-                          title="Visits"
-                          content={PatientVisit}
-                        />
-                      </div>
-                    )
-                  ) : (
-                    <RouterTabs
-                      config={getRouteConfig()}
-                      defaultRoute={defaultRoute}
-                    />
-                  )}
-                  <RouterTabs
-                    config={getRouteConfig()}
-                    defaultRoute={defaultRoute}
-                  />
-                </div>
+                <div className="patientDetails__content">{sectionContent}</div>
               </div>
             </div>
           </div>
