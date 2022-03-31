@@ -133,6 +133,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={true}
             />
           </div>
           <div className="patientDataForm__item">
@@ -144,6 +145,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={true}
             />
           </div>
 
@@ -172,6 +174,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               options={options.sex}
               translateOptions={true}
               disabled={isLoading}
+              required={true}
             />
           </div>
 
@@ -187,6 +190,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               label={t("patient.birthdate")}
               onChange={dateFieldHandleOnChange("birthDate")}
               disabled={isLoading}
+              required={true}
             />
           </div>
 

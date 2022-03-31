@@ -15,6 +15,7 @@ const TextField: FunctionComponent<IProps> = ({
   disabled,
   InputProps,
   rows = 10,
+  required = false,
 }) => {
   const actualClassName = theme === "light" ? "textField__light" : "textField";
   return (
@@ -36,6 +37,7 @@ const TextField: FunctionComponent<IProps> = ({
         margin="dense"
         disabled={disabled}
         InputProps={InputProps}
+        required={required}
       />
     </React.Fragment>
   );

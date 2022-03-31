@@ -22,6 +22,7 @@ const DateField: FunctionComponent<IProps> = ({
   shouldDisableDate,
   renderDay,
   views,
+  required = false,
 }) => {
   const [value, setValue] = useState<Date | null>(null);
 
@@ -54,6 +55,7 @@ const DateField: FunctionComponent<IProps> = ({
         onMonthChange={onMonthChange}
         shouldDisableDate={shouldDisableDate}
         renderDay={renderDay}
+        required={required}
       />
     </DatePickerWrapper>
   );

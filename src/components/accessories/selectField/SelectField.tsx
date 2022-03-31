@@ -23,6 +23,7 @@ const SelectField: FunctionComponent<IProps> = ({
   translateOptions = false,
   disabled = false,
   variant = "outlined",
+  required = false,
 }) => {
   const [value, setValue] = useState("");
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ const SelectField: FunctionComponent<IProps> = ({
     <FormControl
       disabled={disabled}
       variant={variant}
+      required={required}
       className="selectField"
       size="small"
     >

@@ -21,4 +21,5 @@ export interface IProps {
     dayComponent: JSX.Element
   ) => JSX.Element;
   views?: DatePickerView[];
+  required?: boolean;
 }
