@@ -87,6 +87,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("laboratory");
+          setDefaultRoute("/laboratory");
         }}
       >
         <Colorize fontSize="small" style={{ color: "white" }} />

@@ -33,7 +33,9 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
     if (!mobile) {
       return tabs.map((item, index) => {
         const path = item.path!;
-        return (
+        return tabs.length == 1 ? (
+          <></>
+        ) : (
           <div
             className={classNames("tab", { active: path === currentPath })}
             key={index}

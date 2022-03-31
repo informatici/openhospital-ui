@@ -27,6 +27,7 @@ import PatientOPD from "../../accessories/patientOPD/patientOPD";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientTriage from "../../accessories/patientTriage/PatientTriage";
+import PatientVisit from "../../accessories/patientVisit/patientVisit";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
@@ -96,6 +97,31 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.triage"),
       path: "/triage",
       content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
+    },
+  ];
+  const visitsConfig: TTabConfig = [
+    {
+      label: "nav.visits",
+      path: "/visits",
+      content: (
+        <PatientDetailsContent
+          title="Visits"
+          content={
+            patient?.data?.status === PatientDTOStatusEnum.O
+              ? PatientOPD
+              : PatientVisit
+          }
+        />
+      ),
+    },
+  ];
+  const laboratoryConfig: TTabConfig = [
+    {
+      label: "nav.laboratory",
+      path: "/laboratory",
+      content: (
+        <PatientDetailsContent title="Laboratory" content={PatientExams} />
+      ),
     },
   ];
   const therapyConfig: TTabConfig = [
@@ -475,6 +501,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       defaultRoute={defaultRoute}
                     />
                   )}
+                  <RouterTabs
+                    config={getRouteConfig()}
+                    defaultRoute={defaultRoute}
+                  />
                 </div>
               </div>
             </div>
