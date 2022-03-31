@@ -65,7 +65,12 @@
     "updated": "Opd updated",
     "createsuccess": "Opd has been created successfully!",
     "updatesuccess": "Opd {{code}} has been updated successfully!",
-    "deleted": "Opd deleted"
+    "deleted": "Opd deleted",
+    "referralfrom": "Referral From",
+    "referralto": "Referral To",
+    "newpatient": "Attendance Type",
+    "newadmittance": "New Admittance",
+    "reattendance": "Re-attendance"
   },
   "examination": {
     "ap": {
@@ -134,7 +139,9 @@
     "searchbill": "Search facture",
     "bill_chose": "Choose an option",
     "managebills": "Manage Bills",
-    "billrecords": "Bill Records"
+    "billrecords": "Bill Records",
+    "visits": "Visits",
+    "patients": "Patients"
   },
   "common": {
     "ok": "OK",

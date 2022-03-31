@@ -1,6 +1,5 @@
 import { Tooltip, Typography } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import { Trans } from "react-i18next";
 import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
@@ -18,6 +17,7 @@ import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
+import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -38,12 +38,13 @@ const AppHeader: FunctionComponent<TProps> = ({
     setIsOpen(isOpen);
   };
   const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
-
+  const showHelp = useShowHelp();
   const handleLogout = () => {
     setOpenLogoutConfirmation(false);
     setLogoutThunk();
   };
   const history = useHistory();
+
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
       <div className="appHeader__top">
@@ -63,7 +64,7 @@ const AppHeader: FunctionComponent<TProps> = ({
               />
             </Tooltip>
           </div>
-          {navigator.onLine && (
+          {showHelp && (
             <div className="appHeader__help" title="Help">
               <OHFeedback />
             </div>
@@ -113,14 +114,14 @@ const AppHeader: FunctionComponent<TProps> = ({
           </div>
           <div className="appHeader__nav">
             <div className="appHeader__nav_items">
-              <div className="appHeader__nav__item">{t("nav.pharmacy")}</div>
-              <div className="appHeader__nav__item">{t("nav.ward")}</div>
               <div
                 className="appHeader__nav__item"
-                onClick={() => history.push("/billing")}
+                onClick={() => history.push("/patients")}
               >
-                {t("nav.billing")}
+                {t("nav.patients")}
               </div>
+              <div className="appHeader__nav__item">{t("nav.visits")}</div>
+              <div className="appHeader__nav__item">{t("nav.laboratory")}</div>
             </div>
           </div>
         </div>

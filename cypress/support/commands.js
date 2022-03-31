@@ -33,7 +33,7 @@ Cypress.Commands.add("authenticate", (START_PATH) => {
       w.sessionStorage.clear();
       w.sessionStorage.setItem(
         "auth",
-        `{"displayName":"John Doe","token":"1qrj12fcxu3a21d21pjvba6g1"}`
+        `{"displayName":"John Doe","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJhZG1pbiIsImV4cCI6MTczOTE5MzU1MTAwMH0.D50o5x2gcVcASSwl7EOqmRUDGqIGfhisbXlkujQolrY"}`
       );
       w.sessionStorage.setItem("permission", {
         permission: permissionList,

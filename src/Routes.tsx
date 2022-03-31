@@ -34,8 +34,14 @@ const Routes: FunctionComponent = () => {
             searchPatientRoute="/search"
           />
         </PrivateRoute>
+        <PrivateRoute exact path="/patients">
+          <DashboardActivity
+            newPatientRoute="/new"
+            searchPatientRoute="/search"
+          />
+        </PrivateRoute>
         <PrivateRoute path="/new">
-          <NewPatientActivity dashboardRoute="/" />
+          <NewPatientActivity dashboardRoute="/patients" />
         </PrivateRoute>
         <PrivateRoute path="/search">
           <SearchPatientActivity />

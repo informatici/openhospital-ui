@@ -43,6 +43,7 @@ import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import { PatientDTOStatusEnum } from "../../../generated";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
+import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -80,24 +81,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       label: t("nav.admission"),
       path: "/admissions",
       content: (
-        <PatientDetailsContent title="Admissions" content={PatientAdmission} />
-      ),
-    },
-    {
-      label: t("nav.booking"),
-      path: "/booking",
-      content: (
-        <PatientDetailsContent title="Booking" content={SkeletonLoader} />
-      ),
-    },
-    {
-      label: t("nav.surgicalrecord"),
-      path: "/surgicalRecord",
-      content: (
-        <PatientDetailsContent
-          title="SurgicalRecord"
-          content={SkeletonLoader}
-        />
+        <PatientDetailsContent title="Admissions" content={PatientAdmissions} />
       ),
     },
   ];
@@ -131,11 +115,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       content: (
         <PatientDetailsContent title="Summary" content={PatientSummary} />
       ),
-    },
-    {
-      label: t("nav.exams"),
-      path: "/exams",
-      content: <PatientDetailsContent title="Exams" content={PatientExams} />,
     },
     {
       label: t("nav.booking"),
@@ -184,14 +163,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const getRouteConfig = () => {
     switch (userSection) {
-      case "admissions":
-        return admissionsConfig;
       case "opd":
         return opdConfig;
       case "triage":
         return triageConfig;
-      case "laboratory":
-        return defaultConfig;
       case "therapy":
         return therapyConfig;
       case "operation":
@@ -458,10 +433,26 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  <RouterTabs
-                    config={getRouteConfig()}
-                    defaultRoute={defaultRoute}
-                  />
+                  {userSection == "laboratory" ? (
+                    <div className="patientDetails__nested_content">
+                      <PatientDetailsContent
+                        title="Laboratory"
+                        content={PatientExams}
+                      />
+                    </div>
+                  ) : userSection == "admissions" ? (
+                    <div className="patientDetails__nested_content">
+                      <PatientDetailsContent
+                        title="Admissions"
+                        content={PatientAdmissions}
+                      />
+                    </div>
+                  ) : (
+                    <RouterTabs
+                      config={getRouteConfig()}
+                      defaultRoute={defaultRoute}
+                    />
+                  )}
                 </div>
               </div>
             </div>

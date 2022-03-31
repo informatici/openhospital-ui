@@ -10,7 +10,7 @@ export const authRoutes = (server) => {
         default:
           res.status(200).json({
             displayName: "John Doe",
-            token: "1qrj12fcxu3a21d21pjvba6g1",
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJhZG1pbiIsImV4cCI6MTczOTE5MzU1MTAwMH0.D50o5x2gcVcASSwl7EOqmRUDGqIGfhisbXlkujQolrY",
           });
           break;
       }
