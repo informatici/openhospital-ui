@@ -28,8 +28,8 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":
       return getPatientSuccessCallback ? (
-        <Redirect to={`/details/${patient.code}`} />
-      ) : null; //TODO: use actual patient id instead
+        <Redirect to={`/patients/details/${patient.code}`} />
+      ) : null;
     default:
       return (
         <div className="patientSearchItem col-xs-12">
