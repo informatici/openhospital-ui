@@ -1,6 +1,6 @@
 import initialValues from "../fixtures/editPatientInitialValues.json";
 
-const START_PATH = "http://localhost:3000/details/72/edit";
+const START_PATH = "http://localhost:3000/patients/details/72/edit";
 
 describe("EditPatientActivity spec", () => {
   it("should render the ui", () => {
@@ -8,7 +8,7 @@ describe("EditPatientActivity spec", () => {
     cy.get("[class=editPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => { });
+  it.skip("should have access to the user credentials", () => {});
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");
@@ -39,9 +39,10 @@ describe("EditPatientActivity spec", () => {
       .then((firstSrc) => {
         const currentPicture = firstSrc;
 
-        cy.get(
-          "[id=profilePicture_input]"
-        ).attachFile("images/profilePicture.jpg", { force: true });
+        cy.get("[id=profilePicture_input]").attachFile(
+          "images/profilePicture.jpg",
+          { force: true }
+        );
 
         cy.wait(1000);
         cy.get("[class=profilePicture]")
@@ -63,9 +64,7 @@ describe("EditPatientActivity spec", () => {
   it("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Marcelo");
     cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.dialog__info").contains(
-      "The patient was edit successfully."
-    );
+    cy.get("div.dialog__info").contains("The patient was edit successfully.");
   });
 
   it("should reset the form if the user chooses to keep editing after a submit", () => {

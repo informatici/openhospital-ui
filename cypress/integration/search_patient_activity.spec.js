@@ -1,4 +1,4 @@
-const START_PATH = "http://localhost:3000/search";
+const START_PATH = "http://localhost:3000/patients/search";
 
 describe("SearchPatientActivity spec", () => {
   it("should render the ui", () => {

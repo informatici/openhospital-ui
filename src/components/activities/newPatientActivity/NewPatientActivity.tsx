@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
+import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
@@ -35,8 +36,9 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
-    [t("nav.newpatient")]: "/new",
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
+    [t("nav.newpatient")]: PATHS.patients_new,
   };
 
   const onSubmit = (patient: PatientDTO) => {

@@ -1,49 +1,47 @@
+import { EditRounded, Notes, Person } from "@material-ui/icons";
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { EditRounded, Person, Notes } from "@material-ui/icons";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
+import { Redirect, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
+import { PATHS } from "../../../consts";
+import { PatientDTOStatusEnum } from "../../../generated";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
-import AppHeader from "../../accessories/appHeader/AppHeader";
-import Footer from "../../accessories/footer/Footer";
-import { TTabConfig } from "../../accessories/tabs/types";
-import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientTriage from "../../accessories/patientTriage/PatientTriage";
-import PatientSummary from "../../accessories/patientSummary/PatientSummary";
-import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
-import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
+import { IState } from "../../../types";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
+import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
+import AppHeader from "../../accessories/appHeader/AppHeader";
+import Button from "../../accessories/button/Button";
+import Footer from "../../accessories/footer/Footer";
+import PatientBooking from "../../accessories/patientBooking/PatientBooking";
+import PatientExams from "../../accessories/patientExams/PatientExams";
+import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import PatientSummary from "../../accessories/patientSummary/PatientSummary";
+import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
+import PatientTriage from "../../accessories/patientTriage/PatientTriage";
+import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import RouterTabs from "../../accessories/tabs/RouterTabs";
+import { TTabConfig } from "../../accessories/tabs/types";
+import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
+import InPatientDashboardMenu from "./InPatientDashboardMenu";
+import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
+import "./styles.scss";
 import {
   IDispatchProps,
   IStateProps,
-  TProps,
   IUserSection,
   TActivityTransitionState,
+  TProps,
 } from "./types";
-import { IState } from "../../../types";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
-import PatientBooking from "../../accessories/patientBooking/PatientBooking";
-import PatientExams from "../../accessories/patientExams/PatientExams";
-import Button from "../../accessories/button/Button";
-import PatientAdmission from "../../accessories/admission/PatientAdmission";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
-import BillRecords from "../../accessories/billrecords/BillRecords";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import InPatientDashboardMenu from "./InPatientDashboardMenu";
-import { PatientDTOStatusEnum } from "../../../generated";
-import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
-import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -64,9 +62,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
-    [t("nav.searchpatient")]: "/search",
-    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
+    [t("nav.searchpatient")]: PATHS.patients_search,
+    [t("nav.patientdashboard")]: `${PATHS.patients}/${patient.data?.code}`,
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -76,15 +75,15 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [userSection, setUserSection] = useState<IUserSection>("clinic");
   const [defaultRoute, setDefaultRoute] = useState("/summary");
 
-  const admissionsConfig: TTabConfig = [
-    {
-      label: t("nav.admission"),
-      path: "/admissions",
-      content: (
-        <PatientDetailsContent title="Admissions" content={PatientAdmissions} />
-      ),
-    },
-  ];
+  // const admissionsConfig: TTabConfig = [
+  //   {
+  //     label: t("nav.admission"),
+  //     path: "/admissions",
+  //     content: (
+  //       <PatientDetailsContent title="Admissions" content={PatientAdmissions} />
+  //     ),
+  //   },
+  // ];
   const opdConfig: TTabConfig = [
     {
       label: t("nav.opd"),
@@ -180,9 +179,18 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     }
   };
 
+  const { path } = useRouteMatch();
+
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
-      return <Redirect to={`/details/${patient.data?.code}/edit`} />;
+      return (
+        <Redirect
+          to={`${path}/edit`.replace(
+            ":id",
+            patient.data?.code?.toString() || ""
+          )}
+        />
+      );
     default:
       return (
         <div className="patientDetails">
@@ -433,14 +441,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  {userSection == "laboratory" ? (
+                  {userSection === "laboratory" ? (
                     <div className="patientDetails__nested_content">
                       <PatientDetailsContent
                         title="Laboratory"
                         content={PatientExams}
                       />
                     </div>
-                  ) : userSection == "admissions" ? (
+                  ) : userSection === "admissions" ? (
                     <div className="patientDetails__nested_content">
                       <PatientDetailsContent
                         title="Admissions"

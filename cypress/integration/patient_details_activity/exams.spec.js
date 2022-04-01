@@ -1,5 +1,5 @@
 const HOSTNAME = Cypress.env("HOSTNAME");
-const START_PATH = `${HOSTNAME}/details/1`;
+const START_PATH = `${HOSTNAME}/patients/details/1`;
 
 describe("Patient Details / Exams", () => {
   before(() => {
