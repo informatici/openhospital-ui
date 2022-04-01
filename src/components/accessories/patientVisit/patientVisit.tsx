@@ -6,12 +6,8 @@ import { initialFields } from "./consts";
 import { VisitDTO } from "../../../generated";
 import {
   getVisits,
-  deleteVisits,
-  deleteVisitsReset,
   createVisit,
   createVisitReset,
-  deleteVisit,
-  deleteVisitReset,
   updateVisit,
   updateVisitReset,
 } from "../../../state/visits/actions";
@@ -22,6 +18,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
 import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
 import { getWards } from "../../../state/ward/actions";
@@ -40,8 +37,6 @@ const PatientVisit: FunctionComponent = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const [deletedObjCode, setDeletedObjCode] = useState("");
-
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
@@ -52,22 +47,18 @@ const PatientVisit: FunctionComponent = () => {
       ? state.visits.createVisit.status
       : state.visits.updateVisit.status;
   });
-  const deleteStatus = useSelector<IState, string | undefined>(
-    (state) => state.visits.deleteVisit.status
-  );
 
   useEffect(() => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
-      setShouldResetForm(true);
+      setShouldResetForm(false);
     }
   }, [changeStatus]);
 
   useEffect(() => {
     dispatch(createVisitReset());
     dispatch(updateVisitReset());
-    dispatch(deleteVisitReset());
     dispatch(getWards());
     dispatch(getVisits(patient?.code ?? -1));
   }, [dispatch]);
@@ -88,7 +79,6 @@ const PatientVisit: FunctionComponent = () => {
       setCreationMode(true);
       dispatch(createVisitReset());
       dispatch(updateVisitReset());
-      dispatch(deleteVisitReset());
       setShouldResetForm(true);
     }
   }, [dispatch, activityTransitionState]);
@@ -106,7 +96,6 @@ const PatientVisit: FunctionComponent = () => {
     setCreationMode(true);
     dispatch(createVisitReset());
     dispatch(updateVisitReset());
-    dispatch(deleteVisitReset());
     setActivityTransitionState("IDLE");
     setShouldUpdateTable(false);
     scrollToElement(null);
@@ -116,11 +105,6 @@ const PatientVisit: FunctionComponent = () => {
     setVisitToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
-  };
-
-  const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteVisit(code));
   };
 
   return (
@@ -141,14 +125,13 @@ const PatientVisit: FunctionComponent = () => {
         resetFormCallback={resetFormCallback}
       />
 
-      {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
+      {changeStatus === "FAIL" && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
       <PatientVisitTable
         handleEdit={onEdit}
-        handleDelete={onDelete}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
@@ -165,13 +148,20 @@ const PatientVisit: FunctionComponent = () => {
         handleSecondaryButtonClick={() => ({})}
       />
       <ConfirmationDialog
-        isOpen={deleteStatus === "SUCCESS"}
-        title={t("visit.deleted")}
-        icon={checkIcon}
-        info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel={t("common.ok")}
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => {}}
+        isOpen={changeStatus === "FAIL"}
+        title={creationMode ? t("visit.notcreated") : t("visit.notupdated")}
+        icon={failIcon}
+        info={
+          creationMode
+            ? t("visit.createfail")
+            : t("visit.updatefail", { code: visitToEdit.visitID })
+        }
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => {
+          dispatch(createVisitReset());
+          dispatch(updateVisitReset());
+        }}
+        handleSecondaryButtonClick={() => ({})}
       />
     </div>
   );

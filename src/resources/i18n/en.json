@@ -85,7 +85,12 @@
     "updated": "Visit updated",
     "createsuccess": "Visit has been created successfully!",
     "updatesuccess": "Visit {{code}} has been updated successfully!",
-    "deleted": "Visit deleted"
+    "deleted": "Visit not deleted",
+    "notcreated": "Visit not created",
+    "notupdated": "Visit not updated",
+    "createfail": "Visit has not been created!",
+    "updatefail": "Visit {{code}} has not been updated!",
+    "notdeleted": "Visit not deleted"
   },
   "examination": {
     "ap": {

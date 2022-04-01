@@ -11,13 +11,11 @@ import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: <T>(row: T) => void;
-  handleDelete: (code: number | undefined) => void;
 }
 
 const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
-  handleDelete,
 }) => {
   const { t } = useTranslation();
   const header = ["date", "duration"];
@@ -56,10 +54,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     }));
   };
 
-  const onDelete = (row: VisitDTO) => {
-    handleDelete(row.visitID);
-  };
-
   const onEdit = (row?: VisitDTO) => {
     handleEdit(data.find((item) => item.visitID === row?.visitID));
   };
@@ -74,7 +68,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={onDelete}
           isCollapsabile={true}
           onEdit={onEdit}
         />

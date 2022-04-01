@@ -24,14 +24,6 @@ import {
   UPDATE_VISIT_SUCCESS,
   UPDATE_VISIT_FAIL,
   UPDATE_VISIT_RESET,
-  DELETE_VISIT_LOADING,
-  DELETE_VISIT_SUCCESS,
-  DELETE_VISIT_FAIL,
-  DELETE_VISIT_RESET,
-  DELETE_VISITS_RESET,
-  DELETE_VISITS_SUCCESS,
-  DELETE_VISITS_LOADING,
-  DELETE_VISITS_FAIL,
 } from "./consts";
 
 const visitsControllerApi = new VisitsControllerApi(
@@ -54,7 +46,7 @@ export const createVisit =
       (error) => {
         dispatch({
           type: CREATE_VISIT_FAIL,
-          error,
+          error: error,
         });
       }
     );
@@ -133,77 +125,4 @@ export const updateVisit =
         });
       }
     );
-  };
-export const deleteVisitReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: DELETE_VISIT_RESET,
-    });
-  };
-
-export const deleteVisit =
-  (visitID: number | undefined) =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    if (visitID) {
-      dispatch({
-        type: DELETE_VISIT_LOADING,
-      });
-      visitsControllerApi.deleteVisitUsingDELETE({ visitID }).subscribe(
-        () => {
-          dispatch({
-            type: DELETE_VISIT_SUCCESS,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: DELETE_VISIT_FAIL,
-            error,
-          });
-        }
-      );
-    } else {
-      dispatch({
-        type: DELETE_VISIT_FAIL,
-        error: "Visit code should not be empty",
-      });
-    }
-  };
-
-export const deleteVisitsReset =
-  () =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    dispatch({
-      type: DELETE_VISITS_RESET,
-    });
-  };
-
-export const deleteVisits =
-  (patID: number | undefined) =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
-    if (patID) {
-      dispatch({
-        type: DELETE_VISITS_LOADING,
-      });
-      visitsControllerApi
-        .deleteVisitsRelatedToPatientUsingDELETE({ patID })
-        .subscribe(
-          () => {
-            dispatch({
-              type: DELETE_VISITS_SUCCESS,
-            });
-          },
-          (error) => {
-            dispatch({
-              type: DELETE_VISITS_FAIL,
-              error,
-            });
-          }
-        );
-    } else {
-      dispatch({
-        type: DELETE_VISITS_FAIL,
-        error: "Patient code should not be empty",
-      });
-    }
   };
