@@ -22,6 +22,10 @@ import {
   GET_CURRENTADMISSION_FAIL,
   GET_CURRENTADMISSION_LOADING,
   GET_CURRENTADMISSION_SUCCESS,
+  DISCHARGE_PATIENT_LOADING,
+  DISCHARGE_PATIENT_SUCCESS,
+  DISCHARGE_PATIENT_FAIL,
+  DISCHARGE_PATIENT_RESET,
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
@@ -51,6 +55,36 @@ export const createAdmission =
           });
         }
       );
+  };
+
+export const dischargePatient =
+  (patientcode: number | undefined, currentAdmissionDTO: AdmissionDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DISCHARGE_PATIENT_LOADING,
+    });
+    if (patientcode) {
+      admissionControllerApi
+        .dischargePatientUsingPOST({ patientcode, currentAdmissionDTO })
+        .subscribe(
+          (payload) => {
+            dispatch({
+              type: DISCHARGE_PATIENT_SUCCESS,
+            });
+          },
+          (error) => {
+            dispatch({
+              type: DISCHARGE_PATIENT_FAIL,
+              error,
+            });
+          }
+        );
+    } else {
+      dispatch({
+        type: DISCHARGE_PATIENT_FAIL,
+        error: "The patient code should not be null",
+      });
+    }
   };
 
 export const updateAdmission =
@@ -83,6 +117,14 @@ export const createAdmissionReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_ADMISSION_RESET,
+    });
+  };
+
+export const dischargePatientReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DISCHARGE_PATIENT_RESET,
     });
   };
 

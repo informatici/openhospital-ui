@@ -1,0 +1,131 @@
+import React, { FC, useEffect, useRef, useState } from "react";
+import "./styles.scss";
+import { useTranslation } from "react-i18next";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../../../types";
+import { AdmissionTransitionState } from "./types";
+import { AdmissionDTO } from "../../../generated";
+import InfoBox from "../infoBox/InfoBox";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../assets/check-icon.png";
+import {
+  getCurrentAdmissionByPatientId,
+  dischargePatient,
+  dischargePatientReset,
+} from "../../../state/admissions/actions";
+import { useFields } from "./useFields";
+import DischargeForm from "./dischargeForm/DischargeForm";
+
+const PatientDischarge: FC = () => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+  const [shouldResetForm, setShouldResetForm] = useState(false);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<AdmissionTransitionState>("IDLE");
+
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
+
+  const fields = useFields(currentAdmission);
+
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+  const username = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
+
+  const dischargeStatus = useSelector<IState>(
+    (state) => state.admissions.dischargePatient.status
+  );
+
+  const onSubmit = (adm: AdmissionDTO) => {
+    setShouldResetForm(false);
+    if (currentAdmission) {
+      const dischargeToSave: AdmissionDTO = {
+        ...currentAdmission,
+        disDate: adm.disDate,
+        disType: adm.disType,
+        diseaseOut1: adm.diseaseOut1,
+        diseaseOut2: adm.diseaseOut2,
+        diseaseOut3: adm.diseaseOut3,
+        admitted: 0,
+      };
+      dispatch(dischargePatient(patient?.code, dischargeToSave));
+    }
+  };
+
+  useEffect(() => {
+    if (dischargeStatus === "FAIL") {
+      setActivityTransitionState("FAIL");
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [dischargeStatus]);
+
+  useEffect(() => {
+    dispatch(dischargePatientReset());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_RESET") {
+      dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(dischargePatientReset());
+      setShouldResetForm(true);
+    }
+  }, [dispatch, activityTransitionState]);
+
+  const resetFormCallback = () => {
+    setShouldResetForm(false);
+    setShouldUpdateTable(false);
+    setActivityTransitionState("IDLE");
+    scrollToElement(null);
+  };
+
+  useEffect(() => {
+    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+  }, [patient, dispatch]);
+
+  return (
+    <div className="patientAdmission">
+      <DischargeForm
+        fields={fields}
+        onSubmit={onSubmit}
+        submitButtonLabel={t("common.save")}
+        resetButtonLabel={t("common.reset")}
+        shouldResetForm={shouldResetForm}
+        resetFormCallback={resetFormCallback}
+        isLoading={dischargeStatus === "LOADING"}
+        admitted={currentAdmission?.admitted === 1}
+      />
+      {dischargeStatus === "FAIL" && (
+        <div ref={infoBoxRef} className="info-box-container">
+          <InfoBox type="error" message={t("common.somethingwrong")} />
+        </div>
+      )}
+
+      <ConfirmationDialog
+        isOpen={dischargeStatus === "SUCCESS" || dischargeStatus === "SUCCESS"}
+        title={
+          dischargeStatus === "SUCCESS"
+            ? t("admission.discharged")
+            : t("admission.notdischarged")
+        }
+        icon={checkIcon}
+        info={
+          dischargeStatus === "SUCCESS"
+            ? t("admission.dischargesuccess")
+            : t("admission.dischargefailed")
+        }
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
+      />
+    </div>
+  );
+};
+
+export default PatientDischarge;

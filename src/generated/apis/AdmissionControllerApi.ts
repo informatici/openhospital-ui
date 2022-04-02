@@ -22,6 +22,11 @@ export interface DeleteAdmissionTypeUsingDELETERequest {
     id: number;
 }
 
+export interface DischargePatientUsingPOSTRequest {
+    patientcode: number;
+    currentAdmissionDTO: AdmissionDTO;
+}
+
 export interface GetAdmissionsUsingGETRequest {
     id: number;
 }
@@ -77,6 +82,33 @@ export class AdmissionControllerApi extends BaseAPI {
             url: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * dischargePatient
+     */
+    dischargePatientUsingPOST({ patientcode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest): Observable<void>
+    dischargePatientUsingPOST({ patientcode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    dischargePatientUsingPOST({ patientcode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(patientcode, 'patientcode', 'dischargePatientUsingPOST');
+        throwIfNullOrUndefined(currentAdmissionDTO, 'currentAdmissionDTO', 'dischargePatientUsingPOST');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'patientcode': patientcode,
+        };
+
+        return this.request<void>({
+            url: '/admissions/discharge',
+            method: 'POST',
+            headers,
+            query,
+            body: currentAdmissionDTO,
         }, opts?.responseOpts);
     };
 

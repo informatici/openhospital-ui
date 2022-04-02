@@ -5,4 +5,5 @@ export const initial: IAdmissionsState = {
   updateAdmission: { status: "IDLE" },
   admissionsByPatientId: { status: "IDLE", data: [] },
   currentAdmissionByPatientId: { status: "IDLE", data: undefined },
+  dischargePatient: { status: "IDLE" },
 };
