@@ -110,7 +110,10 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.operation")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> improvement(OP-813): Implement admission section
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("clinic")
