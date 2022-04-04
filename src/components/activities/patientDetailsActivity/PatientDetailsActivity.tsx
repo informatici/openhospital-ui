@@ -18,6 +18,7 @@ import {
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -351,7 +352,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       <Route path={`${path}/admissions`}>
                         <PatientDetailsContent
                           title="Admissions"
-                          content={PatientAdmission}
+                          content={
+                            patient.data?.status === PatientDTOStatusEnum.O
+                              ? PatientAdmission
+                              : PatientAdmissions
+                          }
                         />
                       </Route>
                       <Route path={`${path}/visits`}>

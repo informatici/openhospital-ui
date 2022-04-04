@@ -25,7 +25,6 @@ const PatientAdmission: FC = () => {
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
@@ -86,7 +85,6 @@ const PatientAdmission: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      setShouldUpdateTable(true);
       dispatch(updateAdmissionReset());
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(createAdmissionReset());
@@ -96,7 +94,6 @@ const PatientAdmission: FC = () => {
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
-    setShouldUpdateTable(false);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -121,10 +118,6 @@ const PatientAdmission: FC = () => {
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
-      )}
-
-      {patient?.status === PatientDTOStatusEnum.I && (
-        <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
       )}
 
       <ConfirmationDialog
