@@ -13,6 +13,7 @@ import Arrow from "../../../assets/arrow-w.svg";
 import { IUserSection } from "./types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 interface IOwnProps {
   setDefaultRoute: React.Dispatch<React.SetStateAction<string>>;
@@ -27,6 +28,9 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { url } = useRouteMatch();
+  const history = useHistory();
+
   const isActive = (value: string) => {
     return value === userSection ? "active" : "default";
   };
@@ -39,7 +43,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         className={"patientDetails__main_menu__item " + isActive("admissions")}
         onClick={() => {
           setUserSection("admissions");
-          setDefaultRoute("/admissions");
+          history.replace(`${url}/admissions`);
         }}
       >
         <LocalHotel
@@ -58,7 +62,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("visits");
-          setDefaultRoute("/visits");
+          history.replace(`${url}/visits`);
         }}
       >
         <Pageview fontSize="small" style={{ color: "white" }} />
@@ -72,7 +76,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("triage");
-          setDefaultRoute("/triage");
+          history.replace(`${url}/triage`);
         }}
       >
         <ArtTrack fontSize="small" style={{ color: "white" }} />
@@ -87,7 +91,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("laboratory");
-          setDefaultRoute("/laboratory");
+          history.replace(`${url}/laboratory`);
         }}
       >
         <Colorize fontSize="small" style={{ color: "white" }} />
@@ -102,7 +106,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("therapy");
-          setDefaultRoute("/therapy");
+          history.replace(`${url}/therapy`);
         }}
       >
         <Healing fontSize="small" style={{ color: "white" }} />
@@ -117,7 +121,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("operation");
-          setDefaultRoute("/operation");
+          history.replace(`${url}/operation`);
         }}
       >
         <SettingsApplications fontSize="small" style={{ color: "white" }} />
@@ -132,7 +136,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("discharge");
-          setDefaultRoute("/discharge");
+          history.replace(`${url}/discharge`);
         }}
       >
         <ExitToApp fontSize="small" style={{ color: "white" }} />
@@ -146,7 +150,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }
         onClick={() => {
           setUserSection("clinic");
-          setDefaultRoute("/summary");
+          history.replace(`${url}/clinic`);
         }}
       >
         <LocalHospital fontSize="small" style={{ color: "white" }} />
@@ -158,3 +162,10 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 };
 
 export default InPatientDashboardMenu;
+function useRouterMatch(): { url: any } {
+  throw new Error("Function not implemented.");
+}
+
+function useHystory() {
+  throw new Error("Function not implemented.");
+}

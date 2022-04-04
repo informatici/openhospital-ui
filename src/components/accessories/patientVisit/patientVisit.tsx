@@ -147,22 +147,6 @@ const PatientVisit: FunctionComponent = () => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
-      <ConfirmationDialog
-        isOpen={changeStatus === "FAIL"}
-        title={creationMode ? t("visit.notcreated") : t("visit.notupdated")}
-        icon={failIcon}
-        info={
-          creationMode
-            ? t("visit.createfail")
-            : t("visit.updatefail", { code: visitToEdit.visitID })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => {
-          dispatch(createVisitReset());
-          dispatch(updateVisitReset());
-        }}
-        handleSecondaryButtonClick={() => ({})}
-      />
     </div>
   );
 };
