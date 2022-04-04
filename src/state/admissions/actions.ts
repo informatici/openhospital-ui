@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -22,6 +23,7 @@ import {
   GET_CURRENTADMISSION_FAIL,
   GET_CURRENTADMISSION_LOADING,
   GET_CURRENTADMISSION_SUCCESS,
+  GET_CURRENTADMISSION_EMPTY,
   DISCHARGE_PATIENT_LOADING,
   DISCHARGE_PATIENT_SUCCESS,
   DISCHARGE_PATIENT_FAIL,
@@ -58,14 +60,14 @@ export const createAdmission =
   };
 
 export const dischargePatient =
-  (patientcode: number | undefined, currentAdmissionDTO: AdmissionDTO) =>
+  (patientCode: number | undefined, currentAdmissionDTO: AdmissionDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: DISCHARGE_PATIENT_LOADING,
     });
-    if (patientcode) {
+    if (patientCode) {
       admissionControllerApi
-        .dischargePatientUsingPOST({ patientcode, currentAdmissionDTO })
+        .dischargePatientUsingPOST({ patientCode, currentAdmissionDTO })
         .subscribe(
           (payload) => {
             dispatch({
@@ -137,14 +139,14 @@ export const updateAdmissionReset =
   };
 
 export const getAdmissionsByPatientId =
-  (patientcode: number | undefined) =>
+  (patientCode: number | undefined) =>
   (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
     dispatch({
       type: GET_ADMISSION_LOADING,
     });
-    if (patientcode) {
+    if (patientCode) {
       admissionControllerApi
-        .getPatientAdmissionsUsingGET({ patientcode })
+        .getPatientAdmissionsUsingGET({ patientCode })
         .subscribe(
           (payload) => {
             if (Array.isArray(payload) && payload.length > 0) {
@@ -174,20 +176,27 @@ export const getAdmissionsByPatientId =
     }
   };
 export const getCurrentAdmissionByPatientId =
-  (patientcode: number | undefined) =>
+  (patientCode: number | undefined) =>
   (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
     dispatch({
       type: GET_CURRENTADMISSION_LOADING,
     });
-    if (patientcode) {
+    if (patientCode) {
       admissionControllerApi
-        .getCurrentAdmissionUsingGET({ patientcode })
+        .getCurrentAdmissionUsingGET({ patientCode })
         .subscribe(
           (payload) => {
-            dispatch({
-              type: GET_CURRENTADMISSION_SUCCESS,
-              payload: payload,
-            });
+            if (isEmpty(payload)) {
+              dispatch({
+                type: GET_CURRENTADMISSION_EMPTY,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: GET_CURRENTADMISSION_SUCCESS,
+                payload: payload,
+              });
+            }
           },
           (error) => {
             dispatch({

@@ -20,6 +20,7 @@ import {
   DISCHARGE_PATIENT_SUCCESS,
   DISCHARGE_PATIENT_FAIL,
   DISCHARGE_PATIENT_RESET,
+  GET_CURRENTADMISSION_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { IAdmissionsState } from "./types";
@@ -143,6 +144,13 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
 
     case GET_CURRENTADMISSION_SUCCESS: {
       draft.currentAdmissionByPatientId.status = "SUCCESS";
+      draft.currentAdmissionByPatientId.data = action.payload;
+      delete draft.currentAdmissionByPatientId.error;
+      break;
+    }
+
+    case GET_CURRENTADMISSION_EMPTY: {
+      draft.currentAdmissionByPatientId.status = "SUCCESS_EMPTY";
       draft.currentAdmissionByPatientId.data = action.payload;
       delete draft.currentAdmissionByPatientId.error;
       break;
