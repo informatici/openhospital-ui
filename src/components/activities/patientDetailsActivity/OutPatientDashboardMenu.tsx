@@ -39,6 +39,23 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       <h6>{t("patient.usersections")}</h6>
 
       <div
+        className={"patientDetails__main_menu__item " + isActive("admissions")}
+        onClick={() => {
+          setUserSection("admissions");
+          history.replace(`${url}/admissions`);
+        }}
+      >
+        <LocalHotel
+          fontSize="small"
+          style={{
+            color: "white",
+          }}
+        />
+        <span>{t("nav.admissions")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
+
+      <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("visits")
         }
@@ -110,10 +127,6 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.operation")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> improvement(OP-813): Implement admission section
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("clinic")

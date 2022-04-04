@@ -6,7 +6,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO } from "../../../generated";
+import { AdmissionDTO, PatientDTOStatusEnum } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -123,7 +123,9 @@ const PatientAdmission: FC = () => {
         </div>
       )}
 
-      <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
+      {patient?.status === PatientDTOStatusEnum.I && (
+        <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
+      )}
 
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}

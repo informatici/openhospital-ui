@@ -349,14 +349,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </Route>
                       <Route path={`${path}/admissions`}>
-                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/summary`} />
-                        ) : (
-                          <PatientDetailsContent
-                            title="Admissions"
-                            content={PatientAdmission}
-                          />
-                        )}
+                        <PatientDetailsContent
+                          title="Admissions"
+                          content={PatientAdmission}
+                        />
                       </Route>
                       <Route path={`${path}/visits`}>
                         <PatientDetailsContent
