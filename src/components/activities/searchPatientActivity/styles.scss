@@ -241,6 +241,37 @@
       margin-bottom: 5px;
     }
 
+    .patientSearchItem__profile__content__status{
+      margin-bottom: 5px;
+      .patientDetails_status_wrapper {
+        span:before {
+          content: "";
+          display: inline-block;
+          height: 8px;
+          width: 8px;
+          border-radius: 50%;
+          margin-right: 3px;
+          margin-left: 3px;
+        }
+  
+        &.patientDetails_status_in {
+          span:before {
+            background-color: $c-red;
+            animation: bump 3s infinite;
+          }
+        }
+  
+        &.patientDetails_status_out {
+          span:before {
+            background-color: $c-green;
+          }
+        }
+        h6 {
+          margin: 0px;
+        }
+      }
+    }
+
     .patientSearchItem__profile__content__info {
       display: flex;
       margin-bottom: 5px;

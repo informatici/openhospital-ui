@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "react-router";
+import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import { IPatientSearchItemProps, TActivityTransitionState } from "./types";
@@ -47,6 +48,21 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
               <div className="patientSearchItem__profile__content">
                 <div className="patientSearchItem__profile__content__name">
                   {`${patient.firstName || ""} ${patient.secondName || ""}`}
+                </div>
+                <div className="patientSearchItem__profile__content__status">
+                  {patient?.status === PatientDTOStatusEnum.I ? (
+                    <div className="patientDetails_status_wrapper patientDetails_status_in">
+                      <h6>
+                        Status: <span>Inpatient</span>
+                      </h6>
+                    </div>
+                  ) : (
+                    <div className="patientDetails_status_wrapper patientDetails_status_out">
+                      <h6>
+                        Status: <span>Outpatient</span>
+                      </h6>
+                    </div>
+                  )}
                 </div>
                 <div className="patientSearchItem__profile__content__info">
                   <div className="patientSearchItem__profile__content__item">
