@@ -10,4 +10,5 @@ export interface IProps {
   translateOptions?: boolean;
   disabled?: boolean;
   variant?: "standard" | "outlined" | "filled";
+  required?: boolean;
 }

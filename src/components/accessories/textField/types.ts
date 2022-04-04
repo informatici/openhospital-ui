@@ -21,4 +21,5 @@ export interface IProps {
     | Partial<FilledInputProps>
     | Partial<OutlinedInputProps>;
   rows?: number;
+  required?: boolean;
 }
