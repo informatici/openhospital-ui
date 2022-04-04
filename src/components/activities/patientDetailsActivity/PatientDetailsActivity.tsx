@@ -1,7 +1,7 @@
 import { EditRounded, Notes, Person } from "@material-ui/icons";
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router";
@@ -18,6 +18,7 @@ import {
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -349,14 +350,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </Route>
                       <Route path={`${path}/admissions`}>
-                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/summary`} />
-                        ) : (
-                          <PatientDetailsContent
-                            title="Admissions"
-                            content={PatientAdmission}
-                          />
-                        )}
+                        <PatientDetailsContent
+                          title="Admissions"
+                          content={
+                            patient.data?.status === PatientDTOStatusEnum.O
+                              ? PatientAdmission
+                              : PatientAdmissions
+                          }
+                        />
                       </Route>
                       <Route path={`${path}/visits`}>
                         <PatientDetailsContent

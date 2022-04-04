@@ -8,7 +8,6 @@ import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
 import { AdmissionDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
-import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import {
@@ -25,7 +24,6 @@ const PatientAdmission: FC = () => {
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
@@ -86,7 +84,6 @@ const PatientAdmission: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      setShouldUpdateTable(true);
       dispatch(updateAdmissionReset());
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(createAdmissionReset());
@@ -96,7 +93,6 @@ const PatientAdmission: FC = () => {
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
-    setShouldUpdateTable(false);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -122,8 +118,6 @@ const PatientAdmission: FC = () => {
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
-
-      <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
 
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
