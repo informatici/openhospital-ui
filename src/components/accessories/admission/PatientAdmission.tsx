@@ -6,9 +6,8 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO, PatientDTOStatusEnum } from "../../../generated";
+import { AdmissionDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
-import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import {
