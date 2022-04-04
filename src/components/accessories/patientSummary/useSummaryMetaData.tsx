@@ -28,7 +28,16 @@ const useSummaryMetaData = () => {
     result: t("lab.result"),
   };
   const dateFields = ["date", "startDate", "endDate"];
-  const header = ["date", "type"];
+  const header = {
+    date: ["date", "type"],
+    type: {
+      opd: ["date", "disease"],
+      triage: ["date", "pex_temp"],
+      therapy: ["date", "medicalId"],
+      exam: ["date", "exam"],
+    },
+  };
+
   const order = ["date", "type"];
 
   return { labels, dateFields, header, order };
