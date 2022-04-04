@@ -18,6 +18,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
 import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
+import { PATHS } from "../../../consts";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -116,12 +117,22 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav_items">
               <div
                 className="appHeader__nav__item"
-                onClick={() => history.push("/patients")}
+                onClick={() => history.push(PATHS.patients)}
               >
                 {t("nav.patients")}
               </div>
-              <div className="appHeader__nav__item">{t("nav.visits")}</div>
-              <div className="appHeader__nav__item">{t("nav.laboratory")}</div>
+              <div
+                className="appHeader__nav__item"
+                onClick={() => history.push(PATHS.visits)}
+              >
+                {t("nav.visits")}
+              </div>
+              <div
+                className="appHeader__nav__item"
+                onClick={() => history.push(PATHS.laboratory)}
+              >
+                {t("nav.laboratory")}
+              </div>
             </div>
           </div>
         </div>

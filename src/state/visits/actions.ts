@@ -1,13 +1,72 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { Configuration, VisitDTO, VisitsControllerApi } from "../../generated";
+import {
+  Configuration,
+  DiseaseDTO,
+  VisitsControllerApi,
+  VisitDTO,
+  WardDTO,
+  PatientDTO,
+} from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { visitDataFormatter } from "../../libraries/formatUtils/dataFormatting";
 import { IAction } from "../types";
-import { GET_VISIT_FAIL, GET_VISIT_LOADING, GET_VISIT_SUCCESS } from "./consts";
+import {
+  CREATE_VISIT_RESET,
+  CREATE_VISIT_LOADING,
+  CREATE_VISIT_SUCCESS,
+  CREATE_VISIT_FAIL,
+  GET_VISIT_FAIL,
+  GET_VISIT_LOADING,
+  GET_VISIT_SUCCESS,
+  GET_VISIT_SUCCESS_EMPTY,
+  UPDATE_VISIT_LOADING,
+  UPDATE_VISIT_SUCCESS,
+  UPDATE_VISIT_FAIL,
+  UPDATE_VISIT_RESET,
+} from "./consts";
 
 const visitsControllerApi = new VisitsControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
+
+export const createVisit =
+  (visitValues: Record<string, any>, wards: WardDTO[] | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_VISIT_LOADING,
+    });
+    const newVisit = visitDataFormatter(visitValues, wards);
+    visitsControllerApi.newVisitUsingPOST({ newVisit }).subscribe(
+      () => {
+        dispatch({
+          type: CREATE_VISIT_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_VISIT_FAIL,
+          error: error,
+        });
+      }
+    );
+  };
+
+export const createVisitReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_VISIT_RESET,
+    });
+  };
+
+export const updateVisitReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_VISIT_RESET,
+    });
+  };
 
 export const getVisits =
   (code: number) =>
@@ -24,7 +83,7 @@ export const getVisits =
           if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: GET_VISIT_SUCCESS,
-              payload: [payload],
+              payload: payload,
             });
           } else {
             dispatch({
@@ -40,4 +99,30 @@ export const getVisits =
           });
         }
       );
+  };
+
+export const updateVisit =
+  (
+    visitID: number,
+    visitValues: Record<string, any>,
+    wards: WardDTO[] | undefined
+  ) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_VISIT_LOADING,
+    });
+    const updateVisit = visitDataFormatter(visitValues, wards);
+    visitsControllerApi.updateVisitUsingPUT({ visitID, updateVisit }).subscribe(
+      () => {
+        dispatch({
+          type: UPDATE_VISIT_SUCCESS,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_VISIT_FAIL,
+          error,
+        });
+      }
+    );
   };

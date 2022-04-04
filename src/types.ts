@@ -14,6 +14,7 @@ import { ILaboratoriesState } from "./state/laboratories/types";
 import { IExamState } from "./state/exams/types";
 import { IBillsState } from "./state/bills/types";
 import { IPricesState } from "./state/prices/types";
+import { IVisitState } from "./state/visits/types";
 
 export interface IState {
   main: IMainState;
@@ -32,6 +33,7 @@ export interface IState {
   exams: IExamState;
   bills: IBillsState;
   prices: IPricesState;
+  visits: IVisitState;
 }
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js

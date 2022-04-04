@@ -1,10 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import Footer from "../../accessories/footer/Footer";
 import logo from "../../../assets/logo-color.svg";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { IProps } from "./types";
 
-const NotFound: React.FC = () => {
+const NotFound: FC<IProps> = ({ backRoute }) => {
   const { t } = useTranslation();
   return (
     <div className="login">
@@ -17,7 +18,9 @@ const NotFound: React.FC = () => {
         />
         <div className="login__title">{t("common.404notfound")}</div>
         <div className="login__link">
-          <Link to="/">{t("common.gobackdashboard")}</Link>
+          <Link to={backRoute ? backRoute : "/"}>
+            {t("common.gobackdashboard")}
+          </Link>
         </div>
       </div>
       <Footer />

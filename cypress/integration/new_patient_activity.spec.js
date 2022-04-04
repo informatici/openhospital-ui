@@ -1,6 +1,6 @@
 import initialValues from "../fixtures/newPatientInitialValues.json";
 
-const START_PATH = "http://localhost:3000/new";
+const START_PATH = "http://localhost:3000/patients/new";
 
 describe("NewPatientActivity spec", () => {
   it("should render the ui", () => {
@@ -8,7 +8,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=newPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => { });
+  it.skip("should have access to the user credentials", () => {});
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");
@@ -39,9 +39,10 @@ describe("NewPatientActivity spec", () => {
       .then((firstSrc) => {
         const placeholder = firstSrc;
 
-        cy.get(
-          "[id=profilePicture_input]"
-        ).attachFile("images/profilePicture.jpg", { force: true });
+        cy.get("[id=profilePicture_input]").attachFile(
+          "images/profilePicture.jpg",
+          { force: true }
+        );
 
         cy.wait(1000);
         cy.get("[class=profilePicture]")
@@ -88,7 +89,9 @@ describe("NewPatientActivity spec", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label")
+      .contains("OK")
+      .click();
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[id=secondName]").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
@@ -101,7 +104,9 @@ describe("NewPatientActivity spec", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label")
+      .contains("OK")
+      .click();
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
@@ -123,7 +128,9 @@ describe("NewPatientActivity spec", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label").contains("OK").click();
+    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label")
+      .contains("OK")
+      .click();
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();

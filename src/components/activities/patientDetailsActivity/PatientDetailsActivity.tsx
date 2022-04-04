@@ -1,49 +1,45 @@
+import { EditRounded, Notes, Person } from "@material-ui/icons";
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { EditRounded, Person, Notes } from "@material-ui/icons";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
+import { PATHS } from "../../../consts";
+import { PatientDTOStatusEnum } from "../../../generated";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
-import AppHeader from "../../accessories/appHeader/AppHeader";
-import Footer from "../../accessories/footer/Footer";
-import { TTabConfig } from "../../accessories/tabs/types";
-import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientTriage from "../../accessories/patientTriage/PatientTriage";
-import PatientSummary from "../../accessories/patientSummary/PatientSummary";
-import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
-import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
+import { IState } from "../../../types";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
-import RouterTabs from "../../accessories/tabs/RouterTabs";
+import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import AppHeader from "../../accessories/appHeader/AppHeader";
+import Button from "../../accessories/button/Button";
+import Footer from "../../accessories/footer/Footer";
+import PatientExams from "../../accessories/patientExams/PatientExams";
+import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import PatientSummary from "../../accessories/patientSummary/PatientSummary";
+import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
+import PatientTriage from "../../accessories/patientTriage/PatientTriage";
+import PatientVisit from "../../accessories/patientVisit/patientVisit";
+import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
+import InPatientDashboardMenu from "./InPatientDashboardMenu";
+import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
+import "./styles.scss";
 import {
   IDispatchProps,
   IStateProps,
-  TProps,
   IUserSection,
   TActivityTransitionState,
+  TProps,
 } from "./types";
-import { IState } from "../../../types";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
-import PatientBooking from "../../accessories/patientBooking/PatientBooking";
-import PatientExams from "../../accessories/patientExams/PatientExams";
-import Button from "../../accessories/button/Button";
-import PatientAdmission from "../../accessories/admission/PatientAdmission";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import PatientNewBill from "../../accessories/patientNewBill/PatientNewBill";
-import BillRecords from "../../accessories/billrecords/BillRecords";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import InPatientDashboardMenu from "./InPatientDashboardMenu";
-import { PatientDTOStatusEnum } from "../../../generated";
-import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
-import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -56,6 +52,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+  const { path, url } = useRouteMatch();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
@@ -64,9 +61,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
-    [t("nav.searchpatient")]: "/search",
-    [t("nav.patientdashboard")]: `/details/${patient.data?.code}`,
+    [t("nav.dashboard")]: PATHS.home,
+    [t("nav.patients")]: PATHS.patients,
+    [t("nav.searchpatient")]: PATHS.patients_search,
+    [t("nav.patientdashboard")]: `${PATHS.patients}/${patient.data?.code}`,
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -75,114 +73,20 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [expanded, setExpanded] = useState<string | false>(false);
   const [userSection, setUserSection] = useState<IUserSection>("clinic");
   const [defaultRoute, setDefaultRoute] = useState("/summary");
-
-  const admissionsConfig: TTabConfig = [
-    {
-      label: t("nav.admission"),
-      path: "/admissions",
-      content: (
-        <PatientDetailsContent title="Admissions" content={PatientAdmissions} />
-      ),
-    },
-  ];
-  const opdConfig: TTabConfig = [
-    {
-      label: t("nav.opd"),
-      path: "/OPD",
-      content: <PatientDetailsContent title="OPD" content={PatientOPD} />,
-    },
-  ];
-  const triageConfig: TTabConfig = [
-    {
-      label: t("nav.triage"),
-      path: "/triage",
-      content: <PatientDetailsContent title="Triage" content={PatientTriage} />,
-    },
-  ];
-  const therapyConfig: TTabConfig = [
-    {
-      label: t("nav.therapy"),
-      path: "/therapy",
-      content: (
-        <PatientDetailsContent title="Therapy" content={PatientTherapy} />
-      ),
-    },
-  ];
-  const clinicConfig: TTabConfig = [
-    {
-      label: t("nav.summary"),
-      path: "/summary",
-      content: (
-        <PatientDetailsContent title="Summary" content={PatientSummary} />
-      ),
-    },
-    {
-      label: t("nav.booking"),
-      path: "/booking",
-      content: (
-        <PatientDetailsContent title="Booking" content={PatientBooking} />
-      ),
-    },
-  ];
-  const defaultConfig: TTabConfig = [
-    {
-      label: t("nav.summary"),
-      path: "/summary",
-      content: (
-        <PatientDetailsContent title="Default" content={SkeletonLoader} />
-      ),
-    },
-  ];
-
-  /*const billingConfig: TTabConfig = [
-    {
-      label: t("nav.newbill"),
-      path: "/newbill",
-      content: (
-        <PatientDetailsContent
-          title={t("nav.newbill")}
-          content={PatientNewBill}
-        />
-      ),
-    },
-    {
-      label: t("nav.billsrecords"),
-      path: "/billsrecord",
-      content: (
-        <PatientDetailsContent
-          title={t("nav.billsrecords")}
-          content={BillRecords}
-        />
-      ),
-    },
-  ];*/
-
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
   };
 
-  const getRouteConfig = () => {
-    switch (userSection) {
-      case "opd":
-        return opdConfig;
-      case "triage":
-        return triageConfig;
-      case "therapy":
-        return therapyConfig;
-      case "operation":
-        return defaultConfig;
-      case "discharge":
-        return defaultConfig;
-      case "clinic":
-        return clinicConfig;
-      default:
-        return defaultConfig;
-    }
-  };
-
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
-      return <Redirect to={`/details/${patient.data?.code}/edit`} />;
+      return (
+        <Redirect
+          to={`${path}/edit`.replace(
+            ":id",
+            patient.data?.code?.toString() || ""
+          )}
+        />
+      );
     default:
       return (
         <div className="patientDetails">
@@ -433,26 +337,79 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
-                  {userSection == "laboratory" ? (
-                    <div className="patientDetails__nested_content">
-                      <PatientDetailsContent
-                        title="Laboratory"
-                        content={PatientExams}
-                      />
-                    </div>
-                  ) : userSection == "admissions" ? (
-                    <div className="patientDetails__nested_content">
-                      <PatientDetailsContent
-                        title="Admissions"
-                        content={PatientAdmissions}
-                      />
-                    </div>
-                  ) : (
-                    <RouterTabs
-                      config={getRouteConfig()}
-                      defaultRoute={defaultRoute}
-                    />
-                  )}
+                  <div className={"patientDetails__nested_content"}>
+                    <Switch>
+                      <Route exact path={`${path}`}>
+                        <Redirect to={`${url}/summary`} />
+                      </Route>
+                      <Route path={`${path}/summary`}>
+                        <PatientDetailsContent
+                          title="Summary"
+                          content={PatientSummary}
+                        />
+                      </Route>
+                      <Route path={`${path}/admissions`}>
+                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
+                          <Redirect to={`${url}/summary`} />
+                        ) : (
+                          <PatientDetailsContent
+                            title="Admissions"
+                            content={PatientAdmission}
+                          />
+                        )}
+                      </Route>
+                      <Route path={`${path}/visits`}>
+                        <PatientDetailsContent
+                          title="Visits"
+                          content={
+                            patient?.data?.status === PatientDTOStatusEnum.O
+                              ? PatientOPD
+                              : PatientVisit
+                          }
+                        />
+                      </Route>
+                      <Route path={`${path}/laboratory`}>
+                        <PatientDetailsContent
+                          title="Laboratory"
+                          content={PatientExams}
+                        />
+                      </Route>
+                      <Route path={`${path}/therapy`}>
+                        <PatientDetailsContent
+                          title="Therapy"
+                          content={PatientTherapy}
+                        />
+                      </Route>
+                      <Route path={`${path}/triage`}>
+                        <PatientDetailsContent
+                          title="Triage"
+                          content={PatientTriage}
+                        />
+                      </Route>
+                      <Route path={`${path}/clinic`}>
+                        <PatientDetailsContent
+                          title="Clinic"
+                          content={SkeletonLoader}
+                        />
+                      </Route>
+                      <Route path={`${path}/discharge`}>
+                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
+                          <Redirect to={`${url}/summary`} />
+                        ) : (
+                          <PatientDetailsContent
+                            title="Discharge"
+                            content={SkeletonLoader}
+                          />
+                        )}
+                      </Route>
+                      <Route path={`${path}/operation`}>
+                        <PatientDetailsContent
+                          title="Operation"
+                          content={SkeletonLoader}
+                        />
+                      </Route>
+                    </Switch>
+                  </div>
                 </div>
               </div>
             </div>

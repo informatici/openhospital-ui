@@ -1,5 +1,5 @@
 import moment from "moment";
-import { DiseaseDTO } from "../../generated";
+import { DiseaseDTO, PatientDTO, VisitDTO, WardDTO } from "../../generated";
 import { parseDate } from "../formDataHandling/functions";
 
 export const opdDataFormatter = (
@@ -20,6 +20,18 @@ export const opdDataFormatter = (
       : null;
   data.date = parseDate(data.date);
   data.visitDate = data.date;
+  return data;
+};
+
+export const visitDataFormatter = (
+  data: Record<string, any>,
+  wards: WardDTO[] | undefined
+) => {
+  /**
+   * get entire disease object from code
+   */
+  data.ward = wards?.find((el) => el.code === data.ward);
+  data.date = parseDate(data.date);
   return data;
 };
 
