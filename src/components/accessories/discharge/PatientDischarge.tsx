@@ -30,6 +30,10 @@ const PatientDischarge: FC = () => {
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
+  const currentAdmissionStatus = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.status
+  );
+
   const fields = useFields(currentAdmission);
 
   const patient = useSelector(
@@ -50,9 +54,7 @@ const PatientDischarge: FC = () => {
         ...currentAdmission,
         disDate: adm.disDate,
         disType: adm.disType,
-        diseaseOut1: adm.diseaseOut1,
-        diseaseOut2: adm.diseaseOut2,
-        diseaseOut3: adm.diseaseOut3,
+        diseaseOut: adm.diseaseOut,
         admitted: 0,
       };
       dispatch(dischargePatient(patient?.code, dischargeToSave));
@@ -91,16 +93,23 @@ const PatientDischarge: FC = () => {
 
   return (
     <div className="patientAdmission">
-      <DischargeForm
-        fields={fields}
-        onSubmit={onSubmit}
-        submitButtonLabel={t("common.save")}
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={dischargeStatus === "LOADING"}
-        admitted={currentAdmission?.admitted === 1}
-      />
+      {currentAdmissionStatus === "SUCCESS" && (
+        <DischargeForm
+          fields={fields}
+          onSubmit={onSubmit}
+          submitButtonLabel={t("common.save")}
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={dischargeStatus === "LOADING"}
+          admission={currentAdmission}
+        />
+      )}
+      {currentAdmissionStatus === "SUCCESS_EMPTY" && (
+        <div ref={infoBoxRef} className="info-box-container">
+          <InfoBox type="warning" message={t("admission.patientnotadmitted")} />
+        </div>
+      )}
       {dischargeStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />

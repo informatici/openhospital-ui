@@ -61,9 +61,7 @@ const PatientAdmission: FC = () => {
         ...currentAdmission,
         disDate: adm.disDate,
         disType: adm.disType,
-        diseaseOut1: adm.diseaseOut1,
-        diseaseOut2: adm.diseaseOut2,
-        diseaseOut3: adm.diseaseOut3,
+        diseaseOut: adm.diseaseOut,
         admitted: 0,
       };
       dispatch(updateAdmission(dischargeToSave));

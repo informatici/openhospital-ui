@@ -6770,13 +6770,7 @@ definitions:
       diseaseIn:
         description: "disease in "
         $ref: "#/definitions/DiseaseDTO"
-      diseaseOut1:
-        description: "disease out "
-        $ref: "#/definitions/DiseaseDTO"
-      diseaseOut2:
-        description: "disease out "
-        $ref: "#/definitions/DiseaseDTO"
-      diseaseOut3:
+      diseaseOut:
         description: "disease out "
         $ref: "#/definitions/DiseaseDTO"
       operation:

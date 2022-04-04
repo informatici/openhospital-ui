@@ -25,8 +25,6 @@ export type AdmissionFormFieldName =
   | "disDate"
   | "disType"
   | "bedDays"
-  | "diseaseOut1"
-  | "diseaseOut2"
-  | "diseaseOut3"
+  | "diseaseOut"
   | "cliDiaryCharge"
   | "imageryCharge";

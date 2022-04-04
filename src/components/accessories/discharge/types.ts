@@ -7,9 +7,8 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  createAdmission: (adm: AdmissionDTO) => any;
-  createAdmissionReset: () => void;
-  getMedicals: () => void;
+  dischargePatient: (adm: AdmissionDTO) => any;
+  dischargePaitientReset: () => void;
   getAdmissionsByPatientId: (ptaientCode: number | undefined) => void;
 }
 

@@ -102,17 +102,7 @@ export interface AdmissionDTO {
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
-    diseaseOut1?: DiseaseDTO;
-    /**
-     * @type {DiseaseDTO}
-     * @memberof AdmissionDTO
-     */
-    diseaseOut2?: DiseaseDTO;
-    /**
-     * @type {DiseaseDTO}
-     * @memberof AdmissionDTO
-     */
-    diseaseOut3?: DiseaseDTO;
+    diseaseOut?: DiseaseDTO;
     /**
      * @type {OperationDTO}
      * @memberof AdmissionDTO
