@@ -18,6 +18,7 @@ import {
   updateAdmissionReset,
 } from "../../../state/admissions/actions";
 import { useFields } from "./useFields";
+import { getPatientThunk } from "../../../state/patients/actions";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -72,6 +73,9 @@ const PatientAdmission: FC = () => {
     if (createStatus === "FAIL" || updateStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
+    }
+    if (createStatus === "SUCCESS") {
+      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
     }
   }, [createStatus, updateStatus]);
 

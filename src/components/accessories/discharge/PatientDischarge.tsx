@@ -16,6 +16,7 @@ import {
 } from "../../../state/admissions/actions";
 import { useFields } from "./useFields";
 import DischargeForm from "./dischargeForm/DischargeForm";
+import { getPatientThunk } from "../../../state/patients/actions";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -67,6 +68,9 @@ const PatientDischarge: FC = () => {
     if (dischargeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
+    }
+    if (dischargeStatus === "SUCCESS") {
+      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
     }
   }, [dischargeStatus]);
 
