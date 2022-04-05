@@ -59,7 +59,6 @@ export const admissionRoutes = (server) => {
         server.post("/discharge").intercept((req, res) => {
             const code = req.query.patientCode;
             const body = req.jsonBody();
-            console.log(body);
             switch (body.imageryCharge) {
                 case "fail":
                     res.status(400);

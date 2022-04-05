@@ -3,7 +3,7 @@ import { DischargeFormFieldName } from "./dischargeForm/types";
 
 export const initialFields: TFields<DischargeFormFieldName> = {
   disDate: {
-    value: "",
+    value: new Date(Date.now()).toISOString(),
     type: "date",
   },
   disType: {

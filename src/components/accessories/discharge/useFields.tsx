@@ -15,13 +15,9 @@ export const useFields = (admission?: AdmissionDTO) => {
       value: admission?.diseaseOut?.code?.toString() ?? "",
       type: "text",
     },
-    disDate: {
-      value: admission?.disDate ?? "",
-      type: "date",
-    },
     bedDays: {
       value: differenceInDays(
-        new Date(+(admission?.admDate ?? "")),
+        new Date(admission?.admDate ?? ""),
         new Date()
       ).toString(),
       type: "number",

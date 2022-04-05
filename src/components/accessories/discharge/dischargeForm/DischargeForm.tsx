@@ -81,7 +81,6 @@ const DischargeForm: FC<DischargeProps> = ({
           return moment(value).isSameOrAfter(moment(admission?.admDate ?? ""));
         },
       }),
-
     disType: string().required(t("common.required")),
     diseaseOut: string().required(t("common.required")),
   });
@@ -109,13 +108,11 @@ const DischargeForm: FC<DischargeProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
-      if (fieldName === "disDate") {
-        const days = differenceInDays(
-          new Date(admission?.admDate ?? ""),
-          new Date(value)
-        ).toString();
-        setFieldValue("bedDays", days);
-      }
+      const days = differenceInDays(
+        new Date(admission?.admDate ?? ""),
+        new Date(value)
+      ).toString();
+      setFieldValue("bedDays", days);
     },
     [setFieldValue]
   );
