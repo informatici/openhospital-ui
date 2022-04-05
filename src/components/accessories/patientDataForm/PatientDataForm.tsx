@@ -11,6 +11,7 @@ import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
+  isFieldSuggested,
 } from "../../../libraries/formDataHandling/functions";
 import warningIcon from "../../../assets/warning-icon.png";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -23,6 +24,8 @@ import "./styles.scss";
 import { TProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
+import { formCustomization } from "../../../customization/formCustomization";
+import { FIELD_VALIDATION } from "../../../types";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -111,6 +114,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     setOpenResetConfirmation(false);
     formik.resetForm();
   };
+
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -133,6 +137,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("firstName")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "firstName")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.REQUIRED
+              }
             />
           </div>
           <div className="patientDataForm__item">
@@ -144,6 +153,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("secondName")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "secondName")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.REQUIRED
+              }
             />
           </div>
 
@@ -156,6 +170,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("taxCode")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "taxCode")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
         </div>
@@ -172,6 +191,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               options={options.sex}
               translateOptions={true}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "sex")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.REQUIRED
+              }
             />
           </div>
 
@@ -187,6 +211,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               label={t("patient.birthdate")}
               onChange={dateFieldHandleOnChange("birthDate")}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "birthDate")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.REQUIRED
+              }
             />
           </div>
 
@@ -200,6 +229,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={onBlurCallback("bloodType")}
               options={options.bloodType}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "bloodType")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
         </div>
@@ -214,6 +248,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("mother_name")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "mother_name")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
 
@@ -226,6 +265,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("father_name")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "father_name")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
 
@@ -240,6 +284,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               options={options.parentTogether}
               translateOptions={true}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "parentTogether")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
         </div>
@@ -254,6 +303,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("address")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "address")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
 
@@ -266,6 +320,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("city")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "city")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
 
@@ -281,6 +340,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   onBlur={formik.handleBlur}
                   type="tel"
                   disabled={isLoading}
+                  required={
+                    isFieldSuggested(formCustomization, "telephone")
+                      ? FIELD_VALIDATION.SUGGESTED
+                      : FIELD_VALIDATION.IDLE
+                  }
                 />
               </div>
             </Tooltip>
@@ -299,6 +363,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               options={options.hasInsurance}
               translateOptions={true}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "hasInsurance")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
           </div>
         </div>
@@ -314,7 +383,18 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("note")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "note")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
             />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item fullWidth">
+            <small>* required, ** suggested</small>
           </div>
         </div>
 

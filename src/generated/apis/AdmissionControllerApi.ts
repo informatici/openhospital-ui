@@ -22,6 +22,11 @@ export interface DeleteAdmissionTypeUsingDELETERequest {
     id: number;
 }
 
+export interface DischargePatientUsingPOSTRequest {
+    patientCode: number;
+    currentAdmissionDTO: AdmissionDTO;
+}
+
 export interface GetAdmissionsUsingGETRequest {
     id: number;
 }
@@ -33,7 +38,7 @@ export interface GetAdmittedPatientsUsingGETRequest {
 }
 
 export interface GetCurrentAdmissionUsingGETRequest {
-    patientcode: number;
+    patientCode: number;
 }
 
 export interface GetNextYProgUsingGETRequest {
@@ -41,7 +46,7 @@ export interface GetNextYProgUsingGETRequest {
 }
 
 export interface GetPatientAdmissionsUsingGETRequest {
-    patientcode: number;
+    patientCode: number;
 }
 
 export interface GetUsedWardBedUsingGETRequest {
@@ -77,6 +82,33 @@ export class AdmissionControllerApi extends BaseAPI {
             url: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * dischargePatient
+     */
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest): Observable<void>
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'dischargePatientUsingPOST');
+        throwIfNullOrUndefined(currentAdmissionDTO, 'currentAdmissionDTO', 'dischargePatientUsingPOST');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'patientCode': patientCode,
+        };
+
+        return this.request<void>({
+            url: '/admissions/discharge',
+            method: 'POST',
+            headers,
+            query,
+            body: currentAdmissionDTO,
         }, opts?.responseOpts);
     };
 
@@ -127,17 +159,17 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * getCurrentAdmission
      */
-    getCurrentAdmissionUsingGET({ patientcode }: GetCurrentAdmissionUsingGETRequest): Observable<AdmissionDTO>
-    getCurrentAdmissionUsingGET({ patientcode }: GetCurrentAdmissionUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
-    getCurrentAdmissionUsingGET({ patientcode }: GetCurrentAdmissionUsingGETRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
-        throwIfNullOrUndefined(patientcode, 'patientcode', 'getCurrentAdmissionUsingGET');
+    getCurrentAdmissionUsingGET({ patientCode }: GetCurrentAdmissionUsingGETRequest): Observable<AdmissionDTO>
+    getCurrentAdmissionUsingGET({ patientCode }: GetCurrentAdmissionUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    getCurrentAdmissionUsingGET({ patientCode }: GetCurrentAdmissionUsingGETRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getCurrentAdmissionUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'patientcode': patientcode,
+            'patientCode': patientCode,
         };
 
         return this.request<AdmissionDTO>({
@@ -175,17 +207,17 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * getPatientAdmissions
      */
-    getPatientAdmissionsUsingGET({ patientcode }: GetPatientAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>>
-    getPatientAdmissionsUsingGET({ patientcode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AdmissionDTO>>>
-    getPatientAdmissionsUsingGET({ patientcode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<Array<AdmissionDTO> | RawAjaxResponse<Array<AdmissionDTO>>> {
-        throwIfNullOrUndefined(patientcode, 'patientcode', 'getPatientAdmissionsUsingGET');
+    getPatientAdmissionsUsingGET({ patientCode }: GetPatientAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>>
+    getPatientAdmissionsUsingGET({ patientCode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AdmissionDTO>>>
+    getPatientAdmissionsUsingGET({ patientCode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<Array<AdmissionDTO> | RawAjaxResponse<Array<AdmissionDTO>>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getPatientAdmissionsUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'patientcode': patientcode,
+            'patientCode': patientCode,
         };
 
         return this.request<Array<AdmissionDTO>>({

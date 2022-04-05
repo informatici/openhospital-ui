@@ -53,7 +53,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 labels
               )}
               dateFields={dateFields}
-              tableHeader={header}
+              tableHeader={header.type.opd}
               labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
@@ -73,7 +73,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 labels
               )}
               dateFields={dateFields}
-              tableHeader={header}
+              tableHeader={header.type.triage}
               labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
@@ -94,7 +94,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 medicals
               )}
               dateFields={dateFields}
-              tableHeader={header}
+              tableHeader={header.type.therapy}
               labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
@@ -114,7 +114,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 labels
               )}
               dateFields={dateFields}
-              tableHeader={header}
+              tableHeader={header.type.exam}
               labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}

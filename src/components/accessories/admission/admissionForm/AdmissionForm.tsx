@@ -106,35 +106,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       : string(),
 
     disType: admitted ? string().required(t("common.required")) : string(),
-    diseaseOut1: admitted ? string().required(t("common.required")) : string(),
-    diseaseOut2: admitted
-      ? string().test({
-          name: "diseaseOut2",
-          message: t("opd.validatedisease"),
-          test: function (value) {
-            return (
-              !value ||
-              (this.parent.diseaseOut1 && value !== this.parent.diseaseOut1)
-            );
-          },
-        })
-      : string(),
-
-    diseaseOut3: admitted
-      ? string().test({
-          name: "diseaseOut3",
-          message: t("opd.validatedisease"),
-          test: function (value) {
-            return (
-              !value ||
-              (this.parent.diseaseOut1 &&
-                this.parent.diseaseOut2 &&
-                value !== this.parent.diseaseOut1 &&
-                value !== this.parent.diseaseOut2)
-            );
-          },
-        })
-      : string(),
+    diseaseOut: admitted ? string().required(t("common.required")) : string(),
   });
 
   const formik = useFormik({
@@ -153,14 +125,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
         (item) => item.code === formattedValues.ward
       );
 
-      formattedValues.diseaseOut1 = diagnosisOutList?.find(
-        (item) => item.code === formattedValues.diseaseOut1
-      );
-      formattedValues.diseaseOut2 = diagnosisOutList?.find(
-        (item) => item.code === formattedValues.diseaseOut2
-      );
-      formattedValues.diseaseOut3 = diagnosisOutList?.find(
-        (item) => item.code === formattedValues.diseaseOut3
+      formattedValues.diseaseOut = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut
       );
       formattedValues.disType = dischargeTypes?.find(
         (item) => item.code === formattedValues.disType
@@ -369,40 +335,12 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 </div>
                 <div className="patientAdmissionForm__item">
                   <AutocompleteField
-                    fieldName="diseaseOut1"
-                    fieldValue={formik.values.diseaseOut1}
-                    label={t("admission.diseaseOut1")}
-                    isValid={isValid("diseaseOut1")}
-                    errorText={getErrorText("diseaseOut1")}
-                    onBlur={onBlurCallback("diseaseOut1")}
-                    options={renderOptions(diagnosisOutList)}
-                    loading={diagnosisOutStatus === "LOADING"}
-                    disabled={isLoading}
-                  />
-                </div>
-              </div>
-              <div className="row start-sm center-xs">
-                <div className="patientAdmissionForm__item">
-                  <AutocompleteField
-                    fieldName="diseaseOut2"
-                    fieldValue={formik.values.diseaseOut2}
-                    label={t("admission.diseaseOut2")}
-                    isValid={isValid("diseaseOut2")}
-                    errorText={getErrorText("diseaseOut2")}
-                    onBlur={onBlurCallback("diseaseOut2")}
-                    options={renderOptions(diagnosisOutList)}
-                    loading={diagnosisOutStatus === "LOADING"}
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="patientAdmissionForm__item">
-                  <AutocompleteField
-                    fieldName="diseaseOut3"
-                    fieldValue={formik.values.diseaseOut3}
-                    label={t("admission.diseaseOut3")}
-                    isValid={isValid("diseaseOut3")}
-                    errorText={getErrorText("diseaseOut3")}
-                    onBlur={onBlurCallback("diseaseOut3")}
+                    fieldName="diseaseOut"
+                    fieldValue={formik.values.diseaseOut}
+                    label={t("admission.diseaseOut")}
+                    isValid={isValid("diseaseOut")}
+                    errorText={getErrorText("diseaseOut")}
+                    onBlur={onBlurCallback("diseaseOut")}
                     options={renderOptions(diagnosisOutList)}
                     loading={diagnosisOutStatus === "LOADING"}
                     disabled={isLoading}

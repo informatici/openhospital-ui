@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientAdmission {
+  .info-box-container {
+    margin-top: 24px;
+  }
+
+  .patientAdmissionTable {
+    margin-top: 50px;
+  }
+  .printAdmission__button {
+    margin-top: 20px;
+    button {
+      width: 200px;
+    }
+  }
+}

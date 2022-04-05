@@ -18,8 +18,10 @@ import {
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
 import PatientAdmission from "../../accessories/admission/PatientAdmission";
+import PatientAdmissions from "../../accessories/admission/PatientAdmissions";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
+import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import Footer from "../../accessories/footer/Footer";
 import PatientExams from "../../accessories/patientExams/PatientExams";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
@@ -349,14 +351,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         />
                       </Route>
                       <Route path={`${path}/admissions`}>
-                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/summary`} />
-                        ) : (
-                          <PatientDetailsContent
-                            title="Admissions"
-                            content={PatientAdmission}
-                          />
-                        )}
+                        <PatientDetailsContent
+                          title="Admissions"
+                          content={
+                            patient.data?.status === PatientDTOStatusEnum.O
+                              ? PatientAdmission
+                              : PatientAdmissions
+                          }
+                        />
                       </Route>
                       <Route path={`${path}/visits`}>
                         <PatientDetailsContent
@@ -398,7 +400,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                         ) : (
                           <PatientDetailsContent
                             title="Discharge"
-                            content={SkeletonLoader}
+                            content={PatientDischarge}
                           />
                         )}
                       </Route>

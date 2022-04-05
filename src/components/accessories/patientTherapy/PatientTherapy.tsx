@@ -112,10 +112,12 @@ const PatientTherapy: FC = () => {
     setCreationMode(false);
     scrollToElement(null);
   };
+
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(code?.toString() ?? "");
     dispatch(deleteTherapy(code));
   };
+
   return (
     <div className="patientTherapy">
       <TherapyForm

@@ -4,6 +4,7 @@ import {
   FilledInputProps,
   OutlinedInputProps,
 } from "@material-ui/core";
+import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
   className?: string;
@@ -21,4 +22,5 @@ export interface IProps {
     | Partial<FilledInputProps>
     | Partial<OutlinedInputProps>;
   rows?: number;
+  required?: FIELD_VALIDATION;
 }
