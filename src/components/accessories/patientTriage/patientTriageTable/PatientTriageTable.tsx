@@ -99,7 +99,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                onDelete={onDelete}
+                // onDelete={onDelete}
                 onEdit={handleEdit}
                 isCollapsabile={true}
               />

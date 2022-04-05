@@ -81,9 +81,11 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     });
     //.sort(dateComparator("desc", "startDate"));
   };
+
   const therapyStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
   );
+
   const onDelete = (row: TherapyRowDTO) => {
     handleDelete(row.therapyID);
   };
@@ -116,7 +118,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                onDelete={onDelete}
+                // onDelete={onDelete}
                 isCollapsabile={true}
                 onEdit={onEdit}
               />

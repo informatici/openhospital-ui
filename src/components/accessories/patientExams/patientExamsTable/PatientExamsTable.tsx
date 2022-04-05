@@ -89,7 +89,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={onDelete}
+          // onDelete={onDelete}
           isCollapsabile={true}
           onEdit={onEdit}
         />
