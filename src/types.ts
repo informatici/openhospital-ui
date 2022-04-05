@@ -36,6 +36,12 @@ export interface IState {
   visits: IVisitState;
 }
 
+export enum FIELD_VALIDATION {
+  SUGGESTED = "SUGGESTED",
+  REQUIRED = "REQUIRED",
+  IDLE = "IDLE",
+}
+
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js
 export type TPermission =
   | "odp.read"

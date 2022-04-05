@@ -1,5 +1,6 @@
 import { produce } from "immer";
 import moment from "moment";
+import { IFormCustomizationProps } from "../../customization/formCustomization/type";
 import {
   DiseaseDTO,
   ExamDTO,
@@ -159,4 +160,11 @@ export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
 
 export const differenceInSeconds = (dateFrom: Date, dateTo: Date) => {
   return moment(dateTo).diff(moment(dateFrom), "ms");
+};
+
+export const isFieldSuggested = (
+  formCustomization: IFormCustomizationProps,
+  fieldName: string
+) => {
+  return formCustomization.suggestedFields.includes(fieldName);
 };
