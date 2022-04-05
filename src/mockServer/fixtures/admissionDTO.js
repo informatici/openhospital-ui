@@ -61,9 +61,7 @@ export const admissionDTO =
         ipdOutInclude: true,
         lock: 2
     },
-    diseaseOut1: null,
-    diseaseOut2: null,
-    diseaseOut3: null,
+    diseaseOut: null,
     operation: null,
     opDate: null,
     opResult: null,

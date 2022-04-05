@@ -41,17 +41,7 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "0",
     type: "number",
   },
-  diseaseOut1: {
-    value: "",
-    type: "text",
-    options: [],
-  },
-  diseaseOut2: {
-    value: "",
-    type: "text",
-    options: [],
-  },
-  diseaseOut3: {
+  diseaseOut: {
     value: "",
     type: "text",
     options: [],

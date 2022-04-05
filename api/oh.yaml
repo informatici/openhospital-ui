@@ -91,9 +91,9 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: patientcode
+        - name: patientCode
           in: query
-          description: patientcode
+          description: patientCode
           required: true
           type: integer
           format: int32
@@ -228,9 +228,9 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: patientcode
+        - name: patientCode
           in: query
-          description: patientcode
+          description: patientCode
           required: true
           type: integer
           format: int32
@@ -239,12 +239,49 @@ paths:
           description: OK
           schema:
             $ref: "#/definitions/AdmissionDTO"
+        "204":
+          description: Patient has not been admitted
         "401":
           description: Unauthorized
         "403":
           description: Forbidden
         "404":
           description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/discharge:
+    post:
+      tags:
+        - admission-controller
+      summary: dischargePatient
+      operationId: dischargePatientUsingPOST
+      produces:
+        - application/json
+      parameters:
+        - name: patientCode
+          in: query
+          description: patientCcode
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: currentAdmissionDTO
+          description: currentAdmissionDTO
+          required: true
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+        "400":
+          description: Patient already dismissed
+        "404":
+          description: Unexisting patient
+        "500":
+          description: Server error
       security:
         - JWT: []
       deprecated: false
@@ -6733,13 +6770,7 @@ definitions:
       diseaseIn:
         description: "disease in "
         $ref: "#/definitions/DiseaseDTO"
-      diseaseOut1:
-        description: "disease out "
-        $ref: "#/definitions/DiseaseDTO"
-      diseaseOut2:
-        description: "disease out "
-        $ref: "#/definitions/DiseaseDTO"
-      diseaseOut3:
+      diseaseOut:
         description: "disease out "
         $ref: "#/definitions/DiseaseDTO"
       operation:
@@ -6763,6 +6794,12 @@ definitions:
       note:
         type: string
         description: free note
+      cliDiaryCharge:
+        type: string
+        description: Clinical diary charge
+      imageryCharge:
+        type: string
+        description: Imagery charge
       transUnit:
         type: number
         format: float

@@ -102,17 +102,7 @@ export interface AdmissionDTO {
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
-    diseaseOut1?: DiseaseDTO;
-    /**
-     * @type {DiseaseDTO}
-     * @memberof AdmissionDTO
-     */
-    diseaseOut2?: DiseaseDTO;
-    /**
-     * @type {DiseaseDTO}
-     * @memberof AdmissionDTO
-     */
-    diseaseOut3?: DiseaseDTO;
+    diseaseOut?: DiseaseDTO;
     /**
      * @type {OperationDTO}
      * @memberof AdmissionDTO
@@ -147,6 +137,18 @@ export interface AdmissionDTO {
      * @memberof AdmissionDTO
      */
     note?: string;
+    /**
+     * Clinical diary charge
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    cliDiaryCharge?: string;
+    /**
+     * Imagery charge
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    imageryCharge?: string;
     /**
      * transfusional unit
      * @type {number}

@@ -16,6 +16,11 @@ import {
   GET_CURRENTADMISSION_FAIL,
   GET_CURRENTADMISSION_LOADING,
   GET_CURRENTADMISSION_SUCCESS,
+  DISCHARGE_PATIENT_LOADING,
+  DISCHARGE_PATIENT_SUCCESS,
+  DISCHARGE_PATIENT_FAIL,
+  DISCHARGE_PATIENT_RESET,
+  GET_CURRENTADMISSION_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { IAdmissionsState } from "./types";
@@ -46,6 +51,32 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case CREATE_ADMISSION_RESET: {
       draft.createAdmission.status = "IDLE";
       delete draft.createAdmission.error;
+      break;
+    }
+
+    /**
+     * DISCHARGE_PATIENT
+     */
+    case DISCHARGE_PATIENT_LOADING: {
+      draft.dischargePatient.status = "LOADING";
+      break;
+    }
+
+    case DISCHARGE_PATIENT_SUCCESS: {
+      draft.dischargePatient.status = "SUCCESS";
+      delete draft.dischargePatient.error;
+      break;
+    }
+
+    case DISCHARGE_PATIENT_FAIL: {
+      draft.dischargePatient.status = "FAIL";
+      draft.dischargePatient.error = action.error;
+      break;
+    }
+
+    case DISCHARGE_PATIENT_RESET: {
+      draft.dischargePatient.status = "IDLE";
+      delete draft.dischargePatient.error;
       break;
     }
 
@@ -113,6 +144,13 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
 
     case GET_CURRENTADMISSION_SUCCESS: {
       draft.currentAdmissionByPatientId.status = "SUCCESS";
+      draft.currentAdmissionByPatientId.data = action.payload;
+      delete draft.currentAdmissionByPatientId.error;
+      break;
+    }
+
+    case GET_CURRENTADMISSION_EMPTY: {
+      draft.currentAdmissionByPatientId.status = "SUCCESS_EMPTY";
       draft.currentAdmissionByPatientId.data = action.payload;
       delete draft.currentAdmissionByPatientId.error;
       break;

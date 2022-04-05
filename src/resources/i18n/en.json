@@ -273,9 +273,7 @@
     "disType": "Discharge Type",
     "disDate": "Discharge Date",
     "bedDays": "Bed Days",
-    "diseaseOut1": "Diagnosis Out 1",
-    "diseaseOut2": "Diagnosis Out 2",
-    "diseaseOut3": "Diagnosis Out 3",
+    "diseaseOut": "Diagnosis Out",
     "cliDiaryCharge": "Clinical Diary Charge",
     "imageryCharge": "Imagery Charge",
     "createsuccess": "Patient admitted successfully",
@@ -287,7 +285,8 @@
     "noteadded": "Note saved",
     "note": "Note",
     "validatelastdate":"should be greater or equal to admission date {{admDate}}",
-    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first."
+    "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first.",
+    "patientnotadmitted": "No current admission found !"
   },
   "bill": {
     "title": "Welcome to Billing",

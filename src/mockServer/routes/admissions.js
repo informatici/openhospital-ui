@@ -28,7 +28,7 @@ export const admissionRoutes = (server) => {
             }
         });
         server.get("/").intercept((req, res) => {
-            const code = req.query.patientcode;
+            const code = req.query.patientCode;
             switch (code) {
                 case "10000":
                     res.status(400);
@@ -42,7 +42,7 @@ export const admissionRoutes = (server) => {
             }
         });
         server.get("/current").intercept((req, res) => {
-            const code = req.query.patientcode;
+            const code = req.query.patientCode;
             switch (code) {
                 case "50":
                     res.status(400);
@@ -52,8 +52,21 @@ export const admissionRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    rand === 1 ? res.status(200).json(admissionDTO) : res.status(204);
+                    res.status(200).json(admissionDTO);
 
+            }
+        });
+        server.post("/discharge").intercept((req, res) => {
+            const code = req.query.patientCode;
+            const body = req.jsonBody();
+            switch (body.imageryCharge) {
+                case "fail":
+                    res.status(400);
+                    break;
+                default:
+                    res.status(200).json(null);
+                    rand = 0;
+                    break;
             }
         });
     });
