@@ -6794,6 +6794,12 @@ definitions:
       note:
         type: string
         description: free note
+      cliDiaryCharge:
+        type: string
+        description: Clinical diary charge
+      imageryCharge:
+        type: string
+        description: Imagery charge
       transUnit:
         type: number
         format: float

@@ -138,6 +138,18 @@ export interface AdmissionDTO {
      */
     note?: string;
     /**
+     * Clinical diary charge
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    cliDiaryCharge?: string;
+    /**
+     * Imagery charge
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    imageryCharge?: string;
+    /**
      * transfusional unit
      * @type {number}
      * @memberof AdmissionDTO
