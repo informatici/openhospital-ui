@@ -37,7 +37,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
           <Table
             rowData={renderSummary(summaryData, dateFields, labels, medicals)}
             dateFields={dateFields}
-            tableHeader={header}
+            tableHeader={header.date}
             labelData={labels}
             columnsOrder={order}
             rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
