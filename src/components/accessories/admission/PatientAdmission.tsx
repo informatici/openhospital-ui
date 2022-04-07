@@ -47,48 +47,31 @@ const PatientAdmission: FC = () => {
     (state) => state.admissions.createAdmission.status
   );
 
-  const updateStatus = useSelector<IState>(
-    (state) => state.admissions.updateAdmission.status
-  );
-
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
-    if (!currentAdmission) {
-      adm.patient = patient;
-      adm.userID = username;
-      adm.abortDate = adm.admDate;
-      adm.admitted = 1;
-      dispatch(createAdmission(adm));
-    } else {
-      const dischargeToSave: AdmissionDTO = {
-        ...currentAdmission,
-        disDate: adm.disDate,
-        disType: adm.disType,
-        diseaseOut: adm.diseaseOut,
-        admitted: 0,
-      };
-      dispatch(updateAdmission(dischargeToSave));
-    }
+    adm.patient = patient;
+    adm.userID = username;
+    adm.abortDate = adm.admDate;
+    adm.admitted = 1;
+    dispatch(createAdmission(adm));
   };
 
   useEffect(() => {
-    if (createStatus === "FAIL" || updateStatus === "FAIL") {
+    if (createStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
     if (createStatus === "SUCCESS") {
       dispatch(getPatientThunk((patient?.code ?? 0).toString()));
     }
-  }, [createStatus, updateStatus]);
+  }, [createStatus]);
 
   useEffect(() => {
     dispatch(createAdmissionReset());
-    dispatch(updateAdmissionReset());
   }, [dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(updateAdmissionReset());
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(createAdmissionReset());
       setShouldUpdateTable(true);
@@ -116,10 +99,10 @@ const PatientAdmission: FC = () => {
         resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        isLoading={createStatus === "LOADING"}
         admitted={currentAdmission?.admitted === 1}
       />
-      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
+      {createStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
@@ -128,18 +111,10 @@ const PatientAdmission: FC = () => {
       <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
-        title={
-          updateStatus === "SUCCESS"
-            ? t("admission.discharged")
-            : t("admission.created")
-        }
+        isOpen={createStatus === "SUCCESS"}
+        title={t("admission.created")}
         icon={checkIcon}
-        info={
-          updateStatus === "SUCCESS"
-            ? t("admission.dischargesuccess")
-            : t("admission.createsuccess")
-        }
+        info={t("admission.createsuccess")}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
