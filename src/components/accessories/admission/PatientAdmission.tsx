@@ -19,12 +19,14 @@ import {
 } from "../../../state/admissions/actions";
 import { useFields } from "./useFields";
 import { getPatientThunk } from "../../../state/patients/actions";
+import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
@@ -89,12 +91,14 @@ const PatientAdmission: FC = () => {
       dispatch(updateAdmissionReset());
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(createAdmissionReset());
+      setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
   }, [dispatch, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
+    setShouldUpdateTable(false);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -120,6 +124,8 @@ const PatientAdmission: FC = () => {
           <InfoBox type="error" message={t("common.somethingwrong")} />
         </div>
       )}
+
+      <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
 
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
