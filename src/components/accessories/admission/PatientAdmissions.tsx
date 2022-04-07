@@ -25,6 +25,10 @@ const PatientAdmissions: FC = () => {
 
   return (
     <div className="patientAdmission">
+      <div className={"patientAdmission__subtitle"}>
+        <div className={"icon"}></div>
+        <div className={"text"}>{t("admission.patientalreadyadmitted")}</div>
+      </div>
       <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
     </div>
   );
