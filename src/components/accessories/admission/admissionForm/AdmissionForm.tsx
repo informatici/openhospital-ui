@@ -228,7 +228,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={onBlurCallback("ward")}
                 options={renderOptions(wards)}
                 loading={wardStatus === "LOADING"}
-                disabled={admitted || isLoading}
+                disabled={isLoading}
               />
             </div>
             <div className="patientAdmissionForm__item">
@@ -240,7 +240,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 errorText={getErrorText("transUnit")}
                 onBlur={formik.handleBlur}
                 type="text"
-                disabled={admitted || isLoading}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -257,7 +257,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 errorText={getErrorText("admDate")}
                 label={t("admission.admDate")}
                 onChange={dateFieldHandleOnChange("admDate")}
-                disabled={admitted || isLoading}
+                disabled={isLoading}
               />
             </div>
             <div className="patientAdmissionForm__item">
@@ -270,7 +270,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={onBlurCallback("admType")}
                 options={renderOptions(admissionTypes)}
                 loading={admTypeStatus === "LOADING"}
-                disabled={admitted || isLoading}
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -285,7 +285,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={onBlurCallback("diseaseIn")}
                 options={renderOptions(diagnosisInList)}
                 loading={diagnosisInStatus === "LOADING"}
-                disabled={admitted || isLoading}
+                disabled={isLoading}
               />
             </div>
           </div>
