@@ -63,14 +63,18 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     (state) => state.admissions.admissionsByPatientId.status
   );
 
+  const error = useSelector<IState>(
+    (state) =>
+      state.admissions.admissionsByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   return (
     <div className="patientAdmissionTable">
       {(() => {
         switch (status) {
           case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
+            return <InfoBox type="error" message={error} />;
           case "LOADING":
             return (
               <CircularProgress

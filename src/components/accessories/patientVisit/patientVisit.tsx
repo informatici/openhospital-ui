@@ -48,6 +48,13 @@ const PatientVisit: FunctionComponent = () => {
       : state.visits.updateVisit.status;
   });
 
+  const error = useSelector<IState>(
+    (state) =>
+      state.visits.createVisit.error?.message ||
+      state.visits.updateVisit.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   useEffect(() => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
@@ -127,7 +134,7 @@ const PatientVisit: FunctionComponent = () => {
 
       {changeStatus === "FAIL" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={error} />
         </div>
       )}
       <PatientVisitTable

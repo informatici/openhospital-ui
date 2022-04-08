@@ -48,6 +48,10 @@ const PatientDischarge: FC = () => {
     (state) => state.admissions.dischargePatient.status
   );
 
+  const error = useSelector<IState>(
+    (state) => state.admissions.dischargePatient.error?.message
+  ) as string;
+
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
     if (currentAdmission) {
@@ -118,7 +122,7 @@ const PatientDischarge: FC = () => {
       )}
       {dischargeStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={error} />
         </div>
       )}
 

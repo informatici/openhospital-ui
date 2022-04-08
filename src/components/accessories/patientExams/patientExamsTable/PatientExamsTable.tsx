@@ -68,6 +68,11 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const labStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
+  const error = useSelector<IState>(
+    (state) =>
+      state.laboratories.labsByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
   const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
@@ -104,7 +109,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       )}
       {labStatus === "FAIL" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={error} />
         </div>
       )}
     </div>

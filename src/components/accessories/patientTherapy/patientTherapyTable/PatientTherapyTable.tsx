@@ -86,6 +86,12 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     (state) => state.therapies.therapiesByPatientId.status
   );
 
+  const error = useSelector<IState>(
+    (state) =>
+      state.therapies.therapiesByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   const onDelete = (row: TherapyRowDTO) => {
     handleDelete(row.therapyID);
   };

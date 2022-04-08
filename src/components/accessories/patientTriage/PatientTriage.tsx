@@ -56,6 +56,15 @@ const PatientTriage: FC = () => {
       ? state.examinations.createExamination.status
       : state.examinations.updateExamination.status;
   });
+
+  const error = useSelector<IState>(
+    (state) =>
+      state.examinations.createExamination.error?.message ||
+      state.examinations.updateExamination.error?.message ||
+      state.examinations.deleteExamination.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   useEffect(() => {
     if (status === "FAIL") {
       setActivityTransitionState("FAIL");
@@ -134,7 +143,7 @@ const PatientTriage: FC = () => {
 
       {(status === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={error} />
         </div>
       )}
 

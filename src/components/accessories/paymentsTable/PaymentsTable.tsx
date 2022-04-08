@@ -60,6 +60,11 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
     (state) => state.bills.searchPayments.status
   );
 
+  const error = useSelector<IState>(
+    (state) =>
+      state.bills.searchPayments.error?.message || t("common.somethingwrong")
+  ) as string;
+
   const validationSchema = object({
     fromDate: string().required(),
     toDate: string().test({
@@ -130,9 +135,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       {(() => {
         switch (status) {
           case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
+            return <InfoBox type="error" message={error} />;
 
           case "LOADING":
             return (

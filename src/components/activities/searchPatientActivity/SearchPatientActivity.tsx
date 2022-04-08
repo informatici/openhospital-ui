@@ -4,7 +4,7 @@ import get from "lodash.get";
 import has from "lodash.has";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
@@ -37,6 +37,11 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     [t("nav.patients")]: PATHS.patients,
     [t("nav.searchpatient")]: PATHS.patients_new,
   };
+
+  const error = useSelector<IState>(
+    (state) =>
+      state.patients.searchResults.error?.message || t("common.somethingwrong")
+  ) as string;
 
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -112,7 +117,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
         return <InfoBox type="warning" message={t("common.searchnotfound")} />;
 
       default:
-        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+        return <InfoBox type="error" message={error} />;
     }
   };
 

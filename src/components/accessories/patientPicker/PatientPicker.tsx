@@ -130,6 +130,11 @@ const PatientPicker: FC<IProps> = ({
     (state) => state.patients.searchResults.status
   );
 
+  const error = useSelector<IState>(
+    (state) =>
+      state.patients.searchResults.error?.message || t("common.somethingwrong")
+  ) as string;
+
   const isLoading = useSelector<IState, boolean>(
     (state) => state.patients.searchResults.status === "LOADING"
   );
@@ -168,7 +173,7 @@ const PatientPicker: FC<IProps> = ({
         return <InfoBox type="warning" message={t("common.searchnotfound")} />;
 
       default:
-        return <InfoBox type="error" message={t("common.somethingwrong")} />;
+        return <InfoBox type="error" message={error} />;
     }
   };
 
