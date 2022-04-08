@@ -73,7 +73,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("clinic");
+  const [userSection, setUserSection] = useState<IUserSection>("admissions");
   const [defaultRoute, setDefaultRoute] = useState("/summary");
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
@@ -342,7 +342,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   <div className={"patientDetails__nested_content"}>
                     <Switch>
                       <Route exact path={`${path}`}>
-                        <Redirect to={`${url}/summary`} />
+                        <Redirect to={`${url}/admissions`} />
                       </Route>
                       <Route path={`${path}/summary`}>
                         <PatientDetailsContent
