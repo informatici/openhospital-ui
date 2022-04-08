@@ -22,6 +22,10 @@ export const useFields = (admission?: AdmissionDTO) => {
       ).toString(),
       type: "number",
     },
+    note: {
+      value: admission?.note ?? "",
+      type: "text",
+    },
   };
 
   return fields;

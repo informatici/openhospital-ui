@@ -27,4 +27,8 @@ export const initialFields: TFields<DischargeFormFieldName> = {
     value: "",
     type: "text",
   },
+  note: {
+    value: "",
+    type: "text",
+  },
 };
