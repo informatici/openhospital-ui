@@ -75,6 +75,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [expanded, setExpanded] = useState<string | false>(false);
   const [userSection, setUserSection] = useState<IUserSection>("admissions");
   const [defaultRoute, setDefaultRoute] = useState("/summary");
+
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
   };
