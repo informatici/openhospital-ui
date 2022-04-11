@@ -3,8 +3,14 @@ import classNames from "classnames";
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router";
+import { connect, useSelector } from "react-redux";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useRouteMatch,
+} from "react-router";
 import { useParams } from "react-router-dom";
 import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
@@ -42,6 +48,7 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
+import { useUserSection } from "./useUserSection";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -72,8 +79,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
+  const { location } = useHistory();
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("admissions");
+  const [userSection, setUserSection] = useUserSection();
   const [defaultRoute, setDefaultRoute] = useState("/summary");
 
   const handleOnExpanded = (section: string) => {
@@ -175,7 +183,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("discharge");
-                                setDefaultRoute("/discharge");
                               }}
                             >
                               (change)
@@ -188,10 +195,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Status: <span>Outpatient</span>
                             <div
                               className="patientDetails_status_button"
-                              onClick={() => {
-                                setUserSection("admissions");
-                                setDefaultRoute("/admissions");
-                              }}
+                              onClick={() => {}}
                             >
                               (change)
                             </div>
@@ -343,7 +347,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   <div className={"patientDetails__nested_content"}>
                     <Switch>
                       <Route exact path={`${path}`}>
-                        <Redirect to={`${url}/admissions`} />
+                        <Redirect to={`${url}/${userSection}`} />
                       </Route>
                       <Route path={`${path}/summary`}>
                         <PatientDetailsContent
