@@ -252,6 +252,23 @@ const DischargeForm: FC<DischargeProps> = ({
             </div>
           </div>
 
+          <div className="row start-sm center-xs">
+            <div className="fullWidth patientAdmissionForm__item">
+              <TextField
+                field={formik.getFieldProps("note")}
+                theme="regular"
+                label={t("admission.note")}
+                multiline={true}
+                type="text"
+                isValid={isValid("note")}
+                errorText={getErrorText("note")}
+                onBlur={formik.handleBlur}
+                rows={5}
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+
           <div className="patientAdmissionForm__buttonSet">
             <div className="submit_button">
               <Button type="submit" variant="contained" disabled={isLoading}>

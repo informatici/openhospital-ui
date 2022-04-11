@@ -58,6 +58,7 @@ const PatientDischarge: FC = () => {
         disDate: adm.disDate,
         disType: adm.disType,
         diseaseOut: adm.diseaseOut,
+        note: adm.note,
         admitted: 0,
       };
       dispatch(dischargePatient(patient?.code, dischargeToSave));
