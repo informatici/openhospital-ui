@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/openhospital-ui/static/css/main.5d468559.chunk.css",
-    "main.js": "/openhospital-ui/static/js/main.fce91b12.chunk.js",
-    "main.js.map": "/openhospital-ui/static/js/main.fce91b12.chunk.js.map",
-    "runtime-main.js": "/openhospital-ui/static/js/runtime-main.a861650c.js",
-    "runtime-main.js.map": "/openhospital-ui/static/js/runtime-main.a861650c.js.map",
-    "static/css/2.36641303.chunk.css": "/openhospital-ui/static/css/2.36641303.chunk.css",
-    "static/js/2.e0822afc.chunk.js": "/openhospital-ui/static/js/2.e0822afc.chunk.js",
-    "static/js/2.e0822afc.chunk.js.map": "/openhospital-ui/static/js/2.e0822afc.chunk.js.map",
-    "index.html": "/openhospital-ui/index.html",
-    "precache-manifest.bf6ce57a0ec95206318e2adf44b2c4e9.js": "/openhospital-ui/precache-manifest.bf6ce57a0ec95206318e2adf44b2c4e9.js",
-    "service-worker.js": "/openhospital-ui/service-worker.js",
-    "static/css/2.36641303.chunk.css.map": "/openhospital-ui/static/css/2.36641303.chunk.css.map",
-    "static/css/main.5d468559.chunk.css.map": "/openhospital-ui/static/css/main.5d468559.chunk.css.map",
-    "static/js/2.e0822afc.chunk.js.LICENSE.txt": "/openhospital-ui/static/js/2.e0822afc.chunk.js.LICENSE.txt",
-    "static/media/arrow-w.svg": "/openhospital-ui/static/media/arrow-w.193ed5ff.svg",
-    "static/media/logo-color.svg": "/openhospital-ui/static/media/logo-color.2feb9812.svg"
+    "main.css": "/oh20/static/css/main.5d468559.chunk.css",
+    "main.js": "/oh20/static/js/main.531fffd5.chunk.js",
+    "main.js.map": "/oh20/static/js/main.531fffd5.chunk.js.map",
+    "runtime-main.js": "/oh20/static/js/runtime-main.27dd184c.js",
+    "runtime-main.js.map": "/oh20/static/js/runtime-main.27dd184c.js.map",
+    "static/css/2.36641303.chunk.css": "/oh20/static/css/2.36641303.chunk.css",
+    "static/js/2.7a0acf67.chunk.js": "/oh20/static/js/2.7a0acf67.chunk.js",
+    "static/js/2.7a0acf67.chunk.js.map": "/oh20/static/js/2.7a0acf67.chunk.js.map",
+    "index.html": "/oh20/index.html",
+    "precache-manifest.111e66ff014c196b0f5b7f38a84e770b.js": "/oh20/precache-manifest.111e66ff014c196b0f5b7f38a84e770b.js",
+    "service-worker.js": "/oh20/service-worker.js",
+    "static/css/2.36641303.chunk.css.map": "/oh20/static/css/2.36641303.chunk.css.map",
+    "static/css/main.5d468559.chunk.css.map": "/oh20/static/css/main.5d468559.chunk.css.map",
+    "static/js/2.7a0acf67.chunk.js.LICENSE.txt": "/oh20/static/js/2.7a0acf67.chunk.js.LICENSE.txt",
+    "static/media/arrow-w.svg": "/oh20/static/media/arrow-w.193ed5ff.svg",
+    "static/media/logo-color.svg": "/oh20/static/media/logo-color.2feb9812.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.a861650c.js",
+    "static/js/runtime-main.27dd184c.js",
     "static/css/2.36641303.chunk.css",
-    "static/js/2.e0822afc.chunk.js",
+    "static/js/2.7a0acf67.chunk.js",
     "static/css/main.5d468559.chunk.css",
-    "static/js/main.fce91b12.chunk.js"
+    "static/js/main.531fffd5.chunk.js"
   ]
 }
