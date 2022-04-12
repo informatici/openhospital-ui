@@ -150,7 +150,7 @@
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard",
     "admission": "Admission",
-    "discharge": "Discharges",
+    "discharge": "Discharge",
     "surgicalrecord": "Surgical Record",
     "note": "Note",
     "exams": "Exams",
@@ -286,7 +286,8 @@
     "note": "Note",
     "validatelastdate":"should be greater or equal to admission date {{admDate}}",
     "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first.",
-    "patientnotadmitted": "No current admission found !"
+    "patientnotadmitted": "No current admission found !",
+    "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To resign, go to the dismission page."
   },
   "bill": {
     "title": "Welcome to Billing",

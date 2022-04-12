@@ -43,7 +43,7 @@
     "lodash.has": "^4.5.2",
     "lodash.isempty": "^4.4.0",
     "lodash.set": "^4.3.2",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "node-fetch": "^2.6.1",
     "numbro": "^2.3.5",
     "react": "^16.13.1",
