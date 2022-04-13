@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useCallback } from "react";
 import {
   SettingsApplications,
   LocalHotel,
@@ -35,6 +35,14 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
     return value === userSection ? "active" : "default";
   };
 
+  const changeUserSection = useCallback(
+    (section: IUserSection) => {
+      setUserSection(section);
+      history.replace(`${url}/${section}`);
+    },
+    [history, setUserSection]
+  );
+
   return (
     <div className="patientDetails__main_menu">
       <h6>{t("patient.usersections")}</h6>
@@ -42,8 +50,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       <div
         className={"patientDetails__main_menu__item " + isActive("admissions")}
         onClick={() => {
-          setUserSection("admissions");
-          history.replace(`${url}/admissions`);
+          changeUserSection("admissions");
         }}
       >
         <LocalHotel
@@ -61,8 +68,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           "align__element patientDetails__main_menu__item " + isActive("visits")
         }
         onClick={() => {
-          setUserSection("visits");
-          history.replace(`${url}/visits`);
+          changeUserSection("visits");
         }}
       >
         <Pageview fontSize="small" style={{ color: "white" }} />
@@ -75,8 +81,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           "align__element patientDetails__main_menu__item " + isActive("triage")
         }
         onClick={() => {
-          setUserSection("triage");
-          history.replace(`${url}/triage`);
+          changeUserSection("triage");
         }}
       >
         <ArtTrack fontSize="small" style={{ color: "white" }} />
@@ -90,8 +95,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           isActive("laboratory")
         }
         onClick={() => {
-          setUserSection("laboratory");
-          history.replace(`${url}/laboratory`);
+          changeUserSection("laboratory");
         }}
       >
         <Colorize fontSize="small" style={{ color: "white" }} />
@@ -105,8 +109,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           isActive("therapy")
         }
         onClick={() => {
-          setUserSection("therapy");
-          history.replace(`${url}/therapy`);
+          changeUserSection("therapy");
         }}
       >
         <Healing fontSize="small" style={{ color: "white" }} />
@@ -120,8 +123,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           isActive("operation")
         }
         onClick={() => {
-          setUserSection("operation");
-          history.replace(`${url}/operation`);
+          changeUserSection("operation");
         }}
       >
         <SettingsApplications fontSize="small" style={{ color: "white" }} />
@@ -135,8 +137,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           isActive("discharge")
         }
         onClick={() => {
-          setUserSection("discharge");
-          history.replace(`${url}/discharge`);
+          changeUserSection("discharge");
         }}
       >
         <ExitToApp fontSize="small" style={{ color: "white" }} />
@@ -149,8 +150,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           "align__element patientDetails__main_menu__item " + isActive("clinic")
         }
         onClick={() => {
-          setUserSection("clinic");
-          history.replace(`${url}/clinic`);
+          changeUserSection("clinic");
         }}
       >
         <LocalHospital fontSize="small" style={{ color: "white" }} />
