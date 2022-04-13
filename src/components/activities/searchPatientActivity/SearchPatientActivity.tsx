@@ -38,7 +38,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
     [t("nav.searchpatient")]: PATHS.patients_new,
   };
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
@@ -117,7 +117,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
         return <InfoBox type="warning" message={t("common.searchnotfound")} />;
 
       default:
-        return <InfoBox type="error" message={error} />;
+        return <InfoBox type="error" message={errorMessage} />;
     }
   };
 

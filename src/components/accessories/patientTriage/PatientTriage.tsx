@@ -57,7 +57,7 @@ const PatientTriage: FC = () => {
       : state.examinations.updateExamination.status;
   });
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||
@@ -143,7 +143,7 @@ const PatientTriage: FC = () => {
 
       {(status === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

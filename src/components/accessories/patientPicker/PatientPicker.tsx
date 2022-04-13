@@ -130,7 +130,7 @@ const PatientPicker: FC<IProps> = ({
     (state) => state.patients.searchResults.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
@@ -173,7 +173,7 @@ const PatientPicker: FC<IProps> = ({
         return <InfoBox type="warning" message={t("common.searchnotfound")} />;
 
       default:
-        return <InfoBox type="error" message={error} />;
+        return <InfoBox type="error" message={errorMessage} />;
     }
   };
 

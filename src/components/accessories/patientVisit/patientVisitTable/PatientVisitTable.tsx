@@ -38,7 +38,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     (state) => state.visits.getVisits.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.visits.getVisits.error?.message || t("common.somethingwrong")
   ) as string;
@@ -88,7 +88,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
 
       {visitStatus === "FAIL" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
     </div>

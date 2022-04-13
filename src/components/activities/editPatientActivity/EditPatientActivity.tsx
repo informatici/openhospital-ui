@@ -59,7 +59,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     )]: `${PATHS.patients_details}/${patient.data?.code}/edit`,
   };
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   ) as string;
@@ -139,7 +139,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div ref={infoBoxRef}>
-            {hasFailed && <InfoBox type="error" message={error} />}
+            {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
           <ConfirmationDialog
             isOpen={openConfirmationMessage}

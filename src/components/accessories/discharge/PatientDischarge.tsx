@@ -48,7 +48,7 @@ const PatientDischarge: FC = () => {
     (state) => state.admissions.dischargePatient.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) => state.admissions.dischargePatient.error?.message
   ) as string;
 
@@ -122,7 +122,7 @@ const PatientDischarge: FC = () => {
       )}
       {dischargeStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

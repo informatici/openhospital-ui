@@ -71,7 +71,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     (state) => state.examinations.examinationsByPatientId.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.examinations.examinationsByPatientId.error?.message ||
       t("common.somethingwrong")
@@ -86,7 +86,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       {(() => {
         switch (triageStatus) {
           case "FAIL":
-            return <InfoBox type="error" message={error} />;
+            return <InfoBox type="error" message={errorMessage} />;
           case "LOADING":
             return (
               <CircularProgress

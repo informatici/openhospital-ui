@@ -48,7 +48,7 @@ const PatientTherapy: FC = () => {
       : state.therapies.updateTherapy.status;
   });
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.therapies.createTherapy.error?.message ||
       state.therapies.updateTherapy.error?.message ||
@@ -144,7 +144,7 @@ const PatientTherapy: FC = () => {
       />
       {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

@@ -71,7 +71,7 @@ const PatientExams: FC = () => {
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
   );
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       labStore.createLab.error?.message ||
       labStore.updateLab.error?.message ||
@@ -150,7 +150,7 @@ const PatientExams: FC = () => {
         labStore.updateLab.status === "FAIL" ||
         labStore.deleteLab.status === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

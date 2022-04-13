@@ -127,7 +127,7 @@ const BillRecords = () => {
     (state) => state.bills.closeBill.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.bills.delete.error?.message ||
       state.bills.payBill.error?.message ||
@@ -211,7 +211,7 @@ const BillRecords = () => {
         paymentStatus === "FAIL" ||
         closeStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>

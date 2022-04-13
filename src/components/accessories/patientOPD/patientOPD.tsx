@@ -52,7 +52,7 @@ const PatientOPD: FunctionComponent = () => {
     (state) => state.opds.deleteOpd.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.opds.createOpd.error?.message ||
       state.opds.updateOpd.error?.message ||
@@ -148,7 +148,7 @@ const PatientOPD: FunctionComponent = () => {
 
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={error} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <PatientOPDTable

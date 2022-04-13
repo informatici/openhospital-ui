@@ -48,7 +48,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   ) as string;
@@ -103,7 +103,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div ref={infoBoxRef}>
-            {hasFailed && <InfoBox type="error" message={error} />}
+            {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
           <ConfirmationDialog
             isOpen={hasSucceeded}

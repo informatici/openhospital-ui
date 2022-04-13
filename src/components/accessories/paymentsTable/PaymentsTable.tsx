@@ -60,7 +60,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
     (state) => state.bills.searchPayments.status
   );
 
-  const error = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.bills.searchPayments.error?.message || t("common.somethingwrong")
   ) as string;
@@ -135,7 +135,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       {(() => {
         switch (status) {
           case "FAIL":
-            return <InfoBox type="error" message={error} />;
+            return <InfoBox type="error" message={errorMessage} />;
 
           case "LOADING":
             return (

@@ -47,7 +47,7 @@ const PatientAdmission: FC = () => {
     (state) => state.admissions.createAdmission.status
   );
 
-  const createError = useSelector<IState>(
+  const errorMessage = useSelector<IState>(
     (state) =>
       state.admissions.createAdmission.error?.message ||
       t("common.somethingwrong")
@@ -114,7 +114,7 @@ const PatientAdmission: FC = () => {
       />
       {createStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={createError} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

@@ -160,7 +160,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const error = useSelector<IState>((state) => {
+  const errorMessage = useSelector<IState>((state) => {
     return (
       (filter.status === "PENDING"
         ? state.bills.getPendingBills.error
@@ -223,7 +223,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
       {(() => {
         switch (status) {
           case "FAIL":
-            return <InfoBox type="error" message={error} />;
+            return <InfoBox type="error" message={errorMessage} />;
 
           case "LOADING":
             return (
