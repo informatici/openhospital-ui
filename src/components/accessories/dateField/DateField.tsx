@@ -45,7 +45,7 @@ const DateField: FunctionComponent<IProps> = ({
         format={format}
         id={fieldName}
         name={fieldName}
-        label={label}
+        label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
         disabled={disabled}
         disableFuture={disableFuture}
         className={actualClassName}
