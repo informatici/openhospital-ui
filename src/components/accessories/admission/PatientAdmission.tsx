@@ -45,6 +45,16 @@ const PatientAdmission: FC = () => {
     (state) => state.admissions.createAdmission.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.admissions.createAdmission.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
+  const updateStatus = useSelector<IState>(
+    (state) => state.admissions.updateAdmission.status
+  );
+
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
     adm.patient = patient;
@@ -102,7 +112,7 @@ const PatientAdmission: FC = () => {
       />
       {createStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

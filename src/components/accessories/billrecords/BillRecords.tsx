@@ -127,6 +127,14 @@ const BillRecords = () => {
     (state) => state.bills.closeBill.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.bills.delete.error?.message ||
+      state.bills.payBill.error?.message ||
+      state.bills.closeBill.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   const onDelete = (row: any) => {
     setSeletedObj(row);
     dispatch(deleteBill(row.code));
@@ -203,7 +211,7 @@ const BillRecords = () => {
         paymentStatus === "FAIL" ||
         closeStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>
