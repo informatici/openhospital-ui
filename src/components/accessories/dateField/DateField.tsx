@@ -15,6 +15,8 @@ const DateField: FunctionComponent<IProps> = ({
   disabled,
   label,
   theme,
+  onError,
+  onBlur,
   isValid,
   errorText,
   format,
@@ -45,10 +47,18 @@ const DateField: FunctionComponent<IProps> = ({
         format={format}
         id={fieldName}
         name={fieldName}
-        label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
+        label={label}
         disabled={disabled}
         disableFuture={disableFuture}
         className={actualClassName}
+        helperText={errorText}
+        error={Boolean(errorText)}
+        onBlur={onBlur}
+        onError={(error) => {
+          if (error?.toString() !== errorText && onError != null) {
+            onError(error?.toString());
+          }
+        }}
         onChange={(date) => handleDateChange(date)}
         inputVariant="outlined"
         margin="dense"

@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { isEmpty } from "lodash";
 import get from "lodash.get";
 import has from "lodash.has";
 import moment from "moment";
@@ -22,7 +23,7 @@ import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
 import { getWards } from "../../../../state/ward/actions";
-import { IState } from "../../../../types";
+import { FIELD_VALIDATION, IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -108,6 +109,8 @@ const DischargeForm: FC<DischargeProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      console.log(formik.values.disDate);
+      console.log(isEmpty(formik.values.disDate));
       const days = differenceInDays(
         new Date(admission?.admDate ?? ""),
         new Date(value)
@@ -115,6 +118,13 @@ const DischargeForm: FC<DischargeProps> = ({
       setFieldValue("bedDays", days);
     },
     [setFieldValue]
+  );
+
+  const dateFieldHandleOnError = useCallback(
+    (fieldName: string) => (value: string | undefined) => {
+      formik.setFieldError(fieldName, value ?? "");
+    },
+    [formik.setFieldError]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -181,7 +191,10 @@ const DischargeForm: FC<DischargeProps> = ({
                 errorText={getErrorText("disDate")}
                 label={t("admission.disDate")}
                 onChange={dateFieldHandleOnChange("disDate")}
+                onBlur={formik.handleBlur}
+                onError={dateFieldHandleOnError("disDate")}
                 disabled={isLoading}
+                required={FIELD_VALIDATION.REQUIRED}
               />
             </div>
             <div className="patientAdmissionForm__item">

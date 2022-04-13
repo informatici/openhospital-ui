@@ -13,6 +13,8 @@ export interface IProps {
   label: string;
   format: string;
   onChange: (value: Date | null) => void;
+  onBlur?: (event: any) => void;
+  onError?: (value: string | undefined) => void;
   onMonthChange?: (date: MaterialUiPickersDate) => void | Promise<void>;
   shouldDisableDate?: (date: MaterialUiPickersDate) => boolean;
   renderDay?: (
