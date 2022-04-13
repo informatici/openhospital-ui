@@ -9,6 +9,7 @@ import {
   Route,
   Switch,
   useHistory,
+  useLocation,
   useRouteMatch,
 } from "react-router";
 import { useParams } from "react-router-dom";
@@ -48,7 +49,6 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
-import { useUserSection } from "./useUserSection";
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -79,9 +79,13 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
-  const { location } = useHistory();
+  const location = useLocation();
+  const section =
+    location.pathname.split("/")[location.pathname.split("/").length - 1];
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useUserSection();
+  const [userSection, setUserSection] = useState<IUserSection>(
+    (isNaN(parseInt(section)) ? section : "admissions") as IUserSection
+  );
   const [defaultRoute, setDefaultRoute] = useState("/summary");
 
   const handleOnExpanded = (section: string) => {
@@ -347,7 +351,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   <div className={"patientDetails__nested_content"}>
                     <Switch>
                       <Route exact path={`${path}`}>
-                        <Redirect to={`${url}/${userSection}`} />
+                        <Redirect to={`${url}/admissions`} />
                       </Route>
                       <Route path={`${path}/summary`}>
                         <PatientDetailsContent
