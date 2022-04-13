@@ -79,7 +79,10 @@ const DischargeForm: FC<DischargeProps> = ({
           admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY"),
         }),
         test: function (value) {
-          return moment(value).isSameOrAfter(moment(admission?.admDate ?? ""));
+          return (
+            moment(value).isValid() &&
+            moment(value).isSameOrAfter(moment(admission?.admDate ?? ""))
+          );
         },
       }),
     disType: string().required(t("common.required")),
@@ -109,8 +112,6 @@ const DischargeForm: FC<DischargeProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
-      console.log(formik.values.disDate);
-      console.log(isEmpty(formik.values.disDate));
       const days = differenceInDays(
         new Date(admission?.admDate ?? ""),
         new Date(value)
@@ -118,13 +119,6 @@ const DischargeForm: FC<DischargeProps> = ({
       setFieldValue("bedDays", days);
     },
     [setFieldValue]
-  );
-
-  const dateFieldHandleOnError = useCallback(
-    (fieldName: string) => (value: string | undefined) => {
-      formik.setFieldError(fieldName, value ?? "");
-    },
-    [formik.setFieldError]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -191,10 +185,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 errorText={getErrorText("disDate")}
                 label={t("admission.disDate")}
                 onChange={dateFieldHandleOnChange("disDate")}
-                onBlur={formik.handleBlur}
-                onError={dateFieldHandleOnError("disDate")}
                 disabled={isLoading}
-                required={FIELD_VALIDATION.REQUIRED}
               />
             </div>
             <div className="patientAdmissionForm__item">
