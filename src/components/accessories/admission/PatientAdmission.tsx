@@ -14,8 +14,6 @@ import {
   createAdmission,
   createAdmissionReset,
   getCurrentAdmissionByPatientId,
-  updateAdmission,
-  updateAdmissionReset,
 } from "../../../state/admissions/actions";
 import { useFields } from "./useFields";
 import { getPatientThunk } from "../../../state/patients/actions";
