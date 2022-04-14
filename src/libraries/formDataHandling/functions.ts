@@ -2,10 +2,13 @@ import { produce } from "immer";
 import moment from "moment";
 import { IFormCustomizationProps } from "../../customization/formCustomization/type";
 import {
+  AdmissionDTO,
   DiseaseDTO,
   ExamDTO,
   LaboratoryDTO,
   OpdDTO,
+  OperationDTO,
+  OperationRowDTO,
   PatientDTO,
   PatientExaminationDTO,
   VisitDTO,
@@ -144,6 +147,36 @@ export const updateVisitFields = (
             ? (key === "patient"
                 ? (value as PatientDTO)?.code?.toString()
                 : (value as WardDTO)?.code?.toString()) ?? ""
+            : typeof value == "boolean"
+            ? value
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
+      }
+    });
+  });
+};
+
+export const updateOperationRowFields = (
+  fields: TFields,
+  values: OperationRowDTO | undefined
+) => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        const value = values![key as keyof OperationRowDTO];
+
+        if (key === "admission")
+          return (draft[key as string].value =
+            (value as AdmissionDTO)?.id?.toString() ?? "");
+
+        if (key === "transUnit") return (draft[key as string].value = value);
+
+        return (draft[key as string].value =
+          typeof value === "object"
+            ? (key === "operation"
+                ? (value as OperationDTO)?.code?.toString()
+                : (value as OpdDTO)?.code?.toString()) ?? ""
             : typeof value == "boolean"
             ? value
             : moment(value).isValid()

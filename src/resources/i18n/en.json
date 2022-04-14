@@ -163,6 +163,26 @@
     "visits": "Visits",
     "patients": "Patients"
   },
+  "operation": {
+    "operation": "Operation",
+    "opDate": "Date",
+    "opResult": "Result",
+    "remarks": "Remarks",
+    "transUnit": "Trans Unit",
+    "prescriber": "Prescriber",
+    "created": "Operation created",
+    "deleted": "Operation deleted",
+    "updated": "Operation updated",
+    "updatesuccess": "Operation updated successfully",
+    "createsuccess": "Operation created successfully",
+    "deletesuccess": "Operation deleted successfully",
+    "rowcreated": "Operation Row created",
+    "rowdeleted": "Operation Row deleted",
+    "rowupdated": "Operation Row updated",
+    "rowupdatesuccess": "Operation Row updated successfully",
+    "rowcreatesuccess": "Operation Row created successfully",
+    "rowdeletesuccess": "Operation Row deleted successfully"
+  },
   "common": {
     "ok": "OK",
     "results": "Results",
