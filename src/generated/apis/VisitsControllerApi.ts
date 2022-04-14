@@ -18,10 +18,6 @@ import {
     VisitDTO,
 } from '../models';
 
-export interface DeleteVisitUsingDELETERequest {
-    visitID: number;
-}
-
 export interface DeleteVisitsRelatedToPatientUsingDELETERequest {
     patID: number;
 }
@@ -47,25 +43,6 @@ export interface UpdateVisitUsingPUTRequest {
  * no description
  */
 export class VisitsControllerApi extends BaseAPI {
-
-    /**
-     * deleteVisit
-     */
-    deleteVisitUsingDELETE({ visitID }: DeleteVisitUsingDELETERequest): Observable<ResponseEntity>
-    deleteVisitUsingDELETE({ visitID }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteVisitUsingDELETE({ visitID }: DeleteVisitUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
-        throwIfNullOrUndefined(visitID, 'visitID', 'deleteVisitUsingDELETE');
-
-        const headers: HttpHeaders = {
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        return this.request<ResponseEntity>({
-            url: '/visit/{visitID}'.replace('{visitID}', encodeURI(visitID)),
-            method: 'DELETE',
-            headers,
-        }, opts?.responseOpts);
-    };
 
     /**
      * deleteVisitsRelatedToPatient

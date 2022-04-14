@@ -20,6 +20,8 @@ export * from './MedicalControllerApi';
 export * from './MedicalStockWardControllerApi';
 export * from './MedicalTypeControllerApi';
 export * from './OpdControllerApi';
+export * from './OperationControllerApi';
+export * from './OperationTypeControllerApi';
 export * from './PatientControllerApi';
 export * from './PermissionControllerApi';
 export * from './ReportsControllerApi';

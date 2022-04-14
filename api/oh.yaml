@@ -55,6 +55,10 @@ tags:
     description: Medical Type Controller
   - name: opd-controller
     description: Opd Controller
+  - name: operation-controller
+    description: Operation Controller
+  - name: operation-type-controller
+    description: Operation Type Controller
   - name: patient-controller
     description: Patient Controller
   - name: permission-controller
@@ -323,7 +327,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: wardcode
+        - name: wardCode
           in: query
           description: wardcode
           required: true
@@ -4277,6 +4281,467 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /operations:
+    get:
+      tags:
+        - operation-controller
+      summary: getOperations
+      operationId: getOperationsUsingGET
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/OperationDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    post:
+      tags:
+        - operation-controller
+      summary: newOperation
+      operationId: newOperationUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: operationDTO
+          description: operationDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OperationDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /operations/rows:
+    post:
+      tags:
+        - operation-controller
+      summary: newOperationRow
+      operationId: newOperationRowUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: operationRowDTO
+          description: operationRowDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OperationRowDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    put:
+      tags:
+        - operation-controller
+      summary: updateOperationRow
+      operationId: updateOperationRowUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: operationRowDTO
+          description: operationRowDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OperationRowDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /operations/rows/search/admission:
+    get:
+      tags:
+        - operation-controller
+      summary: getOperationRowsByAdmt
+      operationId: getOperationRowsByAdmtUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: admissionId
+          in: query
+          description: admissionId
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/OperationRowDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /operations/rows/search/opd:
+    post:
+      tags:
+        - operation-controller
+      summary: getOperationRowsByOpd
+      operationId: getOperationRowsByOpdUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: opdDTO
+          description: opdDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OpdDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/OperationRowDTO"
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  "/operations/rows/{code}":
+    delete:
+      tags:
+        - operation-controller
+      summary: deleteOperationRow
+      operationId: deleteOperationRowUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
+  /operations/search/type:
+    get:
+      tags:
+        - operation-controller
+      summary: getOperationByTypeDescription
+      operationId: getOperationByTypeDescriptionUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: typeDescription
+          in: query
+          description: typeDescription
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/OperationDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  "/operations/{code}":
+    get:
+      tags:
+        - operation-controller
+      summary: getOperationByCode
+      operationId: getOperationByCodeUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            "$ref": "#/definitions/OperationDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    put:
+      tags:
+        - operation-controller
+      summary: updateOperation
+      operationId: updateOperationUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: string
+        - in: body
+          name: operationDTO
+          description: operationDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OperationDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    delete:
+      tags:
+        - operation-controller
+      summary: deleteOperation
+      operationId: deleteOperationUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
+  /operationtypes:
+    get:
+      tags:
+        - operation-type-controller
+      summary: getOperationTypes
+      operationId: getOperationTypesUsingGET
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/OperationTypeDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    post:
+      tags:
+        - operation-type-controller
+      summary: newOperationType
+      operationId: newOperationTypeUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: operationTypeDTO
+          description: operationTypeDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OperationTypeDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /operationtypes/{code}:
+    put:
+      tags:
+        - operation-type-controller
+      summary: updateOperationTypet
+      operationId: updateOperationTypetUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: string
+        - in: body
+          name: operationTypeDTO
+          description: operationTypeDTO
+          required: true
+          schema:
+            "$ref": "#/definitions/OperationTypeDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    delete:
+      tags:
+        - operation-type-controller
+      summary: deleteOperationType
+      operationId: deleteOperationTypeUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
   /patients:
     get:
       tags:
@@ -6427,34 +6892,6 @@ paths:
       security:
         - JWT: []
       deprecated: false
-    delete:
-      tags:
-        - visits-controller
-      summary: deleteVisit
-      operationId: deleteVisitUsingDELETE
-      produces:
-        - application/json
-      parameters:
-        - name: visitID
-          in: path
-          description: Visit ID
-          required: true
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
-        "204":
-          description: No Content
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-      security:
-        - JWT: []
-      deprecated: false
   /visits:
     post:
       tags:
@@ -7675,6 +8112,33 @@ definitions:
       type:
         $ref: "#/definitions/OperationTypeDTO"
     title: OperationDTO
+  OperationRowDTO:
+    type: object
+    properties:
+      admission:
+        "$ref": "#/definitions/AdmissionDTO"
+      bill:
+        "$ref": "#/definitions/BillDTO"
+      id:
+        type: integer
+        format: int32
+      opDate:
+        type: string
+        example: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+      opResult:
+        type: string
+      opd:
+        "$ref": "#/definitions/OpdDTO"
+      operation:
+        "$ref": "#/definitions/OperationDTO"
+      prescriber:
+        type: string
+      remarks:
+        type: string
+      transUnit:
+        type: number
+        format: float
+    title: OperationRowDTO
   OperationTypeDTO:
     type: object
     properties:
@@ -8285,7 +8749,7 @@ definitions:
         $ref: "#/definitions/WardDTO"
       service:
         type: string
-        example:  Advanced consultation
+        example: Advanced consultation
         description: Service accomplished during the visit
       duration:
         type: integer
