@@ -52,6 +52,14 @@ const PatientOPD: FunctionComponent = () => {
     (state) => state.opds.deleteOpd.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.opds.createOpd.error?.message ||
+      state.opds.updateOpd.error?.message ||
+      state.opds.deleteOpd.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   useEffect(() => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
@@ -140,7 +148,7 @@ const PatientOPD: FunctionComponent = () => {
 
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <PatientOPDTable

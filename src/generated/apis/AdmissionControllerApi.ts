@@ -42,7 +42,7 @@ export interface GetCurrentAdmissionUsingGETRequest {
 }
 
 export interface GetNextYProgUsingGETRequest {
-    wardcode: string;
+    wardCode: string;
 }
 
 export interface GetPatientAdmissionsUsingGETRequest {
@@ -183,17 +183,17 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * getNextYProg
      */
-    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest): Observable<number>
-    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
-        throwIfNullOrUndefined(wardcode, 'wardcode', 'getNextYProgUsingGET');
+    getNextYProgUsingGET({ wardCode }: GetNextYProgUsingGETRequest): Observable<number>
+    getNextYProgUsingGET({ wardCode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getNextYProgUsingGET({ wardCode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(wardCode, 'wardCode', 'getNextYProgUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'wardcode': wardcode,
+            'wardCode': wardCode,
         };
 
         return this.request<number>({

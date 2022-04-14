@@ -71,6 +71,12 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     (state) => state.examinations.examinationsByPatientId.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.examinations.examinationsByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   const onDelete = (row: PatientExaminationDTO) => {
     handleDelete(row.pex_ID);
   };
@@ -80,9 +86,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       {(() => {
         switch (triageStatus) {
           case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
+            return <InfoBox type="error" message={errorMessage} />;
           case "LOADING":
             return (
               <CircularProgress
