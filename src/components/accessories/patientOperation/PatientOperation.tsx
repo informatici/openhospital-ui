@@ -37,14 +37,15 @@ const PatientOperation: FC = () => {
   const [creationMode, setCreationMode] = useState(true);
 
   const changeStatus = useSelector<IState, string | undefined>((state) => {
-    /*
-      Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
-      status at the same time,
-      because we use the same form for creation and modification. 
-    */
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.status
       : state.operations.updateOperationRow.status;
+  });
+
+  const errorMessage = useSelector<IState, string | undefined>((state) => {
+    return state.operations.createOperationRow.status !== "IDLE"
+      ? state.operations.createOperationRow.error?.message
+      : state.operations.updateOperationRow.error?.message;
   });
 
   const currentAdmission = useSelector(
@@ -141,7 +142,10 @@ const PatientOperation: FC = () => {
       />
       {changeStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox
+            type="error"
+            message={errorMessage ?? t("common.somethingwrong")}
+          />
         </div>
       )}
 

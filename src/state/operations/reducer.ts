@@ -16,6 +16,7 @@ import {
   GET_OPERATIONS_FAIL,
   GET_OPERATIONS_LOADING,
   GET_OPERATIONS_SUCCESS,
+  UPDATE_OPERATIONROW_FAIL,
   UPDATE_OPERATIONROW_LOADING,
   UPDATE_OPERATIONROW_RESET,
   UPDATE_OPERATIONROW_SUCCESS,
@@ -123,9 +124,9 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
       break;
     }
 
-    case CREATE_OPERATIONROW_FAIL: {
-      draft.createOperationRow.status = "FAIL";
-      draft.createOperationRow.error = action.error;
+    case UPDATE_OPERATIONROW_FAIL: {
+      draft.updateOperationRow.status = "FAIL";
+      draft.updateOperationRow.error = action.error;
       break;
     }
 

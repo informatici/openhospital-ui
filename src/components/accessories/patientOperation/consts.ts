@@ -7,7 +7,7 @@ export const initialFields: TFields<OperationRowFormFieldName> = {
     type: "number",
   },
   opDate: {
-    value: "",
+    value: new Date(Date.now()).toISOString(),
     type: "date",
   },
   opResult: {

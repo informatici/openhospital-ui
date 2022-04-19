@@ -12,7 +12,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { IState } from "../../../../types";
+import { FIELD_VALIDATION, IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -75,6 +75,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.validateField("opDate");
     },
     [setFieldValue, initialValues.opDate]
   );
@@ -152,6 +153,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
                 label={t("operation.opDate")}
                 onChange={dateFieldHandleOnChange("opDate")}
                 disabled={isLoading}
+                required={FIELD_VALIDATION.REQUIRED}
               />
             </div>
             <div className="patientOperationForm__item">

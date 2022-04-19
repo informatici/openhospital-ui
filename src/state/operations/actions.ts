@@ -39,7 +39,6 @@ export const createOperationRow =
     dispatch({
       type: CREATE_OPERATIONROW_LOADING,
     });
-    console.log(JSON.stringify(operationRowDTO));
     operationControllerApi
       .newOperationRowUsingPOST({ operationRowDTO })
       .subscribe(
@@ -64,7 +63,6 @@ export const updateOperationRow =
     dispatch({
       type: UPDATE_OPERATIONROW_LOADING,
     });
-    console.log(JSON.stringify(operationRowDTO));
     operationControllerApi
       .updateOperationRowUsingPUT({ operationRowDTO })
       .subscribe(
