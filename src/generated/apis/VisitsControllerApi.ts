@@ -14,7 +14,6 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    ResponseEntity,
     VisitDTO,
 } from '../models';
 
@@ -47,16 +46,16 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * deleteVisitsRelatedToPatient
      */
-    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest): Observable<ResponseEntity>
-    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest): Observable<boolean>
+    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteVisitsRelatedToPatientUsingDELETE({ patID }: DeleteVisitsRelatedToPatientUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(patID, 'patID', 'deleteVisitsRelatedToPatientUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'DELETE',
             headers,
@@ -106,9 +105,9 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * newVisits
      */
-    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest): Observable<ResponseEntity>
-    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest): Observable<boolean>
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(newVisits, 'newVisits', 'newVisitsUsingPOST');
 
         const headers: HttpHeaders = {
@@ -116,7 +115,7 @@ export class VisitsControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/visits',
             method: 'POST',
             headers,

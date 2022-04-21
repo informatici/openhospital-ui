@@ -61,7 +61,9 @@ const PatientDischarge: FC = () => {
         imageryCharge: adm.imageryCharge,
         disDate: adm.disDate,
         disType: adm.disType,
-        diseaseOut: adm.diseaseOut,
+        diseaseOut1: adm.diseaseOut1,
+        diseaseOut2: adm.diseaseOut2,
+        diseaseOut3: adm.diseaseOut3,
         note: adm.note,
         admitted: 0,
       };
