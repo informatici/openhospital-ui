@@ -6,7 +6,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { OperationRowTransitionState } from "./types";
-import { AdmissionDTO, OperationRowDTO } from "../../../generated";
+import { OperationRowDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
