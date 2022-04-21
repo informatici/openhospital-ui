@@ -5,8 +5,7 @@ import InfoBox from "../../infoBox/InfoBox";
 import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
-import { AdmissionDTO, OperationRowDTO } from "../../../../generated";
-import { getAdmissionsByPatientId } from "../../../../state/admissions/actions";
+import { OperationRowDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getOperationsByAdmissionId } from "../../../../state/operations/actions";
 
