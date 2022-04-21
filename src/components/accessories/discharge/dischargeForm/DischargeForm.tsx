@@ -12,18 +12,15 @@ import {
   AdmissionTypeDTO,
   DiseaseDTO,
   DiseaseTypeDTO,
-  WardDTO,
 } from "../../../../generated";
 import {
   differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
-import { getWards } from "../../../../state/ward/actions";
-import { FIELD_VALIDATION, IState } from "../../../../types";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
