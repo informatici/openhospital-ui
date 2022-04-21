@@ -4459,17 +4459,17 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/OperationRowDTO"
-<<<<<<< HEAD
         "201":
           description: Created
         "401":
+          description: Unauthorized
         "403":
           description: Forbidden
         "404":
-=======
-        '201':
-          description: Created
-        '401':
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
   "/operations/rows/{code}":
     delete:
       tags:
@@ -4486,7 +4486,6 @@ paths:
           type: integer
           format: int32
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4496,17 +4495,6 @@ paths:
         "401":
           description: Unauthorized
         "403":
-=======
-        '200':
-          description: OK
-          schema:
-            type: boolean
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Forbidden
       security:
         - JWT: []
@@ -4526,29 +4514,17 @@ paths:
           required: true
           type: string
       responses:
-<<<<<<< HEAD
         "200":
-=======
-        '200':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: OK
           schema:
             type: array
             items:
               "$ref": "#/definitions/OperationDTO"
-<<<<<<< HEAD
         "401":
           description: Unauthorized
         "403":
           description: Forbidden
         "404":
-=======
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Not Found
       security:
         - JWT: []
@@ -4568,7 +4544,6 @@ paths:
           required: true
           type: string
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4578,17 +4553,6 @@ paths:
         "403":
           description: Forbidden
         "404":
-=======
-        '200':
-          description: OK
-          schema:
-            "$ref": "#/definitions/OperationDTO"
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Not Found
       security:
         - JWT: []
@@ -4615,7 +4579,6 @@ paths:
           schema:
             "$ref": "#/definitions/OperationDTO"
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4627,19 +4590,6 @@ paths:
         "403":
           description: Forbidden
         "404":
-=======
-        '200':
-          description: OK
-          schema:
-            type: string
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Not Found
       security:
         - JWT: []
@@ -4658,7 +4608,6 @@ paths:
           required: true
           type: string
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4668,17 +4617,6 @@ paths:
         "401":
           description: Unauthorized
         "403":
-=======
-        '200':
-          description: OK
-          schema:
-            type: boolean
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Forbidden
       security:
         - JWT: []
@@ -4692,29 +4630,17 @@ paths:
       produces:
         - application/json
       responses:
-<<<<<<< HEAD
         "200":
-=======
-        '200':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: OK
           schema:
             type: array
             items:
               "$ref": "#/definitions/OperationTypeDTO"
-<<<<<<< HEAD
         "401":
           description: Unauthorized
         "403":
           description: Forbidden
         "404":
-=======
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Not Found
       security:
         - JWT: []
@@ -4736,7 +4662,6 @@ paths:
           schema:
             "$ref": "#/definitions/OperationTypeDTO"
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4748,19 +4673,6 @@ paths:
         "403":
           description: Forbidden
         "404":
-=======
-        '200':
-          description: OK
-          schema:
-            type: string
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Not Found
       security:
         - JWT: []
@@ -4788,7 +4700,6 @@ paths:
           schema:
             "$ref": "#/definitions/OperationTypeDTO"
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4800,19 +4711,6 @@ paths:
         "403":
           description: Forbidden
         "404":
-=======
-        '200':
-          description: OK
-          schema:
-            type: string
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Not Found
       security:
         - JWT: []
@@ -4831,7 +4729,6 @@ paths:
           required: true
           type: string
       responses:
-<<<<<<< HEAD
         "200":
           description: OK
           schema:
@@ -4841,17 +4738,6 @@ paths:
         "401":
           description: Unauthorized
         "403":
-=======
-        '200':
-          description: OK
-          schema:
-            type: boolean
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
->>>>>>> c6b76e1... feat(OP-799): Add operation and operation-type controllers in oh.yaml
           description: Forbidden
       security:
         - JWT: []
