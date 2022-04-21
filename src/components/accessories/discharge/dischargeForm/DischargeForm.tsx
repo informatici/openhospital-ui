@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { isEmpty } from "lodash";
 import get from "lodash.get";
 import has from "lodash.has";
 import moment from "moment";
@@ -22,7 +23,7 @@ import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
 import { getWards } from "../../../../state/ward/actions";
-import { IState } from "../../../../types";
+import { FIELD_VALIDATION, IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -78,7 +79,10 @@ const DischargeForm: FC<DischargeProps> = ({
           admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY"),
         }),
         test: function (value) {
-          return moment(value).isSameOrAfter(moment(admission?.admDate ?? ""));
+          return (
+            moment(value).isValid() &&
+            moment(value).isSameOrAfter(moment(admission?.admDate ?? ""))
+          );
         },
       }),
     disType: string().required(t("common.required")),
