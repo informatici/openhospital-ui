@@ -9,7 +9,7 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
   },
   transUnit: {
     value: "10",
-    type: "text",
+    type: "number",
   },
   admDate: {
     value: "",

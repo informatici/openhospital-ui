@@ -6,10 +6,6 @@ export const initialFields: TFields<TPatientOPDFormFieldName> = {
     value: "",
     type: "date",
   },
-  complaint: {
-    value: "",
-    type: "text",
-  },
   disease: {
     value: "",
     type: "text",

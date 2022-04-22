@@ -200,7 +200,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("transUnit")}
                 errorText={getErrorText("transUnit")}
                 onBlur={formik.handleBlur}
-                type="text"
+                type="number"
                 disabled={isLoading}
               />
             </div>

@@ -30,6 +30,7 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
+import { DiseaseDTO, OpdDTO } from "../../../../generated";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -69,13 +70,29 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
+  const diseases = useSelector<IState, DiseaseDTO[]>(
+    (state: IState) => state.diseases.diseasesOpd.data ?? []
+  );
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      const opdToSave: OpdDTO = {
+        ...formattedValues,
+        disease: diseases.find(
+          (e) => e.code?.toString() === formattedValues.disease
+        ),
+        disease2: diseases.find(
+          (e) => e.code?.toString() === formattedValues.disease2
+        ),
+        disease3: diseases.find(
+          (e) => e.code?.toString() === formattedValues.disease3
+        ),
+      };
+      onSubmit(opdToSave);
     },
   });
 
@@ -203,21 +220,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("referralTo")}
                 onBlur={formik.handleBlur}
                 type="string"
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
-              <TextField
-                field={formik.getFieldProps("complaint")}
-                multiline={true}
-                theme="regular"
-                label={t("opd.complaint")}
-                isValid={isValid("complaint")}
-                errorText={getErrorText("complaint")}
-                onBlur={formik.handleBlur}
-                type="string"
-                disabled={isLoading}
               />
             </div>
           </div>
