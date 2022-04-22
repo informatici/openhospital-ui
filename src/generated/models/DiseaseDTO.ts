@@ -22,10 +22,11 @@ import {
  */
 export interface DiseaseDTO {
     /**
-     * @type {number}
+     * Disease code
+     * @type {string}
      * @memberof DiseaseDTO
      */
-    code?: number;
+    code?: string;
     /**
      * Disease description
      * @type {string}

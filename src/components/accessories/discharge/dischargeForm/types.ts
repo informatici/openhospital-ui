@@ -18,7 +18,9 @@ export type DischargeFormFieldName =
   | "disDate"
   | "disType"
   | "bedDays"
-  | "diseaseOut"
+  | "diseaseOut1"
+  | "diseaseOut2"
+  | "diseaseOut3"
   | "cliDiaryCharge"
   | "imageryCharge"
   | "note";

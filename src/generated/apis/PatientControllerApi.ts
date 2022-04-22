@@ -15,10 +15,13 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     PatientDTO,
-    ResponseEntity,
 } from '../models';
 
 export interface DeletePatientUsingDELETERequest {
+    code: number;
+}
+
+export interface GetPatientAllUsingGETRequest {
     code: number;
 }
 
@@ -29,6 +32,11 @@ export interface GetPatientUsingGETRequest {
 export interface GetPatientsUsingGETRequest {
     page?: number;
     size?: number;
+}
+
+export interface MergePatientsUsingGETRequest {
+    code2: number;
+    mergedcode: number;
 }
 
 export interface NewPatientUsingPOSTRequest {
@@ -55,18 +63,59 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * deletePatient
      */
-    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest): Observable<ResponseEntity>
-    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest): Observable<boolean>
+    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deletePatientUsingDELETE({ code }: DeletePatientUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deletePatientUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/patients/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getPatientAll
+     */
+    getPatientAllUsingGET({ code }: GetPatientAllUsingGETRequest): Observable<PatientDTO>
+    getPatientAllUsingGET({ code }: GetPatientAllUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientDTO>>
+    getPatientAllUsingGET({ code }: GetPatientAllUsingGETRequest, opts?: OperationOpts): Observable<PatientDTO | RawAjaxResponse<PatientDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'getPatientAllUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'code': code,
+        };
+
+        return this.request<PatientDTO>({
+            url: '/patients/all',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getPatientNextCode
+     */
+    getPatientNextCodeUsingGET(): Observable<number>
+    getPatientNextCodeUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getPatientNextCodeUsingGET(opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<number>({
+            url: '/patients/nextcode',
+            method: 'GET',
             headers,
         }, opts?.responseOpts);
     };
@@ -108,6 +157,32 @@ export class PatientControllerApi extends BaseAPI {
 
         return this.request<Array<PatientDTO>>({
             url: '/patients',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * mergePatients
+     */
+    mergePatientsUsingGET({ code2, mergedcode }: MergePatientsUsingGETRequest): Observable<boolean>
+    mergePatientsUsingGET({ code2, mergedcode }: MergePatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    mergePatientsUsingGET({ code2, mergedcode }: MergePatientsUsingGETRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code2, 'code2', 'mergePatientsUsingGET');
+        throwIfNullOrUndefined(mergedcode, 'mergedcode', 'mergePatientsUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'code2': code2,
+            'mergedcode': mergedcode,
+        };
+
+        return this.request<boolean>({
+            url: '/patients/merge',
             method: 'GET',
             headers,
             query,
