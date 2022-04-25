@@ -28,7 +28,7 @@ import prices from "./state/prices/reducer";
 import visits from "./state/visits/reducer";
 
 if (process.env.NODE_ENV === "development") {
-  //makeServer();
+  makeServer();
 }
 
 const reducer = combineReducers<IState>({
