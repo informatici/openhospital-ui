@@ -102,16 +102,11 @@ export const getVisits =
   };
 
 export const updateVisit =
-  (
-    visitID: number,
-    visitValues: Record<string, any>,
-    wards: WardDTO[] | undefined
-  ) =>
+  (visitID: number, updateVisit: VisitDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_VISIT_LOADING,
     });
-    const updateVisit = visitDataFormatter(visitValues, wards);
     visitsControllerApi.updateVisitUsingPUT({ visitID, updateVisit }).subscribe(
       () => {
         dispatch({

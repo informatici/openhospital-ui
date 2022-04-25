@@ -104,10 +104,10 @@ const PatientOPD: FunctionComponent = () => {
     opdValuestoSave.age = patient?.age;
     opdValuestoSave.sex = patient?.sex;
     opdValuestoSave.userID = userId;
-    console.log(JSON.stringify(opdValuestoSave));
+    opdValuestoSave = { ...opdToEdit, ...opdValuestoSave };
     if (!creationMode && opdToEdit.code) {
       dispatch(updateOpd(opdToEdit.code, opdValuestoSave));
-    } else dispatch(createOpd(opdValuestoSave));
+    } else dispatch(createOpd({ ...opdValuestoSave, code: 0 }));
   };
 
   const resetFormCallback = () => {

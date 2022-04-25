@@ -90,12 +90,13 @@ const PatientVisit: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (visitValuestoSave: VisitDTO) => {
+  const onSubmit = (visitValuesToSave: VisitDTO) => {
     setShouldResetForm(false);
-    visitValuestoSave.patient = patient;
+    visitValuesToSave = { ...visitToEdit, ...visitValuesToSave };
+    visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
-      dispatch(updateVisit(visitToEdit.visitID, visitValuestoSave, wardsData));
-    } else dispatch(createVisit(visitValuestoSave, wardsData));
+      dispatch(updateVisit(visitToEdit.visitID, visitValuesToSave));
+    } else dispatch(createVisit(visitValuesToSave, wardsData));
   };
 
   const resetFormCallback = () => {

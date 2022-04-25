@@ -44,7 +44,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const validationSchema = object({
-    date: string().required(t("common.required")),
+    visitDate: string().required(t("common.required")),
     disease: string().required(t("common.required")),
     disease2: string().test({
       name: "disease2",
@@ -82,6 +82,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       const formattedValues = formatAllFieldValues(fields, values);
       const opdToSave: OpdDTO = {
         ...formattedValues,
+        date: formattedValues.visitDate,
         disease: diseases.find(
           (e) => e.code?.toString() === formattedValues.disease
         ),
@@ -188,15 +189,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">
               <DateField
-                fieldName="date"
-                fieldValue={formik.values.date}
+                fieldName="visitDate"
+                fieldValue={formik.values.visitDate}
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("visitDate")}
+                errorText={getErrorText("visitDate")}
                 label={t("opd.dateopd")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("visitDate")}
                 disabled={isLoading}
               />
             </div>

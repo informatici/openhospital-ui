@@ -2,7 +2,7 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientOPDFormFieldName } from "./patientOPDForm/types";
 
 export const initialFields: TFields<TPatientOPDFormFieldName> = {
-  date: {
+  visitDate: {
     value: "",
     type: "date",
   },

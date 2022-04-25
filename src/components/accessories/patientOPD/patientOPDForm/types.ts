@@ -7,7 +7,7 @@ interface IOwnProps {
 export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
 
 export type TPatientOPDFormFieldName =
-  | "date"
+  | "visitDate"
   | "disease"
   | "disease2"
   | "disease3"
