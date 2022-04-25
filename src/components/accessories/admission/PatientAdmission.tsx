@@ -61,6 +61,9 @@ const PatientAdmission: FC = () => {
     adm.userID = username;
     adm.abortDate = adm.admDate;
     adm.admitted = 1;
+    adm.deleted = "N";
+    adm.type = adm.admType?.code;
+    adm.id = 0;
     dispatch(createAdmission(adm));
   };
 
