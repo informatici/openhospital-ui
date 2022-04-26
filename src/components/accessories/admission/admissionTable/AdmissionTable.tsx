@@ -77,10 +77,10 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       {(() => {
         switch (status) {
           case "FAIL":
-            return createAdmissionStatus !== "FAIL" ? (
-              <InfoBox type="error" message={errorMessage} />
-            ) : (
-              <></>
+            return (
+              createAdmissionStatus !== "FAIL" && (
+                <InfoBox type="error" message={errorMessage} />
+              )
             );
           case "LOADING":
             return (
