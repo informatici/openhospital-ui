@@ -49,7 +49,9 @@ const PatientDischarge: FC = () => {
   );
 
   const errorMessage = useSelector<IState>(
-    (state) => state.admissions.dischargePatient.error?.message
+    (state) =>
+      state.admissions.dischargePatient.error?.message ||
+      state.admissions.currentAdmissionByPatientId.error?.message
   ) as string;
 
   const onSubmit = (adm: AdmissionDTO) => {
@@ -72,7 +74,7 @@ const PatientDischarge: FC = () => {
   };
 
   useEffect(() => {
-    if (dischargeStatus === "FAIL") {
+    if (dischargeStatus === "FAIL" || currentAdmissionStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
@@ -123,7 +125,7 @@ const PatientDischarge: FC = () => {
           <InfoBox type="warning" message={t("admission.patientnotadmitted")} />
         </div>
       )}
-      {dischargeStatus === "FAIL" && (
+      {(dischargeStatus === "FAIL" || currentAdmissionStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />
         </div>
