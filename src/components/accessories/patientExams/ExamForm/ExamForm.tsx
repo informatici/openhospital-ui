@@ -45,7 +45,7 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string().required(t("common.required")),
+    examDate: string().required(t("common.required")),
     exam: string().required(t("common.required")),
     material: string().required(t("common.required")),
     result:
