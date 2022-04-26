@@ -12,6 +12,7 @@
  */
 
 /**
+ * Class representing a pregnant treatment type
  * @export
  * @interface PregnantTreatmentTypeDTO
  */
@@ -22,6 +23,7 @@ export interface PregnantTreatmentTypeDTO {
      */
     code?: string;
     /**
+     * the description
      * @type {string}
      * @memberof PregnantTreatmentTypeDTO
      */

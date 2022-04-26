@@ -88,7 +88,7 @@ const PatientExams: FC = () => {
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
     lab.date = parseDate(lab.date ?? "");
-    lab.examDate = parseDate(lab.date ?? "");
+    lab.date = parseDate(lab.date ?? "");
     lab.inOutPatient = "R";
     if (labToEdit.code) lab.code = labToEdit.code;
     const labWithRowsDTO = {

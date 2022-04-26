@@ -28,11 +28,13 @@ export interface FullBillDTO {
      */
     billDTO?: BillDTO;
     /**
+     * list of bill items elements
      * @type {Array<BillItemsDTO>}
      * @memberof FullBillDTO
      */
     billItemsDTO?: Array<BillItemsDTO>;
     /**
+     * list of bill payments elements
      * @type {Array<BillPaymentsDTO>}
      * @memberof FullBillDTO
      */

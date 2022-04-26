@@ -21,11 +21,6 @@ export interface BillItemsDTO {
      * @type {number}
      * @memberof BillItemsDTO
      */
-    hashCode?: number;
-    /**
-     * @type {number}
-     * @memberof BillItemsDTO
-     */
     id?: number;
     /**
      * @type {boolean}

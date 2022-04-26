@@ -23,8 +23,12 @@ apis\MedicalTypeControllerApi.ts
 apis\OpdControllerApi.ts
 apis\OperationControllerApi.ts
 apis\OperationTypeControllerApi.ts
+apis\PatVacControllerApi.ts
 apis\PatientControllerApi.ts
 apis\PermissionControllerApi.ts
+apis\PregnantTreatmentTypeControllerApi.ts
+apis\PriceListControllerApi.ts
+apis\PricesOthersControllerApi.ts
 apis\ReportsControllerApi.ts
 apis\SmsControllerApi.ts
 apis\StockMovementControllerApi.ts
@@ -76,8 +80,13 @@ models\OperationRowDTO.ts
 models\OperationTypeDTO.ts
 models\PatientDTO.ts
 models\PatientExaminationDTO.ts
+models\PatientVaccineDTO.ts
 models\PermissionDTO.ts
 models\PregnantTreatmentTypeDTO.ts
+models\PriceDTO.ts
+models\PriceList.ts
+models\PriceListDTO.ts
+models\PricesOthersDTO.ts
 models\ResponseEntity.ts
 models\SmsDTO.ts
 models\SupplierDTO.ts
@@ -91,6 +100,7 @@ models\UserProfileDTO.ts
 models\VaccineDTO.ts
 models\VaccineTypeDTO.ts
 models\VisitDTO.ts
+models\Ward.ts
 models\WardDTO.ts
 models\index.ts
 runtime.ts

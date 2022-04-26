@@ -79,7 +79,7 @@ export class WardControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/wards/check-or-create/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
+            url: '/wards/check/maternity/{createIfNotExist}'.replace('{createIfNotExist}', encodeURI(createIfNotExist)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);

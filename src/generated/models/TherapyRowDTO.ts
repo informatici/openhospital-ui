@@ -62,13 +62,13 @@ export interface TherapyRowDTO {
      */
     unitID?: number;
     /**
-     * The frequence in day
+     * The frequency in day
      * @type {number}
      * @memberof TherapyRowDTO
      */
     freqInDay?: number;
     /**
-     * The frequence in period
+     * The frequency in period
      * @type {number}
      * @memberof TherapyRowDTO
      */
