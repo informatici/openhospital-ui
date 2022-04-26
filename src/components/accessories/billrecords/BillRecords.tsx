@@ -88,17 +88,17 @@ const BillRecords = () => {
   const formatDataToDisplay = (data: FullBillDTO[]) => {
     return data.map((item) => {
       return {
-        billDTO: item.billDTO,
-        code: item.billDTO?.id,
-        date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
-        amount: currencyFormat(item.billDTO?.amount),
-        balance: currencyFormat(item.billDTO?.balance),
+        billDTO: item.bill,
+        code: item.bill?.id,
+        date: item.bill?.date ? renderDate(item.bill.date) : "",
+        amount: currencyFormat(item.bill?.amount),
+        balance: currencyFormat(item.bill?.balance),
       };
     });
   };
 
   const getCoreRowPending = (row: any) => {
-    const val = pendingBills?.find((item) => item.billDTO?.id === row.code);
+    const val = pendingBills?.find((item) => item.bill?.id === row.code);
     return {
       fullBill: val,
     };
@@ -110,7 +110,7 @@ const BillRecords = () => {
 
   const getCoreRowClosed = (row: any) => {
     return {
-      fullBill: closedBills?.find((item) => item.billDTO === row.billDTO),
+      fullBill: closedBills?.find((item) => item.bill === row.billDTO),
     };
   };
 
@@ -165,7 +165,7 @@ const BillRecords = () => {
   const onPrint = (row: any) => {
     let bill =
       [...pendingBills, ...closedBills].find(
-        (item) => item.billDTO?.id === row.code
+        (item) => item.bill?.id === row.code
       ) ?? {};
 
     const content = (

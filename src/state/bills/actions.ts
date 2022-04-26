@@ -255,14 +255,14 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
   const fbills = forkJoin(
     bills.map((fbill: FullBillDTO) => {
       const obs = billControllerApi.getItemsUsingGET({
-        billId: fbill?.billDTO?.id ? fbill.billDTO.id : 0,
+        billId: fbill?.bill?.id ? fbill.bill.id : 0,
       });
       return obs.pipe(
         map((items) => {
           return {
-            billDTO: fbill.billDTO,
+            billDTO: fbill.bill,
             billItemsDTO: items,
-            billPaymentsDTO: fbill.billPaymentsDTO,
+            billPaymentsDTO: fbill.billPayments,
           } as FullBillDTO;
         }),
         catchError((error) => of({ ...fbill }))
@@ -362,7 +362,7 @@ export const payBill =
       billControllerApi
         .updateBillUsingPUT({
           id: payment.billId,
-          odBillDto: { billPaymentsDTO: [payment] },
+          odBillDto: { billPayments: [payment] },
         })
         .subscribe(
           (payload) => {
@@ -396,7 +396,7 @@ export const closeBill =
       type: CLOSE_BILL_LOADING,
     });
     billControllerApi
-      .updateBillUsingPUT({ id: id, odBillDto: { billDTO: bill } })
+      .updateBillUsingPUT({ id: id, odBillDto: { bill: bill } })
       .subscribe(
         (payload) => {
           dispatch({

@@ -18,17 +18,11 @@
  */
 export interface PatientDTO {
   /**
-   * Patient type code
+   * code of the Patient
    * @type {number}
    * @memberof PatientDTO
    */
   code?: number;
-  /**
-   * Inpatient or Outpatient
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  status?: PatientDTOStatusEnum;
   /**
    * First name of the patient
    * @type {string}
@@ -138,21 +132,31 @@ export interface PatientDTO {
    */
   taxCode?: string;
   /**
+   * Height
+   * @type {number}
+   * @memberof PatientDTO
+   */
+  height?: number;
+  /**
+   * Weight
+   * @type {number}
+   * @memberof PatientDTO
+   */
+  weight?: number;
+  /**
    * BlobPhoto
    * @type {string}
    * @memberof PatientDTO
    */
   blobPhoto?: string;
+  /**
+   * status
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  status?: PatientDTOStatusEnum;
 }
 
-/**
- * @export
- * @enum {string}
- */
-export enum PatientDTOStatusEnum {
-  I = "I",
-  O = "O",
-}
 /**
  * @export
  * @enum {string}
@@ -181,8 +185,7 @@ export enum PatientDTOFatherEnum {
  * @export
  * @enum {string}
  */
-/*
-export enum PatientDTOBloodTypeEnum {
+/*export enum PatientDTOBloodTypeEnum {
     _0 = '0-',
     _0 = '0+',
     A = 'A-',
@@ -191,8 +194,7 @@ export enum PatientDTOBloodTypeEnum {
     B = 'B+',
     AB = 'AB-',
     AB = 'AB+'
-}
-*/
+}*/
 /**
  * @export
  * @enum {string}
@@ -208,4 +210,12 @@ export enum PatientDTOHasInsuranceEnum {
 export enum PatientDTOParentTogetherEnum {
   Y = "Y",
   N = "N",
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum PatientDTOStatusEnum {
+  I = "I",
+  O = "O",
 }

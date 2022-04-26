@@ -39,18 +39,6 @@ export interface AdmissionDTO {
      */
     ctrlDate1?: string;
     /**
-     * Clinical diary charge
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    cliDiaryCharge?: string;
-    /**
-     * Imagery charge
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    imageryCharge?: string;
-    /**
      * @type {string}
      * @memberof AdmissionDTO
      */

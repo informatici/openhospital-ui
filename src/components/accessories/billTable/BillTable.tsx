@@ -180,7 +180,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     setOpen(false);
   };
   const handleView = (row: any) => {
-    const bill = data.find((item) => item.billDTO?.id === row.id) ?? {};
+    const bill = data.find((item) => item.bill?.id === row.id) ?? {};
     setFullBill(bill);
     handleOpen();
   };

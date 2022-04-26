@@ -29,14 +29,6 @@ export const initialFields: TFields<DischargeFormFieldName> = {
     type: "text",
     options: [],
   },
-  cliDiaryCharge: {
-    value: "",
-    type: "text",
-  },
-  imageryCharge: {
-    value: "",
-    type: "text",
-  },
   note: {
     value: "",
     type: "text",

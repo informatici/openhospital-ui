@@ -48,7 +48,7 @@ export interface LaboratoryDTO {
      * @type {string}
      * @memberof LaboratoryDTO
      */
-    date?: string;
+    examDate?: string;
     /**
      * Laboratory Result
      * @type {string}

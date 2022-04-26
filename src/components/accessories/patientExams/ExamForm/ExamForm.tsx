@@ -216,15 +216,15 @@ const ExamForm: FC<ExamProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">
               <DateField
-                fieldName="date"
-                fieldValue={formik.values.date}
+                fieldName="examDate"
+                fieldValue={formik.values.examDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("examDate")}
+                errorText={getErrorText("examDate")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("examDate")}
                 disabled={isLoading}
               />
             </div>

@@ -281,32 +281,6 @@ const DischargeForm: FC<DischargeProps> = ({
               />
             </div>
           </div>
-          <div className="row start-sm center-xs">
-            <div className="patientAdmissionForm__item">
-              <TextField
-                field={formik.getFieldProps("cliDiaryCharge")}
-                theme="regular"
-                label={t("admission.cliDiaryCharge")}
-                isValid={isValid("cliDiaryCharge")}
-                errorText={getErrorText("cliDiaryCharge")}
-                onBlur={formik.handleBlur}
-                type="text"
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientAdmissionForm__item">
-              <TextField
-                field={formik.getFieldProps("imageryCharge")}
-                theme="regular"
-                label={t("admission.imageryCharge")}
-                isValid={isValid("imageryCharge")}
-                errorText={getErrorText("imageryCharge")}
-                onBlur={formik.handleBlur}
-                type="text"
-                disabled={isLoading}
-              />
-            </div>
-          </div>
 
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">

@@ -58,7 +58,6 @@ models\ExamDTO.ts
 models\ExamRowDTO.ts
 models\ExamTypeDTO.ts
 models\FullBillDTO.ts
-models\GregorianCalendar.ts
 models\HospitalDTO.ts
 models\LabWithRowsDTO.ts
 models\LaboratoryDTO.ts
@@ -92,7 +91,6 @@ models\SmsDTO.ts
 models\SupplierDTO.ts
 models\TherapyDTO.ts
 models\TherapyRowDTO.ts
-models\TimeZone.ts
 models\UserDTO.ts
 models\UserGroupDTO.ts
 models\UserMenuItemDTO.ts

@@ -59,8 +59,6 @@ const PatientDischarge: FC = () => {
     if (currentAdmission) {
       const dischargeToSave: AdmissionDTO = {
         ...currentAdmission,
-        cliDiaryCharge: adm.cliDiaryCharge,
-        imageryCharge: adm.imageryCharge,
         disDate: adm.disDate,
         disType: adm.disType,
         diseaseOut1: adm.diseaseOut1,
