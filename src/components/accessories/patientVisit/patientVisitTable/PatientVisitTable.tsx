@@ -56,6 +56,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
       visitID: item.visitID ?? "",
       duration: item.duration ?? "",
       date: item.date ? renderDate(item.date) : "",
+      service: item.service ?? "",
       ward: item.ward?.description ?? "",
     }));
   };

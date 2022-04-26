@@ -21,6 +21,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
+import { opdDataFormatter } from "../../../libraries/formatUtils/dataFormatting";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -103,9 +104,10 @@ const PatientOPD: FunctionComponent = () => {
     opdValuestoSave.age = patient?.age;
     opdValuestoSave.sex = patient?.sex;
     opdValuestoSave.userID = userId;
+    opdValuestoSave = { ...opdToEdit, ...opdValuestoSave };
     if (!creationMode && opdToEdit.code) {
-      dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
-    } else dispatch(createOpd(opdValuestoSave, diseasesData));
+      dispatch(updateOpd(opdToEdit.code, opdValuestoSave));
+    } else dispatch(createOpd({ ...opdValuestoSave, code: 0 }));
   };
 
   const resetFormCallback = () => {

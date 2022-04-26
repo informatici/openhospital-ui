@@ -31,12 +31,12 @@ const PatientAdmission: FC = () => {
   const currentAdmission = useSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
+
   const fields = useFields(currentAdmission);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.displayName
   );
@@ -61,6 +61,9 @@ const PatientAdmission: FC = () => {
     adm.userID = username;
     adm.abortDate = adm.admDate;
     adm.admitted = 1;
+    adm.deleted = "N";
+    adm.type = adm.admType?.code;
+    adm.id = 0;
     dispatch(createAdmission(adm));
   };
 
@@ -68,9 +71,6 @@ const PatientAdmission: FC = () => {
     if (createStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
-    }
-    if (createStatus === "SUCCESS") {
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
     }
   }, [createStatus]);
 
@@ -81,6 +81,7 @@ const PatientAdmission: FC = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
       dispatch(createAdmissionReset());
       setShouldUpdateTable(true);
       setShouldResetForm(true);

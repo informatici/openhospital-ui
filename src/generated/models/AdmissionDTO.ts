@@ -39,6 +39,18 @@ export interface AdmissionDTO {
      */
     ctrlDate1?: string;
     /**
+     * Clinical diary charge
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    cliDiaryCharge?: string;
+    /**
+     * Imagery charge
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    imageryCharge?: string;
+    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -48,6 +60,11 @@ export interface AdmissionDTO {
      * @memberof AdmissionDTO
      */
     fhu?: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
     /**
      * admission key
      * @type {number}
@@ -71,12 +88,6 @@ export interface AdmissionDTO {
      * @memberof AdmissionDTO
      */
     ward?: WardDTO;
-    /**
-     * a progr. in year for each ward
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yProg?: number;
     /**
      * @type {PatientDTO}
      * @memberof AdmissionDTO
@@ -102,7 +113,17 @@ export interface AdmissionDTO {
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
-    diseaseOut?: DiseaseDTO;
+    diseaseOut1?: DiseaseDTO;
+    /**
+     * @type {DiseaseDTO}
+     * @memberof AdmissionDTO
+     */
+    diseaseOut2?: DiseaseDTO;
+    /**
+     * @type {DiseaseDTO}
+     * @memberof AdmissionDTO
+     */
+    diseaseOut3?: DiseaseDTO;
     /**
      * @type {OperationDTO}
      * @memberof AdmissionDTO
@@ -138,25 +159,13 @@ export interface AdmissionDTO {
      */
     note?: string;
     /**
-     * Clinical diary charge
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    cliDiaryCharge?: string;
-    /**
-     * Imagery charge
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    imageryCharge?: string;
-    /**
      * transfusional unit
      * @type {number}
      * @memberof AdmissionDTO
      */
     transUnit?: number;
     /**
-     * visite date
+     * visit date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -194,12 +203,6 @@ export interface AdmissionDTO {
      * @memberof AdmissionDTO
      */
     userID?: string;
-    /**
-     * lock
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    lock?: number;
     /**
      * flag record deleted, values are \'Y\' OR \'N\' 
      * @type {string}

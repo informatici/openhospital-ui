@@ -9,14 +9,14 @@ export const opdDataFormatter = (
   /**
    * get entire disease object from code
    */
-  data.disease = diseases?.find((el) => el.code === +data.disease);
+  data.disease = diseases?.find((el) => el.code === data.disease);
   data.disease2 =
     diseases &&
     data.disease2 !== "" &&
-    diseases?.find((el) => el.code === +data.disease2);
+    diseases?.find((el) => el.code === data.disease2);
   data.disease3 =
     diseases && data.disease3 !== ""
-      ? diseases.find((el) => el.code === +data.disease3)
+      ? diseases.find((el) => el.code === data.disease3)
       : null;
   data.date = parseDate(data.date);
   data.visitDate = data.date;

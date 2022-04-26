@@ -37,11 +37,6 @@ export interface BillDTO {
      */
     listId?: number;
     /**
-     * @type {boolean}
-     * @memberof BillDTO
-     */
-    patient?: boolean;
-    /**
      * @type {PatientDTO}
      * @memberof BillDTO
      */
@@ -64,6 +59,12 @@ export interface BillDTO {
      * @memberof BillDTO
      */
     listName?: string;
+    /**
+     * Is bill belongs to a patient?
+     * @type {boolean}
+     * @memberof BillDTO
+     */
+    patientTrue?: boolean;
     /**
      * patient name
      * @type {string}

@@ -74,7 +74,7 @@ export interface MovementWardDTO {
      */
     quantity?: number;
     /**
-     * The mesure\'s unit of the medical concerned by the movement
+     * The measure\'s unit of the medical concerned by the movement
      * @type {string}
      * @memberof MovementWardDTO
      */

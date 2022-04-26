@@ -32,6 +32,7 @@ import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import Footer from "../../accessories/footer/Footer";
 import PatientExams from "../../accessories/patientExams/PatientExams";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import PatientOperation from "../../accessories/patientOperation/PatientOperation";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientTriage from "../../accessories/patientTriage/PatientTriage";
@@ -416,7 +417,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       <Route path={`${path}/operation`}>
                         <PatientDetailsContent
                           title="Operation"
-                          content={SkeletonLoader}
+                          content={PatientOperation}
                         />
                       </Route>
                     </Switch>

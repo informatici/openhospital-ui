@@ -14,7 +14,17 @@ export const initialFields: TFields<DischargeFormFieldName> = {
     value: "0",
     type: "number",
   },
-  diseaseOut: {
+  diseaseOut1: {
+    value: "",
+    type: "text",
+    options: [],
+  },
+  diseaseOut2: {
+    value: "",
+    type: "text",
+    options: [],
+  },
+  diseaseOut3: {
     value: "",
     type: "text",
     options: [],
