@@ -15,13 +15,11 @@ import { useTranslation } from "react-i18next";
 import { useRouteMatch, useHistory } from "react-router";
 
 interface IOwnProps {
-  setDefaultRoute: React.Dispatch<React.SetStateAction<string>>;
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
   userSection: IUserSection;
 }
 
 const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
-  setDefaultRoute,
   setUserSection,
   userSection,
 }) => {

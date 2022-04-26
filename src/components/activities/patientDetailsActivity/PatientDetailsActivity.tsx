@@ -1,9 +1,9 @@
 import { EditRounded, Notes, Person } from "@material-ui/icons";
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import {
   Redirect,
   Route,
@@ -63,6 +63,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { path, url } = useRouteMatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
@@ -87,7 +88,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [userSection, setUserSection] = useState<IUserSection>(
     (isNaN(parseInt(section)) ? section : "admissions") as IUserSection
   );
-  const [defaultRoute, setDefaultRoute] = useState("/summary");
 
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
@@ -188,6 +188,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("discharge");
+                                history.replace(`${url}/discharge`);
                               }}
                             >
                               (change)
@@ -200,7 +201,10 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                             Status: <span>Outpatient</span>
                             <div
                               className="patientDetails_status_button"
-                              onClick={() => {}}
+                              onClick={() => {
+                                setUserSection("admissions");
+                                history.replace(`${url}/admissions`);
+                              }}
                             >
                               (change)
                             </div>
@@ -211,13 +215,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
                     {patient?.data?.status === PatientDTOStatusEnum.I ? (
                       <InPatientDashboardMenu
-                        setDefaultRoute={setDefaultRoute}
                         setUserSection={setUserSection}
                         userSection={userSection}
                       />
                     ) : (
                       <OutPatientDashboardMenu
-                        setDefaultRoute={setDefaultRoute}
                         setUserSection={setUserSection}
                         userSection={userSection}
                       />

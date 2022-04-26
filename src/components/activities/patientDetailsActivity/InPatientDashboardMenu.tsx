@@ -16,13 +16,11 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 interface IOwnProps {
-  setDefaultRoute: React.Dispatch<React.SetStateAction<string>>;
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
   userSection: IUserSection;
 }
 
 const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
-  setDefaultRoute,
   setUserSection,
   userSection,
 }) => {
