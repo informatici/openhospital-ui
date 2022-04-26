@@ -72,9 +72,6 @@ const PatientAdmission: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-    if (createStatus === "SUCCESS") {
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
-    }
   }, [createStatus]);
 
   useEffect(() => {
@@ -84,6 +81,7 @@ const PatientAdmission: FC = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
       dispatch(createAdmissionReset());
       setShouldUpdateTable(true);
       setShouldResetForm(true);

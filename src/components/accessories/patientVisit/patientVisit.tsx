@@ -95,8 +95,13 @@ const PatientVisit: FunctionComponent = () => {
     visitValuesToSave = { ...visitToEdit, ...visitValuesToSave };
     visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
-      dispatch(updateVisit(visitToEdit.visitID, visitValuesToSave));
-    } else dispatch(createVisit(visitValuesToSave, wardsData));
+      dispatch(
+        updateVisit(visitToEdit.visitID, {
+          ...visitToEdit,
+          ...visitValuesToSave,
+        })
+      );
+    } else dispatch(createVisit({ ...visitValuesToSave, visitID: 0 }));
   };
 
   const resetFormCallback = () => {

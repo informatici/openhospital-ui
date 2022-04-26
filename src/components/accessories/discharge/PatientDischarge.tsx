@@ -76,9 +76,6 @@ const PatientDischarge: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-    if (dischargeStatus === "SUCCESS") {
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
-    }
   }, [dischargeStatus]);
 
   useEffect(() => {
@@ -88,6 +85,7 @@ const PatientDischarge: FC = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
     }
@@ -130,7 +128,7 @@ const PatientDischarge: FC = () => {
       )}
 
       <ConfirmationDialog
-        isOpen={dischargeStatus === "SUCCESS" || dischargeStatus === "SUCCESS"}
+        isOpen={dischargeStatus === "SUCCESS"}
         title={
           dischargeStatus === "SUCCESS"
             ? t("admission.discharged")
