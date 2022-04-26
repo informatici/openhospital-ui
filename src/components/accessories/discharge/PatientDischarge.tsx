@@ -123,12 +123,11 @@ const PatientDischarge: FC = () => {
           <InfoBox type="warning" message={t("admission.patientnotadmitted")} />
         </div>
       )}
-      {dischargeStatus === "FAIL" ||
-        (currentAdmissionStatus === "FAIL" && (
-          <div ref={infoBoxRef} className="info-box-container">
-            <InfoBox type="error" message={errorMessage} />
-          </div>
-        ))}
+      {(dischargeStatus === "FAIL" || currentAdmissionStatus === "FAIL") && (
+        <div ref={infoBoxRef} className="info-box-container">
+          <InfoBox type="error" message={errorMessage} />
+        </div>
+      )}
 
       <ConfirmationDialog
         isOpen={dischargeStatus === "SUCCESS" || dischargeStatus === "SUCCESS"}
