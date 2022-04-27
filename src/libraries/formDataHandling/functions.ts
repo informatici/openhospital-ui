@@ -27,11 +27,16 @@ export const getFromFields = (
 };
 
 export const parseDate = (raw: string) => {
-  return raw
-    ? isNaN(+raw)
-      ? new Date(raw).toISOString()
-      : new Date(+raw).toISOString()
-    : "";
+  if (raw) {
+    var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
+    const timezonedDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    timezonedDate.setUTCHours(0);
+    return timezonedDate.toISOString();
+  } else {
+    return "";
+  }
 };
 
 export const formatAllFieldValues = (
@@ -45,6 +50,7 @@ export const formatAllFieldValues = (
           acc[key] = parseInt(values[key]);
           break;
         case "date":
+          console.log(parseDate(values[key]));
           acc[key] = parseDate(values[key]);
           break;
         default:
