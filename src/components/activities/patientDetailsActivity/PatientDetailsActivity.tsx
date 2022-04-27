@@ -356,12 +356,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       <Route exact path={`${path}`}>
                         <Redirect to={`${url}/admissions`} />
                       </Route>
-                      <Route path={`${path}/summary`}>
-                        <PatientDetailsContent
-                          title="Summary"
-                          content={PatientSummary}
-                        />
-                      </Route>
                       <Route path={`${path}/admissions`}>
                         <PatientDetailsContent
                           title="Admissions"
@@ -402,13 +396,13 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </Route>
                       <Route path={`${path}/clinic`}>
                         <PatientDetailsContent
-                          title="Clinic"
-                          content={SkeletonLoader}
+                          title="Summary"
+                          content={PatientSummary}
                         />
                       </Route>
                       <Route path={`${path}/discharge`}>
                         {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/summary`} />
+                          <Redirect to={`${url}/clinic`} />
                         ) : (
                           <PatientDetailsContent
                             title="Discharge"

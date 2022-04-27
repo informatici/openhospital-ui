@@ -2,12 +2,18 @@ import Button from "@material-ui/core/Button";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FunctionComponent, useEffect, useRef } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
-import { object } from "yup";
+import { object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
+import { formatAllFieldValues } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   searchPatient,
@@ -15,9 +21,11 @@ import {
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
+import DateField from "../../accessories/dateField/DateField";
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import TextField from "../../accessories/textField/TextField";
+import { initialFields } from "./consts";
 import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, TValues, TProps } from "./types";
@@ -54,18 +62,25 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    //TODO: write schema
+    id: string().when(["firstName", "secondName", "birthDate", "address"], {
+      is: (firstName, secondName, birthDate, address) =>
+        !firstName && !secondName && !birthDate && !address,
+      then: string().required(),
+    }),
   });
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values: TValues) => {
+      const formattedValues = formatAllFieldValues(initialFields, values);
       // First scroll to show searching message
       scrollToElement(resultsRef.current);
-      searchPatient(values);
+      searchPatient(formattedValues as TValues);
     },
   });
+
+  const { setFieldValue } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -120,6 +135,13 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
         return <InfoBox type="error" message={errorMessage} />;
     }
   };
+
+  const dateFieldHandleOnChange = useCallback(
+    (fieldName: string) => (value: any) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
 
   return (
     <div className="searchPatient">
@@ -187,14 +209,17 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
               </div>
               <div className="row center-xs">
                 <div className="searchPatient__formItem">
-                  <TextField
-                    field={formik.getFieldProps("birthDate")}
-                    theme="regular"
-                    label={t("patient.birthdate")}
+                  <DateField
+                    theme={"regular"}
+                    fieldName="birthDate"
+                    fieldValue={formik.values.birthDate}
+                    disableFuture={false}
+                    disabled={isSearchById}
+                    format="dd/MM/yyyy"
                     isValid={isValid("birthDate")}
                     errorText={getErrorText("birthDate")}
-                    onBlur={formik.handleBlur}
-                    disabled={isSearchById}
+                    label={t("patient.birthdate")}
+                    onChange={dateFieldHandleOnChange("birthDate")}
                   />
                 </div>
                 <div className="searchPatient__formItem">

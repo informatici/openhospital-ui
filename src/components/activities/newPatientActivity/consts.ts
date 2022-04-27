@@ -142,12 +142,12 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     options: bloodTypeOptions,
   },
   hasInsurance: {
-    value: "",
+    value: "N",
     type: "text",
     options: yesOrNoOptions,
   },
   parentTogether: {
-    value: "",
+    value: "U",
     type: "text",
     options: yesOrNoOrUnknownOptions,
   },
