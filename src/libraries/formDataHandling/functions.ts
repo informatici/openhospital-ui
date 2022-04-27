@@ -50,7 +50,6 @@ export const formatAllFieldValues = (
           acc[key] = parseInt(values[key]);
           break;
         case "date":
-          console.log(parseDate(values[key]));
           acc[key] = parseDate(values[key]);
           break;
         default:
