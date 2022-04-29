@@ -51,10 +51,6 @@ const PatientAdmission: FC = () => {
       t("common.somethingwrong")
   ) as string;
 
-  const updateStatus = useSelector<IState>(
-    (state) => state.admissions.updateAdmission.status
-  );
-
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
     adm.patient = patient;
