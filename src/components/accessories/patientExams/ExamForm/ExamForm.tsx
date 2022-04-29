@@ -21,6 +21,7 @@ import TextField from "../../textField/TextField";
 import ExamRowTable from "../examRowTable/ExamRowTable";
 import "./styles.scss";
 import { ExamProps } from "./types";
+import moment from "moment";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -45,7 +46,15 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    examDate: string().required(t("common.required")),
+    examDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "date",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     exam: string().required(t("common.required")),
     material: string().required(t("common.required")),
     result:
@@ -122,6 +131,7 @@ const ExamForm: FC<ExamProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );

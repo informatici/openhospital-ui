@@ -12,7 +12,7 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     type: "number",
   },
   admDate: {
-    value: "",
+    value: new Date(Date.now()).toISOString(),
     type: "date",
   },
   admType: {
