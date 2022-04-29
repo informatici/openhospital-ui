@@ -25,6 +25,8 @@
     "hasinsurance": "Has Insurance",
     "mothername": "Mothername",
     "note": "Complain",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "secondname": "Second Name",
     "sex": "SEX",
     "opd": "OPD",

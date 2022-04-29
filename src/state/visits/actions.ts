@@ -86,7 +86,7 @@ export const getVisits =
             });
           } else {
             dispatch({
-              type: GET_VISIT_SUCCESS,
+              type: GET_VISIT_SUCCESS_EMPTY,
               payload: [],
             });
           }

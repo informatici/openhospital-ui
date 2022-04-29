@@ -25,6 +25,8 @@
     "hasinsurance": "Assuré",
     "mothername": "Nom de la mère",
     "note": "Remarques",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "secondname": "2ème nom",
     "sex": "Sexe",
     "opd": "OPD",

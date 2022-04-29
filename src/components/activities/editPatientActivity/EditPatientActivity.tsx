@@ -66,7 +66,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
     if (patient?.data?.code)
-      updatePatient(patient?.data?.code, updatePatientValues);
+      updatePatient(patient?.data?.code, {
+        ...updatePatientValues,
+        code: patient?.data?.code,
+      });
     else
       console.error(
         'The Patient: PatientDTO object must have a "code" property.'

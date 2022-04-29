@@ -16,6 +16,7 @@ import {
   DELETE_OPERATIONROW_FAIL,
   DELETE_OPERATIONROW_LOADING,
   DELETE_OPERATIONROW_SUCCESS,
+  GET_OPERATIONROW_ADM_EMPTY,
   GET_OPERATIONROW_ADM_FAIL,
   GET_OPERATIONROW_ADM_LOADING,
   GET_OPERATIONROW_ADM_SUCCESS,
@@ -128,7 +129,7 @@ export const getOperations =
     });
     operationControllerApi.getOperationsUsingGET().subscribe(
       (payload) => {
-        if (!isEmpty(payload)) {
+        if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
             type: GET_OPERATIONS_SUCCESS,
             payload: payload,
@@ -166,7 +167,7 @@ export const getOperationsByAdmissionId =
             });
           } else {
             dispatch({
-              type: GET_OPERATIONROW_ADM_SUCCESS,
+              type: GET_OPERATIONROW_ADM_EMPTY,
               payload: [],
             });
           }

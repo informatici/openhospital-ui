@@ -102,6 +102,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientTherapyTable">
+      <h5>{t("common.previousentries")}</h5>
       {(() => {
         switch (therapyStatus) {
           case "FAIL":

@@ -259,6 +259,24 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               {patient.data?.bloodType || "-"}
                             </div>
                           </div>
+
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.height")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.height || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.weight")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.weight || "-"}
+                            </div>
+                          </div>
+
                           <div className="patientDetails__personalData__item">
                             <div className="patientDetails__personalData__item__label">
                               {t("patient.address")}:

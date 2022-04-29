@@ -83,6 +83,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientTriageTable">
+      <h5>{t("common.previousentries")}</h5>
       {(() => {
         switch (triageStatus) {
           case "FAIL":

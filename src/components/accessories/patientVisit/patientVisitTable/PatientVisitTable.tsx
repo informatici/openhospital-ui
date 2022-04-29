@@ -67,31 +67,43 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="PatientVisitTable">
-      {visitStatus === "SUCCESS" ? (
-        <Table
-          rowData={formatDataToDisplay(data)}
-          dateFields={dateFields}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={5}
-          isCollapsabile={true}
-          onEdit={onEdit}
-        />
-      ) : (
-        visitStatus === "SUCCESS_EMPTY" && (
-          <InfoBox type="warning" message={t("common.emptydata")} />
-        )
-      )}
-      {visitStatus === "LOADING" && (
-        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
-      )}
+      <h5>{t("common.previousentries")}</h5>
+      {(() => {
+        switch (visitStatus) {
+          case "FAIL":
+            return (
+              <div ref={infoBoxRef}>
+                <InfoBox type="error" message={errorMessage} />
+              </div>
+            );
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
 
-      {visitStatus === "FAIL" && (
-        <div ref={infoBoxRef}>
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
+          case "SUCCESS":
+            return (
+              <Table
+                rowData={formatDataToDisplay(data)}
+                dateFields={dateFields}
+                tableHeader={header}
+                labelData={label}
+                columnsOrder={order}
+                rowsPerPage={5}
+                isCollapsabile={true}
+                onEdit={onEdit}
+              />
+            );
+
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+          default:
+            return;
+        }
+      })()}
     </div>
   );
 };

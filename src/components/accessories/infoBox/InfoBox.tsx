@@ -6,7 +6,7 @@ import "./styles.scss";
 const InfoBox: FunctionComponent<IProps> = ({ type, message }) => {
   return (
     <div className={classNames(`infoBox ${type}`)}>
-      <h4>{message}</h4>
+      <h5>{message}</h5>
     </div>
   );
 };

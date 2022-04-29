@@ -78,6 +78,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientOpdTable">
+      <h5>{t("common.previousentries")}</h5>
       {opdStatus === "SUCCESS" ? (
         <Table
           rowData={formatDataToDisplay(data)}
