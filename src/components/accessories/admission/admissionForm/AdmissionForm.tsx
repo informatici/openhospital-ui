@@ -79,9 +79,18 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const validationSchema = object({
-    ward: !admitted ? string().required(t("common.required")) : string(),
-    admDate: !admitted ? string().required(t("common.required")) : string(),
-    diseaseIn: !admitted ? string().required(t("common.required")) : string(),
+    ward: string().required(t("common.required")),
+    admType: string().required(t("common.required")),
+    admDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "admDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
+    diseaseIn: string().required(t("common.required")),
   });
 
   const formik = useFormik({
@@ -109,6 +118,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue, initialValues.admDate]
   );

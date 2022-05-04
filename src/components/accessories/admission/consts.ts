@@ -1,3 +1,4 @@
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 
@@ -12,7 +13,7 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     type: "number",
   },
   admDate: {
-    value: "",
+    value: parseDate(Date.now().toString()),
     type: "date",
   },
   admType: {

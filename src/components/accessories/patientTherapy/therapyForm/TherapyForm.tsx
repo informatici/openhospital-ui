@@ -6,7 +6,7 @@ import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
@@ -33,9 +33,27 @@ const TherapyForm: FC<TherapyProps> = ({
   const { t } = useTranslation();
   const validationSchema = object({
     medicalId: string().required(t("common.required")),
-    startDate: string().required(t("common.required")),
+    qty: number().required(t("common.required")),
+    freqInDay: number().required(t("common.required")),
+    freqInPeriod: number().required(t("common.required")),
+    startDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "startDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     endDate: string()
       .required(t("common.required"))
+      .test({
+        name: "endDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
       .test({
         name: "endDate",
         message: t("therapy.validatelastdate"),
@@ -80,6 +98,7 @@ const TherapyForm: FC<TherapyProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );

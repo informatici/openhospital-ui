@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +31,6 @@ const OperationRowForm: FC<OperationRowProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const operationList = useSelector(
     (state: IState) => state.operations.operationList.data
@@ -51,7 +51,15 @@ const OperationRowForm: FC<OperationRowProps> = ({
 
   const validationSchema = object({
     operation: string().required(t("common.required")),
-    opDate: string().required(t("common.required")),
+    opDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "opDate",
+        message: t("admission.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     transUnit: number(),
   });
 
@@ -74,7 +82,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
-      formik.validateField("opDate");
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue, initialValues.opDate]
   );

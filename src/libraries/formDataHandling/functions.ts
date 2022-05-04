@@ -193,7 +193,9 @@ export const updateOperationRowFields = (
 };
 
 export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
-  return moment(dateTo).diff(moment(dateFrom), "days");
+  return moment(dateTo)
+    .startOf("day")
+    .diff(moment(dateFrom).startOf("day"), "days");
 };
 
 export const differenceInSeconds = (dateFrom: Date, dateTo: Date) => {

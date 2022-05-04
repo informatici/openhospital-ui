@@ -31,6 +31,7 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { DiseaseDTO, OpdDTO } from "../../../../generated";
+import moment from "moment";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -44,7 +45,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const validationSchema = object({
-    visitDate: string().required(t("common.required")),
+    visitDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "visitDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     disease: string().required(t("common.required")),
     disease2: string().test({
       name: "disease2",
@@ -102,6 +111,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );

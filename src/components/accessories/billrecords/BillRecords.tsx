@@ -27,6 +27,7 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 import InfoBox from "../infoBox/InfoBox";
 import moment from "moment";
 import { renderToString } from "react-dom/server";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 
 const BillRecords = () => {
   const { t } = useTranslation();
@@ -143,7 +144,7 @@ const BillRecords = () => {
   const handlePayment = (values: Record<string, any>) => {
     const newPayment: BillPaymentsDTO = {
       billId: selectedObj.code,
-      date: new Date(values.paymentDate).toISOString(),
+      date: parseDate(values.paymentDate),
       amount: parseFloat(values.paymentAmount),
       user: user,
     };
@@ -153,7 +154,7 @@ const BillRecords = () => {
 
   const initialFields: TFields = {
     paymentDate: {
-      value: new Date().toString(),
+      value: parseDate(Date.now().toString()),
       type: "date",
     },
     paymentAmount: {
