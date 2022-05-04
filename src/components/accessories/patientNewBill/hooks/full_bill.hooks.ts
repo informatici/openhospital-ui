@@ -9,6 +9,7 @@ import {
   PatientDTO,
 } from "../../../../generated";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
+import { parseDate } from "../../../../libraries/formDataHandling/functions";
 import {
   newBill,
   newBillReset,
@@ -53,7 +54,7 @@ export const useFullBill = () => {
     return (
       pendings[0]?.bill ?? {
         id: 0,
-        date: new Date(Date.now()).toISOString(),
+        date: parseDate(Date.now().toString()),
         patName: patient?.firstName,
         patient: patient,
         user: user,
@@ -62,9 +63,8 @@ export const useFullBill = () => {
   });
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [itemToEdit, setItemToEdit] = useState<
-    Record<string, any> | undefined
-  >();
+  const [itemToEdit, setItemToEdit] =
+    useState<Record<string, any> | undefined>();
   const [billItems, setBillItems] = useState<BillItemsDTO[]>([]);
   const [billPayments, setBillPayments] = useState<BillPaymentsDTO[]>([]);
   const [fullBill, setFullBill] = useState<FullBillDTO>({
