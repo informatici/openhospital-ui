@@ -11,6 +11,11 @@
   color: $c-color-primary !important;
 }
 
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
 .patientOpdForm {
   display: inline-block;
   flex-direction: column;

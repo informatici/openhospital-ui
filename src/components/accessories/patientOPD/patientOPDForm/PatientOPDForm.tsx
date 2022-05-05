@@ -35,6 +35,7 @@ import {
 import { DiseaseDTO, OpdDTO } from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import CheckboxField from "../../checkboxField/CheckboxField";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -162,6 +163,20 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     [setFieldValue, handleBlur]
   );
 
+  const handleCheckboxChange = useCallback(
+    (fieldName: string) => (value: boolean) => {
+      setFieldValue(fieldName, value === true ? "R" : "");
+      if (value) {
+        if (fieldName === "referralFrom") {
+          setFieldValue("referralTo", "");
+        } else {
+          setFieldValue("referralFrom", "");
+        }
+      }
+    },
+    [setFieldValue]
+  );
+
   return (
     <>
       <div className="patientOpdForm">
@@ -215,25 +230,21 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               />
             </div>
             <div className="patientOpdForm__item">
-              <TextField
-                field={formik.getFieldProps("referralFrom")}
+              <CheckboxField
                 theme="regular"
+                fieldName={"referralFrom"}
+                checked={formik.values.referralFrom === "R"}
                 label={t("opd.referralfrom")}
-                isValid={isValid("referralFrom")}
-                errorText={getErrorText("referralFrom")}
-                onBlur={formik.handleBlur}
-                type="string"
+                onChange={handleCheckboxChange("referralFrom")}
               />
             </div>
             <div className="patientOpdForm__item">
-              <TextField
-                field={formik.getFieldProps("referralTo")}
+              <CheckboxField
                 theme="regular"
+                fieldName={"referralTo"}
+                checked={formik.values.referralTo === "R"}
                 label={t("opd.referralto")}
-                isValid={isValid("referralTo")}
-                errorText={getErrorText("referralTo")}
-                onBlur={formik.handleBlur}
-                type="string"
+                onChange={handleCheckboxChange("referralTo")}
               />
             </div>
           </div>
