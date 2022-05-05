@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
 import { formCustomization } from "../../../customization/formCustomization";
 import { FIELD_VALIDATION } from "../../../types";
+import moment from "moment";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -42,7 +43,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const validationSchema = object({
     firstName: string().required(t("common.required")),
     secondName: string().required(t("common.required")),
-    birthDate: string().required(t("common.required")),
+    birthDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "birthDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     sex: string().required(t("common.required")),
     telephone: string().matches(
       /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
@@ -92,6 +101,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );

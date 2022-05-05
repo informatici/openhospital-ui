@@ -1,3 +1,4 @@
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { OperationRowFormFieldName } from "./operationForm/types";
 
@@ -7,7 +8,7 @@ export const initialFields: TFields<OperationRowFormFieldName> = {
     type: "number",
   },
   opDate: {
-    value: new Date(Date.now()).toISOString(),
+    value: parseDate(Date.now().toString()),
     type: "date",
   },
   opResult: {

@@ -231,7 +231,8 @@
     "close": "CLOSE",
     "greaterthan": "The value must be at least {{value}}.",
     "lessthan": "The value must not exceed {{value}}.",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "invaliddate": "Invalid Date"
   },
   "therapy": {
     "newtherapy": "New Therapy",

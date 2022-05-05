@@ -1,9 +1,10 @@
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientVisitFormFieldName } from "./patientVisitForm/types";
 
 export const initialFields: TFields<TPatientVisitFormFieldName> = {
   date: {
-    value: new Date(Date.now()).toISOString(),
+    value: parseDate(Date.now().toString()),
     type: "date",
   },
   ward: {

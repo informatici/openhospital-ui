@@ -1,4 +1,4 @@
-import { useFormik } from "formik";
+import { FormikProvider, useFormik } from "formik";
 import { isEmpty } from "lodash";
 import get from "lodash.get";
 import has from "lodash.has";
@@ -17,6 +17,7 @@ import {
   differenceInDays,
   formatAllFieldValues,
   getFromFields,
+  parseDate,
 } from "../../../../libraries/formDataHandling/functions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
@@ -72,13 +73,22 @@ const DischargeForm: FC<DischargeProps> = ({
       .required(t("common.required"))
       .test({
         name: "disDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "disDate",
         message: t("admission.validatelastdate", {
           admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY"),
         }),
         test: function (value) {
           return (
             moment(value).isValid() &&
-            moment(value).isSameOrAfter(moment(admission?.admDate ?? ""))
+            moment(value)
+              .startOf("day")
+              .isSameOrAfter(moment(admission?.admDate ?? "").startOf("day"))
           );
         },
       }),
@@ -138,6 +148,8 @@ const DischargeForm: FC<DischargeProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.validateField(fieldName);
+      formik.setFieldTouched(fieldName);
       const days = differenceInDays(
         new Date(admission?.admDate ?? ""),
         new Date(value)
@@ -162,6 +174,7 @@ const DischargeForm: FC<DischargeProps> = ({
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+        formik.setFieldTouched(fieldName, false);
       },
     [setFieldValue, handleBlur]
   );
