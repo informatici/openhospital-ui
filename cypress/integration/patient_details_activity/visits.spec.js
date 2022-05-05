@@ -1,52 +1,74 @@
 const HOSTNAME = Cypress.env("HOSTNAME");
-const START_PATH = `${HOSTNAME}/patients/details/1`;
+const START_PATH_INPATIENT = `${HOSTNAME}/patients/details/1`;
+const START_PATH_OUTPATIENT = `${HOSTNAME}/patients/details/1234563`;
 
 describe("Patient Details / Visit - Inpatient", () => {
-    before(() => {
-        cy.authenticate(START_PATH);
-    });
+  before(() => {
+    cy.authenticate(START_PATH_INPATIENT);
+  });
 
-    it("should render the ui", () => {
-        cy.get("[class=patientDetails]");
-    });
+  it("should render the ui", () => {
+    cy.get("[class=patientDetails]");
+  });
 
-    it("should have a menu item for visits", () => {
-        cy.get("[class='patientDetails__main_menu']")
-            .contains("Visits:")
-            .click();
-    });
+  it("should have a menu item for visits", () => {
+    cy.get("[class='patientDetails__main_menu']").contains("Visits:").click();
+  });
 
-    it("Should fill visit form with mock data", () => {
-        cy.get("[id=ward]").focus().type("FEMALE WARDS").blur();
-        cy.get("[id=date]").focus().type("03052022").blur();
-        cy.get("[id=duration]").focus().type("100").blur();
-        cy.get("[id=service]").focus().type("Some service").blur();
-    })
+  it("Should make it possible for the user to fill out the form to add a new visit for an inpatient", () => {
+    cy.get("[id=ward]").focus().type("FEMALE WARDS").blur();
+    cy.get("[id=date]").focus().type("03052022").blur();
+    cy.get("[id=duration]").focus().type("100").blur();
+    cy.get("[id=service]").focus().type("Some service").blur();
+  });
 
-    it("should display an error component if the visit creation call fails", () => {
-        cy.get("[class='submit_button']").click();
+  it("should display an error info box if the visit creation fails", () => {
+    cy.get("[class='submit_button']").click();
 
-        cy.get("div.infoBox").should("have.class", "error");
-    });
+    cy.get("div.infoBox").should("have.class", "error");
+  });
 
-    it("should show success dialog if the visit update call successes", () => {
-        cy.get("[id=duration]").focus().clear().type("30").blur();
-        cy.get("[class='submit_button']").click();
-        cy.get("[class='return_button']").click();
-    });
+  it("should show confirmation dialog if the visit creation succeeds", () => {
+    cy.get("[id=duration]").focus().clear().type("40").blur();
+    cy.get("[class='submit_button']").click();
+    cy.get("div.infoBox").should("not.exist");
+    cy.get("div.dialog__title").contains("Visit created");
+    cy.get("[class='return_button']").click();
+  });
+});
 
-    it("should display an error component if the visit update call fails", () => {
-        cy.get("[title='Edit']").first().click();
-        cy.get("[id=duration]").focus().clear().type("100").blur();
-        cy.get("[id=service]").focus().type(" extended").blur();
-        cy.get("[class='submit_button']").click();
+describe("Patient Details / Visit - Outpatient", () => {
+  before(() => {
+    cy.authenticate(START_PATH_OUTPATIENT);
+  });
 
-        cy.get("div.infoBox").should("have.class", "error");
-    });
+  it("should render the ui", () => {
+    cy.get("[class=patientDetails]");
+  });
 
-    it("should show success dialog if the visit update call successes", () => {
-        cy.get("[id=duration]").focus().clear().type("45").blur();
-        cy.get("[class='submit_button']").click();
-        cy.get("[class='return_button']").click();
-    });
+  it("should have a menu item for visits", () => {
+    cy.get("[class='patientDetails__main_menu']").contains("Visits:").click();
+  });
+
+  it("Should make it possible for the user to fill out the form to add a new visit for an outpatient", () => {
+    cy.get("[id=visitDate]").focus().type("01012021").blur();
+    cy.get("[id=referralFrom]").focus().type("abc").blur();
+    cy.get("[id=referralTo]").focus().type("abc").blur();
+    cy.get("[id=disease]").focus().type("Abortions").blur();
+    cy.get("[id=note]").focus().type("fail").blur();
+  });
+
+  it("should display an error info box if the visit creation fails", () => {
+    cy.get("[class='submit_button']").click();
+
+    cy.get("div.infoBox").should("have.class", "error");
+  });
+
+  it("should show confirmation dialog if the visit creation succeeds", () => {
+    cy.get("[id=note]").focus().clear().type("succeed").blur();
+    cy.get("[class='submit_button']").click();
+    cy.get("div.infoBox").should("not.exist");
+    cy.get("div.dialog__title").contains("Opd Created");
+    cy.get("[class='return_button']").click();
+  });
 });
