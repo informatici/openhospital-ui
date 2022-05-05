@@ -96,15 +96,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       const opdToSave: OpdDTO = {
         ...formattedValues,
         date: formattedValues.visitDate,
-        disease: diseases.find(
-          (e) => e.code?.toString() === formattedValues.disease
-        ),
-        disease2: diseases.find(
-          (e) => e.code?.toString() === formattedValues.disease2
-        ),
-        disease3: diseases.find(
-          (e) => e.code?.toString() === formattedValues.disease3
-        ),
+        disease: diseases.find((e) => e.code === formik.values.disease),
+        disease2: diseases.find((e) => e.code === formik.values.disease2),
+        disease3: diseases.find((e) => e.code === formik.values.disease3),
       };
       onSubmit(opdToSave);
     },
@@ -123,7 +117,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     return state.diseases.diseasesOpd.data
       ? state.diseases.diseasesOpd.data.map((item) => {
           return {
-            value: item.code?.toString() ?? "",
+            value: item.code ?? "",
             label: item.description ?? "",
           };
         })

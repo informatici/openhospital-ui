@@ -86,7 +86,7 @@ export const updateLabFields = (
           typeof value === "object"
             ? (value as ExamDTO)?.code ?? ""
             : moment(value).isValid()
-            ? Date.parse(moment(value).toString())
+            ? parseDate(value as string)
             : value);
       }
     });
@@ -103,7 +103,7 @@ export const updateTriageFields = (
         return (draft[key as string].value = parseFloat(value as string)
           ? value
           : moment(value).isValid()
-          ? Date.parse(moment(value).toString())
+          ? parseDate(value as string)
           : value);
       }
     });
@@ -119,9 +119,9 @@ export const updateOpdFields = (
         const value = values![key as keyof OpdDTO];
         return (draft[key as string].value =
           typeof value === "object"
-            ? (value as DiseaseDTO)?.code?.toString() ?? ""
+            ? (value as DiseaseDTO)?.code ?? ""
             : moment(value).isValid()
-            ? Date.parse(moment(value).toString())
+            ? parseDate(value as string)
             : value);
       }
     });
@@ -155,7 +155,7 @@ export const updateVisitFields = (
             : typeof value == "boolean"
             ? value
             : moment(value).isValid()
-            ? Date.parse(moment(value).toString())
+            ? parseDate(value as string)
             : value);
       }
     });
@@ -185,7 +185,7 @@ export const updateOperationRowFields = (
             : typeof value == "boolean"
             ? value
             : moment(value).isValid()
-            ? Date.parse(moment(value).toString())
+            ? parseDate(value as string)
             : value);
       }
     });
