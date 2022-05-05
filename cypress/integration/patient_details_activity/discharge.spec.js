@@ -2,37 +2,38 @@ const HOSTNAME = Cypress.env("HOSTNAME");
 const START_PATH = `${HOSTNAME}/patients/details/1`;
 
 describe("Patient Details / Discharge", () => {
-    before(() => {
-        cy.authenticate(START_PATH);
-    });
+  before(() => {
+    cy.authenticate(START_PATH);
+  });
 
-    it("should render the ui", () => {
-        cy.get("[class=patientDetails]");
-    });
+  it("should render the ui", () => {
+    cy.get("[class=patientDetails]");
+  });
 
-    it("should have a menu item for discharge", () => {
-        cy.get("[class='patientDetails__main_menu']")
-            .contains("Discharges:")
-            .click();
-    });
+  it("should have a menu item for discharge", () => {
+    cy.get("[class='patientDetails__main_menu']")
+      .contains("Discharge:")
+      .click();
+  });
 
-    it("Should fill discharge form with mock data", () => {
-        cy.get("[id=disDate]").focus().type("03052022").blur();
-        cy.get("[id=disType]").focus().type("NORMALE").blur();
-        cy.get("[id=cliDiaryCharge]").focus().type("Some Diary Charge").blur();
-        cy.get("[id=imageryCharge]").focus().type("fail").blur();
-        cy.get("[id=diseaseOut]").focus().type("Abortions").blur();
-    })
+  it("Should make it possible for the user to fill out the form to discharge the patient", () => {
+    cy.get("[id=disDate]").focus().type("03052022").blur();
+    cy.get("[id=disType]").focus().type("NORMALE").blur();
+    cy.get("[id=diseaseOut1]").focus().type("Abortions").blur();
+    cy.get("[id=note]").focus().clear().type("fail").blur();
+  });
 
-    it("should display an error component if the discharge patient call fails", () => {
-        cy.get("[class='submit_button']").click();
+  it("should display an error info box if the patient discharging fails", () => {
+    cy.get("[class='submit_button']").click();
 
-        cy.get("div.infoBox").should("have.class", "error");
-    });
+    cy.get("div.infoBox").should("have.class", "error");
+  });
 
-    it("should show success dialog if the discharge patient call successes", () => {
-        cy.get("[id=imageryCharge]").focus().clear().type("success").blur();
-        cy.get("[class='submit_button']").click();
-        cy.get("[class='return_button']").click();
-    });
+  it("should show a confirmation dialog if the patient discharging succeeds", () => {
+    cy.get("[id=note]").focus().clear().type("success").blur();
+    cy.get("[class='submit_button']").click();
+    cy.get("div.infoBox").should("not.exist");
+    cy.get("div.dialog__title").contains("Patient discharged");
+    cy.get("[class='return_button']").click();
+  });
 });

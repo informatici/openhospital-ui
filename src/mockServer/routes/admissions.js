@@ -56,8 +56,15 @@ export const admissionRoutes = (server) => {
       }
     });
     server.post("/discharge").intercept((req, res) => {
-      res.status(200).json(null);
-      rand = 0;
+      const body = req.jsonBody();
+
+      switch (body.note) {
+        case "fail":
+          res.status(400).json(null);
+          break;
+        default:
+          res.status(200).json(null);
+      }
     });
   });
 };
