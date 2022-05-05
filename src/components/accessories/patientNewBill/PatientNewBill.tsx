@@ -25,6 +25,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { useStyles } from "./consts";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();
@@ -95,7 +96,6 @@ const PatientNewBill: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(status);
     if (status === "FAIL") {
       scrollToElement(infoBoxRef.current);
     }
@@ -200,7 +200,7 @@ const PatientNewBill: FC = () => {
           },
           paymentDate: {
             type: "date",
-            value: new Date(Date.now()).toISOString(),
+            value: parseDate(Date.now().toString()),
           },
         }}
         handleClose={handlePaymentDialog}

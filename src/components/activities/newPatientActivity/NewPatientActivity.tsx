@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
@@ -47,6 +47,11 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
+
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.patients.createPatient.error?.message || t("common.somethingwrong")
+  ) as string;
 
   useEffect(() => {
     if (
@@ -98,9 +103,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div ref={infoBoxRef}>
-            {hasFailed && (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            )}
+            {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
           <ConfirmationDialog
             isOpen={hasSucceeded}

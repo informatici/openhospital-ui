@@ -25,6 +25,8 @@
     "hasinsurance": "Es Asegurado",
     "mothername": "Nombre de la madre",
     "note": "Reclamo",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "secondname": "Apellido",
     "sex": "SEXO",
     "opd": "OPD",

@@ -18,17 +18,18 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const header = ["admDate"];
-  const dateFields = ["admDate"];
+  const header = ["admDate", "disDate"];
+  const dateFields = ["admDate", "disDate"];
 
   const label = {
     admDate: t("admission.admDate"),
+    disDate: t("admission.disDate"),
     admType: t("admission.admType"),
     diseaseIn: t("admission.diseaseIn"),
     transUnit: t("admission.transUnit"),
     ward: t("admission.ward"),
   };
-  const order = ["admDate"];
+  const order = ["admDate", "disDate"];
 
   const dispatch = useDispatch();
 
@@ -52,6 +53,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         admDate: item.admDate ? renderDate(item.admDate) : "",
+        disDate: item.disDate ? renderDate(item.disDate) : "",
         admType: item.admType?.description ?? "",
         diseaseIn: item.diseaseIn?.description ?? "",
         transUnit: item.transUnit,
@@ -63,13 +65,25 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     (state) => state.admissions.admissionsByPatientId.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.admissions.admissionsByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+  const createAdmissionStatus = useSelector<IState>(
+    (state) => state.admissions.createAdmission.status
+  );
+
   return (
     <div className="patientAdmissionTable">
+      <h5>{t("common.previousentries")}</h5>
       {(() => {
         switch (status) {
           case "FAIL":
             return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
+              createAdmissionStatus !== "FAIL" && (
+                <InfoBox type="error" message={errorMessage} />
+              )
             );
           case "LOADING":
             return (

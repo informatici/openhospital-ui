@@ -56,7 +56,7 @@ export interface TherapyDTO {
      */
     units?: string;
     /**
-     * The frequence in day
+     * The frequency in day
      * @type {number}
      * @memberof TherapyDTO
      */

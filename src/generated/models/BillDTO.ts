@@ -37,15 +37,10 @@ export interface BillDTO {
      */
     listId?: number;
     /**
-     * @type {boolean}
-     * @memberof BillDTO
-     */
-    patient?: boolean;
-    /**
      * @type {PatientDTO}
      * @memberof BillDTO
      */
-    patientDTO?: PatientDTO;
+    patient?: PatientDTO;
     /**
      * Date of bill creation
      * @type {string}

@@ -16,7 +16,7 @@
  * @export
  * @interface PriceListDTO
  */
- export interface PriceListDTO {
+export interface PriceListDTO {
     /**
      * @type {number}
      * @memberof PriceListDTO

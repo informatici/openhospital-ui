@@ -107,15 +107,15 @@ export interface OpdDTO {
      */
     referralTo?: string;
     /**
-     * opd lock column
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    lock?: number;
-    /**
      * user id
      * @type {string}
      * @memberof OpdDTO
      */
     userID?: string;
+    /**
+     * opd lock column
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    lock?: number;
 }

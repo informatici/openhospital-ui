@@ -2,10 +2,13 @@ import { produce } from "immer";
 import moment from "moment";
 import { IFormCustomizationProps } from "../../customization/formCustomization/type";
 import {
+  AdmissionDTO,
   DiseaseDTO,
   ExamDTO,
   LaboratoryDTO,
   OpdDTO,
+  OperationDTO,
+  OperationRowDTO,
   PatientDTO,
   PatientExaminationDTO,
   VisitDTO,
@@ -24,11 +27,16 @@ export const getFromFields = (
 };
 
 export const parseDate = (raw: string) => {
-  return raw
-    ? isNaN(+raw)
-      ? new Date(raw).toISOString()
-      : new Date(+raw).toISOString()
-    : "";
+  if (raw) {
+    var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
+    const timezonedDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    timezonedDate.setUTCHours(0);
+    return timezonedDate.toISOString();
+  } else {
+    return "";
+  }
 };
 
 export const formatAllFieldValues = (
@@ -154,8 +162,40 @@ export const updateVisitFields = (
   });
 };
 
+export const updateOperationRowFields = (
+  fields: TFields,
+  values: OperationRowDTO | undefined
+) => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        const value = values![key as keyof OperationRowDTO];
+
+        if (key === "admission")
+          return (draft[key as string].value =
+            (value as AdmissionDTO)?.id?.toString() ?? "");
+
+        if (key === "transUnit") return (draft[key as string].value = value);
+
+        return (draft[key as string].value =
+          typeof value === "object"
+            ? (key === "operation"
+                ? (value as OperationDTO)?.code?.toString()
+                : (value as OpdDTO)?.code?.toString()) ?? ""
+            : typeof value == "boolean"
+            ? value
+            : moment(value).isValid()
+            ? Date.parse(moment(value).toString())
+            : value);
+      }
+    });
+  });
+};
+
 export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
-  return moment(dateTo).diff(moment(dateFrom), "days");
+  return moment(dateTo)
+    .startOf("day")
+    .diff(moment(dateFrom).startOf("day"), "days");
 };
 
 export const differenceInSeconds = (dateFrom: Date, dateTo: Date) => {

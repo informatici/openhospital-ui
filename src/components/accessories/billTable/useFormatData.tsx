@@ -38,29 +38,29 @@ const useFormatData = (
     results = data
       .filter(
         (fbil) =>
-          (status === "CLOSE" && fbil.billDTO?.status === "C") ||
-          (status === "DELETE" && fbil.billDTO?.status === "D") ||
-          (status === "PENDING" && fbil.billDTO?.status === "O") ||
+          (status === "CLOSE" && fbil.bill?.status === "C") ||
+          (status === "DELETE" && fbil.bill?.status === "D") ||
+          (status === "PENDING" && fbil.bill?.status === "O") ||
           status === "ALL"
       )
       .map((item) => {
         return {
-          id: item.billDTO?.id ?? "",
-          date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
+          id: item.bill?.id ?? "",
+          date: item.bill?.date ? renderDate(item.bill.date) : "",
           patient: (
             <Link
-              to={`/details/${item.billDTO?.patientDTO?.code}`}
+              to={`/details/${item.bill?.patient?.code}`}
               style={{ textDecoration: "none" }}
             >
-              <strong>{item.billDTO?.patName}</strong>
+              <strong>{item.bill?.patName}</strong>
             </Link>
           ),
-          amount: currencyFormat(item.billDTO?.amount),
-          balance: currencyFormat(item.billDTO?.balance),
-          status: switchStatus(item.billDTO?.status),
-          patId: item.billDTO?.patientDTO?.code,
+          amount: currencyFormat(item.bill?.amount),
+          balance: currencyFormat(item.bill?.balance),
+          status: switchStatus(item.bill?.status),
+          patId: item.bill?.patient?.code,
           lastPayment: renderDate(
-            getLastPayment(item.billPaymentsDTO ?? []).date ?? ""
+            getLastPayment(item.billPayments ?? []).date ?? ""
           ),
         };
       });

@@ -21,6 +21,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
+import { opdDataFormatter } from "../../../libraries/formatUtils/dataFormatting";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -51,6 +52,14 @@ const PatientOPD: FunctionComponent = () => {
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.deleteOpd.status
   );
+
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.opds.createOpd.error?.message ||
+      state.opds.updateOpd.error?.message ||
+      state.opds.deleteOpd.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
 
   useEffect(() => {
     if (changeStatus === "FAIL") {
@@ -95,9 +104,10 @@ const PatientOPD: FunctionComponent = () => {
     opdValuestoSave.age = patient?.age;
     opdValuestoSave.sex = patient?.sex;
     opdValuestoSave.userID = userId;
+    opdValuestoSave = { ...opdToEdit, ...opdValuestoSave };
     if (!creationMode && opdToEdit.code) {
-      dispatch(updateOpd(opdToEdit.code, opdValuestoSave, diseasesData));
-    } else dispatch(createOpd(opdValuestoSave, diseasesData));
+      dispatch(updateOpd(opdToEdit.code, opdValuestoSave));
+    } else dispatch(createOpd({ ...opdValuestoSave, code: 0 }));
   };
 
   const resetFormCallback = () => {
@@ -140,7 +150,7 @@ const PatientOPD: FunctionComponent = () => {
 
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <PatientOPDTable

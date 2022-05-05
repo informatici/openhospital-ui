@@ -160,6 +160,14 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
+  const errorMessage = useSelector<IState>((state) => {
+    return (
+      (filter.status === "PENDING"
+        ? state.bills.getPendingBills.error
+        : state.bills.searchBills.error) ?? t("common.somethingwrong")
+    );
+  }) as string;
+
   const formattedData = useFormatData(data, filter.status);
 
   const [open, setOpen] = useState(false);
@@ -172,7 +180,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     setOpen(false);
   };
   const handleView = (row: any) => {
-    const bill = data.find((item) => item.billDTO?.id === row.id) ?? {};
+    const bill = data.find((item) => item.bill?.id === row.id) ?? {};
     setFullBill(bill);
     handleOpen();
   };
@@ -215,9 +223,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
       {(() => {
         switch (status) {
           case "FAIL":
-            return (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            );
+            return <InfoBox type="error" message={errorMessage} />;
 
           case "LOADING":
             return (

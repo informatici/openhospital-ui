@@ -1,7 +1,7 @@
 import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
@@ -59,9 +59,17 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     )]: `${PATHS.patients_details}/${patient.data?.code}/edit`,
   };
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.patients.updatePatient.error?.message || t("common.somethingwrong")
+  ) as string;
+
   const onSubmit = (updatePatientValues: PatientDTO) => {
     if (patient?.data?.code)
-      updatePatient(patient?.data?.code, updatePatientValues);
+      updatePatient(patient?.data?.code, {
+        ...updatePatientValues,
+        code: patient?.data?.code,
+      });
     else
       console.error(
         'The Patient: PatientDTO object must have a "code" property.'
@@ -134,9 +142,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div ref={infoBoxRef}>
-            {hasFailed && (
-              <InfoBox type="error" message={t("common.somethingwrong")} />
-            )}
+            {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
           <ConfirmationDialog
             isOpen={openConfirmationMessage}

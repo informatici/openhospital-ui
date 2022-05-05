@@ -9,6 +9,7 @@ import {
   PatientDTO,
 } from "../../../../generated";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
+import { parseDate } from "../../../../libraries/formDataHandling/functions";
 import {
   newBill,
   newBillReset,
@@ -51,12 +52,11 @@ export const useFullBill = () => {
 
   const [bill, setBill] = useState<BillDTO>(() => {
     return (
-      pendings[0]?.billDTO ?? {
+      pendings[0]?.bill ?? {
         id: 0,
-        date: new Date(Date.now()).toISOString(),
+        date: parseDate(Date.now().toString()),
         patName: patient?.firstName,
-        patient: true,
-        patientDTO: patient,
+        patient: patient,
         user: user,
       }
     );
@@ -68,9 +68,9 @@ export const useFullBill = () => {
   const [billItems, setBillItems] = useState<BillItemsDTO[]>([]);
   const [billPayments, setBillPayments] = useState<BillPaymentsDTO[]>([]);
   const [fullBill, setFullBill] = useState<FullBillDTO>({
-    billDTO: bill,
-    billItemsDTO: billItems,
-    billPaymentsDTO: billPayments,
+    bill,
+    billItems,
+    billPayments,
   });
 
   const saveBill = useCallback(() => {
@@ -79,7 +79,7 @@ export const useFullBill = () => {
       : dispatch(updateBill(bill.id ?? 0, fullBill));
   }, [fullBill, creationMode, dispatch]);
 
-  const { prices } = useItemPrices(pendings[0]?.billDTO?.listId);
+  const { prices } = useItemPrices(pendings[0]?.bill?.listId);
   const itemsRowData = useMemo(() => {
     return billItems.map((item) => {
       const priceDTO = prices.find(
@@ -169,9 +169,9 @@ export const useFullBill = () => {
   useEffect(() => {
     if (!creationMode) {
       const fullBill = pendings[0];
-      setBill({ ...fullBill.billDTO });
-      setBillItems([...(fullBill.billItemsDTO ?? [])]);
-      setBillPayments([...(fullBill.billPaymentsDTO ?? [])]);
+      setBill({ ...fullBill.bill });
+      setBillItems([...(fullBill.billItems ?? [])]);
+      setBillPayments([...(fullBill.billPayments ?? [])]);
     }
   }, [creationMode, patient]);
 

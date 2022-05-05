@@ -25,6 +25,8 @@
     "hasinsurance": "Versichert",
     "mothername": "Name der Mutter",
     "note": "Complain",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "secondname": "Nachname",
     "sex": "Geschlecht",
     "opd": "OPD",

@@ -7,12 +7,16 @@ import { initialFields } from "./consts";
 export const useFields = (admission?: AdmissionDTO) => {
   const fields: TFields<DischargeFormFieldName> = {
     ...initialFields,
-    disType: {
-      value: admission?.admType?.code ?? "",
+    diseaseOut1: {
+      value: admission?.diseaseOut1?.code?.toString() ?? "",
       type: "text",
     },
-    diseaseOut: {
-      value: admission?.diseaseOut?.code?.toString() ?? "",
+    diseaseOut2: {
+      value: admission?.diseaseOut2?.code?.toString() ?? "",
+      type: "text",
+    },
+    diseaseOut3: {
+      value: admission?.diseaseOut3?.code?.toString() ?? "",
       type: "text",
     },
     bedDays: {
@@ -21,6 +25,10 @@ export const useFields = (admission?: AdmissionDTO) => {
         new Date()
       ).toString(),
       type: "number",
+    },
+    note: {
+      value: admission?.note ?? "",
+      type: "text",
     },
   };
 

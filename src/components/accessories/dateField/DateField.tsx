@@ -49,6 +49,8 @@ const DateField: FunctionComponent<IProps> = ({
         disabled={disabled}
         disableFuture={disableFuture}
         className={actualClassName}
+        helperText={errorText}
+        error={Boolean(errorText)}
         onChange={(date) => handleDateChange(date)}
         inputVariant="outlined"
         margin="dense"

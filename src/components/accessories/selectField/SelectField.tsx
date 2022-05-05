@@ -59,7 +59,7 @@ const SelectField: FunctionComponent<IProps> = ({
         label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
         error={isValid}
       >
-        {isLoading ? (
+        {isLoading && (
           <MenuItem value="" key={"nano"}>
             <CircularProgress
               style={{
@@ -68,10 +68,6 @@ const SelectField: FunctionComponent<IProps> = ({
               }}
               size={20}
             />
-          </MenuItem>
-        ) : (
-          <MenuItem value="" key={"nano"}>
-            {""}
           </MenuItem>
         )}
 

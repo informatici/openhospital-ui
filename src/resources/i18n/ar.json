@@ -24,6 +24,8 @@
     "firstname": "الاسم الأول",
     "hasinsurance": "يمتلك تأمين",
     "mothername": "اسم الام",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "note": "شكوى",
     "secondname": "الاسم الثاني",
     "sex": "جنس",

@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../../styles/index";
 @import "../../../../node_modules/susy/sass/susy";
 
 .patientAdmission {
@@ -13,6 +13,19 @@
     margin-top: 20px;
     button {
       width: 200px;
+    }
+  }
+
+  .patientAdmission__subtitle {
+    display: flex;
+    padding: 16px;
+    width: "100%";
+    font-size: large;
+    font-weight: 400;
+    border: 1px solid $c-color-primary;
+    border-radius: 5px;
+    & > .icon {
+        width: 75px;
     }
   }
 }

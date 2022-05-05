@@ -24,15 +24,13 @@ const PatientAdmissions: FC = () => {
   }, [patient, dispatch]);
 
   return (
-    <>
-      {patient?.status === PatientDTOStatusEnum.I ? (
-        <div className="patientAdmission">
-          <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
-        </div>
-      ) : (
-        <SkeletonLoader />
-      )}
-    </>
+    <div className="patientAdmission">
+      <div className={"patientAdmission__subtitle"}>
+        <div className={"icon"}></div>
+        <div className={"text"}>{t("admission.patientalreadyadmitted")}</div>
+      </div>
+      <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
+    </div>
   );
 };
 

@@ -15,6 +15,8 @@ export type TPatientDataFormFieldName =
   | "age"
   | "agetype"
   | "sex"
+  | "height"
+  | "weight"
   | "address"
   | "city"
   | "telephone"

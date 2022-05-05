@@ -48,6 +48,13 @@ const PatientTherapy: FC = () => {
       : state.therapies.updateTherapy.status;
   });
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.therapies.createTherapy.error?.message ||
+      state.therapies.updateTherapy.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
   const patientData = useSelector(
@@ -137,7 +144,7 @@ const PatientTherapy: FC = () => {
       />
       {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

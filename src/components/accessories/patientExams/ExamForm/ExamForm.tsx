@@ -21,6 +21,7 @@ import TextField from "../../textField/TextField";
 import ExamRowTable from "../examRowTable/ExamRowTable";
 import "./styles.scss";
 import { ExamProps } from "./types";
+import moment from "moment";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -45,7 +46,15 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string().required(t("common.required")),
+    examDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "date",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     exam: string().required(t("common.required")),
     material: string().required(t("common.required")),
     result:
@@ -122,6 +131,7 @@ const ExamForm: FC<ExamProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );
@@ -216,15 +226,15 @@ const ExamForm: FC<ExamProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">
               <DateField
-                fieldName="date"
-                fieldValue={formik.values.date}
+                fieldName="examDate"
+                fieldValue={formik.values.examDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("examDate")}
+                errorText={getErrorText("examDate")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("examDate")}
                 disabled={isLoading}
               />
             </div>
