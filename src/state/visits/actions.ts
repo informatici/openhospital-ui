@@ -7,6 +7,7 @@ import {
   VisitDTO,
   WardDTO,
   PatientDTO,
+  BASE_PATH,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { visitDataFormatter } from "../../libraries/formatUtils/dataFormatting";
@@ -27,7 +28,10 @@ import {
 } from "./consts";
 
 const visitsControllerApi = new VisitsControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const createVisit =

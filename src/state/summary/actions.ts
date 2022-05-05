@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { of, concat } from "rxjs";
 import { map, catchError, toArray } from "rxjs/operators";
 import {
+  BASE_PATH,
   Configuration,
   ExaminationControllerApi,
   LaboratoryControllerApi,
@@ -19,14 +20,23 @@ import {
 } from "./consts";
 
 const therapyControllerApi = new TherapyControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 const opdControllerrApi = new OpdControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 const examinationControllerApi = new ExaminationControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 const laboratoryControllerApi = new LaboratoryControllerApi(

@@ -9,6 +9,7 @@ import {
   FullBillDTO,
   BillItemsDTO,
   BillPaymentsDTO,
+  BASE_PATH,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -52,7 +53,10 @@ import {
 import { TFilterValues } from "../../components/accessories/billTable/types";
 
 const billControllerApi = new BillControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const newBill =

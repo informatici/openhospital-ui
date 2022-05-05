@@ -1,6 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
+  BASE_PATH,
   Configuration,
   ExamControllerApi,
   ExamDTO,
@@ -19,11 +20,17 @@ import {
 } from "./consts";
 
 const examControllerApi = new ExamControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 const examRowControllerApi = new ExamRowControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const getExams =

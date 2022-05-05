@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
 import {
+  BASE_PATH,
   Configuration,
   LoginApiApi,
   LoginResponse,
@@ -25,7 +26,10 @@ import { IAuthentication } from "./types";
 
 const api = new LoginApiApi(new Configuration());
 const usersApi = new UserControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const setAuthenticationSuccess = (

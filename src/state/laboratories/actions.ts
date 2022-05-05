@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import {
+  BASE_PATH,
   Configuration,
   LaboratoryControllerApi,
   LaboratoryDTO,
@@ -30,7 +31,10 @@ import {
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const createLab =

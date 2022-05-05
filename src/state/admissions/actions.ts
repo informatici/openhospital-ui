@@ -4,6 +4,7 @@ import {
   Configuration,
   AdmissionDTO,
   AdmissionControllerApi,
+  BASE_PATH,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
@@ -31,7 +32,10 @@ import {
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const createAdmission =

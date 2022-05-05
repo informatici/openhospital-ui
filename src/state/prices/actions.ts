@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import isEmpty from "lodash.isempty";
-import { Configuration } from "../../generated";
+import { BASE_PATH, Configuration } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
 import {
@@ -15,7 +15,10 @@ import { PriceListControllerApi } from "../../generated/apis/PriceListController
 import { PriceDTO } from "../../generated/models/PriceDTO";
 
 const priceControllerApi = new PriceListControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const getPrices =

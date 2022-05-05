@@ -1,12 +1,20 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { Configuration, DiseaseDTO, WardControllerApi } from "../../generated";
+import {
+  BASE_PATH,
+  Configuration,
+  DiseaseDTO,
+  WardControllerApi,
+} from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
 import { IAction } from "../types";
 import { GET_WARD_FAIL, GET_WARD_LOADING, GET_WARD_SUCCESS } from "./consts";
 
 const wardControllerApi = new WardControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const getWards =

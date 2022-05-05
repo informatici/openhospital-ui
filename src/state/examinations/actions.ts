@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import {
+  BASE_PATH,
   Configuration,
   ExaminationControllerApi,
   PatientExaminationDTO,
@@ -24,7 +25,10 @@ import {
 } from "./consts";
 
 const examinationControllerApi = new ExaminationControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const createExamination =

@@ -2,6 +2,7 @@ import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
 import {
+  BASE_PATH,
   Configuration,
   PatientControllerApi,
   PatientDTO,
@@ -26,7 +27,10 @@ import {
 } from "./consts";
 
 const patientControllerApi = new PatientControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  new Configuration({
+    middleware: [applyTokenMiddleware],
+    basePath: process.env.API_BASE_PATH || BASE_PATH,
+  })
 );
 
 export const createPatient =
