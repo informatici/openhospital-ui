@@ -1,4 +1,5 @@
 import patientDTO, { patientDTO2 } from "../fixtures/patientDTO";
+import patientDTOOut from "../fixtures/patientDTOOut";
 
 export const patientRoutes = (server) => {
   server.namespace("/patients", () => {
@@ -23,6 +24,9 @@ export const patientRoutes = (server) => {
         case "1234562":
           res.status(204);
           res.body = null;
+          break;
+        case "1234563":
+          res.status(200).json(patientDTOOut);
           break;
         default:
           res.status(200).json(patientDTO);
