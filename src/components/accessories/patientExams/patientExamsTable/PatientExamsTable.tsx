@@ -56,7 +56,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.code,
-        date: item.date ? renderDate(item.date) : "",
+        date: item.examDate ? renderDate(item.examDate) : "",
         exam: item.exam?.description ?? "",
         material: item.material,
         result: item.result,
@@ -68,6 +68,11 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const labStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.laboratories.labsByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
   const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
@@ -81,6 +86,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientExamsTable">
+      <h5>{t("common.previousentries")}</h5>
       {labStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
@@ -104,7 +110,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       )}
       {labStatus === "FAIL" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
     </div>

@@ -21,16 +21,6 @@ import {
  */
 export interface LaboratoryDTO {
     /**
-     * @type {string}
-     * @memberof LaboratoryDTO
-     */
-    date?: string;
-    /**
-     * @type {number}
-     * @memberof LaboratoryDTO
-     */
-    lock?: number;
-    /**
      * Laboratory Code
      * @type {number}
      * @memberof LaboratoryDTO
@@ -47,6 +37,12 @@ export interface LaboratoryDTO {
      * @memberof LaboratoryDTO
      */
     exam?: ExamDTO;
+    /**
+     * Laboratory Registration Date
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    registrationDate?: string;
     /**
      * Laboratory Exam Date
      * @type {string}

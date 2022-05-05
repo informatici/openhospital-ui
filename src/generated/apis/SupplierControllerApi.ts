@@ -26,11 +26,11 @@ export interface GetSuppliersUsingGET1Request {
 }
 
 export interface SaveSupplierUsingPOSTRequest {
-    suplierDTO: SupplierDTO;
+    supplierDTO: SupplierDTO;
 }
 
 export interface UpdateSupplierUsingPUTRequest {
-    suplierDTO: SupplierDTO;
+    supplierDTO: SupplierDTO;
 }
 
 /**
@@ -83,10 +83,10 @@ export class SupplierControllerApi extends BaseAPI {
     /**
      * saveSupplier
      */
-    saveSupplierUsingPOST({ suplierDTO }: SaveSupplierUsingPOSTRequest): Observable<boolean>
-    saveSupplierUsingPOST({ suplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    saveSupplierUsingPOST({ suplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
-        throwIfNullOrUndefined(suplierDTO, 'suplierDTO', 'saveSupplierUsingPOST');
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest): Observable<boolean>
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'saveSupplierUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -97,17 +97,17 @@ export class SupplierControllerApi extends BaseAPI {
             url: '/suppliers',
             method: 'POST',
             headers,
-            body: suplierDTO,
+            body: supplierDTO,
         }, opts?.responseOpts);
     };
 
     /**
      * updateSupplier
      */
-    updateSupplierUsingPUT({ suplierDTO }: UpdateSupplierUsingPUTRequest): Observable<boolean>
-    updateSupplierUsingPUT({ suplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    updateSupplierUsingPUT({ suplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
-        throwIfNullOrUndefined(suplierDTO, 'suplierDTO', 'updateSupplierUsingPUT');
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest): Observable<boolean>
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'updateSupplierUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ export class SupplierControllerApi extends BaseAPI {
             url: '/suppliers',
             method: 'PUT',
             headers,
-            body: suplierDTO,
+            body: supplierDTO,
         }, opts?.responseOpts);
     };
 

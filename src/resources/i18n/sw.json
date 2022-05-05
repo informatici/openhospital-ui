@@ -28,6 +28,8 @@
     "secondname": "Jina la pili",
     "sex": "JINSIA",
     "opd": "OPD",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "usersections": "User sections",
     "userinfo": "User info",
     "userexams": "Exams",

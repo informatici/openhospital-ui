@@ -48,16 +48,23 @@ const PatientDischarge: FC = () => {
     (state) => state.admissions.dischargePatient.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.admissions.dischargePatient.error?.message ||
+      state.admissions.currentAdmissionByPatientId.error?.message
+  ) as string;
+
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
     if (currentAdmission) {
       const dischargeToSave: AdmissionDTO = {
         ...currentAdmission,
-        cliDiaryCharge: adm.cliDiaryCharge,
-        imageryCharge: adm.imageryCharge,
         disDate: adm.disDate,
         disType: adm.disType,
-        diseaseOut: adm.diseaseOut,
+        diseaseOut1: adm.diseaseOut1,
+        diseaseOut2: adm.diseaseOut2,
+        diseaseOut3: adm.diseaseOut3,
+        note: adm.note,
         admitted: 0,
       };
       dispatch(dischargePatient(patient?.code, dischargeToSave));
@@ -65,12 +72,9 @@ const PatientDischarge: FC = () => {
   };
 
   useEffect(() => {
-    if (dischargeStatus === "FAIL") {
+    if (dischargeStatus === "FAIL" || currentAdmissionStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
-    }
-    if (dischargeStatus === "SUCCESS") {
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
     }
   }, [dischargeStatus]);
 
@@ -81,6 +85,7 @@ const PatientDischarge: FC = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
     }
@@ -116,14 +121,14 @@ const PatientDischarge: FC = () => {
           <InfoBox type="warning" message={t("admission.patientnotadmitted")} />
         </div>
       )}
-      {dischargeStatus === "FAIL" && (
+      {(dischargeStatus === "FAIL" || currentAdmissionStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 
       <ConfirmationDialog
-        isOpen={dischargeStatus === "SUCCESS" || dischargeStatus === "SUCCESS"}
+        isOpen={dischargeStatus === "SUCCESS"}
         title={
           dischargeStatus === "SUCCESS"
             ? t("admission.discharged")

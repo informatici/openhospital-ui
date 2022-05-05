@@ -116,6 +116,14 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: "",
     type: "text",
   },
+  height: {
+    value: "",
+    type: "number",
+  },
+  weight: {
+    value: "",
+    type: "number",
+  },
   note: {
     value: "",
     type: "text",
@@ -142,12 +150,12 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     options: bloodTypeOptions,
   },
   hasInsurance: {
-    value: "",
+    value: "N",
     type: "text",
     options: yesOrNoOptions,
   },
   parentTogether: {
-    value: "",
+    value: "U",
     type: "text",
     options: yesOrNoOrUnknownOptions,
   },

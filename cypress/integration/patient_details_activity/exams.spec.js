@@ -17,14 +17,14 @@ describe("Patient Details / Exams", () => {
   });
 
   it("should make it possible for the user to fill out the form to create a new exam", () => {
-    cy.get("[id='date']").focus().type("02022022").blur();
+    cy.get("[id='examDate']").focus().type("02022022").blur();
     cy.get("[id='exam']").focus().type("1.3 Differential").blur();
     cy.get("[id='material']").focus().type("angal.lab.blood").blur();
     cy.get("[id='result']").focus().type("POSITIVE").blur();
     cy.get("[id='note']").focus().type("note").blur();
   });
 
-  it("should display an error dialog if the exam creation call fails", () => {
+  it("should display an error info box if the exam creation call fails", () => {
     cy.get("[id='note']").focus().clear().type("ERROR").blur();
 
     cy.get("[class='submit_button']").click();

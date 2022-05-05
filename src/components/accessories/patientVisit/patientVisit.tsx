@@ -48,6 +48,13 @@ const PatientVisit: FunctionComponent = () => {
       : state.visits.updateVisit.status;
   });
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.visits.createVisit.error?.message ||
+      state.visits.updateVisit.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   useEffect(() => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
@@ -83,12 +90,18 @@ const PatientVisit: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (visitValuestoSave: VisitDTO) => {
+  const onSubmit = (visitValuesToSave: VisitDTO) => {
     setShouldResetForm(false);
-    visitValuestoSave.patient = patient;
+    visitValuesToSave = { ...visitToEdit, ...visitValuesToSave };
+    visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
-      dispatch(updateVisit(visitToEdit.visitID, visitValuestoSave, wardsData));
-    } else dispatch(createVisit(visitValuestoSave, wardsData));
+      dispatch(
+        updateVisit(visitToEdit.visitID, {
+          ...visitToEdit,
+          ...visitValuesToSave,
+        })
+      );
+    } else dispatch(createVisit({ ...visitValuesToSave, visitID: 0 }));
   };
 
   const resetFormCallback = () => {
@@ -127,7 +140,7 @@ const PatientVisit: FunctionComponent = () => {
 
       {changeStatus === "FAIL" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <PatientVisitTable

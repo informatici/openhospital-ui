@@ -63,7 +63,7 @@ const RenderBillDetails: FC<IBillProps> = ({
             >
               <TableHead>
                 <Cell style={{ fontWeight: "bold" }} colSpan={4}>
-                  {t("bill.billid")} : {fullBill.billDTO?.id}
+                  {t("bill.billid")} : {fullBill.bill?.id}
                 </Cell>
                 <TableRow>
                   <Cell>{t("bill.patient")}</Cell>
@@ -75,12 +75,12 @@ const RenderBillDetails: FC<IBillProps> = ({
               <TableBody>
                 <TableRow>
                   <Cell>
-                    <strong>{fullBill.billDTO?.patName}</strong>
+                    <strong>{fullBill.bill?.patName}</strong>
                   </Cell>
-                  <Cell>{currencyFormat(fullBill.billDTO?.amount)}</Cell>
-                  <Cell>{currencyFormat(fullBill.billDTO?.balance)}</Cell>
+                  <Cell>{currencyFormat(fullBill.bill?.amount)}</Cell>
+                  <Cell>{currencyFormat(fullBill.bill?.balance)}</Cell>
                   <Cell>
-                    {fullBill.billDTO?.status === "C"
+                    {fullBill.bill?.status === "C"
                       ? t("bill.closed")
                       : t("bill.pending")}
                   </Cell>
@@ -111,8 +111,8 @@ const RenderBillDetails: FC<IBillProps> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {fullBill?.billItemsDTO &&
-                fullBill?.billItemsDTO.map((item, index) => (
+              {fullBill?.billItems &&
+                fullBill?.billItems.map((item, index) => (
                   <TableRow key={index}>
                     <Cell>{++index}</Cell>
                     <Cell component="td" scope="row">
@@ -151,8 +151,8 @@ const RenderBillDetails: FC<IBillProps> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {fullBill?.billPaymentsDTO &&
-                fullBill?.billPaymentsDTO.map((pay, index) => (
+              {fullBill?.billPayments &&
+                fullBill?.billPayments.map((pay, index) => (
                   <TableRow key={++index}>
                     <Cell>{index}</Cell>
                     <Cell component="td" scope="row">

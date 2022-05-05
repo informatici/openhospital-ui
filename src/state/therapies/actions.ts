@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import {
   Configuration,
+  ReplaceTherapiesUsingPOSTRequest,
   TherapyControllerApi,
   TherapyRowDTO,
 } from "../../generated";
@@ -55,20 +56,24 @@ export const updateTherapy =
     dispatch({
       type: UPDATE_THERAPY_LOADING,
     });
-    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
-      (payload) => {
-        dispatch({
-          type: UPDATE_THERAPY_SUCCESS,
-          payload: payload,
-        });
-      },
-      (error) => {
-        dispatch({
-          type: UPDATE_THERAPY_FAIL,
-          error: error,
-        });
-      }
-    );
+    therapyControllerApi
+      .replaceTherapiesUsingPOST({
+        thRowDTOs: [thRowDTO],
+      } as ReplaceTherapiesUsingPOSTRequest)
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: UPDATE_THERAPY_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: UPDATE_THERAPY_FAIL,
+            error: error,
+          });
+        }
+      );
   };
 
 export const createTherapyReset =

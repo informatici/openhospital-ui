@@ -48,7 +48,7 @@ export const initialFields: TFields<ExamFormFieldName> = {
     type: "text",
     options: examsOptions,
   },
-  date: {
+  examDate: {
     value: "",
     type: "text",
   },

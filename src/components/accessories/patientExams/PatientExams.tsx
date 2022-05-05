@@ -71,6 +71,13 @@ const PatientExams: FC = () => {
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
   );
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      labStore.createLab.error?.message ||
+      labStore.updateLab.error?.message ||
+      labStore.deleteLab.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
   const exams = useSelector((state: IState) => state.exams.examList.data);
 
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
@@ -80,8 +87,8 @@ const PatientExams: FC = () => {
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.date = parseDate(lab.date ?? "");
-    lab.examDate = parseDate(lab.date ?? "");
+    lab.examDate = parseDate(lab.examDate ?? "");
+    lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
     if (labToEdit.code) lab.code = labToEdit.code;
     const labWithRowsDTO = {
@@ -143,7 +150,7 @@ const PatientExams: FC = () => {
         labStore.updateLab.status === "FAIL" ||
         labStore.deleteLab.status === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 

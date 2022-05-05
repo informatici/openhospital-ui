@@ -86,6 +86,12 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     (state) => state.therapies.therapiesByPatientId.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.therapies.therapiesByPatientId.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   const onDelete = (row: TherapyRowDTO) => {
     handleDelete(row.therapyID);
   };
@@ -96,6 +102,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientTherapyTable">
+      <h5>{t("common.previousentries")}</h5>
       {(() => {
         switch (therapyStatus) {
           case "FAIL":

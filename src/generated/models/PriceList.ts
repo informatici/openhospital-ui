@@ -15,7 +15,7 @@
  * @export
  * @interface PriceList
  */
- export interface PriceList {
+export interface PriceList {
     /**
      * @type {number}
      * @memberof PriceList

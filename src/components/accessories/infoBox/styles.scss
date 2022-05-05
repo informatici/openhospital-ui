@@ -1,8 +1,8 @@
 @import "../../../styles/variables";
 
 .infoBox {
-  padding: 20px;
-  margin: 15px 20px 50px;
+  padding: 10px 20px;
+  margin: 15px 0px 50px;
   width: auto;
   &.error {
     color: $c-color-primary;
@@ -15,7 +15,7 @@
     background-color: lighten($c-black, 80%);
   }
 
-  h4 {
+  h5 {
     margin: 0px;
   }
 }

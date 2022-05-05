@@ -13,7 +13,7 @@
 
 import {
     PatientDTO,
-    WardDTO,
+    Ward,
 } from './';
 
 /**
@@ -23,7 +23,7 @@ import {
  */
 export interface VisitDTO {
     /**
-     * ID of the visit
+     * The visit\'s ID
      * @type {number}
      * @memberof VisitDTO
      */
@@ -52,20 +52,20 @@ export interface VisitDTO {
      */
     sms?: boolean;
     /**
-     * @type {WardDTO}
+     * @type {Ward}
      * @memberof VisitDTO
      */
-    ward?: WardDTO;
+    ward?: Ward;
     /**
-     * Service accomplished during the visit
-     * @type {string}
-     * @memberof VisitDTO
-     */
-    service?: string;
-    /**
-     * Duration of the visit
+     * duration of the visit
      * @type {number}
      * @memberof VisitDTO
      */
     duration?: number;
+    /**
+     * service done during the visit
+     * @type {string}
+     * @memberof VisitDTO
+     */
+    service?: string;
 }

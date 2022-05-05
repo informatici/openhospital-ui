@@ -21,6 +21,7 @@ import get from "lodash.get";
 import SelectField from "../../selectField/SelectField";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -33,7 +34,15 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const validationSchema = object({
-    pex_date: string().required(t("common.required")),
+    pex_date: string()
+      .required(t("common.required"))
+      .test({
+        name: "pex_ate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
@@ -53,6 +62,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );

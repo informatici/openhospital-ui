@@ -40,6 +40,9 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const opdStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.getOpds.status
   );
+  const errorMessage = useSelector<IState>(
+    (state) => state.opds.getOpds.error?.message || t("common.somethingwrong")
+  ) as string;
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
@@ -75,6 +78,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientOpdTable">
+      <h5>{t("common.previousentries")}</h5>
       {opdStatus === "SUCCESS" ? (
         <Table
           rowData={formatDataToDisplay(data)}
@@ -99,7 +103,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 
       {opdStatus === "FAIL" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
     </div>

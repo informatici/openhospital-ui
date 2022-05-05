@@ -27,6 +27,7 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 import InfoBox from "../infoBox/InfoBox";
 import moment from "moment";
 import { renderToString } from "react-dom/server";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 
 const BillRecords = () => {
   const { t } = useTranslation();
@@ -88,17 +89,17 @@ const BillRecords = () => {
   const formatDataToDisplay = (data: FullBillDTO[]) => {
     return data.map((item) => {
       return {
-        billDTO: item.billDTO,
-        code: item.billDTO?.id,
-        date: item.billDTO?.date ? renderDate(item.billDTO.date) : "",
-        amount: currencyFormat(item.billDTO?.amount),
-        balance: currencyFormat(item.billDTO?.balance),
+        billDTO: item.bill,
+        code: item.bill?.id,
+        date: item.bill?.date ? renderDate(item.bill.date) : "",
+        amount: currencyFormat(item.bill?.amount),
+        balance: currencyFormat(item.bill?.balance),
       };
     });
   };
 
   const getCoreRowPending = (row: any) => {
-    const val = pendingBills?.find((item) => item.billDTO?.id === row.code);
+    const val = pendingBills?.find((item) => item.bill?.id === row.code);
     return {
       fullBill: val,
     };
@@ -110,7 +111,7 @@ const BillRecords = () => {
 
   const getCoreRowClosed = (row: any) => {
     return {
-      fullBill: closedBills?.find((item) => item.billDTO === row.billDTO),
+      fullBill: closedBills?.find((item) => item.bill === row.billDTO),
     };
   };
 
@@ -127,6 +128,14 @@ const BillRecords = () => {
     (state) => state.bills.closeBill.status
   );
 
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.bills.delete.error?.message ||
+      state.bills.payBill.error?.message ||
+      state.bills.closeBill.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
   const onDelete = (row: any) => {
     setSeletedObj(row);
     dispatch(deleteBill(row.code));
@@ -135,7 +144,7 @@ const BillRecords = () => {
   const handlePayment = (values: Record<string, any>) => {
     const newPayment: BillPaymentsDTO = {
       billId: selectedObj.code,
-      date: new Date(values.paymentDate).toISOString(),
+      date: parseDate(values.paymentDate),
       amount: parseFloat(values.paymentAmount),
       user: user,
     };
@@ -145,7 +154,7 @@ const BillRecords = () => {
 
   const initialFields: TFields = {
     paymentDate: {
-      value: new Date().toString(),
+      value: parseDate(Date.now().toString()),
       type: "date",
     },
     paymentAmount: {
@@ -157,7 +166,7 @@ const BillRecords = () => {
   const onPrint = (row: any) => {
     let bill =
       [...pendingBills, ...closedBills].find(
-        (item) => item.billDTO?.id === row.code
+        (item) => item.bill?.id === row.code
       ) ?? {};
 
     const content = (
@@ -203,7 +212,7 @@ const BillRecords = () => {
         paymentStatus === "FAIL" ||
         closeStatus === "FAIL") && (
         <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
+          <InfoBox type="error" message={errorMessage} />
         </div>
       )}
       <h3>{`${t("bill.closed")} (${closedBills.length})`}</h3>

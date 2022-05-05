@@ -30,6 +30,8 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
+import { DiseaseDTO, OpdDTO } from "../../../../generated";
+import moment from "moment";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -43,7 +45,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const validationSchema = object({
-    date: string().required(t("common.required")),
+    visitDate: string()
+      .required(t("common.required"))
+      .test({
+        name: "visitDate",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      }),
     disease: string().required(t("common.required")),
     disease2: string().test({
       name: "disease2",
@@ -69,13 +79,30 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
+  const diseases = useSelector<IState, DiseaseDTO[]>(
+    (state: IState) => state.diseases.diseasesOpd.data ?? []
+  );
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      const opdToSave: OpdDTO = {
+        ...formattedValues,
+        date: formattedValues.visitDate,
+        disease: diseases.find(
+          (e) => e.code?.toString() === formattedValues.disease
+        ),
+        disease2: diseases.find(
+          (e) => e.code?.toString() === formattedValues.disease2
+        ),
+        disease3: diseases.find(
+          (e) => e.code?.toString() === formattedValues.disease3
+        ),
+      };
+      onSubmit(opdToSave);
     },
   });
 
@@ -84,6 +111,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
     },
     [setFieldValue]
   );
@@ -171,15 +199,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">
               <DateField
-                fieldName="date"
-                fieldValue={formik.values.date}
+                fieldName="visitDate"
+                fieldValue={formik.values.visitDate}
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("visitDate")}
+                errorText={getErrorText("visitDate")}
                 label={t("opd.dateopd")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("visitDate")}
                 disabled={isLoading}
               />
             </div>
@@ -203,21 +231,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("referralTo")}
                 onBlur={formik.handleBlur}
                 type="string"
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
-              <TextField
-                field={formik.getFieldProps("complaint")}
-                multiline={true}
-                theme="regular"
-                label={t("opd.complaint")}
-                isValid={isValid("complaint")}
-                errorText={getErrorText("complaint")}
-                onBlur={formik.handleBlur}
-                type="string"
-                disabled={isLoading}
               />
             </div>
           </div>

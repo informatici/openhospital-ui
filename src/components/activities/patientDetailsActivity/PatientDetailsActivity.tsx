@@ -1,10 +1,17 @@
 import { EditRounded, Notes, Person } from "@material-ui/icons";
 import classNames from "classnames";
 import isEmpty from "lodash.isempty";
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Redirect, Route, Switch, useRouteMatch } from "react-router";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from "react-router";
 import { useParams } from "react-router-dom";
 import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
@@ -25,6 +32,7 @@ import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import Footer from "../../accessories/footer/Footer";
 import PatientExams from "../../accessories/patientExams/PatientExams";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import PatientOperation from "../../accessories/patientOperation/PatientOperation";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
 import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
 import PatientTriage from "../../accessories/patientTriage/PatientTriage";
@@ -55,6 +63,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { path, url } = useRouteMatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
@@ -72,9 +81,14 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const section =
+    location.pathname.split("/")[location.pathname.split("/").length - 1];
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>("clinic");
-  const [defaultRoute, setDefaultRoute] = useState("/summary");
+  const [userSection, setUserSection] = useState<IUserSection>(
+    (isNaN(parseInt(section)) ? section : "admissions") as IUserSection
+  );
+
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
   };
@@ -174,7 +188,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("discharge");
-                                setDefaultRoute("/discharge");
+                                history.replace(`${url}/discharge`);
                               }}
                             >
                               (change)
@@ -189,7 +203,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("admissions");
-                                setDefaultRoute("/admissions");
+                                history.replace(`${url}/admissions`);
                               }}
                             >
                               (change)
@@ -201,13 +215,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
                     {patient?.data?.status === PatientDTOStatusEnum.I ? (
                       <InPatientDashboardMenu
-                        setDefaultRoute={setDefaultRoute}
                         setUserSection={setUserSection}
                         userSection={userSection}
                       />
                     ) : (
                       <OutPatientDashboardMenu
-                        setDefaultRoute={setDefaultRoute}
                         setUserSection={setUserSection}
                         userSection={userSection}
                       />
@@ -247,6 +259,24 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               {patient.data?.bloodType || "-"}
                             </div>
                           </div>
+
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.height")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.height || "-"}
+                            </div>
+                          </div>
+                          <div className="patientDetails__personalData__item">
+                            <div className="patientDetails__personalData__item__label">
+                              {t("patient.weight")}:
+                            </div>
+                            <div className="patientDetails__personalData__item__value">
+                              {patient.data?.weight || "-"}
+                            </div>
+                          </div>
+
                           <div className="patientDetails__personalData__item">
                             <div className="patientDetails__personalData__item__label">
                               {t("patient.address")}:
@@ -342,13 +372,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   <div className={"patientDetails__nested_content"}>
                     <Switch>
                       <Route exact path={`${path}`}>
-                        <Redirect to={`${url}/summary`} />
-                      </Route>
-                      <Route path={`${path}/summary`}>
-                        <PatientDetailsContent
-                          title="Summary"
-                          content={PatientSummary}
-                        />
+                        <Redirect to={`${url}/admissions`} />
                       </Route>
                       <Route path={`${path}/admissions`}>
                         <PatientDetailsContent
@@ -390,13 +414,13 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </Route>
                       <Route path={`${path}/clinic`}>
                         <PatientDetailsContent
-                          title="Clinic"
-                          content={SkeletonLoader}
+                          title="Summary"
+                          content={PatientSummary}
                         />
                       </Route>
                       <Route path={`${path}/discharge`}>
                         {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/summary`} />
+                          <Redirect to={`${url}/clinic`} />
                         ) : (
                           <PatientDetailsContent
                             title="Discharge"
@@ -407,7 +431,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       <Route path={`${path}/operation`}>
                         <PatientDetailsContent
                           title="Operation"
-                          content={SkeletonLoader}
+                          content={PatientOperation}
                         />
                       </Route>
                     </Switch>

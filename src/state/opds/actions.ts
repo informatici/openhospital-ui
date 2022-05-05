@@ -32,12 +32,11 @@ const opdControllerApi = new OpdControllerApi(
 );
 
 export const createOpd =
-  (opdValues: Record<string, any>, diseaseList: DiseaseDTO[] | undefined) =>
+  (opdDTO: OpdDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    const opdDTO = opdDataFormatter(opdValues, diseaseList);
     opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
       () => {
         dispatch({
@@ -111,16 +110,11 @@ export const getOpds =
   };
 
 export const updateOpd =
-  (
-    code: number,
-    opdValues: Record<string, any>,
-    diseaseList: DiseaseDTO[] | undefined
-  ) =>
+  (code: number, opdDTO: OpdDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_OPD_LOADING,
     });
-    const opdDTO = opdDataFormatter(opdValues, diseaseList);
     opdControllerApi.updateOpdUsingPUT({ code, opdDTO }).subscribe(
       () => {
         dispatch({

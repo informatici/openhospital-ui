@@ -21,11 +21,6 @@ export interface BillPaymentsDTO {
      * @type {number}
      * @memberof BillPaymentsDTO
      */
-    hashCode?: number;
-    /**
-     * @type {number}
-     * @memberof BillPaymentsDTO
-     */
     id?: number;
     /**
      * Bill id

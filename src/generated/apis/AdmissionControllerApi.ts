@@ -42,7 +42,7 @@ export interface GetCurrentAdmissionUsingGETRequest {
 }
 
 export interface GetNextYProgUsingGETRequest {
-    wardcode: string;
+    warcode: string;
 }
 
 export interface GetPatientAdmissionsUsingGETRequest {
@@ -88,9 +88,9 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * dischargePatient
      */
-    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest): Observable<void>
-    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest): Observable<boolean>
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(patientCode, 'patientCode', 'dischargePatientUsingPOST');
         throwIfNullOrUndefined(currentAdmissionDTO, 'currentAdmissionDTO', 'dischargePatientUsingPOST');
 
@@ -103,7 +103,7 @@ export class AdmissionControllerApi extends BaseAPI {
             'patientCode': patientCode,
         };
 
-        return this.request<void>({
+        return this.request<boolean>({
             url: '/admissions/discharge',
             method: 'POST',
             headers,
@@ -183,17 +183,17 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * getNextYProg
      */
-    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest): Observable<number>
-    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    getNextYProgUsingGET({ wardcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
-        throwIfNullOrUndefined(wardcode, 'wardcode', 'getNextYProgUsingGET');
+    getNextYProgUsingGET({ warcode }: GetNextYProgUsingGETRequest): Observable<number>
+    getNextYProgUsingGET({ warcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getNextYProgUsingGET({ warcode }: GetNextYProgUsingGETRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(warcode, 'warcode', 'getNextYProgUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'wardcode': wardcode,
+            'warcode': warcode,
         };
 
         return this.request<number>({

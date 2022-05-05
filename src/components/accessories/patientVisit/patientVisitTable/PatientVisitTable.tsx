@@ -37,6 +37,12 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   const visitStatus = useSelector<IState, string | undefined>(
     (state) => state.visits.getVisits.status
   );
+
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.visits.getVisits.error?.message || t("common.somethingwrong")
+  ) as string;
+
   const patientCode = useSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
@@ -50,6 +56,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
       visitID: item.visitID ?? "",
       duration: item.duration ?? "",
       date: item.date ? renderDate(item.date) : "",
+      service: item.service ?? "",
       ward: item.ward?.description ?? "",
     }));
   };
@@ -60,31 +67,43 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="PatientVisitTable">
-      {visitStatus === "SUCCESS" ? (
-        <Table
-          rowData={formatDataToDisplay(data)}
-          dateFields={dateFields}
-          tableHeader={header}
-          labelData={label}
-          columnsOrder={order}
-          rowsPerPage={5}
-          isCollapsabile={true}
-          onEdit={onEdit}
-        />
-      ) : (
-        visitStatus === "SUCCESS_EMPTY" && (
-          <InfoBox type="warning" message={t("common.emptydata")} />
-        )
-      )}
-      {visitStatus === "LOADING" && (
-        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
-      )}
+      <h5>{t("common.previousentries")}</h5>
+      {(() => {
+        switch (visitStatus) {
+          case "FAIL":
+            return (
+              <div ref={infoBoxRef}>
+                <InfoBox type="error" message={errorMessage} />
+              </div>
+            );
+          case "LOADING":
+            return (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
+              />
+            );
 
-      {visitStatus === "FAIL" && (
-        <div ref={infoBoxRef}>
-          <InfoBox type="error" message={t("common.somethingwrong")} />
-        </div>
-      )}
+          case "SUCCESS":
+            return (
+              <Table
+                rowData={formatDataToDisplay(data)}
+                dateFields={dateFields}
+                tableHeader={header}
+                labelData={label}
+                columnsOrder={order}
+                rowsPerPage={5}
+                isCollapsabile={true}
+                onEdit={onEdit}
+              />
+            );
+
+          case "SUCCESS_EMPTY":
+            return <InfoBox type="warning" message={t("common.emptydata")} />;
+
+          default:
+            return;
+        }
+      })()}
     </div>
   );
 };

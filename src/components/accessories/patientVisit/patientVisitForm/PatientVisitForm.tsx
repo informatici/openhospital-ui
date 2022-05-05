@@ -23,6 +23,7 @@ import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import { WardDTO } from "../../../../generated";
 
 const PatientVisitForm: FunctionComponent<TProps> = ({
   fields,
@@ -41,6 +42,10 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
     duration: string().required(t("common.required")),
   });
 
+  const wards = useSelector<IState, WardDTO[]>(
+    (state) => state.wards.allWards.data ?? []
+  );
+
   const initialValues = getFromFields(fields, "value");
 
   const formik = useFormik({
@@ -49,6 +54,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.ward = wards.find((e) => e.code === formattedValues.ward);
       onSubmit(formattedValues);
     },
   });
