@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import {
   formatAllFieldValues,
   getFromFields,
+  parseDate,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import { object, string } from "yup";
@@ -29,13 +30,16 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Typography,
 } from "@material-ui/core";
 import { DiseaseDTO, OpdDTO } from "../../../../generated";
 import moment from "moment";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
   onSubmit,
+  creationMode,
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
@@ -167,6 +171,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   return (
     <>
       <div className="patientOpdForm">
+        <h3 className="formInsertMode">
+          {creationMode
+            ? t("opd.newopd")
+            : t("opd.editopd") + ": " + renderDate(formik.values.visitDate)}
+        </h3>
         <form className="patientOpdForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">

@@ -10,6 +10,7 @@ interface IOperationRowProps {
   shouldResetForm: boolean;
   opdId?: number;
   admissionId?: number;
+  creationMode: boolean;
   resetFormCallback: () => void;
 }
 

@@ -8,6 +8,7 @@ interface ITherapyProps {
   resetButtonLabel: string;
   isLoading: boolean;
   shouldResetForm: boolean;
+  creationMode: boolean;
   resetFormCallback: () => void;
 }
 

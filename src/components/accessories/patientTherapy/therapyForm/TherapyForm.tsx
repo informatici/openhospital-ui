@@ -20,6 +20,7 @@ import Button from "../../button/Button";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { TherapyProps } from "./types";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 const TherapyForm: FC<TherapyProps> = ({
   fields,
@@ -27,6 +28,7 @@ const TherapyForm: FC<TherapyProps> = ({
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
+  creationMode,
   shouldResetForm,
   resetFormCallback,
 }) => {
@@ -140,6 +142,15 @@ const TherapyForm: FC<TherapyProps> = ({
   return (
     <>
       <div className="patientTherapyForm">
+        <h3 className="formInsertMode">
+          {creationMode
+            ? t("therapy.newtherapy")
+            : t("therapy.edittherapy") +
+              ": " +
+              renderDate(formik.values.startDate) +
+              " - " +
+              renderDate(formik.values.endDate)}
+        </h3>
         <form
           className="patientTherapyForm__form"
           onSubmit={formik.handleSubmit}

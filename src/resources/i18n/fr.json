@@ -51,6 +51,8 @@
     "search": "Chercher"
   },
   "opd": {
+    "newopd": "Create new OPD Visit",
+    "editopd": "Edit OPD Visit",
     "dateopd": "Date (d/m/y)",
     "note": "Notes et symptômes",
     "complaint": "Plaintes du patient",

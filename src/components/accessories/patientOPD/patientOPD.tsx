@@ -140,6 +140,7 @@ const PatientOPD: FunctionComponent = () => {
             ? initialFields
             : updateOpdFields(initialFields, opdToEdit)
         }
+        creationMode={creationMode}
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
         resetButtonLabel={t("common.reset")}
@@ -147,7 +148,6 @@ const PatientOPD: FunctionComponent = () => {
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
       />
-
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />

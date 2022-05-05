@@ -133,6 +133,7 @@ const PatientExams: FC = () => {
             : updateLabFields(initialFields, labToEdit)
         }
         onSubmit={onSubmit}
+        creationMode={creationMode}
         submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
         resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}

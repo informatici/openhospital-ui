@@ -131,6 +131,7 @@ const PatientTriage: FC = () => {
             ? initialFields
             : updateTriageFields(initialFields, triageToEdit)
         }
+        creationMode={creationMode}
         onSubmit={onSubmit}
         submitButtonLabel={
           creationMode ? t("common.savetriage") : t("common.update")

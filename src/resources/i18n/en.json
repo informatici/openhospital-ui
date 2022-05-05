@@ -53,6 +53,8 @@
     "search": "Search"
   },
   "opd": {
+    "newopd": "Create new OPD Visit",
+    "editopd": "Edit OPD Visit",
     "dateopd": "Date (d/m/y)",
     "note": "Notes and symptoms",
     "complaint": "Patient complaints",
@@ -95,6 +97,8 @@
     "notdeleted": "Visit not deleted"
   },
   "examination": {
+    "newtriage": "Create new Triage",
+    "edittriage": "Edit Triage",
     "ap": {
       "max": "max",
       "min": "min"
@@ -166,6 +170,8 @@
     "patients": "Patients"
   },
   "operation": {
+    "newoperation": "New Operation",
+    "editoperation": "Edit Operation",
     "operation": "Operation",
     "opDate": "Date",
     "opResult": "Result",
@@ -236,6 +242,7 @@
   },
   "therapy": {
     "newtherapy": "New Therapy",
+    "edittherapy": "Edit Therapy",
     "managetherapy": "Manage Therapy",
     "medical": "Medical",
     "quantity": "Quantity",
@@ -273,6 +280,8 @@
     "exams": "Exams"
   },
   "lab": {
+    "newlab": "New laboratory exam",
+    "editlab": "Edit laboratory exam",
     "date": "Date",
     "exam": "Exam",
     "type": "IPD/OPD",

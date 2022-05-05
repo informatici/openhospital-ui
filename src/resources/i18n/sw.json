@@ -48,6 +48,8 @@
     "insertdataofnewpatient": "Pachika data ya mgonjwa mpya"
   },
   "opd": {
+    "newopd": "Create new OPD Visit",
+    "editopd": "Edit OPD Visit",
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnesis",
     "note": "Malalamiko",

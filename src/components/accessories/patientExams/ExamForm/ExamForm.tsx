@@ -22,6 +22,7 @@ import ExamRowTable from "../examRowTable/ExamRowTable";
 import "./styles.scss";
 import { ExamProps } from "./types";
 import moment from "moment";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -29,6 +30,7 @@ const ExamForm: FC<ExamProps> = ({
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
+  creationMode,
   shouldResetForm,
   resetFormCallback,
 }) => {
@@ -222,6 +224,11 @@ const ExamForm: FC<ExamProps> = ({
   return (
     <>
       <div className="patientExamForm">
+        <h3 className="formInsertMode">
+          {creationMode
+            ? t("lab.newlab")
+            : t("lab.editlab") + ": " + renderDate(formik.values.examDate)}
+        </h3>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">

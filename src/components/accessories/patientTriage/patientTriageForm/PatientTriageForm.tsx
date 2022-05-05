@@ -22,10 +22,12 @@ import SelectField from "../../selectField/SelectField";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
   onSubmit,
+  creationMode,
   shouldResetForm,
   resetFormCallback,
   submitButtonLabel,
@@ -107,6 +109,13 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   return (
     <>
       <div className="patientTriageForm">
+        <h3 className="formInsertMode">
+          {creationMode
+            ? t("examination.newtriage")
+            : t("examination.edittriage") +
+              ": " +
+              renderDate(formik.values.pex_date)}
+        </h3>
         <form
           className="patientTriageForm__form"
           onSubmit={formik.handleSubmit}

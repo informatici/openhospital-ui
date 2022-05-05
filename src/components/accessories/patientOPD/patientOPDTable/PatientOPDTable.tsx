@@ -20,7 +20,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
-  const header = ["date"];
+  const header = ["date", "disease"];
   const dateFields = ["date"];
   const label = {
     code: t("opd.code"),
@@ -30,7 +30,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     disease3: t("opd.disease3"),
     note: t("opd.note"),
   };
-  const order = ["date"];
+  const order = ["date", "disease"];
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -90,7 +90,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
           // onDelete={onDelete}
           isCollapsabile={true}
           onEdit={onEdit}
-          onView={onEView}
         />
       ) : (
         opdStatus === "SUCCESS_EMPTY" && (

@@ -15,6 +15,10 @@
     "newpatient": "New patient",
     "searchpatients": "Search patients"
   },
+  "opd": {
+    "newopd": "Create new OPD Visit",
+    "editopd": "Edit OPD Visit"
+  },
   "patient": {
     "address": "å°å",
     "birthdate": "Birth Date",

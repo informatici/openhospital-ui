@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { OperationDTO } from "../../../../generated";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -27,6 +28,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
+  creationMode,
   shouldResetForm,
   resetFormCallback,
 }) => {
@@ -110,7 +112,8 @@ const OperationRowForm: FC<OperationRowProps> = ({
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
-    formik.resetForm();
+    resetFormCallback();
+    resetForm();
   };
 
   useEffect(() => {
@@ -127,6 +130,13 @@ const OperationRowForm: FC<OperationRowProps> = ({
   return (
     <>
       <div className="patientOperationForm">
+        <h3 className="formInsertMode">
+          {creationMode
+            ? t("operation.newoperation")
+            : t("operation.editoperation") +
+              ": " +
+              renderDate(formik.values.opDate)}
+        </h3>
         <form
           className="patientOperationForm__form"
           onSubmit={formik.handleSubmit}

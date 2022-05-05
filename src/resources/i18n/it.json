@@ -51,6 +51,8 @@
     "search": "Ricerca"
   },
   "opd": {
+    "newopd": "Nuova visita OPD",
+    "editopd": "Modifica visita OPD",
     "dateopd": "Data (d/m/y)",
     "note": "Note e sintomi",
     "complaint": "Sintomi riferiti",
@@ -68,6 +70,8 @@
     "deleted": "Visita cancellata"
   },
   "examination": {
+    "newtriage": "Nuovo Triage",
+    "edittriage": "Modifica Triage",
     "ap": {
       "max": "max",
       "min": "min"
@@ -182,6 +186,7 @@
   },
   "therapy": {
     "newtherapy": "Nuova terapia",
+    "edittherapy": "Modifica terapia",
     "managetherapy": "Gestisci terapia",
     "medical": "Farmaci",
     "quantity": "Quantità",
@@ -230,6 +235,8 @@
     "exams": "Prestazioni diagnostiche"
   },
   "lab": {
+    "newlab": "Nuovo esame laboratorio",
+    "editlab": "Modifica esame laboratorio",
     "date": "Data",
     "exam": "Esame",
     "type": "Visita in ricovero/ambulatoriale",

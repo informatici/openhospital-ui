@@ -134,6 +134,7 @@ const PatientTherapy: FC = () => {
             : updateFields(initialFields, therapyToEdit)
         }
         onSubmit={onSubmit}
+        creationMode={creationMode}
         submitButtonLabel={
           creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
         }

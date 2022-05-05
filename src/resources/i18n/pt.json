@@ -48,6 +48,8 @@
     "insertdataofnewpatient": "Inserir dados do paciente novo"
   },
   "opd": {
+    "newopd": "Create new OPD Visit",
+    "editopd": "Edit OPD Visit",
     "dateopd": "Date (d/m/y)",
     "anamnesis": "Anamnesis",
     "note": "Sintoma",

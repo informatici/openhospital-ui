@@ -23,7 +23,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["date"];
+  const header = ["date", "exam"];
   const dateFields = ["date"];
 
   const label = {
@@ -34,7 +34,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     result: t("lab.result"),
     note: t("lab.note"),
   };
-  const order = ["date"];
+  const order = ["date", "exam"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, LaboratoryDTO[]>((state) =>

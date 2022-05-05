@@ -7,6 +7,7 @@ interface IOwnProps {
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
+  creationMode: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }

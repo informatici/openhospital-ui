@@ -111,6 +111,7 @@ const PatientOperation: FC = () => {
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
+    setCreationMode(true);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
@@ -134,6 +135,7 @@ const PatientOperation: FC = () => {
             : updateOperationRowFields(initialFields, opRowToEdit)
         }
         onSubmit={onSubmit}
+        creationMode={creationMode}
         submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
         resetButtonLabel={t("common.reset")}
         shouldResetForm={shouldResetForm}

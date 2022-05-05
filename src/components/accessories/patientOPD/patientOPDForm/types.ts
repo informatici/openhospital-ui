@@ -1,6 +1,7 @@
 import { IForm } from "../../../../libraries/formDataHandling/types";
 
 interface IOwnProps {
+  creationMode: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }
