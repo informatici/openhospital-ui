@@ -2,7 +2,7 @@ const HOSTNAME = Cypress.env("HOSTNAME");
 const START_PATH_INPATIENT = `${HOSTNAME}/patients/details/1`;
 const START_PATH_OUTPATIENT = `${HOSTNAME}/patients/details/1234563`;
 
-describe("Patient Details / Visit - Inpatient", () => {
+describe("Patient Details / Visit / Inpatient", () => {
   before(() => {
     cy.authenticate(START_PATH_INPATIENT);
   });
@@ -15,7 +15,7 @@ describe("Patient Details / Visit - Inpatient", () => {
     cy.get("[class='patientDetails__main_menu']").contains("Visits:").click();
   });
 
-  it("Should make it possible for the user to fill out the form to add a new visit for an inpatient", () => {
+  it("should make it possible for the user to fill out the form to add a new visit for an inpatient", () => {
     cy.get("[id=ward]").focus().type("FEMALE WARDS").blur();
     cy.get("[id=date]").focus().type("03052022").blur();
     cy.get("[id=duration]").focus().type("100").blur();
@@ -28,7 +28,7 @@ describe("Patient Details / Visit - Inpatient", () => {
     cy.get("div.infoBox").should("have.class", "error");
   });
 
-  it("should show confirmation dialog if the visit creation succeeds", () => {
+  it("should show a confirmation dialog if the visit creation succeeds", () => {
     cy.get("[id=duration]").focus().clear().type("40").blur();
     cy.get("[class='submit_button']").click();
     cy.get("div.infoBox").should("not.exist");
@@ -37,7 +37,7 @@ describe("Patient Details / Visit - Inpatient", () => {
   });
 });
 
-describe("Patient Details / Visit - Outpatient", () => {
+describe("Patient Details / Visit / Outpatient", () => {
   before(() => {
     cy.authenticate(START_PATH_OUTPATIENT);
   });

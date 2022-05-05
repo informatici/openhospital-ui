@@ -5,7 +5,7 @@ export const admissionRoutes = (server) => {
   server.namespace("/admissions", () => {
     server.post("/").intercept((req, res) => {
       const body = req.jsonBody();
-      switch (body.admDate) {
+      switch (body.note) {
         case "fail":
           res.status(400);
           break;
@@ -52,7 +52,7 @@ export const admissionRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(admissionDTO);
+          res.status(200).json({});
       }
     });
     server.post("/discharge").intercept((req, res) => {
