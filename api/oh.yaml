@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
-host: 192.168.43.79:8080 #oh2.open-hospital.org
+host: oh2.open-hospital.org
 basePath: /oh-api
 tags:
   - name: admission-controller
@@ -92,7 +92,7 @@ tags:
   - name: ward-controller
     description: Ward Controller
 schemes:
-  - http
+  - https
 paths:
   /admissions:
     get:
