@@ -24,7 +24,7 @@ describe("Patient Details / Exams", () => {
     cy.get("[id='note']").focus().type("note").blur();
   });
 
-  it("should display an error dialog if the exam creation call fails", () => {
+  it("should display an error info box if the exam creation call fails", () => {
     cy.get("[id='note']").focus().clear().type("ERROR").blur();
 
     cy.get("[class='submit_button']").click();
