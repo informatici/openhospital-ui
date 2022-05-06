@@ -36,6 +36,7 @@ import { DiseaseDTO, OpdDTO } from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import CheckboxField from "../../checkboxField/CheckboxField";
+import { isEmpty } from "lodash";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -96,11 +97,18 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       const formattedValues = formatAllFieldValues(fields, values);
       const opdToSave: OpdDTO = {
         ...formattedValues,
+        referralFrom: isEmpty(formattedValues.referralFrom)
+          ? undefined
+          : formattedValues.referralFrom,
+        referralTo: isEmpty(formattedValues.referralTo)
+          ? undefined
+          : formattedValues.referralTo,
         date: formattedValues.visitDate,
         disease: diseases.find((e) => e.code === formik.values.disease),
         disease2: diseases.find((e) => e.code === formik.values.disease2),
         disease3: diseases.find((e) => e.code === formik.values.disease3),
       };
+      console.log(JSON.stringify(opdToSave));
       onSubmit(opdToSave);
     },
   });
@@ -214,7 +222,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               </FormControl>
             </div>
           </div>
-          <div className="row start-sm center-xs">
+          <div className="row start-sm center center-xs">
             <div className="patientOpdForm__item">
               <DateField
                 fieldName="visitDate"
