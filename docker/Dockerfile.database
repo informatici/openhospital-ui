@@ -1,7 +1,8 @@
 FROM mariadb:10.2.40
 
-ENV GITHUB_ORG="intesys"
-ENV OH_CORE_BRANCH="develop"
+ARG GITHUB_ORG
+ARG OH_CORE_BRANCH
+
 ENV MYSQL_DATABASE=oh
 ENV MYSQL_ROOT_PASSWORD=root
 ENV MYSQL_USER=isf
@@ -13,8 +14,6 @@ RUN git clone --depth=1 -b ${OH_CORE_BRANCH} https://github.com/${GITHUB_ORG}/op
 WORKDIR /openhospital-core
 
 EXPOSE 3306
-
-# RUN cp -R sql/ docker-entrypoint-initdb.d/
  
 RUN cp sql/step_01_create_structure.sql /docker-entrypoint-initdb.d/
 RUN cp sql/step_02_dump_menu.sql /docker-entrypoint-initdb.d/
