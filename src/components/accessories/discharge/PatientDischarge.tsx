@@ -17,6 +17,7 @@ import {
 import { useFields } from "./useFields";
 import DischargeForm from "./dischargeForm/DischargeForm";
 import { getPatientThunk } from "../../../state/patients/actions";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ const PatientDischarge: FC = () => {
     if (currentAdmission) {
       const dischargeToSave: AdmissionDTO = {
         ...currentAdmission,
-        disDate: adm.disDate,
+        disDate: parseDate(adm.disDate ?? ""),
         disType: adm.disType,
         diseaseOut1: adm.diseaseOut1,
         diseaseOut2: adm.diseaseOut2,

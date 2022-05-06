@@ -28,6 +28,11 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     diseaseIn: t("admission.diseaseIn"),
     transUnit: t("admission.transUnit"),
     ward: t("admission.ward"),
+    note: t("admission.note"),
+    disType: t("admission.disType"),
+    diseasOut1: t("admission.diseaseOut1"),
+    diseaseOut2: t("admission.diseaseOut2"),
+    diseaseOut3: t("admission.diseaseOut3"),
   };
   const order = ["admDate", "disDate"];
 
@@ -58,6 +63,11 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         diseaseIn: item.diseaseIn?.description ?? "",
         transUnit: item.transUnit,
         ward: item.ward?.description ?? "",
+        note: item.note ?? "",
+        disType: item.disType?.description ?? "",
+        diseaseOut1: item.diseaseOut1?.description ?? "",
+        diseaseOut2: item.diseaseOut2?.description ?? "",
+        diseaseOut3: item.diseaseOut3?.description ?? "",
       };
     });
   };
