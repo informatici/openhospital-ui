@@ -52,8 +52,6 @@ describe("Patient Details / Visit - Outpatient", () => {
 
   it("Should make it possible for the user to fill out the form to add a new visit for an outpatient", () => {
     cy.get("[id=visitDate]").focus().type("01012021").blur();
-    cy.get("[id=referralFrom]").focus().type("abc").blur();
-    cy.get("[id=referralTo]").focus().type("abc").blur();
     cy.get("[id=disease]").focus().type("Abortions").blur();
     cy.get("[id=note]").focus().type("fail").blur();
   });
