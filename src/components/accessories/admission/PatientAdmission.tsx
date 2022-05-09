@@ -13,7 +13,6 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
-  getCurrentAdmissionByPatientId,
 } from "../../../state/admissions/actions";
 import { useFields } from "./useFields";
 import { getPatientThunk } from "../../../state/patients/actions";
@@ -28,11 +27,7 @@ const PatientAdmission: FC = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const currentAdmission = useSelector(
-    (state: IState) => state.admissions.currentAdmissionByPatientId.data
-  );
-
-  const fields = useFields(currentAdmission);
+  const fields = useFields();
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -76,7 +71,6 @@ const PatientAdmission: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(getCurrentAdmissionByPatientId(patient?.code));
       dispatch(getPatientThunk((patient?.code ?? 0).toString()));
       dispatch(createAdmissionReset());
       setShouldUpdateTable(true);
@@ -91,10 +85,6 @@ const PatientAdmission: FC = () => {
     scrollToElement(null);
   };
 
-  useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
-  }, [patient, dispatch]);
-
   return (
     <div className="patientAdmission">
       <AdmissionForm
@@ -105,7 +95,6 @@ const PatientAdmission: FC = () => {
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
         isLoading={createStatus === "LOADING"}
-        admitted={currentAdmission?.admitted === 1}
       />
       {createStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">

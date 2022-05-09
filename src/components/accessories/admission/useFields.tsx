@@ -1,5 +1,8 @@
 import { AdmissionDTO } from "../../../generated";
-import { differenceInDays } from "../../../libraries/formDataHandling/functions";
+import {
+  differenceInDays,
+  parseDate,
+} from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 import { initialFields } from "./consts";
@@ -20,7 +23,7 @@ export const useFields = (admission?: AdmissionDTO) => {
       type: "text",
     },
     admDate: {
-      value: admission?.admDate ?? "",
+      value: admission?.admDate ?? parseDate(Date.now().toString()),
       type: "date",
     },
     note: {
