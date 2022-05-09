@@ -11,8 +11,9 @@
   color: $c-color-primary !important;
 }
 
-.center {
-  justify-content: center;
+.checkboxes {
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
 }
 
@@ -30,7 +31,7 @@
     margin: 7px 0px;
     padding: 0px 15px;
     width: 33%;
-    &.fullWith{
+    &.fullWidth{
       width: 100%;
     }
     @include susy-media($narrow) {
