@@ -106,7 +106,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         disease2: diseases.find((e) => e.code === formik.values.disease2),
         disease3: diseases.find((e) => e.code === formik.values.disease3),
       };
-      console.log(JSON.stringify(opdToSave));
       onSubmit(opdToSave);
     },
   });
@@ -172,9 +171,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value ? "R" : "");
-      if (value) {
-        setFieldValue(fieldName, "");
-      }
     },
     [setFieldValue]
   );
