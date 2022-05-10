@@ -30,7 +30,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     ward: t("admission.ward"),
     note: t("admission.note"),
     disType: t("admission.disType"),
-    diseasOut1: t("admission.diseaseOut1"),
+    diseaseOut1: t("admission.diseaseOut1"),
     diseaseOut2: t("admission.diseaseOut2"),
     diseaseOut3: t("admission.diseaseOut3"),
   };
