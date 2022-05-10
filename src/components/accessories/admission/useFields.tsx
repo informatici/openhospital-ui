@@ -1,8 +1,5 @@
 import { AdmissionDTO } from "../../../generated";
-import {
-  differenceInDays,
-  parseDate,
-} from "../../../libraries/formDataHandling/functions";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 import { initialFields } from "./consts";
