@@ -125,7 +125,6 @@ const DischargeForm: FC<DischargeProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-
       formattedValues.diseaseOut1 = diagnosisOutList?.find(
         (item) => item.code === formattedValues.diseaseOut1
       );

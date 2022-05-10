@@ -41,7 +41,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
-  admitted,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
