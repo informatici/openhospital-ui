@@ -3,15 +3,35 @@ import i18n from "i18next";
 import { LangContext } from "../../../libraries/langContext/langContext";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import languages from "../../../customization/available-languages.json";
+import availableLanguages from "../../../customization/available-languages.json";
+import { isEmpty } from "lodash";
+
+const fallbackLanguages = [
+  "en",
+  "it",
+  "de",
+  "fr",
+  "es",
+  "pt",
+  "ar",
+  "sw",
+  "am",
+  "cs",
+  "sq",
+  "zh",
+];
 
 const LangSwitcher: FunctionComponent = () => {
   const currentLang = i18n.language;
   const { changeLang } = useContext(LangContext);
   const { t } = useTranslation();
 
+  const languages = isEmpty(availableLanguages.availableLanguages)
+    ? fallbackLanguages
+    : availableLanguages.availableLanguages;
+
   const renderOptions = (): JSX.Element[] => {
-    return languages.availableLanguages.map((code: string) => (
+    return languages.map((code: string) => (
       <option key={code} value={code}>
         {t(`languages.${code}`)}
       </option>
@@ -20,7 +40,7 @@ const LangSwitcher: FunctionComponent = () => {
 
   const getCurrentLang = () => {
     var value = "";
-    languages.availableLanguages.forEach((key: string) => {
+    languages.forEach((key: string) => {
       if (currentLang === key || currentLang.split("-")[0] === key) {
         value = key;
       }
