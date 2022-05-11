@@ -11,10 +11,12 @@ import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
+  handleEdit: <T>(row: T) => void;
 }
 
 const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
+  handleEdit,
 }) => {
   const { t } = useTranslation();
 
@@ -48,6 +50,10 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
+  const onEdit = (row: AdmissionDTO) => {
+    handleEdit(data.find((item) => item.id === row?.id));
+  };
+
   useEffect(() => {
     if (shouldUpdateTable || patientCode) {
       dispatch(getAdmissionsByPatientId(patientCode));
@@ -57,6 +63,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const formatDataToDisplay = (data: AdmissionDTO[]) => {
     return data.map((item) => {
       return {
+        id: item.id ?? "",
         admDate: item.admDate ? renderDate(item.admDate) : "",
         disDate: item.disDate ? renderDate(item.disDate) : "",
         admType: item.admType?.description ?? "",
@@ -112,6 +119,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
+                onEdit={onEdit}
               />
             );
 
