@@ -2,38 +2,45 @@ import React, { FunctionComponent, useContext } from "react";
 import i18n from "i18next";
 import { LangContext } from "../../../libraries/langContext/langContext";
 import "./styles.scss";
+import { useTranslation } from "react-i18next";
+import availableLanguages from "../../../customization/available-languages.json";
+import { isEmpty } from "lodash";
 
-const languageVocabolary: Record<string, string> = {
-  en: "English",
-  it: "Italian",
-  de: "German",
-  fr: "French",
-  es: "Spanish",
-  pt: "Portoguese",
-  ar: "Arabic",
-  sw: "Swahili",
-  am: "Amharic",
-  cs: "Czech",
-  sq: "Albanian",
-  zh: "Chinese",
-};
+const fallbackLanguages = [
+  "en",
+  "it",
+  "de",
+  "fr",
+  "es",
+  "pt",
+  "ar",
+  "sw",
+  "am",
+  "cs",
+  "sq",
+  "zh",
+];
 
 const LangSwitcher: FunctionComponent = () => {
-  const languages = Object.keys(i18n.services.resourceStore.data);
   const currentLang = i18n.language;
   const { changeLang } = useContext(LangContext);
+  const { t } = useTranslation();
+
+  const languages = isEmpty(availableLanguages.availableLanguages)
+    ? fallbackLanguages
+    : availableLanguages.availableLanguages;
 
   const renderOptions = (): JSX.Element[] => {
     return languages.map((code: string) => (
       <option key={code} value={code}>
-        {languageVocabolary[code] || "undefined"}
+        {t(`languages.${code}`)}
       </option>
     ));
   };
 
   const getCurrentLang = () => {
     var value = "";
-    Object.keys(languageVocabolary).forEach((key: string) => {
+    languages.forEach((key: string) => {
       if (currentLang === key || currentLang.split("-")[0] === key) {
         value = key;
       }
