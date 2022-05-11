@@ -29,7 +29,7 @@ export const useFields = (admission?: AdmissionDTO) => {
     },
     transUnit: {
       value: admission?.transUnit?.toString() ?? "",
-      type: "text",
+      type: "number",
     },
   };
 

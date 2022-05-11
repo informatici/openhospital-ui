@@ -17,12 +17,12 @@ export const admissionRoutes = (server) => {
     });
     server.put("/").intercept((req, res) => {
       const body = req.jsonBody();
-      switch (body.disDate) {
+      switch (body.note) {
         case "fail":
           res.status(400);
           break;
         default:
-          res.status(201).json(null);
+          res.status(200).json(null);
           rand = 0;
           break;
       }
