@@ -49,8 +49,6 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
-  const fields = useFields(admissionToEdit);
-
   const createStatus = useSelector<IState>(
     (state) => state.admissions.createAdmission.status
   );
@@ -65,6 +63,8 @@ const PatientAdmission: FC = () => {
       state.admissions.updateAdmission.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
+  const fields = useFields(admissionToEdit);
 
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
