@@ -85,6 +85,11 @@ const PatientAdmission: FC = () => {
         admType: adm.admType,
         diseaseIn: adm.diseaseIn,
         note: adm.note,
+        disDate: adm.disDate,
+        disType: adm.disType,
+        diseaseOut1: adm.diseaseOut1,
+        diseaseOut2: adm.diseaseOut2,
+        diseaseOut3: adm.diseaseOut3,
       };
       dispatch(updateAdmission(admissionToSave));
     }
@@ -165,6 +170,7 @@ const PatientAdmission: FC = () => {
           resetButtonLabel={t("common.reset")}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
+          admitted={currentAdmission?.admitted === 1}
           isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
         />
       )}

@@ -1,5 +1,8 @@
 import { AdmissionDTO } from "../../../generated";
-import { parseDate } from "../../../libraries/formDataHandling/functions";
+import {
+  differenceInDays,
+  parseDate,
+} from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 import { initialFields } from "./consts";
@@ -29,6 +32,39 @@ export const useFields = (admission?: AdmissionDTO) => {
     },
     transUnit: {
       value: admission?.transUnit?.toString() ?? "",
+      type: "number",
+    },
+    disType: {
+      value: admission?.disType?.code ?? "",
+      type: "text",
+    },
+    diseaseOut1: {
+      value: admission?.diseaseOut1?.code?.toString() ?? "",
+      type: "text",
+    },
+    diseaseOut2: {
+      value: admission?.diseaseOut2?.code?.toString() ?? "",
+      type: "text",
+    },
+    diseaseOut3: {
+      value: admission?.diseaseOut3?.code?.toString() ?? "",
+      type: "text",
+    },
+    disDate: {
+      value: admission?.disDate ?? "",
+      type: "date",
+    },
+    bedDays: {
+      value:
+        admission?.admitted === 1
+          ? differenceInDays(
+              new Date(admission?.admDate ?? ""),
+              new Date()
+            ).toString()
+          : differenceInDays(
+              new Date(admission?.admDate ?? ""),
+              new Date(admission?.disDate ?? "")
+            ).toString(),
       type: "number",
     },
   };

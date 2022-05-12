@@ -39,6 +39,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
+  admitted,
   shouldResetForm,
   resetFormCallback,
 }) => {
@@ -53,6 +54,14 @@ const AdmissionForm: FC<AdmissionProps> = ({
     (state: IState) => state.admissionTypes.allAdmissionTypes.data
   );
   const wards = useSelector((state: IState) => state.wards.allWards.data);
+
+  const diagnosisOutList = useSelector(
+    (state: IState) => state.diseases.diseasesIpdOut.data
+  );
+
+  const dischargeTypes = useSelector(
+    (state: IState) => state.dischargeTypes.allDischargeTypes.data
+  );
 
   const renderOptions = (
     data:
@@ -90,6 +99,51 @@ const AdmissionForm: FC<AdmissionProps> = ({
         },
       }),
     diseaseIn: string().required(t("common.required")),
+    disDate: admitted
+      ? string()
+          .required(t("common.required"))
+          .test({
+            name: "disDate",
+            message: t("admission.validatelastdate", {
+              admDate: moment(initialValues.admDate).format("DD/MM/YYYY"),
+            }),
+            test: function (value) {
+              return moment(value).isSameOrAfter(moment(this.parent.admDate));
+            },
+          })
+      : string(),
+
+    disType: admitted ? string().required(t("common.required")) : string(),
+    diseaseOut1: admitted ? string().required(t("common.required")) : string(),
+
+    diseaseOut2: admitted
+      ? string().test({
+          name: "diseaseOut2",
+          message: t("opd.validatedisease"),
+          test: function (value) {
+            return (
+              !value ||
+              (this.parent.diseaseOut1 && value !== this.parent.diseaseOut1)
+            );
+          },
+        })
+      : string(),
+
+    diseaseOut3: admitted
+      ? string().test({
+          name: "diseaseOut3",
+          message: t("opd.validatedisease"),
+          test: function (value) {
+            return (
+              !value ||
+              (this.parent.diseaseOut1 &&
+                this.parent.diseaseOut2 &&
+                value !== this.parent.diseaseOut1 &&
+                value !== this.parent.diseaseOut2)
+            );
+          },
+        })
+      : string(),
   });
 
   const formik = useFormik({
@@ -107,6 +161,21 @@ const AdmissionForm: FC<AdmissionProps> = ({
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );
+
+      if (admitted) {
+        formattedValues.diseaseOut1 = diagnosisOutList?.find(
+          (item) => item.code === formattedValues.diseaseOut1
+        );
+        formattedValues.diseaseOut2 = diagnosisOutList?.find(
+          (item) => item.code === formattedValues.diseaseOut2
+        );
+        formattedValues.diseaseOut3 = diagnosisOutList?.find(
+          (item) => item.code === formattedValues.diseaseOut3
+        );
+        formattedValues.disType = dischargeTypes?.find(
+          (item) => item.code === formattedValues.disType
+        );
+      }
 
       onSubmit(formattedValues);
     },
@@ -164,6 +233,10 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const admTypeStatus = useSelector(
     (state: IState) => state.admissionTypes.allAdmissionTypes.status
   );
+
+  useEffect(() => {
+    dispatch(getDiseasesIpdOut());
+  }, [dispatch, getDiseasesIpdOut]);
 
   useEffect(() => {
     dispatch(getDiseasesIpdIn());
@@ -259,6 +332,120 @@ const AdmissionForm: FC<AdmissionProps> = ({
               />
             </div>
           </div>
+          {admitted && (
+            <div>
+              <div className="row start-sm center-xs">
+                <div className="patientAdmissionForm__item">
+                  <DateField
+                    fieldName="disDate"
+                    fieldValue={formik.values.disDate}
+                    disableFuture={true}
+                    theme="regular"
+                    format="dd/MM/yyyy"
+                    isValid={isValid("disDate")}
+                    errorText={getErrorText("disDate")}
+                    label={t("admission.disDate")}
+                    onChange={dateFieldHandleOnChange("disDate")}
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="patientAdmissionForm__item">
+                  <TextField
+                    field={formik.getFieldProps("bedDays")}
+                    theme="regular"
+                    label={t("admission.bedDays")}
+                    isValid={isValid("bedDays")}
+                    errorText={getErrorText("bedDays")}
+                    onBlur={formik.handleBlur}
+                    disabled={true}
+                    type="number"
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientAdmissionForm__item">
+                  <AutocompleteField
+                    fieldName="disType"
+                    fieldValue={formik.values.disType}
+                    label={t("admission.disType")}
+                    isValid={isValid("disType")}
+                    errorText={getErrorText("disType")}
+                    onBlur={onBlurCallback("disType")}
+                    options={renderOptions(dischargeTypes)}
+                    loading={disTypeStatus === "LOADING"}
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="patientAdmissionForm__item">
+                  <AutocompleteField
+                    fieldName="diseaseOut1"
+                    fieldValue={formik.values.diseaseOut1}
+                    label={t("admission.diseaseOut1")}
+                    isValid={isValid("diseaseOut1")}
+                    errorText={getErrorText("diseaseOut1")}
+                    onBlur={onBlurCallback("diseaseOut1")}
+                    options={renderOptions(diagnosisOutList)}
+                    loading={diagnosisOutStatus === "LOADING"}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientAdmissionForm__item">
+                  <AutocompleteField
+                    fieldName="diseaseOut2"
+                    fieldValue={formik.values.diseaseOut2}
+                    label={t("admission.diseaseOut2")}
+                    isValid={isValid("diseaseOut2")}
+                    errorText={getErrorText("diseaseOut2")}
+                    onBlur={onBlurCallback("diseaseOut2")}
+                    options={renderOptions(diagnosisOutList)}
+                    loading={diagnosisOutStatus === "LOADING"}
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="patientAdmissionForm__item">
+                  <AutocompleteField
+                    fieldName="diseaseOut3"
+                    fieldValue={formik.values.diseaseOut3}
+                    label={t("admission.diseaseOut3")}
+                    isValid={isValid("diseaseOut3")}
+                    errorText={getErrorText("diseaseOut3")}
+                    onBlur={onBlurCallback("diseaseOut3")}
+                    options={renderOptions(diagnosisOutList)}
+                    loading={diagnosisOutStatus === "LOADING"}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientAdmissionForm__item">
+                  <TextField
+                    field={formik.getFieldProps("cliDiaryCharge")}
+                    theme="regular"
+                    label={t("admission.cliDiaryCharge")}
+                    isValid={isValid("cliDiaryCharge")}
+                    errorText={getErrorText("cliDiaryCharge")}
+                    onBlur={formik.handleBlur}
+                    type="text"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="patientAdmissionForm__item">
+                  <TextField
+                    field={formik.getFieldProps("imageryCharge")}
+                    theme="regular"
+                    label={t("admission.imageryCharge")}
+                    isValid={isValid("imageryCharge")}
+                    errorText={getErrorText("imageryCharge")}
+                    onBlur={formik.handleBlur}
+                    type="text"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
