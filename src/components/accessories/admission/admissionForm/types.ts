@@ -7,6 +7,7 @@ interface IAdmissionProps {
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
+  admitted: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
 }
@@ -20,4 +21,11 @@ export type AdmissionFormFieldName =
   | "admType"
   | "diseaseIn"
   | "note"
-  | "admDate";
+  | "disDate"
+  | "disType"
+  | "bedDays"
+  | "diseaseOut1"
+  | "diseaseOut2"
+  | "diseaseOut3"
+  | "cliDiaryCharge"
+  | "imageryCharge";
