@@ -20,6 +20,7 @@ import {
 import { useFields } from "./useFields";
 import { getPatientThunk } from "../../../state/patients/actions";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
+import { isEmpty } from "lodash";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -78,19 +79,24 @@ const PatientAdmission: FC = () => {
       adm.id = 0;
       dispatch(createAdmission(adm));
     } else {
-      const admissionToSave: AdmissionDTO = {
+      let admissionToSave: AdmissionDTO = {
         ...admissionToEdit,
         transUnit: adm.transUnit,
         admDate: adm.admDate,
         admType: adm.admType,
         diseaseIn: adm.diseaseIn,
         note: adm.note,
-        disDate: adm.disDate,
-        disType: adm.disType,
-        diseaseOut1: adm.diseaseOut1,
-        diseaseOut2: adm.diseaseOut2,
-        diseaseOut3: adm.diseaseOut3,
       };
+      if (!isEmpty(admissionToEdit?.disType)) {
+        admissionToSave = {
+          ...admissionToSave,
+          disDate: adm.disDate,
+          disType: adm.disType,
+          diseaseOut1: adm.diseaseOut1,
+          diseaseOut2: adm.diseaseOut2,
+          diseaseOut3: adm.diseaseOut3,
+        };
+      }
       dispatch(updateAdmission(admissionToSave));
     }
   };
@@ -170,7 +176,7 @@ const PatientAdmission: FC = () => {
           resetButtonLabel={t("common.reset")}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
-          admitted={currentAdmission?.admitted === 1}
+          admitted={!isEmpty(admissionToEdit?.disType)}
           isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
         />
       )}
