@@ -53,7 +53,7 @@ describe("Patient Details / Visit - Outpatient", () => {
   it("Should make it possible for the user to fill out the form to add a new visit for an outpatient", () => {
     cy.get("[id=visitDate]").focus().type("01012021").blur();
     cy.get("[id=disease]").focus().type("Abortions").blur();
-    cy.get("[id=note]").focus().type("fail").blur();
+    cy.get("[id=reasons]").focus().type("fail").blur();
   });
 
   it("should display an error info box if the visit creation fails", () => {
@@ -63,7 +63,7 @@ describe("Patient Details / Visit - Outpatient", () => {
   });
 
   it("should show confirmation dialog if the visit creation succeeds", () => {
-    cy.get("[id=note]").focus().clear().type("succeed").blur();
+    cy.get("[id=reasons]").focus().clear().type("succeed").blur();
     cy.get("[class='submit_button']").click();
     cy.get("div.infoBox").should("not.exist");
     cy.get("div.dialog__title").contains("Opd Created");

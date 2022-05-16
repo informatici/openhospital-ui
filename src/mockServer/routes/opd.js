@@ -3,7 +3,7 @@ export const opdRoutes = (server) => {
   server.namespace("/opds", () => {
     server.post("/").intercept((req, res) => {
       const body = req.jsonBody();
-      switch (body.note) {
+      switch (body.reasons) {
         case "fail":
           res.status(400);
           break;
