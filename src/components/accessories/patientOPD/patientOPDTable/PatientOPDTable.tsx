@@ -28,7 +28,11 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     disease: t("opd.disease1"),
     disease2: t("opd.disease2"),
     disease3: t("opd.disease3"),
-    note: t("opd.note"),
+    reasons: t("opd.reasons"),
+    allergies: t("opd.allergies"),
+    anamnesis: t("opd.anamnesis"),
+    therapies: t("opd.therapies"),
+    prescriptions: t("opd.prescriptions"),
   };
   const order = ["date", "disease"];
   const dispatch = useDispatch();
@@ -60,7 +64,11 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
           disease: item.disease?.description || "",
           disease2: item.disease2?.description || "",
           disease3: item.disease3?.description || "",
-          note: item.note || "",
+          reasons: item.reasons || "",
+          allergies: item.allergies || "",
+          anamnesis: item.anamnesis || "",
+          therapies: item.therapies || "",
+          prescriptions: item.prescriptions || "",
         };
       });
     return results;

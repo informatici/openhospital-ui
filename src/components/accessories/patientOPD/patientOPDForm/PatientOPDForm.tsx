@@ -291,17 +291,69 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWidth">
               <TextField
-                field={formik.getFieldProps("note")}
+                field={formik.getFieldProps("reasons")}
                 multiline={true}
                 theme="regular"
-                label={t("opd.note")}
-                isValid={isValid("note")}
-                errorText={getErrorText("note")}
+                label={t("opd.reasons")}
+                isValid={isValid("reasons")}
+                errorText={getErrorText("reasons")}
                 onBlur={formik.handleBlur}
                 type="string"
                 disabled={isLoading}
               />
             </div>
+            <div className="patientOpdForm__item fullWidth">
+              <TextField
+                field={formik.getFieldProps("allergies")}
+                multiline={true}
+                theme="regular"
+                label={t("opd.allergies")}
+                isValid={isValid("allergies")}
+                errorText={getErrorText("allergies")}
+                onBlur={formik.handleBlur}
+                type="string"
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+          <div className="patientOpdForm__item fullWidth">
+            <TextField
+              field={formik.getFieldProps("anamnesis")}
+              multiline={true}
+              theme="regular"
+              label={t("opd.anamnesis")}
+              isValid={isValid("anamnesis")}
+              errorText={getErrorText("anamnesis")}
+              onBlur={formik.handleBlur}
+              type="string"
+              disabled={isLoading}
+            />
+          </div>
+          <div className="patientOpdForm__item fullWidth">
+            <TextField
+              field={formik.getFieldProps("therapies")}
+              multiline={true}
+              theme="regular"
+              label={t("opd.therapies")}
+              isValid={isValid("therapies")}
+              errorText={getErrorText("therapies")}
+              onBlur={formik.handleBlur}
+              type="string"
+              disabled={isLoading}
+            />
+          </div>
+          <div className="patientOpdForm__item fullWidth">
+            <TextField
+              field={formik.getFieldProps("prescriptions")}
+              multiline={true}
+              theme="regular"
+              label={t("opd.prescriptions")}
+              isValid={isValid("perscriptions")}
+              errorText={getErrorText("prescriptions")}
+              onBlur={formik.handleBlur}
+              type="string"
+              disabled={isLoading}
+            />
           </div>
           <div className="patientOpdForm__buttonSet">
             <div className="submit_button">

@@ -8778,10 +8778,26 @@ definitions:
         type: string
         example: M
         description: the patient sex
-      note:
+      reasons:
         type: string
         example: this is out patient
-        description: the admission note
+        description: the reason of visit
+      anamnesis:
+        type: string
+        example: this is out patient
+        description: the anamnesis of patient
+      allergies:
+        type: string
+        example: this is out patient
+        description: the allergies of patient
+      therapies:
+        type: string
+        example: this is out patient
+        description: the therapies of patient
+      prescriptions:
+        type: string
+        example: this is out patient
+        description: the prescription that the doctor give to the patient
       prog_year:
         type: integer
         format: int32

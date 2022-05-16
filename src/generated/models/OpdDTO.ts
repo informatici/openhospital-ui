@@ -62,11 +62,35 @@ export interface OpdDTO {
      */
     sex?: string;
     /**
-     * the admission note
+     * the reason of visit
      * @type {string}
      * @memberof OpdDTO
      */
-    note?: string;
+    reasons?: string;
+    /**
+     * the anamnesis of patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    anamnesis?: string;
+    /**
+     * the allergies of patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    allergies?: string;
+    /**
+     * the therapies of patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    therapies?: string;
+    /**
+     * the prescription that the doctor give to the patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    prescriptions?: string;
     /**
      * a progr. in year for each ward
      * @type {number}

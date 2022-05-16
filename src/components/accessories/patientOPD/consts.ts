@@ -18,7 +18,23 @@ export const initialFields: TFields<TPatientOPDFormFieldName> = {
     value: "",
     type: "text",
   },
-  note: {
+  reasons: {
+    value: "",
+    type: "text",
+  },
+  anamnesis: {
+    value: "",
+    type: "text",
+  },
+  allergies: {
+    value: "",
+    type: "text",
+  },
+  prescriptions: {
+    value: "",
+    type: "text",
+  },
+  therapies: {
     value: "",
     type: "text",
   },

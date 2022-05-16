@@ -12,7 +12,11 @@ export type TPatientOPDFormFieldName =
   | "disease"
   | "disease2"
   | "disease3"
-  | "note"
+  | "reasons"
+  | "anamnesis"
+  | "allergies"
+  | "therapies"
+  | "prescriptions"
   | "newPatient"
   | "referralFrom"
   | "referralTo";

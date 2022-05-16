@@ -74,7 +74,12 @@
     "referralto": "Referral To",
     "newpatient": "Attendance Type",
     "newadmittance": "New Admittance",
-    "reattendance": "Re-attendance"
+    "reattendance": "Re-attendance",
+    "reasons": "Reasons of entry",
+    "allergies": "Allergies",
+    "anamnesis": "Anamnesis",
+    "therapies": "Current therapies",
+    "prescriptions": "Prescriptions"
   },
   "visit": {
     "date": "Date (d/m/y)",
