@@ -13,7 +13,7 @@ import Arrow from "../../../assets/arrow-w.svg";
 import { IUserSection } from "./types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;

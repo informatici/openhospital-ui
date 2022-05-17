@@ -11,6 +11,12 @@
   color: $c-color-primary !important;
 }
 
+.checkboxes {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
 .patientOpdForm {
   display: inline-block;
   flex-direction: column;
@@ -25,7 +31,7 @@
     margin: 7px 0px;
     padding: 0px 15px;
     width: 33%;
-    &.fullWith{
+    &.fullWidth{
       width: 100%;
     }
     @include susy-media($narrow) {

@@ -1,6 +1,6 @@
 const patientDTO = {
   code: 1,
-  status: "O",
+  status: "I",
   firstName: "Antonio Carlos",
   secondName: "Jobim",
   birthDate: "1991-08-30T00:00:00.000Z",

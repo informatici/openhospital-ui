@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 import {
   formatAllFieldValues,
   getFromFields,
-  parseDate,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import { object, string } from "yup";
@@ -30,11 +29,12 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  Typography,
 } from "@material-ui/core";
 import { DiseaseDTO, OpdDTO } from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import CheckboxField from "../../checkboxField/CheckboxField";
+import { isEmpty } from "lodash";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -95,6 +95,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       const formattedValues = formatAllFieldValues(fields, values);
       const opdToSave: OpdDTO = {
         ...formattedValues,
+        referralFrom: isEmpty(formattedValues.referralFrom)
+          ? undefined
+          : formattedValues.referralFrom,
+        referralTo: isEmpty(formattedValues.referralTo)
+          ? undefined
+          : formattedValues.referralTo,
         date: formattedValues.visitDate,
         disease: diseases.find((e) => e.code === formik.values.disease),
         disease2: diseases.find((e) => e.code === formik.values.disease2),
@@ -162,6 +168,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     [setFieldValue, handleBlur]
   );
 
+  const handleCheckboxChange = useCallback(
+    (fieldName: string) => (value: boolean) => {
+      setFieldValue(fieldName, value ? "R" : "");
+    },
+    [setFieldValue]
+  );
+
   return (
     <>
       <div className="patientOpdForm">
@@ -200,6 +213,24 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
+            <div className="patientOpdForm__item fullWidth">
+              <div className="checkboxes">
+                <CheckboxField
+                  fieldName={"referralFrom"}
+                  checked={formik.values.referralFrom === "R"}
+                  label={t("opd.referralfrom")}
+                  onChange={handleCheckboxChange("referralFrom")}
+                />
+                <CheckboxField
+                  fieldName={"referralTo"}
+                  checked={formik.values.referralTo === "R"}
+                  label={t("opd.referralto")}
+                  onChange={handleCheckboxChange("referralTo")}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">
               <DateField
                 fieldName="visitDate"
@@ -214,31 +245,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientOpdForm__item">
-              <TextField
-                field={formik.getFieldProps("referralFrom")}
-                theme="regular"
-                label={t("opd.referralfrom")}
-                isValid={isValid("referralFrom")}
-                errorText={getErrorText("referralFrom")}
-                onBlur={formik.handleBlur}
-                type="string"
-              />
-            </div>
-            <div className="patientOpdForm__item">
-              <TextField
-                field={formik.getFieldProps("referralTo")}
-                theme="regular"
-                label={t("opd.referralto")}
-                isValid={isValid("referralTo")}
-                errorText={getErrorText("referralTo")}
-                onBlur={formik.handleBlur}
-                type="string"
-              />
-            </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
+            <div className="patientOpdForm__item fullWidth">
               <AutocompleteField
                 fieldName="disease"
                 fieldValue={formik.values.disease}
@@ -252,7 +261,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
+            <div className="patientOpdForm__item fullWidth">
               <AutocompleteField
                 fieldName="disease2"
                 fieldValue={formik.values.disease2}
@@ -266,7 +275,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
+            <div className="patientOpdForm__item fullWidth">
               <AutocompleteField
                 fieldName="disease3"
                 fieldValue={formik.values.disease3}
@@ -280,7 +289,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWith">
+            <div className="patientOpdForm__item fullWidth">
               <TextField
                 field={formik.getFieldProps("note")}
                 multiline={true}

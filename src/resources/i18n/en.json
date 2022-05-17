@@ -427,5 +427,19 @@
     "upload": "Upload",
     "useWebcam": "Take a picture",
     "useWebcamAgain": "Take another picture"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "French",
+    "it": "Italian",
+    "de": "German",
+    "es": "Spanish",
+    "pt": "Portoguese",
+    "ar": "Arabic",
+    "sw": "Swahili",
+    "am": "Amharic",
+    "cs": "Czech",
+    "sq": "Albanian",
+    "zh": "Chinese"
   }
 }

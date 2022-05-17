@@ -8,7 +8,6 @@ interface IAdmissionProps {
   resetButtonLabel: string;
   isLoading: boolean;
   shouldResetForm: boolean;
-  admitted?: boolean;
   resetFormCallback: () => void;
 }
 
