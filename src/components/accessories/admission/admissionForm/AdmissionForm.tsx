@@ -97,6 +97,15 @@ const AdmissionForm: FC<AdmissionProps> = ({
         test: function (value) {
           return moment(value).isValid();
         },
+      })
+      .test({
+        name: "admDate",
+        message: t("admission.datebefore"),
+        test: function (value) {
+          return moment(this.parent.disDate).isValid()
+            ? moment(value).isSameOrBefore(this.parent.disDate)
+            : true;
+        },
       }),
     diseaseIn: string().required(t("common.required")),
     disDate: admitted
