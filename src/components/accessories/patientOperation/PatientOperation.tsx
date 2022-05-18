@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import OperationRowForm from "./operationForm/OperationRowForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
@@ -6,7 +6,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { OperationRowTransitionState } from "./types";
-import { OperationRowDTO } from "../../../generated";
+import { OpdDTO, OperationRowDTO, VisitDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
@@ -22,8 +22,16 @@ import PatientOperationTable from "./operationTable/OperationRowTable";
 import { getCurrentAdmissionByPatientId } from "../../../state/admissions/actions";
 import { updateOperationRowFields } from "../../../libraries/formDataHandling/functions";
 import { initialFields } from "./consts";
+import { isEmpty } from "lodash";
+import { opRowFields } from "./opRowFields";
 
-const PatientOperation: FC = () => {
+interface IOwnProps {
+  opd?: OpdDTO;
+  visit?: VisitDTO;
+  onSuccess?: () => void;
+}
+
+const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -73,17 +81,17 @@ const PatientOperation: FC = () => {
 
   const onSubmit = (values: OperationRowDTO) => {
     setShouldResetForm(false);
-    const opRow: OperationRowDTO = {
-      ...opRowToEdit,
-      ...values,
-    };
+    let opRow: OperationRowDTO = values;
     if (creationMode) {
       opRow.prescriber = username;
-      opRow.admission = currentAdmission;
-    }
-    if (!creationMode && opRowToEdit.id) {
+      if (!isEmpty(opd)) {
+        opRow.opd = opd;
+      } else opRow.admission = currentAdmission;
+      dispatch(createOperationRow(opRow));
+    } else {
+      opRow = { ...opRowToEdit, ...opRow };
       dispatch(updateOperationRow(opRow));
-    } else dispatch(createOperationRow(opRow));
+    }
   };
 
   useEffect(() => {
@@ -100,6 +108,7 @@ const PatientOperation: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
+      if (onSuccess) onSuccess();
       setShouldUpdateTable(true);
       setCreationMode(true);
       dispatch(createOperationRowReset());
@@ -126,14 +135,16 @@ const PatientOperation: FC = () => {
     scrollToElement(null);
   };
 
+  const fields = useMemo(() => {
+    return opRowFields(
+      creationMode ? { opDate: visit?.date || opd?.date } : opRowToEdit
+    );
+  }, [creationMode]);
+
   return (
     <div className="patientAdmission">
       <OperationRowForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateOperationRowFields(initialFields, opRowToEdit)
-        }
+        fields={fields}
         onSubmit={onSubmit}
         creationMode={creationMode}
         submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
@@ -151,10 +162,12 @@ const PatientOperation: FC = () => {
         </div>
       )}
 
-      <PatientOperationTable
-        onEdit={onEdit}
-        shouldUpdateTable={shouldUpdateTable}
-      />
+      {!visit && !opd && (
+        <PatientOperationTable
+          onEdit={onEdit}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+      )}
 
       <ConfirmationDialog
         isOpen={changeStatus === "SUCCESS"}

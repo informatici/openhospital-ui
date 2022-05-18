@@ -74,7 +74,9 @@
     "referralto": "Referral To",
     "newpatient": "Attendance Type",
     "newadmittance": "New Admittance",
-    "reattendance": "Re-attendance"
+    "reattendance": "Re-attendance",
+    "addoperation": "Add operation",
+    "addoperationdesc": "Add operation for the visit"
   },
   "visit": {
     "date": "Date (d/m/y)",
@@ -94,7 +96,9 @@
     "notupdated": "Visit not updated",
     "createfail": "Visit has not been created!",
     "updatefail": "Visit {{code}} has not been updated!",
-    "notdeleted": "Visit not deleted"
+    "notdeleted": "Visit not deleted",
+    "addoperation": "Add operation",
+    "addoperationdesc": "Add operation for the visit"
   },
   "examination": {
     "newtriage": "Create new Triage",

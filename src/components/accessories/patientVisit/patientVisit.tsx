@@ -22,6 +22,8 @@ import failIcon from "../../../assets/fail-icon.png";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
 import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
 import { getWards } from "../../../state/ward/actions";
+import { CustomModal } from "../customModal/CustomModal";
+import PatientOperation from "../patientOperation/PatientOperation";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -36,6 +38,10 @@ const PatientVisit: FunctionComponent = () => {
   const [visitToEdit, setVisitToEdit] = useState({} as VisitDTO);
 
   const [creationMode, setCreationMode] = useState(true);
+
+  const [selectedVisit, setSelectedVisit] = useState({} as VisitDTO);
+
+  const [showModal, setShowModal] = useState(false);
 
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
@@ -120,6 +126,16 @@ const PatientVisit: FunctionComponent = () => {
     scrollToElement(null);
   };
 
+  const onOperationCreated = () => {
+    setSelectedVisit({} as VisitDTO);
+    setShowModal(false);
+  };
+
+  const onAddOperation = (value: VisitDTO) => {
+    setSelectedVisit(value);
+    setShowModal(true);
+  };
+
   return (
     <div className="patientVisit">
       <PatientVisitForm
@@ -145,6 +161,7 @@ const PatientVisit: FunctionComponent = () => {
       )}
       <PatientVisitTable
         handleEdit={onEdit}
+        handleAddOperation={onAddOperation}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
@@ -159,6 +176,18 @@ const PatientVisit: FunctionComponent = () => {
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
+      />
+      <CustomModal
+        title={t("visit.addoperation")}
+        description={t("visit.addoperationdesc")}
+        open={showModal}
+        onClose={onOperationCreated}
+        content={
+          <PatientOperation
+            onSuccess={onOperationCreated}
+            visit={selectedVisit}
+          />
+        }
       />
     </div>
   );

@@ -12,6 +12,8 @@ export interface IProps {
   onDelete?: <T>(row: T) => void;
   onPrint?: <T>(row: T) => void;
   onView?: <T>(row: T) => void;
+  onAdd?: <T>(row: T) => void;
+  addTitle?: string;
   showEmptyCell?: boolean;
   renderItemDetails?: (row: any) => void;
   coreData?: Array<any>;
@@ -33,4 +35,11 @@ export interface IRowProps {
   coreRow?: any;
 }
 
-export type TActions = "edit" | "delete" | "view" | "print" | "pay" | "close";
+export type TActions =
+  | "edit"
+  | "delete"
+  | "view"
+  | "print"
+  | "pay"
+  | "close"
+  | "add";

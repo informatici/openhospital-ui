@@ -19,6 +19,7 @@ import {
   InfoOutlined,
   MonetizationOn,
   Archive,
+  Add,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -44,6 +45,8 @@ const Table: FunctionComponent<IProps> = ({
   onPrint,
   onPay,
   onView,
+  onAdd,
+  addTitle,
   showEmptyCell = true,
   renderItemDetails,
   getCoreRow,
@@ -139,6 +142,16 @@ const Table: FunctionComponent<IProps> = ({
             <Archive htmlColor="#0373fc" />
           </IconButton>
         );
+      case "add":
+        return (
+          <IconButton
+            size="small"
+            title={addTitle ?? "Add"}
+            onClick={() => onAdd && onAdd(row)}
+          >
+            <Add />
+          </IconButton>
+        );
     }
   };
 
@@ -157,6 +170,7 @@ const Table: FunctionComponent<IProps> = ({
           {onPrint ? renderIcon("print", row) : ""}
           {onClose ? renderIcon("close", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
+          {onAdd ? renderIcon("add", row) : ""}
         </TableCell>
       );
     }
