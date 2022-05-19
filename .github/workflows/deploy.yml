@@ -14,10 +14,8 @@ jobs:
       - name: Installing...
         run: npm i
       - name: Building...
-        env:
-          CI: false
         run: npm run build:gh-pages
       - run: git add --force build
       - run: git commit -m 'new build'
       - name: Deploying on GH Pages...  
-        run: npm run deploy:gh-page
+        run: npm run deploy:gh-pages
