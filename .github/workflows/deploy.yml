@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
       - name: Installing...
         run: npm i
       - name: Building...
         env:
           CI: false
         run: npm run build:gh-pages
-      - name: Deploying on GH Pages...
+      - run: git add --force build
+      - run: git commit -m 'new build'
+      - name: Deploying on GH Pages...  
         run: npm run deploy:gh-page
