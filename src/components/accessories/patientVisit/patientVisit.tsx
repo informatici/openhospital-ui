@@ -11,19 +11,17 @@ import {
   updateVisit,
   updateVisitReset,
 } from "../../../state/visits/actions";
-import { searchPatient } from "../../../state/patients/actions";
 import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
 import { TActivityTransitionState } from "./types";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
-import failIcon from "../../../assets/fail-icon.png";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
 import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
 import { getWards } from "../../../state/ward/actions";
-import { CustomModal } from "../customModal/CustomModal";
 import PatientOperation from "../patientOperation/PatientOperation";
+import { CustomDialog } from "../customDialog/CustomDialog";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -177,7 +175,7 @@ const PatientVisit: FunctionComponent = () => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
       />
-      <CustomModal
+      <CustomDialog
         title={t("visit.addoperation")}
         description={t("visit.addoperationdesc")}
         open={showModal}

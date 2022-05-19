@@ -21,9 +21,8 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
-import { opdDataFormatter } from "../../../libraries/formatUtils/dataFormatting";
-import { CustomModal } from "../customModal/CustomModal";
 import PatientOperation from "../patientOperation/PatientOperation";
+import { CustomDialog } from "../customDialog/CustomDialog";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -196,7 +195,7 @@ const PatientOPD: FunctionComponent = () => {
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
       />
-      <CustomModal
+      <CustomDialog
         title={t("opd.addoperation")}
         description={t("opd.addoperationdesc")}
         open={showModal}
