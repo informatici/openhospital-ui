@@ -81,8 +81,7 @@
     "build:gh-pages": "env-cmd -f .env.gh-pages npm run build",
     "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
     "clear": "rm -rf ./.cache ./dist ./build",
-    "convert": "convert-resources --path-generated src/resources/old",
-    "deploy:gh-pages": "git subtree split --prefix build develop | git push intesys-oh ${1}:gh-pages --force"
+    "convert": "convert-resources --path-generated src/resources/old"
   },
   "eslintConfig": {
     "extends": "react-app"
