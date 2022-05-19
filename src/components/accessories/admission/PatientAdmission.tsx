@@ -86,6 +86,7 @@ const PatientAdmission: FC = () => {
         admType: adm.admType,
         diseaseIn: adm.diseaseIn,
         note: adm.note,
+        ward: adm.ward,
       };
       if (!isEmpty(admissionToEdit?.disType)) {
         admissionToSave = {
