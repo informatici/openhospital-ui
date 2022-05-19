@@ -18,6 +18,7 @@ jobs:
           CI: false
         run: npm run clear && npm run build:gh-pages
       - run: git add --force build
-      - run: git commit -m 'new build' 
+      - run: git commit -m 'new build'
+      - run: git remote add intesys-oh https://github.com/intesys/openhospital-ui.git 
       - run: echo "HASH_COMMIT=$(git subtree split --prefix build develop)" >> $GITHUB_ENV
       - run: git push intesys-oh $HASH_COMMIT:gh-pages --force
