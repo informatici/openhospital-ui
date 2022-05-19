@@ -19,5 +19,5 @@ jobs:
         run: npm run clear && npm run build:gh-pages
       - run: git add --force build
       - run: git commit -m 'new build' 
-      - run: echo "HASH_COMMIT=$(git subtree split --quiet --prefix build develop)" >> $HASH_COMMIT
+      - run: echo "HASH_COMMIT=$(git subtree split --prefix build develop)" >> $HASH_COMMIT
       - run: git push intesys-oh $HASH_COMMIT:gh-pages --force
