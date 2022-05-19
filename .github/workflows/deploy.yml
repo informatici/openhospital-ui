@@ -16,7 +16,6 @@ jobs:
       - name: Building
         env:
           CI: false
-          
         run: npm run clear && npm run build:gh-pages
       - run: git add --force build
       - run: git commit -m 'new build'
