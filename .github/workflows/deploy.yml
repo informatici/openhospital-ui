@@ -13,8 +13,8 @@ jobs:
       - uses: fregante/setup-git-user@v1
       - name: Installing...
         run: npm i
-      - name: Building...
-        run: npm run build:gh-pages
+      - name: Building
+        run: npm run clear && npm run build:gh-pages
       - run: git add --force build
       - run: git commit -m 'new build' 
       - run: echo "HASH_COMMIT=$(git subtree split --quiet --prefix build develop)" >> $HASH_COMMIT
