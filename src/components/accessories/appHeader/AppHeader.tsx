@@ -30,7 +30,7 @@ const AppHeader: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const username = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
   const openMenu = (isOpen: boolean) => {
     isOpen

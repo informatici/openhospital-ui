@@ -13,25 +13,17 @@
 
 /**
  * @export
- * @interface LoginResponse
+ * @interface LoginRequest
  */
-export interface LoginResponse {
+export interface LoginRequest {
     /**
-     * token authentication
      * @type {string}
-     * @memberof LoginResponse
-     */
-    token?: string;
-    /**
-     * type of token using
-     * @type {string}
-     * @memberof LoginResponse
-     */
-    type?: string;
-    /**
-     * token authentication
-     * @type {string}
-     * @memberof LoginResponse
+     * @memberof LoginRequest
      */
     username?: string;
+    /**
+     * @type {string}
+     * @memberof LoginRequest
+     */
+    password?: string;
 }

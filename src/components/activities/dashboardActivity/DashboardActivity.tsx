@@ -42,9 +42,9 @@ const DashboardActivity: FunctionComponent<TProps> = ({
           <div className="dashboard__background">
             <div className="dashboard__greeter">
               <span className="user-welcome">{t("dashboard.welcomename")}</span>
-              {userCredentials?.displayName ? (
+              {userCredentials?.username ? (
                 <strong className="user-name">
-                  &nbsp;{userCredentials?.displayName}
+                  &nbsp;{userCredentials?.username}
                 </strong>
               ) : null}
             </div>

@@ -20,6 +20,7 @@ export * from './LabWithRowsDTO';
 export * from './LaboratoryDTO';
 export * from './LaboratoryForPrintDTO';
 export * from './LitePermissionDTO';
+export * from './LoginRequest';
 export * from './LoginResponse';
 export * from './LotDTO';
 export * from './MalnutritionDTO';

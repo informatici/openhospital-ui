@@ -296,7 +296,7 @@ export const BillsRecap: FC = () => {
               )}
               options={getOptions(
                 t("bill.currentuser", {
-                  name: userCredentials?.displayName ?? "",
+                  name: userCredentials?.username ?? "",
                 }),
                 false,
                 1

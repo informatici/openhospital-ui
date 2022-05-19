@@ -63,7 +63,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   );
 
   const username = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
 
   useEffect(() => {

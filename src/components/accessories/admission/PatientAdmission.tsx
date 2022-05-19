@@ -40,7 +40,7 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.patients.selectedPatient.data
   );
   const username = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
 
   const currentAdmission = useSelector(

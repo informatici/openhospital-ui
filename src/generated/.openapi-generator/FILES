@@ -14,7 +14,7 @@ apis\ExamTypeControllerApi.ts
 apis\ExaminationControllerApi.ts
 apis\HospitalControllerApi.ts
 apis\LaboratoryControllerApi.ts
-apis\LoginApiApi.ts
+apis\LoginControllerApi.ts
 apis\MalnutritionControllerApi.ts
 apis\MedStockMovementTypeControllerApi.ts
 apis\MedicalControllerApi.ts
@@ -63,6 +63,7 @@ models\LabWithRowsDTO.ts
 models\LaboratoryDTO.ts
 models\LaboratoryForPrintDTO.ts
 models\LitePermissionDTO.ts
+models\LoginRequest.ts
 models\LoginResponse.ts
 models\LotDTO.ts
 models\MalnutritionDTO.ts

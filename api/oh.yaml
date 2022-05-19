@@ -41,8 +41,8 @@ tags:
     description: Hospital Controller
   - name: laboratory-controller
     description: Laboratory Controller
-  - name: login-api
-    description: Login Api
+  - name: login-controller
+    description: Login Controller
   - name: malnutrition-controller
     description: Malnutrition Controller
   - name: med-stock-movement-type-controller
@@ -649,25 +649,21 @@ paths:
   /auth/login:
     post:
       tags:
-        - login-api
+        - login-controller
       summary: Login
       description: Login with the given credentials.
-      operationId: loginUsingPOST
+      operationId: authenticationUserUsingPOST
       consumes:
         - application/json
       produces:
-        - '*/*'
+        - application/json
       parameters:
-        - name: password
-          in: query
-          description: password
+        - in: body
+          name: LoginRequest
+          description: LoginRequest
           required: true
-          type: string
-        - name: username
-          in: query
-          description: username
-          required: true
-          type: string
+          schema:
+            $ref: '#/definitions/LoginRequest'
       responses:
         '200':
           description: OK
@@ -685,7 +681,7 @@ paths:
   /auth/logout:
     post:
       tags:
-        - login-api
+        - login-controller
       summary: Logout
       description: Logout the current user.
       operationId: logoutUsingPOST
@@ -8503,11 +8499,27 @@ definitions:
   LoginResponse:
     type: object
     properties:
-      displayName:
-        type: string
       token:
         type: string
+        example: jbvbajbjbrjbjvrbjnjlnkqlnkqnlkn
+        description: token authentication
+      type:
+        type: string
+        example: Bearer
+        description: type of token using
+      username:
+        type: string
+        example: guest
+        description: token authentication
     title: LoginResponse
+  LoginRequest:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+    title: LoginRequest
   LotDTO:
     type: object
     properties:

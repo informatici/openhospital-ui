@@ -85,7 +85,7 @@ const PatientOPD: FunctionComponent = () => {
   );
 
   const userId = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
 
   useEffect(() => {
