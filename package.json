@@ -82,7 +82,7 @@
     "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
     "clear": "rm -rf ./.cache ./dist ./build",
     "convert": "convert-resources --path-generated src/resources/old",
-    "deploy:gh-page": "git subtree push --prefix build git@github.com:intesys/openhospital-ui.git gh-pages"
+    "deploy:gh-page": "git subtree push --prefix build https://github.com/intesys/openhospital-ui.git gh-pages"
   },
   "eslintConfig": {
     "extends": "react-app"
