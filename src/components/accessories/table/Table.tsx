@@ -39,6 +39,7 @@ const Table: FunctionComponent<IProps> = ({
   isCollapsabile,
   rowsPerPage,
   columnsOrder,
+  initialOrderBy,
   onEdit,
   onDelete,
   onPrint,
@@ -51,7 +52,7 @@ const Table: FunctionComponent<IProps> = ({
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
-  const [orderBy, setOrderBy] = React.useState("date"); //keyof -> DTO
+  const [orderBy, setOrderBy] = React.useState(initialOrderBy ?? "date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
@@ -178,7 +179,13 @@ const Table: FunctionComponent<IProps> = ({
                   {columnsOrder.includes(h) ? (
                     <TableSortLabel
                       active={orderBy === h}
-                      direction={orderBy === h ? order : "asc"}
+                      direction={
+                        orderBy === h
+                          ? order
+                          : dateFields.includes(h)
+                          ? "desc"
+                          : "asc"
+                      }
                       onClick={createSortHandler(h)}
                     >
                       {labelData[h]}

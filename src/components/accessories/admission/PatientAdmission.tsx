@@ -13,21 +13,27 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
+  getCurrentAdmissionByPatientId,
+  updateAdmission,
+  updateAdmissionReset,
 } from "../../../state/admissions/actions";
 import { useFields } from "./useFields";
 import { getPatientThunk } from "../../../state/patients/actions";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
+import { isEmpty } from "lodash";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
+  const [creationMode, setCreationMode] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [admissionToEdit, setAdmissionToEdit] =
+    useState<AdmissionDTO | undefined>();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
-
-  const fields = useFields();
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -36,79 +42,165 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.main.authentication.data?.displayName
   );
 
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
+
+  const currentAdmissionStatus = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.status
+  );
+
   const createStatus = useSelector<IState>(
     (state) => state.admissions.createAdmission.status
+  );
+
+  const updateStatus = useSelector<IState>(
+    (state) => state.admissions.updateAdmission.status
   );
 
   const errorMessage = useSelector<IState>(
     (state) =>
       state.admissions.createAdmission.error?.message ||
+      state.admissions.updateAdmission.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
+  const fields = useFields(admissionToEdit);
+
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
-    adm.patient = patient;
-    adm.userID = username;
-    adm.abortDate = adm.admDate;
-    adm.admitted = 1;
-    adm.deleted = "N";
-    adm.type = adm.admType?.code;
-    adm.id = 0;
-    dispatch(createAdmission(adm));
+    if (creationMode) {
+      adm.patient = patient;
+      adm.userID = username;
+      adm.abortDate = adm.admDate;
+      adm.admitted = 1;
+      adm.deleted = "N";
+      adm.type = adm.admType?.code;
+      adm.id = 0;
+      dispatch(createAdmission(adm));
+    } else {
+      let admissionToSave: AdmissionDTO = {
+        ...admissionToEdit,
+        transUnit: adm.transUnit,
+        admDate: adm.admDate,
+        admType: adm.admType,
+        diseaseIn: adm.diseaseIn,
+        note: adm.note,
+        ward: adm.ward,
+      };
+      if (!isEmpty(admissionToEdit?.disType)) {
+        admissionToSave = {
+          ...admissionToSave,
+          disDate: adm.disDate,
+          disType: adm.disType,
+          diseaseOut1: adm.diseaseOut1,
+          diseaseOut2: adm.diseaseOut2,
+          diseaseOut3: adm.diseaseOut3,
+        };
+      }
+      dispatch(updateAdmission(admissionToSave));
+    }
   };
 
   useEffect(() => {
-    if (createStatus === "FAIL") {
+    if (createStatus === "FAIL" || createStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [createStatus]);
+  }, [createStatus, updateStatus]);
 
   useEffect(() => {
     dispatch(createAdmissionReset());
+    dispatch(updateAdmissionReset());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!creationMode) {
+      setShowForm(true);
+    } else if (
+      creationMode &&
+      currentAdmissionStatus !== "SUCCESS" &&
+      currentAdmissionStatus !== "IDLE" &&
+      !currentAdmission
+    ) {
+      setShowForm(true);
+    } else setShowForm(false);
+  }, [currentAdmissionStatus, creationMode]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getPatientThunk((patient?.code ?? 0).toString()));
+      setCreationMode(true);
+      setAdmissionToEdit(undefined);
       dispatch(createAdmissionReset());
+      dispatch(updateAdmissionReset());
+      dispatch(getCurrentAdmissionByPatientId(patient?.code));
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
   }, [dispatch, activityTransitionState]);
 
   const resetFormCallback = () => {
+    setCreationMode(true);
     setShouldResetForm(false);
     setShouldUpdateTable(false);
     setActivityTransitionState("IDLE");
+    setAdmissionToEdit(undefined);
+    scrollToElement(null);
+  };
+
+  useEffect(() => {
+    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+  }, [patient, dispatch]);
+
+  const onEdit = (row: AdmissionDTO) => {
+    setAdmissionToEdit(row);
+    setCreationMode(false);
     scrollToElement(null);
   };
 
   return (
     <div className="patientAdmission">
-      <AdmissionForm
-        fields={fields}
-        onSubmit={onSubmit}
-        submitButtonLabel={t("common.save")}
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={createStatus === "LOADING"}
-      />
-      {createStatus === "FAIL" && (
+      {!showForm && (
+        <div className={"patientAdmission__subtitle"}>
+          <div className={"icon"}></div>
+          <div className={"text"}>{t("admission.patientalreadyadmitted")}</div>
+        </div>
+      )}
+      {showForm && (
+        <AdmissionForm
+          fields={fields}
+          onSubmit={onSubmit}
+          submitButtonLabel={
+            admissionToEdit ? t("common.update") : t("common.save")
+          }
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          admitted={!isEmpty(admissionToEdit?.disType)}
+          isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+        />
+      )}
+      {(createStatus === "FAIL" || createStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />
         </div>
       )}
 
-      <PatientAdmissionTable shouldUpdateTable={shouldUpdateTable} />
+      <PatientAdmissionTable
+        handleEdit={onEdit}
+        shouldUpdateTable={shouldUpdateTable}
+      />
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS"}
-        title={t("admission.created")}
+        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        title={creationMode ? t("admission.created") : t("admission.updated")}
         icon={checkIcon}
-        info={t("admission.createsuccess")}
+        info={
+          creationMode
+            ? t("admission.createsuccess")
+            : t("admission.updatesuccess")
+        }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}

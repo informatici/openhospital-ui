@@ -7,6 +7,7 @@ export interface IProps {
   dateFields?: string[];
   isCollapsabile?: boolean;
   rowsPerPage: number;
+  initialOrderBy?: string;
   columnsOrder: Array<string>;
   onEdit?: <T>(row: T) => void;
   onDelete?: <T>(row: T) => void;
