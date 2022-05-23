@@ -21,7 +21,8 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
-import { opdDataFormatter } from "../../../libraries/formatUtils/dataFormatting";
+import PatientOperation from "../patientOperation/PatientOperation";
+import { CustomDialog } from "../customDialog/CustomDialog";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -34,6 +35,10 @@ const PatientOPD: FunctionComponent = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
   const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
+
+  const [selectedOpd, setSelectedOpd] = useState({} as OpdDTO);
+
+  const [showModal, setShowModal] = useState(false);
 
   const [creationMode, setCreationMode] = useState(true);
 
@@ -132,6 +137,16 @@ const PatientOPD: FunctionComponent = () => {
     dispatch(deleteOpd(code));
   };
 
+  const onOperationCreated = () => {
+    setSelectedOpd({} as OpdDTO);
+    setShowModal(false);
+  };
+
+  const onAddOperation = (value: OpdDTO) => {
+    setSelectedOpd(value);
+    setShowModal(true);
+  };
+
   return (
     <div className="patientOpd">
       <PatientOPDForm
@@ -155,7 +170,7 @@ const PatientOPD: FunctionComponent = () => {
       )}
       <PatientOPDTable
         handleEdit={onEdit}
-        handleDelete={onDelete}
+        handleAddOperation={onAddOperation}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
@@ -179,6 +194,13 @@ const PatientOPD: FunctionComponent = () => {
         primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
+      />
+      <CustomDialog
+        title={t("opd.addoperation")}
+        description={t("opd.addoperationdesc")}
+        open={showModal}
+        onClose={onOperationCreated}
+        content={<PatientOperation opd={selectedOpd} />}
       />
     </div>
   );
