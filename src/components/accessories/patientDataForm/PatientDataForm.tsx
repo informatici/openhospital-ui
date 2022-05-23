@@ -27,6 +27,7 @@ import { Tooltip } from "@material-ui/core";
 import { formCustomization } from "../../../customization/formCustomization";
 import { FIELD_VALIDATION } from "../../../types";
 import moment from "moment";
+import { useCityOptions } from "./useCityOptions";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -62,6 +63,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const options = getFromFields(fields, "options");
+  const cityOptions = useCityOptions();
 
   const formik = useFormik({
     initialValues,
@@ -322,13 +324,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("city")}
-              theme="regular"
+            <SelectField
+              fieldName="city"
+              fieldValue={formik.values.city}
               label={t("patient.city")}
               isValid={isValid("city")}
               errorText={getErrorText("city")}
-              onBlur={formik.handleBlur}
+              onBlur={onBlurCallback("city")}
+              options={cityOptions}
+              translateOptions={true}
               disabled={isLoading}
               required={
                 isFieldSuggested(formCustomization, "city")
