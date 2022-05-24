@@ -28,6 +28,7 @@ import { formCustomization } from "../../../customization/formCustomization";
 import { FIELD_VALIDATION } from "../../../types";
 import moment from "moment";
 import { useCityOptions } from "./useCityOptions";
+import AutocompleteField from "../autocompleteField/AutocompleteField";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -324,7 +325,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <SelectField
+            <AutocompleteField
               fieldName="city"
               fieldValue={formik.values.city}
               label={t("patient.city")}
@@ -332,13 +333,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               errorText={getErrorText("city")}
               onBlur={onBlurCallback("city")}
               options={cityOptions}
-              translateOptions={true}
               disabled={isLoading}
-              required={
-                isFieldSuggested(formCustomization, "city")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.IDLE
-              }
             />
           </div>
 
