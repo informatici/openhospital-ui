@@ -10,6 +10,7 @@ import {
   createExaminationReset,
   deleteExamination,
   deleteExaminationReset,
+  examinationsByPatientId,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations/actions";
@@ -68,6 +69,9 @@ const PatientTriage: FC = () => {
     if (status === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
+    }
+    if (status === "SUCCESS") {
+      dispatch(examinationsByPatientId(patientDataCode));
     }
   }, [status]);
 

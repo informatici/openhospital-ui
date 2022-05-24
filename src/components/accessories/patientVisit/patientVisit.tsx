@@ -69,6 +69,9 @@ const PatientVisit: FunctionComponent = () => {
       scrollToElement(infoBoxRef.current);
       setShouldResetForm(false);
     }
+    if (changeStatus === "SUCCESS") {
+      dispatch(getVisits(patient?.code ?? 0));
+    }
   }, [changeStatus]);
 
   useEffect(() => {

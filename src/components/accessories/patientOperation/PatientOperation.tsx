@@ -94,6 +94,9 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
       scrollToElement(infoBoxRef.current);
       setShouldResetForm(false);
     }
+    if (changeStatus === "SUCCESS") {
+      dispatch(getOperationsByAdmissionId(currentAdmission?.id ?? -1));
+    }
   }, [changeStatus]);
 
   useEffect(() => {

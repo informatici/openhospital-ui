@@ -13,6 +13,7 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
+  getAdmissionsByPatientId,
   getCurrentAdmissionByPatientId,
   updateAdmission,
   updateAdmissionReset,
@@ -104,9 +105,12 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    if (createStatus === "FAIL" || createStatus === "FAIL") {
+    if (createStatus === "FAIL" || updateStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
+    }
+    if (createStatus === "SUCCESS" || updateStatus === "SUCCESS") {
+      dispatch(getAdmissionsByPatientId(patient?.code));
     }
   }, [createStatus, updateStatus]);
 

@@ -9,6 +9,7 @@ import {
   createOpdReset,
   deleteOpd,
   deleteOpdReset,
+  getOpds,
   updateOpd,
   updateOpdReset,
 } from "../../../state/opds/actions";
@@ -70,6 +71,9 @@ const PatientOPD: FunctionComponent = () => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
+    }
+    if (changeStatus === "SUCCESS") {
+      dispatch(getOpds(patient?.code));
     }
   }, [changeStatus]);
 

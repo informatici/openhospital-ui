@@ -18,6 +18,7 @@ import {
   deleteLabReset,
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
+  getLabsByPatientId,
   getMaterials,
   updateLab,
   updateLabReset,
@@ -73,6 +74,7 @@ const PatientExams: FC = () => {
       dispatch(getLabWithRowsByCodeReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
+      dispatch(getLabsByPatientId(patientData?.code));
     }
   }, [dispatch, activityTransitionState]);
 
