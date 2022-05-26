@@ -63,12 +63,6 @@ const PatientVisit: FunctionComponent = () => {
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const userId = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
-  );
-
-  const wardsData = useSelector((state: IState) => state.wards.allWards.data);
-
   useEffect(() => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");

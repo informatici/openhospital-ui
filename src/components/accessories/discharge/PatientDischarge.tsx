@@ -24,7 +24,7 @@ const PatientDischarge: FC = () => {
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
-  const [_, setShouldUpdateTable] = useState(false);
+  const [, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
