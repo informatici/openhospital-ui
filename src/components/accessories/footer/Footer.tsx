@@ -11,7 +11,8 @@ const Footer: FunctionComponent = () => {
           Open Hospital is an ISF's project
         </div>
         <div className="footer__infoBox__row">
-          2005 - 2020 ISF © Informatici Senza Frontiere - NGO
+          2005 - {new Date().getFullYear()} ISF © Informatici Senza Frontiere -
+          NGO
         </div>
         <div className="footer__infoBox__row">
           Viale IV Novembre, 100 - 31100 Treviso - Italy
