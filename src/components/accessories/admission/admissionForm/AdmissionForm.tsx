@@ -13,6 +13,7 @@ import {
   DiseaseTypeDTO,
   WardDTO,
 } from "../../../../generated";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -36,6 +37,7 @@ import { AdmissionProps } from "./types";
 const AdmissionForm: FC<AdmissionProps> = ({
   fields,
   onSubmit,
+  creationMode,
   submitButtonLabel,
   resetButtonLabel,
   isLoading,
@@ -224,6 +226,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    resetFormCallback();
   };
 
   useEffect(() => {
@@ -265,6 +268,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
   return (
     <>
       <div className="patientAdmissionForm">
+        <h3 className="formInsertMode">
+          {creationMode
+            ? t("admission.newadmission")
+            : t("admission.editadmission") +
+              ": " +
+              renderDate(formik.values.admDate)}
+        </h3>
         <form
           className="patientAdmissionForm__form"
           onSubmit={formik.handleSubmit}

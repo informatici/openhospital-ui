@@ -304,6 +304,8 @@
   "admission": {
     "admDate": "Date",
     "admType": "Type",
+    "newadmission": "New admission",
+    "editadmission": "Edit admission",
     "diseaseIn": "Diagnosis In",
     "ward": "Ward",
     "transUnit": "From Health Unit",

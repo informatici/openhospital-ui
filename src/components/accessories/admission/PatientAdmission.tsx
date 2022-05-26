@@ -172,6 +172,7 @@ const PatientAdmission: FC = () => {
         <AdmissionForm
           fields={fields}
           onSubmit={onSubmit}
+          creationMode={creationMode}
           submitButtonLabel={
             admissionToEdit ? t("common.update") : t("common.save")
           }
