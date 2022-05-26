@@ -4,7 +4,7 @@ import has from "lodash.has";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { OperationDTO } from "../../../../generated";
@@ -130,13 +130,13 @@ const OperationRowForm: FC<OperationRowProps> = ({
   return (
     <>
       <div className="patientOperationForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("operation.newoperation")
             : t("operation.editoperation") +
               ": " +
               renderDate(formik.values.opDate)}
-        </h3>
+        </h5>
         <form
           className="patientOperationForm__form"
           onSubmit={formik.handleSubmit}

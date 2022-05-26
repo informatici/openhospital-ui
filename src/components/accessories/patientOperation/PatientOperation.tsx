@@ -20,8 +20,6 @@ import {
 } from "../../../state/operations/actions";
 import PatientOperationTable from "./operationTable/OperationRowTable";
 import { getCurrentAdmissionByPatientId } from "../../../state/admissions/actions";
-import { updateOperationRowFields } from "../../../libraries/formDataHandling/functions";
-import { initialFields } from "./consts";
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
 
@@ -62,10 +60,6 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
-  );
-
-  const operations = useSelector(
-    (state: IState) => state.operations.operationList.data
   );
 
   const username = useSelector(
@@ -115,7 +109,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
       dispatch(updateOperationRowReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, onSuccess, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);

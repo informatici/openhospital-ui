@@ -1,7 +1,6 @@
 import { admissionDTO } from "../fixtures/admissionDTO";
 
 export const admissionRoutes = (server) => {
-  let rand = 0;
   server.namespace("/admissions", () => {
     server.post("/").intercept((req, res) => {
       const body = req.jsonBody();
@@ -11,7 +10,6 @@ export const admissionRoutes = (server) => {
           break;
         default:
           res.status(201).json(202);
-          rand = 1;
           break;
       }
     });
@@ -23,7 +21,6 @@ export const admissionRoutes = (server) => {
           break;
         default:
           res.status(200).json(null);
-          rand = 0;
           break;
       }
     });

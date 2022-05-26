@@ -183,11 +183,11 @@ const ExamForm: FC<ExamProps> = ({
       setRowsData((rowObjs: string[]) => {
         if (!rowObjs.includes(value)) {
           rowObjs.push(value);
-        } else rowObjs = rowObjs.filter((e) => e != value);
+        } else rowObjs = rowObjs.filter((e) => e !== value);
         return rowObjs;
       });
     },
-    [handleBlur]
+    []
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -224,11 +224,11 @@ const ExamForm: FC<ExamProps> = ({
   return (
     <>
       <div className="patientExamForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab")
             : t("lab.editlab") + ": " + renderDate(formik.values.examDate)}
-        </h3>
+        </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">

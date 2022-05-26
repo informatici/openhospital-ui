@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";

@@ -160,10 +160,3 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 };
 
 export default InPatientDashboardMenu;
-function useRouterMatch(): { url: any } {
-  throw new Error("Function not implemented.");
-}
-
-function useHystory() {
-  throw new Error("Function not implemented.");
-}

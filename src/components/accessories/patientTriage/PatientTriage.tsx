@@ -42,7 +42,6 @@ const PatientTriage: FC = () => {
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  const examinationStore = useSelector((state: IState) => state.examinations);
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.examinations.deleteExamination.status
   );

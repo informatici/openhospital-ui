@@ -76,9 +76,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
-  const onDelete = (row: LaboratoryDTO) => {
-    handleDelete(row.code);
-  };
 
   const onEdit = (row: any) => {
     handleEdit(labData?.find((item) => item.code === row.code));

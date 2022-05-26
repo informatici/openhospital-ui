@@ -29,8 +29,9 @@ const PatientAdmission: FC = () => {
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [admissionToEdit, setAdmissionToEdit] =
-    useState<AdmissionDTO | undefined>();
+  const [admissionToEdit, setAdmissionToEdit] = useState<
+    AdmissionDTO | undefined
+  >();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
@@ -125,7 +126,7 @@ const PatientAdmission: FC = () => {
     ) {
       setShowForm(true);
     } else setShowForm(false);
-  }, [currentAdmissionStatus, creationMode]);
+  }, [currentAdmissionStatus, currentAdmission, creationMode]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -138,7 +139,7 @@ const PatientAdmission: FC = () => {
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, patient, activityTransitionState]);
 
   const resetFormCallback = () => {
     setCreationMode(true);
@@ -171,6 +172,7 @@ const PatientAdmission: FC = () => {
         <AdmissionForm
           fields={fields}
           onSubmit={onSubmit}
+          creationMode={creationMode}
           submitButtonLabel={
             admissionToEdit ? t("common.update") : t("common.save")
           }

@@ -4,6 +4,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 interface IAdmissionProps {
   fields: TFields<AdmissionFormFieldName>;
   onSubmit: (adm: AdmissionDTO) => void;
+  creationMode: boolean;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;

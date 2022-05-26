@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import ImageCrop, { Crop } from "react-image-crop";
 import { useTranslation } from "react-i18next";
 import CheckIcon from "@material-ui/icons/Check";

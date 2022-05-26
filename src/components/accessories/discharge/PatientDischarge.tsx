@@ -24,7 +24,7 @@ const PatientDischarge: FC = () => {
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
@@ -40,9 +40,6 @@ const PatientDischarge: FC = () => {
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
-  );
-  const username = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
   );
 
   const dischargeStatus = useSelector<IState>(
@@ -77,7 +74,7 @@ const PatientDischarge: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [dischargeStatus]);
+  }, [dischargeStatus, currentAdmissionStatus]);
 
   useEffect(() => {
     dispatch(dischargePatientReset());
@@ -90,7 +87,7 @@ const PatientDischarge: FC = () => {
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, patient, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);

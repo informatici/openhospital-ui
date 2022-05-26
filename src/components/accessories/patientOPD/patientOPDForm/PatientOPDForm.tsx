@@ -178,11 +178,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   return (
     <>
       <div className="patientOpdForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("opd.newopd")
             : t("opd.editopd") + ": " + renderDate(formik.values.visitDate)}
-        </h3>
+        </h5>
         <form className="patientOpdForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item">
@@ -200,13 +200,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                     value="R"
                     control={<Radio />}
                     label={t("opd.reattendance")}
-                    checked={formik.values["newPatient"] == "R"}
+                    checked={formik.values["newPatient"] === "R"}
                   />
                   <FormControlLabel
                     value="N"
                     control={<Radio />}
                     label={t("opd.newadmittance")}
-                    checked={formik.values["newPatient"] == "N"}
+                    checked={formik.values["newPatient"] === "N"}
                   />
                 </RadioGroup>
               </FormControl>
