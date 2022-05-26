@@ -109,13 +109,13 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   return (
     <>
       <div className="patientTriageForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("examination.newtriage")
             : t("examination.edittriage") +
               ": " +
               renderDate(formik.values.pex_date)}
-        </h3>
+        </h5>
         <form
           className="patientTriageForm__form"
           onSubmit={formik.handleSubmit}

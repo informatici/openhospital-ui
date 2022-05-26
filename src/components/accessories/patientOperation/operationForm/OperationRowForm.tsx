@@ -130,13 +130,13 @@ const OperationRowForm: FC<OperationRowProps> = ({
   return (
     <>
       <div className="patientOperationForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("operation.newoperation")
             : t("operation.editoperation") +
               ": " +
               renderDate(formik.values.opDate)}
-        </h3>
+        </h5>
         <form
           className="patientOperationForm__form"
           onSubmit={formik.handleSubmit}

@@ -142,7 +142,7 @@ const TherapyForm: FC<TherapyProps> = ({
   return (
     <>
       <div className="patientTherapyForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("therapy.newtherapy")
             : t("therapy.edittherapy") +
@@ -150,7 +150,7 @@ const TherapyForm: FC<TherapyProps> = ({
               renderDate(formik.values.startDate) +
               " - " +
               renderDate(formik.values.endDate)}
-        </h3>
+        </h5>
         <form
           className="patientTherapyForm__form"
           onSubmit={formik.handleSubmit}

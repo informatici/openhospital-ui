@@ -268,13 +268,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
   return (
     <>
       <div className="patientAdmissionForm">
-        <h3 className="formInsertMode">
+        <h5 className="formInsertMode">
           {creationMode
             ? t("admission.newadmission")
             : t("admission.editadmission") +
               ": " +
               renderDate(formik.values.admDate)}
-        </h3>
+        </h5>
         <form
           className="patientAdmissionForm__form"
           onSubmit={formik.handleSubmit}
