@@ -183,11 +183,11 @@ const ExamForm: FC<ExamProps> = ({
       setRowsData((rowObjs: string[]) => {
         if (!rowObjs.includes(value)) {
           rowObjs.push(value);
-        } else rowObjs = rowObjs.filter((e) => e != value);
+        } else rowObjs = rowObjs.filter((e) => e !== value);
         return rowObjs;
       });
     },
-    [handleBlur]
+    []
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);

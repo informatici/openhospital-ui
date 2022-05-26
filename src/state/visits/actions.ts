@@ -1,15 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  DiseaseDTO,
-  VisitsControllerApi,
-  VisitDTO,
-  WardDTO,
-  PatientDTO,
-} from "../../generated";
+import { Configuration, VisitsControllerApi, VisitDTO } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
-import { visitDataFormatter } from "../../libraries/formatUtils/dataFormatting";
 import { IAction } from "../types";
 import {
   CREATE_VISIT_RESET,

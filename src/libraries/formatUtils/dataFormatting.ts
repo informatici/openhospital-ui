@@ -1,5 +1,5 @@
 import moment from "moment";
-import { DiseaseDTO, PatientDTO, VisitDTO, WardDTO } from "../../generated";
+import { DiseaseDTO, WardDTO } from "../../generated";
 import { parseDate } from "../formDataHandling/functions";
 
 export const opdDataFormatter = (

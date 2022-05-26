@@ -17,7 +17,7 @@ export const CustomDialog: FC<ICustomDialog> = ({
   open,
   onClose,
 }) => {
-  const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
+  const [scroll] = React.useState<DialogProps["scroll"]>("paper");
 
   return (
     <Dialog

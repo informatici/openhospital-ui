@@ -25,7 +25,6 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   }, [activityTransitionState, getPatientSuccessCallback, patient]);
 
   const patientDate = renderDate(patient.birthDate ?? "");
-  const history = useHistory();
 
   switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":

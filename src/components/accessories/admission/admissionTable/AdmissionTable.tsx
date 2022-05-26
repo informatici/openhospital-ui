@@ -8,8 +8,6 @@ import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getAdmissionsByPatientId } from "../../../../state/admissions/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { isEmpty } from "lodash";
-import moment from "moment";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;

@@ -63,7 +63,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               ) : (
                 <ul>
                   {Object.keys(_.omit(row, tableHeader))
-                    .filter((key) => labelData[key] != undefined)
+                    .filter((key) => labelData[key] !== undefined)
                     .map(
                       (key, index) =>
                         (showEmptyCell || (row[key] && labelData[key])) && (

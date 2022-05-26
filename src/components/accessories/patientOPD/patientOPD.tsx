@@ -88,10 +88,6 @@ const PatientOPD: FunctionComponent = () => {
     (state: IState) => state.main.authentication.data?.displayName
   );
 
-  const diseasesData = useSelector(
-    (state: IState) => state.diseases.diseasesOpd.data
-  );
-
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       setShouldUpdateTable(true);

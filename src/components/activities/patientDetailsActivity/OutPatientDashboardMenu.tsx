@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useCallback } from "react";
 import {
-  SettingsApplications,
   LocalHotel,
   LocalHospital,
   Healing,
@@ -37,7 +36,7 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       setUserSection(section);
       history.replace(`${url}/${section}`);
     },
-    [history, setUserSection]
+    [history, url, setUserSection]
   );
 
   return (

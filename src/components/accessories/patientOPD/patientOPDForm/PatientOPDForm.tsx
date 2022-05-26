@@ -200,13 +200,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                     value="R"
                     control={<Radio />}
                     label={t("opd.reattendance")}
-                    checked={formik.values["newPatient"] == "R"}
+                    checked={formik.values["newPatient"] === "R"}
                   />
                   <FormControlLabel
                     value="N"
                     control={<Radio />}
                     label={t("opd.newadmittance")}
-                    checked={formik.values["newPatient"] == "N"}
+                    checked={formik.values["newPatient"] === "N"}
                   />
                 </RadioGroup>
               </FormControl>

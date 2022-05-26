@@ -59,6 +59,16 @@ const PatientVisit: FunctionComponent = () => {
       t("common.somethingwrong")
   ) as string;
 
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+
+  const userId = useSelector(
+    (state: IState) => state.main.authentication.data?.displayName
+  );
+
+  const wardsData = useSelector((state: IState) => state.wards.allWards.data);
+
   useEffect(() => {
     if (changeStatus === "FAIL") {
       setActivityTransitionState("FAIL");
@@ -72,17 +82,7 @@ const PatientVisit: FunctionComponent = () => {
     dispatch(updateVisitReset());
     dispatch(getWards());
     dispatch(getVisits(patient?.code ?? -1));
-  }, [dispatch]);
-
-  const patient = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
-
-  const userId = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
-  );
-
-  const wardsData = useSelector((state: IState) => state.wards.allWards.data);
+  }, [patient?.code, dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {

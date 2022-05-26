@@ -1,5 +1,4 @@
-import { FormikProvider, useFormik } from "formik";
-import { isEmpty } from "lodash";
+import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import moment from "moment";
@@ -17,7 +16,6 @@ import {
   differenceInDays,
   formatAllFieldValues,
   getFromFields,
-  parseDate,
 } from "../../../../libraries/formDataHandling/functions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
@@ -155,7 +153,7 @@ const DischargeForm: FC<DischargeProps> = ({
       ).toString();
       setFieldValue("bedDays", days);
     },
-    [setFieldValue]
+    [setFieldValue, admission]
   );
 
   const isValid = (fieldName: string): boolean => {
