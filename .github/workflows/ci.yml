@@ -41,6 +41,7 @@ jobs:
           wait-on: "http://localhost:3000"
 
   deploy:
+    needs: e2e
     runs-on: ubuntu-latest
 
     steps:
