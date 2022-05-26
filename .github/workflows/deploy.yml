@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    needs: e2e
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
+      - name: Installing...
+        run: npm i
+      - name: Building
+        env:
+          CI: false
+        run: npm run clear && npm run build:gh-pages
+      - run: git add --force build
+      - run: git commit -m 'new build'
+      - run: git remote add intesys-oh https://github.com/intesys/openhospital-ui.git 
+      - run: echo "HASH_COMMIT=$(git subtree split --prefix build develop)" >> $GITHUB_ENV
+      - run: git push intesys-oh $HASH_COMMIT:gh-pages --force
