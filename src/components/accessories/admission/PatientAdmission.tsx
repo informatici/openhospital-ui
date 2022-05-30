@@ -109,9 +109,6 @@ const PatientAdmission: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-    if (createStatus === "SUCCESS" || updateStatus === "SUCCESS") {
-      dispatch(getAdmissionsByPatientId(patient?.code));
-    }
   }, [createStatus, updateStatus]);
 
   useEffect(() => {

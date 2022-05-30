@@ -77,9 +77,6 @@ const PatientTherapy: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-    if (status === "SUCCESS") {
-      dispatch(getTherapiesByPatientId(patientData?.code));
-    }
   }, [status]);
 
   useEffect(() => {

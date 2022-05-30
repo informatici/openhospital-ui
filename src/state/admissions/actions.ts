@@ -32,7 +32,7 @@ const admissionControllerApi = new AdmissionControllerApi(
 
 export const createAdmission =
   (newAdmissionDTO: AdmissionDTO) =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
+  (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
     dispatch({
       type: CREATE_ADMISSION_LOADING,
     });
@@ -57,7 +57,7 @@ export const createAdmission =
 
 export const dischargePatient =
   (patientCode: number | undefined, currentAdmissionDTO: AdmissionDTO) =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
+  (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
     dispatch({
       type: DISCHARGE_PATIENT_LOADING,
     });
@@ -68,6 +68,7 @@ export const dischargePatient =
           (payload) => {
             dispatch({
               type: DISCHARGE_PATIENT_SUCCESS,
+              payload: payload,
             });
           },
           (error) => {
@@ -87,7 +88,7 @@ export const dischargePatient =
 
 export const updateAdmission =
   (updAdmissionDTO: AdmissionDTO) =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
+  (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
     dispatch({
       type: UPDATE_ADMISSION_LOADING,
     });

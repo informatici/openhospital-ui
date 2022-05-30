@@ -73,9 +73,9 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
     /**
      * newDeliveryResultType
      */
-    newDeliveryResultTypeUsingPOST({ dlvrrestTypeDTO }: NewDeliveryResultTypeUsingPOSTRequest): Observable<string>
-    newDeliveryResultTypeUsingPOST({ dlvrrestTypeDTO }: NewDeliveryResultTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    newDeliveryResultTypeUsingPOST({ dlvrrestTypeDTO }: NewDeliveryResultTypeUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    newDeliveryResultTypeUsingPOST({ dlvrrestTypeDTO }: NewDeliveryResultTypeUsingPOSTRequest): Observable<DeliveryResultTypeDTO>
+    newDeliveryResultTypeUsingPOST({ dlvrrestTypeDTO }: NewDeliveryResultTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DeliveryResultTypeDTO>>
+    newDeliveryResultTypeUsingPOST({ dlvrrestTypeDTO }: NewDeliveryResultTypeUsingPOSTRequest, opts?: OperationOpts): Observable<DeliveryResultTypeDTO | RawAjaxResponse<DeliveryResultTypeDTO>> {
         throwIfNullOrUndefined(dlvrrestTypeDTO, 'dlvrrestTypeDTO', 'newDeliveryResultTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -83,7 +83,7 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<DeliveryResultTypeDTO>({
             url: '/deliveryresulttypes',
             method: 'POST',
             headers,
@@ -94,9 +94,9 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
     /**
      * updateDeliveryResultTypet
      */
-    updateDeliveryResultTypetUsingPUT({ dlvrrestTypeDTO }: UpdateDeliveryResultTypetUsingPUTRequest): Observable<string>
-    updateDeliveryResultTypetUsingPUT({ dlvrrestTypeDTO }: UpdateDeliveryResultTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    updateDeliveryResultTypetUsingPUT({ dlvrrestTypeDTO }: UpdateDeliveryResultTypetUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    updateDeliveryResultTypetUsingPUT({ dlvrrestTypeDTO }: UpdateDeliveryResultTypetUsingPUTRequest): Observable<DeliveryResultTypeDTO>
+    updateDeliveryResultTypetUsingPUT({ dlvrrestTypeDTO }: UpdateDeliveryResultTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DeliveryResultTypeDTO>>
+    updateDeliveryResultTypetUsingPUT({ dlvrrestTypeDTO }: UpdateDeliveryResultTypetUsingPUTRequest, opts?: OperationOpts): Observable<DeliveryResultTypeDTO | RawAjaxResponse<DeliveryResultTypeDTO>> {
         throwIfNullOrUndefined(dlvrrestTypeDTO, 'dlvrrestTypeDTO', 'updateDeliveryResultTypetUsingPUT');
 
         const headers: HttpHeaders = {
@@ -104,7 +104,7 @@ export class DeliveryResultTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<DeliveryResultTypeDTO>({
             url: '/deliveryresulttypes',
             method: 'PUT',
             headers,

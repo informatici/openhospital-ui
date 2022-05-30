@@ -72,9 +72,6 @@ const PatientOPD: FunctionComponent = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-    if (changeStatus === "SUCCESS") {
-      dispatch(getOpds(patient?.code));
-    }
   }, [changeStatus]);
 
   useEffect(() => {

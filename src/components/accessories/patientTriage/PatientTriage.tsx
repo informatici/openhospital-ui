@@ -70,9 +70,6 @@ const PatientTriage: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-    if (status === "SUCCESS") {
-      dispatch(examinationsByPatientId(patientDataCode));
-    }
   }, [status]);
 
   useEffect(() => {

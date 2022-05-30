@@ -1,4 +1,5 @@
 import produce from "immer";
+import { LaboratoryDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_LAB_FAIL,
@@ -51,6 +52,10 @@ export default produce(
 
       case CREATE_LAB_SUCCESS: {
         draft.createLab.status = "SUCCESS";
+        draft.labsByPatientId.data = [
+          ...(draft.labsByPatientId.data ?? []),
+          action.payload,
+        ];
         delete draft.createLab.error;
         break;
       }
@@ -198,6 +203,11 @@ export default produce(
       case UPDATE_LAB_SUCCESS: {
         draft.updateLab.status = "SUCCESS";
         draft.updateLab.data = action.payload;
+        draft.labsByPatientId.data = draft.labsByPatientId.data?.map((e) => {
+          return e.code === action.payload.code
+            ? (action.payload as LaboratoryDTO)
+            : e;
+        });
         delete draft.updateLab.error;
         break;
       }
@@ -221,6 +231,9 @@ export default produce(
 
       case DELETE_LAB_SUCCESS: {
         draft.deleteLab.status = "SUCCESS";
+        draft.labsByPatientId.data = draft.labsByPatientId.data?.filter(
+          (e) => e.code === action.payload.code
+        );
         delete draft.deleteLab.error;
         break;
       }

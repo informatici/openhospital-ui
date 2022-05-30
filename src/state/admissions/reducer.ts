@@ -1,4 +1,5 @@
 import produce from "immer";
+import { AdmissionDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_ADMISSION_FAIL,
@@ -40,6 +41,11 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case CREATE_ADMISSION_SUCCESS: {
       draft.createAdmission.status = "SUCCESS";
       draft.createAdmission.data = action.payload;
+      draft.admissionsByPatientId.data = [
+        ...(draft.admissionsByPatientId.data ?? []),
+        action.payload,
+      ];
+      draft.currentAdmissionByPatientId.data = action.payload;
       delete draft.createAdmission.error;
       break;
     }
@@ -66,6 +72,14 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
 
     case DISCHARGE_PATIENT_SUCCESS: {
       draft.dischargePatient.status = "SUCCESS";
+      draft.admissionsByPatientId.data = draft.admissionsByPatientId.data?.map(
+        (e) => {
+          return e.id === action.payload?.id
+            ? (action.payload as AdmissionDTO)
+            : e;
+        }
+      );
+      draft.currentAdmissionByPatientId.data = undefined;
       delete draft.dischargePatient.error;
       break;
     }
@@ -93,6 +107,16 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case UPDATE_ADMISSION_SUCCESS: {
       draft.updateAdmission.status = "SUCCESS";
       draft.updateAdmission.data = action.payload;
+      draft.admissionsByPatientId.data = draft.admissionsByPatientId.data?.map(
+        (e) => {
+          return e.id === action.payload?.id
+            ? (action.payload as AdmissionDTO)
+            : e;
+        }
+      );
+      if (draft.currentAdmissionByPatientId.data?.id === action.payload?.id) {
+        draft.currentAdmissionByPatientId.data = action.payload;
+      }
       delete draft.updateAdmission.error;
       break;
     }

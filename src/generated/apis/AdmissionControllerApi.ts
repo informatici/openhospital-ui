@@ -88,9 +88,9 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * dischargePatient
      */
-    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest): Observable<boolean>
-    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest): Observable<AdmissionDTO>
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    dischargePatientUsingPOST({ patientCode, currentAdmissionDTO }: DischargePatientUsingPOSTRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
         throwIfNullOrUndefined(patientCode, 'patientCode', 'dischargePatientUsingPOST');
         throwIfNullOrUndefined(currentAdmissionDTO, 'currentAdmissionDTO', 'dischargePatientUsingPOST');
 
@@ -103,7 +103,7 @@ export class AdmissionControllerApi extends BaseAPI {
             'patientCode': patientCode,
         };
 
-        return this.request<boolean>({
+        return this.request<AdmissionDTO>({
             url: '/admissions/discharge',
             method: 'POST',
             headers,
@@ -255,9 +255,9 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * newAdmissions
      */
-    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest): Observable<number>
-    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest): Observable<AdmissionDTO>
+    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    newAdmissionsUsingPOST({ newAdmissionDTO }: NewAdmissionsUsingPOSTRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
         throwIfNullOrUndefined(newAdmissionDTO, 'newAdmissionDTO', 'newAdmissionsUsingPOST');
 
         const headers: HttpHeaders = {
@@ -265,7 +265,7 @@ export class AdmissionControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<AdmissionDTO>({
             url: '/admissions',
             method: 'POST',
             headers,
@@ -276,9 +276,9 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * updateAdmissions
      */
-    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest): Observable<number>
-    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest): Observable<AdmissionDTO>
+    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    updateAdmissionsUsingPUT({ updAdmissionDTO }: UpdateAdmissionsUsingPUTRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
         throwIfNullOrUndefined(updAdmissionDTO, 'updAdmissionDTO', 'updateAdmissionsUsingPUT');
 
         const headers: HttpHeaders = {
@@ -286,7 +286,7 @@ export class AdmissionControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<AdmissionDTO>({
             url: '/admissions',
             method: 'PUT',
             headers,

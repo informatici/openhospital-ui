@@ -120,9 +120,9 @@ export class VaccineControllerApi extends BaseAPI {
     /**
      * newVaccine
      */
-    newVaccineUsingPOST({ newVaccine }: NewVaccineUsingPOSTRequest): Observable<ResponseEntity>
-    newVaccineUsingPOST({ newVaccine }: NewVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    newVaccineUsingPOST({ newVaccine }: NewVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    newVaccineUsingPOST({ newVaccine }: NewVaccineUsingPOSTRequest): Observable<VaccineDTO>
+    newVaccineUsingPOST({ newVaccine }: NewVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VaccineDTO>>
+    newVaccineUsingPOST({ newVaccine }: NewVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<VaccineDTO | RawAjaxResponse<VaccineDTO>> {
         throwIfNullOrUndefined(newVaccine, 'newVaccine', 'newVaccineUsingPOST');
 
         const headers: HttpHeaders = {
@@ -130,7 +130,7 @@ export class VaccineControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<VaccineDTO>({
             url: '/vaccines',
             method: 'POST',
             headers,
@@ -141,9 +141,9 @@ export class VaccineControllerApi extends BaseAPI {
     /**
      * updateVaccine
      */
-    updateVaccineUsingPUT({ updateVaccine }: UpdateVaccineUsingPUTRequest): Observable<ResponseEntity>
-    updateVaccineUsingPUT({ updateVaccine }: UpdateVaccineUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    updateVaccineUsingPUT({ updateVaccine }: UpdateVaccineUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    updateVaccineUsingPUT({ updateVaccine }: UpdateVaccineUsingPUTRequest): Observable<VaccineDTO>
+    updateVaccineUsingPUT({ updateVaccine }: UpdateVaccineUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VaccineDTO>>
+    updateVaccineUsingPUT({ updateVaccine }: UpdateVaccineUsingPUTRequest, opts?: OperationOpts): Observable<VaccineDTO | RawAjaxResponse<VaccineDTO>> {
         throwIfNullOrUndefined(updateVaccine, 'updateVaccine', 'updateVaccineUsingPUT');
 
         const headers: HttpHeaders = {
@@ -151,7 +151,7 @@ export class VaccineControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<VaccineDTO>({
             url: '/vaccines',
             method: 'PUT',
             headers,
