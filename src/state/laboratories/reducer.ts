@@ -52,6 +52,7 @@ export default produce(
 
       case CREATE_LAB_SUCCESS: {
         draft.createLab.status = "SUCCESS";
+        draft.createLab.data = action.payload;
         draft.labsByPatientId.data = [
           ...(draft.labsByPatientId.data ?? []),
           action.payload,

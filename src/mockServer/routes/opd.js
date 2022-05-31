@@ -8,7 +8,7 @@ export const opdRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(201).json(body);
           break;
       }
     });
@@ -19,7 +19,7 @@ export const opdRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(200).json(req.jsonBody());
           break;
       }
     });

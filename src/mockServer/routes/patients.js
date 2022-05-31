@@ -10,7 +10,11 @@ export const patientRoutes = (server) => {
           res.status(400);
           break;
         default:
+<<<<<<< HEAD
           res.status(201).json(patientDTO);
+=======
+          res.status(201).json(body);
+>>>>>>> f6844f06 (improvement(OH2-70): Update mock server, update app state and api spec file)
           break;
       }
     });

@@ -72,6 +72,7 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
 
     case DISCHARGE_PATIENT_SUCCESS: {
       draft.dischargePatient.status = "SUCCESS";
+      draft.dischargePatient.data = action.payload;
       draft.admissionsByPatientId.data = draft.admissionsByPatientId.data?.map(
         (e) => {
           return e.id === action.payload?.id

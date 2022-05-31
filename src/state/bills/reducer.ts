@@ -53,6 +53,7 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case NEW_BILL_SUCCESS: {
       draft.newBill.status = "SUCCESS";
+      draft.newBill.data = action.payload;
       draft.getPendingBills.data = [
         ...(draft.getPendingBills.data ?? []),
         action.payload,
@@ -83,6 +84,7 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case UPDATE_BILL_SUCCESS: {
       draft.updateBill.status = "SUCCESS";
+      draft.updateBill.data = action.payload;
       draft.getPendingBills.data = draft.getPendingBills.data?.map((e) => {
         return e.bill?.id === action.payload?.bill?.id
           ? (action.payload as FullBillDTO)
