@@ -74,7 +74,6 @@ const PatientExams: FC = () => {
       dispatch(getLabWithRowsByCodeReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
-      dispatch(getLabsByPatientId(patientData?.code));
     }
   }, [dispatch, activityTransitionState]);
 
