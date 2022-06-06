@@ -35,6 +35,22 @@ To install the project dependencies, issue:
     - git subtree split --prefix build develop
     - git push intesys-oh GIT_ID:gh-pages --force
 
+## How to deploy backend in docker environment
+
+Make sure you have docker with docker-compose installed, then run the following commands:
+
+    - cd docker/
+    - DOCKER_BUILDKIT=0 docker-compose build [--no-cache]
+    - docker-compose up
+    - docker-compose  exec database /bin/bash
+    - cd sql/
+    - mysql -u isf -p
+    - source create_all_demo.sql;
+
+When done successfully, head over at http://localhost:[API_PORT]/oh-api/swagger-ui.html
+
+You can change the deployment branch and the repository organization in the docker/.env file.
+
 ## How to launch the application
 
 You can run a development build of the application by issuing:

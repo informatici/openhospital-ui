@@ -1,0 +1,18 @@
+FROM mysql:5.7.9
+
+ARG GITHUB_ORG
+ARG OH_CORE_BRANCH
+
+ENV MYSQL_DATABASE=oh
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_USER=isf
+ENV MYSQL_PASSWORD=isf123
+
+RUN mkdir /oh_web
+RUN apt-get update
+RUN apt-get install -y git
+WORKDIR /oh_web
+RUN git clone https://github.com/${GITHUB_ORG}/openhospital-core.git --depth=1 -b ${OH_CORE_BRANCH}
+WORKDIR ./openhospital-core
+
+EXPOSE 3306

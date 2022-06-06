@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  database:
+    container_name: database
+    restart: always
+    command: --lower_case_table_names=1
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+    build:
+       context: .
+       dockerfile: Dockerfile.database
+       args:
+        OH_CORE_BRANCH: ${OH_CORE_BRANCH}
+        GITHUB_ORG: ${GITHUB_ORG}
+    ports:
+      - "${MYSQL_PORT}:3306"
+  backend:
+    container_name: backend
+    build:
+       context: .
+       dockerfile: Dockerfile.backend
+       args:
+        API_VERSION: ${API_VERSION}
+        OH_CORE_BRANCH: ${OH_CORE_BRANCH}
+        OH_API_BRANCH: ${OH_API_BRANCH}
+        GITHUB_ORG: ${GITHUB_ORG}
+    restart: always
+    ports:
+      - "${API_PORT}:8080"
+    depends_on:
+      - database
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "100m"
+            max-file: "10"
+  

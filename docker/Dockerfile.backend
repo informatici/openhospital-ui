@@ -1,0 +1,22 @@
+FROM maven:3.8-jdk-8
+
+ARG GITHUB_ORG
+ARG OH_CORE_BRANCH
+ARG OH_API_BRANCH
+ARG OH_VERSION
+
+RUN mkdir /oh_web
+RUN apt-get update
+RUN apt-get install -y git
+WORKDIR /oh_web
+RUN git clone https://github.com/${GITHUB_ORG}/openhospital-core.git --depth=1 -b ${OH_CORE_BRANCH}
+WORKDIR ./openhospital-core
+RUN mvn clean install -DskipTests=true
+WORKDIR /oh_web
+RUN git clone https://github.com/${GITHUB_ORG}/openhospital-api.git  --depth=1 -b ${OH_API_BRANCH}
+WORKDIR ./openhospital-api
+# Database connection must be changed in order to work in docker network
+RUN sed -i 's/localhost/database/g' src/main/resources/database.properties
+RUN mvn clean install -DskipTests=true
+
+CMD mvn spring-boot:run
