@@ -9,7 +9,6 @@ import {
   deleteTherapy,
   updateTherapyReset,
   updateTherapy,
-  getTherapiesByPatientId,
 } from "../../../state/therapies/actions";
 import { getMedicals } from "../../../state/medicals/actions";
 import { initialFields } from "./consts";

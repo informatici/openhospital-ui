@@ -9,7 +9,6 @@ import ExamForm from "./ExamForm/ExamForm";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
-
 import checkIcon from "../../../assets/check-icon.png";
 import {
   createLab,
