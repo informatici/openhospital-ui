@@ -36,7 +36,6 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const breadcrumbMap = {
-    [t("nav.dashboard")]: PATHS.home,
     [t("nav.patients")]: PATHS.patients,
     [t("nav.newpatient")]: PATHS.patients_new,
   };

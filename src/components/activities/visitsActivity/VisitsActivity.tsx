@@ -13,7 +13,6 @@ const VisitsActivity: FC = () => {
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: PATHS.home,
     [t("nav.visits")]: PATHS.visits,
   };
 
@@ -29,7 +28,10 @@ const VisitsActivity: FC = () => {
       />
       <div className="visits__background">
         <div className="visits__content">
-          <SkeletonLoader />
+          <div className="visits__title">{t("nav.visits")}</div>
+          <div style={{ marginBottom: "100px" }}>
+            <SkeletonLoader />
+          </div>
         </div>
       </div>
       <Footer />

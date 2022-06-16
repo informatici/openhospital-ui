@@ -13,7 +13,6 @@ const LaboratoryActivity: FC = () => {
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: PATHS.home,
     [t("nav.laboratory")]: PATHS.laboratory,
   };
 
@@ -29,7 +28,10 @@ const LaboratoryActivity: FC = () => {
       />
       <div className="laboratory__background">
         <div className="laboratory__content">
-          <SkeletonLoader />
+          <div className="laboratory__title">{t("nav.laboratory")}</div>
+          <div style={{ marginBottom: "100px" }}>
+            <SkeletonLoader />
+          </div>
         </div>
       </div>
       <Footer />

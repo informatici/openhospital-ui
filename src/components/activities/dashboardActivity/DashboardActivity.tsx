@@ -20,7 +20,6 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: PATHS.home,
     [t("nav.patients")]: PATHS.patients,
   };
 
