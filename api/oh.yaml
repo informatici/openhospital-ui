@@ -4136,46 +4136,42 @@ paths:
         - name: ageFrom
           in: query
           description: ageFrom
-          required: true
           type: integer
           format: int32
         - name: ageTo
           in: query
           description: ageTo
-          required: true
           type: integer
           format: int32
         - name: dateFrom
           in: query
-          description: dateFrom
           required: true
           type: string
-          format: date-time
         - name: dateTo
           in: query
           description: dateTo
           required: true
           type: string
-          format: date-time
         - name: diseaseCode
           in: query
           description: diseaseCode
-          required: true
           type: string
         - name: diseaseTypeCode
           in: query
           description: diseaseTypeCode
-          required: true
           type: string
         - name: newPatient
           in: query
           description: newPatient
-          required: true
           type: string
+        - name: patientCode
+          in: query
+          description: Patient Code
+          type: integer
+          format: int32
         - name: sex
           in: query
           description: sex
-          required: true
           type: string
       responses:
         '200':

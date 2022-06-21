@@ -8,6 +8,7 @@ import { userRoutes } from "./routes/users";
 import { visitRoutes } from "./routes/visits";
 import { opdRoutes } from "./routes/opd";
 import { diseasesRoutes } from "./routes/diseases";
+import { diseaseTypeRoutes } from "./routes/diseaseTypes";
 import { therapyRoutes } from "./routes/therapies";
 import { medicalRoutes } from "./routes/medicals";
 import { admissionRoutes } from "./routes/admissions";
@@ -49,6 +50,7 @@ export function makeServer() {
     pricesRoutes(server);
     billRoutes(server);
     operationRoutes(server);
+    diseaseTypeRoutes(server);
   });
   return server;
 }

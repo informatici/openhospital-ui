@@ -26,14 +26,15 @@ export interface GetLastOpdUsingGETRequest {
 }
 
 export interface GetOpdByDatesUsingGETRequest {
-    ageFrom: number;
-    ageTo: number;
     dateFrom: string;
     dateTo: string;
-    diseaseCode: string;
-    diseaseTypeCode: string;
-    newPatient: string;
-    sex: string;
+    ageFrom?: number;
+    ageTo?: number;
+    diseaseCode?: string;
+    diseaseTypeCode?: string;
+    newPatient?: string;
+    patientCode?: number;
+    sex?: string;
 }
 
 export interface GetOpdByPatientUsingGETRequest {
@@ -108,32 +109,28 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * getOpdByDates
      */
-    getOpdByDatesUsingGET({ ageFrom, ageTo, dateFrom, dateTo, diseaseCode, diseaseTypeCode, newPatient, sex }: GetOpdByDatesUsingGETRequest): Observable<Array<OpdDTO>>
-    getOpdByDatesUsingGET({ ageFrom, ageTo, dateFrom, dateTo, diseaseCode, diseaseTypeCode, newPatient, sex }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdDTO>>>
-    getOpdByDatesUsingGET({ ageFrom, ageTo, dateFrom, dateTo, diseaseCode, diseaseTypeCode, newPatient, sex }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | RawAjaxResponse<Array<OpdDTO>>> {
-        throwIfNullOrUndefined(ageFrom, 'ageFrom', 'getOpdByDatesUsingGET');
-        throwIfNullOrUndefined(ageTo, 'ageTo', 'getOpdByDatesUsingGET');
+    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, patientCode, sex }: GetOpdByDatesUsingGETRequest): Observable<Array<OpdDTO>>
+    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, patientCode, sex }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdDTO>>>
+    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, patientCode, sex }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | RawAjaxResponse<Array<OpdDTO>>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getOpdByDatesUsingGET');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getOpdByDatesUsingGET');
-        throwIfNullOrUndefined(diseaseCode, 'diseaseCode', 'getOpdByDatesUsingGET');
-        throwIfNullOrUndefined(diseaseTypeCode, 'diseaseTypeCode', 'getOpdByDatesUsingGET');
-        throwIfNullOrUndefined(newPatient, 'newPatient', 'getOpdByDatesUsingGET');
-        throwIfNullOrUndefined(sex, 'sex', 'getOpdByDatesUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'ageFrom': ageFrom,
-            'ageTo': ageTo,
-            'dateFrom': (dateFrom as any).toISOString(),
-            'dateTo': (dateTo as any).toISOString(),
-            'diseaseCode': diseaseCode,
-            'diseaseTypeCode': diseaseTypeCode,
-            'newPatient': newPatient,
-            'sex': sex,
+            'dateFrom': dateFrom,
+            'dateTo': dateTo,
         };
+
+        if (ageFrom != null) { query['ageFrom'] = ageFrom; }
+        if (ageTo != null) { query['ageTo'] = ageTo; }
+        if (diseaseCode != null) { query['diseaseCode'] = diseaseCode; }
+        if (diseaseTypeCode != null) { query['diseaseTypeCode'] = diseaseTypeCode; }
+        if (newPatient != null) { query['newPatient'] = newPatient; }
+        if (patientCode != null) { query['patientCode'] = patientCode; }
+        if (sex != null) { query['sex'] = sex; }
 
         return this.request<Array<OpdDTO>>({
             url: '/opds/search',
