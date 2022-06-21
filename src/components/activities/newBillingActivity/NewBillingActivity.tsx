@@ -13,7 +13,6 @@ const NewBillingActivity: FC = () => {
   const { t } = useTranslation();
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "/",
     [t("nav.billing")]: "/billing",
     [t("nav.newbill")]: "/billing/new",
   };

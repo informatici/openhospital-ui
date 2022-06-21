@@ -1,0 +1,47 @@
+import { TFields } from "../../../../libraries/formDataHandling/types";
+
+export interface IOpdFilterProps {
+  fields: TFields<OpdFilterFormFieldName>;
+  onSubmit: (values: any) => void;
+}
+export type IStatus = "" | "A" | "R";
+export type ISex = "" | "F" | "M" | "U";
+
+export type TFilterValues = {
+  dateFrom?: string;
+  dateTo?: string;
+  ageFrom?: number;
+  ageTo?: number;
+  diseaseCode?: string;
+  diseaseTypeCode?: string;
+  sex?: ISex;
+  newPatient?: IStatus;
+  patientCode?: number;
+};
+
+export type TValues = Record<TFieldName, string>;
+
+export type TFieldName =
+  | "id"
+  | "firstName"
+  | "secondName"
+  | "birthDate"
+  | "address";
+
+export type TOpdFilterValues = Record<OpdFilterFormFieldName, string>;
+
+export type OpdFilterFormFieldName =
+  | "dateFrom"
+  | "dateTo"
+  | "ageFrom"
+  | "ageTo"
+  | "newPatient"
+  | "patientCode"
+  | "diseaseCode"
+  | "diseaseTypeCode"
+  | "sex";
+
+export interface IFilterAction {
+  type: "update";
+  payload: any;
+}

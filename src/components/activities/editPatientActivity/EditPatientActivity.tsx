@@ -48,7 +48,6 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   const breadcrumbMap = {
-    [t("nav.dashboard")]: PATHS.home,
     [t("nav.patients")]: PATHS.patients,
     [t("nav.searchpatient")]: PATHS.patients_search,
     [t(

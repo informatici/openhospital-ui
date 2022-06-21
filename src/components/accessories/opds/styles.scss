@@ -1,0 +1,73 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+.opd_opds {
+  .opd_details {
+    ul {
+      white-space: nowrap;
+      overflow-x: hidden;
+      margin-left: 0;
+      padding-left: 0;
+    }
+    li span .MuiTypography-h5 {
+      padding-left: 0;
+      margin-left: 0;
+      display: inline;
+      text-decoration: none;
+      color: darken($c-gray, 25%);
+    }
+    .label {
+      font-weight: bold;
+    }
+  }
+  
+  .opd__header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    @include susy-media($smartphone) {
+      margin: 15px 0px 25px 0px;
+    }
+    @include susy-media($smartphone_small) {
+      .new__button__label {
+        display: none;
+      }
+    }
+
+    .opd__title {
+      font-size: xx-large;
+      color: $c-black;
+      font-weight: bolder;
+
+      @include susy-media($tablet_port) {
+        font-size: x-large;
+      }
+      @include susy-media($smartphone) {
+        font-size: x-large;
+      }
+      @include susy-media($smartphone_small) {
+        font-size: x-large;
+      }
+    }
+    .opd_actions {
+      @include susy-media($smartphone_small) {
+        display: block;
+      }
+      & {
+        .MuiButton-label {
+          font-size: smaller;
+          letter-spacing: 1px;
+          font-weight: 600;
+        }
+        button {
+          @include susy-media($smartphone_small) {
+            width: 100%;
+            margin-top: 0px;
+          }
+        }
+      }
+    }
+  }
+}
