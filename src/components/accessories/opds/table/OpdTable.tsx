@@ -1,20 +1,16 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { OpdDTO, PatientDTO } from "../../../../generated";
-import { IState } from "../../../../types";
+import { OpdDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
 import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import Table from "../../table/Table";
 import { IOpdTableProps } from "./types";
 import "./styles.scss";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { getOpds } from "../../../../state/opds/actions";
 
 export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const header = ["id", "visitDate", "patientCode", "disease"];
   const dateFields = ["visitDate"];
   const label = {

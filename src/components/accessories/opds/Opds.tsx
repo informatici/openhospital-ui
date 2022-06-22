@@ -40,8 +40,10 @@ export const Opds: FC = () => {
     setFilter(values);
   };
 
-  const errorMessage = "";
-  let status = "SUCCESS";
+  const errorMessage = useSelector(
+    (state: IState) => state.opds.searchOpds.error
+  );
+  let status = useSelector((state: IState) => state.opds.searchOpds.status);
 
   useEffect(() => {
     dispatch(searchOpds(fields));
