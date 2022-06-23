@@ -13,14 +13,9 @@ import { OpdTable } from "./table/OpdTable";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
 import { getDiseaseTypes } from "../../../state/diseaseTypes/actions";
 import { useEffect } from "react";
-import {
-  getOpds,
-  getOpdsReset,
-  searchOpds,
-  searchOpdsReset,
-} from "../../../state/opds/actions";
-import isEmpty from "lodash.isempty";
+import { searchOpds } from "../../../state/opds/actions";
 import { TFilterValues } from "../billTable/types";
+import { getFromFields } from "../../../libraries/formDataHandling/functions";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;
@@ -41,12 +36,12 @@ export const Opds: FC = () => {
   };
 
   const errorMessage = useSelector(
-    (state: IState) => state.opds.searchOpds.error
+    (state: IState) => state.opds.searchOpds.error?.message
   );
   let status = useSelector((state: IState) => state.opds.searchOpds.status);
 
   useEffect(() => {
-    dispatch(searchOpds(fields));
+    dispatch(searchOpds(getFromFields(fields, "value")));
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
   }, []);
@@ -71,7 +66,12 @@ export const Opds: FC = () => {
         {(() => {
           switch (status) {
             case "FAIL":
-              return <InfoBox type="error" message={errorMessage} />;
+              return (
+                <>
+                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <InfoBox type="error" message={errorMessage} />
+                </>
+              );
 
             case "LOADING":
               return (
@@ -81,7 +81,12 @@ export const Opds: FC = () => {
               );
 
             case "SUCCESS_EMPTY":
-              return <InfoBox type="warning" message={t("common.emptydata")} />;
+              return (
+                <>
+                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <InfoBox type="warning" message={t("common.emptydata")} />
+                </>
+              );
 
             case "SUCCESS":
               return (
