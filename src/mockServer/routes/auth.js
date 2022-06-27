@@ -1,7 +1,7 @@
 export const authRoutes = (server) => {
   server.namespace("/auth", () => {
     server.post("/login").intercept((req, res) => {
-      const { username } = req.query;
+      const username = JSON.parse(req.body).username;
 
       switch (username) {
         case "fail":
