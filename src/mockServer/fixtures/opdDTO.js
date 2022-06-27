@@ -7,6 +7,7 @@ const opdDTO = {
   visitDate: "2021-08-01T15:19:44.000Z",
   nextVisitDate: "2021-08-01T15:19:44.000Z",
   patientCode: patientDTO.code,
+  patientName: "Antonio Carlos",
   age: 18,
   sex: "M",
   note: "out patient consultation",

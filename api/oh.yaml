@@ -8774,6 +8774,10 @@ definitions:
         type: string
         example: M
         description: the patient sex
+      patientName:
+        type: string
+        example: John Doe
+        description: the patient full name
       note:
         type: string
         example: this is out patient

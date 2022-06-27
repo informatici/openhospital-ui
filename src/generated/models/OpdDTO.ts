@@ -62,6 +62,12 @@ export interface OpdDTO {
      */
     sex?: string;
     /**
+     * the patient full name
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    patientName?: string;
+    /**
      * the admission note
      * @type {string}
      * @memberof OpdDTO

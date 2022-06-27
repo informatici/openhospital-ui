@@ -96,7 +96,10 @@
     "date": "Visit Date",
     "general": "General",
     "diseasetype": "Disease Type",
-    "disease": "Disease"
+    "disease": "Disease",
+    "patientcode": "Patient ID",
+    "age": "Age",
+    "status": "Status"
   },
   "visit": {
     "date": "Date (d/m/y)",

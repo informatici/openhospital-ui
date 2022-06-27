@@ -19,15 +19,6 @@ export type TFilterValues = {
   patientCode?: number;
 };
 
-export type TValues = Record<TFieldName, string>;
-
-export type TFieldName =
-  | "id"
-  | "firstName"
-  | "secondName"
-  | "birthDate"
-  | "address";
-
 export type TOpdFilterValues = Record<OpdFilterFormFieldName, string>;
 
 export type OpdFilterFormFieldName =
