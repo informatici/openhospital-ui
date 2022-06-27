@@ -30,7 +30,7 @@ export const useSelectedPatient = () => {
 
 export const useCurrentUser = () => {
   const user = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
   return user;
 };

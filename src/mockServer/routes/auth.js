@@ -1,7 +1,7 @@
 export const authRoutes = (server) => {
   server.namespace("/auth", () => {
     server.post("/login").intercept((req, res) => {
-      const { username } = req.query;
+      const username = JSON.parse(req.body).username;
 
       switch (username) {
         case "fail":
@@ -9,7 +9,7 @@ export const authRoutes = (server) => {
           break;
         default:
           res.status(200).json({
-            displayName: "John Doe",
+            username: "John Doe",
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJhZG1pbiIsImV4cCI6MTczOTE5MzU1MTAwMH0.D50o5x2gcVcASSwl7EOqmRUDGqIGfhisbXlkujQolrY",
           });
           break;

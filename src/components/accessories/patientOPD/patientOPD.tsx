@@ -27,7 +27,6 @@ import { CustomDialog } from "../customDialog/CustomDialog";
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
@@ -85,7 +84,7 @@ const PatientOPD: FunctionComponent = () => {
   );
 
   const userId = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
 
   useEffect(() => {

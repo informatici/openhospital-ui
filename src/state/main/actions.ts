@@ -3,7 +3,8 @@ import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
 import {
   Configuration,
-  LoginApiApi,
+  LoginControllerApi,
+  LoginRequest,
   LoginResponse,
   UserControllerApi,
   UserProfileDTO,
@@ -23,7 +24,7 @@ import {
 } from "./consts";
 import { IAuthentication } from "./types";
 
-const api = new LoginApiApi(new Configuration());
+const api = new LoginControllerApi(new Configuration());
 const usersApi = new UserControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
@@ -42,9 +43,14 @@ export const setAuthenticationThunk =
       type: SET_AUTHENTICATION_LOADING,
     });
 
+    const loginRequest: LoginRequest = {
+      username: username,
+      password: password,
+    };
+
     concat(
       api
-        .loginUsingPOST({ password, username })
+        .authenticationUserUsingPOST({ loginRequest })
         .pipe(tap(saveAuthenticationDataToSession)),
       usersApi
         .retrieveProfileByCurrentLoggedInUserUsingGET()
@@ -57,7 +63,7 @@ export const setAuthenticationThunk =
             type: SET_AUTHENTICATION_SUCCESS,
             payload: {
               ...(userCredentials as LoginResponse),
-              permission: (me as UserProfileDTO).permission,
+              permission: (me as UserProfileDTO)?.permission,
             },
           });
         },

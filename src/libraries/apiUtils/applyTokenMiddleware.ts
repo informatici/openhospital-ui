@@ -9,7 +9,6 @@ import { tokenHasExpired } from "../authUtils/tokenHasExpired";
 export const applyTokenMiddleware: Middleware = {
   pre(request: RequestArgs): RequestArgs {
     const userCredentials = SessionStorage.read(AUTH_KEY);
-
     if (userCredentials.token && tokenHasExpired(userCredentials.token)) {
       SessionStorage.clear();
       history.push("/login");

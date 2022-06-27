@@ -13,7 +13,7 @@ export * from './ExamTypeControllerApi';
 export * from './ExaminationControllerApi';
 export * from './HospitalControllerApi';
 export * from './LaboratoryControllerApi';
-export * from './LoginApiApi';
+export * from './LoginControllerApi';
 export * from './MalnutritionControllerApi';
 export * from './MedStockMovementTypeControllerApi';
 export * from './MedicalControllerApi';

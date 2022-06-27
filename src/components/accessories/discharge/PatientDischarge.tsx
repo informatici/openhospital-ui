@@ -41,6 +41,9 @@ const PatientDischarge: FC = () => {
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
+  const username = useSelector(
+    (state: IState) => state.main.authentication.data?.username
+  );
 
   const dischargeStatus = useSelector<IState>(
     (state) => state.admissions.dischargePatient.status

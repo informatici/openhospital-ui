@@ -24,7 +24,7 @@ const OHFeedback: FC = () => {
         summary: "Give your feedback",
         description: "Sample description",
         priority: feedbackConfig.priority,
-        fullname: user?.displayName ?? "",
+        fullname: user?.username ?? "",
         email: feedbackConfig.email,
       },
       environment: {

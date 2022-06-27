@@ -46,7 +46,7 @@ const BillRecords = () => {
     amount: t("bill.amount"),
   };
   const user = useSelector(
-    (state: IState) => state.main.authentication.data?.displayName
+    (state: IState) => state.main.authentication.data?.username
   );
 
   const order = ["date", "balance"];
