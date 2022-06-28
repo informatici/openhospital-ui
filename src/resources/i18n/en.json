@@ -99,7 +99,8 @@
     "disease": "Disease",
     "patientcode": "Patient ID",
     "age": "Age",
-    "status": "Status"
+    "status": "Status",
+    "nextvisitdate": "Next visit date"
   },
   "visit": {
     "date": "Date (d/m/y)",

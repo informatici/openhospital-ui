@@ -43,9 +43,15 @@
               width: 100%;
             }
             @include susy-media($tablet_land) {
-              width: 32%;
+              width: 30%;
+            }
+            @include susy-media($smartphone) {
+              width: 48%;
             }
             @include susy-media($phone) {
+              width: 100%;
+            }
+            @include susy-media($watch) {
               width: 100%;
             }
           }
