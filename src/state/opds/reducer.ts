@@ -11,8 +11,13 @@ import {
   DELETE_OPD_SUCCESS,
   GET_OPD_FAIL,
   GET_OPD_LOADING,
+  GET_OPD_RESET,
   GET_OPD_SUCCESS,
   GET_OPD_SUCCESS_EMPTY,
+  SEARCH_OPD_FAIL,
+  SEARCH_OPD_RESET,
+  SEARCH_OPD_SUCCESS,
+  SEARCH_OPD_SUCCESS_EMPTY,
   UPDATE_OPD_FAIL,
   UPDATE_OPD_LOADING,
   UPDATE_OPD_RESET,
@@ -69,6 +74,43 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case GET_OPD_SUCCESS_EMPTY: {
       draft.getOpds.status = "SUCCESS_EMPTY";
       draft.getOpds.data = [];
+      delete draft.getOpds.error;
+      break;
+    }
+
+    case GET_OPD_RESET: {
+      draft.getOpds.status = "IDLE";
+      delete draft.getOpds.error;
+      break;
+    }
+
+    case GET_OPD_LOADING: {
+      draft.getOpds.status = "LOADING";
+      break;
+    }
+
+    case SEARCH_OPD_SUCCESS: {
+      draft.searchOpds.status = "SUCCESS";
+      draft.searchOpds.data = action.payload;
+      delete draft.searchOpds.error;
+      break;
+    }
+
+    case SEARCH_OPD_FAIL: {
+      draft.searchOpds.status = "FAIL";
+      draft.searchOpds.error = action.error;
+      break;
+    }
+
+    case SEARCH_OPD_SUCCESS_EMPTY: {
+      draft.searchOpds.status = "SUCCESS_EMPTY";
+      draft.searchOpds.data = [];
+      delete draft.searchOpds.error;
+      break;
+    }
+
+    case SEARCH_OPD_RESET: {
+      draft.searchOpds.status = "IDLE";
       delete draft.getOpds.error;
       break;
     }

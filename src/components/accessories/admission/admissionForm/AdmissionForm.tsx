@@ -173,20 +173,18 @@ const AdmissionForm: FC<AdmissionProps> = ({
         (item) => item.code === formattedValues.ward
       );
 
-      if (admitted) {
-        formattedValues.diseaseOut1 = diagnosisOutList?.find(
-          (item) => item.code === formattedValues.diseaseOut1
-        );
-        formattedValues.diseaseOut2 = diagnosisOutList?.find(
-          (item) => item.code === formattedValues.diseaseOut2
-        );
-        formattedValues.diseaseOut3 = diagnosisOutList?.find(
-          (item) => item.code === formattedValues.diseaseOut3
-        );
-        formattedValues.disType = dischargeTypes?.find(
-          (item) => item.code === formattedValues.disType
-        );
-      }
+      formattedValues.diseaseOut1 = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut1
+      );
+      formattedValues.diseaseOut2 = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut2
+      );
+      formattedValues.diseaseOut3 = diagnosisOutList?.find(
+        (item) => item.code === formattedValues.diseaseOut3
+      );
+      formattedValues.disType = dischargeTypes?.find(
+        (item) => item.code === formattedValues.disType
+      );
 
       onSubmit(formattedValues);
     },

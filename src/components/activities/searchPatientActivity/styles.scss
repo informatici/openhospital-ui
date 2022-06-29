@@ -2,6 +2,12 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .searchPatient {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-color: $c-color-secondary;
 
   .searchPatient__background {

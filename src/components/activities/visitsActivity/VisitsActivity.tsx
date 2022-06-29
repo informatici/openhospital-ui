@@ -6,6 +6,7 @@ import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
+import { Opds } from "../../accessories/opds/Opds";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import "./styles.scss";
 
@@ -28,10 +29,7 @@ const VisitsActivity: FC = () => {
       />
       <div className="visits__background">
         <div className="visits__content">
-          <div className="visits__title">{t("nav.visits")}</div>
-          <div style={{ marginBottom: "100px" }}>
-            <SkeletonLoader />
-          </div>
+          <Opds />
         </div>
       </div>
       <Footer />

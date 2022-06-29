@@ -37,6 +37,22 @@ export const opdRoutes = (server) => {
           res.status(200).json([opdDTO, opdDTO, opdDTO, opdDTO]);
       }
     });
+    server.get("/search").intercept((req, res) => {
+      const code = req.query.patientCode;
+      switch (code) {
+        case "1000":
+          res.status(400);
+          break;
+        case "200000":
+          res.status(204);
+          res.body = null;
+          break;
+        default:
+          if (code >= 0) {
+            res.status(200).json([opdDTO, opdDTO, opdDTO]);
+          } else res.status(200).json([opdDTO, opdDTO, opdDTO, opdDTO, opdDTO]);
+      }
+    });
 
     server.delete("/:code").intercept((req, res) => {
       const code = req.params.code;

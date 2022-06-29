@@ -27,6 +27,7 @@ import bills from "./state/bills/reducer";
 import prices from "./state/prices/reducer";
 import visits from "./state/visits/reducer";
 import operations from "./state/operations/reducer";
+import diseaseTypes from "./state/diseaseTypes/reducer";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();
@@ -51,6 +52,7 @@ const reducer = combineReducers<IState>({
   prices,
   visits,
   operations,
+  diseaseTypes,
 });
 const store = createStore(
   reducer,

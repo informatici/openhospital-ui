@@ -1,4 +1,6 @@
+import moment from "moment";
 import { Dispatch } from "redux";
+import { TFilterValues } from "../../components/accessories/opds/filter/types";
 import {
   Configuration,
   DiseaseDTO,
@@ -25,6 +27,12 @@ import {
   DELETE_OPD_SUCCESS,
   DELETE_OPD_FAIL,
   DELETE_OPD_RESET,
+  SEARCH_OPD_LOADING,
+  SEARCH_OPD_SUCCESS,
+  SEARCH_OPD_FAIL,
+  SEARCH_OPD_SUCCESS_EMPTY,
+  GET_OPD_RESET,
+  SEARCH_OPD_RESET,
 } from "./consts";
 
 const opdControllerApi = new OpdControllerApi(
@@ -107,6 +115,63 @@ export const getOpds =
         error: "patient code should not be empty",
       });
     }
+  };
+
+export const searchOpds =
+  (query: any) =>
+  (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
+    dispatch({
+      type: SEARCH_OPD_LOADING,
+    });
+
+    opdControllerApi
+      .getOpdByDatesUsingGET({
+        sex: query.sex,
+        newPatient: query.newPatient,
+        dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
+        dateFrom: query.dateFrom ?? moment().toISOString(),
+        ageFrom: isNaN(query.ageFrom) ? null : query.ageFrom,
+        ageTo: isNaN(query.ageTo) ? null : query.ageTo,
+        diseaseCode: query.diseaseCode,
+        diseaseTypeCode: query.diseaseTypeCode,
+        patientCode: isNaN(query.patientCode) ? null : query.patientCode,
+      })
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: SEARCH_OPD_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_OPD_SUCCESS_EMPTY,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_OPD_FAIL,
+            error,
+          });
+        }
+      );
+  };
+
+export const getOpdsReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: GET_OPD_RESET,
+    });
+  };
+export const searchOpdsReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: SEARCH_OPD_RESET,
+    });
   };
 
 export const updateOpd =
