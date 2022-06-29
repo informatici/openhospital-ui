@@ -96,6 +96,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
         labelData={label}
         columnsOrder={order}
         rowsPerPage={5}
+        detailColSpan={10}
         isCollapsabile={true}
         onView={handleView}
       />

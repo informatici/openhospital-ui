@@ -52,6 +52,7 @@ const Table: FunctionComponent<IProps> = ({
   renderItemDetails,
   getCoreRow,
   onClose,
+  detailColSpan,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -232,6 +233,7 @@ const Table: FunctionComponent<IProps> = ({
                   isCollapsabile={isCollapsabile}
                   showEmptyCell={showEmptyCell}
                   renderCellDetails={renderItemDetails}
+                  detailColSpan={detailColSpan}
                 />
               ))}
           </TableBody>
