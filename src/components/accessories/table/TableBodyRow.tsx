@@ -17,6 +17,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   showEmptyCell = true,
   renderCellDetails,
   coreRow,
+  detailColSpan,
 }) => {
   const [open, setOpen] = React.useState(false);
   return (
@@ -50,7 +51,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
         <TableRow>
           <TableCell
             style={{ padding: 0, borderBottom: 0, margin: 0 }}
-            colSpan={6}
+            colSpan={detailColSpan ?? 6}
           >
             <Collapse
               in={open}
