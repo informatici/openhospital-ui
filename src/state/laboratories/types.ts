@@ -1,4 +1,4 @@
-import { LaboratoryDTO, TherapyRowDTO } from "../../generated";
+import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../generated";
 import { IApiResponse } from "../types";
 
 export type ILaboratoriesState = {
@@ -7,4 +7,5 @@ export type ILaboratoriesState = {
   deleteLab: IApiResponse<null>;
   materials: IApiResponse<Array<string>>;
   labsByPatientId: IApiResponse<Array<LaboratoryDTO>>;
+  searchLabs: IApiResponse<Array<LaboratoryForPrintDTO>>;
 };

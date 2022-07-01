@@ -35,5 +35,10 @@ export interface LaboratoryForPrintDTO {
      * @type {string}
      * @memberof LaboratoryForPrintDTO
      */
+    patName?: string;
+    /**
+     * @type {string}
+     * @memberof LaboratoryForPrintDTO
+     */
     result?: string;
 }

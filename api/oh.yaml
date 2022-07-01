@@ -2869,17 +2869,16 @@ paths:
           description: dateFrom
           required: true
           type: string
-          format: date-time
+          format: string
         - name: dateTo
           in: query
           description: dateTo
           required: true
           type: string
-          format: date-time
+          format: string
         - name: examName
           in: query
           description: examName
-          required: true
           type: string
       responses:
         '200':
@@ -8482,6 +8481,8 @@ definitions:
       date:
         type: string
       exam:
+        type: string
+      patName:
         type: string
       result:
         type: string

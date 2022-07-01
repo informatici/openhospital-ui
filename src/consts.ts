@@ -3,7 +3,7 @@ export const PERMISSION_KEY = "permission";
 export const MOBILE_BREAKPOINT = 768;
 export const TOKEN_EXPIRATION_TIMEOUT = 60000;
 
-export const PATHS =   {
+export const PATHS = {
   home: "/",
   login: "/login",
   patients: "/patients",

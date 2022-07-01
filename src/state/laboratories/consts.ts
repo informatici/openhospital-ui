@@ -17,6 +17,13 @@ export const GET_LAB_LOADING = "laboratories/GET_LAB_LOADING";
 export const GET_LAB_SUCCESS = "laboratories/GET_LAB_SUCCESS";
 export const GET_LAB_FAIL = "laboratories/GET_LAB_FAIL";
 export const GET_LAB_SUCCESS_EMPTY = "laboratories/GET_LAB_SUCCESS_EMPTY";
+export const GET_LAB_RESET = "opds/GET_LAB_RESET";
+
+export const SEARCH_LAB_LOADING = "opds/SEARCH_LAB_LOADING";
+export const SEARCH_LAB_SUCCESS = "opds/SEARCH_LAB_SUCCESS";
+export const SEARCH_LAB_FAIL = "opds/SEARCH_LAB_FAIL";
+export const SEARCH_LAB_SUCCESS_EMPTY = "opds/SEARCH_LAB_SUCCESS_EMPTY";
+export const SEARCH_LAB_RESET = "opds/SEARCH_LAB_RESET";
 
 export const GET_MATERIALS_LOADING = "laboratories/GET_MATERIALS_LOADING";
 export const GET_MATERIALS_SUCCESS = "laboratories/GET_MATERIALS_SUCCESS";

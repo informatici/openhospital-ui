@@ -6,7 +6,7 @@ import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import { Exams } from "../../accessories/laboratory/Exams";
 import "./styles.scss";
 
 const LaboratoryActivity: FC = () => {
@@ -21,17 +21,14 @@ const LaboratoryActivity: FC = () => {
   );
 
   return (
-    <div className="laboratory">
+    <div className="labs">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
       />
-      <div className="laboratory__background">
-        <div className="laboratory__content">
-          <div className="laboratory__title">{t("nav.laboratory")}</div>
-          <div style={{ marginBottom: "100px" }}>
-            <SkeletonLoader />
-          </div>
+      <div className="labs__background">
+        <div className="labs__content">
+          <Exams />
         </div>
       </div>
       <Footer />
