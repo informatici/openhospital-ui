@@ -8,9 +8,16 @@ import Table from "../../table/Table";
 import { IExamTableProps } from "./types";
 import "./styles.scss";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { LaboratoryDetails } from "../LaboratoryDetails";
+import { useDispatch } from "react-redux";
+import {
+  getLabByCode,
+  getLabByCodeReset,
+} from "../../../../state/laboratories/actions";
 
 export const ExamTable: FC<IExamTableProps> = ({ data }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const header = ["id", "date", "patName", "exam", "result"];
   const dateFields = ["date"];
   const label = {
@@ -50,8 +57,7 @@ export const ExamTable: FC<IExamTableProps> = ({ data }) => {
     setOpen(false);
   };
   const handleView = (row: any) => {
-    const labToEdit = data.find((item) => item?.code === row.code) ?? {};
-    setLaboratory(labToEdit);
+    dispatch(getLabByCode(row.id));
     handleOpen();
   };
 
@@ -71,7 +77,7 @@ export const ExamTable: FC<IExamTableProps> = ({ data }) => {
         onClose={handleClose}
         title={t("lab.details")}
         description={t("lab.details")}
-        content={<SkeletonLoader />}
+        content={<LaboratoryDetails />}
       />
     </div>
   );

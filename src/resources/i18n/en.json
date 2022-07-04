@@ -333,7 +333,18 @@
     "id": "id",
     "details": "Details",
     "code": "Code",
-    "patient": "Patient"
+    "patient": "Patient",
+    "years": "Year(s) old",
+    "inpatient": "Inpatient",
+    "outpatient": "Outpatient",
+    "name": "Name",
+    "sex": "Sex",
+    "age": "Age",
+    "status": "Status",
+    "registrationdate": "Registration Date",
+    "examdate": "Exam Date",
+    "labcode": "Laboratory Code",
+    "examtype": "Exam Type"
   },
   "admission": {
     "admDate": "Date",
