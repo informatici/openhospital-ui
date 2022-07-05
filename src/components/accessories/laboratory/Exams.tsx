@@ -1,27 +1,49 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import React, { FC, Fragment, useMemo, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
-import { initialFilterFields } from "./consts";
+import { initialFields, initialFilterFields } from "./consts";
 import { ExamFilterForm } from "./filter/ExamFilterForm";
 import "./styles.scss";
 import { ExamTable } from "./table/ExamTable";
-import { getDiseaseTypes } from "../../../state/diseaseTypes/actions";
+import checkIcon from "../../../assets/check-icon.png";
 import { useEffect } from "react";
 import { TFilterValues } from "../billTable/types";
 import {
   getFromFields,
   updateFilterFields,
+  updateLabFields,
 } from "../../../libraries/formDataHandling/functions";
 import {
+  createLabReset,
+  deleteLab,
+  deleteLabReset,
+  getLabByCode,
   getLabsByPatientId,
+  getMaterials,
   searchLabs,
+  updateLabReset,
 } from "../../../state/laboratories/actions";
-import { getExams } from "../../../state/exams/actions";
+import { getExamRows, getExams } from "../../../state/exams/actions";
+import { CustomDialog } from "../customDialog/CustomDialog";
+import { ILaboratoriesState } from "../../../state/laboratories/types";
+import { ExamTransitionState } from "./examForm/type";
+import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../generated";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import ExamForm from "./examForm/ExamForm";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { isEmpty } from "lodash";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -30,6 +52,15 @@ export const Exams: FC = () => {
 
   const [filter, setFilter] = useState({} as TFilterValues);
 
+  const [showForm, setShowForm] = useState(false);
+
+  const [deletedObjCode, setDeletedObjCode] = useState("");
+  const [creationMode, setCreationMode] = useState(true);
+
+  const labToEdit = useSelector(
+    (state: IState) => state.laboratories.getLabByCode.data
+  );
+
   const data = useSelector(
     (state: IState) => state.laboratories.searchLabs.data
   );
@@ -37,6 +68,8 @@ export const Exams: FC = () => {
   const fields = useMemo(
     () => updateFilterFields(initialFilterFields, filter),
     [filter]
+  const labStore = useSelector<IState, ILaboratoriesState>(
+    (state: IState) => state.laboratories
   );
 
   useEffect(() => {
@@ -46,6 +79,34 @@ export const Exams: FC = () => {
   const onSubmit = (values: TFilterValues) => {
     setFilter(values);
   };
+
+  const handleReset = useCallback(() => {
+    dispatch(searchLabs(filter));
+    if (labStore.deleteLab.status === "SUCCESS") {
+      dispatch(deleteLabReset());
+    }
+    setShowForm(false);
+  }, [filter]);
+
+  const onEdit = (row: LaboratoryForPrintDTO) => {
+    setCreationMode(false);
+    dispatch(getLabByCode(row.code));
+    setShowForm(true);
+  };
+  const onDelete = (code: number | undefined) => {
+    setDeletedObjCode(`${code}` ?? "");
+    dispatch(deleteLab(code));
+  };
+
+  const open = useMemo(() => {
+    return creationMode ? showForm : showForm && labToEdit?.code !== undefined;
+  }, [showForm, creationMode, labToEdit]);
+
+  const formFields = useMemo(() => {
+    return creationMode
+      ? initialFields
+      : updateLabFields(initialFields, labToEdit ?? {});
+  }, [creationMode, labToEdit]);
 
   const errorMessage = useSelector(
     (state: IState) => state.laboratories.searchLabs.error?.message
@@ -66,7 +127,10 @@ export const Exams: FC = () => {
           <div className="lab__title">{t("nav.laboratory")}</div>
           <div className="lab__actions">
             <Button
-              onClick={() => history.push("/new")}
+              onClick={() => {
+                setCreationMode(true);
+                setShowForm(true);
+              }}
               type="button"
               variant="contained"
             >
@@ -105,11 +169,45 @@ export const Exams: FC = () => {
               return (
                 <>
                   <ExamFilterForm onSubmit={onSubmit} fields={fields} />
-                  <ExamTable data={data ?? []} />
+                  <ExamTable
+                    data={data ?? []}
+                    handleDelete={onDelete}
+                    handleEdit={onEdit}
+                  />
                 </>
               );
           }
         })()}
+        <CustomDialog
+          title={creationMode ? t("lab.newexam") : t("lab.editexam")}
+          open={open}
+          description=""
+          onClose={() => {
+            setShowForm(false);
+          }}
+          content={
+            <ExamForm
+              fields={formFields}
+              handleReset={handleReset}
+              creationMode={creationMode}
+              labToEdit={labToEdit ?? {}}
+            />
+          }
+        />
+        {labStore.deleteLab.status === "LOADING" && (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        )}
+        <ConfirmationDialog
+          isOpen={labStore.deleteLab.status === "SUCCESS"}
+          title={t("lab.deleted")}
+          icon={checkIcon}
+          info={t("common.deletesuccess", { code: deletedObjCode })}
+          primaryButtonLabel={t("common.ok")}
+          handlePrimaryButtonClick={handleReset}
+          handleSecondaryButtonClick={() => {}}
+        />
       </div>
     </Fragment>
   );
