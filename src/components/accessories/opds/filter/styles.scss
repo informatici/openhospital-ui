@@ -5,7 +5,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 1fr !important;
+    .MuiAccordion-root {
+      width: 100%;
+    }
     .MuiAccordionSummary-content {
       svg {
         position: relative;

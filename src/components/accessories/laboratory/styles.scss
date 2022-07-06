@@ -4,6 +4,13 @@
   display: flex;
   flex-direction: column;
   padding: 0px 8px;
+  .divider {
+    height: 1px;
+    width: 100%;
+    margin-top: 8px;
+    align-self: center;
+    background-color: $c-grey-light;
+  }
   .section {
     .section__title {
       text-transform: uppercase;

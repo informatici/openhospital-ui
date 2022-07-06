@@ -107,6 +107,3 @@ export const Exams: FC = () => {
     </Fragment>
   );
 };
-function usState(arg0: TFilterValues): [any, any] {
-  throw new Error("Function not implemented.");
-}

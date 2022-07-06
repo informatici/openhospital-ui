@@ -6,6 +6,9 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    .MuiAccordion-root {
+      width: 100%;
+    }
     .MuiAccordionSummary-content {
       svg {
         position: relative;

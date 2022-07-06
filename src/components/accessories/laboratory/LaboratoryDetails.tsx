@@ -60,6 +60,7 @@ export const LaboratoryDetails: FC = () => {
               </div>
             </div>
           </div>
+          <div className="divider"></div>
           <div className="section">
             <div className="section__title">{t("lab.exam")}</div>
             <div className="section__content">
@@ -97,10 +98,13 @@ export const LaboratoryDetails: FC = () => {
               </div>
             </div>
             {lab?.note != null && (
-              <div className="section">
-                <div className="section__title">{t("lab.note")}</div>
-                <div className="section__content_note">{lab?.note}</div>
-              </div>
+              <>
+                <div className="divider"></div>
+                <div className="section">
+                  <div className="section__title">{t("lab.note")}</div>
+                  <div className="section__content_note">{lab?.note}</div>
+                </div>
+              </>
             )}
           </div>
         </div>
