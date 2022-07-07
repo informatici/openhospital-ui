@@ -13,7 +13,10 @@ import { ExamTable } from "./table/ExamTable";
 import { getDiseaseTypes } from "../../../state/diseaseTypes/actions";
 import { useEffect } from "react";
 import { TFilterValues } from "../billTable/types";
-import { getFromFields } from "../../../libraries/formDataHandling/functions";
+import {
+  getFromFields,
+  updateFilterFields,
+} from "../../../libraries/formDataHandling/functions";
 import {
   getLabsByPatientId,
   searchLabs,
@@ -21,7 +24,6 @@ import {
 import { getExams } from "../../../state/exams/actions";
 
 export const Exams: FC = () => {
-  const fields = initialFilterFields;
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -30,6 +32,11 @@ export const Exams: FC = () => {
 
   const data = useSelector(
     (state: IState) => state.laboratories.searchLabs.data
+  );
+
+  const fields = useMemo(
+    () => updateFilterFields(initialFilterFields, filter),
+    [filter]
   );
 
   useEffect(() => {
@@ -107,6 +114,3 @@ export const Exams: FC = () => {
     </Fragment>
   );
 };
-function usState(arg0: TFilterValues): [any, any] {
-  throw new Error("Function not implemented.");
-}

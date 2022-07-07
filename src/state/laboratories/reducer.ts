@@ -9,11 +9,11 @@ import {
   DELETE_LAB_LOADING,
   DELETE_LAB_RESET,
   DELETE_LAB_SUCCESS,
-  GET_LAB_FAIL,
-  GET_LAB_LOADING,
-  GET_LAB_SUCCESS,
-  GET_LAB_SUCCESS_EMPTY,
-  GET_LAB_RESET,
+  GET_LABS_FAIL,
+  GET_LABS_LOADING,
+  GET_LABS_SUCCESS,
+  GET_LABS_SUCCESS_EMPTY,
+  GET_LABS_RESET,
   SEARCH_LAB_FAIL,
   SEARCH_LAB_RESET,
   SEARCH_LAB_SUCCESS,
@@ -25,6 +25,11 @@ import {
   UPDATE_LAB_LOADING,
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
+  GET_LAB_FAIL,
+  GET_LAB_LOADING,
+  GET_LAB_RESET,
+  GET_LAB_SUCCESS,
+  SEARCH_LAB_LOADING,
 } from "./consts";
 import { initial } from "./initial";
 import { ILaboratoriesState } from "./types";
@@ -59,43 +64,68 @@ export default produce(
       }
 
       /**
-       * GET_LAB
+       * GET_LABS
        */
-      case GET_LAB_LOADING: {
+      case GET_LABS_LOADING: {
         draft.labsByPatientId.status = "LOADING";
         break;
       }
 
-      case GET_LAB_SUCCESS: {
+      case GET_LABS_SUCCESS: {
         draft.labsByPatientId.status = "SUCCESS";
         draft.labsByPatientId.data = action.payload;
         delete draft.labsByPatientId.error;
         break;
       }
 
-      case GET_LAB_SUCCESS_EMPTY: {
+      case GET_LABS_SUCCESS_EMPTY: {
         draft.labsByPatientId.status = "SUCCESS_EMPTY";
         draft.labsByPatientId.data = [];
         delete draft.labsByPatientId.error;
         break;
       }
-      case GET_LAB_FAIL: {
+      case GET_LABS_FAIL: {
         draft.labsByPatientId.status = "FAIL";
         draft.labsByPatientId.error = action.error;
         break;
       }
 
-      case GET_LAB_RESET: {
-        draft.searchLabs.status = "IDLE";
-        delete draft.searchLabs.error;
+      case GET_LABS_RESET: {
+        draft.labsByPatientId.status = "IDLE";
+        delete draft.labsByPatientId.error;
         break;
       }
 
+      /**
+       * GET_LAB
+       */
       case GET_LAB_LOADING: {
-        draft.searchLabs.status = "LOADING";
+        draft.getLabByCode.status = "LOADING";
         break;
       }
 
+      case GET_LAB_SUCCESS: {
+        draft.getLabByCode.status = "SUCCESS";
+        draft.getLabByCode.data = action.payload;
+        delete draft.getLabByCode.error;
+        break;
+      }
+
+      case GET_LAB_FAIL: {
+        draft.getLabByCode.status = "FAIL";
+        draft.getLabByCode.error = action.error;
+        break;
+      }
+
+      case GET_LAB_RESET: {
+        draft.getLabByCode.status = "IDLE";
+        delete draft.getLabByCode.error;
+        break;
+      }
+
+      /**
+       * SEARCH_LAB
+       */
       case SEARCH_LAB_SUCCESS: {
         draft.searchLabs.status = "SUCCESS";
         draft.searchLabs.data = action.payload;
@@ -119,6 +149,11 @@ export default produce(
       case SEARCH_LAB_RESET: {
         draft.searchLabs.status = "IDLE";
         delete draft.searchLabs.error;
+        break;
+      }
+
+      case SEARCH_LAB_LOADING: {
+        draft.searchLabs.status = "LOADING";
         break;
       }
 

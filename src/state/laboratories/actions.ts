@@ -17,10 +17,10 @@ import {
   DELETE_LAB_LOADING,
   DELETE_LAB_RESET,
   DELETE_LAB_SUCCESS,
-  GET_LAB_FAIL,
-  GET_LAB_LOADING,
-  GET_LAB_SUCCESS,
-  GET_LAB_SUCCESS_EMPTY,
+  GET_LABS_FAIL,
+  GET_LABS_LOADING,
+  GET_LABS_SUCCESS,
+  GET_LABS_SUCCESS_EMPTY,
   GET_MATERIALS_FAIL,
   GET_MATERIALS_LOADING,
   GET_MATERIALS_SUCCESS,
@@ -32,8 +32,12 @@ import {
   SEARCH_LAB_SUCCESS,
   SEARCH_LAB_FAIL,
   SEARCH_LAB_SUCCESS_EMPTY,
-  GET_LAB_RESET,
+  GET_LABS_RESET,
   SEARCH_LAB_RESET,
+  GET_LAB_FAIL,
+  GET_LAB_LOADING,
+  GET_LAB_SUCCESS,
+  GET_LAB_RESET,
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(
@@ -99,6 +103,14 @@ export const getLabsReset =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
+      type: GET_LABS_RESET,
+    });
+  };
+
+export const getLabByCodeReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
       type: GET_LAB_RESET,
     });
   };
@@ -143,22 +155,51 @@ export const getLabsByPatientId =
   (patId: number | undefined) =>
   (dispatch: Dispatch<IAction<LaboratoryDTO[], {}>>): void => {
     dispatch({
-      type: GET_LAB_LOADING,
+      type: GET_LABS_LOADING,
     });
     if (patId) {
       labControllerApi.getLaboratoryUsingGET({ patId }).subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: GET_LAB_SUCCESS,
+              type: GET_LABS_SUCCESS,
               payload: payload,
             });
           } else {
             dispatch({
-              type: GET_LAB_SUCCESS_EMPTY,
+              type: GET_LABS_SUCCESS_EMPTY,
               payload: [],
             });
           }
+        },
+        (error) => {
+          dispatch({
+            type: GET_LABS_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: GET_LABS_FAIL,
+        error: "The patient code should not be null",
+      });
+    }
+  };
+
+export const getLabByCode =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<LaboratoryDTO, {}>>): void => {
+    dispatch({
+      type: GET_LAB_LOADING,
+    });
+    if (code) {
+      labControllerApi.getLaboratoryByIdUsingGET({ code }).subscribe(
+        (payload) => {
+          dispatch({
+            type: GET_LAB_SUCCESS,
+            payload: payload,
+          });
         },
         (error) => {
           dispatch({
@@ -170,7 +211,7 @@ export const getLabsByPatientId =
     } else {
       dispatch({
         type: GET_LAB_FAIL,
-        error: "The patient code should not be null",
+        error: "The laboratory exam code should not be null",
       });
     }
   };

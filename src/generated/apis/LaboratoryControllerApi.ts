@@ -24,6 +24,10 @@ export interface DeleteExamUsingDELETE2Request {
     code: number;
 }
 
+export interface GetLaboratoryByIdUsingGETRequest {
+    code: number;
+}
+
 export interface GetLaboratoryForPrintUsingGETRequest {
     dateFrom: string;
     dateTo: string;
@@ -67,6 +71,25 @@ export class LaboratoryControllerApi extends BaseAPI {
         return this.request<ResponseEntity>({
             url: '/laboratories/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getExamById
+     */
+    getLaboratoryByIdUsingGET({ code }: GetLaboratoryByIdUsingGETRequest): Observable<LaboratoryDTO>
+    getLaboratoryByIdUsingGET({ code }: GetLaboratoryByIdUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LaboratoryDTO>>
+    getLaboratoryByIdUsingGET({ code }: GetLaboratoryByIdUsingGETRequest, opts?: OperationOpts): Observable<LaboratoryDTO | RawAjaxResponse<LaboratoryDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'getLaboratoryByIdUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<LaboratoryDTO>({
+            url: '/laboratories/{code}'.replace('{code}', encodeURI(code)),
+            method: 'GET',
             headers,
         }, opts?.responseOpts);
     };

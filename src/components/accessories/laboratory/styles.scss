@@ -1,5 +1,30 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
+.lab__details {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 8px;
+  .divider {
+    height: 1px;
+    width: 100%;
+    margin-top: 8px;
+    align-self: center;
+    background-color: $c-grey-light;
+  }
+  .section {
+    .section__title {
+      text-transform: uppercase;
+      color: $c-grey-light;
+      font-size: small;
+      margin-top: 8px;
+    }
+    .section__content {
+      display: flex;
+      column-gap: 16px;
+      flex-flow: row wrap;
+    }
+  }
+}
 .lab_labs {
   .lab_details {
     ul {

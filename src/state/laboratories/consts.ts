@@ -13,10 +13,15 @@ export const DELETE_LAB_SUCCESS = "laboratories/DELETE_LAB_SUCCESS";
 export const DELETE_LAB_FAIL = "laboratories/DELETE_LAB_FAIL";
 export const DELETE_LAB_RESET = "laboratories/DELETE_LAB_RESET";
 
+export const GET_LABS_LOADING = "laboratories/GET_LABS_LOADING";
+export const GET_LABS_SUCCESS = "laboratories/GET_LABS_SUCCESS";
+export const GET_LABS_FAIL = "laboratories/GET_LABS_FAIL";
+export const GET_LABS_SUCCESS_EMPTY = "laboratories/GET_LABS_SUCCESS_EMPTY";
+export const GET_LABS_RESET = "opds/GET_LABS_RESET";
+
 export const GET_LAB_LOADING = "laboratories/GET_LAB_LOADING";
 export const GET_LAB_SUCCESS = "laboratories/GET_LAB_SUCCESS";
 export const GET_LAB_FAIL = "laboratories/GET_LAB_FAIL";
-export const GET_LAB_SUCCESS_EMPTY = "laboratories/GET_LAB_SUCCESS_EMPTY";
 export const GET_LAB_RESET = "opds/GET_LAB_RESET";
 
 export const SEARCH_LAB_LOADING = "opds/SEARCH_LAB_LOADING";
