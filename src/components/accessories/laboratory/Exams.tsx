@@ -26,29 +26,21 @@ import {
   updateLabFields,
 } from "../../../libraries/formDataHandling/functions";
 import {
-  createLabReset,
   deleteLab,
   deleteLabReset,
   getLabByCode,
-  getLabsByPatientId,
-  getMaterials,
   searchLabs,
-  updateLabReset,
 } from "../../../state/laboratories/actions";
-import { getExamRows, getExams } from "../../../state/exams/actions";
+import { getExams } from "../../../state/exams/actions";
 import { CustomDialog } from "../customDialog/CustomDialog";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { ExamTransitionState } from "./examForm/type";
-import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../generated";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { LaboratoryForPrintDTO } from "../../../generated";
 import ExamForm from "./examForm/ExamForm";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import { isEmpty } from "lodash";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [filter, setFilter] = useState({} as TFilterValues);
 
@@ -68,6 +60,7 @@ export const Exams: FC = () => {
   const fields = useMemo(
     () => updateFilterFields(initialFilterFields, filter),
     [filter]
+  );
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
   );
