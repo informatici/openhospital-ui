@@ -1,6 +1,7 @@
 import { PatientDTO } from "../../../generated";
 
 export interface IProps {
+  initialValue?: PatientDTO;
   fieldName: string;
   fieldValue: number;
   label: string;

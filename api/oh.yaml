@@ -8510,6 +8510,9 @@ definitions:
         type: string
       exam:
         type: string
+      patientCode:
+        type: integer
+        format: int32
       patName:
         type: string
       result:

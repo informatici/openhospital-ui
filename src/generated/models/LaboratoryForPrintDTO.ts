@@ -32,6 +32,11 @@ export interface LaboratoryForPrintDTO {
      */
     exam?: string;
     /**
+     * @type {number}
+     * @memberof LaboratoryForPrintDTO
+     */
+    patientCode?: number;
+    /**
      * @type {string}
      * @memberof LaboratoryForPrintDTO
      */
