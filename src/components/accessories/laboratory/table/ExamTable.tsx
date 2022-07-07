@@ -15,7 +15,11 @@ import {
   getLabByCodeReset,
 } from "../../../../state/laboratories/actions";
 
-export const ExamTable: FC<IExamTableProps> = ({ data }) => {
+export const ExamTable: FC<IExamTableProps> = ({
+  data,
+  handleDelete,
+  handleEdit,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const header = ["id", "date", "patName", "exam", "result"];
@@ -61,6 +65,17 @@ export const ExamTable: FC<IExamTableProps> = ({ data }) => {
     handleOpen();
   };
 
+  const onEdit = (row: any) => {
+    if (handleEdit !== undefined) {
+      handleEdit(data.find((item) => item.code === row.id) ?? {});
+    }
+  };
+  const onDelete = (row: any) => {
+    if (handleDelete !== undefined) {
+      handleDelete(data.find((item) => item.code === row.id)?.code);
+    }
+  };
+
   return (
     <div className="exams__table">
       <Table
@@ -71,6 +86,8 @@ export const ExamTable: FC<IExamTableProps> = ({ data }) => {
         columnsOrder={order}
         rowsPerPage={5}
         onView={handleView}
+        onEdit={onEdit}
+        onDelete={onDelete}
       />
       <CustomModal
         open={open}
