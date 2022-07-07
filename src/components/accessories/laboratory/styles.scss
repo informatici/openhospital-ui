@@ -44,7 +44,7 @@
       font-weight: bold;
     }
   }
-  
+
   .lab__header {
     display: flex;
     align-items: center;
@@ -53,9 +53,6 @@
     flex-wrap: wrap;
     margin-bottom: 25px;
     @include susy-media($smartphone) {
-      margin: 15px 0px 25px 0px;
-    }
-    @include susy-media($smartphone_small) {
       .new__button__label {
         display: none;
       }

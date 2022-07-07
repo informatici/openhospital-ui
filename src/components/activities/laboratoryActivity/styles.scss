@@ -6,10 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   background-color: $c-white;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  
+
   .labs__background {
     display: flex;
     flex-direction: column;
@@ -17,7 +14,7 @@
     align-items: center;
   }
 
-  .labs__content {    
+  .labs__content {
     margin-top: 20px;
     width: 80%;
     @include susy-media($narrow) {
@@ -34,17 +31,7 @@
     }
   }
 
-  .labs__content_header {
-    font-size: large;
-    font-weight: 500;
-    margin-bottom: 30px;
-    h3{
-      margin: 0px;
-    }
-  }
-
   .footer {
-     position: relative;
+    position: relative;
   }
-
 }
