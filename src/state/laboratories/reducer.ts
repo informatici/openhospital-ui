@@ -13,6 +13,11 @@ import {
   GET_LAB_LOADING,
   GET_LAB_SUCCESS,
   GET_LAB_SUCCESS_EMPTY,
+  GET_LAB_RESET,
+  SEARCH_LAB_FAIL,
+  SEARCH_LAB_RESET,
+  SEARCH_LAB_SUCCESS,
+  SEARCH_LAB_SUCCESS_EMPTY,
   GET_MATERIALS_FAIL,
   GET_MATERIALS_LOADING,
   GET_MATERIALS_SUCCESS,
@@ -77,6 +82,43 @@ export default produce(
       case GET_LAB_FAIL: {
         draft.labsByPatientId.status = "FAIL";
         draft.labsByPatientId.error = action.error;
+        break;
+      }
+
+      case GET_LAB_RESET: {
+        draft.searchLabs.status = "IDLE";
+        delete draft.searchLabs.error;
+        break;
+      }
+
+      case GET_LAB_LOADING: {
+        draft.searchLabs.status = "LOADING";
+        break;
+      }
+
+      case SEARCH_LAB_SUCCESS: {
+        draft.searchLabs.status = "SUCCESS";
+        draft.searchLabs.data = action.payload;
+        delete draft.searchLabs.error;
+        break;
+      }
+
+      case SEARCH_LAB_FAIL: {
+        draft.searchLabs.status = "FAIL";
+        draft.searchLabs.error = action.error;
+        break;
+      }
+
+      case SEARCH_LAB_SUCCESS_EMPTY: {
+        draft.searchLabs.status = "SUCCESS_EMPTY";
+        draft.searchLabs.data = [];
+        delete draft.searchLabs.error;
+        break;
+      }
+
+      case SEARCH_LAB_RESET: {
+        draft.searchLabs.status = "IDLE";
+        delete draft.searchLabs.error;
         break;
       }
 

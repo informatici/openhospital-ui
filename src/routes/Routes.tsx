@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../components/accessories/privateRoute/PrivateRoute";
-import LaboratoryActivity from "../components/activities/laboratoryActivity/LabotatoryActivity";
+import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
 import NotFound from "../components/activities/notFound/NotFound";

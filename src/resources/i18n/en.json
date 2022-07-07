@@ -323,7 +323,17 @@
     "deleted": "Patient Exam deleted",
     "resultrow": "Result row",
     "value": "Value",
-    "resultstitle": "Results"
+    "resultstitle": "Results",
+    "filter": "Filter",
+    "month": "Month",
+    "year": "Year",
+    "fromdate": "Date From",
+    "todate": "Date To",
+    "filterexams": "Filter Exams",
+    "id": "id",
+    "details": "Details",
+    "code": "Code",
+    "patient": "Patient"
   },
   "admission": {
     "admDate": "Date",

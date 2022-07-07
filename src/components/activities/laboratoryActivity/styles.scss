@@ -1,17 +1,23 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 
-.laboratory {
-  background-color: $c-white; 
+.labs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $c-white;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   
-  .laboratory__background {
+  .labs__background {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  .laboratory__content {    
+  .labs__content {    
     margin-top: 20px;
     width: 80%;
     @include susy-media($narrow) {
@@ -25,6 +31,15 @@
     }
     @include susy-media($smartphone) {
       width: 90%;
+    }
+  }
+
+  .labs__content_header {
+    font-size: large;
+    font-weight: 500;
+    margin-bottom: 30px;
+    h3{
+      margin: 0px;
     }
   }
 

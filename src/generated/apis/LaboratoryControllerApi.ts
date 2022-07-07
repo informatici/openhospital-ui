@@ -27,7 +27,7 @@ export interface DeleteExamUsingDELETE2Request {
 export interface GetLaboratoryForPrintUsingGETRequest {
     dateFrom: string;
     dateTo: string;
-    examName: string;
+    examName?: string;
 }
 
 export interface GetLaboratoryUsingGETRequest {
@@ -79,17 +79,17 @@ export class LaboratoryControllerApi extends BaseAPI {
     getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LaboratoryForPrintDTO> | RawAjaxResponse<Array<LaboratoryForPrintDTO>>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getLaboratoryForPrintUsingGET');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getLaboratoryForPrintUsingGET');
-        throwIfNullOrUndefined(examName, 'examName', 'getLaboratoryForPrintUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'dateFrom': (dateFrom as any).toISOString(),
-            'dateTo': (dateTo as any).toISOString(),
-            'examName': examName,
+            'dateFrom': dateFrom,
+            'dateTo': dateTo,
         };
+
+        if (examName != null) { query['examName'] = examName; }
 
         return this.request<Array<LaboratoryForPrintDTO>>({
             url: '/laboratories/exams',

@@ -17,6 +17,7 @@ import { IPricesState } from "./state/prices/types";
 import { IVisitState } from "./state/visits/types";
 import { IOperationState } from "./state/operations/types";
 import { IDiseaseTypeState } from "./state/diseaseTypes/types";
+import { IExamTypeState } from "./state/examTypes/types";
 
 export interface IState {
   main: IMainState;
@@ -38,6 +39,7 @@ export interface IState {
   visits: IVisitState;
   operations: IOperationState;
   diseaseTypes: IDiseaseTypeState;
+  examTypes: IExamTypeState;
 }
 
 export enum FIELD_VALIDATION {

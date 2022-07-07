@@ -1,4 +1,5 @@
 import { labDTO } from "../fixtures/laboratoryDTO";
+import { labForPrintDTO } from "../fixtures/laboratoryForPrintDTO";
 import { materialsDTO } from "../fixtures/materialsDTO";
 
 export const labRoutes = (server) => {
@@ -15,6 +16,21 @@ export const labRoutes = (server) => {
           break;
         default:
           res.status(200).json(labDTO);
+      }
+    });
+
+    server.get("/exams").intercept((req, res) => {
+      const code = req.query.patientCode;
+      switch (code) {
+        case "1000":
+          res.status(400);
+          break;
+        case "200000":
+          res.status(204);
+          res.body = null;
+          break;
+        default:
+          res.status(200).json(labForPrintDTO);
       }
     });
 

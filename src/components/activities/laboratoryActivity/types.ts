@@ -1,5 +1,5 @@
 interface IOwnProps {
-  labHomeRoute: string;
+  visHomeRoute: string;
   dashboardRoute: string;
 }
 

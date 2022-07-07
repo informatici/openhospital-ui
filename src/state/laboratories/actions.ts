@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Dispatch } from "redux";
 import {
   Configuration,
@@ -27,6 +28,12 @@ import {
   UPDATE_LAB_LOADING,
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
+  SEARCH_LAB_LOADING,
+  SEARCH_LAB_SUCCESS,
+  SEARCH_LAB_FAIL,
+  SEARCH_LAB_SUCCESS_EMPTY,
+  GET_LAB_RESET,
+  SEARCH_LAB_RESET,
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(
@@ -78,6 +85,58 @@ export const deleteLabReset =
     dispatch({
       type: DELETE_LAB_RESET,
     });
+  };
+
+export const searchLabsReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: SEARCH_LAB_RESET,
+    });
+  };
+
+export const getLabsReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: GET_LAB_RESET,
+    });
+  };
+
+export const searchLabs =
+  (query: any) =>
+  (dispatch: Dispatch<IAction<LaboratoryDTO[], {}>>): void => {
+    dispatch({
+      type: SEARCH_LAB_LOADING,
+    });
+
+    labControllerApi
+      .getLaboratoryForPrintUsingGET({
+        dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
+        dateFrom: query.dateFrom ?? moment().toISOString(),
+        examName: query.examName,
+      })
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: SEARCH_LAB_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_LAB_SUCCESS_EMPTY,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_LAB_FAIL,
+            error,
+          });
+        }
+      );
   };
 
 export const getLabsByPatientId =

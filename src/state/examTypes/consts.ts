@@ -1,0 +1,3 @@
+export const GET_EXAMTYPE_LOADING = "diseases/GET_EXAMTYPE_LOADING";
+export const GET_EXAMTYPE_SUCCESS = "diseases/GET_EXAMTYPE_SUCCESS";
+export const GET_EXAMTYPE_FAIL = "diseases/GET_EXAMTYPE_FAIL";
