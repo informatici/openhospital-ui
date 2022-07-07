@@ -61,7 +61,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   });
 
   const initialValues = getFromFields(fields, "value");
-  const [filter, setFilter] = useState(initialValues as TFilterValues);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -72,7 +71,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
         values
       ) as TFilterValues;
       onSubmit(formattedValues);
-      setFilter(formattedValues);
     },
   });
 

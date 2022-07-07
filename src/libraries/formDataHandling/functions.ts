@@ -92,6 +92,18 @@ export const updateLabFields = (
     });
   });
 };
+export const updateFilterFields = (fields: TFields, values: any): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      let value = values![key];
+      if (draft[key as string]) {
+        return (draft[key as string].value = moment(value).isValid()
+          ? parseDate(value as string)
+          : value);
+      }
+    });
+  });
+};
 export const updateTriageFields = (
   fields: TFields,
   values: PatientExaminationDTO | undefined
