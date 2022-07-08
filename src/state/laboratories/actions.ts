@@ -127,6 +127,7 @@ export const searchLabs =
         dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
         dateFrom: query.dateFrom ?? moment().toISOString(),
         examName: query.examName,
+        patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
       })
       .subscribe(
         (payload) => {

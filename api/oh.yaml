@@ -2880,6 +2880,10 @@ paths:
           in: query
           description: examName
           type: string
+        - name: patientCode
+          in: query
+          description: patientCode
+          type: number
       responses:
         '200':
           description: OK

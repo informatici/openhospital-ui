@@ -142,6 +142,17 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
           <form className="filterLabForm__form" onSubmit={formik.handleSubmit}>
             <div className="filterLabForm__section">
               <div className="filterLabForm__section_content">
+                <div className="fullWidth filterLabForm__item">
+                  <PatientPicker
+                    theme={"regular"}
+                    fieldName="patientCode"
+                    fieldValue={formik.values.patientCode}
+                    label={t("opd.patient")}
+                    isValid={isValid("patientCode")}
+                    errorText={getErrorText("patientCode")}
+                    onBlur={onBlurCallback("patientCode")}
+                  />
+                </div>
                 <div className="filterLabForm__item">
                   <DateField
                     theme={"regular"}

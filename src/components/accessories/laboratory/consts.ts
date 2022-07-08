@@ -7,6 +7,7 @@ export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
   dateFrom: { type: "date", value: moment().add(-30, "days").toISOString() },
   dateTo: { type: "date", value: moment().toISOString() },
   examName: { type: "text", value: "" },
+  patientCode: { type: "number", value: "" },
 };
 
 export const initialFields: TFields<ExamFormFieldName> = {
