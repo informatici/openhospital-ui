@@ -89,6 +89,8 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case GET_PATIENT_FAIL: {
       draft.selectedPatient.status = "FAIL";
+      draft.searchResults.error = action.error;
+      delete draft.selectedPatient.data;
       break;
     }
 

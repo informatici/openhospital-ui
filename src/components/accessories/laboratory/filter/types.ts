@@ -13,4 +13,8 @@ export type TFilterValues = {
 
 export type TExamFilterValues = Record<ExamFilterFormFieldName, string>;
 
-export type ExamFilterFormFieldName = "dateFrom" | "dateTo" | "examName";
+export type ExamFilterFormFieldName =
+  | "dateFrom"
+  | "dateTo"
+  | "examName"
+  | "patientCode";

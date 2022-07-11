@@ -39,6 +39,9 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
 
   const validationSchema = object({
     dateFrom: string(),
@@ -87,6 +90,11 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
       setFieldValue(fieldName, val);
+      if (fieldName === "dateFrom" || fieldName === "dateTo") {
+        setFieldValue("month", "");
+        setFieldValue("year", "");
+      }
+
       if (fieldName === "month") {
         const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
         const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
@@ -142,6 +150,20 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
           <form className="filterLabForm__form" onSubmit={formik.handleSubmit}>
             <div className="filterLabForm__section">
               <div className="filterLabForm__section_content">
+                <div className="fullWidth filterLabForm__item">
+                  <PatientPicker
+                    theme={"regular"}
+                    fieldName="patientCode"
+                    fieldValue={formik.values.patientCode}
+                    label={t("opd.patient")}
+                    isValid={isValid("patientCode")}
+                    errorText={getErrorText("patientCode")}
+                    onBlur={onBlurCallback("patientCode")}
+                    initialValue={
+                      isEmpty(formik.values.patientCode) ? undefined : patient
+                    }
+                  />
+                </div>
                 <div className="filterLabForm__item">
                   <DateField
                     theme={"regular"}
