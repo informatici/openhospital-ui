@@ -90,6 +90,11 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
       setFieldValue(fieldName, val);
+      if (fieldName === "dateFrom" || fieldName === "dateTo") {
+        setFieldValue("month", "");
+        setFieldValue("year", "");
+      }
+
       if (fieldName === "month") {
         const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
         const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();

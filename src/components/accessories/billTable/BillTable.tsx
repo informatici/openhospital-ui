@@ -100,6 +100,11 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
       setFieldValue(fieldName, val);
+      if (fieldName === "fromDate" || fieldName === "toDate") {
+        setFieldValue("month", "");
+        setFieldValue("year", "");
+      }
+
       if (fieldName === "month") {
         const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
         const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
