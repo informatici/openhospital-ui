@@ -39,6 +39,9 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
 
   const validationSchema = object({
     dateFrom: string(),
@@ -151,6 +154,9 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                     isValid={isValid("patientCode")}
                     errorText={getErrorText("patientCode")}
                     onBlur={onBlurCallback("patientCode")}
+                    initialValue={
+                      isEmpty(formik.values.patientCode) ? undefined : patient
+                    }
                   />
                 </div>
                 <div className="filterLabForm__item">

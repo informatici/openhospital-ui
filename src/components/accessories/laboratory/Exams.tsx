@@ -67,6 +67,7 @@ export const Exams: FC = () => {
   );
 
   useEffect(() => {
+    dispatch(getPatientThunk(filter.patientCode?.toString()));
     dispatch(searchLabs(filter));
   }, [filter]);
 
