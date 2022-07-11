@@ -45,6 +45,7 @@ export const ExamTable: FC<IExamTableProps> = ({
           patName: e.patName ?? "",
           exam: e.exam ?? "",
           result: e.result ?? "",
+          patientCode: e.patientCode ?? "",
         };
       });
     return results;

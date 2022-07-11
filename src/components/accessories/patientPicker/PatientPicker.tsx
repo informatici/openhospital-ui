@@ -46,8 +46,9 @@ const PatientPicker: FC<IProps> = ({
   onBlur,
   label,
   theme,
+  initialValue,
 }) => {
-  const [value, setValue] = useState({} as PatientDTO);
+  const [value, setValue] = useState((initialValue ?? {}) as PatientDTO);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef<any>(null);
@@ -74,7 +75,17 @@ const PatientPicker: FC<IProps> = ({
     handleOpen();
   };
 
-  const initialValues = getFromFields(initialFields, "value");
+  const getInitialFields = () => {
+    const values = getFromFields(initialFields, "value");
+    values.id = initialValue?.code ?? values.id;
+    values.address = initialValue?.address ?? values.address;
+    values.firstName = initialValue?.firstName ?? values.firstName;
+    values.secondName = initialValue?.secondName ?? values.secondName;
+    values.birthDate = initialValue?.birthDate ?? values.birthDate;
+    return values;
+  };
+
+  const initialValues = getInitialFields();
 
   const formik = useFormik({
     initialValues,
@@ -119,7 +130,7 @@ const PatientPicker: FC<IProps> = ({
 
   useEffect(() => {
     const pat = patientData?.find((item) => item.code === fieldValue);
-    pat ? setValue(pat) : setValue({});
+    pat ? setValue(pat) : setValue(initialValue ?? {});
   }, [fieldValue]);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {

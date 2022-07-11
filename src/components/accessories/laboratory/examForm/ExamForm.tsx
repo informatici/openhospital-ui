@@ -75,6 +75,10 @@ const ExamForm: FC<ExamProps> = ({
     }
   }, [dispatch, activityTransitionState]);
 
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
   );
@@ -325,6 +329,7 @@ const ExamForm: FC<ExamProps> = ({
               <PatientPicker
                 theme={"regular"}
                 fieldName="patientCode"
+                initialValue={patient}
                 fieldValue={formik.values.patientCode}
                 label={t("opd.patient")}
                 isValid={isValid("patientCode")}

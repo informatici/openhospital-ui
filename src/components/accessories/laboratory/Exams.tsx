@@ -37,6 +37,7 @@ import { ILaboratoriesState } from "../../../state/laboratories/types";
 import { LaboratoryForPrintDTO } from "../../../generated";
 import ExamForm from "./examForm/ExamForm";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { getPatientThunk } from "../../../state/patients/actions";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -83,6 +84,7 @@ export const Exams: FC = () => {
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
     setCreationMode(false);
+    dispatch(getPatientThunk(row.patientCode?.toString() ?? ""));
     dispatch(getLabByCode(row.code));
     setShowForm(true);
   };
@@ -91,8 +93,16 @@ export const Exams: FC = () => {
     dispatch(deleteLab(code));
   };
 
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+
   const open = useMemo(() => {
-    return creationMode ? showForm : showForm && labToEdit?.code !== undefined;
+    return creationMode
+      ? showForm
+      : showForm &&
+          labToEdit?.code !== undefined &&
+          patient?.code !== undefined;
   }, [showForm, creationMode, labToEdit]);
 
   const formFields = useMemo(() => {
@@ -172,7 +182,7 @@ export const Exams: FC = () => {
           }
         })()}
         <CustomDialog
-          title={creationMode ? t("lab.newexam") : t("lab.editexam")}
+          title={creationMode ? t("lab.newlab") : t("lab.editlab")}
           open={open}
           description=""
           onClose={() => {
