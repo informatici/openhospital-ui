@@ -1,95 +1,188 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
-.lab__details {
-  display: flex;
-  flex-direction: column;
-  padding: 0px 8px;
-  .divider {
-    height: 1px;
-    width: 100%;
-    margin-top: 8px;
-    align-self: center;
-    background-color: $c-grey-light;
-  }
-  .section {
-    .section__title {
-      text-transform: uppercase;
-      color: $c-grey-light;
-      font-size: small;
-      margin-top: 8px;
-    }
-    .section__content {
-      display: flex;
-      column-gap: 16px;
-      flex-flow: row wrap;
-    }
-  }
-}
-.lab_labs {
-  .lab_details {
-    ul {
-      white-space: nowrap;
-      overflow-x: hidden;
-      margin-left: 0;
-      padding-left: 0;
-    }
-    li span .MuiTypography-h5 {
-      padding-left: 0;
-      margin-left: 0;
-      display: inline;
-      text-decoration: none;
-      color: darken($c-gray, 25%);
-    }
-    .label {
-      font-weight: bold;
-    }
-  }
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
-  .lab__header {
+.labDetails {
+  background-color: $c-color-secondary;
+
+  .labDetails__content {
     display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
+    flex: 1;
+    flex-direction: column;
+    padding: 0px 0px 40px 0px;
+
+    &.open_sidebar {
+      .labDetails__content__trigger_mobile {
+        svg {
+          transform: rotate(180deg);
+          top: 5px;
+        }
+      }
+      .labDetails__content_sidebar {
+        max-height: 1200px;
+      }
+    }
+
     @include susy-media($smartphone) {
-      .new__button__label {
-        display: none;
-      }
+      display: block;
+      flex: initial;
+      padding: 0px;
+      flex-direction: initial;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
     }
+  }
 
-    .lab__title {
-      font-size: xx-large;
-      color: $c-black;
-      font-weight: bolder;
+  .labDetails__content_sidebar {
+    position: relative;
 
-      @include susy-media($tablet_port) {
-        font-size: x-large;
-      }
-      @include susy-media($smartphone) {
-        font-size: x-large;
-      }
-      @include susy-media($smartphone_small) {
-        font-size: x-large;
-      }
-    }
-    .lab_actions {
-      @include susy-media($smartphone_small) {
-        display: block;
-      }
-      & {
-        .MuiButton-label {
-          font-size: smaller;
-          letter-spacing: 1px;
-          font-weight: 600;
-        }
+    .labDetails__content_edit_button_wrapper {
+      padding: 0px 20px;
+      margin-bottom: 20px;
+      .labDetails__content_edit_button {
+        cursor: pointer;
+        width: 100%;
+
         button {
-          @include susy-media($smartphone_small) {
-            width: 100%;
-            margin-top: 0px;
-          }
+          width: 100%;
+        }
+
+        svg {
+          font-size: 0.925rem;
+          margin-right: 7px;
+        }
+
+        span {
+          font-size: 0.7rem;
         }
       }
     }
+
+    .labDetails__content {
+      h6 {
+        color: $c-grey-medium;
+        position: relative;
+        left: 20px;
+        margin: 0px;
+      }
+    }
+
+    .accordion {
+      .accordion_summary {
+        padding: 20px;
+        color: $c-grey-lighter;
+        font-weight: bold;
+
+        svg {
+          position: relative;
+          margin-right: 5px;
+          font-size: 1rem;
+          top: 3px;
+        }
+      }
+
+      .accordion_details {
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 5px grey;
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: darken($c-gray, 25%);
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: darken($c-gray, 10%);
+        }
+      }
+      & + .accordion {
+        border-top: 1px solid $c-grey-medium;
+      }
+    }
+
+    @include susy-media($smartphone) {
+      overflow: hidden;
+      max-height: 0px;
+      transition: 0.5s max-height ease-in-out;
+    }
+  }
+
+  @keyframes bump {
+    0% {
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .labDetails__content {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    @include susy-media($smartphone) {
+      display: block;
+      flex: initial;
+      margin-top: 35px;
+      border-radius: 10px;
+      padding: 40px 25px 25px;
+      flex-direction: initial;
+      background-color: $c-white;
+      box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    }
+    .MuiAccordionDetails-root {
+      display: flex;
+      flex-flow: row wrap;
+      .labDetails__content__item {
+        width: 25%;
+        padding: 7px 20px;
+        display: inline-block;
+        .labDetails__content__item__label {
+          font-weight: 400;
+          font-size: 0.85rem;
+        }
+       .labDetails__content__item__value {
+          font-weight: bolder;
+          font-size: smaller;
+        }
+        @include susy-media($smartphone) {
+          width: 100%;
+        }
+        @include susy-media($tablet_land) {
+          width: 50%;
+        }
+        @include susy-media($tablet_port) {
+          width: 50%;
+        }
+      }
+      .labDetails__content__item_long_text {
+        padding: 7px 20px;
+        width: 100%;
+      }
+    }
+  }
+
+  .labDetails__content__header {
+    background-color: #f5f5f5;
+  }
+
+  .footer {
+    position: relative;
+  }
+
+  .active {
+    background-color: lighten($c-gray, 10);
   }
 }

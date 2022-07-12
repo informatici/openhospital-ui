@@ -1,4 +1,10 @@
-import React, { FC } from "react";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@material-ui/core";
+import { Person, Notes } from "@material-ui/icons";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -10,6 +16,11 @@ import "./styles.scss";
 
 export const LaboratoryDetails: FC = () => {
   const { t } = useTranslation();
+  const [expanded, setExpanded] = useState<string | false>(false);
+
+  const handleOnExpanded = (section: string) => {
+    setExpanded(section === expanded ? false : section);
+  };
 
   const lab = useSelector(
     (state: IState) => state.laboratories.getLabByCode.data
@@ -26,85 +37,140 @@ export const LaboratoryDetails: FC = () => {
       return <InfoBox type="warning" message={t("lab.loadingdetails")} />;
     case "SUCCESS":
       return (
-        <div className="lab__details">
-          <div className="section">
-            <div className="section__title">{t("lab.patient")}</div>
-            <div className="section__content">
-              <div>
-                <strong>{t("lab.code")}</strong> -{" "}
-                <span>{lab?.patientCode}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.name")}</strong> - <span>{lab?.patName}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.sex")}</strong> - <span>{lab?.sex}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.age")}</strong> -{" "}
-                <span>
-                  {lab?.age} {t("lab.years")}
-                </span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.status")}</strong> -{" "}
-                <span>
-                  {lab?.inOutPatient === "O"
-                    ? t("lab.outpatient")
-                    : t("lab.inpatient")}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="divider"></div>
-          <div className="section">
-            <div className="section__title">{t("lab.exam")}</div>
-            <div className="section__content">
-              <div>
-                <strong>{t("lab.labcode")}</strong> - <span>{lab?.code}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.registrationdate")}</strong> -{" "}
-                <span>{renderDate(lab?.registrationDate ?? "")}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.examdate")}</strong> -{" "}
-                <span>{renderDate(lab?.examDate ?? "")}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.examtype")}</strong> -{" "}
-                <span>{lab?.exam?.examtype?.description}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.exam")}</strong> -{" "}
-                <span>{lab?.exam?.description}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.material")}</strong> -{" "}
-                <span>{lab?.material}</span>
-              </div>
-              |
-              <div>
-                <strong>{t("lab.result")}</strong> - <span>{lab?.result}</span>
-              </div>
-            </div>
-            {lab?.note != null && (
-              <>
-                <div className="divider"></div>
-                <div className="section">
-                  <div className="section__title">{t("lab.note")}</div>
-                  <div className="section__content_note">{lab?.note}</div>
+        <div className="labDetails">
+          <div className="labDetails__content">
+            <Accordion expanded={true}>
+              <AccordionSummary>
+                <Person fontSize="small" style={{ color: "white" }} />
+                <span>{t("lab.patient")}</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.code")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.patientCode}
+                  </div>
                 </div>
-              </>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.name")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.patName}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.sex")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.sex}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.age")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.age} {t("lab.years")}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.status")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.inOutPatient === "O"
+                      ? t("lab.outpatient")
+                      : t("lab.inpatient")}
+                  </div>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion expanded={true}>
+              <AccordionSummary>
+                <Person fontSize="small" style={{ color: "white" }} />
+                <span>{t("lab.exam")}</span>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.labcode")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.code}
+                  </div>
+                </div>
+                {lab?.registrationDate && (
+                  <div className="labDetails__content__item">
+                    <div className="labDetails__content__item__label">
+                      {t("lab.registrationdate")}:
+                    </div>
+                    <div className="labDetails__content__item__value">
+                      {renderDate(lab?.registrationDate || "-")}
+                    </div>
+                  </div>
+                )}
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.examdate")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {renderDate(lab?.examDate || "-")}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.examtype")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.exam?.examtype?.description ?? ""}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.exam")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.exam?.description ?? ""}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.material")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.material ?? ""}
+                  </div>
+                </div>
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.result")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.result ?? ""}
+                  </div>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+            {lab?.note ? (
+              <Accordion expanded={true}>
+                <AccordionSummary>
+                  <Notes fontSize="small" style={{ color: "white" }} />
+                  <span>{t("lab.note")}:</span>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="labDetails__content__item_long_text">
+                    <div className="labDetails__content__item__value">
+                      {lab.note}
+                    </div>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            ) : (
+              ""
             )}
           </div>
         </div>
