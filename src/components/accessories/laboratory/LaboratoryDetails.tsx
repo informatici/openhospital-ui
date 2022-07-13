@@ -1,26 +1,14 @@
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@material-ui/core";
 import { Person, Notes } from "@material-ui/icons";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { IState } from "../../../types";
-import { IStatus } from "../billTable/types";
 import InfoBox from "../infoBox/InfoBox";
-import { label } from "../patientTherapy/patientTherapyTable/consts";
 import "./styles.scss";
 
 export const LaboratoryDetails: FC = () => {
   const { t } = useTranslation();
-  const [expanded, setExpanded] = useState<string | false>(false);
-
-  const handleOnExpanded = (section: string) => {
-    setExpanded(section === expanded ? false : section);
-  };
 
   const lab = useSelector(
     (state: IState) => state.laboratories.getLabByCode.data
@@ -39,12 +27,17 @@ export const LaboratoryDetails: FC = () => {
       return (
         <div className="labDetails">
           <div className="labDetails__content">
-            <Accordion expanded={true}>
-              <AccordionSummary>
-                <Person fontSize="small" style={{ color: "white" }} />
+            <div className="labDetails__content__wrapper">
+              <div className="labDetails__content__header">
+                <Person
+                  fontSize="small"
+                  style={{
+                    color: "black",
+                  }}
+                />
                 <span>{t("lab.patient")}</span>
-              </AccordionSummary>
-              <AccordionDetails>
+              </div>
+              <div className="labDetails__content__body">
                 <div className="labDetails__content__item">
                   <div className="labDetails__content__item__label">
                     {t("lab.code")}:
@@ -87,14 +80,19 @@ export const LaboratoryDetails: FC = () => {
                       : t("lab.inpatient")}
                   </div>
                 </div>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion expanded={true}>
-              <AccordionSummary>
-                <Person fontSize="small" style={{ color: "white" }} />
+              </div>
+            </div>
+            <div className="labDetails__content__wrapper">
+              <div className="labDetails__content__header">
+                <Person
+                  fontSize="small"
+                  style={{
+                    color: "black",
+                  }}
+                />
                 <span>{t("lab.exam")}</span>
-              </AccordionSummary>
-              <AccordionDetails>
+              </div>
+              <div className="labDetails__content__body">
                 <div className="labDetails__content__item">
                   <div className="labDetails__content__item__label">
                     {t("lab.labcode")}:
@@ -153,22 +151,27 @@ export const LaboratoryDetails: FC = () => {
                     {lab?.result ?? ""}
                   </div>
                 </div>
-              </AccordionDetails>
-            </Accordion>
+              </div>
+            </div>
             {lab?.note ? (
-              <Accordion expanded={true}>
-                <AccordionSummary>
-                  <Notes fontSize="small" style={{ color: "white" }} />
+              <div className="labDetails__content__wrapper">
+                <div className="labDetails__content__header">
+                  <Notes
+                    fontSize="small"
+                    style={{
+                      color: "black",
+                    }}
+                  />
                   <span>{t("lab.note")}:</span>
-                </AccordionSummary>
-                <AccordionDetails>
+                </div>
+                <div className="labDetails__content__body">
                   <div className="labDetails__content__item_long_text">
                     <div className="labDetails__content__item__value">
                       {lab.note}
                     </div>
                   </div>
-                </AccordionDetails>
-              </Accordion>
+                </div>
+              </div>
             ) : (
               ""
             )}
