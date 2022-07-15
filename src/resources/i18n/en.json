@@ -50,7 +50,10 @@
     "insertdataofnewpatient": "Insert data of new Patient",
     "admissions": "Admissions",
     "code": "Code",
-    "search": "Search"
+    "search": "Search",
+    "agetype": "Age Type",
+    "agerange": "Age Range",
+    "age": "Age"
   },
   "opd": {
     "newopd": "Create new OPD Visit",

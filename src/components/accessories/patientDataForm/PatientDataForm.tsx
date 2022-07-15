@@ -5,9 +5,10 @@ import React, {
   FunctionComponent,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -21,14 +22,16 @@ import SelectField from "../selectField/SelectField";
 import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
-import { TProps } from "./types";
+import { TAgeFieldName, TProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
 import { formCustomization } from "../../../customization/formCustomization";
-import { FIELD_VALIDATION } from "../../../types";
+import { FIELD_VALIDATION, IState } from "../../../types";
 import moment from "moment";
 import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
+import { useDispatch, useSelector } from "react-redux";
+import { getAgeTypes } from "../../../state/ageTypes/actions";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -41,30 +44,61 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [ageType, setAgeType] = useState("agetype" as TAgeFieldName);
 
-  const validationSchema = object({
-    firstName: string().required(t("common.required")),
-    secondName: string().required(t("common.required")),
-    birthDate: string()
-      .required(t("common.required"))
-      .test({
-        name: "birthDate",
-        message: t("common.invaliddate"),
-        test: function (value) {
-          return moment(value).isValid();
-        },
-      }),
-    sex: string().required(t("common.required")),
-    telephone: string().matches(
-      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-      t("common.incorrectformat")
-    ),
-  });
+  const validationSchema = useMemo(() => {
+    return object({
+      firstName: string().required(t("common.required")),
+      secondName: string().required(t("common.required")),
+      age:
+        ageType === "age"
+          ? number().required(t("common.required")).min(0)
+          : string(),
+      agetype:
+        ageType === "agetype"
+          ? string().required(t("common.required"))
+          : string(),
+      birthDate:
+        ageType === "birthDate"
+          ? string()
+              .required(t("common.required"))
+              .test({
+                name: "birthDate",
+                message: t("common.invaliddate"),
+                test: function (value) {
+                  return moment(value).isValid();
+                },
+              })
+          : string(),
+      sex: string().required(t("common.required")),
+      telephone: string().matches(
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        t("common.incorrectformat")
+      ),
+    });
+  }, [ageType]);
+
+  useEffect(() => {
+    dispatch(getAgeTypes());
+  }, []);
 
   const initialValues = getFromFields(fields, "value");
 
   const options = getFromFields(fields, "options");
   const cityOptions = useCityOptions();
+
+  const ageRangeOptions = useSelector((state: IState) =>
+    state.ageTypes.getAllAgeTypes.data?.map((e) => ({
+      value: e.code ?? "",
+      label: e.description ?? "",
+    }))
+  );
+  const ageTypeOptions = [
+    { value: "age", label: t("patient.age") },
+    { value: "agetype", label: t("patient.agetype") },
+    { value: "birthDate", label: t("patient.birthdate") },
+  ];
 
   const formik = useFormik({
     initialValues,
@@ -72,7 +106,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      onSubmit({
+        ...formattedValues,
+        birthDate:
+          ageType === "birthDate" ? formattedValues.birthDate : undefined,
+        age: ageType === "age" ? formattedValues.age : undefined,
+        agetype: ageType === "agetype" ? values.agetype : undefined,
+      });
     },
   });
 
@@ -211,26 +251,81 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               }
             />
           </div>
-
           <div className="patientDataForm__item">
-            <DateField
-              fieldName="birthDate"
-              fieldValue={formik.values.birthDate}
-              disableFuture={true}
-              theme="regular"
-              format="dd/MM/yyyy"
-              isValid={isValid("birthDate")}
-              errorText={getErrorText("birthDate")}
-              label={t("patient.birthdate")}
-              onChange={dateFieldHandleOnChange("birthDate")}
+            <SelectField
+              fieldName="atype"
+              fieldValue={ageType}
+              label={t("patient.agetype")}
+              isValid={isValid("atype")}
+              errorText={""}
+              onBlur={(e, value) => {
+                setAgeType(value as TAgeFieldName);
+              }}
+              options={ageTypeOptions}
               disabled={isLoading}
-              required={
-                isFieldSuggested(formCustomization, "birthDate")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.REQUIRED
-              }
+              required={FIELD_VALIDATION.SUGGESTED}
             />
           </div>
+          {ageType == "agetype" && (
+            <div className="patientDataForm__item">
+              <SelectField
+                fieldName="agetype"
+                fieldValue={formik.values.agetype}
+                label={t("patient.agerange")}
+                isValid={isValid("agetype")}
+                errorText={getErrorText("agetype")}
+                onBlur={onBlurCallback("agetype")}
+                options={ageRangeOptions ?? []}
+                translateOptions={true}
+                disabled={isLoading}
+                required={
+                  isFieldSuggested(formCustomization, "agetype")
+                    ? FIELD_VALIDATION.SUGGESTED
+                    : FIELD_VALIDATION.REQUIRED
+                }
+              />
+            </div>
+          )}
+          {ageType == "age" && (
+            <div className="patientDataForm__item">
+              <TextField
+                field={formik.getFieldProps("age")}
+                theme="regular"
+                label={t("patient.age")}
+                isValid={isValid("age")}
+                errorText={getErrorText("age")}
+                onBlur={formik.handleBlur}
+                disabled={isLoading}
+                type="number"
+                required={
+                  isFieldSuggested(formCustomization, "age")
+                    ? FIELD_VALIDATION.SUGGESTED
+                    : FIELD_VALIDATION.REQUIRED
+                }
+              />
+            </div>
+          )}
+          {ageType === "birthDate" && (
+            <div className="patientDataForm__item">
+              <DateField
+                fieldName="birthDate"
+                fieldValue={formik.values.birthDate}
+                disableFuture={true}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={isValid("birthDate")}
+                errorText={getErrorText("birthDate")}
+                label={t("patient.birthdate")}
+                onChange={dateFieldHandleOnChange("birthDate")}
+                disabled={isLoading}
+                required={
+                  isFieldSuggested(formCustomization, "birthDate")
+                    ? FIELD_VALIDATION.SUGGESTED
+                    : FIELD_VALIDATION.REQUIRED
+                }
+              />
+            </div>
+          )}
 
           <div className="patientDataForm__item">
             <SelectField
