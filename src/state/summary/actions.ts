@@ -2,10 +2,12 @@ import { Dispatch } from "redux";
 import { of, concat } from "rxjs";
 import { map, catchError, toArray } from "rxjs/operators";
 import {
+  AdmissionControllerApi,
   Configuration,
   ExaminationControllerApi,
   LaboratoryControllerApi,
   OpdControllerApi,
+  OperationControllerApi,
   TherapyControllerApi,
 } from "../../generated";
 import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
@@ -18,7 +20,10 @@ import {
   SummaryField,
 } from "./consts";
 
-const therapyControllerApi = new TherapyControllerApi(
+const operationControllerApi = new OperationControllerApi(
+  new Configuration({ middleware: [applyTokenMiddleware] })
+);
+const admissionControllerApi = new AdmissionControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })
 );
 const opdControllerrApi = new OpdControllerApi(
@@ -53,17 +58,31 @@ export const loadSummaryData =
           map((res) => convertToSummaryData(res, SummaryField.exam)),
           catchError((err) => of([]))
         ),
-        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.therapy)),
-          catchError((err) => of([]))
-        )
+        admissionControllerApi
+          .getPatientAdmissionsUsingGET({ patientCode: code })
+          .pipe(
+            map((res) => convertToSummaryData(res, SummaryField.admission)),
+            catchError((err) => of([]))
+          ),
+        operationControllerApi
+          .getOperationRowsByPatientUsingGET({ patientCode: code })
+          .pipe(
+            map((res) => convertToSummaryData(res, SummaryField.operation)),
+            catchError((err) => of([]))
+          )
       )
         .pipe(toArray())
         .subscribe(
-          ([triages, opds, exams, therapies]) => {
+          ([triages, opds, exams, admissions, operations]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
-              payload: [...triages, ...opds, ...exams, ...therapies],
+              payload: [
+                ...triages,
+                ...opds,
+                ...exams,
+                ...admissions,
+                ...operations,
+              ],
             });
           },
           (error) => {

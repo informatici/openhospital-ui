@@ -9,6 +9,12 @@ export const operationRoutes = (server) => {
     server.get("/rows/search/admission").intercept((req, res) => {
       res.status(200).json(operationRowsDTO);
     });
+    server.get("/rows/search/patient").intercept((req, res) => {
+      res.status(200).json(operationRowsDTO);
+    });
+    server.get("/rows/search/opd").intercept((req, res) => {
+      res.status(200).json(operationRowsDTO);
+    });
     server.post("/rows").intercept((req, res) => {
       const body = req.jsonBody();
       switch (body.remarks) {

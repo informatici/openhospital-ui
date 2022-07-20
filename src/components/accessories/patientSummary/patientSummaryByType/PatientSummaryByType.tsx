@@ -64,6 +64,49 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
 
           <div className="patientSummary_type_row">
             <h4>
+              {t("summary.admission")}(
+              {filterByType(SummaryType.ADMISSION).length})
+            </h4>
+            <Table
+              rowData={renderSummary(
+                filterByType(SummaryType.ADMISSION),
+                dateFields,
+                labels,
+                medicals
+              )}
+              dateFields={dateFields}
+              tableHeader={header.type.admission}
+              labelData={labels}
+              columnsOrder={order}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+              isCollapsabile={true}
+              showEmptyCell={false}
+            />
+          </div>
+          <div className="patientSummary_type_row">
+            <h4>
+              {t("summary.operation")}(
+              {filterByType(SummaryType.OPERATION).length})
+            </h4>
+            <Table
+              rowData={renderSummary(
+                filterByType(SummaryType.OPERATION),
+                dateFields,
+                labels,
+                medicals
+              )}
+              dateFields={dateFields}
+              tableHeader={header.type.operation}
+              labelData={labels}
+              columnsOrder={order}
+              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+              isCollapsabile={true}
+              showEmptyCell={false}
+            />
+          </div>
+
+          <div className="patientSummary_type_row">
+            <h4>
               {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
             </h4>
             <Table
@@ -94,27 +137,6 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
               )}
               dateFields={dateFields}
               tableHeader={header.type.exam}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
-
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.therapy")}({filterByType(SummaryType.THERAPY).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.THERAPY),
-                dateFields,
-                labels,
-                medicals
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.therapy}
               labelData={labels}
               columnsOrder={order}
               rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
