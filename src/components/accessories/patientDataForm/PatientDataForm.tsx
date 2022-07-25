@@ -45,7 +45,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [ageType, setAgeType] = useState("agetype" as TAgeFieldName);
+  const [ageType, setAgeType] = useState("birthDate" as TAgeFieldName);
 
   const validationSchema = useMemo(() => {
     return object({
