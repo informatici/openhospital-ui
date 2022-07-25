@@ -43,6 +43,10 @@ export interface GetOperationRowsByOpdUsingPOSTRequest {
     opdDTO: OpdDTO;
 }
 
+export interface GetOperationRowsByPatientUsingGETRequest {
+    patientCode: number;
+}
+
 export interface NewOperationRowUsingPOSTRequest {
     operationRowDTO: OperationRowDTO;
 }
@@ -188,6 +192,30 @@ export class OperationControllerApi extends BaseAPI {
             method: 'POST',
             headers,
             body: opdDTO,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getOperationRowsByPatient
+     */
+    getOperationRowsByPatientUsingGET({ patientCode }: GetOperationRowsByPatientUsingGETRequest): Observable<Array<OperationRowDTO>>
+    getOperationRowsByPatientUsingGET({ patientCode }: GetOperationRowsByPatientUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OperationRowDTO>>>
+    getOperationRowsByPatientUsingGET({ patientCode }: GetOperationRowsByPatientUsingGETRequest, opts?: OperationOpts): Observable<Array<OperationRowDTO> | RawAjaxResponse<Array<OperationRowDTO>>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getOperationRowsByPatientUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'patientCode': patientCode,
+        };
+
+        return this.request<Array<OperationRowDTO>>({
+            url: '/operations/rows/search/patient',
+            method: 'GET',
+            headers,
+            query,
         }, opts?.responseOpts);
     };
 

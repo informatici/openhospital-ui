@@ -51,7 +51,10 @@
     "admissions": "Admissions",
     "code": "Code",
     "search": "Search",
-    "dashboard": "Patient Dashboard"
+    "dashboard": "Patient Dashboard",
+    "agetype": "Age Type",
+    "agerange": "Age Range",
+    "age": "Age"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -301,9 +304,10 @@
     "saveform": "Book"
   },
   "summary": {
-    "visits": "Visites",
+    "visits": "Visits",
     "triage": "Triage",
-    "therapy": "Therapy",
+    "admission": "Admission",
+    "operation": "Operation",
     "opd": "OPD",
     "booking": "Reservation",
     "exams": "Exams"
@@ -349,7 +353,7 @@
   },
   "admission": {
     "admDate": "Date",
-    "admType": "Type",
+    "admType": "Admission Type",
     "newadmission": "New admission",
     "editadmission": "Edit admission",
     "diseaseIn": "Diagnosis In",

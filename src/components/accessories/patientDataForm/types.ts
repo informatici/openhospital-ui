@@ -6,6 +6,8 @@ interface IOwnProps {
   resetFormCallback: () => void;
 }
 
+export type TAgeFieldName = "age" | "agetype" | "birthDate";
+
 export type TProps = IForm<TPatientDataFormFieldName, PatientDTO> & IOwnProps;
 
 export type TPatientDataFormFieldName =
