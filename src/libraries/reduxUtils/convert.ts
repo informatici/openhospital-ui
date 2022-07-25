@@ -1,7 +1,9 @@
 import {
+  AdmissionDTO,
   LaboratoryDTO,
   MedicalDTO,
   OpdDTO,
+  OperationRowDTO,
   PatientExaminationDTO,
   TherapyRowDTO,
 } from "../../generated";
@@ -21,7 +23,13 @@ export const convertToSummaryData = (
 };
 
 export const renderSummary = (
-  data: Array<PatientExaminationDTO | OpdDTO | LaboratoryDTO | TherapyRowDTO>,
+  data: Array<
+    | PatientExaminationDTO
+    | OpdDTO
+    | LaboratoryDTO
+    | AdmissionDTO
+    | OperationRowDTO
+  >,
   dateFields: string[],
   labels: any,
   medicals: MedicalDTO[] = []

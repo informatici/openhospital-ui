@@ -5,13 +5,21 @@ const useSummaryMetaData = () => {
   const labels = {
     date: t("common.date"),
     type: t("common.type"),
-    startDate: t("therapy.startDate"),
-    endDate: t("therapy.endDate"),
-    qty: t("therapy.quantity"),
-    freqInDay: t("therapy.frequencyInDay"),
-    freqInPeriod: t("therapy.frequencyInPeriod"),
-    note: t("therapy.note"),
-    medicalId: t("therapy.medical"),
+    opDate: t("operation.opDate"),
+    ward: t("admission.ward"),
+    admDate: t("admission.admDate"),
+    admType: t("admission.admType"),
+    disType: t("admission.disType"),
+    disDate: t("admission.disDate"),
+    diseaseIn: t("admission.diseaseIn"),
+    diseaseOut1: t("admission.diseaseOut1"),
+    diseaseOut2: t("admission.diseaseOut2"),
+    diseaseOut3: t("admission.diseaseOut3"),
+    operation: t("operation.operation"),
+    opResult: t("operation.opResult"),
+    transUnits: t("operation.transUnits"),
+    remarks: t("operation.remarks"),
+    prescriber: t("operation.prescriber"),
     disease: t("opd.disease1"),
     disease2: t("opd.disease2"),
     disease3: t("opd.disease3"),
@@ -27,14 +35,15 @@ const useSummaryMetaData = () => {
     material: t("lab.material"),
     result: t("lab.result"),
   };
-  const dateFields = ["date", "startDate", "endDate"];
+  const dateFields = ["date", "examDate", "admDate", "disDate", "opDate"];
   const header = {
     date: ["date", "type"],
     type: {
       opd: ["date", "disease"],
       triage: ["date", "pex_temp"],
-      therapy: ["date", "medicalId"],
       exam: ["date", "exam"],
+      admission: ["date", "diseaseIn"],
+      operation: ["date", "operation"],
     },
   };
 

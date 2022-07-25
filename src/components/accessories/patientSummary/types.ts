@@ -19,6 +19,7 @@ export enum SummaryType {
   VISIT = "VISIT",
   OPD = "OPD",
   EXAMS = "EXAM",
-  THERAPY = "THERAPY",
+  ADMISSION = "ADMISSION",
   TRIAGE = "TRIAGE",
+  OPERATION = "OPERATION",
 }

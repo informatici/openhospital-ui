@@ -3,9 +3,13 @@ export const GET_SUMMARY_SUCCESS = "summary/GET_SUMMARY_SUCCESS";
 export const GET_SUMMARY_FAIL = "summary/GET_SUMMARY_FAIL";
 
 export const SummaryField = {
-  therapy: {
-    type: "THERAPY",
-    dateField: "startDate",
+  admission: {
+    type: "ADMISSION",
+    dateField: "admDate",
+  },
+  operation: {
+    type: "OPERATION",
+    dateField: "opDate",
   },
   opd: {
     type: "OPD",
