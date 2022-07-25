@@ -50,7 +50,8 @@
     "insertdataofnewpatient": "Insert data of new Patient",
     "admissions": "Admissions",
     "code": "Code",
-    "search": "Search"
+    "search": "Search",
+    "dashboard": "Patient Dashboard"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
