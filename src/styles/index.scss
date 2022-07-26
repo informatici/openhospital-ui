@@ -6,6 +6,7 @@
 }
 
 .App {
-    display: block;
-    height: 100vh;
+    & > div {
+        height: 100vh;
+    }
 }
