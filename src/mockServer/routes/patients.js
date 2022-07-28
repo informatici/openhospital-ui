@@ -10,7 +10,7 @@ export const patientRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(201).json(patientDTO);
           break;
       }
     });

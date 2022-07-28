@@ -192,9 +192,9 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * newPatient
      */
-    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest): Observable<number>
-    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest): Observable<PatientDTO>
+    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientDTO>>
+    newPatientUsingPOST({ newPatient }: NewPatientUsingPOSTRequest, opts?: OperationOpts): Observable<PatientDTO | RawAjaxResponse<PatientDTO>> {
         throwIfNullOrUndefined(newPatient, 'newPatient', 'newPatientUsingPOST');
 
         const headers: HttpHeaders = {
@@ -202,7 +202,7 @@ export class PatientControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<PatientDTO>({
             url: '/patients',
             method: 'POST',
             headers,
@@ -239,9 +239,9 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * updatePatient
      */
-    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest): Observable<number>
-    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest): Observable<PatientDTO>
+    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientDTO>>
+    updatePatientUsingPUT({ code, updatePatient }: UpdatePatientUsingPUTRequest, opts?: OperationOpts): Observable<PatientDTO | RawAjaxResponse<PatientDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updatePatientUsingPUT');
         throwIfNullOrUndefined(updatePatient, 'updatePatient', 'updatePatientUsingPUT');
 
@@ -250,7 +250,7 @@ export class PatientControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<PatientDTO>({
             url: '/patients/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

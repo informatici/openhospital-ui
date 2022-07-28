@@ -4865,8 +4865,7 @@ paths:
         '200':
           description: OK
           schema:
-            type: integer
-            format: int32
+            $ref: '#/definitions/PatientDTO'
         '201':
           description: Created
         '401':
@@ -5065,8 +5064,7 @@ paths:
         '200':
           description: OK
           schema:
-            type: integer
-            format: int32
+            $ref: '#/definitions/PatientDTO'
         '201':
           description: Created
         '401':

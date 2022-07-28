@@ -54,6 +54,15 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   ) as string;
 
+  const selectedPatient = useSelector<IState, PatientDTO | undefined>(
+    (state) => state.patients.selectedPatient.data
+  );
+
+  const patient = useSelector<IState, PatientDTO | undefined>(
+    (state) =>
+      state.patients.createPatient.data || state.patients.updatePatient.data
+  );
+
   useEffect(() => {
     if (
       activityTransitionState === "TO_NEW_PATIENT_RESET" ||
@@ -63,10 +72,13 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       createPatientReset();
       setShouldResetForm(true);
     }
-    if (activityTransitionState === "TO_PATIENT_DASHBOARD") {
-      history.replace("/patients");
-    }
   }, [activityTransitionState, createPatientReset]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
+      history.replace(`/patients/details/${patient?.code}`);
+    }
+  }, [patient, activityTransitionState, createPatientReset]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {

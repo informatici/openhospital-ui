@@ -31,6 +31,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case CREATE_PATIENT_SUCCESS: {
       draft.createPatient.status = "SUCCESS";
+      draft.createPatient.data = action.payload;
       delete draft.createPatient.error;
       break;
     }
@@ -44,6 +45,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
     case CREATE_PATIENT_RESET: {
       draft.createPatient.status = "IDLE";
       delete draft.createPatient.error;
+      delete draft.createPatient.data;
       break;
     }
 
@@ -104,6 +106,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case UPDATE_PATIENT_SUCCESS: {
       draft.updatePatient.status = "SUCCESS";
+      draft.updatePatient.data = action.payload;
       delete draft.updatePatient.error;
       break;
     }
@@ -116,6 +119,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
     case UPDATE_PATIENT_RESET: {
       draft.updatePatient.status = "IDLE";
       delete draft.updatePatient.error;
+      delete draft.createPatient.data;
       break;
     }
   }
