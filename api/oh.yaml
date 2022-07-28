@@ -8493,6 +8493,10 @@ definitions:
         type: integer
         format: int32
         description: Laboratory Code
+      lock:
+        type: integer
+        format: int32
+        description: Laboratory Code
       material:
         type: string
         description: Laboratory Material

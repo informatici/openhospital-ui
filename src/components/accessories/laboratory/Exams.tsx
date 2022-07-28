@@ -71,17 +71,26 @@ export const Exams: FC = () => {
     dispatch(searchLabs(filter));
   }, [filter]);
 
+  useEffect(() => {
+    if (
+      labStore.deleteLab.status === "SUCCESS" ||
+      labStore.createLab.status === "SUCCESS" ||
+      labStore.updateLab.status === "SUCCESS"
+    ) {
+      dispatch(searchLabs(filter));
+    }
+  }, [labStore]);
+
   const onSubmit = (values: TFilterValues) => {
     setFilter(values);
   };
 
   const handleReset = useCallback(() => {
-    dispatch(searchLabs(filter));
     if (labStore.deleteLab.status === "SUCCESS") {
       dispatch(deleteLabReset());
     }
     setShowForm(false);
-  }, [filter]);
+  }, [dispatch]);
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
     setCreationMode(false);
