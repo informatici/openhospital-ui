@@ -5,3 +5,8 @@
     box-sizing: border-box;
 }
 
+.App {
+    & > div {
+        height: 100vh;
+    }
+}

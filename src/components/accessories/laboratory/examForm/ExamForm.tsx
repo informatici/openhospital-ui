@@ -101,7 +101,10 @@ const ExamForm: FC<ExamProps> = ({
     lab.examDate = parseDate(lab.examDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
-    if (labToEdit.code) lab.code = labToEdit.code;
+    if (labToEdit.code) {
+      lab.code = labToEdit.code;
+      lab.lock = labToEdit.lock;
+    }
     const labWithRowsDTO = {
       laboratoryDTO: lab,
       laboratoryRowList: rows,
