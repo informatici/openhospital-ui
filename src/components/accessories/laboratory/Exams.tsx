@@ -66,6 +66,16 @@ export const Exams: FC = () => {
     (state: IState) => state.laboratories
   );
 
+  const createStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.createLab.status
+  );
+  const updateStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.updateLab.status
+  );
+  const deleteStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.deleteLab.status
+  );
+
   useEffect(() => {
     dispatch(getPatientThunk(filter.patientCode?.toString()));
     dispatch(searchLabs(filter));
@@ -73,22 +83,19 @@ export const Exams: FC = () => {
 
   useEffect(() => {
     if (
-      labStore.deleteLab.status === "SUCCESS" ||
-      labStore.createLab.status === "SUCCESS" ||
-      labStore.updateLab.status === "SUCCESS"
+      createStatus === "SUCCESS" ||
+      updateStatus === "SUCCESS" ||
+      deleteStatus === "SUCCESS"
     ) {
       dispatch(searchLabs(filter));
     }
-  }, [labStore]);
+  }, [createStatus, updateStatus, deleteStatus]);
 
   const onSubmit = (values: TFilterValues) => {
     setFilter(values);
   };
 
   const handleReset = useCallback(() => {
-    if (labStore.deleteLab.status === "SUCCESS") {
-      dispatch(deleteLabReset());
-    }
     setShowForm(false);
   }, [dispatch]);
 
@@ -126,6 +133,9 @@ export const Exams: FC = () => {
   );
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status
+  );
+  const deleteErrorMessage = useSelector(
+    (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
   useEffect(() => {
@@ -182,6 +192,11 @@ export const Exams: FC = () => {
               return (
                 <>
                   <ExamFilterForm onSubmit={onSubmit} fields={fields} />
+                  {deleteStatus === "FAIL" && (
+                    <div className="info-box-container">
+                      <InfoBox type="error" message={deleteErrorMessage} />
+                    </div>
+                  )}
                   <ExamTable
                     data={data ?? []}
                     handleDelete={onDelete}
@@ -218,7 +233,9 @@ export const Exams: FC = () => {
           icon={checkIcon}
           info={t("common.deletesuccess", { code: deletedObjCode })}
           primaryButtonLabel={t("common.ok")}
-          handlePrimaryButtonClick={handleReset}
+          handlePrimaryButtonClick={() => {
+            dispatch(deleteLabReset());
+          }}
           handleSecondaryButtonClick={() => {}}
         />
       </div>
