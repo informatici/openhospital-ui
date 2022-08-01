@@ -4,7 +4,7 @@ import { ExamFormFieldName } from "./examForm/type";
 import { ExamFilterFormFieldName } from "./filter/types";
 
 export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
-  dateFrom: { type: "date", value: moment().add(-6, "months").toISOString() },
+  dateFrom: { type: "date", value: moment().startOf("month").toISOString() },
   dateTo: { type: "date", value: moment().toISOString() },
   examName: { type: "text", value: "" },
   patientCode: { type: "number", value: "" },
