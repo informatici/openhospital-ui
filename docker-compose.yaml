@@ -1,6 +1,20 @@
 version: "3.9"
 
 services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.frontend
+      args:
+        PUBLIC_URL: /
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/oh
+    depends_on:
+      - backend
+    networks:
+      - openhospital
   backend:
     build:
       context: ./docker
