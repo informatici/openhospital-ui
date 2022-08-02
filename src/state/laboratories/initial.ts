@@ -7,5 +7,6 @@ export const initial: ILaboratoriesState = {
   materials: { status: "IDLE", data: [] },
   labsByPatientId: { status: "IDLE", data: [] },
   getLabByCode: { status: "IDLE", data: null },
+  getLabWithRowsByCode: { status: "IDLE", data: null },
   searchLabs: { status: "IDLE", data: [] },
 };

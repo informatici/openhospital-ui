@@ -1,10 +1,10 @@
-import { LaboratoryDTO } from "../../../../generated";
+import { LaboratoryDTO, LabWithRowsDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IExamProps {
   fields: TFields<ExamFormFieldName>;
   creationMode: boolean;
-  labToEdit: LaboratoryDTO;
+  labWithRowsToEdit: LabWithRowsDTO;
   handleReset: () => void;
 }
 

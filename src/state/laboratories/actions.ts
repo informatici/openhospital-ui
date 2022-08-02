@@ -38,6 +38,10 @@ import {
   GET_LAB_LOADING,
   GET_LAB_SUCCESS,
   GET_LAB_RESET,
+  GET_LABWROW_RESET,
+  GET_LABWROW_FAIL,
+  GET_LABWROW_LOADING,
+  GET_LABWROW_SUCCESS,
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(
@@ -112,6 +116,14 @@ export const getLabByCodeReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: GET_LAB_RESET,
+    });
+  };
+
+export const getLabWithRowsByCodeReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: GET_LABWROW_RESET,
     });
   };
 
@@ -212,6 +224,35 @@ export const getLabByCode =
     } else {
       dispatch({
         type: GET_LAB_FAIL,
+        error: "The laboratory exam code should not be null",
+      });
+    }
+  };
+
+export const getLabWithRowsByCode =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<LabWithRowsDTO, {}>>): void => {
+    dispatch({
+      type: GET_LABWROW_LOADING,
+    });
+    if (code) {
+      labControllerApi.getLabWithRowsByIdUsingGET({ code }).subscribe(
+        (payload) => {
+          dispatch({
+            type: GET_LABWROW_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: GET_LABWROW_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: GET_LABWROW_FAIL,
         error: "The laboratory exam code should not be null",
       });
     }
