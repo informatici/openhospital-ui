@@ -1,7 +1,7 @@
 export const labWithRowsDTO = [
   {
     laboratoryDTO: {
-      code: 224,
+      code: 222,
       material: "angal.lab.sputum",
       exam: {
         code: "01.01",
@@ -29,7 +29,7 @@ export const labWithRowsDTO = [
 
   {
     laboratoryDTO: {
-      code: 222,
+      code: 224,
       material: "angal.lab.sputum",
       exam: {
         code: "01.01",
@@ -52,7 +52,7 @@ export const labWithRowsDTO = [
       age: 78,
       sex: "M",
     },
-    laboratoryRowList: ["RB", "CH", "RT"]
+    laboratoryRowList: []
   },
   {
     laboratoryDTO: {
@@ -61,7 +61,7 @@ export const labWithRowsDTO = [
       exam: {
         code: "05.05",
         description: "5.5 ZN",
-        procedure: 1,
+        procedure: 2,
         examtype: {
           code: "MC",
           description: "5.Microscopy",
