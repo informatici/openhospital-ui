@@ -32,7 +32,7 @@ import examTypes from "./state/examTypes/reducer";
 import ageTypes from "./state/ageTypes/reducer";
 
 if (process.env.NODE_ENV === "development") {
-  makeServer();
+  //makeServer();
 }
 
 const reducer = combineReducers<IState>({
