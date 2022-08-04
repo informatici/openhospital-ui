@@ -185,10 +185,6 @@ export enum PatientDTOFatherEnum {
  * @export
  * @enum {string}
  */
-/**
- * @export
- * @enum {string}
- */
 export enum PatientDTOHasInsuranceEnum {
   Y = "Y",
   N = "N",

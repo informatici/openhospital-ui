@@ -11,13 +11,14 @@ export const LaboratoryDetails: FC = () => {
   const { t } = useTranslation();
 
   const lab = useSelector(
-    (state: IState) => state.laboratories.getLabByCode.data
+    (state: IState) =>
+      state.laboratories.getLabWithRowsByCode.data?.laboratoryDTO
   );
   const status = useSelector(
-    (state: IState) => state.laboratories.getLabByCode.status
+    (state: IState) => state.laboratories.getLabWithRowsByCode.status
   );
   const errorMessage = useSelector(
-    (state: IState) => state.laboratories.getLabByCode.error?.message
+    (state: IState) => state.laboratories.getLabWithRowsByCode.error?.message
   );
 
   switch (status) {
