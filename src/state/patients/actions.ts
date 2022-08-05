@@ -37,9 +37,10 @@ export const createPatient =
     });
 
     patientControllerApi.newPatientUsingPOST({ newPatient }).subscribe(
-      () => {
+      (payload) => {
         dispatch({
           type: CREATE_PATIENT_SUCCESS,
+          payload: payload,
         });
       },
       (error) => {
@@ -53,7 +54,7 @@ export const createPatient =
 
 export const updatePatient =
   (code: number, updatePatient: PatientDTO) =>
-  (dispatch: Dispatch<IAction<null, {}>>): void => {
+  (dispatch: Dispatch<IAction<PatientDTO, {}>>): void => {
     dispatch({
       type: UPDATE_PATIENT_LOADING,
     });
@@ -61,9 +62,10 @@ export const updatePatient =
     patientControllerApi
       .updatePatientUsingPUT({ code, updatePatient })
       .subscribe(
-        () => {
+        (payload) => {
           dispatch({
             type: UPDATE_PATIENT_SUCCESS,
+            payload: payload,
           });
         },
         (error) => {
