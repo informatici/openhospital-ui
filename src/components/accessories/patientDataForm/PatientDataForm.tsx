@@ -108,10 +108,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       const formattedValues = formatAllFieldValues(fields, values);
       onSubmit({
         ...formattedValues,
-        birthDate:
-          ageType === "birthDate" ? formattedValues.birthDate : undefined,
-        age: ageType === "age" ? formattedValues.age : undefined,
-        agetype: ageType === "agetype" ? values.agetype : undefined,
+        birthDate: ageType === "birthDate" ? formattedValues.birthDate : null,
+        age: ageType === "age" ? formattedValues.age : null,
+        agetype: ageType === "agetype" ? values.agetype : null,
       });
     },
   });

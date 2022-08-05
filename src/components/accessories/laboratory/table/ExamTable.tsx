@@ -10,10 +10,7 @@ import "./styles.scss";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
 import { useDispatch } from "react-redux";
-import {
-  getLabByCode,
-  getLabByCodeReset,
-} from "../../../../state/laboratories/actions";
+import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
@@ -32,8 +29,6 @@ export const ExamTable: FC<IExamTableProps> = ({
     result: t("lab.result"),
   };
   const order = ["id", "date", "patName", "exam", "result"];
-  const [lavoratort, setLaboratory] = useState({} as LaboratoryForPrintDTO);
-  const history = useHistory();
 
   const formatDataToDisplay = (data: LaboratoryForPrintDTO[]) => {
     let results: any = [];
@@ -62,7 +57,7 @@ export const ExamTable: FC<IExamTableProps> = ({
     setOpen(false);
   };
   const handleView = (row: any) => {
-    dispatch(getLabByCode(row.id));
+    dispatch(getLabWithRowsByCode(row.id));
     handleOpen();
   };
 

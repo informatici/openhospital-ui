@@ -13,7 +13,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Checkbox from "@material-ui/core/Checkbox";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
-import { debounce } from "lodash";
+import { debounce, isEmpty } from "lodash";
+import { useSelector } from "react-redux";
+import { IState } from "../../../../types";
 
 const ExamRowTable: FC<IEditableTableProps> = ({
   rows,
@@ -22,6 +24,11 @@ const ExamRowTable: FC<IEditableTableProps> = ({
   title,
   disabled = false,
 }) => {
+  const labToEditRows = useSelector(
+    (state: IState) =>
+      state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
+  );
+
   const handleOnBlur = (value: string) => {
     debounceUpdate(value);
   };
@@ -69,6 +76,11 @@ const ExamRowTable: FC<IEditableTableProps> = ({
                       onChange={(e, value) => {
                         handleOnBlur(row.label);
                       }}
+                      defaultChecked={
+                        !isEmpty(
+                          labToEditRows?.filter((e) => e === row.label) ?? []
+                        )
+                      }
                       value={row.label}
                       inputProps={{ "aria-label": "primary checkbox" }}
                     />

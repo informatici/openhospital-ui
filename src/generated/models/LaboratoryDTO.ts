@@ -27,6 +27,12 @@ export interface LaboratoryDTO {
      */
     code?: number;
     /**
+     * Laboratory Code
+     * @type {number}
+     * @memberof LaboratoryDTO
+     */
+    lock?: number;
+    /**
      * Laboratory Material
      * @type {string}
      * @memberof LaboratoryDTO

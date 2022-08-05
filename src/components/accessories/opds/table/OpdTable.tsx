@@ -41,7 +41,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   };
   const order = ["id", "date", "patientCode", "patientName", "age", "disease"];
   const [opd, setOpd] = useState({} as OpdDTO);
-  const history = useHistory();
 
   const formatDataToDisplay = (data: OpdDTO[]) => {
     let results: any = [];
@@ -73,18 +72,12 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const formattedData: any[] = formatDataToDisplay(data);
 
   const [open, setOpen] = useState(false);
-  const [openFilter, setOpenFilter] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleView = (row: any) => {
-    const opdToEdit = data.find((item) => item?.code === row.code) ?? {};
-    setOpd(opdToEdit);
-    handleOpen();
   };
 
   return (
@@ -98,7 +91,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
         rowsPerPage={5}
         detailColSpan={10}
         isCollapsabile={true}
-        onView={handleView}
       />
       <CustomModal
         open={open}

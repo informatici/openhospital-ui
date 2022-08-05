@@ -28,7 +28,7 @@ import {
 import {
   deleteLab,
   deleteLabReset,
-  getLabByCode,
+  getLabWithRowsByCode,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
@@ -50,9 +50,11 @@ export const Exams: FC = () => {
   const [deletedObjCode, setDeletedObjCode] = useState("");
   const [creationMode, setCreationMode] = useState(true);
 
-  const labToEdit = useSelector(
-    (state: IState) => state.laboratories.getLabByCode.data
+  const labWithRows = useSelector(
+    (state: IState) => state.laboratories.getLabWithRowsByCode.data
   );
+
+  const labToEdit = labWithRows?.laboratoryDTO;
 
   const data = useSelector(
     (state: IState) => state.laboratories.searchLabs.data
@@ -66,27 +68,43 @@ export const Exams: FC = () => {
     (state: IState) => state.laboratories
   );
 
+  const createStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.createLab.status
+  );
+  const updateStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.updateLab.status
+  );
+  const deleteStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.deleteLab.status
+  );
+
   useEffect(() => {
     dispatch(getPatientThunk(filter.patientCode?.toString()));
     dispatch(searchLabs(filter));
   }, [filter]);
+
+  useEffect(() => {
+    if (
+      createStatus === "SUCCESS" ||
+      updateStatus === "SUCCESS" ||
+      deleteStatus === "SUCCESS"
+    ) {
+      dispatch(searchLabs(filter));
+    }
+  }, [createStatus, updateStatus, deleteStatus]);
 
   const onSubmit = (values: TFilterValues) => {
     setFilter(values);
   };
 
   const handleReset = useCallback(() => {
-    dispatch(searchLabs(filter));
-    if (labStore.deleteLab.status === "SUCCESS") {
-      dispatch(deleteLabReset());
-    }
     setShowForm(false);
-  }, [filter]);
+  }, [dispatch]);
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
     setCreationMode(false);
     dispatch(getPatientThunk(row.patientCode?.toString() ?? ""));
-    dispatch(getLabByCode(row.code));
+    dispatch(getLabWithRowsByCode(row.code));
     setShowForm(true);
   };
   const onDelete = (code: number | undefined) => {
@@ -102,7 +120,7 @@ export const Exams: FC = () => {
     return creationMode
       ? showForm
       : showForm &&
-          labToEdit?.code !== undefined &&
+          labWithRows?.laboratoryDTO?.code !== undefined &&
           patient?.code !== undefined;
   }, [showForm, creationMode, labToEdit]);
 
@@ -117,6 +135,9 @@ export const Exams: FC = () => {
   );
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status
+  );
+  const deleteErrorMessage = useSelector(
+    (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
   useEffect(() => {
@@ -173,6 +194,11 @@ export const Exams: FC = () => {
               return (
                 <>
                   <ExamFilterForm onSubmit={onSubmit} fields={fields} />
+                  {deleteStatus === "FAIL" && (
+                    <div className="info-box-container">
+                      <InfoBox type="error" message={deleteErrorMessage} />
+                    </div>
+                  )}
                   <ExamTable
                     data={data ?? []}
                     handleDelete={onDelete}
@@ -194,7 +220,7 @@ export const Exams: FC = () => {
               fields={formFields}
               handleReset={handleReset}
               creationMode={creationMode}
-              labToEdit={labToEdit ?? {}}
+              labWithRowsToEdit={labWithRows ?? {}}
             />
           }
         />
@@ -209,7 +235,9 @@ export const Exams: FC = () => {
           icon={checkIcon}
           info={t("common.deletesuccess", { code: deletedObjCode })}
           primaryButtonLabel={t("common.ok")}
-          handlePrimaryButtonClick={handleReset}
+          handlePrimaryButtonClick={() => {
+            dispatch(deleteLabReset());
+          }}
           handleSecondaryButtonClick={() => {}}
         />
       </div>

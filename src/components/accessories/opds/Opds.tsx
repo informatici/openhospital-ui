@@ -21,7 +21,6 @@ export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [filter, setFilter] = useState({} as TFilterValues);
 
@@ -51,16 +50,6 @@ export const Opds: FC = () => {
       <div className="opd_opds">
         <div className="opd__header">
           <div className="opd__title">{t("nav.visits")}</div>
-          <div className="opd__actions">
-            <Button
-              onClick={() => history.push("/search")}
-              type="button"
-              variant="contained"
-            >
-              <Add fontSize="small" />
-              <span className="new__button__label">{t("opd.newopd")}</span>
-            </Button>
-          </div>
         </div>
 
         {(() => {
@@ -101,6 +90,3 @@ export const Opds: FC = () => {
     </Fragment>
   );
 };
-function usState(arg0: TFilterValues): [any, any] {
-  throw new Error("Function not implemented.");
-}

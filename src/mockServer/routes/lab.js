@@ -1,5 +1,6 @@
 import { isEmpty } from "lodash";
 import { labDTO } from "../fixtures/laboratoryDTO";
+import { labWithRowsDTO } from "../fixtures/labWithRowsDTO";
 import { labForPrintDTO } from "../fixtures/laboratoryForPrintDTO";
 import { materialsDTO } from "../fixtures/materialsDTO";
 
@@ -23,6 +24,26 @@ export const labRoutes = (server) => {
     server.get("/:code").intercept((req, res) => {
       const code = req.params.code;
       const lab = labDTO.find(e => e.code == code);
+      switch (code) {
+        case "1000":
+          res.status(400);
+          break;
+        case "2000":
+          res.status(204);
+          res.body = null;
+          break;
+        default:
+          if (isEmpty(lab)) {
+            res.status(404)
+          } else {
+            res.status(200).json(lab);
+          }
+      }
+    });
+
+    server.get("/exams/:code").intercept((req, res) => {
+      const code = req.params.code;
+      const lab = labWithRowsDTO.find(e => e.laboratoryDTO.code == code);
       switch (code) {
         case "1000":
           res.status(400);
