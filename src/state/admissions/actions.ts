@@ -1,37 +1,33 @@
 import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  AdmissionDTO,
-  AdmissionControllerApi,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { AdmissionControllerApi, AdmissionDTO } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   CREATE_ADMISSION_FAIL,
   CREATE_ADMISSION_LOADING,
   CREATE_ADMISSION_RESET,
   CREATE_ADMISSION_SUCCESS,
-  UPDATE_ADMISSION_FAIL,
-  UPDATE_ADMISSION_LOADING,
-  UPDATE_ADMISSION_RESET,
-  UPDATE_ADMISSION_SUCCESS,
+  DISCHARGE_PATIENT_FAIL,
+  DISCHARGE_PATIENT_LOADING,
+  DISCHARGE_PATIENT_RESET,
+  DISCHARGE_PATIENT_SUCCESS,
   GET_ADMISSION_FAIL,
   GET_ADMISSION_LOADING,
   GET_ADMISSION_SUCCESS,
   GET_ADMISSION_SUCCESS_EMPTY,
+  GET_CURRENTADMISSION_EMPTY,
   GET_CURRENTADMISSION_FAIL,
   GET_CURRENTADMISSION_LOADING,
   GET_CURRENTADMISSION_SUCCESS,
-  GET_CURRENTADMISSION_EMPTY,
-  DISCHARGE_PATIENT_LOADING,
-  DISCHARGE_PATIENT_SUCCESS,
-  DISCHARGE_PATIENT_FAIL,
-  DISCHARGE_PATIENT_RESET,
+  UPDATE_ADMISSION_FAIL,
+  UPDATE_ADMISSION_LOADING,
+  UPDATE_ADMISSION_RESET,
+  UPDATE_ADMISSION_SUCCESS,
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const createAdmission =

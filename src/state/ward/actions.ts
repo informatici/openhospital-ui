@@ -1,13 +1,11 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { Configuration, DiseaseDTO, WardControllerApi } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { DiseaseDTO, WardControllerApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import { GET_WARD_FAIL, GET_WARD_LOADING, GET_WARD_SUCCESS } from "./consts";
 
-const wardControllerApi = new WardControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const wardControllerApi = new WardControllerApi(customConfiguration());
 
 export const getWards =
   () =>

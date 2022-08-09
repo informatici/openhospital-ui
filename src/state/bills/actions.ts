@@ -1,59 +1,56 @@
-import { Dispatch } from "redux";
-import { map, catchError, switchMap } from "rxjs/operators";
-import { of, Observable, forkJoin } from "rxjs";
 import isEmpty from "lodash.isempty";
+import { Dispatch } from "redux";
+import { forkJoin, Observable, of } from "rxjs";
+import { catchError, map, switchMap } from "rxjs/operators";
+import { TFilterValues } from "../../components/accessories/billTable/types";
 import {
-  Configuration,
   BillControllerApi,
   BillDTO,
-  FullBillDTO,
   BillItemsDTO,
   BillPaymentsDTO,
+  FullBillDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
+  CLOSE_BILL_FAIL,
+  CLOSE_BILL_LOADING,
+  CLOSE_BILL_RESET,
+  CLOSE_BILL_SUCCESS,
+  DELETE_BILL_FAIL,
+  DELETE_BILL_LOADING,
+  DELETE_BILL_RESET,
+  DELETE_BILL_SUCCESS,
+  EDIT_BILL_FAIL,
+  EDIT_BILL_LOADING,
+  EDIT_BILL_RESET,
+  EDIT_BILL_SUCCESS,
+  GET_BILL_FAIL,
+  GET_BILL_LOADING,
+  GET_BILL_SUCCESS,
   NEW_BILL_FAIL,
   NEW_BILL_LOADING,
-  NEW_BILL_SUCCESS,
   NEW_BILL_RESET,
+  NEW_BILL_SUCCESS,
+  PENDING_BILL_FAIL,
+  PENDING_BILL_LOADING,
+  PENDING_BILL_SUCCESS,
+  SEARCH_BILLS_BY_YEAR_FAIL,
+  SEARCH_BILLS_BY_YEAR_LOADING,
+  SEARCH_BILLS_BY_YEAR_SUCCESS,
   SEARCH_BILL_FAIL,
   SEARCH_BILL_LOADING,
   SEARCH_BILL_SUCCESS,
-  GET_BILL_LOADING,
-  GET_BILL_SUCCESS,
-  GET_BILL_FAIL,
-  PENDING_BILL_SUCCESS,
-  PENDING_BILL_FAIL,
-  PENDING_BILL_LOADING,
-  SEARCH_PAYMENTS_SUCCESS,
   SEARCH_PAYMENTS_FAIL,
   SEARCH_PAYMENTS_LOADING,
-  DELETE_BILL_FAIL,
-  DELETE_BILL_LOADING,
-  DELETE_BILL_SUCCESS,
-  DELETE_BILL_RESET,
-  EDIT_BILL_LOADING,
-  EDIT_BILL_SUCCESS,
-  EDIT_BILL_FAIL,
-  EDIT_BILL_RESET,
-  CLOSE_BILL_FAIL,
-  CLOSE_BILL_SUCCESS,
-  CLOSE_BILL_LOADING,
-  CLOSE_BILL_RESET,
-  UPDATE_BILL_LOADING,
-  UPDATE_BILL_SUCCESS,
+  SEARCH_PAYMENTS_SUCCESS,
   UPDATE_BILL_FAIL,
+  UPDATE_BILL_LOADING,
   UPDATE_BILL_RESET,
-  SEARCH_BILLS_BY_YEAR_LOADING,
-  SEARCH_BILLS_BY_YEAR_SUCCESS,
-  SEARCH_BILLS_BY_YEAR_FAIL,
+  UPDATE_BILL_SUCCESS,
 } from "./consts";
-import { TFilterValues } from "../../components/accessories/billTable/types";
 
-const billControllerApi = new BillControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const billControllerApi = new BillControllerApi(customConfiguration());
 
 export const newBill =
   (newBillDto: FullBillDTO) =>

@@ -1,11 +1,10 @@
 import { Dispatch } from "redux";
 import {
-  Configuration,
   ReplaceTherapiesUsingPOSTRequest,
   TherapyControllerApi,
   TherapyRowDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   CREATE_THERAPY_FAIL,
@@ -24,9 +23,7 @@ import {
   UPDATE_THERAPY_SUCCESS,
 } from "./consts";
 
-const therapyControllerApi = new TherapyControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const therapyControllerApi = new TherapyControllerApi(customConfiguration());
 
 export const createTherapy =
   (thRowDTO: TherapyRowDTO) =>

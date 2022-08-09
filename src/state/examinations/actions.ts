@@ -1,10 +1,9 @@
 import { Dispatch } from "redux";
 import {
-  Configuration,
   ExaminationControllerApi,
   PatientExaminationDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   CREATE_EXAMINATION_FAIL,
@@ -24,7 +23,7 @@ import {
 } from "./consts";
 
 const examinationControllerApi = new ExaminationControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const createExamination =

@@ -5,8 +5,8 @@ services:
     build:
       context: ./
       dockerfile: ./docker/Dockerfile.frontend
-      args:
-        PUBLIC_URL: /
+    env_file:
+      - .env.docker
     ports:
       - 3000:3000
     volumes:
@@ -19,6 +19,7 @@ services:
     networks:
       - openhospital
     stdin_open: true
+
   backend:
     build:
       context: ./docker

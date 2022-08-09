@@ -1,12 +1,8 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
-import {
-  Configuration,
-  PatientControllerApi,
-  PatientDTO,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { PatientControllerApi, PatientDTO } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   CREATE_PATIENT_FAIL,
@@ -19,15 +15,13 @@ import {
   SEARCH_PATIENT_FAIL,
   SEARCH_PATIENT_LOADING,
   SEARCH_PATIENT_SUCCESS,
-  UPDATE_PATIENT_LOADING,
   UPDATE_PATIENT_FAIL,
+  UPDATE_PATIENT_LOADING,
   UPDATE_PATIENT_RESET,
   UPDATE_PATIENT_SUCCESS,
 } from "./consts";
 
-const patientControllerApi = new PatientControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const patientControllerApi = new PatientControllerApi(customConfiguration());
 
 export const createPatient =
   (newPatient: PatientDTO) =>
