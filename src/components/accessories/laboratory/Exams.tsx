@@ -1,5 +1,5 @@
 import { Button, CircularProgress } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { Add, Cancel } from "@material-ui/icons";
 import React, {
   FC,
   Fragment,
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
-import { initialFields, initialFilterFields } from "./consts";
+import { initialFields, initialFilter, initialFilterFields } from "./consts";
 import { ExamFilterForm } from "./filter/ExamFilterForm";
 import "./styles.scss";
 import { ExamTable } from "./table/ExamTable";
@@ -38,12 +38,13 @@ import { LaboratoryForPrintDTO } from "../../../generated";
 import ExamForm from "./examForm/ExamForm";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
+import isEmpty from "lodash.isempty";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [filter, setFilter] = useState({} as TFilterValues);
+  const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -68,30 +69,12 @@ export const Exams: FC = () => {
     (state: IState) => state.laboratories
   );
 
-  const createStatus = useSelector<IState, any>(
-    (state: IState) => state.laboratories.createLab.status
-  );
-  const updateStatus = useSelector<IState, any>(
-    (state: IState) => state.laboratories.updateLab.status
-  );
-  const deleteStatus = useSelector<IState, any>(
-    (state: IState) => state.laboratories.deleteLab.status
-  );
-
   useEffect(() => {
-    dispatch(getPatientThunk(filter.patientCode?.toString()));
+    if (!isEmpty(filter.patientCode)) {
+      dispatch(getPatientThunk(filter.patientCode?.toString()));
+    }
     dispatch(searchLabs(filter));
   }, [filter]);
-
-  useEffect(() => {
-    if (
-      createStatus === "SUCCESS" ||
-      updateStatus === "SUCCESS" ||
-      deleteStatus === "SUCCESS"
-    ) {
-      dispatch(searchLabs(filter));
-    }
-  }, [createStatus, updateStatus, deleteStatus]);
 
   const onSubmit = (values: TFilterValues) => {
     setFilter(values);
@@ -124,6 +107,12 @@ export const Exams: FC = () => {
           patient?.code !== undefined;
   }, [showForm, creationMode, labToEdit]);
 
+  useEffect(() => {
+    if (!showForm) {
+      dispatch(searchLabs(filter));
+    }
+  }, [showForm]);
+
   const formFields = useMemo(() => {
     return creationMode
       ? initialFields
@@ -136,14 +125,49 @@ export const Exams: FC = () => {
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status
   );
-  const deleteErrorMessage = useSelector(
-    (state: IState) => state.laboratories.deleteLab.error?.message
-  );
 
   useEffect(() => {
     dispatch(searchLabs(getFromFields(fields, "value")));
     dispatch(getExams());
   }, []);
+
+  const Content = useMemo(() => {
+    return (
+      <>
+        {status === "LOADING" && (
+          <CircularProgress
+            style={{ marginLeft: "50%", position: "relative" }}
+          />
+        )}
+        {status !== "LOADING" && (
+          <>
+            {!open && <ExamFilterForm onSubmit={onSubmit} fields={fields} />}
+            {!open && status === "SUCCESS_EMPTY" && (
+              <InfoBox type="warning" message={t("common.emptydata")} />
+            )}
+            {!open && status === "FAIL" && (
+              <InfoBox type="error" message={errorMessage} />
+            )}
+            {!open && status === "SUCCESS" && (
+              <ExamTable
+                data={data ?? []}
+                handleDelete={onDelete}
+                handleEdit={onEdit}
+              />
+            )}
+            {open && (
+              <ExamForm
+                fields={formFields}
+                handleReset={handleReset}
+                creationMode={creationMode}
+                labWithRowsToEdit={labWithRows ?? {}}
+              />
+            )}
+          </>
+        )}
+      </>
+    );
+  }, [status, open, creationMode, formFields, handleReset, data]);
 
   return (
     <Fragment>
@@ -151,79 +175,37 @@ export const Exams: FC = () => {
         <div className="lab__header">
           <div className="lab__title">{t("nav.laboratory")}</div>
           <div className="lab__actions">
-            <Button
-              onClick={() => {
-                setCreationMode(true);
-                setShowForm(true);
-              }}
-              type="button"
-              variant="contained"
-            >
-              <Add fontSize="small" />
-              <span className="new__button__label">{t("lab.newlab")}</span>
-            </Button>
+            {!open && (
+              <Button
+                onClick={() => {
+                  setCreationMode(true);
+                  setShowForm(true);
+                }}
+                type="button"
+                variant="contained"
+                color="primary"
+              >
+                <Add fontSize="small" />
+                <span className="new__button__label">{t("lab.newlab")}</span>
+              </Button>
+            )}
+            {open && (
+              <Button
+                onClick={() => {
+                  setShowForm(false);
+                }}
+                type="button"
+                variant="contained"
+                color="primary"
+              >
+                <Cancel fontSize="small" />
+                {t("common.discard")}
+              </Button>
+            )}
           </div>
         </div>
 
-        {(() => {
-          switch (status) {
-            case "FAIL":
-              return (
-                <>
-                  <ExamFilterForm onSubmit={onSubmit} fields={fields} />
-                  <InfoBox type="error" message={errorMessage} />
-                </>
-              );
-
-            case "LOADING":
-              return (
-                <CircularProgress
-                  style={{ marginLeft: "50%", position: "relative" }}
-                />
-              );
-
-            case "SUCCESS_EMPTY":
-              return (
-                <>
-                  <ExamFilterForm onSubmit={onSubmit} fields={fields} />
-                  <InfoBox type="warning" message={t("common.emptydata")} />
-                </>
-              );
-
-            case "SUCCESS":
-              return (
-                <>
-                  <ExamFilterForm onSubmit={onSubmit} fields={fields} />
-                  {deleteStatus === "FAIL" && (
-                    <div className="info-box-container">
-                      <InfoBox type="error" message={deleteErrorMessage} />
-                    </div>
-                  )}
-                  <ExamTable
-                    data={data ?? []}
-                    handleDelete={onDelete}
-                    handleEdit={onEdit}
-                  />
-                </>
-              );
-          }
-        })()}
-        <CustomDialog
-          title={creationMode ? t("lab.newlab") : t("lab.editlab")}
-          open={open}
-          description=""
-          onClose={() => {
-            setShowForm(false);
-          }}
-          content={
-            <ExamForm
-              fields={formFields}
-              handleReset={handleReset}
-              creationMode={creationMode}
-              labWithRowsToEdit={labWithRows ?? {}}
-            />
-          }
-        />
+        {Content}
         {labStore.deleteLab.status === "LOADING" && (
           <CircularProgress
             style={{ marginLeft: "50%", position: "relative" }}
@@ -237,6 +219,7 @@ export const Exams: FC = () => {
           primaryButtonLabel={t("common.ok")}
           handlePrimaryButtonClick={() => {
             dispatch(deleteLabReset());
+            dispatch(searchLabs(filter));
           }}
           handleSecondaryButtonClick={() => {}}
         />

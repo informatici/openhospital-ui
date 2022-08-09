@@ -1,7 +1,14 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -320,6 +327,10 @@ const ExamForm: FC<ExamProps> = ({
     labStore.createLab.status === "LOADING" ||
     labStore.updateLab.status === "LOADING";
 
+  const isOpen =
+    labStore.createLab.status === "SUCCESS" ||
+    labStore.updateLab.status === "SUCCESS";
+
   return (
     <>
       <div className="patientExamForm">
@@ -460,10 +471,7 @@ const ExamForm: FC<ExamProps> = ({
         </div>
       )}
       <ConfirmationDialog
-        isOpen={
-          labStore.createLab.status === "SUCCESS" ||
-          labStore.updateLab.status === "SUCCESS"
-        }
+        isOpen={isOpen}
         title={creationMode ? t("lab.created") : t("lab.updated")}
         icon={checkIcon}
         info={

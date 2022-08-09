@@ -260,6 +260,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={(e, value) => {
                 setAgeType(value as TAgeFieldName);
               }}
+              onChange={(value) => {
+                setAgeType(value as TAgeFieldName);
+              }}
               options={ageTypeOptions}
               disabled={isLoading}
               required={FIELD_VALIDATION.SUGGESTED}

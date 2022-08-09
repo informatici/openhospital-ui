@@ -9,8 +9,10 @@ import { IExamTableProps } from "./types";
 import "./styles.scss";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
+import { IState } from "../../../../types";
+import InfoBox from "../../infoBox/InfoBox";
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
@@ -19,6 +21,13 @@ export const ExamTable: FC<IExamTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const deleteStatus = useSelector<IState, any>(
+    (state: IState) => state.laboratories.deleteLab.status
+  );
+  const deleteErrorMessage = useSelector(
+    (state: IState) => state.laboratories.deleteLab.error?.message
+  );
+
   const header = ["id", "date", "patName", "exam", "result"];
   const dateFields = ["date"];
   const label = {
@@ -85,6 +94,11 @@ export const ExamTable: FC<IExamTableProps> = ({
         onEdit={onEdit}
         onDelete={onDelete}
       />
+      {deleteStatus === "FAIL" && (
+        <div className="info-box-container">
+          <InfoBox type="error" message={deleteErrorMessage} />
+        </div>
+      )}
       <CustomModal
         open={open}
         onClose={handleClose}
