@@ -2,14 +2,15 @@ FROM node:lts
 
 ARG PUBLIC_URL
 
-ENV NODE_ENV="docker"
+ENV NODE_ENV=development
 
 VOLUME /oh
 
-WORKDIR /oh/
+WORKDIR /oh
 
-COPY ../package*.json /oh/
+COPY ../package*.json /oh
 
 RUN npm ci --legacy-peer-deps
 
 CMD npm start
+# CMD tail -f /dev/null
