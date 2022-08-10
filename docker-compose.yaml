@@ -8,7 +8,7 @@ services:
     env_file:
       - .env.docker
     ports:
-      - 3000:3000
+      - 3030:3000
     volumes:
       - ./:/oh
       - /oh/node_modules

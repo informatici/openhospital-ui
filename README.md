@@ -21,6 +21,33 @@ To install the project dependencies, issue:
 
 **It has to be done before any of the following activities**
 
+## How to configure
+
+Please use `.env.local` file to override `.env.*` configuration.
+
+Examples:
+
+- you want to develop using real api instead of mocked: use this `.env.local` file
+
+  ```
+  # .env.local
+  REACT_APP_USE_MOCK_API=
+  ```
+
+  - then: `npm start`
+
+- you want to connect your local dev environment to docker api:
+  ```
+  # .env.local
+  REACT_APP_USE_MOCK_API=
+  REACT_APP_BASE_PATH=http://localhost:8080/oh-api
+  ```
+  - then: `docker-compose up && npm start`
+
+## Run local development environment
+
+    - npm start
+
 ## Run full stack environment locally
 
 You can run a full OH2 stack locally using [Docker](https://www.docker.com/) (required) using this command:
@@ -28,7 +55,7 @@ You can run a full OH2 stack locally using [Docker](https://www.docker.com/) (re
 
 Then you can access to:
 
-- OH2 react app: [localhost:3000](http://localhost:3000)
+- OH2 react app: [localhost:3030](http://localhost:3030)
 - Swagger api spec: [localhost:8080/oh-api/swagger-ui.html](http://localhost:8080/oh-api/swagger-ui.html)
 - Phpmyadmin, for looking inside database: [localhost:9000](http://localhost:9000)
 
