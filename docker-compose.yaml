@@ -24,10 +24,6 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.backend
-      # args:
-      #   GITHUB_ORG: intesys
-      #   OH_CORE_BRANCH: staging3Test
-      #   OH_API_BRANCH: staging3Test
     env_file:
       - .env.docker
     ports:
@@ -41,14 +37,27 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.database
-      # args:
-      #   GITHUB_ORG: intesys
-      #   OH_CORE_BRANCH: staging3Test
     env_file:
       - .env.docker
     ports:
       - "3306:3306"
     command: mysqld --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" --lower_case_table_names=1
+    networks:
+      - openhospital
+
+  db-admin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 9000:80
+    env_file:
+      - .env.docker
+    environment:
+      PMA_HOST: "database"
+      PMA_PORT: 3306
+      PMA_USER: "root"
+      PMA_PASSWORD: "root"
+    depends_on:
+      - database
     networks:
       - openhospital
 
