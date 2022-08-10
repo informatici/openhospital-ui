@@ -12,7 +12,7 @@ _This project is still in early stages. For a more mature user interface of Open
 <img src="./docs/app-architecture.png"  width="70%" height="70%">
 </div>
 
-## How to build
+## How to install
 
 This project is based on React. To learn React, check out the [React documentation](https://reactjs.org/).  
 To install the project dependencies, issue:
@@ -20,6 +20,17 @@ To install the project dependencies, issue:
     - npm i
 
 **It has to be done before any of the following activities**
+
+## Run full stack environment locally
+
+You can run a full OH2 stack locally using [Docker](https://www.docker.com/) (required) using this command:
+( - docker-compose up
+
+Then you can access to:
+
+- OH2 react app: [localhost:3000](http://localhost:3000)
+- Swagger api spec: [localhost:8080/oh-api/swagger-ui.html](http://localhost:8080/oh-api/swagger-ui.html)
+- Phpmyadmin, for looking inside database: [localhost:9000](http://localhost:9000)
 
 ## How to publish on Github Pages
 
