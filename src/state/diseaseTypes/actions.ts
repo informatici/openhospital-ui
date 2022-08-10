@@ -1,13 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  DiseaseControllerApi,
-  DiseaseDTO,
-  DiseaseTypeControllerApi,
-  DiseaseTypeDTO,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { DiseaseTypeControllerApi, DiseaseTypeDTO } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_DISEASETYPE_FAIL,
@@ -16,7 +10,7 @@ import {
 } from "./consts";
 
 const desaseTypeControllerApi = new DiseaseTypeControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const getDiseaseTypes =

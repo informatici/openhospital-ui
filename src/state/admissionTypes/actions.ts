@@ -1,10 +1,6 @@
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  AdmissionDTO,
-  AdmissionTypeControllerApi,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { AdmissionDTO, AdmissionTypeControllerApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_ADMISSIONTYPE_FAIL,
@@ -14,7 +10,7 @@ import {
 } from "./consts";
 
 const admissionTypeControllerApi = new AdmissionTypeControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const getAdmissionTypes =

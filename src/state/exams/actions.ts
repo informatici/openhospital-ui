@@ -1,13 +1,12 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
-  Configuration,
   ExamControllerApi,
   ExamDTO,
   ExamRowControllerApi,
   ExamRowDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_EXAMROW_FAIL,
@@ -18,13 +17,9 @@ import {
   GET_EXAM_SUCCESS,
 } from "./consts";
 
-const examControllerApi = new ExamControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const examControllerApi = new ExamControllerApi(customConfiguration());
 
-const examRowControllerApi = new ExamRowControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const examRowControllerApi = new ExamRowControllerApi(customConfiguration());
 
 export const getExams =
   () =>

@@ -1,13 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  ExamControllerApi,
-  ExamDTO,
-  ExamTypeControllerApi,
-  ExamTypeDTO,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { ExamTypeControllerApi, ExamTypeDTO } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_EXAMTYPE_FAIL,
@@ -16,7 +10,7 @@ import {
 } from "./consts";
 
 const desaseTypeControllerApi = new ExamTypeControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const getExamTypes =

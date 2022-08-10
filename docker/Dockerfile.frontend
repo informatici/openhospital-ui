@@ -1,15 +1,13 @@
 FROM node:lts
 
-ARG PUBLIC_URL
-
-ENV NODE_ENV="docker"
+ENV PUBLIC_URL=/
+ENV REACT_APP_USE_MOCK_API=
+ENV REACT_APP_BASE_PATH=/
 
 VOLUME /oh
-
-WORKDIR /oh/
-
-COPY ../package*.json /oh/
-
+WORKDIR /oh
+COPY ../package*.json /oh
 RUN npm ci --legacy-peer-deps
 
 CMD npm start
+# CMD tail -f /dev/null

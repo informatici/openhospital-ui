@@ -1,26 +1,24 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { Configuration, VisitsControllerApi, VisitDTO } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { VisitDTO, VisitsControllerApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
-  CREATE_VISIT_RESET,
-  CREATE_VISIT_LOADING,
-  CREATE_VISIT_SUCCESS,
   CREATE_VISIT_FAIL,
+  CREATE_VISIT_LOADING,
+  CREATE_VISIT_RESET,
+  CREATE_VISIT_SUCCESS,
   GET_VISIT_FAIL,
   GET_VISIT_LOADING,
   GET_VISIT_SUCCESS,
   GET_VISIT_SUCCESS_EMPTY,
-  UPDATE_VISIT_LOADING,
-  UPDATE_VISIT_SUCCESS,
   UPDATE_VISIT_FAIL,
+  UPDATE_VISIT_LOADING,
   UPDATE_VISIT_RESET,
+  UPDATE_VISIT_SUCCESS,
 } from "./consts";
 
-const visitsControllerApi = new VisitsControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const visitsControllerApi = new VisitsControllerApi(customConfiguration());
 
 export const createVisit =
   (newVisit: VisitDTO) =>

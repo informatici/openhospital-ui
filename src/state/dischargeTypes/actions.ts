@@ -1,10 +1,6 @@
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  AdmissionDTO,
-  DischargeTypeControllerApi,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { AdmissionDTO, DischargeTypeControllerApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_DISCHARGETYPE_FAIL,
@@ -14,7 +10,7 @@ import {
 } from "./consts";
 
 const dischargeTypeControllerApi = new DischargeTypeControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const getDischargeTypes =

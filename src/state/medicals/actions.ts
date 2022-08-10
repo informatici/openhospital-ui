@@ -1,12 +1,11 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import {
-  Configuration,
   GetMedicalsUsingGETSortByEnum,
   MedicalControllerApi,
   MedicalDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_MEDICAL_FAIL,
@@ -14,9 +13,7 @@ import {
   GET_MEDICAL_SUCCESS,
 } from "./consts";
 
-const medicalControllerApi = new MedicalControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const medicalControllerApi = new MedicalControllerApi(customConfiguration());
 
 export const getMedicals =
   () =>

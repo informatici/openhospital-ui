@@ -1,22 +1,19 @@
-import { Dispatch } from "redux";
 import isEmpty from "lodash.isempty";
-import { Configuration } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
-import { IAction } from "../types";
-import {
-  GET_PRICE_LOADING,
-  GET_PRICE_SUCCESS,
-  GET_PRICE_FAIL,
-  GET_PRICELISTS_LOADING,
-  GET_PRICELISTS_SUCCESS,
-  GET_PRICELISTS_FAIL,
-} from "./consts";
+import { Dispatch } from "redux";
 import { PriceListControllerApi } from "../../generated/apis/PriceListControllerApi";
 import { PriceDTO } from "../../generated/models/PriceDTO";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
+import { IAction } from "../types";
+import {
+  GET_PRICELISTS_FAIL,
+  GET_PRICELISTS_LOADING,
+  GET_PRICELISTS_SUCCESS,
+  GET_PRICE_FAIL,
+  GET_PRICE_LOADING,
+  GET_PRICE_SUCCESS,
+} from "./consts";
 
-const priceControllerApi = new PriceListControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const priceControllerApi = new PriceListControllerApi(customConfiguration());
 
 export const getPrices =
   () =>

@@ -1,10 +1,6 @@
 import { Dispatch } from "redux";
-import {
-  Configuration,
-  AdmissionDTO,
-  AgeTypeControllerApi,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { AdmissionDTO, AgeTypeControllerApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   GET_AGETYPES_FAIL,
@@ -13,9 +9,7 @@ import {
   GET_AGETYPES_SUCCESS_EMPTY,
 } from "./consts";
 
-const ageTypeControllerApi = new AgeTypeControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const ageTypeControllerApi = new AgeTypeControllerApi(customConfiguration());
 
 export const getAgeTypes =
   () =>
