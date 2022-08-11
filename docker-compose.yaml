@@ -11,9 +11,6 @@ services:
       - 3030:3000
     volumes:
       - ./:/oh
-      - /oh/node_modules
-      - /oh/build
-      - /oh/docs
     depends_on:
       - backend
     networks:
@@ -24,6 +21,10 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.backend
+      args:
+        OH_CORE_BRANCH: ${OH_CORE_BRANCH}
+        OH_API_BRANCH: ${OH_API_BRANCH}
+        GITHUB_ORG: ${GITHUB_ORG}
     env_file:
       - .env.docker
     ports:
@@ -37,6 +38,9 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.database
+      args:
+        OH_CORE_BRANCH: ${OH_CORE_BRANCH}
+        GITHUB_ORG: ${GITHUB_ORG}
     env_file:
       - .env.docker
     ports:
