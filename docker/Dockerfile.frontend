@@ -6,8 +6,7 @@ ENV REACT_APP_BASE_PATH=/
 
 VOLUME /oh
 WORKDIR /oh
-# COPY ../package*.json /oh/
-COPY . ./
+COPY ./package*.json ./
 RUN npm ci --legacy-peer-deps
 
 CMD npm start
