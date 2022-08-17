@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
@@ -79,7 +79,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
-      return <Redirect to={dashboardRoute} />;
+      return <Navigate to={dashboardRoute} />;
     default:
       return (
         <div className="newPatient">

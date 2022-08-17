@@ -10,7 +10,6 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFields, initialFilterFields } from "./consts";

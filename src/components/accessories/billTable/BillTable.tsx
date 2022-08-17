@@ -29,7 +29,7 @@ import {
 } from "@material-ui/core";
 import { Add, FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import InfoBox from "../infoBox/InfoBox";
 
@@ -50,7 +50,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   };
   const order = ["date", "status"];
   const [fullBill, setFullBill] = useState({} as FullBillDTO);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const validationSchema = object({
     fromDate: string().required(),
@@ -215,7 +215,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
         <div className="billing__title">{t("nav.billing")}</div>
         <div className="billing__actions">
           <Button
-            onClick={() => history.push("/search")}
+            onClick={() => navigate("/search")}
             type="button"
             variant="contained"
           >

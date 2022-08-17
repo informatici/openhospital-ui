@@ -1,19 +1,29 @@
 import React, { FC } from "react";
-import { Switch, useRouteMatch } from "react-router-dom";
-import PrivateRoute from "../../components/accessories/privateRoute/PrivateRoute";
+import { Routes, Route, useLocation } from "react-router-dom";
+import PrivateRoute from "../../routes/PrivateRoute";
 import EditPatientActivity from "../../components/activities/editPatientActivity/EditPatientActivity";
 import PatientDetailsActivity from "../../components/activities/patientDetailsActivity/PatientDetailsActivity";
 
 export const PatientDetailsRoutes: FC = () => {
-  const { path } = useRouteMatch();
+  const { pathname } = useLocation();
   return (
-    <Switch>
-      <PrivateRoute exact path={`${path}/edit`}>
-        <EditPatientActivity />
-      </PrivateRoute>
-      <PrivateRoute path={path}>
-        <PatientDetailsActivity />
-      </PrivateRoute>
-    </Switch>
+    <Routes>
+      <Route
+          path={`${pathname}/edit`}
+          element={
+            <PrivateRoute>
+              <EditPatientActivity />
+            </PrivateRoute>
+          }
+        />
+      <Route
+          path={pathname}
+          element={
+            <PrivateRoute>
+              <PatientDetailsActivity />
+            </PrivateRoute>
+          }
+        />
+    </Routes>
   );
 };

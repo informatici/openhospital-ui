@@ -3,7 +3,7 @@ import { Add } from "@material-ui/icons";
 import React, { FC, Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilterFields } from "./consts";
@@ -21,7 +21,7 @@ export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [filter, setFilter] = useState({} as TFilterValues);
 
@@ -53,7 +53,7 @@ export const Opds: FC = () => {
           <div className="opd__title">{t("nav.visits")}</div>
           <div className="opd__actions">
             <Button
-              onClick={() => history.push("/search")}
+              onClick={() => navigate("/search")}
               type="button"
               variant="contained"
             >

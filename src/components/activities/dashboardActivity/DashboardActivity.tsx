@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
@@ -17,6 +17,7 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   newPatientRoute,
   searchPatientRoute,
 }) => {
+  console.log('in DashboardActivity')
   const { t } = useTranslation();
 
   const breadcrumbMap = {
@@ -28,9 +29,9 @@ const DashboardActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
-      return <Redirect to={newPatientRoute} />;
+      return <Navigate to={newPatientRoute} />;
     case "TO_SEARCH_PATIENT":
-      return <Redirect to={searchPatientRoute} />;
+      return <Navigate to={searchPatientRoute} />;
     default:
       return (
         <div className="dashboard">

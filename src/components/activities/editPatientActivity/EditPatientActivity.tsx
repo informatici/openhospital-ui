@@ -2,7 +2,7 @@ import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
-import { Redirect, useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
@@ -43,7 +43,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id);
+      getPatientThunk(id!);
     }
   }, [patient, id, getPatientThunk]);
 
@@ -82,7 +82,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {
-      getPatientThunk(id);
+      getPatientThunk(id!);
       updatePatientReset();
       setShouldResetForm(true);
     } else if (activityTransitionState === "TO_KEEP_EDITING") {
@@ -112,7 +112,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   switch (activityTransitionState) {
     case "TO_PATIENT":
       return (
-        <Redirect to={`${PATHS.patients_details}/${patient.data?.code}`} />
+        <Navigate to={`${PATHS.patients_details}/${patient.data?.code}`} replace />
       );
     default:
       return (

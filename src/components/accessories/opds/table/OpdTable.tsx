@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
 import { OpdDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
 import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
@@ -41,7 +40,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   };
   const order = ["id", "date", "patientCode", "patientName", "age", "disease"];
   const [opd, setOpd] = useState({} as OpdDTO);
-  const history = useHistory();
 
   const formatDataToDisplay = (data: OpdDTO[]) => {
     let results: any = [];

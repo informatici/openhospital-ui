@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { Switch, useRouteMatch } from "react-router-dom";
-import PrivateRoute from "../../components/accessories/privateRoute/PrivateRoute";
+import { Routes, Route, useLocation } from "react-router-dom";
+import PrivateRoute from "../../routes/PrivateRoute";
 import DashboardActivity from "../../components/activities/dashboardActivity/DashboardActivity";
 import NewPatientActivity from "../../components/activities/newPatientActivity/NewPatientActivity";
 import NotFound from "../../components/activities/notFound/NotFound";
@@ -8,27 +8,52 @@ import SearchPatientActivity from "../../components/activities/searchPatientActi
 import { PatientDetailsRoutes } from "./PatientsDetailsRoutes";
 
 export const PatientsRoutes: FC = () => {
-  const { path } = useRouteMatch();
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
-    <Switch>
-      <PrivateRoute exact path={path}>
-        <DashboardActivity
-          newPatientRoute={`${path}/new`}
-          searchPatientRoute={`${path}/search`}
+    <Routes>
+      <Route
+          path={pathname}
+          element={
+            <PrivateRoute>
+              <DashboardActivity
+                newPatientRoute={`${pathname}/new`}
+                searchPatientRoute={`${pathname}/search`}
+              />
+            </PrivateRoute>
+          }
         />
-      </PrivateRoute>
-      <PrivateRoute path={`${path}/new`}>
-        <NewPatientActivity dashboardRoute={path} />
-      </PrivateRoute>
-      <PrivateRoute path={`${path}/search`}>
-        <SearchPatientActivity />
-      </PrivateRoute>
-      <PrivateRoute path={`${path}/details/:id`}>
-        <PatientDetailsRoutes />
-      </PrivateRoute>
-      <PrivateRoute>
-        <NotFound backRoute={path} />
-      </PrivateRoute>
-    </Switch>
+      <Route
+          path={`${pathname}/new`}
+          element={
+            <PrivateRoute>
+              <NewPatientActivity dashboardRoute={pathname} />
+            </PrivateRoute>
+          }
+        />
+      <Route
+          path={`${pathname}/search`}
+          element={
+            <PrivateRoute>
+              <SearchPatientActivity />
+            </PrivateRoute>
+          }
+        />
+      <Route
+          path={`${pathname}/details/:id`}
+          element={
+            <PrivateRoute>
+              <PatientDetailsRoutes />
+            </PrivateRoute>
+          }
+        />
+      <Route
+          element={
+            <PrivateRoute>
+              <NotFound backRoute={pathname} />
+            </PrivateRoute>
+          }
+        />
+    </Routes>
   );
 };

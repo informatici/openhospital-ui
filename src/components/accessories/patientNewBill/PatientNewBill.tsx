@@ -16,7 +16,7 @@ import { useSelectedPatient, useFullBill } from "./hooks/full_bill.hooks";
 import { useDialogStatus } from "./hooks/dialog.hooks";
 import InfoBox from "../infoBox/InfoBox";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import {
   Accordion,
   AccordionDetails,
@@ -76,7 +76,7 @@ const PatientNewBill: FC = () => {
   };
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { patient } = useSelectedPatient();
 
   const resetItemFormCallback = () => {};
@@ -100,7 +100,7 @@ const PatientNewBill: FC = () => {
       scrollToElement(infoBoxRef.current);
     }
     if (status === "SUCCESS") {
-      history.push(`/details/${patient.code ?? ""}/billsrecord`);
+      navigate(`/details/${patient.code ?? ""}/billsrecord`);
     }
   }, [status]);
 
