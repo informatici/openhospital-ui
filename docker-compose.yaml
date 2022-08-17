@@ -31,6 +31,9 @@ services:
       - 3030:3000
     volumes:
       - ./:/oh
+      - /oh/node_modules
+      - /oh/build
+      - /oh/docs
     depends_on:
       - backend
     networks:
