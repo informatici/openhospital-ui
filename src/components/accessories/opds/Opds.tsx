@@ -51,6 +51,16 @@ export const Opds: FC = () => {
       <div className="opd_opds">
         <div className="opd__header">
           <div className="opd__title">{t("nav.visits")}</div>
+          <div className="opd__actions">
+            <Button
+              onClick={() => navigate("/search")}
+              type="button"
+              variant="contained"
+            >
+              <Add fontSize="small" />
+              <span className="new__button__label">{t("opd.newopd")}</span>
+            </Button>
+          </div>
         </div>
 
         {(() => {

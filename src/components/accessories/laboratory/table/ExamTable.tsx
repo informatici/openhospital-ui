@@ -37,6 +37,7 @@ export const ExamTable: FC<IExamTableProps> = ({
     result: t("lab.result"),
   };
   const order = ["id", "date", "patName", "exam", "result"];
+  const [laboratory, setLaboratory] = useState({} as LaboratoryForPrintDTO);
 
   const formatDataToDisplay = (data: LaboratoryForPrintDTO[]) => {
     let results: any = [];
