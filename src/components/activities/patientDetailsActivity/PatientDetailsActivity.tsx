@@ -5,12 +5,11 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import {
-  Redirect,
+  Navigate,
   Route,
-  Switch,
-  useHistory,
+  Routes,
+  useNavigate,
   useLocation,
-  useRouteMatch,
 } from "react-router";
 import { useParams } from "react-router-dom";
 import { PATHS } from "../../../consts";
@@ -61,12 +60,12 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { path, url } = useRouteMatch();
-  const history = useHistory();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id);
+      getPatientThunk(id!);
     }
   }, [patient, id, getPatientThunk]);
 
@@ -94,8 +93,8 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
       return (
-        <Redirect
-          to={`${path}/edit`.replace(
+        <Navigate
+          to={`${pathname}/edit`.replace(
             ":id",
             patient.data?.code?.toString() || ""
           )}
@@ -186,7 +185,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("discharge");
-                                history.replace(`${url}/discharge`);
+                                navigate(`${pathname}/discharge`, { replace: true })
                               }}
                             >
                               (change)
@@ -201,7 +200,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("admissions");
-                                history.replace(`${url}/admissions`);
+                                navigate(`${pathname}/admissions`, { replace: true })
                               }}
                             >
                               (change)
@@ -368,17 +367,17 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </div>
                 <div className="patientDetails__content">
                   <div className={"patientDetails__nested_content"}>
-                    <Switch>
-                      <Route exact path={`${path}`}>
-                        <Redirect to={`${url}/admissions`} />
+                    <Routes>
+                      <Route path={`${pathname}`}>
+                        <Navigate to={`${pathname}/admissions`} />
                       </Route>
-                      <Route path={`${path}/admissions`}>
+                      <Route path={`${pathname}/admissions`}>
                         <PatientDetailsContent
                           title="Admissions"
                           content={PatientAdmission}
                         />
                       </Route>
-                      <Route path={`${path}/visits`}>
+                      <Route path={`${pathname}/visits`}>
                         <PatientDetailsContent
                           title="Visits"
                           content={
@@ -388,33 +387,33 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           }
                         />
                       </Route>
-                      <Route path={`${path}/laboratory`}>
+                      <Route path={`${pathname}/laboratory`}>
                         <PatientDetailsContent
                           title="Laboratory"
                           content={PatientExams}
                         />
                       </Route>
-                      <Route path={`${path}/therapy`}>
+                      <Route path={`${pathname}/therapy`}>
                         <PatientDetailsContent
                           title="Therapy"
                           content={PatientTherapy}
                         />
                       </Route>
-                      <Route path={`${path}/triage`}>
+                      <Route path={`${pathname}/triage`}>
                         <PatientDetailsContent
                           title="Triage"
                           content={PatientTriage}
                         />
                       </Route>
-                      <Route path={`${path}/clinic`}>
+                      <Route path={`${pathname}/clinic`}>
                         <PatientDetailsContent
                           title="Summary"
                           content={PatientSummary}
                         />
                       </Route>
-                      <Route path={`${path}/discharge`}>
+                      <Route path={`${pathname}/discharge`}>
                         {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/clinic`} />
+                          <Navigate to={`${pathname}/clinic`} />
                         ) : (
                           <PatientDetailsContent
                             title="Discharge"
@@ -422,13 +421,13 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           />
                         )}
                       </Route>
-                      <Route path={`${path}/operation`}>
+                      <Route path={`${pathname}/operation`}>
                         <PatientDetailsContent
                           title="Operation"
                           content={PatientOperation}
                         />
                       </Route>
-                    </Switch>
+                    </Routes>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Redirect, useHistory } from "react-router";
+import { Navigate } from "react-router";
 import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
@@ -29,7 +29,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
   switch (activityTransitionState) {
     case "TO_PATIENT_DETAILS":
       return getPatientSuccessCallback ? (
-        <Redirect to={`/patients/details/${patient.code}`} />
+        <Navigate to={`/patients/details/${patient.code}`} />
       ) : null;
     default:
       return (

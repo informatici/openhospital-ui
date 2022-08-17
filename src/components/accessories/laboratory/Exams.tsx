@@ -5,10 +5,9 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Route,
-  Switch,
-  useHistory,
+  Routes,
+  Navigate,
   useLocation,
-  useRouteMatch,
 } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
@@ -40,9 +39,8 @@ import { EditLaboratoryContent } from "./EditLaboratoryContent";
 export const Exams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { path, url } = useRouteMatch();
-  const history = useHistory();
   const location = useLocation();
+  const { pathname } = useLocation();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
@@ -81,7 +79,7 @@ export const Exams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
-    history.replace(`${path}/${row.code}/edit`);
+    <Navigate to={`${pathname}/${row.code}/edit`} replace />
   };
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
@@ -108,7 +106,7 @@ export const Exams: FC = () => {
           <div className="lab__actions">
             <Button
               onClick={() => {
-                history.replace(`${url}/new`);
+                <Navigate to={`${pathname}/new`} replace />
               }}
               type="button"
               variant="contained"
@@ -166,17 +164,17 @@ export const Exams: FC = () => {
   return (
     <Fragment>
       <div className="lab_labs">
-        <Switch>
-          <Route path={`${path}`} exact>
+        <Routes>
+          <Route path={`${pathname}`}>
             {ExamContent}
           </Route>
-          <Route path={`${path}/new`}>
+          <Route path={`${pathname}/new`}>
             <EditLaboratoryContent />
           </Route>
-          <Route path={`${path}/:id/edit`}>
+          <Route path={`${pathname}/:id/edit`}>
             <EditLaboratoryContent />
           </Route>
-        </Switch>
+        </Routes>
       </div>
     </Fragment>
   );
