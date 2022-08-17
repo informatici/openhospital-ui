@@ -1,33 +1,31 @@
 import classNames from "classnames";
 import React, { Fragment, FunctionComponent, useEffect } from "react";
-import { Switch } from "react-router";
-import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Routes } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import { useFilterPermission } from "./hooks/useFilterPermission";
 import "./styles.scss";
 import { IProps } from "./types";
 
 const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
-  const history = useHistory();
-  const match = useRouteMatch();
-  const { url } = match;
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const tabs = useFilterPermission(config);
   const currentPath: string | undefined = config
     .map((item) => item.path)
     .find((path) =>
-      pathname.match(new RegExp(`^(${url}${path})([/?].*)?$`, "gi"))
+      pathname.match(new RegExp(`^(${pathname})([/?].*)?$`, "gi"))
     );
 
   const switchTab = (path: string) => {
-    history.push(url + path);
+    navigate(pathname);
   };
 
   useEffect(() => {
     if (defaultRoute) {
-      history.push(url + defaultRoute);
+      navigate(pathname + defaultRoute);
     }
-  }, [history, defaultRoute, url]);
+  }, [navigate, defaultRoute, pathname]);
 
   const renderHeader = (mobile = false): JSX.Element[] => {
     if (!mobile) {
@@ -75,13 +73,13 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
         </div>
       </div>
       <div className="tabs_content">
-        <Switch>
+        <Routes>
           {tabs.map((item, index) => (
-            <PrivateRoute path={url + item.path} key={index}>
+            <PrivateRoute path={pathname + item.path} key={index}>
               <div className="panel">{item.content}</div>
             </PrivateRoute>
           ))}
-        </Switch>
+        </Routes>
       </div>
     </Fragment>
   );

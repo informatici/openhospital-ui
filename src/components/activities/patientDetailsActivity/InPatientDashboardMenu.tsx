@@ -13,7 +13,7 @@ import Arrow from "../../../assets/arrow-w.svg";
 import { IUserSection } from "./types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
@@ -26,8 +26,8 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { url } = useRouteMatch();
-  const history = useHistory();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (value: string) => {
     return value === userSection ? "active" : "default";
@@ -36,9 +36,9 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
   const changeUserSection = useCallback(
     (section: IUserSection) => {
       setUserSection(section);
-      history.replace(`${url}/${section}`);
+      navigate(`${pathname}/${section}`, { replace: true })
     },
-    [history, setUserSection]
+    [navigate, setUserSection]
   );
 
   return (

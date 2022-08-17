@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
@@ -36,7 +36,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   dashboardRoute,
 }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
     [t("nav.newpatient")]: PATHS.patients_new,
@@ -76,7 +76,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
-      history.replace(`/patients/details/${patient?.code}`);
+      navigate(`/patients/details/${patient?.code}`, { replace: true })
     }
   }, [patient, activityTransitionState, createPatientReset]);
 
@@ -97,7 +97,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
-      return <Redirect to={dashboardRoute} />;
+      return <Navigate to={dashboardRoute} />;
     default:
       return (
         <div className="newPatient">
