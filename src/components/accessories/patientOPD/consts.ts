@@ -1,9 +1,10 @@
+import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientOPDFormFieldName } from "./patientOPDForm/types";
 
 export const initialFields: TFields<TPatientOPDFormFieldName> = {
   visitDate: {
-    value: "",
+    value: moment().toISOString(),
     type: "date",
   },
   disease: {

@@ -20,17 +20,17 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   handleAddOperation,
 }) => {
   const { t } = useTranslation();
-  const header = ["date", "disease"];
-  const dateFields = ["date"];
+  const header = ["visitDate", "disease"];
+  const dateFields = ["visitDate"];
   const label = {
     code: t("opd.code"),
-    date: t("opd.dateopd"),
+    visitDate: t("opd.dateopd"),
     disease: t("opd.disease1"),
     disease2: t("opd.disease2"),
     disease3: t("opd.disease3"),
     note: t("opd.note"),
   };
-  const order = ["date", "disease"];
+  const order = ["visitDate", "disease"];
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +56,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           code: item.code,
-          date: item.date ? renderDate(item.date) : "",
+          visitDate: item.visitDate ? renderDate(item.visitDate) : "",
           disease: item.disease?.description || "",
           disease2: item.disease2?.description || "",
           disease3: item.disease3?.description || "",

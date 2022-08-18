@@ -4,6 +4,7 @@ const useSummaryMetaData = () => {
   const { t } = useTranslation();
   const labels = {
     date: t("common.date"),
+    visitDate: t("opd.date"),
     type: t("common.type"),
     opDate: t("operation.opDate"),
     ward: t("admission.ward"),
@@ -35,7 +36,14 @@ const useSummaryMetaData = () => {
     material: t("lab.material"),
     result: t("lab.result"),
   };
-  const dateFields = ["date", "examDate", "admDate", "disDate", "opDate"];
+  const dateFields = [
+    "date",
+    "examDate",
+    "admDate",
+    "disDate",
+    "opDate",
+    "visitDate",
+  ];
   const header = {
     date: ["date", "type"],
     type: {
