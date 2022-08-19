@@ -6,37 +6,31 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import {
   Navigate,
-  Route,
   Routes,
+  Route,
   useNavigate,
   useLocation,
 } from "react-router";
-import { useParams } from "react-router-dom";
+import { useParams, Outlet, useOutletContext } from "react-router-dom";
 import { PATHS } from "../../../consts";
-import { PatientDTOStatusEnum } from "../../../generated";
+import { BASE_PATH, PatientDTO, PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
+import { IApiResponse } from "../../../state/types";
 import { IState } from "../../../types";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
-import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
 import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import Footer from "../../accessories/footer/Footer";
-import PatientExams from "../../accessories/patientExams/PatientExams";
 import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientOperation from "../../accessories/patientOperation/PatientOperation";
-import PatientSummary from "../../accessories/patientSummary/PatientSummary";
-import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
-import PatientTriage from "../../accessories/patientTriage/PatientTriage";
 import PatientVisit from "../../accessories/patientVisit/patientVisit";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
@@ -48,6 +42,8 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
+
+type ContextType = { status: string | null };
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -367,67 +363,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </div>
                 <div className="patientDetails__content">
                   <div className={"patientDetails__nested_content"}>
-                    <Routes>
-                      <Route path={`${pathname}`}>
-                        <Navigate to={`${pathname}/admissions`} />
-                      </Route>
-                      <Route path={`${pathname}/admissions`}>
-                        <PatientDetailsContent
-                          title="Admissions"
-                          content={PatientAdmission}
-                        />
-                      </Route>
-                      <Route path={`${pathname}/visits`}>
-                        <PatientDetailsContent
-                          title="Visits"
-                          content={
-                            patient?.data?.status === PatientDTOStatusEnum.O
-                              ? PatientOPD
-                              : PatientVisit
-                          }
-                        />
-                      </Route>
-                      <Route path={`${pathname}/laboratory`}>
-                        <PatientDetailsContent
-                          title="Laboratory"
-                          content={PatientExams}
-                        />
-                      </Route>
-                      <Route path={`${pathname}/therapy`}>
-                        <PatientDetailsContent
-                          title="Therapy"
-                          content={PatientTherapy}
-                        />
-                      </Route>
-                      <Route path={`${pathname}/triage`}>
-                        <PatientDetailsContent
-                          title="Triage"
-                          content={PatientTriage}
-                        />
-                      </Route>
-                      <Route path={`${pathname}/clinic`}>
-                        <PatientDetailsContent
-                          title="Summary"
-                          content={PatientSummary}
-                        />
-                      </Route>
-                      <Route path={`${pathname}/discharge`}>
-                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Navigate to={`${pathname}/clinic`} />
-                        ) : (
-                          <PatientDetailsContent
-                            title="Discharge"
-                            content={PatientDischarge}
-                          />
-                        )}
-                      </Route>
-                      <Route path={`${pathname}/operation`}>
-                        <PatientDetailsContent
-                          title="Operation"
-                          content={PatientOperation}
-                        />
-                      </Route>
-                    </Routes>
+
+                    <Outlet context={patient?.data?.status} />
+                    
                   </div>
                 </div>
               </div>
@@ -452,3 +390,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(PatientDetailsActivity);
+
+export function usePatient() {
+  return useOutletContext<ContextType>();
+}

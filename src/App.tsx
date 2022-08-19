@@ -9,9 +9,6 @@ import resources from "./resources";
 import { I18N_FALLBACK_LNG } from "./resources/config";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { MyRoutes } from "./routes";
-import { isAuthenticated } from "./libraries/authUtils/isAuthenticated";
-import { useAuthentication } from "./libraries/authUtils/useAuthentication";
-import { Navigate, PathRouteProps, useLocation } from "react-router-dom";
 
 i18n
   .use(LanguageDetector)

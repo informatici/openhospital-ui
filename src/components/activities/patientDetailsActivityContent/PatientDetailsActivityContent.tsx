@@ -9,10 +9,10 @@ const PatientDetailsActivityContent: FunctionComponent<IProps> = ({
   const Content = content;
   return (
     <Fragment>
-      <div className="patientDetils__content_header">
+      <div className="patientDetails__content_header">
         <h3>{title}</h3>
       </div>
-      <div className="patientDetils__content_body">
+      <div className="patientDetails__content_body">
         <Content />
       </div>
     </Fragment>
