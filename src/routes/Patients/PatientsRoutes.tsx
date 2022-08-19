@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import PrivateRoute from "../../routes/PrivateRoute";
+import PrivateComponent from "../../components/PrivateComponent";
 import DashboardActivity from "../../components/activities/dashboardActivity/DashboardActivity";
 import NewPatientActivity from "../../components/activities/newPatientActivity/NewPatientActivity";
 import NotFound from "../../components/activities/notFound/NotFound";
@@ -12,48 +12,38 @@ export const PatientsRoutes: FC = () => {
   console.log(pathname);
   return (
     <Routes>
-      <Route
-          path={pathname}
-          element={
-            <PrivateRoute>
-              <DashboardActivity
-                newPatientRoute={`${pathname}/new`}
-                searchPatientRoute={`${pathname}/search`}
-              />
-            </PrivateRoute>
-          }
-        />
-      <Route
-          path={`${pathname}/new`}
-          element={
-            <PrivateRoute>
-              <NewPatientActivity dashboardRoute={pathname} />
-            </PrivateRoute>
-          }
-        />
-      <Route
-          path={`${pathname}/search`}
-          element={
-            <PrivateRoute>
-              <SearchPatientActivity />
-            </PrivateRoute>
-          }
-        />
-      <Route
-          path={`${pathname}/details/:id`}
-          element={
-            <PrivateRoute>
-              <PatientDetailsRoutes />
-            </PrivateRoute>
-          }
-        />
-      <Route
-          element={
-            <PrivateRoute>
-              <NotFound backRoute={pathname} />
-            </PrivateRoute>
-          }
-        />
+        <Route
+            path={pathname}
+            element={
+                <DashboardActivity
+                  newPatientRoute={`${pathname}/new`}
+                  searchPatientRoute={`${pathname}/search`}
+                />
+            }
+          />
+        <Route
+            path={`${pathname}/new`}
+            element={
+                <NewPatientActivity dashboardRoute={pathname} />
+            }
+          />
+        <Route
+            path={`${pathname}/search`}
+            element={
+                <SearchPatientActivity />
+            }
+          />
+        <Route
+            path={`${pathname}/details/:id`}
+            element={
+                <PatientDetailsRoutes />
+            }
+          />
+        <Route
+            element={
+                <NotFound backRoute={pathname} />
+            }
+          />
     </Routes>
   );
 };

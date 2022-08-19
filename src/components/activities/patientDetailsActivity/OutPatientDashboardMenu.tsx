@@ -12,6 +12,7 @@ import { IUserSection } from "./types";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
+import { BASE_PATH } from "../../../generated";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
@@ -34,7 +35,7 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
   const changeUserSection = useCallback(
     (section: IUserSection) => {
       setUserSection(section);
-      navigate(`${pathname}/${section}`, { replace: true })
+      navigate(`${section}`, { replace: true })
     },
     [navigate, pathname, setUserSection]
   );
