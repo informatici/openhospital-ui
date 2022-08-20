@@ -35,12 +35,13 @@ export const MyRoutes: React.FC = () => {
           <RedirectAfterLogin successRoute="/patients">
             <LoginActivity />
           </RedirectAfterLogin> } 
-        /> 
+        />
         
         <Route path="/*" element={<PrivateComponent />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="visits" element={<VisitsActivity />} />
           <Route path="laboratory" element={<LaboratoryActivity />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path="patients/*" element={<PrivateComponent />}>
