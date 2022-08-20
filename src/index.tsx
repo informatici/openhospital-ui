@@ -32,8 +32,8 @@ import examTypes from "./state/examTypes/reducer";
 import ageTypes from "./state/ageTypes/reducer";
 
 if (process.env.REACT_APP_USE_MOCK_API) {
-  //console.log("Using mocked api");
-  //makeServer();
+  console.log("Using mocked api");
+  makeServer();
 }
 
 const reducer = combineReducers<IState>({
