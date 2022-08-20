@@ -45,7 +45,7 @@ export const MyRoutes: React.FC = () => {
 
         <Route path="patients/*" element={<PrivateComponent />}>
           <Route path="*" element={<DashboardActivity
-                  newPatientRoute="{`new`}"
+                  newPatientRoute={`new`}
                   searchPatientRoute={`search`}
                 />} />
           <Route path="new" element={<NewPatientActivity dashboardRoute="patients" />} />
