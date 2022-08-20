@@ -50,7 +50,6 @@ export const MyRoutes: React.FC = () => {
                 />} />
           <Route path="new" element={<NewPatientActivity dashboardRoute="patients" />} />
           <Route path="search" element={<SearchPatientActivity />} />
-          <Route path="edit" element={<EditPatientActivity />} />
           <Route path="details/:id/*" element={<PatientDetailsActivity />}>
           <Route path="*" element={<PatientDetailsContent
                   title="Admissions"
@@ -77,6 +76,7 @@ export const MyRoutes: React.FC = () => {
                             title="Operation"
                             content={PatientOperation} />} />
           </Route>
+          <Route path="details/:id/edit" element={<EditPatientActivity />} />
         </Route>
       </Routes>
     </BrowserRouter>
