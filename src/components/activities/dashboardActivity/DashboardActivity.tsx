@@ -17,7 +17,6 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   newPatientRoute,
   searchPatientRoute,
 }) => {
-  console.log('in DashboardActivity')
   const { t } = useTranslation();
 
   const breadcrumbMap = {
