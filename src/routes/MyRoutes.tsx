@@ -26,7 +26,7 @@ export const MyRoutes: React.FC = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-      <Route path="/" element={
+        <Route path="/" element={
           <RedirectAfterLogin successRoute="/patients">
             <LoginActivity />
           </RedirectAfterLogin> } 
