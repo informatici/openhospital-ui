@@ -5,9 +5,8 @@ import { useAuthentication } from "../libraries/authUtils/useAuthentication";
 const PrivateOutlet = () => {
   useAuthentication();
   const { pathname } = useLocation();
-  console.log({ pathname });
 
-  return isAuthenticated ? (
+  return isAuthenticated() ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: pathname }} replace />
