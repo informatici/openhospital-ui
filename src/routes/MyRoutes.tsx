@@ -45,37 +45,19 @@ export const MyRoutes: React.FC = () => {
         </Route>
 
         <Route path="patients/*" element={<PrivateComponent />}>
-          <Route path="*" element={<DashboardActivity
-                  newPatientRoute={`new`}
-                  searchPatientRoute={`search`}
-                />} />
+          <Route path="*" element={<DashboardActivity newPatientRoute={`new`} searchPatientRoute={`search`} />} />
           <Route path="new" element={<NewPatientActivity dashboardRoute="patients" />} />
           <Route path="search" element={<SearchPatientActivity />} />
           <Route path="details/:id/*" element={<PatientDetailsActivity />}>
-          <Route path="*" element={<PatientDetailsContent
-                  title="Admissions"
-                  content={PatientAdmission}
-                />} />
-            <Route path="admissions" element={<PatientDetailsContent
-                        title="Admissions"
-                        content={PatientAdmission} /> } />
+          <Route path="*" element={<PatientDetailsContent title="Admissions" content={PatientAdmission} />} />
+            <Route path="admissions" element={<PatientDetailsContent title="Admissions" content={PatientAdmission} /> } />
             <Route path="visits" element={<VisitDetailsContent /> } />
-            <Route path="laboratory" element={<PatientDetailsContent
-                        title="Laboratory"
-                        content={PatientExams} />} />
-            <Route path="therapy" element={<PatientDetailsContent
-                        title="Therapy"
-                        content={PatientTherapy} />} />
-            <Route path="triage" element={<PatientDetailsContent
-                          title="Triage"
-                          content={PatientTriage} />} />
+            <Route path="laboratory" element={<PatientDetailsContent title="Laboratory" content={PatientExams} />} />
+            <Route path="therapy" element={<PatientDetailsContent title="Therapy" content={PatientTherapy} />} />
+            <Route path="triage" element={<PatientDetailsContent title="Triage" content={PatientTriage} />} />
             <Route path="discharge" element={<DischargeDetailsContent /> } />
-            <Route path="clinic" element={<PatientDetailsContent
-                          title="Summary"
-                          content={PatientSummary} />} />
-            <Route path="operation" element={<PatientDetailsContent
-                            title="Operation"
-                            content={PatientOperation} />} />
+            <Route path="clinic" element={<PatientDetailsContent title="Summary" content={PatientSummary} />} />
+            <Route path="operation" element={<PatientDetailsContent title="Operation" content={PatientOperation} />} />
           </Route>
           <Route path="details/:id/edit" element={<EditPatientActivity />} />
         </Route>
