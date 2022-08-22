@@ -1,12 +1,32 @@
 version: "3.9"
 
+x-repo: &repository-args
+    OH_CORE_BRANCH: staging3Test
+    OH_API_BRANCH: staging3Test
+    GITHUB_ORG: intesys
+x-mysql: &mysql-env
+    MYSQL_DATABASE: oh
+    MYSQL_PORT: 3306
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: isf
+    MYSQL_PASSWORD: isf123
+x-ui: &ui-env
+    PUBLIC_URL: /
+    REACT_APP_USE_MOCK_API:
+    REACT_APP_BASE_PATH: http://localhost:8080/oh-api
+x-pg-admin: &pg-admin-env
+    PMA_HOST: "database"
+    PMA_PORT: 3306
+    PMA_USER: "root"
+    PMA_PASSWORD: "root"    
+
+
 services:
   frontend:
     build:
       context: ./
       dockerfile: ./docker/Dockerfile.frontend
-    env_file:
-      - .env.docker
+    environment: *ui-env
     ports:
       - 3030:3000
     volumes:
@@ -24,8 +44,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.backend
-    env_file:
-      - .env.docker
+      args: *repository-args
     ports:
       - "8080:8080"
     depends_on:
@@ -37,8 +56,8 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.database
-    env_file:
-      - .env.docker
+      args: *repository-args
+    environment: *mysql-env
     ports:
       - "3306:3306"
     command: mysqld --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" --lower_case_table_names=1
@@ -49,13 +68,9 @@ services:
     image: phpmyadmin/phpmyadmin
     ports:
       - 9000:80
-    env_file:
-      - .env.docker
     environment:
-      PMA_HOST: "database"
-      PMA_PORT: 3306
-      PMA_USER: "root"
-      PMA_PASSWORD: "root"
+        <<: *mysql-env
+        <<: *pg-admin-env
     depends_on:
       - database
     networks:
