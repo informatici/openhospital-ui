@@ -150,6 +150,7 @@ export default produce(
 
       case GET_LABWROW_RESET: {
         draft.getLabWithRowsByCode.status = "IDLE";
+        draft.getLabWithRowsByCode.data = null;
         delete draft.getLabWithRowsByCode.error;
         break;
       }

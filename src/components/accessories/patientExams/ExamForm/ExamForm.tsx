@@ -33,11 +33,13 @@ const ExamForm: FC<ExamProps> = ({
   creationMode,
   shouldResetForm,
   resetFormCallback,
+  labWithRowsToEdit,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [currentExamCode, setCurrentExamCode] = useState("");
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
+  const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
 
   const rowTableHeaders: Array<{
     label: string;
@@ -66,7 +68,7 @@ const ExamForm: FC<ExamProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
-  const [rowsData, setRowsData] = useState([] as string[]);
+  const [rowsData, setRowsData] = useState([...labToEditRows]);
 
   const materialOptionsSelector = (state: IState) => {
     if (state.laboratories.materials.data) {
@@ -180,12 +182,14 @@ const ExamForm: FC<ExamProps> = ({
 
   const onBlurCallbackForTableRow = useCallback(
     () => (value: string) => {
+      console.log(JSON.stringify(rowsData));
       setRowsData((rowObjs: string[]) => {
         if (!rowObjs.includes(value)) {
           rowObjs.push(value);
         } else rowObjs = rowObjs.filter((e) => e !== value);
         return rowObjs;
       });
+      console.log(JSON.stringify(rowsData));
     },
     []
   );

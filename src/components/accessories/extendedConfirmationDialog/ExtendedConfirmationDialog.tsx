@@ -14,7 +14,7 @@ const ExtendedConfirmationDialog: FunctionComponent<IProps> = ({
   items,
 }) => {
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={isOpen} className="extendedDialog">
       <DialogTitle>
         <div className="dialog__title">{title}</div>
       </DialogTitle>
