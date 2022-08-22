@@ -28,7 +28,7 @@ import {
 import {
   deleteLab,
   deleteLabReset,
-  getLabByCode,
+  getLabWithRowsByCode,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
@@ -50,9 +50,11 @@ export const Exams: FC = () => {
   const [deletedObjCode, setDeletedObjCode] = useState("");
   const [creationMode, setCreationMode] = useState(true);
 
-  const labToEdit = useSelector(
-    (state: IState) => state.laboratories.getLabByCode.data
+  const labWithRows = useSelector(
+    (state: IState) => state.laboratories.getLabWithRowsByCode.data
   );
+
+  const labToEdit = labWithRows?.laboratoryDTO;
 
   const data = useSelector(
     (state: IState) => state.laboratories.searchLabs.data
@@ -102,7 +104,7 @@ export const Exams: FC = () => {
   const onEdit = (row: LaboratoryForPrintDTO) => {
     setCreationMode(false);
     dispatch(getPatientThunk(row.patientCode?.toString() ?? ""));
-    dispatch(getLabByCode(row.code));
+    dispatch(getLabWithRowsByCode(row.code));
     setShowForm(true);
   };
   const onDelete = (code: number | undefined) => {
@@ -118,7 +120,7 @@ export const Exams: FC = () => {
     return creationMode
       ? showForm
       : showForm &&
-          labToEdit?.code !== undefined &&
+          labWithRows?.laboratoryDTO?.code !== undefined &&
           patient?.code !== undefined;
   }, [showForm, creationMode, labToEdit]);
 
@@ -218,7 +220,7 @@ export const Exams: FC = () => {
               fields={formFields}
               handleReset={handleReset}
               creationMode={creationMode}
-              labToEdit={labToEdit ?? {}}
+              labWithRowsToEdit={labWithRows ?? {}}
             />
           }
         />

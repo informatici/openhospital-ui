@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
@@ -13,6 +13,7 @@ import {
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
+import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDialog/ExtendedConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
@@ -35,6 +36,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   dashboardRoute,
 }) => {
   const { t } = useTranslation();
+  const history = useHistory();
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
     [t("nav.newpatient")]: PATHS.patients_new,
@@ -52,15 +54,31 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   ) as string;
 
+  const selectedPatient = useSelector<IState, PatientDTO | undefined>(
+    (state) => state.patients.selectedPatient.data
+  );
+
+  const patient = useSelector<IState, PatientDTO | undefined>(
+    (state) =>
+      state.patients.createPatient.data || state.patients.updatePatient.data
+  );
+
   useEffect(() => {
     if (
       activityTransitionState === "TO_NEW_PATIENT_RESET" ||
-      activityTransitionState === "TO_DASHBOARD"
+      activityTransitionState === "TO_DASHBOARD" ||
+      activityTransitionState === "TO_PATIENT_DASHBOARD"
     ) {
       createPatientReset();
       setShouldResetForm(true);
     }
   }, [activityTransitionState, createPatientReset]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
+      history.replace(`/patients/details/${patient?.code}`);
+    }
+  }, [patient, activityTransitionState, createPatientReset]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -104,19 +122,27 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <div ref={infoBoxRef}>
             {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
-          <ConfirmationDialog
+          <ExtendedConfirmationDialog
             isOpen={hasSucceeded}
             title="Patient Created"
             icon={checkIcon}
             info={t("common.patientregistrationsuccessfull")}
-            primaryButtonLabel={t("common.dashboard")}
-            secondaryButtonLabel={t("common.keepediting")}
-            handlePrimaryButtonClick={() =>
-              setActivityTransitionState("TO_DASHBOARD")
-            }
-            handleSecondaryButtonClick={() =>
-              setActivityTransitionState("TO_NEW_PATIENT_RESET")
-            }
+            items={[
+              {
+                label: t("common.dashboard"),
+                onClick: () => setActivityTransitionState("TO_DASHBOARD"),
+              },
+              {
+                label: t("common.keepediting"),
+                onClick: () =>
+                  setActivityTransitionState("TO_NEW_PATIENT_RESET"),
+              },
+              {
+                label: t("patient.dashboard"),
+                onClick: () =>
+                  setActivityTransitionState("TO_PATIENT_DASHBOARD"),
+              },
+            ]}
           />
           <Footer />
         </div>

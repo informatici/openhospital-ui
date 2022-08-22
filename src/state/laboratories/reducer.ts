@@ -29,6 +29,10 @@ import {
   GET_LAB_LOADING,
   GET_LAB_RESET,
   GET_LAB_SUCCESS,
+  GET_LABWROW_FAIL,
+  GET_LABWROW_LOADING,
+  GET_LABWROW_RESET,
+  GET_LABWROW_SUCCESS,
   SEARCH_LAB_LOADING,
 } from "./consts";
 import { initial } from "./initial";
@@ -120,6 +124,33 @@ export default produce(
       case GET_LAB_RESET: {
         draft.getLabByCode.status = "IDLE";
         delete draft.getLabByCode.error;
+        break;
+      }
+
+      /**
+       * GET_LABWROW
+       */
+      case GET_LABWROW_LOADING: {
+        draft.getLabWithRowsByCode.status = "LOADING";
+        break;
+      }
+
+      case GET_LABWROW_SUCCESS: {
+        draft.getLabWithRowsByCode.status = "SUCCESS";
+        draft.getLabWithRowsByCode.data = action.payload;
+        delete draft.getLabWithRowsByCode.error;
+        break;
+      }
+
+      case GET_LABWROW_FAIL: {
+        draft.getLabWithRowsByCode.status = "FAIL";
+        draft.getLabWithRowsByCode.error = action.error;
+        break;
+      }
+
+      case GET_LABWROW_RESET: {
+        draft.getLabWithRowsByCode.status = "IDLE";
+        delete draft.getLabWithRowsByCode.error;
         break;
       }
 

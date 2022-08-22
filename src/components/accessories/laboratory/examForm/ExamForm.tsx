@@ -42,7 +42,7 @@ import InfoBox from "../../infoBox/InfoBox";
 const ExamForm: FC<ExamProps> = ({
   fields,
   creationMode,
-  labToEdit,
+  labWithRowsToEdit,
   handleReset,
 }) => {
   const { t } = useTranslation();
@@ -56,6 +56,8 @@ const ExamForm: FC<ExamProps> = ({
     useState<ExamTransitionState>("IDLE");
 
   const [patientData, setPatientData] = useState({} as PatientDTO);
+  const labToEdit = labWithRowsToEdit.laboratoryDTO ?? {};
+  const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
 
   useEffect(() => {
     dispatch(getMaterials());
@@ -151,7 +153,7 @@ const ExamForm: FC<ExamProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
-  const [rowsData, setRowsData] = useState([] as string[]);
+  const [rowsData, setRowsData] = useState([...labToEditRows]);
 
   const materialOptionsSelector = (state: IState) => {
     if (state.laboratories.materials.data) {

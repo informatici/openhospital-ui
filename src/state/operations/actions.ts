@@ -1,12 +1,11 @@
 import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
 import {
-  Configuration,
-  OperationRowDTO,
   OperationControllerApi,
   OperationDTO,
+  OperationRowDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   CREATE_OPERATIONROW_FAIL,
@@ -31,7 +30,7 @@ import {
 } from "./consts";
 
 const operationControllerApi = new OperationControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const createOperationRow =

@@ -1,43 +1,34 @@
 import moment from "moment";
 import { Dispatch } from "redux";
-import { TFilterValues } from "../../components/accessories/opds/filter/types";
-import {
-  Configuration,
-  DiseaseDTO,
-  OpdControllerApi,
-  OpdDTO,
-} from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
-import { opdDataFormatter } from "../../libraries/formatUtils/dataFormatting";
+import { OpdControllerApi, OpdDTO } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
-  CREATE_OPD_RESET,
-  CREATE_OPD_LOADING,
-  CREATE_OPD_SUCCESS,
   CREATE_OPD_FAIL,
+  CREATE_OPD_LOADING,
+  CREATE_OPD_RESET,
+  CREATE_OPD_SUCCESS,
+  DELETE_OPD_FAIL,
+  DELETE_OPD_LOADING,
+  DELETE_OPD_RESET,
+  DELETE_OPD_SUCCESS,
   GET_OPD_FAIL,
   GET_OPD_LOADING,
+  GET_OPD_RESET,
   GET_OPD_SUCCESS,
   GET_OPD_SUCCESS_EMPTY,
-  UPDATE_OPD_LOADING,
-  UPDATE_OPD_SUCCESS,
-  UPDATE_OPD_FAIL,
-  UPDATE_OPD_RESET,
-  DELETE_OPD_LOADING,
-  DELETE_OPD_SUCCESS,
-  DELETE_OPD_FAIL,
-  DELETE_OPD_RESET,
-  SEARCH_OPD_LOADING,
-  SEARCH_OPD_SUCCESS,
   SEARCH_OPD_FAIL,
-  SEARCH_OPD_SUCCESS_EMPTY,
-  GET_OPD_RESET,
+  SEARCH_OPD_LOADING,
   SEARCH_OPD_RESET,
+  SEARCH_OPD_SUCCESS,
+  SEARCH_OPD_SUCCESS_EMPTY,
+  UPDATE_OPD_FAIL,
+  UPDATE_OPD_LOADING,
+  UPDATE_OPD_RESET,
+  UPDATE_OPD_SUCCESS,
 } from "./consts";
 
-const opdControllerApi = new OpdControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const opdControllerApi = new OpdControllerApi(customConfiguration());
 
 export const createOpd =
   (opdDTO: OpdDTO) =>

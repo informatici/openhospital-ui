@@ -2,14 +2,13 @@ import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
 import {
-  Configuration,
   LoginControllerApi,
   LoginRequest,
   LoginResponse,
   UserControllerApi,
   UserProfileDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
 import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
 import { SessionStorage } from "../../libraries/storage/storage";
@@ -24,10 +23,8 @@ import {
 } from "./consts";
 import { IAuthentication } from "./types";
 
-const api = new LoginControllerApi(new Configuration());
-const usersApi = new UserControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const api = new LoginControllerApi(customConfiguration(false));
+const usersApi = new UserControllerApi(customConfiguration());
 
 export const setAuthenticationSuccess = (
   payload: IAuthentication

@@ -22,4 +22,5 @@ export type TProps = IOwnProps & IStateProps & IDispatchProps;
 export type TActivityTransitionState =
   | "IDLE"
   | "TO_NEW_PATIENT_RESET"
-  | "TO_DASHBOARD";
+  | "TO_DASHBOARD"
+  | "TO_PATIENT_DASHBOARD";

@@ -1,16 +1,14 @@
 import { Dispatch } from "redux";
-import { of, concat } from "rxjs";
-import { map, catchError, toArray } from "rxjs/operators";
+import { concat, of } from "rxjs";
+import { catchError, map, toArray } from "rxjs/operators";
 import {
   AdmissionControllerApi,
-  Configuration,
   ExaminationControllerApi,
   LaboratoryControllerApi,
   OpdControllerApi,
   OperationControllerApi,
-  TherapyControllerApi,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { IAction } from "../types";
 import {
@@ -21,21 +19,19 @@ import {
 } from "./consts";
 
 const operationControllerApi = new OperationControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 const admissionControllerApi = new AdmissionControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
-const opdControllerrApi = new OpdControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const opdControllerrApi = new OpdControllerApi(customConfiguration());
 
 const examinationControllerApi = new ExaminationControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 const laboratoryControllerApi = new LaboratoryControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
+  customConfiguration()
 );
 
 export const loadSummaryData =

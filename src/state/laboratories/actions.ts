@@ -1,12 +1,11 @@
 import moment from "moment";
 import { Dispatch } from "redux";
 import {
-  Configuration,
   LaboratoryControllerApi,
   LaboratoryDTO,
   LabWithRowsDTO,
 } from "../../generated";
-import { applyTokenMiddleware } from "../../libraries/apiUtils/applyTokenMiddleware";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
   CREATE_LAB_FAIL,
@@ -19,30 +18,32 @@ import {
   DELETE_LAB_SUCCESS,
   GET_LABS_FAIL,
   GET_LABS_LOADING,
+  GET_LABS_RESET,
   GET_LABS_SUCCESS,
   GET_LABS_SUCCESS_EMPTY,
+  GET_LABWROW_FAIL,
+  GET_LABWROW_LOADING,
+  GET_LABWROW_RESET,
+  GET_LABWROW_SUCCESS,
+  GET_LAB_FAIL,
+  GET_LAB_LOADING,
+  GET_LAB_RESET,
+  GET_LAB_SUCCESS,
   GET_MATERIALS_FAIL,
   GET_MATERIALS_LOADING,
   GET_MATERIALS_SUCCESS,
+  SEARCH_LAB_FAIL,
+  SEARCH_LAB_LOADING,
+  SEARCH_LAB_RESET,
+  SEARCH_LAB_SUCCESS,
+  SEARCH_LAB_SUCCESS_EMPTY,
   UPDATE_LAB_FAIL,
   UPDATE_LAB_LOADING,
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
-  SEARCH_LAB_LOADING,
-  SEARCH_LAB_SUCCESS,
-  SEARCH_LAB_FAIL,
-  SEARCH_LAB_SUCCESS_EMPTY,
-  GET_LABS_RESET,
-  SEARCH_LAB_RESET,
-  GET_LAB_FAIL,
-  GET_LAB_LOADING,
-  GET_LAB_SUCCESS,
-  GET_LAB_RESET,
 } from "./consts";
 
-const labControllerApi = new LaboratoryControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
+const labControllerApi = new LaboratoryControllerApi(customConfiguration());
 
 export const createLab =
   (labWithRowsDTO: LabWithRowsDTO) =>
@@ -112,6 +113,14 @@ export const getLabByCodeReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: GET_LAB_RESET,
+    });
+  };
+
+export const getLabWithRowsByCodeReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: GET_LABWROW_RESET,
     });
   };
 
@@ -212,6 +221,35 @@ export const getLabByCode =
     } else {
       dispatch({
         type: GET_LAB_FAIL,
+        error: "The laboratory exam code should not be null",
+      });
+    }
+  };
+
+export const getLabWithRowsByCode =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<LabWithRowsDTO, {}>>): void => {
+    dispatch({
+      type: GET_LABWROW_LOADING,
+    });
+    if (code) {
+      labControllerApi.getLabWithRowsByIdUsingGET({ code }).subscribe(
+        (payload) => {
+          dispatch({
+            type: GET_LABWROW_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: GET_LABWROW_FAIL,
+            error,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: GET_LABWROW_FAIL,
         error: "The laboratory exam code should not be null",
       });
     }
