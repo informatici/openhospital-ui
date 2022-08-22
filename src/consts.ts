@@ -14,4 +14,6 @@ export const PATHS = {
   patients_details_edit: "/patients/details/#id/edit",
   visits: "/visits",
   laboratory: "/laboratory",
+  laboratory_new: "/laboratory/new",
+  laboratory_edit: "/laboratory/#id/edit",
 };

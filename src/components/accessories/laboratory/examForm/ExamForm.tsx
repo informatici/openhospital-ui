@@ -45,6 +45,7 @@ import {
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
+import { PATHS } from "../../../../consts";
 
 const ExamForm: FC<ExamProps> = ({
   fields,

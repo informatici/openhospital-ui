@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { Route, Switch, useHistory, useRouteMatch } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFields, initialFilter, initialFilterFields } from "./consts";
@@ -39,10 +39,13 @@ import ExamForm from "./examForm/ExamForm";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
+import { PATHS } from "../../../consts";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { path, url } = useRouteMatch();
+  const history = useHistory();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
@@ -82,6 +85,7 @@ export const Exams: FC = () => {
 
   const handleReset = useCallback(() => {
     setShowForm(false);
+    history.replace(url);
   }, [dispatch]);
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
@@ -89,6 +93,7 @@ export const Exams: FC = () => {
     dispatch(getPatientThunk(row.patientCode?.toString() ?? ""));
     dispatch(getLabWithRowsByCode(row.code));
     setShowForm(true);
+    history.replace(`${path}/${row.code}/edit`);
   };
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
@@ -131,9 +136,27 @@ export const Exams: FC = () => {
     dispatch(getExams());
   }, []);
 
-  const Content = useMemo(() => {
+  const ExamContent = useMemo(() => {
     return (
       <>
+        <div className="lab__header">
+          <div className="lab__title">{t("nav.laboratory")}</div>
+          <div className="lab__actions">
+            <Button
+              onClick={() => {
+                setCreationMode(true);
+                setShowForm(true);
+                history.replace(`${url}/new`);
+              }}
+              type="button"
+              variant="contained"
+              color="primary"
+            >
+              <Add fontSize="small" />
+              <span className="new__button__label">{t("lab.newlab")}</span>
+            </Button>
+          </div>
+        </div>
         {status === "LOADING" && (
           <CircularProgress
             style={{ marginLeft: "50%", position: "relative" }}
@@ -141,88 +164,84 @@ export const Exams: FC = () => {
         )}
         {status !== "LOADING" && (
           <>
-            {!open && <ExamFilterForm onSubmit={onSubmit} fields={fields} />}
-            {!open && status === "SUCCESS_EMPTY" && (
+            <ExamFilterForm onSubmit={onSubmit} fields={fields} />
+            {status === "SUCCESS_EMPTY" && (
               <InfoBox type="warning" message={t("common.emptydata")} />
             )}
-            {!open && status === "FAIL" && (
+            {status === "FAIL" && (
               <InfoBox type="error" message={errorMessage} />
             )}
-            {!open && status === "SUCCESS" && (
+            {status === "SUCCESS" && (
               <ExamTable
                 data={data ?? []}
                 handleDelete={onDelete}
                 handleEdit={onEdit}
               />
             )}
-            {open && (
-              <ExamForm
-                fields={formFields}
-                handleReset={handleReset}
-                creationMode={creationMode}
-                labWithRowsToEdit={labWithRows ?? {}}
+            {labStore.deleteLab.status === "LOADING" && (
+              <CircularProgress
+                style={{ marginLeft: "50%", position: "relative" }}
               />
             )}
+            <ConfirmationDialog
+              isOpen={labStore.deleteLab.status === "SUCCESS"}
+              title={t("lab.deleted")}
+              icon={checkIcon}
+              info={t("common.deletesuccess", { code: deletedObjCode })}
+              primaryButtonLabel={t("common.ok")}
+              handlePrimaryButtonClick={() => {
+                dispatch(deleteLabReset());
+                dispatch(searchLabs(filter));
+              }}
+              handleSecondaryButtonClick={() => {}}
+            />
           </>
         )}
       </>
     );
-  }, [status, open, creationMode, formFields, handleReset, data]);
+  }, [status, fields, data]);
+
+  const LaboratoryEditContent = useMemo(() => {
+    return (
+      <>
+        <div className="lab__header">
+          <div className="lab__title">{t("nav.laboratory")}</div>
+          <div className="lab__actions">
+            <Button
+              onClick={() => {
+                history.replace(url);
+              }}
+              type="button"
+              variant="contained"
+              color="primary"
+            >
+              <Cancel fontSize="small" />
+              {t("common.discard")}
+            </Button>
+          </div>
+        </div>
+        {open && (
+          <ExamForm
+            fields={formFields}
+            handleReset={handleReset}
+            creationMode={creationMode}
+            labWithRowsToEdit={labWithRows ?? {}}
+          />
+        )}
+      </>
+    );
+  }, [creationMode, formFields, handleReset, open]);
 
   return (
     <Fragment>
       <div className="lab_labs">
-        <div className="lab__header">
-          <div className="lab__title">{t("nav.laboratory")}</div>
-          <div className="lab__actions">
-            {!open && (
-              <Button
-                onClick={() => {
-                  setCreationMode(true);
-                  setShowForm(true);
-                }}
-                type="button"
-                variant="contained"
-                color="primary"
-              >
-                <Add fontSize="small" />
-                <span className="new__button__label">{t("lab.newlab")}</span>
-              </Button>
-            )}
-            {open && (
-              <Button
-                onClick={() => {
-                  setShowForm(false);
-                }}
-                type="button"
-                variant="contained"
-                color="primary"
-              >
-                <Cancel fontSize="small" />
-                {t("common.discard")}
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {Content}
-        {labStore.deleteLab.status === "LOADING" && (
-          <CircularProgress
-            style={{ marginLeft: "50%", position: "relative" }}
-          />
-        )}
-        <ConfirmationDialog
-          isOpen={labStore.deleteLab.status === "SUCCESS"}
-          title={t("lab.deleted")}
-          icon={checkIcon}
-          info={t("common.deletesuccess", { code: deletedObjCode })}
-          primaryButtonLabel={t("common.ok")}
-          handlePrimaryButtonClick={() => {
-            dispatch(deleteLabReset());
-            dispatch(searchLabs(filter));
-          }}
-          handleSecondaryButtonClick={() => {}}
-        />
+        <Switch>
+          <Route path={`${path}`} exact>
+            {ExamContent}
+          </Route>
+          <Route path={`${path}/new`}>{LaboratoryEditContent}</Route>
+          <Route path={`${path}/:id/edit`}>{LaboratoryEditContent}</Route>
+        </Switch>
       </div>
     </Fragment>
   );
