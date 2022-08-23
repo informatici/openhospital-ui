@@ -17,7 +17,6 @@ import { getPatientThunk } from "../../../state/patients/actions";
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { path, url } = useRouteMatch();
   const history = useHistory();
   const { id } = useParams<{ id: string | undefined }>();
 
@@ -42,7 +41,7 @@ export const EditLaboratoryContent: FC = () => {
   }, [labWithRows]);
 
   const handleReset = useCallback(() => {
-    history.replace("/laboratory");
+    history.replace("/laboratory", { refresh: true });
   }, [dispatch]);
 
   const patient = useSelector(

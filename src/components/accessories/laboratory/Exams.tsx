@@ -3,7 +3,13 @@ import { Add } from "@material-ui/icons";
 import React, { FC, Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useHistory, useRouteMatch } from "react-router";
+import {
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilter, initialFilterFields } from "./consts";
@@ -35,6 +41,7 @@ export const Exams: FC = () => {
   const dispatch = useDispatch();
   const { path, url } = useRouteMatch();
   const history = useHistory();
+  const location = useLocation();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
@@ -58,6 +65,15 @@ export const Exams: FC = () => {
     }
     dispatch(searchLabs(filter));
   }, [filter]);
+
+  useEffect(() => {
+    const refresh = (
+      location.state as { refresh: boolean | undefined } | undefined
+    )?.refresh;
+    if (refresh) {
+      dispatch(searchLabs(filter));
+    }
+  }, [location]);
 
   const onSubmit = (values: TFilterValues) => {
     setFilter(values);
@@ -144,7 +160,7 @@ export const Exams: FC = () => {
         )}
       </>
     );
-  }, [status, fields, data]);
+  }, [status, fields, data, filter, dispatch, labStore]);
 
   return (
     <Fragment>
