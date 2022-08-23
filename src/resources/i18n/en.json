@@ -179,6 +179,8 @@
     "therapy": "Therapy",
     "booking": "Booking",
     "laboratory": "Laboratory",
+    "newlaboratory": "New",
+    "editlaboratory": "Edit",
     "operation": "Operation",
     "admissions": "Admissions",
     "userclinic": "Clinic",

@@ -39,7 +39,14 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
     nextVisitDate: t("opd.nextvisitdate"),
     age: t("opd.age"),
   };
-  const order = ["id", "date", "patientCode", "patientName", "age", "disease"];
+  const order = [
+    "id",
+    "visitDate",
+    "patientCode",
+    "patientName",
+    "age",
+    "disease",
+  ];
   const [opd, setOpd] = useState({} as OpdDTO);
 
   const formatDataToDisplay = (data: OpdDTO[]) => {

@@ -1,4 +1,5 @@
 import { Person, Notes } from "@material-ui/icons";
+import isEmpty from "lodash.isempty";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -13,6 +14,10 @@ export const LaboratoryDetails: FC = () => {
   const lab = useSelector(
     (state: IState) =>
       state.laboratories.getLabWithRowsByCode.data?.laboratoryDTO
+  );
+  const labRowList = useSelector(
+    (state: IState) =>
+      state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );
   const status = useSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.status
@@ -144,14 +149,26 @@ export const LaboratoryDetails: FC = () => {
                     {lab?.material ?? ""}
                   </div>
                 </div>
-                <div className="labDetails__content__item">
-                  <div className="labDetails__content__item__label">
-                    {t("lab.result")}:
+                {lab?.exam?.procedure === 1 && (
+                  <div className="labDetails__content__item">
+                    <div className="labDetails__content__item__label">
+                      {t("lab.result")}:
+                    </div>
+                    <div className="labDetails__content__item__value">
+                      {lab?.result ?? ""}
+                    </div>
                   </div>
-                  <div className="labDetails__content__item__value">
-                    {lab?.result ?? ""}
+                )}
+                {lab?.exam?.procedure === 2 && !isEmpty(labRowList) && (
+                  <div className="labDetails__content__item">
+                    <div className="labDetails__content__item__label">
+                      {t("lab.result")}:
+                    </div>
+                    <div className="labDetails__content__item__value">
+                      {labRowList?.reduce((acc, value) => `${acc}, ${value}`)}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
             {lab?.note ? (

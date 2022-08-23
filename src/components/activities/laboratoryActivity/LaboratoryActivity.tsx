@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
@@ -11,10 +12,22 @@ import "./styles.scss";
 
 const LaboratoryActivity: FC = () => {
   const { t } = useTranslation();
-
-  const breadcrumbMap = {
-    [t("nav.laboratory")]: PATHS.laboratory,
-  };
+  const location = useLocation();
+  const breadcrumbMap = useMemo(() => {
+    if (location.pathname.includes("new"))
+      return {
+        [t("nav.laboratory")]: PATHS.laboratory,
+        [t("nav.newlaboratory")]: PATHS.laboratory_new,
+      };
+    if (location.pathname.includes("edit"))
+      return {
+        [t("nav.laboratory")]: PATHS.laboratory,
+        [t("nav.editlaboratory")]: `${PATHS.laboratory_edit}`,
+      };
+    return {
+      [t("nav.laboratory")]: PATHS.laboratory,
+    };
+  }, [location]);
 
   const userCredentials = useSelector<IState, TUserCredentials>(
     (state) => state.main.authentication.data

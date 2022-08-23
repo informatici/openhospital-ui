@@ -16,6 +16,8 @@ import {
   createLabReset,
   deleteLab,
   deleteLabReset,
+  getLabWithRowsByCode,
+  getLabWithRowsByCodeReset,
   getMaterials,
   updateLab,
   updateLabReset,
@@ -45,6 +47,10 @@ const PatientExams: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
+  const labWithRows = useSelector(
+    (state: IState) => state.laboratories.getLabWithRowsByCode.data ?? {}
+  );
+
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
@@ -55,6 +61,7 @@ const PatientExams: FC = () => {
     dispatch(createLabReset());
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
+    dispatch(getLabWithRowsByCodeReset());
     setCreationMode(true);
   }, [dispatch]);
 
@@ -63,6 +70,7 @@ const PatientExams: FC = () => {
       dispatch(createLabReset());
       dispatch(updateLabReset());
       dispatch(deleteLabReset());
+      dispatch(getLabWithRowsByCodeReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
@@ -75,6 +83,7 @@ const PatientExams: FC = () => {
     (state) =>
       labStore.createLab.error?.message ||
       labStore.updateLab.error?.message ||
+      labStore.getLabWithRowsByCode.error?.message ||
       labStore.deleteLab.error?.message ||
       t("common.somethingwrong")
   ) as string;
@@ -90,7 +99,10 @@ const PatientExams: FC = () => {
     lab.examDate = parseDate(lab.examDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
-    if (labToEdit.code) lab.code = labToEdit.code;
+    if (!creationMode && labToEdit.code) {
+      lab.code = labToEdit.code;
+      lab.lock = labToEdit.lock;
+    }
     const labWithRowsDTO = {
       laboratoryDTO: lab,
       laboratoryRowList: rows,
@@ -105,6 +117,7 @@ const PatientExams: FC = () => {
   const onEdit = (row: LaboratoryDTO) => {
     dispatch(getExamRows(row.exam?.code ?? ""));
     setLabToEdit(row);
+    dispatch(getLabWithRowsByCode(row.code));
     setCreationMode(false);
     scrollToElement(null);
   };
@@ -120,35 +133,42 @@ const PatientExams: FC = () => {
     dispatch(createLabReset());
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
+    dispatch(getLabWithRowsByCodeReset());
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
 
   return (
     <div className="patientExam">
-      <ExamForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateLabFields(initialFields, labToEdit)
-        }
-        onSubmit={onSubmit}
-        creationMode={creationMode}
-        submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={
-          labStore.createLab.status === "LOADING" ||
-          labStore.updateLab.status === "LOADING"
-        }
-      />
+      {labStore.getLabWithRowsByCode.status !== "LOADING" && (
+        <ExamForm
+          fields={
+            creationMode
+              ? initialFields
+              : updateLabFields(initialFields, labToEdit)
+          }
+          onSubmit={onSubmit}
+          creationMode={creationMode}
+          labWithRowsToEdit={labWithRows}
+          submitButtonLabel={
+            creationMode ? t("common.save") : t("common.update")
+          }
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={
+            labStore.createLab.status === "LOADING" ||
+            labStore.updateLab.status === "LOADING"
+          }
+        />
+      )}
       {labStore.deleteLab.status === "LOADING" && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
 
       {(labStore.createLab.status === "FAIL" ||
         labStore.updateLab.status === "FAIL" ||
+        labStore.getLabWithRowsByCode.status === "FAIL" ||
         labStore.deleteLab.status === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />

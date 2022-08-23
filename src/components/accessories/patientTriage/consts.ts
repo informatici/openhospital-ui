@@ -1,3 +1,4 @@
+import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { TPatientTriageFormFieldName } from "./patientTriageForm/types";
 
@@ -36,7 +37,7 @@ const auscultationOptions = [
 
 export const initialFields: TFields<TPatientTriageFormFieldName> = {
   pex_date: {
-    value: "",
+    value: moment().toISOString(),
     type: "date",
   },
   pex_height: {

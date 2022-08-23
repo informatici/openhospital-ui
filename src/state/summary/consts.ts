@@ -13,11 +13,11 @@ export const SummaryField = {
   },
   opd: {
     type: "OPD",
-    dateField: "date",
+    dateField: "visitDate",
   },
   exam: {
     type: "EXAM",
-    dateField: "date",
+    dateField: "examDate",
   },
   triage: {
     type: "TRIAGE",

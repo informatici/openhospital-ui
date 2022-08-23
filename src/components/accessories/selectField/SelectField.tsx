@@ -19,6 +19,7 @@ const SelectField: FunctionComponent<IProps> = ({
   isValid,
   errorText,
   onBlur,
+  onChange,
   isLoading = false,
   options,
   translateOptions = false,
@@ -54,7 +55,10 @@ const SelectField: FunctionComponent<IProps> = ({
         id={fieldName}
         name={fieldName}
         value={value}
-        onChange={(e) => setValue(e.target.value as string)}
+        onChange={(e) => {
+          setValue(e.target.value as string);
+          if (onChange !== undefined) onChange(e.target.value as string);
+        }}
         onBlur={handleOnBlur}
         label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
         error={isValid}

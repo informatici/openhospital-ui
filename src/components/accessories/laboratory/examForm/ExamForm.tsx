@@ -1,7 +1,14 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -38,6 +45,7 @@ import {
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
+import { PATHS } from "../../../../consts";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -103,7 +111,7 @@ const ExamForm: FC<ExamProps> = ({
     lab.examDate = parseDate(lab.examDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
-    if (labToEdit.code) {
+    if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;
     }
@@ -320,6 +328,10 @@ const ExamForm: FC<ExamProps> = ({
     labStore.createLab.status === "LOADING" ||
     labStore.updateLab.status === "LOADING";
 
+  const isOpen =
+    labStore.createLab.status === "SUCCESS" ||
+    labStore.updateLab.status === "SUCCESS";
+
   return (
     <>
       <div className="patientExamForm">
@@ -460,10 +472,7 @@ const ExamForm: FC<ExamProps> = ({
         </div>
       )}
       <ConfirmationDialog
-        isOpen={
-          labStore.createLab.status === "SUCCESS" ||
-          labStore.updateLab.status === "SUCCESS"
-        }
+        isOpen={isOpen}
         title={creationMode ? t("lab.created") : t("lab.updated")}
         icon={checkIcon}
         info={

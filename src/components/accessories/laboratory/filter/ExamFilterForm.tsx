@@ -34,6 +34,8 @@ import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
+import moment from "moment";
+import SmallButton from "../../smallButton/SmallButton";
 
 export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
@@ -233,7 +235,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
               </div>
             </div>
             <div className="filterForm__buttonSet">
-              <Button variant="contained" type="submit">
+              <Button type="submit" color="primary" variant="contained">
                 {t("lab.filter")}
               </Button>
             </div>
