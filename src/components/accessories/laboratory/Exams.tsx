@@ -1,19 +1,12 @@
 import { Button, CircularProgress } from "@material-ui/core";
-import { Add, Cancel } from "@material-ui/icons";
-import React, {
-  FC,
-  Fragment,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Add } from "@material-ui/icons";
+import React, { FC, Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, useHistory, useRouteMatch } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
-import { initialFields, initialFilter, initialFilterFields } from "./consts";
+import { initialFilter, initialFilterFields } from "./consts";
 import { ExamFilterForm } from "./filter/ExamFilterForm";
 import "./styles.scss";
 import { ExamTable } from "./table/ExamTable";
@@ -23,23 +16,19 @@ import { TFilterValues } from "../billTable/types";
 import {
   getFromFields,
   updateFilterFields,
-  updateLabFields,
 } from "../../../libraries/formDataHandling/functions";
 import {
   deleteLab,
   deleteLabReset,
-  getLabWithRowsByCode,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
-import { CustomDialog } from "../customDialog/CustomDialog";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import { LaboratoryForPrintDTO } from "../../../generated";
-import ExamForm from "./examForm/ExamForm";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
-import { PATHS } from "../../../consts";
+import { EditLaboratoryContent } from "./EditLaboratoryContent";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -49,16 +38,7 @@ export const Exams: FC = () => {
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
-  const [showForm, setShowForm] = useState(false);
-
   const [deletedObjCode, setDeletedObjCode] = useState("");
-  const [creationMode, setCreationMode] = useState(true);
-
-  const labWithRows = useSelector(
-    (state: IState) => state.laboratories.getLabWithRowsByCode.data
-  );
-
-  const labToEdit = labWithRows?.laboratoryDTO;
 
   const data = useSelector(
     (state: IState) => state.laboratories.searchLabs.data
@@ -83,46 +63,13 @@ export const Exams: FC = () => {
     setFilter(values);
   };
 
-  const handleReset = useCallback(() => {
-    setShowForm(false);
-    history.replace(url);
-  }, [dispatch]);
-
   const onEdit = (row: LaboratoryForPrintDTO) => {
-    setCreationMode(false);
-    dispatch(getPatientThunk(row.patientCode?.toString() ?? ""));
-    dispatch(getLabWithRowsByCode(row.code));
-    setShowForm(true);
     history.replace(`${path}/${row.code}/edit`);
   };
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
     dispatch(deleteLab(code));
   };
-
-  const patient = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
-
-  const open = useMemo(() => {
-    return creationMode
-      ? showForm
-      : showForm &&
-          labWithRows?.laboratoryDTO?.code !== undefined &&
-          patient?.code !== undefined;
-  }, [showForm, creationMode, labToEdit]);
-
-  useEffect(() => {
-    if (!showForm) {
-      dispatch(searchLabs(filter));
-    }
-  }, [showForm]);
-
-  const formFields = useMemo(() => {
-    return creationMode
-      ? initialFields
-      : updateLabFields(initialFields, labToEdit ?? {});
-  }, [creationMode, labToEdit]);
 
   const errorMessage = useSelector(
     (state: IState) => state.laboratories.searchLabs.error?.message
@@ -144,8 +91,6 @@ export const Exams: FC = () => {
           <div className="lab__actions">
             <Button
               onClick={() => {
-                setCreationMode(true);
-                setShowForm(true);
                 history.replace(`${url}/new`);
               }}
               type="button"
@@ -201,37 +146,6 @@ export const Exams: FC = () => {
     );
   }, [status, fields, data]);
 
-  const LaboratoryEditContent = useMemo(() => {
-    return (
-      <>
-        <div className="lab__header">
-          <div className="lab__title">{t("nav.laboratory")}</div>
-          <div className="lab__actions">
-            <Button
-              onClick={() => {
-                history.replace(url);
-              }}
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              <Cancel fontSize="small" />
-              {t("common.discard")}
-            </Button>
-          </div>
-        </div>
-        {open && (
-          <ExamForm
-            fields={formFields}
-            handleReset={handleReset}
-            creationMode={creationMode}
-            labWithRowsToEdit={labWithRows ?? {}}
-          />
-        )}
-      </>
-    );
-  }, [creationMode, formFields, handleReset, open]);
-
   return (
     <Fragment>
       <div className="lab_labs">
@@ -239,8 +153,12 @@ export const Exams: FC = () => {
           <Route path={`${path}`} exact>
             {ExamContent}
           </Route>
-          <Route path={`${path}/new`}>{LaboratoryEditContent}</Route>
-          <Route path={`${path}/:id/edit`}>{LaboratoryEditContent}</Route>
+          <Route path={`${path}/new`}>
+            <EditLaboratoryContent />
+          </Route>
+          <Route path={`${path}/:id/edit`}>
+            <EditLaboratoryContent />
+          </Route>
         </Switch>
       </div>
     </Fragment>
