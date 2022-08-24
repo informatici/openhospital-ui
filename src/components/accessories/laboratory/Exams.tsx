@@ -26,6 +26,7 @@ import {
 import {
   deleteLab,
   deleteLabReset,
+  getLabWithRowsByCodeReset,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";

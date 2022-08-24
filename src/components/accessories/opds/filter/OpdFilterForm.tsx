@@ -360,7 +360,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
               </div>
             </div>
             <div className="filterForm__buttonSet">
-              <Button variant="contained" type="submit">
+              <Button variant="contained" color="primary" type="submit">
                 {t("opd.filter")}
               </Button>
             </div>

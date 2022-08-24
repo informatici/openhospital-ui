@@ -182,14 +182,12 @@ const ExamForm: FC<ExamProps> = ({
 
   const onBlurCallbackForTableRow = useCallback(
     () => (value: string) => {
-      console.log(JSON.stringify(rowsData));
       setRowsData((rowObjs: string[]) => {
         if (!rowObjs.includes(value)) {
           rowObjs.push(value);
         } else rowObjs = rowObjs.filter((e) => e !== value);
         return rowObjs;
       });
-      console.log(JSON.stringify(rowsData));
     },
     []
   );
