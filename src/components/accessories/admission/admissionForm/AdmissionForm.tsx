@@ -15,6 +15,7 @@ import {
 } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
+  differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
@@ -196,8 +197,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
+      const days = differenceInDays(
+        new Date(formik.values.admDate),
+        new Date(formik.values.disDate)
+      ).toString();
+      setFieldValue("bedDays", days);
     },
-    [setFieldValue, initialValues.admDate]
+    [setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {

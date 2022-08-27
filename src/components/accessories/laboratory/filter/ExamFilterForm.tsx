@@ -12,7 +12,7 @@ import has from "lodash.has";
 import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { number, object, string } from "yup";
+import { date, number, object, string } from "yup";
 import {
   DiseaseDTO,
   DiseaseTypeDTO,
@@ -46,23 +46,51 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   );
 
   const validationSchema = object({
-    dateFrom: string(),
     examName: string(),
-    dateTo: string().test({
-      name: "dateTo",
-      message: t("lab.validatetodate"),
-      test: function (value) {
-        if (isEmpty(this.parent.dateFrom)) {
-          return true;
-        }
-        return (
-          differenceInSeconds(
-            new Date(this.parent.dateFrom),
-            new Date(value)
-          ) <= 0
-        );
-      },
-    }),
+    dateFrom: string()
+      .required(t("common.required"))
+      .test({
+        name: "dateValid",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "dateTo",
+        message: t("lab.validatefromdate"),
+        test: function (value) {
+          if (!moment(this.parent.dateTo).isValid()) return true;
+          return (
+            differenceInSeconds(
+              new Date(value),
+              new Date(this.parent.dateTo)
+            ) <= 0
+          );
+        },
+      }),
+    dateTo: string()
+      .required(t("common.required"))
+      .test({
+        name: "dateValid",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "dateTo",
+        message: t("lab.validatetodate"),
+        test: function (value) {
+          if (!moment(this.parent.dateFrom).isValid()) return true;
+          return (
+            differenceInSeconds(
+              new Date(this.parent.dateFrom),
+              new Date(value)
+            ) <= 0
+          );
+        },
+      }),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -95,6 +123,8 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
       if (fieldName === "dateFrom" || fieldName === "dateTo") {
         setFieldValue("month", "");
         setFieldValue("year", "");
+        formik.setFieldTouched("dateTo");
+        formik.setFieldTouched("dateFrom");
       }
 
       if (fieldName === "month") {

@@ -12,7 +12,7 @@ import has from "lodash.has";
 import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { number, object, string } from "yup";
+import { date, number, object, string } from "yup";
 import { DiseaseDTO, DiseaseTypeDTO, PatientDTO } from "../../../../generated";
 import {
   getFromFields,
@@ -28,6 +28,7 @@ import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
@@ -35,33 +36,70 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
   const [expanded, setExpanded] = useState(true);
 
   const validationSchema = object({
-    dateFrom: string(),
-    ageFrom: number(),
     diseaseCode: string(),
     diseaseTypeCode: string(),
-    dateTo: string().test({
-      name: "dateTo",
-      message: t("opd.validatetodate"),
+    dateFrom: string()
+      .required(t("common.required"))
+      .test({
+        name: "dateValid",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "dateTo",
+        message: t("opd.validatefromdate"),
+        test: function (value) {
+          if (!moment(this.parent.dateTo).isValid()) return true;
+          return (
+            differenceInSeconds(
+              new Date(value),
+              new Date(this.parent.dateTo)
+            ) <= 0
+          );
+        },
+      }),
+    dateTo: string()
+      .required(t("common.required"))
+      .test({
+        name: "dateValid",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "dateTo",
+        message: t("opd.validatetodate"),
+        test: function (value) {
+          if (!moment(this.parent.dateFrom).isValid()) return true;
+          return (
+            differenceInSeconds(
+              new Date(this.parent.dateFrom),
+              new Date(value)
+            ) <= 0
+          );
+        },
+      }),
+    ageFrom: number().test({
+      name: "ageFrom",
+      message: t("opd.validatefromage"),
       test: function (value) {
-        if (isEmpty(this.parent.dateFrom)) {
+        if (isEmpty(this.parent.ageTo)) {
           return true;
         }
-        return (
-          differenceInSeconds(
-            new Date(this.parent.dateFrom),
-            new Date(value)
-          ) <= 0
-        );
+        return +this.parent.ageTo - +value >= 0;
       },
     }),
     ageTo: number().test({
-      name: "dateTo",
+      name: "ageTo",
       message: t("opd.validatetoage"),
       test: function (value) {
         if (isEmpty(this.parent.ageFrom)) {
           return true;
         }
-        return +value - +this.parent.ageTo >= 0;
+        return +value - +this.parent.ageFrom >= 0;
       },
     }),
   });
@@ -104,6 +142,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       if (fieldName === "dateFrom" || fieldName === "dateTo") {
         setFieldValue("month", "");
         setFieldValue("year", "");
+        formik.setFieldTouched("dateTo");
+        formik.setFieldTouched("dateFrom");
       }
 
       if (fieldName === "month") {
@@ -123,7 +163,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
         setFieldValue("dateTo", end);
       }
     },
-    [setFieldValue]
+    [formik]
   );
 
   const isValid = (fieldName: string): boolean => {
