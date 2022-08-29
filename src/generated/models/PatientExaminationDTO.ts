@@ -128,7 +128,7 @@ export enum PatientExaminationDTOPexAuscultationEnum {
     Normal = 'normal',
     Wheezes = 'wheezes',
     Rhonchi = 'rhonchi',
-    Crakles = 'crakles',
+    Crackles = 'crackles',
     Stridor = 'stridor',
     Bronchial = 'bronchial'
 }
@@ -140,7 +140,7 @@ export enum PatientExaminationDTOPexDiuresisDescEnum {
     Physiological = 'physiological',
     Oliguria = 'oliguria',
     Anuria = 'anuria',
-    Fequent = 'fequent',
+    Frequent = 'frequent',
     Nocturia = 'nocturia',
     Stranguria = 'stranguria',
     Hematuria = 'hematuria',

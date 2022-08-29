@@ -274,7 +274,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             <div className="patientTriageForm__item">
               <SelectField
                 fieldName="pex_diuresis_desc"
-                fieldValue={formik.values.diuresis}
+                fieldValue={formik.values.pex_diuresis_desc}
                 label={t("examination.diuresis")}
                 isValid={isValid("pex_diuresis_desc")}
                 errorText={getErrorText("pex_diuresis_desc")}

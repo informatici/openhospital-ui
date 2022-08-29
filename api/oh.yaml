@@ -9156,7 +9156,7 @@ definitions:
         description: Heart Rate in Apm
       pex_auscultation:
         type: string
-        enum: [normal, wheezes, rhonchi, crakles, stridor, bronchial]
+        enum: [normal, wheezes, rhonchi, crackles, stridor, bronchial]
         example: normal
         description: patient ausculation
       pex_hgt:
@@ -9169,7 +9169,7 @@ definitions:
         description: Daily urine Volume in ml
       pex_diuresis_desc:
         type: string
-        enum: [physiological, oliguria, anuria, fequent, nocturia, stranguria, hematuria, pyuria]
+        enum: [physiological, oliguria, anuria, frequent, nocturia, stranguria, hematuria, pyuria]
         example: physiological
         description: Diuresis description
       pex_bowel_desc:

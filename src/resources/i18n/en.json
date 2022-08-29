@@ -136,8 +136,8 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "max",
-      "min": "min"
+      "max": "Max",
+      "min": "Min"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -175,7 +175,7 @@
     "physiological": "Physiological",
     "oliguria": "Oliguria",
     "anuria": "Anuria",
-    "fequent": "Fequent",
+    "frequent": "Frequent",
     "nocturia": "Nocturia",
     "stranguria": "Stranguria",
     "hematuria": "Hematuria",
@@ -187,7 +187,7 @@
     "normal": "Normal",
     "wheezes": "Wheezes",
     "rhonchi": "Rhonchi",
-    "crakles": "Crakles",
+    "crackles": "Crackles",
     "stridor": "Stridor",
     "bronchial": "Bronchial"
   },
