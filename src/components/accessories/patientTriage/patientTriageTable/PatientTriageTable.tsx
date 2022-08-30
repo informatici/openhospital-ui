@@ -69,7 +69,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_hr: item.pex_hr,
         pex_temp: item.pex_temp,
         pex_sat: item.pex_sat,
-        px_diuresis: item.pex_diuresis,
+        pex_diuresis: item.pex_diuresis,
         pex_diuresis_desc: item.pex_diuresis_desc
           ? t("examination." + item.pex_diuresis_desc)
           : "",
