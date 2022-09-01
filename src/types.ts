@@ -52,6 +52,9 @@ export enum FIELD_VALIDATION {
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js
 export type TPermission =
+  | "patient.access"
+  | "laboratory.access"
+  | "visits.access"
   | "odp.read"
   | "odp.create"
   | "odp.update"

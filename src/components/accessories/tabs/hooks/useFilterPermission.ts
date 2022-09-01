@@ -1,4 +1,4 @@
-import { usePermissions } from "../../../../libraries/permissionUtils/usePermissions";
+import { useUserPermissions } from "../../../../libraries/permissionUtils/useUserPermissions";
 import { TTabConfig } from "../types";
 
 const asArray = (input: string | string[]): string[] =>
@@ -10,12 +10,12 @@ const asArray = (input: string | string[]): string[] =>
  * - tabs that match user's permissions
  */
 export const useFilterPermission = (config: TTabConfig): TTabConfig => {
-  const permissions = usePermissions();
+  const userPermissions = useUserPermissions();
   return config.filter((item) => {
     if (item.checkPermissions) {
       const checkPermissions = asArray(item.checkPermissions);
       return checkPermissions.find((permission) =>
-        permissions.includes(permission)
+        userPermissions.includes(permission)
       );
     }
     return true;
