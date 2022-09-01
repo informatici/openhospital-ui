@@ -1,25 +1,24 @@
 version: "3.9"
 
 x-repo: &repository-args
-    OH_CORE_BRANCH: staging3Test
-    OH_API_BRANCH: staging3Test
-    GITHUB_ORG: intesys
+  OH_CORE_BRANCH: staging3Test
+  OH_API_BRANCH: staging3Test
+  GITHUB_ORG: intesys
 x-mysql: &mysql-env
-    MYSQL_DATABASE: oh
-    MYSQL_PORT: 3306
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_USER: isf
-    MYSQL_PASSWORD: isf123
+  MYSQL_DATABASE: oh
+  MYSQL_PORT: 3306
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_USER: isf
+  MYSQL_PASSWORD: isf123
 x-ui: &ui-env
-    PUBLIC_URL: /
-    REACT_APP_USE_MOCK_API:
-    REACT_APP_BASE_PATH: http://192.168.137.13:8080/oh-api
+  PUBLIC_URL: /
+  REACT_APP_USE_MOCK_API:
+  REACT_APP_BASE_PATH: http://localhost:8080/oh-api
 x-pg-admin: &pg-admin-env
-    PMA_HOST: "database"
-    PMA_PORT: 3306
-    PMA_USER: "root"
-    PMA_PASSWORD: "root"    
-
+  PMA_HOST: "database"
+  PMA_PORT: 3306
+  PMA_USER: "root"
+  PMA_PASSWORD: "root"
 
 services:
   frontend:
@@ -69,8 +68,8 @@ services:
     ports:
       - 9000:80
     environment:
-        <<: *mysql-env
-        <<: *pg-admin-env
+      <<: *mysql-env
+      <<: *pg-admin-env
     depends_on:
       - database
     networks:
