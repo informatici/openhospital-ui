@@ -104,7 +104,11 @@
     "patientcode": "Patient ID",
     "age": "Age",
     "status": "Status",
-    "nextvisitdate": "Next visit date"
+    "nextvisitdate": "Next visit date",
+    "validatetodate": "Must be greater than date from",
+    "validatefromdate": "Must be less than date to",
+    "validatetoage": "Must be greater than age from",
+    "validatefromage": "Must be less than age from"
   },
   "visit": {
     "date": "Date (d/m/y)",
@@ -132,8 +136,8 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "max",
-      "min": "min"
+      "max": "Max",
+      "min": "Min"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -167,7 +171,25 @@
     "updated": "Examination updated",
     "updatesuccess": "Examination updated successfully",
     "createsuccess": "Examination created successfully",
-    "deletesuccess": "Examination deleted successfully"
+    "deletesuccess": "Examination deleted successfully",
+    "physiological": "Physiological",
+    "oliguria": "Oliguria",
+    "anuria": "Anuria",
+    "frequent": "Frequent",
+    "nocturia": "Nocturia",
+    "stranguria": "Stranguria",
+    "hematuria": "Hematuria",
+    "pyuria": "Pyuria",
+    "constipation": "Constipation",
+    "regular": "Regular",
+    "diarrheal": "Diarrheal",
+    "irregular": "Irregular",
+    "normal": "Normal",
+    "wheezes": "Wheezes",
+    "rhonchi": "Rhonchi",
+    "crackles": "Crackles",
+    "stridor": "Stridor",
+    "bronchial": "Bronchial"
   },
   "nav": {
     "pharmacy": "Pharmacy",
@@ -223,7 +245,8 @@
     "rowupdated": "Operation Row updated",
     "rowupdatesuccess": "Operation Row updated successfully",
     "rowcreatesuccess": "Operation Row created successfully",
-    "rowdeletesuccess": "Operation Row deleted successfully"
+    "rowdeletesuccess": "Operation Row deleted successfully",
+    "dateafteradmission": "Must be greater than admission date"
   },
   "common": {
     "ok": "OK",
@@ -351,7 +374,9 @@
     "registrationdate": "Registration Date",
     "examdate": "Exam Date",
     "labcode": "Laboratory Code",
-    "examtype": "Exam Type"
+    "examtype": "Exam Type",
+    "validatetodate": "Must be greater than date from",
+    "validatefromdate": "Must be less than date to"
   },
   "admission": {
     "admDate": "Date",

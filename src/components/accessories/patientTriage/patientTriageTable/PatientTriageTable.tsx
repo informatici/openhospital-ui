@@ -25,11 +25,17 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     pex_date: t("examination.datetriage"),
     pex_height: t("examination.height"),
     pex_weight: t("examination.weight"),
-    pex_pa_max: t("examination.ap.max"),
-    pex_pa_min: t("examination.ap.min"),
-    pex_fc: t("examination.heartrate"),
+    pex_ap_max: t("examination.ap.max"),
+    pex_ap_min: t("examination.ap.min"),
     pex_temp: t("examination.temperature"),
     pex_sat: t("examination.saturation"),
+    pex_diuresis: t("examination.diuresisvolume24h"),
+    pex_rr: t("examination.respiratoryrate"),
+    pex_hr: t("examination.heartrate"),
+    pex_hgt: t("examination.hgt"),
+    pex_diuresis_desc: t("examination.diuresis"),
+    pex_bowel_desc: t("examination.bowel"),
+    pex_auscultation: t("examination.auscultation"),
     pex_note: t("examination.note"),
   };
   const header = ["pex_date"];
@@ -56,14 +62,26 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_ID: item.pex_ID,
         pex_height: item.pex_height,
         pex_weight: item.pex_weight,
-        pex_pa_max: item.pex_pa_max,
-        pex_pa_min: item.pex_pa_min,
-        pex_fc: item.pex_fc,
+        pex_ap_max: item.pex_ap_max,
+        pex_ap_min: item.pex_ap_min,
+        pex_rr: item.pex_rr,
+        pex_hgt: item.pex_hgt,
+        pex_hr: item.pex_hr,
         pex_temp: item.pex_temp,
         pex_sat: item.pex_sat,
-        pex_note: item.pex_note,
+        pex_diuresis: item.pex_diuresis,
+        pex_diuresis_desc: item.pex_diuresis_desc
+          ? t("examination." + item.pex_diuresis_desc)
+          : "",
+        pex_bowel_desc: item.pex_bowel_desc
+          ? t("examination." + item.pex_bowel_desc)
+          : "",
+        pex_auscultation: item.pex_auscultation
+          ? t("examination." + item.pex_auscultation)
+          : "",
         pex_date: item.pex_date ? renderDate(item.pex_date) : "",
         date: item.pex_date,
+        pex_note: item.pex_note,
       };
     });
   };

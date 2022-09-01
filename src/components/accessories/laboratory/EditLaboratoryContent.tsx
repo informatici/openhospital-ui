@@ -9,7 +9,10 @@ import { initialFields } from "./consts";
 import "./styles.scss";
 import { useEffect } from "react";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
-import { getLabWithRowsByCode } from "../../../state/laboratories/actions";
+import {
+  getLabWithRowsByCode,
+  getLabWithRowsByCodeReset,
+} from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import ExamForm from "./examForm/ExamForm";
 import { getPatientThunk } from "../../../state/patients/actions";
@@ -41,6 +44,7 @@ export const EditLaboratoryContent: FC = () => {
   }, [labWithRows]);
 
   const handleReset = useCallback(() => {
+    dispatch(getLabWithRowsByCodeReset());
     history.replace("/laboratory", { refresh: true });
   }, [dispatch]);
 

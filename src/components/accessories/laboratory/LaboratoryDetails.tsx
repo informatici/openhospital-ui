@@ -1,4 +1,4 @@
-import { Person, Notes } from "@material-ui/icons";
+import { Person, Notes, AssignmentInd } from "@material-ui/icons";
 import isEmpty from "lodash.isempty";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -90,7 +90,7 @@ export const LaboratoryDetails: FC = () => {
             </div>
             <div className="labDetails__content__wrapper">
               <div className="labDetails__content__header">
-                <Person
+                <AssignmentInd
                   fontSize="small"
                   style={{
                     color: "black",

@@ -9130,15 +9130,15 @@ definitions:
         type: number
         format: double
         description: Patient Weight in Kg
-      pex_pa_min:
+      pex_ap_min:
         type: integer
         format: int32
         description: Blood Pressure MIN in mmHg
-      pex_pa_max:
+      pex_ap_max:
         type: integer
         format: int32
         description: Blood Pressure MAX in mmHg
-      pex_fc:
+      pex_rr:
         type: integer
         format: int32
         description: Heart Rate in APm
@@ -9150,6 +9150,33 @@ definitions:
         type: number
         format: double
         description: Patient Saturation in %
+      pex_hr:
+        type: integer
+        format: int32
+        description: Heart Rate in Apm
+      pex_auscultation:
+        type: string
+        enum: [normal, wheezes, rhonchi, crackles, stridor, bronchial]
+        example: normal
+        description: patient ausculation
+      pex_hgt:
+        type: integer
+        format: int32
+        description: Hemo Glucose Test
+      pex_diuresis:
+        type: integer
+        format: int32
+        description: Daily urine Volume in ml
+      pex_diuresis_desc:
+        type: string
+        enum: [physiological, oliguria, anuria, frequent, nocturia, stranguria, hematuria, pyuria]
+        example: physiological
+        description: Diuresis description
+      pex_bowel_desc:
+        type: string
+        enum: [constipation, regular, diarrheal, irregular]
+        example: regular
+        description: Bowel Function
       pex_note:
         type: string
         description: Examination Note

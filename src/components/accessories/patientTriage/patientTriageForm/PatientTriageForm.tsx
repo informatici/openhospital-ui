@@ -93,6 +93,13 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
+  const formatOptions = (value: any) => {
+    return (value as { label: string; value: string }[]).map((e) => ({
+      label: t("examination." + e.label),
+      value: e.value,
+    }));
+  };
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
@@ -191,22 +198,22 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
             <div className="patientTriageForm__item compressed">
               <TextField
-                field={formik.getFieldProps("pex_pa_min")}
+                field={formik.getFieldProps("pex_ap_min")}
                 theme="regular"
                 label={t("examination.ap.min")}
-                isValid={isValid("pex_pa_min")}
-                errorText={getErrorText("pex_pa_min")}
+                isValid={isValid("pex_ap_min")}
+                errorText={getErrorText("pex_ap_min")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}
               />
 
               <TextField
-                field={formik.getFieldProps("pex_pa_max")}
+                field={formik.getFieldProps("pex_ap_max")}
                 theme="regular"
                 label={t("examination.ap.max")}
-                isValid={isValid("pex_pa_max")}
-                errorText={getErrorText("pex_pa_max")}
+                isValid={isValid("pex_ap_max")}
+                errorText={getErrorText("pex_ap_max")}
                 onBlur={formik.handleBlur}
                 type="string"
                 disabled={isLoading}
@@ -215,11 +222,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
             <div className="patientTriageForm__item">
               <TextField
-                field={formik.getFieldProps("pex_fc")}
+                field={formik.getFieldProps("pex_hr")}
                 theme="regular"
                 label={t("examination.heartrate")}
-                isValid={isValid("pex_fc")}
-                errorText={getErrorText("pex_fc")}
+                isValid={isValid("pex_hr")}
+                errorText={getErrorText("pex_hr")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}
@@ -228,11 +235,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
             <div className="patientTriageForm__item">
               <TextField
-                field={formik.getFieldProps("diuresis_vol")}
+                field={formik.getFieldProps("pex_diuresis")}
                 theme="regular"
                 label={t("examination.diuresisvolume24h")}
-                isValid={isValid("diuresis_vol")}
-                errorText={getErrorText("diuresis_vol")}
+                isValid={isValid("pex_diuresis")}
+                errorText={getErrorText("pex_diuresis")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}
@@ -240,11 +247,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             </div>
             <div className="patientTriageForm__item">
               <TextField
-                field={formik.getFieldProps("respiratory_rate")}
+                field={formik.getFieldProps("pex_rr")}
                 theme="regular"
                 label={t("examination.respiratoryrate")}
-                isValid={isValid("respiratory_rate")}
-                errorText={getErrorText("respiratory_rate")}
+                isValid={isValid("pex_rr")}
+                errorText={getErrorText("pex_rr")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}
@@ -252,11 +259,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             </div>
             <div className="patientTriageForm__item">
               <TextField
-                field={formik.getFieldProps("hgt")}
+                field={formik.getFieldProps("pex_hgt")}
                 theme="regular"
                 label={t("examination.hgt")}
-                isValid={isValid("hgt")}
-                errorText={getErrorText("hgt")}
+                isValid={isValid("pex_hgt")}
+                errorText={getErrorText("pex_hgt")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}
@@ -266,39 +273,54 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item">
               <SelectField
-                fieldName="diuresis"
-                fieldValue={formik.values.diuresis}
+                fieldName="pex_diuresis_desc"
+                fieldValue={formik.values.pex_diuresis_desc}
                 label={t("examination.diuresis")}
-                isValid={isValid("diuresis")}
-                errorText={getErrorText("diuresis")}
-                onBlur={onBlurCallback("diuresis")}
-                options={options.diuresis}
+                isValid={isValid("pex_diuresis_desc")}
+                errorText={getErrorText("pex_diuresis_desc")}
+                onBlur={onBlurCallback("pex_diuresis_desc")}
+                options={formatOptions(options.pex_diuresis_desc)}
                 disabled={isLoading}
               />
             </div>
 
             <div className="patientTriageForm__item">
               <SelectField
-                fieldName="bowel"
-                fieldValue={formik.values.bowel}
+                fieldName="pex_bowel_desc"
+                fieldValue={formik.values.pex_bowel_desc}
                 label={t("examination.bowel")}
-                isValid={isValid("bowel")}
-                errorText={getErrorText("bowel")}
-                onBlur={onBlurCallback("bowel")}
-                options={options.bowel}
+                isValid={isValid("pex_bowel_desc")}
+                errorText={getErrorText("pex_bowel_desc")}
+                onBlur={onBlurCallback("pex_bowel_desc")}
+                options={formatOptions(options.pex_bowel_desc)}
                 disabled={isLoading}
               />
             </div>
 
             <div className="patientTriageForm__item">
               <SelectField
-                fieldName="auscultation"
-                fieldValue={formik.values.auscultation}
+                fieldName="pex_auscultation"
+                fieldValue={formik.values.pex_auscultation}
                 label={t("examination.auscultation")}
-                isValid={isValid("auscultation")}
-                errorText={getErrorText("auscultation")}
-                onBlur={onBlurCallback("auscultation")}
-                options={options.auscultation}
+                isValid={isValid("pex_auscultation")}
+                errorText={getErrorText("pex_auscultation")}
+                onBlur={onBlurCallback("pex_auscultation")}
+                options={formatOptions(options.pex_auscultation)}
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+
+          <div className="row start-sm center-xs">
+            <div className="patientTriageForm__item fullWidth">
+              <TextField
+                field={formik.getFieldProps("pex_note")}
+                theme="regular"
+                label={t("examination.note")}
+                isValid={isValid("pex_note")}
+                errorText={getErrorText("pex_note")}
+                onBlur={formik.handleBlur}
+                multiline
                 disabled={isLoading}
               />
             </div>

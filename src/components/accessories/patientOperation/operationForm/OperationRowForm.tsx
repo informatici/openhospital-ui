@@ -50,16 +50,28 @@ const OperationRowForm: FC<OperationRowProps> = ({
   };
 
   const initialValues = getFromFields(fields, "value");
+  const currentAdmission = useSelector(
+    (state: IState) => state.admissions.currentAdmissionByPatientId.data
+  );
 
   const validationSchema = object({
     operation: string().required(t("common.required")),
     opDate: string()
       .required(t("common.required"))
       .test({
-        name: "opDate",
-        message: t("admission.invaliddate"),
+        name: "valid",
+        message: t("common.invaliddate"),
         test: function (value) {
           return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "opDate",
+        message: t("operation.dateafteradmission"),
+        test: function (value) {
+          return moment(currentAdmission?.admDate ?? "").isBefore(
+            moment(value)
+          );
         },
       }),
     transUnit: number(),
@@ -85,8 +97,9 @@ const OperationRowForm: FC<OperationRowProps> = ({
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
+      formik.validateField(fieldName);
     },
-    [setFieldValue, initialValues.opDate]
+    [setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
