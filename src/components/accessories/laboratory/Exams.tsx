@@ -8,6 +8,7 @@ import {
   Routes,
   Navigate,
   useLocation,
+  useNavigate,
 } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
@@ -40,6 +41,7 @@ export const Exams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
@@ -79,7 +81,7 @@ export const Exams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
-    <Navigate to={`${pathname}/${row.code}/edit`} replace />
+    navigate("${pathname}/${row.code}/edit");
   };
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
@@ -106,7 +108,7 @@ export const Exams: FC = () => {
           <div className="lab__actions">
             <Button
               onClick={() => {
-                <Navigate to={`${pathname}/new`} replace />
+                navigate("${pathname}/new");
               }}
               type="button"
               variant="contained"

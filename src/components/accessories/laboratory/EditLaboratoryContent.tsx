@@ -3,7 +3,7 @@ import { Cancel } from "@material-ui/icons";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, useRouteMatch } from "react-router";
+import { Navigate, useParams, useLocation, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import "./styles.scss";
@@ -20,8 +20,9 @@ import { getPatientThunk } from "../../../state/patients/actions";
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const history = useHistory();
   const { id } = useParams<{ id: string | undefined }>();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const creationMode = useMemo(() => (id ? false : true), [id]);
 
@@ -45,7 +46,7 @@ export const EditLaboratoryContent: FC = () => {
 
   const handleReset = useCallback(() => {
     dispatch(getLabWithRowsByCodeReset());
-    history.replace("/laboratory", { refresh: true });
+    navigate(0);
   }, [dispatch]);
 
   const patient = useSelector(
@@ -76,7 +77,7 @@ export const EditLaboratoryContent: FC = () => {
         <div className="lab__actions">
           <Button
             onClick={() => {
-              history.replace("/laboratory");
+              navigate(0);
             }}
             type="button"
             variant="contained"
