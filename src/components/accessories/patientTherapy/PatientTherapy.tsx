@@ -20,7 +20,10 @@ import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
-import { updateFields } from "../../../libraries/formDataHandling/functions";
+import {
+  updateFields,
+  updateTherapyFields,
+} from "../../../libraries/formDataHandling/functions";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
@@ -131,7 +134,7 @@ const PatientTherapy: FC = () => {
         fields={
           creationMode
             ? initialFields
-            : updateFields(initialFields, therapyToEdit)
+            : updateTherapyFields(initialFields, therapyToEdit)
         }
         onSubmit={onSubmit}
         creationMode={creationMode}

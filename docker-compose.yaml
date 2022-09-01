@@ -13,7 +13,7 @@ x-mysql: &mysql-env
 x-ui: &ui-env
     PUBLIC_URL: /
     REACT_APP_USE_MOCK_API:
-    REACT_APP_BASE_PATH: http://192.168.137.13:8080/oh-api
+    REACT_APP_BASE_PATH: http://localhost:8080/oh-api
 x-pg-admin: &pg-admin-env
     PMA_HOST: "database"
     PMA_PORT: 3306

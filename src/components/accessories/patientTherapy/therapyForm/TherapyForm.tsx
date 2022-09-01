@@ -19,8 +19,10 @@ import DateField from "../../dateField/DateField";
 import Button from "../../button/Button";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
-import { TherapyProps } from "./types";
+import { TherapyFormFieldName, TherapyProps } from "./types";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import isEmpty from "lodash.isempty";
+import { initialFields } from "../consts";
 
 const TherapyForm: FC<TherapyProps> = ({
   fields,
@@ -35,9 +37,12 @@ const TherapyForm: FC<TherapyProps> = ({
   const { t } = useTranslation();
   const validationSchema = object({
     medicalId: string().required(t("common.required")),
-    qty: number().required(t("common.required")),
-    freqInDay: number().required(t("common.required")),
-    freqInPeriod: number().required(t("common.required")),
+    qty: number().min(1).required(t("common.required")),
+    freqInDay: number().min(1).required(t("common.required")),
+    freqInPeriod: number().min(1).required(t("common.required")),
+    nbDays: number().min(0).required(t("common.required")),
+    nbWeeks: number().min(0).required(t("common.required")),
+    nbMonths: number().min(0).required(t("common.required")),
     startDate: string()
       .required(t("common.required"))
       .test({
@@ -95,14 +100,39 @@ const TherapyForm: FC<TherapyProps> = ({
     },
   });
 
-  const { setFieldValue, resetForm, handleBlur } = formik;
+  const { setFieldValue, resetForm } = formik;
+
+  const computeEndDate = (startDate: any) => {
+    const endDate = moment(startDate)
+      .add(-1, "days")
+      .add(parseInt(formik.values.nbDays), "days")
+      .add(parseInt(formik.values.nbWeeks), "weeks")
+      .add(parseInt(formik.values.nbMonths), "months");
+    setFieldValue("endDate", endDate.toISOString());
+    formik.validateField("endDate");
+  };
+
+  const handleBlur = useCallback(
+    (fieldName: TherapyFormFieldName) => (e: React.FocusEvent<any>) => {
+      const value = parseInt(e.target.value);
+      setFieldValue(
+        fieldName,
+        isNaN(value) ? initialFields[fieldName].value : Math.abs(value)
+      );
+      computeEndDate(formik.values.startDate);
+    },
+    [formik]
+  );
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
-      setFieldValue(fieldName, value);
-      formik.setFieldTouched(fieldName);
+      if (fieldName === "startDate") {
+        computeEndDate(value);
+        setFieldValue(fieldName, value);
+        formik.setFieldTouched(fieldName);
+      }
     },
-    [setFieldValue]
+    [formik]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -118,7 +148,7 @@ const TherapyForm: FC<TherapyProps> = ({
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
-        handleBlur(e);
+        formik.handleBlur(e);
         setFieldValue(fieldName, value);
       },
     [setFieldValue, handleBlur]
@@ -201,7 +231,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 label={t("therapy.nbdays")}
                 isValid={isValid("nbDays")}
                 errorText={getErrorText("nbDays")}
-                onBlur={formik.handleBlur}
+                onBlur={handleBlur("nbDays")}
                 type="number"
                 disabled={isLoading}
               />
@@ -213,7 +243,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 label={t("therapy.nbweeks")}
                 isValid={isValid("nbWeeks")}
                 errorText={getErrorText("nbWeeks")}
-                onBlur={formik.handleBlur}
+                onBlur={handleBlur("nbWeeks")}
                 type="number"
                 disabled={isLoading}
               />
@@ -225,7 +255,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 label={t("therapy.nbmonths")}
                 isValid={isValid("nbMonths")}
                 errorText={getErrorText("nbMonths")}
-                onBlur={formik.handleBlur}
+                onBlur={handleBlur("nbMonths")}
                 type="number"
                 disabled={isLoading}
               />
@@ -269,7 +299,7 @@ const TherapyForm: FC<TherapyProps> = ({
                 errorText={getErrorText("endDate")}
                 label={t("therapy.endDate")}
                 onChange={dateFieldHandleOnChange("endDate")}
-                disabled={isLoading}
+                disabled={true}
               />
             </div>
           </div>
