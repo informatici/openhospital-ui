@@ -7,6 +7,8 @@ import { usePermissions } from "./usePermissions";
  */
 export const usePermission = (name: TPermission): boolean => {
   const permissions = usePermissions();
-
+  if (!process.env.ENABLE_PERMISSIOM) {
+    return true;
+  }
   return Boolean(permissions.find((permission: string) => permission === name));
 };
