@@ -1,6 +1,5 @@
 {
   "env": {
-    "HOSTNAME": "http://localhost:3000",
-    "USING_CYPRESS": true
+    "HOSTNAME": "http://localhost:3000"
   }
 }
