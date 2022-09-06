@@ -121,6 +121,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
                 isCollapsabile={true}
                 onEdit={onEdit}
                 initialOrderBy="disDate"
+                showEmptyCell={false}
               />
             );
           case "SUCCESS_EMPTY":

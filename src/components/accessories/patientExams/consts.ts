@@ -1,3 +1,4 @@
+import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { ExamFormFieldName } from "./ExamForm/types";
 
@@ -49,7 +50,7 @@ export const initialFields: TFields<ExamFormFieldName> = {
     options: examsOptions,
   },
   examDate: {
-    value: "",
+    value: moment().toISOString(),
     type: "text",
   },
   note: {
