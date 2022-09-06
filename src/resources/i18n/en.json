@@ -70,7 +70,7 @@
     "summary": "Summary",
     "discharge": "Discharge",
     "visits": "Visits",
-    "agetypes" : {
+    "agetypes": {
       "d0": "New Born",
       "d1": "Early Childhood",
       "d2": "Late Childhood",
@@ -78,7 +78,10 @@
       "d4": "Adult",
       "d5": "Elderly"
     },
-    "operation": "Operation"
+    "operation": "Operation",
+    "updated": "Patient updated",
+    "created": "Patient created",
+    "updatesuccessful": "The patient was edit successfully."
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -575,7 +578,7 @@
     "zh": "Chinese"
   },
   "angal": {
-    "agetype" : {
+    "agetype": {
       "newborn": "New Born",
       "earlychildhood": "Early Childhood",
       "latechildhood": "Late Childhood",

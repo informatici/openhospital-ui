@@ -92,8 +92,12 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       getPatientThunk(id!);
       updatePatientReset();
       setShouldResetForm(true);
-    } else if (activityTransitionState === "TO_KEEP_EDITING") {
+    }
+    if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
+    }
+    if (activityTransitionState === "TO_DASHBOARD") {
+      history.replace(`/`);
     }
   }, [activityTransitionState, updatePatientReset, getPatientThunk, id]);
 
@@ -107,12 +111,6 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       scrollToElement(infoBoxRef.current);
     }
   }, [hasFailed]);
-
-  useEffect(() => {
-    if (activityTransitionState === "TO_DASHBOARD") {
-      history.replace(`/`);
-    }
-  }, [patient, activityTransitionState]);
 
   const [shouldResetForm, setShouldResetForm] = useState(false);
 
@@ -161,10 +159,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
             {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
           <ExtendedConfirmationDialog
-            isOpen={hasSucceeded}
-            title="Patient Created"
+            isOpen={openConfirmationMessage}
+            title={t("patient.updated")}
             icon={checkIcon}
-            info={t("common.patientregistrationsuccessfull")}
+            info={t("patient.updatesuccessful")}
             items={[
               {
                 label: t("common.dashboard"),
