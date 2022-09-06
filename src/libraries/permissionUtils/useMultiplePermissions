@@ -1,0 +1,16 @@
+import { TPermission } from "../../types";
+import { usePermissions } from "./usePermissions";
+
+/**
+ * @param names requested permissions
+ * @returns boolean true if user has specified permissions
+ */
+export const useMultiplePermissions = (names: TPermission[]): boolean => {
+  const permissions = usePermissions();
+
+  return (
+    permissions.filter((permission: string) =>
+      names.includes(permission as TPermission)
+    ).length === names.length
+  );
+};

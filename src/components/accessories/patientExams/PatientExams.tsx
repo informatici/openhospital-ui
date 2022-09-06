@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import "./styles.scss";
 import { TherapyTransitionState } from "./types";
 import { initialFields } from "./consts";
@@ -31,10 +31,13 @@ import {
   updateLabFields,
 } from "../../../libraries/formDataHandling/functions";
 import { CircularProgress } from "@material-ui/core";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canCreate = usePermission("exam.create");
+  const canUpdate = usePermission("exam.update");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -54,6 +57,10 @@ const PatientExams: FC = () => {
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
+
+  const open = useMemo(() => {
+    return creationMode ? canCreate : canUpdate;
+  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     dispatch(getMaterials());
@@ -140,7 +147,7 @@ const PatientExams: FC = () => {
 
   return (
     <div className="patientExam">
-      {labStore.getLabWithRowsByCode.status !== "LOADING" && (
+      {labStore.getLabWithRowsByCode.status !== "LOADING" && open && (
         <ExamForm
           fields={
             creationMode

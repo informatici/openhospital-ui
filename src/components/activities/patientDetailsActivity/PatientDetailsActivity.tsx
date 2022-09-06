@@ -15,6 +15,7 @@ import {
 import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
 import { IState } from "../../../types";
@@ -52,6 +53,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const canEdit = usePermission("patient.update");
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
@@ -140,24 +142,26 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </div>
                     </div>
 
-                    <div className="patientDetails__personalData_edit_button_wrapper">
-                      <div className="patientDetails__personalData_edit_button">
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          onClick={() =>
-                            setActivityTransitionState("TO_PATIENT_EDITING")
-                          }
-                        >
-                          <EditRounded
-                            fontSize="small"
-                            style={{ color: "white" }}
-                          />
-                          <span>{t("patient.titleedit")}</span>
-                        </Button>
+                    {canEdit && (
+                      <div className="patientDetails__personalData_edit_button_wrapper">
+                        <div className="patientDetails__personalData_edit_button">
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            onClick={() =>
+                              setActivityTransitionState("TO_PATIENT_EDITING")
+                            }
+                          >
+                            <EditRounded
+                              fontSize="small"
+                              style={{ color: "white" }}
+                            />
+                            <span>{t("patient.titleedit")}</span>
+                          </Button>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div className="patientDetails_status">
                       {patient?.data?.status === PatientDTOStatusEnum.I ? (

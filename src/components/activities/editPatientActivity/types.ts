@@ -21,4 +21,5 @@ export type TProps = IStateProps & IDispatchProps;
 export type TActivityTransitionState =
   | "IDLE"
   | "TO_KEEP_EDITING"
-  | "TO_PATIENT";
+  | "TO_PATIENT"
+  | "TO_DASHBOARD";

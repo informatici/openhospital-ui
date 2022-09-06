@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
 import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";
@@ -21,12 +21,15 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
 import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
 const PatientTherapy: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canCreate = usePermission("opd.create");
+  const canUpdate = usePermission("opd.update");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -64,6 +67,10 @@ const PatientTherapy: FC = () => {
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.deleteTherapy.status
   );
+
+  const open = useMemo(() => {
+    return creationMode ? canCreate : canUpdate;
+  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     dispatch(deleteTherapyReset());
@@ -127,22 +134,24 @@ const PatientTherapy: FC = () => {
 
   return (
     <div className="patientTherapy">
-      <TherapyForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateTherapyFields(initialFields, therapyToEdit)
-        }
-        onSubmit={onSubmit}
-        creationMode={creationMode}
-        submitButtonLabel={
-          creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
-        }
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={status === "LOADING"}
-      />
+      {open && (
+        <TherapyForm
+          fields={
+            creationMode
+              ? initialFields
+              : updateTherapyFields(initialFields, therapyToEdit)
+          }
+          onSubmit={onSubmit}
+          creationMode={creationMode}
+          submitButtonLabel={
+            creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
+          }
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={status === "LOADING"}
+        />
+      )}
       {status === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />

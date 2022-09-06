@@ -5,6 +5,7 @@ import { Navigate } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
@@ -22,6 +23,8 @@ const DashboardActivity: FunctionComponent<TProps> = ({
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
   };
+
+  const canCreate = usePermission("patient.create");
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
@@ -48,20 +51,22 @@ const DashboardActivity: FunctionComponent<TProps> = ({
               ) : null}
             </div>
             <div className="dashboard__actions">
-              <div className="dashboard__actions__button">
-                <LargeButton
-                  handleClick={() =>
-                    setActivityTransitionState("TO_NEW_PATIENT")
-                  }
-                >
-                  <div className="largeButton__inner">
-                    <PlusIcon />
-                    <div className="largeButton__inner__label">
-                      {t("dashboard.newpatient")}
+              {canCreate && (
+                <div className="dashboard__actions__button">
+                  <LargeButton
+                    handleClick={() =>
+                      setActivityTransitionState("TO_NEW_PATIENT")
+                    }
+                  >
+                    <div className="largeButton__inner">
+                      <PlusIcon />
+                      <div className="largeButton__inner__label">
+                        {t("dashboard.newpatient")}
+                      </div>
                     </div>
-                  </div>
-                </LargeButton>
-              </div>
+                  </LargeButton>
+                </div>
+              )}
               <div className="dashboard__actions__button">
                 <LargeButton
                   handleClick={() =>

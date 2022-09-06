@@ -337,6 +337,11 @@
       "years": "Year(s)"
     }
   },
+  "permission": {
+    "denied": "Permission denied",
+    "unauthorized": "Unauthorized",
+    "accessdenied": "You don't have permission required to access this content"
+  },
   "therapy": {
     "newtherapy": "New Therapy",
     "edittherapy": "Edit Therapy",

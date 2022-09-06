@@ -16,6 +16,8 @@ import {
 import { getExams } from "../../../state/exams/actions";
 import ExamForm from "./examForm/ExamForm";
 import { getPatientThunk } from "../../../state/patients/actions";
+import { PermissionWrapper } from "../permissionWrapper/PermissionWrapper";
+import { examRoutes } from "../../../mockServer/routes/exam";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
@@ -89,12 +91,16 @@ export const EditLaboratoryContent: FC = () => {
         </div>
       </div>
       {open && (
-        <ExamForm
-          fields={formFields}
-          handleReset={handleReset}
-          creationMode={creationMode}
-          labWithRowsToEdit={labWithRows ?? {}}
-        />
+        <PermissionWrapper
+          permission={creationMode ? "exam.create" : "exam.update"}
+        >
+          <ExamForm
+            fields={formFields}
+            handleReset={handleReset}
+            creationMode={creationMode}
+            labWithRowsToEdit={labWithRows ?? {}}
+          />
+        </PermissionWrapper>
       )}
     </>
   );

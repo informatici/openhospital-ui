@@ -5,9 +5,10 @@ import { PATHS } from "../../../consts";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
+import { CustomPermissionDenied } from "../../accessories/customPermissionDenied/CustomPermissionDenied";
 import Footer from "../../accessories/footer/Footer";
 import { Opds } from "../../accessories/opds/Opds";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
+import { PermissionWrapper } from "../../accessories/permissionWrapper/PermissionWrapper";
 import "./styles.scss";
 
 const VisitsActivity: FC = () => {
@@ -29,7 +30,12 @@ const VisitsActivity: FC = () => {
       />
       <div className="visits__background">
         <div className="visits__content">
-          <Opds />
+          <PermissionWrapper
+            permission="opd.read"
+            fallback={<CustomPermissionDenied />}
+          >
+            <Opds />
+          </PermissionWrapper>
         </div>
       </div>
       <Footer />

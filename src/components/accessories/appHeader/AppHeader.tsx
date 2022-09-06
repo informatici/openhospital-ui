@@ -20,6 +20,7 @@ import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
 import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
 import { PATHS } from "../../../consts";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -46,6 +47,9 @@ const AppHeader: FunctionComponent<TProps> = ({
     setLogoutThunk();
   };
   const navigate = useNavigate();
+
+  const canReadVisit = usePermission("opd.read");
+  const canReadExam = usePermission("exam.read");
 
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
@@ -122,18 +126,22 @@ const AppHeader: FunctionComponent<TProps> = ({
               >
                 {t("nav.patients")}
               </div>
-              <div
-                className="appHeader__nav__item"
-                onClick={() => navigate(PATHS.visits)}
-              >
-                {t("nav.visits")}
-              </div>
-              <div
-                className="appHeader__nav__item"
-                onClick={() => navigate(PATHS.laboratory)}
-              >
-                {t("nav.laboratory")}
-              </div>
+              {canReadVisit && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.visits)}
+                >
+                  {t("nav.visits")}
+                </div>
+              )}
+              {canReadExam && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.laboratory)}
+                >
+                  {t("nav.laboratory")}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { IProps } from "../../table/types";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
@@ -21,6 +22,8 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   handleAddOperation,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("visit.update");
+  const canCreateOperation = usePermission("operation.create");
   const header = ["date", "duration"];
   const dateFields = ["date"];
   const label = {
@@ -100,8 +103,8 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={onEdit}
-                onAdd={onAdd}
+                onEdit={canUpdate ? onEdit : undefined}
+                onAdd={canCreateOperation ? onAdd : undefined}
                 addTitle={t("visit.addoperation")}
               />
             );

@@ -15,10 +15,11 @@ import {
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
+import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDialog/ExtendedConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
+import { PermissionWrapper } from "../../accessories/permissionWrapper/PermissionWrapper";
 import { initialFields } from "../newPatientActivity/consts";
 import "./styles.scss";
 import {
@@ -107,6 +108,12 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     }
   }, [hasFailed]);
 
+  useEffect(() => {
+    if (activityTransitionState === "TO_DASHBOARD") {
+      history.replace(`/`);
+    }
+  }, [patient, activityTransitionState]);
+
   const [shouldResetForm, setShouldResetForm] = useState(false);
 
   const resetFormCallback = () => {
@@ -153,19 +160,25 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
           <div ref={infoBoxRef}>
             {hasFailed && <InfoBox type="error" message={errorMessage} />}
           </div>
-          <ConfirmationDialog
-            isOpen={openConfirmationMessage}
-            title={t("common.titleedited")}
+          <ExtendedConfirmationDialog
+            isOpen={hasSucceeded}
+            title="Patient Created"
             icon={checkIcon}
-            info={t("common.patienteditsuccessfull")}
-            primaryButtonLabel={t("common.patient")}
-            secondaryButtonLabel={t("common.keepediting")}
-            handlePrimaryButtonClick={() =>
-              setActivityTransitionState("TO_PATIENT")
-            }
-            handleSecondaryButtonClick={() =>
-              setActivityTransitionState("TO_KEEP_EDITING")
-            }
+            info={t("common.patientregistrationsuccessfull")}
+            items={[
+              {
+                label: t("common.dashboard"),
+                onClick: () => setActivityTransitionState("TO_DASHBOARD"),
+              },
+              {
+                label: t("common.keepediting"),
+                onClick: () => setActivityTransitionState("TO_KEEP_EDITING"),
+              },
+              {
+                label: t("patient.dashboard"),
+                onClick: () => setActivityTransitionState("TO_PATIENT"),
+              },
+            ]}
           />
           <Footer />
         </div>

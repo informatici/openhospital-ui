@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import AdmissionForm from "./admissionForm/AdmissionForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
@@ -21,10 +21,12 @@ import { useFields } from "./useFields";
 import { getPatientThunk } from "../../../state/patients/actions";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import { isEmpty } from "lodash";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canCreate = usePermission("admission.create");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
@@ -65,6 +67,11 @@ const PatientAdmission: FC = () => {
       state.admissions.updateAdmission.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
+  const open = useMemo(() => {
+    if (creationMode) return showForm && canCreate;
+    return showForm;
+  }, [showForm, canCreate, creationMode]);
 
   const fields = useFields(admissionToEdit);
 
@@ -165,7 +172,7 @@ const PatientAdmission: FC = () => {
       {!showForm && (
         <InfoBox type="info" message={t("admission.patientalreadyadmitted")} />
       )}
-      {showForm && (
+      {open && (
         <AdmissionForm
           fields={fields}
           onSubmit={onSubmit}

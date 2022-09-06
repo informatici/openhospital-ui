@@ -22,6 +22,7 @@ import PatientOperationTable from "./operationTable/OperationRowTable";
 import { getCurrentAdmissionByPatientId } from "../../../state/admissions/actions";
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   opd?: OpdDTO;
@@ -31,6 +32,8 @@ interface IOwnProps {
 
 const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   const { t } = useTranslation();
+  const canCreate = usePermission("operation.create");
+  const canUpdate = usePermission("operation.update");
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -65,6 +68,10 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
+
+  const open = useMemo(() => {
+    return creationMode ? canCreate : canUpdate;
+  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     dispatch(createOperationRowReset());
@@ -137,16 +144,20 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
 
   return (
     <div className="patientAdmission">
-      <OperationRowForm
-        fields={fields}
-        onSubmit={onSubmit}
-        creationMode={creationMode}
-        submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={changeStatus === "LOADING"}
-      />
+      {open && (
+        <OperationRowForm
+          fields={fields}
+          onSubmit={onSubmit}
+          creationMode={creationMode}
+          submitButtonLabel={
+            creationMode ? t("common.save") : t("common.update")
+          }
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={changeStatus === "LOADING"}
+        />
+      )}
       {changeStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox

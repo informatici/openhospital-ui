@@ -26,7 +26,6 @@ import {
 import {
   deleteLab,
   deleteLabReset,
-  getLabWithRowsByCodeReset,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
@@ -37,6 +36,7 @@ import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -44,6 +44,7 @@ export const Exams: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const canCreate = usePermission("exam.create");
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
@@ -107,17 +108,19 @@ export const Exams: FC = () => {
         <div className="lab__header">
           <div className="lab__title">{t("nav.laboratory")}</div>
           <div className="lab__actions">
-            <Button
-              onClick={() => {
-                navigate(`${PATHS.laboratory}/new`);
-              }}
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              <Add fontSize="small" />
-              <span className="new__button__label">{t("lab.newlab")}</span>
-            </Button>
+            {canCreate && (
+              <Button
+                onClick={() => {
+                  navigate(`${PATHS.laboratory}/new`);
+                }}
+                type="button"
+                variant="contained"
+                color="primary"
+              >
+                <Add fontSize="small" />
+                <span className="new__button__label">{t("lab.newlab")}</span>
+              </Button>
+            )}
           </div>
         </div>
         {status === "LOADING" && (

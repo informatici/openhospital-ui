@@ -1,9 +1,17 @@
-import { default as React, FC, useEffect, useRef, useState } from "react";
+import {
+  default as React,
+  FC,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createExamination,
@@ -25,6 +33,8 @@ export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 const PatientTriage: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canCreate = usePermission("examination.create");
+  const canUpdate = usePermission("examination.update");
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -63,6 +73,10 @@ const PatientTriage: FC = () => {
       state.examinations.deleteExamination.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
+  const open = useMemo(() => {
+    return creationMode ? canCreate : canUpdate;
+  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -124,22 +138,24 @@ const PatientTriage: FC = () => {
 
   return (
     <div className="patientTriage">
-      <PatientTriageForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateTriageFields(initialFields, triageToEdit)
-        }
-        creationMode={creationMode}
-        onSubmit={onSubmit}
-        submitButtonLabel={
-          creationMode ? t("common.savetriage") : t("common.update")
-        }
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={status === "LOADING"}
-      />
+      {open && (
+        <PatientTriageForm
+          fields={
+            creationMode
+              ? initialFields
+              : updateTriageFields(initialFields, triageToEdit)
+          }
+          creationMode={creationMode}
+          onSubmit={onSubmit}
+          submitButtonLabel={
+            creationMode ? t("common.savetriage") : t("common.update")
+          }
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={status === "LOADING"}
+        />
+      )}
 
       {(status === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>

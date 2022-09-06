@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
@@ -22,10 +28,13 @@ import { updateVisitFields } from "../../../libraries/formDataHandling/functions
 import { getWards } from "../../../state/ward/actions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canCreate = usePermission("visit.create");
+  const canUpdate = usePermission("visit.update");
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -62,6 +71,10 @@ const PatientVisit: FunctionComponent = () => {
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
+
+  const open = useMemo(() => {
+    return creationMode ? canCreate : canUpdate;
+  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     if (changeStatus === "FAIL") {
@@ -130,21 +143,23 @@ const PatientVisit: FunctionComponent = () => {
 
   return (
     <div className="patientVisit">
-      <PatientVisitForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateVisitFields(initialFields, visitToEdit)
-        }
-        onSubmit={onSubmit}
-        submitButtonLabel={
-          creationMode ? t("visit.savevisit") : t("visit.updatevisit")
-        }
-        resetButtonLabel={t("common.reset")}
-        isLoading={changeStatus === "LOADING"}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-      />
+      {open && (
+        <PatientVisitForm
+          fields={
+            creationMode
+              ? initialFields
+              : updateVisitFields(initialFields, visitToEdit)
+          }
+          onSubmit={onSubmit}
+          submitButtonLabel={
+            creationMode ? t("visit.savevisit") : t("visit.updatevisit")
+          }
+          resetButtonLabel={t("common.reset")}
+          isLoading={changeStatus === "LOADING"}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+        />
+      )}
 
       {changeStatus === "FAIL" && (
         <div ref={infoBoxRef}>

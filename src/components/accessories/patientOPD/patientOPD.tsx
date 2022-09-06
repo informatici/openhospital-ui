@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
@@ -24,10 +30,13 @@ import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canCreate = usePermission("opd.create");
+  const canUpdate = usePermission("opd.update");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
@@ -65,6 +74,10 @@ const PatientOPD: FunctionComponent = () => {
       state.opds.deleteOpd.error?.message ||
       t("common.somethingwrong")
   );
+
+  const open = useMemo(() => {
+    return creationMode ? canCreate : canUpdate;
+  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     if (changeStatus === "FAIL") {
@@ -145,21 +158,27 @@ const PatientOPD: FunctionComponent = () => {
 
   return (
     <div className="patientOpd">
-      <PatientExtraData />
-      <PatientOPDForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateOpdFields(initialFields, opdToEdit)
-        }
-        creationMode={creationMode}
-        onSubmit={onSubmit}
-        submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
-        resetButtonLabel={t("common.reset")}
-        isLoading={changeStatus === "LOADING"}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-      />
+      {open && (
+        <>
+          <PatientExtraData />
+          <PatientOPDForm
+            fields={
+              creationMode
+                ? initialFields
+                : updateOpdFields(initialFields, opdToEdit)
+            }
+            creationMode={creationMode}
+            onSubmit={onSubmit}
+            submitButtonLabel={
+              creationMode ? t("opd.saveopd") : t("opd.updateopd")
+            }
+            resetButtonLabel={t("common.reset")}
+            isLoading={changeStatus === "LOADING"}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+          />
+        </>
+      )}
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />

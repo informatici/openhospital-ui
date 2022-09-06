@@ -8,6 +8,7 @@ import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { Exams } from "../../accessories/laboratory/Exams";
+import { PermissionWrapper } from "../../accessories/permissionWrapper/PermissionWrapper";
 import "./styles.scss";
 
 const LaboratoryActivity: FC = () => {
@@ -41,7 +42,9 @@ const LaboratoryActivity: FC = () => {
       />
       <div className="labs__background">
         <div className="labs__content">
-          <Exams />
+          <PermissionWrapper permission="exam.read">
+            <Exams />
+          </PermissionWrapper>
         </div>
       </div>
       <Footer />
