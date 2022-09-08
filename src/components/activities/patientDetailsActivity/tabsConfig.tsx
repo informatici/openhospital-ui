@@ -9,7 +9,6 @@ import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetai
 
 export const patientDetailTabs: TTabConfig = [
   {
-    checkPermissions: "summary.read",
     label: "Summary",
     path: "/summary",
     content: <PatientDetailsContent title="Summary" content={PatientSummary} />,
