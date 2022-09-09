@@ -8,7 +8,7 @@ import { usePermissions } from "./usePermissions";
 export const useMultiplePermissions = (names: TPermission[]): boolean => {
   const permissions = usePermissions();
 
-  if (!process.env.ENABLE_PERMISSIOM) {
+  if (!process.env.ENABLE_PERMISSIONS) {
     return true;
   }
 
