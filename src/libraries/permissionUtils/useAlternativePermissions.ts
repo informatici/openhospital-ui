@@ -8,6 +8,10 @@ import { usePermissions } from "./usePermissions";
 export const useAlternativePermissions = (names: TPermission[]): boolean => {
   const permissions = usePermissions();
 
+  if (!process.env.ENABLE_PERMISSIOM) {
+    return true;
+  }
+
   return (
     permissions.filter((permission: string) =>
       names.includes(permission as TPermission)
