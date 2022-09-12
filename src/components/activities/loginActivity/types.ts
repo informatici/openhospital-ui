@@ -8,6 +8,7 @@ export interface IRedirectAfterLogin {
 
 export interface IStateProps {
   status: TAPIResponseStatus;
+  errorMessage: string | undefined;
 }
 
 export interface IDispatchProps {

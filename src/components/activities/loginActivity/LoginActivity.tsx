@@ -22,6 +22,7 @@ import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthenticationThunk,
   status,
+  errorMessage,
 }) => {
   useAuthentication();
 
@@ -111,7 +112,9 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              {t("login.incorrectcredentials")}
+              {errorMessage?.includes("too short")
+                ? t("login.passwordtooshort")
+                : t("login.incorrectcredentials")}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -139,6 +142,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   status: state.main.authentication.status || "IDLE",
+  errorMessage: state.main.authentication.error?.message,
 });
 
 const mapDispatchToProps: IDispatchProps = {

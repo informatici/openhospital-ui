@@ -8,7 +8,8 @@
     "insertthepassword": "Insert the password",
     "login": "Login",
     "signout": "Logout",
-    "signoutText": "Are you sure you want to Logout?"
+    "signoutText": "Are you sure you want to Logout?",
+    "passwordtooshort": "Password too short"
   },
   "dashboard": {
     "welcomename": "Welcome",
