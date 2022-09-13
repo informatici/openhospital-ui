@@ -35,7 +35,7 @@ export const createVisit =
       (error) => {
         dispatch({
           type: CREATE_VISIT_FAIL,
-          error: error,
+          error: error?.response,
         });
       }
     );
@@ -84,7 +84,7 @@ export const getVisits =
         (error) => {
           dispatch({
             type: GET_VISIT_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -105,7 +105,7 @@ export const updateVisit =
       (error) => {
         dispatch({
           type: UPDATE_VISIT_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

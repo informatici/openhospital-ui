@@ -67,7 +67,7 @@ export const setAuthenticationThunk =
         (error) => {
           dispatch({
             type: SET_AUTHENTICATION_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -89,7 +89,7 @@ export const setLogoutThunk =
       (error) => {
         dispatch({
           type: SET_LOGOUT_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

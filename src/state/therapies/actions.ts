@@ -41,7 +41,7 @@ export const createTherapy =
       (error) => {
         dispatch({
           type: CREATE_THERAPY_FAIL,
-          error: error,
+          error: error?.response,
         });
       }
     );
@@ -67,7 +67,7 @@ export const updateTherapy =
         (error) => {
           dispatch({
             type: UPDATE_THERAPY_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -121,7 +121,7 @@ export const getTherapiesByPatientId =
         (error) => {
           dispatch({
             type: GET_THERAPY_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );

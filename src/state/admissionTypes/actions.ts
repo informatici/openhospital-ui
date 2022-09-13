@@ -36,7 +36,7 @@ export const getAdmissionTypes =
       (error) => {
         dispatch({
           type: GET_ADMISSIONTYPE_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

@@ -38,7 +38,7 @@ export const getPrices =
       (error) => {
         dispatch({
           type: GET_PRICE_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -67,7 +67,7 @@ export const getPriceLists =
       (error) => {
         dispatch({
           type: GET_PRICELISTS_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

@@ -34,7 +34,7 @@ export const getAgeTypes =
       (error) => {
         dispatch({
           type: GET_AGETYPES_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

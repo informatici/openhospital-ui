@@ -42,7 +42,7 @@ export const getMedicals =
         (error) => {
           dispatch({
             type: GET_MEDICAL_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );

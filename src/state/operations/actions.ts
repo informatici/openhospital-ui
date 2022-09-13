@@ -51,7 +51,7 @@ export const createOperationRow =
         (error) => {
           dispatch({
             type: CREATE_OPERATIONROW_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -75,7 +75,7 @@ export const updateOperationRow =
         (error) => {
           dispatch({
             type: UPDATE_OPERATIONROW_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -98,7 +98,7 @@ export const deleteOperationRow =
       (error) => {
         dispatch({
           type: DELETE_OPERATIONROW_FAIL,
-          error: error,
+          error: error?.response,
         });
       }
     );
@@ -143,7 +143,7 @@ export const getOperations =
       (error) => {
         dispatch({
           type: GET_OPERATIONS_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -174,7 +174,7 @@ export const getOperationsByAdmissionId =
         (error) => {
           dispatch({
             type: GET_OPERATIONROW_ADM_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );

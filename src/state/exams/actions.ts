@@ -44,7 +44,7 @@ export const getExams =
       (error) => {
         dispatch({
           type: GET_EXAM_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

@@ -40,7 +40,7 @@ export const createPatient =
       (error) => {
         dispatch({
           type: CREATE_PATIENT_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -65,7 +65,7 @@ export const updatePatient =
         (error) => {
           dispatch({
             type: UPDATE_PATIENT_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -136,7 +136,7 @@ export const searchPatient =
         (error) => {
           dispatch({
             type: SEARCH_PATIENT_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -173,7 +173,7 @@ export const getPatientThunk =
       (error) => {
         dispatch({
           type: GET_PATIENT_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
