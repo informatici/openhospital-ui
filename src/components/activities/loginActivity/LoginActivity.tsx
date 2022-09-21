@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
+import { ErrorDescription } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -112,7 +113,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              {errorMessage?.includes("too short")
+              {errorMessage === ErrorDescription.PASSWORDTOOSHORT
                 ? t("login.passwordtooshort")
                 : t("login.incorrectcredentials")}
             </div>
@@ -142,7 +143,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   status: state.main.authentication.status || "IDLE",
-  errorMessage: state.main.authentication.error?.message,
+  errorMessage: state.main.authentication.error?.description,
 });
 
 const mapDispatchToProps: IDispatchProps = {

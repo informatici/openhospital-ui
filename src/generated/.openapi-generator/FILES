@@ -54,6 +54,7 @@ models\DeliveryTypeDTO.ts
 models\DischargeTypeDTO.ts
 models\DiseaseDTO.ts
 models\DiseaseTypeDTO.ts
+models\ErrorDescription.ts
 models\ExamDTO.ts
 models\ExamRowDTO.ts
 models\ExamTypeDTO.ts
