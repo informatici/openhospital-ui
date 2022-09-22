@@ -23,7 +23,7 @@ import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthenticationThunk,
   status,
-  errorMessage,
+  errorType,
 }) => {
   useAuthentication();
 
@@ -113,7 +113,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              {errorMessage === ErrorDescription.PASSWORDTOOSHORT
+              {errorType === ErrorDescription.PASSWORDTOOSHORT
                 ? t("login.passwordtooshort")
                 : t("login.incorrectcredentials")}
             </div>
@@ -143,7 +143,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   status: state.main.authentication.status || "IDLE",
-  errorMessage: state.main.authentication.error?.description,
+  errorType: state.main.authentication.error?.description,
 });
 
 const mapDispatchToProps: IDispatchProps = {
