@@ -9406,6 +9406,10 @@ definitions:
         type: integer
         format: int32
     title: ResponseEntity
+  ErrorDescription:
+    type: string
+    enum:
+      - PASSWORD_TOO_SHORT
   SmsDTO:
     type: object
     properties:

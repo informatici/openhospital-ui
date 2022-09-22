@@ -11,6 +11,7 @@ export * from './DeliveryTypeDTO';
 export * from './DischargeTypeDTO';
 export * from './DiseaseDTO';
 export * from './DiseaseTypeDTO';
+export * from './ErrorDescription';
 export * from './ExamDTO';
 export * from './ExamRowDTO';
 export * from './ExamTypeDTO';
