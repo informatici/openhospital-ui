@@ -61,17 +61,21 @@ Then you can access to:
 
 ## How to publish on Github Pages
 
-    - npm run build:gh-pages
-    - git commit
-
-    then
-
-    - git subtree push --prefix build intesys-oh gh-pages
+    - git push intesys-remote develop
 
     or
 
-    - git subtree split --prefix build develop
-    - git push intesys-oh GIT_ID:gh-pages --force
+    - npm run build:gh-pages
+    - git commit
+
+        then
+
+        - git subtree push --prefix build intesys-oh gh-pages
+
+        or
+
+        - git subtree split --prefix build develop
+        - git push intesys-oh GIT_ID:gh-pages --force
 
 ## How to launch the application
 
