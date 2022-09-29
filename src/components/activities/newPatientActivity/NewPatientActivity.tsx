@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createPatient,
@@ -17,7 +18,6 @@ import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDi
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
-import { PermissionWrapper } from "../../accessories/permissionWrapper/PermissionWrapper";
 import { initialFields } from "./consts";
 import "./styles.scss";
 import {
@@ -114,16 +114,43 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <div className="newPatient__background">
             <div className="newPatient__content">
               <div className="newPatient__title">{t("nav.newpatient")}</div>
-              <PatientDataForm
-                fields={initialFields}
-                onSubmit={onSubmit}
-                submitButtonLabel={t("common.submit")}
-                resetButtonLabel={t("common.clearall")}
-                isLoading={isLoading}
-                shouldResetForm={shouldResetForm}
-                resetFormCallback={resetFormCallback}
-                mode={"create"}
-              />
+              <Permission require="patient.create">
+                <PatientDataForm
+                  fields={initialFields}
+                  onSubmit={onSubmit}
+                  submitButtonLabel={t("common.submit")}
+                  resetButtonLabel={t("common.clearall")}
+                  isLoading={isLoading}
+                  shouldResetForm={shouldResetForm}
+                  resetFormCallback={resetFormCallback}
+                  mode={"create"}
+                />
+                <div ref={infoBoxRef}>
+                  {hasFailed && <InfoBox type="error" message={errorMessage} />}
+                </div>
+                <ExtendedConfirmationDialog
+                  isOpen={hasSucceeded}
+                  title={t("patient.created")}
+                  icon={checkIcon}
+                  info={t("common.patientregistrationsuccessfull")}
+                  items={[
+                    {
+                      label: t("common.dashboard"),
+                      onClick: () => setActivityTransitionState("TO_DASHBOARD"),
+                    },
+                    {
+                      label: t("common.keepediting"),
+                      onClick: () =>
+                        setActivityTransitionState("TO_NEW_PATIENT_RESET"),
+                    },
+                    {
+                      label: t("patient.dashboard"),
+                      onClick: () =>
+                        setActivityTransitionState("TO_PATIENT_DASHBOARD"),
+                    },
+                  ]}
+                />
+              </Permission>
             </div>
           </div>
           <Footer />

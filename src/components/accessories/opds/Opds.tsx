@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { searchOpds } from "../../../state/opds/actions";
 import { TFilterValues } from "../billTable/types";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;
@@ -69,10 +70,10 @@ export const Opds: FC = () => {
           switch (status) {
             case "FAIL":
               return (
-                <>
+                <Permission require="opd.read">
                   <OpdFilterForm onSubmit={onSubmit} fields={fields} />
                   <InfoBox type="error" message={errorMessage} />
-                </>
+                </Permission>
               );
 
             case "LOADING":
@@ -84,21 +85,18 @@ export const Opds: FC = () => {
 
             case "SUCCESS_EMPTY":
               return (
-                <>
+                <Permission require="opd.read">
                   <OpdFilterForm onSubmit={onSubmit} fields={fields} />
-                  <InfoBox
-                    type="warning"
-                    message={t("common.emptydataforfilter")}
-                  />
-                </>
+                  <InfoBox type="warning" message={t("common.emptydata")} />
+                </Permission>
               );
 
             case "SUCCESS":
               return (
-                <>
+                <Permission require="opd.read">
                   <OpdFilterForm onSubmit={onSubmit} fields={fields} />
                   <OpdTable data={data ?? []} />
-                </>
+                </Permission>
               );
           }
         })()}

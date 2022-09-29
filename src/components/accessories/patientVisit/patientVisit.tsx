@@ -29,12 +29,11 @@ import { getWards } from "../../../state/ward/actions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const canCreate = usePermission("visit.create");
-  const canUpdate = usePermission("visit.update");
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -71,10 +70,6 @@ const PatientVisit: FunctionComponent = () => {
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-
-  const open = useMemo(() => {
-    return creationMode ? canCreate : canUpdate;
-  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     if (changeStatus === "FAIL") {
@@ -143,7 +138,9 @@ const PatientVisit: FunctionComponent = () => {
 
   return (
     <div className="patientVisit">
-      {open && (
+      <Permission
+        require={creationMode ? "admission.create" : "admission.update"}
+      >
         <PatientVisitForm
           fields={
             creationMode
@@ -159,43 +156,50 @@ const PatientVisit: FunctionComponent = () => {
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
         />
-      )}
+        {changeStatus === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        <ConfirmationDialog
+          isOpen={changeStatus === "SUCCESS"}
+          title={creationMode ? t("visit.created") : t("visit.updated")}
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("visit.createsuccess")
+              : t("visit.updatesuccess", { code: visitToEdit.visitID })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
+        />
+      </Permission>
 
-      {changeStatus === "FAIL" && (
-        <div ref={infoBoxRef}>
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
-      <PatientVisitTable
-        handleEdit={onEdit}
-        handleAddOperation={onAddOperation}
-        shouldUpdateTable={shouldUpdateTable}
-      />
-      <ConfirmationDialog
-        isOpen={changeStatus === "SUCCESS"}
-        title={creationMode ? t("visit.created") : t("visit.updated")}
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("visit.createsuccess")
-            : t("visit.updatesuccess", { code: visitToEdit.visitID })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <CustomDialog
-        title={t("visit.addoperation")}
-        description={t("visit.addoperationdesc")}
-        open={showModal}
-        onClose={onOperationCreated}
-        content={
-          <PatientOperation
-            onSuccess={onOperationCreated}
-            visit={selectedVisit}
-          />
-        }
-      />
+      <Permission require="admission.read">
+        <PatientVisitTable
+          handleEdit={onEdit}
+          handleAddOperation={onAddOperation}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+      </Permission>
+
+      <Permission require="operation.create">
+        <CustomDialog
+          title={t("visit.addoperation")}
+          description={t("visit.addoperationdesc")}
+          open={showModal}
+          onClose={onOperationCreated}
+          content={
+            <PatientOperation
+              onSuccess={onOperationCreated}
+              visit={selectedVisit}
+            />
+          }
+        />
+      </Permission>
     </div>
   );
 };

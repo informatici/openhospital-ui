@@ -22,14 +22,13 @@ import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
 import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
 const PatientTherapy: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const canCreate = usePermission("opd.create");
-  const canUpdate = usePermission("opd.update");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -67,10 +66,6 @@ const PatientTherapy: FC = () => {
   const deleteStatus = useSelector<IState, string | undefined>(
     (state) => state.therapies.deleteTherapy.status
   );
-
-  const open = useMemo(() => {
-    return creationMode ? canCreate : canUpdate;
-  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     dispatch(deleteTherapyReset());
@@ -134,7 +129,7 @@ const PatientTherapy: FC = () => {
 
   return (
     <div className="patientTherapy">
-      {open && (
+      <Permission require={creationMode ? "therapy.create" : "therapy.update"}>
         <TherapyForm
           fields={
             creationMode
@@ -151,40 +146,48 @@ const PatientTherapy: FC = () => {
           resetFormCallback={resetFormCallback}
           isLoading={status === "LOADING"}
         />
-      )}
-      {status === "FAIL" && (
-        <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
+        {status === "FAIL" && (
+          <div ref={infoBoxRef} className="info-box-container">
+            <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
 
-      <ConfirmationDialog
-        isOpen={status === "SUCCESS"}
-        title={creationMode ? t("therapy.created") : t("therapy.updated")}
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("therapy.createsuccess")
-            : t("therapy.updatesuccess", { code: therapyToEdit.therapyID })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <PatientTherapyTable
-        handleDelete={onDelete}
-        handleEdit={onEdit}
-        shouldUpdateTable={shouldUpdateTable}
-      />
-      <ConfirmationDialog
-        isOpen={deleteStatus === "SUCCESS"}
-        title={t("common.delete")}
-        icon={checkIcon}
-        info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel={t("common.ok")}
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => {}}
-      />
+        <ConfirmationDialog
+          isOpen={status === "SUCCESS"}
+          title={creationMode ? t("therapy.created") : t("therapy.updated")}
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("therapy.createsuccess")
+              : t("therapy.updatesuccess", { code: therapyToEdit.therapyID })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
+        />
+      </Permission>
+      <Permission require="therapy.read">
+        <PatientTherapyTable
+          handleDelete={onDelete}
+          handleEdit={onEdit}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+      </Permission>
+      <Permission require="therapy.delete">
+        <ConfirmationDialog
+          isOpen={deleteStatus === "SUCCESS"}
+          title={t("common.delete")}
+          icon={checkIcon}
+          info={t("common.deletesuccess", { code: deletedObjCode })}
+          primaryButtonLabel={t("common.ok")}
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => {}}
+        />
+      </Permission>
     </div>
   );
 };

@@ -37,6 +37,7 @@ import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -108,7 +109,7 @@ export const Exams: FC = () => {
         <div className="lab__header">
           <div className="lab__title">{t("nav.laboratory")}</div>
           <div className="lab__actions">
-            {canCreate && (
+            <Permission require="exam.create">
               <Button
                 onClick={() => {
                   navigate(`${PATHS.laboratory}/new`);
@@ -120,7 +121,7 @@ export const Exams: FC = () => {
                 <Add fontSize="small" />
                 <span className="new__button__label">{t("lab.newlab")}</span>
               </Button>
-            )}
+            </Permission>
           </div>
         </div>
         {status === "LOADING" && (
@@ -129,7 +130,7 @@ export const Exams: FC = () => {
           />
         )}
         {status !== "LOADING" && (
-          <>
+          <Permission require="exam.read">
             <ExamFilterForm onSubmit={onSubmit} fields={fields} />
             {status === "SUCCESS_EMPTY" && (
               <InfoBox type="warning" message={t("common.emptydata")} />
@@ -161,7 +162,7 @@ export const Exams: FC = () => {
               }}
               handleSecondaryButtonClick={() => {}}
             />
-          </>
+          </Permission>
         )}
       </>
     );

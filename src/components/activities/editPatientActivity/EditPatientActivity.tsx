@@ -7,6 +7,7 @@ import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   updatePatient,
@@ -19,7 +20,6 @@ import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDi
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
-import { PermissionWrapper } from "../../accessories/permissionWrapper/PermissionWrapper";
 import { initialFields } from "../newPatientActivity/consts";
 import "./styles.scss";
 import {
@@ -142,42 +142,45 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                   patient.data?.secondName
                 }`}
               </div>
-              <PatientDataForm
-                fields={updateFields(initialFields, patient?.data)}
-                profilePicture={patient.data?.blobPhoto}
-                onSubmit={onSubmit}
-                submitButtonLabel={t("common.submit")}
-                resetButtonLabel={t("common.reset")}
-                isLoading={isLoading}
-                shouldResetForm={shouldResetForm}
-                resetFormCallback={resetFormCallback}
-                mode={"edit"}
-              />
+              <Permission require="patient.update">
+                <PatientDataForm
+                  fields={updateFields(initialFields, patient?.data)}
+                  profilePicture={patient.data?.blobPhoto}
+                  onSubmit={onSubmit}
+                  submitButtonLabel={t("common.submit")}
+                  resetButtonLabel={t("common.reset")}
+                  isLoading={isLoading}
+                  shouldResetForm={shouldResetForm}
+                  resetFormCallback={resetFormCallback}
+                  mode={"edit"}
+                />
+                <div ref={infoBoxRef}>
+                  {hasFailed && <InfoBox type="error" message={errorMessage} />}
+                </div>
+                <ExtendedConfirmationDialog
+                  isOpen={openConfirmationMessage}
+                  title={t("patient.updated")}
+                  icon={checkIcon}
+                  info={t("patient.updatesuccessful")}
+                  items={[
+                    {
+                      label: t("common.dashboard"),
+                      onClick: () => setActivityTransitionState("TO_DASHBOARD"),
+                    },
+                    {
+                      label: t("common.keepediting"),
+                      onClick: () =>
+                        setActivityTransitionState("TO_KEEP_EDITING"),
+                    },
+                    {
+                      label: t("patient.dashboard"),
+                      onClick: () => setActivityTransitionState("TO_PATIENT"),
+                    },
+                  ]}
+                />
+              </Permission>
             </div>
           </div>
-          <div ref={infoBoxRef}>
-            {hasFailed && <InfoBox type="error" message={errorMessage} />}
-          </div>
-          <ExtendedConfirmationDialog
-            isOpen={openConfirmationMessage}
-            title={t("patient.updated")}
-            icon={checkIcon}
-            info={t("patient.updatesuccessful")}
-            items={[
-              {
-                label: t("common.dashboard"),
-                onClick: () => setActivityTransitionState("TO_DASHBOARD"),
-              },
-              {
-                label: t("common.keepediting"),
-                onClick: () => setActivityTransitionState("TO_KEEP_EDITING"),
-              },
-              {
-                label: t("patient.dashboard"),
-                onClick: () => setActivityTransitionState("TO_PATIENT"),
-              },
-            ]}
-          />
           <Footer />
         </div>
       );

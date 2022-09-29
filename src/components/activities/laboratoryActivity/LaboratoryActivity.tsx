@@ -3,12 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { Exams } from "../../accessories/laboratory/Exams";
-import { PermissionWrapper } from "../../accessories/permissionWrapper/PermissionWrapper";
 import "./styles.scss";
 
 const LaboratoryActivity: FC = () => {
@@ -42,9 +42,9 @@ const LaboratoryActivity: FC = () => {
       />
       <div className="labs__background">
         <div className="labs__content">
-          <PermissionWrapper permission="exam.read">
+          <Permission require="laboratory.access">
             <Exams />
-          </PermissionWrapper>
+          </Permission>
         </div>
       </div>
       <Footer />

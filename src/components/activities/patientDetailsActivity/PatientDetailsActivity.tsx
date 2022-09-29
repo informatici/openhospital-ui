@@ -15,6 +15,7 @@ import {
 import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
@@ -142,7 +143,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </div>
                     </div>
 
-                    {canEdit && (
+                    <Permission require="patient.update">
                       <div className="patientDetails__personalData_edit_button_wrapper">
                         <div className="patientDetails__personalData_edit_button">
                           <Button
@@ -161,7 +162,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           </Button>
                         </div>
                       </div>
-                    )}
+                    </Permission>
 
                     <div className="patientDetails_status">
                       {patient?.data?.status === PatientDTOStatusEnum.I ? (

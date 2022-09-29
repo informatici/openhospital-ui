@@ -23,6 +23,7 @@ import { getCurrentAdmissionByPatientId } from "../../../state/admissions/action
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 interface IOwnProps {
   opd?: OpdDTO;
@@ -32,8 +33,6 @@ interface IOwnProps {
 
 const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   const { t } = useTranslation();
-  const canCreate = usePermission("operation.create");
-  const canUpdate = usePermission("operation.update");
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -68,10 +67,6 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
-
-  const open = useMemo(() => {
-    return creationMode ? canCreate : canUpdate;
-  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     dispatch(createOperationRowReset());
@@ -144,7 +139,9 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
 
   return (
     <div className="patientAdmission">
-      {open && (
+      <Permission
+        require={creationMode ? "operation.create" : "operation.update"}
+      >
         <OperationRowForm
           fields={fields}
           onSubmit={onSubmit}
@@ -157,38 +154,41 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
           resetFormCallback={resetFormCallback}
           isLoading={changeStatus === "LOADING"}
         />
-      )}
-      {changeStatus === "FAIL" && (
-        <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox
-            type="error"
-            message={errorMessage ?? t("common.somethingwrong")}
-          />
-        </div>
-      )}
-
-      {!visit && !opd && (
-        <PatientOperationTable
-          onEdit={onEdit}
-          shouldUpdateTable={shouldUpdateTable}
+        {changeStatus === "FAIL" && (
+          <div ref={infoBoxRef} className="info-box-container">
+            <InfoBox
+              type="error"
+              message={errorMessage ?? t("common.somethingwrong")}
+            />
+          </div>
+        )}
+        <ConfirmationDialog
+          isOpen={changeStatus === "SUCCESS"}
+          title={
+            creationMode ? t("operation.rowcreated") : t("operation.rowupdated")
+          }
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("operation.rowcreatesuccess")
+              : t("operation.rowupdatesuccess", { code: opRowToEdit.id })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
         />
-      )}
+      </Permission>
 
-      <ConfirmationDialog
-        isOpen={changeStatus === "SUCCESS"}
-        title={
-          creationMode ? t("operation.rowcreated") : t("operation.rowupdated")
-        }
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("operation.rowcreatesuccess")
-            : t("operation.rowupdatesuccess", { code: opRowToEdit.id })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
+      <Permission require="operation.read">
+        {!visit && !opd && (
+          <PatientOperationTable
+            onEdit={onEdit}
+            shouldUpdateTable={shouldUpdateTable}
+          />
+        )}
+      </Permission>
     </div>
   );
 };

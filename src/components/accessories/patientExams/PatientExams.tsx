@@ -32,12 +32,11 @@ import {
 } from "../../../libraries/formDataHandling/functions";
 import { CircularProgress } from "@material-ui/core";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const canCreate = usePermission("exam.create");
-  const canUpdate = usePermission("exam.update");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -57,10 +56,6 @@ const PatientExams: FC = () => {
   const patientData = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-
-  const open = useMemo(() => {
-    return creationMode ? canCreate : canUpdate;
-  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     dispatch(getMaterials());
@@ -147,37 +142,48 @@ const PatientExams: FC = () => {
 
   return (
     <div className="patientExam">
-      {labStore.getLabWithRowsByCode.status !== "LOADING" && open && (
-        <ExamForm
-          fields={
+      <Permission require={creationMode ? "exam.create" : "exam.update"}>
+        {labStore.getLabWithRowsByCode.status !== "LOADING" && (
+          <ExamForm
+            fields={
+              creationMode
+                ? initialFields
+                : updateLabFields(initialFields, labToEdit)
+            }
+            onSubmit={onSubmit}
+            creationMode={creationMode}
+            labWithRowsToEdit={labWithRows}
+            submitButtonLabel={
+              creationMode ? t("common.save") : t("common.update")
+            }
+            resetButtonLabel={t("common.reset")}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            isLoading={
+              labStore.createLab.status === "LOADING" ||
+              labStore.updateLab.status === "LOADING"
+            }
+          />
+        )}
+        <ConfirmationDialog
+          isOpen={
+            labStore.createLab.status === "SUCCESS" ||
+            labStore.updateLab.status === "SUCCESS"
+          }
+          title={creationMode ? t("lab.created") : t("lab.updated")}
+          icon={checkIcon}
+          info={
             creationMode
-              ? initialFields
-              : updateLabFields(
-                  {
-                    ...initialFields,
-                    result: {
-                      value: labToEdit?.result ?? "",
-                      type: "text",
-                    },
-                  },
-                  labToEdit
-                )
+              ? t("lab.createsuccess")
+              : t("lab.updatesuccess", { code: labToEdit.code })
           }
-          onSubmit={onSubmit}
-          creationMode={creationMode}
-          labWithRowsToEdit={labWithRows}
-          submitButtonLabel={
-            creationMode ? t("common.save") : t("common.update")
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
           }
-          resetButtonLabel={t("common.reset")}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          isLoading={
-            labStore.createLab.status === "LOADING" ||
-            labStore.updateLab.status === "LOADING"
-          }
+          handleSecondaryButtonClick={() => ({})}
         />
-      )}
+      </Permission>
       {labStore.deleteLab.status === "LOADING" && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
@@ -191,38 +197,24 @@ const PatientExams: FC = () => {
         </div>
       )}
 
-      <PatientExamsTable
-        handleEdit={onEdit}
-        handleDelete={onDelete}
-        shouldUpdateTable={shouldUpdateTable}
-      />
-
-      <ConfirmationDialog
-        isOpen={
-          labStore.createLab.status === "SUCCESS" ||
-          labStore.updateLab.status === "SUCCESS"
-        }
-        title={creationMode ? t("lab.created") : t("lab.updated")}
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("lab.createsuccess")
-            : t("lab.updatesuccess", { code: labToEdit.code })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-
-      <ConfirmationDialog
-        isOpen={labStore.deleteLab.status === "SUCCESS"}
-        title={t("lab.deleted")}
-        icon={checkIcon}
-        info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel={t("common.ok")}
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => {}}
-      />
+      <Permission require="exam.read">
+        <PatientExamsTable
+          handleEdit={onEdit}
+          handleDelete={onDelete}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+        <ConfirmationDialog
+          isOpen={labStore.deleteLab.status === "SUCCESS"}
+          title={t("lab.deleted")}
+          icon={checkIcon}
+          info={t("common.deletesuccess", { code: deletedObjCode })}
+          primaryButtonLabel={t("common.ok")}
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => {}}
+        />
+      </Permission>
     </div>
   );
 };

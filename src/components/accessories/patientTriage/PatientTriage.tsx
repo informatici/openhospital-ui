@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
@@ -33,8 +34,6 @@ export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 const PatientTriage: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const canCreate = usePermission("examination.create");
-  const canUpdate = usePermission("examination.update");
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -73,10 +72,6 @@ const PatientTriage: FC = () => {
       state.examinations.deleteExamination.error?.message ||
       t("common.somethingwrong")
   ) as string;
-
-  const open = useMemo(() => {
-    return creationMode ? canCreate : canUpdate;
-  }, [creationMode, canCreate, canUpdate]);
 
   useEffect(() => {
     if (status === "FAIL") {
@@ -138,7 +133,9 @@ const PatientTriage: FC = () => {
 
   return (
     <div className="patientTriage">
-      {open && (
+      <Permission
+        require={creationMode ? "examination.create" : "examination.update"}
+      >
         <PatientTriageForm
           fields={
             creationMode
@@ -155,43 +152,51 @@ const PatientTriage: FC = () => {
           resetFormCallback={resetFormCallback}
           isLoading={status === "LOADING"}
         />
-      )}
+        {(status === "FAIL" || deleteStatus === "FAIL") && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        <ConfirmationDialog
+          isOpen={status === "SUCCESS"}
+          title={
+            creationMode ? t("examination.created") : t("examination.updated")
+          }
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("examination.createsuccess")
+              : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
+        />
+      </Permission>
 
-      {(status === "FAIL" || deleteStatus === "FAIL") && (
-        <div ref={infoBoxRef}>
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
+      <Permission require="examination.read">
+        <PatientTriageTable
+          handleDelete={onDelete}
+          handleEdit={onEdit}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+      </Permission>
 
-      <PatientTriageTable
-        handleDelete={onDelete}
-        handleEdit={onEdit}
-        shouldUpdateTable={shouldUpdateTable}
-      />
-      <ConfirmationDialog
-        isOpen={status === "SUCCESS"}
-        title={
-          creationMode ? t("examination.created") : t("examination.updated")
-        }
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("examination.createsuccess")
-            : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <ConfirmationDialog
-        isOpen={deleteStatus === "SUCCESS"}
-        title={t("opd.deleted")}
-        icon={checkIcon}
-        info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel={t("common.ok")}
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => {}}
-      />
+      <Permission require="examination.delete">
+        <ConfirmationDialog
+          isOpen={deleteStatus === "SUCCESS"}
+          title={t("opd.deleted")}
+          icon={checkIcon}
+          info={t("common.deletesuccess", { code: deletedObjCode })}
+          primaryButtonLabel={t("common.ok")}
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => {}}
+        />
+      </Permission>
     </div>
   );
 };
