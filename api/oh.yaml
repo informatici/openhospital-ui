@@ -9107,6 +9107,10 @@ definitions:
         enum:
           - I
           - O
+      anamnesis:
+        type: string
+      allergies:
+        type: string
     title: PatientDTO
     description: Class representing a patient
   PatientExaminationDTO:
