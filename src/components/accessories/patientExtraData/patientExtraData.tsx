@@ -15,6 +15,7 @@ import { PatientDTO } from "../../../generated";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import checkIcon from "../../../assets/check-icon.png";
 import {
+  getPatientThunk,
   updatePatient,
   updatePatientReset,
 } from "../../../state/patients/actions";
@@ -71,6 +72,9 @@ export const PatientExtraData: FunctionComponent = () => {
     if (activityTransitionState === "TO_RESET") {
       setEditionMode(false);
       dispatch(updatePatientReset());
+      if (patient?.code) {
+        dispatch(getPatientThunk(patient?.code?.toString()));
+      }
       formik.resetForm();
     }
   }, [dispatch, activityTransitionState]);
@@ -96,9 +100,11 @@ export const PatientExtraData: FunctionComponent = () => {
           </IconButton>
         )}
       </div>
-      <form className="patientExtraData__form">
+      <form className="patientExtraData__form" onSubmit={formik.handleSubmit}>
         <div className="patientExtraData__form_item">
-          <span className="item_label">{t("patient.anamnesis")}</span>
+          {!editionMode && (
+            <span className="item_label">{t("patient.anamnesis")}</span>
+          )}
           {editionMode ? (
             <TextField
               field={formik.getFieldProps("anamnesis")}
@@ -116,7 +122,9 @@ export const PatientExtraData: FunctionComponent = () => {
           )}
         </div>
         <div className="patientExtraData__form_item">
-          <span className="item_label">{t("patient.allergies")}</span>
+          {!editionMode && (
+            <span className="item_label">{t("patient.allergies")}</span>
+          )}
           {editionMode ? (
             <TextField
               field={formik.getFieldProps("allergies")}
