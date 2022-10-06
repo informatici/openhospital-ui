@@ -20,6 +20,7 @@ const opdDTO = {
   referralTo: "R",
   lock: 0,
   userID: "admin",
+  prescription: "Paracetamol 500mg tablets - 1 box"
 };
 
 export default opdDTO;
