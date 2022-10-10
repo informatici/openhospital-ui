@@ -28,6 +28,7 @@ import { initialFields } from "./consts";
 import "./styles.scss";
 import { TActivityTransitionState } from "./types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import isEmpty from "lodash.isempty";
 
 export const PatientExtraData: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -79,6 +80,11 @@ export const PatientExtraData: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
+  const discardChanges = () => {
+    formik.resetForm();
+    setEditionMode(false);
+  };
+
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
@@ -118,7 +124,11 @@ export const PatientExtraData: FunctionComponent = () => {
               disabled={isLoading}
             />
           ) : (
-            <p className="item_content">{patient?.anamnesis}</p>
+            <p className="item_content">
+              {isEmpty(patient?.anamnesis)
+                ? t("patient.noanamnesis")
+                : patient?.anamnesis}
+            </p>
           )}
         </div>
         <div className="patientExtraData__form_item">
@@ -138,7 +148,11 @@ export const PatientExtraData: FunctionComponent = () => {
               disabled={isLoading}
             />
           ) : (
-            <p className="item_content">{patient?.allergies}</p>
+            <p className="item_content">
+              {isEmpty(patient?.allergies)
+                ? t("patient.noallergies")
+                : patient?.allergies}
+            </p>
           )}
         </div>
         <div className="patientExtraData__form_item">
@@ -153,7 +167,12 @@ export const PatientExtraData: FunctionComponent = () => {
               </Button>
             </div>
             <div className="reset_button">
-              <Button type="reset" variant="text" disabled={isLoading}>
+              <Button
+                variant="text"
+                disabled={isLoading}
+                onClick={discardChanges}
+                type={undefined}
+              >
                 {t("patient.discardchanges")}
               </Button>
             </div>
