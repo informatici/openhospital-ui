@@ -96,6 +96,9 @@ export const updateLabFields = (
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
       let value = values![key as keyof LaboratoryDTO];
+      if (key === "result") {
+        return (draft[key as string].value = value);
+      }
       if (draft[key as string]) {
         return (draft[key as string].value =
           typeof value === "object"

@@ -154,10 +154,7 @@ const ExamForm: FC<ExamProps> = ({
       }),
     exam: string().required(t("common.required")),
     material: string().required(t("common.required")),
-    result:
-      currentExamProcedure === "1"
-        ? string().required(t("common.required"))
-        : string(),
+    result: string(),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -397,7 +394,20 @@ const ExamForm: FC<ExamProps> = ({
           </div>
           <div className="row start-sm center-xs bottom-sm">
             <div className="fullWidth patientExamForm__item">
-              {currentExamProcedure === "2" ? (
+              {currentExamProcedure === "3" && (
+                <TextField
+                  multiline={true}
+                  field={formik.getFieldProps("result")}
+                  theme="regular"
+                  label={t("lab.result")}
+                  isValid={isValid("result")}
+                  errorText={getErrorText("result")}
+                  onBlur={formik.handleBlur}
+                  type="text"
+                  disabled={isLoading}
+                />
+              )}
+              {currentExamProcedure === "2" && (
                 <ExamRowTable
                   title={t("lab.resultstitle")}
                   headerData={rowTableHeaders}
@@ -405,7 +415,8 @@ const ExamForm: FC<ExamProps> = ({
                   rows={examRows}
                   disabled={isLoading}
                 />
-              ) : (
+              )}
+              {currentExamProcedure === "1" && (
                 <AutocompleteField
                   fieldName="result"
                   fieldValue={formik.values.result}
