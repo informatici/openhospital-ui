@@ -146,8 +146,8 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "Max",
-      "min": "Min"
+      "max": "Max (mmHg)",
+      "min": "Min (mmHg)"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -160,9 +160,9 @@
     "diuresisabbr": "D",
     "diuresisvolume24h": "Diuresis Vol 24H",
     "diuresisvolume24habbr": "D24H",
-    "heartrate": "Heart Rate",
+    "heartrate": "Heart Rate (bpm)",
     "heartrateabbr": "HR",
-    "height": "Height",
+    "height": "Height (cm)",
     "heightabbr": "(H)",
     "hemoglucosetest": "Hemo Glucose Test",
     "hgt": "HGT",
@@ -170,11 +170,11 @@
     "respiratoryrate": "Respiratory Rate",
     "respiratoryrateabbr": "RR",
     "respiratoryrateunit": "bpm",
-    "saturation": "Saturation",
+    "saturation": "Saturation (%)",
     "saturationabbr": "O2",
-    "temperature": "Temperature",
+    "temperature": "Temperature (°C)",
     "temperatureabbr": "T",
-    "weight": "Weight",
+    "weight": "Weight (Kg)",
     "weightabbr": "(W)",
     "created": "Examiniation created",
     "deleted": "Examination deleted",
@@ -305,7 +305,8 @@
     "greaterthan": "The value must be at least {{value}}.",
     "lessthan": "The value must not exceed {{value}}.",
     "confirm": "Confirm",
-    "invaliddate": "Invalid Date"
+    "invaliddate": "Invalid Date",
+    "outofrange": "Out of range"
   },
   "therapy": {
     "newtherapy": "New Therapy",
