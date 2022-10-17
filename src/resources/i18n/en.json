@@ -55,7 +55,15 @@
     "dashboard": "Patient Dashboard",
     "agetype": "Age Type",
     "agerange": "Age Range",
-    "age": "Age"
+    "age": "Age",
+    "anamnesis": "Anamnesis",
+    "allergies": "Allergies",
+    "savechanges": "Save Changes",
+    "discardchanges": "Discard Changes",
+    "dataupdated": "Patient data updated",
+    "dataupdatedsuccessfully": "Patient data have been updated successfully",
+    "noallergies": "There are no registered allergies for this patient",
+    "noanamnesis": "There are no registered anamnesis for this patient"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
