@@ -41,12 +41,6 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id);
-    }
-  }, [patient, id, getPatientThunk]);
-
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
     [t("nav.searchpatient")]: PATHS.patients_search,
@@ -79,6 +73,12 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     useState<TActivityTransitionState>("IDLE");
   const [openConfirmationMessage, setOpenConfirmationMessage] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    if (isEmpty(patient.data) && patient.status === "IDLE") {
+      getPatientThunk(id);
+    }
+  }, [patient, id, getPatientThunk]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {
