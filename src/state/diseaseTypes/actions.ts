@@ -36,7 +36,7 @@ export const getDiseaseTypes =
       (error) => {
         dispatch({
           type: GET_DISEASETYPE_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

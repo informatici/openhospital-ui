@@ -69,7 +69,7 @@ export const newBill =
       (error) => {
         dispatch({
           type: NEW_BILL_FAIL,
-          error: error,
+          error: error?.response,
         });
       }
     );
@@ -92,7 +92,7 @@ export const updateBill =
       (error) => {
         dispatch({
           type: UPDATE_BILL_FAIL,
-          error: error,
+          error: error?.response,
         });
       }
     );
@@ -136,7 +136,7 @@ export const getBill =
       (error) => {
         dispatch({
           type: GET_BILL_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -177,7 +177,7 @@ export const getPendingBills =
         (error) => {
           dispatch({
             type: PENDING_BILL_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -219,7 +219,7 @@ export const searchBills =
         (error) => {
           dispatch({
             type: SEARCH_BILL_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -299,7 +299,7 @@ export const searchPayments =
         (error) => {
           dispatch({
             type: SEARCH_PAYMENTS_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -321,7 +321,7 @@ export const deleteBill =
         (error) => {
           dispatch({
             type: DELETE_BILL_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -404,7 +404,7 @@ export const closeBill =
         (error) => {
           dispatch({
             type: CLOSE_BILL_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -447,7 +447,7 @@ export const getBillsByYear =
         (error) => {
           dispatch({
             type: SEARCH_BILLS_BY_YEAR_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );

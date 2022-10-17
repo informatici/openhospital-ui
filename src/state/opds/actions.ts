@@ -45,7 +45,7 @@ export const createOpd =
       (error) => {
         dispatch({
           type: CREATE_OPD_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -144,7 +144,7 @@ export const searchOpds =
         (error) => {
           dispatch({
             type: SEARCH_OPD_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -180,7 +180,7 @@ export const updateOpd =
       (error) => {
         dispatch({
           type: UPDATE_OPD_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -209,7 +209,7 @@ export const deleteOpd =
         (error) => {
           dispatch({
             type: DELETE_OPD_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );

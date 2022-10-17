@@ -36,7 +36,7 @@ export const getExamTypes =
       (error) => {
         dispatch({
           type: GET_EXAMTYPE_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

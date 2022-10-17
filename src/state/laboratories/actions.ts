@@ -62,7 +62,7 @@ export const createLab =
       (error) => {
         dispatch({
           type: CREATE_LAB_FAIL,
-          error: error,
+          error: error?.response,
         });
       }
     );
@@ -155,7 +155,7 @@ export const searchLabs =
         (error) => {
           dispatch({
             type: SEARCH_LAB_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -185,7 +185,7 @@ export const getLabsByPatientId =
         (error) => {
           dispatch({
             type: GET_LABS_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -214,7 +214,7 @@ export const getLabByCode =
         (error) => {
           dispatch({
             type: GET_LAB_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -243,7 +243,7 @@ export const getLabWithRowsByCode =
         (error) => {
           dispatch({
             type: GET_LABWROW_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -278,7 +278,7 @@ export const getMaterials =
       (error) => {
         dispatch({
           type: GET_MATERIALS_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -302,7 +302,7 @@ export const updateLab =
         (error) => {
           dispatch({
             type: UPDATE_LAB_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -324,7 +324,7 @@ export const deleteLab =
         (error) => {
           dispatch({
             type: DELETE_LAB_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
