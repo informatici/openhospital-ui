@@ -23,6 +23,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import isEmpty from "lodash.isempty";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -93,7 +94,18 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      onSubmit({
+        ...formattedValues,
+        pex_auscultation: isEmpty(formattedValues.pex_auscultation)
+          ? null
+          : formattedValues.pex_auscultation,
+        pex_diuresis_desc: isEmpty(formattedValues.pex_diuresis_desc)
+          ? null
+          : formattedValues.pex_diuresis_desc,
+        pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
+          ? null
+          : formattedValues.pex_bowel_desc,
+      });
     },
   });
 
