@@ -15,4 +15,5 @@ export type TPatientOPDFormFieldName =
   | "note"
   | "newPatient"
   | "referralFrom"
-  | "referralTo";
+  | "referralTo"
+  | "prescription";

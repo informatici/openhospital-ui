@@ -40,7 +40,7 @@ export const getDiseasesOpd =
       (error) => {
         dispatch({
           type: GET_DISEASE_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -69,7 +69,7 @@ export const getDiseasesIpdIn =
       (error) => {
         dispatch({
           type: GET_DISEASEIPDIN_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );
@@ -98,7 +98,7 @@ export const getDiseasesIpdOut =
       (error) => {
         dispatch({
           type: GET_DISEASEIPDOUT_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

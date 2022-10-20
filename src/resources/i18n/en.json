@@ -55,7 +55,15 @@
     "dashboard": "Patient Dashboard",
     "agetype": "Age Type",
     "agerange": "Age Range",
-    "age": "Age"
+    "age": "Age",
+    "anamnesis": "Anamnesis",
+    "allergies": "Allergies",
+    "savechanges": "Save Changes",
+    "discardchanges": "Discard Changes",
+    "dataupdated": "Patient data updated",
+    "dataupdatedsuccessfully": "Patient data have been updated successfully",
+    "noallergies": "There are no registered allergies for this patient",
+    "noanamnesis": "There are no registered anamnesis for this patient"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -63,9 +71,9 @@
     "dateopd": "Date (d/m/y)",
     "note": "Notes and symptoms",
     "complaint": "Patient complaints",
-    "disease1": "Diagnostic 1",
-    "disease2": "Diagnostic 2",
-    "disease3": "Diagnostic 3",
+    "disease1": "Diagnosis 1",
+    "disease2": "Diagnosis 2",
+    "disease3": "Diagnosis 3",
     "validatedisease": "This diagnostic should be different",
     "code": "Code",
     "updateopd": "update opd",
@@ -109,7 +117,8 @@
     "validatetodate": "Must be greater than date from",
     "validatefromdate": "Must be less than date to",
     "validatetoage": "Must be greater than age from",
-    "validatefromage": "Must be less than age from"
+    "validatefromage": "Must be less than age from",
+    "prescription": "Prescription"
   },
   "visit": {
     "date": "Date (d/m/y)",
@@ -137,8 +146,8 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "Max",
-      "min": "Min"
+      "max": "Max (mmHg)",
+      "min": "Min (mmHg)"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -151,9 +160,9 @@
     "diuresisabbr": "D",
     "diuresisvolume24h": "Diuresis Vol 24H",
     "diuresisvolume24habbr": "D24H",
-    "heartrate": "Heart Rate",
+    "heartrate": "Heart Rate (bpm)",
     "heartrateabbr": "HR",
-    "height": "Height",
+    "height": "Height (cm)",
     "heightabbr": "(H)",
     "hemoglucosetest": "Hemo Glucose Test",
     "hgt": "HGT",
@@ -161,11 +170,11 @@
     "respiratoryrate": "Respiratory Rate",
     "respiratoryrateabbr": "RR",
     "respiratoryrateunit": "bpm",
-    "saturation": "Saturation",
+    "saturation": "Saturation (%)",
     "saturationabbr": "O2",
-    "temperature": "Temperature",
+    "temperature": "Temperature (°C)",
     "temperatureabbr": "T",
-    "weight": "Weight",
+    "weight": "Weight (Kg)",
     "weightabbr": "(W)",
     "created": "Examiniation created",
     "deleted": "Examination deleted",
@@ -296,7 +305,8 @@
     "greaterthan": "The value must be at least {{value}}.",
     "lessthan": "The value must not exceed {{value}}.",
     "confirm": "Confirm",
-    "invaliddate": "Invalid Date"
+    "invaliddate": "Invalid Date",
+    "outofrange": "Out of range"
   },
   "therapy": {
     "newtherapy": "New Therapy",

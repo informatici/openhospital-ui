@@ -81,10 +81,10 @@ const PatientExams: FC = () => {
   );
   const errorMessage = useSelector<IState>(
     (state) =>
-      labStore.createLab.error?.message ||
-      labStore.updateLab.error?.message ||
-      labStore.getLabWithRowsByCode.error?.message ||
-      labStore.deleteLab.error?.message ||
+      state.laboratories.createLab.error?.message ||
+      state.laboratories.updateLab.error?.message ||
+      state.laboratories.getLabWithRowsByCode.error?.message ||
+      state.laboratories.deleteLab.error?.message ||
       t("common.somethingwrong")
   ) as string;
   const exams = useSelector((state: IState) => state.exams.examList.data);
@@ -145,7 +145,16 @@ const PatientExams: FC = () => {
           fields={
             creationMode
               ? initialFields
-              : updateLabFields(initialFields, labToEdit)
+              : updateLabFields(
+                  {
+                    ...initialFields,
+                    result: {
+                      value: labToEdit?.result ?? "",
+                      type: "text",
+                    },
+                  },
+                  labToEdit
+                )
           }
           onSubmit={onSubmit}
           creationMode={creationMode}

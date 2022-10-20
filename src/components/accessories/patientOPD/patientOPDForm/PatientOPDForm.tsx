@@ -248,6 +248,21 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWidth">
+              <TextField
+                field={formik.getFieldProps("note")}
+                multiline={true}
+                theme="regular"
+                label={t("opd.note")}
+                isValid={isValid("note")}
+                errorText={getErrorText("note")}
+                onBlur={formik.handleBlur}
+                type="string"
+                disabled={isLoading}
+              />
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="patientOpdForm__item fullWidth">
               <AutocompleteField
                 fieldName="disease"
                 fieldValue={formik.values.disease}
@@ -291,12 +306,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWidth">
               <TextField
-                field={formik.getFieldProps("note")}
+                field={formik.getFieldProps("prescription")}
                 multiline={true}
                 theme="regular"
-                label={t("opd.note")}
-                isValid={isValid("note")}
-                errorText={getErrorText("note")}
+                label={t("opd.prescription")}
+                isValid={isValid("prescription")}
+                errorText={getErrorText("prescription")}
                 onBlur={formik.handleBlur}
                 type="string"
                 disabled={isLoading}

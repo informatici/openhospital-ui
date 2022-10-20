@@ -23,6 +23,7 @@ import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
+import { PatientExtraData } from "../patientExtraData/patientExtraData";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -57,13 +58,13 @@ const PatientOPD: FunctionComponent = () => {
     (state) => state.opds.deleteOpd.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector<IState, string>(
     (state) =>
       state.opds.createOpd.error?.message ||
       state.opds.updateOpd.error?.message ||
       state.opds.deleteOpd.error?.message ||
       t("common.somethingwrong")
-  ) as string;
+  );
 
   useEffect(() => {
     if (changeStatus === "FAIL") {
@@ -144,6 +145,7 @@ const PatientOPD: FunctionComponent = () => {
 
   return (
     <div className="patientOpd">
+      <PatientExtraData />
       <PatientOPDForm
         fields={
           creationMode
