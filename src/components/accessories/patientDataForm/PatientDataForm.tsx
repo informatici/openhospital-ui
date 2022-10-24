@@ -476,42 +476,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               }
             />
           </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("height")}
-              theme="regular"
-              label={t("patient.height")}
-              isValid={isValid("height")}
-              errorText={getErrorText("height")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              type="number"
-              required={
-                isFieldSuggested(formCustomization, "height")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.IDLE
-              }
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("weight")}
-              theme="regular"
-              label={t("patient.weight")}
-              isValid={isValid("weight")}
-              errorText={getErrorText("weight")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              type="number"
-              required={
-                isFieldSuggested(formCustomization, "weight")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.IDLE
-              }
-            />
-          </div>
         </div>
 
         <div className="row start-sm center-xs">
