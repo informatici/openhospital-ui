@@ -42,6 +42,13 @@ const useSummaryMetaData = () => {
     exam: t("lab.exam"),
     material: t("lab.material"),
     result: t("lab.result"),
+    startDate: t("therapy.startDate"),
+    endDate: t("therapy.endDate"),
+    qty: t("therapy.quantity"),
+    freqInDay: t("therapy.frequencyInDay"),
+    freqInPeriod: t("therapy.frequencyInPeriod"),
+    note: t("therapy.note"),
+    medicalId: t("therapy.medical"),
   };
   const dateFields = [
     "date",
@@ -51,6 +58,8 @@ const useSummaryMetaData = () => {
     "opDate",
     "visitDate",
     "pex_date",
+    "startDate",
+    "endDate",
   ];
   const header = {
     date: ["date", "type"],
@@ -60,6 +69,7 @@ const useSummaryMetaData = () => {
       exam: ["date", "exam"],
       admission: ["date", "diseaseIn"],
       operation: ["date", "operation"],
+      therapy: ["date", "medicalId"],
     },
   };
 

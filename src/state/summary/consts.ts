@@ -27,4 +27,8 @@ export const SummaryField = {
     type: "VISIT",
     dateField: "date",
   },
+  therapy: {
+    type: "THERAPY",
+    dateField: "startDate",
+  },
 };

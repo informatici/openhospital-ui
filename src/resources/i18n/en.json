@@ -346,7 +346,8 @@
     "operation": "Operation",
     "opd": "OPD",
     "booking": "Reservation",
-    "exams": "Exams"
+    "exams": "Exams",
+    "therapy": "Therapy"
   },
   "lab": {
     "newlab": "New laboratory exam",

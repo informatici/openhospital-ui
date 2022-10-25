@@ -5,7 +5,7 @@ const therapyDTO = {
     patID: patientDTO,
     startDate: "2021-07-30T14:58:00.000Z",
     endDate: "2021-08-15T15:19:44.000Z",
-    medicalId: 16,
+    medicalId: 12,
     qty: 48,
     unitID: 1,
     freqInDay: 2,
