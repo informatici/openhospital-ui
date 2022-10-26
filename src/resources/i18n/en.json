@@ -70,7 +70,7 @@
     "summary": "Summary",
     "discharge": "Discharge",
     "visits": "Visits",
-    "agetypes" : {
+    "agetypes": {
       "d0": "New Born",
       "d1": "Early Childhood",
       "d2": "Late Childhood",
@@ -133,7 +133,10 @@
     "validatefromdate": "Must be less than date to",
     "validatetoage": "Must be greater than age from",
     "validatefromage": "Must be less than age from",
-    "prescription": "Prescription"
+    "prescription": "Prescription",
+    "opdregistered": "Opds registered in the period",
+    "opdbysex": "Opds by sex",
+    "opdbyagetype": "Opds by age type"
   },
   "visit": {
     "date": "Date (d/m/y)",
@@ -449,7 +452,11 @@
     "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To resign, go to the dismission page.",
     "updated": "Admission updated",
     "updatesuccess": "Admimission updated successfully",
-    "datebefore": "Admission date must be before the discharge date"
+    "datebefore": "Admission date must be before the discharge date",
+    "admissionbysex": "Admissions by sex",
+    "admissionbytype": "Admissions by type",
+    "admissionbyagetype": "Admissions by age type",
+    "admissionbywards": "Admissions by wards"
   },
   "bill": {
     "title": "Welcome to Billing",
@@ -570,7 +577,7 @@
     "zh": "Chinese"
   },
   "angal": {
-    "agetype" : {
+    "agetype": {
       "newborn": "New Born",
       "earlychildhood": "Early Childhood",
       "latechildhood": "Late Childhood",

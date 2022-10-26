@@ -98,17 +98,32 @@ paths:
     get:
       tags:
         - admission-controller
-      summary: getPatientAdmissions
-      operationId: getPatientAdmissionsUsingGET
+      summary: getAdmissions
+      operationId: getAdmissionsUsingGET
       produces:
         - application/json
       parameters:
-        - name: patientCode
+        - name: patientcode
           in: query
-          description: patientCode
-          required: true
+          description: Patient Code
+          required: false
           type: integer
           format: int32
+        - name: admissionrange
+          in: query
+          description: admissionrange
+          required: false
+          type: array
+        - name: dischargerange
+          in: query
+          description: dischargerange
+          required: false
+          type: array
+        - name: searchterms
+          in: query
+          description: searchterms
+          required: false
+          type: string
       responses:
         '200':
           description: OK
@@ -204,12 +219,12 @@ paths:
           in: query
           description: admissionrange
           required: false
-          type: string
+          type: array
         - name: dischargerange
           in: query
           description: dischargerange
           required: false
-          type: string
+          type: array
         - name: searchterms
           in: query
           description: searchterms
@@ -362,7 +377,7 @@ paths:
       tags:
         - admission-controller
       summary: getAdmissions
-      operationId: getAdmissionsUsingGET
+      operationId: getAdmissionUsingGET
       produces:
         - application/json
       parameters:
@@ -8921,6 +8936,9 @@ definitions:
       prescription:
         type: string
         description: Prescription
+      ageType:
+        type: string
+        description: Age type
       userID:
         type: string
         description: user id

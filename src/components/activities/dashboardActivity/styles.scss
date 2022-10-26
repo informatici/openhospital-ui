@@ -4,38 +4,57 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  margin: 0px;
-  height: calc(100vh - 120px);
-  @include susy-media($smartphone){
-    height: 100%;
-  }
+  justify-content: space-between;
+  background-color: $c-white;
+
   .dashboard__background {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $c-color-secondary;
-    @include susy-media($smartphone){
-      padding: 100px 0px;
-    }
+    background-color: $c-white;
   }
 
-  .dashboard__greeter {
-    width: fit-content;
-    margin-bottom: 20px;
-    font-size: larger;
-  }
-
-  .dashboard__actions {
+  .dashboard__content {
     display: flex;
-    width: fit-content;
-    @include susy-media($smartphone){
-      display: block;
+    padding: 20px;
+    flex: 1;
+    width: 100%;
+    .dashboard__main {
+      flex: 1;
+      background-color: white !important;
+      padding: 24px;
+      display: flex;
+      flex-flow: row wrap;
+      overflow: auto;
+      justify-content: space-evenly;
+    }
+    .dashboard__side {
+      @include susy-media($tablet_port) {
+        display: none;
+      }
+      @include susy-media($smartphone) {
+        display: none;
+      }
+      .side {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        height: 480px;
+        background-color: $c-gray;
+        border-radius: 5px;
+        padding: 16px;
+        .header {
+          width: 100%;
+          height: 75px;
+          background-color: lighten($c-gray, 5%);
+          border-radius: 8px;
+        }
+      }
     }
   }
 
-  .dashboard__actions__button {
-    margin: 10px;
+  .footer {
+    position: relative;
   }
 }

@@ -4,6 +4,7 @@ import DashboardActivity from "../../components/activities/dashboardActivity/Das
 import EditPatientActivity from "../../components/activities/editPatientActivity/EditPatientActivity";
 import NewPatientActivity from "../../components/activities/newPatientActivity/NewPatientActivity";
 import NotFound from "../../components/activities/notFound/NotFound";
+import PatientDashboardActivity from "../../components/activities/patientDashboardActivity/PatientDashboardActivity";
 import SearchPatientActivity from "../../components/activities/searchPatientActivity/SearchPatientActivity";
 import { PATHS } from "../../consts";
 import { PatientDetailsRoutes } from "./PatientsDetailsRoutes";

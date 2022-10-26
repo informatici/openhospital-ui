@@ -1,24 +1,26 @@
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Navigate } from "react-router";
+import { Redirect } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import { Admissions } from "../../accessories/dashboard/admissions/Admissions";
-import { Opds } from "../../accessories/dashboard/opds/Opds";
 import Footer from "../../accessories/footer/Footer";
 import LargeButton from "../../accessories/largeButton/LargeButton";
-import { SideContent } from "./SideContent";
 import "./styles.scss";
-import { IStateProps, TProps } from "./types";
+import { IStateProps, TProps, TActivityTransitionState } from "./types";
 
-const DashboardActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
+const PatientDashboardActivity: FunctionComponent<TProps> = ({
+  userCredentials,
+  newPatientRoute,
+  searchPatientRoute,
+}) => {
   const { t } = useTranslation();
+
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "",
+    [t("nav.patients")]: PATHS.patients,
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -26,9 +28,9 @@ const DashboardActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
 
   switch (activityTransitionState) {
     case "TO_NEW_PATIENT":
-      return <Navigate to={newPatientRoute} />;
+      return <Redirect to={newPatientRoute} />;
     case "TO_SEARCH_PATIENT":
-      return <Navigate to={searchPatientRoute} />;
+      return <Redirect to={searchPatientRoute} />;
     default:
       return (
         <div className="dashboard">
@@ -76,15 +78,14 @@ const DashboardActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
-      </div>
-      <Footer />
-    </div>
-  );
+      );
+  }
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
 });
 
-export default connect(mapStateToProps)(DashboardActivity);
+export default connect(mapStateToProps)(PatientDashboardActivity);

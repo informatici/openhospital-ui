@@ -60,7 +60,7 @@ export const loadSummaryData =
           catchError((err) => of([]))
         ),
         admissionControllerApi
-          .getPatientAdmissionsUsingGET({ patientCode: code })
+          .getAdmissionsUsingGET({ patientcode: code })
           .pipe(
             map((res) => convertToSummaryData(res, SummaryField.admission)),
             catchError((err) => of([]))

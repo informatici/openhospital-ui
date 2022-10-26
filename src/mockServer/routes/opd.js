@@ -50,7 +50,13 @@ export const opdRoutes = (server) => {
         default:
           if (code >= 0) {
             res.status(200).json([opdDTO, opdDTO, opdDTO]);
-          } else res.status(200).json([opdDTO, opdDTO, opdDTO, opdDTO, opdDTO]);
+          } else res.status(200).json([
+            opdDTO, { ...opdDTO, sex: "F", ageType: "d1" }, { ...opdDTO, sex: "F", ageType: "d1" },
+            { ...opdDTO, sex: "F", ageType: "d4" }, { ...opdDTO, sex: "M", ageType: "d4" },
+            { ...opdDTO, sex: "F", ageType: "d2" }, { ...opdDTO, sex: "M", ageType: "d3" },
+            { ...opdDTO, sex: "M", ageType: "d2" }, { ...opdDTO, sex: "M", ageType: "d2" }, { ...opdDTO, sex: "M", ageType: "d2" },
+            { ...opdDTO, sex: "F", ageType: "d5" }, { ...opdDTO, sex: "M", ageType: "d5" }
+          ]);
       }
     });
 
