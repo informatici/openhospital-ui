@@ -59,11 +59,32 @@ Then you can access to:
 - Swagger api spec: [localhost:8080/oh-api/swagger-ui.html](http://localhost:8080/oh-api/swagger-ui.html)
 - Phpmyadmin, for looking inside database: [localhost:9000](http://localhost:9000)
 
+## How to publish on Web Server
+
+    - npm run build:staging
+
+Then connect to the Intesys VPN and open FileZilla.
+
+If you haven't done it before followe those steps, overwise jump to the next paragraph:
+
+    1. In Filezilla we need to add a new connection clicking on "New site" button under Site Manager;
+    2. Those are the configuration required:
+        Protocol: SFTP
+        Host: prod72.intesys.it
+        Logon type: Key file
+        User: web
+        Key file: [path to id_rsa.pub]
+    3. Then connect to the server
+
+Once you are logged in, go under /home/httpd/open-hospital/shared/public and replace the oh20 folder with the build folder.
+
 ## How to publish on Github Pages
+
+Easy step:
 
     - git push intesys-remote develop
 
-    or
+Old method:
 
     - npm run build:gh-pages
     - git commit
