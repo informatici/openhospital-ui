@@ -8,9 +8,9 @@ import {
 import { applyTokenMiddleware } from "../../../libraries/apiUtils/applyTokenMiddleware";
 // import { AdminContext, AdminUI, Resource, useDataProvider, defaultI18nProvider, ListGuesser } from 'react-admin';
 // import { useEffect, useState } from 'react';
-import jsonServerProvider from 'ra-data-json-server';
+// import jsonServerProvider from 'ra-data-json-server';
 
-const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+// const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 
 const opdControllerApi = new OpdControllerApi(
   new Configuration({ middleware: [applyTokenMiddleware] })

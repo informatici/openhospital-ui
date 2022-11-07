@@ -11,7 +11,7 @@ import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: <T>(row: T) => void;
+  handleEdit: (row: any) => void;
 }
 
 const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({

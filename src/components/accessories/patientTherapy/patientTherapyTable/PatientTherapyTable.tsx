@@ -13,7 +13,7 @@ import { getMedicals } from "../../../../state/medicals/actions";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleDelete: (code: number | undefined) => void;
-  handleEdit: <T>(row: T) => void;
+  handleEdit: (row: any) => void;
 }
 
 const PatientTherapyTable: FunctionComponent<IOwnProps> = ({

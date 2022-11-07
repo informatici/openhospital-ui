@@ -112,13 +112,13 @@ const PatientVisit: FunctionComponent = () => {
     scrollToElement(null);
   };
 
-  const onEdit = (row: VisitDTO) => {
+  const onEdit: (row: VisitDTO) => void = (row) => {
     setVisitToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
   };
 
-  const onOperationCreated = () => {
+  const onOperationCreated: () => void = () => {
     setSelectedVisit({} as VisitDTO);
     setShowModal(false);
   };

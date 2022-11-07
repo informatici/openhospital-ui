@@ -8,10 +8,11 @@ import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { IProps } from "../../table/types";
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: <T>(row: T) => void;
-  handleAddOperation: <T>(row: T) => void;
+  handleEdit: (row: any) => void;
+  handleAddOperation: (row: any) => void;
 }
 
 const PatientVisitTable: FunctionComponent<IOwnProps> = ({
@@ -66,6 +67,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   const onEdit = (row?: VisitDTO) => {
     handleEdit(data.find((item) => item.visitID === row?.visitID));
   };
+
   const onAdd = (row?: VisitDTO) => {
     handleAddOperation(data.find((item) => item.visitID === row?.visitID));
   };
