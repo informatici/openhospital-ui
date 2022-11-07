@@ -22,21 +22,27 @@ import PatientOperation from "../components/accessories/patientOperation/Patient
 import VisitDetailsContent from "../components/activities/patientDetailsActivityContent/VisitDetailsActivityContent";
 import DischargeDetailsContent from "../components/activities/patientDetailsActivityContent/DischargeDetailsActivityContent";
 
-export const MyRoutes: React.FC = () => {
+export const MainRouter: React.FC = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={
-          <RedirectAfterLogin successRoute="/patients">
-            <LoginActivity />
-          </RedirectAfterLogin> } 
-        /> 
-        <Route path="/login" element={
-          <RedirectAfterLogin successRoute="/patients">
-            <LoginActivity />
-          </RedirectAfterLogin> } 
+        <Route
+          path="/"
+          element={
+            <RedirectAfterLogin successRoute="/patients">
+              <LoginActivity />
+            </RedirectAfterLogin>
+          }
         />
-        
+        <Route
+          path="/login"
+          element={
+            <RedirectAfterLogin successRoute="/patients">
+              <LoginActivity />
+            </RedirectAfterLogin>
+          }
+        />
+
         <Route path="/*" element={<PrivateComponent />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="visits" element={<VisitsActivity />} />
@@ -45,19 +51,83 @@ export const MyRoutes: React.FC = () => {
         </Route>
 
         <Route path="patients/*" element={<PrivateComponent />}>
-          <Route path="*" element={<DashboardActivity newPatientRoute={`new`} searchPatientRoute={`search`} />} />
-          <Route path="new" element={<NewPatientActivity dashboardRoute="patients" />} />
+          <Route
+            path="*"
+            element={
+              <DashboardActivity
+                newPatientRoute={`new`}
+                searchPatientRoute={`search`}
+              />
+            }
+          />
+          <Route
+            path="new"
+            element={<NewPatientActivity dashboardRoute="patients" />}
+          />
           <Route path="search" element={<SearchPatientActivity />} />
           <Route path="details/:id/*" element={<PatientDetailsActivity />}>
-          <Route path="*" element={<PatientDetailsContent title="Admissions" content={PatientAdmission} />} />
-            <Route path="admissions" element={<PatientDetailsContent title="Admissions" content={PatientAdmission} /> } />
-            <Route path="visits" element={<VisitDetailsContent /> } />
-            <Route path="laboratory" element={<PatientDetailsContent title="Laboratory" content={PatientExams} />} />
-            <Route path="therapy" element={<PatientDetailsContent title="Therapy" content={PatientTherapy} />} />
-            <Route path="triage" element={<PatientDetailsContent title="Triage" content={PatientTriage} />} />
-            <Route path="discharge" element={<DischargeDetailsContent /> } />
-            <Route path="clinic" element={<PatientDetailsContent title="Summary" content={PatientSummary} />} />
-            <Route path="operation" element={<PatientDetailsContent title="Operation" content={PatientOperation} />} />
+            <Route
+              path="*"
+              element={
+                <PatientDetailsContent
+                  title="Admissions"
+                  content={PatientAdmission}
+                />
+              }
+            />
+            <Route
+              path="admissions"
+              element={
+                <PatientDetailsContent
+                  title="Admissions"
+                  content={PatientAdmission}
+                />
+              }
+            />
+            <Route path="visits" element={<VisitDetailsContent />} />
+            <Route
+              path="laboratory"
+              element={
+                <PatientDetailsContent
+                  title="Laboratory"
+                  content={PatientExams}
+                />
+              }
+            />
+            <Route
+              path="therapy"
+              element={
+                <PatientDetailsContent
+                  title="Therapy"
+                  content={PatientTherapy}
+                />
+              }
+            />
+            <Route
+              path="triage"
+              element={
+                <PatientDetailsContent title="Triage" content={PatientTriage} />
+              }
+            />
+            <Route path="discharge" element={<DischargeDetailsContent />} />
+            <Route
+              path="clinic"
+              element={
+                <PatientDetailsContent
+                  title="Summary"
+                  content={PatientSummary}
+                />
+              }
+            />
+            <Route
+              path="operation"
+              element={
+                <PatientDetailsContent
+                  title="Operation"
+                  content={PatientOperation}
+                />
+              }
+            />
           </Route>
           <Route path="details/:id/edit" element={<EditPatientActivity />} />
         </Route>
