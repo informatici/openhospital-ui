@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
@@ -9,6 +9,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createPatient,
   createPatientReset,
+  getPatientReset,
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -37,6 +38,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
     [t("nav.newpatient")]: PATHS.patients_new,
@@ -49,10 +51,10 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector<IState, string>(
     (state) =>
       state.patients.createPatient.error?.message || t("common.somethingwrong")
-  ) as string;
+  );
 
   const selectedPatient = useSelector<IState, PatientDTO | undefined>(
     (state) => state.patients.selectedPatient.data
@@ -62,6 +64,10 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
   );
+
+  useEffect(() => {
+    dispatch(getPatientReset());
+  }, []);
 
   useEffect(() => {
     if (

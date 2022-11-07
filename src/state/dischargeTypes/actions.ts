@@ -36,7 +36,7 @@ export const getDischargeTypes =
       (error) => {
         dispatch({
           type: GET_DISCHARGETYPE_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

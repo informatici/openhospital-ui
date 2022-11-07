@@ -43,7 +43,7 @@ export const createExamination =
         (error) => {
           dispatch({
             type: CREATE_EXAMINATION_FAIL,
-            error,
+            error: error?.response,
           });
         }
       );
@@ -71,7 +71,7 @@ export const updateExamination =
       (error) => {
         dispatch({
           type: UPDATE_EXAMINATION_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

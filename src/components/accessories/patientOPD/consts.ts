@@ -35,4 +35,8 @@ export const initialFields: TFields<TPatientOPDFormFieldName> = {
     value: "",
     type: "text",
   },
+  prescription: {
+    value: "",
+    type: "text",
+  },
 };

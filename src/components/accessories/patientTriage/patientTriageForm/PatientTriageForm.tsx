@@ -10,7 +10,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import { TProps } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
@@ -23,6 +23,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import isEmpty from "lodash.isempty";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -45,6 +46,44 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
           return moment(value).isValid();
         },
       }),
+    pex_temp: number()
+      .min(30, t("common.greaterthan", { value: 30 }))
+      .max(50, t("common.lessthan", { value: 50 })),
+    pex_weight: number()
+      .min(0, t("common.greaterthan", { value: 0 }))
+      .max(200, t("common.lessthan", { value: 200 })),
+    pex_height: number()
+      .min(0, t("common.greaterthan", { value: 0 }))
+      .max(250, t("common.lessthan", { value: 250 })),
+    pex_hr: number()
+      .min(0, t("common.greaterthan", { value: 0 }))
+      .max(240, t("common.lessthan", { value: 240 })),
+    pex_sat: number()
+      .min(50, t("common.greaterthan", { value: 50 }))
+      .max(100, t("common.lessthan", { value: 100 })),
+    pex_hgt: number()
+      .min(30, t("common.greaterthan", { value: 30 }))
+      .max(600, t("common.lessthan", { value: 600 })),
+    pex_diuresis: number()
+      .min(0, t("common.greaterthan", { value: 0 }))
+      .max(2500, t("common.lessthan", { value: 2500 })),
+    pex_rr: number()
+      .min(0, t("common.greaterthan", { value: 0 }))
+      .max(100, t("common.lessthan", { value: 100 })),
+    pex_ap_min: number().test({
+      name: "pex_ap_min",
+      message: t("common.outofrange"),
+      test: function (value) {
+        return this.parent.pex_ap_max >= value;
+      },
+    }),
+    pex_ap_max: number().test({
+      name: "pex_ap_max",
+      message: t("common.outofrange"),
+      test: function (value) {
+        return this.parent.pex_ap_min <= value;
+      },
+    }),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
@@ -55,7 +94,18 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      onSubmit({
+        ...formattedValues,
+        pex_auscultation: isEmpty(formattedValues.pex_auscultation)
+          ? null
+          : formattedValues.pex_auscultation,
+        pex_diuresis_desc: isEmpty(formattedValues.pex_diuresis_desc)
+          ? null
+          : formattedValues.pex_diuresis_desc,
+        pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
+          ? null
+          : formattedValues.pex_bowel_desc,
+      });
     },
   });
 

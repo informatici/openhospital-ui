@@ -155,6 +155,16 @@ export interface PatientDTO {
    * @memberof PatientDTO
    */
   status?: PatientDTOStatusEnum;
+  /**
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  anamnesis?: string;
+  /**
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  allergies?: string;
 }
 
 /**

@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
+import { ErrorDescription } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -22,6 +23,7 @@ import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 const LoginActivity: FunctionComponent<TProps> = ({
   setAuthenticationThunk,
   status,
+  errorType,
 }) => {
   useAuthentication();
 
@@ -111,7 +113,9 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              {t("login.incorrectcredentials")}
+              {errorType === ErrorDescription.PASSWORDTOOSHORT
+                ? t("login.passwordtooshort")
+                : t("login.incorrectcredentials")}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -139,6 +143,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   status: state.main.authentication.status || "IDLE",
+  errorType: state.main.authentication.error?.description,
 });
 
 const mapDispatchToProps: IDispatchProps = {

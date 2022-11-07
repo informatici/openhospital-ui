@@ -11,6 +11,7 @@ import {
   OperationRowDTO,
   PatientDTO,
   PatientExaminationDTO,
+  TherapyRowDTO,
   VisitDTO,
   WardDTO,
 } from "../../generated";
@@ -74,6 +75,20 @@ export const updateFields = (
   });
 };
 
+export const updateTherapyFields = (
+  fields: TFields,
+  values: TherapyRowDTO | undefined
+): TFields => {
+  return produce(fields, (draft: Record<string, any>) => {
+    Object.keys(values!).forEach((key) => {
+      if (draft[key as string]) {
+        return (draft[key as string].value =
+          values![key as keyof TherapyRowDTO]);
+      }
+    });
+  });
+};
+
 export const updateLabFields = (
   fields: TFields,
   values: LaboratoryDTO | undefined
@@ -81,6 +96,9 @@ export const updateLabFields = (
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
       let value = values![key as keyof LaboratoryDTO];
+      if (key === "result") {
+        return (draft[key as string].value = value);
+      }
       if (draft[key as string]) {
         return (draft[key as string].value =
           typeof value === "object"

@@ -81,6 +81,12 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     useState<boolean>(false);
 
   useEffect(() => {
+    if (isEmpty(patient.data) && patient.status === "IDLE") {
+      getPatientThunk(id!);
+    }
+  }, [patient, id, getPatientThunk]);
+
+  useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {
       getPatientThunk(id!);
       updatePatientReset();

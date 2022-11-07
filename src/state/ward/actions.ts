@@ -30,7 +30,7 @@ export const getWards =
       (error) => {
         dispatch({
           type: GET_WARD_FAIL,
-          error,
+          error: error?.response,
         });
       }
     );

@@ -113,6 +113,12 @@ export interface OpdDTO {
      */
     referralTo?: string;
     /**
+     * Prescription
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    prescription?: string;
+    /**
      * user id
      * @type {string}
      * @memberof OpdDTO

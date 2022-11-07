@@ -8918,6 +8918,9 @@ definitions:
         type: string
         example: R
         description: referral to another unit
+      prescription:
+        type: string
+        description: Prescription
       userID:
         type: string
         description: user id
@@ -9104,6 +9107,10 @@ definitions:
         enum:
           - I
           - O
+      anamnesis:
+        type: string
+      allergies:
+        type: string
     title: PatientDTO
     description: Class representing a patient
   PatientExaminationDTO:
@@ -9406,6 +9413,10 @@ definitions:
         type: integer
         format: int32
     title: ResponseEntity
+  ErrorDescription:
+    type: string
+    enum:
+      - PASSWORD_TOO_SHORT
   SmsDTO:
     type: object
     properties:

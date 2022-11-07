@@ -49,7 +49,7 @@ export const createAdmission =
         (error) => {
           dispatch({
             type: CREATE_ADMISSION_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
@@ -104,7 +104,7 @@ export const updateAdmission =
         (error) => {
           dispatch({
             type: UPDATE_ADMISSION_FAIL,
-            error: error,
+            error: error?.response,
           });
         }
       );
