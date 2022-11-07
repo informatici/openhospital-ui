@@ -18,7 +18,12 @@ export const Opds: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(searchOpds({ dateFrom: moment(), dateTo: moment() }));
+    dispatch(
+      searchOpds({
+        dateFrom: moment().toISOString(),
+        dateTo: moment().toISOString(),
+      })
+    );
     dispatch(getAgeTypes());
   }, [dispatch]);
   const { ageTypeStatus, opdStatus, dataByAgeType, dataBySex } = useData();
