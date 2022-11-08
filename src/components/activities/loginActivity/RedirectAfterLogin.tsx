@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 import { IRedirectAfterLogin } from "./types";
@@ -9,18 +9,16 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
   children,
   successRoute,
 }) => {
-  const navigate = useNavigate();
   const location = useLocation();
+  const to = location.state?.from || successRoute;
+
   const status = useSelector<IState, TAPIResponseStatus>(
     (state) => state.main.authentication.status || "IDLE"
   );
 
-  useEffect(() => {
-    if (status === "SUCCESS") {
-      const from = location.state ? location.pathname : successRoute;
-      navigate(from);
-    }
-  }, [navigate, location.state, location.pathname, status, successRoute]);
+  if (status === "SUCCESS") {
+    return <Navigate to={to} />;
+  }
 
   return <>{children}</>;
 };
