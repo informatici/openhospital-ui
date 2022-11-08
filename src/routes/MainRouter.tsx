@@ -14,7 +14,9 @@ export const MainRouter: React.FC = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
+        {/* TODO: based on user profile, redirect to patient, dashboard or whatever */}
         <Route index element={<Navigate to="patients" replace />} />
+
         <Route
           path="login"
           element={
@@ -33,6 +35,7 @@ export const MainRouter: React.FC = () => {
           />
           <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />
         </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
