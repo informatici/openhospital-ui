@@ -52,6 +52,7 @@ const DateField: FunctionComponent<IProps> = ({
         error={Boolean(errorText)}
         onChange={(date) => handleDateChange(date)}
         inputVariant="outlined"
+        views={views}
         margin="dense"
         value={value}
         onMonthChange={onMonthChange}
