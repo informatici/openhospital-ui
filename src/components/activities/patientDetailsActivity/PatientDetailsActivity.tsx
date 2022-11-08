@@ -4,20 +4,13 @@ import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import {
-  Navigate,
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from "react-router";
-import { useParams, Outlet, useOutletContext } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router";
+import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { PATHS } from "../../../consts";
-import { BASE_PATH, PatientDTO, PatientDTOStatusEnum } from "../../../generated";
+import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
-import { IApiResponse } from "../../../state/types";
 import { IState } from "../../../types";
 import {
   Accordion,
@@ -26,12 +19,8 @@ import {
 } from "../../accessories/accordion/Accordion";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
-import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import Footer from "../../accessories/footer/Footer";
-import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientVisit from "../../accessories/patientVisit/patientVisit";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
-import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
 import "./styles.scss";
@@ -56,7 +45,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,9 +76,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
-      return (
-        <Navigate to={`${pathname}/edit`} replace />
-      );
+      return <Navigate to="edit" replace />;
     default:
       return (
         <div className="patientDetails">
@@ -176,7 +162,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("discharge");
-                                navigate(`${pathname}/discharge`, { replace: true })
+                                navigate("discharge", {
+                                  replace: true,
+                                });
                               }}
                             >
                               (change)
@@ -191,7 +179,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("admissions");
-                                navigate(`${pathname}/admissions`, { replace: true })
+                                navigate("admissions", {
+                                  replace: true,
+                                });
                               }}
                             >
                               (change)
@@ -341,9 +331,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </div>
                 <div className="patientDetails__content">
                   <div className={"patientDetails__nested_content"}>
-
                     <Outlet context={patient?.data?.status} />
-                    
                   </div>
                 </div>
               </div>

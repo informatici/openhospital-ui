@@ -1,17 +1,16 @@
-import React from 'react';
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { PATHS } from "../consts";
 import { isAuthenticated } from "../libraries/authUtils/isAuthenticated";
 import { useAuthentication } from "../libraries/authUtils/useAuthentication";
 
-const PrivateOutlet = () => {
+export const Private = () => {
   useAuthentication();
   const { pathname } = useLocation();
 
   return isAuthenticated() ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: pathname }} replace />
+    <Navigate to={PATHS.login} state={{ from: pathname }} replace />
   );
 };
-
-export default PrivateOutlet;

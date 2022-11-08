@@ -1,41 +1,22 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Dashboard } from "../components/accessories/dashboard/Dashboard";
-import PrivateComponent from "../components/PrivateComponent";
 import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
 import NotFound from "../components/activities/notFound/NotFound";
 import VisitsActivity from "../components/activities/visitsActivity/VisitsActivity";
-import DashboardActivity from "../components/activities/dashboardActivity/DashboardActivity";
-import NewPatientActivity from "../components/activities/newPatientActivity/NewPatientActivity";
-import SearchPatientActivity from "../components/activities/searchPatientActivity/SearchPatientActivity";
-import EditPatientActivity from "../components/activities/editPatientActivity/EditPatientActivity";
-import PatientDetailsActivity from "../components/activities/patientDetailsActivity/PatientDetailsActivity";
-import PatientDetailsContent from "../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent";
-import PatientAdmission from "../components/accessories/admission/PatientAdmission";
-import PatientExams from "../components/accessories/patientExams/PatientExams";
-import PatientTherapy from "../components/accessories/patientTherapy/PatientTherapy";
-import PatientTriage from "../components/accessories/patientTriage/PatientTriage";
-import PatientSummary from "../components/accessories/patientSummary/PatientSummary";
-import PatientOperation from "../components/accessories/patientOperation/PatientOperation";
-import VisitDetailsContent from "../components/activities/patientDetailsActivityContent/VisitDetailsActivityContent";
-import DischargeDetailsContent from "../components/activities/patientDetailsActivityContent/DischargeDetailsActivityContent";
+import { Private } from "../components/Private";
+import { PatientsRoutes } from "./Patients/PatientsRoutes";
+import { PATHS } from "../consts";
 
 export const MainRouter: React.FC = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
+        <Route index element={<Navigate to="patients" replace />} />
         <Route
-          path="/"
-          element={
-            <RedirectAfterLogin successRoute="/patients">
-              <LoginActivity />
-            </RedirectAfterLogin>
-          }
-        />
-        <Route
-          path="/login"
+          path="login"
           element={
             <RedirectAfterLogin successRoute="/patients">
               <LoginActivity />
@@ -43,94 +24,16 @@ export const MainRouter: React.FC = () => {
           }
         />
 
-        <Route path="/*" element={<PrivateComponent />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="visits" element={<VisitsActivity />} />
-          <Route path="laboratory" element={<LaboratoryActivity />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-
-        <Route path="patients/*" element={<PrivateComponent />}>
+        <Route element={<Private />}>
+          <Route path={`${PATHS.dashboard}`} element={<Dashboard />} />
+          <Route path={`${PATHS.visits}`} element={<VisitsActivity />} />
           <Route
-            path="*"
-            element={
-              <DashboardActivity
-                newPatientRoute={`new`}
-                searchPatientRoute={`search`}
-              />
-            }
+            path={`${PATHS.laboratory}`}
+            element={<LaboratoryActivity />}
           />
-          <Route
-            path="new"
-            element={<NewPatientActivity dashboardRoute="patients" />}
-          />
-          <Route path="search" element={<SearchPatientActivity />} />
-          <Route path="details/:id/*" element={<PatientDetailsActivity />}>
-            <Route
-              path="*"
-              element={
-                <PatientDetailsContent
-                  title="Admissions"
-                  content={PatientAdmission}
-                />
-              }
-            />
-            <Route
-              path="admissions"
-              element={
-                <PatientDetailsContent
-                  title="Admissions"
-                  content={PatientAdmission}
-                />
-              }
-            />
-            <Route path="visits" element={<VisitDetailsContent />} />
-            <Route
-              path="laboratory"
-              element={
-                <PatientDetailsContent
-                  title="Laboratory"
-                  content={PatientExams}
-                />
-              }
-            />
-            <Route
-              path="therapy"
-              element={
-                <PatientDetailsContent
-                  title="Therapy"
-                  content={PatientTherapy}
-                />
-              }
-            />
-            <Route
-              path="triage"
-              element={
-                <PatientDetailsContent title="Triage" content={PatientTriage} />
-              }
-            />
-            <Route path="discharge" element={<DischargeDetailsContent />} />
-            <Route
-              path="clinic"
-              element={
-                <PatientDetailsContent
-                  title="Summary"
-                  content={PatientSummary}
-                />
-              }
-            />
-            <Route
-              path="operation"
-              element={
-                <PatientDetailsContent
-                  title="Operation"
-                  content={PatientOperation}
-                />
-              }
-            />
-          </Route>
-          <Route path="details/:id/edit" element={<EditPatientActivity />} />
+          <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
