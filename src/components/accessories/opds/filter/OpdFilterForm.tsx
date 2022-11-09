@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
 import React, { useCallback, useState } from "react";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { date, number, object, string } from "yup";
 import { DiseaseDTO, DiseaseTypeDTO, PatientDTO } from "../../../../generated";
@@ -34,6 +34,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
+  const [diseaseTypeCode, setDiseaseTypeCode] = useState("");
 
   const validationSchema = object({
     diseaseCode: string(),
@@ -126,9 +127,17 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
     value: value.code ?? "",
     label: value.description ?? "",
   });
-  const diseaseAllOptions = useSelector((state: IState) => {
-    return state.diseases.diseasesOpd.data?.map((e) => mapToOptions(e)) ?? [];
+  const diseases = useSelector<IState, DiseaseDTO[]>((state: IState) => {
+    return state.diseases.diseasesOpd.data ?? [];
   });
+
+  const diseaseOptions = useMemo(() => {
+    return isEmpty(diseaseTypeCode)
+      ? diseases.map((e) => mapToOptions(e))
+      : diseases
+          .filter((e) => e.diseaseType?.code === diseaseTypeCode)
+          .map((e) => mapToOptions(e));
+  }, [diseaseTypeCode, diseases]);
 
   const diseaseTypeOptions = useSelector((state: IState) => {
     return (
@@ -198,6 +207,9 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
           ["sex", "ageFrom", "ageTo"].forEach((e) =>
             formik.setFieldValue(e, "")
           );
+        }
+        if (fieldName === "diseaseTypeCode") {
+          setDiseaseTypeCode((value ?? "") as string);
         }
       },
     [setFieldValue, handleBlur]
@@ -281,7 +293,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     isValid={isValid("diseaseCode")}
                     errorText={getErrorText("diseaseCode")}
                     onBlur={onBlurCallback("diseaseCode")}
-                    options={diseaseAllOptions}
+                    options={diseaseOptions}
                   />
                 </div>
               </div>
