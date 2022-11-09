@@ -13,7 +13,6 @@ import {
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
 import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDialog/ExtendedConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
@@ -82,7 +81,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
-      navigate(`/patients/details/${patient?.code}`, { replace: true })
+      navigate(`/patients/details/${patient?.code}`, { replace: true });
     }
   }, [patient, activityTransitionState, createPatientReset]);
 

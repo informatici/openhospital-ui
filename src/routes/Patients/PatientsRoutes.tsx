@@ -5,6 +5,7 @@ import EditPatientActivity from "../../components/activities/editPatientActivity
 import NewPatientActivity from "../../components/activities/newPatientActivity/NewPatientActivity";
 import NotFound from "../../components/activities/notFound/NotFound";
 import SearchPatientActivity from "../../components/activities/searchPatientActivity/SearchPatientActivity";
+import { PATHS } from "../../consts";
 import { PatientDetailsRoutes } from "./PatientsDetailsRoutes";
 
 export const PatientsRoutes: FC = () => (
@@ -13,14 +14,14 @@ export const PatientsRoutes: FC = () => (
       index
       element={
         <DashboardActivity
-          newPatientRoute={`new`}
-          searchPatientRoute={`search`}
+          newPatientRoute={PATHS.patients_new}
+          searchPatientRoute={PATHS.patients_search}
         />
       }
     />
     <Route
       path="new"
-      element={<NewPatientActivity dashboardRoute="patients" />}
+      element={<NewPatientActivity dashboardRoute={PATHS.patients} />}
     />
     <Route path="search" element={<SearchPatientActivity />} />
     <Route path="details/:id/*" element={<PatientDetailsRoutes />} />
