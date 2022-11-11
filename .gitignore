@@ -26,3 +26,13 @@ yarn-error.log*
 # IntelliJ
 .idea
 *.iml
+
+
+# Ignore generated files
+
+src/generated/apis/*
+src/generated/models/*
+src/generated/.gitignore
+src/generated/index.ts
+src/generated/runtime.ts
+src/generated/tsconfig.json
