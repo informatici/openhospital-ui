@@ -4,15 +4,8 @@ import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-  useLocation,
-  useRouteMatch,
-} from "react-router";
-import { useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router";
+import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -24,21 +17,10 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
-import PatientAdmission from "../../accessories/admission/PatientAdmission";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
-import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import Footer from "../../accessories/footer/Footer";
-import PatientExams from "../../accessories/patientExams/PatientExams";
-import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientOperation from "../../accessories/patientOperation/PatientOperation";
-import PatientSummary from "../../accessories/patientSummary/PatientSummary";
-import PatientTherapy from "../../accessories/patientTherapy/PatientTherapy";
-import PatientTriage from "../../accessories/patientTriage/PatientTriage";
-import PatientVisit from "../../accessories/patientVisit/patientVisit";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import PatientDetailsContent from "../patientDetailsActivityContent/PatientDetailsActivityContent";
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
 import "./styles.scss";
@@ -49,6 +31,8 @@ import {
   TActivityTransitionState,
   TProps,
 } from "./types";
+
+type ContextType = { status: string | null };
 
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
@@ -61,12 +45,11 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const { path, url } = useRouteMatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id);
+      getPatientThunk(id!);
     }
   }, [patient, id, getPatientThunk]);
 
@@ -93,14 +76,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
-      return (
-        <Redirect
-          to={`${path}/edit`.replace(
-            ":id",
-            patient.data?.code?.toString() || ""
-          )}
-        />
-      );
+      return <Navigate to="edit" replace />;
     default:
       return (
         <div className="patientDetails">
@@ -186,7 +162,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("discharge");
-                                history.replace(`${url}/discharge`);
+                                navigate("discharge", {
+                                  replace: true,
+                                });
                               }}
                             >
                               (change)
@@ -201,7 +179,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               className="patientDetails_status_button"
                               onClick={() => {
                                 setUserSection("admissions");
-                                history.replace(`${url}/admissions`);
+                                navigate("admissions", {
+                                  replace: true,
+                                });
                               }}
                             >
                               (change)
@@ -351,67 +331,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                 </div>
                 <div className="patientDetails__content">
                   <div className={"patientDetails__nested_content"}>
-                    <Switch>
-                      <Route exact path={`${path}`}>
-                        <Redirect to={`${url}/admissions`} />
-                      </Route>
-                      <Route path={`${path}/admissions`}>
-                        <PatientDetailsContent
-                          title="Admissions"
-                          content={PatientAdmission}
-                        />
-                      </Route>
-                      <Route path={`${path}/visits`}>
-                        <PatientDetailsContent
-                          title="Visits"
-                          content={
-                            patient?.data?.status === PatientDTOStatusEnum.O
-                              ? PatientOPD
-                              : PatientVisit
-                          }
-                        />
-                      </Route>
-                      <Route path={`${path}/laboratory`}>
-                        <PatientDetailsContent
-                          title="Laboratory"
-                          content={PatientExams}
-                        />
-                      </Route>
-                      <Route path={`${path}/therapy`}>
-                        <PatientDetailsContent
-                          title="Therapy"
-                          content={PatientTherapy}
-                        />
-                      </Route>
-                      <Route path={`${path}/triage`}>
-                        <PatientDetailsContent
-                          title="Triage"
-                          content={PatientTriage}
-                        />
-                      </Route>
-                      <Route path={`${path}/clinic`}>
-                        <PatientDetailsContent
-                          title="Summary"
-                          content={PatientSummary}
-                        />
-                      </Route>
-                      <Route path={`${path}/discharge`}>
-                        {patient?.data?.status === PatientDTOStatusEnum.O ? (
-                          <Redirect to={`${url}/clinic`} />
-                        ) : (
-                          <PatientDetailsContent
-                            title="Discharge"
-                            content={PatientDischarge}
-                          />
-                        )}
-                      </Route>
-                      <Route path={`${path}/operation`}>
-                        <PatientDetailsContent
-                          title="Operation"
-                          content={PatientOperation}
-                        />
-                      </Route>
-                    </Switch>
+                    <Outlet context={patient?.data?.status} />
                   </div>
                 </div>
               </div>
@@ -436,3 +356,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(PatientDetailsActivity);
+
+export function usePatient() {
+  return useOutletContext<ContextType>();
+}

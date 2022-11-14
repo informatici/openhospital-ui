@@ -8,9 +8,8 @@ import { initReactI18next } from "react-i18next";
 import resources from "./resources";
 import { I18N_FALLBACK_LNG } from "./resources/config";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import { Router } from "react-router-dom";
-import history from "./history";
-import { Routes } from "./routes";
+import { MainRouter } from "./routes";
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -45,15 +44,13 @@ const App: FunctionComponent = () => {
   });
 
   return (
-    <Router history={history}>
-      <div className="App">
-        <MuiThemeProvider theme={pickerTheme}>
-          <LangContext.Provider value={{ changeLang }}>
-            <Routes />
-          </LangContext.Provider>
-        </MuiThemeProvider>
-      </div>
-    </Router>
+    <div className="App">
+      <MuiThemeProvider theme={pickerTheme}>
+        <LangContext.Provider value={{ changeLang }}>
+          <MainRouter />
+        </LangContext.Provider>
+      </MuiThemeProvider>
+    </div>
   );
 };
 

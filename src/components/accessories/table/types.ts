@@ -9,11 +9,11 @@ export interface IProps {
   rowsPerPage: number;
   initialOrderBy?: string;
   columnsOrder: Array<string>;
-  onEdit?: <T>(row: T) => void;
-  onDelete?: <T>(row: T) => void;
-  onPrint?: <T>(row: T) => void;
-  onView?: <T>(row: T) => void;
-  onAdd?: <T>(row: T) => void;
+  onEdit?: (row: any) => void;
+  onDelete?: (row: any) => void;
+  onPrint?: (row: any) => void;
+  onView?: (row: any) => void;
+  onAdd?: (row: any) => void;
   addTitle?: string;
   showEmptyCell?: boolean;
   renderItemDetails?: (row: any) => void;

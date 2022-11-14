@@ -12,11 +12,11 @@ export interface IProps {
   theme?: string;
   onInputChange?: (e: any, value: any) => void;
   freeSolo?: boolean;
-  getOptionLabel?: <T>(option: T) => string;
-  renderOption?: <T>(params: T) => JSX.Element;
-  getOptionSelected?: <T>(option: T, value: T) => boolean;
+  getOptionLabel?: (option: any) => string;
+  renderOption?: (params: any) => JSX.Element;
+  getOptionSelected?: (option: any, value: any) => boolean;
   id?: string;
   onChange?: (e: object, val: any | null) => void;
-  optionsComparator?: <T>(option: T, val: string | number) => boolean;
+  optionsComparator?: (option: any, val: string | number) => boolean;
 }
 export type DefaultOptionType = { value: string | number; label: string };

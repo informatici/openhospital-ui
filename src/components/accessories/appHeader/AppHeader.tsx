@@ -6,7 +6,7 @@ import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, TProps } from "./types";
@@ -44,7 +44,7 @@ const AppHeader: FunctionComponent<TProps> = ({
     setOpenLogoutConfirmation(false);
     setLogoutThunk();
   };
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
@@ -81,7 +81,7 @@ const AppHeader: FunctionComponent<TProps> = ({
               </Link>
             </div>
             <div
-              onClick={() => history.push(breadcrumbMap[keys.pop() || "/"])}
+              onClick={() => navigate(breadcrumbMap[keys.pop() || "/"])}
               className={classNames("appHeader__navigate_before", {
                 hidden: trailEdgeKey === "Dashboard",
               })}
@@ -117,19 +117,19 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav_items">
               <div
                 className="appHeader__nav__item"
-                onClick={() => history.push(PATHS.patients)}
+                onClick={() => navigate(PATHS.patients)}
               >
                 {t("nav.patients")}
               </div>
               <div
                 className="appHeader__nav__item"
-                onClick={() => history.push(PATHS.visits)}
+                onClick={() => navigate(PATHS.visits)}
               >
                 {t("nav.visits")}
               </div>
               <div
                 className="appHeader__nav__item"
-                onClick={() => history.push(PATHS.laboratory)}
+                onClick={() => navigate(PATHS.laboratory)}
               >
                 {t("nav.laboratory")}
               </div>

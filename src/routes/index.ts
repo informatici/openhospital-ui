@@ -1,2 +1,2 @@
-export * from "./Patients";
-export * from "./Routes";
+// export * from "./Patients";
+export * from "./MainRouter";

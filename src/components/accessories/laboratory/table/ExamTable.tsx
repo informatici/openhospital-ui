@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router";
 import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
 import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
@@ -38,6 +37,7 @@ export const ExamTable: FC<IExamTableProps> = ({
     result: t("lab.result"),
   };
   const order = ["id", "date", "patName", "exam", "result"];
+  const [laboratory, setLaboratory] = useState({} as LaboratoryForPrintDTO);
 
   const formatDataToDisplay = (data: LaboratoryForPrintDTO[]) => {
     let results: any = [];
