@@ -7,6 +7,7 @@ import {
   LaboratoryControllerApi,
   OpdControllerApi,
   OperationControllerApi,
+  TherapyControllerApi,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
@@ -17,6 +18,8 @@ import {
   GET_SUMMARY_SUCCESS,
   SummaryField,
 } from "./consts";
+
+const therapyControllerApi = new TherapyControllerApi(customConfiguration());
 
 const operationControllerApi = new OperationControllerApi(
   customConfiguration()
@@ -65,11 +68,15 @@ export const loadSummaryData =
           .pipe(
             map((res) => convertToSummaryData(res, SummaryField.operation)),
             catchError((err) => of([]))
-          )
+          ),
+        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.therapy)),
+          catchError((err) => of([]))
+        )
       )
         .pipe(toArray())
         .subscribe(
-          ([triages, opds, exams, admissions, operations]) => {
+          ([triages, opds, exams, admissions, operations, therapies]) => {
             dispatch({
               type: GET_SUMMARY_SUCCESS,
               payload: [
@@ -78,6 +85,7 @@ export const loadSummaryData =
                 ...exams,
                 ...admissions,
                 ...operations,
+                ...therapies,
               ],
             });
           },

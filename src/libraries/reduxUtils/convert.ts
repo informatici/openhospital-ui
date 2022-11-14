@@ -29,6 +29,7 @@ export const renderSummary = (
     | LaboratoryDTO
     | AdmissionDTO
     | OperationRowDTO
+    | TherapyRowDTO
   >,
   dateFields: string[],
   labels: any,
