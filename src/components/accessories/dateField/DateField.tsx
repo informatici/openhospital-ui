@@ -47,6 +47,8 @@ const DateField: FunctionComponent<IProps> = ({
 
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
+  const isOpen = open === true ? { open: open } : {};
+
   return (
     <>
       {matches ? (
