@@ -76,7 +76,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
-      return <Navigate to="edit" replace />;
+      return <Navigate to="edit" />;
     default:
       return (
         <div className="patientDetails">
