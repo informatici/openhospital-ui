@@ -338,6 +338,16 @@
       "weeks": "Week(s)",
       "months": "Month(s)",
       "years": "Year(s)"
+    },
+    "period": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisweek": "This Week",
+      "lastweek": "Last Week",
+      "thismonth": "This Month",
+      "lastmonth": "Last Month",
+      "thisyear": "This Year",
+      "lastyear": "Last Year"
     }
   },
   "therapy": {

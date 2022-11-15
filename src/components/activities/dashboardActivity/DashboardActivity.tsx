@@ -7,11 +7,8 @@ import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import { Admissions } from "../../accessories/dashboard/admissions/Admissions";
-import { Opds } from "../../accessories/dashboard/opds/Opds";
 import Footer from "../../accessories/footer/Footer";
-import LargeButton from "../../accessories/largeButton/LargeButton";
-import { SideContent } from "./SideContent";
+import { DashboardContent } from "../dashboardActivityContent/DashboardContent";
 import "./styles.scss";
 import { IStateProps, TProps } from "./types";
 

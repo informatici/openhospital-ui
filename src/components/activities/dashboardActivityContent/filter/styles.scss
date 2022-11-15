@@ -1,0 +1,33 @@
+@import "../../../../styles/variables";
+@import "../../../../../node_modules/susy/sass/susy";
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+    @include susy-media($phone) {
+        flex-direction: column;
+        justify-content: end;
+    }
+    .MuiToggleButton-root {
+        .MuiTouchRipple-root {
+            color: lighten($color: $c-grey-light, $amount: 0.1)
+        }
+    }
+    .Mui-selected {
+        border-color: lighten($color: $c-grey-light, $amount: 1);
+        color: lighten($color: $c-gray, $amount: 1);
+    }
+    .actions {
+        display: flex;
+        column-gap: 4px;
+        align-items: center;
+        span {
+            font-size: x-large;
+            color: lighten($color: $c-gray, $amount: 1);
+            text-transform: uppercase;
+        }
+        .hiden {
+            visibility: hidden;
+        }
+    }
+}

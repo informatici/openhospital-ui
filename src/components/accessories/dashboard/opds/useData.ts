@@ -18,6 +18,9 @@ export const useData = () => {
   const opdStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.opds.searchOpds.status ?? "IDLE"
   );
+  const success = useSelector<IState, boolean>((state) =>
+    ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
+  );
   const sexLabels = [t("common.male"), t("common.female")];
   const ageTypeLabels = ageTypes.map((e) => e.description ?? "");
   const dataBySex = {
@@ -63,5 +66,6 @@ export const useData = () => {
     opdStatus,
     dataByAgeType,
     dataBySex,
+    success,
   };
 };

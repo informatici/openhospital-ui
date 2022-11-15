@@ -40,6 +40,11 @@ export const useData = () => {
   const admissionStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"
   );
+  const success = useSelector<IState, boolean>((state) =>
+    ["SUCCESS", "SUCCESS_EMPTY"].includes(
+      state.admissions.getAdmissions.status ?? ""
+    )
+  );
   const wardStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
@@ -137,5 +142,6 @@ export const useData = () => {
     dataBySex,
     dataByWards,
     setOnGoing,
+    success,
   };
 };
