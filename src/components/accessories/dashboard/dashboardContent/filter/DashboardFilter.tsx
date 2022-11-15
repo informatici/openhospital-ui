@@ -9,9 +9,9 @@ import isEmpty from "lodash.isempty";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { IOwnProps, TViewType } from "./types";
 import "./styles.scss";
-import DateField from "../../../accessories/dateField/DateField";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import DateField from "../../../dateField/DateField";
 
 export const DashboardFilter: FC<IOwnProps> = ({
   onDateChange,
@@ -110,7 +110,7 @@ export const DashboardFilter: FC<IOwnProps> = ({
           onChange={handleDateChange}
           open={open}
           views={views}
-          TextFieldComponent={(props) => (
+          TextFieldComponent={(props: any) => (
             <IconButton
               onClick={() => {
                 setOpen(true);

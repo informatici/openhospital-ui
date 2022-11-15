@@ -1,8 +1,8 @@
 import moment from "moment";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Admissions } from "../../accessories/dashboard/admissions/Admissions";
-import { Opds } from "../../accessories/dashboard/opds/Opds";
+import { Admissions } from "../admissions/Admissions";
+import { Opds } from "../opds/Opds";
 import { DashboardFilter } from "./filter/DashboardFilter";
 import { TViewType } from "./filter/types";
 import { SideContent } from "./SideContent";

@@ -1,46 +1,35 @@
-import React from "react";
+import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
+import { IState } from "../../../types";
 import AppHeader from "../appHeader/AppHeader";
 import Footer from "../footer/Footer";
-import {
-  Configuration,
-  OpdControllerApi,
-} from "../../../generated";
-import { applyTokenMiddleware } from "../../../libraries/apiUtils/applyTokenMiddleware";
-// import { AdminContext, AdminUI, Resource, useDataProvider, defaultI18nProvider, ListGuesser } from 'react-admin';
-// import { useEffect, useState } from 'react';
-// import jsonServerProvider from 'ra-data-json-server';
+import { DashboardContent } from "./dashboardContent/DashboardContent";
+import "./styles.scss";
+import { IStateProps, TProps } from "./types";
 
-// const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
+  const { t } = useTranslation();
+  const breadcrumbMap = {
+    [t("nav.dashboard")]: "",
+  };
 
-const opdControllerApi = new OpdControllerApi(
-  new Configuration({ middleware: [applyTokenMiddleware] })
-);
-
-export const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
-      <AppHeader userCredentials={{}} breadcrumbMap={{}} />
-      Dashboard
-      {/* <AdminContext dataProvider={dataProvider} i18nProvider={defaultI18nProvider} >
-          <Resources />
-      </AdminContext> */}
+      <AppHeader
+        userCredentials={userCredentials}
+        breadcrumbMap={breadcrumbMap}
+      />
+      <div className="dashboard__background">
+        <DashboardContent />
+      </div>
       <Footer />
     </div>
   );
 };
 
-// const Resources = () => {
-//      const [resources, setResources] = useState<any[]>([]);
-//      const dataProvider = useDataProvider();
-//      useEffect(() => {
-//          dataProvider.introspect().then((r: any) => setResources(r));
-//      }, []);
+const mapStateToProps = (state: IState): IStateProps => ({
+  userCredentials: state.main.authentication.data,
+});
 
-//      return (
-//          <AdminUI>
-//              {resources.map(resource => (
-//                  <Resource name={resource.name} key={resource.key} list={ListGuesser} />
-//              ))}
-//          </AdminUI>
-//      );
-//  };
+export default connect(mapStateToProps)(Dashboard);

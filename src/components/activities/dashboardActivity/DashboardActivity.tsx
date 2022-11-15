@@ -8,14 +8,19 @@ import { PATHS } from "../../../consts";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import { DashboardContent } from "../dashboardActivityContent/DashboardContent";
+import LargeButton from "../../accessories/largeButton/LargeButton";
 import "./styles.scss";
-import { IStateProps, TProps } from "./types";
+import { IStateProps, TProps, TActivityTransitionState } from "./types";
 
-const DashboardActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
+const PatientDashboardActivity: FunctionComponent<TProps> = ({
+  userCredentials,
+  newPatientRoute,
+  searchPatientRoute,
+}) => {
   const { t } = useTranslation();
+
   const breadcrumbMap = {
-    [t("nav.dashboard")]: "",
+    [t("nav.patients")]: PATHS.patients,
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -73,15 +78,14 @@ const DashboardActivity: FunctionComponent<TProps> = ({ userCredentials }) => {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
-      </div>
-      <Footer />
-    </div>
-  );
+      );
+  }
 };
 
 const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
 });
 
-export default connect(mapStateToProps)(DashboardActivity);
+export default connect(mapStateToProps)(PatientDashboardActivity);
