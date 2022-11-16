@@ -15,49 +15,6 @@
     background-color: $c-white;
   }
 
-  .dashboard__content {
-    display: flex;
-    padding: 20px;
-    flex: 1;
-    width: 100%;
-    .dashboard__main {
-      background-color: white !important;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      row-gap: 16px;
-      .body {
-        display: flex;
-        flex-flow: row wrap;
-        overflow: auto;
-        justify-content: space-evenly;
-      }
-    }
-    .dashboard__side {
-      @include susy-media($tablet_port) {
-        display: none;
-      }
-      @include susy-media($smartphone) {
-        display: none;
-      }
-      .side {
-        display: flex;
-        flex-direction: column;
-        width: 250px;
-        height: 480px;
-        background-color: $c-gray;
-        border-radius: 5px;
-        padding: 16px;
-        .header {
-          width: 100%;
-          height: 75px;
-          background-color: lighten($c-gray, 5%);
-          border-radius: 8px;
-        }
-      }
-    }
-  }
-
   .footer {
     position: relative;
   }

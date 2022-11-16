@@ -4,18 +4,23 @@
 .filter {
     display: flex;
     justify-content: space-between;
-    @include susy-media($phone) {
-        flex-direction: column;
+    @include susy-media($smartphone) {
+        flex-direction: column-reverse;
         justify-content: end;
     }
-    .MuiToggleButton-root {
-        .MuiTouchRipple-root {
-            color: lighten($color: $c-grey-light, $amount: 0.1)
+    .MuiToggleButtonGroup-root {
+        @include susy-media($smartphone) {
+            align-self: center;
         }
-    }
-    .Mui-selected {
-        border-color: lighten($color: $c-grey-light, $amount: 1);
-        color: lighten($color: $c-gray, $amount: 1);
+        .MuiToggleButton-root {
+            .MuiTouchRipple-root {
+                color: lighten($color: $c-grey-light, $amount: 0.1)
+            }
+        }
+        .Mui-selected {
+            border-color: lighten($color: $c-grey-light, $amount: 1);
+            color: lighten($color: $c-gray, $amount: 1);
+        }
     }
     .actions {
         display: flex;
@@ -25,6 +30,10 @@
             font-size: x-large;
             color: lighten($color: $c-gray, $amount: 1);
             text-transform: uppercase;
+            @include susy-media($smartphone) {
+                justify-self: start;
+                flex-grow: 1;
+            }
         }
         .hiden {
             visibility: hidden;

@@ -84,7 +84,12 @@ export const DashboardFilter: FC<IOwnProps> = ({
   );
   return (
     <div className="filter">
-      <ToggleButtonGroup value={view} exclusive onChange={handleChange}>
+      <ToggleButtonGroup
+        className="options"
+        value={view}
+        exclusive
+        onChange={handleChange}
+      >
         <ToggleButton value="day">
           <span>Day</span>
         </ToggleButton>
