@@ -1,4 +1,9 @@
 {
+  "user": {
+    "username": "Username",
+    "groups": "Groups",
+    "lastlogin": "Last login"
+  },
   "login": {
     "username": "Username",
     "password": "Password",
