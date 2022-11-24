@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 import PatientAdmission from "../../components/accessories/admission/PatientAdmission";
 import PatientExams from "../../components/accessories/patientExams/PatientExams";
 import PatientOperation from "../../components/accessories/patientOperation/PatientOperation";

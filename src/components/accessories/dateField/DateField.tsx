@@ -1,12 +1,16 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider as DatePickerWrapper,
+  DatePicker,
+  DesktopDatePicker,
+  MobileDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
+import { IconButton, TextField, useMediaQuery } from "@material-ui/core";
+import { CalendarTodayRounded } from "@material-ui/icons";
+import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -23,8 +27,13 @@ const DateField: FunctionComponent<IProps> = ({
   renderDay,
   views,
   required = FIELD_VALIDATION.IDLE,
+  open,
+  okLabel,
+  cancelLabel,
+  TextFieldComponent,
 }) => {
   const [value, setValue] = useState<Date | null>(null);
+  const matches = useMediaQuery("(min-width:768px)");
 
   useEffect(() => {
     // field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
@@ -39,28 +48,75 @@ const DateField: FunctionComponent<IProps> = ({
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
   return (
-    <DatePickerWrapper utils={DateFnsUtils}>
-      <KeyboardDatePicker
-        format={format}
-        id={fieldName}
-        name={fieldName}
-        label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
-        disabled={disabled}
-        disableFuture={disableFuture}
-        className={actualClassName}
-        helperText={errorText}
-        error={Boolean(errorText)}
-        onChange={(date) => handleDateChange(date)}
-        inputVariant="outlined"
-        views={views}
-        margin="dense"
-        value={value}
-        onMonthChange={onMonthChange}
-        shouldDisableDate={shouldDisableDate}
-        renderDay={renderDay}
-        required={required === FIELD_VALIDATION.REQUIRED}
-      />
-    </DatePickerWrapper>
+    <>
+      {matches ? (
+        <DesktopDatePicker
+          inputFormat={format}
+          label={
+            required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
+          }
+          disabled={disabled}
+          disableFuture={disableFuture}
+          onChange={(date: any) => handleDateChange(date)}
+          value={value}
+          onMonthChange={onMonthChange}
+          shouldDisableDate={shouldDisableDate}
+          renderInput={(props: MuiTextFieldProps) =>
+            TextFieldComponent ? (
+              <TextFieldComponent {...props} />
+            ) : (
+              <TextField
+                {...props}
+                error={Boolean(errorText)}
+                disabled={disabled}
+                helperText={errorText}
+                variant="outlined"
+                margin="dense"
+                required={required === FIELD_VALIDATION.REQUIRED}
+                className={actualClassName}
+              />
+            )
+          }
+          okText={okLabel}
+          cancelText={cancelLabel}
+          views={views}
+          open={open}
+        />
+      ) : (
+        <MobileDatePicker
+          inputFormat={format}
+          label={
+            required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
+          }
+          disabled={disabled}
+          disableFuture={disableFuture}
+          onChange={(date: any) => handleDateChange(date)}
+          value={value}
+          onMonthChange={onMonthChange}
+          shouldDisableDate={shouldDisableDate}
+          renderInput={(props: MuiTextFieldProps) =>
+            TextFieldComponent ? (
+              <TextFieldComponent {...props} />
+            ) : (
+              <TextField
+                {...props}
+                error={Boolean(errorText)}
+                disabled={disabled}
+                helperText={errorText}
+                variant="outlined"
+                margin="dense"
+                required={required === FIELD_VALIDATION.REQUIRED}
+                className={actualClassName}
+              />
+            )
+          }
+          okText={okLabel}
+          cancelText={cancelLabel}
+          views={views}
+          open={open}
+        />
+      )}
+    </>
   );
 };
 
