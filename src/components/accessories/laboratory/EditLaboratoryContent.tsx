@@ -77,7 +77,7 @@ export const EditLaboratoryContent: FC = () => {
         <div className="lab__actions">
           <Button
             onClick={() => {
-              navigate(0);
+              navigate(-1);
             }}
             type="button"
             variant="contained"

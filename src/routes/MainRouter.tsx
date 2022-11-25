@@ -31,7 +31,7 @@ export const MainRouter: React.FC = () => {
           <Route path={`${PATHS.dashboard}`} element={<Dashboard />} />
           <Route path={`${PATHS.visits}`} element={<VisitsActivity />} />
           <Route
-            path={`${PATHS.laboratory}`}
+            path={`${PATHS.laboratory}/*`}
             element={<LaboratoryActivity />}
           />
           <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />

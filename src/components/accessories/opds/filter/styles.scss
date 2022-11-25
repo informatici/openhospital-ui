@@ -37,12 +37,12 @@
         .filterOpdForm__section_content {
           display: flex;
           flex-flow: wrap row;
-          justify-content: start;
+          justify-content: space-between;
           .filterOpdForm__item {
             margin-right: 5px;
             align-items: center;
             width: 24%;
-            .dateField, .textField, .selectField, .autocompleteField {
+            .dateField, .dateField__light, .textField, .selectField, .autocompleteField {
               width: 100%;
             }
             @include susy-media($tablet_land) {

@@ -36,6 +36,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
+import { PATHS } from "../../../consts";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -81,7 +82,7 @@ export const Exams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryForPrintDTO) => {
-    navigate("${pathname}/${row.code}/edit");
+    navigate(`${PATHS.laboratory}/${row.code}/edit`);
   };
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
@@ -108,7 +109,7 @@ export const Exams: FC = () => {
           <div className="lab__actions">
             <Button
               onClick={() => {
-                navigate("${pathname}/new");
+                navigate(`${PATHS.laboratory}/new`);
               }}
               type="button"
               variant="contained"
@@ -167,15 +168,9 @@ export const Exams: FC = () => {
     <Fragment>
       <div className="lab_labs">
         <Routes>
-          <Route path={`${pathname}`}>
-            {ExamContent}
-          </Route>
-          <Route path={`${pathname}/new`}>
-            <EditLaboratoryContent />
-          </Route>
-          <Route path={`${pathname}/:id/edit`}>
-            <EditLaboratoryContent />
-          </Route>
+          <Route index element={ExamContent} />
+          <Route path={`/new`} element={<EditLaboratoryContent />} />
+          <Route path={`/:id/edit`} element={<EditLaboratoryContent />} />
         </Routes>
       </div>
     </Fragment>
