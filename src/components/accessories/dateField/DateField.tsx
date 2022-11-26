@@ -61,6 +61,7 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
+          allowSameDateSelection
           renderInput={(props: MuiTextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent {...props} />
@@ -95,6 +96,7 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
+          allowSameDateSelection
           renderInput={(props: MuiTextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent {...props} />

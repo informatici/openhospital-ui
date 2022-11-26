@@ -8,7 +8,7 @@ describe("NewPatientActivity spec", () => {
     cy.get("[class=newPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => {});
+  it.skip("should have access to the user credentials", () => { });
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");
@@ -88,10 +88,7 @@ describe("NewPatientActivity spec", () => {
   it("should show an error message when the call fails", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label")
-      .contains("OK")
-      .click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
     cy.get("[id=firstName]").clear().type("fail");
     cy.get("[id=secondName]").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
@@ -103,10 +100,7 @@ describe("NewPatientActivity spec", () => {
   it("should show a confirmation dialog when the call is successful", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label")
-      .contains("OK")
-      .click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
     cy.get("[id=firstName]").clear().type("Antonio Carlos");
     cy.get("[id=secondName]").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
@@ -127,10 +121,7 @@ describe("NewPatientActivity spec", () => {
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-current").click();
-    cy.get(".MuiPickersModal-dialogRoot .MuiButton-label")
-      .contains("OK")
-      .click();
+    cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
     cy.get("[id=firstName]").type("Antonio Carlos");
     cy.get("[id=secondName]").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
