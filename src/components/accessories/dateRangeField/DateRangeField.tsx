@@ -17,8 +17,8 @@ import { IconButton, TextField, useMediaQuery } from "@material-ui/core";
 import { CalendarTodayRounded } from "@material-ui/icons";
 import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
 const DateRangeField: FunctionComponent<IProps> = ({
-  fieldName = [null, null],
-  fieldValue,
+  fieldName,
+  fieldValue = [null, null],
   disableFuture,
   disabled,
   label,
@@ -75,6 +75,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
               <div className={"dateRange"}>
                 <TextField
                   {...startProps}
+                  id={fieldName + "-from"}
                   error={Boolean(errorText)}
                   disabled={disabled}
                   helperText={errorText}
@@ -85,6 +86,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
                 />
                 <TextField
                   {...endProps}
+                  id={fieldName + "-to"}
                   error={Boolean(errorText)}
                   disabled={disabled}
                   helperText={errorText}
@@ -122,6 +124,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
               <div className={"dateRange"}>
                 <TextField
                   {...startProps}
+                  id={fieldName + "-from"}
                   error={Boolean(errorText)}
                   disabled={disabled}
                   helperText={errorText}
@@ -132,6 +135,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
                 />
                 <TextField
                   {...endProps}
+                  id={fieldName + "-to"}
                   error={Boolean(errorText)}
                   disabled={disabled}
                   helperText={errorText}

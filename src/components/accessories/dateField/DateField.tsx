@@ -67,6 +67,7 @@ const DateField: FunctionComponent<IProps> = ({
             ) : (
               <TextField
                 {...props}
+                id={fieldName}
                 error={Boolean(errorText)}
                 disabled={disabled}
                 helperText={errorText}
@@ -100,6 +101,7 @@ const DateField: FunctionComponent<IProps> = ({
             ) : (
               <TextField
                 {...props}
+                id={fieldName}
                 error={Boolean(errorText)}
                 disabled={disabled}
                 helperText={errorText}
