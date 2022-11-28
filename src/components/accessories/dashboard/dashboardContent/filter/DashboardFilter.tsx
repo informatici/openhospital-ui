@@ -1,129 +1,68 @@
-import { IconButton } from "@material-ui/core";
-import {
-  Edit,
-  CalendarViewDayRounded,
-  CalendarTodayRounded,
-} from "@material-ui/icons";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
-import isEmpty from "lodash.isempty";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { IOwnProps, TViewType } from "./types";
+import { IOwnProps } from "./types";
 import "./styles.scss";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import DateField from "../../../dateField/DateField";
+import DateRangeField from "../../../dateRangeField/DateRangeField";
+import { DateRange } from "@material-ui/pickers";
+import { IconButton } from "@material-ui/core";
+import { CalendarTodaySharp } from "@material-ui/icons";
 
-export const DashboardFilter: FC<IOwnProps> = ({
-  onDateChange,
-  onViewChange,
-}) => {
+export const DashboardFilter: FC<IOwnProps> = ({ onDateChange }) => {
   const { t } = useTranslation();
-  const [view, setView] = useState<TViewType>("day");
+  const [date, setDate] = useState<DateRange<Date>>([
+    moment().add(-7, "days").toDate(),
+    moment().toDate(),
+  ]);
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(moment().toISOString());
-  useEffect(() => {
-    setDate(moment().toISOString());
-    onViewChange(view);
-  }, [view]);
   useEffect(() => {
     onDateChange(date);
   }, [date]);
-  const views = useMemo(() => {
-    switch (view) {
-      case "day":
-        return undefined;
-      case "week":
-        return undefined;
-      default:
-        return [view];
-    }
-  }, [view]);
   const period = useMemo(() => {
-    switch (view) {
-      case "day":
-        return moment(date).isSame(moment(), "day")
-          ? t("common.period.today")
-          : moment(date).isSame(moment().add(-1, "day"), "day")
-          ? t("common.period.yesterday")
-          : moment(date).format("dddd, MMMM Do YYYY");
-      case "week":
-        return moment(date).isSame(moment(), "week")
-          ? t("common.period.thisweek")
-          : moment(date).isSame(moment().add(-1, "week"), "week")
-          ? t("common.period.lastweek")
-          : `${moment(date).startOf("week").format("YYYY-MM-DD")} - ${moment(
-              date
-            )
-              .endOf("week")
-              .format("YYYY-MM-DD")}`;
-      case "month":
-        return moment(date).isSame(moment(), "month")
-          ? t("common.period.thismonth")
-          : moment(date).isSame(moment().add(-1, "month"), "month")
-          ? t("common.period.lastmonth")
-          : `${moment(date).format("MMMM YYYY")}`;
-      default:
-        return moment(date).isSame(moment(), "year")
-          ? t("common.period.thisyear")
-          : moment(date).isSame(moment().add(-1, "year"), "year")
-          ? t("common.period.lastyear")
-          : `${moment(date).format("YYYY")}`;
+    if (
+      (moment(date[0]?.toISOString()).startOf("day") ?? "") ===
+      moment(date[1]?.toISOString()).startOf("day")
+    ) {
+      return t("common.period.today");
     }
-  }, [date, view]);
-  const handleChange = (event: any, value: any) => {
-    if (!isEmpty(value)) {
-      setView(value as TViewType);
-    }
-  };
+    return `${moment(date[0]?.toISOString()).format("yyyy-MM-DD")} - ${moment(
+      date[1]?.toISOString()
+    ).format("yyyy-MM-DD")}`;
+  }, [date]);
   const handleDateChange = useCallback(
-    (value) => {
-      setDate(moment(value).isValid() ? moment(value).toISOString() : date);
-      setOpen(false);
+    (value: DateRange<Date>) => {
+      if (
+        moment(value[0]?.toISOString()).isValid() &&
+        moment(value[1]?.toISOString()).isValid()
+      ) {
+        setDate([value[0], value[1]]);
+      }
     },
-    [open]
+    [date]
   );
   return (
     <div className="filter">
-      <ToggleButtonGroup
-        className="options"
-        value={view}
-        exclusive
-        onChange={handleChange}
-      >
-        <ToggleButton value="day">
-          <span>Day</span>
-        </ToggleButton>
-        <ToggleButton value="week">
-          <span>Week</span>
-        </ToggleButton>
-        <ToggleButton value="month">
-          <span>Month</span>
-        </ToggleButton>
-        <ToggleButton value="year" selected={view === "year"}>
-          <span>Year</span>
-        </ToggleButton>
-      </ToggleButtonGroup>
+      <span>{period}</span>
       <div className="actions">
-        <span>{period}</span>
-        <DateField
+        <DateRangeField
           fieldName="period"
           isValid={true}
-          fieldValue={""}
-          errorText=""
-          label=""
+          fieldValue={date}
           format="dd/MM/YYY"
           onChange={handleDateChange}
-          open={open}
-          views={views}
-          TextFieldComponent={(props: any) => (
+          TextFieldComponent={(props) => (
             <IconButton
               onClick={() => {
-                setOpen(true);
+                setOpen(!open);
               }}
             >
-              <CalendarTodayRounded />
+              <CalendarTodaySharp />
             </IconButton>
           )}
+          open={open}
+          onAccept={() => {
+            setOpen(false);
+          }}
         />
       </div>
     </div>

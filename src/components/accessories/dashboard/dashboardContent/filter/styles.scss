@@ -4,39 +4,16 @@
 .filter {
     display: flex;
     justify-content: space-between;
-    @include susy-media($smartphone) {
-        flex-direction: column-reverse;
-        justify-content: end;
-    }
-    .MuiToggleButtonGroup-root {
-        @include susy-media($smartphone) {
-            align-self: center;
-        }
-        .MuiToggleButton-root {
-            .MuiTouchRipple-root {
-                color: lighten($color: $c-grey-light, $amount: 0.1)
-            }
-        }
-        .Mui-selected {
-            border-color: lighten($color: $c-grey-light, $amount: 1);
-            color: lighten($color: $c-gray, $amount: 1);
-        }
+    align-items: center;
+    box-shadow: 1px lighten($color: $c-gray, $amount: 10);
+    & > span {
+        font-size: x-large;
+        color: lighten($color: $c-gray, $amount: 1);
+        text-transform: uppercase;
     }
     .actions {
         display: flex;
         column-gap: 4px;
         align-items: center;
-        span {
-            font-size: x-large;
-            color: lighten($color: $c-gray, $amount: 1);
-            text-transform: uppercase;
-            @include susy-media($smartphone) {
-                justify-self: start;
-                flex-grow: 1;
-            }
-        }
-        .hiden {
-            visibility: hidden;
-        }
     }
 }

@@ -1,50 +1,43 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {
-  DatePicker,
   DateRange,
-  DateRangeDelimiter,
-  DesktopDatePicker,
   DesktopDateRangePicker,
-  MobileDatePicker,
   MobileDateRangePicker,
   RangeInput,
 } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
-import { IconButton, TextField, useMediaQuery } from "@material-ui/core";
-import { CalendarTodayRounded } from "@material-ui/icons";
+import { TextField, useMediaQuery } from "@material-ui/core";
 import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
 const DateRangeField: FunctionComponent<IProps> = ({
   fieldName,
+  startErrorText,
+  endErrorText,
+  startLabel,
+  endLabel,
   fieldValue = [null, null],
   disableFuture,
   disabled,
-  label,
   theme,
-  isValid,
-  errorText,
   format,
   onChange,
-  onMonthChange,
   shouldDisableDate,
-  renderDay,
-  views,
   required = FIELD_VALIDATION.IDLE,
   open,
   okLabel,
   cancelLabel,
   TextFieldComponent,
+  onAccept,
 }) => {
-  const [value, setValue] = useState<DateRange<Date> | null>([null, null]);
+  const [value, setValue] = useState<DateRange<Date>>([null, null]);
   const matches = useMediaQuery("(min-width:768px)");
 
   useEffect(() => {
     setValue(fieldValue);
   }, [fieldValue]);
 
-  const handleDateChange = (date: DateRange<Date> | null) => {
+  const handleDateChange = (date: DateRange<Date>) => {
     onChange(date);
     setValue(date);
   };
@@ -56,14 +49,10 @@ const DateRangeField: FunctionComponent<IProps> = ({
       {matches ? (
         <DesktopDateRangePicker
           inputFormat={format}
-          label={
-            required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
-          }
           disabled={disabled}
           disableFuture={disableFuture}
-          onChange={(date: any) => handleDateChange(date)}
-          value={value as RangeInput<Date | null>}
-          onMonthChange={onMonthChange}
+          onChange={handleDateChange}
+          value={value as RangeInput<Date>}
           shouldDisableDate={shouldDisableDate}
           renderInput={(
             startProps: MuiTextFieldProps,
@@ -75,25 +64,35 @@ const DateRangeField: FunctionComponent<IProps> = ({
               <div className={"dateRange"}>
                 <TextField
                   {...startProps}
-                  id={fieldName + "-from"}
-                  error={Boolean(errorText)}
+                  id={(fieldName ?? "") + "-from"}
+                  error={Boolean(startErrorText)}
                   disabled={disabled}
-                  helperText={errorText}
+                  helperText={startErrorText}
                   variant="outlined"
                   margin="dense"
                   required={required === FIELD_VALIDATION.REQUIRED}
                   className={actualClassName}
+                  label={
+                    required === FIELD_VALIDATION.SUGGESTED
+                      ? startLabel + " **"
+                      : startLabel
+                  }
                 />
                 <TextField
                   {...endProps}
                   id={fieldName + "-to"}
-                  error={Boolean(errorText)}
+                  error={Boolean(endErrorText)}
                   disabled={disabled}
-                  helperText={errorText}
+                  helperText={endErrorText}
                   variant="outlined"
                   margin="dense"
                   required={required === FIELD_VALIDATION.REQUIRED}
                   className={actualClassName}
+                  label={
+                    required === FIELD_VALIDATION.SUGGESTED
+                      ? startLabel + " **"
+                      : startLabel
+                  }
                 />
               </div>
             )
@@ -101,18 +100,15 @@ const DateRangeField: FunctionComponent<IProps> = ({
           okText={okLabel}
           cancelText={cancelLabel}
           open={open}
+          onAccept={onAccept}
         />
       ) : (
         <MobileDateRangePicker
           inputFormat={format}
-          label={
-            required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
-          }
           disabled={disabled}
           disableFuture={disableFuture}
-          onChange={(date: any) => handleDateChange(date)}
-          value={value as RangeInput<Date | null>}
-          onMonthChange={onMonthChange}
+          onChange={handleDateChange}
+          value={value as RangeInput<Date>}
           shouldDisableDate={shouldDisableDate}
           renderInput={(
             startProps: MuiTextFieldProps,
@@ -124,25 +120,35 @@ const DateRangeField: FunctionComponent<IProps> = ({
               <div className={"dateRange"}>
                 <TextField
                   {...startProps}
-                  id={fieldName + "-from"}
-                  error={Boolean(errorText)}
+                  id={(fieldName ?? "") + "-from"}
+                  error={Boolean(startErrorText)}
                   disabled={disabled}
-                  helperText={errorText}
+                  helperText={startErrorText}
                   variant="outlined"
                   margin="dense"
                   required={required === FIELD_VALIDATION.REQUIRED}
                   className={actualClassName}
+                  label={
+                    required === FIELD_VALIDATION.SUGGESTED
+                      ? startLabel + " **"
+                      : startLabel
+                  }
                 />
                 <TextField
                   {...endProps}
                   id={fieldName + "-to"}
-                  error={Boolean(errorText)}
+                  error={Boolean(endErrorText)}
                   disabled={disabled}
-                  helperText={errorText}
+                  helperText={endErrorText}
                   variant="outlined"
                   margin="dense"
                   required={required === FIELD_VALIDATION.REQUIRED}
                   className={actualClassName}
+                  label={
+                    required === FIELD_VALIDATION.SUGGESTED
+                      ? startLabel + " **"
+                      : startLabel
+                  }
                 />
               </div>
             )
@@ -150,6 +156,9 @@ const DateRangeField: FunctionComponent<IProps> = ({
           okText={okLabel}
           cancelText={cancelLabel}
           open={open}
+          onAccept={onAccept}
+          disableCloseOnSelect={false}
+          allowKeyboardControl
         />
       )}
     </>

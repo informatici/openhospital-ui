@@ -1,41 +1,31 @@
+import { DateRange } from "@material-ui/pickers";
 import moment from "moment";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Admissions } from "../admissions/Admissions";
 import { Opds } from "../opds/Opds";
 import { DashboardFilter } from "./filter/DashboardFilter";
-import { TViewType } from "./filter/types";
 import { SideContent } from "./SideContent";
 import "./styles.scss";
 import { usePeriod } from "./usePeriod";
 
 export const DashboardContent: FunctionComponent = () => {
   const { t } = useTranslation();
-  const [date, setDate] = useState(moment().toISOString());
-  const [view, setView] = useState<TViewType>("day");
+  const [date, setDate] = useState<DateRange<Date>>([null, null]);
   const handleDateChange = useCallback(
-    (value: string) => {
+    (value: DateRange<Date>) => {
       setDate(value);
     },
     [date]
   );
-  const handleViewChange = useCallback(
-    (value: TViewType) => {
-      setView(value);
-    },
-    [view]
-  );
 
-  const period = usePeriod(view, date);
+  const period = usePeriod(date);
 
   return (
     <div className="dashboard__content">
       <div className="dashboard__main">
         <div className="header">
-          <DashboardFilter
-            onDateChange={handleDateChange}
-            onViewChange={handleViewChange}
-          />
+          <DashboardFilter onDateChange={handleDateChange} />
         </div>
         <div className="body">
           <Opds period={period} />

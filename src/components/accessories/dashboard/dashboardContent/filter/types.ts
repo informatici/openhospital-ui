@@ -1,5 +1,5 @@
-export type TViewType = "day" | "week" | "month" | "year";
+import { DateRange } from "@material-ui/pickers/DateRangePicker/RangeTypes";
+
 export interface IOwnProps {
-  onDateChange: (value: string) => void;
-  onViewChange: (value: TViewType) => void;
+  onDateChange: (value: DateRange<Date>) => void;
 }
