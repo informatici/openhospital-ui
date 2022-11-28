@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { Fragment, FunctionComponent, useEffect } from "react";
 import { Routes } from "react-router";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import { useFilterPermission } from "./hooks/useFilterPermission";
 import "./styles.scss";

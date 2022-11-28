@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 import { IRedirectAfterLogin } from "./types";

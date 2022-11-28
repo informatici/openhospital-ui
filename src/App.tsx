@@ -9,6 +9,8 @@ import resources from "./resources";
 import { I18N_FALLBACK_LNG } from "./resources/config";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { MainRouter } from "./routes";
+import { LocalizationProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
 
 i18n
   .use(LanguageDetector)
@@ -45,11 +47,13 @@ const App: FunctionComponent = () => {
 
   return (
     <div className="App">
-      <MuiThemeProvider theme={pickerTheme}>
-        <LangContext.Provider value={{ changeLang }}>
-          <MainRouter />
-        </LangContext.Provider>
-      </MuiThemeProvider>
+      <LocalizationProvider dateAdapter={DateFnsUtils}>
+        <MuiThemeProvider theme={pickerTheme}>
+          <LangContext.Provider value={{ changeLang }}>
+            <MainRouter />
+          </LangContext.Provider>
+        </MuiThemeProvider>
+      </LocalizationProvider>
     </div>
   );
 };

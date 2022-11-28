@@ -4,8 +4,14 @@ import isEmpty from "lodash.isempty";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router";
-import { Outlet, useOutletContext, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  Outlet,
+  useOutletContext,
+  useParams,
+} from "react-router";
 import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";

@@ -3,7 +3,7 @@ import set from "lodash.set";
 import { AUTH_KEY } from "../../consts";
 import { Middleware, RequestArgs } from "../../generated";
 import { SessionStorage } from "../storage/storage";
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router";
 import { tokenHasExpired } from "../authUtils/tokenHasExpired";
 
 export const applyTokenMiddleware: Middleware = {

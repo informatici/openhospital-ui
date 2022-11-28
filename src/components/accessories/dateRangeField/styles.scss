@@ -1,4 +1,5 @@
 @import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
 
 .dateField {
   //height: 60px;
@@ -20,6 +21,30 @@
     left: 0px;
   }
 
+}
+
+.MuiPickersDateRangePickerInput-root {
+  .dateRange {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 16px;
+    width: 100%;
+    .dateField, .dateField__light {
+      flex: 1;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+      @include susy-media($phone) {
+        width: 100%;
+      }
+      @include susy-media($watch) {
+        width: 100%;
+      }
+    }
+    @include susy-media($watch) {
+      flex-direction: column;
+    }
+  }
 }
 
 .dateField__light {

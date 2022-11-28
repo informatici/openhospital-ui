@@ -1,11 +1,11 @@
-import { DatePickerView } from "@material-ui/pickers";
+import { DatePickerView, DateRange, RangeInput } from "@material-ui/pickers";
 import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
 import { ComponentType, ReactNode } from "react";
 import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
   fieldName: string;
-  fieldValue: string;
+  fieldValue: DateRange<Date>;
   disableFuture?: boolean;
   disabled?: boolean;
   theme?: "light" | "regular";
@@ -13,7 +13,7 @@ export interface IProps {
   errorText: string;
   label: string;
   format: string;
-  onChange: (value: Date | null) => void;
+  onChange: (value: DateRange<Date> | null) => void;
   onMonthChange?: (date: any) => void | Promise<void>;
   shouldDisableDate?: (date: any) => boolean;
   renderDay?: (

@@ -42,7 +42,7 @@
             margin-right: 5px;
             align-items: center;
             width: 24%;
-            .dateField, .textField, .selectField, .autocompleteField {
+            .dateField, .dateField__light, .textField, .selectField, .autocompleteField {
               width: 100%;
             }
             @include susy-media($tablet_land) {

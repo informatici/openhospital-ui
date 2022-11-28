@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
 import { Dashboard } from "../components/accessories/dashboard/Dashboard";
 import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
@@ -30,7 +31,7 @@ export const MainRouter: React.FC = () => {
           <Route path={`${PATHS.dashboard}`} element={<Dashboard />} />
           <Route path={`${PATHS.visits}`} element={<VisitsActivity />} />
           <Route
-            path={`${PATHS.laboratory}`}
+            path={`${PATHS.laboratory}/*`}
             element={<LaboratoryActivity />}
           />
           <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />

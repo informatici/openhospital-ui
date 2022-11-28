@@ -1,4 +1,3 @@
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { PatientDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
@@ -10,11 +9,11 @@ interface IBookingProps {
   isLoading: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
-  onMonthChange?: (date: MaterialUiPickersDate) => void | Promise<void>;
-  shouldDisableDate?: (date: MaterialUiPickersDate) => boolean;
+  onMonthChange?: (date: any) => void | Promise<void>;
+  shouldDisableDate?: (date: any) => boolean;
   renderDay?: (
-    day: MaterialUiPickersDate,
-    selectedDate: MaterialUiPickersDate,
+    day: any,
+    selectedDate: any,
     dayInCurrentMonth: boolean,
     dayComponent: JSX.Element
   ) => JSX.Element;
