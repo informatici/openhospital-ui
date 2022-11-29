@@ -28,7 +28,6 @@ const DateRangeField: FunctionComponent<IProps> = ({
   okLabel,
   cancelLabel,
   TextFieldComponent,
-  onAccept,
 }) => {
   const [value, setValue] = useState<DateRange<Date>>([null, null]);
   const matches = useMediaQuery("(min-width:768px)");
@@ -38,8 +37,11 @@ const DateRangeField: FunctionComponent<IProps> = ({
   }, [fieldValue]);
 
   const handleDateChange = (date: DateRange<Date>) => {
-    onChange(date);
     setValue(date);
+  };
+
+  const onAccept = (value: any) => {
+    onChange(value);
   };
 
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
@@ -90,8 +92,8 @@ const DateRangeField: FunctionComponent<IProps> = ({
                   className={actualClassName}
                   label={
                     required === FIELD_VALIDATION.SUGGESTED
-                      ? startLabel + " **"
-                      : startLabel
+                      ? endLabel + " **"
+                      : endLabel
                   }
                 />
               </div>

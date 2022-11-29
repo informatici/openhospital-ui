@@ -29,5 +29,4 @@ export interface IProps {
   open?: boolean;
   okLabel?: string;
   cancelLabel?: string;
-  onAccept?: (value: any) => void;
 }

@@ -37,6 +37,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onDateChange }) => {
       ) {
         setDate([value[0], value[1]]);
       }
+      setOpen(false);
     },
     [date]
   );
@@ -60,9 +61,6 @@ export const DashboardFilter: FC<IOwnProps> = ({ onDateChange }) => {
             </IconButton>
           )}
           open={open}
-          onAccept={() => {
-            setOpen(false);
-          }}
         />
       </div>
     </div>

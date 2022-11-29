@@ -9691,12 +9691,18 @@ definitions:
   UserProfileDTO:
     type: object
     properties:
-      permission:
+      permissions:
         type: array
         items:
           type: string
       userName:
         type: string
+      userGroupName:
+        type: string
+        description: the name of the group of user
+      userDesc:
+        type: string
+        description: full name of user
     title: UserProfileDTO
   VaccineDTO:
     type: object
