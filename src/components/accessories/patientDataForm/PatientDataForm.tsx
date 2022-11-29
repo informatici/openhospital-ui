@@ -32,6 +32,7 @@ import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import { useDispatch, useSelector } from "react-redux";
 import { getAgeTypes } from "../../../state/ageTypes/actions";
+import FormDiscardButton from "../formDiscardButton/FormDiscardButton";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -519,6 +520,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             >
               {resetButtonLabel}
             </Button>
+          </div>
+          <div className="discard_button">
+            <FormDiscardButton showConfirmationDialog={true} label={t("common.cancel")} />
           </div>
         </div>
         <ConfirmationDialog

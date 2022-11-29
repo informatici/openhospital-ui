@@ -306,7 +306,9 @@
     "lessthan": "The value must not exceed {{value}}.",
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
-    "outofrange": "Out of range"
+    "outofrange": "Out of range",
+    "cancel": "Cancel",
+    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?"
   },
   "therapy": {
     "newtherapy": "New Therapy",
