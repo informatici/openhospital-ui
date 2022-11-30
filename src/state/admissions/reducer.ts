@@ -21,6 +21,8 @@ import {
   DISCHARGE_PATIENT_FAIL,
   DISCHARGE_PATIENT_RESET,
   GET_CURRENTADMISSION_EMPTY,
+  GET_CURRENTADMISSION_RESET,
+  GET_ADMISSION_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IAdmissionsState } from "./types";
@@ -133,6 +135,12 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
       draft.admissionsByPatientId.error = action.error;
       break;
     }
+    case GET_ADMISSION_RESET: {
+      draft.admissionsByPatientId.status = "IDLE";
+      delete draft.admissionsByPatientId.data;
+      delete draft.admissionsByPatientId.error;
+      break;
+    }
 
     /**
      * GET_CURRENTADMISSION
@@ -159,6 +167,12 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case GET_CURRENTADMISSION_FAIL: {
       draft.currentAdmissionByPatientId.status = "FAIL";
       draft.currentAdmissionByPatientId.error = action.error;
+      break;
+    }
+    case GET_CURRENTADMISSION_RESET: {
+      draft.currentAdmissionByPatientId.status = "IDLE";
+      delete draft.currentAdmissionByPatientId.data;
+      delete draft.currentAdmissionByPatientId.error;
       break;
     }
   }

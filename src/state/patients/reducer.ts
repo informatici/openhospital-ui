@@ -16,6 +16,7 @@ import {
   UPDATE_PATIENT_RESET,
   UPDATE_PATIENT_SUCCESS,
   GET_PATIENT_RESET,
+  SEARCH_PATIENT_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IPatientsState } from "./types";
@@ -72,6 +73,13 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
     case SEARCH_PATIENT_FAIL: {
       draft.searchResults.status = "FAIL";
       draft.searchResults.error = action.error;
+      break;
+    }
+
+    case SEARCH_PATIENT_RESET: {
+      draft.searchResults.status = "IDLE";
+      delete draft.searchResults.data;
+      delete draft.searchResults.error;
       break;
     }
 
