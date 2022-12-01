@@ -90,6 +90,30 @@ export const setLogoutThunk =
     api.logoutUsingPOST().subscribe(
       () => {
         dispatch({
+          type: GET_PATIENT_RESET,
+        });
+        dispatch({
+          type: GET_LABS_RESET,
+        });
+        dispatch({
+          type: SEARCH_LAB_RESET,
+        });
+        dispatch({
+          type: GET_OPD_RESET,
+        });
+        dispatch({
+          type: GET_PATIENT_RESET,
+        });
+        dispatch({
+          type: SEARCH_PATIENT_RESET,
+        });
+        dispatch({
+          type: GET_OPERATIONS_RESET,
+        });
+        dispatch({
+          type: GET_OPERATIONROW_ADM_RESET,
+        });
+        dispatch({
           type: SET_LOGOUT_SUCCESS,
         });
       },
@@ -100,33 +124,4 @@ export const setLogoutThunk =
         });
       }
     );
-  };
-
-export const resetAppState =
-  () =>
-  (dispatch: Dispatch<IAction<void, {}>>): void => {
-    dispatch({
-      type: GET_PATIENT_RESET,
-    });
-    dispatch({
-      type: GET_LABS_RESET,
-    });
-    dispatch({
-      type: SEARCH_LAB_RESET,
-    });
-    dispatch({
-      type: GET_OPD_RESET,
-    });
-    dispatch({
-      type: GET_PATIENT_RESET,
-    });
-    dispatch({
-      type: SEARCH_PATIENT_RESET,
-    });
-    dispatch({
-      type: GET_OPERATIONS_RESET,
-    });
-    dispatch({
-      type: GET_OPERATIONROW_ADM_RESET,
-    });
   };
