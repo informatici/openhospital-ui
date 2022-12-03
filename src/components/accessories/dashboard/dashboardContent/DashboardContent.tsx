@@ -7,25 +7,24 @@ import { Opds } from "../opds/Opds";
 import { DashboardFilter } from "./filter/DashboardFilter";
 import { SideContent } from "./SideContent";
 import "./styles.scss";
-import { usePeriod } from "./usePeriod";
 
 export const DashboardContent: FunctionComponent = () => {
   const { t } = useTranslation();
-  const [date, setDate] = useState<DateRange<Date>>([null, null]);
-  const handleDateChange = useCallback(
-    (value: DateRange<Date>) => {
-      setDate(value);
-    },
-    [date]
-  );
 
-  const period = usePeriod(date);
+  const [period, setPeriod] = useState([
+    moment().startOf("day").toISOString(),
+    moment().endOf("day").toString(),
+  ]);
+
+  const handlePriodChange = useCallback((value: string[]) => {
+    setPeriod(value);
+  }, []);
 
   return (
     <div className="dashboard__content">
       <div className="dashboard__main">
         <div className="header">
-          <DashboardFilter onDateChange={handleDateChange} />
+          <DashboardFilter onPeriodChange={handlePriodChange} />
         </div>
         <div className="body">
           <Opds period={period} />

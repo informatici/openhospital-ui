@@ -19,7 +19,8 @@
   "dashboard": {
     "welcomename": "Welcome",
     "newpatient": "New patient",
-    "searchpatients": "Search patients"
+    "searchpatients": "Search patients",
+    "userange": "Use Range Picker"
   },
   "patient": {
     "address": "Address",

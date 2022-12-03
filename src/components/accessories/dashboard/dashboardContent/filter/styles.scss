@@ -3,17 +3,40 @@
 
 .filter {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 1px lighten($color: $c-gray, $amount: 10);
-    & > span {
-        font-size: x-large;
-        color: lighten($color: $c-gray, $amount: 1);
-        text-transform: uppercase;
-    }
-    .actions {
+    flex-direction: column;
+    .filter__header {
         display: flex;
-        column-gap: 4px;
+        justify-content: end;
+        .MuiFormGroup-root {
+            justify-content: end;
+        }
+        .MuiFormControlLabel-label {
+            font-size: 0.95rem;
+            color: lighten($color: $c-gray, $amount: 30);
+        }
+    }
+    .filter__main {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
+        box-shadow: 1px lighten($color: $c-gray, $amount: 10);
+        column-gap: 8px;
+        & > span {
+            display: flex;
+            font-size: x-large;
+            color: lighten($color: $c-gray, $amount: 1);
+            text-transform: uppercase;
+            justify-self: end;
+            flex-grow: 1;
+            justify-content: end;
+        }
+        .period{
+            justify-content: start;
+        }
+        .actions {
+            display: flex;
+            column-gap: 4px;
+            align-items: center;
+        }
     }
 }
