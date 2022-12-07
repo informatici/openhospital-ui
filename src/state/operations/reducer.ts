@@ -11,10 +11,12 @@ import {
   GET_OPERATIONROW_ADM_EMPTY,
   GET_OPERATIONROW_ADM_FAIL,
   GET_OPERATIONROW_ADM_LOADING,
+  GET_OPERATIONROW_ADM_RESET,
   GET_OPERATIONROW_ADM_SUCCESS,
   GET_OPERATIONS_EMPTY,
   GET_OPERATIONS_FAIL,
   GET_OPERATIONS_LOADING,
+  GET_OPERATIONS_RESET,
   GET_OPERATIONS_SUCCESS,
   UPDATE_OPERATIONROW_FAIL,
   UPDATE_OPERATIONROW_LOADING,
@@ -54,6 +56,13 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
       break;
     }
 
+    case GET_OPERATIONS_RESET: {
+      draft.operationList.status = "IDLE";
+      delete draft.operationList.data;
+      delete draft.operationList.error;
+      break;
+    }
+
     /**
      * GET_OPERATIONROW_ADM
      */
@@ -79,6 +88,13 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
     case GET_OPERATIONROW_ADM_FAIL: {
       draft.operationRowsByQdmt.status = "FAIL";
       draft.operationRowsByQdmt.error = action.error;
+      break;
+    }
+
+    case GET_OPERATIONROW_ADM_RESET: {
+      draft.operationRowsByQdmt.status = "IDLE";
+      delete draft.operationRowsByQdmt.data;
+      delete draft.operationRowsByQdmt.error;
       break;
     }
 

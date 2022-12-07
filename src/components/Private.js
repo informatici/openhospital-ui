@@ -11,6 +11,6 @@ export const Private = () => {
   return isAuthenticated() ? (
     <Outlet />
   ) : (
-    <Navigate to={PATHS.login} state={{ from: pathname }} replace />
+    <Navigate to={PATHS.login} replace />
   );
 };

@@ -12,6 +12,13 @@ import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
 import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
 import { SessionStorage } from "../../libraries/storage/storage";
+import { GET_LABS_RESET, SEARCH_LAB_RESET } from "../laboratories/consts";
+import { GET_OPD_RESET } from "../opds/consts";
+import {
+  GET_OPERATIONROW_ADM_RESET,
+  GET_OPERATIONS_RESET,
+} from "../operations/consts";
+import { GET_PATIENT_RESET, SEARCH_PATIENT_RESET } from "../patients/consts";
 import { IAction } from "../types";
 import {
   SET_AUTHENTICATION_FAIL,
@@ -82,6 +89,30 @@ export const setLogoutThunk =
     SessionStorage.clear();
     api.logoutUsingPOST().subscribe(
       () => {
+        dispatch({
+          type: GET_PATIENT_RESET,
+        });
+        dispatch({
+          type: GET_LABS_RESET,
+        });
+        dispatch({
+          type: SEARCH_LAB_RESET,
+        });
+        dispatch({
+          type: GET_OPD_RESET,
+        });
+        dispatch({
+          type: GET_PATIENT_RESET,
+        });
+        dispatch({
+          type: SEARCH_PATIENT_RESET,
+        });
+        dispatch({
+          type: GET_OPERATIONS_RESET,
+        });
+        dispatch({
+          type: GET_OPERATIONROW_ADM_RESET,
+        });
         dispatch({
           type: SET_LOGOUT_SUCCESS,
         });

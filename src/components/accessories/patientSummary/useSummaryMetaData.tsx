@@ -49,6 +49,8 @@ const useSummaryMetaData = () => {
     freqInPeriod: t("therapy.frequencyInPeriod"),
     note: t("therapy.note"),
     medicalId: t("therapy.medical"),
+    service: t("visit.service"),
+    duration: t("visit.duration"),
   };
   const dateFields = [
     "date",
@@ -70,6 +72,7 @@ const useSummaryMetaData = () => {
       admission: ["date", "diseaseIn"],
       operation: ["date", "operation"],
       therapy: ["date", "medicalId"],
+      visit: ["date", "duration"],
     },
   };
 

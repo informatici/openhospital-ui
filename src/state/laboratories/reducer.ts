@@ -96,6 +96,7 @@ export default produce(
 
       case GET_LABS_RESET: {
         draft.labsByPatientId.status = "IDLE";
+        delete draft.labsByPatientId.data;
         delete draft.labsByPatientId.error;
         break;
       }
