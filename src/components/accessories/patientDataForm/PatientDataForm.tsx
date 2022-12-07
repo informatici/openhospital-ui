@@ -32,6 +32,7 @@ import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import { useDispatch, useSelector } from "react-redux";
 import { getAgeTypes } from "../../../state/ageTypes/actions";
+import { useNavigate } from "react-router-dom";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -42,6 +43,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
+  mode = 'create'
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -165,6 +167,16 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+  };
+
+  const naviagte = useNavigate();
+  const redirectBack = () => {
+    naviagte(-1);
+  }
+
+  const handleCancelEdit = () => {
+    setOpenResetConfirmation(false);
+    redirectBack();
   };
 
   return (
@@ -517,20 +529,37 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
-              {resetButtonLabel}
+              {mode == "create" && resetButtonLabel}
+              {mode == "edit" && t("common.cancel")}
             </Button>
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={resetButtonLabel}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
+       
+        {mode == 'create' && 
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={resetButtonLabel.toUpperCase()}
+            info={t("common.resetform")}
+            icon={warningIcon}
+            primaryButtonLabel={resetButtonLabel}
+            secondaryButtonLabel={t("common.discard")}
+            handlePrimaryButtonClick={handleResetConfirmation}
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          />
+        }
+
+        {mode == 'edit' && 
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={t("common.cancel").toUpperCase()}
+            info={t("common.discardconfirmationmessage")}
+            icon={warningIcon}
+            primaryButtonLabel={t("common.cancel")}
+            secondaryButtonLabel={t("common.keepediting")}
+            handlePrimaryButtonClick={handleCancelEdit}
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          />
+        }
       </form>
     </div>
   );

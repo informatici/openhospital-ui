@@ -143,6 +143,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
+                mode = {'edit'}
               />
             </div>
           </div>
