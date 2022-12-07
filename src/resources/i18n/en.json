@@ -20,7 +20,13 @@
     "welcomename": "Welcome",
     "newpatient": "New patient",
     "searchpatients": "Search patients",
-    "userange": "Use Range Picker"
+    "userange": "Use Range Picker",
+    "period": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    }
   },
   "patient": {
     "address": "Address",
@@ -472,7 +478,11 @@
     "admissionbysex": "Admissions by sex",
     "admissionbytype": "Admissions by type",
     "admissionbyagetype": "Admissions by age type",
-    "admissionbywards": "Admissions by wards"
+    "admissionbywards": "Admissions by wards",
+    "dischargebysex": "Discharges by sex",
+    "dischargebytype": "Discharges by type",
+    "dischargebyagetype": "Discharges by age type",
+    "dischargebywards": "Discharges by wards"
   },
   "bill": {
     "title": "Welcome to Billing",

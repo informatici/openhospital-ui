@@ -2,12 +2,9 @@ import { Skeleton } from "@material-ui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAdmissions,
-  getOngoingAdmissions,
-} from "../../../../state/admissions/actions";
-import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
+import { getAdmissions } from "../../../../state/admissions/actions";
 import { getAgeTypes } from "../../../../state/ageTypes/actions";
+import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getWards } from "../../../../state/ward/actions";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
@@ -15,28 +12,27 @@ import "./styles.scss";
 import { IOwnProps } from "./types";
 import { useData } from "./useData";
 
-export const Admissions: FC<IOwnProps> = ({ period }) => {
+export const Discharges: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(
       getAdmissions({
-        admissionrange: period,
+        dischargerange: period,
       })
     );
-    dispatch(getOngoingAdmissions());
     dispatch(getAgeTypes());
-    dispatch(getAdmissionTypes());
+    dispatch(getDischargeTypes());
     dispatch(getWards());
   }, [dispatch]);
   useEffect(() => {
-    dispatch(getAdmissions({ admissionrange: period }));
+    dispatch(getAdmissions({ dischargerange: period }));
   }, [period]);
   const {
     admissionStatus,
-    admissionTypeStatus,
+    dischargeTypeStatus,
     ageTypeStatus,
-    dataByAdmissionType,
+    dataByDischargeType,
     dataByAgeType,
     dataBySex,
     dataByWards,
@@ -48,7 +44,7 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
     <>
       {success && (
         <div className="item">
-          <Piechart title={t("admission.admissionbysex")} data={dataBySex} />
+          <Piechart title={t("admission.dischargebysex")} data={dataBySex} />
         </div>
       )}
       {admissionStatus === "LOADING" && (
@@ -59,7 +55,7 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
       {success && ageTypeStatus === "SUCCESS" && (
         <div className="item">
           <Barchart
-            title={t("admission.admissionbyagetype")}
+            title={t("admission.dischargebyagetype")}
             data={dataByAgeType}
           />
         </div>
@@ -69,15 +65,15 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
           <Skeleton />
         </div>
       )}
-      {success && admissionTypeStatus === "SUCCESS" && (
+      {success && dischargeTypeStatus === "SUCCESS" && (
         <div className="item">
           <Piechart
-            title={t("admission.admissionbytype")}
-            data={dataByAdmissionType}
+            title={t("admission.dischargebytype")}
+            data={dataByDischargeType}
           />
         </div>
       )}
-      {(admissionStatus === "LOADING" || admissionTypeStatus === "LOADING") && (
+      {(admissionStatus === "LOADING" || dischargeTypeStatus === "LOADING") && (
         <div className="item">
           <Skeleton />
         </div>
@@ -85,7 +81,7 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
       {success && wardStatus === "SUCCESS" && (
         <div className="item">
           <Barchart
-            title={t("admission.admissionbywards")}
+            title={t("admission.dischargebywards")}
             data={dataByWards}
           />
         </div>

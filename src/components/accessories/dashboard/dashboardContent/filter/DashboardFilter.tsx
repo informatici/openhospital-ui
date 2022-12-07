@@ -179,16 +179,16 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
             onChange={handleViewChange}
           >
             <ToggleButton value="day">
-              <span>Day</span>
+              <span>{t("dashboard.period.day")}</span>
             </ToggleButton>
             <ToggleButton value="week">
-              <span>Week</span>
+              <span>{t("dashboard.period.week")}</span>
             </ToggleButton>
             <ToggleButton value="month">
-              <span>Month</span>
+              <span>{t("dashboard.period.month")}</span>
             </ToggleButton>
             <ToggleButton value="year" selected={view === "year"}>
-              <span>Year</span>
+              <span>{t("dashboard.period.year")}</span>
             </ToggleButton>
           </ToggleButtonGroup>
         )}

@@ -3,6 +3,7 @@ import moment from "moment";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Admissions } from "../admissions/Admissions";
+import { Discharges } from "../discharges/Discharges";
 import { Opds } from "../opds/Opds";
 import { DashboardFilter } from "./filter/DashboardFilter";
 import { SideContent } from "./SideContent";
@@ -29,6 +30,7 @@ export const DashboardContent: FunctionComponent = () => {
         <div className="body">
           <Opds period={period} />
           <Admissions period={period} />
+          <Discharges period={period} />
         </div>
       </div>
       <div className="dashboard__side">

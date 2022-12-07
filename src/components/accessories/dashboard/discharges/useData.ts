@@ -13,14 +13,17 @@ import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
-  const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getAdmissions.data ?? []
+  const discharges = useSelector<IState, AdmissionDTO[]>(
+    (state) =>
+      state.admissions.getAdmissions.data?.filter(
+        (e) => e?.disDate !== undefined
+      ) ?? []
   );
   const wards = useSelector<IState, WardDTO[]>(
     (state) => state.wards.allWards.data ?? []
   );
-  const admissionTypes = useSelector<IState, AdmissionTypeDTO[]>(
-    (state) => state.admissionTypes.allAdmissionTypes.data ?? []
+  const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
+    (state) => state.dischargeTypes.allDischargeTypes.data ?? []
   );
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
@@ -28,8 +31,8 @@ export const useData = () => {
   const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const admissionTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.admissionTypes.allAdmissionTypes.status ?? "IDLE"
+  const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
+    (state) => state.dischargeTypes.allDischargeTypes.status ?? "IDLE"
   );
   const admissionStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"
@@ -44,15 +47,15 @@ export const useData = () => {
   );
   const sexLabels = [t("common.male"), t("common.female")];
   const ageTypeLabels = ageTypes.map((e) => e.description ?? "");
-  const admissionTypeLabels = admissionTypes.map((e) => e.description ?? "");
+  const dischargeTypeLabels = dischargeTypes.map((e) => e.description ?? "");
   const wardLabels = wards.map((e) => e.description ?? "");
   const dataBySex = {
     labels: sexLabels,
     datasets: [
       {
         data: [
-          admissions.filter((e) => e.patient?.sex === "M").length,
-          admissions.filter((e) => e.patient?.sex === "F").length,
+          discharges.filter((e) => e.patient?.sex === "M").length,
+          discharges.filter((e) => e.patient?.sex === "F").length,
         ],
         borderJoinStyle: "bevel",
         backgroundColor: ["rgba(255, 99, 132, 0.8)", "rgba(54, 162, 235, 0.8)"],
@@ -67,7 +70,7 @@ export const useData = () => {
         label: t("common.male"),
         data: ageTypes.map(
           (e) =>
-            admissions.filter(
+            discharges.filter(
               (adm) =>
                 adm.patient?.agetype === e.code && adm.patient?.sex === "M"
             ).length
@@ -78,7 +81,7 @@ export const useData = () => {
         label: t("common.female"),
         data: ageTypes.map(
           (e) =>
-            admissions.filter(
+            discharges.filter(
               (adm) =>
                 adm.patient?.agetype === e.code && adm.patient?.sex === "F"
             ).length
@@ -87,14 +90,14 @@ export const useData = () => {
       },
     ],
   };
-  const dataByAdmissionType = {
-    labels: admissionTypeLabels,
+  const dataByDischargeType = {
+    labels: dischargeTypeLabels,
     datasets: [
       {
-        data: admissionTypes.map(
-          (e) => admissions.filter((adm) => adm.admType?.code === e.code).length
+        data: dischargeTypes.map(
+          (e) => discharges.filter((adm) => adm.disType?.code === e.code).length
         ),
-        backgroundColor: admissionTypes.map((e, index) =>
+        backgroundColor: dischargeTypes.map((e, index) =>
           generateColor({ red: 255 })
         ),
       },
@@ -107,7 +110,7 @@ export const useData = () => {
         label: t("common.male"),
         data: wards.map(
           (e) =>
-            admissions.filter(
+            discharges.filter(
               (adm) => adm.ward?.code === e.code && adm.patient?.sex === "M"
             ).length
         ),
@@ -117,7 +120,7 @@ export const useData = () => {
         label: t("common.female"),
         data: wards.map(
           (e) =>
-            admissions.filter(
+            discharges.filter(
               (adm) => adm.ward?.code === e.code && adm.patient?.sex === "F"
             ).length
         ),
@@ -130,8 +133,8 @@ export const useData = () => {
     ageTypeStatus,
     admissionStatus,
     wardStatus,
-    admissionTypeStatus,
-    dataByAdmissionType,
+    dischargeTypeStatus,
+    dataByDischargeType,
     dataByAgeType,
     dataBySex,
     dataByWards,

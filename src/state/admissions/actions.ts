@@ -29,6 +29,10 @@ import {
   UPDATE_ADMISSION_LOADING,
   UPDATE_ADMISSION_RESET,
   UPDATE_ADMISSION_SUCCESS,
+  GET_ONGOING_ADMISSIONS_FAIL,
+  GET_ONGOING_ADMISSIONS_LOADING,
+  GET_ONGOING_ADMISSIONS_SUCCESS,
+  GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
@@ -161,7 +165,7 @@ export const getAdmittedPatients =
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
               type: GET_ADMISSIONS_SUCCESS,
-              payload: payload,
+              payload: payload.map((e) => e.admission),
             });
           } else {
             dispatch({
@@ -212,6 +216,36 @@ export const getAdmissions =
       }
     );
   };
+
+export const getOngoingAdmissions =
+  () =>
+  (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
+    dispatch({
+      type: GET_ONGOING_ADMISSIONS_LOADING,
+    });
+    admissionControllerApi.getAdmittedPatientsUsingGET({}).subscribe(
+      (payload) => {
+        if (Array.isArray(payload) && payload.length > 0) {
+          dispatch({
+            type: GET_ONGOING_ADMISSIONS_SUCCESS,
+            payload: payload.map((e) => e.admission),
+          });
+        } else {
+          dispatch({
+            type: GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
+            payload: [],
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: GET_ONGOING_ADMISSIONS_FAIL,
+          error,
+        });
+      }
+    );
+  };
+
 export const getCurrentAdmissionByPatientId =
   (patientCode: number | undefined) =>
   (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
