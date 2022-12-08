@@ -28,13 +28,13 @@ export const usePeriodOptions = () => {
           ];
         case "last2":
           return [
-            moment().add(-1, "day").startOf("day").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-2, "day").startOf("day").toISOString(),
+            moment().add(-1, "day").endOf("day").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-2, "day").startOf("day").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-3, "day").startOf("day").toISOString(),
+            moment().add(-1, "day").endOf("day").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
@@ -45,7 +45,7 @@ export const usePeriodOptions = () => {
         case "current":
           return [
             moment().startOf("week").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().endOf("week").toISOString(),
           ];
         case "previous":
           return [
@@ -54,13 +54,13 @@ export const usePeriodOptions = () => {
           ];
         case "last2":
           return [
-            moment().add(-1, "week").startOf("week").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-2, "week").startOf("week").toISOString(),
+            moment().add(-1, "week").endOf("week").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-2, "week").startOf("week").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-3, "week").startOf("week").toISOString(),
+            moment().add(-1, "week").endOf("week").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
@@ -71,7 +71,7 @@ export const usePeriodOptions = () => {
         case "current":
           return [
             moment().startOf("month").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().endOf("month").toISOString(),
           ];
         case "previous":
           return [
@@ -80,13 +80,13 @@ export const usePeriodOptions = () => {
           ];
         case "last2":
           return [
-            moment().add(-1, "month").startOf("month").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-2, "month").startOf("month").toISOString(),
+            moment().add(-1, "month").endOf("month").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-2, "month").startOf("month").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-3, "month").startOf("month").toISOString(),
+            moment().add(-1, "month").endOf("month").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
@@ -97,7 +97,7 @@ export const usePeriodOptions = () => {
         case "current":
           return [
             moment().startOf("year").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().endOf("year").toISOString(),
           ];
         case "previous":
           return [
@@ -106,13 +106,13 @@ export const usePeriodOptions = () => {
           ];
         case "last2":
           return [
-            moment().add(-1, "year").startOf("year").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-2, "year").startOf("year").toISOString(),
+            moment().add(-1, "year").endOf("year").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-2, "year").startOf("year").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().add(-3, "year").startOf("year").toISOString(),
+            moment().add(-1, "year").endOf("year").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
