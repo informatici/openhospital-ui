@@ -39,16 +39,6 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
           <Skeleton />
         </div>
       )}
-      {success && (
-        <div className="item">
-          <Piechart title={t("opd.opdbysex")} data={dataBySex} />
-        </div>
-      )}
-      {opdStatus === "LOADING" && (
-        <div className="item">
-          <Skeleton />
-        </div>
-      )}
       {success && ageTypeStatus === "SUCCESS" && (
         <div className="item">
           <Barchart title={t("opd.opdbyagetype")} data={dataByAgeType} />

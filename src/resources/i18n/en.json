@@ -25,7 +25,31 @@
       "day": "Day",
       "week": "Week",
       "month": "Month",
-      "year": "Year"
+      "year": "Year",
+      "days": {
+        "current": "Today",
+        "previous": "Yesterday",
+        "last2": "1-2 days",
+        "last3": "1-3 days"
+      },
+      "weeks": {
+        "current": "This week",
+        "previous": "Last Weeks",
+        "last2": "1-2 weeks",
+        "last3": "1-3 weeks"
+      },
+      "months": {
+        "current": "This month",
+        "previous": "Last month",
+        "last2": "1-2 months",
+        "last3": "1-3 months"
+      },
+      "years": {
+        "current": "This year",
+        "previous": "Last year",
+        "last2": "1-2 years",
+        "last3": "1-3 years"
+      }
     }
   },
   "patient": {
