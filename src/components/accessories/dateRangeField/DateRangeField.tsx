@@ -148,8 +148,8 @@ const DateRangeField: FunctionComponent<IProps> = ({
                   className={actualClassName}
                   label={
                     required === FIELD_VALIDATION.SUGGESTED
-                      ? startLabel + " **"
-                      : startLabel
+                      ? endLabel + " **"
+                      : endLabel
                   }
                 />
               </div>
