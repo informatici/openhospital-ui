@@ -120,6 +120,7 @@ export const usePeriodOptions = () => {
     }
     return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
   }, [selection, dateRange, view]);
+  
   const period = useMemo(() => {
     return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(
       range[1]

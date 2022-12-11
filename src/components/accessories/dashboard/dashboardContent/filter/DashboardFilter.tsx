@@ -30,6 +30,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
     selection,
     setSelection,
   } = usePeriodOptions();
+
   useEffect(() => {
     onPeriodChange(range as string[]);
   }, [range]);
@@ -64,6 +65,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
     },
     [dateRange, open]
   );
+  
   return (
     <div className="filter">
       <div className="filter__main">
