@@ -17,7 +17,7 @@ export const DashboardContent: FunctionComponent = () => {
     moment().endOf("day").toString(),
   ]);
 
-  const handlePriodChange = useCallback((value: string[]) => {
+  const handlePeriodChange = useCallback((value: string[]) => {
     setPeriod(value);
   }, []);
 
@@ -25,7 +25,7 @@ export const DashboardContent: FunctionComponent = () => {
     <div className="dashboard__content">
       <div className="dashboard__main">
         <div className="header">
-          <DashboardFilter onPeriodChange={handlePriodChange} />
+          <DashboardFilter onPeriodChange={handlePeriodChange} />
         </div>
         <div className="body">
           <Opds period={period} />
