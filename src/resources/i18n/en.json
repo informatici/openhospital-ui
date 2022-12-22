@@ -545,5 +545,15 @@
     "cs": "Czech",
     "sq": "Albanian",
     "zh": "Chinese"
+  },
+  "angal": {
+    "agetype" : {
+      "newborn": "New Born",
+      "earlychildhood": "Early Childhood",
+      "latechildhood": "Late Childhood",
+      "adolescents": "Adolescents",
+      "adult": "Adult",
+      "elderly": "Elderly"
+    }
   }
 }
