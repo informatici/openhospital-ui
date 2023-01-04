@@ -346,7 +346,8 @@
     "operation": "Intervento chirurgico",
     "opd": "Visita ambulatoriale",
     "booking": "Prenotazione",
-    "exams": "Prestazioni diagnostiche"
+    "exams": "Visita generica",
+    "therapy": "Terapia"
   },
   "lab": {
     "newlab": "Inserisci nuovi valori esame",
