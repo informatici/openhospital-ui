@@ -346,13 +346,14 @@
     "operation": "Intervento chirurgico",
     "opd": "Visita ambulatoriale",
     "booking": "Prenotazione",
-    "exams": "Prestazioni diagnostiche"
+    "exams": "Prestazioni diagnostiche",
+    "therapy": "Terapia"
   },
   "lab": {
     "newlab": "Inserisci nuovi valori esame",
     "editlab": "Aggiorna esame",
     "date": "Data",
-    "exam": "Prestazione diagnostica",
+    "exam": "Visita generica",
     "type": "Visita in ricovero/ambulatoriale",
     "material": "Materiali",
     "note": "Note",
@@ -504,7 +505,7 @@
     "description": "Descrizione",
     "unitamount": "Somma per voce",
     "totalamount": "Somma totale",
-    "exam": "Prestazione diagnostica",
+    "exam": "Visita generica",
     "medical": "Farmaco",
     "surgery": "Chirurgia",
     "other": "Altro",
