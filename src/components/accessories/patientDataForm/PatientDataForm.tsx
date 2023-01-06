@@ -64,14 +64,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       birthDate:
         ageType === "birthDate"
           ? string()
-              .required(t("common.required"))
-              .test({
-                name: "birthDate",
-                message: t("common.invaliddate"),
-                test: function (value) {
-                  return moment(value).isValid();
-                },
-              })
+            .required(t("common.required"))
+            .test({
+              name: "birthDate",
+              message: t("common.invaliddate"),
+              test: function (value) {
+                return moment(value).isValid();
+              },
+            })
           : string(),
       sex: string().required(t("common.required")),
       telephone: string().matches(
@@ -169,14 +169,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     formik.resetForm();
   };
 
-  const naviagte = useNavigate();
-  const redirectBack = () => {
-    naviagte(-1);
-  }
+  const navigate = useNavigate();
 
   const handleCancelEdit = () => {
     setOpenResetConfirmation(false);
-    redirectBack();
+    navigate(-1);
   };
 
   return (
@@ -534,8 +531,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             </Button>
           </div>
         </div>
-       
-        {mode == 'create' && 
+
+        {mode == 'create' &&
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
@@ -548,7 +545,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           />
         }
 
-        {mode == 'edit' && 
+        {mode == 'edit' &&
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={t("common.cancel").toUpperCase()}
