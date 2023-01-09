@@ -63,7 +63,13 @@
     "dataupdated": "Patient data updated",
     "dataupdatedsuccessfully": "Patient data have been updated successfully",
     "noallergies": "There are no registered allergies for this patient",
-    "noanamnesis": "There are no registered anamnesis for this patient"
+    "noanamnesis": "There are no registered anamnesis for this patient",
+    "laboratory": "Laboratory",
+    "therapy": "Therapy",
+    "triage": "Triage",
+    "summary": "Summary",
+    "discharge": "Discharge",
+    "visits": "Visits"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
