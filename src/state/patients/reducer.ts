@@ -78,7 +78,7 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case SEARCH_PATIENT_RESET: {
       draft.searchResults.status = "IDLE";
-      delete draft.searchResults.data;
+      draft.searchResults.data = [];
       delete draft.searchResults.error;
       break;
     }
