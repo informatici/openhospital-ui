@@ -304,44 +304,6 @@ const TherapyForm: FC<TherapyProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formik.values.notifyInt === 1}
-                    onChange={() =>
-                      setFieldValue(
-                        "notifyInt",
-                        formik.values.notifyInt === 1 ? 0 : 1
-                      )
-                    }
-                    name="notifyInt"
-                  />
-                }
-                label={<span>{t("therapy.sendnotification")}</span>}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientTherapyForm__item">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="smsInt"
-                    checked={formik.values.smsInt === 1}
-                    onChange={() =>
-                      setFieldValue(
-                        "smsInt",
-                        formik.values.smsInt === 1 ? 0 : 1
-                      )
-                    }
-                  />
-                }
-                label={<span>{t("therapy.sendsms")}</span>}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
             <div className="fullWidth patientTherapyForm__item">
               <TextField
                 multiline={true}
