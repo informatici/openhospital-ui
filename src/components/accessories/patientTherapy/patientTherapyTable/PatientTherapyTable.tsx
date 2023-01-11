@@ -23,7 +23,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const header = ["startDate", "endDate"];
+  const header = ["medicalId", "endDate"];
   const dateFields = ["startDate", "endDate"];
 
   const label = {

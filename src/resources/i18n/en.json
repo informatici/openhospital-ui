@@ -69,7 +69,8 @@
     "triage": "Triage",
     "summary": "Summary",
     "discharge": "Discharge",
-    "visits": "Visits"
+    "visits": "Visits",
+    "operation": "Operation"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
