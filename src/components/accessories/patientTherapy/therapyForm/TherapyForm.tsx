@@ -186,7 +186,7 @@ const TherapyForm: FC<TherapyProps> = ({
           onSubmit={formik.handleSubmit}
         >
           <div className="row start-sm center-xs">
-            <div className="patientTherapyForm__item">
+            <div className="fullWidth patientTherapyForm__item">
               <AutocompleteField
                 fieldName="medicalId"
                 fieldValue={formik.values.medicalId}
@@ -198,6 +198,8 @@ const TherapyForm: FC<TherapyProps> = ({
                 disabled={isLoading}
               />
             </div>
+          </div>
+          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("qty")}
@@ -222,8 +224,6 @@ const TherapyForm: FC<TherapyProps> = ({
                 disabled={isLoading}
               />
             </div>
-          </div>
-          <div className="row start-sm center-xs bottom-sm">
             <div className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("nbDays")}
@@ -260,8 +260,6 @@ const TherapyForm: FC<TherapyProps> = ({
                 disabled={isLoading}
               />
             </div>
-          </div>
-          <div className="row start-sm center-xs">
             <div id="frequency" className="patientTherapyForm__item">
               <TextField
                 field={formik.getFieldProps("freqInPeriod")}
