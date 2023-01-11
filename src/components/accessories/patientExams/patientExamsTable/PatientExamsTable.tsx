@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LaboratoryDTO } from "../../../../generated";
+import { LabWithRowsDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
@@ -37,7 +37,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const order = ["date", "exam"];
 
   const dispatch = useDispatch();
-  const data = useSelector<IState, LaboratoryDTO[]>((state) =>
+  const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
     state.laboratories.labsByPatientId.data
       ? state.laboratories.labsByPatientId.data
       : []
@@ -52,15 +52,20 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       dispatch(getLabsByPatientId(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
-  const formatDataToDisplay = (data: LaboratoryDTO[]) => {
+  const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     return data.map((item) => {
       return {
-        code: item.code,
-        date: item.examDate ? renderDate(item.examDate) : "",
-        exam: item.exam?.description ?? "",
-        material: item.material,
-        result: item.result,
-        note: item.note,
+        code: item.laboratoryDTO?.code,
+        date: item.laboratoryDTO?.examDate
+          ? renderDate(item.laboratoryDTO?.examDate)
+          : "",
+        exam: item.laboratoryDTO?.exam?.description ?? "",
+        material: item.laboratoryDTO?.material,
+        result:
+          item.laboratoryDTO?.exam?.procedure === 1
+            ? item.laboratoryDTO?.result
+            : item.laboratoryRowList?.join(", "),
+        note: item.laboratoryDTO?.note,
       };
     });
     //   .sort(dateComparator("desc", "date"));
@@ -73,12 +78,15 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
+  const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
 
   const onEdit = (row: any) => {
-    handleEdit(labData?.find((item) => item.code === row.code));
+    handleEdit(
+      labData?.find((item) => item.laboratoryDTO?.code === row.code)
+        ?.laboratoryDTO
+    );
   };
 
   return (

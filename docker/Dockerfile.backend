@@ -1,8 +1,8 @@
-FROM maven:3.8-jdk-8
+FROM maven:3.6.0-jdk-11
 
 ARG GITHUB_ORG=intesys
-ARG OH_CORE_BRANCH=develop
-ARG OH_API_BRANCH=develop
+ARG OH_CORE_BRANCH=staging3Test
+ARG OH_API_BRANCH=staging3Test
 
 WORKDIR /
 RUN git clone --depth=1 -b ${OH_CORE_BRANCH} https://github.com/${GITHUB_ORG}/openhospital-core.git

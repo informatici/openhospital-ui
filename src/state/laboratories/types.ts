@@ -10,7 +10,7 @@ export type ILaboratoriesState = {
   updateLab: IApiResponse<null>;
   deleteLab: IApiResponse<null>;
   materials: IApiResponse<Array<string>>;
-  labsByPatientId: IApiResponse<Array<LaboratoryDTO>>;
+  labsByPatientId: IApiResponse<Array<LabWithRowsDTO>>;
   getLabByCode: IApiResponse<LaboratoryDTO | null>;
   getLabWithRowsByCode: IApiResponse<LabWithRowsDTO | null>;
   searchLabs: IApiResponse<Array<LaboratoryForPrintDTO>>;
