@@ -30,7 +30,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     code: t("common.code"),
     date: t("lab.date"),
     exam: t("lab.exam"),
-    material: t("lab.material"),
     result: t("lab.result"),
     note: t("lab.note"),
   };
@@ -60,7 +59,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           ? renderDate(item.laboratoryDTO?.examDate)
           : "",
         exam: item.laboratoryDTO?.exam?.description ?? "",
-        material: item.laboratoryDTO?.material,
         result:
           item.laboratoryDTO?.exam?.procedure === 1
             ? item.laboratoryDTO?.result

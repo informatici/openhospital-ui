@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import {
   LaboratoryControllerApi,
   LaboratoryDTO,
+  LaboratoryForPrintDTO,
   LabWithRowsDTO,
 } from "../../generated";
 import { forkJoin, Observable, of } from "rxjs";
@@ -44,6 +45,7 @@ import {
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
 } from "./consts";
+import { LaboratoryForPrintWithRows } from "./types";
 
 const labControllerApi = new LaboratoryControllerApi(customConfiguration());
 
@@ -128,7 +130,7 @@ export const getLabWithRowsByCodeReset =
 
 export const searchLabs =
   (query: any) =>
-  (dispatch: Dispatch<IAction<LaboratoryDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<LaboratoryForPrintWithRows[], {}>>): void => {
     dispatch({
       type: SEARCH_LAB_LOADING,
     });
@@ -140,6 +142,10 @@ export const searchLabs =
         examName: query.examName,
         patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
       })
+      .pipe(
+        switchMap((labs) => getRowsForPrint(labs)),
+        catchError((error) => of([]))
+      )
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
@@ -361,6 +367,33 @@ const getRows = (labs: LaboratoryDTO[]): Observable<LabWithRowsDTO[]> => {
           } as LabWithRowsDTO;
         }),
         catchError((error) => of({ laboratoryDTO: lab } as LabWithRowsDTO))
+      );
+    })
+  );
+  return flabs;
+};
+
+const getRowsForPrint = (
+  labs: LaboratoryForPrintDTO[]
+): Observable<LaboratoryForPrintWithRows[]> => {
+  if (labs.length === 0) return of([]);
+  const flabs = forkJoin(
+    labs.map((lab: LaboratoryForPrintDTO) => {
+      let obs = new Observable<LabWithRowsDTO>();
+
+      obs = labControllerApi.getLabWithRowsByIdUsingGET({
+        code: lab.code ? lab.code : 0,
+      });
+      return obs.pipe(
+        map((rows) => {
+          return {
+            laboratoryForPrintDTO: lab,
+            laboratoryRowList: rows.laboratoryRowList,
+          } as LaboratoryForPrintWithRows;
+        }),
+        catchError((error) =>
+          of({ laboratoryForPrintDTO: lab } as LaboratoryForPrintWithRows)
+        )
       );
     })
   );
