@@ -74,7 +74,13 @@ const OperationRowForm: FC<OperationRowProps> = ({
           );
         },
       }),
-    transUnit: number(),
+    transUnit: number().test({
+      name: "valid",
+      message: t("common.invalidnumber", { min: 1, max: 20 }),
+      test: function (value) {
+        return !value || (value && value >= 1 && value <= 20);
+      },
+    }),
   });
 
   const formik = useFormik({

@@ -312,7 +312,8 @@
     "lessthan": "The value must not exceed {{value}}.",
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
-    "outofrange": "Out of range"
+    "outofrange": "Out of range",
+    "invalidnumber": "Invalid: number should be >= {{min}} and <= {{max}}"
   },
   "therapy": {
     "newtherapy": "New Therapy",
