@@ -312,7 +312,9 @@
     "lessthan": "The value must not exceed {{value}}.",
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
-    "outofrange": "Out of range"
+    "outofrange": "Out of range",
+    "orderbydate": "Order by date",
+    "orderbytype": "Order by type"
   },
   "therapy": {
     "newtherapy": "New Therapy",
