@@ -121,7 +121,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
                 isLoading={isLoading}
                 shouldResetForm={shouldResetForm}
                 resetFormCallback={resetFormCallback}
-                mode = {'create'}
+                mode={"create"}
               />
             </div>
           </div>

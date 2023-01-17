@@ -118,7 +118,10 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   switch (activityTransitionState) {
     case "TO_PATIENT":
       return (
-        <Navigate to={`${PATHS.patients_details}/${patient.data?.code}`} replace />
+        <Navigate
+          to={`${PATHS.patients_details}/${patient.data?.code}`}
+          replace
+        />
       );
     default:
       return (

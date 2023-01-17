@@ -4,7 +4,7 @@ interface IOwnProps {
   profilePicture?: any;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
-  mode: 'create' | 'edit';
+  mode: "create" | "edit";
 }
 
 export type TAgeFieldName = "age" | "agetype" | "birthDate";
