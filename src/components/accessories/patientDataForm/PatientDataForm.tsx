@@ -32,6 +32,7 @@ import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import { useDispatch, useSelector } from "react-redux";
 import { getAgeTypes } from "../../../state/ageTypes/actions";
+import { getCities } from "../../../state/patients/actions";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -84,9 +85,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   }, []);
 
   const initialValues = getFromFields(fields, "value");
-
+  const cities = useSelector((state: IState) => state.patients.getCities.data);
   const options = getFromFields(fields, "options");
-  const cityOptions = useCityOptions();
+  const cityOptions = useCityOptions(cities);
 
   const ageRangeOptions = useSelector((state: IState) =>
     state.ageTypes.getAllAgeTypes.data?.map((e) => ({
@@ -166,6 +167,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     setOpenResetConfirmation(false);
     formik.resetForm();
   };
+
+  useEffect(() => {
+    dispatch(getCities());
+  }, [dispatch, shouldResetForm]);
 
   return (
     <div className="patientDataForm">
@@ -429,8 +434,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("city")}
               errorText={getErrorText("city")}
               onBlur={onBlurCallback("city")}
-              options={cityOptions}
+              options={cityOptions ?? []}
               disabled={isLoading}
+              freeSolo={true}
+              autoSelect={true}
+              clearOnBlur={true}
+              selectOnFocus={true}
+              handleHomeEndKeys={true}
             />
           </div>
 

@@ -104,6 +104,23 @@ export class PatientControllerApi extends BaseAPI {
     };
 
     /**
+     * getPatientCities
+     */
+    getPatientCitiesUsingGET(): Observable<Array<object>>
+    getPatientCitiesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<object>>>
+    getPatientCitiesUsingGET(opts?: OperationOpts): Observable<Array<object> | RawAjaxResponse<Array<object>>> {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<Array<object>>({
+            url: '/patients/cities',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
      * getPatientNextCode
      */
     getPatientNextCodeUsingGET(): Observable<number>
