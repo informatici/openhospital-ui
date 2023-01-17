@@ -152,8 +152,8 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "Max (mmHg)",
-      "min": "Min (mmHg)"
+      "max": "Arterial pressure max (mmHg)",
+      "min": "Arterial pressure min (mmHg)"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -313,7 +313,10 @@
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
     "outofrange": "Out of range",
-    "invalidnumber": "Invalid: number should be >= {{min}} and <= {{max}}"
+    "invalidnumber": "Invalid number",
+    "invalidnumberinrange": "Invalid: number should be >= {{min}} and <= {{max}}",
+    "orderbydate": "Order by date",
+    "orderbytype": "Order by type"
   },
   "therapy": {
     "newtherapy": "New Therapy",
