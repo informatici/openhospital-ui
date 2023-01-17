@@ -43,7 +43,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
-  mode = 'create'
+  mode = "create",
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -64,14 +64,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       birthDate:
         ageType === "birthDate"
           ? string()
-            .required(t("common.required"))
-            .test({
-              name: "birthDate",
-              message: t("common.invaliddate"),
-              test: function (value) {
-                return moment(value).isValid();
-              },
-            })
+              .required(t("common.required"))
+              .test({
+                name: "birthDate",
+                message: t("common.invaliddate"),
+                test: function (value) {
+                  return moment(value).isValid();
+                },
+              })
           : string(),
       sex: string().required(t("common.required")),
       telephone: string().matches(
@@ -341,11 +341,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <SelectField
               fieldName="bloodType"
+              onBlur={onBlurCallback("bloodType")}
               fieldValue={formik.values.bloodType}
               label={t("patient.bloodtype")}
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
-              onBlur={onBlurCallback("bloodType")}
               options={options.bloodType}
               disabled={isLoading}
               required={
@@ -532,7 +532,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
         </div>
 
-        {mode == 'create' &&
+        {mode == "create" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
@@ -543,9 +543,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
-        }
+        )}
 
-        {mode == 'edit' &&
+        {mode == "edit" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={t("common.cancel").toUpperCase()}
@@ -556,7 +556,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             handlePrimaryButtonClick={handleCancelEdit}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
-        }
+        )}
       </form>
     </div>
   );
