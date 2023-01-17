@@ -91,12 +91,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const ageRangeOptions = useSelector((state: IState) =>
     state.ageTypes.getAllAgeTypes.data?.map((e) => ({
       value: e.code ?? "",
-      label: e.description ? t(e.description) : "",
+      label: e.code ? t("patient.agetypes." + e.code) : "",
     }))
   );
-
-  console.log(ageRangeOptions);
-  
 
   const ageTypeOptions = [
     { value: "age", label: t("patient.age") },

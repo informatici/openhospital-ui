@@ -69,7 +69,15 @@
     "triage": "Triage",
     "summary": "Summary",
     "discharge": "Discharge",
-    "visits": "Visits"
+    "visits": "Visits",
+    "agetypes" : {
+      "d0": "New Born",
+      "d1": "Early Childhood",
+      "d2": "Late Childhood",
+      "d3": "Adolescents",
+      "d4": "Adult",
+      "d5": "Elderly"
+    }
   },
   "opd": {
     "newopd": "Create new OPD Visit",
