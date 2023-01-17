@@ -130,7 +130,7 @@ const AutocompleteField: FC<IProps> = ({
       const isExisting = options.some((option) => inputValue === option.value);
       if (inputValue !== "" && !isExisting) {
         filtered.push({
-          label: `${inputValue}`,
+          label: inputValue,
           value: inputValue,
         } as DefaultOptionType);
       }
