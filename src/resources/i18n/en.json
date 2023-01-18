@@ -316,7 +316,8 @@
     "invalidnumber": "Invalid number",
     "invalidnumberinrange": "Invalid: number should be >= {{min}} and <= {{max}}",
     "orderbydate": "Order by date",
-    "orderbytype": "Order by type"
+    "orderbytype": "Order by type",
+    "addnewoption": "Add"
   },
   "therapy": {
     "newtherapy": "New Therapy",

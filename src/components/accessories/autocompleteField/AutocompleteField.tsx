@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { DefaultOptionType, IProps } from "./types";
 import "./styles.scss";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import {
   Autocomplete,
   createFilterOptions,
@@ -92,8 +92,6 @@ const AutocompleteField: FC<IProps> = ({
   };
 
   const optionLabel = (option: DefaultOptionType | string) => {
-    // return typeof option === "string" ? option : option.label;
-    // Value selected with enter, right from the input
     if (typeof option === "string") {
       return option;
     }
@@ -130,7 +128,7 @@ const AutocompleteField: FC<IProps> = ({
       const isExisting = options.some((option) => inputValue === option.value);
       if (inputValue !== "" && !isExisting) {
         filtered.push({
-          label: inputValue,
+          label: t("common.addnewoption") + " " + inputValue,
           value: inputValue,
         } as DefaultOptionType);
       }
