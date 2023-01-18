@@ -72,7 +72,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       const medical = medicals.find((medoc) => medoc.code === item.medicalId);
       const duration = formatDateDiff(
-        item.startDate,
+        item.startDate ?? "",
         moment(item.endDate).add(1, "day").toISOString(),
         [
           t("common.moment.years"),
