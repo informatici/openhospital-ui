@@ -167,6 +167,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
+  const checkKeyDown = (e: any) => {
+    if (e.key === "Enter") e.preventDefault();
+  };
   return (
     <>
       <div className="patientTriageForm">
@@ -180,6 +183,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
         <form
           className="patientTriageForm__form"
           onSubmit={formik.handleSubmit}
+          onKeyDown={(e) => checkKeyDown(e)}
         >
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item">
