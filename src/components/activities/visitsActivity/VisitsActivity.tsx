@@ -30,7 +30,7 @@ const VisitsActivity: FC = () => {
       />
       <div className="visits__background">
         <div className="visits__content">
-          <Permission require="visits.access">
+          <Permission require="visit.access">
             <Opds />
           </Permission>
         </div>

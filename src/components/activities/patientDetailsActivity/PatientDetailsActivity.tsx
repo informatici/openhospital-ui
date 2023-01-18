@@ -54,7 +54,6 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const canEdit = usePermission("patient.update");
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {

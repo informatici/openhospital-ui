@@ -16,7 +16,7 @@ import {
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDialog/ExtendedConfirmationDialog";
+import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
@@ -92,12 +92,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       getPatientThunk(id!);
       updatePatientReset();
       setShouldResetForm(true);
-    }
-    if (activityTransitionState === "TO_KEEP_EDITING") {
+    } else if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
-    }
-    if (activityTransitionState === "TO_DASHBOARD") {
-      history.replace(`/`);
     }
   }, [activityTransitionState, updatePatientReset, getPatientThunk, id]);
 
@@ -142,7 +138,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                   patient.data?.secondName
                 }`}
               </div>
-              <Permission require="patient.update">
+              <Permission require={"patient.update"}>
                 <PatientDataForm
                   fields={updateFields(initialFields, patient?.data)}
                   profilePicture={patient.data?.blobPhoto}
@@ -157,26 +153,19 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                 <div ref={infoBoxRef}>
                   {hasFailed && <InfoBox type="error" message={errorMessage} />}
                 </div>
-                <ExtendedConfirmationDialog
+                <ConfirmationDialog
                   isOpen={openConfirmationMessage}
-                  title={t("patient.updated")}
+                  title={t("common.titleedited")}
                   icon={checkIcon}
-                  info={t("patient.updatesuccessful")}
-                  items={[
-                    {
-                      label: t("common.dashboard"),
-                      onClick: () => setActivityTransitionState("TO_DASHBOARD"),
-                    },
-                    {
-                      label: t("common.keepediting"),
-                      onClick: () =>
-                        setActivityTransitionState("TO_KEEP_EDITING"),
-                    },
-                    {
-                      label: t("patient.dashboard"),
-                      onClick: () => setActivityTransitionState("TO_PATIENT"),
-                    },
-                  ]}
+                  info={t("common.patienteditsuccessfull")}
+                  primaryButtonLabel={t("common.patient")}
+                  secondaryButtonLabel={t("common.keepediting")}
+                  handlePrimaryButtonClick={() =>
+                    setActivityTransitionState("TO_PATIENT")
+                  }
+                  handleSecondaryButtonClick={() =>
+                    setActivityTransitionState("TO_KEEP_EDITING")
+                  }
                 />
               </Permission>
             </div>

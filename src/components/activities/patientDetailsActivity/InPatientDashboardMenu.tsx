@@ -31,7 +31,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const showSummary = usePermission("summary.read");
 
   const isActive = (value: string) => {
     return value === userSection ? "active" : "default";
@@ -148,22 +147,18 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       </Permission>
-
-      {showSummary && (
-        <div
-          className={
-            "align__element patientDetails__main_menu__item " +
-            isActive("clinic")
-          }
-          onClick={() => {
-            changeUserSection("clinic");
-          }}
-        >
-          <LocalHospital fontSize="small" style={{ color: "white" }} />
-          <span>{t("nav.userclinic")}</span>
-          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-        </div>
-      )}
+      <div
+        className={
+          "align__element patientDetails__main_menu__item " + isActive("clinic")
+        }
+        onClick={() => {
+          changeUserSection("clinic");
+        }}
+      >
+        <LocalHospital fontSize="small" style={{ color: "white" }} />
+        <span>{t("nav.userclinic")}</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
     </div>
   );
 };
