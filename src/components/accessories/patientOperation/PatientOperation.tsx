@@ -138,7 +138,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   }, [creationMode]);
 
   return (
-    <div className="patientAdmission">
+    <div className="patientOperation">
       <Permission
         require={creationMode ? "operation.create" : "operation.update"}
       >
