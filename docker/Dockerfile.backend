@@ -1,4 +1,4 @@
-FROM maven:3.8-jdk-8
+FROM maven:3.8.6-jdk-11
 
 ARG GITHUB_ORG=intesys
 ARG OH_CORE_BRANCH=develop
