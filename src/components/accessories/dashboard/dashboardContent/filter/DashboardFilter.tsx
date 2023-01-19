@@ -39,6 +39,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
     (event: any, value: any) => {
       if (!isEmpty(value)) {
         setView(value as TViewType);
+        setSelection("current");
       }
     },
     [view]
@@ -61,11 +62,13 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
       ) {
         setDateRange([value[0], value[1]]);
       }
+      setView("range");
+      setSelection("custom");
       setOpen(false);
     },
     [dateRange, open]
   );
-  
+
   return (
     <div className="filter">
       <div className="filter__main">
@@ -88,45 +91,47 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
             <span>{t("dashboard.period.year")}</span>
           </ToggleButton>
         </ToggleButtonGroup>
-        <ToggleButtonGroup
-          className="options"
-          value={selection}
-          exclusive
-          onChange={handleSelectionChange}
-        >
-          <ToggleButton value="current">
-            <span>{t(`dashboard.period.${view}s.current`)}</span>
-          </ToggleButton>
-          <ToggleButton value="previous">
-            <span>{t(`dashboard.period.${view}s.previous`)}</span>
-          </ToggleButton>
-          <ToggleButton value="last2">
-            <span>{t(`dashboard.period.${view}s.last2`)}</span>
-          </ToggleButton>
-          <ToggleButton value="last3">
-            <span>{t(`dashboard.period.${view}s.last3`)}</span>
-          </ToggleButton>
-        </ToggleButtonGroup>
+        {view !== "range" && (
+          <ToggleButtonGroup
+            className="options"
+            value={selection}
+            exclusive
+            onChange={handleSelectionChange}
+          >
+            <ToggleButton value="current">
+              <span>{t(`dashboard.period.${view}s.current`)}</span>
+            </ToggleButton>
+            <ToggleButton value="previous">
+              <span>{t(`dashboard.period.${view}s.previous`)}</span>
+            </ToggleButton>
+            <ToggleButton value="last2">
+              <span>{t(`dashboard.period.${view}s.last2`)}</span>
+            </ToggleButton>
+            <ToggleButton value="last3">
+              <span>{t(`dashboard.period.${view}s.last3`)}</span>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        )}
+      </div>
+      <div className="filter__actions">
         <span>{period}</span>
-        <div className="actions">
-          <DateRangeField
-            fieldName="period"
-            isValid={true}
-            fieldValue={dateRange}
-            format="dd/MM/YYY"
-            onChange={handleDateRangeChange}
-            TextFieldComponent={(props) => (
-              <IconButton
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              >
-                <CalendarTodaySharp />
-              </IconButton>
-            )}
-            open={open}
-          />
-        </div>
+        <DateRangeField
+          fieldName="period"
+          isValid={true}
+          fieldValue={dateRange}
+          format="dd/MM/YYY"
+          onChange={handleDateRangeChange}
+          TextFieldComponent={(props) => (
+            <IconButton
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              <CalendarTodaySharp />
+            </IconButton>
+          )}
+          open={open}
+        />
       </div>
     </div>
   );

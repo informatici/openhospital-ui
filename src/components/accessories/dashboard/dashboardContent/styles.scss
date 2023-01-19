@@ -2,91 +2,92 @@
 @import "../../../../../node_modules/susy/sass/susy";
 
 .dashboard__content {
+  display: flex;
+  padding: 20px;
+  flex: 1;
+  width: 100%;
+  background-color: white !important;
+  .dashboard__main {
+    padding: 16px;
     display: flex;
-    padding: 20px;
-    flex: 1;
+    flex-direction: column;
+    row-gap: 32px;
     width: 100%;
-    background-color: white !important;
-    .dashboard__main {
-      padding: 16px;
+    .body {
+      display: flex;
+      flex-flow: row wrap;
+      overflow: auto;
+      justify-content: space-evenly;
+    }
+  }
+  .dashboard__side {
+    @include susy-media($medium) {
+      display: none;
+    }
+    .side {
       display: flex;
       flex-direction: column;
-      row-gap: 32px;
-      .body {
+      width: 250px;
+      height: 480px;
+      background-color: $c-gray;
+      border-radius: 5px;
+      padding: 16px;
+      row-gap: 12px;
+      .side__header {
         display: flex;
-        flex-flow: row wrap;
-        overflow: auto;
-        justify-content: space-evenly;
+        column-gap: 8px;
+        width: 100%;
+        height: 75px;
+        padding: 8px;
+        background-color: lighten($c-gray, 5%);
+        border-radius: 8px;
+        .side__header_avatar {
+          height: 100%;
+          border-radius: 100%;
+          aspect-ratio: 1;
+          background-color: lighten($c-gray, 15%);
+        }
+        & > div {
+          span {
+            color: lighten($c-gray, 50%);
+            font-weight: bold;
+            font-size: large;
+          }
+        }
       }
-    }
-    .dashboard__side {
-      @include susy-media($medium) {
-        display: none;
-      }
-      .side {
+      .side__body {
         display: flex;
         flex-direction: column;
-        width: 250px;
-        height: 480px;
-        background-color: $c-gray;
-        border-radius: 5px;
-        padding: 16px;
-        row-gap: 12px;
-        .side__header {
-          display: flex;
-          column-gap: 8px;
-          width: 100%;
-          height: 75px;
-          padding: 8px;
-          background-color: lighten($c-gray, 5%);
-          border-radius: 8px;
-          .side__header_avatar {
-            height: 100%;
-            border-radius: 100%;
-            aspect-ratio: 1;
-            background-color: lighten($c-gray, 15%);
-          }
-          & > div {
-            span {
-              color: lighten($c-gray, 50%);
-              font-weight: bold;
-              font-size: large;
-            }
-          }
-        }
-        .side__body {
+        row-gap: 8px;
+        .section {
           display: flex;
           flex-direction: column;
-          row-gap: 8px;
-          .section {
+          row-gap: 4px;
+          .title {
+            text-transform: uppercase;
+            font-size: small;
+            font-weight: bolder;
+            color: lighten($c-gray, 70%);
+          }
+          .content {
             display: flex;
-            flex-direction: column;
-            row-gap: 4px;
-            .title {
-              text-transform: uppercase;
-              font-size: small;
-              font-weight: bolder;
+            flex-wrap: wrap;
+            column-gap: 4px;
+            span {
+              padding: 6px 8px;
+              font-size: smaller;
+              border-radius: 20%;
+              background-color: lighten($c-gray, 20%);
               color: lighten($c-gray, 70%);
-            }
-            .content {
-              display: flex;
-              flex-wrap: wrap;
-              column-gap: 4px;
-              span {
-                padding: 6px 8px;
-                font-size: smaller;
-                border-radius: 20%;
-                background-color: lighten($c-gray, 20%);
-                color: lighten($c-gray, 70%);
-              }
             }
           }
         }
       }
     }
   }
+}
 
-   .MuiSkeleton-root {
-    width: 200px !important;
-    height: 200px !important;
-  }
+.MuiSkeleton-root {
+  width: 200px !important;
+  height: 200px !important;
+}

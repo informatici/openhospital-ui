@@ -7,7 +7,7 @@ export default {
   component: DataSummary,
 } as ComponentMeta<typeof DataSummary>;
 
-const Template: ComponentStory<typeof DataSummary> = (args) => (
+const Template: ComponentStory<typeof DataSummary> = (args: any) => (
   <DataSummary {...args} />
 );
 
