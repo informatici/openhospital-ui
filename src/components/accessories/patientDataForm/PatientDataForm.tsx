@@ -166,7 +166,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     setOpenResetConfirmation(false);
     formik.resetForm();
   };
-
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") e.preventDefault();
+  };
   return (
     <div className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
@@ -178,7 +180,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           resetCallback={resetFormCallback}
         />
       </div>
-      <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
+      <form
+        className="patientDataForm__form"
+        onSubmit={formik.handleSubmit}
+        onKeyDown={(e) => handleKeyDown(e)}
+      >
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
