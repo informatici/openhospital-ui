@@ -8,7 +8,7 @@ import {
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
-import { TextField, useMediaQuery } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
 const DateRangeField: FunctionComponent<IProps> = ({
   fieldName,
@@ -28,9 +28,9 @@ const DateRangeField: FunctionComponent<IProps> = ({
   okLabel,
   cancelLabel,
   TextFieldComponent,
+  allowSameDateSelection = true,
 }) => {
   const [value, setValue] = useState<DateRange<Date>>([null, null]);
-  const matches = useMediaQuery("(min-width:768px)");
 
   useEffect(() => {
     setValue(fieldValue);
@@ -47,123 +47,64 @@ const DateRangeField: FunctionComponent<IProps> = ({
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
   return (
-    <>
-      {matches ? (
-        <DesktopDateRangePicker
-          inputFormat={format}
-          disabled={disabled}
-          disableFuture={disableFuture}
-          onChange={handleDateChange}
-          value={value as RangeInput<Date>}
-          shouldDisableDate={shouldDisableDate}
-          renderInput={(
-            startProps: MuiTextFieldProps,
-            endProps: MuiTextFieldProps
-          ) =>
-            TextFieldComponent ? (
-              <TextFieldComponent />
-            ) : (
-              <div className={"dateRange"}>
-                <TextField
-                  {...startProps}
-                  id={(fieldName ?? "") + "-from"}
-                  error={Boolean(startErrorText)}
-                  disabled={disabled}
-                  helperText={startErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? startLabel + " **"
-                      : startLabel
-                  }
-                />
-                <TextField
-                  {...endProps}
-                  id={fieldName + "-to"}
-                  error={Boolean(endErrorText)}
-                  disabled={disabled}
-                  helperText={endErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? endLabel + " **"
-                      : endLabel
-                  }
-                />
-              </div>
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
-          open={open}
-          onAccept={onAccept}
-        />
-      ) : (
-        <MobileDateRangePicker
-          inputFormat={format}
-          disabled={disabled}
-          disableFuture={disableFuture}
-          onChange={handleDateChange}
-          value={value as RangeInput<Date>}
-          shouldDisableDate={shouldDisableDate}
-          renderInput={(
-            startProps: MuiTextFieldProps,
-            endProps: MuiTextFieldProps
-          ) =>
-            TextFieldComponent ? (
-              <TextFieldComponent />
-            ) : (
-              <div className={"dateRange"}>
-                <TextField
-                  {...startProps}
-                  id={(fieldName ?? "") + "-from"}
-                  error={Boolean(startErrorText)}
-                  disabled={disabled}
-                  helperText={startErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? startLabel + " **"
-                      : startLabel
-                  }
-                />
-                <TextField
-                  {...endProps}
-                  id={fieldName + "-to"}
-                  error={Boolean(endErrorText)}
-                  disabled={disabled}
-                  helperText={endErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? endLabel + " **"
-                      : endLabel
-                  }
-                />
-              </div>
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
-          open={open}
-          onAccept={onAccept}
-          disableCloseOnSelect={false}
-          allowKeyboardControl
-        />
-      )}
-    </>
+    <MobileDateRangePicker
+      inputFormat={format}
+      disabled={disabled}
+      disableFuture={disableFuture}
+      onChange={handleDateChange}
+      value={value as RangeInput<Date>}
+      shouldDisableDate={shouldDisableDate}
+      allowSameDateSelection={allowSameDateSelection}
+      renderInput={(
+        startProps: MuiTextFieldProps,
+        endProps: MuiTextFieldProps
+      ) =>
+        TextFieldComponent ? (
+          <TextFieldComponent />
+        ) : (
+          <div className={"dateRange"}>
+            <TextField
+              {...startProps}
+              id={(fieldName ?? "") + "-from"}
+              error={Boolean(startErrorText)}
+              disabled={disabled}
+              helperText={startErrorText}
+              variant="outlined"
+              margin="dense"
+              required={required === FIELD_VALIDATION.REQUIRED}
+              className={actualClassName}
+              label={
+                required === FIELD_VALIDATION.SUGGESTED
+                  ? startLabel + " **"
+                  : startLabel
+              }
+            />
+            <TextField
+              {...endProps}
+              id={fieldName + "-to"}
+              error={Boolean(endErrorText)}
+              disabled={disabled}
+              helperText={endErrorText}
+              variant="outlined"
+              margin="dense"
+              required={required === FIELD_VALIDATION.REQUIRED}
+              className={actualClassName}
+              label={
+                required === FIELD_VALIDATION.SUGGESTED
+                  ? endLabel + " **"
+                  : endLabel
+              }
+            />
+          </div>
+        )
+      }
+      okText={okLabel}
+      cancelText={cancelLabel}
+      open={open}
+      onAccept={onAccept}
+      disableCloseOnSelect={false}
+      allowKeyboardControl
+    />
   );
 };
 

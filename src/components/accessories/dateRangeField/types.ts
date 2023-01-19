@@ -29,4 +29,5 @@ export interface IProps {
   open?: boolean;
   okLabel?: string;
   cancelLabel?: string;
+  allowSameDateSelection?: boolean;
 }
