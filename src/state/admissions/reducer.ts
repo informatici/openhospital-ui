@@ -143,12 +143,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
       draft.getAdmissions.error = action.error;
       break;
     }
-    case GET_ADMISSION_RESET: {
-      draft.admissionsByPatientId.status = "IDLE";
-      delete draft.admissionsByPatientId.data;
-      delete draft.admissionsByPatientId.error;
-      break;
-    }
 
     /**
      * GET_ONGOING_ADMISSIONS
