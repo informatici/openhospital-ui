@@ -1,4 +1,4 @@
 export interface IProps {
-  type: "warning" | "error";
+  type: "info" | "warning" | "error";
   message: string;
 }
