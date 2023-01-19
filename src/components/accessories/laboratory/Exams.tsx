@@ -3,13 +3,7 @@ import { Add } from "@material-ui/icons";
 import React, { FC, Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Route,
-  Routes,
-  Navigate,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilter, initialFilterFields } from "./consts";
@@ -44,8 +38,6 @@ export const Exams: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const canCreate = usePermission("exam.create");
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 

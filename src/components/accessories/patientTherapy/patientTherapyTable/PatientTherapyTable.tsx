@@ -26,7 +26,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
   const canUpdate = usePermission("therapy.update");
-  const canDelete = usePermission("therapy.delete");
 
   const header = ["startDate", "endDate", "medicalId"];
   const dateFields = ["startDate", "endDate"];
@@ -136,7 +135,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                // onDelete={onDelete}
                 isCollapsabile={true}
                 onEdit={canUpdate ? onEdit : undefined}
               />

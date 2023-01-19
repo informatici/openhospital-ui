@@ -6,7 +6,6 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
-import { CustomPermissionDenied } from "../../accessories/customPermissionDenied/CustomPermissionDenied";
 import Footer from "../../accessories/footer/Footer";
 import { Opds } from "../../accessories/opds/Opds";
 import "./styles.scss";

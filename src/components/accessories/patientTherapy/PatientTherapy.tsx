@@ -21,7 +21,6 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
 import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";

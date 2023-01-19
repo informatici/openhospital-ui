@@ -1,7 +1,7 @@
 /** @type {import("../../types").TPermission} */
 const permissionList = [
   "patient.access",
-  "laboratory.access",
+  //"laboratory.access",
   "visit.access",
   "patient.read",
   "patient.create",

@@ -22,7 +22,7 @@ import PatientOperationTable from "./operationTable/OperationRowTable";
 import { getCurrentAdmissionByPatientId } from "../../../state/admissions/actions";
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 interface IOwnProps {

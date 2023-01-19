@@ -1,18 +1,10 @@
-import {
-  default as React,
-  FC,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { default as React, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createExamination,

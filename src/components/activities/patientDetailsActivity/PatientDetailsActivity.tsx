@@ -16,7 +16,6 @@ import { PATHS } from "../../../consts";
 import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatientThunk } from "../../../state/patients/actions";
 import { IState } from "../../../types";
