@@ -69,7 +69,8 @@
     "triage": "Triage",
     "summary": "Summary",
     "discharge": "Discharge",
-    "visits": "Visits"
+    "visits": "Visits",
+    "operation": "Operation"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -153,7 +154,9 @@
     "edittriage": "Edit Triage",
     "ap": {
       "max": "Arterial pressure max (mmHg)",
-      "min": "Arterial pressure min (mmHg)"
+      "min": "Arterial pressure min (mmHg)",
+      "lessthanmax": "Must be less than the max",
+      "morethanmin": "Must be greater than the min"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -315,7 +318,14 @@
     "outofrange": "Out of range",
     "orderbydate": "Order by date",
     "orderbytype": "Order by type",
-    "emptydataforfilter": "Empty data for the specified filter"
+    "emptydataforfilter": "Empty data for the specified filter",
+    "moment": {
+      "duration": "Duration",
+      "days": "Day(s)",
+      "weeks": "Week(s)",
+      "months": "Month(s)",
+      "years": "Year(s)"
+    }
   },
   "therapy": {
     "newtherapy": "New Therapy",

@@ -40,14 +40,6 @@ export const initialFields: TFields<TherapyFormFieldName> = {
     value: moment().toISOString(),
     type: "date",
   },
-  notifyInt: {
-    value: "0",
-    type: "number",
-  },
-  smsInt: {
-    value: "0",
-    type: "number",
-  },
   note: {
     value: "",
     type: "text",
