@@ -56,6 +56,7 @@ export const Opds: FC = () => {
               onClick={() => navigate("/search")}
               type="button"
               variant="contained"
+              color="primary"
             >
               <Add fontSize="small" />
               <span className="new__button__label">{t("opd.newopd")}</span>

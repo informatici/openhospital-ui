@@ -69,7 +69,8 @@
     "triage": "Triage",
     "summary": "Summary",
     "discharge": "Discharge",
-    "visits": "Visits"
+    "visits": "Visits",
+    "operation": "Operation"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -314,7 +315,14 @@
     "invaliddate": "Invalid Date",
     "outofrange": "Out of range",
     "orderbydate": "Order by date",
-    "orderbytype": "Order by type"
+    "orderbytype": "Order by type",
+    "moment": {
+      "duration": "Duration",
+      "days": "Day(s)",
+      "weeks": "Week(s)",
+      "months": "Month(s)",
+      "years": "Year(s)"
+    }
   },
   "therapy": {
     "newtherapy": "New Therapy",

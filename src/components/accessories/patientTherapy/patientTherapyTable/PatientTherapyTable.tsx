@@ -9,6 +9,8 @@ import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getMedicals } from "../../../../state/medicals/actions";
+import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
+import moment from "moment";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -23,7 +25,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const header = ["startDate", "endDate"];
+  const header = ["startDate", "endDate", "medicalId"];
   const dateFields = ["startDate", "endDate"];
 
   const label = {
@@ -35,8 +37,9 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     freqInPeriod: t("therapy.frequencyInPeriod"),
     note: t("therapy.note"),
     medicalId: t("therapy.medical"),
+    duration: t("common.moment.duration"),
   };
-  const order = ["startDate", "endDate"];
+  const order = ["startDate", "endDate", "medicalId"];
   const dispatch = useDispatch();
 
   const data = useSelector<IState, TherapyRowDTO[]>((state) =>
@@ -68,6 +71,16 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const formatDataToDisplay = (data: TherapyRowDTO[]) => {
     return data.map((item) => {
       const medical = medicals.find((medoc) => medoc.code === item.medicalId);
+      const duration = formatDateDiff(
+        item.startDate ?? "",
+        moment(item.endDate).add(1, "day").toISOString(),
+        [
+          t("common.moment.years"),
+          t("common.moment.months"),
+          t("common.moment.weeks"),
+          t("common.moment.days"),
+        ]
+      );
       return {
         therapyID: item.therapyID,
         medicalId: medical ? medical.description : item.medicalId,
@@ -77,6 +90,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
         freqInDay: item.freqInDay,
         freqInPeriod: item.freqInPeriod,
         note: item.note,
+        duration: duration,
       };
     });
     //.sort(dateComparator("desc", "startDate"));
