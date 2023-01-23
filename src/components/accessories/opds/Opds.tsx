@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import React, { FC, Fragment, useMemo, useState } from "react";
+import React, { FC, Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -36,7 +36,8 @@ export const Opds: FC = () => {
   };
 
   const errorMessage = useSelector(
-    (state: IState) => state.opds.searchOpds.error?.message
+    (state: IState) =>
+      state.opds.searchOpds.error?.message || t("common.somethingwrong")
   );
   let status = useSelector((state: IState) => state.opds.searchOpds.status);
 

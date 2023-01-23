@@ -1,5 +1,5 @@
 export interface IProps {
-  type: "info" | "warning" | "error";
+  type: InfoBoxType | string;
   message: string;
 }
 
