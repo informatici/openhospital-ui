@@ -154,7 +154,9 @@
     "edittriage": "Edit Triage",
     "ap": {
       "max": "Arterial pressure max (mmHg)",
-      "min": "Arterial pressure min (mmHg)"
+      "min": "Arterial pressure min (mmHg)",
+      "lessthanmax": "Must be less than the max",
+      "morethanmin": "Must be greater than the min"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",

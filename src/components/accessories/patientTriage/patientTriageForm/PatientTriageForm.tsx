@@ -72,18 +72,20 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       .max(100, t("common.lessthan", { value: 100 })),
     pex_ap_min: number()
       .min(80, t("common.greaterthan", { value: 80 }))
+      .max(120, t("common.lessthan", { value: 120 }))
       .test({
         name: "pex_ap_min",
-        message: t("common.outofrange"),
+        message: t("examination.ap.lessthanmax"),
         test: function (value) {
           return this.parent.pex_ap_max >= value;
         },
       }),
     pex_ap_max: number()
+      .min(80, t("common.greaterthan", { value: 80 }))
       .max(120, t("common.lessthan", { value: 120 }))
       .test({
         name: "pex_ap_max",
-        message: t("common.outofrange"),
+        message: t("examination.ap.morethanmin"),
         test: function (value) {
           return this.parent.pex_ap_min <= value;
         },
