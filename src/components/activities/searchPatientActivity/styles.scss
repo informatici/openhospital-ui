@@ -247,7 +247,7 @@
       margin-bottom: 5px;
     }
 
-    .patientSearchItem__profile__content__status{
+    .patientSearchItem__profile__content__status {
       margin-bottom: 5px;
       .patientDetails_status_wrapper {
         span:before {
@@ -259,14 +259,14 @@
           margin-right: 3px;
           margin-left: 3px;
         }
-  
+
         &.patientDetails_status_in {
           span:before {
             background-color: $c-red;
             animation: bump 3s infinite;
           }
         }
-  
+
         &.patientDetails_status_out {
           span:before {
             background-color: $c-green;
@@ -314,4 +314,9 @@
       }
     }
   }
+}
+
+.infoBox {
+  width: 90%;
+  margin-bottom: 50px;
 }
