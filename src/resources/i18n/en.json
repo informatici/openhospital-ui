@@ -316,6 +316,8 @@
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
     "outofrange": "Out of range",
+    "cancel": "Cancel",
+    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
     "orderbydate": "Order by date",
     "orderbytype": "Order by type",
     "moment": {
