@@ -63,7 +63,14 @@
     "dataupdated": "Patient data updated",
     "dataupdatedsuccessfully": "Patient data have been updated successfully",
     "noallergies": "There are no registered allergies for this patient",
-    "noanamnesis": "There are no registered anamnesis for this patient"
+    "noanamnesis": "There are no registered anamnesis for this patient",
+    "laboratory": "Laboratory",
+    "therapy": "Therapy",
+    "triage": "Triage",
+    "summary": "Summary",
+    "discharge": "Discharge",
+    "visits": "Visits",
+    "operation": "Operation"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -146,8 +153,10 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "Max (mmHg)",
-      "min": "Min (mmHg)"
+      "max": "Arterial pressure max (mmHg)",
+      "min": "Arterial pressure min (mmHg)",
+      "lessthanmax": "Must be less than the max",
+      "morethanmin": "Must be greater than the min"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -308,7 +317,16 @@
     "invaliddate": "Invalid Date",
     "outofrange": "Out of range",
     "cancel": "Cancel",
-    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?"
+    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
+    "orderbydate": "Order by date",
+    "orderbytype": "Order by type",
+    "moment": {
+      "duration": "Duration",
+      "days": "Day(s)",
+      "weeks": "Week(s)",
+      "months": "Month(s)",
+      "years": "Year(s)"
+    }
   },
   "therapy": {
     "newtherapy": "New Therapy",

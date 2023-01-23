@@ -21,7 +21,7 @@
     @include susy-media($tablet_land) {
       padding: 0px 10px;
     }
-    @include susy-media($tablet_port) {
+    @include susy-media($tablet_land) {
       width: 50%;
     }
     @include susy-media($smartphone) {

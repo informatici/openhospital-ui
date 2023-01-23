@@ -15,6 +15,7 @@ import {
   GET_PATIENT_SUCCESS,
   SEARCH_PATIENT_FAIL,
   SEARCH_PATIENT_LOADING,
+  SEARCH_PATIENT_RESET,
   SEARCH_PATIENT_SUCCESS,
   UPDATE_PATIENT_FAIL,
   UPDATE_PATIENT_LOADING,
@@ -85,6 +86,14 @@ export const createPatientReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_PATIENT_RESET,
+    });
+  };
+
+export const searchPatientReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: SEARCH_PATIENT_RESET,
     });
   };
 

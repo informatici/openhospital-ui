@@ -9,7 +9,7 @@ import React, {
   useRef,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
@@ -18,6 +18,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   searchPatient,
   getPatientSuccess,
+  searchPatientReset,
 } from "../../../state/patients/actions";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -39,11 +40,16 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   getPatientSuccess,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
     [t("nav.searchpatient")]: PATHS.patients_new,
   };
+
+  useEffect(() => {
+    dispatch(searchPatientReset());
+  }, []);
 
   const errorMessage = useSelector<IState>(
     (state) =>

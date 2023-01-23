@@ -24,6 +24,4 @@ export type TherapyFormFieldName =
   | "freqInPeriod"
   | "startDate"
   | "endDate"
-  | "notifyInt"
-  | "smsInt"
   | "note";
