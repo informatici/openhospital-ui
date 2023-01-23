@@ -314,7 +314,8 @@
     "invaliddate": "Invalid Date",
     "outofrange": "Out of range",
     "orderbydate": "Order by date",
-    "orderbytype": "Order by type"
+    "orderbytype": "Order by type",
+    "emptydataforfilter": "Empty data for the specified filter"
   },
   "therapy": {
     "newtherapy": "New Therapy",

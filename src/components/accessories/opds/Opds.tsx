@@ -84,7 +84,10 @@ export const Opds: FC = () => {
               return (
                 <>
                   <OpdFilterForm onSubmit={onSubmit} fields={fields} />
-                  <InfoBox type="warning" message={t("common.emptydata")} />
+                  <InfoBox
+                    type="warning"
+                    message={t("common.emptydataforfilter")}
+                  />
                 </>
               );
 
