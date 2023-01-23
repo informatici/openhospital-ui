@@ -14,7 +14,7 @@ const Footer: FunctionComponent = () => {
           APS
         </div>
         <div className="footer__infoBox__row">
-          Viale IV Novembre, 100 - 31100 Treviso - Italy
+          Viale IV Novembre, 70/E - 31100 Treviso - Italy
         </div>
         <div className="footer__infoBox__row">C.F. 94106980264</div>
         <div className="footer__infoBox__row">P.IVA 05182520261</div>
@@ -25,7 +25,11 @@ const Footer: FunctionComponent = () => {
         rel="noopener noreferrer"
         target="_blank"
       >
-        <img src={isfLogo} className="ISF__logo" alt="Informatici Senza Frontiere" />
+        <img
+          src={isfLogo}
+          className="ISF__logo"
+          alt="Informatici Senza Frontiere"
+        />
       </a>
     </div>
   );
