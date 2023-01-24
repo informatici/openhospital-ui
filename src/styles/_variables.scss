@@ -14,10 +14,15 @@ $c-color-info: #008000;
 $c-green: #00ff00;
 $c-red: #f00;
 
+$c-info: #234479;
+$c-warning: #896110;
+$c-info-light: #c4d4ef;
+$c-warning-light: #f7e3bb;
+
 $smartphone_small: 320px 400px;
 $smartphone_big: 401px 767px;
 $phone: 320px 474px;
-$watch:(
+$watch: (
   max-width: 320px,
 );
 $phablet: 475px 767px;

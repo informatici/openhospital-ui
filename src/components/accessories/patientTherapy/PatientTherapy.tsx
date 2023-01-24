@@ -20,10 +20,7 @@ import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import checkIcon from "../../../assets/check-icon.png";
-import {
-  updateFields,
-  updateTherapyFields,
-} from "../../../libraries/formDataHandling/functions";
+import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 

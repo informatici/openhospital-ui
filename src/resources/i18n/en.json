@@ -77,7 +77,8 @@
       "d3": "Adolescents",
       "d4": "Adult",
       "d5": "Elderly"
-    }
+    },
+    "operation": "Operation"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -160,8 +161,10 @@
     "newtriage": "Create new Triage",
     "edittriage": "Edit Triage",
     "ap": {
-      "max": "Max (mmHg)",
-      "min": "Min (mmHg)"
+      "max": "Arterial pressure max (mmHg)",
+      "min": "Arterial pressure min (mmHg)",
+      "lessthanmax": "Must be less than the max",
+      "morethanmin": "Must be greater than the min"
     },
     "auscultation": "Auscultation",
     "arterialpressure": "Arterial Pressure",
@@ -299,7 +302,7 @@
     "somethingwrong": "Something went wrong, please retry later.",
     "searchpatientinstruction": "If you don't have the patient ID, fill as many fields as possible and click search",
     "required": "This field is required",
-    "emptydata": "No data found!",
+    "emptydata": "No entry found!",
     "save": "Save",
     "code": "Code",
     "update": "update",
@@ -320,7 +323,19 @@
     "lessthan": "The value must not exceed {{value}}.",
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
-    "outofrange": "Out of range"
+    "outofrange": "Out of range",
+    "cancel": "Cancel",
+    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
+    "orderbydate": "Order by date",
+    "orderbytype": "Order by type",
+    "emptydataforfilter": "Empty data for the specified filter",
+    "moment": {
+      "duration": "Duration",
+      "days": "Day(s)",
+      "weeks": "Week(s)",
+      "months": "Month(s)",
+      "years": "Year(s)"
+    }
   },
   "therapy": {
     "newtherapy": "New Therapy",

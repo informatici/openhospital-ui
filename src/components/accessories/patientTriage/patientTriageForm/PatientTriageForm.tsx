@@ -70,20 +70,26 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     pex_rr: number()
       .min(0, t("common.greaterthan", { value: 0 }))
       .max(100, t("common.lessthan", { value: 100 })),
-    pex_ap_min: number().test({
-      name: "pex_ap_min",
-      message: t("common.outofrange"),
-      test: function (value) {
-        return this.parent.pex_ap_max >= value;
-      },
-    }),
-    pex_ap_max: number().test({
-      name: "pex_ap_max",
-      message: t("common.outofrange"),
-      test: function (value) {
-        return this.parent.pex_ap_min <= value;
-      },
-    }),
+    pex_ap_min: number()
+      .min(80, t("common.greaterthan", { value: 80 }))
+      .max(120, t("common.lessthan", { value: 120 }))
+      .test({
+        name: "pex_ap_min",
+        message: t("examination.ap.lessthanmax"),
+        test: function (value) {
+          return this.parent.pex_ap_max >= value;
+        },
+      }),
+    pex_ap_max: number()
+      .min(80, t("common.greaterthan", { value: 80 }))
+      .max(120, t("common.lessthan", { value: 120 }))
+      .test({
+        name: "pex_ap_max",
+        message: t("examination.ap.morethanmin"),
+        test: function (value) {
+          return this.parent.pex_ap_min <= value;
+        },
+      }),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
@@ -246,7 +252,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
               />
             </div>
 
-            <div className="patientTriageForm__item compressed">
+            <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("pex_ap_min")}
                 theme="regular"
@@ -257,7 +263,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 type="number"
                 disabled={isLoading}
               />
+            </div>
 
+            <div className="patientTriageForm__item">
               <TextField
                 field={formik.getFieldProps("pex_ap_max")}
                 theme="regular"

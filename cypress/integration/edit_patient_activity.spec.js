@@ -8,7 +8,7 @@ describe("EditPatientActivity spec", () => {
     cy.get("[class=editPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => {});
+  it.skip("should have access to the user credentials", () => { });
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");
@@ -54,13 +54,6 @@ describe("EditPatientActivity spec", () => {
       });
   });
 
-  it("should reset all the fields on the Reset button click", () => {
-    cy.get("[id=firstName]").clear().type("Marcelo");
-    cy.get("[class=patientDataForm]").contains("Reset").click();
-    cy.get("div.dialog__buttonSet").contains("Reset").click();
-    cy.get("[id=firstName]").should("have.value", "Antonio Carlos");
-  });
-
   it("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Marcelo");
     cy.get("[class=patientDataForm]").contains("Submit").click();
@@ -77,4 +70,20 @@ describe("EditPatientActivity spec", () => {
     cy.get("div.dialog__buttonSet").contains("Patient").click();
     cy.get("[class=patientDetails]");
   });
+
+  it("should return back to patient edit form", () => {
+    cy.authenticate(START_PATH);
+    cy.get("[class=editPatient]");
+  });
+
+  it("should not leave on the Cancel button click, if the Cancel button of the Cancel Dialog is click", () => {
+    cy.get("[id=firstName]").clear().type("Marcelo");
+    cy.get("[class=patientDataForm]").contains("Cancel").click();
+    cy.url().then(url => {
+      cy.get("div.dialog__buttonSet").contains("Keep").click();
+      cy.url().should('eq', url);
+    });
+    //cy.get("[id=firstName]").should("have.value", "Antonio Carlos");
+  });
+
 });
