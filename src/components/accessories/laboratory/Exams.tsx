@@ -30,7 +30,6 @@ import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const Exams: FC = () => {
