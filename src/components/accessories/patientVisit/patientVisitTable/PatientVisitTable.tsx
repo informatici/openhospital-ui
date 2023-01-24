@@ -8,7 +8,6 @@ import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { IProps } from "../../table/types";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 interface IOwnProps {
   shouldUpdateTable: boolean;

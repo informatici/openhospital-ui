@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { TherapyTransitionState } from "./types";
 import { initialFields } from "./consts";

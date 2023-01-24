@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
 import TherapyForm from "./therapyForm/TherapyForm";
 import "./styles.scss";

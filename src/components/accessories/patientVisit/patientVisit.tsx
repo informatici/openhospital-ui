@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
@@ -28,7 +22,6 @@ import { updateVisitFields } from "../../../libraries/formDataHandling/functions
 import { getWards } from "../../../state/ward/actions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientVisit: FunctionComponent = () => {
