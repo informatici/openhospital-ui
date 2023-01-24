@@ -4,7 +4,7 @@ import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
 import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import Table from "../../table/Table";
-import { IExamTableProps } from "./types";
+import { IExamTableProps, multipleResultsLabel } from "./types";
 import "./styles.scss";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
@@ -48,7 +48,10 @@ export const ExamTable: FC<IExamTableProps> = ({
           date: renderDate(e.date ?? ""),
           patName: e.patName ?? "",
           exam: e.exam ?? "",
-          result: e.result ?? "",
+          result:
+            e.result !== multipleResultsLabel
+              ? e.result ?? ""
+              : t("lab.multipleresults"),
           patientCode: e.patientCode ?? "",
         };
       });
