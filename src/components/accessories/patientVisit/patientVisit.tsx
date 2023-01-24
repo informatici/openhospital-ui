@@ -112,6 +112,10 @@ const PatientVisit: FunctionComponent = () => {
     scrollToElement(null);
   };
 
+  const addOperationCallback = () => {
+    setShowModal(true);
+  };
+
   const onEdit: (row: VisitDTO) => void = (row) => {
     setVisitToEdit(row);
     setCreationMode(false);
@@ -121,11 +125,6 @@ const PatientVisit: FunctionComponent = () => {
   const onOperationCreated: () => void = () => {
     setSelectedVisit({} as VisitDTO);
     setShowModal(false);
-  };
-
-  const onAddOperation = (value: VisitDTO) => {
-    setSelectedVisit(value);
-    setShowModal(true);
   };
 
   return (
@@ -144,6 +143,7 @@ const PatientVisit: FunctionComponent = () => {
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
+        addOperationCallback={addOperationCallback}
       />
 
       {changeStatus === "FAIL" && (
@@ -153,7 +153,6 @@ const PatientVisit: FunctionComponent = () => {
       )}
       <PatientVisitTable
         handleEdit={onEdit}
-        handleAddOperation={onAddOperation}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog
@@ -174,12 +173,7 @@ const PatientVisit: FunctionComponent = () => {
         description={t("visit.addoperationdesc")}
         open={showModal}
         onClose={onOperationCreated}
-        content={
-          <PatientOperation
-            onSuccess={onOperationCreated}
-            visit={selectedVisit}
-          />
-        }
+        content={<PatientOperation onSuccess={onOperationCreated} />}
       />
     </div>
   );

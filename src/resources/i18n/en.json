@@ -539,7 +539,8 @@
     "delete": "Delete",
     "discard": "Discard",
     "suspend": "Suspend",
-    "add": "Add"
+    "add": "Add",
+    "addoperation": "Add operation"
   },
   "picture": {
     "edit": "Edit picture",

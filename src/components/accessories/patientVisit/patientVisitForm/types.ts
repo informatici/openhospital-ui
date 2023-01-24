@@ -3,6 +3,7 @@ import { IForm } from "../../../../libraries/formDataHandling/types";
 interface IOwnProps {
   shouldResetForm: boolean;
   resetFormCallback: () => void;
+  addOperationCallback?: () => void;
 }
 export type TProps = IForm<TPatientVisitFormFieldName, any> & IOwnProps;
 

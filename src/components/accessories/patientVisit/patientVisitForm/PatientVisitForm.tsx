@@ -14,6 +14,7 @@ import { object, string } from "yup";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
+import AddIcon from "@material-ui/icons/Add";
 import TextField from "../../textField/TextField";
 import has from "lodash.has";
 import get from "lodash.get";
@@ -33,6 +34,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
+  addOperationCallback,
 }) => {
   const { t } = useTranslation();
 
@@ -191,6 +193,17 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
                 onClick={() => setOpenResetConfirmation(true)}
               >
                 {resetButtonLabel}
+              </Button>
+            </div>
+            <div className="add_button">
+              <Button
+                type="button"
+                onClick={() => addOperationCallback!()}
+                disabled={false}
+              >
+                {" "}
+                <AddIcon fontSize="small" />
+                {t("button.addoperation")}
               </Button>
             </div>
           </div>

@@ -11,10 +11,10 @@
     margin: 7px 0px;
     padding: 0px 15px;
     width: 33%;
-    &.fullWith{
+    &.fullWith {
       width: 100%;
     }
-    &.halfWidth{
+    &.halfWidth {
       width: 50%;
     }
     @include susy-media($narrow) {
@@ -35,15 +35,15 @@
       width: 100%;
     }
 
-    &.fullWidth{
+    &.fullWidth {
       width: 100%;
     }
 
-    &.compressed{
+    &.compressed {
       .textField {
         float: left;
         width: 50%;
-        &:nth-of-type(1){
+        &:nth-of-type(1) {
           padding-right: 10px;
         }
       }
@@ -60,7 +60,8 @@
     }
 
     .submit_button,
-    .reset_button {
+    .reset_button,
+    .add_button {
       .MuiButton-label {
         font-size: smaller;
         letter-spacing: 1px;

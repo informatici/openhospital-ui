@@ -8,17 +8,14 @@ import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { IProps } from "../../table/types";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
-  handleAddOperation: (row: any) => void;
 }
 
 const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
-  handleAddOperation,
 }) => {
   const { t } = useTranslation();
   const header = ["date", "duration"];
@@ -68,10 +65,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     handleEdit(data.find((item) => item.visitID === row?.visitID));
   };
 
-  const onAdd = (row?: VisitDTO) => {
-    handleAddOperation(data.find((item) => item.visitID === row?.visitID));
-  };
-
   return (
     <div className="PatientVisitTable">
       <h5>{t("common.previousentries")}</h5>
@@ -101,7 +94,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
                 rowsPerPage={5}
                 isCollapsabile={true}
                 onEdit={onEdit}
-                onAdd={onAdd}
                 addTitle={t("visit.addoperation")}
               />
             );
