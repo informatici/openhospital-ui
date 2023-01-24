@@ -16,7 +16,7 @@ export const MainRouter: React.FC = () => {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         {/* TODO: based on user profile, redirect to patient, dashboard or whatever */}
-        <Route index element={<Navigate to="/dashboard" replace />} />
+        <Route index element={<Navigate to="/patients" replace />} />
 
         <Route
           path="login"

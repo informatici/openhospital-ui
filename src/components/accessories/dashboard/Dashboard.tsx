@@ -7,6 +7,9 @@ import Footer from "../footer/Footer";
 import { DashboardContent } from "./dashboardContent/DashboardContent";
 import "./styles.scss";
 import { IStateProps, TProps } from "./types";
+import { Chart, registerables } from "chart.js";
+
+Chart.register(...registerables);
 
 const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
   const { t } = useTranslation();

@@ -11,9 +11,7 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { MainRouter } from "./routes";
 import { LocalizationProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
-import { Chart, registerables } from "chart.js";
 
-Chart.register(...registerables);
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
