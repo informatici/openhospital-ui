@@ -11,6 +11,7 @@ import { getAgeTypes } from "../../../../state/ageTypes/actions";
 import { getWards } from "../../../../state/ward/actions";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
+import { DataSummary } from "../summary/DataSummary";
 import "./styles.scss";
 import { IOwnProps } from "./types";
 import { useData } from "./useData";
@@ -42,6 +43,7 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
     dataByWards,
     wardStatus,
     success,
+    total,
   } = useData();
 
   return (
@@ -49,6 +51,10 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
       {success && (
         <div className="item">
           <Piechart title={t("admission.admissionbysex")} data={dataBySex} />
+          <DataSummary
+            label={t("admission.admregistered")}
+            value={total.toString()}
+          />
         </div>
       )}
       {admissionStatus === "LOADING" && (
@@ -61,6 +67,10 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
           <Barchart
             title={t("admission.admissionbyagetype")}
             data={dataByAgeType}
+          />
+          <DataSummary
+            label={t("admission.admregistered")}
+            value={total.toString()}
           />
         </div>
       )}
@@ -75,6 +85,10 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
             title={t("admission.admissionbytype")}
             data={dataByAdmissionType}
           />
+          <DataSummary
+            label={t("admission.admregistered")}
+            value={total.toString()}
+          />
         </div>
       )}
       {(admissionStatus === "LOADING" || admissionTypeStatus === "LOADING") && (
@@ -87,6 +101,10 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
           <Barchart
             title={t("admission.admissionbywards")}
             data={dataByWards}
+          />
+          <DataSummary
+            label={t("admission.admregistered")}
+            value={total.toString()}
           />
         </div>
       )}

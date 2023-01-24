@@ -6,9 +6,10 @@ import "./styles.scss";
 export const Barchart: FC<IOwnProps> = ({ data, title }) => {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: "bottom" as const,
       },
       title: {
         display: title !== undefined,

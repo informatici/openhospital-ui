@@ -67,5 +67,6 @@ export const useData = () => {
     dataByAgeType,
     dataBySex,
     success,
+    total: opds.length,
   };
 };

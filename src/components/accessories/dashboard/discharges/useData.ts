@@ -139,5 +139,6 @@ export const useData = () => {
     dataBySex,
     dataByWards,
     success,
+    total: discharges.length,
   };
 };

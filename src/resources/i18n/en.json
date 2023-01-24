@@ -506,7 +506,9 @@
     "dischargebysex": "Discharges by sex",
     "dischargebytype": "Discharges by type",
     "dischargebyagetype": "Discharges by age type",
-    "dischargebywards": "Discharges by wards"
+    "dischargebywards": "Discharges by wards",
+    "admregistered": "Admissions in the current period",
+    "disregistered": "Discharges in the current period"
   },
   "bill": {
     "title": "Welcome to Billing",

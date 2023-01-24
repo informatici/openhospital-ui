@@ -8,6 +8,7 @@ import { searchOpds } from "../../../../state/opds/actions";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
 import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
+import { DataSummary } from "../summary/DataSummary";
 import "./styles.scss";
 import { IOwnProps } from "./types";
 import { useData } from "./useData";
@@ -24,7 +25,7 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
     );
     dispatch(getAgeTypes());
   }, [dispatch, period]);
-  const { ageTypeStatus, opdStatus, dataByAgeType, dataBySex, success } =
+  const { ageTypeStatus, opdStatus, dataByAgeType, dataBySex, success, total } =
     useData();
 
   return (
@@ -32,6 +33,10 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
       {success && (
         <div className="item">
           <Piechart title={t("opd.opdbysex")} data={dataBySex} />
+          <DataSummary
+            label={t("opd.opdregistered")}
+            value={total.toString()}
+          />
         </div>
       )}
       {opdStatus === "LOADING" && (
@@ -42,6 +47,10 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
       {success && ageTypeStatus === "SUCCESS" && (
         <div className="item">
           <Barchart title={t("opd.opdbyagetype")} data={dataByAgeType} />
+          <DataSummary
+            label={t("opd.opdregistered")}
+            value={total.toString()}
+          />
         </div>
       )}
       {(opdStatus === "LOADING" || ageTypeStatus === "LOADING") && (

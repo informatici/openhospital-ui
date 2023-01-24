@@ -6,9 +6,10 @@ import "./styles.scss";
 export const Piechart: FC<IOwnProps> = ({ data, title }) => {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "right" as const,
+        position: "bottom" as const,
       },
       title: {
         display: title !== undefined,

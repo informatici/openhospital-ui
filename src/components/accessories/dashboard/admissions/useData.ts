@@ -136,5 +136,6 @@ export const useData = () => {
     dataBySex,
     dataByWards,
     success,
+    total: admissions.length,
   };
 };
