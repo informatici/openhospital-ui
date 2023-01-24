@@ -180,20 +180,22 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="patientVisitForm__buttonSet">
-            <div className="submit_button">
-              <Button type="submit" variant="contained" disabled={isLoading}>
-                {submitButtonLabel}
-              </Button>
-            </div>
-            <div className="reset_button">
-              <Button
-                type="reset"
-                variant="text"
-                disabled={isLoading}
-                onClick={() => setOpenResetConfirmation(true)}
-              >
-                {resetButtonLabel}
-              </Button>
+            <div className="visits_button">
+              <div className="submit_button">
+                <Button type="submit" variant="contained" disabled={isLoading}>
+                  {submitButtonLabel}
+                </Button>
+              </div>
+              <div className="reset_button">
+                <Button
+                  type="reset"
+                  variant="text"
+                  disabled={isLoading}
+                  onClick={() => setOpenResetConfirmation(true)}
+                >
+                  {resetButtonLabel}
+                </Button>
+              </div>
             </div>
             <div className="add_button">
               <Button
