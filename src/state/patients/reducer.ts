@@ -17,6 +17,10 @@ import {
   UPDATE_PATIENT_SUCCESS,
   GET_PATIENT_RESET,
   SEARCH_PATIENT_RESET,
+  GET_CITIES_LOADING,
+  GET_CITIES_SUCCESS,
+  GET_CITIES_FAIL,
+  GET_CITIES_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IPatientsState } from "./types";
@@ -136,6 +140,38 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
       draft.updatePatient.status = "IDLE";
       delete draft.updatePatient.error;
       delete draft.createPatient.data;
+      break;
+    }
+
+    /**
+     * GET CITIES
+     */
+    case GET_CITIES_LOADING: {
+      draft.getCities.status = "LOADING";
+      break;
+    }
+
+    case GET_CITIES_SUCCESS: {
+      if (action.payload.length > 0) {
+        draft.getCities.status = "SUCCESS";
+      } else {
+        draft.getCities.status = "SUCCESS_EMPTY";
+      }
+      draft.getCities.data = action.payload;
+      delete draft.getCities.error;
+      break;
+    }
+
+    case GET_CITIES_FAIL: {
+      draft.getCities.status = "FAIL";
+      draft.getCities.error = action.error;
+      break;
+    }
+
+    case GET_CITIES_RESET: {
+      draft.getCities.status = "IDLE";
+      draft.getCities.data = [];
+      delete draft.getCities.error;
       break;
     }
   }

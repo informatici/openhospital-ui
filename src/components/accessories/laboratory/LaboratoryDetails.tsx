@@ -1,6 +1,6 @@
 import { Person, Notes, AssignmentInd } from "@material-ui/icons";
 import isEmpty from "lodash.isempty";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -139,14 +139,6 @@ export const LaboratoryDetails: FC = () => {
                   </div>
                   <div className="labDetails__content__item__value">
                     {lab?.exam?.description ?? ""}
-                  </div>
-                </div>
-                <div className="labDetails__content__item">
-                  <div className="labDetails__content__item__label">
-                    {t("lab.material")}:
-                  </div>
-                  <div className="labDetails__content__item__value">
-                    {lab?.material ?? ""}
                   </div>
                 </div>
                 {lab?.exam?.procedure === 1 && (
