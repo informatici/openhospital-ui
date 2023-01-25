@@ -2,8 +2,8 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .patientAdmission {
-  .info-box-container {
-    margin-top: 24px;
+  .infoBox {
+    width: 100%;
   }
 
   .patientAdmissionTable {
@@ -24,8 +24,11 @@
     font-weight: 400;
     border: 1px solid $c-color-primary;
     border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+
     & > .icon {
-        width: 75px;
+      width: 75px;
     }
   }
 }

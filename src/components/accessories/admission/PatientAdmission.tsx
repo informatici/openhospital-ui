@@ -163,10 +163,7 @@ const PatientAdmission: FC = () => {
   return (
     <div className="patientAdmission">
       {!showForm && (
-        <div className={"patientAdmission__subtitle"}>
-          <div className={"icon"}></div>
-          <div className={"text"}>{t("admission.patientalreadyadmitted")}</div>
-        </div>
+        <InfoBox type="info" message={t("admission.patientalreadyadmitted")} />
       )}
       {showForm && (
         <AdmissionForm

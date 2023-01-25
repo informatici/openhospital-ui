@@ -33,6 +33,7 @@ import AutocompleteField from "../autocompleteField/AutocompleteField";
 import { useDispatch, useSelector } from "react-redux";
 import { getAgeTypes } from "../../../state/ageTypes/actions";
 import { getCities } from "../../../state/patients/actions";
+import { useNavigate } from "react-router-dom";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -43,6 +44,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
+  mode = "create",
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -92,9 +94,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const ageRangeOptions = useSelector((state: IState) =>
     state.ageTypes.getAllAgeTypes.data?.map((e) => ({
       value: e.code ?? "",
-      label: e.description ?? "",
+      label: e.code ? t("patient.agetypes." + e.code) : "",
     }))
   );
+
   const ageTypeOptions = [
     { value: "age", label: t("patient.age") },
     { value: "agetype", label: t("patient.agetype") },
@@ -171,6 +174,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   useEffect(() => {
     dispatch(getCities());
   }, [dispatch, shouldResetForm]);
+  const navigate = useNavigate();
+
+  const handleCancelEdit = () => {
+    setOpenResetConfirmation(false);
+    navigate(-1);
+  };
 
   return (
     <div className="patientDataForm">
@@ -337,11 +346,11 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           <div className="patientDataForm__item">
             <SelectField
               fieldName="bloodType"
+              onBlur={onBlurCallback("bloodType")}
               fieldValue={formik.values.bloodType}
               label={t("patient.bloodtype")}
               isValid={isValid("bloodType")}
               errorText={getErrorText("bloodType")}
-              onBlur={onBlurCallback("bloodType")}
               options={options.bloodType}
               disabled={isLoading}
               required={
@@ -527,20 +536,37 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
-              {resetButtonLabel}
+              {mode == "create" && resetButtonLabel}
+              {mode == "edit" && t("common.cancel")}
             </Button>
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={resetButtonLabel}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
+
+        {mode == "create" && (
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={resetButtonLabel.toUpperCase()}
+            info={t("common.resetform")}
+            icon={warningIcon}
+            primaryButtonLabel={resetButtonLabel}
+            secondaryButtonLabel={t("common.discard")}
+            handlePrimaryButtonClick={handleResetConfirmation}
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          />
+        )}
+
+        {mode == "edit" && (
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={t("common.cancel").toUpperCase()}
+            info={t("common.discardconfirmationmessage")}
+            icon={warningIcon}
+            primaryButtonLabel={t("common.cancel")}
+            secondaryButtonLabel={t("common.keepediting")}
+            handlePrimaryButtonClick={handleCancelEdit}
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          />
+        )}
       </form>
     </div>
   );
