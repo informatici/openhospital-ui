@@ -70,6 +70,14 @@
     "summary": "Summary",
     "discharge": "Discharge",
     "visits": "Visits",
+    "agetypes" : {
+      "d0": "New Born",
+      "d1": "Early Childhood",
+      "d2": "Late Childhood",
+      "d3": "Adolescents",
+      "d4": "Adult",
+      "d5": "Elderly"
+    },
     "operation": "Operation"
   },
   "opd": {
@@ -561,5 +569,15 @@
     "cs": "Czech",
     "sq": "Albanian",
     "zh": "Chinese"
+  },
+  "angal": {
+    "agetype" : {
+      "newborn": "New Born",
+      "earlychildhood": "Early Childhood",
+      "latechildhood": "Late Childhood",
+      "adolescents": "Adolescents",
+      "adult": "Adult",
+      "elderly": "Elderly"
+    }
   }
 }
