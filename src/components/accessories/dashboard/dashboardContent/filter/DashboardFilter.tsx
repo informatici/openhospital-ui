@@ -47,11 +47,9 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 
   const handleSelectionChange = useCallback(
     (event: any, value: any) => {
+      console.log(value);
       if (!isEmpty(value)) {
-        if (value === "custom") {
-        } else {
-          setSelection(value as TPeriodType);
-        }
+        setSelection(value as TPeriodType);
       }
     },
     [selection]
@@ -92,48 +90,62 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
           <ToggleButton value="year">
             <span>{t("dashboard.period.year")}</span>
           </ToggleButton>
+          <ToggleButton value="range">
+            <span>{"Custom"}</span>
+          </ToggleButton>
         </ToggleButtonGroup>
 
-        <ToggleButtonGroup
-          className="options"
-          value={selection}
-          exclusive
-          onChange={handleSelectionChange}
-        >
-          <ToggleButton value="current">
-            <span>{t(`dashboard.period.${view}s.current`)}</span>
-          </ToggleButton>
-          <ToggleButton value="previous">
-            <span>{t(`dashboard.period.${view}s.previous`)}</span>
-          </ToggleButton>
-          <ToggleButton value="last2">
-            <span>{t(`dashboard.period.${view}s.last2`)}</span>
-          </ToggleButton>
-          <ToggleButton value="last3">
-            <span>{t(`dashboard.period.${view}s.last3`)}</span>
-          </ToggleButton>
-          <ToggleButton value="custom">
-            <span>{period ?? "Custom"}</span>
-            <DateRangeField
-              fieldName="period"
-              isValid={true}
-              fieldValue={dateRange}
-              format="dd/MM/YYY"
-              onClose={() => setOpen(false)}
-              onChange={handleDateRangeChange}
-              TextFieldComponent={(props) => (
-                <IconButton
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                >
-                  <CalendarTodaySharp />
-                </IconButton>
-              )}
-              open={open}
-            />
-          </ToggleButton>
-        </ToggleButtonGroup>
+        {view !== "range" && (
+          <ToggleButtonGroup
+            className="options"
+            value={selection}
+            exclusive
+            onChange={handleSelectionChange}
+          >
+            <ToggleButton value="current">
+              <span>{t(`dashboard.period.${view}s.current`)}</span>
+            </ToggleButton>
+            <ToggleButton value="previous">
+              <span>{t(`dashboard.period.${view}s.previous`)}</span>
+            </ToggleButton>
+            <ToggleButton value="last2">
+              <span>{t(`dashboard.period.${view}s.last2`)}</span>
+            </ToggleButton>
+            <ToggleButton value="last3">
+              <span>{t(`dashboard.period.${view}s.last3`)}</span>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        )}
+        {view === "range" && (
+          <ToggleButtonGroup
+            className="options"
+            value={selection}
+            exclusive
+            onChange={handleSelectionChange}
+          >
+            <ToggleButton value="custom">
+              <span>{period ?? "Custom"}</span>
+              <DateRangeField
+                fieldName="period"
+                isValid={true}
+                fieldValue={dateRange}
+                format="dd/MM/YYY"
+                onClose={() => setOpen(false)}
+                onChange={handleDateRangeChange}
+                TextFieldComponent={(props) => (
+                  <IconButton
+                    onClick={() => {
+                      setOpen(!open);
+                    }}
+                  >
+                    <CalendarTodaySharp />
+                  </IconButton>
+                )}
+                open={open}
+              />
+            </ToggleButton>
+          </ToggleButtonGroup>
+        )}
       </div>
     </div>
   );
