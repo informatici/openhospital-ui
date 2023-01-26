@@ -13,7 +13,6 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
-  getAdmissionsByPatientId,
   getCurrentAdmissionByPatientId,
   updateAdmission,
   updateAdmissionReset,
@@ -30,9 +29,8 @@ const PatientAdmission: FC = () => {
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [admissionToEdit, setAdmissionToEdit] = useState<
-    AdmissionDTO | undefined
-  >();
+  const [admissionToEdit, setAdmissionToEdit] =
+    useState<AdmissionDTO | undefined>();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");

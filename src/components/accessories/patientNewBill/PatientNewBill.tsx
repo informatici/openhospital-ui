@@ -100,7 +100,6 @@ const PatientNewBill: FC = () => {
       scrollToElement(infoBoxRef.current);
     }
     if (status === "SUCCESS") {
-      dispatch(getPendingBills(patient?.code ?? 0));
       navigate(`/details/${patient.code ?? ""}/billsrecord`);
     }
   }, [status]);

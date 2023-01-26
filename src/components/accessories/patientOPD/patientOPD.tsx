@@ -9,7 +9,6 @@ import {
   createOpdReset,
   deleteOpd,
   deleteOpdReset,
-  getOpds,
   updateOpd,
   updateOpdReset,
 } from "../../../state/opds/actions";

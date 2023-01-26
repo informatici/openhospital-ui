@@ -17,7 +17,6 @@ import {
   deleteLabReset,
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
-  getLabsByPatientId,
   getMaterials,
   updateLab,
   updateLabReset,
