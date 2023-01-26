@@ -11,13 +11,11 @@ import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
-  handleAddOperation: (row: any) => void;
 }
 
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
-  handleAddOperation,
 }) => {
   const { t } = useTranslation();
   const header = ["visitDate", "disease"];
@@ -70,10 +68,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     handleEdit(data.find((item) => item.code === row?.code));
   };
 
-  const onAdd = (row?: OpdDTO) => {
-    handleAddOperation(data.find((item) => item.code === row?.code));
-  };
-
   return (
     <div className="patientOpdTable">
       <h5>{t("common.previousentries")}</h5>
@@ -87,7 +81,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
           rowsPerPage={5}
           isCollapsabile={true}
           onEdit={onEdit}
-          onAdd={onAdd}
           addTitle={t("opd.addoperation")}
         />
       ) : (

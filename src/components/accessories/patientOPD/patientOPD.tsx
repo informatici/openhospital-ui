@@ -143,6 +143,10 @@ const PatientOPD: FunctionComponent = () => {
     setShowModal(true);
   };
 
+  const addOperationCallback = () => {
+    setShowModal(true);
+  };
+
   return (
     <div className="patientOpd">
       <PatientExtraData />
@@ -159,6 +163,7 @@ const PatientOPD: FunctionComponent = () => {
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
+        addOperationCallback={addOperationCallback}
       />
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
@@ -167,7 +172,6 @@ const PatientOPD: FunctionComponent = () => {
       )}
       <PatientOPDTable
         handleEdit={onEdit}
-        handleAddOperation={onAddOperation}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog

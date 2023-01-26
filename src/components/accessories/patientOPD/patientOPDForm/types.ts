@@ -4,6 +4,7 @@ interface IOwnProps {
   creationMode: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
+  addOperationCallback?: () => void;
 }
 export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
 

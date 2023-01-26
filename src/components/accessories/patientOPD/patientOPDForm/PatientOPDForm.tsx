@@ -35,6 +35,7 @@ import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import CheckboxField from "../../checkboxField/CheckboxField";
 import { isEmpty } from "lodash";
+import AddIcon from "@material-ui/icons/Add";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -45,6 +46,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
+  addOperationCallback,
 }) => {
   const { t } = useTranslation();
 
@@ -319,19 +321,32 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="patientOpdForm__buttonSet">
-            <div className="submit_button">
-              <Button type="submit" variant="contained" disabled={isLoading}>
-                {submitButtonLabel}
-              </Button>
+            <div className="visits_button">
+              <div className="submit_button">
+                <Button type="submit" variant="contained" disabled={isLoading}>
+                  {submitButtonLabel}
+                </Button>
+              </div>
+              <div className="reset_button">
+                <Button
+                  type="reset"
+                  variant="text"
+                  disabled={isLoading}
+                  onClick={() => setOpenResetConfirmation(true)}
+                >
+                  {resetButtonLabel}
+                </Button>
+              </div>
             </div>
-            <div className="reset_button">
+            <div className="add_button">
               <Button
-                type="reset"
-                variant="text"
-                disabled={isLoading}
-                onClick={() => setOpenResetConfirmation(true)}
+                type="button"
+                onClick={() => addOperationCallback!()}
+                disabled={false}
               >
-                {resetButtonLabel}
+                {" "}
+                <AddIcon fontSize="small" />
+                {t("button.addoperation")}
               </Button>
             </div>
           </div>

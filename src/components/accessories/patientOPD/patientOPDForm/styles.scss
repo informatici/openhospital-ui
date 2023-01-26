@@ -23,7 +23,7 @@
   align-items: center;
   width: 100%;
 
-  .formInsertMode{
+  .formInsertMode {
     margin: 0px 0px 20px;
   }
 
@@ -31,7 +31,7 @@
     margin: 7px 0px;
     padding: 0px 15px;
     width: 33%;
-    &.fullWidth{
+    &.fullWidth {
       width: 100%;
     }
     @include susy-media($narrow) {
@@ -52,15 +52,15 @@
       width: 100%;
     }
 
-    &.fullWidth{
+    &.fullWidth {
       width: 100%;
     }
 
-    &.compressed{
+    &.compressed {
       .textField {
         float: left;
         width: 50%;
-        &:nth-of-type(1){
+        &:nth-of-type(1) {
           padding-right: 10px;
         }
       }
@@ -75,9 +75,15 @@
     @include susy-media($smartphone_small) {
       display: block;
     }
-
+    .visits_button {
+      display: flex;
+      flex-direction: row-reverse;
+      @include susy-media($smartphone_small) {
+        display: block;
+      }
+    }
     .submit_button,
-    .reset_button {
+    .reset_button .add_button {
       .MuiButton-label {
         font-size: smaller;
         letter-spacing: 1px;
