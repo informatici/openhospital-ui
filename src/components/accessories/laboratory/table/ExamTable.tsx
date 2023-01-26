@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../../generated";
+import { LaboratoryForPrintDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
-import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import Table from "../../table/Table";
 import { IExamTableProps, multipleResultsLabel } from "./types";
 import "./styles.scss";
@@ -37,7 +36,6 @@ export const ExamTable: FC<IExamTableProps> = ({
     result: t("lab.result"),
   };
   const order = ["id", "date", "patName", "exam", "result"];
-  const [laboratory, setLaboratory] = useState({} as LaboratoryForPrintDTO);
 
   const formatDataToDisplay = (data: LaboratoryForPrintDTO[]) => {
     let results: any = [];
