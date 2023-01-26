@@ -2,7 +2,8 @@ const HOSTNAME = Cypress.env("HOSTNAME");
 const START_PATH_INPATIENT = `${HOSTNAME}/patients/details/2`;
 const START_PATH_OUTPATIENT = `${HOSTNAME}/patients/details/1234563`;
 
-describe("Patient Details / Visit - Inpatient", () => {
+//both inpatient and out-patient used the same opd form now!
+describe.skip("Patient Details / Visit - Inpatient", () => {
   before(() => {
     cy.authenticate(START_PATH_INPATIENT);
   });

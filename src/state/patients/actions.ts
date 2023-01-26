@@ -9,6 +9,9 @@ import {
   CREATE_PATIENT_LOADING,
   CREATE_PATIENT_RESET,
   CREATE_PATIENT_SUCCESS,
+  GET_CITIES_FAIL,
+  GET_CITIES_LOADING,
+  GET_CITIES_SUCCESS,
   GET_PATIENT_FAIL,
   GET_PATIENT_LOADING,
   GET_PATIENT_RESET,
@@ -191,6 +194,36 @@ export const getPatientThunk =
       (error) => {
         dispatch({
           type: GET_PATIENT_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const getCities =
+  () =>
+  (dispatch: Dispatch<IAction<string[], {}>>): void => {
+    dispatch({
+      type: GET_CITIES_LOADING,
+    });
+
+    patientControllerApi.getPatientCitiesUsingGET().subscribe(
+      (payload) => {
+        if (Array.isArray(payload)) {
+          dispatch({
+            type: GET_CITIES_SUCCESS,
+            payload,
+          });
+        } else {
+          dispatch({
+            type: GET_CITIES_FAIL,
+            error: { message: "Unexpected response payload" },
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: GET_CITIES_FAIL,
           error: error?.response,
         });
       }
