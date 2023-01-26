@@ -15,6 +15,7 @@ export interface IProps {
   startLabel?: string;
   endLabel?: string;
   format: string;
+  onClose: () => void;
   onChange: (value: DateRange<Date>) => void;
   shouldDisableDate?: (date: any) => boolean;
   renderDay?: (

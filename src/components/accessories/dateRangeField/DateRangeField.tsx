@@ -21,6 +21,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
   disabled,
   theme,
   format,
+  onClose,
   onChange,
   shouldDisableDate,
   required = FIELD_VALIDATION.IDLE,
@@ -98,6 +99,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
           </div>
         )
       }
+      onClose={onClose}
       okText={okLabel}
       cancelText={cancelLabel}
       open={open}

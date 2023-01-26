@@ -22,6 +22,14 @@
     align-items: center;
     box-shadow: 1px lighten($color: $c-gray, $amount: 10);
     column-gap: 8px;
+    .options {
+      button {
+        padding: 5px 15px;
+        & button {
+          padding: 0px 0px 0px 10px;
+        }
+      }
+    }
   }
   .filter__actions {
     display: flex;
