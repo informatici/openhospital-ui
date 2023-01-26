@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {
   DateRange,
-  DesktopDateRangePicker,
   MobileDateRangePicker,
   RangeInput,
 } from "@material-ui/pickers";
@@ -30,17 +29,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
   TextFieldComponent,
   allowSameDateSelection = true,
 }) => {
-  const [value, setValue] = useState<DateRange<Date>>([null, null]);
-
-  useEffect(() => {
-    setValue(fieldValue);
-  }, [fieldValue]);
-
-  const handleDateChange = (date: DateRange<Date>) => {
-    setValue(date);
-  };
-
-  const onAccept = (value: any) => {
+  const onChangeHandler = (value: any) => {
     onChange(value);
   };
 
@@ -51,8 +40,8 @@ const DateRangeField: FunctionComponent<IProps> = ({
       inputFormat={format}
       disabled={disabled}
       disableFuture={disableFuture}
-      onChange={handleDateChange}
-      value={value as RangeInput<Date>}
+      onChange={() => {}}
+      value={fieldValue}
       shouldDisableDate={shouldDisableDate}
       allowSameDateSelection={allowSameDateSelection}
       renderInput={(
@@ -101,7 +90,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
       okText={okLabel}
       cancelText={cancelLabel}
       open={open}
-      onAccept={onAccept}
+      onAccept={onChangeHandler}
       disableCloseOnSelect={false}
       allowKeyboardControl
     />
