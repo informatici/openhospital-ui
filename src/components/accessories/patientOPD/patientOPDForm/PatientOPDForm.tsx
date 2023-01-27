@@ -21,21 +21,42 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Checkbox,
+  createSvgIcon,
   FormControl,
   FormControlLabel,
   FormLabel,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
   Radio,
   RadioGroup,
+  styled,
 } from "@material-ui/core";
-import { DiseaseDTO, OpdDTO } from "../../../../generated";
+import { DiseaseDTO, OpdDTO, OperationRowDTO } from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import CheckboxField from "../../checkboxField/CheckboxField";
 import { isEmpty } from "lodash";
 import AddIcon from "@material-ui/icons/Add";
+import FileIcon from "@material-ui/icons/Label";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { FilterList } from "@material-ui/icons";
+import { CustomDialog } from "../../customDialog/CustomDialog";
+import PatientOperation from "../../patientOperation/PatientOperation";
+import ContentCutIcon from "../../icons/content-cut";
+import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
+import { OperationRowFormFieldName } from "../../patientOperation/operationForm/types";
+import { getOperations } from "../../../../state/operations/actions";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -46,7 +67,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
-  addOperationCallback,
+  operationsRowFields,
 }) => {
   const { t } = useTranslation();
 
@@ -88,6 +109,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const diseases = useSelector<IState, DiseaseDTO[]>(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
+  const username = useSelector(
+    (state: IState) => state.main.authentication.data?.username
+  );
 
   const formik = useFormik({
     initialValues,
@@ -111,6 +135,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       onSubmit(opdToSave);
     },
   });
+  const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
+  const [showModal, setShowModal] = useState(false);
+  const handleAddOperationRow = (values: OperationRowDTO) => {
+    //setShouldResetForm(false);
+    let opRow: OperationRowDTO = values;
+    opRow.prescriber = username;
+    setOperationRows((state) => [...state, opRow]);
+    if (!isChecked) setShowModal(false);
+  };
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -154,12 +187,17 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     resetFormCallback();
   };
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
+  useEffect(() => {
+    dispatch(getOperations());
+  }, [dispatch]);
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
@@ -177,6 +215,47 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     [setFieldValue]
   );
 
+  const [dense, setDense] = React.useState(false);
+  function generate(element: React.ReactElement) {
+    return operationRows.map((value) =>
+      React.cloneElement(element, {
+        opd: value,
+      })
+    );
+  }
+
+  const [selectedOpd, setSelectedOpd] = useState({} as OpdDTO);
+
+  const onOperationCreated = () => {
+    setSelectedOpd({} as OpdDTO);
+    setShowModal(false);
+  };
+
+  const onAddOperation = (value: OpdDTO) => {
+    setSelectedOpd(value);
+    setShowModal(true);
+  };
+
+  const [isChecked, setIsChecked] = useState(false);
+  const handleAddChecboxChange = (event: any) => {
+    setIsChecked(event.target.checked);
+
+    // 👇️ this is the checkbox itself
+    console.log(event.target);
+
+    // 👇️ this is the checked value of the field
+    console.log(event.target.checked);
+  };
+  const handleRemoveOperationRow = (value: OperationRowDTO) => () => {
+    let ops = [...operationRows];
+    const indx = ops.findIndex(
+      (it) => it.operation?.code === value.operation?.code
+    );
+    if (indx > -1) {
+      ops.splice(indx, 1);
+    }
+    setOperationRows((state) => [...ops]);
+  };
   return (
     <>
       <div className="patientOpdForm">
@@ -320,6 +399,51 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               />
             </div>
           </div>
+          <div className="row start-sm center-xs">
+            <div className="patientOpdForm__item fullWidth">
+              <details>
+                <summary>
+                  {" "}
+                  <ContentCutIcon
+                    fontSize="small"
+                    className="operation_icon"
+                  />{" "}
+                  Patient Operations
+                </summary>
+                <List dense={true} className="opd_operations">
+                  {operationRows.map((value) => (
+                    <ListItem>
+                      <ListItemIcon>
+                        <FileIcon color="primary" />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          value.operation?.code +
+                          " " +
+                          value.operation?.description
+                        }
+                        secondary={renderDate(value.opDate!)}
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          onClick={handleRemoveOperationRow(value)}
+                          edge="end"
+                          aria-label="delete"
+                        >
+                          <DeleteIcon color="primary" />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                  {operationRows.length <= 0 && (
+                    <span className="empty_operation_rows">
+                      No operation added yet!
+                    </span>
+                  )}
+                </List>
+              </details>
+            </div>
+          </div>
           <div className="patientOpdForm__buttonSet">
             <div className="visits_button">
               <div className="submit_button">
@@ -341,7 +465,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <div className="add_button">
               <Button
                 type="button"
-                onClick={() => addOperationCallback!()}
+                onClick={() => onAddOperation({})}
                 disabled={false}
               >
                 {" "}
@@ -362,6 +486,37 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           />
         </form>
       </div>
+      <CustomDialog
+        title={t("opd.addoperation")}
+        description={t("opd.addoperationdesc")}
+        open={showModal}
+        onClose={onOperationCreated}
+        content={
+          <>
+            <OperationRowForm
+              fields={operationsRowFields}
+              onSubmit={handleAddOperationRow}
+              creationMode={creationMode}
+              submitButtonLabel={
+                creationMode ? t("common.save") : t("common.update")
+              }
+              resetButtonLabel={t("common.reset")}
+              shouldResetForm={shouldResetForm}
+              resetFormCallback={resetFormCallback}
+              isLoading={false}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isChecked}
+                  onChange={handleAddChecboxChange}
+                />
+              }
+              label="Add another operation row"
+            />
+          </>
+        }
+      />
     </>
   );
 };

@@ -21,9 +21,9 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
-import PatientOperation from "../patientOperation/PatientOperation";
-import { CustomDialog } from "../customDialog/CustomDialog";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
+
+import { initialFields as operationFields } from "../patientOperation/consts";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -133,16 +133,6 @@ const PatientOPD: FunctionComponent = () => {
     dispatch(deleteOpd(code));
   };
 
-  const onOperationCreated = () => {
-    setSelectedOpd({} as OpdDTO);
-    setShowModal(false);
-  };
-
-  const onAddOperation = (value: OpdDTO) => {
-    setSelectedOpd(value);
-    setShowModal(true);
-  };
-
   const addOperationCallback = () => {
     setShowModal(true);
   };
@@ -156,6 +146,7 @@ const PatientOPD: FunctionComponent = () => {
             ? initialFields
             : updateOpdFields(initialFields, opdToEdit)
         }
+        operationsRowFields={operationFields}
         creationMode={creationMode}
         onSubmit={onSubmit}
         submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
@@ -163,7 +154,6 @@ const PatientOPD: FunctionComponent = () => {
         isLoading={changeStatus === "LOADING"}
         shouldResetForm={shouldResetForm}
         resetFormCallback={resetFormCallback}
-        addOperationCallback={addOperationCallback}
       />
       {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
         <div ref={infoBoxRef}>
@@ -195,13 +185,6 @@ const PatientOPD: FunctionComponent = () => {
         primaryButtonLabel={t("common.ok")}
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => {}}
-      />
-      <CustomDialog
-        title={t("opd.addoperation")}
-        description={t("opd.addoperationdesc")}
-        open={showModal}
-        onClose={onOperationCreated}
-        content={<PatientOperation opd={selectedOpd} />}
       />
     </div>
   );

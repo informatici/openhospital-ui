@@ -67,6 +67,27 @@
     }
   }
 
+  details {
+    border: 0px solid $c-grey-lighter;
+    border-width: thin;
+    border-radius: 4px;
+    padding: 5px;
+    .empty_operation_rows {
+      color: $c-grey-lighter;
+      display: table;
+      margin: 0 auto;
+    }
+  }
+  details > summary {
+    margin-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    .operation_icon {
+      margin-right: 5px;
+    }
+  }
   .patientOpdForm__buttonSet {
     display: flex;
     margin-top: 25px;

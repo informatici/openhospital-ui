@@ -69,9 +69,10 @@ const OperationRowForm: FC<OperationRowProps> = ({
         name: "opDate",
         message: t("operation.dateafteradmission"),
         test: function (value) {
-          return moment(currentAdmission?.admDate ?? "").isBefore(
-            moment(value)
-          );
+          //  return moment(currentAdmission?.admDate ?? "").isBefore(
+          //   moment(value)
+          // );
+          return true;
         },
       }),
     transUnit: number(),
