@@ -5,6 +5,6 @@ export type IOperationState = {
   operationList: IApiResponse<Array<OperationDTO>>;
   createOperationRow: IApiResponse<OperationRowDTO>;
   updateOperationRow: IApiResponse<OperationRowDTO>;
-  deleteOperationRow: IApiResponse<null>;
+  deleteOperationRow: IApiResponse<OperationRowDTO>;
   operationRowsByQdmt: IApiResponse<Array<OperationRowDTO>>;
 };

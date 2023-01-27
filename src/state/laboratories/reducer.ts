@@ -205,8 +205,8 @@ export default produce(
         draft.updateLab.status = "SUCCESS";
         draft.updateLab.data = action.payload;
         draft.labsByPatientId.data = draft.labsByPatientId.data?.map((e) => {
-          return e.code === action.payload.code
-            ? (action.payload as LaboratoryDTO)
+          return e.laboratoryDTO?.code === action.payload.laboratoryDTO?.code
+            ? action.payload
             : e;
         });
         delete draft.updateLab.error;
@@ -233,7 +233,7 @@ export default produce(
       case DELETE_LAB_SUCCESS: {
         draft.deleteLab.status = "SUCCESS";
         draft.labsByPatientId.data = draft.labsByPatientId.data?.filter(
-          (e) => e.code === action.payload.code
+          (e) => e.laboratoryDTO?.code !== action.payload.code
         );
         delete draft.deleteLab.error;
         break;

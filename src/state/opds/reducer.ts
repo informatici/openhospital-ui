@@ -148,7 +148,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case DELETE_OPD_SUCCESS: {
       draft.deleteOpd.status = "SUCCESS";
       draft.getOpds.data = draft.getOpds.data?.filter(
-        (e) => e.code === action.payload.code
+        (e) => e.code !== action.payload?.code
       );
       delete draft.deleteOpd.error;
       break;

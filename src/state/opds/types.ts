@@ -6,5 +6,5 @@ export type IOpdState = {
   searchOpds: IApiResponse<Array<OpdDTO>>;
   createOpd: IApiResponse<OpdDTO>;
   updateOpd: IApiResponse<OpdDTO>;
-  deleteOpd: IApiResponse<null>;
+  deleteOpd: IApiResponse<OpdDTO>;
 };

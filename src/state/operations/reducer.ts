@@ -176,7 +176,7 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
       draft.deleteOperationRow.status = "SUCCESS";
       draft.deleteOperationRow.data = action.payload;
       draft.operationRowsByQdmt.data = draft.operationRowsByQdmt.data?.filter(
-        (e) => e.id === action.payload.id
+        (e) => e.id !== action.payload?.id
       );
       delete draft.deleteOperationRow.error;
       break;
