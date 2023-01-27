@@ -118,6 +118,12 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav_items">
               <div
                 className="appHeader__nav__item"
+                onClick={() => navigate(PATHS.dashboard)}
+              >
+                {t("nav.dashboard")}
+              </div>
+              <div
+                className="appHeader__nav__item"
                 onClick={() => navigate(PATHS.patients)}
               >
                 {t("nav.patients")}

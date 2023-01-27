@@ -10,7 +10,12 @@ export interface IDispatchProps {
   createAdmission: (adm: AdmissionDTO) => any;
   createAdmissionReset: () => void;
   getMedicals: () => void;
-  getAdmissionsByPatientId: (ptaientCode: number | undefined) => void;
+  getAdmissions: (query: {
+    patientcode?: number | undefined;
+    admissionrange?: string[] | undefined;
+    dischargerange?: string[] | undefined;
+    searchterms?: string | undefined;
+  }) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;

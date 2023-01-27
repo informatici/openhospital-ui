@@ -5,7 +5,9 @@ export const userRoutes = (server) => {
     server.get("/me").intercept((req, res) => {
       res.status(200).json({
         userName: "admin",
-        permission: permissionList,
+        permissions: permissionList,
+        userGroupName: "ADMIN",
+        userDesc: "John Doe"
       });
     });
   });

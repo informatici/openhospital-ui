@@ -12,7 +12,7 @@ import LargeButton from "../../accessories/largeButton/LargeButton";
 import "./styles.scss";
 import { IStateProps, TProps, TActivityTransitionState } from "./types";
 
-const DashboardActivity: FunctionComponent<TProps> = ({
+const PatientDashboardActivity: FunctionComponent<TProps> = ({
   userCredentials,
   newPatientRoute,
   searchPatientRoute,
@@ -88,4 +88,4 @@ const mapStateToProps = (state: IState): IStateProps => ({
   userCredentials: state.main.authentication.data,
 });
 
-export default connect(mapStateToProps)(DashboardActivity);
+export default connect(mapStateToProps)(PatientDashboardActivity);

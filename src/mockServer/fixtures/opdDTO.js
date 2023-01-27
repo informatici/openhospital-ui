@@ -18,6 +18,7 @@ const opdDTO = {
   newPatient: "N",
   referralFrom: "R",
   referralTo: "R",
+  ageType: "d0",
   lock: 0,
   userID: "admin",
   prescription: "Paracetamol 500mg tablets - 1 box"

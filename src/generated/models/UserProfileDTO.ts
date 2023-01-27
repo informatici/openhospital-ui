@@ -20,10 +20,22 @@ export interface UserProfileDTO {
      * @type {Array<string>}
      * @memberof UserProfileDTO
      */
-    permission?: Array<string>;
+    permissions?: Array<string>;
     /**
      * @type {string}
      * @memberof UserProfileDTO
      */
     userName?: string;
+    /**
+     * the name of the group of user
+     * @type {string}
+     * @memberof UserProfileDTO
+     */
+    userGroupName?: string;
+    /**
+     * full name of user
+     * @type {string}
+     * @memberof UserProfileDTO
+     */
+    userDesc?: string;
 }

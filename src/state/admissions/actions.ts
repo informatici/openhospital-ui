@@ -1,4 +1,5 @@
 import { isEmpty } from "lodash";
+import moment from "moment";
 import { Dispatch } from "redux";
 import { AdmissionControllerApi, AdmissionDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
@@ -20,10 +21,18 @@ import {
   GET_CURRENTADMISSION_FAIL,
   GET_CURRENTADMISSION_LOADING,
   GET_CURRENTADMISSION_SUCCESS,
+  GET_ADMISSIONS_FAIL,
+  GET_ADMISSIONS_LOADING,
+  GET_ADMISSIONS_SUCCESS,
+  GET_ADMISSIONS_SUCCESS_EMPTY,
   UPDATE_ADMISSION_FAIL,
   UPDATE_ADMISSION_LOADING,
   UPDATE_ADMISSION_RESET,
   UPDATE_ADMISSION_SUCCESS,
+  GET_ONGOING_ADMISSIONS_FAIL,
+  GET_ONGOING_ADMISSIONS_LOADING,
+  GET_ONGOING_ADMISSIONS_SUCCESS,
+  GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
@@ -135,43 +144,109 @@ export const updateAdmissionReset =
     });
   };
 
-export const getAdmissionsByPatientId =
-  (patientCode: number | undefined) =>
+export const getAdmittedPatients =
+  (query: {
+    admissionrange: string[] | undefined;
+    dischargerange: string[] | undefined;
+    searchterms: string | undefined;
+  }) =>
   (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
     dispatch({
-      type: GET_ADMISSION_LOADING,
+      type: GET_ADMISSIONS_LOADING,
     });
-    if (patientCode) {
-      admissionControllerApi
-        .getPatientAdmissionsUsingGET({ patientCode })
-        .subscribe(
-          (payload) => {
-            if (Array.isArray(payload) && payload.length > 0) {
-              dispatch({
-                type: GET_ADMISSION_SUCCESS,
-                payload: payload,
-              });
-            } else {
-              dispatch({
-                type: GET_ADMISSION_SUCCESS_EMPTY,
-                payload: [],
-              });
-            }
-          },
-          (error) => {
+
+    admissionControllerApi
+      .getAdmittedPatientsUsingGET({
+        admissionrange: query.admissionrange ?? [],
+        dischargerange: query.dischargerange ?? [],
+        searchterms: query.searchterms,
+      })
+      .subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: GET_ADMISSION_FAIL,
-              error,
+              type: GET_ADMISSIONS_SUCCESS,
+              payload: payload.map((e) => e.admission),
+            });
+          } else {
+            dispatch({
+              type: GET_ADMISSIONS_SUCCESS_EMPTY,
+              payload: [],
             });
           }
-        );
-    } else {
-      dispatch({
-        type: GET_ADMISSION_FAIL,
-        error: "The patient code should not be null",
-      });
-    }
+        },
+        (error) => {
+          dispatch({
+            type: GET_ADMISSIONS_FAIL,
+            error: error?.response,
+          });
+        }
+      );
   };
+
+export const getAdmissions =
+  (query: {
+    patientcode?: number | undefined;
+    admissionrange?: string[] | undefined;
+    dischargerange?: string[] | undefined;
+    searchterms?: string | undefined;
+  }) =>
+  (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
+    dispatch({
+      type: GET_ADMISSIONS_LOADING,
+    });
+    admissionControllerApi.getAdmissionsUsingGET(query).subscribe(
+      (payload) => {
+        if (Array.isArray(payload) && payload.length > 0) {
+          dispatch({
+            type: GET_ADMISSIONS_SUCCESS,
+            payload: payload,
+          });
+        } else {
+          dispatch({
+            type: GET_ADMISSIONS_SUCCESS_EMPTY,
+            payload: [],
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: GET_ADMISSIONS_FAIL,
+          error,
+        });
+      }
+    );
+  };
+
+export const getOngoingAdmissions =
+  () =>
+  (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
+    dispatch({
+      type: GET_ONGOING_ADMISSIONS_LOADING,
+    });
+    admissionControllerApi.getAdmittedPatientsUsingGET({}).subscribe(
+      (payload) => {
+        if (Array.isArray(payload) && payload.length > 0) {
+          dispatch({
+            type: GET_ONGOING_ADMISSIONS_SUCCESS,
+            payload: payload.map((e) => e.admission),
+          });
+        } else {
+          dispatch({
+            type: GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
+            payload: [],
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: GET_ONGOING_ADMISSIONS_FAIL,
+          error,
+        });
+      }
+    );
+  };
+
 export const getCurrentAdmissionByPatientId =
   (patientCode: number | undefined) =>
   (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {

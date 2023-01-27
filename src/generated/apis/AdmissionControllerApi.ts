@@ -12,7 +12,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, COLLECTION_FORMATS, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     AdmissionDTO,
     AdmittedPatientDTO,
@@ -27,13 +27,20 @@ export interface DischargePatientUsingPOSTRequest {
     currentAdmissionDTO: AdmissionDTO;
 }
 
-export interface GetAdmissionsUsingGETRequest {
+export interface GetAdmissionUsingGETRequest {
     id: number;
 }
 
+export interface GetAdmissionsUsingGETRequest {
+    patientcode?: number;
+    admissionrange?: Array<string>;
+    dischargerange?: Array<string>;
+    searchterms?: string;
+}
+
 export interface GetAdmittedPatientsUsingGETRequest {
-    admissionrange?: string;
-    dischargerange?: string;
+    admissionrange?: Array<string>;
+    dischargerange?: Array<string>;
     searchterms?: string;
 }
 
@@ -43,10 +50,6 @@ export interface GetCurrentAdmissionUsingGETRequest {
 
 export interface GetNextYProgUsingGETRequest {
     warcode: string;
-}
-
-export interface GetPatientAdmissionsUsingGETRequest {
-    patientCode: number;
 }
 
 export interface GetUsedWardBedUsingGETRequest {
@@ -115,10 +118,10 @@ export class AdmissionControllerApi extends BaseAPI {
     /**
      * getAdmissions
      */
-    getAdmissionsUsingGET({ id }: GetAdmissionsUsingGETRequest): Observable<AdmissionDTO>
-    getAdmissionsUsingGET({ id }: GetAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
-    getAdmissionsUsingGET({ id }: GetAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
-        throwIfNullOrUndefined(id, 'id', 'getAdmissionsUsingGET');
+    getAdmissionUsingGET({ id }: GetAdmissionUsingGETRequest): Observable<AdmissionDTO>
+    getAdmissionUsingGET({ id }: GetAdmissionUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionDTO>>
+    getAdmissionUsingGET({ id }: GetAdmissionUsingGETRequest, opts?: OperationOpts): Observable<AdmissionDTO | RawAjaxResponse<AdmissionDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getAdmissionUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -128,6 +131,32 @@ export class AdmissionControllerApi extends BaseAPI {
             url: '/admissions/{id}'.replace('{id}', encodeURI(id)),
             method: 'GET',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getAdmissions
+     */
+    getAdmissionsUsingGET({ patientcode, admissionrange, dischargerange, searchterms }: GetAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>>
+    getAdmissionsUsingGET({ patientcode, admissionrange, dischargerange, searchterms }: GetAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AdmissionDTO>>>
+    getAdmissionsUsingGET({ patientcode, admissionrange, dischargerange, searchterms }: GetAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<Array<AdmissionDTO> | RawAjaxResponse<Array<AdmissionDTO>>> {
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = {};
+
+        if (patientcode != null) { query['patientcode'] = patientcode; }
+        if (admissionrange != null) { query['admissionrange'] = admissionrange.join(COLLECTION_FORMATS['csv']); }
+        if (dischargerange != null) { query['dischargerange'] = dischargerange.join(COLLECTION_FORMATS['csv']); }
+        if (searchterms != null) { query['searchterms'] = searchterms; }
+
+        return this.request<Array<AdmissionDTO>>({
+            url: '/admissions',
+            method: 'GET',
+            headers,
+            query,
         }, opts?.responseOpts);
     };
 
@@ -144,8 +173,8 @@ export class AdmissionControllerApi extends BaseAPI {
 
         const query: HttpQuery = {};
 
-        if (admissionrange != null) { query['admissionrange'] = admissionrange; }
-        if (dischargerange != null) { query['dischargerange'] = dischargerange; }
+        if (admissionrange != null) { query['admissionrange'] = admissionrange.join(COLLECTION_FORMATS['csv']); }
+        if (dischargerange != null) { query['dischargerange'] = dischargerange.join(COLLECTION_FORMATS['csv']); }
         if (searchterms != null) { query['searchterms'] = searchterms; }
 
         return this.request<Array<AdmittedPatientDTO>>({
@@ -198,30 +227,6 @@ export class AdmissionControllerApi extends BaseAPI {
 
         return this.request<number>({
             url: '/admissions/getNextProgressiveIdInYear',
-            method: 'GET',
-            headers,
-            query,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * getPatientAdmissions
-     */
-    getPatientAdmissionsUsingGET({ patientCode }: GetPatientAdmissionsUsingGETRequest): Observable<Array<AdmissionDTO>>
-    getPatientAdmissionsUsingGET({ patientCode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AdmissionDTO>>>
-    getPatientAdmissionsUsingGET({ patientCode }: GetPatientAdmissionsUsingGETRequest, opts?: OperationOpts): Observable<Array<AdmissionDTO> | RawAjaxResponse<Array<AdmissionDTO>>> {
-        throwIfNullOrUndefined(patientCode, 'patientCode', 'getPatientAdmissionsUsingGET');
-
-        const headers: HttpHeaders = {
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'patientCode': patientCode,
-        };
-
-        return this.request<Array<AdmissionDTO>>({
-            url: '/admissions',
             method: 'GET',
             headers,
             query,
