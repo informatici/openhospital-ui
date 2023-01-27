@@ -3,13 +3,7 @@ import { Add } from "@material-ui/icons";
 import React, { FC, Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Route,
-  Routes,
-  Navigate,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilter, initialFilterFields } from "./consts";
@@ -26,12 +20,11 @@ import {
 import {
   deleteLab,
   deleteLabReset,
-  getLabWithRowsByCodeReset,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { LaboratoryForPrintDTO } from "../../../generated";
+import { LaboratoryForPrintDTO, LabWithRowsDTO } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";

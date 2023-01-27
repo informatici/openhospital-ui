@@ -1,14 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -34,18 +27,15 @@ import PatientPicker from "../../patientPicker/PatientPicker";
 import { ExamProps, ExamTransitionState } from "./type";
 import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
 import {
-  getMaterials,
   createLabReset,
   updateLabReset,
   deleteLabReset,
   updateLab,
   createLab,
-  deleteLab,
 } from "../../../../state/laboratories/actions";
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
-import { PATHS } from "../../../../consts";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -68,7 +58,6 @@ const ExamForm: FC<ExamProps> = ({
   const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
 
   useEffect(() => {
-    dispatch(getMaterials());
     dispatch(getExams());
     dispatch(createLabReset());
     dispatch(updateLabReset());
@@ -111,6 +100,7 @@ const ExamForm: FC<ExamProps> = ({
     lab.examDate = parseDate(lab.examDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
+    lab.material = "angal.lab.urine"; // material needs to be removed from backend env
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;
@@ -153,26 +143,11 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    material: string().required(t("common.required")),
     result: string(),
   });
 
   const initialValues = getFromFields(fields, "value");
   const [rowsData, setRowsData] = useState([...labToEditRows]);
-
-  const materialOptionsSelector = (state: IState) => {
-    if (state.laboratories.materials.data) {
-      return state.laboratories.materials.data.map((item) => {
-        return {
-          value: item,
-          label: item,
-        };
-      });
-    } else return [];
-  };
-  const materials = useSelector((state: IState) =>
-    materialOptionsSelector(state)
-  );
 
   const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
     if (exams) {
@@ -313,10 +288,6 @@ const ExamForm: FC<ExamProps> = ({
     (state: IState) => state.exams.examRowsByExamCode.status === "LOADING"
   );
 
-  const materialsLoading = useSelector(
-    (state: IState) => state.laboratories.materials.status === "LOADING"
-  );
-
   const examsLoading = useSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
   );
@@ -334,7 +305,7 @@ const ExamForm: FC<ExamProps> = ({
       <div className="patientExamForm">
         <h5 className="formInsertMode">
           {creationMode
-            ? t("lab.newlab")
+            ? t("lab.newlab") + " thanks"
             : t("lab.editlab") + ": " + renderDate(formik.values.examDate)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
@@ -375,19 +346,6 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("exam")}
                 options={examOptionsSelector(examList)}
                 isLoading={examsLoading}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientExamForm__item">
-              <AutocompleteField
-                fieldName="material"
-                fieldValue={formik.values.material}
-                label={t("lab.material")}
-                isValid={isValid("material")}
-                errorText={getErrorText("material")}
-                onBlur={onBlurCallback("material")}
-                options={materials}
-                isLoading={materialsLoading}
                 disabled={isLoading}
               />
             </div>
