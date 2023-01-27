@@ -8,6 +8,7 @@ import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getAdmissions } from "../../../../state/admissions/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -19,6 +20,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("admission.update");
 
   const header = ["admDate", "disDate"];
   const dateFields = ["admDate", "disDate"];
@@ -121,7 +123,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={onEdit}
+                onEdit={canUpdate ? onEdit : undefined}
                 initialOrderBy="disDate"
                 showEmptyCell={false}
               />

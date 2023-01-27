@@ -7,8 +7,6 @@ import { OpdDTO } from "../../../generated";
 import {
   createOpd,
   createOpdReset,
-  deleteOpd,
-  deleteOpdReset,
   updateOpd,
   updateOpdReset,
 } from "../../../state/opds/actions";
@@ -24,6 +22,7 @@ import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -35,15 +34,9 @@ const PatientOPD: FunctionComponent = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
   const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
-
   const [selectedOpd, setSelectedOpd] = useState({} as OpdDTO);
-
   const [showModal, setShowModal] = useState(false);
-
   const [creationMode, setCreationMode] = useState(true);
-
-  const [deletedObjCode, setDeletedObjCode] = useState("");
-
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
@@ -54,15 +47,11 @@ const PatientOPD: FunctionComponent = () => {
       ? state.opds.createOpd.status
       : state.opds.updateOpd.status;
   });
-  const deleteStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.deleteOpd.status
-  );
 
   const errorMessage = useSelector<IState, string>(
     (state) =>
       state.opds.createOpd.error?.message ||
       state.opds.updateOpd.error?.message ||
-      state.opds.deleteOpd.error?.message ||
       t("common.somethingwrong")
   );
 
@@ -76,7 +65,6 @@ const PatientOPD: FunctionComponent = () => {
   useEffect(() => {
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
-    dispatch(deleteOpdReset());
     dispatch(getDiseasesOpd());
   }, [dispatch]);
 
@@ -94,7 +82,6 @@ const PatientOPD: FunctionComponent = () => {
       setCreationMode(true);
       dispatch(createOpdReset());
       dispatch(updateOpdReset());
-      dispatch(deleteOpdReset());
       setShouldResetForm(true);
     }
   }, [dispatch, activityTransitionState]);
@@ -116,7 +103,6 @@ const PatientOPD: FunctionComponent = () => {
     setCreationMode(true);
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
-    dispatch(deleteOpdReset());
     setActivityTransitionState("IDLE");
     setShouldUpdateTable(false);
     scrollToElement(null);
@@ -126,11 +112,6 @@ const PatientOPD: FunctionComponent = () => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
-  };
-
-  const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteOpd(code));
   };
 
   const onOperationCreated = () => {
@@ -145,60 +126,61 @@ const PatientOPD: FunctionComponent = () => {
 
   return (
     <div className="patientOpd">
-      <PatientExtraData />
-      <PatientOPDForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateOpdFields(initialFields, opdToEdit)
-        }
-        creationMode={creationMode}
-        onSubmit={onSubmit}
-        submitButtonLabel={creationMode ? t("opd.saveopd") : t("opd.updateopd")}
-        resetButtonLabel={t("common.reset")}
-        isLoading={changeStatus === "LOADING"}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-      />
-      {(changeStatus === "FAIL" || deleteStatus === "FAIL") && (
-        <div ref={infoBoxRef}>
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
-      <PatientOPDTable
-        handleEdit={onEdit}
-        handleAddOperation={onAddOperation}
-        shouldUpdateTable={shouldUpdateTable}
-      />
-      <ConfirmationDialog
-        isOpen={changeStatus === "SUCCESS"}
-        title={creationMode ? t("opd.created") : t("opd.updated")}
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("opd.createsuccess")
-            : t("opd.updatesuccess", { code: opdToEdit.code })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <ConfirmationDialog
-        isOpen={deleteStatus === "SUCCESS"}
-        title={t("opd.deleted")}
-        icon={checkIcon}
-        info={t("common.deletesuccess", { code: deletedObjCode })}
-        primaryButtonLabel={t("common.ok")}
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => {}}
-      />
-      <CustomDialog
-        title={t("opd.addoperation")}
-        description={t("opd.addoperationdesc")}
-        open={showModal}
-        onClose={onOperationCreated}
-        content={<PatientOperation opd={selectedOpd} />}
-      />
+      <Permission require={creationMode ? "opd.create" : "opd.update"}>
+        <PatientExtraData />
+        <PatientOPDForm
+          fields={
+            creationMode
+              ? initialFields
+              : updateOpdFields(initialFields, opdToEdit)
+          }
+          creationMode={creationMode}
+          onSubmit={onSubmit}
+          submitButtonLabel={
+            creationMode ? t("opd.saveopd") : t("opd.updateopd")
+          }
+          resetButtonLabel={t("common.reset")}
+          isLoading={changeStatus === "LOADING"}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+        />
+        {changeStatus === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        <ConfirmationDialog
+          isOpen={changeStatus === "SUCCESS"}
+          title={creationMode ? t("opd.created") : t("opd.updated")}
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("opd.createsuccess")
+              : t("opd.updatesuccess", { code: opdToEdit.code })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
+        />
+      </Permission>
+      <Permission require="opd.read">
+        <PatientOPDTable
+          handleEdit={onEdit}
+          handleAddOperation={onAddOperation}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+      </Permission>
+      <Permission require="operation.create">
+        <CustomDialog
+          title={t("opd.addoperation")}
+          description={t("opd.addoperationdesc")}
+          open={showModal}
+          onClose={onOperationCreated}
+          content={<PatientOperation opd={selectedOpd} />}
+        />
+      </Permission>
     </div>
   );
 };

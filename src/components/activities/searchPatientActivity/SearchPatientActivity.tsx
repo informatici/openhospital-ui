@@ -14,6 +14,7 @@ import { object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { formatAllFieldValues } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   searchPatient,
@@ -157,91 +158,96 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       <div className="searchPatient__background">
         <div className="container">
           <div className="searchPatient__title">{t("nav.searchpatient")}</div>
-          <form className="searchPatient__panel" onSubmit={formik.handleSubmit}>
-            <div className="searchPatient__primary">
-              <div className="row center-xs">
-                <div className="searchPatient__formItem">
-                  <TextField
-                    theme="light"
-                    field={formik.getFieldProps("id")}
-                    label={t("patient.patientID")}
-                    isValid={isValid("id")}
-                    errorText={getErrorText("id")}
-                    onBlur={formik.handleBlur}
-                  />
+          <Permission require="patient.read">
+            <form
+              className="searchPatient__panel"
+              onSubmit={formik.handleSubmit}
+            >
+              <div className="searchPatient__primary">
+                <div className="row center-xs">
+                  <div className="searchPatient__formItem">
+                    <TextField
+                      theme="light"
+                      field={formik.getFieldProps("id")}
+                      label={t("patient.patientID")}
+                      isValid={isValid("id")}
+                      errorText={getErrorText("id")}
+                      onBlur={formik.handleBlur}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="searchPatient__buttonContainer">
-              <Button
-                className="searchPatient__button"
-                type="submit"
-                disabled={searchStatus === "LOADING"}
-              >
-                <SearchIcon width="20" height="20" />
-                <div className="searchPatient__button__label">
-                  {t("common.search")}
-                </div>
-              </Button>
-            </div>
-            <div className="searchPatient__secondary">
-              <div className="searchPatient__info">
-                {t("common.searchpatientinstruction")}
+              <div className="searchPatient__buttonContainer">
+                <Button
+                  className="searchPatient__button"
+                  type="submit"
+                  disabled={searchStatus === "LOADING"}
+                >
+                  <SearchIcon width="20" height="20" />
+                  <div className="searchPatient__button__label">
+                    {t("common.search")}
+                  </div>
+                </Button>
               </div>
-              <div className="row center-xs">
-                <div className="searchPatient__formItem">
-                  <TextField
-                    field={formik.getFieldProps("firstName")}
-                    theme="regular"
-                    label={t("patient.firstname")}
-                    isValid={isValid("firstName")}
-                    errorText={getErrorText("firstName")}
-                    onBlur={formik.handleBlur}
-                    disabled={isSearchById}
-                  />
+              <div className="searchPatient__secondary">
+                <div className="searchPatient__info">
+                  {t("common.searchpatientinstruction")}
                 </div>
-                <div className="searchPatient__formItem">
-                  <TextField
-                    field={formik.getFieldProps("secondName")}
-                    theme="regular"
-                    label={t("patient.secondname")}
-                    isValid={isValid("secondName")}
-                    errorText={getErrorText("secondName")}
-                    onBlur={formik.handleBlur}
-                    disabled={isSearchById}
-                  />
+                <div className="row center-xs">
+                  <div className="searchPatient__formItem">
+                    <TextField
+                      field={formik.getFieldProps("firstName")}
+                      theme="regular"
+                      label={t("patient.firstname")}
+                      isValid={isValid("firstName")}
+                      errorText={getErrorText("firstName")}
+                      onBlur={formik.handleBlur}
+                      disabled={isSearchById}
+                    />
+                  </div>
+                  <div className="searchPatient__formItem">
+                    <TextField
+                      field={formik.getFieldProps("secondName")}
+                      theme="regular"
+                      label={t("patient.secondname")}
+                      isValid={isValid("secondName")}
+                      errorText={getErrorText("secondName")}
+                      onBlur={formik.handleBlur}
+                      disabled={isSearchById}
+                    />
+                  </div>
+                </div>
+                <div className="row center-xs">
+                  <div className="searchPatient__formItem">
+                    <DateField
+                      theme={"regular"}
+                      fieldName="birthDate"
+                      fieldValue={formik.values.birthDate}
+                      disableFuture={false}
+                      disabled={isSearchById}
+                      format="dd/MM/yyyy"
+                      isValid={isValid("birthDate")}
+                      errorText={getErrorText("birthDate")}
+                      label={t("patient.birthdate")}
+                      onChange={dateFieldHandleOnChange("birthDate")}
+                    />
+                  </div>
+                  <div className="searchPatient__formItem">
+                    <TextField
+                      field={formik.getFieldProps("address")}
+                      theme="regular"
+                      label={t("patient.address")}
+                      isValid={isValid("address")}
+                      errorText={getErrorText("address")}
+                      onBlur={formik.handleBlur}
+                      disabled={isSearchById}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="row center-xs">
-                <div className="searchPatient__formItem">
-                  <DateField
-                    theme={"regular"}
-                    fieldName="birthDate"
-                    fieldValue={formik.values.birthDate}
-                    disableFuture={false}
-                    disabled={isSearchById}
-                    format="dd/MM/yyyy"
-                    isValid={isValid("birthDate")}
-                    errorText={getErrorText("birthDate")}
-                    label={t("patient.birthdate")}
-                    onChange={dateFieldHandleOnChange("birthDate")}
-                  />
-                </div>
-                <div className="searchPatient__formItem">
-                  <TextField
-                    field={formik.getFieldProps("address")}
-                    theme="regular"
-                    label={t("patient.address")}
-                    isValid={isValid("address")}
-                    errorText={getErrorText("address")}
-                    onBlur={formik.handleBlur}
-                    disabled={isSearchById}
-                  />
-                </div>
-              </div>
-            </div>
-          </form>
-          <div ref={resultsRef}>{renderSearchResults()}</div>
+            </form>
+            <div ref={resultsRef}>{renderSearchResults()}</div>
+          </Permission>
         </div>
       </div>
       <Footer />

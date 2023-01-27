@@ -15,6 +15,8 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router";
 import { BASE_PATH } from "../../../generated";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
@@ -130,20 +132,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 
-      <div
-        className={
-          "align__element patientDetails__main_menu__item " +
-          isActive("discharge")
-        }
-        onClick={() => {
-          changeUserSection("discharge");
-        }}
-      >
-        <ExitToApp fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.discharge")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
-
+      <Permission require="admission.update">
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("discharge")
+          }
+          onClick={() => {
+            changeUserSection("discharge");
+          }}
+        >
+          <ExitToApp fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.discharge")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      </Permission>
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("clinic")
