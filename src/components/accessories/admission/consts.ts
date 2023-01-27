@@ -12,6 +12,10 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "10",
     type: "number",
   },
+  fhu: {
+    value: "",
+    type: "text",
+  },
   admDate: {
     value: parseDate(Date.now().toString()),
     type: "date",

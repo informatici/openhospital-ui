@@ -67,7 +67,7 @@ export const setAuthenticationThunk =
             type: SET_AUTHENTICATION_SUCCESS,
             payload: {
               ...(userCredentials as LoginResponse),
-              permission: (me as UserProfileDTO)?.permission,
+              ...(me as UserProfileDTO),
             },
           });
         },
