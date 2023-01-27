@@ -81,7 +81,7 @@ const PatientAdmission: FC = () => {
     } else {
       let admissionToSave: AdmissionDTO = {
         ...admissionToEdit,
-        transUnit: adm.transUnit,
+        fhu: adm.fhu,
         admDate: adm.admDate,
         admType: adm.admType,
         diseaseIn: adm.diseaseIn,

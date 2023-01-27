@@ -61,26 +61,11 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    material: string().required(t("common.required")),
     result: string(),
   });
 
   const initialValues = getFromFields(fields, "value");
   const [rowsData, setRowsData] = useState([...labToEditRows]);
-
-  const materialOptionsSelector = (state: IState) => {
-    if (state.laboratories.materials.data) {
-      return state.laboratories.materials.data.map((item) => {
-        return {
-          value: item,
-          label: item,
-        };
-      });
-    } else return [];
-  };
-  const materials = useSelector((state: IState) =>
-    materialOptionsSelector(state)
-  );
 
   const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
     if (exams) {
@@ -216,10 +201,6 @@ const ExamForm: FC<ExamProps> = ({
     (state: IState) => state.exams.examRowsByExamCode.status === "LOADING"
   );
 
-  const materialsLoading = useSelector(
-    (state: IState) => state.laboratories.materials.status === "LOADING"
-  );
-
   const examsLoading = useSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
   );
@@ -258,19 +239,6 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("exam")}
                 options={examOptionsSelector(examList)}
                 isLoading={examsLoading}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientExamForm__item">
-              <AutocompleteField
-                fieldName="material"
-                fieldValue={formik.values.material}
-                label={t("lab.material")}
-                isValid={isValid("material")}
-                errorText={getErrorText("material")}
-                onBlur={onBlurCallback("material")}
-                options={materials}
-                isLoading={materialsLoading}
                 disabled={isLoading}
               />
             </div>

@@ -98,6 +98,7 @@ const PatientExams: FC = () => {
     lab.examDate = parseDate(lab.examDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
+    lab.material = "angal.lab.urine";
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;

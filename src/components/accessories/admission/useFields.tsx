@@ -34,6 +34,10 @@ export const useFields = (admission?: AdmissionDTO) => {
       value: admission?.transUnit?.toString() ?? "",
       type: "number",
     },
+    fhu: {
+      value: admission?.fhu ?? "",
+      type: "text",
+    },
     disType: {
       value: admission?.disType?.code ?? "",
       type: "text",

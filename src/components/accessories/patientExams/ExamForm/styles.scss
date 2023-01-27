@@ -7,14 +7,14 @@
   align-items: center;
   width: 100%;
 
-  .formInsertMode{
+  .formInsertMode {
     margin: 0px 0px 20px;
   }
 
   .patientExamForm__item {
     margin: 7px 0px;
     padding: 0px 15px;
-    width: 33.33%;
+    width: 50%;
     @include susy-media($narrow) {
       padding: 0px 10px;
     }

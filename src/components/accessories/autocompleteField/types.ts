@@ -18,5 +18,13 @@ export interface IProps {
   id?: string;
   onChange?: (e: object, val: any | null) => void;
   optionsComparator?: (option: any, val: string | number) => boolean;
+  autoSelect?: boolean;
+  clearOnBlur?: boolean;
+  selectOnFocus?: boolean;
+  handleHomeEndKeys?: boolean;
+  options_limit?: number;
 }
-export type DefaultOptionType = { value: string | number; label: string };
+export type DefaultOptionType = {
+  value: string | number | JSX.Element;
+  label: string;
+};
