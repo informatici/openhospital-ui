@@ -5,7 +5,9 @@ import { IApiResponse } from "../types";
 export type TUserCredentials = LoginResponse | undefined;
 
 export interface IAuthentication extends LoginResponse {
-  permission: TPermission[];
+  permissions: TPermission[];
+  userGroupName: string;
+  userDesc: string;
 }
 
 export interface IMainState {

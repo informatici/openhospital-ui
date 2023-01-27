@@ -22,12 +22,17 @@ export const useAuthentication = () => {
     } catch (e) {
       if (userCredentials) {
         // hydrate session from redux
-        const { username, token, permission } = userCredentials;
+        const { username, token, permissions, userDesc, userGroupName } =
+          userCredentials;
         saveAuthenticationDataToSession({
           username,
           token,
         });
-        savePermissionDataToSession({ permission });
+        savePermissionDataToSession({
+          permissions,
+          userDesc,
+          userGroupName,
+        });
       }
     }
   }, [userCredentials, dispatch]);

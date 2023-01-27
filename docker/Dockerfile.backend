@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM maven:3.6.0-jdk-11
-=======
 FROM maven:3.8.6-jdk-11
->>>>>>> 4d2304f8bd89c5823aab8f4a6878aa87e20ad067
 
 ARG GITHUB_ORG=intesys
 ARG OH_CORE_BRANCH=staging3Test
