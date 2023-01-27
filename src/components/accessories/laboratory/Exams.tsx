@@ -3,13 +3,7 @@ import { Add } from "@material-ui/icons";
 import React, { FC, Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Route,
-  Routes,
-  Navigate,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilter, initialFilterFields } from "./consts";
@@ -26,7 +20,6 @@ import {
 import {
   deleteLab,
   deleteLabReset,
-  getLabWithRowsByCodeReset,
   searchLabs,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
@@ -89,8 +82,10 @@ export const Exams: FC = () => {
     dispatch(deleteLab(code));
   };
 
-  const errorMessage = useSelector(
-    (state: IState) => state.laboratories.searchLabs.error?.message
+  const errorMessage = useSelector((state: IState) =>
+    state.laboratories.searchLabs.error?.message
+      ? state.laboratories.searchLabs.error?.message
+      : t("common.somethingwrong")
   );
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status

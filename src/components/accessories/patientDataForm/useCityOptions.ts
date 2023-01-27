@@ -1,7 +1,5 @@
-import cityOptions from "../../../customization/city-options.json";
-
-export const useCityOptions = () => {
-  return cityOptions.cityOptions.map((e) => ({
+export const useCityOptions = (cities: Array<string> | undefined) => {
+  return cities?.map((e) => ({
     label: e,
     value: e,
   }));

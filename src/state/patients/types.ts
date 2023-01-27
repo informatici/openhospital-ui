@@ -6,4 +6,5 @@ export type IPatientsState = {
   searchResults: IApiResponse<Array<PatientDTO>>;
   selectedPatient: IApiResponse<PatientDTO>;
   updatePatient: IApiResponse<PatientDTO>;
+  getCities: IApiResponse<Array<string>>;
 };

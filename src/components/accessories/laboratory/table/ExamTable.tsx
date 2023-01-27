@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LaboratoryForPrintDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
 import Table from "../../table/Table";
 import { IExamTableProps, multipleResultsLabel } from "./types";
@@ -11,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
+import { LaboratoryForPrintWithRows } from "../../../../state/laboratories/types";
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
@@ -37,20 +37,20 @@ export const ExamTable: FC<IExamTableProps> = ({
   };
   const order = ["id", "date", "patName", "exam", "result"];
 
-  const formatDataToDisplay = (data: LaboratoryForPrintDTO[]) => {
+  const formatDataToDisplay = (data: LaboratoryForPrintWithRows[]) => {
     let results: any = [];
     if (data)
       results = data.map((e) => {
         return {
-          id: e.code ?? "",
-          date: renderDate(e.date ?? ""),
-          patName: e.patName ?? "",
-          exam: e.exam ?? "",
+          id: e.laboratoryForPrintDTO?.code ?? "",
+          date: renderDate(e.laboratoryForPrintDTO?.date ?? ""),
+          patName: e.laboratoryForPrintDTO?.patName ?? "",
+          exam: e.laboratoryForPrintDTO?.exam ?? "",
           result:
-            e.result !== multipleResultsLabel
-              ? e.result ?? ""
+            e.laboratoryForPrintDTO?.result !== multipleResultsLabel //CASE OF PROC2
+              ? e.laboratoryForPrintDTO?.result ?? ""
               : t("lab.multipleresults"),
-          patientCode: e.patientCode ?? "",
+          patientCode: e.laboratoryForPrintDTO?.patientCode ?? "",
         };
       });
     return results;
@@ -73,12 +73,18 @@ export const ExamTable: FC<IExamTableProps> = ({
 
   const onEdit = (row: any) => {
     if (handleEdit !== undefined) {
-      handleEdit(data.find((item) => item.code === row.id) ?? {});
+      handleEdit(
+        data.find((item) => item.laboratoryForPrintDTO?.code === row.id)
+          ?.laboratoryForPrintDTO ?? {}
+      );
     }
   };
   const onDelete = (row: any) => {
     if (handleDelete !== undefined) {
-      handleDelete(data.find((item) => item.code === row.id)?.code);
+      handleDelete(
+        data.find((item) => item.laboratoryForPrintDTO?.code === row.id)
+          ?.laboratoryForPrintDTO?.code
+      );
     }
   };
 

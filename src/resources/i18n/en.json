@@ -70,7 +70,7 @@
     "summary": "Summary",
     "discharge": "Discharge",
     "visits": "Visits",
-    "agetypes" : {
+    "agetypes": {
       "d0": "New Born",
       "d1": "Early Childhood",
       "d2": "Late Childhood",
@@ -324,10 +324,13 @@
     "confirm": "Confirm",
     "invaliddate": "Invalid Date",
     "outofrange": "Out of range",
-    "cancel": "Cancel",
-    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
+    "invalidnumber": "Invalid number",
+    "invalidnumberinrange": "Invalid: number should be >= {{min}} and <= {{max}}",
     "orderbydate": "Order by date",
     "orderbytype": "Order by type",
+    "addnewoption": "Add",
+    "cancel": "Cancel",
+    "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
     "emptydataforfilter": "Empty data for the specified filter",
     "moment": {
       "duration": "Duration",
@@ -427,7 +430,8 @@
     "editadmission": "Edit admission",
     "diseaseIn": "Diagnosis In",
     "ward": "Ward",
-    "transUnit": "From Health Unit",
+    "transUnit": "Trans Unit",
+    "fhu": "From Health Unit",
     "disType": "Discharge Type",
     "disDate": "Discharge Date",
     "bedDays": "Bed Days",
@@ -571,7 +575,7 @@
     "zh": "Chinese"
   },
   "angal": {
-    "agetype" : {
+    "agetype": {
       "newborn": "New Born",
       "earlychildhood": "Early Childhood",
       "latechildhood": "Late Childhood",

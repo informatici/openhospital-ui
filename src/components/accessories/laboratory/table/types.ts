@@ -1,8 +1,9 @@
 import { number } from "yup";
-import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../../generated";
+import { LaboratoryForPrintDTO } from "../../../../generated";
+import { LaboratoryForPrintWithRows } from "../../../../state/laboratories/types";
 
 export interface IExamTableProps {
-  data: LaboratoryForPrintDTO[];
+  data: LaboratoryForPrintWithRows[];
   handleEdit?: (row: LaboratoryForPrintDTO) => void;
   handleDelete?: (code: number | undefined) => void;
 }

@@ -21,6 +21,7 @@ export type AdmissionFormFieldName =
   | "admDate"
   | "admType"
   | "diseaseIn"
+  | "fhu"
   | "note"
   | "disDate"
   | "disType"
