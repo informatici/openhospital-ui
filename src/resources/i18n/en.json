@@ -70,7 +70,7 @@
     "summary": "Summary",
     "discharge": "Discharge",
     "visits": "Visits",
-    "agetypes" : {
+    "agetypes": {
       "d0": "New Born",
       "d1": "Early Childhood",
       "d2": "Late Childhood",
@@ -329,6 +329,7 @@
     "orderbydate": "Order by date",
     "orderbytype": "Order by type",
     "emptydataforfilter": "Empty data for the specified filter",
+    "addanotherrow": "Add another operation row",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",
@@ -571,7 +572,7 @@
     "zh": "Chinese"
   },
   "angal": {
-    "agetype" : {
+    "agetype": {
       "newborn": "New Born",
       "earlychildhood": "Early Childhood",
       "latechildhood": "Late Childhood",

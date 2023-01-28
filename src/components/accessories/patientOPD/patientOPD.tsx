@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { OpdDTO } from "../../../generated";
+import { OpdDTO, OperationRowDTO } from "../../../generated";
 import {
   createOpd,
   createOpdReset,
@@ -24,6 +24,7 @@ import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 
 import { initialFields as operationFields } from "../patientOperation/consts";
+import { OpdWithOperationRows } from "./patientOPDForm/types";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -99,16 +100,18 @@ const PatientOPD: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (opdValuestoSave: OpdDTO) => {
+  const onSubmit = (opdValues: OpdWithOperationRows) => {
+    console.log("Values here.....:", opdValues);
     setShouldResetForm(false);
-    opdValuestoSave.patientCode = patient?.code;
-    opdValuestoSave.age = patient?.age;
-    opdValuestoSave.sex = patient?.sex;
-    opdValuestoSave.userID = userId;
-    opdValuestoSave = { ...opdToEdit, ...opdValuestoSave };
+    opdValues.opd.patientCode = patient?.code;
+    opdValues.opd.age = patient?.age;
+    opdValues.opd.sex = patient?.sex;
+    opdValues.opd.userID = userId;
+    const opdToSave = { ...opdToEdit, ...opdValues.opd };
     if (!creationMode && opdToEdit.code) {
-      dispatch(updateOpd(opdToEdit.code, opdValuestoSave));
-    } else dispatch(createOpd({ ...opdValuestoSave, code: 0 }));
+      dispatch(updateOpd(opdToEdit.code, opdToSave, opdValues.operationRows));
+    } else
+      dispatch(createOpd({ ...opdToSave, code: 0 }, opdValues.operationRows));
   };
 
   const resetFormCallback = () => {
@@ -131,10 +134,6 @@ const PatientOPD: FunctionComponent = () => {
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(code?.toString() ?? "");
     dispatch(deleteOpd(code));
-  };
-
-  const addOperationCallback = () => {
-    setShowModal(true);
   };
 
   return (

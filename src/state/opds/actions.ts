@@ -1,8 +1,15 @@
 import moment from "moment";
 import { Dispatch } from "redux";
-import { OpdControllerApi, OpdDTO } from "../../generated";
+import {
+  OpdControllerApi,
+  OpdDTO,
+  OperationControllerApi,
+  OperationRowDTO,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
+import { forkJoin, Observable, of } from "rxjs";
+import { catchError, map, switchMap } from "rxjs/operators";
 import {
   CREATE_OPD_FAIL,
   CREATE_OPD_LOADING,
@@ -30,8 +37,16 @@ import {
 
 const opdControllerApi = new OpdControllerApi(customConfiguration());
 
+/**
+ *
+ * @param opdDTO
+ * @param operationRows the list of operations rows to save
+ * @returns
+ * @deprecated
+ */
+
 export const createOpd =
-  (opdDTO: OpdDTO) =>
+  (opdDTO: OpdDTO, operationRows?: OperationRowDTO[]) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
@@ -164,9 +179,16 @@ export const searchOpdsReset =
       type: SEARCH_OPD_RESET,
     });
   };
-
+/**
+ *
+ * @param code the code of the opd to be edited
+ * @param opdDTO the opd payload
+ * @param operationRows the list of operations rows to save/update
+ * @returns
+ * @deprecated
+ */
 export const updateOpd =
-  (code: number, opdDTO: OpdDTO) =>
+  (code: number, opdDTO: OpdDTO, operationRows?: OperationRowDTO[]) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_OPD_LOADING,
