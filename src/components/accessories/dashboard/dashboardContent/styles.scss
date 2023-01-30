@@ -18,6 +18,8 @@
       flex-flow: row wrap;
       overflow: auto;
       justify-content: space-evenly;
+      align-items: flex-end;
+      gap: 16px 4px;
     }
   }
   .dashboard__side {
@@ -27,6 +29,7 @@
     .side {
       display: flex;
       flex-direction: column;
+      position: static;
       width: 250px;
       height: 480px;
       background-color: $c-gray;
