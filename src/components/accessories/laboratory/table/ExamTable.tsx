@@ -1,9 +1,8 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LaboratoryForPrintDTO, LabWithRowsDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
 import Table from "../../table/Table";
-import { IExamTableProps } from "./types";
+import { IExamTableProps, multipleResultsLabel } from "./types";
 import "./styles.scss";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
@@ -40,7 +39,6 @@ export const ExamTable: FC<IExamTableProps> = ({
     result: t("lab.result"),
   };
   const order = ["id", "date", "patName", "exam", "result"];
-  const [laboratory, setLaboratory] = useState({} as LaboratoryForPrintDTO);
 
   const formatDataToDisplay = (data: LaboratoryForPrintWithRows[]) => {
     let results: any = [];
@@ -52,9 +50,9 @@ export const ExamTable: FC<IExamTableProps> = ({
           patName: e.laboratoryForPrintDTO?.patName ?? "",
           exam: e.laboratoryForPrintDTO?.exam ?? "",
           result:
-            e.laboratoryForPrintDTO?.result !== "angal.lab.multipleresults.txt" //CASE OF PROC2
-              ? e.laboratoryForPrintDTO?.result
-              : e.laboratoryRowList?.join(", "),
+            e.laboratoryForPrintDTO?.result !== multipleResultsLabel //CASE OF PROC2
+              ? e.laboratoryForPrintDTO?.result ?? ""
+              : t("lab.multipleresults"),
           patientCode: e.laboratoryForPrintDTO?.patientCode ?? "",
         };
       });

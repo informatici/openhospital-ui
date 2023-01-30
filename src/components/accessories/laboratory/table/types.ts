@@ -7,3 +7,5 @@ export interface IExamTableProps {
   handleEdit?: (row: LaboratoryForPrintDTO) => void;
   handleDelete?: (code: number | undefined) => void;
 }
+
+export const multipleResultsLabel = "angal.lab.multipleresults.txt";
