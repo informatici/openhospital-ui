@@ -237,8 +237,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     setTimeout(() => {
       setOperationRows((state) => [...state, opRow]);
       if (!isChecked) setShowModal(false);
+      setAddOperationLoading(false);
     }, 500);
-    setAddOperationLoading(false);
   };
 
   useEffect(() => {
