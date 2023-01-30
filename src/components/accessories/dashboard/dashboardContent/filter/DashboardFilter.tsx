@@ -69,6 +69,18 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
     [dateRange, open]
   );
 
+  const handleDateChange = useCallback(
+    (value: Date | null) => {
+      if (moment(value?.toISOString()).isValid()) {
+        setDateRange([value, value]);
+      }
+      setView("day");
+      setSelection("custom");
+      setOpen(false);
+    },
+    [dateRange, open]
+  );
+
   return (
     <div className="filter">
       <div className="filter__main">
@@ -89,6 +101,9 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
           </ToggleButton>
           <ToggleButton value="year">
             <span>{t("dashboard.period.year")}</span>
+          </ToggleButton>
+          <ToggleButton value="range">
+            <span>{t("dashboard.period.range")}</span>
           </ToggleButton>
         </ToggleButtonGroup>
         {view !== "range" && (
@@ -115,23 +130,45 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
       </div>
       <div className="filter__actions">
         <span>{period}</span>
-        <DateRangeField
-          fieldName="period"
-          isValid={true}
-          fieldValue={dateRange}
-          format="dd/MM/YYY"
-          onChange={handleDateRangeChange}
-          TextFieldComponent={(props) => (
-            <IconButton
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              <CalendarTodaySharp />
-            </IconButton>
-          )}
-          open={open}
-        />
+        {view === "range" ? (
+          <DateRangeField
+            fieldName="period"
+            isValid={true}
+            fieldValue={dateRange}
+            format="dd/MM/YYY"
+            onChange={handleDateRangeChange}
+            TextFieldComponent={(props) => (
+              <IconButton
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              >
+                <CalendarTodaySharp />
+              </IconButton>
+            )}
+            open={open}
+          />
+        ) : (
+          <DateField
+            fieldName="period"
+            isValid={true}
+            errorText=""
+            label=""
+            fieldValue={dateRange[0]?.toISOString() ?? ""}
+            format="dd/MM/YYY"
+            onChange={handleDateChange}
+            TextFieldComponent={(props) => (
+              <IconButton
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              >
+                <CalendarTodaySharp />
+              </IconButton>
+            )}
+            open={open}
+          />
+        )}
       </div>
     </div>
   );

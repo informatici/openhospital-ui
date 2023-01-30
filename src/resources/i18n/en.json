@@ -26,6 +26,7 @@
       "week": "Week",
       "month": "Month",
       "year": "Year",
+      "range": "Range",
       "days": {
         "current": "Today",
         "previous": "Yesterday",
