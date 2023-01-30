@@ -36,6 +36,7 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import SmallButton from "../../smallButton/SmallButton";
+import { Permission } from "../../../../libraries/permissionUtils/Permission";
 
 export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
@@ -182,20 +183,22 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
           <form className="filterLabForm__form" onSubmit={formik.handleSubmit}>
             <div className="filterLabForm__section">
               <div className="filterLabForm__section_content">
-                <div className="fullWidth filterLabForm__item">
-                  <PatientPicker
-                    theme={"regular"}
-                    fieldName="patientCode"
-                    fieldValue={formik.values.patientCode}
-                    label={t("opd.patient")}
-                    isValid={isValid("patientCode")}
-                    errorText={getErrorText("patientCode")}
-                    onBlur={onBlurCallback("patientCode")}
-                    initialValue={
-                      isEmpty(formik.values.patientCode) ? undefined : patient
-                    }
-                  />
-                </div>
+                <Permission require="patient.read">
+                  <div className="fullWidth filterLabForm__item">
+                    <PatientPicker
+                      theme={"regular"}
+                      fieldName="patientCode"
+                      fieldValue={formik.values.patientCode}
+                      label={t("opd.patient")}
+                      isValid={isValid("patientCode")}
+                      errorText={getErrorText("patientCode")}
+                      onBlur={onBlurCallback("patientCode")}
+                      initialValue={
+                        isEmpty(formik.values.patientCode) ? undefined : patient
+                      }
+                    />
+                  </div>
+                </Permission>
                 <div className="filterLabForm__item">
                   <DateField
                     theme={"regular"}

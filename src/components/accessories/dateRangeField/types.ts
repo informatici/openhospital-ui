@@ -4,17 +4,18 @@ import { ComponentType, ReactNode } from "react";
 import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
-  fieldName: string;
+  fieldName?: string;
   fieldValue: DateRange<Date>;
   disableFuture?: boolean;
   disabled?: boolean;
   theme?: "light" | "regular";
   isValid: boolean;
-  errorText: string;
-  label: string;
+  startErrorText?: string;
+  endErrorText?: string;
+  startLabel?: string;
+  endLabel?: string;
   format: string;
-  onChange: (value: DateRange<Date> | null) => void;
-  onMonthChange?: (date: any) => void | Promise<void>;
+  onChange: (value: DateRange<Date>) => void;
   shouldDisableDate?: (date: any) => boolean;
   renderDay?: (
     day: any,
@@ -28,4 +29,5 @@ export interface IProps {
   open?: boolean;
   okLabel?: string;
   cancelLabel?: string;
+  allowSameDateSelection?: boolean;
 }

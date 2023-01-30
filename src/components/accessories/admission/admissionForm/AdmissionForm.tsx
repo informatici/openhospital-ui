@@ -299,13 +299,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
             </div>
             <div className="patientAdmissionForm__item">
               <TextField
-                field={formik.getFieldProps("transUnit")}
+                field={formik.getFieldProps("fhu")}
                 theme="regular"
-                label={t("admission.transUnit")}
-                isValid={isValid("transUnit")}
-                errorText={getErrorText("transUnit")}
+                label={t("admission.fhu")}
+                isValid={isValid("fhu")}
+                errorText={getErrorText("fhu")}
                 onBlur={formik.handleBlur}
-                type="number"
+                type="text"
                 disabled={isLoading}
               />
             </div>

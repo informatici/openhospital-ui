@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LaboratoryDTO } from "../../../../generated";
+import { LabWithRowsDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -21,6 +22,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("exam.update");
+  const canDelete = usePermission("exam.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date", "exam"];
@@ -30,14 +33,13 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     code: t("common.code"),
     date: t("lab.date"),
     exam: t("lab.exam"),
-    material: t("lab.material"),
     result: t("lab.result"),
     note: t("lab.note"),
   };
   const order = ["date", "exam"];
 
   const dispatch = useDispatch();
-  const data = useSelector<IState, LaboratoryDTO[]>((state) =>
+  const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
     state.laboratories.labsByPatientId.data
       ? state.laboratories.labsByPatientId.data
       : []
@@ -52,15 +54,19 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       dispatch(getLabsByPatientId(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
-  const formatDataToDisplay = (data: LaboratoryDTO[]) => {
+  const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     return data.map((item) => {
       return {
-        code: item.code,
-        date: item.examDate ? renderDate(item.examDate) : "",
-        exam: item.exam?.description ?? "",
-        material: item.material,
-        result: item.result,
-        note: item.note,
+        code: item.laboratoryDTO?.code,
+        date: item.laboratoryDTO?.examDate
+          ? renderDate(item.laboratoryDTO?.examDate)
+          : "",
+        exam: item.laboratoryDTO?.exam?.description ?? "",
+        result:
+          item.laboratoryDTO?.exam?.procedure === 1
+            ? item.laboratoryDTO?.result
+            : item.laboratoryRowList?.join(", "),
+        note: item.laboratoryDTO?.note,
       };
     });
     //   .sort(dateComparator("desc", "date"));
@@ -73,12 +79,18 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const labData = useSelector<IState, LaboratoryDTO[] | undefined>(
+  const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
 
   const onEdit = (row: any) => {
-    handleEdit(labData?.find((item) => item.code === row.code));
+    handleEdit(
+      labData?.find((item) => item.laboratoryDTO?.code === row.code)
+        ?.laboratoryDTO
+    );
+  };
+  const onDelete = (row: any) => {
+    handleDelete(row.code);
   };
 
   return (
@@ -92,9 +104,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          // onDelete={onDelete}
+          onDelete={canDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={onEdit}
+          onEdit={canUpdate ? onEdit : undefined}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (

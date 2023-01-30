@@ -64,18 +64,14 @@ const OperationRowForm: FC<OperationRowProps> = ({
         test: function (value) {
           return moment(value).isValid();
         },
-      })
-      .test({
-        name: "opDate",
-        message: t("operation.dateafteradmission"),
-        test: function (value) {
-          //  return moment(currentAdmission?.admDate ?? "").isBefore(
-          //   moment(value)
-          // );
-          return true;
-        },
       }),
-    transUnit: number(),
+    transUnit: number().test({
+      name: "valid",
+      message: t("common.invalidnumberinrange", { min: 1, max: 20 }),
+      test: function (value) {
+        return !value || (value && value >= 1 && value <= 20);
+      },
+    }),
   });
 
   const formik = useFormik({

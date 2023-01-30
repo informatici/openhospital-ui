@@ -6,8 +6,9 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
-import { getAdmissionsByPatientId } from "../../../../state/admissions/actions";
+import { getAdmissions } from "../../../../state/admissions/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -19,6 +20,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("admission.update");
 
   const header = ["admDate", "disDate"];
   const dateFields = ["admDate", "disDate"];
@@ -29,6 +31,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     admType: t("admission.admType"),
     diseaseIn: t("admission.diseaseIn"),
     transUnit: t("admission.transUnit"),
+    fhu: t("admission.fhu"),
     ward: t("admission.ward"),
     note: t("admission.note"),
     disType: t("admission.disType"),
@@ -41,8 +44,8 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const dispatch = useDispatch();
 
   const data = useSelector<IState, AdmissionDTO[]>((state) =>
-    state.admissions.admissionsByPatientId.data
-      ? state.admissions.admissionsByPatientId.data
+    state.admissions.getAdmissions.data
+      ? state.admissions.getAdmissions.data
       : []
   );
 
@@ -56,7 +59,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode) {
-      dispatch(getAdmissionsByPatientId(patientCode));
+      dispatch(getAdmissions({ patientcode: patientCode }));
     }
   }, [shouldUpdateTable, dispatch, patientCode]);
 
@@ -69,6 +72,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         admType: item.admType?.description ?? "",
         diseaseIn: item.diseaseIn?.description ?? "",
         transUnit: item.transUnit,
+        fhu: item.fhu,
         ward: item.ward?.description ?? "",
         note: item.note ?? "",
         disType: item.disType?.description ?? "",
@@ -79,12 +83,12 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     });
   };
   const status = useSelector<IState, string | undefined>(
-    (state) => state.admissions.admissionsByPatientId.status
+    (state) => state.admissions.getAdmissions.status
   );
 
   const errorMessage = useSelector<IState>(
     (state) =>
-      state.admissions.admissionsByPatientId.error?.message ||
+      state.admissions.getAdmissions.error?.message ||
       t("common.somethingwrong")
   ) as string;
   const createAdmissionStatus = useSelector<IState>(
@@ -119,7 +123,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={onEdit}
+                onEdit={canUpdate ? onEdit : undefined}
                 initialOrderBy="disDate"
                 showEmptyCell={false}
               />

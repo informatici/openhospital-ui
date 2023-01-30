@@ -13,6 +13,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { BASE_PATH } from "../../../generated";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
@@ -35,7 +36,7 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
   const changeUserSection = useCallback(
     (section: IUserSection) => {
       setUserSection(section);
-      navigate(`${section}`, { replace: true })
+      navigate(`${section}`, { replace: true });
     },
     [navigate, pathname, setUserSection]
   );
@@ -113,7 +114,6 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.therapy")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("clinic")

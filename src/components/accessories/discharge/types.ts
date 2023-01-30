@@ -9,7 +9,12 @@ export interface IStateProps {
 export interface IDispatchProps {
   dischargePatient: (adm: AdmissionDTO) => any;
   dischargePaitientReset: () => void;
-  getAdmissionsByPatientId: (ptaientCode: number | undefined) => void;
+  getAdmissions: (query: {
+    patientcode?: number | undefined;
+    admissionrange?: string[] | undefined;
+    dischargerange?: string[] | undefined;
+    searchterms?: string | undefined;
+  }) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;

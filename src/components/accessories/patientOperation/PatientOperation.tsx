@@ -23,6 +23,8 @@ import { getCurrentAdmissionByPatientId } from "../../../state/admissions/action
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
 
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+
 interface IOwnProps {
   opd?: OpdDTO;
   onSuccess?: () => void;
@@ -133,48 +135,57 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   }, [creationMode]);
 
   return (
-    <div className="patientAdmission">
-      <OperationRowForm
-        fields={fields}
-        onSubmit={onSubmit}
-        creationMode={creationMode}
-        submitButtonLabel={creationMode ? t("common.save") : t("common.update")}
-        resetButtonLabel={t("common.reset")}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        isLoading={changeStatus === "LOADING"}
-      />
-      {changeStatus === "FAIL" && (
-        <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox
-            type="error"
-            message={errorMessage ?? t("common.somethingwrong")}
-          />
-        </div>
-      )}
-
-      {!opd && (
-        <PatientOperationTable
-          onEdit={onEdit}
-          shouldUpdateTable={shouldUpdateTable}
+    <div className="patientOperation">
+      <Permission
+        require={creationMode ? "operation.create" : "operation.update"}
+      >
+        <OperationRowForm
+          fields={fields}
+          onSubmit={onSubmit}
+          creationMode={creationMode}
+          submitButtonLabel={
+            creationMode ? t("common.save") : t("common.update")
+          }
+          resetButtonLabel={t("common.reset")}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          isLoading={changeStatus === "LOADING"}
         />
-      )}
+        {changeStatus === "FAIL" && (
+          <div ref={infoBoxRef} className="info-box-container">
+            <InfoBox
+              type="error"
+              message={errorMessage ?? t("common.somethingwrong")}
+            />
+          </div>
+        )}
+        <ConfirmationDialog
+          isOpen={changeStatus === "SUCCESS"}
+          title={
+            creationMode ? t("operation.rowcreated") : t("operation.rowupdated")
+          }
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("operation.rowcreatesuccess")
+              : t("operation.rowupdatesuccess", { code: opRowToEdit.id })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
+        />
+      </Permission>
 
-      <ConfirmationDialog
-        isOpen={changeStatus === "SUCCESS"}
-        title={
-          creationMode ? t("operation.rowcreated") : t("operation.rowupdated")
-        }
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("operation.rowcreatesuccess")
-            : t("operation.rowupdatesuccess", { code: opRowToEdit.id })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
+      <Permission require="operation.read">
+        {!opd && (
+          <PatientOperationTable
+            onEdit={onEdit}
+            shouldUpdateTable={shouldUpdateTable}
+          />
+        )}
+      </Permission>
     </div>
   );
 };

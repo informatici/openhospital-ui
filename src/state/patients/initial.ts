@@ -5,4 +5,5 @@ export const initial: IPatientsState = {
   searchResults: { status: "IDLE", data: [] },
   selectedPatient: { status: "IDLE", data: {} },
   updatePatient: { status: "IDLE" },
+  getCities: { status: "IDLE", data: [] },
 };

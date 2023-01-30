@@ -119,6 +119,12 @@ export interface OpdDTO {
      */
     prescription?: string;
     /**
+     * Age type
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    ageType?: string;
+    /**
      * user id
      * @type {string}
      * @memberof OpdDTO

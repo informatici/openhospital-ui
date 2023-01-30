@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Navigate, Route, Routes } from "react-router";
-import { Dashboard } from "../components/accessories/dashboard/Dashboard";
+import Dashboard from "../components/accessories/dashboard/Dashboard";
 import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
@@ -16,7 +16,7 @@ export const MainRouter: React.FC = () => {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         {/* TODO: based on user profile, redirect to patient, dashboard or whatever */}
-        <Route index element={<Navigate to="patients" replace />} />
+        <Route index element={<Navigate to="/patients" replace />} />
 
         <Route
           path="login"

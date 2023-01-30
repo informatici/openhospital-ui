@@ -29,6 +29,7 @@ import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { Permission } from "../../../../libraries/permissionUtils/Permission";
 
 export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
@@ -365,17 +366,19 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 {t("opd.patient")}
               </div>
               <div className="filterOpdForm__section_content">
-                <div className="filterOpdForm__item">
-                  <PatientPicker
-                    theme={"regular"}
-                    fieldName="patientCode"
-                    fieldValue={formik.values.patientCode}
-                    label={t("opd.patient")}
-                    isValid={isValid("patientCode")}
-                    errorText={getErrorText("patientCode")}
-                    onBlur={onBlurCallback("patientCode")}
-                  />
-                </div>
+                <Permission require="patient.read">
+                  <div className="filterOpdForm__item">
+                    <PatientPicker
+                      theme={"regular"}
+                      fieldName="patientCode"
+                      fieldValue={formik.values.patientCode}
+                      label={t("opd.patient")}
+                      isValid={isValid("patientCode")}
+                      errorText={getErrorText("patientCode")}
+                      onBlur={onBlurCallback("patientCode")}
+                    />
+                  </div>
+                </Permission>
                 <div className="filterOpdForm__item">
                   <SelectField
                     fieldName="sex"

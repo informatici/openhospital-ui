@@ -6,5 +6,5 @@ import { IState } from "../../types";
  */
 export const usePermissions = () =>
   useSelector<IState, string[]>(
-    (state) => state.main.authentication?.data?.permission || []
+    (state) => state.main.authentication?.data?.permissions || []
   );

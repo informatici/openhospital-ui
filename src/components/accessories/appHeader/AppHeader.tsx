@@ -20,6 +20,7 @@ import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
 import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
 import { PATHS } from "../../../consts";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -46,6 +47,10 @@ const AppHeader: FunctionComponent<TProps> = ({
     setLogoutThunk();
   };
   const navigate = useNavigate();
+
+  const canAccessPatient = usePermission("patient.access");
+  const canAccessVisit = usePermission("visit.access");
+  const canAccessLaboratory = usePermission("laboratory.access");
 
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
@@ -118,22 +123,34 @@ const AppHeader: FunctionComponent<TProps> = ({
             <div className="appHeader__nav_items">
               <div
                 className="appHeader__nav__item"
-                onClick={() => navigate(PATHS.patients)}
+                onClick={() => navigate(PATHS.dashboard)}
               >
-                {t("nav.patients")}
+                {t("nav.dashboard")}
               </div>
-              <div
-                className="appHeader__nav__item"
-                onClick={() => navigate(PATHS.visits)}
-              >
-                {t("nav.visits")}
-              </div>
-              <div
-                className="appHeader__nav__item"
-                onClick={() => navigate(PATHS.laboratory)}
-              >
-                {t("nav.laboratory")}
-              </div>
+              {canAccessPatient && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.patients)}
+                >
+                  {t("nav.patients")}
+                </div>
+              )}
+              {canAccessVisit && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.visits)}
+                >
+                  {t("nav.visits")}
+                </div>
+              )}
+              {canAccessLaboratory && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.laboratory)}
+                >
+                  {t("nav.laboratory")}
+                </div>
+              )}
             </div>
           </div>
         </div>

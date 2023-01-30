@@ -22,6 +22,7 @@ import { updateVisitFields } from "../../../libraries/formDataHandling/functions
 import { getWards } from "../../../state/ward/actions";
 import PatientOperation from "../patientOperation/PatientOperation";
 import { CustomDialog } from "../customDialog/CustomDialog";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -129,52 +130,53 @@ const PatientVisit: FunctionComponent = () => {
 
   return (
     <div className="patientVisit">
-      <PatientVisitForm
-        fields={
-          creationMode
-            ? initialFields
-            : updateVisitFields(initialFields, visitToEdit)
-        }
-        onSubmit={onSubmit}
-        submitButtonLabel={
-          creationMode ? t("visit.savevisit") : t("visit.updatevisit")
-        }
-        resetButtonLabel={t("common.reset")}
-        isLoading={changeStatus === "LOADING"}
-        shouldResetForm={shouldResetForm}
-        resetFormCallback={resetFormCallback}
-        addOperationCallback={addOperationCallback}
-      />
+      <Permission
+        require={creationMode ? "admission.create" : "admission.update"}
+      >
+        <PatientVisitForm
+          fields={
+            creationMode
+              ? initialFields
+              : updateVisitFields(initialFields, visitToEdit)
+          }
+          onSubmit={onSubmit}
+          submitButtonLabel={
+            creationMode ? t("visit.savevisit") : t("visit.updatevisit")
+          }
+          resetButtonLabel={t("common.reset")}
+          isLoading={changeStatus === "LOADING"}
+          shouldResetForm={shouldResetForm}
+          resetFormCallback={resetFormCallback}
+          addOperationCallback={addOperationCallback}
+        />
+        {changeStatus === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        <ConfirmationDialog
+          isOpen={changeStatus === "SUCCESS"}
+          title={creationMode ? t("visit.created") : t("visit.updated")}
+          icon={checkIcon}
+          info={
+            creationMode
+              ? t("visit.createsuccess")
+              : t("visit.updatesuccess", { code: visitToEdit.visitID })
+          }
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
+          handleSecondaryButtonClick={() => ({})}
+        />
+      </Permission>
 
-      {changeStatus === "FAIL" && (
-        <div ref={infoBoxRef}>
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
-      <PatientVisitTable
-        handleEdit={onEdit}
-        shouldUpdateTable={shouldUpdateTable}
-      />
-      <ConfirmationDialog
-        isOpen={changeStatus === "SUCCESS"}
-        title={creationMode ? t("visit.created") : t("visit.updated")}
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("visit.createsuccess")
-            : t("visit.updatesuccess", { code: visitToEdit.visitID })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
-        handleSecondaryButtonClick={() => ({})}
-      />
-      <CustomDialog
-        title={t("visit.addoperation")}
-        description={t("visit.addoperationdesc")}
-        open={showModal}
-        onClose={onOperationCreated}
-        content={<PatientOperation onSuccess={onOperationCreated} />}
-      />
+      <Permission require="admission.read">
+        <PatientVisitTable
+          handleEdit={onEdit}
+          shouldUpdateTable={shouldUpdateTable}
+        />
+      </Permission>
     </div>
   );
 };

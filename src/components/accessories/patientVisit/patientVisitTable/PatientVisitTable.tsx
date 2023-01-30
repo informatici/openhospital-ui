@@ -8,6 +8,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
@@ -18,6 +19,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("visit.update");
   const header = ["date", "duration"];
   const dateFields = ["date"];
   const label = {
@@ -93,7 +95,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={onEdit}
+                onEdit={canUpdate ? onEdit : undefined}
                 addTitle={t("visit.addoperation")}
               />
             );

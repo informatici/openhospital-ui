@@ -7,6 +7,7 @@ import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   updatePatient,
@@ -137,36 +138,38 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                   patient.data?.secondName
                 }`}
               </div>
-              <PatientDataForm
-                fields={updateFields(initialFields, patient?.data)}
-                profilePicture={patient.data?.blobPhoto}
-                onSubmit={onSubmit}
-                submitButtonLabel={t("common.submit")}
-                resetButtonLabel={t("common.reset")}
-                isLoading={isLoading}
-                shouldResetForm={shouldResetForm}
-                resetFormCallback={resetFormCallback}
-                mode={"edit"}
-              />
+              <Permission require={"patient.update"}>
+                <PatientDataForm
+                  fields={updateFields(initialFields, patient?.data)}
+                  profilePicture={patient.data?.blobPhoto}
+                  onSubmit={onSubmit}
+                  submitButtonLabel={t("common.submit")}
+                  resetButtonLabel={t("common.reset")}
+                  isLoading={isLoading}
+                  shouldResetForm={shouldResetForm}
+                  resetFormCallback={resetFormCallback}
+                  mode={"edit"}
+                />
+                <div ref={infoBoxRef}>
+                  {hasFailed && <InfoBox type="error" message={errorMessage} />}
+                </div>
+                <ConfirmationDialog
+                  isOpen={openConfirmationMessage}
+                  title={t("common.titleedited")}
+                  icon={checkIcon}
+                  info={t("common.patienteditsuccessfull")}
+                  primaryButtonLabel={t("common.patient")}
+                  secondaryButtonLabel={t("common.keepediting")}
+                  handlePrimaryButtonClick={() =>
+                    setActivityTransitionState("TO_PATIENT")
+                  }
+                  handleSecondaryButtonClick={() =>
+                    setActivityTransitionState("TO_KEEP_EDITING")
+                  }
+                />
+              </Permission>
             </div>
           </div>
-          <div ref={infoBoxRef}>
-            {hasFailed && <InfoBox type="error" message={errorMessage} />}
-          </div>
-          <ConfirmationDialog
-            isOpen={openConfirmationMessage}
-            title={t("common.titleedited")}
-            icon={checkIcon}
-            info={t("common.patienteditsuccessfull")}
-            primaryButtonLabel={t("common.patient")}
-            secondaryButtonLabel={t("common.keepediting")}
-            handlePrimaryButtonClick={() =>
-              setActivityTransitionState("TO_PATIENT")
-            }
-            handleSecondaryButtonClick={() =>
-              setActivityTransitionState("TO_KEEP_EDITING")
-            }
-          />
           <Footer />
         </div>
       );

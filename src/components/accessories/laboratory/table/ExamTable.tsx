@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../../generated";
+import { LaboratoryForPrintDTO, LabWithRowsDTO } from "../../../../generated";
 import { CustomModal } from "../../customModal/CustomModal";
-import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import Table from "../../table/Table";
 import { IExamTableProps } from "./types";
 import "./styles.scss";
@@ -12,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { LaboratoryForPrintWithRows } from "../../../../state/laboratories/types";
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
@@ -20,6 +21,8 @@ export const ExamTable: FC<IExamTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canUpdate = usePermission("exam.update");
+  const canDelete = usePermission("exam.delete");
   const deleteStatus = useSelector<IState, any>(
     (state: IState) => state.laboratories.deleteLab.status
   );
@@ -39,17 +42,20 @@ export const ExamTable: FC<IExamTableProps> = ({
   const order = ["id", "date", "patName", "exam", "result"];
   const [laboratory, setLaboratory] = useState({} as LaboratoryForPrintDTO);
 
-  const formatDataToDisplay = (data: LaboratoryForPrintDTO[]) => {
+  const formatDataToDisplay = (data: LaboratoryForPrintWithRows[]) => {
     let results: any = [];
     if (data)
       results = data.map((e) => {
         return {
-          id: e.code ?? "",
-          date: renderDate(e.date ?? ""),
-          patName: e.patName ?? "",
-          exam: e.exam ?? "",
-          result: e.result ?? "",
-          patientCode: e.patientCode ?? "",
+          id: e.laboratoryForPrintDTO?.code ?? "",
+          date: renderDate(e.laboratoryForPrintDTO?.date ?? ""),
+          patName: e.laboratoryForPrintDTO?.patName ?? "",
+          exam: e.laboratoryForPrintDTO?.exam ?? "",
+          result:
+            e.laboratoryForPrintDTO?.result !== "angal.lab.multipleresults.txt" //CASE OF PROC2
+              ? e.laboratoryForPrintDTO?.result
+              : e.laboratoryRowList?.join(", "),
+          patientCode: e.laboratoryForPrintDTO?.patientCode ?? "",
         };
       });
     return results;
@@ -72,12 +78,18 @@ export const ExamTable: FC<IExamTableProps> = ({
 
   const onEdit = (row: any) => {
     if (handleEdit !== undefined) {
-      handleEdit(data.find((item) => item.code === row.id) ?? {});
+      handleEdit(
+        data.find((item) => item.laboratoryForPrintDTO?.code === row.id)
+          ?.laboratoryForPrintDTO ?? {}
+      );
     }
   };
   const onDelete = (row: any) => {
     if (handleDelete !== undefined) {
-      handleDelete(data.find((item) => item.code === row.id)?.code);
+      handleDelete(
+        data.find((item) => item.laboratoryForPrintDTO?.code === row.id)
+          ?.laboratoryForPrintDTO?.code
+      );
     }
   };
 
@@ -91,8 +103,8 @@ export const ExamTable: FC<IExamTableProps> = ({
         columnsOrder={order}
         rowsPerPage={5}
         onView={handleView}
-        onEdit={onEdit}
-        onDelete={onDelete}
+        onEdit={canUpdate ? onEdit : undefined}
+        onDelete={canDelete ? onDelete : undefined}
       />
       {deleteStatus === "FAIL" && (
         <div className="info-box-container">

@@ -10,7 +10,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
@@ -41,7 +41,9 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
   const validationSchema = object({
     date: string().required(t("common.required")),
     service: string().required(t("common.required")),
-    duration: string().required(t("common.required")),
+    duration: number()
+      .required(t("common.required"))
+      .min(1, t("common.greaterthan", { value: "1" })),
   });
 
   const wards = useSelector<IState, WardDTO[]>(

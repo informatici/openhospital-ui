@@ -8,6 +8,7 @@ import { IState } from "../../../../types";
 import { OperationRowDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getOperationsByAdmissionId } from "../../../../state/operations/actions";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -19,6 +20,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
   onEdit,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("operation.update");
 
   const header = ["opDate", "operation"];
   const dateFields = ["opDate"];
@@ -100,7 +102,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={handleEdit}
+                onEdit={canUpdate ? handleEdit : undefined}
               />
             );
 
