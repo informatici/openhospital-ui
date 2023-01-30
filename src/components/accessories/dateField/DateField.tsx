@@ -1,15 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import {
-  DatePicker,
-  DesktopDatePicker,
-  MobileDatePicker,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import { DesktopDatePicker, MobileDatePicker } from "@material-ui/pickers";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
-import { IconButton, TextField, useMediaQuery } from "@material-ui/core";
-import { CalendarTodayRounded } from "@material-ui/icons";
+import { TextField, useMediaQuery } from "@material-ui/core";
 import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,

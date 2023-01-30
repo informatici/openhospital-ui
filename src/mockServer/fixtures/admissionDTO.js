@@ -25,7 +25,7 @@ export const admissionDTO =
         name: "Mario Rossia",
         birthDate: "1975-03-02T14:58:00.000Z",
         age: 0,
-        agetype: "null",
+        agetype: "d4",
         sex: "M",
         address: "Via Roma, 12",
         city: "Verona",

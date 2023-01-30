@@ -1,4 +1,9 @@
 {
+  "user": {
+    "username": "Username",
+    "groups": "Groups",
+    "lastlogin": "Last login"
+  },
   "login": {
     "username": "Username",
     "password": "Password",
@@ -14,7 +19,38 @@
   "dashboard": {
     "welcomename": "Welcome",
     "newpatient": "New patient",
-    "searchpatients": "Search patients"
+    "searchpatients": "Search patients",
+    "userange": "Use Range Picker",
+    "period": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year",
+      "days": {
+        "current": "Today",
+        "previous": "Yesterday",
+        "last2": "1-2 days",
+        "last3": "1-3 days"
+      },
+      "weeks": {
+        "current": "This week",
+        "previous": "Last Weeks",
+        "last2": "1-2 weeks",
+        "last3": "1-3 weeks"
+      },
+      "months": {
+        "current": "This month",
+        "previous": "Last month",
+        "last2": "1-2 months",
+        "last3": "1-3 months"
+      },
+      "years": {
+        "current": "This year",
+        "previous": "Last year",
+        "last2": "1-2 years",
+        "last3": "1-3 years"
+      }
+    }
   },
   "patient": {
     "address": "Address",
@@ -133,7 +169,10 @@
     "validatefromdate": "Must be less than date to",
     "validatetoage": "Must be greater than age from",
     "validatefromage": "Must be less than age from",
-    "prescription": "Prescription"
+    "prescription": "Prescription",
+    "opdregistered": "Opds registered in the period",
+    "opdbysex": "Opds by sex",
+    "opdbyagetype": "Opds by age type"
   },
   "visit": {
     "date": "Date (d/m/y)",
@@ -338,6 +377,16 @@
       "weeks": "Week(s)",
       "months": "Month(s)",
       "years": "Year(s)"
+    },
+    "period": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisweek": "This Week",
+      "lastweek": "Last Week",
+      "thismonth": "This Month",
+      "lastmonth": "Last Month",
+      "thisyear": "This Year",
+      "lastyear": "Last Year"
     }
   },
   "therapy": {
@@ -453,7 +502,17 @@
     "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To resign, go to the dismission page.",
     "updated": "Admission updated",
     "updatesuccess": "Admimission updated successfully",
-    "datebefore": "Admission date must be before the discharge date"
+    "datebefore": "Admission date must be before the discharge date",
+    "admissionbysex": "Admissions by sex",
+    "admissionbytype": "Admissions by type",
+    "admissionbyagetype": "Admissions by age type",
+    "admissionbywards": "Admissions by wards",
+    "dischargebysex": "Discharges by sex",
+    "dischargebytype": "Discharges by type",
+    "dischargebyagetype": "Discharges by age type",
+    "dischargebywards": "Discharges by wards",
+    "admregistered": "Admissions in the current period",
+    "disregistered": "Discharges in the current period"
   },
   "bill": {
     "title": "Welcome to Billing",

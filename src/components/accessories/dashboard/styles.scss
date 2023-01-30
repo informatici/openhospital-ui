@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $c-white;
+
+  .dashboard__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $c-white;
+  }
+
+  .footer {
+    position: relative;
+  }
+}

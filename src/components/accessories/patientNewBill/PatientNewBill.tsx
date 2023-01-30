@@ -210,6 +210,3 @@ const PatientNewBill: FC = () => {
   );
 };
 export default PatientNewBill;
-function getPendingBills(arg0: number): any {
-  throw new Error("Function not implemented.");
-}

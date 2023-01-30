@@ -1,5 +1,4 @@
 import produce from "immer";
-import { LaboratoryDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_LAB_FAIL,

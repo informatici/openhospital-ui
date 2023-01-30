@@ -24,6 +24,14 @@ import {
   GET_CURRENTADMISSION_EMPTY,
   GET_CURRENTADMISSION_RESET,
   GET_ADMISSION_RESET,
+  GET_ADMISSIONS_FAIL,
+  GET_ADMISSIONS_LOADING,
+  GET_ADMISSIONS_SUCCESS,
+  GET_ONGOING_ADMISSIONS_FAIL,
+  GET_ONGOING_ADMISSIONS_LOADING,
+  GET_ONGOING_ADMISSIONS_SUCCESS,
+  GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
+  GET_ADMISSIONS_SUCCESS_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { IAdmissionsState } from "./types";
@@ -41,8 +49,8 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case CREATE_ADMISSION_SUCCESS: {
       draft.createAdmission.status = "SUCCESS";
       draft.createAdmission.data = action.payload;
-      draft.admissionsByPatientId.data = [
-        ...(draft.admissionsByPatientId.data ?? []),
+      draft.getAdmissions.data = [
+        ...(draft.getAdmissions.data ?? []),
         action.payload,
       ];
       draft.currentAdmissionByPatientId.data = action.payload;
@@ -73,13 +81,11 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case DISCHARGE_PATIENT_SUCCESS: {
       draft.dischargePatient.status = "SUCCESS";
       draft.dischargePatient.data = action.payload;
-      draft.admissionsByPatientId.data = draft.admissionsByPatientId.data?.map(
-        (e) => {
-          return e.id === action.payload?.id
-            ? (action.payload as AdmissionDTO)
-            : e;
-        }
-      );
+      draft.getAdmissions.data = draft.getAdmissions.data?.map((e) => {
+        return e.id === action.payload?.id
+          ? (action.payload as AdmissionDTO)
+          : e;
+      });
       draft.currentAdmissionByPatientId.data = undefined;
       delete draft.dischargePatient.error;
       break;
@@ -108,13 +114,11 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case UPDATE_ADMISSION_SUCCESS: {
       draft.updateAdmission.status = "SUCCESS";
       draft.updateAdmission.data = action.payload;
-      draft.admissionsByPatientId.data = draft.admissionsByPatientId.data?.map(
-        (e) => {
-          return e.id === action.payload?.id
-            ? (action.payload as AdmissionDTO)
-            : e;
-        }
-      );
+      draft.getAdmissions.data = draft.getAdmissions.data?.map((e) => {
+        return e.id === action.payload?.id
+          ? (action.payload as AdmissionDTO)
+          : e;
+      });
       if (draft.currentAdmissionByPatientId.data?.id === action.payload?.id) {
         draft.currentAdmissionByPatientId.data = action.payload;
       }
@@ -137,33 +141,54 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     /**
      * GET_ADMISSION
      */
-    case GET_ADMISSION_LOADING: {
-      draft.admissionsByPatientId.status = "LOADING";
+    case GET_ADMISSIONS_LOADING: {
+      draft.getAdmissions.status = "LOADING";
       break;
     }
 
-    case GET_ADMISSION_SUCCESS: {
-      draft.admissionsByPatientId.status = "SUCCESS";
-      draft.admissionsByPatientId.data = action.payload;
-      delete draft.admissionsByPatientId.error;
+    case GET_ADMISSIONS_SUCCESS: {
+      draft.getAdmissions.status = "SUCCESS";
+      draft.getAdmissions.data = action.payload;
+      delete draft.getAdmissions.error;
       break;
     }
 
-    case GET_ADMISSION_SUCCESS_EMPTY: {
-      draft.admissionsByPatientId.status = "SUCCESS_EMPTY";
-      draft.admissionsByPatientId.data = [];
-      delete draft.admissionsByPatientId.error;
+    case GET_ADMISSIONS_SUCCESS_EMPTY: {
+      draft.getAdmissions.status = "SUCCESS_EMPTY";
+      draft.getAdmissions.data = [];
+      delete draft.getAdmissions.error;
       break;
     }
-    case GET_ADMISSION_FAIL: {
-      draft.admissionsByPatientId.status = "FAIL";
-      draft.admissionsByPatientId.error = action.error;
+    case GET_ADMISSIONS_FAIL: {
+      draft.getAdmissions.status = "FAIL";
+      draft.getAdmissions.error = action.error;
       break;
     }
-    case GET_ADMISSION_RESET: {
-      draft.admissionsByPatientId.status = "IDLE";
-      delete draft.admissionsByPatientId.data;
-      delete draft.admissionsByPatientId.error;
+
+    /**
+     * GET_ONGOING_ADMISSIONS
+     */
+    case GET_ONGOING_ADMISSIONS_LOADING: {
+      draft.getOngoingAdmissions.status = "LOADING";
+      break;
+    }
+
+    case GET_ONGOING_ADMISSIONS_SUCCESS: {
+      draft.getOngoingAdmissions.status = "SUCCESS";
+      draft.getOngoingAdmissions.data = action.payload;
+      delete draft.getOngoingAdmissions.error;
+      break;
+    }
+
+    case GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY: {
+      draft.getOngoingAdmissions.status = "SUCCESS_EMPTY";
+      draft.getOngoingAdmissions.data = [];
+      delete draft.getOngoingAdmissions.error;
+      break;
+    }
+    case GET_ONGOING_ADMISSIONS_FAIL: {
+      draft.getOngoingAdmissions.status = "FAIL";
+      draft.getOngoingAdmissions.error = action.error;
       break;
     }
 
