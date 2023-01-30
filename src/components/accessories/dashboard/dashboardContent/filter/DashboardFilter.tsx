@@ -1,16 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { IOwnProps, TPeriodType, TViewType } from "./types";
 import "./styles.scss";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import DateRangeField from "../../../dateRangeField/DateRangeField";
 import { DateRange } from "@material-ui/pickers";
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-} from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { CalendarTodaySharp } from "@material-ui/icons";
 import DateField from "../../../dateField/DateField";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
@@ -52,6 +47,13 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
       }
     },
     [selection]
+  );
+
+  const onIconClickHandler = useCallback(
+    (event: any) => {
+      setOpen(!open);
+    },
+    [open]
   );
 
   const handleDateRangeChange = useCallback(
@@ -138,11 +140,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
             format="dd/MM/YYY"
             onChange={handleDateRangeChange}
             TextFieldComponent={(props) => (
-              <IconButton
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              >
+              <IconButton onClick={onIconClickHandler}>
                 <CalendarTodaySharp />
               </IconButton>
             )}
@@ -158,11 +156,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
             format="dd/MM/YYY"
             onChange={handleDateChange}
             TextFieldComponent={(props) => (
-              <IconButton
-                onClick={() => {
-                  setOpen(!open);
-                }}
-              >
+              <IconButton onClick={onIconClickHandler}>
                 <CalendarTodaySharp />
               </IconButton>
             )}

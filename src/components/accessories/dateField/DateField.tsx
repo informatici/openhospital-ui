@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { DesktopDatePicker, MobileDatePicker } from "@material-ui/pickers";
 import { IProps } from "./types";
 import "./styles.scss";
@@ -27,7 +27,13 @@ const DateField: FunctionComponent<IProps> = ({
   TextFieldComponent,
 }) => {
   const [value, setValue] = useState<Date | null>(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const anchorElRef = useRef(null);
   const matches = useMediaQuery("(min-width:768px)");
+
+  useEffect(() => {
+    setAnchorEl(anchorElRef?.current);
+  }, [anchorElRef]);
 
   useEffect(() => {
     // field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
@@ -42,7 +48,7 @@ const DateField: FunctionComponent<IProps> = ({
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
   return (
-    <>
+    <div ref={anchorElRef}>
       {matches ? (
         <DesktopDatePicker
           inputFormat={format}
@@ -56,6 +62,10 @@ const DateField: FunctionComponent<IProps> = ({
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
           allowSameDateSelection
+          PopperProps={{
+            placement: "bottom-end",
+            anchorEl: anchorEl,
+          }}
           renderInput={(props: MuiTextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent {...props} />
@@ -114,7 +124,7 @@ const DateField: FunctionComponent<IProps> = ({
           open={open}
         />
       )}
-    </>
+    </div>
   );
 };
 
