@@ -27,9 +27,10 @@ export const createVisit =
       type: CREATE_VISIT_LOADING,
     });
     visitsControllerApi.newVisitUsingPOST({ newVisit }).subscribe(
-      () => {
+      (payload) => {
         dispatch({
           type: CREATE_VISIT_SUCCESS,
+          payload: payload,
         });
       },
       (error) => {
@@ -97,9 +98,10 @@ export const updateVisit =
       type: UPDATE_VISIT_LOADING,
     });
     visitsControllerApi.updateVisitUsingPUT({ visitID, updateVisit }).subscribe(
-      () => {
+      (payload) => {
         dispatch({
           type: UPDATE_VISIT_SUCCESS,
+          payload: payload,
         });
       },
       (error) => {

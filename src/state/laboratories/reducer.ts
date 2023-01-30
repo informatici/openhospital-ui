@@ -51,6 +51,11 @@ export default produce(
 
       case CREATE_LAB_SUCCESS: {
         draft.createLab.status = "SUCCESS";
+        draft.createLab.data = action.payload;
+        draft.labsByPatientId.data = [
+          ...(draft.labsByPatientId.data ?? []),
+          action.payload,
+        ];
         delete draft.createLab.error;
         break;
       }
@@ -198,6 +203,11 @@ export default produce(
       case UPDATE_LAB_SUCCESS: {
         draft.updateLab.status = "SUCCESS";
         draft.updateLab.data = action.payload;
+        draft.labsByPatientId.data = draft.labsByPatientId.data?.map((e) => {
+          return e.laboratoryDTO?.code === action.payload.laboratoryDTO?.code
+            ? action.payload
+            : e;
+        });
         delete draft.updateLab.error;
         break;
       }
@@ -221,6 +231,9 @@ export default produce(
 
       case DELETE_LAB_SUCCESS: {
         draft.deleteLab.status = "SUCCESS";
+        draft.labsByPatientId.data = draft.labsByPatientId.data?.filter(
+          (e) => e.laboratoryDTO?.code !== action.payload.code
+        );
         delete draft.deleteLab.error;
         break;
       }

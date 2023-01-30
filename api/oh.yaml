@@ -157,12 +157,9 @@ paths:
           schema:
             $ref: "#/definitions/AdmissionDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: integer
-            format: int32
         "201":
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -193,8 +190,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: integer
-            format: int32
+            $ref: "#/definitions/AdmissionDTO"
         "201":
           description: Created
         "401":
@@ -299,11 +295,9 @@ paths:
           type: integer
           format: int32
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -470,11 +464,9 @@ paths:
           schema:
             $ref: "#/definitions/AdmissionTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/AdmissionTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -505,7 +497,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/AdmissionTypeDTO"
         "201":
           description: Created
         "401":
@@ -778,11 +770,9 @@ paths:
           schema:
             $ref: "#/definitions/FullBillDTO"
       responses:
-        "200":
-          description: OK
+        "201":
           schema:
             $ref: "#/definitions/FullBillDTO"
-        "201":
           description: Created
         "401":
           description: Unauthorized
@@ -1204,11 +1194,9 @@ paths:
           schema:
             $ref: "#/definitions/DeliveryResultTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/DeliveryResultTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -1239,7 +1227,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/DeliveryResultTypeDTO"
         "201":
           description: Created
         "401":
@@ -1320,11 +1308,9 @@ paths:
           schema:
             $ref: "#/definitions/DeliveryTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/DeliveryTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -1355,7 +1341,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/DeliveryTypeDTO"
         "201":
           description: Created
         "401":
@@ -1436,11 +1422,9 @@ paths:
           schema:
             $ref: "#/definitions/DischargeTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/DischargeTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -1471,7 +1455,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/DischargeTypeDTO"
         "201":
           description: Created
         "401":
@@ -1529,11 +1513,9 @@ paths:
           schema:
             $ref: "#/definitions/DiseaseDTO"
       responses:
-        "200":
-          description: OK
+        "201":
           schema:
             $ref: "#/definitions/DiseaseDTO"
-        "201":
           description: Created
         "401":
           description: Unauthorized
@@ -1916,11 +1898,9 @@ paths:
           schema:
             $ref: "#/definitions/DiseaseTypeDTO"
       responses:
-        "200":
-          description: OK
+        "201":
           schema:
             $ref: "#/definitions/DiseaseTypeDTO"
-        "201":
           description: Created
         "401":
           description: Unauthorized
@@ -2011,11 +1991,9 @@ paths:
           schema:
             $ref: "#/definitions/PatientExaminationDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/PatientExaminationDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -2289,11 +2267,9 @@ paths:
           schema:
             $ref: "#/definitions/ExamRowDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/ExamRowDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -2470,11 +2446,9 @@ paths:
           schema:
             $ref: "#/definitions/ExamDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/ExamDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -2541,7 +2515,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/ResponseEntity"
+            $ref: "#/definitions/ExamDTO"
         "201":
           description: Created
         "401":
@@ -2621,11 +2595,9 @@ paths:
           schema:
             $ref: "#/definitions/ExamTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/ExamTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -2662,7 +2634,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/ResponseEntity"
+            $ref: "#/definitions/ExamTypeDTO"
         "201":
           description: Created
         "401":
@@ -2824,11 +2796,9 @@ paths:
           schema:
             $ref: "#/definitions/LabWithRowsDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/LaboratoryDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -2935,11 +2905,9 @@ paths:
             items:
               $ref: "#/definitions/LabWithRowsDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/LaboratoryDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3058,7 +3026,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/ResponseEntity"
+            $ref: "#/definitions/LaboratoryDTO"
         "201":
           description: Created
         "401":
@@ -3116,9 +3084,9 @@ paths:
           schema:
             $ref: "#/definitions/MalnutritionDTO"
       responses:
-        "200":
-          description: OK
         "201":
+          schema:
+            $ref: "#/definitions/MalnutritionDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3305,9 +3273,9 @@ paths:
           schema:
             $ref: "#/definitions/MedicalDTO"
       responses:
-        "200":
-          description: OK
         "201":
+          schema:
+            $ref: "#/definitions/MedicalDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3343,6 +3311,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: "#/definitions/MedicalDTO"
         "201":
           description: Created
         "401":
@@ -3534,11 +3504,9 @@ paths:
           schema:
             $ref: "#/definitions/MovementWardDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/MovementWardDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3569,7 +3537,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: boolean
+            $ref: "#/definitions/MovementWardDTO"
         "201":
           description: Created
         "401":
@@ -3601,11 +3569,9 @@ paths:
             items:
               $ref: "#/definitions/MovementWardDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/MovementWardDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3771,9 +3737,9 @@ paths:
           schema:
             $ref: "#/definitions/MedicalTypeDTO"
       responses:
-        "200":
-          description: OK
         "201":
+          schema:
+            $ref: "#/definitions/MedicalTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3803,6 +3769,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: "#/definitions/MedicalTypeDTO"
         "201":
           description: Created
         "401":
@@ -3911,9 +3879,9 @@ paths:
           schema:
             $ref: "#/definitions/MovementTypeDTO"
       responses:
-        "200":
-          description: OK
         "201":
+          schema:
+            $ref: "#/definitions/MovementTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -3943,6 +3911,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: "#/definitions/MovementTypeDTO"
         "201":
           description: Created
         "401":
@@ -4055,11 +4025,9 @@ paths:
           schema:
             $ref: "#/definitions/OpdDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/OpdDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -4317,8 +4285,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: integer
-            format: int32
+            $ref: "#/definitions/OpdDTO"
         "201":
           description: Created
         "401":
@@ -4399,11 +4366,9 @@ paths:
           schema:
             $ref: "#/definitions/OperationDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/OperationDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -4432,12 +4397,9 @@ paths:
           schema:
             $ref: "#/definitions/OperationRowDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: integer
-            format: int32
         "201":
+          schema:
+            $ref: "#/definitions/OperationRowDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -4468,8 +4430,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: integer
-            format: int32
+            $ref: "#/definitions/OperationRowDTO"
         "201":
           description: Created
         "401":
@@ -4770,11 +4731,9 @@ paths:
           schema:
             $ref: "#/definitions/OperationTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/OperationTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -4811,7 +4770,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/OperationTypeDTO"
         "201":
           description: Created
         "401":
@@ -4906,11 +4865,9 @@ paths:
           schema:
             $ref: "#/definitions/PatientDTO"
       responses:
-        "200":
-          description: OK
+        "201":
           schema:
             $ref: "#/definitions/PatientDTO"
-        "201":
           description: Created
         "401":
           description: Unauthorized
@@ -5190,11 +5147,9 @@ paths:
           schema:
             $ref: "#/definitions/PatientVaccineDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/PatientVaccineDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -5438,11 +5393,9 @@ paths:
           schema:
             $ref: "#/definitions/PermissionDTO"
       responses:
-        "200":
-          description: OK
+        "201":
           schema:
             $ref: "#/definitions/PermissionDTO"
-        "201":
           description: Created
         "401":
           description: Unauthorized
@@ -5647,11 +5600,9 @@ paths:
           schema:
             $ref: "#/definitions/PregnantTreatmentTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/PregnantTreatmentTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -5688,7 +5639,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/PregnantTreatmentTypeDTO"
         "201":
           description: Created
         "401":
@@ -5768,11 +5719,9 @@ paths:
           schema:
             $ref: "#/definitions/PriceListDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/PriceListDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -5904,7 +5853,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/PriceListDTO"
         "201":
           description: Created
         "401":
@@ -5985,11 +5934,9 @@ paths:
           schema:
             $ref: "#/definitions/PricesOthersDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: string
         "201":
+          schema:
+            $ref: "#/definitions/PricesOthersDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -6027,7 +5974,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: "#/definitions/PricesOthersDTO"
         "201":
           description: Created
         "401":
@@ -6174,7 +6121,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: boolean
+            $ref: "#/definitions/SmsDTO"
         "201":
           description: Created
         "401":
@@ -6593,11 +6540,9 @@ paths:
           schema:
             $ref: "#/definitions/SupplierDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/SupplierDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -6628,7 +6573,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: boolean
+            $ref: "#/definitions/SupplierDTO"
         "201":
           description: Created
         "401":
@@ -6687,11 +6632,9 @@ paths:
           schema:
             $ref: "#/definitions/TherapyRowDTO"
       responses:
-        "200":
-          description: OK
+        "201":
           schema:
             $ref: "#/definitions/TherapyRowDTO"
-        "201":
           description: Created
         "401":
           description: Unauthorized
@@ -6950,11 +6893,9 @@ paths:
           schema:
             $ref: "#/definitions/UserDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/UserDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -6991,7 +6932,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: boolean
+            $ref: "#/definitions/UserDTO"
         "201":
           description: Created
         "401":
@@ -7074,11 +7015,9 @@ paths:
           schema:
             $ref: "#/definitions/UserGroupDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            $ref: "#/definitions/UserGroupDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -7109,7 +7048,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: boolean
+            $ref: "#/definitions/UserGroupDTO"
         "201":
           description: Created
         "401":
@@ -7390,11 +7329,9 @@ paths:
           schema:
             $ref: "#/definitions/VaccineDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/VaccineDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -7425,7 +7362,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/ResponseEntity"
+            $ref: "#/definitions/VaccineDTO"
         "201":
           description: Created
         "401":
@@ -7564,11 +7501,9 @@ paths:
           schema:
             $ref: "#/definitions/VaccineTypeDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/VaccineTypeDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -7599,7 +7534,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: "#/definitions/ResponseEntity"
+            $ref: "#/definitions/VaccineTypeDTO"
         "201":
           description: Created
         "401":
@@ -7685,12 +7620,9 @@ paths:
           schema:
             $ref: "#/definitions/VisitDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: integer
-            format: int32
         "201":
+          schema:
+            $ref: "#/definitions/VisitDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -7819,11 +7751,11 @@ paths:
             items:
               $ref: "#/definitions/VisitDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
         "201":
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/VisitDTO"
           description: Created
         "401":
           description: Unauthorized
@@ -7875,11 +7807,9 @@ paths:
           schema:
             $ref: "#/definitions/WardDTO"
       responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/ResponseEntity"
         "201":
+          schema:
+            $ref: "#/definitions/WardDTO"
           description: Created
         "401":
           description: Unauthorized

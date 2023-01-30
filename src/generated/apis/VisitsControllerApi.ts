@@ -84,9 +84,9 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * newVisit
      */
-    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest): Observable<number>
-    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest): Observable<VisitDTO>
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
         throwIfNullOrUndefined(newVisit, 'newVisit', 'newVisitUsingPOST');
 
         const headers: HttpHeaders = {
@@ -94,7 +94,7 @@ export class VisitsControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<VisitDTO>({
             url: '/visit',
             method: 'POST',
             headers,
@@ -105,9 +105,9 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * newVisits
      */
-    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest): Observable<boolean>
-    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest): Observable<Array<VisitDTO>>
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<VisitDTO>>>
+    newVisitsUsingPOST({ newVisits }: NewVisitsUsingPOSTRequest, opts?: OperationOpts): Observable<Array<VisitDTO> | RawAjaxResponse<Array<VisitDTO>>> {
         throwIfNullOrUndefined(newVisits, 'newVisits', 'newVisitsUsingPOST');
 
         const headers: HttpHeaders = {
@@ -115,7 +115,7 @@ export class VisitsControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<Array<VisitDTO>>({
             url: '/visits',
             method: 'POST',
             headers,

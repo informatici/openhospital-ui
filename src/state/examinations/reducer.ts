@@ -1,4 +1,5 @@
 import produce from "immer";
+import { PatientExaminationDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_EXAMINATION_FAIL,
@@ -34,6 +35,11 @@ export default produce(
 
       case CREATE_EXAMINATION_SUCCESS: {
         draft.createExamination.status = "SUCCESS";
+        draft.createExamination.data = action.payload;
+        draft.examinationsByPatientId.data = [
+          ...(draft.examinationsByPatientId.data ?? []),
+          action.payload,
+        ];
         delete draft.createExamination.error;
         break;
       }
@@ -60,6 +66,13 @@ export default produce(
 
       case UPDATE_EXAMINATION_SUCCESS: {
         draft.updateExamination.status = "SUCCESS";
+        draft.updateExamination.data = action.payload;
+        draft.examinationsByPatientId.data =
+          draft.examinationsByPatientId.data?.map((e) => {
+            return e.pex_ID === action.payload.pex_ID
+              ? (action.payload as PatientExaminationDTO)
+              : e;
+          });
         delete draft.updateExamination.error;
         break;
       }

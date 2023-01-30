@@ -9,7 +9,7 @@ export const examinationsRoutes = (server) => {
                     res.status(400);
                     break;
                 default:
-                    res.status(201);
+                    res.status(201).json(body);
                     break;
             }
         });
@@ -20,7 +20,7 @@ export const examinationsRoutes = (server) => {
                     res.status(400);
                     break;
                 default:
-                    res.status(201);
+                    res.status(200).json(body);
                     break;
             }
         });

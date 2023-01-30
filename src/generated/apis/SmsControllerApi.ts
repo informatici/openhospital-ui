@@ -86,9 +86,9 @@ export class SmsControllerApi extends BaseAPI {
     /**
      * saveSms
      */
-    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest): Observable<boolean>
-    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest): Observable<SmsDTO>
+    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SmsDTO>>
+    saveSmsUsingPOST({ smsDTO, split }: SaveSmsUsingPOSTRequest, opts?: OperationOpts): Observable<SmsDTO | RawAjaxResponse<SmsDTO>> {
         throwIfNullOrUndefined(smsDTO, 'smsDTO', 'saveSmsUsingPOST');
 
         const headers: HttpHeaders = {
@@ -100,7 +100,7 @@ export class SmsControllerApi extends BaseAPI {
 
         if (split != null) { query['split'] = split; }
 
-        return this.request<boolean>({
+        return this.request<SmsDTO>({
             url: '/sms',
             method: 'POST',
             headers,

@@ -186,9 +186,9 @@ export class ExaminationControllerApi extends BaseAPI {
     /**
      * newPatientExamination
      */
-    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest): Observable<boolean>
-    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest): Observable<PatientExaminationDTO>
+    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    newPatientExaminationUsingPOST({ newPatientExamination }: NewPatientExaminationUsingPOSTRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
         throwIfNullOrUndefined(newPatientExamination, 'newPatientExamination', 'newPatientExaminationUsingPOST');
 
         const headers: HttpHeaders = {
@@ -196,7 +196,7 @@ export class ExaminationControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<PatientExaminationDTO>({
             url: '/examinations',
             method: 'POST',
             headers,

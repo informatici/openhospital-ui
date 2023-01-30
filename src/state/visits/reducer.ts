@@ -1,4 +1,5 @@
 import produce from "immer";
+import { VisitDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_VISIT_FAIL,
@@ -29,6 +30,8 @@ export default produce((draft: IVisitState, action: IAction<any, any>) => {
 
     case CREATE_VISIT_SUCCESS: {
       draft.createVisit.status = "SUCCESS";
+      draft.createVisit.data = action.payload;
+      draft.getVisits.data = [...(draft.getVisits.data ?? []), action.payload];
       delete draft.createVisit.error;
       break;
     }
@@ -77,6 +80,12 @@ export default produce((draft: IVisitState, action: IAction<any, any>) => {
 
     case UPDATE_VISIT_SUCCESS: {
       draft.updateVisit.status = "SUCCESS";
+      draft.updateVisit.data = action.payload;
+      draft.getVisits.data = draft.getVisits.data?.map((e) => {
+        return e.visitID === action.payload.visitID
+          ? (action.payload as VisitDTO)
+          : e;
+      });
       delete draft.updateVisit.error;
       break;
     }

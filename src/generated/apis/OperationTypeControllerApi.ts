@@ -74,9 +74,9 @@ export class OperationTypeControllerApi extends BaseAPI {
     /**
      * newOperationType
      */
-    newOperationTypeUsingPOST({ operationTypeDTO }: NewOperationTypeUsingPOSTRequest): Observable<string>
-    newOperationTypeUsingPOST({ operationTypeDTO }: NewOperationTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    newOperationTypeUsingPOST({ operationTypeDTO }: NewOperationTypeUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    newOperationTypeUsingPOST({ operationTypeDTO }: NewOperationTypeUsingPOSTRequest): Observable<OperationTypeDTO>
+    newOperationTypeUsingPOST({ operationTypeDTO }: NewOperationTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationTypeDTO>>
+    newOperationTypeUsingPOST({ operationTypeDTO }: NewOperationTypeUsingPOSTRequest, opts?: OperationOpts): Observable<OperationTypeDTO | RawAjaxResponse<OperationTypeDTO>> {
         throwIfNullOrUndefined(operationTypeDTO, 'operationTypeDTO', 'newOperationTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -84,7 +84,7 @@ export class OperationTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<OperationTypeDTO>({
             url: '/operationtypes',
             method: 'POST',
             headers,
@@ -95,9 +95,9 @@ export class OperationTypeControllerApi extends BaseAPI {
     /**
      * updateOperationTypet
      */
-    updateOperationTypetUsingPUT({ code, operationTypeDTO }: UpdateOperationTypetUsingPUTRequest): Observable<string>
-    updateOperationTypetUsingPUT({ code, operationTypeDTO }: UpdateOperationTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    updateOperationTypetUsingPUT({ code, operationTypeDTO }: UpdateOperationTypetUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    updateOperationTypetUsingPUT({ code, operationTypeDTO }: UpdateOperationTypetUsingPUTRequest): Observable<OperationTypeDTO>
+    updateOperationTypetUsingPUT({ code, operationTypeDTO }: UpdateOperationTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationTypeDTO>>
+    updateOperationTypetUsingPUT({ code, operationTypeDTO }: UpdateOperationTypetUsingPUTRequest, opts?: OperationOpts): Observable<OperationTypeDTO | RawAjaxResponse<OperationTypeDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateOperationTypetUsingPUT');
         throwIfNullOrUndefined(operationTypeDTO, 'operationTypeDTO', 'updateOperationTypetUsingPUT');
 
@@ -106,7 +106,7 @@ export class OperationTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<OperationTypeDTO>({
             url: '/operationtypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

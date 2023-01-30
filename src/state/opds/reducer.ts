@@ -1,4 +1,5 @@
 import produce from "immer";
+import { OpdDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_OPD_FAIL,
@@ -38,6 +39,8 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
 
     case CREATE_OPD_SUCCESS: {
       draft.createOpd.status = "SUCCESS";
+      draft.createOpd.data = action.payload;
+      draft.getOpds.data = [...(draft.getOpds.data ?? []), action.payload];
       delete draft.createOpd.error;
       break;
     }
@@ -111,7 +114,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
 
     case SEARCH_OPD_RESET: {
       draft.searchOpds.status = "IDLE";
-      delete draft.getOpds.data;
+      draft.getOpds.data = [];
       delete draft.getOpds.error;
       break;
     }
@@ -124,6 +127,10 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
 
     case UPDATE_OPD_SUCCESS: {
       draft.updateOpd.status = "SUCCESS";
+      draft.updateOpd.data = action.payload;
+      draft.getOpds.data = draft.getOpds.data?.map((e) => {
+        return e.code === action.payload.code ? (action.payload as OpdDTO) : e;
+      });
       delete draft.updateOpd.error;
       break;
     }
@@ -140,6 +147,9 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     }
     case DELETE_OPD_SUCCESS: {
       draft.deleteOpd.status = "SUCCESS";
+      draft.getOpds.data = draft.getOpds.data?.filter(
+        (e) => e.code !== action.payload?.code
+      );
       delete draft.deleteOpd.error;
       break;
     }

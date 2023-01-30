@@ -7,5 +7,5 @@ export type IAdmissionsState = {
   getAdmissions: IApiResponse<Array<AdmissionDTO>>;
   getOngoingAdmissions: IApiResponse<Array<AdmissionDTO>>;
   currentAdmissionByPatientId: IApiResponse<AdmissionDTO>;
-  dischargePatient: IApiResponse<null>;
+  dischargePatient: IApiResponse<AdmissionDTO>;
 };

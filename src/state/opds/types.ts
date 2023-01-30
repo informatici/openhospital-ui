@@ -4,7 +4,7 @@ import { IApiResponse } from "../types";
 export type IOpdState = {
   getOpds: IApiResponse<Array<OpdDTO>>;
   searchOpds: IApiResponse<Array<OpdDTO>>;
-  createOpd: IApiResponse<null>;
-  updateOpd: IApiResponse<null>;
-  deleteOpd: IApiResponse<null>;
+  createOpd: IApiResponse<OpdDTO>;
+  updateOpd: IApiResponse<OpdDTO>;
+  deleteOpd: IApiResponse<OpdDTO>;
 };

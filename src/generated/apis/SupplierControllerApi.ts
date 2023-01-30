@@ -83,9 +83,9 @@ export class SupplierControllerApi extends BaseAPI {
     /**
      * saveSupplier
      */
-    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest): Observable<boolean>
-    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest): Observable<SupplierDTO>
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'saveSupplierUsingPOST');
 
         const headers: HttpHeaders = {
@@ -93,7 +93,7 @@ export class SupplierControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<SupplierDTO>({
             url: '/suppliers',
             method: 'POST',
             headers,
@@ -104,9 +104,9 @@ export class SupplierControllerApi extends BaseAPI {
     /**
      * updateSupplier
      */
-    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest): Observable<boolean>
-    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest): Observable<SupplierDTO>
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'updateSupplierUsingPUT');
 
         const headers: HttpHeaders = {
@@ -114,7 +114,7 @@ export class SupplierControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<SupplierDTO>({
             url: '/suppliers',
             method: 'PUT',
             headers,
