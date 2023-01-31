@@ -9,10 +9,10 @@ export const SideContent: FC = () => {
   const user = useSelector<IState, IAuthentication | undefined>(
     (state) => state.main.authentication.data
   );
+
   return (
     <div className="side">
       <div className="side__header">
-        <div className="side__header_avatar"></div>
         <div>
           <span>{user?.userDesc}</span>
         </div>

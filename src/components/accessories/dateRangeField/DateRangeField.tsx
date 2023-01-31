@@ -21,6 +21,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
   disabled,
   theme,
   format,
+  onClose,
   onChange,
   shouldDisableDate,
   required = FIELD_VALIDATION.IDLE,
@@ -97,6 +98,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
           okText={okLabel}
           cancelText={cancelLabel}
           open={open}
+          onClose={onClose}
           onAccept={onChangeHandler}
           disableCloseOnSelect={false}
           allowKeyboardControl
@@ -156,6 +158,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
           okText={okLabel}
           cancelText={cancelLabel}
           open={open}
+          onClose={onClose}
           onAccept={onChangeHandler}
           disableCloseOnSelect={false}
           allowKeyboardControl
