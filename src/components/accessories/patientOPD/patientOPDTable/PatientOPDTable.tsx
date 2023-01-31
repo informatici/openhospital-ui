@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { OpdDTO } from "../../../../generated";
+import { OpdWithOperatioRowDTO } from "../../../../generated";
 import { getOpds } from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
@@ -34,7 +34,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, OpdDTO[]>((state) =>
+  const data = useSelector<IState, OpdWithOperatioRowDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
   const opdStatus = useSelector<IState, string | undefined>(
@@ -50,24 +50,26 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     if (shouldUpdateTable || patientCode) dispatch(getOpds(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
-  const formatDataToDisplay = (data: OpdDTO[] | undefined) => {
+  const formatDataToDisplay = (data: OpdWithOperatioRowDTO[] | undefined) => {
     let results: any = [];
     if (data)
       results = data.map((item) => {
         return {
-          code: item.code,
-          visitDate: item.visitDate ? renderDate(item.visitDate) : "",
-          disease: item.disease?.description || "",
-          disease2: item.disease2?.description || "",
-          disease3: item.disease3?.description || "",
-          note: item.note || "",
+          code: item.opdDTO.code,
+          visitDate: item.opdDTO.visitDate
+            ? renderDate(item.opdDTO.visitDate)
+            : "",
+          disease: item.opdDTO.disease?.description || "",
+          disease2: item.opdDTO.disease2?.description || "",
+          disease3: item.opdDTO.disease3?.description || "",
+          note: item.opdDTO.note || "",
         };
       });
     return results;
   };
 
-  const onEdit = (row?: OpdDTO) => {
-    handleEdit(data.find((item) => item.code === row?.code));
+  const onEdit = (row?: OpdWithOperatioRowDTO) => {
+    handleEdit(data.find((item) => item.opdDTO.code === row?.opdDTO.code));
   };
 
   return (

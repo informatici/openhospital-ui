@@ -76,6 +76,7 @@ models\MovementDTO.ts
 models\MovementTypeDTO.ts
 models\MovementWardDTO.ts
 models\OpdDTO.ts
+models\OpdWithOperatioRowDTO.ts
 models\OperationDTO.ts
 models\OperationRowDTO.ts
 models\OperationTypeDTO.ts

@@ -8,13 +8,9 @@ interface IOwnProps {
   resetFormCallback: () => void;
   addOperationCallback?: () => void;
   operationsRowFields: TFields<OperationRowFormFieldName>;
+  operationRowsToEdit?: OperationRowDTO[];
 }
 export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
-
-export interface OpdWithOperationRows {
-  opd: OpdDTO;
-  operationRows?: OperationRowDTO[];
-}
 
 export type TPatientOPDFormFieldName =
   | "visitDate"

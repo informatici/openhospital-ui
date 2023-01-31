@@ -3,6 +3,8 @@ import React, {
   useCallback,
   useEffect,
   useState,
+  useMemo,
+  useRef,
 } from "react";
 import { useFormik } from "formik";
 import {
@@ -19,16 +21,12 @@ import has from "lodash.has";
 import get from "lodash.get";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { OpdWithOperationRows, TProps } from "./types";
+import { TProps } from "./types";
 import { IState } from "../../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Checkbox,
-  createSvgIcon,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -40,7 +38,6 @@ import {
   ListItemText,
   Radio,
   RadioGroup,
-  styled,
 } from "@material-ui/core";
 import { DiseaseDTO, OpdDTO, OperationRowDTO } from "../../../../generated";
 import moment from "moment";
@@ -50,13 +47,18 @@ import { isEmpty } from "lodash";
 import AddIcon from "@material-ui/icons/Add";
 import FileIcon from "@material-ui/icons/Label";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { FilterList } from "@material-ui/icons";
+import UpdateIcon from "@material-ui/icons/Update";
 import { CustomDialog } from "../../customDialog/CustomDialog";
-import PatientOperation from "../../patientOperation/PatientOperation";
 import ContentCutIcon from "../../icons/content-cut";
 import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
-import { OperationRowFormFieldName } from "../../patientOperation/operationForm/types";
-import { getOperations } from "../../../../state/operations/actions";
+import {
+  deleteOperationRow,
+  getOperations,
+} from "../../../../state/operations/actions";
+import { IOperationState } from "../../../../state/operations/types";
+import checkIcon from "../../../../assets/check-icon.png";
+import { opRowFields } from "../../patientOperation/opRowFields";
+import InfoBox from "../../infoBox/InfoBox";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -67,9 +69,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
-  operationsRowFields,
+  operationRowsToEdit,
 }) => {
   const { t } = useTranslation();
+  const [operationCreationMode, setOperationCreationMode] = useState(true);
 
   const validationSchema = object({
     visitDate: string()
@@ -112,7 +115,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
-  const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
+  const [operationRows, setOperationRows] = useState(
+    operationRowsToEdit as OperationRowDTO[]
+  );
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -132,7 +137,12 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         disease2: diseases.find((e) => e.code === formik.values.disease2),
         disease3: diseases.find((e) => e.code === formik.values.disease3),
       };
-      onSubmit({ opd: opdToSave, operationRows } as OpdWithOperationRows);
+      const combinedValues = {
+        opdDTO: opdToSave,
+        operationRows,
+      } as OpdDTO;
+
+      onSubmit(combinedValues);
     },
   });
 
@@ -179,9 +189,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     resetForm();
     resetFormCallback();
   };
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getOperations());
   }, [dispatch]);
@@ -213,12 +221,17 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     setSelectedOpd(value);
     setShowModal(true);
   };
-
+  const [deletedObjCode, setDeletedObjCode] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const handleAddChecboxChange = (event: any) => {
     setIsChecked(event.target.checked);
   };
   const handleRemoveOperationRow = (value: OperationRowDTO) => () => {
+    if (value.id && value.id !== 0) {
+      // the operation has to be deleted
+      setDeletedObjCode(value.id + "");
+      dispatch(deleteOperationRow(value.id));
+    }
     let ops = [...operationRows];
     const indx = ops.findIndex(
       (it) => it.operation?.code === value.operation?.code
@@ -229,6 +242,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     setOperationRows((state) => [...ops]);
   };
   const [addOperationLoading, setAddOperationLoading] = useState(false);
+  const [opRowToEdit, setOpRowToEdit] = useState({} as OperationRowDTO);
 
   const handleAddOperationRow = (values: OperationRowDTO) => {
     setAddOperationLoading(true);
@@ -248,6 +262,34 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       setOperationRows((state) => []);
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
+
+  const operationStore = useSelector<IState, IOperationState>(
+    (state: IState) => state.operations
+  );
+
+  const operationsRowFields = useMemo(() => {
+    return opRowFields(
+      operationCreationMode ? { opDate: formik.values?.date } : opRowToEdit
+    );
+  }, [operationCreationMode]);
+
+  const handleUpdateOperationRow = (value: OperationRowDTO) => () => {
+    setOpRowToEdit(value);
+    setOperationCreationMode(false);
+  };
+
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.operations.deleteOperationRow.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
+  const changeStatus = useSelector<IState, string | undefined>((state) => {
+    return state.operations.deleteOperationRow.status;
+  });
+
+  const infoBoxRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <div className="patientOpdForm">
@@ -393,7 +435,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="patientOpdForm__item fullWidth">
-              <details>
+              <details open>
                 <summary>
                   {" "}
                   <ContentCutIcon
@@ -423,6 +465,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                           aria-label="delete"
                         >
                           <DeleteIcon color="primary" />
+                        </IconButton>
+                        <IconButton
+                          onClick={handleUpdateOperationRow(value)}
+                          edge="end"
+                          aria-label="update"
+                        >
+                          <UpdateIcon color="primary" />
                         </IconButton>
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -507,6 +556,20 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               }
               label={t("common.addanotherrow")}
             />
+            <ConfirmationDialog
+              isOpen={operationStore.deleteOperationRow.status === "SUCCESS"}
+              title={t("opretaionrow.deleted")}
+              icon={checkIcon}
+              info={t("common.deletesuccess", { code: deletedObjCode })}
+              primaryButtonLabel={t("common.ok")}
+              handlePrimaryButtonClick={() => {}}
+              handleSecondaryButtonClick={() => {}}
+            />
+            {changeStatus === "FAIL" && (
+              <div ref={infoBoxRef} className="info-box-container">
+                <InfoBox type="error" message={errorMessage} />
+              </div>
+            )}
           </>
         }
       />

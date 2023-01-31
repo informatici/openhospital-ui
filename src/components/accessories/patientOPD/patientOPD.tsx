@@ -3,10 +3,15 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { OpdDTO, OperationRowDTO } from "../../../generated";
+import {
+  OpdDTO,
+  OpdWithOperatioRowDTO,
+  OperationRowDTO,
+} from "../../../generated";
 import {
   createOpd,
   createOpdReset,
+  createOpdWithOperationsRowsList,
   deleteOpd,
   updateOpd,
   updateOpdReset,
@@ -24,7 +29,6 @@ import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 import { initialFields as operationFields } from "../patientOperation/consts";
-import { OpdWithOperationRows } from "./patientOPDForm/types";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -34,10 +38,7 @@ const PatientOPD: FunctionComponent = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-
-  const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
-  const [selectedOpd, setSelectedOpd] = useState({} as OpdDTO);
-  const [showModal, setShowModal] = useState(false);
+  const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperatioRowDTO);
   const [creationMode, setCreationMode] = useState(true);
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
@@ -89,17 +90,34 @@ const PatientOPD: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (opdValues: OpdWithOperationRows) => {
+  const onSubmit = (opdValues: OpdWithOperatioRowDTO) => {
     setShouldResetForm(false);
-    opdValues.opd.patientCode = patient?.code;
-    opdValues.opd.age = patient?.age;
-    opdValues.opd.sex = patient?.sex;
-    opdValues.opd.userID = userId;
-    const opdToSave = { ...opdToEdit, ...opdValues.opd };
-    if (!creationMode && opdToEdit.code) {
-      dispatch(updateOpd(opdToEdit.code, opdToSave, opdValues.operationRows));
+    opdValues.opdDTO.patientCode = patient?.code;
+    opdValues.opdDTO.age = patient?.age;
+    opdValues.opdDTO.sex = patient?.sex;
+    opdValues.opdDTO.userID = userId;
+    opdValues.opdDTO.patientName =
+      patient?.firstName + " " + patient?.secondName;
+    const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
+    if (!creationMode && opdToEdit.opdDTO.code) {
+      dispatch(
+        (opdToEdit.opdDTO.code,
+        {
+          opdDTO: opdToSave,
+          operationRows: opdValues.operationRows,
+        } as OpdWithOperatioRowDTO)
+      );
     } else
-      dispatch(createOpd({ ...opdToSave, code: 0 }, opdValues.operationRows));
+      console.log("Non-techincal user", {
+        opdDTO: opdToSave,
+        operationRows: opdValues.operationRows,
+      });
+    dispatch(
+      createOpdWithOperationsRowsList({
+        opdDTO: { ...opdToSave, code: 0 },
+        operationRows: opdValues.operationRows,
+      })
+    );
   };
 
   const resetFormCallback = () => {
@@ -112,7 +130,7 @@ const PatientOPD: FunctionComponent = () => {
     scrollToElement(null);
   };
 
-  const onEdit = (row: OpdDTO) => {
+  const onEdit = (row: OpdWithOperatioRowDTO) => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
@@ -131,7 +149,7 @@ const PatientOPD: FunctionComponent = () => {
           fields={
             creationMode
               ? initialFields
-              : updateOpdFields(initialFields, opdToEdit)
+              : updateOpdFields(initialFields, opdToEdit.opdDTO)
           }
           creationMode={creationMode}
           onSubmit={onSubmit}
@@ -143,6 +161,7 @@ const PatientOPD: FunctionComponent = () => {
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
           operationsRowFields={operationFields}
+          operationRowsToEdit={opdToEdit.operationRows}
         />
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef}>
@@ -156,7 +175,7 @@ const PatientOPD: FunctionComponent = () => {
           info={
             creationMode
               ? t("opd.createsuccess")
-              : t("opd.updatesuccess", { code: opdToEdit.code })
+              : t("opd.updatesuccess", { code: opdToEdit.opdDTO.code })
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() =>

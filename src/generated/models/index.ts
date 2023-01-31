@@ -33,6 +33,7 @@ export * from './MovementDTO';
 export * from './MovementTypeDTO';
 export * from './MovementWardDTO';
 export * from './OpdDTO';
+export * from './OpdWithOperatioRowDTO';
 export * from './OperationDTO';
 export * from './OperationRowDTO';
 export * from './OperationTypeDTO';
