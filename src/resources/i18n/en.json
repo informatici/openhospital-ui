@@ -114,7 +114,10 @@
       "d4": "Adult",
       "d5": "Elderly"
     },
-    "operation": "Operation"
+    "operation": "Operation",
+    "updated": "Patient updated",
+    "created": "Patient created",
+    "updatesuccessful": "The patient was edit successfully."
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -388,6 +391,11 @@
       "thisyear": "This Year",
       "lastyear": "Last Year"
     }
+  },
+  "permission": {
+    "denied": "Permission denied",
+    "unauthorized": "Unauthorized",
+    "accessdenied": "You don't have permission required to access this content"
   },
   "therapy": {
     "newtherapy": "New Therapy",

@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { PATHS } from "../../../consts";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { Opds } from "../../accessories/opds/Opds";
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import "./styles.scss";
 
 const VisitsActivity: FC = () => {
@@ -29,7 +29,9 @@ const VisitsActivity: FC = () => {
       />
       <div className="visits__background">
         <div className="visits__content">
-          <Opds />
+          <Permission require="visit.access">
+            <Opds />
+          </Permission>
         </div>
       </div>
       <Footer />

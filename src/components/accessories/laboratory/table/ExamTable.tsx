@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { LaboratoryForPrintWithRows } from "../../../../state/laboratories/types";
 
 export const ExamTable: FC<IExamTableProps> = ({
@@ -20,6 +21,8 @@ export const ExamTable: FC<IExamTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const canUpdate = usePermission("exam.update");
+  const canDelete = usePermission("exam.delete");
   const deleteStatus = useSelector<IState, any>(
     (state: IState) => state.laboratories.deleteLab.status
   );
@@ -100,8 +103,8 @@ export const ExamTable: FC<IExamTableProps> = ({
         columnsOrder={order}
         rowsPerPage={5}
         onView={handleView}
-        onEdit={onEdit}
-        onDelete={onDelete}
+        onEdit={canUpdate ? onEdit : undefined}
+        onDelete={canDelete ? onDelete : undefined}
       />
       {deleteStatus === "FAIL" && (
         <div className="info-box-container">

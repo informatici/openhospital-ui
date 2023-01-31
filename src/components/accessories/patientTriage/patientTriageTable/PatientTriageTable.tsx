@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { examinationsByPatientId } from "../../../../state/examinations/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
@@ -20,6 +21,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("examination.update");
   const label = {
     pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),
@@ -122,7 +124,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                onEdit={handleEdit}
+                onEdit={canUpdate ? handleEdit : undefined}
                 isCollapsabile={true}
                 showEmptyCell={false}
               />

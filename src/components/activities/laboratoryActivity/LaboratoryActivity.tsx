@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -41,7 +42,9 @@ const LaboratoryActivity: FC = () => {
       />
       <div className="labs__background">
         <div className="labs__content">
-          <Exams />
+          <Permission require="laboratory.access">
+            <Exams />
+          </Permission>
         </div>
       </div>
       <Footer />

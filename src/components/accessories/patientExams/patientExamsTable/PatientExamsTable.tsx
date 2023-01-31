@@ -8,6 +8,7 @@ import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -21,6 +22,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
+  const canUpdate = usePermission("exam.update");
+  const canDelete = usePermission("exam.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date", "exam"];
@@ -86,6 +89,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
         ?.laboratoryDTO
     );
   };
+  const onDelete = (row: any) => {
+    handleDelete(row.code);
+  };
 
   return (
     <div className="patientExamsTable">
@@ -98,9 +104,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          // onDelete={onDelete}
+          onDelete={canDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={onEdit}
+          onEdit={canUpdate ? onEdit : undefined}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (

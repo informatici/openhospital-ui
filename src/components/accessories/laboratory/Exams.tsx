@@ -30,13 +30,13 @@ import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
@@ -100,17 +100,19 @@ export const Exams: FC = () => {
         <div className="lab__header">
           <div className="lab__title">{t("nav.laboratory")}</div>
           <div className="lab__actions">
-            <Button
-              onClick={() => {
-                navigate(`${PATHS.laboratory}/new`);
-              }}
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              <Add fontSize="small" />
-              <span className="new__button__label">{t("lab.newlab")}</span>
-            </Button>
+            <Permission require="exam.create">
+              <Button
+                onClick={() => {
+                  navigate(`${PATHS.laboratory}/new`);
+                }}
+                type="button"
+                variant="contained"
+                color="primary"
+              >
+                <Add fontSize="small" />
+                <span className="new__button__label">{t("lab.newlab")}</span>
+              </Button>
+            </Permission>
           </div>
         </div>
         {status === "LOADING" && (
@@ -119,7 +121,7 @@ export const Exams: FC = () => {
           />
         )}
         {status !== "LOADING" && (
-          <>
+          <Permission require="exam.read">
             <ExamFilterForm onSubmit={onSubmit} fields={fields} />
             {status === "SUCCESS_EMPTY" && (
               <InfoBox type="warning" message={t("common.emptydata")} />
@@ -151,7 +153,7 @@ export const Exams: FC = () => {
               }}
               handleSecondaryButtonClick={() => {}}
             />
-          </>
+          </Permission>
         )}
       </>
     );
