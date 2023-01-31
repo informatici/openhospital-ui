@@ -10,7 +10,6 @@ export const SideContent: FC = () => {
     (state) => state.main.authentication.data
   );
 
-  console.log(user);
   return (
     <div className="side">
       <div className="side__header">
