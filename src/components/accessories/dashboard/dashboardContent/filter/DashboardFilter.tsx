@@ -42,7 +42,6 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 
   const handleSelectionChange = useCallback(
     (event: any, value: any) => {
-      console.log(value);
       if (!isEmpty(value)) {
         setSelection(value as TPeriodType);
       }
