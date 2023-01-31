@@ -153,9 +153,9 @@ export class PatVacControllerApi extends BaseAPI {
     /**
      * newPatientVaccine
      */
-    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest): Observable<boolean>
-    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest): Observable<PatientVaccineDTO>
+    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientVaccineDTO>>
+    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<PatientVaccineDTO | RawAjaxResponse<PatientVaccineDTO>> {
         throwIfNullOrUndefined(patientVaccineDTO, 'patientVaccineDTO', 'newPatientVaccineUsingPOST');
 
         const headers: HttpHeaders = {
@@ -163,7 +163,7 @@ export class PatVacControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<PatientVaccineDTO>({
             url: '/patientvaccines',
             method: 'POST',
             headers,

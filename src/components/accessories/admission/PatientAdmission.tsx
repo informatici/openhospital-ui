@@ -31,9 +31,8 @@ const PatientAdmission: FC = () => {
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [admissionToEdit, setAdmissionToEdit] = useState<
-    AdmissionDTO | undefined
-  >();
+  const [admissionToEdit, setAdmissionToEdit] =
+    useState<AdmissionDTO | undefined>();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
@@ -111,7 +110,7 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    if (createStatus === "FAIL" || createStatus === "FAIL") {
+    if (createStatus === "FAIL" || updateStatus === "FAIL") {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }

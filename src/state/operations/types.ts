@@ -3,8 +3,8 @@ import { IApiResponse } from "../types";
 
 export type IOperationState = {
   operationList: IApiResponse<Array<OperationDTO>>;
-  createOperationRow: IApiResponse<null>;
-  updateOperationRow: IApiResponse<null>;
-  deleteOperationRow: IApiResponse<null>;
+  createOperationRow: IApiResponse<OperationRowDTO>;
+  updateOperationRow: IApiResponse<OperationRowDTO>;
+  deleteOperationRow: IApiResponse<OperationRowDTO>;
   operationRowsByQdmt: IApiResponse<Array<OperationRowDTO>>;
 };

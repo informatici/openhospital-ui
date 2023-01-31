@@ -1,4 +1,5 @@
 import produce from "immer";
+import { OperationRowDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_OPERATIONROW_FAIL,
@@ -109,6 +110,10 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
     case CREATE_OPERATIONROW_SUCCESS: {
       draft.createOperationRow.status = "SUCCESS";
       draft.createOperationRow.data = action.payload;
+      draft.operationRowsByQdmt.data = [
+        ...(draft.operationRowsByQdmt.data ?? []),
+        action.payload,
+      ];
       delete draft.createOperationRow.error;
       break;
     }
@@ -136,6 +141,13 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
     case UPDATE_OPERATIONROW_SUCCESS: {
       draft.updateOperationRow.status = "SUCCESS";
       draft.updateOperationRow.data = action.payload;
+      draft.operationRowsByQdmt.data = draft.operationRowsByQdmt.data?.map(
+        (e) => {
+          return e.id === action.payload.id
+            ? (action.payload as OperationRowDTO)
+            : e;
+        }
+      );
       delete draft.updateOperationRow.error;
       break;
     }
@@ -163,6 +175,9 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
     case DELETE_OPERATIONROW_SUCCESS: {
       draft.deleteOperationRow.status = "SUCCESS";
       draft.deleteOperationRow.data = action.payload;
+      draft.operationRowsByQdmt.data = draft.operationRowsByQdmt.data?.filter(
+        (e) => e.id !== action.payload?.id
+      );
       delete draft.deleteOperationRow.error;
       break;
     }

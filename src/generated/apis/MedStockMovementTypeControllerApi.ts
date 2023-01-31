@@ -119,9 +119,9 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     /**
      * newMedicaldsrstockmovType
      */
-    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest): Observable<void>
-    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest): Observable<MovementTypeDTO>
+    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementTypeDTO>>
+    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<MovementTypeDTO | RawAjaxResponse<MovementTypeDTO>> {
         throwIfNullOrUndefined(medicaldsrstockmovType, 'medicaldsrstockmovType', 'newMedicaldsrstockmovTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -129,7 +129,7 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<void>({
+        return this.request<MovementTypeDTO>({
             url: '/medstockmovementtype',
             method: 'POST',
             headers,
@@ -140,9 +140,9 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     /**
      * updateMedicaldsrstockmovType
      */
-    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest): Observable<void>
-    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest): Observable<MovementTypeDTO>
+    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementTypeDTO>>
+    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<MovementTypeDTO | RawAjaxResponse<MovementTypeDTO>> {
         throwIfNullOrUndefined(medicaldsrstockmovTypeDTO, 'medicaldsrstockmovTypeDTO', 'updateMedicaldsrstockmovTypeUsingPUT');
 
         const headers: HttpHeaders = {
@@ -150,7 +150,7 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<void>({
+        return this.request<MovementTypeDTO>({
             url: '/medstockmovementtype',
             method: 'PUT',
             headers,

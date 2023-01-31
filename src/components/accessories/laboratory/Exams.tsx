@@ -24,7 +24,7 @@ import {
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { LaboratoryForPrintDTO, LabWithRowsDTO } from "../../../generated";
+import { LaboratoryForPrintDTO } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
@@ -82,8 +82,10 @@ export const Exams: FC = () => {
     dispatch(deleteLab(code));
   };
 
-  const errorMessage = useSelector(
-    (state: IState) => state.laboratories.searchLabs.error?.message
+  const errorMessage = useSelector((state: IState) =>
+    state.laboratories.searchLabs.error?.message
+      ? state.laboratories.searchLabs.error?.message
+      : t("common.somethingwrong")
   );
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status

@@ -1,4 +1,5 @@
 import produce from "immer";
+import { FullBillDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   NEW_BILL_FAIL,
@@ -52,6 +53,11 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case NEW_BILL_SUCCESS: {
       draft.newBill.status = "SUCCESS";
+      draft.newBill.data = action.payload;
+      draft.getPendingBills.data = [
+        ...(draft.getPendingBills.data ?? []),
+        action.payload,
+      ];
       delete draft.newBill.error;
       break;
     }
@@ -78,6 +84,12 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case UPDATE_BILL_SUCCESS: {
       draft.updateBill.status = "SUCCESS";
+      draft.updateBill.data = action.payload;
+      draft.getPendingBills.data = draft.getPendingBills.data?.map((e) => {
+        return e.bill?.id === action.payload?.bill?.id
+          ? (action.payload as FullBillDTO)
+          : e;
+      });
       delete draft.updateBill.error;
       break;
     }
@@ -199,6 +211,9 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case DELETE_BILL_SUCCESS: {
       draft.delete.status = "SUCCESS";
+      draft.getPendingBills.data = draft.getPendingBills.data?.filter(
+        (e) => e.bill?.id !== action.payload
+      );
       delete draft.delete.error;
       break;
     }
@@ -223,6 +238,11 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case EDIT_BILL_SUCCESS: {
       draft.payBill.status = "SUCCESS";
+      draft.getPendingBills.data = draft.getPendingBills.data?.map((e) => {
+        return e.bill?.id === action.payload?.bill?.id
+          ? (action.payload as FullBillDTO)
+          : e;
+      });
       delete draft.payBill.error;
       break;
     }
@@ -247,6 +267,9 @@ export default produce((draft: IBillsState, action: IAction<any, any>) => {
 
     case CLOSE_BILL_SUCCESS: {
       draft.closeBill.status = "SUCCESS";
+      draft.getPendingBills.data = draft.getPendingBills.data?.filter(
+        (e) => e.bill?.id !== action.payload?.bill?.id
+      );
       delete draft.closeBill.error;
       break;
     }

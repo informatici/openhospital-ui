@@ -316,6 +316,7 @@ export const deleteBill =
         () => {
           dispatch({
             type: DELETE_BILL_SUCCESS,
+            payload: id,
           });
         },
         (error) => {

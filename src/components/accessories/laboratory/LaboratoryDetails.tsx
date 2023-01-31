@@ -23,7 +23,9 @@ export const LaboratoryDetails: FC = () => {
     (state: IState) => state.laboratories.getLabWithRowsByCode.status
   );
   const errorMessage = useSelector(
-    (state: IState) => state.laboratories.getLabWithRowsByCode.error?.message
+    (state: IState) =>
+      state.laboratories.getLabWithRowsByCode.error?.message ??
+      t("common.somethingwrong")
   );
 
   switch (status) {

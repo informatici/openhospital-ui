@@ -1,16 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { IOwnProps, TPeriodType, TViewType } from "./types";
 import "./styles.scss";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import DateRangeField from "../../../dateRangeField/DateRangeField";
 import { DateRange } from "@material-ui/pickers";
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-} from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { CalendarTodaySharp } from "@material-ui/icons";
 import DateField from "../../../dateField/DateField";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
@@ -55,6 +50,13 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
     [selection]
   );
 
+  const onIconClickHandler = useCallback(
+    (event: any) => {
+      setOpen(!open);
+    },
+    [open]
+  );
+
   const handleDateRangeChange = useCallback(
     (value: DateRange<Date>) => {
       if (
@@ -63,6 +65,18 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
       ) {
         setDateRange([value[0], value[1]]);
       }
+      setSelection("custom");
+      setOpen(false);
+    },
+    [dateRange, open]
+  );
+
+  const handleDateChange = useCallback(
+    (value: Date | null) => {
+      if (moment(value?.toISOString()).isValid()) {
+        setDateRange([value, value]);
+      }
+      setView("day");
       setSelection("custom");
       setOpen(false);
     },
@@ -91,7 +105,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
             <span>{t("dashboard.period.year")}</span>
           </ToggleButton>
           <ToggleButton value="range">
-            <span>{"Custom"}</span>
+            <span>{t("dashboard.period.range")}</span>
           </ToggleButton>
         </ToggleButtonGroup>
 

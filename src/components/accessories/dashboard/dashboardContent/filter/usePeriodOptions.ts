@@ -18,49 +18,58 @@ export const usePeriodOptions = () => {
       switch (selection) {
         case "current":
           return [
-            moment().startOf("day").toISOString(),
-            moment().endOf("day").toISOString(),
+            moment().utc().startOf("day").toISOString(),
+            moment().utc().endOf("day").toISOString(),
           ];
         case "previous":
           return [
-            moment().add(-1, "day").startOf("day").toISOString(),
-            moment().add(-1, "day").endOf("day").toISOString(),
+            moment().add(-1, "day").utc().startOf("day").toISOString(),
+            moment().add(-1, "day").utc().endOf("day").toISOString(),
           ];
         case "last2":
           return [
-            moment().add(-2, "day").startOf("day").toISOString(),
-            moment().add(-1, "day").endOf("day").toISOString(),
+            moment().add(-2, "day").utc().startOf("day").toISOString(),
+            moment().add(-1, "day").utc().endOf("day").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-3, "day").startOf("day").toISOString(),
-            moment().add(-1, "day").endOf("day").toISOString(),
+            moment().add(-3, "day").utc().startOf("day").toISOString(),
+            moment().add(-1, "day").utc().endOf("day").toISOString(),
           ];
         default:
-          return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
+          return [
+            moment(dateRange[0]?.toISOString())
+              .utc()
+              .startOf("day")
+              .toISOString(),
+            moment(dateRange[1]?.toISOString())
+              .utc()
+              .endOf("day")
+              .toISOString(),
+          ];
       }
     }
     if (view === "week") {
       switch (selection) {
         case "current":
           return [
-            moment().startOf("week").toISOString(),
-            moment().endOf("week").toISOString(),
+            moment().utc().startOf("week").toISOString(),
+            moment().utc().endOf("week").toISOString(),
           ];
         case "previous":
           return [
-            moment().add(-1, "week").startOf("week").toISOString(),
-            moment().add(-1, "week").endOf("week").toISOString(),
+            moment().add(-1, "week").utc().startOf("week").toISOString(),
+            moment().add(-1, "week").utc().endOf("week").toISOString(),
           ];
         case "last2":
           return [
-            moment().add(-2, "week").startOf("week").toISOString(),
-            moment().add(-1, "week").endOf("week").toISOString(),
+            moment().add(-2, "week").utc().startOf("week").toISOString(),
+            moment().add(-1, "week").utc().endOf("week").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-3, "week").startOf("week").toISOString(),
-            moment().add(-1, "week").endOf("week").toISOString(),
+            moment().add(-3, "week").utc().startOf("week").toISOString(),
+            moment().add(-1, "week").utc().endOf("week").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
@@ -70,23 +79,23 @@ export const usePeriodOptions = () => {
       switch (selection) {
         case "current":
           return [
-            moment().startOf("month").toISOString(),
-            moment().endOf("month").toISOString(),
+            moment().utc().startOf("month").toISOString(),
+            moment().utc().endOf("month").toISOString(),
           ];
         case "previous":
           return [
-            moment().add(-1, "month").startOf("month").toISOString(),
-            moment().add(-1, "month").endOf("month").toISOString(),
+            moment().add(-1, "month").utc().startOf("month").toISOString(),
+            moment().add(-1, "month").utc().endOf("month").toISOString(),
           ];
         case "last2":
           return [
-            moment().add(-2, "month").startOf("month").toISOString(),
-            moment().add(-1, "month").endOf("month").toISOString(),
+            moment().add(-2, "month").utc().startOf("month").toISOString(),
+            moment().add(-1, "month").utc().endOf("month").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-3, "month").startOf("month").toISOString(),
-            moment().add(-1, "month").endOf("month").toISOString(),
+            moment().add(-3, "month").utc().startOf("month").toISOString(),
+            moment().add(-1, "month").utc().endOf("month").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
@@ -96,23 +105,23 @@ export const usePeriodOptions = () => {
       switch (selection) {
         case "current":
           return [
-            moment().startOf("year").toISOString(),
-            moment().endOf("year").toISOString(),
+            moment().utc().startOf("year").toISOString(),
+            moment().utc().endOf("year").toISOString(),
           ];
         case "previous":
           return [
-            moment().add(-1, "year").startOf("year").toISOString(),
-            moment().add(-1, "year").endOf("year").toISOString(),
+            moment().add(-1, "year").utc().startOf("year").toISOString(),
+            moment().add(-1, "year").utc().endOf("year").toISOString(),
           ];
         case "last2":
           return [
-            moment().add(-2, "year").startOf("year").toISOString(),
-            moment().add(-1, "year").endOf("year").toISOString(),
+            moment().add(-2, "year").utc().startOf("year").toISOString(),
+            moment().add(-1, "year").utc().endOf("year").toISOString(),
           ];
         case "last3":
           return [
-            moment().add(-3, "year").startOf("year").toISOString(),
-            moment().add(-1, "year").endOf("year").toISOString(),
+            moment().add(-3, "year").utc().startOf("year").toISOString(),
+            moment().add(-1, "year").utc().endOf("year").toISOString(),
           ];
         default:
           return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];

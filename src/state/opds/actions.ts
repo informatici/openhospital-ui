@@ -37,9 +37,10 @@ export const createOpd =
       type: CREATE_OPD_LOADING,
     });
     opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
-      () => {
+      (payload) => {
         dispatch({
           type: CREATE_OPD_SUCCESS,
+          payload: payload,
         });
       },
       (error) => {
@@ -172,9 +173,10 @@ export const updateOpd =
       type: UPDATE_OPD_LOADING,
     });
     opdControllerApi.updateOpdUsingPUT({ code, opdDTO }).subscribe(
-      () => {
+      (payload) => {
         dispatch({
           type: UPDATE_OPD_SUCCESS,
+          payload: payload,
         });
       },
       (error) => {
@@ -204,6 +206,7 @@ export const deleteOpd =
         () => {
           dispatch({
             type: DELETE_OPD_SUCCESS,
+            payload: code,
           });
         },
         (error) => {
