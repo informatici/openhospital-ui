@@ -35,9 +35,10 @@ export const createExamination =
     examinationControllerApi
       .newPatientExaminationUsingPOST({ newPatientExamination })
       .subscribe(
-        () => {
+        (payload) => {
           dispatch({
             type: CREATE_EXAMINATION_SUCCESS,
+            payload: payload,
           });
         },
         (error) => {
@@ -63,9 +64,10 @@ export const updateExamination =
       type: UPDATE_EXAMINATION_LOADING,
     });
     examinationControllerApi.updateExaminationUsingPUT({ id, dto }).subscribe(
-      () => {
+      (payload) => {
         dispatch({
           type: UPDATE_EXAMINATION_SUCCESS,
+          payload: payload,
         });
       },
       (error) => {

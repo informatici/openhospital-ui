@@ -26,6 +26,7 @@
       "week": "Week",
       "month": "Month",
       "year": "Year",
+      "range": "Range",
       "days": {
         "current": "Today",
         "previous": "Yesterday",
@@ -480,7 +481,8 @@
     "labcode": "Laboratory Code",
     "examtype": "Exam Type",
     "validatetodate": "Must be greater than date from",
-    "validatefromdate": "Must be less than date to"
+    "validatefromdate": "Must be less than date to",
+    "multipleresults": "Multiple results"
   },
   "admission": {
     "admDate": "Date",

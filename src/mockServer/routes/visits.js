@@ -13,7 +13,7 @@ export const visitRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(201);
+                    res.status(201).json(body);
             }
         });
         server.put("/:visitID").intercept((req, res) => {
@@ -28,7 +28,7 @@ export const visitRoutes = (server) => {
                     res.body = null;
                     break;
                 default:
-                    res.status(200);
+                    res.status(200).json(body);
             }
         });
         server.get("/:patID").intercept((req, res) => {

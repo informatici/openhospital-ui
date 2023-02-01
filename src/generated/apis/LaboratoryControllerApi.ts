@@ -203,9 +203,9 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * newLaboratory2
      */
-    newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest): Observable<ResponseEntity>
-    newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest): Observable<LaboratoryDTO>
+    newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LaboratoryDTO>>
+    newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest, opts?: OperationOpts): Observable<LaboratoryDTO | RawAjaxResponse<LaboratoryDTO>> {
         throwIfNullOrUndefined(labsWithRows, 'labsWithRows', 'newLaboratory2UsingPOST');
 
         const headers: HttpHeaders = {
@@ -213,7 +213,7 @@ export class LaboratoryControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<LaboratoryDTO>({
             url: '/laboratories/insertList',
             method: 'POST',
             headers,
@@ -224,9 +224,9 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * newLaboratory
      */
-    newLaboratoryUsingPOST({ labWithRowsDTO }: NewLaboratoryUsingPOSTRequest): Observable<boolean>
-    newLaboratoryUsingPOST({ labWithRowsDTO }: NewLaboratoryUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newLaboratoryUsingPOST({ labWithRowsDTO }: NewLaboratoryUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newLaboratoryUsingPOST({ labWithRowsDTO }: NewLaboratoryUsingPOSTRequest): Observable<LaboratoryDTO>
+    newLaboratoryUsingPOST({ labWithRowsDTO }: NewLaboratoryUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LaboratoryDTO>>
+    newLaboratoryUsingPOST({ labWithRowsDTO }: NewLaboratoryUsingPOSTRequest, opts?: OperationOpts): Observable<LaboratoryDTO | RawAjaxResponse<LaboratoryDTO>> {
         throwIfNullOrUndefined(labWithRowsDTO, 'labWithRowsDTO', 'newLaboratoryUsingPOST');
 
         const headers: HttpHeaders = {
@@ -234,7 +234,7 @@ export class LaboratoryControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<LaboratoryDTO>({
             url: '/laboratories',
             method: 'POST',
             headers,
@@ -245,9 +245,9 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * updateLaboratory
      */
-    updateLaboratoryUsingPUT({ code, labWithRowsDTO }: UpdateLaboratoryUsingPUTRequest): Observable<ResponseEntity>
-    updateLaboratoryUsingPUT({ code, labWithRowsDTO }: UpdateLaboratoryUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    updateLaboratoryUsingPUT({ code, labWithRowsDTO }: UpdateLaboratoryUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    updateLaboratoryUsingPUT({ code, labWithRowsDTO }: UpdateLaboratoryUsingPUTRequest): Observable<LaboratoryDTO>
+    updateLaboratoryUsingPUT({ code, labWithRowsDTO }: UpdateLaboratoryUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LaboratoryDTO>>
+    updateLaboratoryUsingPUT({ code, labWithRowsDTO }: UpdateLaboratoryUsingPUTRequest, opts?: OperationOpts): Observable<LaboratoryDTO | RawAjaxResponse<LaboratoryDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateLaboratoryUsingPUT');
         throwIfNullOrUndefined(labWithRowsDTO, 'labWithRowsDTO', 'updateLaboratoryUsingPUT');
 
@@ -256,7 +256,7 @@ export class LaboratoryControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<LaboratoryDTO>({
             url: '/laboratories/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

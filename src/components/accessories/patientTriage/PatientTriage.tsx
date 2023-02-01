@@ -11,6 +11,7 @@ import {
   createExaminationReset,
   deleteExamination,
   deleteExaminationReset,
+  examinationsByPatientId,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations/actions";

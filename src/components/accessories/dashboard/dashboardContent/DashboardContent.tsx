@@ -2,6 +2,8 @@ import { DateRange } from "@material-ui/pickers";
 import moment from "moment";
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Tabs from "../../tabs/Tabs";
+import { TTabConfig } from "../../tabs/types";
 import { Admissions } from "../admissions/Admissions";
 import { Discharges } from "../discharges/Discharges";
 import { Opds } from "../opds/Opds";
@@ -21,20 +23,26 @@ export const DashboardContent: FunctionComponent = () => {
     setPeriod(value);
   }, []);
 
+  const patientSummaryTabs: TTabConfig = [
+    { label: "OPD", content: <Opds period={period} /> },
+    { label: "Admissions", content: <Admissions period={period} /> },
+    { label: "Discharges", content: <Discharges period={period} /> },
+  ];
+
   return (
     <div className="dashboard__content">
       <div className="dashboard__main">
-        <div className="header">
-          <DashboardFilter onPeriodChange={handlePeriodChange} />
+        <div className="dashboard__main-content">
+          <div className="dashboard__main-header">
+            <DashboardFilter onPeriodChange={handlePeriodChange} />
+          </div>
+          <div className="dashboard__main-body">
+            <Tabs config={patientSummaryTabs} />
+          </div>
         </div>
-        <div className="body">
-          <Opds period={period} />
-          <Admissions period={period} />
-          <Discharges period={period} />
+        <div className="dashboard__main-side">
+          <SideContent />
         </div>
-      </div>
-      <div className="dashboard__side">
-        <SideContent />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export const billRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(201).json(body);
           break;
       }
     });
@@ -36,7 +36,7 @@ export const billRoutes = (server) => {
             (+code === 0 || item.patientDTO.code === +code) &&
             (!req.query.datefrom ||
               new Date(req.query.datefrom).getFullYear() ===
-                new Date(item.date).getFullYear())
+              new Date(item.date).getFullYear())
           );
         })
       );
@@ -67,7 +67,7 @@ export const billRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(200);
           break;
       }
     });
@@ -80,7 +80,7 @@ export const billRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(200).json(req.jsonBody());
           break;
       }
     });

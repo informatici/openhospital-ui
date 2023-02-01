@@ -92,7 +92,7 @@ export const deleteOperationRow =
       (payload) => {
         dispatch({
           type: DELETE_OPERATIONROW_SUCCESS,
-          payload: payload,
+          payload: code,
         });
       },
       (error) => {

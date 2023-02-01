@@ -174,9 +174,9 @@ export class MedicalStockWardControllerApi extends BaseAPI {
     /**
      * newMovementWard
      */
-    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest): Observable<boolean>
-    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest): Observable<MovementWardDTO>
+    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementWardDTO>>
+    newMovementWardUsingPOST({ newMovementDTOs }: NewMovementWardUsingPOSTRequest, opts?: OperationOpts): Observable<MovementWardDTO | RawAjaxResponse<MovementWardDTO>> {
         throwIfNullOrUndefined(newMovementDTOs, 'newMovementDTOs', 'newMovementWardUsingPOST');
 
         const headers: HttpHeaders = {
@@ -184,7 +184,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<MovementWardDTO>({
             url: '/medicalstockward/movements/all',
             method: 'POST',
             headers,
@@ -195,9 +195,9 @@ export class MedicalStockWardControllerApi extends BaseAPI {
     /**
      * newMovementWard
      */
-    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request): Observable<boolean>
-    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request): Observable<MovementWardDTO>
+    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request, opts?: OperationOpts): Observable<RawAjaxResponse<MovementWardDTO>>
+    newMovementWardUsingPOST1({ newMovementDTO }: NewMovementWardUsingPOST1Request, opts?: OperationOpts): Observable<MovementWardDTO | RawAjaxResponse<MovementWardDTO>> {
         throwIfNullOrUndefined(newMovementDTO, 'newMovementDTO', 'newMovementWardUsingPOST1');
 
         const headers: HttpHeaders = {
@@ -205,7 +205,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<MovementWardDTO>({
             url: '/medicalstockward/movements',
             method: 'POST',
             headers,
@@ -216,9 +216,9 @@ export class MedicalStockWardControllerApi extends BaseAPI {
     /**
      * updateMovementWard
      */
-    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest): Observable<boolean>
-    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest): Observable<MovementWardDTO>
+    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementWardDTO>>
+    updateMovementWardUsingPUT({ movementWardDTO }: UpdateMovementWardUsingPUTRequest, opts?: OperationOpts): Observable<MovementWardDTO | RawAjaxResponse<MovementWardDTO>> {
         throwIfNullOrUndefined(movementWardDTO, 'movementWardDTO', 'updateMovementWardUsingPUT');
 
         const headers: HttpHeaders = {
@@ -226,7 +226,7 @@ export class MedicalStockWardControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<MovementWardDTO>({
             url: '/medicalstockward/movements',
             method: 'PUT',
             headers,

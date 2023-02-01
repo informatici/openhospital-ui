@@ -15,6 +15,7 @@ export interface IProps {
   startLabel?: string;
   endLabel?: string;
   format: string;
+  onClose: () => void;
   onChange: (value: DateRange<Date>) => void;
   shouldDisableDate?: (date: any) => boolean;
   renderDay?: (
@@ -30,4 +31,5 @@ export interface IProps {
   okLabel?: string;
   cancelLabel?: string;
   allowSameDateSelection?: boolean;
+  calendars?: 1 | 2 | 3;
 }

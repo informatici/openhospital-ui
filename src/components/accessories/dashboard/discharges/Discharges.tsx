@@ -16,19 +16,6 @@ import { useData } from "./useData";
 export const Discharges: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      getAdmissions({
-        dischargerange: period,
-      })
-    );
-    dispatch(getAgeTypes());
-    dispatch(getDischargeTypes());
-    dispatch(getWards());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(getAdmissions({ dischargerange: period }));
-  }, [period]);
   const {
     admissionStatus,
     dischargeTypeStatus,
@@ -41,6 +28,21 @@ export const Discharges: FC<IOwnProps> = ({ period }) => {
     success,
     total,
   } = useData();
+
+  useEffect(() => {
+    dispatch(
+      getAdmissions({
+        dischargerange: period,
+      })
+    );
+    dispatch(getAgeTypes());
+    dispatch(getDischargeTypes());
+    dispatch(getWards());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAdmissions({ dischargerange: period }));
+  }, [period]);
 
   return (
     <>

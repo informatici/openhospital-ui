@@ -126,7 +126,9 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
 
     case UPDATE_PATIENT_SUCCESS: {
       draft.updatePatient.status = "SUCCESS";
-      draft.updatePatient.data = action.payload;
+      if (draft.selectedPatient.data?.code === action.payload?.code) {
+        draft.selectedPatient.data = action.payload;
+      }
       delete draft.updatePatient.error;
       break;
     }
