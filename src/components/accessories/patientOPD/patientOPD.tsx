@@ -101,13 +101,14 @@ const PatientOPD: FunctionComponent = () => {
           operationRows: opdValues.operationRows,
         } as OpdWithOperatioRowDTO)
       );
-    } else
+    } else {
       dispatch(
         createOpdWithOperationsRows({
           opdDTO: { ...opdToSave, code: 0 },
           operationRows: opdValues.operationRows,
         })
       );
+    }
   };
 
   const resetFormCallback = () => {
