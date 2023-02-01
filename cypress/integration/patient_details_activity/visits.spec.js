@@ -23,7 +23,7 @@ describe.skip("Patient Details / Visit - Inpatient", () => {
     cy.get("[id=service]").focus().type("Some service").blur();
   });
 
-  it("should display an error info box if the visit creation fails", () => {
+  it.skip("should display an error info box if the visit creation fails", () => {
     cy.get("[class='submit_button']").click();
 
     cy.get("div.infoBox").should("have.class", "error");
