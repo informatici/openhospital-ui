@@ -56,9 +56,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           code: item.opdDTO.code,
-          visitDate: item.opdDTO.visitDate
-            ? renderDate(item.opdDTO.visitDate)
-            : "",
+          visitDate: item.opdDTO.date ? renderDate(item.opdDTO.date) : "",
           disease: item.opdDTO.disease?.description || "",
           disease2: item.opdDTO.disease2?.description || "",
           disease3: item.opdDTO.disease3?.description || "",
