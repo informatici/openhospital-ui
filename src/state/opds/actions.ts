@@ -64,7 +64,7 @@ export const createOpd =
     );
   };
 
-export const createOpdWithOperationsRowsList =
+export const createOpdWithOperationsRows =
   (opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({

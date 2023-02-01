@@ -1,4 +1,5 @@
 import opdDTO from "../fixtures/opdDTO";
+import { operationRowsDTO } from "../fixtures/operationRowsDTO";
 export const opdRoutes = (server) => {
   server.namespace("/opds", () => {
     server.post("/").intercept((req, res) => {
@@ -48,6 +49,7 @@ export const opdRoutes = (server) => {
 
     server.put("/rows/:code").intercept((req, res) => {
       const code = req.params.code;
+      const body = req.jsonBody();
       switch (code) {
         case "100":
           res.status(400);
@@ -79,10 +81,10 @@ export const opdRoutes = (server) => {
           break;
         default:
           res.status(200).json([
-            { opdDTO, operationRowsDTO },
-            { opdDTO, operationRowsDTO },
-            { opdDTO, operationRowsDTO },
-            { opdDTO, operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
           ]);
       }
     });

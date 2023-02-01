@@ -3,17 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
+import { OpdWithOperatioRowDTO } from "../../../generated";
 import {
-  OpdDTO,
-  OpdWithOperatioRowDTO,
-  OperationRowDTO,
-} from "../../../generated";
-import {
-  createOpd,
   createOpdReset,
-  createOpdWithOperationsRowsList,
+  createOpdWithOperationsRows,
+  updateOpdWithOperationRows,
   deleteOpd,
-  updateOpd,
   updateOpdReset,
 } from "../../../state/opds/actions";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
@@ -101,23 +96,18 @@ const PatientOPD: FunctionComponent = () => {
     const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
     if (!creationMode && opdToEdit.opdDTO.code) {
       dispatch(
-        (opdToEdit.opdDTO.code,
-        {
+        updateOpdWithOperationRows(opdToEdit.opdDTO.code, {
           opdDTO: opdToSave,
           operationRows: opdValues.operationRows,
         } as OpdWithOperatioRowDTO)
       );
     } else
-      console.log("Non-techincal user", {
-        opdDTO: opdToSave,
-        operationRows: opdValues.operationRows,
-      });
-    dispatch(
-      createOpdWithOperationsRowsList({
-        opdDTO: { ...opdToSave, code: 0 },
-        operationRows: opdValues.operationRows,
-      })
-    );
+      dispatch(
+        createOpdWithOperationsRows({
+          opdDTO: { ...opdToSave, code: 0 },
+          operationRows: opdValues.operationRows,
+        })
+      );
   };
 
   const resetFormCallback = () => {

@@ -315,7 +315,9 @@
     "rowupdatesuccess": "Operation Row updated successfully",
     "rowcreatesuccess": "Operation Row created successfully",
     "rowdeletesuccess": "Operation Row deleted successfully",
-    "dateafteradmission": "Must be greater than admission date"
+    "dateafteradmission": "Must be greater than admission date",
+    "noitemaddedyet": "No operation row data, click the Add button to add one.",
+    "deletionwarning": "Are you sure you want to delete operation {{code}}?"
   },
   "common": {
     "ok": "OK",

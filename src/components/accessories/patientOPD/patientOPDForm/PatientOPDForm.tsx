@@ -5,6 +5,7 @@ import React, {
   useState,
   useMemo,
   useRef,
+  Fragment,
 } from "react";
 import { useFormik } from "formik";
 import {
@@ -39,7 +40,12 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { DiseaseDTO, OpdDTO, OperationRowDTO } from "../../../../generated";
+import {
+  DiseaseDTO,
+  OpdDTO,
+  OpdWithOperatioRowDTO,
+  OperationRowDTO,
+} from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import CheckboxField from "../../checkboxField/CheckboxField";
@@ -47,7 +53,7 @@ import { isEmpty } from "lodash";
 import AddIcon from "@material-ui/icons/Add";
 import FileIcon from "@material-ui/icons/Label";
 import DeleteIcon from "@material-ui/icons/Delete";
-import UpdateIcon from "@material-ui/icons/Update";
+import EditIcon from "@material-ui/icons/Edit";
 import { CustomDialog } from "../../customDialog/CustomDialog";
 import ContentCutIcon from "../../icons/content-cut";
 import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
@@ -115,9 +121,14 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
-  const [operationRows, setOperationRows] = useState(
-    operationRowsToEdit as OperationRowDTO[]
-  );
+  const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
+
+  useEffect(() => {
+    setOperationRows((state) =>
+      operationRowsToEdit ? [...operationRowsToEdit] : state
+    );
+  }, [operationRowsToEdit]);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -140,8 +151,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       const combinedValues = {
         opdDTO: opdToSave,
         operationRows,
-      } as OpdDTO;
-
+      } as OpdWithOperatioRowDTO;
       onSubmit(combinedValues);
     },
   });
@@ -210,46 +220,49 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     [setFieldValue]
   );
 
-  const [selectedOpd, setSelectedOpd] = useState({} as OpdDTO);
-
   const onOperationCreated = () => {
-    setSelectedOpd({} as OpdDTO);
     setShowModal(false);
   };
 
-  const onAddOperation = (value: OpdDTO) => {
-    setSelectedOpd(value);
+  const onAddOperation = () => {
+    setOperationCreationMode(true);
     setShowModal(true);
   };
-  const [deletedObjCode, setDeletedObjCode] = useState("");
+
+  const [openDeleteOperationConfirmation, setOpenDeleteOperationConfirmation] =
+    useState(false);
+  const [deletedObjCode, setDeletedObjCode] = useState(-1);
   const [isChecked, setIsChecked] = useState(false);
   const handleAddChecboxChange = (event: any) => {
     setIsChecked(event.target.checked);
   };
   const handleRemoveOperationRow = (value: OperationRowDTO) => () => {
     if (value.id && value.id !== 0) {
-      // the operation has to be deleted
-      setDeletedObjCode(value.id + "");
-      dispatch(deleteOperationRow(value.id));
+      //The operation has to be removed from api
+      setDeletedObjCode(value.id);
+      setOpenDeleteOperationConfirmation(true);
+    } else {
+      const ops = [...operationRows];
+      const idx = operationRows.findIndex((item) => item.id === deletedObjCode);
+      ops.splice(idx, 1);
+      setOperationRows(() => [...ops]);
     }
-    let ops = [...operationRows];
-    const indx = ops.findIndex(
-      (it) => it.operation?.code === value.operation?.code
-    );
-    if (indx > -1) {
-      ops.splice(indx, 1);
-    }
-    setOperationRows((state) => [...ops]);
   };
   const [addOperationLoading, setAddOperationLoading] = useState(false);
   const [opRowToEdit, setOpRowToEdit] = useState({} as OperationRowDTO);
+  const [indexToEdit, setIndexToEdit] = useState(-1);
 
   const handleAddOperationRow = (values: OperationRowDTO) => {
     setAddOperationLoading(true);
     let opRow: OperationRowDTO = values;
     opRow.prescriber = username;
     setTimeout(() => {
-      setOperationRows((state) => [...state, opRow]);
+      if (operationCreationMode) {
+        opRow.id = 0;
+        setOperationRows((state) => [...state, opRow]);
+      } else {
+        if (indexToEdit > -1) operationRows[indexToEdit] = opRow;
+      }
       if (!isChecked) setShowModal(false);
       setAddOperationLoading(false);
     }, 500);
@@ -259,7 +272,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
-      setOperationRows((state) => []);
+      setOperationRows(() => []);
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
@@ -271,12 +284,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     return opRowFields(
       operationCreationMode ? { opDate: formik.values?.date } : opRowToEdit
     );
-  }, [operationCreationMode]);
+  }, [operationCreationMode, opRowToEdit]);
 
-  const handleUpdateOperationRow = (value: OperationRowDTO) => () => {
-    setOpRowToEdit(value);
-    setOperationCreationMode(false);
-  };
+  const handleUpdateOperationRow =
+    (value: OperationRowDTO, index: number) => () => {
+      setOpRowToEdit(value);
+      setIndexToEdit(index);
+      setOperationCreationMode(false);
+      setShowModal(true);
+    };
 
   const errorMessage = useSelector<IState>(
     (state) =>
@@ -288,7 +304,14 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     return state.operations.deleteOperationRow.status;
   });
 
-  const infoBoxRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (changeStatus === "SUCCESS") {
+      const ops = [...operationRows];
+      const idx = ops.findIndex((item) => item.id === deletedObjCode);
+      if (idx > -1) ops.splice(idx, 1);
+      setOperationRows(() => [...ops]);
+    }
+  }, [changeStatus]);
 
   return (
     <>
@@ -445,10 +468,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                   Patient Operations
                 </summary>
                 <List dense={true} className="opd_operations">
-                  {operationRows.map((value, index) => (
+                  {operationRows.map((value, index: number) => (
                     <ListItem key={index}>
                       <ListItemIcon>
-                        <FileIcon color="primary" />
+                        <FileIcon color="secondary" />
                       </ListItemIcon>
                       <ListItemText
                         primary={
@@ -467,18 +490,23 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                           <DeleteIcon color="primary" />
                         </IconButton>
                         <IconButton
-                          onClick={handleUpdateOperationRow(value)}
+                          onClick={handleUpdateOperationRow(value, index)}
                           edge="end"
                           aria-label="update"
                         >
-                          <UpdateIcon color="primary" />
+                          <EditIcon color="secondary" />
                         </IconButton>
                       </ListItemSecondaryAction>
                     </ListItem>
                   ))}
+                  {changeStatus === "FAIL" && (
+                    <div className="info-box-container">
+                      <InfoBox type="error" message={errorMessage} />
+                    </div>
+                  )}
                   {operationRows.length <= 0 && (
                     <span className="empty_operation_rows">
-                      No operation added yet!
+                      {t("operation.noitemaddedyet")}
                     </span>
                   )}
                 </List>
@@ -506,7 +534,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <div className="add_button">
               <Button
                 type="button"
-                onClick={() => onAddOperation({})}
+                onClick={() => onAddOperation()}
                 disabled={false}
               >
                 {" "}
@@ -525,6 +553,24 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
+          <ConfirmationDialog
+            isOpen={openDeleteOperationConfirmation}
+            title={t("common.delete").toUpperCase()}
+            info={t("operation.deletionwarning", {
+              code: operationRows.find((item) => item.id === deletedObjCode)
+                ?.operation?.description,
+            })}
+            icon={warningIcon}
+            primaryButtonLabel={t("common.delete")}
+            secondaryButtonLabel={t("common.discard")}
+            handlePrimaryButtonClick={() => {
+              dispatch(deleteOperationRow(deletedObjCode));
+              setOpenDeleteOperationConfirmation(false);
+            }}
+            handleSecondaryButtonClick={() => {
+              setOpenDeleteOperationConfirmation(false);
+            }}
+          />
         </form>
       </div>
       <CustomDialog
@@ -539,7 +585,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               onSubmit={handleAddOperationRow}
               creationMode={creationMode}
               submitButtonLabel={
-                creationMode ? t("common.save") : t("common.update")
+                operationCreationMode ? t("common.save") : t("common.update")
               }
               resetButtonLabel={t("common.reset")}
               shouldResetForm={shouldResetForm}
@@ -552,6 +598,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                   className="add_another_item"
                   checked={isChecked}
                   onChange={handleAddChecboxChange}
+                  disabled={!operationCreationMode}
                 />
               }
               label={t("common.addanotherrow")}
@@ -565,11 +612,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               handlePrimaryButtonClick={() => {}}
               handleSecondaryButtonClick={() => {}}
             />
-            {changeStatus === "FAIL" && (
-              <div ref={infoBoxRef} className="info-box-container">
-                <InfoBox type="error" message={errorMessage} />
-              </div>
-            )}
           </>
         }
       />

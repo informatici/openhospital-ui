@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { OpdWithOperatioRowDTO } from "../../../../generated";
+import { OpdDTO, OpdWithOperatioRowDTO } from "../../../../generated";
 import { getOpds } from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
@@ -68,8 +68,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     return results;
   };
 
-  const onEdit = (row?: OpdWithOperatioRowDTO) => {
-    handleEdit(data.find((item) => item.opdDTO.code === row?.opdDTO.code));
+  const onEdit = (row?: OpdDTO) => {
+    handleEdit(data.find((item) => item.opdDTO.code === row?.code));
   };
 
   return (
