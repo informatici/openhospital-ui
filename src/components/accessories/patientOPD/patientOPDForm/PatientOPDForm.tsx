@@ -77,6 +77,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const [operationCreationMode, setOperationCreationMode] = useState(true);
+  const dispatch = useDispatch();
 
   const validationSchema = object({
     visitDate: string()
@@ -197,7 +198,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     resetForm();
     resetFormCallback();
   };
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getOperations());
   }, [dispatch]);
@@ -236,7 +237,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   };
   const handleRemoveOperationRow = (value: OperationRowDTO) => () => {
     if (value.id && value.id !== 0) {
-      //The operation has to be removed from api
+      //The operation row has to be removed from api
       setDeletedObjCode(value.id);
       setOpenDeleteOperationConfirmation(true);
     } else {
@@ -266,14 +267,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }, 500);
   };
 
-  useEffect(() => {
-    if (shouldResetForm) {
-      resetForm();
-      resetFormCallback();
-      setOperationRows(() => []);
-    }
-  }, [shouldResetForm, resetForm, resetFormCallback]);
-
   const operationStore = useSelector<IState, IOperationState>(
     (state: IState) => state.operations
   );
@@ -301,6 +294,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     return state.operations.deleteOperationRow.status;
   });
+
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+      resetFormCallback();
+    }
+  }, [shouldResetForm, resetForm, resetFormCallback]);
 
   useEffect(() => {
     if (changeStatus === "SUCCESS") {

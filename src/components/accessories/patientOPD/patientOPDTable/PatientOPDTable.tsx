@@ -51,7 +51,6 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: OpdWithOperatioRowDTO[] | undefined) => {
-    console.log("DATA.......", data);
     let results: any = [];
     if (data)
       results = data.map((item) => {

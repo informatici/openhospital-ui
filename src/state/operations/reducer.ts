@@ -8,6 +8,7 @@ import {
   CREATE_OPERATIONROW_SUCCESS,
   DELETE_OPERATIONROW_FAIL,
   DELETE_OPERATIONROW_LOADING,
+  DELETE_OPERATIONROW_RESET,
   DELETE_OPERATIONROW_SUCCESS,
   GET_OPERATIONROW_ADM_EMPTY,
   GET_OPERATIONROW_ADM_FAIL,
@@ -185,6 +186,12 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
     case DELETE_OPERATIONROW_FAIL: {
       draft.deleteOperationRow.status = "FAIL";
       draft.deleteOperationRow.error = action.error;
+      break;
+    }
+
+    case DELETE_OPERATIONROW_RESET: {
+      draft.deleteOperationRow.status = "IDLE";
+      delete draft.deleteOperationRow.error;
       break;
     }
   }

@@ -1,13 +1,11 @@
-import { OpdDTO, OperationRowDTO } from "../../../../generated";
-import { IForm, TFields } from "../../../../libraries/formDataHandling/types";
-import { OperationRowFormFieldName } from "../../patientOperation/operationForm/types";
+import { OperationRowDTO } from "../../../../generated";
+import { IForm } from "../../../../libraries/formDataHandling/types";
 
 interface IOwnProps {
   creationMode: boolean;
   shouldResetForm: boolean;
   resetFormCallback: () => void;
   addOperationCallback?: () => void;
-  operationsRowFields: TFields<OperationRowFormFieldName>;
   operationRowsToEdit?: OperationRowDTO[];
 }
 export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;

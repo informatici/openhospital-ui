@@ -14,6 +14,7 @@ import {
   CREATE_OPERATIONROW_SUCCESS,
   DELETE_OPERATIONROW_FAIL,
   DELETE_OPERATIONROW_LOADING,
+  DELETE_OPERATIONROW_RESET,
   DELETE_OPERATIONROW_SUCCESS,
   GET_OPERATIONROW_ADM_EMPTY,
   GET_OPERATIONROW_ADM_FAIL,
@@ -109,6 +110,14 @@ export const createOperationRowReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPERATIONROW_RESET,
+    });
+  };
+
+export const deleteOperationRowReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_OPERATIONROW_RESET,
     });
   };
 

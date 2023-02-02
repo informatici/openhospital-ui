@@ -24,6 +24,7 @@ import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 import { initialFields as operationFields } from "../patientOperation/consts";
+import { deleteOperationRowReset } from "../../../state/operations/actions";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -117,6 +118,7 @@ const PatientOPD: FunctionComponent = () => {
     setCreationMode(true);
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
+    dispatch(deleteOperationRowReset());
     setActivityTransitionState("IDLE");
     setShouldUpdateTable(false);
     scrollToElement(null);
@@ -152,8 +154,7 @@ const PatientOPD: FunctionComponent = () => {
           isLoading={changeStatus === "LOADING"}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
-          operationsRowFields={operationFields}
-          operationRowsToEdit={opdToEdit.operationRows}
+          operationRowsToEdit={!creationMode ? opdToEdit.operationRows : []}
         />
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef}>
