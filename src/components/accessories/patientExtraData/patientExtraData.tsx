@@ -77,6 +77,7 @@ export const PatientExtraData: FunctionComponent = () => {
         dispatch(getPatientThunk(patient?.code?.toString()));
       }
       formik.resetForm();
+      setActivityTransitionState("IDLE");
     }
   }, [dispatch, activityTransitionState]);
 

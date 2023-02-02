@@ -135,10 +135,18 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
         );
 
       case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.searchnotfound")} />;
+        return (
+          <div className="searchPatient__results">
+            <InfoBox type="warning" message={t("common.searchnotfound")} />
+          </div>
+        );
 
       default:
-        return <InfoBox type="error" message={errorMessage} />;
+        return (
+          <div className="searchPatient__results">
+            <InfoBox type="error" message={errorMessage} />
+          </div>
+        );
     }
   };
 

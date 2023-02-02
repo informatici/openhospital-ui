@@ -11,7 +11,7 @@ export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
 };
 
 export const initialFilter: TFilterValues = {
-  dateFrom: moment().startOf("month").toISOString(),
+  dateFrom: moment().subtract(1, "years").toISOString(),
   dateTo: moment().toISOString(),
 };
 

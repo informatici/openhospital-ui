@@ -182,22 +182,17 @@
   }
 
   .searchPatient__results {
+    margin: 0px 20px 30px;
+    @include susy-media($smartphone) {
+      margin: 0px 10px 30px;
+    }
     .searchPatient__results_list {
       display: flex;
       flex: 0 1 auto;
       flex-wrap: wrap;
-      margin: 0px 20px 60px 20px;
-      @include susy-media($smartphone) {
-        margin: 0px 10px 40px 10px;
-      }
     }
     .searchPatient__results_count {
       font-size: x-large;
-      margin-bottom: 30px;
-      margin-left: 20px;
-      @include susy-media($smartphone) {
-        margin-left: 10px;
-      }
     }
   }
 
@@ -314,9 +309,4 @@
       }
     }
   }
-}
-
-.infoBox {
-  width: 90%;
-  margin-bottom: 50px;
 }
