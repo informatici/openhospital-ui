@@ -4,7 +4,7 @@
 .labs {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   background-color: $c-white;
 
   .labs__background {
@@ -33,5 +33,6 @@
 
   .footer {
     position: relative;
+    margin-top: auto;
   }
 }
