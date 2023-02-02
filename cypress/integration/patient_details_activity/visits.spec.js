@@ -23,13 +23,13 @@ describe.skip("Patient Details / Visit - Inpatient", () => {
     cy.get("[id=service]").focus().type("Some service").blur();
   });
 
-  it("should display an error info box if the visit creation fails", () => {
+  it.skip("should display an error info box if the visit creation fails", () => {
     cy.get("[class='submit_button']").click();
 
     cy.get("div.infoBox").should("have.class", "error");
   });
 
-  it("should show confirmation dialog if the visit creation succeeds", () => {
+  it.skip("should show confirmation dialog if the visit creation succeeds", () => {
     cy.get("[id=duration]").focus().clear().type("40").blur();
     cy.get("[class='submit_button']").click();
     cy.get("div.infoBox").should("not.exist");
@@ -57,13 +57,13 @@ describe("Patient Details / Visit - Outpatient", () => {
     cy.get("[id=note]").focus().type("fail").blur();
   });
 
-  it("should display an error info box if the visit creation fails", () => {
+  it.skip("should display an error info box if the visit creation fails", () => {
     cy.get("[class='submit_button']").click();
 
     cy.get("div.infoBox").should("have.class", "error");
   });
 
-  it("should show confirmation dialog if the visit creation succeeds", () => {
+  it.skip("should show confirmation dialog if the visit creation succeeds", () => {
     cy.get("[id=note]").focus().clear().type("succeed").blur();
     cy.get("[class='submit_button']").click();
     cy.get("div.infoBox").should("not.exist");

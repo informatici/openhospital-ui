@@ -316,7 +316,9 @@
     "rowupdatesuccess": "Operation Row updated successfully",
     "rowcreatesuccess": "Operation Row created successfully",
     "rowdeletesuccess": "Operation Row deleted successfully",
-    "dateafteradmission": "Must be greater than admission date"
+    "dateafteradmission": "Must be greater than admission date",
+    "noitemaddedyet": "No operation row data, click the Add button to add one.",
+    "deletionwarning": "Are you sure you want to delete operation {{code}}?"
   },
   "common": {
     "ok": "OK",
@@ -375,6 +377,7 @@
     "cancel": "Cancel",
     "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
     "emptydataforfilter": "Empty data for the specified filter",
+    "addanotherrow": "Add another operation row",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",
@@ -620,7 +623,8 @@
     "delete": "Delete",
     "discard": "Discard",
     "suspend": "Suspend",
-    "add": "Add"
+    "add": "Add",
+    "addoperation": "Add operation"
   },
   "picture": {
     "edit": "Edit picture",

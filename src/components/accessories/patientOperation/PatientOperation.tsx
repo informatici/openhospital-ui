@@ -27,11 +27,10 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 interface IOwnProps {
   opd?: OpdDTO;
-  visit?: VisitDTO;
   onSuccess?: () => void;
 }
 
-const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
+const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -132,9 +131,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
   };
 
   const fields = useMemo(() => {
-    return opRowFields(
-      creationMode ? { opDate: visit?.date || opd?.date } : opRowToEdit
-    );
+    return opRowFields(creationMode ? { opDate: opd?.date } : opRowToEdit);
   }, [creationMode]);
 
   return (
@@ -182,7 +179,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, visit, onSuccess }) => {
       </Permission>
 
       <Permission require="operation.read">
-        {!visit && !opd && (
+        {!opd && (
           <PatientOperationTable
             onEdit={onEdit}
             shouldUpdateTable={shouldUpdateTable}

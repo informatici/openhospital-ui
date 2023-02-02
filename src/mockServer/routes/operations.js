@@ -37,5 +37,16 @@ export const operationRoutes = (server) => {
           break;
       }
     });
+    server.delete("/rows/:code").intercept((req, res) => {
+      const code = req.params.code;
+      switch (code) {
+        case "fail":
+          res.status(400);
+          break;
+        default:
+          res.status(400);
+          break;
+      }
+    });
   });
 };

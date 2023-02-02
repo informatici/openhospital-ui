@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useEffect,
   useState,
+  useMemo,
 } from "react";
 import { useFormik } from "formik";
 import {
@@ -21,20 +22,47 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormLabel,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
   Radio,
   RadioGroup,
 } from "@material-ui/core";
-import { DiseaseDTO, OpdDTO } from "../../../../generated";
+import {
+  DiseaseDTO,
+  OpdDTO,
+  OpdWithOperatioRowDTO,
+  OperationRowDTO,
+} from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import CheckboxField from "../../checkboxField/CheckboxField";
 import { isEmpty } from "lodash";
+import AddIcon from "@material-ui/icons/Add";
+import FileIcon from "@material-ui/icons/Label";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import { CustomDialog } from "../../customDialog/CustomDialog";
+import ContentCutIcon from "../../icons/content-cut";
+import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
+import {
+  deleteOperationRow,
+  getOperations,
+} from "../../../../state/operations/actions";
+import { IOperationState } from "../../../../state/operations/types";
+import checkIcon from "../../../../assets/check-icon.png";
+import { opRowFields } from "../../patientOperation/opRowFields";
+import InfoBox from "../../infoBox/InfoBox";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -45,8 +73,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
+  operationRowsToEdit,
 }) => {
   const { t } = useTranslation();
+  const [operationCreationMode, setOperationCreationMode] = useState(true);
+  const dispatch = useDispatch();
 
   const validationSchema = object({
     visitDate: string()
@@ -86,6 +117,16 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const diseases = useSelector<IState, DiseaseDTO[]>(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
+  const username = useSelector(
+    (state: IState) => state.main.authentication.data?.username
+  );
+  const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
+
+  useEffect(() => {
+    setOperationRows((state) =>
+      operationRowsToEdit ? [...operationRowsToEdit] : state
+    );
+  }, [operationRowsToEdit]);
 
   const formik = useFormik({
     initialValues,
@@ -106,9 +147,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         disease2: diseases.find((e) => e.code === formik.values.disease2),
         disease3: diseases.find((e) => e.code === formik.values.disease3),
       };
-      onSubmit(opdToSave);
+      const combinedValues = {
+        opdDTO: opdToSave,
+        operationRows,
+      } as OpdWithOperatioRowDTO;
+      onSubmit(combinedValues);
     },
   });
+
+  const [showModal, setShowModal] = useState(false);
 
   const { setFieldValue, resetForm, handleBlur } = formik;
 
@@ -153,11 +200,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   };
 
   useEffect(() => {
-    if (shouldResetForm) {
-      resetForm();
-      resetFormCallback();
-    }
-  }, [shouldResetForm, resetForm, resetFormCallback]);
+    dispatch(getOperations());
+  }, [dispatch]);
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
@@ -174,6 +218,98 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
     [setFieldValue]
   );
+
+  const onOperationCreated = () => {
+    setShowModal(false);
+  };
+
+  const onAddOperation = () => {
+    setOperationCreationMode(true);
+    setShowModal(true);
+  };
+
+  const [openDeleteOperationConfirmation, setOpenDeleteOperationConfirmation] =
+    useState(false);
+  const [deletedObjCode, setDeletedObjCode] = useState(-1);
+  const [isChecked, setIsChecked] = useState(false);
+  const handleAddChecboxChange = (event: any) => {
+    setIsChecked(event.target.checked);
+  };
+  const handleRemoveOperationRow = (value: OperationRowDTO) => () => {
+    if (value.id && value.id !== 0) {
+      //The operation row has to be removed from api
+      setDeletedObjCode(value.id);
+      setOpenDeleteOperationConfirmation(true);
+    } else {
+      const ops = [...operationRows];
+      const idx = operationRows.findIndex((item) => item.id === deletedObjCode);
+      ops.splice(idx, 1);
+      setOperationRows(() => [...ops]);
+    }
+  };
+  const [addOperationLoading, setAddOperationLoading] = useState(false);
+  const [opRowToEdit, setOpRowToEdit] = useState({} as OperationRowDTO);
+  const [indexToEdit, setIndexToEdit] = useState(-1);
+
+  const handleAddOperationRow = (values: OperationRowDTO) => {
+    setAddOperationLoading(true);
+    let opRow: OperationRowDTO = values;
+    opRow.prescriber = username;
+    setTimeout(() => {
+      if (operationCreationMode) {
+        opRow.id = 0;
+        setOperationRows((state) => [...state, opRow]);
+      } else {
+        if (indexToEdit > -1) operationRows[indexToEdit] = opRow;
+      }
+      if (!isChecked) setShowModal(false);
+      setAddOperationLoading(false);
+    }, 500);
+  };
+
+  const operationStore = useSelector<IState, IOperationState>(
+    (state: IState) => state.operations
+  );
+
+  const operationsRowFields = useMemo(() => {
+    return opRowFields(
+      operationCreationMode ? { opDate: formik.values?.date } : opRowToEdit
+    );
+  }, [operationCreationMode, opRowToEdit]);
+
+  const handleUpdateOperationRow =
+    (value: OperationRowDTO, index: number) => () => {
+      setOpRowToEdit(value);
+      setIndexToEdit(index);
+      setOperationCreationMode(false);
+      setShowModal(true);
+    };
+
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.operations.deleteOperationRow.error?.message ||
+      t("common.somethingwrong")
+  ) as string;
+
+  const changeStatus = useSelector<IState, string | undefined>((state) => {
+    return state.operations.deleteOperationRow.status;
+  });
+
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+      resetFormCallback();
+    }
+  }, [shouldResetForm, resetForm, resetFormCallback]);
+
+  useEffect(() => {
+    if (changeStatus === "SUCCESS") {
+      const ops = [...operationRows];
+      const idx = ops.findIndex((item) => item.id === deletedObjCode);
+      if (idx > -1) ops.splice(idx, 1);
+      setOperationRows(() => [...ops]);
+    }
+  }, [changeStatus]);
 
   return (
     <>
@@ -318,20 +454,90 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
               />
             </div>
           </div>
-          <div className="patientOpdForm__buttonSet">
-            <div className="submit_button">
-              <Button type="submit" variant="contained" disabled={isLoading}>
-                {submitButtonLabel}
-              </Button>
+          <div className="row start-sm center-xs">
+            <div className="patientOpdForm__item fullWidth">
+              <details open>
+                <summary>
+                  {" "}
+                  <ContentCutIcon
+                    fontSize="small"
+                    className="operation_icon"
+                  />{" "}
+                  Patient Operations
+                </summary>
+                <List dense={true} className="opd_operations">
+                  {operationRows.map((value, index: number) => (
+                    <ListItem key={index}>
+                      <ListItemIcon>
+                        <FileIcon color="secondary" />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          value.operation?.code +
+                          " " +
+                          value.operation?.description
+                        }
+                        secondary={renderDate(value.opDate!)}
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          onClick={handleRemoveOperationRow(value)}
+                          edge="end"
+                          aria-label="delete"
+                        >
+                          <DeleteIcon color="primary" />
+                        </IconButton>
+                        <IconButton
+                          onClick={handleUpdateOperationRow(value, index)}
+                          edge="end"
+                          aria-label="update"
+                        >
+                          <EditIcon color="secondary" />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                  {changeStatus === "FAIL" && (
+                    <div className="info-box-container">
+                      <InfoBox type="error" message={errorMessage} />
+                    </div>
+                  )}
+                  {operationRows.length <= 0 && (
+                    <span className="empty_operation_rows">
+                      {t("operation.noitemaddedyet")}
+                    </span>
+                  )}
+                </List>
+              </details>
             </div>
-            <div className="reset_button">
+          </div>
+          <div className="patientOpdForm__buttonSet">
+            <div className="visits_button">
+              <div className="submit_button">
+                <Button type="submit" variant="contained" disabled={isLoading}>
+                  {submitButtonLabel}
+                </Button>
+              </div>
+              <div className="reset_button">
+                <Button
+                  type="reset"
+                  variant="text"
+                  disabled={isLoading}
+                  onClick={() => setOpenResetConfirmation(true)}
+                >
+                  {resetButtonLabel}
+                </Button>
+              </div>
+            </div>
+            <div className="add_button">
               <Button
-                type="reset"
-                variant="text"
-                disabled={isLoading}
-                onClick={() => setOpenResetConfirmation(true)}
+                type="button"
+                onClick={() => onAddOperation()}
+                disabled={false}
               >
-                {resetButtonLabel}
+                {" "}
+                <AddIcon fontSize="small" />
+                {t("button.addoperation")}
               </Button>
             </div>
           </div>
@@ -345,8 +551,68 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             handlePrimaryButtonClick={handleResetConfirmation}
             handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
           />
+          <ConfirmationDialog
+            isOpen={openDeleteOperationConfirmation}
+            title={t("common.delete").toUpperCase()}
+            info={t("operation.deletionwarning", {
+              code: operationRows.find((item) => item.id === deletedObjCode)
+                ?.operation?.description,
+            })}
+            icon={warningIcon}
+            primaryButtonLabel={t("common.delete")}
+            secondaryButtonLabel={t("common.discard")}
+            handlePrimaryButtonClick={() => {
+              dispatch(deleteOperationRow(deletedObjCode));
+              setOpenDeleteOperationConfirmation(false);
+            }}
+            handleSecondaryButtonClick={() => {
+              setOpenDeleteOperationConfirmation(false);
+            }}
+          />
         </form>
       </div>
+      <CustomDialog
+        title={t("opd.addoperation")}
+        description={t("opd.addoperationdesc")}
+        open={showModal}
+        onClose={onOperationCreated}
+        content={
+          <>
+            <OperationRowForm
+              fields={operationsRowFields}
+              onSubmit={handleAddOperationRow}
+              creationMode={creationMode}
+              submitButtonLabel={
+                operationCreationMode ? t("common.save") : t("common.update")
+              }
+              resetButtonLabel={t("common.reset")}
+              shouldResetForm={shouldResetForm}
+              resetFormCallback={resetFormCallback}
+              isLoading={addOperationLoading}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  className="add_another_item"
+                  checked={isChecked}
+                  onChange={handleAddChecboxChange}
+                  disabled={!operationCreationMode}
+                />
+              }
+              label={t("common.addanotherrow")}
+            />
+            <ConfirmationDialog
+              isOpen={operationStore.deleteOperationRow.status === "SUCCESS"}
+              title={t("opretaionrow.deleted")}
+              icon={checkIcon}
+              info={t("common.deletesuccess", { code: deletedObjCode })}
+              primaryButtonLabel={t("common.ok")}
+              handlePrimaryButtonClick={() => {}}
+              handleSecondaryButtonClick={() => {}}
+            />
+          </>
+        }
+      />
     </>
   );
 };

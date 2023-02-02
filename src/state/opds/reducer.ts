@@ -1,5 +1,5 @@
 import produce from "immer";
-import { OpdDTO } from "../../generated";
+import { OpdDTO, OpdWithOperatioRowDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_OPD_FAIL,
@@ -129,7 +129,9 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       draft.updateOpd.status = "SUCCESS";
       draft.updateOpd.data = action.payload;
       draft.getOpds.data = draft.getOpds.data?.map((e) => {
-        return e.code === action.payload.code ? (action.payload as OpdDTO) : e;
+        return e.opdDTO.code === action.payload.opdDTO.code
+          ? (action.payload as OpdWithOperatioRowDTO)
+          : e;
       });
       delete draft.updateOpd.error;
       break;
@@ -148,7 +150,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case DELETE_OPD_SUCCESS: {
       draft.deleteOpd.status = "SUCCESS";
       draft.getOpds.data = draft.getOpds.data?.filter(
-        (e) => e.code !== action.payload?.code
+        (e) => e.opdDTO.code !== action.payload.opdDTO.code
       );
       delete draft.deleteOpd.error;
       break;

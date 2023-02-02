@@ -113,6 +113,10 @@ const PatientVisit: FunctionComponent = () => {
     scrollToElement(null);
   };
 
+  const addOperationCallback = () => {
+    setShowModal(true);
+  };
+
   const onEdit: (row: VisitDTO) => void = (row) => {
     setVisitToEdit(row);
     setCreationMode(false);
@@ -122,11 +126,6 @@ const PatientVisit: FunctionComponent = () => {
   const onOperationCreated: () => void = () => {
     setSelectedVisit({} as VisitDTO);
     setShowModal(false);
-  };
-
-  const onAddOperation = (value: VisitDTO) => {
-    setSelectedVisit(value);
-    setShowModal(true);
   };
 
   return (
@@ -148,6 +147,7 @@ const PatientVisit: FunctionComponent = () => {
           isLoading={changeStatus === "LOADING"}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
+          addOperationCallback={addOperationCallback}
         />
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef}>
@@ -174,23 +174,7 @@ const PatientVisit: FunctionComponent = () => {
       <Permission require="admission.read">
         <PatientVisitTable
           handleEdit={onEdit}
-          handleAddOperation={onAddOperation}
           shouldUpdateTable={shouldUpdateTable}
-        />
-      </Permission>
-
-      <Permission require="operation.create">
-        <CustomDialog
-          title={t("visit.addoperation")}
-          description={t("visit.addoperationdesc")}
-          open={showModal}
-          onClose={onOperationCreated}
-          content={
-            <PatientOperation
-              onSuccess={onOperationCreated}
-              visit={selectedVisit}
-            />
-          }
         />
       </Permission>
     </div>

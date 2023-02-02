@@ -1,10 +1,10 @@
-import { OpdDTO } from "../../generated";
+import { OpdDTO, OpdWithOperatioRowDTO } from "../../generated";
 import { IApiResponse } from "../types";
 
 export type IOpdState = {
-  getOpds: IApiResponse<Array<OpdDTO>>;
+  getOpds: IApiResponse<Array<OpdWithOperatioRowDTO>>;
   searchOpds: IApiResponse<Array<OpdDTO>>;
-  createOpd: IApiResponse<OpdDTO>;
-  updateOpd: IApiResponse<OpdDTO>;
-  deleteOpd: IApiResponse<OpdDTO>;
+  createOpd: IApiResponse<OpdWithOperatioRowDTO>;
+  updateOpd: IApiResponse<OpdWithOperatioRowDTO>;
+  deleteOpd: IApiResponse<null>;
 };

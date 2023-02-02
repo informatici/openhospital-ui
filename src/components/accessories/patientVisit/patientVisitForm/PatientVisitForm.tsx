@@ -14,6 +14,7 @@ import { number, object, string } from "yup";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
+import AddIcon from "@material-ui/icons/Add";
 import TextField from "../../textField/TextField";
 import has from "lodash.has";
 import get from "lodash.get";
@@ -33,6 +34,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
   isLoading,
   shouldResetForm,
   resetFormCallback,
+  addOperationCallback,
 }) => {
   const { t } = useTranslation();
 
@@ -180,19 +182,32 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
             </div>
           </div>
           <div className="patientVisitForm__buttonSet">
-            <div className="submit_button">
-              <Button type="submit" variant="contained" disabled={isLoading}>
-                {submitButtonLabel}
-              </Button>
+            <div className="visits_button">
+              <div className="submit_button">
+                <Button type="submit" variant="contained" disabled={isLoading}>
+                  {submitButtonLabel}
+                </Button>
+              </div>
+              <div className="reset_button">
+                <Button
+                  type="reset"
+                  variant="text"
+                  disabled={isLoading}
+                  onClick={() => setOpenResetConfirmation(true)}
+                >
+                  {resetButtonLabel}
+                </Button>
+              </div>
             </div>
-            <div className="reset_button">
+            <div className="add_button">
               <Button
-                type="reset"
-                variant="text"
-                disabled={isLoading}
-                onClick={() => setOpenResetConfirmation(true)}
+                type="button"
+                onClick={() => addOperationCallback!()}
+                disabled={false}
               >
-                {resetButtonLabel}
+                {" "}
+                <AddIcon fontSize="small" />
+                {t("button.addoperation")}
               </Button>
             </div>
           </div>

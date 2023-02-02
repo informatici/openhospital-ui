@@ -3,11 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { OpdDTO } from "../../../generated";
+import { OpdWithOperatioRowDTO } from "../../../generated";
 import {
-  createOpd,
   createOpdReset,
-  updateOpd,
+  createOpdWithOperationsRows,
+  updateOpdWithOperationRows,
+  deleteOpd,
   updateOpdReset,
 } from "../../../state/opds/actions";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
@@ -19,10 +20,11 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
-import PatientOperation from "../patientOperation/PatientOperation";
-import { CustomDialog } from "../customDialog/CustomDialog";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+
+import { initialFields as operationFields } from "../patientOperation/consts";
+import { deleteOperationRowReset } from "../../../state/operations/actions";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -33,10 +35,7 @@ const PatientOPD: FunctionComponent = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-
-  const [opdToEdit, setOpdToEdit] = useState({} as OpdDTO);
-  const [selectedOpd, setSelectedOpd] = useState({} as OpdDTO);
-  const [showModal, setShowModal] = useState(false);
+  const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperatioRowDTO);
   const [creationMode, setCreationMode] = useState(true);
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
@@ -76,6 +75,7 @@ const PatientOPD: FunctionComponent = () => {
   const userId = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
+  const [deletedObjCode, setDeletedObjCode] = useState("");
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -87,16 +87,30 @@ const PatientOPD: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (opdValuestoSave: OpdDTO) => {
+  const onSubmit = (opdValues: OpdWithOperatioRowDTO) => {
     setShouldResetForm(false);
-    opdValuestoSave.patientCode = patient?.code;
-    opdValuestoSave.age = patient?.age;
-    opdValuestoSave.sex = patient?.sex;
-    opdValuestoSave.userID = userId;
-    opdValuestoSave = { ...opdToEdit, ...opdValuestoSave };
-    if (!creationMode && opdToEdit.code) {
-      dispatch(updateOpd(opdToEdit.code, opdValuestoSave));
-    } else dispatch(createOpd({ ...opdValuestoSave, code: 0 }));
+    opdValues.opdDTO.patientCode = patient?.code;
+    opdValues.opdDTO.age = patient?.age;
+    opdValues.opdDTO.sex = patient?.sex;
+    opdValues.opdDTO.userID = userId;
+    opdValues.opdDTO.patientName =
+      patient?.firstName + " " + patient?.secondName;
+    const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
+    if (!creationMode && opdToEdit.opdDTO.code) {
+      dispatch(
+        updateOpdWithOperationRows(opdToEdit.opdDTO.code, {
+          opdDTO: opdToSave,
+          operationRows: opdValues.operationRows,
+        } as OpdWithOperatioRowDTO)
+      );
+    } else {
+      dispatch(
+        createOpdWithOperationsRows({
+          opdDTO: { ...opdToSave, code: 0 },
+          operationRows: opdValues.operationRows,
+        })
+      );
+    }
   };
 
   const resetFormCallback = () => {
@@ -104,25 +118,21 @@ const PatientOPD: FunctionComponent = () => {
     setCreationMode(true);
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
+    dispatch(deleteOperationRowReset());
     setActivityTransitionState("IDLE");
     setShouldUpdateTable(false);
     scrollToElement(null);
   };
 
-  const onEdit = (row: OpdDTO) => {
+  const onEdit = (row: OpdWithOperatioRowDTO) => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
   };
 
-  const onOperationCreated = () => {
-    setSelectedOpd({} as OpdDTO);
-    setShowModal(false);
-  };
-
-  const onAddOperation = (value: OpdDTO) => {
-    setSelectedOpd(value);
-    setShowModal(true);
+  const onDelete = (code: number | undefined) => {
+    setDeletedObjCode(code?.toString() ?? "");
+    dispatch(deleteOpd(code));
   };
 
   return (
@@ -133,7 +143,7 @@ const PatientOPD: FunctionComponent = () => {
           fields={
             creationMode
               ? initialFields
-              : updateOpdFields(initialFields, opdToEdit)
+              : updateOpdFields(initialFields, opdToEdit.opdDTO)
           }
           creationMode={creationMode}
           onSubmit={onSubmit}
@@ -144,6 +154,7 @@ const PatientOPD: FunctionComponent = () => {
           isLoading={changeStatus === "LOADING"}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
+          operationRowsToEdit={!creationMode ? opdToEdit.operationRows : []}
         />
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef}>
@@ -157,7 +168,7 @@ const PatientOPD: FunctionComponent = () => {
           info={
             creationMode
               ? t("opd.createsuccess")
-              : t("opd.updatesuccess", { code: opdToEdit.code })
+              : t("opd.updatesuccess", { code: opdToEdit.opdDTO.code })
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() =>
@@ -169,17 +180,7 @@ const PatientOPD: FunctionComponent = () => {
       <Permission require="opd.read">
         <PatientOPDTable
           handleEdit={onEdit}
-          handleAddOperation={onAddOperation}
           shouldUpdateTable={shouldUpdateTable}
-        />
-      </Permission>
-      <Permission require="operation.create">
-        <CustomDialog
-          title={t("opd.addoperation")}
-          description={t("opd.addoperationdesc")}
-          open={showModal}
-          onClose={onOperationCreated}
-          content={<PatientOperation opd={selectedOpd} />}
         />
       </Permission>
     </div>

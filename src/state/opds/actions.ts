@@ -1,8 +1,13 @@
 import moment from "moment";
 import { Dispatch } from "redux";
-import { OpdControllerApi, OpdDTO } from "../../generated";
+import {
+  OpdControllerApi,
+  OpdDTO,
+  OpdWithOperatioRowDTO,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
+
 import {
   CREATE_OPD_FAIL,
   CREATE_OPD_LOADING,
@@ -30,6 +35,14 @@ import {
 
 const opdControllerApi = new OpdControllerApi(customConfiguration());
 
+/**
+ *
+ * @param opdDTO
+ * @param operationRows the list of operations rows to save
+ * @returns
+ * @deprecated
+ */
+
 export const createOpd =
   (opdDTO: OpdDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
@@ -50,6 +63,30 @@ export const createOpd =
         });
       }
     );
+  };
+
+export const createOpdWithOperationsRows =
+  (opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_OPD_LOADING,
+    });
+    opdControllerApi
+      .newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: CREATE_OPD_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: CREATE_OPD_FAIL,
+            error: error?.response,
+          });
+        }
+      );
   };
 
 export const createOpdReset =
@@ -109,6 +146,46 @@ export const getOpds =
     }
   };
 
+export const getOpdsWithOperationRows =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<OpdWithOperatioRowDTO[], {}>>): void => {
+    dispatch({
+      type: GET_OPD_LOADING,
+    });
+
+    if (code) {
+      opdControllerApi
+        .getOpdByPatientUsingGET({
+          pcode: code,
+        })
+        .subscribe(
+          (payload) => {
+            if (Array.isArray(payload) && payload.length > 0) {
+              dispatch({
+                type: GET_OPD_SUCCESS,
+                payload: payload,
+              });
+            } else {
+              dispatch({
+                type: GET_OPD_SUCCESS_EMPTY,
+                payload: [],
+              });
+            }
+          },
+          (error) => {
+            dispatch({
+              type: GET_OPD_FAIL,
+              error,
+            });
+          }
+        );
+    } else {
+      dispatch({
+        type: GET_OPD_FAIL,
+        error: "patient code should not be empty",
+      });
+    }
+  };
 export const searchOpds =
   (query: any) =>
   (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
@@ -165,7 +242,13 @@ export const searchOpdsReset =
       type: SEARCH_OPD_RESET,
     });
   };
-
+/**
+ *
+ * @param code the code of the opd to be edited
+ * @param opdDTO the opd payload
+ * @returns
+ * @deprecated
+ */
 export const updateOpd =
   (code: number, opdDTO: OpdDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
@@ -186,6 +269,30 @@ export const updateOpd =
         });
       }
     );
+  };
+
+export const updateOpdWithOperationRows =
+  (code: number, opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_OPD_LOADING,
+    });
+    opdControllerApi
+      .updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: UPDATE_OPD_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: UPDATE_OPD_FAIL,
+            error: error?.response,
+          });
+        }
+      );
   };
 export const deleteOpdReset =
   () =>

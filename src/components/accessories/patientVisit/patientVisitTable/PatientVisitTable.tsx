@@ -12,17 +12,14 @@ import { usePermission } from "../../../../libraries/permissionUtils/usePermissi
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
-  handleAddOperation: (row: any) => void;
 }
 
 const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
-  handleAddOperation,
 }) => {
   const { t } = useTranslation();
   const canUpdate = usePermission("visit.update");
-  const canCreateOperation = usePermission("operation.create");
   const header = ["date", "duration"];
   const dateFields = ["date"];
   const label = {
@@ -70,10 +67,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     handleEdit(data.find((item) => item.visitID === row?.visitID));
   };
 
-  const onAdd = (row?: VisitDTO) => {
-    handleAddOperation(data.find((item) => item.visitID === row?.visitID));
-  };
-
   return (
     <div className="PatientVisitTable">
       <h5>{t("common.previousentries")}</h5>
@@ -103,7 +96,6 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
                 rowsPerPage={5}
                 isCollapsabile={true}
                 onEdit={canUpdate ? onEdit : undefined}
-                onAdd={canCreateOperation ? onAdd : undefined}
                 addTitle={t("visit.addoperation")}
               />
             );
