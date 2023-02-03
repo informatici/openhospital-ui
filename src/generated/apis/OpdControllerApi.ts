@@ -240,9 +240,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * newOpd
      */
-    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest): Observable<OpdDTO>
-    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdDTO>>
-    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<OpdDTO | RawAjaxResponse<OpdDTO>> {
+    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest): Observable<boolean>
+    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(opdDTO, 'opdDTO', 'newOpdUsingPOST');
 
         const headers: HttpHeaders = {
@@ -250,7 +250,7 @@ export class OpdControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<OpdDTO>({
+        return this.request<boolean>({
             url: '/opds',
             method: 'POST',
             headers,
@@ -282,9 +282,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * updateOpd
      */
-    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest): Observable<OpdDTO>
-    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdDTO>>
-    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<OpdDTO | RawAjaxResponse<OpdDTO>> {
+    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest): Observable<number>
+    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
         throwIfNullOrUndefined(code, 'code', 'updateOpdUsingPUT');
         throwIfNullOrUndefined(opdDTO, 'opdDTO', 'updateOpdUsingPUT');
 
@@ -293,7 +293,7 @@ export class OpdControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<OpdDTO>({
+        return this.request<number>({
             url: '/opds/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

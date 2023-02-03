@@ -73,9 +73,9 @@ export class AdmissionTypeControllerApi extends BaseAPI {
     /**
      * newAdmissionType
      */
-    newAdmissionTypeUsingPOST({ admissionTypeDTO }: NewAdmissionTypeUsingPOSTRequest): Observable<AdmissionTypeDTO>
-    newAdmissionTypeUsingPOST({ admissionTypeDTO }: NewAdmissionTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionTypeDTO>>
-    newAdmissionTypeUsingPOST({ admissionTypeDTO }: NewAdmissionTypeUsingPOSTRequest, opts?: OperationOpts): Observable<AdmissionTypeDTO | RawAjaxResponse<AdmissionTypeDTO>> {
+    newAdmissionTypeUsingPOST({ admissionTypeDTO }: NewAdmissionTypeUsingPOSTRequest): Observable<string>
+    newAdmissionTypeUsingPOST({ admissionTypeDTO }: NewAdmissionTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    newAdmissionTypeUsingPOST({ admissionTypeDTO }: NewAdmissionTypeUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         throwIfNullOrUndefined(admissionTypeDTO, 'admissionTypeDTO', 'newAdmissionTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -83,7 +83,7 @@ export class AdmissionTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<AdmissionTypeDTO>({
+        return this.request<string>({
             url: '/admissiontypes',
             method: 'POST',
             headers,
@@ -94,9 +94,9 @@ export class AdmissionTypeControllerApi extends BaseAPI {
     /**
      * updateAdmissionTypet
      */
-    updateAdmissionTypetUsingPUT({ admissionTypeDTO }: UpdateAdmissionTypetUsingPUTRequest): Observable<AdmissionTypeDTO>
-    updateAdmissionTypetUsingPUT({ admissionTypeDTO }: UpdateAdmissionTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionTypeDTO>>
-    updateAdmissionTypetUsingPUT({ admissionTypeDTO }: UpdateAdmissionTypetUsingPUTRequest, opts?: OperationOpts): Observable<AdmissionTypeDTO | RawAjaxResponse<AdmissionTypeDTO>> {
+    updateAdmissionTypetUsingPUT({ admissionTypeDTO }: UpdateAdmissionTypetUsingPUTRequest): Observable<string>
+    updateAdmissionTypetUsingPUT({ admissionTypeDTO }: UpdateAdmissionTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    updateAdmissionTypetUsingPUT({ admissionTypeDTO }: UpdateAdmissionTypetUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         throwIfNullOrUndefined(admissionTypeDTO, 'admissionTypeDTO', 'updateAdmissionTypetUsingPUT');
 
         const headers: HttpHeaders = {
@@ -104,7 +104,7 @@ export class AdmissionTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<AdmissionTypeDTO>({
+        return this.request<string>({
             url: '/admissiontypes',
             method: 'PUT',
             headers,

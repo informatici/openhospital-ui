@@ -104,9 +104,9 @@ export class MalnutritionControllerApi extends BaseAPI {
     /**
      * newMalnutrition
      */
-    newMalnutritionUsingPOST({ malnutritionDTO }: NewMalnutritionUsingPOSTRequest): Observable<MalnutritionDTO>
-    newMalnutritionUsingPOST({ malnutritionDTO }: NewMalnutritionUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MalnutritionDTO>>
-    newMalnutritionUsingPOST({ malnutritionDTO }: NewMalnutritionUsingPOSTRequest, opts?: OperationOpts): Observable<MalnutritionDTO | RawAjaxResponse<MalnutritionDTO>> {
+    newMalnutritionUsingPOST({ malnutritionDTO }: NewMalnutritionUsingPOSTRequest): Observable<void>
+    newMalnutritionUsingPOST({ malnutritionDTO }: NewMalnutritionUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    newMalnutritionUsingPOST({ malnutritionDTO }: NewMalnutritionUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(malnutritionDTO, 'malnutritionDTO', 'newMalnutritionUsingPOST');
 
         const headers: HttpHeaders = {
@@ -114,7 +114,7 @@ export class MalnutritionControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<MalnutritionDTO>({
+        return this.request<void>({
             url: '/malnutritions',
             method: 'POST',
             headers,

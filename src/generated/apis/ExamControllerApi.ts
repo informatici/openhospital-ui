@@ -98,9 +98,9 @@ export class ExamControllerApi extends BaseAPI {
     /**
      * newExam
      */
-    newExamUsingPOST({ newExam }: NewExamUsingPOSTRequest): Observable<ExamDTO>
-    newExamUsingPOST({ newExam }: NewExamUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
-    newExamUsingPOST({ newExam }: NewExamUsingPOSTRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
+    newExamUsingPOST({ newExam }: NewExamUsingPOSTRequest): Observable<ResponseEntity>
+    newExamUsingPOST({ newExam }: NewExamUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newExamUsingPOST({ newExam }: NewExamUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
         throwIfNullOrUndefined(newExam, 'newExam', 'newExamUsingPOST');
 
         const headers: HttpHeaders = {
@@ -108,7 +108,7 @@ export class ExamControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ExamDTO>({
+        return this.request<ResponseEntity>({
             url: '/exams',
             method: 'POST',
             headers,
@@ -119,9 +119,9 @@ export class ExamControllerApi extends BaseAPI {
     /**
      * updateExams
      */
-    updateExamsUsingPUT({ code, updateExam }: UpdateExamsUsingPUTRequest): Observable<ExamDTO>
-    updateExamsUsingPUT({ code, updateExam }: UpdateExamsUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
-    updateExamsUsingPUT({ code, updateExam }: UpdateExamsUsingPUTRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
+    updateExamsUsingPUT({ code, updateExam }: UpdateExamsUsingPUTRequest): Observable<ResponseEntity>
+    updateExamsUsingPUT({ code, updateExam }: UpdateExamsUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    updateExamsUsingPUT({ code, updateExam }: UpdateExamsUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
         throwIfNullOrUndefined(code, 'code', 'updateExamsUsingPUT');
         throwIfNullOrUndefined(updateExam, 'updateExam', 'updateExamsUsingPUT');
 
@@ -130,7 +130,7 @@ export class ExamControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ExamDTO>({
+        return this.request<ResponseEntity>({
             url: '/exams/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

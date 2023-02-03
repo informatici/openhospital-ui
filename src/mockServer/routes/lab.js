@@ -17,13 +17,13 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labDTO);
+          res.status(200).json(labWithRowsDTO);
       }
     });
 
     server.get("/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labDTO.find(e => e.code == code);
+      const lab = labDTO.find((e) => e.code == code);
       switch (code) {
         case "1000":
           res.status(400);
@@ -34,7 +34,7 @@ export const labRoutes = (server) => {
           break;
         default:
           if (isEmpty(lab)) {
-            res.status(404)
+            res.status(404);
           } else {
             res.status(200).json(lab);
           }
@@ -43,7 +43,7 @@ export const labRoutes = (server) => {
 
     server.get("/exams/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labWithRowsDTO.find(e => e.laboratoryDTO.code == code);
+      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code == code);
       switch (code) {
         case "1000":
           res.status(400);
@@ -54,7 +54,7 @@ export const labRoutes = (server) => {
           break;
         default:
           if (isEmpty(lab)) {
-            res.status(404)
+            res.status(404);
           } else {
             res.status(200).json(lab);
           }

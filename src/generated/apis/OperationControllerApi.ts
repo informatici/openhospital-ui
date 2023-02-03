@@ -239,9 +239,9 @@ export class OperationControllerApi extends BaseAPI {
     /**
      * newOperationRow
      */
-    newOperationRowUsingPOST({ operationRowDTO }: NewOperationRowUsingPOSTRequest): Observable<OperationRowDTO>
-    newOperationRowUsingPOST({ operationRowDTO }: NewOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationRowDTO>>
-    newOperationRowUsingPOST({ operationRowDTO }: NewOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<OperationRowDTO | RawAjaxResponse<OperationRowDTO>> {
+    newOperationRowUsingPOST({ operationRowDTO }: NewOperationRowUsingPOSTRequest): Observable<number>
+    newOperationRowUsingPOST({ operationRowDTO }: NewOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    newOperationRowUsingPOST({ operationRowDTO }: NewOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
         throwIfNullOrUndefined(operationRowDTO, 'operationRowDTO', 'newOperationRowUsingPOST');
 
         const headers: HttpHeaders = {
@@ -249,7 +249,7 @@ export class OperationControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<OperationRowDTO>({
+        return this.request<number>({
             url: '/operations/rows',
             method: 'POST',
             headers,
@@ -260,9 +260,9 @@ export class OperationControllerApi extends BaseAPI {
     /**
      * newOperation
      */
-    newOperationUsingPOST({ operationDTO }: NewOperationUsingPOSTRequest): Observable<OperationDTO>
-    newOperationUsingPOST({ operationDTO }: NewOperationUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationDTO>>
-    newOperationUsingPOST({ operationDTO }: NewOperationUsingPOSTRequest, opts?: OperationOpts): Observable<OperationDTO | RawAjaxResponse<OperationDTO>> {
+    newOperationUsingPOST({ operationDTO }: NewOperationUsingPOSTRequest): Observable<string>
+    newOperationUsingPOST({ operationDTO }: NewOperationUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    newOperationUsingPOST({ operationDTO }: NewOperationUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         throwIfNullOrUndefined(operationDTO, 'operationDTO', 'newOperationUsingPOST');
 
         const headers: HttpHeaders = {
@@ -270,7 +270,7 @@ export class OperationControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<OperationDTO>({
+        return this.request<string>({
             url: '/operations',
             method: 'POST',
             headers,
@@ -281,9 +281,9 @@ export class OperationControllerApi extends BaseAPI {
     /**
      * updateOperationRow
      */
-    updateOperationRowUsingPUT({ operationRowDTO }: UpdateOperationRowUsingPUTRequest): Observable<OperationRowDTO>
-    updateOperationRowUsingPUT({ operationRowDTO }: UpdateOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationRowDTO>>
-    updateOperationRowUsingPUT({ operationRowDTO }: UpdateOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<OperationRowDTO | RawAjaxResponse<OperationRowDTO>> {
+    updateOperationRowUsingPUT({ operationRowDTO }: UpdateOperationRowUsingPUTRequest): Observable<number>
+    updateOperationRowUsingPUT({ operationRowDTO }: UpdateOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    updateOperationRowUsingPUT({ operationRowDTO }: UpdateOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
         throwIfNullOrUndefined(operationRowDTO, 'operationRowDTO', 'updateOperationRowUsingPUT');
 
         const headers: HttpHeaders = {
@@ -291,7 +291,7 @@ export class OperationControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<OperationRowDTO>({
+        return this.request<number>({
             url: '/operations/rows',
             method: 'PUT',
             headers,

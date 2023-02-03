@@ -114,7 +114,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           <InfoBox type="warning" message={t("common.emptydata")} />
         </div>
       )}
-      {labStatus === "LOADING" && (
+      {labStatus === "IDLE" && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
       {labStatus === "FAIL" && (

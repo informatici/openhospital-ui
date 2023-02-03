@@ -74,9 +74,9 @@ export class PricesOthersControllerApi extends BaseAPI {
     /**
      * newPricesOthers
      */
-    newPricesOthersUsingPOST({ pricesOthersDTO }: NewPricesOthersUsingPOSTRequest): Observable<PricesOthersDTO>
-    newPricesOthersUsingPOST({ pricesOthersDTO }: NewPricesOthersUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PricesOthersDTO>>
-    newPricesOthersUsingPOST({ pricesOthersDTO }: NewPricesOthersUsingPOSTRequest, opts?: OperationOpts): Observable<PricesOthersDTO | RawAjaxResponse<PricesOthersDTO>> {
+    newPricesOthersUsingPOST({ pricesOthersDTO }: NewPricesOthersUsingPOSTRequest): Observable<string>
+    newPricesOthersUsingPOST({ pricesOthersDTO }: NewPricesOthersUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    newPricesOthersUsingPOST({ pricesOthersDTO }: NewPricesOthersUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         throwIfNullOrUndefined(pricesOthersDTO, 'pricesOthersDTO', 'newPricesOthersUsingPOST');
 
         const headers: HttpHeaders = {
@@ -84,7 +84,7 @@ export class PricesOthersControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<PricesOthersDTO>({
+        return this.request<string>({
             url: '/pricesothers',
             method: 'POST',
             headers,
@@ -95,9 +95,9 @@ export class PricesOthersControllerApi extends BaseAPI {
     /**
      * updatePricesOtherst
      */
-    updatePricesOtherstUsingPUT({ id, pricesOthersDTO }: UpdatePricesOtherstUsingPUTRequest): Observable<PricesOthersDTO>
-    updatePricesOtherstUsingPUT({ id, pricesOthersDTO }: UpdatePricesOtherstUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PricesOthersDTO>>
-    updatePricesOtherstUsingPUT({ id, pricesOthersDTO }: UpdatePricesOtherstUsingPUTRequest, opts?: OperationOpts): Observable<PricesOthersDTO | RawAjaxResponse<PricesOthersDTO>> {
+    updatePricesOtherstUsingPUT({ id, pricesOthersDTO }: UpdatePricesOtherstUsingPUTRequest): Observable<string>
+    updatePricesOtherstUsingPUT({ id, pricesOthersDTO }: UpdatePricesOtherstUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
+    updatePricesOtherstUsingPUT({ id, pricesOthersDTO }: UpdatePricesOtherstUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
         throwIfNullOrUndefined(id, 'id', 'updatePricesOtherstUsingPUT');
         throwIfNullOrUndefined(pricesOthersDTO, 'pricesOthersDTO', 'updatePricesOtherstUsingPUT');
 
@@ -106,7 +106,7 @@ export class PricesOthersControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<PricesOthersDTO>({
+        return this.request<string>({
             url: '/pricesothers/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
