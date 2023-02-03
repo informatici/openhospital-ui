@@ -83,7 +83,7 @@ export const labRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201).json(body.laboratoryDTO);
+          res.status(201).json({ laboratoryDTO: body.laboratoryDTO });
           break;
       }
     });
