@@ -65,7 +65,7 @@ export interface Ward {
      * @type {boolean}
      * @memberof Ward
      */
-    female?: boolean;
+    isFemale?: boolean;
     /**
      * @type {string}
      * @memberof Ward
@@ -85,7 +85,7 @@ export interface Ward {
      * @type {boolean}
      * @memberof Ward
      */
-    male?: boolean;
+    isMale?: boolean;
     /**
      * @type {number}
      * @memberof Ward
@@ -95,10 +95,20 @@ export interface Ward {
      * @type {boolean}
      * @memberof Ward
      */
-    pharmacy?: boolean;
+    isPharmacy?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof Ward
+     */
+    isOpd?: boolean;
     /**
      * @type {string}
      * @memberof Ward
      */
     telephone?: string;
+    /**
+     * @type {number}
+     * @memberof Ward
+     */
+    visitDuration?: number;
 }

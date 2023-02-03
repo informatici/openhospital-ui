@@ -50,7 +50,7 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    female?: boolean;
+    isFemale?: boolean;
     /**
      * @type {number}
      * @memberof WardDTO
@@ -60,7 +60,7 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    male?: boolean;
+    isMale?: boolean;
     /**
      * @type {number}
      * @memberof WardDTO
@@ -70,10 +70,20 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    pharmacy?: boolean;
+    isPharmacy?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof WardDTO
+     */
+    isOpd?: boolean;
     /**
      * @type {string}
      * @memberof WardDTO
      */
     telephone?: string;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    visitDuration?: number;
 }

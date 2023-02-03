@@ -16,6 +16,7 @@ import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, Ope
 import {
     LabWithRowsDTO,
     LaboratoryDTO,
+    LaboratoryForPrintDTO,
     ResponseEntity,
 } from '../models';
 
@@ -120,9 +121,9 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * getLaboratoryForPrint
      */
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LabWithRowsDTO>>
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LabWithRowsDTO>>>
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LabWithRowsDTO> | RawAjaxResponse<Array<LabWithRowsDTO>>> {
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LaboratoryForPrintDTO>>
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryForPrintDTO>>>
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LaboratoryForPrintDTO> | RawAjaxResponse<Array<LaboratoryForPrintDTO>>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getLaboratoryForPrintUsingGET');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getLaboratoryForPrintUsingGET');
 
@@ -138,7 +139,7 @@ export class LaboratoryControllerApi extends BaseAPI {
         if (examName != null) { query['examName'] = examName; }
         if (patientCode != null) { query['patientCode'] = patientCode; }
 
-        return this.request<Array<LabWithRowsDTO>>({
+        return this.request<Array<LaboratoryForPrintDTO>>({
             url: '/laboratories/exams',
             method: 'GET',
             headers,
@@ -168,14 +169,14 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * getLaboratory
      */
-    getLaboratoryUsingGET1(): Observable<Array<LabWithRowsDTO>>
-    getLaboratoryUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<LabWithRowsDTO>>>
-    getLaboratoryUsingGET1(opts?: OperationOpts): Observable<Array<LabWithRowsDTO> | RawAjaxResponse<Array<LabWithRowsDTO>>> {
+    getLaboratoryUsingGET1(): Observable<Array<LaboratoryDTO>>
+    getLaboratoryUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryUsingGET1(opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<Array<LabWithRowsDTO>>({
+        return this.request<Array<LaboratoryDTO>>({
             url: '/laboratories',
             method: 'GET',
             headers,

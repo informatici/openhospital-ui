@@ -365,15 +365,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("mother_name")}
+              field={formik.getFieldProps("motherName")}
               theme="regular"
               label={t("patient.mothername")}
-              isValid={isValid("mother_name")}
-              errorText={getErrorText("mother_name")}
+              isValid={isValid("motherName")}
+              errorText={getErrorText("motherName")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
               required={
-                isFieldSuggested(formCustomization, "mother_name")
+                isFieldSuggested(formCustomization, "motherName")
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
@@ -382,15 +382,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("father_name")}
+              field={formik.getFieldProps("fatherName")}
               theme="regular"
               label={t("patient.fathername")}
-              isValid={isValid("father_name")}
-              errorText={getErrorText("father_name")}
+              isValid={isValid("fatherName")}
+              errorText={getErrorText("fatherName")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
               required={
-                isFieldSuggested(formCustomization, "father_name")
+                isFieldSuggested(formCustomization, "fatherName")
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }

@@ -1,14 +1,14 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   description: OH 2.0 Api Documentation
-  version: '1.0'
+  version: "1.0"
   title: OH 2.0 Api Documentation
   termsOfService: urn:tos
   contact: {}
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
-host: "localhost:8080" #oh2.open-hospital.org
+host: "oh2.open-hospital.org"
 basePath: /oh-api
 tags:
   - name: admission-controller
@@ -98,29 +98,44 @@ paths:
     get:
       tags:
         - admission-controller
-      summary: getPatientAdmissions
-      operationId: getPatientAdmissionsUsingGET
+      summary: getAdmissions
+      operationId: getAdmissionsUsingGET
       produces:
         - application/json
       parameters:
-        - name: patientCode
+        - name: patientcode
           in: query
-          description: patientCode
-          required: true
+          description: Patient Code
+          required: false
           type: integer
           format: int32
+        - name: admissionrange
+          in: query
+          description: admissionrange
+          required: false
+          type: array
+        - name: dischargerange
+          in: query
+          description: dischargerange
+          required: false
+          type: array
+        - name: searchterms
+          in: query
+          description: searchterms
+          required: false
+          type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/AdmissionDTO'
-        '401':
+              $ref: "#/definitions/AdmissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -140,20 +155,20 @@ paths:
           description: newAdmissionDTO
           required: true
           schema:
-            $ref: '#/definitions/AdmissionDTO'
+            $ref: "#/definitions/AdmissionDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -173,20 +188,20 @@ paths:
           description: updAdmissionDTO
           required: true
           schema:
-            $ref: '#/definitions/AdmissionDTO'
+            $ref: "#/definitions/AdmissionDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -204,29 +219,29 @@ paths:
           in: query
           description: admissionrange
           required: false
-          type: string
+          type: array
         - name: dischargerange
           in: query
           description: dischargerange
           required: false
-          type: string
+          type: array
         - name: searchterms
           in: query
           description: searchterms
           required: false
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/AdmittedPatientDTO'
-        '401':
+              $ref: "#/definitions/AdmittedPatientDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -247,15 +262,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/AdmissionDTO'
-        '401':
+            $ref: "#/definitions/AdmissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -276,7 +291,7 @@ paths:
           description: currentAdmissionDTO
           required: true
           schema:
-            $ref: '#/definitions/AdmissionDTO'
+            $ref: "#/definitions/AdmissionDTO"
         - name: patientCode
           in: query
           description: patientCode
@@ -284,17 +299,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -314,16 +329,16 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -343,16 +358,16 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -362,7 +377,7 @@ paths:
       tags:
         - admission-controller
       summary: getAdmissions
-      operationId: getAdmissionsUsingGET
+      operationId: getAdmissionUsingGET
       produces:
         - application/json
       parameters:
@@ -373,15 +388,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/AdmissionDTO'
-        '401':
+            $ref: "#/definitions/AdmissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -401,15 +416,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -423,17 +438,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/AdmissionTypeDTO'
-        '401':
+              $ref: "#/definitions/AdmissionTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -453,19 +468,19 @@ paths:
           description: admissionTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/AdmissionTypeDTO'
+            $ref: "#/definitions/AdmissionTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -485,19 +500,19 @@ paths:
           description: admissionTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/AdmissionTypeDTO'
+            $ref: "#/definitions/AdmissionTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -517,15 +532,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -539,17 +554,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/AgeTypeDTO'
-        '401':
+              $ref: "#/definitions/AgeTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -569,19 +584,19 @@ paths:
           description: ageTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/AgeTypeDTO'
+            $ref: "#/definitions/AgeTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/AgeTypeDTO'
-        '201':
+            $ref: "#/definitions/AgeTypeDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -602,17 +617,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: object
             additionalProperties:
               type: string
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -633,15 +648,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/AgeType'
-        '401':
+            $ref: "#/definitions/AgeType"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -663,19 +678,19 @@ paths:
           description: LoginRequest
           required: true
           schema:
-            $ref: '#/definitions/LoginRequest'
+            $ref: "#/definitions/LoginRequest"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '201':
+            $ref: "#/definitions/LoginResponse"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       deprecated: false
   /auth/logout:
@@ -688,17 +703,17 @@ paths:
       consumes:
         - application/json
       produces:
-        - '*/*'
+        - "*/*"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -731,17 +746,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillDTO'
-        '401':
+              $ref: "#/definitions/BillDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -761,19 +776,19 @@ paths:
           description: newBillDto
           required: true
           schema:
-            $ref: '#/definitions/FullBillDTO'
+            $ref: "#/definitions/FullBillDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/FullBillDTO'
-        '201':
+            $ref: "#/definitions/FullBillDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -787,17 +802,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillItemsDTO'
-        '401':
+              $ref: "#/definitions/BillItemsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -818,17 +833,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillItemsDTO'
-        '401':
+              $ref: "#/definitions/BillItemsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -861,17 +876,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillPaymentsDTO'
-        '401':
+              $ref: "#/definitions/BillPaymentsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -892,17 +907,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillPaymentsDTO'
-        '401':
+              $ref: "#/definitions/BillPaymentsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -923,17 +938,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillDTO'
-        '401':
+              $ref: "#/definitions/BillDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -954,17 +969,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillDTO'
-        '401':
+              $ref: "#/definitions/BillDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -985,7 +1000,7 @@ paths:
           description: billItemDTO
           required: true
           schema:
-            $ref: '#/definitions/BillItemsDTO'
+            $ref: "#/definitions/BillItemsDTO"
         - name: datefrom
           in: query
           description: datefrom
@@ -999,19 +1014,19 @@ paths:
           type: string
           format: date-time
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillDTO'
-        '201':
+              $ref: "#/definitions/BillDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1034,21 +1049,21 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillPaymentsDTO'
+              $ref: "#/definitions/BillPaymentsDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BillDTO'
-        '201':
+              $ref: "#/definitions/BillDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1069,15 +1084,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/BillDTO'
-        '401':
+            $ref: "#/definitions/BillDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1103,19 +1118,19 @@ paths:
           description: odBillDto
           required: true
           schema:
-            $ref: '#/definitions/FullBillDTO'
+            $ref: "#/definitions/FullBillDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/FullBillDTO'
-        '201':
+            $ref: "#/definitions/FullBillDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1135,15 +1150,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -1157,17 +1172,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DeliveryResultTypeDTO'
-        '401':
+              $ref: "#/definitions/DeliveryResultTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1187,19 +1202,19 @@ paths:
           description: dlvrrestTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DeliveryResultTypeDTO'
+            $ref: "#/definitions/DeliveryResultTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1219,19 +1234,19 @@ paths:
           description: dlvrrestTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DeliveryResultTypeDTO'
+            $ref: "#/definitions/DeliveryResultTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1251,15 +1266,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -1273,17 +1288,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DeliveryTypeDTO'
-        '401':
+              $ref: "#/definitions/DeliveryTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1303,19 +1318,19 @@ paths:
           description: dlvrTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DeliveryTypeDTO'
+            $ref: "#/definitions/DeliveryTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1335,19 +1350,19 @@ paths:
           description: dlvrTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DeliveryTypeDTO'
+            $ref: "#/definitions/DeliveryTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1367,15 +1382,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -1389,17 +1404,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DischargeTypeDTO'
-        '401':
+              $ref: "#/definitions/DischargeTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1419,19 +1434,19 @@ paths:
           description: dischTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DischargeTypeDTO'
+            $ref: "#/definitions/DischargeTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1451,19 +1466,19 @@ paths:
           description: dischTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DischargeTypeDTO'
+            $ref: "#/definitions/DischargeTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1483,15 +1498,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -1512,19 +1527,19 @@ paths:
           description: diseaseDTO
           required: true
           schema:
-            $ref: '#/definitions/DiseaseDTO'
+            $ref: "#/definitions/DiseaseDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/DiseaseDTO'
-        '201':
+            $ref: "#/definitions/DiseaseDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1544,19 +1559,19 @@ paths:
           description: diseaseDTO
           required: true
           schema:
-            $ref: '#/definitions/DiseaseDTO'
+            $ref: "#/definitions/DiseaseDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/DiseaseDTO'
-        '201':
+            $ref: "#/definitions/DiseaseDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1570,17 +1585,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1594,17 +1609,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1624,17 +1639,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1648,17 +1663,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1678,17 +1693,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1702,17 +1717,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1732,17 +1747,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1756,17 +1771,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1786,17 +1801,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseDTO'
-        '401':
+              $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1817,15 +1832,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/DiseaseDTO'
-        '401':
+            $ref: "#/definitions/DiseaseDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1845,17 +1860,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: object
             additionalProperties:
               type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -1869,17 +1884,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/DiseaseTypeDTO'
-        '401':
+              $ref: "#/definitions/DiseaseTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1899,19 +1914,19 @@ paths:
           description: diseaseTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DiseaseTypeDTO'
+            $ref: "#/definitions/DiseaseTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/DiseaseTypeDTO'
-        '201':
+            $ref: "#/definitions/DiseaseTypeDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1931,19 +1946,19 @@ paths:
           description: diseaseTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/DiseaseTypeDTO'
+            $ref: "#/definitions/DiseaseTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/DiseaseTypeDTO'
-        '201':
+            $ref: "#/definitions/DiseaseTypeDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -1963,17 +1978,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: object
             additionalProperties:
               type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -1994,19 +2009,19 @@ paths:
           description: newPatientExamination
           required: true
           schema:
-            $ref: '#/definitions/PatientExaminationDTO'
+            $ref: "#/definitions/PatientExaminationDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2027,17 +2042,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PatientExaminationDTO'
-        '401':
+              $ref: "#/definitions/PatientExaminationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2058,15 +2073,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientExaminationDTO'
-        '401':
+            $ref: "#/definitions/PatientExaminationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2087,15 +2102,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientExaminationDTO'
-        '401':
+            $ref: "#/definitions/PatientExaminationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2116,15 +2131,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientExaminationDTO'
-        '401':
+            $ref: "#/definitions/PatientExaminationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2151,17 +2166,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PatientExaminationDTO'
-        '401':
+              $ref: "#/definitions/PatientExaminationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2182,15 +2197,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientExaminationDTO'
-        '401':
+            $ref: "#/definitions/PatientExaminationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2210,7 +2225,7 @@ paths:
           description: dto
           required: true
           schema:
-            $ref: '#/definitions/PatientExaminationDTO'
+            $ref: "#/definitions/PatientExaminationDTO"
         - name: id
           in: path
           description: id
@@ -2218,17 +2233,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2242,17 +2257,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamRowDTO'
-        '401':
+              $ref: "#/definitions/ExamRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2272,19 +2287,19 @@ paths:
           description: examRowDTO
           required: true
           schema:
-            $ref: '#/definitions/ExamRowDTO'
+            $ref: "#/definitions/ExamRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2304,17 +2319,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamRowDTO'
-        '401':
+              $ref: "#/definitions/ExamRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2340,17 +2355,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamRowDTO'
-        '401':
+              $ref: "#/definitions/ExamRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2371,17 +2386,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamRowDTO'
-        '401':
+              $ref: "#/definitions/ExamRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2401,15 +2416,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -2423,17 +2438,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamDTO'
-        '401':
+              $ref: "#/definitions/ExamDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2453,19 +2468,19 @@ paths:
           description: newExam
           required: true
           schema:
-            $ref: '#/definitions/ExamDTO'
+            $ref: "#/definitions/ExamDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2485,17 +2500,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamDTO'
-        '401':
+              $ref: "#/definitions/ExamDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2521,19 +2536,19 @@ paths:
           description: updateExam
           required: true
           schema:
-            $ref: '#/definitions/ExamDTO'
+            $ref: "#/definitions/ExamDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2552,15 +2567,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -2574,17 +2589,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/ExamTypeDTO'
-        '401':
+              $ref: "#/definitions/ExamTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2604,19 +2619,19 @@ paths:
           description: newExamType
           required: true
           schema:
-            $ref: '#/definitions/ExamTypeDTO'
+            $ref: "#/definitions/ExamTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2642,19 +2657,19 @@ paths:
           description: updateExamType
           required: true
           schema:
-            $ref: '#/definitions/ExamTypeDTO'
+            $ref: "#/definitions/ExamTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2673,15 +2688,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -2695,15 +2710,15 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/HospitalDTO'
-        '401':
+            $ref: "#/definitions/HospitalDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2717,15 +2732,15 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2751,19 +2766,19 @@ paths:
           description: hospitalDTO
           required: true
           schema:
-            $ref: '#/definitions/HospitalDTO'
+            $ref: "#/definitions/HospitalDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2777,17 +2792,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/LabWithRowsDTO'
-        '401':
+              $ref: "#/definitions/LaboratoryDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2807,19 +2822,19 @@ paths:
           description: labWithRowsDTO
           required: true
           schema:
-            $ref: '#/definitions/LabWithRowsDTO'
+            $ref: "#/definitions/LabWithRowsDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2840,17 +2855,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/LabWithRowsDTO'
-        '401':
+              $ref: "#/definitions/LabWithRowsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2885,17 +2900,17 @@ paths:
           description: patientCode
           type: number
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/LabWithRowsDTO'
-        '401':
+              $ref: "#/definitions/LaboratoryForPrintDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2918,19 +2933,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/LabWithRowsDTO'
+              $ref: "#/definitions/LabWithRowsDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2951,15 +2966,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/LabWithRowsDTO'
-        '401':
+            $ref: "#/definitions/LabWithRowsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -2973,17 +2988,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
               type: string
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3004,15 +3019,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/LaboratoryDTO'
-        '401':
+            $ref: "#/definitions/LaboratoryDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3038,19 +3053,19 @@ paths:
           description: labWithRowsDTO
           required: true
           schema:
-            $ref: '#/definitions/LabWithRowsDTO'
+            $ref: "#/definitions/LabWithRowsDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3070,15 +3085,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -3099,17 +3114,17 @@ paths:
           description: malnutritionDTO
           required: true
           schema:
-            $ref: '#/definitions/MalnutritionDTO'
+            $ref: "#/definitions/MalnutritionDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3129,19 +3144,19 @@ paths:
           description: malnutritionDTO
           required: true
           schema:
-            $ref: '#/definitions/MalnutritionDTO'
+            $ref: "#/definitions/MalnutritionDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/MalnutritionDTO'
-        '201':
+            $ref: "#/definitions/MalnutritionDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3159,17 +3174,17 @@ paths:
           description: malnutritionDTO
           required: true
           schema:
-            $ref: '#/definitions/MalnutritionDTO'
+            $ref: "#/definitions/MalnutritionDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -3190,15 +3205,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/MalnutritionDTO'
-        '401':
+            $ref: "#/definitions/MalnutritionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3218,17 +3233,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MalnutritionDTO'
-        '401':
+              $ref: "#/definitions/MalnutritionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3252,17 +3267,17 @@ paths:
             - CODE
             - NAME
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MedicalDTO'
-        '401':
+              $ref: "#/definitions/MedicalDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3288,17 +3303,17 @@ paths:
           description: medicalDTO
           required: true
           schema:
-            $ref: '#/definitions/MedicalDTO'
+            $ref: "#/definitions/MedicalDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3324,17 +3339,17 @@ paths:
           description: medicalDTO
           required: true
           schema:
-            $ref: '#/definitions/MedicalDTO'
+            $ref: "#/definitions/MedicalDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3371,17 +3386,17 @@ paths:
           required: false
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MedicalDTO'
-        '401':
+              $ref: "#/definitions/MedicalDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3402,15 +3417,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/MedicalDTO'
-        '401':
+            $ref: "#/definitions/MedicalDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3430,15 +3445,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -3464,16 +3479,16 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3487,17 +3502,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementWardDTO'
-        '401':
+              $ref: "#/definitions/MovementWardDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3517,19 +3532,19 @@ paths:
           description: newMovementDTO
           required: true
           schema:
-            $ref: '#/definitions/MovementWardDTO'
+            $ref: "#/definitions/MovementWardDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3549,19 +3564,19 @@ paths:
           description: movementWardDTO
           required: true
           schema:
-            $ref: '#/definitions/MovementWardDTO'
+            $ref: "#/definitions/MovementWardDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3584,19 +3599,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementWardDTO'
+              $ref: "#/definitions/MovementWardDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3628,17 +3643,17 @@ paths:
           type: string
           format: date-time
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementWardDTO'
-        '401':
+              $ref: "#/definitions/MovementWardDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3670,17 +3685,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementWardDTO'
-        '401':
+              $ref: "#/definitions/MovementWardDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3700,17 +3715,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MedicalWardDTO'
-        '401':
+              $ref: "#/definitions/MedicalWardDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3724,17 +3739,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MedicalTypeDTO'
-        '401':
+              $ref: "#/definitions/MedicalTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3754,17 +3769,17 @@ paths:
           description: medicalTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/MedicalTypeDTO'
+            $ref: "#/definitions/MedicalTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3784,17 +3799,17 @@ paths:
           description: medicalTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/MedicalTypeDTO'
+            $ref: "#/definitions/MedicalTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3814,15 +3829,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3842,15 +3857,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -3864,17 +3879,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementTypeDTO'
-        '401':
+              $ref: "#/definitions/MovementTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3894,17 +3909,17 @@ paths:
           description: medicaldsrstockmovType
           required: true
           schema:
-            $ref: '#/definitions/MovementTypeDTO'
+            $ref: "#/definitions/MovementTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3924,17 +3939,17 @@ paths:
           description: medicaldsrstockmovTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/MovementTypeDTO'
+            $ref: "#/definitions/MovementTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3954,15 +3969,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -3982,15 +3997,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/MovementTypeDTO'
-        '401':
+            $ref: "#/definitions/MovementTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4009,15 +4024,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -4038,19 +4053,19 @@ paths:
           description: opdDTO
           required: true
           schema:
-            $ref: '#/definitions/OpdDTO'
+            $ref: "#/definitions/OpdDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4068,22 +4083,22 @@ paths:
       parameters:
         - in: body
           name: OpdWithOperatioRowDTO
-          description: opdWithOperatioRowDTO
+          description: OpdWithOperatioRowDTO
           required: true
           schema:
-            $ref: '#/definitions/OpdWithOperatioRowDTO'
+            $ref: "#/definitions/OpdWithOperatioRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/OpdWithOperatioRowDTO'
-        '201':
+            type: boolean
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4104,16 +4119,16 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4140,15 +4155,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4169,15 +4184,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/OpdDTO'
-        '401':
+            $ref: "#/definitions/OpdDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4198,17 +4213,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OpdWithOperatioRowDTO'
-        '401':
+              $ref: "#/definitions/OpdDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4263,17 +4278,17 @@ paths:
           description: sex
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OpdDTO'
-        '401':
+              $ref: "#/definitions/OpdDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4293,17 +4308,17 @@ paths:
           required: false
           type: boolean
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OpdDTO'
-        '401':
+              $ref: "#/definitions/OpdDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4330,20 +4345,20 @@ paths:
           description: opdDTO
           required: true
           schema:
-            $ref: '#/definitions/OpdDTO'
+            $ref: "#/definitions/OpdDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4363,21 +4378,21 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
       deprecated: false
   /opds/rows/{code}:
-    put:
+    post:
       tags:
         - opd-controller
       summary: updateOpdWithOperationRow
@@ -4398,19 +4413,19 @@ paths:
           description: OpdWithOperatioRowDTO
           required: true
           schema:
-            $ref: '#/definitions/OpdWithOperatioRowDTO'
+            $ref: "#/definitions/OpdWithOperatioRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/OpdWithOperatioRowDTO'
-        '201':
+            type: boolean
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4424,17 +4439,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OperationDTO'
-        '401':
+              $ref: "#/definitions/OperationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4454,19 +4469,19 @@ paths:
           description: operationDTO
           required: true
           schema:
-            $ref: '#/definitions/OperationDTO'
+            $ref: "#/definitions/OperationDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4487,20 +4502,20 @@ paths:
           description: operationRowDTO
           required: true
           schema:
-            $ref: '#/definitions/OperationRowDTO'
+            $ref: "#/definitions/OperationRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4520,20 +4535,20 @@ paths:
           description: operationRowDTO
           required: true
           schema:
-            $ref: '#/definitions/OperationRowDTO'
+            $ref: "#/definitions/OperationRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4554,17 +4569,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OperationRowDTO'
-        '401':
+              $ref: "#/definitions/OperationRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4585,17 +4600,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OperationRowDTO'
-        '401':
+              $ref: "#/definitions/OperationRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4616,21 +4631,21 @@ paths:
           description: opdDTO
           required: true
           schema:
-            $ref: '#/definitions/OpdDTO'
+            $ref: "#/definitions/OpdDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OperationRowDTO'
-        '201':
+              $ref: "#/definitions/OperationRowDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4651,15 +4666,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -4679,17 +4694,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OperationDTO'
-        '401':
+              $ref: "#/definitions/OperationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4709,15 +4724,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/OperationDTO'
-        '401':
+            $ref: "#/definitions/OperationDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4742,19 +4757,19 @@ paths:
           description: operationDTO
           required: true
           schema:
-            $ref: '#/definitions/OperationDTO'
+            $ref: "#/definitions/OperationDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4773,15 +4788,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -4795,17 +4810,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/OperationTypeDTO'
-        '401':
+              $ref: "#/definitions/OperationTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4825,19 +4840,19 @@ paths:
           description: operationTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/OperationTypeDTO'
+            $ref: "#/definitions/OperationTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4863,19 +4878,19 @@ paths:
           description: operationTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/OperationTypeDTO'
+            $ref: "#/definitions/OperationTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4894,15 +4909,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -4931,17 +4946,17 @@ paths:
           default: 80
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PatientDTO'
-        '401':
+              $ref: "#/definitions/PatientDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4961,19 +4976,19 @@ paths:
           description: newPatient
           required: true
           schema:
-            $ref: '#/definitions/PatientDTO'
+            $ref: "#/definitions/PatientDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientDTO'
-        '201':
+            $ref: "#/definitions/PatientDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -4994,15 +5009,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientDTO'
-        '401':
+            $ref: "#/definitions/PatientDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5029,15 +5044,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5051,16 +5066,16 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5095,17 +5110,17 @@ paths:
           required: false
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PatientDTO'
-        '401':
+              $ref: "#/definitions/PatientDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5126,15 +5141,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientDTO'
-        '401':
+            $ref: "#/definitions/PatientDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5160,19 +5175,19 @@ paths:
           description: updatePatient
           required: true
           schema:
-            $ref: '#/definitions/PatientDTO'
+            $ref: "#/definitions/PatientDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PatientDTO'
-        '201':
+            $ref: "#/definitions/PatientDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5192,16 +5207,40 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
+  /patients/cities:
+    get:
+      tags:
+        - patient-controller
+      summary: getPatientCities
+      operationId: getPatientCitiesUsingGET
+      produces:
+        - application/json
+      
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items: string 
         '401':
           description: Unauthorized
         '403':
           description: Forbidden
+        '404':
+          description: Not Found
       security:
         - JWT: []
       deprecated: false
@@ -5221,19 +5260,19 @@ paths:
           description: patientVaccineDTO
           required: true
           schema:
-            $ref: '#/definitions/PatientVaccineDTO'
+            $ref: "#/definitions/PatientVaccineDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5287,17 +5326,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PatientVaccineDTO'
-        '401':
+              $ref: "#/definitions/PatientVaccineDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5318,16 +5357,16 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5347,17 +5386,17 @@ paths:
           required: false
           type: boolean
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PatientVaccineDTO'
-        '401':
+              $ref: "#/definitions/PatientVaccineDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5384,20 +5423,20 @@ paths:
           description: patientVaccineDTO
           required: true
           schema:
-            $ref: '#/definitions/PatientVaccineDTO'
+            $ref: "#/definitions/PatientVaccineDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5417,15 +5456,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -5439,17 +5478,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PermissionDTO'
-        '401':
+              $ref: "#/definitions/PermissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5469,19 +5508,19 @@ paths:
           description: permissionDTO
           required: true
           schema:
-            $ref: '#/definitions/PermissionDTO'
+            $ref: "#/definitions/PermissionDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PermissionDTO'
-        '201':
+            $ref: "#/definitions/PermissionDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5501,15 +5540,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PermissionDTO'
-        '401':
+            $ref: "#/definitions/PermissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5529,17 +5568,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PermissionDTO'
-        '401':
+              $ref: "#/definitions/PermissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5560,15 +5599,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PermissionDTO'
-        '401':
+            $ref: "#/definitions/PermissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5594,19 +5633,19 @@ paths:
           description: permissionDTO
           required: true
           schema:
-            $ref: '#/definitions/PermissionDTO'
+            $ref: "#/definitions/PermissionDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/PermissionDTO'
-        '201':
+            $ref: "#/definitions/PermissionDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5626,15 +5665,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -5648,17 +5687,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PregnantTreatmentTypeDTO'
-        '401':
+              $ref: "#/definitions/PregnantTreatmentTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5678,19 +5717,19 @@ paths:
           description: pregnantTreatmentTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/PregnantTreatmentTypeDTO'
+            $ref: "#/definitions/PregnantTreatmentTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5716,19 +5755,19 @@ paths:
           description: pregnantTreatmentTypeDTO
           required: true
           schema:
-            $ref: '#/definitions/PregnantTreatmentTypeDTO'
+            $ref: "#/definitions/PregnantTreatmentTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5747,15 +5786,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -5769,17 +5808,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PriceListDTO'
-        '401':
+              $ref: "#/definitions/PriceListDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5799,19 +5838,19 @@ paths:
           description: priceListDTO
           required: true
           schema:
-            $ref: '#/definitions/PriceListDTO'
+            $ref: "#/definitions/PriceListDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5844,15 +5883,15 @@ paths:
           type: number
           format: double
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5873,15 +5912,15 @@ paths:
           type: integer
           format: int64
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5895,17 +5934,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PriceDTO'
-        '401':
+              $ref: "#/definitions/PriceDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5932,19 +5971,19 @@ paths:
           description: priceListDTO
           required: true
           schema:
-            $ref: '#/definitions/PriceListDTO'
+            $ref: "#/definitions/PriceListDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -5964,15 +6003,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -5986,17 +6025,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/PricesOthersDTO'
-        '401':
+              $ref: "#/definitions/PricesOthersDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6016,19 +6055,19 @@ paths:
           description: pricesOthersDTO
           required: true
           schema:
-            $ref: '#/definitions/PricesOthersDTO'
+            $ref: "#/definitions/PricesOthersDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6055,19 +6094,19 @@ paths:
           description: pricesOthersDTO
           required: true
           schema:
-            $ref: '#/definitions/PricesOthersDTO'
+            $ref: "#/definitions/PricesOthersDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6087,15 +6126,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -6109,16 +6148,16 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
             format: byte
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6132,16 +6171,16 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: string
             format: byte
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6166,17 +6205,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/SmsDTO'
-        '401':
+              $ref: "#/definitions/SmsDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6196,7 +6235,7 @@ paths:
           description: smsDTO
           required: true
           schema:
-            $ref: '#/definitions/SmsDTO'
+            $ref: "#/definitions/SmsDTO"
         - name: split
           in: query
           description: split
@@ -6204,17 +6243,17 @@ paths:
           type: boolean
           default: false
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6237,19 +6276,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/SmsDTO'
+              $ref: "#/definitions/SmsDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6263,17 +6302,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementDTO'
-        '401':
+              $ref: "#/definitions/MovementDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6296,24 +6335,24 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementDTO'
+              $ref: "#/definitions/MovementDTO"
         - name: ref
           in: query
           description: ref
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6340,15 +6379,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6371,24 +6410,24 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementDTO'
+              $ref: "#/definitions/MovementDTO"
         - name: ref
           in: query
           description: ref
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6420,17 +6459,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementDTO'
-        '401':
+              $ref: "#/definitions/MovementDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6502,17 +6541,17 @@ paths:
           required: false
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementDTO'
-        '401':
+              $ref: "#/definitions/MovementDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6533,17 +6572,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/LotDTO'
-        '401':
+              $ref: "#/definitions/LotDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6563,17 +6602,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MovementDTO'
-        '401':
+              $ref: "#/definitions/MovementDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6594,17 +6633,17 @@ paths:
           type: boolean
           default: true
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/SupplierDTO'
-        '401':
+              $ref: "#/definitions/SupplierDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6624,19 +6663,19 @@ paths:
           description: supplierDTO
           required: true
           schema:
-            $ref: '#/definitions/SupplierDTO'
+            $ref: "#/definitions/SupplierDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6656,19 +6695,19 @@ paths:
           description: supplierDTO
           required: true
           schema:
-            $ref: '#/definitions/SupplierDTO'
+            $ref: "#/definitions/SupplierDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6689,15 +6728,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/SupplierDTO'
-        '401':
+            $ref: "#/definitions/SupplierDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6718,19 +6757,19 @@ paths:
           description: thRowDTO
           required: true
           schema:
-            $ref: '#/definitions/TherapyRowDTO'
+            $ref: "#/definitions/TherapyRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/TherapyRowDTO'
-        '201':
+            $ref: "#/definitions/TherapyRowDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6751,19 +6790,19 @@ paths:
           description: thRowDTO
           required: true
           schema:
-            $ref: '#/definitions/TherapyRowDTO'
+            $ref: "#/definitions/TherapyRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/TherapyDTO'
-        '201':
+            $ref: "#/definitions/TherapyDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6786,21 +6825,21 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/TherapyRowDTO'
+              $ref: "#/definitions/TherapyRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/TherapyDTO'
-        '201':
+              $ref: "#/definitions/TherapyDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6823,21 +6862,21 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/TherapyDTO'
+              $ref: "#/definitions/TherapyDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/MedicalDTO'
-        '201':
+              $ref: "#/definitions/MedicalDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6860,19 +6899,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/TherapyRowDTO'
+              $ref: "#/definitions/TherapyRowDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6893,17 +6932,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/TherapyRowDTO'
-        '401':
+              $ref: "#/definitions/TherapyRowDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6923,15 +6962,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -6951,17 +6990,17 @@ paths:
           required: false
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/UserDTO'
-        '401':
+              $ref: "#/definitions/UserDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -6981,19 +7020,19 @@ paths:
           description: userDTO
           required: true
           schema:
-            $ref: '#/definitions/UserDTO'
+            $ref: "#/definitions/UserDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7019,19 +7058,19 @@ paths:
           description: userDTO
           required: true
           schema:
-            $ref: '#/definitions/UserDTO'
+            $ref: "#/definitions/UserDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7051,17 +7090,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/UserMenuItemDTO'
-        '401':
+              $ref: "#/definitions/UserMenuItemDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7075,17 +7114,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/UserGroupDTO'
-        '401':
+              $ref: "#/definitions/UserGroupDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7105,19 +7144,19 @@ paths:
           description: aGroup
           required: true
           schema:
-            $ref: '#/definitions/UserGroupDTO'
+            $ref: "#/definitions/UserGroupDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7137,19 +7176,19 @@ paths:
           description: aGroup
           required: true
           schema:
-            $ref: '#/definitions/UserGroupDTO'
+            $ref: "#/definitions/UserGroupDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7177,19 +7216,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/UserMenuItemDTO'
+              $ref: "#/definitions/UserMenuItemDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7208,15 +7247,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -7230,15 +7269,15 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/UserProfileDTO'
-        '401':
+            $ref: "#/definitions/UserProfileDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7258,17 +7297,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/UserMenuItemDTO'
-        '401':
+              $ref: "#/definitions/UserMenuItemDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7282,17 +7321,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/LitePermissionDTO'
-        '401':
+              $ref: "#/definitions/LitePermissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7312,17 +7351,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/LitePermissionDTO'
-        '401':
+              $ref: "#/definitions/LitePermissionDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7342,15 +7381,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/UserDTO'
-        '401':
+            $ref: "#/definitions/UserDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7369,15 +7408,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -7391,17 +7430,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/VaccineDTO'
-        '401':
+              $ref: "#/definitions/VaccineDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7421,19 +7460,19 @@ paths:
           description: newVaccine
           required: true
           schema:
-            $ref: '#/definitions/VaccineDTO'
+            $ref: "#/definitions/VaccineDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7453,19 +7492,19 @@ paths:
           description: updateVaccine
           required: true
           schema:
-            $ref: '#/definitions/VaccineDTO'
+            $ref: "#/definitions/VaccineDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7485,15 +7524,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7513,17 +7552,17 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/VaccineDTO'
-        '401':
+              $ref: "#/definitions/VaccineDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7543,15 +7582,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -7565,17 +7604,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/VaccineTypeDTO'
-        '401':
+              $ref: "#/definitions/VaccineTypeDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7595,19 +7634,19 @@ paths:
           description: newVaccineType
           required: true
           schema:
-            $ref: '#/definitions/VaccineTypeDTO'
+            $ref: "#/definitions/VaccineTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7627,19 +7666,19 @@ paths:
           description: updateVaccineType
           required: true
           schema:
-            $ref: '#/definitions/VaccineTypeDTO'
+            $ref: "#/definitions/VaccineTypeDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7659,15 +7698,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7687,15 +7726,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -7716,20 +7755,20 @@ paths:
           description: newVisit
           required: true
           schema:
-            $ref: '#/definitions/VisitDTO'
+            $ref: "#/definitions/VisitDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7750,17 +7789,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/VisitDTO'
-        '401':
+              $ref: "#/definitions/VisitDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7780,15 +7819,15 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '204':
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -7809,7 +7848,7 @@ paths:
           description: updateVisit
           required: true
           schema:
-            $ref: '#/definitions/VisitDTO'
+            $ref: "#/definitions/VisitDTO"
         - name: visitID
           in: path
           description: visitID
@@ -7817,17 +7856,17 @@ paths:
           type: integer
           format: int32
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/VisitDTO'
-        '201':
+            $ref: "#/definitions/VisitDTO"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7850,19 +7889,19 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/VisitDTO'
+              $ref: "#/definitions/VisitDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7876,17 +7915,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/WardDTO'
-        '401':
+              $ref: "#/definitions/WardDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7906,19 +7945,19 @@ paths:
           description: newWard
           required: true
           schema:
-            $ref: '#/definitions/WardDTO'
+            $ref: "#/definitions/WardDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7938,19 +7977,19 @@ paths:
           description: updateWard
           required: true
           schema:
-            $ref: '#/definitions/WardDTO'
+            $ref: "#/definitions/WardDTO"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '201':
+            $ref: "#/definitions/ResponseEntity"
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7970,15 +8009,15 @@ paths:
           required: true
           type: boolean
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -7998,15 +8037,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: boolean
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -8026,16 +8065,16 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: integer
             format: int32
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -8055,15 +8094,15 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/ResponseEntity'
-        '204':
+            $ref: "#/definitions/ResponseEntity"
+        "204":
           description: No Content
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
       security:
         - JWT: []
@@ -8077,17 +8116,17 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/WardDTO'
-        '401':
+              $ref: "#/definitions/WardDTO"
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-        '404':
+        "404":
           description: Not Found
       security:
         - JWT: []
@@ -8127,51 +8166,51 @@ definitions:
         description: if admitted or not
       type:
         type: string
-        example: 'N'
+        example: "N"
         description: type of admission
       ward:
         description: ward
-        $ref: '#/definitions/WardDTO'
+        $ref: "#/definitions/WardDTO"
       patient:
         description: patient
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
       admDate:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: admission date
       admType:
         description: admission type
-        $ref: '#/definitions/AdmissionTypeDTO'
+        $ref: "#/definitions/AdmissionTypeDTO"
       diseaseIn:
-        description: 'disease in '
-        $ref: '#/definitions/DiseaseDTO'
+        description: "disease in "
+        $ref: "#/definitions/DiseaseDTO"
       diseaseOut1:
-        description: 'disease out '
-        $ref: '#/definitions/DiseaseDTO'
+        description: "disease out "
+        $ref: "#/definitions/DiseaseDTO"
       diseaseOut2:
-        description: 'disease out '
-        $ref: '#/definitions/DiseaseDTO'
+        description: "disease out "
+        $ref: "#/definitions/DiseaseDTO"
       diseaseOut3:
-        description: 'disease out '
-        $ref: '#/definitions/DiseaseDTO'
+        description: "disease out "
+        $ref: "#/definitions/DiseaseDTO"
       operation:
-        description: 'operation '
-        $ref: '#/definitions/OperationDTO'
+        description: "operation "
+        $ref: "#/definitions/OperationDTO"
       opDate:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: operation date
       opResult:
         type: string
-        example: 'N'
-        description: 'operation result value is ''P'' or ''N'' '
+        example: "N"
+        description: "operation result value is 'P' or 'N' "
       disDate:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: discharge date
       disType:
-        description: 'disChargeType '
-        $ref: '#/definitions/DischargeTypeDTO'
+        description: "disChargeType "
+        $ref: "#/definitions/DischargeTypeDTO"
       note:
         type: string
         description: free note
@@ -8181,21 +8220,21 @@ definitions:
         description: transfusional unit
       visitDate:
         type: string
-        example: '2020-03-19T13:58:00.000Z'
+        example: "2020-03-19T13:58:00.000Z"
         description: visit date
       pregTreatmentType:
-        description: 'treatmentType '
-        $ref: '#/definitions/PregnantTreatmentTypeDTO'
+        description: "treatmentType "
+        $ref: "#/definitions/PregnantTreatmentTypeDTO"
       deliveryDate:
         type: string
-        example: '2020-03-19T16:58:00.000Z'
+        example: "2020-03-19T16:58:00.000Z"
         description: delivery date
       deliveryType:
         description: delivery type
-        $ref: '#/definitions/DeliveryTypeDTO'
+        $ref: "#/definitions/DeliveryTypeDTO"
       deliveryResult:
-        description: 'delivery type '
-        $ref: '#/definitions/DeliveryResultTypeDTO'
+        description: "delivery type "
+        $ref: "#/definitions/DeliveryResultTypeDTO"
       weight:
         type: number
         format: float
@@ -8205,8 +8244,8 @@ definitions:
         description: weight
       deleted:
         type: string
-        example: 'N'
-        description: 'flag record deleted, values are ''Y'' OR ''N'' '
+        example: "N"
+        description: "flag record deleted, values are 'Y' OR 'N' "
     title: AdmissionDTO
   AdmissionTypeDTO:
     type: object
@@ -8224,9 +8263,9 @@ definitions:
     type: object
     properties:
       admission:
-        $ref: '#/definitions/AdmissionDTO'
+        $ref: "#/definitions/AdmissionDTO"
       patient:
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
     title: AdmittedPatientDTO
   AgeType:
     type: object
@@ -8288,14 +8327,14 @@ definitions:
         type: integer
         format: int32
       patient:
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
       date:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: Date of bill creation
       update:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: Date of bill updated
       listName:
         type: string
@@ -8377,7 +8416,7 @@ definitions:
         description: Bill id
       date:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: date of payment
       amount:
         type: number
@@ -8407,7 +8446,7 @@ definitions:
     properties:
       code:
         type: string
-        example: 'N'
+        example: "N"
         description: code of the delivery type
       description:
         type: string
@@ -8438,7 +8477,7 @@ definitions:
         description: Disease description
       diseaseType:
         description: Disease type
-        $ref: '#/definitions/DiseaseTypeDTO'
+        $ref: "#/definitions/DiseaseTypeDTO"
       ipdInInclude:
         type: boolean
         example: true
@@ -8468,7 +8507,7 @@ definitions:
     type: object
     properties:
       examtype:
-        $ref: '#/definitions/ExamTypeDTO'
+        $ref: "#/definitions/ExamTypeDTO"
       code:
         type: string
         example: 99.99
@@ -8484,7 +8523,7 @@ definitions:
         description: Exam Procedure
       defaultResult:
         type: string
-        example: '>=12 (NORMAL)'
+        example: ">=12 (NORMAL)"
         description: Exam Default Result
       lock:
         type: integer
@@ -8496,7 +8535,7 @@ definitions:
     type: object
     properties:
       exam:
-        $ref: '#/definitions/ExamDTO'
+        $ref: "#/definitions/ExamDTO"
       code:
         type: integer
         format: int32
@@ -8524,17 +8563,17 @@ definitions:
     properties:
       bill:
         description: bill element
-        $ref: '#/definitions/BillDTO'
+        $ref: "#/definitions/BillDTO"
       billItems:
         type: array
         description: list of bill items elements
         items:
-          $ref: '#/definitions/BillItemsDTO'
+          $ref: "#/definitions/BillItemsDTO"
       billPayments:
         type: array
         description: list of bill payments elements
         items:
-          $ref: '#/definitions/BillPaymentsDTO'
+          $ref: "#/definitions/BillPaymentsDTO"
     title: FullBillDTO
   HospitalDTO:
     type: object
@@ -8581,7 +8620,7 @@ definitions:
     type: object
     properties:
       laboratoryDTO:
-        $ref: '#/definitions/LaboratoryDTO'
+        $ref: "#/definitions/LaboratoryDTO"
       laboratoryRowList:
         type: array
         items:
@@ -8603,14 +8642,14 @@ definitions:
         description: Laboratory Material
       exam:
         description: Laboratory Exam
-        $ref: '#/definitions/ExamDTO'
+        $ref: "#/definitions/ExamDTO"
       registrationDate:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: Laboratory Registration Date
       examDate:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: Laboratory Exam Date
       result:
         type: string
@@ -8695,11 +8734,11 @@ definitions:
         description: The lot's code
       preparationDate:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: The preparation date
       dueDate:
         type: string
-        example: '2021-06-24T00:00:00.000Z'
+        example: "2021-06-24T00:00:00.000Z"
         description: The due date
       cost:
         type: number
@@ -8716,15 +8755,15 @@ definitions:
         description: The code malnutrition control
       dateSupp:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: The date of this malnutrition control
       dateConf:
         type: string
-        example: '2021-06-01T00:00:00.000Z'
+        example: "2021-06-01T00:00:00.000Z"
         description: The date of the next malnutrition control
       admission:
         description: The admission requesting the control
-        $ref: '#/definitions/AdmissionDTO'
+        $ref: "#/definitions/AdmissionDTO"
       height:
         type: number
         format: float
@@ -8750,7 +8789,7 @@ definitions:
         description: The product code
       type:
         description: The medical type
-        $ref: '#/definitions/MedicalTypeDTO'
+        $ref: "#/definitions/MedicalTypeDTO"
       description:
         type: string
         example: Paracétamol
@@ -8799,7 +8838,7 @@ definitions:
       id:
         example: 1
         description: The medical ward's id
-        $ref: '#/definitions/MedicalWardIdDTO'
+        $ref: "#/definitions/MedicalWardIdDTO"
       in_quantity:
         type: number
         format: float
@@ -8816,10 +8855,10 @@ definitions:
     properties:
       ward:
         description: The ward
-        $ref: '#/definitions/WardDTO'
+        $ref: "#/definitions/WardDTO"
       medical:
         description: The medical
-        $ref: '#/definitions/MedicalDTO'
+        $ref: "#/definitions/MedicalDTO"
     title: MedicalWardIdDTO
   MovementDTO:
     type: object
@@ -8831,19 +8870,19 @@ definitions:
         description: The movement code
       medical:
         description: The related medical
-        $ref: '#/definitions/MedicalDTO'
+        $ref: "#/definitions/MedicalDTO"
       type:
         description: The movement type
-        $ref: '#/definitions/MovementTypeDTO'
+        $ref: "#/definitions/MovementTypeDTO"
       ward:
         description: The target ward
-        $ref: '#/definitions/WardDTO'
+        $ref: "#/definitions/WardDTO"
       lot:
         description: The lot
-        $ref: '#/definitions/LotDTO'
+        $ref: "#/definitions/LotDTO"
       date:
         type: string
-        example: '2020-06-24T00:00:00.000Z'
+        example: "2020-06-24T00:00:00.000Z"
         description: The movement date
       quantity:
         type: integer
@@ -8852,7 +8891,7 @@ definitions:
         description: The movement's medical quantity
       supplier:
         description: The movement's supplier
-        $ref: '#/definitions/SupplierDTO'
+        $ref: "#/definitions/SupplierDTO"
       refNo:
         type: string
         example: MVN152445
@@ -8871,7 +8910,7 @@ definitions:
         description: Description of the movement type
       type:
         type: string
-        example: '-'
+        example: "-"
         description: Type of the movement type
     title: MovementTypeDTO
   MovementWardDTO:
@@ -8884,14 +8923,14 @@ definitions:
         description: The movement ward's code
       ward:
         description: The ward
-        $ref: '#/definitions/WardDTO'
+        $ref: "#/definitions/WardDTO"
       date:
         type: string
-        example: '2020-06-07T00:00:00.000Z'
+        example: "2020-06-07T00:00:00.000Z"
         description: The movement ward's date
       patient:
         description: The patient in case the movement is associated to a patient
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
       age:
         type: integer
         format: int32
@@ -8908,7 +8947,7 @@ definitions:
         description: The description of the movement
       medical:
         description: The medical concerned by the movement
-        $ref: '#/definitions/MedicalDTO'
+        $ref: "#/definitions/MedicalDTO"
       quantity:
         type: number
         format: double
@@ -8920,10 +8959,10 @@ definitions:
         description: The measure's unit of the medical concerned by the movement
       wardTo:
         description: The ward to which the movement is done
-        $ref: '#/definitions/WardDTO'
+        $ref: "#/definitions/WardDTO"
       wardFrom:
         description: The ward from which the movement is done
-        $ref: '#/definitions/WardDTO'
+        $ref: "#/definitions/WardDTO"
     title: MovementWardDTO
   OpdDTO:
     type: object
@@ -8933,15 +8972,15 @@ definitions:
         format: int32
       date:
         type: string
-        example: '2021-05-01T07:30:00.000Z'
+        example: "2021-05-01T07:30:00.000Z"
         description: the date of the admission
       visitDate:
         type: string
-        example: '2021-05-01T08:35:00.000Z'
+        example: "2021-05-01T08:35:00.000Z"
         description: the visit date
       nextVisitDate:
         type: string
-        example: '2021-06-01T07:00:00.000Z'
+        example: "2021-06-01T07:00:00.000Z"
         description: the next visit date
       patientCode:
         type: integer
@@ -8971,16 +9010,16 @@ definitions:
         description: a progr. in year for each ward
       disease:
         description: disease
-        $ref: '#/definitions/DiseaseDTO'
+        $ref: "#/definitions/DiseaseDTO"
       disease2:
         description: disease 2
-        $ref: '#/definitions/DiseaseDTO'
+        $ref: "#/definitions/DiseaseDTO"
       disease3:
         description: disease 3
-        $ref: '#/definitions/DiseaseDTO'
+        $ref: "#/definitions/DiseaseDTO"
       newPatient:
         type: string
-        example: 'N'
+        example: "N"
         description: new(N) or reattendance(R) patient
       referralFrom:
         type: string
@@ -8993,6 +9032,9 @@ definitions:
       prescription:
         type: string
         description: Prescription
+      ageType:
+        type: string
+        description: Age type
       userID:
         type: string
         description: user id
@@ -9001,7 +9043,7 @@ definitions:
         format: int32
         description: opd lock column
       ward:
-        description: ward 
+        description: ward
         $ref: '#/definitions/WardDTO'
     title: OpdDTO
   OpdWithOperatioRowDTO:
@@ -9028,7 +9070,7 @@ definitions:
         description: the operation description
       type:
         description: the operation type
-        $ref: '#/definitions/OperationTypeDTO'
+        $ref: "#/definitions/OperationTypeDTO"
       major:
         type: integer
         format: int32
@@ -9038,9 +9080,9 @@ definitions:
     type: object
     properties:
       admission:
-        $ref: '#/definitions/AdmissionDTO'
+        $ref: "#/definitions/AdmissionDTO"
       bill:
-        $ref: '#/definitions/BillDTO'
+        $ref: "#/definitions/BillDTO"
       id:
         type: integer
         format: int32
@@ -9050,9 +9092,9 @@ definitions:
       opResult:
         type: string
       opd:
-        $ref: '#/definitions/OpdDTO'
+        $ref: "#/definitions/OpdDTO"
       operation:
-        $ref: '#/definitions/OperationDTO'
+        $ref: "#/definitions/OperationDTO"
       prescriber:
         type: string
       remarks:
@@ -9087,7 +9129,7 @@ definitions:
         description: Last name of the patient
       birthDate:
         type: string
-        example: '1979-05-01T00:00:00.000Z'
+        example: "1979-05-01T00:00:00.000Z"
         description: Birth date
       age:
         type: integer
@@ -9096,7 +9138,7 @@ definitions:
         description: Age
       agetype:
         type: string
-        example: 'null'
+        example: "null"
         description: Age type
       sex:
         type: string
@@ -9115,13 +9157,13 @@ definitions:
         description: City
       telephone:
         type: string
-        example: '+393456789012'
+        example: "+393456789012"
         description: Telephone
       note:
         type: string
         example: Test insert new patient
         description: Note
-      mother_name:
+      motherName:
         type: string
         example: Roberta
         description: Mother's name
@@ -9132,7 +9174,7 @@ definitions:
         enum:
           - D
           - A
-      father_name:
+      fatherName:
         type: string
         example: Giuseppe
         description: Father's name
@@ -9158,18 +9200,18 @@ definitions:
           - AB+
       hasInsurance:
         type: string
-        example: 'N'
+        example: "N"
         description: hasInsurance (Y=Yes, N=no)
         enum:
-          - 'Y'
-          - 'N'
+          - "Y"
+          - "N"
       parentTogether:
         type: string
-        example: 'N'
+        example: "N"
         description: Parent together (Y=Yes, N=no)
         enum:
-          - 'Y'
-          - 'N'
+          - "Y"
+          - "N"
       taxCode:
         type: string
         example: RSSMRA79E01L781N
@@ -9212,7 +9254,7 @@ definitions:
         description: Patient Examination Id
       pex_date:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: Date of Patient Examination
       patientCode:
         type: integer
@@ -9265,7 +9307,17 @@ definitions:
         description: Daily urine Volume in ml
       pex_diuresis_desc:
         type: string
-        enum: [physiological, oliguria, anuria, frequent, nocturia, stranguria, hematuria, pyuria]
+        enum:
+          [
+            physiological,
+            oliguria,
+            anuria,
+            frequent,
+            nocturia,
+            stranguria,
+            hematuria,
+            pyuria,
+          ]
         example: physiological
         description: Diuresis description
       pex_bowel_desc:
@@ -9290,14 +9342,14 @@ definitions:
         description: a progr. in year
       vaccineDate:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: the vaccine date
       patient:
         description: the patient to be vaccine
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
       vaccine:
         description: the vaccine
-        $ref: '#/definitions/VaccineDTO'
+        $ref: "#/definitions/VaccineDTO"
     title: PatientVaccineDTO
   PermissionDTO:
     type: object
@@ -9332,7 +9384,7 @@ definitions:
         format: int32
       list:
         description: the price list
-        $ref: '#/definitions/PriceList'
+        $ref: "#/definitions/PriceList"
       group:
         type: string
         description: the group
@@ -9434,70 +9486,70 @@ definitions:
       statusCode:
         type: string
         enum:
-          - '100'
-          - '101'
-          - '102'
-          - '103'
-          - '200'
-          - '201'
-          - '202'
-          - '203'
-          - '204'
-          - '205'
-          - '206'
-          - '207'
-          - '208'
-          - '226'
-          - '300'
-          - '301'
-          - '302'
-          - '303'
-          - '304'
-          - '305'
-          - '307'
-          - '308'
-          - '400'
-          - '401'
-          - '402'
-          - '403'
-          - '404'
-          - '405'
-          - '406'
-          - '407'
-          - '408'
-          - '409'
-          - '410'
-          - '411'
-          - '412'
-          - '413'
-          - '414'
-          - '415'
-          - '416'
-          - '417'
-          - '418'
-          - '419'
-          - '420'
-          - '421'
-          - '422'
-          - '423'
-          - '424'
-          - '426'
-          - '428'
-          - '429'
-          - '431'
-          - '451'
-          - '500'
-          - '501'
-          - '502'
-          - '503'
-          - '504'
-          - '505'
-          - '506'
-          - '507'
-          - '508'
-          - '509'
-          - '510'
-          - '511'
+          - "100"
+          - "101"
+          - "102"
+          - "103"
+          - "200"
+          - "201"
+          - "202"
+          - "203"
+          - "204"
+          - "205"
+          - "206"
+          - "207"
+          - "208"
+          - "226"
+          - "300"
+          - "301"
+          - "302"
+          - "303"
+          - "304"
+          - "305"
+          - "307"
+          - "308"
+          - "400"
+          - "401"
+          - "402"
+          - "403"
+          - "404"
+          - "405"
+          - "406"
+          - "407"
+          - "408"
+          - "409"
+          - "410"
+          - "411"
+          - "412"
+          - "413"
+          - "414"
+          - "415"
+          - "416"
+          - "417"
+          - "418"
+          - "419"
+          - "420"
+          - "421"
+          - "422"
+          - "423"
+          - "424"
+          - "426"
+          - "428"
+          - "429"
+          - "431"
+          - "451"
+          - "500"
+          - "501"
+          - "502"
+          - "503"
+          - "504"
+          - "505"
+          - "506"
+          - "507"
+          - "508"
+          - "509"
+          - "510"
+          - "511"
       statusCodeValue:
         type: integer
         format: int32
@@ -9516,15 +9568,15 @@ definitions:
         description: SMS Id
       smsDate:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: SMS Date
       smsDateSched:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: SMS scheduled date
       smsNumber:
         type: string
-        example: '+237671302313'
+        example: "+237671302313"
         description: SMS target phone number
       smsText:
         type: string
@@ -9532,7 +9584,7 @@ definitions:
         description: SMS content text
       smsDateSent:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: SMS sent date
       smsUser:
         type: string
@@ -9568,11 +9620,11 @@ definitions:
         description: The supplier's tax code
       supPhone:
         type: string
-        example: '+237654120145'
+        example: "+237654120145"
         description: The supplier's phone
       supFax:
         type: string
-        example: '+237654120145'
+        example: "+237654120145"
         description: The supplier's fax number
       supEmail:
         type: string
@@ -9603,7 +9655,7 @@ definitions:
           format: date-time
       medical:
         description: The medical associated to the therapy
-        $ref: '#/definitions/MedicalDTO'
+        $ref: "#/definitions/MedicalDTO"
       qty:
         type: number
         format: double
@@ -9624,11 +9676,11 @@ definitions:
       notify:
         type: boolean
         example: false
-        description: 'the notify flag: true if the notification need to be activated, false otherwise'
+        description: "the notify flag: true if the notification need to be activated, false otherwise"
       sms:
         type: boolean
         example: false
-        description: 'the sms flag: true if sms need to be sent to patient, false otherwise'
+        description: "the sms flag: true if sms need to be sent to patient, false otherwise"
     title: TherapyDTO
   TherapyRowDTO:
     type: object
@@ -9640,14 +9692,14 @@ definitions:
         description: The therapy's ID
       patID:
         description: The patient
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
       startDate:
         type: string
-        example: '2021-05-01T00:00:00.000Z'
+        example: "2021-05-01T00:00:00.000Z"
         description: The start date of therapy
       endDate:
         type: string
-        example: '2021-06-01T00:00:00.000Z'
+        example: "2021-06-01T00:00:00.000Z"
         description: The end date of the therapy
       medicalId:
         type: integer
@@ -9682,12 +9734,12 @@ definitions:
         type: integer
         format: int32
         example: 0
-        description: 'the notify flag: 1 if the notification need to be activated, 0 otherwise'
+        description: "the notify flag: 1 if the notification need to be activated, 0 otherwise"
       smsInt:
         type: integer
         format: int32
         example: 0
-        description: 'the sms flag: 1 if sms need to be sent to patient, 0 otherwise'
+        description: "the sms flag: 1 if sms need to be sent to patient, 0 otherwise"
     title: TherapyRowDTO
   UserDTO:
     type: object
@@ -9698,7 +9750,7 @@ definitions:
         description: the username (must be unique)
       userGroupName:
         description: the user's group
-        $ref: '#/definitions/UserGroupDTO'
+        $ref: "#/definitions/UserGroupDTO"
       passwd:
         type: string
         example: 21@U2g423
@@ -9762,12 +9814,18 @@ definitions:
   UserProfileDTO:
     type: object
     properties:
-      permission:
+      permissions:
         type: array
         items:
           type: string
       userName:
         type: string
+      userGroupName:
+        type: string
+        description: the name of the group of user
+      userDesc:
+        type: string
+        description: full name of user
     title: UserProfileDTO
   VaccineDTO:
     type: object
@@ -9782,7 +9840,7 @@ definitions:
         description: Description of the vaccine
       vaccineType:
         description: Type of the vaccine
-        $ref: '#/definitions/VaccineTypeDTO'
+        $ref: "#/definitions/VaccineTypeDTO"
     title: VaccineDTO
     description: Class representing a vaccine
   VaccineTypeDTO:
@@ -9807,10 +9865,10 @@ definitions:
         description: The visit's ID
       patient:
         description: Patient related to visitor
-        $ref: '#/definitions/PatientDTO'
+        $ref: "#/definitions/PatientDTO"
       date:
         type: string
-        example: '2020-03-19T14:58:00.000Z'
+        example: "2020-03-19T14:58:00.000Z"
         description: Date of the visit
       note:
         type: string
@@ -9820,7 +9878,7 @@ definitions:
         description: Sms of the visit
       ward:
         description: ward of the visit
-        $ref: '#/definitions/Ward'
+        $ref: "#/definitions/Ward"
       duration:
         type: integer
         format: int32
@@ -9855,7 +9913,7 @@ definitions:
         type: string
       fax:
         type: string
-      female:
+      isFemale:
         type: boolean
       lastModifiedBy:
         type: string
@@ -9865,15 +9923,20 @@ definitions:
       lock:
         type: integer
         format: int32
-      male:
+      isMale:
         type: boolean
       nurs:
         type: integer
         format: int32
-      pharmacy:
+      isPharmacy:
+        type: boolean
+      isOpd:
         type: boolean
       telephone:
         type: string
+      visitDuration:
+        type: integer
+        format: int32
     title: Ward
   WardDTO:
     type: object
@@ -9892,18 +9955,23 @@ definitions:
         type: string
       fax:
         type: string
-      female:
+      isFemale:
         type: boolean
       lock:
         type: integer
         format: int32
-      male:
+      isMale:
         type: boolean
       nurs:
         type: integer
         format: int32
-      pharmacy:
+      isPharmacy:
+        type: boolean
+      isOpd:
         type: boolean
       telephone:
         type: string
+      visitDuration:
+        type: integer
+        format: int32
     title: WardDTO
