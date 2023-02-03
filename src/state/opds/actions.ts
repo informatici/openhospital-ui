@@ -160,10 +160,16 @@ export const getOpdsWithOperationRows =
         })
         .subscribe(
           (payload) => {
+            //map the response object as the api is not ready
+            // to be removed when the api will be ready
             if (Array.isArray(payload) && payload.length > 0) {
               dispatch({
                 type: GET_OPD_SUCCESS,
-                payload: payload,
+                payload: payload.map((item) =>
+                  item.opdDTO
+                    ? item
+                    : ({ opdDTO: item } as OpdWithOperatioRowDTO)
+                ),
               });
             } else {
               dispatch({

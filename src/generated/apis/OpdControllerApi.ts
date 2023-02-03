@@ -153,16 +153,16 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * getOpdByPatient
      */
-    getOpdByPatientUsingGET({ pcode }: GetOpdByPatientUsingGETRequest): Observable<Array<OpdDTO>>
-    getOpdByPatientUsingGET({ pcode }: GetOpdByPatientUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdDTO>>>
-    getOpdByPatientUsingGET({ pcode }: GetOpdByPatientUsingGETRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | RawAjaxResponse<Array<OpdDTO>>> {
+    getOpdByPatientUsingGET({ pcode }: GetOpdByPatientUsingGETRequest): Observable<Array<OpdWithOperatioRowDTO>>
+    getOpdByPatientUsingGET({ pcode }: GetOpdByPatientUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdWithOperatioRowDTO>>>
+    getOpdByPatientUsingGET({ pcode }: GetOpdByPatientUsingGETRequest, opts?: OperationOpts): Observable<Array<OpdWithOperatioRowDTO> | RawAjaxResponse<Array<OpdWithOperatioRowDTO>>> {
         throwIfNullOrUndefined(pcode, 'pcode', 'getOpdByPatientUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<Array<OpdDTO>>({
+        return this.request<Array<OpdWithOperatioRowDTO>>({
             url: '/opds/patient/{pcode}'.replace('{pcode}', encodeURI(pcode)),
             method: 'GET',
             headers,

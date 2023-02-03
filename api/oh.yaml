@@ -4218,7 +4218,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/OpdDTO"
+              $ref: "#/definitions/OpdWithOperatioRowDTO"
         "401":
           description: Unauthorized
         "403":
