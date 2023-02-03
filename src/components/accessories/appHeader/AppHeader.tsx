@@ -4,7 +4,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 import classNames from "classnames";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ import "./styles.scss";
 import { IDispatchProps, IStateProps, TProps } from "./types";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IState } from "../../../types";
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { setLogoutThunk } from "../../../state/main/actions";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
@@ -21,6 +21,8 @@ import OHFeedback from "../feedback/OHFeedback";
 import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
 import { PATHS } from "../../../consts";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { getHospital } from "../../../state/hospital/actions";
+import { HospitalDTO } from "../../../generated";
 
 const AppHeader: FunctionComponent<TProps> = ({
   breadcrumbMap,
@@ -28,12 +30,19 @@ const AppHeader: FunctionComponent<TProps> = ({
 }) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
-
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
+  useEffect(() => {
+    dispatch(getHospital());
+  }, [dispatch, getHospital]);
+
+  const hospital = useSelector<IState>(
+    (state) => state.hospital.getHospital.data
+  ) as HospitalDTO;
   const openMenu = (isOpen: boolean) => {
     isOpen
       ? document.body.classList.add("disable-scroll")
@@ -96,7 +105,7 @@ const AppHeader: FunctionComponent<TProps> = ({
             </div>
             <div className="appHeader__identified__main">
               <div className="appHeader__identified__main__headline">
-                Princeton-Plainsboro Teaching Hospital
+                {hospital?.description ?? t("common.hospitalname")}
               </div>
               <Breadcrumbs>
                 <div className="appHeader__home_icon">

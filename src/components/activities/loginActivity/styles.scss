@@ -25,6 +25,7 @@
     font-size: x-large;
     text-align: center;
     font-weight: bolder;
+
     @include susy-media($narrow) {
       padding: 25px;
     }
