@@ -131,7 +131,6 @@ export const searchLabs =
     dispatch({
       type: SEARCH_LAB_LOADING,
     });
-
     labControllerApi
       .getLaboratoryForPrintUsingGET({
         dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
@@ -174,7 +173,11 @@ export const getLabsByPatientId =
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
               type: GET_LABS_SUCCESS,
-              payload: payload,
+              //to keep the method working since the api is not ready
+              //has to be removed when the api is ready
+              payload: payload.map((item) =>
+                item.laboratoryDTO ? item : { laboratoryDTO: item }
+              ),
             });
           } else {
             dispatch({
