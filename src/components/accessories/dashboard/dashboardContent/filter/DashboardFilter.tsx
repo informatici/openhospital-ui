@@ -27,10 +27,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
   } = usePeriodOptions();
 
   useEffect(() => {
-    onPeriodChange([
-      moment(range[0]).utc().startOf("day").toISOString(),
-      moment(range[1]).utc().endOf("day").toISOString(),
-    ]);
+    onPeriodChange([range[0], range[1]]);
   }, [range]);
 
   const handleViewChange = useCallback(

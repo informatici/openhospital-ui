@@ -19,7 +19,7 @@ export const usePeriodOptions = () => {
         case "current":
           return [
             moment().utc().startOf(view).toISOString(),
-            moment().utc().endOf(view).toISOString(),
+            moment().utc().endOf("day").toISOString(),
           ];
         case "previous":
           return [
