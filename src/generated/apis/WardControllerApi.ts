@@ -160,9 +160,9 @@ export class WardControllerApi extends BaseAPI {
     /**
      * newWard
      */
-    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest): Observable<WardDTO>
-    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<WardDTO>>
-    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<WardDTO | RawAjaxResponse<WardDTO>> {
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest): Observable<ResponseEntity>
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
         throwIfNullOrUndefined(newWard, 'newWard', 'newWardUsingPOST');
 
         const headers: HttpHeaders = {
@@ -170,7 +170,7 @@ export class WardControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<WardDTO>({
+        return this.request<ResponseEntity>({
             url: '/wards',
             method: 'POST',
             headers,

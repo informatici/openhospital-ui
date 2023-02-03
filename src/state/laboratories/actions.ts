@@ -3,11 +3,8 @@ import { Dispatch } from "redux";
 import {
   LaboratoryControllerApi,
   LaboratoryDTO,
-  LaboratoryForPrintDTO,
   LabWithRowsDTO,
 } from "../../generated";
-import { forkJoin, Observable, of } from "rxjs";
-import { catchError, map, switchMap } from "rxjs/operators";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -134,7 +131,6 @@ export const searchLabs =
     dispatch({
       type: SEARCH_LAB_LOADING,
     });
-
     labControllerApi
       .getLaboratoryForPrintUsingGET({
         dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
@@ -142,10 +138,6 @@ export const searchLabs =
         examName: query.examName,
         patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
       })
-      .pipe(
-        switchMap((labs) => getRowsForPrint(labs)),
-        catchError((error) => of([]))
-      )
       .subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
@@ -176,33 +168,31 @@ export const getLabsByPatientId =
       type: GET_LABS_LOADING,
     });
     if (patId) {
-      labControllerApi
-        .getLaboratoryUsingGET({ patId })
-        .pipe(
-          switchMap((labs) => getRows(labs)),
-          catchError((error) => of([]))
-        )
-        .subscribe(
-          (payload) => {
-            if (Array.isArray(payload) && payload.length > 0) {
-              dispatch({
-                type: GET_LABS_SUCCESS,
-                payload: payload,
-              });
-            } else {
-              dispatch({
-                type: GET_LABS_SUCCESS_EMPTY,
-                payload: [],
-              });
-            }
-          },
-          (error) => {
+      labControllerApi.getLaboratoryUsingGET({ patId }).subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: GET_LABS_FAIL,
-              error: error?.response,
+              type: GET_LABS_SUCCESS,
+              //to keep the method working since the api is not ready
+              //has to be removed when the api is ready
+              payload: payload.map((item) =>
+                item.laboratoryDTO ? item : { laboratoryDTO: item }
+              ),
+            });
+          } else {
+            dispatch({
+              type: GET_LABS_SUCCESS_EMPTY,
+              payload: [],
             });
           }
-        );
+        },
+        (error) => {
+          dispatch({
+            type: GET_LABS_FAIL,
+            error: error?.response,
+          });
+        }
+      );
     } else {
       dispatch({
         type: GET_LABS_FAIL,
@@ -349,53 +339,3 @@ export const deleteLab =
       });
     }
   };
-
-const getRows = (labs: LaboratoryDTO[]): Observable<LabWithRowsDTO[]> => {
-  if (labs.length === 0) return of([]);
-  const flabs = forkJoin(
-    labs.map((lab: LaboratoryDTO) => {
-      let obs = new Observable<LabWithRowsDTO>();
-      if (lab.exam?.procedure === 2)
-        obs = labControllerApi.getLabWithRowsByIdUsingGET({
-          code: lab.code ? lab.code : 0,
-        });
-      return obs.pipe(
-        map((rows) => {
-          return {
-            laboratoryDTO: lab,
-            laboratoryRowList: rows.laboratoryRowList,
-          } as LabWithRowsDTO;
-        }),
-        catchError((error) => of({ laboratoryDTO: lab } as LabWithRowsDTO))
-      );
-    })
-  );
-  return flabs;
-};
-
-const getRowsForPrint = (
-  labs: LaboratoryForPrintDTO[]
-): Observable<LaboratoryForPrintWithRows[]> => {
-  if (labs.length === 0) return of([]);
-  const flabs = forkJoin(
-    labs.map((lab: LaboratoryForPrintDTO) => {
-      let obs = new Observable<LabWithRowsDTO>();
-
-      obs = labControllerApi.getLabWithRowsByIdUsingGET({
-        code: lab.code ? lab.code : 0,
-      });
-      return obs.pipe(
-        map((rows) => {
-          return {
-            laboratoryForPrintDTO: lab,
-            laboratoryRowList: rows.laboratoryRowList,
-          } as LaboratoryForPrintWithRows;
-        }),
-        catchError((error) =>
-          of({ laboratoryForPrintDTO: lab } as LaboratoryForPrintWithRows)
-        )
-      );
-    })
-  );
-  return flabs;
-};

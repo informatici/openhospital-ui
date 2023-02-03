@@ -214,9 +214,9 @@ export class UserControllerApi extends BaseAPI {
     /**
      * newUserGroup
      */
-    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest): Observable<UserGroupDTO>
-    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserGroupDTO>>
-    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest, opts?: OperationOpts): Observable<UserGroupDTO | RawAjaxResponse<UserGroupDTO>> {
+    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest): Observable<boolean>
+    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newUserGroupUsingPOST({ aGroup }: NewUserGroupUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(aGroup, 'aGroup', 'newUserGroupUsingPOST');
 
         const headers: HttpHeaders = {
@@ -224,7 +224,7 @@ export class UserControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<UserGroupDTO>({
+        return this.request<boolean>({
             url: '/users/groups',
             method: 'POST',
             headers,
@@ -235,9 +235,9 @@ export class UserControllerApi extends BaseAPI {
     /**
      * newUser
      */
-    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest): Observable<UserDTO>
-    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDTO>>
-    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest, opts?: OperationOpts): Observable<UserDTO | RawAjaxResponse<UserDTO>> {
+    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest): Observable<boolean>
+    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newUserUsingPOST({ userDTO }: NewUserUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(userDTO, 'userDTO', 'newUserUsingPOST');
 
         const headers: HttpHeaders = {
@@ -245,7 +245,7 @@ export class UserControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<UserDTO>({
+        return this.request<boolean>({
             url: '/users',
             method: 'POST',
             headers,
@@ -331,9 +331,9 @@ export class UserControllerApi extends BaseAPI {
     /**
      * updateUserGroup
      */
-    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest): Observable<UserGroupDTO>
-    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserGroupDTO>>
-    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest, opts?: OperationOpts): Observable<UserGroupDTO | RawAjaxResponse<UserGroupDTO>> {
+    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest): Observable<boolean>
+    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateUserGroupUsingPUT({ aGroup }: UpdateUserGroupUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(aGroup, 'aGroup', 'updateUserGroupUsingPUT');
 
         const headers: HttpHeaders = {
@@ -341,7 +341,7 @@ export class UserControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<UserGroupDTO>({
+        return this.request<boolean>({
             url: '/users/groups',
             method: 'PUT',
             headers,
@@ -352,9 +352,9 @@ export class UserControllerApi extends BaseAPI {
     /**
      * updateUser
      */
-    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest): Observable<UserDTO>
-    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDTO>>
-    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest, opts?: OperationOpts): Observable<UserDTO | RawAjaxResponse<UserDTO>> {
+    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest): Observable<boolean>
+    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateUserUsingPUT({ userDTO, password }: UpdateUserUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(userDTO, 'userDTO', 'updateUserUsingPUT');
 
         const headers: HttpHeaders = {
@@ -366,7 +366,7 @@ export class UserControllerApi extends BaseAPI {
 
         if (password != null) { query['password'] = password; }
 
-        return this.request<UserDTO>({
+        return this.request<boolean>({
             url: '/users',
             method: 'PUT',
             headers,

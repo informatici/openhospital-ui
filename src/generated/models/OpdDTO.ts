@@ -13,6 +13,7 @@
 
 import {
     DiseaseDTO,
+    WardDTO,
 } from './';
 
 /**
@@ -136,4 +137,9 @@ export interface OpdDTO {
      * @memberof OpdDTO
      */
     lock?: number;
+    /**
+     * @type {WardDTO}
+     * @memberof OpdDTO
+     */
+    ward?: WardDTO;
 }

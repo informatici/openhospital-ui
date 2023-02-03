@@ -147,9 +147,9 @@ export class ExamRowControllerApi extends BaseAPI {
     /**
      * newExamRow
      */
-    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest): Observable<ExamRowDTO>
-    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamRowDTO>>
-    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<ExamRowDTO | RawAjaxResponse<ExamRowDTO>> {
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest): Observable<ResponseEntity>
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
         throwIfNullOrUndefined(examRowDTO, 'examRowDTO', 'newExamRowUsingPOST');
 
         const headers: HttpHeaders = {
@@ -157,7 +157,7 @@ export class ExamRowControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ExamRowDTO>({
+        return this.request<ResponseEntity>({
             url: '/examrows',
             method: 'POST',
             headers,

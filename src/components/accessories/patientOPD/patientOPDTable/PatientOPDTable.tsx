@@ -1,7 +1,10 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO, OpdWithOperatioRowDTO } from "../../../../generated";
-import { getOpds } from "../../../../state/opds/actions";
+import {
+  getOpds,
+  getOpdsWithOperationRows,
+} from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
@@ -47,7 +50,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
-    if (shouldUpdateTable || patientCode) dispatch(getOpds(patientCode));
+    if (shouldUpdateTable || patientCode)
+      dispatch(getOpdsWithOperationRows(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: OpdWithOperatioRowDTO[] | undefined) => {
@@ -55,12 +59,12 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     if (data)
       results = data.map((item) => {
         return {
-          code: item.opdDTO.code,
-          visitDate: item.opdDTO.date ? renderDate(item.opdDTO.date) : "",
-          disease: item.opdDTO.disease?.description || "",
-          disease2: item.opdDTO.disease2?.description || "",
-          disease3: item.opdDTO.disease3?.description || "",
-          note: item.opdDTO.note || "",
+          code: item.opdDTO?.code,
+          visitDate: item.opdDTO?.date ? renderDate(item.opdDTO.date) : "",
+          disease: item.opdDTO?.disease?.description || "",
+          disease2: item.opdDTO?.disease2?.description || "",
+          disease3: item.opdDTO?.disease3?.description || "",
+          note: item.opdDTO?.note || "",
         };
       });
     return results;

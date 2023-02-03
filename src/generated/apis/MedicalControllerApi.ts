@@ -141,9 +141,9 @@ export class MedicalControllerApi extends BaseAPI {
     /**
      * newMedical
      */
-    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest): Observable<MedicalDTO>
-    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalDTO>>
-    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest, opts?: OperationOpts): Observable<MedicalDTO | RawAjaxResponse<MedicalDTO>> {
+    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest): Observable<void>
+    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    newMedicalUsingPOST({ medicalDTO, ignoreSimilar }: NewMedicalUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(medicalDTO, 'medicalDTO', 'newMedicalUsingPOST');
 
         const headers: HttpHeaders = {
@@ -155,7 +155,7 @@ export class MedicalControllerApi extends BaseAPI {
 
         if (ignoreSimilar != null) { query['ignore_similar'] = ignoreSimilar; }
 
-        return this.request<MedicalDTO>({
+        return this.request<void>({
             url: '/medicals',
             method: 'POST',
             headers,
@@ -167,9 +167,9 @@ export class MedicalControllerApi extends BaseAPI {
     /**
      * updateMedical
      */
-    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest): Observable<MedicalDTO>
-    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalDTO>>
-    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest, opts?: OperationOpts): Observable<MedicalDTO | RawAjaxResponse<MedicalDTO>> {
+    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest): Observable<void>
+    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    updateMedicalUsingPUT({ medicalDTO, ignoreSimilar }: UpdateMedicalUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
         throwIfNullOrUndefined(medicalDTO, 'medicalDTO', 'updateMedicalUsingPUT');
 
         const headers: HttpHeaders = {
@@ -181,7 +181,7 @@ export class MedicalControllerApi extends BaseAPI {
 
         if (ignoreSimilar != null) { query['ignore_similar'] = ignoreSimilar; }
 
-        return this.request<MedicalDTO>({
+        return this.request<void>({
             url: '/medicals',
             method: 'PUT',
             headers,

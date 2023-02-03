@@ -120,7 +120,7 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: "",
     type: "text",
   },
-  mother_name: {
+  motherName: {
     value: "",
     type: "text",
   },
@@ -128,7 +128,7 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: PatientDTOMotherEnum.A,
     type: "text",
   },
-  father_name: {
+  fatherName: {
     value: "",
     type: "text",
   },

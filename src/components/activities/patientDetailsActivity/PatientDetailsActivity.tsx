@@ -300,7 +300,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               {t("patient.mothername")}:
                             </div>
                             <div className="patientDetails__personalData__item__value">
-                              {patient.data?.mother_name || "-"}
+                              {patient.data?.motherName || "-"}
                             </div>
                           </div>
                           <div className="patientDetails__personalData__item">
@@ -308,7 +308,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                               {t("patient.fathername")}:
                             </div>
                             <div className="patientDetails__personalData__item__value">
-                              {patient.data?.father_name || "-"}
+                              {patient.data?.fatherName || "-"}
                             </div>
                           </div>
                         </AccordionDetails>
