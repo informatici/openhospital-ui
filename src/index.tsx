@@ -33,7 +33,7 @@ import ageTypes from "./state/ageTypes/reducer";
 
 if (process.env.REACT_APP_USE_MOCK_API) {
   console.log("Using mocked api");
-  makeServer();
+  //makeServer();
 }
 
 const reducer = combineReducers<IState>({
