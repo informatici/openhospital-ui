@@ -107,7 +107,7 @@ export const labRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201);
+          res.status(201).json(labWithRowsDTO[0]);
           break;
       }
     });
