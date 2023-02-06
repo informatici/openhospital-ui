@@ -22,7 +22,9 @@ export const useData = () => {
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
   const sexLabels = [t("common.male"), t("common.female")];
-  const ageTypeLabels = ageTypes.map((e) => e.description ?? "");
+  const ageTypeLabels = ageTypes.map((e) =>
+    t(`patient.agetypes.${e.code ?? ""}`)
+  );
   const dataBySex = {
     labels: sexLabels,
     datasets: [
