@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { ErrorDescription, HospitalDTO } from "../../../generated";
+import { ErrorDescription } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -70,9 +70,11 @@ const LoginActivity: FC = () => {
           className="login__logo"
           width="150px"
         />
-        <div className="login__title">{t("login.signin")}</div>
         <div className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
+            <div className="login__panel__textField signin__label">
+              {t("login.signin")}
+            </div>
             <div className="login__panel__textField">
               <TextField
                 field={formik.getFieldProps("username")}
