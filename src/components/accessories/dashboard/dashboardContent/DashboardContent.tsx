@@ -16,7 +16,7 @@ export const DashboardContent: FunctionComponent = () => {
 
   const [period, setPeriod] = useState([
     moment().startOf("day").toISOString(),
-    moment().endOf("day").toString(),
+    moment().endOf("day").toISOString(),
   ]);
 
   const handlePeriodChange = useCallback((value: string[]) => {

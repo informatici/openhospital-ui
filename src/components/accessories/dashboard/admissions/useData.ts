@@ -43,7 +43,9 @@ export const useData = () => {
     (state) => state.wards.allWards.status ?? "IDLE"
   );
   const sexLabels = [t("common.male"), t("common.female")];
-  const ageTypeLabels = ageTypes.map((e) => e.description ?? "");
+  const ageTypeLabels = ageTypes.map((e) =>
+    t(`patient.agetypes.${e.code ?? ""}`)
+  );
   const admissionTypeLabels = admissionTypes.map((e) => e.description ?? "");
   const wardLabels = wards.map((e) => e.description ?? "");
   const dataBySex = {

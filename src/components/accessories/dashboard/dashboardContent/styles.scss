@@ -25,6 +25,8 @@
           flex-flow: row wrap;
           overflow: auto;
           justify-content: space-evenly;
+          align-items: flex-end;
+          gap: 16px 4px;
         }
       }
     }

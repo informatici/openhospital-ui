@@ -14,126 +14,53 @@ export const usePeriodOptions = () => {
    * We will discuss about the logic behind range
    */
   const range = useMemo(() => {
-    if (view === "day") {
+    let value: moment.Moment[] = [];
+
+    if (view !== "range") {
       switch (selection) {
         case "current":
-          return [
-            moment().utc().startOf("day").toISOString(),
-            moment().utc().endOf("day").toISOString(),
-          ];
+          value = [moment().utc().startOf(view), moment().utc().endOf(view)];
+          break;
         case "previous":
-          return [
-            moment().add(-1, "day").utc().startOf("day").toISOString(),
-            moment().add(-1, "day").utc().endOf("day").toISOString(),
+          value = [
+            moment().add(-1, view).utc().startOf(view),
+            moment().add(-1, view).utc().endOf(view),
           ];
+          break;
         case "last2":
-          return [
-            moment().add(-2, "day").utc().startOf("day").toISOString(),
-            moment().add(-1, "day").utc().endOf("day").toISOString(),
+          value = [
+            moment().add(-2, view).utc().startOf(view),
+            moment().add(-1, view).utc().endOf(view),
           ];
+          break;
         case "last3":
-          return [
-            moment().add(-3, "day").utc().startOf("day").toISOString(),
-            moment().add(-1, "day").utc().endOf("day").toISOString(),
+          value = [
+            moment().add(-3, view).utc().startOf(view),
+            moment().add(-1, view).utc().endOf(view),
           ];
+          break;
         default:
-          return [
-            moment(dateRange[0]?.toISOString())
-              .utc()
-              .startOf("day")
-              .toISOString(),
-            moment(dateRange[1]?.toISOString())
-              .utc()
-              .endOf("day")
-              .toISOString(),
+          value = [
+            moment(dateRange[0]?.toISOString()).utc().startOf("day"),
+            moment(dateRange[1]?.toISOString()).utc().endOf("day"),
           ];
       }
-    }
-    if (view === "week") {
-      switch (selection) {
-        case "current":
-          return [
-            moment().utc().startOf("week").toISOString(),
-            moment().utc().endOf("week").toISOString(),
-          ];
-        case "previous":
-          return [
-            moment().add(-1, "week").utc().startOf("week").toISOString(),
-            moment().add(-1, "week").utc().endOf("week").toISOString(),
-          ];
-        case "last2":
-          return [
-            moment().add(-2, "week").utc().startOf("week").toISOString(),
-            moment().add(-1, "week").utc().endOf("week").toISOString(),
-          ];
-        case "last3":
-          return [
-            moment().add(-3, "week").utc().startOf("week").toISOString(),
-            moment().add(-1, "week").utc().endOf("week").toISOString(),
-          ];
-        default:
-          return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
+      if (view === "week") {
+        value = [value[0].add(1, "day"), value[1].add(1, "day")];
       }
+    } else {
+      value = [
+        moment(dateRange[0]?.toISOString()).utc().startOf("day"),
+        moment(dateRange[1]?.toISOString()).utc().endOf("day"),
+      ];
     }
-    if (view === "month") {
-      switch (selection) {
-        case "current":
-          return [
-            moment().utc().startOf("month").toISOString(),
-            moment().utc().endOf("month").toISOString(),
-          ];
-        case "previous":
-          return [
-            moment().add(-1, "month").utc().startOf("month").toISOString(),
-            moment().add(-1, "month").utc().endOf("month").toISOString(),
-          ];
-        case "last2":
-          return [
-            moment().add(-2, "month").utc().startOf("month").toISOString(),
-            moment().add(-1, "month").utc().endOf("month").toISOString(),
-          ];
-        case "last3":
-          return [
-            moment().add(-3, "month").utc().startOf("month").toISOString(),
-            moment().add(-1, "month").utc().endOf("month").toISOString(),
-          ];
-        default:
-          return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
-      }
-    }
-    if (view === "year") {
-      switch (selection) {
-        case "current":
-          return [
-            moment().utc().startOf("year").toISOString(),
-            moment().utc().endOf("year").toISOString(),
-          ];
-        case "previous":
-          return [
-            moment().add(-1, "year").utc().startOf("year").toISOString(),
-            moment().add(-1, "year").utc().endOf("year").toISOString(),
-          ];
-        case "last2":
-          return [
-            moment().add(-2, "year").utc().startOf("year").toISOString(),
-            moment().add(-1, "year").utc().endOf("year").toISOString(),
-          ];
-        case "last3":
-          return [
-            moment().add(-3, "year").utc().startOf("year").toISOString(),
-            moment().add(-1, "year").utc().endOf("year").toISOString(),
-          ];
-        default:
-          return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
-      }
-    }
-    return [dateRange[0]?.toISOString(), dateRange[1]?.toISOString()];
+    return [value[0].toISOString(), value[1].toISOString()];
   }, [selection, dateRange, view]);
 
   const period = useMemo(() => {
-    return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(
-      range[1]
-    ).format("yyyy-MM-DD")}`;
+    return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(range[1])
+      .add(-1, "day")
+      .format("yyyy-MM-DD")}`;
   }, [dateRange, view, selection]);
 
   return {

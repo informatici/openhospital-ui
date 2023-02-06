@@ -35,7 +35,7 @@
       },
       "weeks": {
         "current": "This week",
-        "previous": "Last Weeks",
+        "previous": "Last Week",
         "last2": "1-2 weeks",
         "last3": "1-3 weeks"
       },
