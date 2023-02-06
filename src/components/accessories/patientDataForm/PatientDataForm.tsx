@@ -34,6 +34,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAgeTypes } from "../../../state/ageTypes/actions";
 import { getCities } from "../../../state/patients/actions";
 import { useNavigate } from "react-router-dom";
+import { AgeTypeDTO } from "../../../generated";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -98,6 +99,49 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     }))
   );
 
+  const allAgeTypes = useSelector(
+    (state: IState) => state.ageTypes.getAllAgeTypes.data
+  );
+
+  const getBirthDateAndAge = (
+    ageType: string,
+    formattedValues: Record<string, any>
+  ): { birthDate: string; age: number } => {
+    if (ageType == "agetype") {
+      let selectedAgeType = allAgeTypes?.find(
+        (at, i) => at.code == formattedValues.agetype
+      );
+
+      if (selectedAgeType != undefined) {
+        let averageAge = Math.round(
+          selectedAgeType.from && selectedAgeType.to
+            ? (selectedAgeType.from + selectedAgeType.to) / 2
+            : 0
+        );
+
+        let birthDate = new Date();
+        birthDate.setFullYear(birthDate.getFullYear() - averageAge);
+
+        return { birthDate: birthDate.toISOString(), age: averageAge };
+      }
+
+      return { birthDate: new Date().toISOString(), age: 0 };
+    } else if (ageType == "birthDate") {
+      let birthDate = new Date(formattedValues.birthDate);
+      let age = new Date().getFullYear() - birthDate.getFullYear();
+
+      return { birthDate: birthDate.toISOString(), age: age };
+    } else if (ageType == "age") {
+      let birthDate = new Date();
+      birthDate.setFullYear(birthDate.getFullYear() - formattedValues.age);
+
+      return { birthDate: birthDate.toISOString(), age: formattedValues.age };
+    }
+
+    // return current date if unable to determine the selected age type
+    return { birthDate: new Date().toISOString(), age: 0 };
+  };
+
   const ageTypeOptions = [
     { value: "age", label: t("patient.age") },
     { value: "agetype", label: t("patient.agetype") },
@@ -110,11 +154,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      const { birthDate, age } = getBirthDateAndAge(ageType, formattedValues);
+
       onSubmit({
         ...formattedValues,
-        birthDate: ageType === "birthDate" ? formattedValues.birthDate : null,
-        age: ageType === "age" ? formattedValues.age : null,
-        agetype: ageType === "agetype" ? values.agetype : null,
+        birthDate: birthDate,
+        age: age,
+        agetype: "",
       });
     },
   });
