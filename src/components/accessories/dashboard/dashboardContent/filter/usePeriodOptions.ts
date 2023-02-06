@@ -14,34 +14,47 @@ export const usePeriodOptions = () => {
    * We will discuss about the logic behind range
    */
   const range = useMemo(() => {
+    let value: moment.Moment[] = [];
+
     if (view !== "range") {
       switch (selection) {
         case "current":
-          return [
-            moment().utc().startOf(view).toISOString(),
-            moment().utc().endOf("day").toISOString(),
-          ];
+          value = [moment().utc().startOf(view), moment().utc().endOf(view)];
+          break;
         case "previous":
-          return [
-            moment().add(-1, view).utc().startOf(view).toISOString(),
-            moment().add(-1, view).utc().endOf(view).toISOString(),
+          value = [
+            moment().add(-1, view).utc().startOf(view),
+            moment().add(-1, view).utc().endOf(view),
           ];
+          break;
         case "last2":
-          return [
-            moment().add(-2, view).utc().startOf(view).toISOString(),
-            moment().add(-1, view).utc().endOf(view).toISOString(),
+          value = [
+            moment().add(-2, view).utc().startOf(view),
+            moment().add(-1, view).utc().endOf(view),
           ];
+          break;
         case "last3":
-          return [
-            moment().add(-3, view).utc().startOf(view).toISOString(),
-            moment().add(-1, view).utc().endOf(view).toISOString(),
+          value = [
+            moment().add(-3, view).utc().startOf(view),
+            moment().add(-1, view).utc().endOf(view),
+          ];
+          break;
+        default:
+          value = [
+            moment(dateRange[0]?.toISOString()).utc().startOf("day"),
+            moment(dateRange[1]?.toISOString()).utc().endOf("day"),
           ];
       }
+      if (view === "week") {
+        value = [value[0].add(1, "day"), value[1].add(1, "day")];
+      }
+    } else {
+      value = [
+        moment(dateRange[0]?.toISOString()).utc().startOf("day"),
+        moment(dateRange[1]?.toISOString()).utc().endOf("day"),
+      ];
     }
-    return [
-      moment(dateRange[0]?.toISOString()).utc().startOf("day").toISOString(),
-      moment(dateRange[1]?.toISOString()).utc().endOf("day").toISOString(),
-    ];
+    return [value[0].toISOString(), value[1].toISOString()];
   }, [selection, dateRange, view]);
 
   const period = useMemo(() => {
