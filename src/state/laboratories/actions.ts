@@ -127,7 +127,7 @@ export const getLabWithRowsByCodeReset =
 
 export const searchLabs =
   (query: any) =>
-  (dispatch: Dispatch<IAction<LaboratoryForPrintWithRows[], {}>>): void => {
+  (dispatch: Dispatch<IAction<LabWithRowsDTO[], {}>>): void => {
     dispatch({
       type: SEARCH_LAB_LOADING,
     });
@@ -143,7 +143,11 @@ export const searchLabs =
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
               type: SEARCH_LAB_SUCCESS,
-              payload: payload,
+              //to keep the method working since the api is not ready
+              //has to be removed when the api is ready
+              payload: payload.map((item) =>
+                item.laboratoryDTO ? item : { laboratoryDTO: item }
+              ),
             });
           } else {
             dispatch({

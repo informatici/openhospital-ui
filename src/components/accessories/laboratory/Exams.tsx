@@ -24,7 +24,7 @@ import {
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { LaboratoryForPrintDTO } from "../../../generated";
+import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
@@ -74,7 +74,7 @@ export const Exams: FC = () => {
     setFilter(values);
   };
 
-  const onEdit = (row: LaboratoryForPrintDTO) => {
+  const onEdit = (row: LaboratoryDTO) => {
     navigate(`${PATHS.laboratory}/${row.code}/edit`);
   };
   const onDelete = (code: number | undefined) => {
