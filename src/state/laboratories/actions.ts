@@ -323,6 +323,7 @@ export const deleteLab =
         () => {
           dispatch({
             type: DELETE_LAB_SUCCESS,
+            payload: { code },
           });
         },
         (error) => {
