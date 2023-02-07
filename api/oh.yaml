@@ -2905,7 +2905,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/LaboratoryForPrintDTO"
+              $ref: "#/definitions/LabWithRowsDTO"
         "401":
           description: Unauthorized
         "403":
