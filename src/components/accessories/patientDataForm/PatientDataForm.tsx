@@ -157,9 +157,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       const formattedValues = formatAllFieldValues(fields, values);
       const { birthDate, age } = getBirthDateAndAge(ageType, formattedValues);
 
-      console.log(getBirthDateAndAge(ageType, formattedValues));
-      return;
-
       onSubmit({
         ...formattedValues,
         birthDate: birthDate,
