@@ -1,0 +1,83 @@
+@import "../../../styles/variables";
+
+.textField {
+  //height: 60px;
+  width: 250px;
+  label {
+    top: 5px;
+    // font-size: smaller;
+    &.MuiFormLabel-filled,
+    &.Mui-focused {
+      top: 2px;
+    }
+  }
+  input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .MuiFormHelperText-root.Mui-error{
+    position: absolute;
+    bottom: -20px;
+    margin: 0px;
+    left: 0px;
+  }
+}
+
+.textField__light {
+  label {
+    top: 5px;
+    &.MuiFormLabel-filled,
+    &.Mui-focused {
+      top: 2px;
+    }
+  }
+  input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    // font-size: small;
+  }
+  .MuiFormLabel-root {
+    color: $c-white;
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $c-white;
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #eeeeee;
+  }
+
+  .MuiFormLabel-root.Mui-focused {
+    color: #eeeeee;
+  }
+
+  .MuiFormLabel-root.Mui-error {
+    color: #eeeeee;
+  }
+
+  .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #ffcc80 !important;
+  }
+
+  .MuiInputBase-input {
+    color: $c-white !important;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px $c-gray inset !important;
+    -webkit-box-shadow: 0 0 0 30px $c-gray inset !important;
+    -webkit-text-fill-color: $c-white !important;
+  }
+
+  .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+    border-color: $c-error-light !important;
+  }
+
+  .MuiFormHelperText-root.Mui-error {
+    color: $c-error-light !important;
+  }
+}

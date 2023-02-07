@@ -1,0 +1,63 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
+      - name: Building...
+        env:
+          CI: false
+        run: npm run build
+
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
+      - name: Testing...
+        run: npm test
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      # https://github.com/cypress-io/github-action
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          record: false
+          start: npm start
+          spec: cypress/integration/**/*
+          env: host=localhost,port=3000
+          wait-on: "http://localhost:3000"
+
+  deploy:
+    needs: e2e
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
+      - name: Installing...
+        run: npm i
+      - name: Building
+        env:
+          CI: false
+        run: npm run clear && npm run build:gh-pages
+      - run: git add --force build
+      - run: git commit -m 'new build'
+      - run: git remote add intesys-oh https://github.com/intesys/openhospital-ui.git 
+      - run: echo "HASH_COMMIT=$(git subtree split --prefix build develop)" >> $GITHUB_ENV
+      - run: git push intesys-oh $HASH_COMMIT:gh-pages --force

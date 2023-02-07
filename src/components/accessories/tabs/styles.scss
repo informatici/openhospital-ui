@@ -1,0 +1,100 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.tabs_header {
+    .tabs {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .tab {
+            flex-grow: 1;
+            font-weight: 500;
+            font-size: smaller;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 20px 10px 10px;
+            vertical-align: top;
+            background-color: #eee;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: $c-black;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s all ease-in-out;
+            @include susy-media($tablet_port) {
+                padding: 20px 5px 10px;
+                font-size: x-small;
+            }
+
+            &:hover,
+            &.active {
+                color: $c-color-primary;
+                border-bottom: 2px solid $c-color-primary;
+            }
+        }
+
+        &.desktop {
+            display: flex;
+            @include susy-media($smartphone) {
+                display: none;
+            }
+        }
+
+        &.mobile {
+            display: none;
+            @include susy-media($smartphone) {
+                display: block;
+            }
+
+            select {
+                border-radius: 5px;
+                padding: 15px;
+                width: 100%;
+                appearance: none;
+                background-image: linear-gradient(45deg, transparent 50%, $c-gray 50%), linear-gradient(135deg, $c-gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
+                background-position: calc(100% - 20px) 20px, calc(100% - 16px) 20px, calc(100% - 3em) 0.5em;
+                background-size: 5px 5px, 5px 5px, 1px 30px;
+                background-repeat: no-repeat;
+
+                &:focus {
+                    background-image: linear-gradient(45deg, green 50%, transparent 50%), linear-gradient(135deg, transparent 50%, green 50%), linear-gradient(to right, #ccc, #ccc);
+                    background-position: calc(100% - 16px) 20px, calc(100% - 20px) 20px, calc(100% - 3em) 0.5em;
+                    background-size: 5px 5px, 5px 5px, 1px 30px;
+                    background-repeat: no-repeat;
+                    border-color: green;
+                    outline: 0;
+                }
+
+                &:-moz-focusring {
+                    color: transparent;
+                    text-shadow: 0 0 0 #000;
+                }
+            }
+        }
+    }
+}
+
+.tabs_content {
+    .panel {
+        padding: 30px;
+        @include susy-media($smartphone) {
+            padding: 30px 0;
+        }
+    }
+}
+
+
+.menuitem {
+    display: block;
+}
+.menu {
+    li {
+        list-style: none;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        padding: 10px;
+        display: block;
+        color: black
+    }
+}

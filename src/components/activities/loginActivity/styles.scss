@@ -1,0 +1,81 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.login {
+  .login__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 120px);
+    width: 100vw;
+    background-color: $c-color-secondary;
+    @include susy-media($smartphone) {
+      padding: 50px 0 100px 0;
+      height: 100%;
+    }
+  }
+
+  .login__logo {
+    margin-top: 0px;
+  }
+
+  .login__title {
+    padding: 50px 25px 25px 25px;
+    font-size: x-large;
+    text-align: center;
+    font-weight: bolder;
+    @include susy-media($narrow) {
+      padding: 25px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 25px;
+    }
+  }
+
+  .login__panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background-color: $c-white;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+
+    .login__panel__form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 20px 20px 0px 20px;
+    }
+
+    .login__panel__textField {
+      margin-bottom: 10px;
+    }
+
+    .login__passwordToggler {
+      cursor: pointer;
+    }
+
+    .login__invalidCredentials {
+      font-size: smaller;
+      color: $c-color-primary;
+
+      &.hidden {
+        display: none;
+      }
+    }
+
+    .login__buttonContainer {
+      margin-top: 5px;
+    }
+
+    .login__panel__resetPassword {
+      color: $c-black;
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import "../../../styles/variables";
+
+.infoBox {
+  padding: 10px 5px;
+  margin: 15px auto;
+  position: relative;
+  border-radius: 5px;
+
+  &.info {
+    color: $c-info;
+    border: 1px solid $c-info-light;
+  }
+  &.error {
+    color: $c-color-primary;
+    border: 1px solid $c-error-light;
+  }
+  &.warning {
+    color: $c-warning;
+    border: 1px solid $c-warning-light;
+  }
+
+  h5 {
+    margin: 0px;
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.8;
+  }
+  .infoBox_icon {
+    margin-right: 5px;
+    font-size: medium;
+  }
+}

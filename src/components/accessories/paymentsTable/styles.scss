@@ -1,0 +1,61 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+.bill__payments {
+  .title {        
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+    margin-bottom: 25px;
+    @include susy-media($tablet_port) {
+      font-size: x-large;
+    }
+    @include susy-media($smartphone) {
+      margin: 15px 0px 25px 0px;
+      font-size: x-large;
+    }
+  }
+  .filterForm {
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .MuiAccordionSummary-content {
+      svg {
+        position: relative;
+        top: -2px;
+      }
+      h5 {
+        margin: 0px 10px;
+      }
+    }
+     .filterForm__form{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        .filterForm__item {
+          flex: 1 1 auto;         
+          margin: 5px;       
+          .dateField,
+          .textField,
+          .selectField .autocompleteField {
+            width: 100%;
+          }
+          .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
+            width: 100%;
+          }
+        }      
+        .filterForm__buttonSet {
+          display: flex;
+          align-items: center;
+          justify-content: right;
+        }
+      }
+    
+  }
+  .payments__table {
+    padding: 20px 0px;
+  }
+}

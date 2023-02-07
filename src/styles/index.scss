@@ -1,0 +1,12 @@
+@import "./flexboxgrid";
+@import "./variables";
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.App {
+    & > div {
+        height: 100vh;
+    }
+}

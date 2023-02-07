@@ -1,0 +1,91 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientBillRecords {
+  .info-box-container {
+    margin-top: 24px;
+  }
+
+  .billstable {
+    margin-top: 50px;
+  }
+  
+}
+
+.paymentForm {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .paymentForm__item {
+    margin: 7px 0px;
+    padding: 0px 15px;
+    display: flex;
+    width: 100%;
+    .info {
+      width: 100%;
+    }
+    @include susy-media($narrow) {
+      padding: 0px 10px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 0px 10px;
+      width: 100%;
+    }
+    @include susy-media($tablet_port) {
+      width: 100%;
+    }
+    @include susy-media($smartphone) {
+      width: 100%;
+    }
+
+    &.dateVisit {
+      width: 100%;
+    }
+
+    .dateField,
+    .textField,
+    .selectField {
+      width: 100%;
+    }
+  }
+
+  .paymentForm__buttonSet {
+    display: flex;
+    margin-top: 25px;
+    padding: 0px 15px;
+    flex-direction: row-reverse;
+    @include susy-media($smartphone_small) {
+      display: block;
+    }
+    .submit_button,
+    .reset_button {
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      button {
+        @include susy-media($smartphone_small) {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  .MuiOutlinedInput-input {
+    padding: 14px !important;
+  }
+
+  .MuiInputLabel-formControl {
+    left: auto;
+  }
+ 
+}
+ iframe {
+    height: 0px;
+    width: 0px;
+    display: block;
+  }
+

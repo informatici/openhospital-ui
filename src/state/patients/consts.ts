@@ -1,0 +1,24 @@
+export const CREATE_PATIENT_LOADING = "patients/CREATE_PATIENT_LOADING";
+export const CREATE_PATIENT_SUCCESS = "patients/CREATE_PATIENT_SUCCESS";
+export const CREATE_PATIENT_FAIL = "patients/CREATE_PATIENT_FAIL";
+export const CREATE_PATIENT_RESET = "patients/CREATE_PATIENT_RESET";
+
+export const SEARCH_PATIENT_LOADING = "patients/SEARCH_PATIENT_LOADING";
+export const SEARCH_PATIENT_SUCCESS = "patients/SEARCH_PATIENT_SUCCESS";
+export const SEARCH_PATIENT_FAIL = "patients/SEARCH_PATIENT_FAIL";
+export const SEARCH_PATIENT_RESET = "patients/SEARCH_PATIENT_RESET";
+
+export const GET_PATIENT_LOADING = "patients/GET_PATIENT_LOADING";
+export const GET_PATIENT_SUCCESS = "patients/GET_PATIENT_SUCCESS";
+export const GET_PATIENT_FAIL = "patients/GET_PATIENT_FAIL";
+export const GET_PATIENT_RESET = "patients/GET_PATIENT_RESET";
+
+export const UPDATE_PATIENT_LOADING = "patients/UPDATE_PATIENT_LOADING";
+export const UPDATE_PATIENT_SUCCESS = "patients/UPDATE_PATIENT_SUCCESS";
+export const UPDATE_PATIENT_FAIL = "patients/UPDATE_PATIENT_FAIL";
+export const UPDATE_PATIENT_RESET = "patients/UPDATE_PATIENT_RESET";
+
+export const GET_CITIES_LOADING = "patients/GET_CITIES_LOADING";
+export const GET_CITIES_SUCCESS = "patients/GET_CITIES_SUCCESS";
+export const GET_CITIES_FAIL = "patients/GET_CITIES_FAIL";
+export const GET_CITIES_RESET = "patients/GET_CITIES_RESET";

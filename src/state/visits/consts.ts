@@ -1,0 +1,16 @@
+export const GET_VISIT_LOADING = "visits/GET_VISIT_LOADING";
+export const GET_VISIT_SUCCESS = "visits/GET_VISIT_SUCCESS";
+export const GET_VISIT_FAIL = "visits/GET_VISIT_FAIL";
+export const GET_VISIT_SUCCESS_EMPTY = "visits/GET_VISIT_SUCCESS_EMPTY";
+
+export const CREATE_VISIT_LOADING = "visits/CREATE_VISIT_LOADING";
+export const CREATE_VISIT_SUCCESS = "visits/CREATE_VISIT_SUCCESS";
+export const CREATE_VISIT_FAIL = "visits/CREATE_VISIT_FAIL";
+
+export const UPDATE_VISIT_LOADING = "visits/UPDATE_VISIT_LOADING";
+export const UPDATE_VISIT_SUCCESS = "visits/UPDATE_VISIT_SUCCESS";
+export const UPDATE_VISIT_FAIL = "visits/UPDATE_VISIT_FAIL";
+
+export const CREATE_VISIT_RESET = "visits/CREATE_VISIT_RESET";
+
+export const UPDATE_VISIT_RESET = "visits/UPDATE_VISIT_RESET";

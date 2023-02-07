@@ -1,0 +1,21 @@
+.selectField {
+  width: 100%;
+  margin-top: 8px !important;
+  label.MuiFormLabel-root {
+    top: 5px;
+    &.MuiFormLabel-filled,
+    &.Mui-focused {
+      top: 2px;
+    }
+  }
+  .MuiSelect-select.MuiInputBase-input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .MuiFormHelperText-root.Mui-error{
+    position: absolute;
+    bottom: -20px;
+    margin: 0px;
+    left: 0px;
+  }
+}

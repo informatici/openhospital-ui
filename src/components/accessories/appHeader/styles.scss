@@ -1,0 +1,512 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.disable-scroll {
+  overflow: hidden;
+}
+
+.appHeader {
+  box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+  position: relative;
+  &.open_menu {
+    .appHeader__identifier {
+      border-bottom: 2px solid $c-white;
+      z-index: 55;
+      .appHeader__identified__main {
+        color: $c-white;
+      }
+      .MuiTypography-root {
+        z-index: 55;
+        opacity: 1;
+      }
+      .appHeader__identified__trigger {
+        z-index: 55;
+        .trigger_y {
+          z-index: -1;
+        }
+        .trigger_x,
+        .trigger_z {
+          transition: all 0.5s ease-in-out;
+          background: $c-white;
+          z-index: 55;
+          width: 26px;
+          top: 22px;
+        }
+        .trigger_x {
+          transform: rotate(45deg) scale(1);
+        }
+        .trigger_z {
+          transform: rotate(-45deg) scale(1);
+        }
+      }
+    }
+    .appHeader__nav {
+      z-index: 50;
+      opacity: 1;
+      .appHeader__nav_lang_switcher {
+        position: absolute;
+        text-align: center;
+        bottom: 50px;
+        right: 0;
+        left: 0;
+      }
+    }
+  }
+  .appHeader__background {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    background-color: $c-white;
+    padding: 30px 30px 20px 30px;
+    @include susy-media($tablet_land) {
+      padding: 30px 20px 0px 20px;
+    }
+    @include susy-media($tablet_port) {
+      padding: 30px 20px 0px 20px;
+    }
+    @include susy-media($smartphone) {
+      padding: 30px 10px 0px 10px;
+    }
+  }
+
+  .appHeader__identifier {
+    display: flex;
+    @include susy-media($tablet_land) {
+      padding: 0px 35px 20px 35px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    @include susy-media($tablet_port) {
+      padding: 0px 35px 20px 35px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    @include susy-media($smartphone) {
+      padding: 0px 35px 20px 35px;
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  .appHeader__identifier__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    @include susy-media($tablet_land) {
+      display: none;
+    }
+    @include susy-media($tablet_port) {
+      display: none;
+    }
+    @include susy-media($smartphone) {
+      display: none;
+    }
+  }
+
+  .appHeader__identified__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    .only_mobile {
+      display: none;
+      @include susy-media($tablet_land) {
+        display: inline-block;
+      }
+      @include susy-media($tablet_port) {
+        display: inline-block;
+      }
+      @include susy-media($smartphone) {
+        display: inline-block;
+      }
+    }
+  }
+
+  .appHeader__home_icon {
+    display: flex;
+  }
+
+  .appHeader__identified__main__headline {
+    font-size: x-large;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    @include susy-media($narrow) {
+      font-size: larger;
+    }
+    @include susy-media($tablet_land) {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    @include susy-media($tablet_port) {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    @include susy-media($phablet) {
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 0px 10px;
+    }
+    @include susy-media($phone) {
+      font-size: 1.1rem;
+      text-align: center;
+      padding: 0px 25px;
+    }
+  }
+
+  .MuiBreadcrumbs-root {
+    transition: 0.3s all ease-in-out;
+    @include susy-media($tablet_land) {
+      opacity: 0;
+      z-index: -1;
+    }
+    @include susy-media($tablet_port) {
+      opacity: 0;
+      z-index: -1;
+    }
+    @include susy-media($smartphone) {
+      opacity: 0;
+      z-index: -1;
+    }
+    ol {
+      @include susy-media($tablet_land) {
+        position: absolute;
+        top: 65px;
+        left: 0px;
+      }
+      @include susy-media($tablet_port) {
+        position: absolute;
+        top: 65px;
+        left: 0px;
+      }
+      @include susy-media($smartphone) {
+        position: absolute;
+        top: 85px;
+        left: 10px;
+      }
+      li {
+        @include susy-media($tablet_land) {
+          color: $c-white;
+        }
+        @include susy-media($tablet_port) {
+          color: $c-white;
+        }
+        @include susy-media($smartphone) {
+          color: $c-white;
+        }
+        &:nth-of-type(-n + 2) {
+          display: none;
+          @include susy-media($tablet_land) {
+            display: inline-block;
+          }
+          @include susy-media($tablet_port) {
+            display: inline-block;
+          }
+          @include susy-media($smartphone) {
+            display: inline-block;
+          }
+        }
+        span,
+        p,
+        a {
+          color: $c-black;
+          font-size: small;
+          @include susy-media($tablet_land) {
+            color: $c-white;
+          }
+          @include susy-media($tablet_port) {
+            color: $c-white;
+          }
+          @include susy-media($smartphone) {
+            color: $c-white;
+          }
+        }
+      }
+    }
+  }
+
+  .appHeader__nav {
+    @include susy-media($tablet_land) {
+      display: block;
+      position: fixed;
+      align-items: initial;
+      background: $c-color-primary;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out;
+    }
+    @include susy-media($tablet_port) {
+      display: block;
+      position: fixed;
+      align-items: initial;
+      background: $c-color-primary;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out;
+    }
+    @include susy-media($smartphone) {
+      display: block;
+      position: fixed;
+      align-items: initial;
+      background: $c-color-primary;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0px;
+      left: 0px;
+      opacity: 0;
+      transition: 0.5s opacity ease-in-out;
+    }
+  }
+
+  .appHeader__nav_items {
+    display: flex;
+    @include susy-media($tablet_land) {
+      display: block;
+      margin-top: 145px;
+      padding-top: 70px;
+    }
+    @include susy-media($tablet_port) {
+      display: block;
+      margin-top: 145px;
+      padding-top: 70px;
+    }
+    @include susy-media($smartphone) {
+      display: block;
+      margin-top: 145px;
+      padding-top: 70px;
+    }
+  }
+
+  .appHeader__nav__item {
+    font-size: medium;
+    margin: 0px 15px;
+    padding: 2px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    border-bottom: 1px solid transparent;
+    @include susy-media($tablet_land) {
+      font-size: 1.5rem;
+      color: $c-white;
+      margin: 0px 20px 35px 20px;
+    }
+    @include susy-media($tablet_port) {
+      font-size: 1.5rem;
+      color: $c-white;
+      margin: 0px 20px 35px 20px;
+    }
+    @include susy-media($smartphone) {
+      font-size: 1.5rem;
+      color: $c-white;
+      margin: 0px 20px 35px 20px;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: $c-black;
+    }
+  }
+
+  .appHeader__nav__item:hover {
+    border-bottom: 1px solid;
+    @include susy-media($tablet_land) {
+      border-bottom: 2px solid;
+    }
+    @include susy-media($tablet_port) {
+      border-bottom: 2px solid;
+    }
+    @include susy-media($smartphone) {
+      border-bottom: 2px solid;
+    }
+  }
+
+  .appHeader__navigate_before {
+    display: none;
+    cursor: pointer;
+
+    &.hidden {
+      display: none;
+    }
+
+    @include susy-media($phablet) {
+      display: block;
+      position: absolute;
+      left: 0px;
+      top: -3px;
+    }
+    @include susy-media($tablet_land) {
+      display: block;
+      position: absolute;
+      left: 0px;
+      top: -3px;
+    }
+    @include susy-media($tablet_port) {
+      display: block;
+      position: absolute;
+      left: 0px;
+      top: -3px;
+    }
+    @include susy-media($phone) {
+      display: block;
+      position: absolute;
+      left: 0px;
+      top: 10px;
+    }
+  }
+
+  .appHeader__identified__trigger {
+    display: none;
+    cursor: pointer;
+    position: relative;
+    @include susy-media($phablet) {
+      top: -8px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
+    }
+    @include susy-media($tablet_land) {
+      top: -8px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
+    }
+    @include susy-media($tablet_port) {
+      top: -8px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
+    }
+    @include susy-media($phone) {
+      top: 5px;
+      right: 5px;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
+    }
+    .trigger_x,
+    .trigger_y,
+    .trigger_z {
+      position: absolute;
+      height: 3px;
+      z-index: 5;
+      width: 30px;
+      background: $c-color-primary;
+      transition: all 0.5s ease-in-out;
+    }
+    .trigger_x {
+      top: 12px;
+    }
+    .trigger_y {
+      top: 20px;
+    }
+    .trigger_z {
+      top: 28px;
+    }
+    &:hover .trigger_x {
+      transition: all 0.5s ease-in-out;
+      width: 30px;
+    }
+
+    &:hover .trigger_y {
+      transition: all 0.5s ease-in-out;
+      width: 26px;
+    }
+
+    &:hover .trigger_z {
+      transition: all 0.5s ease-in-out;
+      width: 30px;
+    }
+  }
+
+  .appHeader__top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background: $c-gray;
+    padding: 10px 30px;
+    @include susy-media($tablet_land) {
+      padding: 10px 20px;
+    }
+    @include susy-media($tablet_port) {
+      justify-content: flex-start;
+      padding: 10px 20px;
+    }
+    @include susy-media($smartphone) {
+      justify-content: flex-start;
+      padding: 10px;
+    }
+    .userInfo__wrapper {
+      display: flex;
+      @include susy-media($tablet_land) {
+        margin-left: auto;
+      }
+      @include susy-media($tablet_port) {
+        margin-left: auto;
+      }
+      @include susy-media($smartphone) {
+        margin-left: auto;
+      }
+    }
+    .userInfo__toolbar {
+      margin-left: 25px;
+      line-height: 1.5rem;
+      font-size: 0.9rem;
+      color: #fff;
+      .userInfo__toolbar_icon {
+        margin-left: 7px;
+        cursor: pointer;
+        float: right;
+      }
+      span.user-welcome {
+        @include susy-media($smartphone) {
+          display: none;
+        }
+      }
+      strong.user-name {
+        @include susy-media($smartphone) {
+          display: inline-block;
+          width: 120px;
+          white-space: nowrap;
+          overflow: hidden !important;
+          text-align: right;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .appHeader__nav_lang_switcher {
+      text-align: left;
+      position: relative;
+    }
+
+    .appHeader__help {
+      padding-left: 10px;
+    }
+  }
+}

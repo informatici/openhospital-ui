@@ -1,0 +1,45 @@
+name: CI
+
+on: 
+  pull_request:
+  push:
+    branches-ignore:
+      - 'develop'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
+      - name: Building...
+        env:
+          CI: false
+        run: npm run build
+
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
+      - name: Testing...
+        run: npm test
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      # https://github.com/cypress-io/github-action
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          record: false
+          start: npm start
+          spec: cypress/integration/**/*
+          env: host=localhost,port=3000
+          wait-on: "http://localhost:3000"

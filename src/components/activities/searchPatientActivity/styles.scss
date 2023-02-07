@@ -1,0 +1,312 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.searchPatient {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: $c-color-secondary;
+
+  .searchPatient__background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .searchPatient__title {
+    font-size: xx-large;
+    color: $c-black;
+    font-weight: bolder;
+    margin: 30px 20px;
+  }
+
+  .searchPatient__panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $c-white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    margin: 20px 20px 60px 20px;
+    overflow: hidden;
+    @include susy-media($smartphone) {
+      margin: 20px 20px 40px 20px;
+    }
+  }
+
+  .searchPatient__loading {
+    font-size: x-large;
+    margin: 0px 20px 50px;
+    &:after {
+      display: inline-block;
+      animation: dotty steps(1, end) 1s infinite;
+      content: "";
+    }
+
+    @keyframes dotty {
+      0% {
+        content: "";
+      }
+      25% {
+        content: ".";
+      }
+      50% {
+        content: "..";
+      }
+      75% {
+        content: "...";
+      }
+      100% {
+        content: "";
+      }
+    }
+  }
+
+  .searchPatient__results_none {
+    padding: 20px;
+    margin: 0px 20px 50px;
+    &.error {
+      color: $c-color-primary;
+      border: 1px solid $c-color-primary;
+      background-color: lighten($c-color-primary, 40%);
+    }
+    &.warning {
+      color: $c-black;
+      border: 1px solid $c-grey-lighter;
+      background-color: lighten($c-black, 80%);
+    }
+
+    h4 {
+      margin: 0px;
+    }
+  }
+
+  .searchPatient__primary {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: $c-gray;
+    width: 100%;
+    padding: 50px 30px;
+    flex: 0 0 90px;
+    @include susy-media($smartphone) {
+      display: block;
+      text-align: center;
+      justify-content: initial;
+      align-items: initial;
+      padding: 25px 25px 50px 25px;
+    }
+    .row {
+      width: 80%;
+      flex-wrap: initial;
+      @include susy-media($smartphone) {
+        width: 100%;
+        display: block;
+        margin: 0px;
+      }
+    }
+    .searchPatient__formItem {
+      width: 50%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+    }
+  }
+
+  .searchPatient__primary__divider {
+    color: $c-white;
+    font-weight: 500;
+    padding: 15px 0px 10px 0px;
+    margin: 10px;
+  }
+
+  .searchPatient__secondary {
+    padding-bottom: 35px;
+    .searchPatient__formItem {
+      width: 35%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+      .MuiFormControl-marginDense {
+        margin: 0px;
+      }
+    }
+    .row {
+      @include susy-media($smartphone) {
+        width: 100%;
+        display: block;
+        padding: 0px 20px;
+        margin: 0px;
+      }
+    }
+  }
+
+  .searchPatient__formItem {
+    margin: 5px 10px;
+    @include susy-media($smartphone) {
+      margin: 10px 0px;
+    }
+    .MuiFormControl-marginDense {
+      width: 100%;
+    }
+  }
+
+  .searchPatient__buttonContainer {
+    position: relative;
+    bottom: 20px;
+  }
+
+  .searchPatient__button {
+    background-color: $c-color-primary !important;
+    color: $c-white !important;
+    border-radius: 30px;
+    height: 45px;
+    width: 130px;
+  }
+
+  .searchPatient__button__label {
+    margin-left: 5px;
+    font-size: 13px;
+  }
+
+  .searchPatient__info {
+    margin: 20px;
+    @include susy-media($smartphone) {
+      text-align: center;
+      margin: 0px 20px 20px;
+    }
+  }
+
+  .searchPatient__results {
+    margin: 0px 20px 30px;
+    @include susy-media($smartphone) {
+      margin: 0px 10px 30px;
+    }
+    .searchPatient__results_list {
+      display: flex;
+      flex: 0 1 auto;
+      flex-wrap: wrap;
+    }
+    .searchPatient__results_count {
+      font-size: x-large;
+    }
+  }
+
+  .footer {
+    position: relative;
+  }
+}
+
+.patientSearchItem {
+  margin-bottom: 20px;
+
+  .patientSearchItem__panel {
+    background-color: $c-white;
+    box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: lighten($c-color-secondary, 2%);
+    }
+  }
+
+  .patientSearchItem__profile {
+    .patientSearchItem__profile__picture {
+      margin-right: 25px;
+      .profilePicture {
+        margin-bottom: initial;
+        .profilePicture_mask {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    }
+  }
+
+  .patientSearchItem__profile {
+    display: flex;
+    align-items: center;
+
+    .patientSearchItem__profile__content__name {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .patientSearchItem__profile__content__status {
+      margin-bottom: 5px;
+      .patientDetails_status_wrapper {
+        span:before {
+          content: "";
+          display: inline-block;
+          height: 8px;
+          width: 8px;
+          border-radius: 50%;
+          margin-right: 3px;
+          margin-left: 3px;
+        }
+
+        &.patientDetails_status_in {
+          span:before {
+            background-color: $c-red;
+            animation: bump 3s infinite;
+          }
+        }
+
+        &.patientDetails_status_out {
+          span:before {
+            background-color: $c-green;
+          }
+        }
+        h6 {
+          margin: 0px;
+        }
+      }
+    }
+
+    .patientSearchItem__profile__content__info {
+      display: flex;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: $c-grey-light;
+      @include susy-media($smartphone) {
+        display: initial;
+      }
+
+      .patientSearchItem__profile__content__item {
+        & + .patientSearchItem__profile__content__item {
+          margin-left: 15px;
+          @include susy-media($smartphone) {
+            margin-left: initial;
+          }
+        }
+      }
+    }
+
+    .patientSearchItem__profile__content__contact {
+      display: flex;
+      font-size: 0.9rem;
+      color: darken($c-grey-lighter, 10%);
+      @include susy-media($smartphone) {
+        display: initial;
+      }
+      .patientSearchItem__profile__content__item {
+        & + .patientSearchItem__profile__content__item {
+          margin-left: 15px;
+          @include susy-media($smartphone) {
+            margin-left: initial;
+          }
+        }
+      }
+    }
+  }
+}

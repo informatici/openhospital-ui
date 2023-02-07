@@ -1,0 +1,56 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.patientExtraData {
+    background-color: rgba($c-grey-light, .20);
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    padding: 4px 16px;
+    margin-bottom: 16px;
+    border-radius: 5px;
+
+    .patientExtraData_leading {
+        display: flex;
+        justify-content: end;
+    }
+    .patientExtraData__form {
+        display: flex;
+        flex-direction: column;
+        row-gap: 4px;
+        .patientExtraData__form_item {
+            display: flex;
+            flex-direction: column;
+            .item_label {
+                font-weight: bold;
+            }
+            .fullWidth{
+                width: 100%;
+            }
+            .textField {
+                width: 100%;
+            }
+        }
+         .patientExtraData__form__buttonSet {
+            display: flex;
+            margin-top: 10px;
+            flex-direction: row-reverse;
+            justify-content: end;
+
+            .submit_button {
+                .MuiButton-label {
+                    font-size: smaller;
+                    letter-spacing: 1px;
+                    font-weight: 600;
+                }
+                button {
+                    @include susy-media($smartphone_small) {
+                        width: 100%;
+
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

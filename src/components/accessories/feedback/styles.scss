@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+
+
+.feedback {
+  position: relative;
+  top: 2px;
+
+  svg {
+    fill: $c-white;
+    height: 22px;
+    width: 22px;
+  }
+}

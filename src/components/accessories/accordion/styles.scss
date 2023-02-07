@@ -1,0 +1,77 @@
+.accordion {
+  padding-top: 5px;
+  &:hover {
+    .icon_toggle {
+      animation-name: toogleIcon;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-iteration-count: infinite;
+    }
+
+    &.expanded .icon_toggle {
+      animation-name: toogleIconReverse;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-iteration-count: infinite;
+    }
+  }
+  .accordion_summary {
+    padding: 0px 20px 10px;
+    position: relative;
+    cursor: pointer;
+
+    .icon_toggle {
+      position: absolute;
+      top: calc(50% - 10px);
+      right: 15px;
+      width: 20px;
+      transition: transform 0.25s ease-in-out;
+    }
+
+    span p {
+      margin: 0px;
+    }
+  }
+
+  .accordion_details {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.25s ease-in-out;
+  }
+
+  &.expanded {
+    .accordion_summary {
+      .icon_toggle {
+        transform: rotate(180deg);
+      }
+    }
+    .accordion_details {
+      max-height: 450px;
+      overflow: auto;
+    }
+  }
+}
+
+@keyframes toogleIcon {
+  0% {
+    top: calc(50% - 10px);
+  }
+  50% {
+    top: calc(50% - 7px);
+  }
+  100% {
+    top: calc(50% - 10px);
+  }
+}
+
+@keyframes toogleIconReverse {
+  0% {
+    top: calc(50% - 10px);
+  }
+  50% {
+    top: calc(50% - 13px);
+  }
+  100% {
+    top: calc(50% - 10px);
+  }
+}

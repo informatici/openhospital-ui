@@ -1,0 +1,104 @@
+@import "../../../../styles/variables";
+@import "../../../../../node_modules/susy/sass/susy";
+
+.dashboard__content {
+  display: flex;
+  padding: 20px;
+  flex: 1;
+  width: 100%;
+  background-color: white !important;
+  .dashboard__main {
+    padding: 16px;
+    display: flex;
+    width: 100%;
+    .dashboard__main-header {
+      margin-bottom: 20px;
+    }
+    .dashboard__main-content {
+      width: 75%;
+      @include susy-media($medium) {
+        width: 100%;
+      }
+      .tabs_content {
+        .panel {
+          display: flex;
+          flex-flow: row wrap;
+          overflow: auto;
+          justify-content: space-evenly;
+          align-items: flex-end;
+          gap: 16px 4px;
+        }
+      }
+    }
+  }
+  .dashboard__main-side {
+    width: 25%;
+    padding-left: 20px;
+    @include susy-media($medium) {
+      display: none;
+    }
+    .side {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 480px;
+      background-color: $c-gray;
+      border-radius: 5px;
+      padding: 16px;
+      row-gap: 12px;
+      .side__header {
+        display: flex;
+        column-gap: 8px;
+        width: 100%;
+        padding: 10px;
+        background-color: lighten($c-gray, 5%);
+        border-radius: 8px;
+        .side__header_avatar {
+          height: 100%;
+          border-radius: 100%;
+          aspect-ratio: 1;
+          background-color: lighten($c-gray, 15%);
+        }
+        & > div {
+          span {
+            color: lighten($c-gray, 50%);
+            font-weight: bold;
+            font-size: large;
+          }
+        }
+      }
+      .side__body {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        .section {
+          display: flex;
+          flex-direction: column;
+          row-gap: 4px;
+          .title {
+            text-transform: uppercase;
+            font-size: small;
+            font-weight: bolder;
+            color: lighten($c-gray, 70%);
+          }
+          .content {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 4px;
+            span {
+              padding: 6px 8px;
+              font-size: smaller;
+              background-color: lighten($c-gray, 20%);
+              color: lighten($c-gray, 70%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.MuiSkeleton-root {
+  width: 200px !important;
+  height: 200px !important;
+}
