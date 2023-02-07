@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { InputAdornment } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { RemoveRedEye } from "@material-ui/icons";
@@ -5,9 +6,9 @@ import classNames from "classnames";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import { default as React, FunctionComponent, useState } from "react";
+import { default as React, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { ErrorDescription } from "../../../generated";
@@ -18,16 +19,12 @@ import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
+import { IValues } from "./types";
 
-const LoginActivity: FunctionComponent<TProps> = ({
-  setAuthenticationThunk,
-  status,
-  errorType,
-}) => {
+const LoginActivity: FC = () => {
   useAuthentication();
-
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const initialValues: IValues = {
     username: "",
@@ -43,7 +40,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      setAuthenticationThunk(values.username, values.password);
+      dispatch(setAuthenticationThunk(values.username, values.password));
     },
   });
 
@@ -56,6 +53,13 @@ const LoginActivity: FunctionComponent<TProps> = ({
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
+  const errorType = useSelector<IState>(
+    (state) => state.main.authentication.error?.description
+  );
+
+  const status = useSelector<IState>(
+    (state) => state.main.authentication.status || "IDLE"
+  );
 
   return (
     <div className="login">
@@ -66,11 +70,11 @@ const LoginActivity: FunctionComponent<TProps> = ({
           className="login__logo"
           width="150px"
         />
-        <div className="login__title">
-          Princeton-Plainsboro Teaching Hospital
-        </div>
         <div className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
+            <div className="login__panel__textField signin__label">
+              {t("login.signin")}
+            </div>
             <div className="login__panel__textField">
               <TextField
                 field={formik.getFieldProps("username")}
@@ -141,13 +145,4 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  status: state.main.authentication.status || "IDLE",
-  errorType: state.main.authentication.error?.description,
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  setAuthenticationThunk,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginActivity);
+export default LoginActivity;

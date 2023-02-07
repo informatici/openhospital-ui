@@ -14,7 +14,8 @@
     "login": "Login",
     "signout": "Logout",
     "signoutText": "Are you sure you want to Logout?",
-    "passwordtooshort": "Password too short"
+    "passwordtooshort": "Password too short",
+    "signin": "Sign in"
   },
   "dashboard": {
     "welcomename": "Welcome",
@@ -378,6 +379,7 @@
     "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
     "emptydataforfilter": "Empty data for the specified filter",
     "addanotherrow": "Add another operation row",
+    "common.hospitalname": "Hospital",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",

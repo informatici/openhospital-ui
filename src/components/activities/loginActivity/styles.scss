@@ -18,19 +18,12 @@
 
   .login__logo {
     margin-top: 0px;
+    margin-bottom: 15px;
   }
 
-  .login__title {
-    padding: 50px 25px 25px 25px;
-    font-size: x-large;
-    text-align: center;
+  .signin__label {
+    font-size: larger;
     font-weight: bolder;
-    @include susy-media($narrow) {
-      padding: 25px;
-    }
-    @include susy-media($tablet_land) {
-      padding: 25px;
-    }
   }
 
   .login__panel {
