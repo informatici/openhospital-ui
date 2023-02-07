@@ -21,11 +21,18 @@
     margin-bottom: 15px;
   }
 
-  .signin__label {
-    font-size: larger;
+  .login__title {
+    padding: 50px 25px 25px 25px;
+    font-size: x-large;
+    text-align: center;
     font-weight: bolder;
+    @include susy-media($narrow) {
+      padding: 25px;
+    }
+    @include susy-media($tablet_land) {
+      padding: 25px;
+    }
   }
-
   .login__panel {
     display: flex;
     justify-content: center;

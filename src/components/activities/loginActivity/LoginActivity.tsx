@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { InputAdornment } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { RemoveRedEye } from "@material-ui/icons";
@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { ErrorDescription } from "../../../generated";
+import { ErrorDescription, HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -20,6 +20,7 @@ import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
+import { getHospital } from "../../../state/hospital/actions";
 
 const LoginActivity: FC = () => {
   useAuthentication();
@@ -61,6 +62,14 @@ const LoginActivity: FC = () => {
     (state) => state.main.authentication.status || "IDLE"
   );
 
+  useEffect(() => {
+    dispatch(getHospital());
+  }, [dispatch, getHospital]);
+
+  const hospital = useSelector<IState>(
+    (state) => state.hospital.getHospital.data
+  ) as HospitalDTO;
+
   return (
     <div className="login">
       <div className="container login__background">
@@ -70,11 +79,11 @@ const LoginActivity: FC = () => {
           className="login__logo"
           width="150px"
         />
+        <div className="login__title">
+          {hospital?.description ?? t("login.signin")}
+        </div>
         <div className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
-            <div className="login__panel__textField signin__label">
-              {t("login.signin")}
-            </div>
             <div className="login__panel__textField">
               <TextField
                 field={formik.getFieldProps("username")}

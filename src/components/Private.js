@@ -8,9 +8,5 @@ export const Private = () => {
   useAuthentication();
   const { pathname } = useLocation();
 
-  return isAuthenticated() ? (
-    <Outlet />
-  ) : (
-    <Navigate to={PATHS.login} replace />
-  );
+  return isAuthenticated() ? <Outlet /> : <Navigate to={PATHS.login} replace />;
 };
