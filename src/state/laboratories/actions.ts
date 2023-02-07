@@ -42,7 +42,6 @@ import {
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
 } from "./consts";
-import { LaboratoryForPrintWithRows } from "./types";
 
 const labControllerApi = new LaboratoryControllerApi(customConfiguration());
 

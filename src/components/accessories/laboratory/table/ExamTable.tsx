@@ -42,13 +42,14 @@ export const ExamTable: FC<IExamTableProps> = ({
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     let results: any = [];
-    if (data)
+    if (data && data.length > 0)
       results = data.map((e) => {
         return {
           id: e.laboratoryDTO?.code ?? "",
           date: renderDate(e.laboratoryDTO?.examDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
-          exam: e.laboratoryDTO?.exam ?? "",
+          exam:
+            e.laboratoryDTO?.exam?.description ?? e.laboratoryDTO?.exam ?? "", //The second case should be removed when the api is ready
           result:
             e.laboratoryDTO?.result !== multipleResultsLabel //CASE OF PROC2
               ? e.laboratoryDTO?.result ?? ""

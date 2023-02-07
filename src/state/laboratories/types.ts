@@ -15,8 +15,3 @@ export type ILaboratoriesState = {
   getLabWithRowsByCode: IApiResponse<LabWithRowsDTO | null>;
   searchLabs: IApiResponse<Array<LabWithRowsDTO>>;
 };
-
-export type LaboratoryForPrintWithRows = {
-  laboratoryForPrintDTO: LaboratoryForPrintDTO;
-  laboratoryRowList: Array<String>;
-};
