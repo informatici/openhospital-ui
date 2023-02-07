@@ -128,7 +128,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       return { birthDate: new Date().toISOString(), age: 0 };
     } else if (ageType == "birthDate") {
       let birthDate = new Date(formattedValues.birthDate);
-      let age = new Date().getFullYear() - birthDate.getFullYear();
+      let timeDiff = Math.abs(Date.now() - birthDate.getTime());
+      let age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
 
       return { birthDate: birthDate.toISOString(), age: age };
     } else if (ageType == "age") {
@@ -155,6 +156,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       const { birthDate, age } = getBirthDateAndAge(ageType, formattedValues);
+
+      console.log(getBirthDateAndAge(ageType, formattedValues));
+      return;
 
       onSubmit({
         ...formattedValues,
