@@ -74,7 +74,7 @@ export const setAuthenticationThunk =
         (error) => {
           dispatch({
             type: SET_AUTHENTICATION_FAIL,
-            error: error?.response,
+            error: error?.response ?? error?.name ?? error?.status,
           });
         }
       );

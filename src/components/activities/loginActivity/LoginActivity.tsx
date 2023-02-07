@@ -17,6 +17,7 @@ import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
+import { AJAX_ERROR, _500_ERROR } from "./consts";
 import "./styles.scss";
 import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
 
@@ -57,6 +58,18 @@ const LoginActivity: FunctionComponent<TProps> = ({
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
 
+  const renderError = () => {
+    switch (errorType) {
+      case ErrorDescription.PASSWORDTOOSHORT:
+        return t("login.passwordtooshort");
+      case AJAX_ERROR:
+        return t("login.ajaxerror");
+      case _500_ERROR:
+        return t("login.internalerror");
+      default:
+        return t("login.incorrectcredentials");
+    }
+  };
   return (
     <div className="login">
       <div className="container login__background">
@@ -113,9 +126,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 hidden: status !== "FAIL",
               })}
             >
-              {errorType === ErrorDescription.PASSWORDTOOSHORT
-                ? t("login.passwordtooshort")
-                : t("login.incorrectcredentials")}
+              {renderError()}
             </div>
             <div className="login__buttonContainer">
               <Button
@@ -143,7 +154,9 @@ const LoginActivity: FunctionComponent<TProps> = ({
 
 const mapStateToProps = (state: IState): IStateProps => ({
   status: state.main.authentication.status || "IDLE",
-  errorType: state.main.authentication.error?.description,
+  errorType:
+    state.main.authentication.error?.description ??
+    state.main.authentication.error,
 });
 
 const mapDispatchToProps: IDispatchProps = {

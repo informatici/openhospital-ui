@@ -14,7 +14,9 @@
     "login": "Login",
     "signout": "Logout",
     "signoutText": "Are you sure you want to Logout?",
-    "passwordtooshort": "Password too short"
+    "passwordtooshort": "Password too short",
+    "ajaxerror": "Server not reachable",
+    "internalerror": "An internal error has occured. Contact the administrator."
   },
   "dashboard": {
     "welcomename": "Welcome",
