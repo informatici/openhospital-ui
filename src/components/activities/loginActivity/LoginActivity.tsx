@@ -62,14 +62,6 @@ const LoginActivity: FC = () => {
     (state) => state.main.authentication.status || "IDLE"
   );
 
-  useEffect(() => {
-    dispatch(getHospital());
-  }, [dispatch, getHospital]);
-
-  const hospital = useSelector<IState>(
-    (state) => state.hospital.getHospital.data
-  ) as HospitalDTO;
-
   return (
     <div className="login">
       <div className="container login__background">
@@ -79,9 +71,7 @@ const LoginActivity: FC = () => {
           className="login__logo"
           width="150px"
         />
-        <div className="login__title">
-          {hospital?.description ?? t("login.signin")}
-        </div>
+        <div className="login__title">{t("login.signin")}</div>
         <div className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
             <div className="login__panel__textField">
