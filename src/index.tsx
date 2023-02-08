@@ -32,7 +32,7 @@ import examTypes from "./state/examTypes/reducer";
 import ageTypes from "./state/ageTypes/reducer";
 import hospital from "./state/hospital/reducer";
 
-if (process.env.REACT_APP_USE_MOCK_API && false) {
+if (process.env.REACT_APP_USE_MOCK_API) {
   console.log("Using mocked api");
   makeServer();
 }
