@@ -3,6 +3,7 @@ import moment from "moment";
 import { IFormCustomizationProps } from "../../customization/formCustomization/type";
 import {
   AdmissionDTO,
+  AgeTypeDTO,
   DiseaseDTO,
   ExamDTO,
   LaboratoryDTO,
@@ -16,6 +17,7 @@ import {
   WardDTO,
 } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
+import { TAgeType } from "../../components/accessories/patientDataForm/types";
 
 export const getFromFields = (
   fields: TFields,
@@ -246,4 +248,65 @@ export const isFieldSuggested = (
   fieldName: string
 ) => {
   return formCustomization.suggestedFields.includes(fieldName);
+};
+
+export const getBirthDateAndAge = (
+  ageType: string,
+  values: TAgeType,
+  allAgeTypes?: AgeTypeDTO[] | undefined
+): { birthDate: string; age: number } => {
+  let ageAndBirthDate: { birthDate: string; age: number };
+
+  switch (ageType) {
+    case "agetype":
+      let selectedAgeType = allAgeTypes?.find(
+        (at, i) => at.code == values.agetype
+      );
+
+      if (selectedAgeType != undefined) {
+        let averageAge = Math.round(
+          selectedAgeType.from && selectedAgeType.to
+            ? (selectedAgeType.from + selectedAgeType.to) / 2
+            : 0
+        );
+
+        let birthDate = new Date();
+        birthDate.setFullYear(birthDate.getFullYear() - averageAge);
+
+        ageAndBirthDate = {
+          birthDate: birthDate.toISOString(),
+          age: averageAge,
+        };
+      } else {
+        ageAndBirthDate = { birthDate: new Date().toISOString(), age: 0 };
+      }
+      break;
+
+    case "birthDate":
+      let birthDate = values.birthDate
+        ? new Date(values.birthDate)
+        : new Date();
+      let timeDiff = Math.abs(Date.now() - birthDate.getTime());
+      let age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+
+      ageAndBirthDate = { birthDate: birthDate.toISOString(), age: age };
+      break;
+
+    case "age":
+      let birthdate = new Date();
+      birthdate.setFullYear(birthdate.getFullYear() - (values.age ?? 0));
+
+      ageAndBirthDate = {
+        birthDate: birthdate.toISOString(),
+        age: values.age ?? 0,
+      };
+      break;
+
+    default:
+      // return current date if unable to determine the selected age type
+      ageAndBirthDate = { birthDate: new Date().toISOString(), age: 0 };
+      break;
+  }
+
+  return ageAndBirthDate;
 };
