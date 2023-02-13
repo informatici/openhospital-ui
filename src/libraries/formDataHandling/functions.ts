@@ -17,7 +17,10 @@ import {
   WardDTO,
 } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
-import { TAgeType } from "../../components/accessories/patientDataForm/types";
+import {
+  TAgeFieldName,
+  TAgeType,
+} from "../../components/accessories/patientDataForm/types";
 
 export const getFromFields = (
   fields: TFields,
@@ -251,7 +254,7 @@ export const isFieldSuggested = (
 };
 
 export const getBirthDateAndAge = (
-  ageType: string,
+  ageType: TAgeFieldName,
   values: TAgeType,
   allAgeTypes?: AgeTypeDTO[] | undefined
 ): { birthDate: string; age: number } => {
