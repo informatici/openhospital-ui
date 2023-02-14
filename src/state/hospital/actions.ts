@@ -8,7 +8,9 @@ import {
   GET_HOSPITAL_SUCCESS,
 } from "./consts";
 
-const hospitalControllerApi = new HospitalControllerApi(customConfiguration());
+const hospitalControllerApi = new HospitalControllerApi(
+  customConfiguration(false)
+);
 
 export const getHospital =
   () =>

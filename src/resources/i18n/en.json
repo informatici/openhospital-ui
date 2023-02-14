@@ -379,7 +379,7 @@
     "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
     "emptydataforfilter": "Empty data for the specified filter",
     "addanotherrow": "Add another operation row",
-    "common.hospitalname": "Hospital",
+    "hospitalname": "Your Hospital",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",
