@@ -11,6 +11,12 @@ export type TAgeFieldName = "age" | "agetype" | "birthDate";
 
 export type TProps = IForm<TPatientDataFormFieldName, PatientDTO> & IOwnProps;
 
+export type TAgeType = {
+  age?: number;
+  agetype?: string;
+  birthDate?: string;
+};
+
 export type TPatientDataFormFieldName =
   | "firstName"
   | "secondName"

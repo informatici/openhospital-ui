@@ -11,6 +11,7 @@ import React, {
 import { number, object, string } from "yup";
 import {
   formatAllFieldValues,
+  getBirthDateAndAge,
   getFromFields,
   isFieldSuggested,
 } from "../../../libraries/formDataHandling/functions";
@@ -22,7 +23,7 @@ import SelectField from "../selectField/SelectField";
 import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
-import { TAgeFieldName, TProps } from "./types";
+import { TAgeFieldName, TAgeType, TProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
 import { formCustomization } from "../../../customization/formCustomization";
@@ -98,6 +99,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     }))
   );
 
+  const allAgeTypes = useSelector(
+    (state: IState) => state.ageTypes.getAllAgeTypes.data
+  );
+
   const ageTypeOptions = [
     { value: "age", label: t("patient.age") },
     { value: "agetype", label: t("patient.agetype") },
@@ -110,11 +115,21 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      const { birthDate, age } = getBirthDateAndAge(
+        ageType,
+        {
+          age: formattedValues.age,
+          birthDate: formattedValues.birthDate,
+          agetype: formattedValues.agetype,
+        },
+        allAgeTypes
+      );
+
       onSubmit({
         ...formattedValues,
-        birthDate: ageType === "birthDate" ? formattedValues.birthDate : null,
-        age: ageType === "age" ? formattedValues.age : null,
-        agetype: ageType === "agetype" ? values.agetype : null,
+        birthDate: birthDate,
+        age: age,
+        agetype: "",
       });
     },
   });
