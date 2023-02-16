@@ -3,7 +3,7 @@ export const labForPrintDTO = [
     code: 222,
     patientCode: 200,
     exam: "1.1 HB",
-    examDate: "2021-08-05T15:19:44.000Z",
+    date: "2021-08-05T15:19:44.000Z",
     result: "POSITIVE",
     patName: "Abernitho Zakaria",
   },

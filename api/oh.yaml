@@ -8647,7 +8647,7 @@ definitions:
         type: string
         example: "2020-03-19T14:58:00.000Z"
         description: Laboratory Registration Date
-      examDate:
+      date:
         type: string
         example: "2020-03-19T14:58:00.000Z"
         description: Laboratory Exam Date

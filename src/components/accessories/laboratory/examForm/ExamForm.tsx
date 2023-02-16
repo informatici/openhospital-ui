@@ -97,7 +97,7 @@ const ExamForm: FC<ExamProps> = ({
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.examDate = parseDate(lab.examDate ?? "");
+    lab.date = parseDate(lab.date ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = "R";
     lab.material = "angal.lab.urine"; // material needs to be removed from backend env
@@ -133,7 +133,7 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    examDate: string()
+    date: string()
       .required(t("common.required"))
       .test({
         name: "date",
@@ -306,7 +306,7 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab") + " thanks"
-            : t("lab.editlab") + ": " + renderDate(formik.values.examDate)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
@@ -324,15 +324,15 @@ const ExamForm: FC<ExamProps> = ({
             </div>
             <div className="patientExamForm__item">
               <DateField
-                fieldName="examDate"
-                fieldValue={formik.values.examDate}
+                fieldName="date"
+                fieldValue={formik.values.date}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("examDate")}
-                errorText={getErrorText("examDate")}
+                isValid={isValid("date")}
+                errorText={getErrorText("date")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("examDate")}
+                onChange={dateFieldHandleOnChange("date")}
                 disabled={false}
               />
             </div>

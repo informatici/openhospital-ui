@@ -24,7 +24,7 @@ export const initialFields: TFields<ExamFormFieldName> = {
     value: "",
     type: "number",
   },
-  examDate: {
+  date: {
     value: moment().toISOString(),
     type: "text",
   },
