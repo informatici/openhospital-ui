@@ -58,8 +58,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.laboratoryDTO?.code,
-        date: item.laboratoryDTO?.examDate
-          ? renderDate(item.laboratoryDTO?.examDate)
+        date: item.laboratoryDTO?.date
+          ? renderDate(item.laboratoryDTO?.date)
           : "",
         exam: item.laboratoryDTO?.exam?.description ?? "",
         result:

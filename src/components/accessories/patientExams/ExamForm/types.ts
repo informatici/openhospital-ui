@@ -18,7 +18,7 @@ export type ExamProps = IExamProps;
 
 export type ExamFormFieldName =
   | "exam"
-  | "examDate"
+  | "date"
   | "material"
   | "result"
   | "note";

@@ -51,7 +51,7 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    examDate: string()
+    date: string()
       .required(t("common.required"))
       .test({
         name: "date",
@@ -211,21 +211,21 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab")
-            : t("lab.editlab") + ": " + renderDate(formik.values.examDate)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">
               <DateField
-                fieldName="examDate"
-                fieldValue={formik.values.examDate}
+                fieldName="date"
+                fieldValue={formik.values.date}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("examDate")}
-                errorText={getErrorText("examDate")}
+                isValid={isValid("date")}
+                errorText={getErrorText("date")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("examDate")}
+                onChange={dateFieldHandleOnChange("date")}
                 disabled={isLoading}
               />
             </div>

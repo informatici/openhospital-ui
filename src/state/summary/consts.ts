@@ -17,7 +17,7 @@ export const SummaryField = {
   },
   exam: {
     type: "EXAM",
-    dateField: "examDate",
+    dateField: "date",
   },
   triage: {
     type: "TRIAGE",
