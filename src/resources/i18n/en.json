@@ -177,7 +177,10 @@
     "prescription": "Prescription",
     "opdregistered": "Opds registered in the period",
     "opdbysex": "Opds by sex",
-    "opdbyagetype": "Opds by age type"
+    "opdbyagetype": "Opds by age type",
+    "futuredatenotallow": "Future date not allowed",
+    "belowminage": "Min. age is 0",
+    "abovemaxage": "max. age is 200"
   },
   "visit": {
     "date": "Date (d/m/y)",
