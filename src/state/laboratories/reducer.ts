@@ -34,6 +34,10 @@ import {
   GET_LABWROW_RESET,
   GET_LABWROW_SUCCESS,
   SEARCH_LAB_LOADING,
+  CREATE_LAB_REQUEST_LOADING,
+  CREATE_LAB_REQUEST_SUCCESS,
+  CREATE_LAB_REQUEST_FAIL,
+  CREATE_LAB_REQUEST_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { ILaboratoriesState } from "./types";
@@ -69,6 +73,37 @@ export default produce(
       case CREATE_LAB_RESET: {
         draft.createLab.status = "IDLE";
         delete draft.createLab.error;
+        break;
+      }
+
+      /**
+       * CREATE_LAB_REQUEST
+       */
+      case CREATE_LAB_REQUEST_LOADING: {
+        draft.createLabRequest.status = "LOADING";
+        break;
+      }
+
+      case CREATE_LAB_REQUEST_SUCCESS: {
+        draft.createLabRequest.status = "SUCCESS";
+        draft.createLabRequest.data = action.payload;
+        draft.labsByPatientId.data = [
+          ...(draft.labsByPatientId.data ?? []),
+          action.payload,
+        ];
+        delete draft.createLabRequest.error;
+        break;
+      }
+
+      case CREATE_LAB_REQUEST_FAIL: {
+        draft.createLabRequest.status = "FAIL";
+        draft.createLabRequest.error = action.error;
+        break;
+      }
+
+      case CREATE_LAB_REQUEST_RESET: {
+        draft.createLabRequest.status = "IDLE";
+        delete draft.createLabRequest.error;
         break;
       }
 

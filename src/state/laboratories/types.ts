@@ -7,6 +7,7 @@ import { IApiResponse } from "../types";
 
 export type ILaboratoriesState = {
   createLab: IApiResponse<LabWithRowsDTO>;
+  createLabRequest: IApiResponse<LaboratoryDTO>;
   updateLab: IApiResponse<LabWithRowsDTO>;
   deleteLab: IApiResponse<LaboratoryDTO>;
   materials: IApiResponse<Array<string>>;

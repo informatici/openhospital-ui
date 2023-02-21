@@ -3,6 +3,13 @@ export const CREATE_LAB_SUCCESS = "laboratories/CREATE_LAB_SUCCESS";
 export const CREATE_LAB_FAIL = "laboratories/CREATE_LAB_FAIL";
 export const CREATE_LAB_RESET = "laboratories/CREATE_LAB_RESET";
 
+export const CREATE_LAB_REQUEST_LOADING =
+  "laboratories/CREATE_LAB_REQUEST_LOADING";
+export const CREATE_LAB_REQUEST_SUCCESS =
+  "laboratories/CREATE_LAB_REQUEST_SUCCESS";
+export const CREATE_LAB_REQUEST_FAIL = "laboratories/CREATE_LAB_REQUEST_FAIL";
+export const CREATE_LAB_REQUEST_RESET = "laboratories/CREATE_LAB_REQUEST_RESET";
+
 export const GET_LABWROW_LOADING = "laboratories/GET_LABWROW_LOADING";
 export const GET_LABWROW_SUCCESS = "laboratories/GET_LABWROW_SUCCESS";
 export const GET_LABWROW_FAIL = "laboratories/GET_LABWROW_FAIL";

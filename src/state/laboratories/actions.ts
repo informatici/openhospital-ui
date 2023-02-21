@@ -12,6 +12,9 @@ import {
   CREATE_LAB_LOADING,
   CREATE_LAB_RESET,
   CREATE_LAB_SUCCESS,
+  CREATE_LAB_REQUEST_FAIL,
+  CREATE_LAB_REQUEST_LOADING,
+  CREATE_LAB_REQUEST_SUCCESS,
   DELETE_LAB_FAIL,
   DELETE_LAB_LOADING,
   DELETE_LAB_RESET,
@@ -41,6 +44,7 @@ import {
   UPDATE_LAB_LOADING,
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
+  CREATE_LAB_REQUEST_RESET,
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(customConfiguration());
@@ -66,6 +70,37 @@ export const createLab =
         });
       }
     );
+  };
+
+export const createLabRequest =
+  (laboratoryDTO: LaboratoryDTO) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_LAB_REQUEST_LOADING,
+    });
+
+    labControllerApi.newLaboratory3UsingPOST({ laboratoryDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_LAB_REQUEST_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_LAB_REQUEST_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createLabRequestReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_LAB_REQUEST_RESET,
+    });
   };
 
 export const createLabReset =
