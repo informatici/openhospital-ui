@@ -9,6 +9,7 @@ export interface IProps {
   errorText: string;
   onBlur: (e: React.FocusEvent<HTMLInputElement>, value: PatientDTO) => void;
   theme?: string;
+  enableFocus?: boolean;
 }
 export type TPatientSearchFormFieldName =
   | "id"
