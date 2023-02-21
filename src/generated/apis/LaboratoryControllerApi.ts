@@ -31,6 +31,10 @@ export interface GetLaboratoryByIdUsingGETRequest {
     code: number;
 }
 
+export interface GetLaboratoryExamRequestUsingGETRequest {
+    patId: number;
+}
+
 export interface GetLaboratoryForPrintUsingGETRequest {
     dateFrom: string;
     dateTo: string;
@@ -44,6 +48,10 @@ export interface GetLaboratoryUsingGETRequest {
 
 export interface NewLaboratory2UsingPOSTRequest {
     labsWithRows: Array<LabWithRowsDTO>;
+}
+
+export interface NewLaboratory3UsingPOSTRequest {
+    laboratoryDTO: LaboratoryDTO;
 }
 
 export interface NewLaboratoryUsingPOSTRequest {
@@ -112,6 +120,42 @@ export class LaboratoryControllerApi extends BaseAPI {
 
         return this.request<LaboratoryDTO>({
             url: '/laboratories/{code}'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getLaboratoryExamRequest
+     */
+    getLaboratoryExamRequestUsingGET({ patId }: GetLaboratoryExamRequestUsingGETRequest): Observable<Array<LaboratoryDTO>>
+    getLaboratoryExamRequestUsingGET({ patId }: GetLaboratoryExamRequestUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryExamRequestUsingGET({ patId }: GetLaboratoryExamRequestUsingGETRequest, opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
+        throwIfNullOrUndefined(patId, 'patId', 'getLaboratoryExamRequestUsingGET');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<Array<LaboratoryDTO>>({
+            url: '/laboratories/examrequest/{patId}'.replace('{patId}', encodeURI(patId)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getLaboratoryExamRequest
+     */
+    getLaboratoryExamRequestUsingGET1(): Observable<Array<LaboratoryDTO>>
+    getLaboratoryExamRequestUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryExamRequestUsingGET1(opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<Array<LaboratoryDTO>>({
+            url: '/laboratories/examrequest',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -217,6 +261,27 @@ export class LaboratoryControllerApi extends BaseAPI {
             method: 'POST',
             headers,
             body: labsWithRows,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * newLaboratory3
+     */
+    newLaboratory3UsingPOST({ laboratoryDTO }: NewLaboratory3UsingPOSTRequest): Observable<boolean>
+    newLaboratory3UsingPOST({ laboratoryDTO }: NewLaboratory3UsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newLaboratory3UsingPOST({ laboratoryDTO }: NewLaboratory3UsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(laboratoryDTO, 'laboratoryDTO', 'newLaboratory3UsingPOST');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<boolean>({
+            url: '/laboratories/examrequest',
+            method: 'POST',
+            headers,
+            body: laboratoryDTO,
         }, opts?.responseOpts);
     };
 
