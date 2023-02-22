@@ -137,14 +137,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
         },
       })
       .test({
-        name: "minAgeFrom",
+        name: "minAgeTo",
         message: t("opd.belowminage"),
         test: function (value) {
           return !value || (value && value >= 0);
         },
       })
       .test({
-        name: "maxAgeFrom",
+        name: "maxAgeTo",
         message: t("opd.abovemaxage"),
         test: function (value) {
           return !value || (value && value <= 200);
