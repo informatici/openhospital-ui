@@ -2,6 +2,7 @@ import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { ExamFormFieldName } from "./examForm/type";
 import { ExamFilterFormFieldName, TFilterValues } from "./filter/types";
+import { ExamRequestFormFieldName } from "./examRequestForm/types";
 
 export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
   dateFrom: { type: "date", value: moment().startOf("month").toISOString() },
@@ -35,6 +36,21 @@ export const initialFields: TFields<ExamFormFieldName> = {
   result: {
     value: "",
     type: "text",
+  },
+  material: {
+    value: "",
+    type: "text",
+  },
+};
+
+export const initialRequestFields: TFields<ExamRequestFormFieldName> = {
+  exam: {
+    value: "",
+    type: "text",
+  },
+  patientId: {
+    value: "",
+    type: "number",
   },
   material: {
     value: "",

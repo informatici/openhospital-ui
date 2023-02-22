@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router";
 import { IState } from "../../../types";
-import { initialFields } from "./consts";
+import { initialFields, initialRequestFields } from "./consts";
 import "./styles.scss";
 import { useEffect } from "react";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
@@ -18,6 +18,7 @@ import ExamForm from "./examForm/ExamForm";
 import { getPatientThunk } from "../../../state/patients/actions";
 import { examRoutes } from "../../../mockServer/routes/exam";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import ExamRequestForm from "./examRequestForm/ExamRequestForm";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
@@ -91,6 +92,7 @@ export const EditLaboratoryContent: FC = () => {
         </div>
       </div>
       <Permission require={creationMode ? "exam.create" : "exam.update"}>
+        {creationMode && <ExamRequestForm fields={initialRequestFields} />}
         {open && (
           <ExamForm
             fields={formFields}
