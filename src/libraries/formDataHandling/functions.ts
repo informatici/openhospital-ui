@@ -119,6 +119,7 @@ export const updateFilterFields = (fields: TFields, values: any): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
       let value = values![key];
+      if (key === "status") return (draft[key as string].value = value);
       if (draft[key as string]) {
         return (draft[key as string].value = moment(value).isValid()
           ? parseDate(value as string)
