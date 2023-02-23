@@ -2986,6 +2986,10 @@ paths:
           in: query
           description: patientCode
           type: number
+        - name: status
+          in: query
+          description: status
+          type: number
       responses:
         "200":
           description: OK

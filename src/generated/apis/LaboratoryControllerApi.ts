@@ -40,6 +40,7 @@ export interface GetLaboratoryForPrintUsingGETRequest {
     dateTo: string;
     examName?: string;
     patientCode?: number;
+    status?: number;
 }
 
 export interface GetLaboratoryUsingGETRequest {
@@ -164,9 +165,9 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * getLaboratoryForPrint
      */
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LabWithRowsDTO>>
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LabWithRowsDTO>>>
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LabWithRowsDTO> | RawAjaxResponse<Array<LabWithRowsDTO>>> {
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode, status }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LabWithRowsDTO>>
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode, status }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LabWithRowsDTO>>>
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode, status }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LabWithRowsDTO> | RawAjaxResponse<Array<LabWithRowsDTO>>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getLaboratoryForPrintUsingGET');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getLaboratoryForPrintUsingGET');
 
@@ -181,6 +182,7 @@ export class LaboratoryControllerApi extends BaseAPI {
 
         if (examName != null) { query['examName'] = examName; }
         if (patientCode != null) { query['patientCode'] = patientCode; }
+        if (status != null) { query['status'] = status; }
 
         return this.request<Array<LabWithRowsDTO>>({
             url: '/laboratories/exams',
