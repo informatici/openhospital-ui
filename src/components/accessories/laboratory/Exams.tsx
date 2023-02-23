@@ -12,7 +12,6 @@ import "./styles.scss";
 import { ExamTable } from "./table/ExamTable";
 import checkIcon from "../../../assets/check-icon.png";
 import { useEffect } from "react";
-import { TFilterValues } from "../billTable/types";
 import {
   getFromFields,
   updateFilterFields,
@@ -31,6 +30,7 @@ import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { TFilterValues } from "./filter/types";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -55,7 +55,7 @@ export const Exams: FC = () => {
   );
 
   useEffect(() => {
-    if (!isEmpty(filter.patientCode)) {
+    if (filter.patientCode !== undefined && !isEmpty(filter.patientCode)) {
       dispatch(getPatientThunk(filter.patientCode?.toString()));
     }
     dispatch(searchLabs(filter));

@@ -487,7 +487,11 @@
     "multipleresults": "Multiple results",
     "examrequest": "Request an exam",
     "examrequestbtn": "Request",
-    "examrequestcreated": "The exam request has been successfully created"
+    "examrequestcreated": "The exam request has been successfully created",
+    "futuredatenotallow": "Future date not allowed",
+    "statusall": "All",
+    "statusrequested": "Requested",
+    "statustreated": "Treated"
   },
   "admission": {
     "admDate": "Date",

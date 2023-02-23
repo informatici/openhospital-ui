@@ -171,6 +171,7 @@ export const searchLabs =
         dateFrom: query.dateFrom ?? moment().toISOString(),
         examName: query.examName,
         patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
+        status: !isNaN(query.status) ? query.status : undefined,
       })
       .subscribe(
         (payload) => {

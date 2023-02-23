@@ -9,11 +9,13 @@ export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
   dateTo: { type: "date", value: moment().toISOString() },
   examName: { type: "text", value: "" },
   patientCode: { type: "number", value: "" },
+  status: { type: "number", value: "-1" },
 };
 
 export const initialFilter: TFilterValues = {
   dateFrom: moment().subtract(1, "years").toISOString(),
   dateTo: moment().toISOString(),
+  status: -1,
 };
 
 export const initialFields: TFields<ExamFormFieldName> = {
