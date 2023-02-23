@@ -29,7 +29,7 @@ export const ExamTable: FC<IExamTableProps> = ({
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
-  const header = ["id", "date", "patName", "exam", "result"];
+  const header = ["id", "date", "patName", "exam", "result", "status"];
   const dateFields = ["date"];
   const label = {
     id: t("lab.code"),
@@ -37,8 +37,9 @@ export const ExamTable: FC<IExamTableProps> = ({
     patName: t("lab.patient"),
     exam: t("lab.exam"),
     result: t("lab.result"),
+    status: t("lab.status"),
   };
-  const order = ["id", "date", "patName", "exam", "result"];
+  const order = ["id", "date", "patName", "exam", "result", "status"];
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     let results: any = [];
@@ -55,6 +56,9 @@ export const ExamTable: FC<IExamTableProps> = ({
               ? e.laboratoryDTO?.result ?? ""
               : t("lab.multipleresults"),
           patientCode: e.laboratoryDTO?.patientCode ?? "",
+          status: e.laboratoryDTO?.result
+            ? t("lab.statustreated")
+            : t("lab.statusrequested"),
         };
       });
     return results;
