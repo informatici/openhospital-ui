@@ -38,6 +38,11 @@ import {
   CREATE_LAB_REQUEST_SUCCESS,
   CREATE_LAB_REQUEST_FAIL,
   CREATE_LAB_REQUEST_RESET,
+  GET_LABS_REQUEST_LOADING,
+  GET_LABS_REQUEST_SUCCESS,
+  GET_LABS_REQUEST_SUCCESS_EMPTY,
+  GET_LABS_REQUEST_FAIL,
+  GET_LABS_REQUEST_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { ILaboratoriesState } from "./types";
@@ -138,6 +143,40 @@ export default produce(
         draft.labsByPatientId.status = "IDLE";
         delete draft.labsByPatientId.data;
         delete draft.labsByPatientId.error;
+        break;
+      }
+
+      /**
+       * GET_LABS_REQUEST_BY_PATIENT
+       */
+      case GET_LABS_REQUEST_LOADING: {
+        draft.labsRequestByPatientId.status = "LOADING";
+        break;
+      }
+
+      case GET_LABS_REQUEST_SUCCESS: {
+        draft.labsRequestByPatientId.status = "SUCCESS";
+        draft.labsRequestByPatientId.data = action.payload;
+        delete draft.labsRequestByPatientId.error;
+        break;
+      }
+
+      case GET_LABS_REQUEST_SUCCESS_EMPTY: {
+        draft.labsRequestByPatientId.status = "SUCCESS_EMPTY";
+        draft.labsRequestByPatientId.data = [];
+        delete draft.labsRequestByPatientId.error;
+        break;
+      }
+      case GET_LABS_REQUEST_FAIL: {
+        draft.labsRequestByPatientId.status = "FAIL";
+        draft.labsRequestByPatientId.error = action.error;
+        break;
+      }
+
+      case GET_LABS_REQUEST_RESET: {
+        draft.labsRequestByPatientId.status = "IDLE";
+        delete draft.labsRequestByPatientId.data;
+        delete draft.labsRequestByPatientId.error;
         break;
       }
 

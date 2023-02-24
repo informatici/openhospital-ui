@@ -45,6 +45,10 @@ import {
   UPDATE_LAB_RESET,
   UPDATE_LAB_SUCCESS,
   CREATE_LAB_REQUEST_RESET,
+  GET_LABS_REQUEST_LOADING,
+  GET_LABS_REQUEST_SUCCESS,
+  GET_LABS_REQUEST_SUCCESS_EMPTY,
+  GET_LABS_REQUEST_FAIL,
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(customConfiguration());
@@ -235,6 +239,42 @@ export const getLabsByPatientId =
     } else {
       dispatch({
         type: GET_LABS_FAIL,
+        error: "The patient code should not be null",
+      });
+    }
+  };
+
+export const getLabsRequestByPatientId =
+  (patId: number | undefined) =>
+  (dispatch: Dispatch<IAction<LaboratoryDTO[], {}>>): void => {
+    dispatch({
+      type: GET_LABS_REQUEST_LOADING,
+    });
+    if (patId) {
+      labControllerApi.getLaboratoryExamRequestUsingGET({ patId }).subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
+            dispatch({
+              type: GET_LABS_REQUEST_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: GET_LABS_REQUEST_SUCCESS_EMPTY,
+              payload: [],
+            });
+          }
+        },
+        (error) => {
+          dispatch({
+            type: GET_LABS_REQUEST_FAIL,
+            error: error?.response,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: GET_LABS_REQUEST_FAIL,
         error: "The patient code should not be null",
       });
     }
