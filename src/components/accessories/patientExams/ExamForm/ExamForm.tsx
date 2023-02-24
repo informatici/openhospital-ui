@@ -62,6 +62,14 @@ const ExamForm: FC<ExamProps> = ({
       }),
     exam: string().required(t("common.required")),
     result: string(),
+    note: string().test({
+      name: "maxLength",
+      message: t("common.maxlengthexceeded", { maxLength: 255 }),
+      test: function (value) {
+        if (!value) return true;
+        return value.length <= 255;
+      },
+    }),
   });
 
   const initialValues = getFromFields(fields, "value");
