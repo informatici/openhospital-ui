@@ -380,6 +380,7 @@
     "emptydataforfilter": "Empty data for the specified filter",
     "addanotherrow": "Add another operation row",
     "hospitalname": "Your Hospital",
+    "maxlengthexceeded": "Length exceeded. Max. is {{maxLength}}",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",
@@ -491,7 +492,8 @@
     "futuredatenotallow": "Future date not allowed",
     "statusall": "All",
     "statusrequested": "Requested",
-    "statustreated": "Treated"
+    "statustreated": "Treated",
+    "patientrequestedexam": "Requested exams for the patient"
   },
   "admission": {
     "admDate": "Date",

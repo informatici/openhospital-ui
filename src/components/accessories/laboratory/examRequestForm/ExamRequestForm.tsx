@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { useFormik } from "formik";
@@ -11,7 +11,10 @@ import { object, string } from "yup";
 import { ExamDTO, LaboratoryDTO, PatientDTO } from "../../../../generated";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
-import { createLabRequest } from "../../../../state/laboratories/actions";
+import {
+  createLabRequest,
+  createLabRequestReset,
+} from "../../../../state/laboratories/actions";
 import PatientPicker from "../../patientPicker/PatientPicker";
 import has from "lodash.has";
 import get from "lodash.get";
@@ -21,10 +24,14 @@ import { Button } from "@material-ui/core";
 import { ControlPoint } from "@material-ui/icons";
 import { ExamRequestProps } from "./types";
 import "./styles.scss";
-import isEmpty from "lodash.isempty";
 import InfoBox from "../../infoBox/InfoBox";
+import { ExamTransitionState } from "../examForm/type";
 
-const ExamRequestForm: FC<ExamRequestProps> = ({ fields, patient }) => {
+const ExamRequestForm: FC<ExamRequestProps> = ({
+  fields,
+  patient,
+  handleSuccess,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [patientData, setPatientData] = useState({} as PatientDTO);
@@ -37,7 +44,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({ fields, patient }) => {
   const initialValues = getFromFields(fields, "value");
   const validationSchema = object({
     exam: string().required(t("common.required")),
-    patientId: string().required(t("common.required")),
+    patientId: string().when("patient", {
+      is: patient,
+      then: string().required(t("common.required")),
+      otherwise: string(),
+    }),
   });
   const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
     if (exams) {
@@ -60,6 +71,31 @@ const ExamRequestForm: FC<ExamRequestProps> = ({ fields, patient }) => {
     (state: IState) => state.laboratories
   );
 
+  const [shouldResetForm, setShouldResetForm] = useState(false);
+  const [activityTransitionState, setActivityTransitionState] =
+    useState<ExamTransitionState>("IDLE");
+
+  useEffect(() => {
+    dispatch(createLabRequestReset());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (activityTransitionState === "TO_RESET") {
+      if (handleSuccess) handleSuccess(false);
+      setTimeout(() => {
+        dispatch(createLabRequestReset());
+        setShouldResetForm(true);
+      }, 3000);
+    }
+  }, [dispatch, activityTransitionState]);
+
+  useEffect(() => {
+    if (labStore.createLabRequest.status === "SUCCESS") {
+      if (handleSuccess) handleSuccess(true);
+      setActivityTransitionState("TO_RESET");
+    }
+  }, [labStore]);
+
   const errorMessage = useSelector<IState>(
     (state) =>
       labStore.createLabRequest.error?.message || t("common.somethingwrong")
@@ -68,6 +104,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({ fields, patient }) => {
   const successMessage = t("lab.examrequestcreated");
 
   const onSubmit = (lab: LaboratoryDTO) => {
+    setShouldResetForm(false);
     if (!patient) patient = patientData;
     lab.patientCode = patient?.code;
     lab.exam = exams?.find((item) => item.code === lab.exam);
@@ -94,7 +131,21 @@ const ExamRequestForm: FC<ExamRequestProps> = ({ fields, patient }) => {
     },
   });
 
-  const { setFieldValue, handleBlur } = formik;
+  const resetFormCallback = () => {
+    setShouldResetForm(false);
+    dispatch(createLabRequestReset());
+    setActivityTransitionState("IDLE");
+  };
+
+  const { setFieldValue, handleBlur, resetForm } = formik;
+
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+      resetFormCallback();
+      setCurrentExamCode("");
+    }
+  }, [shouldResetForm, resetForm, resetFormCallback]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);

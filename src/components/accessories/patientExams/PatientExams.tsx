@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { TherapyTransitionState } from "./types";
 import { initialFields } from "./consts";
@@ -32,6 +32,9 @@ import {
 import { CircularProgress } from "@material-ui/core";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
+import { initialRequestFields } from "../laboratory/consts";
+import PatientExamRequestsTable from "./patientExamRequestsTable/PatientExamRequestsTable";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
@@ -39,6 +42,8 @@ const PatientExams: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [shouldUpdateRequestsTable, setShouldUpdateRequestsTable] =
+    useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
 
@@ -89,6 +94,13 @@ const PatientExams: FC = () => {
       t("common.somethingwrong")
   ) as string;
   const exams = useSelector((state: IState) => state.exams.examList.data);
+
+  const onSuccess = useCallback(
+    (shoudlReset: boolean) => {
+      setShouldUpdateRequestsTable(shoudlReset);
+    },
+    [dispatch]
+  );
 
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
@@ -143,6 +155,13 @@ const PatientExams: FC = () => {
   return (
     <div className="patientExam">
       <Permission require={creationMode ? "exam.create" : "exam.update"}>
+        {creationMode && (
+          <ExamRequestForm
+            fields={initialRequestFields}
+            patient={patientData}
+            handleSuccess={onSuccess}
+          />
+        )}
         {labStore.getLabWithRowsByCode.status !== "LOADING" && (
           <ExamForm
             fields={
@@ -198,6 +217,9 @@ const PatientExams: FC = () => {
       )}
 
       <Permission require="exam.read">
+        <PatientExamRequestsTable
+          shouldUpdateTable={shouldUpdateRequestsTable}
+        />
         <PatientExamsTable
           handleEdit={onEdit}
           handleDelete={onDelete}
