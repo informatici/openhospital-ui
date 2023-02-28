@@ -102,10 +102,10 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       }),
     ageFrom: number()
       .test({
-        name: "ageFrom",
+        name: "ageTo",
         message: t("opd.validatefromage"),
         test: function (value) {
-          if (isEmpty(this.parent.ageTo)) {
+          if (!this.parent.ageTo) {
             return true;
           }
           return +this.parent.ageTo - +value >= 0;
@@ -127,10 +127,10 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       }),
     ageTo: number()
       .test({
-        name: "ageTo",
+        name: "ageFrom",
         message: t("opd.validatetoage"),
         test: function (value) {
-          if (isEmpty(this.parent.ageFrom)) {
+          if (!this.parent.ageFrom) {
             return true;
           }
           return +value - +this.parent.ageFrom >= 0;
@@ -328,7 +328,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 {t("opd.general")}
               </div>
               <div className="filterOpdForm__section_content">
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item col-4">
                   <SelectField
                     fieldName="newPatiient"
                     fieldValue={formik.values.newPatient}
@@ -339,7 +339,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     options={newPatientOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item col-4">
                   <AutocompleteField
                     fieldName="diseaseType"
                     fieldValue={formik.values.diseaseType}
@@ -350,7 +350,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     options={diseaseTypeOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item col-4">
                   <AutocompleteField
                     fieldName="disease"
                     fieldValue={formik.values.disease}
