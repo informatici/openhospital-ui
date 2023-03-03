@@ -341,8 +341,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 </div>
                 <div className="filterOpdForm__item col-4">
                   <AutocompleteField
-                    fieldName="diseaseType"
-                    fieldValue={formik.values.diseaseType}
+                    fieldName="diseaseTypeCode"
+                    fieldValue={formik.values.diseaseTypeCode}
                     label={t("opd.diseasetype")}
                     isValid={isValid("diseaseTypeCode")}
                     errorText={getErrorText("diseaseTypeCode")}
@@ -352,8 +352,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 </div>
                 <div className="filterOpdForm__item col-4">
                   <AutocompleteField
-                    fieldName="disease"
-                    fieldValue={formik.values.disease}
+                    fieldName="diseaseCode"
+                    fieldValue={formik.values.diseaseCode}
                     label={t("opd.disease")}
                     isValid={isValid("diseaseCode")}
                     errorText={getErrorText("diseaseCode")}
