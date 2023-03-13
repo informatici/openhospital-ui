@@ -40,7 +40,7 @@ export interface GetLaboratoryForPrintUsingGETRequest {
     dateTo: string;
     examName?: string;
     patientCode?: number;
-    status?: number;
+    status?: string;
 }
 
 export interface GetLaboratoryUsingGETRequest {
@@ -49,10 +49,6 @@ export interface GetLaboratoryUsingGETRequest {
 
 export interface NewLaboratory2UsingPOSTRequest {
     labsWithRows: Array<LabWithRowsDTO>;
-}
-
-export interface NewLaboratory3UsingPOSTRequest {
-    laboratoryDTO: LaboratoryDTO;
 }
 
 export interface NewLaboratoryUsingPOSTRequest {
@@ -263,27 +259,6 @@ export class LaboratoryControllerApi extends BaseAPI {
             method: 'POST',
             headers,
             body: labsWithRows,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * newLaboratory3
-     */
-    newLaboratory3UsingPOST({ laboratoryDTO }: NewLaboratory3UsingPOSTRequest): Observable<boolean>
-    newLaboratory3UsingPOST({ laboratoryDTO }: NewLaboratory3UsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newLaboratory3UsingPOST({ laboratoryDTO }: NewLaboratory3UsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
-        throwIfNullOrUndefined(laboratoryDTO, 'laboratoryDTO', 'newLaboratory3UsingPOST');
-
-        const headers: HttpHeaders = {
-            'Content-Type': 'application/json',
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        return this.request<boolean>({
-            url: '/laboratories/examrequest',
-            method: 'POST',
-            headers,
-            body: laboratoryDTO,
         }, opts?.responseOpts);
     };
 

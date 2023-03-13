@@ -2839,6 +2839,37 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /laboratories/byPatientId/{patId}:
+    get:
+      tags:
+        - laboratory-controller
+      summary: getLaboratory
+      operationId: getLaboratoryUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: patId
+          in: path
+          description: patId
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/LabWithRowsDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
   /laboratories/examrequest:
     get:
       tags:
@@ -2854,38 +2885,6 @@ paths:
             type: array
             items:
               $ref: "#/definitions/LaboratoryDTO"
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      security:
-        - JWT: []
-      deprecated: false
-    post:
-      tags:
-        - laboratory-controller
-      summary: newLaboratory3
-      operationId: newLaboratory3UsingPOST
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: laboratoryDTO
-          description: laboratoryDTO
-          required: true
-          schema:
-            $ref: "#/definitions/LaboratoryDTO"
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: boolean
-        "201":
-          description: Created
         "401":
           description: Unauthorized
         "403":
@@ -2917,37 +2916,6 @@ paths:
             type: array
             items:
               $ref: "#/definitions/LaboratoryDTO"
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      security:
-        - JWT: []
-      deprecated: false
-  /laboratories/byPatientId/{patId}:
-    get:
-      tags:
-        - laboratory-controller
-      summary: getLaboratory
-      operationId: getLaboratoryUsingGET
-      produces:
-        - application/json
-      parameters:
-        - name: patId
-          in: path
-          description: patId
-          required: true
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/LabWithRowsDTO"
         "401":
           description: Unauthorized
         "403":
@@ -2989,7 +2957,7 @@ paths:
         - name: status
           in: query
           description: status
-          type: number
+          type: string
       responses:
         "200":
           description: OK
@@ -5319,13 +5287,13 @@ paths:
       operationId: getPatientCitiesUsingGET
       produces:
         - application/json
-
       responses:
         "200":
           description: OK
           schema:
             type: array
-            items: string
+            items:
+              type: string
         "401":
           description: Unauthorized
         "403":
@@ -8757,8 +8725,11 @@ definitions:
         description: Laboratory Patient Name
       inOutPatient:
         type: string
-        example: 0
+        example: O
         description: Laboratory Patient InOut
+        enum:
+          - I
+          - O
       age:
         type: integer
         format: int32
@@ -8767,6 +8738,13 @@ definitions:
         type: string
         example: M
         description: Laboratory Patient Sex
+      status:
+        type: string
+        example: DRAFT
+        description: laboratory status
+        enum:
+          - DRAFT
+          - DONE
     title: LaboratoryDTO
   LaboratoryForPrintDTO:
     type: object
