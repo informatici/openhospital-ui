@@ -13,7 +13,11 @@ import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { number, object, string } from "yup";
-import { ExamDTO, PatientDTO } from "../../../../generated";
+import {
+  ExamDTO,
+  LaboratoryDTOStatusEnum,
+  PatientDTO,
+} from "../../../../generated";
 import {
   getFromFields,
   formatAllFieldValues,
@@ -99,7 +103,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
           return differenceInSeconds(new Date(value), new Date()) <= 0;
         },
       }),
-    status: number().required(t("common.required")),
+    status: string(),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -108,8 +112,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log(values);
-
       const formattedValues = formatAllFieldValues(
         fields,
         values
@@ -125,11 +127,11 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
     label: value.description ?? "",
   });
 
-  const examStatusOptions = [
-    { value: -1, label: t("lab.statusall") },
-    { value: 1, label: t("lab.statustreated") },
-    { value: 2, label: t("lab.statusrequested") },
-  ];
+  const examStatusOptions = [{ label: "ALL", value: "" }].concat(
+    Object.values(LaboratoryDTOStatusEnum).map((status) => {
+      return { label: status as string, value: status as string };
+    })
+  );
 
   const examOptions = useSelector((state: IState) => {
     return state.exams.examList.data?.map((e) => mapToOptions(e)) ?? [];
@@ -146,8 +148,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
       }
 
       if (fieldName === "month") {
-        console.log(formik.values);
-
         const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
         const year =
           formik.values.year?.getUTCFullYear() ?? new Date().getUTCFullYear();
@@ -166,8 +166,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
       }
 
       if (fieldName === "year") {
-        console.log(formik.values);
-
         const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
 
         let startMonth = 0;
@@ -204,9 +202,16 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
         value: PatientDTO | string | undefined
       ) => {
         handleBlur(e);
-        typeof value === "string" || typeof value === "number"
-          ? setFieldValue(fieldName, value)
-          : setFieldValue(fieldName, value?.code ?? "");
+        if (fieldName === "status") {
+          let examStatus = examStatusOptions.find(
+            (exaStatus) => exaStatus.label === value
+          );
+          setFieldValue(fieldName, examStatus?.value);
+        } else {
+          typeof value === "string" || typeof value === "number"
+            ? setFieldValue(fieldName, value)
+            : setFieldValue(fieldName, value?.code ?? "");
+        }
       },
     [setFieldValue, handleBlur]
   );

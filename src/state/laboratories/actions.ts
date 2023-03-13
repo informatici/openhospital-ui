@@ -77,13 +77,13 @@ export const createLab =
   };
 
 export const createLabRequest =
-  (laboratoryDTO: LaboratoryDTO) =>
+  (labWithRowsDTO: LabWithRowsDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_LAB_REQUEST_LOADING,
     });
 
-    labControllerApi.newLaboratory3UsingPOST({ laboratoryDTO }).subscribe(
+    labControllerApi.newLaboratoryUsingPOST({ labWithRowsDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_LAB_REQUEST_SUCCESS,
@@ -175,7 +175,7 @@ export const searchLabs =
         dateFrom: query.dateFrom ?? moment().toISOString(),
         examName: query.examName,
         patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
-        status: !isNaN(query.status) ? query.status : undefined,
+        status: query.status ?? undefined,
       })
       .subscribe(
         (payload) => {

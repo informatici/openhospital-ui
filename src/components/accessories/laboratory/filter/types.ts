@@ -1,3 +1,4 @@
+import { LaboratoryDTOStatusEnum } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 export interface IExamFilterProps {
@@ -5,14 +6,12 @@ export interface IExamFilterProps {
   onSubmit: (values: any) => void;
 }
 
-export type IStatus = -1 | 1 | 2;
-
 export type TFilterValues = {
   dateFrom?: string;
   dateTo?: string;
   examName?: string;
   patientCode?: number;
-  status?: IStatus;
+  status?: string;
 };
 
 export type TExamFilterValues = Record<ExamFilterFormFieldName, string>;

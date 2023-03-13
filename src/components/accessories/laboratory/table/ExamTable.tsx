@@ -56,9 +56,7 @@ export const ExamTable: FC<IExamTableProps> = ({
               ? e.laboratoryDTO?.result ?? ""
               : t("lab.multipleresults"),
           patientCode: e.laboratoryDTO?.patientCode ?? "",
-          status: e.laboratoryDTO?.result
-            ? t("lab.statustreated")
-            : t("lab.statusrequested"),
+          status: e.laboratoryDTO?.status,
         };
       });
     return results;
