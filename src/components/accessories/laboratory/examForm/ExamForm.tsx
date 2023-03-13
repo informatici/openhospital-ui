@@ -6,7 +6,13 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
-import { ExamDTO, LaboratoryDTO, PatientDTO } from "../../../../generated";
+import {
+  ExamDTO,
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+  LaboratoryDTOStatusEnum,
+  PatientDTO,
+} from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -32,6 +38,7 @@ import {
   deleteLabReset,
   updateLab,
   createLab,
+  getMaterials,
 } from "../../../../state/laboratories/actions";
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
@@ -59,6 +66,7 @@ const ExamForm: FC<ExamProps> = ({
 
   useEffect(() => {
     dispatch(getExams());
+    dispatch(getMaterials());
     dispatch(createLabReset());
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
@@ -88,6 +96,7 @@ const ExamForm: FC<ExamProps> = ({
       labStore.deleteLab.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
   const exams = useSelector((state: IState) => state.exams.examList.data);
 
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
@@ -99,8 +108,11 @@ const ExamForm: FC<ExamProps> = ({
     lab.age = patientData?.age;
     lab.date = parseDate(lab.date ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient = "R";
-    lab.material = "angal.lab.urine"; // material needs to be removed from backend env
+    lab.inOutPatient = patientData?.status
+      ? patientData.status === "O"
+        ? LaboratoryDTOInOutPatientEnum.O
+        : LaboratoryDTOInOutPatientEnum.I
+      : LaboratoryDTOInOutPatientEnum.O;
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;
@@ -143,6 +155,8 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
+    status: string().required(t("common.required")),
+    material: string().required(t("common.required")),
     result: string(),
     note: string().test({
       name: "maxLength",
@@ -172,7 +186,23 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
+  const materialsOptionsSelector = (materials: string[] | undefined) => {
+    if (materials) {
+      return materials.map((item) => {
+        let label = item ? t(item) : "";
+        return {
+          value: item ?? "",
+          label:
+            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
+        };
+      });
+    } else return [];
+  };
+
   const examList = useSelector((state: IState) => state.exams.examList.data);
+  const materialsList = useSelector(
+    (state: IState) => state.laboratories.materials.data
+  );
 
   const examRowOptionsSelector = (state: IState) => {
     if (state.exams.examRowsByExamCode.data) {
@@ -300,6 +330,15 @@ const ExamForm: FC<ExamProps> = ({
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 
+  const materialsLoading = useSelector(
+    (state: IState) => state.laboratories.materials.status === "LOADING"
+  );
+
+  const labStatusList = Object.values(LaboratoryDTOStatusEnum);
+  const statusOptions = labStatusList.map((status) => {
+    return { label: status as string, value: status as string };
+  });
+
   const isLoading =
     labStore.createLab.status === "LOADING" ||
     labStore.updateLab.status === "LOADING";
@@ -354,6 +393,31 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("exam")}
                 options={examOptionsSelector(examList)}
                 isLoading={examsLoading}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientExamForm__item">
+              <AutocompleteField
+                fieldName="material"
+                fieldValue={formik.values.material}
+                label={t("lab.material")}
+                isValid={isValid("material")}
+                errorText={getErrorText("material")}
+                onBlur={onBlurCallback("material")}
+                isLoading={materialsLoading}
+                options={materialsOptionsSelector(materialsList)}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientExamForm__item">
+              <AutocompleteField
+                fieldName="status"
+                fieldValue={formik.values.status}
+                label={t("lab.status")}
+                isValid={isValid("status")}
+                errorText={getErrorText("status")}
+                onBlur={onBlurCallback("status")}
+                options={statusOptions}
                 disabled={isLoading}
               />
             </div>

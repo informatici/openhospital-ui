@@ -15,6 +15,7 @@ export type ExamFormFieldName =
   | "patientCode"
   | "date"
   | "material"
+  | "status"
   | "result"
   | "note";
 

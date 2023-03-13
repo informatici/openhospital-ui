@@ -21,7 +21,10 @@ import {
   updateLab,
   updateLabReset,
 } from "../../../state/laboratories/actions";
-import { LaboratoryDTO } from "../../../generated";
+import {
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+} from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
 import { getExamRows, getExams } from "../../../state/exams/actions";
@@ -111,7 +114,11 @@ const PatientExams: FC = () => {
     lab.age = patientData?.age;
     lab.date = parseDate(lab.date ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient = "R";
+    lab.inOutPatient = patientData?.status
+      ? patientData.status === "O"
+        ? LaboratoryDTOInOutPatientEnum.O
+        : LaboratoryDTOInOutPatientEnum.I
+      : LaboratoryDTOInOutPatientEnum.O;
     lab.material = "angal.lab.urine";
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;

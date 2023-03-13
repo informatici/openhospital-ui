@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
-import { ExamDTO } from "../../../../generated";
+import { ExamDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -106,6 +106,31 @@ const ExamForm: FC<ExamProps> = ({
   const examRows = useSelector((state: IState) =>
     examRowOptionsSelector(state)
   );
+
+  const materialsLoading = useSelector(
+    (state: IState) => state.laboratories.materials.status === "LOADING"
+  );
+
+  const materialsOptionsSelector = (materials: string[] | undefined) => {
+    if (materials) {
+      return materials.map((item) => {
+        let label = item ? t(item) : "";
+        return {
+          value: item ?? "",
+          label:
+            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
+        };
+      });
+    } else return [];
+  };
+
+  const materialsList = useSelector(
+    (state: IState) => state.laboratories.materials.data
+  );
+
+  const statusOptions = Object.values(LaboratoryDTOStatusEnum).map((status) => {
+    return { label: status as string, value: status as string };
+  });
 
   const formik = useFormik({
     initialValues,
@@ -247,6 +272,31 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("exam")}
                 options={examOptionsSelector(examList)}
                 isLoading={examsLoading}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientExamForm__item">
+              <AutocompleteField
+                fieldName="material"
+                fieldValue={formik.values.material}
+                label={t("lab.material")}
+                isValid={isValid("material")}
+                errorText={getErrorText("material")}
+                onBlur={onBlurCallback("material")}
+                isLoading={materialsLoading}
+                options={materialsOptionsSelector(materialsList)}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientExamForm__item">
+              <AutocompleteField
+                fieldName="status"
+                fieldValue={formik.values.status}
+                label={t("lab.status")}
+                isValid={isValid("status")}
+                errorText={getErrorText("status")}
+                onBlur={onBlurCallback("status")}
+                options={statusOptions}
                 disabled={isLoading}
               />
             </div>

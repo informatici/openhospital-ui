@@ -665,6 +665,17 @@
       "adolescents": "Adolescents",
       "adult": "Adult",
       "elderly": "Elderly"
+    },
+    "lab": {
+      "undefined" : {"txt": "Undefined"},
+      "blood": {"txt": "Blood"},
+      "cfs": {"txt": "CFS"},
+      "film": {"txt": "FILM"},
+      "sputum":{"txt": "Sputum"},
+      "stool":{"txt": "Stool"},
+      "swabs":{"txt": "Swabs"},
+      "tissues":{"txt": "Tissues"},
+      "urine":{"txt": "Urine"}
     }
   }
 }

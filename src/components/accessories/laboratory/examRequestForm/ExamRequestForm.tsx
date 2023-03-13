@@ -8,7 +8,13 @@ import {
   parseDate,
 } from "../../../../libraries/formDataHandling/functions";
 import { object, string } from "yup";
-import { ExamDTO, LaboratoryDTO, PatientDTO } from "../../../../generated";
+import {
+  ExamDTO,
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+  LaboratoryDTOStatusEnum,
+  PatientDTO,
+} from "../../../../generated";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import {
@@ -113,12 +119,22 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     lab.age = patient?.age;
     lab.date = parseDate(lab.date ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient = "R";
-    lab.material = "angal.lab.urine"; // material needs to be removed from backend env
+    lab.inOutPatient = patientData?.status
+      ? patientData.status === "O"
+        ? LaboratoryDTOInOutPatientEnum.O
+        : LaboratoryDTOInOutPatientEnum.I
+      : LaboratoryDTOInOutPatientEnum.O;
+    lab.material = ""; // material needs to be removed from backend env
     lab.date = new Date().toISOString(); // Date will be modified when processing the exam request
     lab.result = "";
+    lab.status = LaboratoryDTOStatusEnum.DRAFT;
 
-    dispatch(createLabRequest(lab));
+    const labWithRowsDTO = {
+      laboratoryDTO: lab,
+      laboratoryRowList: [],
+    };
+
+    dispatch(createLabRequest(labWithRowsDTO));
   };
 
   const formik = useFormik({
