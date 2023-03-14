@@ -118,4 +118,5 @@ export enum LaboratoryDTOInOutPatientEnum {
 export enum LaboratoryDTOStatusEnum {
   DRAFT = "DRAFT",
   DONE = "DONE",
+  START = "START",
 }

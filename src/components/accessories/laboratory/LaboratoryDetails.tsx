@@ -163,6 +163,14 @@ export const LaboratoryDetails: FC = () => {
                     </div>
                   </div>
                 )}
+                <div className="labDetails__content__item">
+                  <div className="labDetails__content__item__label">
+                    {t("lab.status")}:
+                  </div>
+                  <div className="labDetails__content__item__value">
+                    {lab?.status ?? ""}
+                  </div>
+                </div>
               </div>
             </div>
             {lab?.note ? (
@@ -175,12 +183,11 @@ export const LaboratoryDetails: FC = () => {
                     }}
                   />
                   <span>{t("lab.note")}:</span>
+                  {lab.note}
                 </div>
                 <div className="labDetails__content__body">
                   <div className="labDetails__content__item_long_text">
-                    <div className="labDetails__content__item__value">
-                      {lab.note}
-                    </div>
+                    <div className="labDetails__content__item__value"></div>
                   </div>
                 </div>
               </div>
