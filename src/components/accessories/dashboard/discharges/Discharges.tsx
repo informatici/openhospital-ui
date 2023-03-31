@@ -2,7 +2,7 @@ import { Skeleton } from "@material-ui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdmissions } from "../../../../state/admissions/actions";
+import { getDischarges } from "../../../../state/admissions/actions";
 import { getAgeTypes } from "../../../../state/ageTypes/actions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getWards } from "../../../../state/ward/actions";
@@ -31,7 +31,7 @@ export const Discharges: FC<IOwnProps> = ({ period }) => {
 
   useEffect(() => {
     dispatch(
-      getAdmissions({
+      getDischarges({
         dischargerange: period,
       })
     );
@@ -41,7 +41,7 @@ export const Discharges: FC<IOwnProps> = ({ period }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getAdmissions({ dischargerange: period }));
+    dispatch(getDischarges({ dischargerange: period }));
   }, [period]);
 
   return (
