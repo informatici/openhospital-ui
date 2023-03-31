@@ -2870,61 +2870,131 @@ paths:
       security:
         - JWT: []
       deprecated: false
-  /laboratories/examrequest:
+  /laboratories/examRequest:
     get:
       tags:
-        - laboratory-controller
-      summary: getLaboratoryExamRequest
-      operationId: getLaboratoryExamRequestUsingGET_1
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/LaboratoryDTO"
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      security:
-        - JWT: []
-      deprecated: false
-  /laboratories/examrequest/{patId}:
-    get:
-      tags:
-        - laboratory-controller
+      - laboratory-controller
       summary: getLaboratoryExamRequest
       operationId: getLaboratoryExamRequestUsingGET
       produces:
-        - application/json
-      parameters:
-        - name: patId
-          in: path
-          description: patId
-          required: true
-          type: integer
-          format: int32
+      - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: array
             items:
-              $ref: "#/definitions/LaboratoryDTO"
-        "401":
+              "$ref": "#/definitions/LaboratoryDTO"
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT:
+        - global
+    post:
+      tags:
+      - laboratory-controller
+      summary: newExamRequest
+      operationId: newExamRequestUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: laboratoryDTO
+        description: laboratoryDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/LaboratoryDTO"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+  /laboratories/examRequest/{code}:
+    put:
+      tags:
+      - laboratory-controller
+      summary: updateExamRequest
+      operationId: updateExamRequestUsingPUT
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: code
+        required: true
+        type: integer
+        format: int32
+      - name: status
+        in: query
+        description: status
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+  /laboratories/examRequest/{patId}:
+    get:
+      tags:
+      - laboratory-controller
+      summary: getLaboratoryExamRequest
+      operationId: getLaboratoryExamRequestUsingGET_1
+      produces:
+      - application/json
+      parameters:
+      - name: patId
+        in: path
+        description: patId
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/LaboratoryDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
   /laboratories/exams:
     get:
       tags:
@@ -8688,52 +8758,53 @@ definitions:
   LaboratoryDTO:
     type: object
     properties:
-      code:
-        type: integer
-        format: int32
-        description: Laboratory Code
-      lock:
-        type: integer
-        format: int32
-        description: Laboratory Code
-      material:
-        type: string
-        description: Laboratory Material
-      exam:
-        description: Laboratory Exam
-        $ref: "#/definitions/ExamDTO"
-      registrationDate:
-        type: string
-        example: "2020-03-19T14:58:00.000Z"
-        description: Laboratory Registration Date
-      date:
-        type: string
-        example: "2020-03-19T14:58:00.000Z"
-        description: Laboratory Exam Date
-      result:
-        type: string
-        description: Laboratory Result
-      note:
-        type: string
-        description: Laboratory Note
-      patientCode:
-        type: integer
-        format: int32
-        description: Laboratory Patient Code
-      patName:
-        type: string
-        description: Laboratory Patient Name
-      inOutPatient:
-        type: string
-        example: O
-        description: Laboratory Patient InOut
-        enum:
-          - I
-          - O
       age:
         type: integer
         format: int32
         description: Laboratory Patient Age
+      code:
+        type: integer
+        format: int32
+        description: Laboratory Code
+      date:
+        type: string
+        format: date-time
+        description: Laboratory Exam Date
+      exam:
+        description: Laboratory Exam
+        "$ref": "#/definitions/ExamDTO"
+      inOutPatient:
+        type: string
+        example: 0
+        description: Laboratory Patient InOut
+        enum:
+        - I
+        - O
+      lock:
+        type: integer
+        format: int32
+        example: 0
+        description: lock
+      material:
+        type: string
+        description: Blood
+      note:
+        type: string
+        description: Note by laboratorist
+      patName:
+        type: string
+        description: Laboratory Patient Name
+      patientCode:
+        type: integer
+        format: int32
+        description: Laboratory Patient Code
+      registrationDate:
+        type: string
+        format: date-time
+        description: Laboratory Registration Date
+      result:
+        type: string
+        description: Laboratory Result
       sex:
         type: string
         example: M
@@ -8741,11 +8812,11 @@ definitions:
       status:
         type: string
         example: DRAFT
-        description: laboratory status
+        description: Laboratory status
         enum:
-          - DRAFT
-          - DONE
-          - START
+        - DONE
+        - DRAFT
+        - OPEN
     title: LaboratoryDTO
   LaboratoryForPrintDTO:
     type: object

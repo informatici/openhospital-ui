@@ -31,7 +31,7 @@ export interface GetLaboratoryByIdUsingGETRequest {
     code: number;
 }
 
-export interface GetLaboratoryExamRequestUsingGETRequest {
+export interface GetLaboratoryExamRequestUsingGET1Request {
     patId: number;
 }
 
@@ -47,12 +47,21 @@ export interface GetLaboratoryUsingGETRequest {
     patId: number;
 }
 
+export interface NewExamRequestUsingPOSTRequest {
+    laboratoryDTO: LaboratoryDTO;
+}
+
 export interface NewLaboratory2UsingPOSTRequest {
     labsWithRows: Array<LabWithRowsDTO>;
 }
 
 export interface NewLaboratoryUsingPOSTRequest {
     labWithRowsDTO: LabWithRowsDTO;
+}
+
+export interface UpdateExamRequestUsingPUTRequest {
+    code: number;
+    status: string;
 }
 
 export interface UpdateLaboratoryUsingPUTRequest {
@@ -125,17 +134,15 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * getLaboratoryExamRequest
      */
-    getLaboratoryExamRequestUsingGET({ patId }: GetLaboratoryExamRequestUsingGETRequest): Observable<Array<LaboratoryDTO>>
-    getLaboratoryExamRequestUsingGET({ patId }: GetLaboratoryExamRequestUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
-    getLaboratoryExamRequestUsingGET({ patId }: GetLaboratoryExamRequestUsingGETRequest, opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
-        throwIfNullOrUndefined(patId, 'patId', 'getLaboratoryExamRequestUsingGET');
-
+    getLaboratoryExamRequestUsingGET(): Observable<Array<LaboratoryDTO>>
+    getLaboratoryExamRequestUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryExamRequestUsingGET(opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<LaboratoryDTO>>({
-            url: '/laboratories/examrequest/{patId}'.replace('{patId}', encodeURI(patId)),
+            url: '/laboratories/examRequest',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -144,15 +151,17 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * getLaboratoryExamRequest
      */
-    getLaboratoryExamRequestUsingGET1(): Observable<Array<LaboratoryDTO>>
-    getLaboratoryExamRequestUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
-    getLaboratoryExamRequestUsingGET1(opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
+    getLaboratoryExamRequestUsingGET1({ patId }: GetLaboratoryExamRequestUsingGET1Request): Observable<Array<LaboratoryDTO>>
+    getLaboratoryExamRequestUsingGET1({ patId }: GetLaboratoryExamRequestUsingGET1Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryExamRequestUsingGET1({ patId }: GetLaboratoryExamRequestUsingGET1Request, opts?: OperationOpts): Observable<Array<LaboratoryDTO> | RawAjaxResponse<Array<LaboratoryDTO>>> {
+        throwIfNullOrUndefined(patId, 'patId', 'getLaboratoryExamRequestUsingGET1');
+
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<LaboratoryDTO>>({
-            url: '/laboratories/examrequest',
+            url: '/laboratories/examRequest/{patId}'.replace('{patId}', encodeURI(patId)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -242,6 +251,27 @@ export class LaboratoryControllerApi extends BaseAPI {
     };
 
     /**
+     * newExamRequest
+     */
+    newExamRequestUsingPOST({ laboratoryDTO }: NewExamRequestUsingPOSTRequest): Observable<boolean>
+    newExamRequestUsingPOST({ laboratoryDTO }: NewExamRequestUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    newExamRequestUsingPOST({ laboratoryDTO }: NewExamRequestUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(laboratoryDTO, 'laboratoryDTO', 'newExamRequestUsingPOST');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<boolean>({
+            url: '/laboratories/examRequest',
+            method: 'POST',
+            headers,
+            body: laboratoryDTO,
+        }, opts?.responseOpts);
+    };
+
+    /**
      * newLaboratory2
      */
     newLaboratory2UsingPOST({ labsWithRows }: NewLaboratory2UsingPOSTRequest): Observable<ResponseEntity>
@@ -280,6 +310,31 @@ export class LaboratoryControllerApi extends BaseAPI {
             method: 'POST',
             headers,
             body: labWithRowsDTO,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * updateExamRequest
+     */
+    updateExamRequestUsingPUT({ code, status }: UpdateExamRequestUsingPUTRequest): Observable<boolean>
+    updateExamRequestUsingPUT({ code, status }: UpdateExamRequestUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateExamRequestUsingPUT({ code, status }: UpdateExamRequestUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'updateExamRequestUsingPUT');
+        throwIfNullOrUndefined(status, 'status', 'updateExamRequestUsingPUT');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'status': status,
+        };
+
+        return this.request<boolean>({
+            url: '/laboratories/examRequest/{code}'.replace('{code}', encodeURI(code)),
+            method: 'PUT',
+            headers,
+            query,
         }, opts?.responseOpts);
     };
 
