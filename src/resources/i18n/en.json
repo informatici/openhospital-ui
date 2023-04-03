@@ -493,7 +493,8 @@
     "statusall": "All",
     "statusrequested": "Requested",
     "statustreated": "Treated",
-    "patientrequestedexam": "Requested exams for the patient"
+    "patientrequestedexam": "Requested exams for the patient",
+    "statusmustbedone": "Exam status must be 'DONE' if results are provided"
   },
   "admission": {
     "admDate": "Date",

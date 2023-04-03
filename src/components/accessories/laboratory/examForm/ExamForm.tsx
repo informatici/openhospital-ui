@@ -121,6 +121,7 @@ const ExamForm: FC<ExamProps> = ({
       laboratoryDTO: lab,
       laboratoryRowList: rows,
     };
+
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));
     } else {
@@ -155,7 +156,25 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    status: string().required(t("common.required")),
+    status: string()
+      .required(t("common.required"))
+      .test({
+        name: "results",
+        message: t("lab.statusmustbedone"),
+        test: function (value) {
+          console.log(rowsData);
+          console.log(this.parent.result);
+
+          if (
+            rowsData.length > 0 ||
+            (this.parent.result && this.parent.result.length > 0)
+          ) {
+            return value === LaboratoryDTOStatusEnum.DONE;
+          } else {
+            return value !== LaboratoryDTOStatusEnum.DONE;
+          }
+        },
+      }),
     material: string().required(t("common.required")),
     result: string(),
     note: string().test({
@@ -282,6 +301,11 @@ const ExamForm: FC<ExamProps> = ({
           setFieldValue(fieldName, value);
           if (fieldName === "exam") {
             setCurrentExamCode(value);
+          }
+
+          // Clear rowsData variable for exam status validation
+          if (fieldName === "result") {
+            setRowsData([]);
           }
         } else {
           setFieldValue(fieldName, value?.code ?? "");
