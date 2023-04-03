@@ -1,9 +1,11 @@
 import { hospitalDTO } from "../fixtures/hospitalDTO";
-import { wards } from "../fixtures/wardDTO";
 
-export const wardsRoutes = (server) => {
+export const hospitalRoutes = (server) => {
   server.namespace("/hospitals", () => {
     server.get("/").intercept((req, res) => {
+      res.status(200).json(hospitalDTO);
+    });
+    server.get("/:code").intercept((req, res) => {
       const code = req.params.code;
       switch (code) {
         case "1":

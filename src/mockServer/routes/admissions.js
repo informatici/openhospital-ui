@@ -54,7 +54,7 @@ export const admissionRoutes = (server) => {
     server.get("/").intercept((req, res) => {
       res.status(200).json(admissions);
     });
-    server.get("/{patientCode}").intercept((req, res) => {
+    server.get("/:patientCode").intercept((req, res) => {
       const code = req.query.patientCode;
       switch (code) {
         case "10000":
