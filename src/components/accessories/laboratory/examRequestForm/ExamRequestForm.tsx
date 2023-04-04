@@ -129,12 +129,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     lab.result = "";
     lab.status = LaboratoryDTOStatusEnum.DRAFT;
 
-    const labWithRowsDTO = {
-      laboratoryDTO: lab,
-      laboratoryRowList: [],
-    };
-
-    dispatch(createLabRequest(labWithRowsDTO));
+    dispatch(createLabRequest(lab));
   };
 
   const formik = useFormik({

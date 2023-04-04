@@ -77,13 +77,13 @@ export const createLab =
   };
 
 export const createLabRequest =
-  (labWithRowsDTO: LabWithRowsDTO) =>
+  (laboratoryDTO: LaboratoryDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_LAB_REQUEST_LOADING,
     });
 
-    labControllerApi.newLaboratoryUsingPOST({ labWithRowsDTO }).subscribe(
+    labControllerApi.newExamRequestUsingPOST({ laboratoryDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_LAB_REQUEST_SUCCESS,
@@ -112,6 +112,36 @@ export const createLabReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_LAB_RESET,
+    });
+  };
+
+export const updateLabStatus =
+  (code: number, status: string) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_LAB_LOADING,
+    });
+    labControllerApi.updateExamRequestUsingPUT({ code, status }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_LAB_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_LAB_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const updateLabStatusReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_LAB_RESET,
     });
   };
 
@@ -251,7 +281,7 @@ export const getLabsRequestByPatientId =
       type: GET_LABS_REQUEST_LOADING,
     });
     if (patId) {
-      labControllerApi.getLaboratoryExamRequestUsingGET({ patId }).subscribe(
+      labControllerApi.getLaboratoryExamRequestUsingGET1({ patId }).subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
