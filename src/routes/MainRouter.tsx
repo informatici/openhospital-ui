@@ -5,6 +5,7 @@ import Dashboard from "../components/accessories/dashboard/Dashboard";
 import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
+import ForgotActivity from "../components/activities/forgotActivity/ForgotActivity";
 import NotFound from "../components/activities/notFound/NotFound";
 import VisitsActivity from "../components/activities/visitsActivity/VisitsActivity";
 import { Private } from "../components/Private";
@@ -25,6 +26,10 @@ export const MainRouter: React.FC = () => {
               <LoginActivity />
             </RedirectAfterLogin>
           }
+        />
+        <Route 
+          path="forgot"
+          element={<ForgotActivity />}
         />
 
         <Route element={<Private />}>

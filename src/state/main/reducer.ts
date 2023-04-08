@@ -3,6 +3,8 @@ import {
   SET_AUTHENTICATION_FAIL,
   SET_AUTHENTICATION_LOADING,
   SET_AUTHENTICATION_SUCCESS,
+  SET_FORGOT_PASSWORD_LOADING,
+  SET_FORGOT_PASSWORD_SUCCESS,
   SET_LOGOUT_FAIL,
   SET_LOGOUT_LOADING,
   SET_LOGOUT_SUCCESS,
@@ -41,6 +43,14 @@ export default produce((draft: IMainState, action: any) => {
     }
     case SET_LOGOUT_LOADING: {
       draft.logout.status = "LOADING";
+      break;
+    }
+    case SET_FORGOT_PASSWORD_LOADING: {
+      draft.forgotpassword.status = "LOADING";
+      break;
+    }
+    case SET_FORGOT_PASSWORD_SUCCESS: {
+      draft.forgotpassword.status = "SUCCESS";
       break;
     }
   }

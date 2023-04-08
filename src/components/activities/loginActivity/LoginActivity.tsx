@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { InputAdornment } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import { RemoveRedEye } from "@material-ui/icons";
 import classNames from "classnames";
@@ -55,7 +56,7 @@ const LoginActivity: FC = () => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
   const errorType = useSelector<IState>(
-    (state) => state.main.authentication.error?.description
+    (state) => state.main.authentication.error?.description || "unknown error"
   );
 
   const status = useSelector<IState>(
@@ -64,7 +65,7 @@ const LoginActivity: FC = () => {
 
   useEffect(() => {
     dispatch(getHospital());
-  }, [dispatch, getHospital]);
+  }, [dispatch]);
 
   const hospital = useSelector<IState>(
     (state) => state.hospital.getHospital.data
@@ -140,13 +141,15 @@ const LoginActivity: FC = () => {
                 {t("login.login")}
               </Button>
             </div>
-            <div>
+          </form>
+          <div>
+            <RouterLink to="/forgot">
               <Link className="login__panel__resetPassword" component="button">
                 {t("login.forgotpassword")}
               </Link>
-            </div>
-            &emsp;
-          </form>
+            </RouterLink>
+          </div>
+          &emsp;
         </div>
       </div>
       <Footer />

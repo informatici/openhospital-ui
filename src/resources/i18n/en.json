@@ -9,13 +9,19 @@
     "password": "Password",
     "incorrectcredentials": "Invalid username or password",
     "forgotpassword": "Forgot the password?",
+    "insertavalidemail": "Insert a valid user email address",
     "insertavalidusername": "Insert a valid user name",
     "insertthepassword": "Insert the password",
     "login": "Login",
     "signout": "Logout",
     "signoutText": "Are you sure you want to Logout?",
     "passwordtooshort": "Password too short",
-    "signin": "Sign in"
+    "signin": "Sign in",
+    "forgottitle": "Reset your password",
+    "forgotdescription": "Type the email you used to sign up and we'll send you a password reset email.",
+    "forgotsuccess": "We'll send you an email if it's associated with your account.",
+    "email": "Email Address",
+    "takemeback": "Take me back to login"
   },
   "dashboard": {
     "welcomename": "Welcome",
