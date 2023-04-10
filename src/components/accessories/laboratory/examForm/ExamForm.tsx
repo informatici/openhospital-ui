@@ -162,9 +162,6 @@ const ExamForm: FC<ExamProps> = ({
         name: "results",
         message: t("lab.statusmustbedone"),
         test: function (value) {
-          console.log(rowsData);
-          console.log(this.parent.result);
-
           if (
             rowsData.length > 0 ||
             (this.parent.result && this.parent.result.length > 0)
