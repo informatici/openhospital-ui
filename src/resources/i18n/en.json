@@ -397,7 +397,8 @@
       "lastmonth": "Last Month",
       "thisyear": "This Year",
       "lastyear": "Last Year"
-    }
+    },
+    "continue": "Continue ?"
   },
   "permission": {
     "denied": "Permission denied",
@@ -494,7 +495,15 @@
     "statusrequested": "Requested",
     "statustreated": "Treated",
     "patientrequestedexam": "Requested exams for the patient",
-    "statusmustbedone": "Exam status must be 'DONE' if results are provided"
+    "statusmustbedone": "Exam status must be 'DONE' if results are provided",
+    "changestatus": "Change Exam Status",
+    "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
+    "statuses" : {
+      "DRAFT" : "DRAFT",
+      "ALL" : "ALL",
+      "OPEN" : "OPEN",
+      "DONE" : "DONE"
+    }
   },
   "admission": {
     "admDate": "Date",
