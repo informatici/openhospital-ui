@@ -45,6 +45,38 @@ export const parseDate = (raw: string) => {
   }
 };
 
+export const fixFilterDateFrom = (date: string | Date): string => {
+  let dateFrom: string;
+
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
+
+  date.setUTCHours(0);
+  date.setUTCMinutes(0);
+  date.setUTCSeconds(0);
+
+  dateFrom = date.toISOString();
+
+  return dateFrom;
+};
+
+export const fixFilterDateTo = (date: string | Date): string => {
+  let dateTo: string;
+
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
+
+  date.setUTCHours(23);
+  date.setUTCMinutes(59);
+  date.setUTCSeconds(0);
+
+  dateTo = date.toISOString();
+
+  return dateTo;
+};
+
 export const formatAllFieldValues = (
   fields: TFields,
   values: Record<string, string>

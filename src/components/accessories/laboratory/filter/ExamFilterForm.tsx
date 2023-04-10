@@ -21,6 +21,8 @@ import {
 import {
   getFromFields,
   formatAllFieldValues,
+  fixFilterDateFrom,
+  fixFilterDateTo,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
@@ -116,6 +118,15 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
         fields,
         values
       ) as TFilterValues;
+
+      if (formattedValues.dateFrom) {
+        formattedValues.dateFrom = fixFilterDateFrom(formattedValues.dateFrom);
+      }
+
+      if (formattedValues.dateTo) {
+        formattedValues.dateTo = fixFilterDateTo(formattedValues.dateTo);
+      }
+
       onSubmit(formattedValues);
     },
   });
