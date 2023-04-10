@@ -35,6 +35,11 @@ describe("Patient Details / Exams", () => {
   });
 
   it("should display an error info box if the exam creation call fails", () => {
+    cy.get("[id='status']").focus().clear().type("DONE");
+    cy.get("li[data-option-index='0']").contains("DONE").then((option) => {
+      option[0].click();
+    });
+
     cy.get("[id='note']").focus().clear().type("ERROR").blur();
 
     cy.get("[class='submit_button']").eq(1).click();

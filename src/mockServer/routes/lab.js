@@ -20,7 +20,7 @@ export const labRoutes = (server) => {
       }
     });
 
-    server.get("/examrequest/:patId").intercept((req, res) => {
+    server.get("/examRequest/:patId").intercept((req, res) => {
       const code = req.params.patId;
       switch (code) {
         case "1000":
@@ -102,7 +102,7 @@ export const labRoutes = (server) => {
       }
     });
 
-    server.post("/examrequest").intercept((req, res) => {
+    server.post("/examRequest").intercept((req, res) => {
       const body = req.jsonBody();
       res.status(201).json({ laboratoryDTO: body.laboratoryDTO });
     });

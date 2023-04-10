@@ -61,6 +61,22 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
+    status: string()
+      .required(t("common.required"))
+      .test({
+        name: "results",
+        message: t("lab.statusmustbedone"),
+        test: function (value) {
+          if (
+            rowsData.length > 0 ||
+            (this.parent.result && this.parent.result.length > 0)
+          ) {
+            return value === LaboratoryDTOStatusEnum.DONE;
+          } else {
+            return value !== LaboratoryDTOStatusEnum.DONE;
+          }
+        },
+      }),
     result: string(),
     note: string().test({
       name: "maxLength",
@@ -194,6 +210,11 @@ const ExamForm: FC<ExamProps> = ({
         setFieldValue(fieldName, value);
         if (fieldName === "exam") {
           setCurrentExamCode(value);
+        }
+
+        // Clear rowsData variable for exam status validation
+        if (fieldName === "result") {
+          setRowsData([]);
         }
       },
     [setFieldValue, handleBlur]
