@@ -17,9 +17,10 @@ x-mariadb: &mariadb-env
   MARIADB_PASSWORD: isf123
   OH_DEMO_LANG: en
 x-ui: &ui-env
+  <<: *repository-args
   PUBLIC_URL: /
   REACT_APP_USE_MOCK_API:
-  REACT_APP_BASE_PATH: http://localhost:${API_PORT}/oh-api
+  REACT_APP_BASE_PATH: http://localhost:8080
 x-pg-admin: &pg-admin-env
   PMA_HOST: "database"
   PMA_PORT: 3306
