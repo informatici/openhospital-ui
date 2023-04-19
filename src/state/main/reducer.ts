@@ -8,6 +8,7 @@ import {
   SET_LOGOUT_FAIL,
   SET_LOGOUT_LOADING,
   SET_LOGOUT_SUCCESS,
+  RESET_FORGOT_PASSWORD,
 } from "./consts";
 import { initial } from "./initial";
 import { IMainState } from "./types";
@@ -52,6 +53,11 @@ export default produce((draft: IMainState, action: any) => {
     case SET_FORGOT_PASSWORD_SUCCESS: {
       draft.forgotpassword.status = "SUCCESS";
       break;
+    }
+    case RESET_FORGOT_PASSWORD: {
+      draft.authentication.status = "IDLE";
+      draft.authentication.data = undefined;
+      draft.forgotpassword.status = "IDLE";
     }
   }
 }, initial);

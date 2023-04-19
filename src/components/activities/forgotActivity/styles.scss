@@ -81,8 +81,11 @@
     }
 
     .forgot__back {
-      color: $c-black;
       margin-top: 10px;
+      color: $c-black;
+      a, button {
+        color: $c-black;
+      }
     }
 
   }

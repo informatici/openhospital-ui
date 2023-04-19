@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useCallback } from "react";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -12,8 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
-import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
-import { setForgotPasswordThunk } from "../../../state/main/actions";
+import { setForgotPasswordThunk, resetForgotPasswordThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -23,25 +22,29 @@ import { IValues } from "./types";
 import { getHospital } from "../../../state/hospital/actions";
 
 const ForgotActivity: FC = () => {
-  useAuthentication();
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const initialValues: IValues = {
-    email: "",
+    username: "",
   };
 
   const validationSchema = object({
-    email: string().required(t("login.insertavalidemail")),
+    username: string().required(t("login.insertavalidusername")),
   });
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      dispatch(setForgotPasswordThunk(values.email));
+      dispatch(setForgotPasswordThunk(values.username));
     },
   });
+
+  const onResetForgotPassword = useCallback(() => {
+    dispatch(resetForgotPasswordThunk())
+  }, [dispatch])
+
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -87,12 +90,11 @@ const ForgotActivity: FC = () => {
               <>
                 <div className="forgot__panel__textField">
                 <TextField
-                  type="email"
-                  field={formik.getFieldProps("email")}
+                  field={formik.getFieldProps("username")}
                   theme="regular"
-                  label={t("login.email")}
-                  isValid={isValid("email")}
-                  errorText={getErrorText("email")}
+                  label={t("login.username")}
+                  isValid={isValid("username")}
+                  errorText={getErrorText("username")}
                   onBlur={formik.handleBlur}
                 />
               </div>
@@ -116,12 +118,20 @@ const ForgotActivity: FC = () => {
             </>
             )}
           </form>
-          <div>
+          <div className="forgot__back">
             <RouterLink to="/login">
-              <Link className="forgot__back" component="button">
+              <Link component="button">
                 {t("login.takemeback")}
               </Link>
             </RouterLink>
+            {status !== "IDLE" && (
+              <>
+                <span> | </span>
+                <Link onClick={onResetForgotPassword} component="button">
+                  {t("login.tryanotherusername")}
+                </Link>
+              </>
+            )}
           </div>
           &emsp;
         </div>

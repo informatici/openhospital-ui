@@ -29,6 +29,7 @@ import {
   SET_LOGOUT_SUCCESS,
   SET_FORGOT_PASSWORD_LOADING,
   SET_FORGOT_PASSWORD_SUCCESS,
+  RESET_FORGOT_PASSWORD,
 } from "./consts";
 import { IAuthentication } from "./types";
 
@@ -136,15 +137,15 @@ type ForgotPasswordResponse = {
 };
 
 export const setForgotPasswordThunk =
-  (email: string) =>
+  (username: string) =>
   (dispatch: Dispatch<IAction<ForgotPasswordResponse, {}>>): void => {
     dispatch({
       type: SET_FORGOT_PASSWORD_LOADING,
     });
 
-    console.log("email", email);
+    console.log("username", username);
     // const loginRequest: ForgotPasswordRequest = {
-    //   email,
+    //   username,
     // };
 
     window.setTimeout(() => {
@@ -155,4 +156,12 @@ export const setForgotPasswordThunk =
         } as ForgotPasswordResponse,
       });
     }, 500);
+  };
+
+export const resetForgotPasswordThunk =
+  () =>
+  (dispatch: Dispatch<IAction<ForgotPasswordResponse, {}>>): void => {
+    dispatch({
+      type: RESET_FORGOT_PASSWORD,
+    });
   };
