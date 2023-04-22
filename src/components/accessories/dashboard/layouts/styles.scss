@@ -1,0 +1,31 @@
+.droppable-element {
+  /* width: 200px; */
+  text-align: center;
+  /* background: #fdd; */
+  /* border: 1px solid black; */
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.DashboardCard-item-header {
+  cursor: move;
+}
+
+.grid-item {
+  height: 100%;
+  padding: 10px;
+}
+
+.DashboardCard-item {
+  height: 100%;
+  width: 100%;
+}
+
+.DashboardCard-item-content {
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

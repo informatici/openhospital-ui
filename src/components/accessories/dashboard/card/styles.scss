@@ -1,9 +1,30 @@
-.MuiListItemIcon-root {
-  min-width: 30px;
-}
+.DashboardCard-item{
 
-.download-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+  .DashboardCard-item-header {
+    padding: 1px 16px 8px 16px;
+    align-items: center;
+  }
+
+  .DashboardCard-item-content {
+    padding-top: 0;
+    padding-bottom: 0 !important;
+  }
+
+  .MuiListItemIcon-root {
+    min-width: 30px !important;
+  }
+  
+  .download-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .MuiCardHeader-action {
+    margin-top: 0;
+
+    .MuiIconButton-root {
+      padding: 5px !important;
+    }
+  }
 }

@@ -10,6 +10,8 @@ import { Opds } from "../opds/Opds";
 import { DashboardFilter } from "./filter/DashboardFilter";
 import { SideContent } from "./SideContent";
 import "./styles.scss";
+import { GridLayoutToolbox } from "../layouts/toolbox/GridLayoutToolBox";
+import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
 
 export const DashboardContent: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -37,11 +39,11 @@ export const DashboardContent: FunctionComponent = () => {
             <DashboardFilter onPeriodChange={handlePeriodChange} />
           </div>
           <div className="dashboard__main-body">
-            <Tabs config={patientSummaryTabs} />
+            <GridLayoutContainer />
           </div>
         </div>
         <div className="dashboard__main-side">
-          <SideContent />
+          <GridLayoutToolbox />
         </div>
       </div>
     </div>

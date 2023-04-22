@@ -1,0 +1,48 @@
+@import "../../../../../styles/variables";
+@import "../../../../../../node_modules/susy/sass/susy";
+
+.side {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 480px;
+  background-color: $c-gray;
+  border-radius: 5px;
+  padding: 16px;
+  row-gap: 12px;
+  .side__header {
+    display: flex;
+    column-gap: 8px;
+    width: 100%;
+    padding: 10px;
+    background-color: lighten($c-gray, 5%);
+    border-radius: 8px;
+    .side__header_avatar {
+      height: 100%;
+      border-radius: 100%;
+      aspect-ratio: 1;
+      background-color: lighten($c-gray, 15%);
+    }
+    & > div {
+      span {
+        color: lighten($c-gray, 50%);
+        font-weight: bold;
+        font-size: large;
+      }
+    }
+  }
+  .side__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    .section {
+      display: flex;
+      flex-direction: column;
+      row-gap: 4px;
+      .Toolbox-item-button {
+        width: 100%;
+      }
+    }
+  }
+}
