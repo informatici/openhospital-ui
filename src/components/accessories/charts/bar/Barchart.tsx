@@ -3,7 +3,10 @@ import { Bar } from "react-chartjs-2";
 import { IOwnProps } from "./types";
 import "./styles.scss";
 
-export const Barchart: FC<IOwnProps> = ({ data, title }) => {
+export const Barchart: FC<IOwnProps> = ({ data, title, width, height }) => {
+  const defaultHeight = "320px";
+  const defaultWidth = "400px";
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -17,5 +20,17 @@ export const Barchart: FC<IOwnProps> = ({ data, title }) => {
       },
     },
   };
-  return <Bar className="bar" options={options} data={data}></Bar>;
+  return (
+    <Bar
+      className="bar"
+      width={width ?? defaultWidth}
+      height={height ?? defaultHeight}
+      options={options}
+      style={{
+        maxHeight: height ?? defaultHeight,
+        maxWidth: width ?? defaultWidth,
+      }}
+      data={data}
+    ></Bar>
+  );
 };
