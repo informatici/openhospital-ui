@@ -2,48 +2,53 @@ import produce from "immer";
 import { ILayoutsState } from "./types";
 import { IAction } from "../types";
 import {
-  CREATE_LAYOUTS_FAIL,
-  CREATE_LAYOUTS_LOADING,
-  CREATE_LAYOUTS_RESET,
-  CREATE_LAYOUTS_SUCCESS,
+  SAVE_LAYOUTS_FAIL,
+  SAVE_LAYOUTS_LOADING,
+  SAVE_LAYOUTS_RESET,
+  SAVE_LAYOUTS_SUCCESS,
   GET_LAYOUTS_FAIL,
   GET_LAYOUTS_LOADING,
   GET_LAYOUTS_RESET,
   GET_LAYOUTS_SUCCESS,
   GET_LAYOUTS_SUCCESS_EMPTY,
+  RESET_LAYOUTS_BREAKPOINT,
   RESET_LAYOUTS_FAIL,
   RESET_LAYOUTS_LOADING,
   RESET_LAYOUTS_RESET,
   RESET_LAYOUTS_SUCCESS,
+  RESET_LAYOUTS_TOOLBOX,
+  SET_LAYOUTS_BREAKPOINT,
+  SET_LAYOUTS_TOOLBOX,
 } from "./consts";
+import { initial } from "./initial";
 
 export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
   switch (action.type) {
     /**
      * Save Layouts Config
      */
-    case CREATE_LAYOUTS_LOADING: {
-      draft.createLayouts.status = "LOADING";
+    case SAVE_LAYOUTS_LOADING: {
+      draft.saveLayouts.status = "LOADING";
       break;
     }
 
-    case CREATE_LAYOUTS_SUCCESS: {
-      draft.createLayouts.status = "SUCCESS";
-      draft.createLayouts.data = action.payload;
+    case SAVE_LAYOUTS_SUCCESS: {
+      draft.saveLayouts.status = "SUCCESS";
+      draft.saveLayouts.data = action.payload;
       draft.getLayouts.data = action.payload;
-      delete draft.createLayouts.error;
+      delete draft.saveLayouts.error;
       break;
     }
 
-    case CREATE_LAYOUTS_FAIL: {
-      draft.createLayouts.status = "FAIL";
-      draft.createLayouts.error = action.error;
+    case SAVE_LAYOUTS_FAIL: {
+      draft.saveLayouts.status = "FAIL";
+      draft.saveLayouts.error = action.error;
       break;
     }
 
-    case CREATE_LAYOUTS_RESET: {
-      draft.createLayouts.status = "IDLE";
-      delete draft.createLayouts.error;
+    case SAVE_LAYOUTS_RESET: {
+      draft.saveLayouts.status = "IDLE";
+      delete draft.saveLayouts.error;
       break;
     }
 
@@ -108,5 +113,32 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
       delete draft.resetLayouts.error;
       break;
     }
+
+    /**
+     * Toolbox
+     */
+    case RESET_LAYOUTS_TOOLBOX: {
+      draft.toolbox = {};
+      break;
+    }
+
+    case SET_LAYOUTS_TOOLBOX: {
+      draft.toolbox = action.payload;
+    }
+
+    /**
+     * Breakpoint
+     */
+    case RESET_LAYOUTS_BREAKPOINT: {
+      draft.breakpoint = "md";
+      break;
+    }
+
+    case SET_LAYOUTS_BREAKPOINT: {
+      draft.breakpoint = action.payload;
+      console.log(draft.breakpoint);
+
+      break;
+    }
   }
-});
+}, initial);
