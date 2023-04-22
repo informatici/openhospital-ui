@@ -1,7 +1,9 @@
 import { ILayoutsState } from "./types";
 
 export const initial: ILayoutsState = {
-  createLayouts: { status: "IDLE" },
-  getLayouts: { status: "IDLE", data: [] },
+  saveLayouts: { status: "IDLE" },
+  getLayouts: { status: "IDLE" },
   resetLayouts: { status: "IDLE" },
+  toolbox: undefined,
+  breakpoint: "md",
 };
