@@ -54,7 +54,7 @@ export const useDisByAgeTypeData = () => {
 
   const csvData = [
     ...ageTypes.map((e) => ({
-      [t("common.agetype")]: t(`patient.agetypes.${e.code ?? ""}`),
+      [t("patient.agetype")]: t(`patient.agetypes.${e.code ?? ""}`),
       [t("common.male")]: admissions.filter(
         (adm) => adm.patient?.agetype === e.code && adm.patient?.sex === "M"
       ).length,

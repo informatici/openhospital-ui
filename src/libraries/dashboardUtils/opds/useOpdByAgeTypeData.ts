@@ -48,7 +48,7 @@ export const useOpdByAgeTypeData = () => {
 
   const csvData = [
     ...ageTypes.map((e) => ({
-      [t("common.agetype")]: t(`patient.agetypes.${e.code ?? ""}`),
+      [t("patient.agetype")]: t(`patient.agetypes.${e.code ?? ""}`),
       [t("common.male")]: opds.filter(
         (opd) => opd.ageType === e.code && opd.sex === "M"
       ).length,

@@ -29,6 +29,8 @@
     "newpatient": "New patient",
     "searchpatients": "Search patients",
     "userange": "Use Range Picker",
+    "csv": "CSV",
+    "pdf": "PDF",
     "period": {
       "day": "Day",
       "week": "Week",

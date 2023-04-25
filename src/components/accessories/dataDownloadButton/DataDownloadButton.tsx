@@ -8,11 +8,14 @@ import {
   SaveAlt as SaveAltIcon,
 } from "@material-ui/icons";
 import { Menu, MenuItem } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 const DataDownloadButton: FunctionComponent<IProps> = ({
   csvData,
-  pdfData,
+  handleDownloadPDF: downloadPDF,
+  title,
 }) => {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,6 +28,9 @@ const DataDownloadButton: FunctionComponent<IProps> = ({
   };
   const handleDownloadPDF = () => {
     handleClose();
+    if (downloadPDF) {
+      downloadPDF();
+    }
   };
 
   return (
@@ -44,19 +50,19 @@ const DataDownloadButton: FunctionComponent<IProps> = ({
         onClose={handleClose}
       >
         <MenuItem onClick={handleDownloadCSV}>
-          <CSVLink data={csvData}>
+          <CSVLink data={csvData} filename={title ?? "data"}>
             <ListItemIcon>
               <CloudDownloadOutlined fontSize="small" />
             </ListItemIcon>
           </CSVLink>
-          <Typography variant="inherit">CSV</Typography>
+          <Typography variant="inherit">{t("dashboard.csv")}</Typography>
         </MenuItem>
-        {pdfData && (
+        {downloadPDF && (
           <MenuItem onClick={handleDownloadPDF}>
             <ListItemIcon>
               <CloudDownloadOutlined fontSize="small" />
             </ListItemIcon>
-            <Typography variant="inherit">PDF</Typography>
+            <Typography variant="inherit">{t("dashboard.pdf")}</Typography>
           </MenuItem>
         )}
       </Menu>
