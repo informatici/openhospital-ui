@@ -92,7 +92,7 @@ tags:
   - name: ward-controller
     description: Ward Controller
 schemes:
-  - http
+  - https
 paths:
   /admissions:
     get:
