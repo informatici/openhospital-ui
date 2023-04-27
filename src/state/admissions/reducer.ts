@@ -23,15 +23,24 @@ import {
   DISCHARGE_PATIENT_RESET,
   GET_CURRENTADMISSION_EMPTY,
   GET_CURRENTADMISSION_RESET,
-  GET_ADMISSION_RESET,
+  GET_ADMISSIONS_RESET,
   GET_ADMISSIONS_FAIL,
   GET_ADMISSIONS_LOADING,
   GET_ADMISSIONS_SUCCESS,
-  GET_ONGOING_ADMISSIONS_FAIL,
-  GET_ONGOING_ADMISSIONS_LOADING,
-  GET_ONGOING_ADMISSIONS_SUCCESS,
-  GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
   GET_ADMISSIONS_SUCCESS_EMPTY,
+  GET_DISCHARGES_RESET,
+  GET_DISCHARGES_FAIL,
+  GET_DISCHARGES_LOADING,
+  GET_DISCHARGES_SUCCESS,
+  GET_DISCHARGES_SUCCESS_EMPTY,
+  GET_ADMITTED_PATIENTS_FAIL,
+  GET_ADMITTED_PATIENTS_LOADING,
+  GET_ADMITTED_PATIENTS_SUCCESS,
+  GET_ADMITTED_PATIENTS_SUCCESS_EMPTY,
+  GET_PATIENT_ADMISSIONS_FAIL,
+  GET_PATIENT_ADMISSIONS_LOADING,
+  GET_PATIENT_ADMISSIONS_SUCCESS,
+  GET_PATIENT_ADMISSIONS_SUCCESS_EMPTY,
 } from "./consts";
 import { initial } from "./initial";
 import { IAdmissionsState } from "./types";
@@ -139,7 +148,7 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     }
 
     /**
-     * GET_ADMISSION
+     * GET_ADMISSIONS
      */
     case GET_ADMISSIONS_LOADING: {
       draft.getAdmissions.status = "LOADING";
@@ -166,29 +175,83 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     }
 
     /**
-     * GET_ONGOING_ADMISSIONS
+     * GET_PATIENT_ADMISSIONS
      */
-    case GET_ONGOING_ADMISSIONS_LOADING: {
-      draft.getOngoingAdmissions.status = "LOADING";
+    case GET_PATIENT_ADMISSIONS_LOADING: {
+      draft.getPatientAdmissions.status = "LOADING";
       break;
     }
 
-    case GET_ONGOING_ADMISSIONS_SUCCESS: {
-      draft.getOngoingAdmissions.status = "SUCCESS";
-      draft.getOngoingAdmissions.data = action.payload;
-      delete draft.getOngoingAdmissions.error;
+    case GET_PATIENT_ADMISSIONS_SUCCESS: {
+      draft.getPatientAdmissions.status = "SUCCESS";
+      draft.getPatientAdmissions.data = action.payload;
+      delete draft.getPatientAdmissions.error;
       break;
     }
 
-    case GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY: {
-      draft.getOngoingAdmissions.status = "SUCCESS_EMPTY";
-      draft.getOngoingAdmissions.data = [];
-      delete draft.getOngoingAdmissions.error;
+    case GET_PATIENT_ADMISSIONS_SUCCESS_EMPTY: {
+      draft.getPatientAdmissions.status = "SUCCESS_EMPTY";
+      draft.getPatientAdmissions.data = [];
+      delete draft.getPatientAdmissions.error;
       break;
     }
-    case GET_ONGOING_ADMISSIONS_FAIL: {
-      draft.getOngoingAdmissions.status = "FAIL";
-      draft.getOngoingAdmissions.error = action.error;
+    case GET_PATIENT_ADMISSIONS_FAIL: {
+      draft.getPatientAdmissions.status = "FAIL";
+      draft.getPatientAdmissions.error = action.error;
+      break;
+    }
+
+    /**
+     * GET_DISCHARGES
+     */
+    case GET_DISCHARGES_LOADING: {
+      draft.getDischarges.status = "LOADING";
+      break;
+    }
+
+    case GET_DISCHARGES_SUCCESS: {
+      draft.getDischarges.status = "SUCCESS";
+      draft.getDischarges.data = action.payload;
+      delete draft.getDischarges.error;
+      break;
+    }
+
+    case GET_DISCHARGES_SUCCESS_EMPTY: {
+      draft.getDischarges.status = "SUCCESS_EMPTY";
+      draft.getDischarges.data = [];
+      delete draft.getDischarges.error;
+      break;
+    }
+    case GET_DISCHARGES_FAIL: {
+      draft.getDischarges.status = "FAIL";
+      draft.getDischarges.error = action.error;
+      break;
+    }
+
+    /**
+     * GET_ADMITTED_PATIENTS
+     */
+    case GET_ADMITTED_PATIENTS_LOADING: {
+      draft.getAdmittedPatients.status = "LOADING";
+      break;
+    }
+
+    case GET_ADMITTED_PATIENTS_SUCCESS: {
+      draft.getAdmittedPatients.status = "SUCCESS";
+      draft.getAdmittedPatients.data = action.payload;
+      delete draft.getAdmittedPatients.error;
+      break;
+    }
+
+    case GET_ADMITTED_PATIENTS_SUCCESS_EMPTY: {
+      draft.getAdmittedPatients.status = "SUCCESS_EMPTY";
+      draft.getAdmittedPatients.data = [];
+      delete draft.getAdmittedPatients.error;
+      break;
+    }
+    case GET_ADMITTED_PATIENTS_FAIL: {
+      draft.getAdmittedPatients.status = "FAIL";
+      draft.getAdmittedPatients.error = action.error;
       break;
     }
 
