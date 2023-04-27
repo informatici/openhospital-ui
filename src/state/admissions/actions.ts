@@ -1,7 +1,11 @@
 import { isEmpty } from "lodash";
 import moment from "moment";
 import { Dispatch } from "redux";
-import { AdmissionControllerApi, AdmissionDTO } from "../../generated";
+import {
+  AdmissionControllerApi,
+  AdmissionDTO,
+  AdmittedPatientDTO,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -29,10 +33,18 @@ import {
   UPDATE_ADMISSION_LOADING,
   UPDATE_ADMISSION_RESET,
   UPDATE_ADMISSION_SUCCESS,
-  GET_ONGOING_ADMISSIONS_FAIL,
-  GET_ONGOING_ADMISSIONS_LOADING,
-  GET_ONGOING_ADMISSIONS_SUCCESS,
-  GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
+  GET_DISCHARGES_FAIL,
+  GET_DISCHARGES_LOADING,
+  GET_DISCHARGES_SUCCESS,
+  GET_DISCHARGES_SUCCESS_EMPTY,
+  GET_ADMITTED_PATIENTS_FAIL,
+  GET_ADMITTED_PATIENTS_LOADING,
+  GET_ADMITTED_PATIENTS_SUCCESS,
+  GET_ADMITTED_PATIENTS_SUCCESS_EMPTY,
+  GET_PATIENT_ADMISSIONS_FAIL,
+  GET_PATIENT_ADMISSIONS_LOADING,
+  GET_PATIENT_ADMISSIONS_SUCCESS,
+  GET_PATIENT_ADMISSIONS_SUCCESS_EMPTY,
 } from "./consts";
 
 const admissionControllerApi = new AdmissionControllerApi(
@@ -96,14 +108,14 @@ export const dischargePatient =
   };
 
 export const updateAdmission =
-  (updAdmissionDTO: AdmissionDTO) =>
+  (updateAdmissionDTO: AdmissionDTO) =>
   (dispatch: Dispatch<IAction<AdmissionDTO, {}>>): void => {
     dispatch({
       type: UPDATE_ADMISSION_LOADING,
     });
 
     admissionControllerApi
-      .updateAdmissionsUsingPUT({ updAdmissionDTO })
+      .updateAdmissionsUsingPUT({ updateAdmissionDTO })
       .subscribe(
         (payload) => {
           dispatch({
@@ -150,9 +162,9 @@ export const getAdmittedPatients =
     dischargerange: string[] | undefined;
     searchterms: string | undefined;
   }) =>
-  (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<AdmittedPatientDTO[], {}>>): void => {
     dispatch({
-      type: GET_ADMISSIONS_LOADING,
+      type: GET_ADMITTED_PATIENTS_LOADING,
     });
 
     admissionControllerApi
@@ -165,19 +177,19 @@ export const getAdmittedPatients =
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: GET_ADMISSIONS_SUCCESS,
-              payload: payload.map((e) => e.admission),
+              type: GET_ADMITTED_PATIENTS_SUCCESS,
+              payload: payload,
             });
           } else {
             dispatch({
-              type: GET_ADMISSIONS_SUCCESS_EMPTY,
+              type: GET_ADMITTED_PATIENTS_SUCCESS_EMPTY,
               payload: [],
             });
           }
         },
         (error) => {
           dispatch({
-            type: GET_ADMISSIONS_FAIL,
+            type: GET_ADMITTED_PATIENTS_FAIL,
             error: error?.response,
           });
         }
@@ -185,17 +197,12 @@ export const getAdmittedPatients =
   };
 
 export const getAdmissions =
-  (query: {
-    patientcode?: number | undefined;
-    admissionrange?: string[] | undefined;
-    dischargerange?: string[] | undefined;
-    searchterms?: string | undefined;
-  }) =>
+  (query: { admissionrange: string[]; page?: number; size?: number }) =>
   (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
     dispatch({
       type: GET_ADMISSIONS_LOADING,
     });
-    admissionControllerApi.getAdmissionsUsingGET(query).subscribe(
+    admissionControllerApi.getAdmissionsUsingGET1(query).subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({
@@ -218,29 +225,58 @@ export const getAdmissions =
     );
   };
 
-export const getOngoingAdmissions =
-  () =>
+export const getPatientAdmissions =
+  (query: { patientCode: number }) =>
   (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
     dispatch({
-      type: GET_ONGOING_ADMISSIONS_LOADING,
+      type: GET_PATIENT_ADMISSIONS_LOADING,
     });
-    admissionControllerApi.getAdmittedPatientsUsingGET({}).subscribe(
+    admissionControllerApi.getAdmissionsUsingGET(query).subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({
-            type: GET_ONGOING_ADMISSIONS_SUCCESS,
-            payload: payload.map((e) => e.admission),
+            type: GET_PATIENT_ADMISSIONS_SUCCESS,
+            payload: payload,
           });
         } else {
           dispatch({
-            type: GET_ONGOING_ADMISSIONS_SUCCESS_EMPTY,
+            type: GET_PATIENT_ADMISSIONS_SUCCESS_EMPTY,
             payload: [],
           });
         }
       },
       (error) => {
         dispatch({
-          type: GET_ONGOING_ADMISSIONS_FAIL,
+          type: GET_PATIENT_ADMISSIONS_FAIL,
+          error,
+        });
+      }
+    );
+  };
+
+export const getDischarges =
+  (query: { dischargerange: string[]; page?: number; size?: number }) =>
+  (dispatch: Dispatch<IAction<AdmissionDTO[], {}>>): void => {
+    dispatch({
+      type: GET_DISCHARGES_LOADING,
+    });
+    admissionControllerApi.getDischargesUsingGET(query).subscribe(
+      (payload) => {
+        if (Array.isArray(payload) && payload.length > 0) {
+          dispatch({
+            type: GET_DISCHARGES_SUCCESS,
+            payload: payload,
+          });
+        } else {
+          dispatch({
+            type: GET_DISCHARGES_SUCCESS_EMPTY,
+            payload: [],
+          });
+        }
+      },
+      (error) => {
+        dispatch({
+          type: GET_DISCHARGES_FAIL,
           error,
         });
       }

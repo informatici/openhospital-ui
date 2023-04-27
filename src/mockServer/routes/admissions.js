@@ -1,5 +1,32 @@
 import { admissionDTO } from "../fixtures/admissionDTO";
 
+const dischargeProps = {
+  disDate: "2021-08-27T10:19:44.000Z",
+  disType: { code: "F", description: "FUGUE" },
+};
+
+const admissions = [
+  admissionDTO,
+  admissionDTO,
+  admissionDTO,
+  {
+    ...admissionDTO,
+    ...dischargeProps,
+    patient: { ...admissionDTO.patient, sex: "F", agetype: "d3" },
+  },
+  { ...admissionDTO, ...dischargeProps },
+  {
+    ...admissionDTO,
+    patient: { ...admissionDTO.patient, sex: "F", agetype: "d2" },
+    ...dischargeProps,
+  },
+  {
+    ...admissionDTO,
+    ...dischargeProps,
+    disType: { code: "N", description: "NORMALE" },
+  },
+];
+
 export const admissionRoutes = (server) => {
   server.namespace("/admissions", () => {
     server.post("/").intercept((req, res) => {
@@ -25,11 +52,10 @@ export const admissionRoutes = (server) => {
       }
     });
     server.get("/").intercept((req, res) => {
+      res.status(200).json(admissions);
+    });
+    server.get("/:patientCode").intercept((req, res) => {
       const code = req.query.patientCode;
-      const dischargeProps = {
-        disDate: "2021-08-27T10:19:44.000Z",
-        disType: { code: "F", description: "FUGUE" },
-      }
       switch (code) {
         case "10000":
           res.status(400);
@@ -39,11 +65,7 @@ export const admissionRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json([
-            admissionDTO, admissionDTO, admissionDTO, { ...admissionDTO, ...dischargeProps, patient: { ...admissionDTO.patient, sex: "F", agetype: "d3" } },
-            { ...admissionDTO, ...dischargeProps, }, { ...admissionDTO, patient: { ...admissionDTO.patient, sex: "F", agetype: "d2" }, ...dischargeProps },
-            { ...admissionDTO, ...dischargeProps, disType: { code: "N", description: "NORMALE" }, }
-          ]);
+          res.status(200).json(admissions);
       }
     });
     server.get("/current").intercept((req, res) => {
@@ -70,6 +92,11 @@ export const admissionRoutes = (server) => {
         default:
           res.status(200).json(null);
       }
+    });
+  });
+  server.namespace("/discharges", () => {
+    server.get("/").intercept((req, res) => {
+      res.status(200).json(admissions);
     });
   });
 };

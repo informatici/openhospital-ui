@@ -1,8 +1,8 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
 
-.login {
-  .login__background {
+.forgot {
+  .forgot__background {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,12 +16,12 @@
     }
   }
 
-  .login__logo {
+  .forgot__logo {
     margin-top: 0px;
     margin-bottom: 15px;
   }
 
-  .login__title {
+  .forgot__title {
     padding: 50px 25px 25px 25px;
     font-size: x-large;
     text-align: center;
@@ -33,7 +33,17 @@
       padding: 25px;
     }
   }
-  .login__panel {
+  .forgot__description {
+    padding: 50px 25px 25px 25px;
+    text-align: center;
+    font-weight: bold;
+    width: 25rem;
+    @include susy-media($medium) {
+      width: auto;
+    }
+  }
+
+  .forgot__panel {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,7 +54,7 @@
     width: fit-content;
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
 
-    .login__panel__form {
+    .forgot__panel__form {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -53,15 +63,15 @@
       margin: 20px 20px 0px 20px;
     }
 
-    .login__panel__textField {
+    .forgot__panel__textField {
       margin-bottom: 10px;
     }
 
-    .login__passwordToggler {
-      cursor: pointer;
+    .forgot__buttonContainer {
+      margin-top: 5px;
     }
 
-    .login__invalidCredentials {
+    .forgot__error {
       font-size: smaller;
       color: $c-color-primary;
 
@@ -70,13 +80,13 @@
       }
     }
 
-    .login__buttonContainer {
-      margin-top: 5px;
+    .forgot__back {
+      margin-top: 10px;
+      color: $c-black;
+      a, button {
+        color: $c-black;
+      }
     }
 
-    .login__panel__resetPassword {
-      color: $c-black;
-      margin-top: 10px;
-    }
   }
 }
