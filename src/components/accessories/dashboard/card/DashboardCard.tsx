@@ -10,6 +10,7 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
   title,
   subtitle,
   children,
+  cardRef,
 }) => {
   const getTitle = () => {
     return title ? (
@@ -20,7 +21,7 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
   };
 
   return (
-    <Card className="DashboardCard-item" variant="outlined">
+    <Card className="DashboardCard-item" ref={cardRef} variant="outlined">
       <CardHeader
         className="DashboardCard-item-header"
         avatar={avatar ?? false}

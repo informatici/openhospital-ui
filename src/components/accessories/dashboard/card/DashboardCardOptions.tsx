@@ -4,6 +4,7 @@ import { useState } from "react";
 import React from "react";
 import { Close, Fullscreen, GetApp } from "@material-ui/icons";
 import { DownloadOptions } from "./DashboardDownloadOptions";
+import { useTranslation } from "react-i18next";
 
 type TDashboardCardOptionProps = { actions: TDashboardCardOptionActions };
 export const DashboardCardActions = React.forwardRef<
@@ -13,6 +14,7 @@ export const DashboardCardActions = React.forwardRef<
   const actions = props.actions;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { t } = useTranslation();
 
   const handleDownloadBtnClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +33,7 @@ export const DashboardCardActions = React.forwardRef<
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             aria-label="donwload data"
-            title="Download data"
+            title={t("dashboard.downloaddata")}
           >
             <GetApp />
           </IconButton>
@@ -57,7 +59,7 @@ export const DashboardCardActions = React.forwardRef<
 
       {actions.onExpand && (
         <IconButton
-          title="Full screen"
+          title={t("dashboard.togglefullscreen")}
           onClick={actions.onExpand}
           aria-label="fullscreen"
         >
@@ -66,7 +68,11 @@ export const DashboardCardActions = React.forwardRef<
       )}
 
       {actions.onClose && (
-        <IconButton title="Remove" onClick={actions.onClose} aria-label="close">
+        <IconButton
+          title={t("dashboard.removedashboard")}
+          onClick={actions.onClose}
+          aria-label="close"
+        >
           <Close />
         </IconButton>
       )}

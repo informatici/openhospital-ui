@@ -3,6 +3,7 @@ export type TDashboardCardProps = {
   avatar?: React.ReactNode;
   actions: TDashboardCardOptionActions;
   subtitle?: string;
+  cardRef?: React.RefObject<any>;
 };
 
 export type TDashboardDownloadFormat = "pdf" | "csv" | "excel";
