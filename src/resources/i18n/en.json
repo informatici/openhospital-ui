@@ -63,7 +63,10 @@
     "dischargebysex":"Discharges by sex",
     "dischargebyagetype":"Discharges by age type",
     "dischargebyward": "Discharges by ward",
-    "dischargebytype":"Discharges by type"
+    "dischargebytype":"Discharges by type",
+    "togglefullscreen": "Toggle Fullscreen",
+    "removedashboard": "Remove the Dashboard component",
+    "downloaddata": "Download the underlying data"
   },
   "patient": {
     "address": "Address",
