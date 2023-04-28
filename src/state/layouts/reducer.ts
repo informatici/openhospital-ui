@@ -16,11 +16,13 @@ import {
   RESET_LAYOUTS_LOADING,
   RESET_LAYOUTS_RESET,
   RESET_LAYOUTS_SUCCESS,
-  RESET_LAYOUTS_TOOLBOX,
   SET_LAYOUTS_BREAKPOINT,
-  SET_LAYOUTS_TOOLBOX,
 } from "./consts";
 import { initial } from "./initial";
+import {
+  randomLayout,
+  toolboxDashboards,
+} from "../../components/accessories/dashboard/layouts/consts";
 
 export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
   switch (action.type) {
@@ -34,8 +36,8 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case SAVE_LAYOUTS_SUCCESS: {
       draft.saveLayouts.status = "SUCCESS";
-      draft.saveLayouts.data = action.payload;
-      draft.getLayouts.data = action.payload;
+      draft.layouts = action.payload.layout;
+      draft.toolbox = action.payload.toolbox;
       delete draft.saveLayouts.error;
       break;
     }
@@ -62,17 +64,23 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case GET_LAYOUTS_SUCCESS: {
       draft.getLayouts.status = "SUCCESS";
-      draft.getLayouts.data = action.payload;
+      draft.layouts = action.payload.layout;
+      draft.toolbox = action.payload.toolbox;
       delete draft.getLayouts.error;
       break;
     }
 
     case GET_LAYOUTS_SUCCESS_EMPTY: {
       draft.getLayouts.status = "SUCCESS_EMPTY";
-      draft.getLayouts.data = [];
+      draft.getLayouts.data = "";
+
+      draft.layouts = randomLayout(4);
+      draft.toolbox = toolboxDashboards(draft.layouts, {});
+
       delete draft.getLayouts.error;
       break;
     }
+
     case GET_LAYOUTS_FAIL: {
       draft.getLayouts.status = "FAIL";
       draft.getLayouts.error = action.error;
@@ -97,7 +105,10 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
     case RESET_LAYOUTS_SUCCESS: {
       draft.resetLayouts.status = "SUCCESS";
       draft.resetLayouts.data = action.payload;
-      draft.getLayouts.data = action.payload;
+
+      draft.layouts = randomLayout(4);
+      draft.toolbox = toolboxDashboards(draft.layouts, {});
+
       delete draft.resetLayouts.error;
       break;
     }
@@ -115,18 +126,6 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
     }
 
     /**
-     * Toolbox
-     */
-    case RESET_LAYOUTS_TOOLBOX: {
-      draft.toolbox = {};
-      break;
-    }
-
-    case SET_LAYOUTS_TOOLBOX: {
-      draft.toolbox = action.payload;
-    }
-
-    /**
      * Breakpoint
      */
     case RESET_LAYOUTS_BREAKPOINT: {
@@ -136,8 +135,6 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case SET_LAYOUTS_BREAKPOINT: {
       draft.breakpoint = action.payload;
-      console.log(draft.breakpoint);
-
       break;
     }
   }

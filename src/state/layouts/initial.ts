@@ -4,6 +4,7 @@ export const initial: ILayoutsState = {
   saveLayouts: { status: "IDLE" },
   getLayouts: { status: "IDLE" },
   resetLayouts: { status: "IDLE" },
-  toolbox: undefined,
+  toolbox: {},
+  layouts: {},
   breakpoint: "md",
 };

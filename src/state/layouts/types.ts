@@ -3,9 +3,10 @@ import { IApiResponse } from "../types";
 
 /** @todo set good types */
 export type ILayoutsState = {
-  saveLayouts: IApiResponse<any>;
-  getLayouts: IApiResponse<any>;
-  resetLayouts: IApiResponse<any>;
+  saveLayouts: IApiResponse<string>;
+  getLayouts: IApiResponse<string>;
+  resetLayouts: IApiResponse<boolean>;
   breakpoint: string;
-  toolbox?: Layouts;
+  layouts: Layouts;
+  toolbox: Layouts;
 };
