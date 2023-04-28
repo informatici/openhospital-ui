@@ -34,10 +34,15 @@ export const defaultGridLayoutBreakpoints = {
   lg: 1280,
   md: 992,
   sm: 760,
-  xs: 480,
+  xs: 490,
   xxs: 0,
 };
 
+/**
+ * Get dashboard label's translation key
+ * @param dashboardKey Dashboard key
+ * @returns Return the translation key
+ */
 export function getDashboardLabel(dashboardKey: TDashboardComponent): string {
   switch (dashboardKey) {
     case "opdBySex":
@@ -76,12 +81,39 @@ export function getDashboardLabel(dashboardKey: TDashboardComponent): string {
 }
 
 /**
+ * Generate layout for random Dashboards
+ * @param nbDashboard Number of dashboard to generate
+ * @returns Returns the layout config for specified Dashboards number
+ */
+export function randomLayout(nbDashboard: number): Layouts {
+  let randomDashboards = randomItems(DASHBOARDS, nbDashboard);
+
+  return {
+    lg: generateLayout("lg", randomDashboards),
+    md: generateLayout("md", randomDashboards),
+    sm: generateLayout("sm", randomDashboards),
+    xs: generateLayout("xs", randomDashboards),
+    xxs: generateLayout("xxs", randomDashboards),
+  };
+}
+
+export function toolboxLayouts() {}
+
+/**
  * Generates default Layout config if the user don't has one.
  * @param breakpoint Breakpoint
- * @returns A layout config
+ * @param dashboards List of dashboards
+ * @returns Returns the layout config
  */
-export function generateLayout(breakpoint: LayoutBreakpoints): Layout[] {
-  return DASHBOARDS.map((dashboardKey, index) => {
+export function generateLayout(
+  breakpoint: LayoutBreakpoints,
+  dashboards?: string[]
+): Layout[] {
+  if (!dashboards || dashboards.length == 0) {
+    dashboards = DASHBOARDS;
+  }
+
+  return dashboards.map((dashboardKey, index) => {
     let dashboardLayout: Layout;
 
     switch (breakpoint) {
@@ -133,6 +165,22 @@ export function generateLayout(breakpoint: LayoutBreakpoints): Layout[] {
         break;
       }
 
+      case "xxs": {
+        dashboardLayout = {
+          i: dashboardKey,
+          w: 12,
+          h: 3,
+          x: 0,
+          y: index % 2 == 0 ? 0 : 2,
+          minW: 12,
+          minH: 3,
+          //maxW: 2,
+          maxH: 4,
+        };
+
+        break;
+      }
+
       case "lg":
       default: {
         dashboardLayout = {
@@ -153,4 +201,16 @@ export function generateLayout(breakpoint: LayoutBreakpoints): Layout[] {
 
     return dashboardLayout;
   });
+}
+
+/**
+ * Pick random items in an Array
+ * @param input Input array
+ * @param nbItems Number of items to pick
+ * @returns Returns a list of random items
+ */
+export function randomItems<T>(input: T[], nbItems: number): T[] {
+  const shuffledArray = input.sort(() => 0.5 - Math.random());
+
+  return shuffledArray.slice(0, nbItems);
 }
