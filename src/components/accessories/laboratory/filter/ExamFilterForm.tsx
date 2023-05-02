@@ -34,6 +34,7 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import SelectField from "../../selectField/SelectField";
 
 export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
@@ -321,7 +322,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                   />
                 </div>
                 <div className="filterLabForm__item col-3">
-                  <AutocompleteField
+                  <SelectField
                     fieldName="status"
                     fieldValue={formik.values.status}
                     label={t("lab.status")}

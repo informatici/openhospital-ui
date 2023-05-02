@@ -122,6 +122,12 @@ const ExamForm: FC<ExamProps> = ({
       laboratoryRowList: rows,
     };
 
+    if (rowsData.length > 0 || (lab.result && lab.result.length > 0)) {
+      lab.status = LaboratoryDTOStatusEnum.DONE;
+    } else {
+      lab.status = LaboratoryDTOStatusEnum.OPEN;
+    }
+
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));
     } else {
@@ -156,22 +162,6 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    status: string()
-      .required(t("common.required"))
-      .test({
-        name: "results",
-        message: t("lab.statusmustbedone"),
-        test: function (value) {
-          if (
-            rowsData.length > 0 ||
-            (this.parent.result && this.parent.result.length > 0)
-          ) {
-            return value === LaboratoryDTOStatusEnum.DONE;
-          } else {
-            return value !== LaboratoryDTOStatusEnum.DONE;
-          }
-        },
-      }),
     material: string().required(t("common.required")),
     result: string(),
     note: string().test({
@@ -355,11 +345,6 @@ const ExamForm: FC<ExamProps> = ({
     (state: IState) => state.laboratories.materials.status === "LOADING"
   );
 
-  const labStatusList = Object.values(LaboratoryDTOStatusEnum);
-  const statusOptions = labStatusList.map((status) => {
-    return { label: status as string, value: status as string };
-  });
-
   const isLoading =
     labStore.createLab.status === "LOADING" ||
     labStore.updateLab.status === "LOADING";
@@ -417,7 +402,7 @@ const ExamForm: FC<ExamProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientExamForm__item">
+            <div className="fullWidth patientExamForm__item">
               <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
@@ -427,18 +412,6 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("material")}
                 isLoading={materialsLoading}
                 options={materialsOptionsSelector(materialsList)}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientExamForm__item">
-              <AutocompleteField
-                fieldName="status"
-                fieldValue={formik.values.status}
-                label={t("lab.status")}
-                isValid={isValid("status")}
-                errorText={getErrorText("status")}
-                onBlur={onBlurCallback("status")}
-                options={statusOptions}
                 disabled={isLoading}
               />
             </div>

@@ -4,6 +4,10 @@ import { ExamFormFieldName } from "./examForm/type";
 import { ExamFilterFormFieldName, TFilterValues } from "./filter/types";
 import { ExamRequestFormFieldName } from "./examRequestForm/types";
 import { LaboratoryDTOStatusEnum } from "../../../generated";
+import {
+  fixFilterDateFrom,
+  fixFilterDateTo,
+} from "../../../libraries/formDataHandling/functions";
 
 export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
   dateFrom: { type: "date", value: moment().startOf("month").toISOString() },
@@ -14,8 +18,8 @@ export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
 };
 
 export const initialFilter: TFilterValues = {
-  dateFrom: moment().subtract(1, "years").toISOString(),
-  dateTo: moment().toISOString(),
+  dateFrom: fixFilterDateFrom(moment().subtract(1, "years").toISOString()),
+  dateTo: fixFilterDateTo(moment().toISOString()),
   status: "",
 };
 
@@ -42,10 +46,6 @@ export const initialFields: TFields<ExamFormFieldName> = {
   },
   material: {
     value: "",
-    type: "text",
-  },
-  status: {
-    value: LaboratoryDTOStatusEnum.DRAFT,
     type: "text",
   },
 };

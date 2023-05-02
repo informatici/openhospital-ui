@@ -110,8 +110,11 @@ export const Exams: FC = () => {
   const errorMessage = useSelector((state: IState) =>
     state.laboratories.searchLabs.error?.message
       ? state.laboratories.searchLabs.error?.message
-      : t("common.somethingwrong") ||
-        state.laboratories.updateLab.error?.message
+      : t("common.somethingwrong")
+  );
+
+  const updateLabErrorMsg = useSelector((state: IState) =>
+    state.laboratories.updateLab.error?.message
       ? state.laboratories.updateLab.error?.message
       : t("common.somethingwrong")
   );
@@ -177,7 +180,7 @@ export const Exams: FC = () => {
             )}
             {changeStatus === "FAIL" && (
               <div ref={infoBoxRef} className="info-box-container">
-                <InfoBox type="error" message={errorMessage} />
+                <InfoBox type="error" message={updateLabErrorMsg} />
               </div>
             )}
             {status === "SUCCESS" && (
