@@ -1,4 +1,4 @@
-import { Layout } from "react-grid-layout";
+import { Layout, Layouts } from "react-grid-layout";
 
 export type TGridLayoutItemProps = {
   dashboardKey: TDashboardComponent;
@@ -17,6 +17,11 @@ export type TDashboardComponentProps = {
 };
 
 export type LayoutBreakpoints = "lg" | "md" | "sm" | "xs" | "xxs";
+
+export type LayoutConfiguration = {
+  layout: Layouts;
+  toolbox: Layouts;
+};
 
 export type TDashboardComponent =
   | "opdByAgeType"

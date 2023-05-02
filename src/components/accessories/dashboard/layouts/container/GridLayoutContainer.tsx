@@ -6,27 +6,28 @@ import { IState } from "../../../../../types";
 import {
   defaultGridLayoutBreakpoints,
   defaultGridLayoutCols,
-  defaultLayoutConfig,
+  encodeLayout,
 } from "../consts";
 import { TDashboardComponent } from "../types";
 import {
+  getLayouts,
   saveLayouts,
   setBreakpoint,
-  setToolbox,
 } from "../../../../../state/layouts/actions";
 import { GridLayoutItem } from "../item/GridLayoutItem";
 
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import "../styles.scss";
+import { CircularProgress } from "@material-ui/core";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const GridLayoutContainer: FC = () => {
   const dispatch = useDispatch();
-  const ref = createRef<HTMLDivElement>();
 
   const [mounted, setMounted] = useState(false);
+  const [canUpdateLayouts, setCanUpdateLayouts] = useState(false);
   const [localBreakpoint, setLocalBreakpoint] = useState<string>("md");
 
   const currentBreakpoint = useSelector<IState, string>(
@@ -34,38 +35,30 @@ const GridLayoutContainer: FC = () => {
   );
 
   const layouts = useSelector<IState, Layouts>(
-    (state) => state.layouts.getLayouts.data ?? defaultLayoutConfig
+    (state) => state.layouts.layouts
   );
+
   const toolbox = useSelector<IState, Layouts>(
-    (state) => state.layouts.toolbox ?? {}
+    (state) => state.layouts.toolbox
   );
 
   useEffect(() => {
+    dispatch(getLayouts("1"));
     setMounted(true);
-    //Load Layout config from Backend
-    //dispatch(getLayouts());
   }, []);
 
-  useEffect(() => {
-    console.log(layouts);
-  }, [layouts]);
-
-  useEffect(() => {
-    setLocalBreakpoint(currentBreakpoint);
-    console.log("breakpoint change: " + currentBreakpoint);
-  }, [currentBreakpoint]);
-
   const onBreakpointChange = (breakpoint: string) => {
-    //console.log(currentBreakpoint);
-    //console.log(breakpoint);
-
     dispatch(setBreakpoint(breakpoint));
     setLocalBreakpoint(breakpoint);
   };
 
-  const onLayoutChange = (newLayout: Layout[]) => {
-    let layoutsTmp = { ...layouts, [localBreakpoint]: newLayout };
-    dispatch(saveLayouts(layoutsTmp));
+  const onLayoutChange = (newLayout: Layout[], allLayouts: Layouts) => {
+    if (!canUpdateLayouts) {
+      setCanUpdateLayouts(true);
+      return;
+    }
+
+    dispatch(saveLayouts(encodeLayout({ layout: allLayouts, toolbox })));
   };
 
   const onItemRemove = (item: Layout) => {
@@ -80,43 +73,54 @@ const GridLayoutContainer: FC = () => {
       ),
     };
 
-    dispatch(setToolbox(toolboxTmp));
-    dispatch(saveLayouts(layoutsTmp));
+    setCanUpdateLayouts(false);
+
+    dispatch(
+      saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))
+    );
   };
 
-  return (
-    <ResponsiveReactGridLayout
-      className="layout"
-      layouts={layouts}
-      onBreakpointChange={onBreakpointChange}
-      onLayoutChange={onLayoutChange}
-      isDraggable
-      isDroppable
-      isResizable
-      measureBeforeMount={false}
-      useCSSTransforms={mounted}
-      draggableHandle=".DashboardCard-item-header"
-      resizeHandles={["ne", "se"]}
-      breakpoints={defaultGridLayoutBreakpoints}
-      cols={defaultGridLayoutCols}
-    >
-      {console.log(
-        currentBreakpoint + " local " + localBreakpoint,
-        layouts[currentBreakpoint]
-      )}
-      {layouts[localBreakpoint].map((l, key) => {
-        let ldash = l.i as TDashboardComponent;
+  const getLayoutsStatus = useSelector(
+    (state: IState) => state.layouts.getLayouts.status
+  );
 
-        return (
-          <div key={ldash} style={{ background: "#ccc" }} data-grid={l}>
-            <GridLayoutItem
-              dashboardKey={ldash}
-              onRemove={() => onItemRemove(l)}
-            />
-          </div>
-        );
-      })}
-    </ResponsiveReactGridLayout>
+  return (
+    <>
+      {getLayoutsStatus === "LOADING" && (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
+
+      {getLayoutsStatus === "SUCCESS" && (
+        <ResponsiveReactGridLayout
+          className="layout"
+          layouts={layouts}
+          onBreakpointChange={onBreakpointChange}
+          onLayoutChange={onLayoutChange}
+          isDraggable
+          isDroppable
+          isResizable
+          measureBeforeMount={false}
+          useCSSTransforms={mounted}
+          draggableHandle=".DashboardCard-item-header"
+          resizeHandles={["ne", "se"]}
+          breakpoints={defaultGridLayoutBreakpoints}
+          cols={defaultGridLayoutCols}
+        >
+          {layouts[localBreakpoint].map((l, key) => {
+            let ldash = l.i as TDashboardComponent;
+
+            return (
+              <div key={ldash} style={{ background: "#ccc" }} data-grid={l}>
+                <GridLayoutItem
+                  dashboardKey={ldash}
+                  onRemove={() => onItemRemove(l)}
+                />
+              </div>
+            );
+          })}
+        </ResponsiveReactGridLayout>
+      )}
+    </>
   );
 };
 

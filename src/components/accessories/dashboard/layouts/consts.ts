@@ -1,6 +1,16 @@
 import { Layout, Layouts } from "react-grid-layout";
-import { LayoutBreakpoints, TDashboardComponent } from "./types";
+import {
+  LayoutBreakpoints,
+  LayoutConfiguration,
+  TDashboardComponent,
+} from "./types";
 
+/**
+ * This array contains all dashboard widgets
+ * If a dashboard widget is added, its name should be added in this array
+ * and a `switch case` should be added in the switch control of a component
+ * src\components\accessories\dashboard\layouts\item\GridLayoutItem.tsx
+ */
 export const DASHBOARDS = [
   "opdByAgeType",
   "opdBySex",
@@ -97,7 +107,68 @@ export function randomLayout(nbDashboard: number): Layouts {
   };
 }
 
-export function toolboxLayouts() {}
+/**
+ * Add dashboards that are not in shown dashboard nor toolbox to
+ * the toolbox
+ * @param shownDashboard Layout with shown dashboard
+ * @param currentToolBox Toolbox
+ * @returns
+ */
+export function toolboxDashboards(
+  shownDashboard: Layouts,
+  currentToolBox: Layouts
+): Layouts {
+  let toolbox = { ...currentToolBox };
+
+  let knownDashboard: string[] = [];
+  let unknownDashboard: string[] = [];
+
+  knownDashboard = [
+    ...getLayoutDashboards(shownDashboard),
+    ...getLayoutDashboards(currentToolBox),
+  ];
+
+  unknownDashboard = DASHBOARDS.filter(
+    (dashboard) => !knownDashboard.includes(dashboard)
+  );
+
+  if (unknownDashboard.length > 0) {
+    let unknownDashboardLayout: Layouts = {
+      lg: generateLayout("lg", unknownDashboard),
+      md: generateLayout("md", unknownDashboard),
+      sm: generateLayout("sm", unknownDashboard),
+      xs: generateLayout("xs", unknownDashboard),
+      xxs: generateLayout("xxs", unknownDashboard),
+    };
+
+    ["lg", "md", "sm", "xs", "xxs"].forEach((breakpoint) => {
+      toolbox[breakpoint] = [
+        ...(toolbox[breakpoint] ?? []),
+        ...unknownDashboardLayout[breakpoint],
+      ];
+    });
+  }
+
+  return toolbox;
+}
+
+/**
+ * Return dashboard in layout
+ * @param layout Layout
+ */
+export function getLayoutDashboards(layout: Layouts): string[] {
+  let dashboards: string[] = [];
+
+  Object.keys(layout).forEach((breakpoint) => {
+    layout[breakpoint].forEach((layout) => {
+      if (!dashboards.includes(layout.i)) {
+        dashboards.push(layout.i);
+      }
+    });
+  });
+
+  return dashboards;
+}
 
 /**
  * Generates default Layout config if the user don't has one.
@@ -213,4 +284,35 @@ export function randomItems<T>(input: T[], nbItems: number): T[] {
   const shuffledArray = input.sort(() => 0.5 - Math.random());
 
   return shuffledArray.slice(0, nbItems);
+}
+
+/**
+ * Encode layout config before saving
+ * @param config Layout configuration
+ * @returns Returns JSON string
+ */
+export function encodeLayout(config: LayoutConfiguration): string {
+  return JSON.stringify(config);
+}
+
+/**
+ * Decode layout configuration fetched from backend
+ * @param configString JSON string
+ * @returns Return Layout Configuration
+ */
+export function decodeLayoutConfig(
+  configString: string
+): LayoutConfiguration | null {
+  let decodeConfig = JSON.parse(configString);
+
+  if (!decodeConfig.layout || !decodeConfig.toolbox) {
+    return null;
+  }
+
+  let layoutConfig: LayoutConfiguration = {
+    layout: decodeConfig.layout,
+    toolbox: decodeConfig.toolbox,
+  };
+
+  return layoutConfig;
 }

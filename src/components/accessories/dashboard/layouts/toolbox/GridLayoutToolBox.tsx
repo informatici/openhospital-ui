@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
 import { TGridLayoutToolboxItemProps, TDashboardComponent } from "../types";
-import { defaultLayoutConfig, getDashboardLabel } from "../consts";
+import { encodeLayout, getDashboardLabel } from "../consts";
 import { Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Layout, Layouts } from "react-grid-layout";
-import { saveLayouts, setToolbox } from "../../../../../state/layouts/actions";
+import { saveLayouts } from "../../../../../state/layouts/actions";
 import "./styles.scss";
 
 export const GridLayoutToolbox: FC = () => {
@@ -20,11 +20,11 @@ export const GridLayoutToolbox: FC = () => {
   );
 
   const layouts = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.getLayouts.data ?? defaultLayoutConfig
+    (state: IState) => state.layouts.layouts
   );
 
   const toolbox = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.toolbox ?? {}
+    (state: IState) => state.layouts.toolbox
   );
 
   const onItemPut = (item: Layout) => {
@@ -37,11 +37,9 @@ export const GridLayoutToolbox: FC = () => {
       [breakpoint]: toolbox[breakpoint].filter(({ i }) => i !== item.i),
     };
 
-    dispatch(setToolbox(toolboxTmp));
-    dispatch(saveLayouts(layoutsTmp));
-
-    console.log(toolboxTmp[breakpoint]);
-    console.log(layoutsTmp[breakpoint]);
+    dispatch(
+      saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))
+    );
   };
 
   const GridLayoutToolboxItem: FC<TGridLayoutToolboxItemProps> = ({
