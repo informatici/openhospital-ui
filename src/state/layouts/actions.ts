@@ -26,8 +26,24 @@ export const getLayouts =
     /**
      * To be replace with real data after API is available
      */
-    let layout: Layouts = randomLayout(4);
-    let toolbox: Layouts = toolboxDashboards(layout, {});
+    let layout: Layouts;
+    let toolbox: Layouts;
+    let savedConfig = localStorage.getItem("lc");
+    if (savedConfig && atob(savedConfig) !== null) {
+      savedConfig = atob(savedConfig);
+      let decodedConfig = decodeLayoutConfig(savedConfig);
+      if (decodedConfig) {
+        layout = decodedConfig.layout;
+        toolbox = decodedConfig.toolbox;
+      } else {
+        layout = randomLayout(4);
+        toolbox = toolboxDashboards(layout, {});
+      }
+    } else {
+      layout = randomLayout(4);
+      toolbox = toolboxDashboards(layout, {});
+    }
+
     dispatch({
       type: GET_LAYOUTS_SUCCESS,
       payload: { layout, toolbox },
@@ -45,6 +61,7 @@ export const saveLayouts =
 
     let decodedConfig = decodeLayoutConfig(layoutConfig);
     if (decodedConfig) {
+      localStorage.setItem("lc", btoa(layoutConfig));
       dispatch({
         type: SAVE_LAYOUTS_SUCCESS,
         payload: decodedConfig,
