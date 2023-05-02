@@ -6,11 +6,8 @@ export type TDashboardCardProps = {
   cardRef?: React.RefObject<any>;
 };
 
-export type TDashboardDownloadFormat = "pdf" | "csv" | "excel";
-
 export type TDashboardDownloadProps = {
-  format: TDashboardDownloadFormat;
-  link: string;
+  action: JSX.Element;
 };
 
 export type TDashboardCardOptionActions = {

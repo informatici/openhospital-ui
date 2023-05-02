@@ -1,3 +1,13 @@
+.download-link {
+  .MuiListItemIcon-root {
+    min-width: 30px !important;
+  }
+  
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .DashboardCard-item{
 
   .DashboardCard-item-header {
@@ -8,16 +18,6 @@
   .DashboardCard-item-content {
     padding-top: 0;
     padding-bottom: 0 !important;
-  }
-
-  .MuiListItemIcon-root {
-    min-width: 30px !important;
-  }
-  
-  .download-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
   }
   
   .MuiCardHeader-action {
