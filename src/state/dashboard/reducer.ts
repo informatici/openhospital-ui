@@ -7,7 +7,8 @@ import { initial } from "./initial";
 export default produce((draft: IDashboardState, action: IAction<any, any>) => {
   switch (action.type) {
     case RESET_DASHBOARD_PERIOD: {
-      draft.period = ["", ""];
+      draft.resetPeriod = true;
+      draft.period = action.payload;
       break;
     }
 

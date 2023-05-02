@@ -1,7 +1,10 @@
+import moment from "moment";
 import { IDashboardState } from "./types";
 
 export const initial: IDashboardState = {
-  period: ["", ""],
-  resetPeriod: undefined,
-  setPeriod: undefined,
+  period: [
+    moment().startOf("day").toISOString(),
+    moment().endOf("day").toISOString(),
+  ],
+  resetPeriod: false,
 };

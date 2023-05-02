@@ -9,10 +9,7 @@ import { Barchart } from "../../../charts/bar/Barchart";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@material-ui/lab";
-import {
-  getAdmissions,
-  getOngoingAdmissions,
-} from "../../../../../state/admissions/actions";
+import { getAdmissions } from "../../../../../state/admissions/actions";
 import { getAgeTypes } from "../../../../../state/ageTypes/actions";
 import { getAdmissionTypes } from "../../../../../state/admissionTypes/actions";
 import { getWards } from "../../../../../state/ward/actions";
@@ -36,7 +33,6 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
         admissionrange: period,
       })
     );
-    dispatch(getOngoingAdmissions());
     dispatch(getAgeTypes());
     dispatch(getAdmissionTypes());
     dispatch(getWards());
