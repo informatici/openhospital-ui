@@ -88,6 +88,25 @@ export const opdRoutes = (server) => {
           ]);
       }
     });
+    server.get("/last/:pcode").intercept((req, res) => {
+      const code = req.params.code;
+      switch (code) {
+        case "1000":
+          res.status(400);
+          break;
+        case "200000":
+          res.status(204);
+          res.body = null;
+          break;
+        default:
+          res.status(200).json([
+            { opdDTO, operationRows: operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
+            { opdDTO, operationRows: operationRowsDTO },
+          ]);
+      }
+    });
     server.get("/search").intercept((req, res) => {
       const code = req.query.patientCode;
       switch (code) {

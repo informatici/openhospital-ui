@@ -92,343 +92,332 @@ tags:
   - name: ward-controller
     description: Ward Controller
 schemes:
-  - http
+  - https
 paths:
   /admissions:
     get:
       tags:
-        - admission-controller
+      - admission-controller
       summary: getAdmissions
-      operationId: getAdmissionsUsingGET
+      operationId: getAdmissionsUsingGET_1
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: patientcode
-          in: query
-          description: Patient Code
-          required: false
-          type: integer
-          format: int32
-        - name: admissionrange
-          in: query
-          description: admissionrange
-          required: false
-          type: array
-        - name: dischargerange
-          in: query
-          description: dischargerange
-          required: false
-          type: array
-        - name: searchterms
-          in: query
-          description: searchterms
-          required: false
-          type: string
+      - name: admissionrange
+        in: query
+        description: admissionrange
+        required: true
+        type: array
+      - name: page
+        in: query
+        description: page
+        required: false
+        type: integer
+        default: 0
+        format: int32
+      - name: size
+        in: query
+        description: size
+        required: false
+        type: integer
+        default: 80
+        format: int32
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: array
             items:
-              $ref: "#/definitions/AdmissionDTO"
-        "401":
+              "$ref": "#/definitions/AdmissionDTO"
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
     post:
       tags:
-        - admission-controller
+      - admission-controller
       summary: newAdmissions
       operationId: newAdmissionsUsingPOST
       consumes:
-        - application/json
+      - application/json
       produces:
-        - application/json
+      - application/json
       parameters:
-        - in: body
-          name: newAdmissionDTO
-          description: newAdmissionDTO
-          required: true
-          schema:
-            $ref: "#/definitions/AdmissionDTO"
+      - in: body
+        name: newAdmissionDTO
+        description: newAdmissionDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/AdmissionDTO"
       responses:
-        "200":
+        '200':
           description: OK
           schema:
-            type: integer
-            format: int32
-        "201":
+            "$ref": "#/definitions/AdmissionDTO"
+        '201':
           description: Created
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
     put:
       tags:
-        - admission-controller
+      - admission-controller
       summary: updateAdmissions
       operationId: updateAdmissionsUsingPUT
       consumes:
-        - application/json
+      - application/json
       produces:
-        - application/json
+      - application/json
       parameters:
-        - in: body
-          name: updAdmissionDTO
-          description: updAdmissionDTO
-          required: true
-          schema:
-            $ref: "#/definitions/AdmissionDTO"
+      - in: body
+        name: updateAdmissionDTO
+        description: updateAdmissionDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/AdmissionDTO"
       responses:
-        "200":
+        '200':
           description: OK
           schema:
-            type: integer
-            format: int32
-        "201":
+            "$ref": "#/definitions/AdmissionDTO"
+        '201':
           description: Created
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
   /admissions/admittedPatients:
     get:
       tags:
-        - admission-controller
+      - admission-controller
       summary: getAdmittedPatients
       operationId: getAdmittedPatientsUsingGET
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: admissionrange
-          in: query
-          description: admissionrange
-          required: false
-          type: array
-        - name: dischargerange
-          in: query
-          description: dischargerange
-          required: false
-          type: array
-        - name: searchterms
-          in: query
-          description: searchterms
-          required: false
-          type: string
+      - name: admissionrange
+        in: query
+        description: admissionrange
+        required: false
+        type: array
+      - name: dischargerange
+        in: query
+        description: dischargerange
+        required: false
+        type: array
+      - name: searchterms
+        in: query
+        description: searchterms
+        required: false
+        type: string
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: array
             items:
-              $ref: "#/definitions/AdmittedPatientDTO"
-        "401":
+              "$ref": "#/definitions/AdmittedPatientDTO"
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
   /admissions/current:
     get:
       tags:
-        - admission-controller
+      - admission-controller
       summary: getCurrentAdmission
       operationId: getCurrentAdmissionUsingGET
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: patientCode
-          in: query
-          description: patientCode
-          required: true
-          type: integer
-          format: int32
+      - name: patientCode
+        in: query
+        description: patientCode
+        required: true
+        type: integer
+        format: int32
       responses:
-        "200":
+        '200':
           description: OK
           schema:
-            $ref: "#/definitions/AdmissionDTO"
-        "401":
+            "$ref": "#/definitions/AdmissionDTO"
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
   /admissions/discharge:
     post:
       tags:
-        - admission-controller
+      - admission-controller
       summary: dischargePatient
       operationId: dischargePatientUsingPOST
       consumes:
-        - application/json
+      - application/json
       produces:
-        - application/json
+      - application/json
       parameters:
-        - in: body
-          name: currentAdmissionDTO
-          description: currentAdmissionDTO
-          required: true
-          schema:
-            $ref: "#/definitions/AdmissionDTO"
-        - name: patientCode
-          in: query
-          description: patientCode
-          required: true
-          type: integer
-          format: int32
+      - in: body
+        name: currentAdmissionDTO
+        description: currentAdmissionDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/AdmissionDTO"
+      - name: patientCode
+        in: query
+        description: patientCode
+        required: true
+        type: integer
+        format: int32
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: boolean
-        "201":
+        '201':
           description: Created
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
   /admissions/getBedsOccupationInWard:
     get:
       tags:
-        - admission-controller
+      - admission-controller
       summary: getUsedWardBed
       operationId: getUsedWardBedUsingGET
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: wardid
-          in: query
-          description: wardid
-          required: true
-          type: string
+      - name: wardid
+        in: query
+        description: wardid
+        required: true
+        type: string
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: integer
             format: int32
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
   /admissions/getNextProgressiveIdInYear:
     get:
       tags:
-        - admission-controller
+      - admission-controller
       summary: getNextYProg
       operationId: getNextYProgUsingGET
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: warcode
-          in: query
-          description: warcode
-          required: true
-          type: string
+      - name: wardcode
+        in: query
+        description: wardcode
+        required: true
+        type: string
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: integer
             format: int32
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
   /admissions/{id}:
-    get:
-      tags:
-        - admission-controller
-      summary: getAdmissions
-      operationId: getAdmissionUsingGET
-      produces:
-        - application/json
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          type: integer
-          format: int32
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: "#/definitions/AdmissionDTO"
-        "401":
-          description: Unauthorized
-        "403":
-          description: Forbidden
-        "404":
-          description: Not Found
-      security:
-        - JWT: []
-      deprecated: false
     delete:
       tags:
-        - admission-controller
+      - admission-controller
       summary: deleteAdmissionType
       operationId: deleteAdmissionTypeUsingDELETE
       produces:
-        - application/json
+      - application/json
       parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          type: integer
-          format: int32
+      - name: id
+        in: path
+        description: id
+        required: true
+        type: integer
+        format: int32
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             type: boolean
-        "204":
+        '204':
           description: No Content
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
       security:
-        - JWT: []
-      deprecated: false
+      - JWT: []
+  /admissions/{patientCode}:
+    get:
+      tags:
+      - admission-controller
+      summary: getAdmissions
+      operationId: getAdmissionsUsingGET
+      produces:
+      - application/json
+      parameters:
+      - name: patientCode
+        in: path
+        description: patientCode
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/AdmissionDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT: []
   /admissiontypes:
     get:
       tags:
@@ -1395,6 +1384,49 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /discharges:
+    get:
+      tags:
+      - admission-controller
+      summary: getDischarges
+      operationId: getDischargesUsingGET
+      produces:
+      - application/json
+      parameters:
+      - name: dischargerange
+        in: query
+        description: dischargerange
+        required: true
+        type: array
+      - name: page
+        in: query
+        description: page
+        required: false
+        type: integer
+        default: 0
+        format: int32
+      - name: size
+        in: query
+        description: size
+        required: false
+        type: integer
+        default: 80
+        format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/AdmissionDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT: []
   /dischargetypes:
     get:
       tags:

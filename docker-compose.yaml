@@ -1,19 +1,26 @@
 version: "3.9"
 
 x-repo: &repository-args
-  OH_CORE_BRANCH: staging3Test
-  OH_API_BRANCH: staging3Test
-  GITHUB_ORG: intesys
-x-mysql: &mysql-env
-  MYSQL_DATABASE: oh
-  MYSQL_PORT: 3306
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_USER: isf
-  MYSQL_PASSWORD: isf123
+  OH_CORE_BRANCH: develop
+  OH_API_BRANCH: develop
+  GITHUB_ORG: informatici
+  API_PORT: 8080
+  JWT_TOKEN_SECRET: 12345678909876543221pooiimmmdfoisjdfoijsdfjoidsjfoijsdoifjolsdnfsdfindisfniosdnfiosdnfionds
+x-mariadb: &mariadb-env
+  <<: *repository-args
+  MARIADB_MYSQL_LOCALHOST_USER: "true"
+  MARIADB_SERVER: database
+  MARIADB_PORT: 3306
+  MARIADB_DATABASE: oh
+  MARIADB_ROOT_PASSWORD: root
+  MARIADB_USER: isf
+  MARIADB_PASSWORD: isf123
+  OH_DEMO_LANG: en
 x-ui: &ui-env
+  <<: *repository-args
   PUBLIC_URL: /
   REACT_APP_USE_MOCK_API:
-  REACT_APP_BASE_PATH: http://localhost:8080/oh-api
+  REACT_APP_BASE_PATH: http://localhost:8080
 x-pg-admin: &pg-admin-env
   PMA_HOST: "database"
   PMA_PORT: 3306
@@ -43,11 +50,18 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.backend
-      args: *repository-args
+      args:
+        <<: *mariadb-env
+    environment: *repository-args
     ports:
       - "8080:8080"
     depends_on:
       - database
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
     networks:
       - openhospital
 
@@ -55,8 +69,8 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.database
-      args: *repository-args
-    environment: *mysql-env
+      args: *mariadb-env
+    environment: *mariadb-env
     ports:
       - "3306:3306"
     command: mysqld --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" --lower_case_table_names=1
@@ -68,7 +82,6 @@ services:
     ports:
       - 9000:80
     environment:
-      <<: *mysql-env
       <<: *pg-admin-env
     depends_on:
       - database

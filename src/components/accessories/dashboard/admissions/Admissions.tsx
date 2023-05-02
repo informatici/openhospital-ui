@@ -2,10 +2,7 @@ import { Skeleton } from "@material-ui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAdmissions,
-  getOngoingAdmissions,
-} from "../../../../state/admissions/actions";
+import { getAdmissions } from "../../../../state/admissions/actions";
 import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
 import { getAgeTypes } from "../../../../state/ageTypes/actions";
 import { getWards } from "../../../../state/ward/actions";
@@ -25,7 +22,6 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
         admissionrange: period,
       })
     );
-    dispatch(getOngoingAdmissions());
     dispatch(getAgeTypes());
     dispatch(getAdmissionTypes());
     dispatch(getWards());
