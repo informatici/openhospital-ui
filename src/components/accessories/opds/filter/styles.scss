@@ -57,7 +57,7 @@
             @include susy-media($watch) {
               width: 100%;
             }
-            &.col-4 {
+            &.w-100 {
               width: 100%;
             }
           }
