@@ -6,6 +6,8 @@ import moment from "moment";
 export const setDashboardPeriod =
   (period: string[]) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
+    localStorage.setItem(btoa("dfp"), btoa(JSON.stringify(period)));
+
     dispatch({
       type: SET_DASHBOARD_PERIOD,
       payload: period,
@@ -15,6 +17,8 @@ export const setDashboardPeriod =
 export const resetDashboardPeriod =
   () =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
+    localStorage.removeItem(btoa("dfp"));
+
     dispatch({
       type: RESET_DASHBOARD_PERIOD,
       payload: [

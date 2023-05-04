@@ -1,10 +1,7 @@
-import moment from "moment";
 import { IDashboardState } from "./types";
+import { getCachedPeriod } from "../../components/accessories/dashboard/dashboardContent/filter/consts";
 
 export const initial: IDashboardState = {
-  period: [
-    moment().startOf("day").toISOString(),
-    moment().endOf("day").toISOString(),
-  ],
+  period: getCachedPeriod(),
   resetPeriod: false,
 };
