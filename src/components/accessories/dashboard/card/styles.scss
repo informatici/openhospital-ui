@@ -10,6 +10,9 @@
 
 .DashboardCard-item{
 
+  display: flex;
+  flex-direction: column;
+
   .DashboardCard-item-header {
     padding: 1px 16px 8px 16px;
     align-items: center;
@@ -18,6 +21,7 @@
   .DashboardCard-item-content {
     padding-top: 0;
     padding-bottom: 0 !important;
+    flex: 1 1 auto;
   }
   
   .MuiCardHeader-action {

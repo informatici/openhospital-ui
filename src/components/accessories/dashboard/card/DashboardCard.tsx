@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
 import { TDashboardCardProps } from "./types";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./styles.scss";
 import { DashboardCardActions } from "./DashboardCardOptions";
+import { useDimensions } from "../layouts/useDimensions";
 
 export const DashboardCard: React.FC<TDashboardCardProps> = ({
   actions,
@@ -11,7 +12,19 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
   subtitle,
   children,
   cardRef,
+  sizeChangeHandler,
 }) => {
+  const cardBodyRef = useRef<HTMLDivElement>(null);
+  const dimensions = useDimensions(cardBodyRef);
+
+  useEffect(() => {
+    if (sizeChangeHandler) {
+      if (dimensions) {
+        sizeChangeHandler(dimensions.width, dimensions.height);
+      }
+    }
+  }, [dimensions]);
+
   const getTitle = () => {
     return title ? (
       <Typography className="card-title" noWrap>
@@ -29,7 +42,10 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
         title={getTitle()}
         subheader={subtitle ?? false}
       ></CardHeader>
-      <CardContent className="DashboardCard-item-content">
+      <CardContent
+        innerRef={cardBodyRef}
+        className="DashboardCard-item-content"
+      >
         {children}
       </CardContent>
     </Card>

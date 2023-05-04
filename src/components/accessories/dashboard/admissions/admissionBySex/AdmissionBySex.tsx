@@ -1,35 +1,47 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
-import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { searchOpds } from "../../../../../state/opds/actions";
 import { useData } from "../useData";
-import { TDashboardCardOptionActions } from "../../card/types";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
-import { Piechart } from "../../../charts/pie/Piechart";
 import { DataSummary } from "../../summary/DataSummary";
+import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@material-ui/lab";
+import { getAdmissions } from "../../../../../state/admissions/actions";
+import { IOwnProps } from "../types";
 import { toggleFullscreen } from "../../card/consts";
 import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
 import "../../card/styles.scss";
+import { Piechart } from "../../../charts/pie/Piechart";
 
-export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
+export const AdmissionsBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const opdbysexcardref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(searchOpds({ dateFrom: period[0], dateTo: period[1] }));
-  }, [dispatch, period]);
+    dispatch(getAdmissions({ admissionrange: period }));
+  }, [dispatch]);
 
-  const { opdStatus, dataBySex, success, total } = useData();
+  useEffect(() => {
+    dispatch(getAdmissions({ admissionrange: period }));
+  }, [period]);
+
+  const { total, success, admissionStatus, dataBySex } = useData();
+
+  const admissionbysexcardref = useRef<HTMLDivElement>(null);
+
+  const [displaySize, setDisplaySize] =
+    useState<{ width: number; height: number }>();
+
+  const onSizeChange = (width: number, height: number) => {
+    setDisplaySize({ width: width - 1, height: height - 73 });
+  };
 
   const PDFDownload = (
     <a href="#" className="download-link">
@@ -62,8 +74,8 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
     onClose: () => onRemove(),
 
     onExpand: async () => {
-      if (opdbysexcardref.current) {
-        await toggleFullscreen(opdbysexcardref.current);
+      if (admissionbysexcardref.current) {
+        await toggleFullscreen(admissionbysexcardref.current);
       }
     },
 
@@ -76,7 +88,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
   return (
     <>
-      {opdStatus === "LOADING" && (
+      {admissionStatus === "LOADING" && (
         <div className="item">
           <Skeleton />
         </div>
@@ -84,18 +96,22 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
       {success && (
         <DashboardCard
-          cardRef={opdbysexcardref}
-          title={t("opd.opdbysex")}
+          cardRef={admissionbysexcardref}
+          title={t("admission.admissionbysex")}
           actions={actions}
+          sizeChangeHandler={onSizeChange}
         >
-          <Piechart data={dataBySex} />
+          <Piechart
+            data={dataBySex}
+            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
+            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
+          />
           <DataSummary
-            label={t("opd.opdregistered")}
+            label={t("admission.admregistered")}
             value={total.toString()}
           />
         </DashboardCard>
       )}
-      {opdStatus === "LOADING" && <Skeleton />}
     </>
   );
 };

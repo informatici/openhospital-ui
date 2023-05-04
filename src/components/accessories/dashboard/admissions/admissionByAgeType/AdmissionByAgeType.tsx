@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -28,15 +28,10 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      getAdmissions({
-        admissionrange: period,
-      })
-    );
+    dispatch(getAdmissions({ admissionrange: period }));
     dispatch(getAgeTypes());
-    dispatch(getAdmissionTypes());
-    dispatch(getWards());
   }, [dispatch]);
+
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
   }, [period]);
@@ -44,6 +39,13 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   const { total, success, admissionStatus, ageTypeStatus, dataByAgeType } =
     useData();
   const admissionbyagetypecardref = useRef<HTMLDivElement>(null);
+
+  const [displaySize, setDisplaySize] =
+    useState<{ width: number; height: number }>();
+
+  const onSizeChange = (width: number, height: number) => {
+    setDisplaySize({ width: width - 1, height: height - 73 });
+  };
 
   const PDFDownload = (
     <a href="#" className="download-link">
@@ -90,7 +92,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
 
   return (
     <>
-      {admissionStatus === "LOADING" && (
+      {(admissionStatus === "LOADING" || ageTypeStatus === "LOADING") && (
         <div className="item">
           <Skeleton />
         </div>
@@ -101,8 +103,13 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
           cardRef={admissionbyagetypecardref}
           title={t("admission.admissionbyagetype")}
           actions={actions}
+          sizeChangeHandler={onSizeChange}
         >
-          <Barchart data={dataByAgeType} />
+          <Barchart
+            data={dataByAgeType}
+            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
+            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
+          />
           <DataSummary
             label={t("admission.admregistered")}
             value={total.toString()}

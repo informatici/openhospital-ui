@@ -4,11 +4,11 @@ import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { searchOpds } from "../../../../../state/opds/actions";
+import { getAgeTypes } from "../../../../../state/ageTypes/actions";
 import { useData } from "../useData";
 import { TDashboardCardOptionActions } from "../../card/types";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
-import { Piechart } from "../../../charts/pie/Piechart";
 import { DataSummary } from "../../summary/DataSummary";
 import { Skeleton } from "@material-ui/lab";
 import { toggleFullscreen } from "../../card/consts";
@@ -16,8 +16,9 @@ import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
 import "../../card/styles.scss";
+import { Barchart } from "../../../charts/bar/Barchart";
 
-export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
+export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
   period,
 }) => {
@@ -27,9 +28,10 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
   useEffect(() => {
     dispatch(searchOpds({ dateFrom: period[0], dateTo: period[1] }));
+    dispatch(getAgeTypes());
   }, [dispatch, period]);
 
-  const { opdStatus, dataBySex, success, total } = useData();
+  const { opdStatus, ageTypeStatus, dataByAgeType, success, total } = useData();
 
   const PDFDownload = (
     <a href="#" className="download-link">
@@ -76,19 +78,13 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
   return (
     <>
-      {opdStatus === "LOADING" && (
-        <div className="item">
-          <Skeleton />
-        </div>
-      )}
-
-      {success && (
+      {success && ageTypeStatus === "SUCCESS" && (
         <DashboardCard
           cardRef={opdbysexcardref}
-          title={t("opd.opdbysex")}
+          title={t("opd.opdbyagetype")}
           actions={actions}
         >
-          <Piechart data={dataBySex} />
+          <Barchart data={dataByAgeType} />
           <DataSummary
             label={t("opd.opdregistered")}
             value={total.toString()}
