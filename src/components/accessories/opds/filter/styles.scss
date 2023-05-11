@@ -1,77 +1,81 @@
 @import "../../../../styles/variables";
 @import "../../../../../node_modules/susy/sass/susy";
 
- .filterOpdForm {
+.filterOpdForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1fr !important;
+  .MuiAccordion-root {
+    width: 100%;
+  }
+  .MuiAccordionSummary-content {
+    svg {
+      position: relative;
+      top: -2px;
+    }
+    h5 {
+      margin: 0px 10px;
+    }
+  }
+  .filterOpdForm__form {
+    width: 100%;
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
-    align-items: center;
-    width: 1fr !important;
-    .MuiAccordion-root {
-      width: 100%;
-    }
-    .MuiAccordionSummary-content {
-      svg {
-        position: relative;
-        top: -2px;
-      }
-      h5 {
-        margin: 0px 10px;
-      }
-    }
-    .filterOpdForm__form {
-      width: 100%;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    .filterOpdForm__section {
       display: flex;
-      align-items: flex-start;
       flex-direction: column;
-      flex-wrap: wrap;
-      row-gap: 8px;
-      .filterOpdForm__section {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        .filterOpdForm__section_title {
-          text-transform: uppercase;
-          color: $c-grey-lighter;
-          font-size: medium;
-        }
-        .filterOpdForm__section_content {
-          display: flex;
-          flex-flow: wrap row;
-          justify-content: space-between;
-          .filterOpdForm__item {
-            margin-right: 5px;
-            align-items: center;
-            width: 24%;
-            .dateField, .dateField__light, .textField, .selectField, .autocompleteField {
-              width: 100%;
-            }
-            @include susy-media($tablet_land) {
-              width: 30%;
-            }
-            @include susy-media($smartphone) {
-              width: 48%;
-            }
-            @include susy-media($phone) {
-              width: 100%;
-            }
-            @include susy-media($watch) {
-              width: 100%;
-            }
-          }
-        }
+      width: 100%;
+      .filterOpdForm__section_title {
+        text-transform: uppercase;
+        color: $c-grey-lighter;
+        font-size: medium;
       }
-      .filterForm__buttonSet {
+      .filterOpdForm__section_content {
         display: flex;
-        width: 100%;
-        .MuiButton-contained {
+        flex-flow: wrap row;
+        justify-content: space-between;
+        .filterOpdForm__item {
+          margin-right: 5px;
+          align-items: center;
           width: 24%;
+          .dateField,
+          .dateField__light,
+          .textField,
+          .selectField,
+          .autocompleteField {
+            width: 100%;
+          }
           @include susy-media($tablet_land) {
-            width: 32%;
+            width: 30%;
+          }
+          @include susy-media($smartphone) {
+            width: 48%;
           }
           @include susy-media($phone) {
+            width: 100%;
+          }
+          @include susy-media($watch) {
             width: 100%;
           }
         }
       }
     }
+    .filterForm__buttonSet {
+      display: flex;
+      width: 100%;
+      .MuiButton-contained {
+        width: 24%;
+        @include susy-media($tablet_land) {
+          width: 32%;
+        }
+        @include susy-media($phone) {
+          width: 100%;
+        }
+      }
+    }
   }
+}
