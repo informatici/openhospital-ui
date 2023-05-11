@@ -20,13 +20,15 @@ import "../../card/styles.scss";
 
 export const AdmissionsByWards: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getAdmissions({ admissionrange: period }));
+    //dispatch(getAdmissions({ admissionrange: period }));
     dispatch(getWards());
   }, [dispatch]);
 
@@ -36,7 +38,6 @@ export const AdmissionsByWards: FC<TDashboardComponentProps & IOwnProps> = ({
 
   const { total, success, admissionStatus, wardStatus, dataByWards } =
     useData();
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -73,13 +74,9 @@ export const AdmissionsByWards: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (cardRef.current) {
-        await toggleFullscreen(cardRef.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },

@@ -10,34 +10,32 @@ import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@material-ui/lab";
 import { getDischarges } from "../../../../../state/admissions/actions";
 import { IOwnProps } from "../types";
-import { toggleFullscreen } from "../../card/consts";
 import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
+import { getAgeTypes } from "../../../../../state/ageTypes/actions";
+import { Barchart } from "../../../charts/bar/Barchart";
 
 import "../../card/styles.scss";
-import { Piechart } from "../../../charts/pie/Piechart";
-import { getAgeTypes } from "../../../../../state/ageTypes/actions";
 
 export const DischargesByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getDischarges({ dischargerange: period }));
     dispatch(getAgeTypes());
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: period }));
-  }, [period]);
+  }, [dispatch, period]);
 
   const { total, success, admissionStatus, ageTypeStatus, dataByAgeType } =
     useData();
-
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -74,13 +72,9 @@ export const DischargesByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (cardRef.current) {
-        await toggleFullscreen(cardRef.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },
@@ -104,7 +98,7 @@ export const DischargesByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
           actions={actions}
           sizeChangeHandler={onSizeChange}
         >
-          <Piechart
+          <Barchart
             data={dataByAgeType}
             width={displaySize?.width ? `${displaySize.width}px` : "320px"}
             height={displaySize?.height ? `${displaySize.height}px` : "320px"}

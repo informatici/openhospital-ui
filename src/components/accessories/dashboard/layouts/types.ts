@@ -3,6 +3,7 @@ import { Layout, Layouts } from "react-grid-layout";
 export type TGridLayoutItemProps = {
   dashboardKey: TDashboardComponent;
   onRemove: () => void;
+  onFullScreenEnter?: () => void;
   className?: string;
   otherProps?: { [key: string]: any };
 };
@@ -13,7 +14,13 @@ export type TGridLayoutToolboxItemProps = {
 };
 
 export type TDashboardComponentProps = {
-  onRemove: () => void;
+  onFullScreenEnter?: () => void;
+  onRemove?: () => void;
+};
+
+export type TDashboardWidgetProps = TDashboardComponentProps & {
+  dashboard: TDashboardComponent;
+  period: string[];
 };
 
 export type LayoutBreakpoints = "lg" | "md" | "sm" | "xs" | "xxs";

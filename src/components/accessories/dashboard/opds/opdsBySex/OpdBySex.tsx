@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,6 @@ import { DashboardCard } from "../../card/DashboardCard";
 import { Piechart } from "../../../charts/pie/Piechart";
 import { DataSummary } from "../../summary/DataSummary";
 import { Skeleton } from "@material-ui/lab";
-import { toggleFullscreen } from "../../card/consts";
 import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
@@ -19,6 +18,7 @@ import "../../card/styles.scss";
 
 export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
@@ -30,6 +30,13 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   }, [dispatch, period]);
 
   const { opdStatus, dataBySex, success, total } = useData();
+
+  const [displaySize, setDisplaySize] =
+    useState<{ width: number; height: number }>();
+
+  const onSizeChange = (width: number, height: number) => {
+    setDisplaySize({ width: width - 1, height: height - 73 });
+  };
 
   const PDFDownload = (
     <a href="#" className="download-link">
@@ -59,13 +66,9 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (opdbysexcardref.current) {
-        await toggleFullscreen(opdbysexcardref.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },
@@ -87,15 +90,19 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
           cardRef={opdbysexcardref}
           title={t("opd.opdbysex")}
           actions={actions}
+          sizeChangeHandler={onSizeChange}
         >
-          <Piechart data={dataBySex} />
+          <Piechart
+            data={dataBySex}
+            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
+            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
+          />
           <DataSummary
             label={t("opd.opdregistered")}
             value={total.toString()}
           />
         </DashboardCard>
       )}
-      {opdStatus === "LOADING" && <Skeleton />}
     </>
   );
 };

@@ -11,22 +11,23 @@ import { Skeleton } from "@material-ui/lab";
 import { getAdmissions } from "../../../../../state/admissions/actions";
 import { getAdmissionTypes } from "../../../../../state/admissionTypes/actions";
 import { IOwnProps } from "../types";
-import { toggleFullscreen } from "../../card/consts";
 import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
+import { Piechart } from "../../../charts/pie/Piechart";
 
 import "../../card/styles.scss";
-import { Piechart } from "../../../charts/pie/Piechart";
 
 export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const admtcardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getAdmissions({ admissionrange: period }));
+    //dispatch(getAdmissions({ admissionrange: period }));
     dispatch(getAdmissionTypes());
   }, [dispatch]);
 
@@ -41,7 +42,6 @@ export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
     admissionTypeStatus,
     dataByAdmissionType,
   } = useData();
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -78,13 +78,9 @@ export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (cardRef.current) {
-        await toggleFullscreen(cardRef.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },
@@ -103,7 +99,7 @@ export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
 
       {success && admissionTypeStatus === "SUCCESS" && (
         <DashboardCard
-          cardRef={cardRef}
+          cardRef={admtcardRef}
           title={t("admission.admissionbytype")}
           actions={actions}
           sizeChangeHandler={onSizeChange}

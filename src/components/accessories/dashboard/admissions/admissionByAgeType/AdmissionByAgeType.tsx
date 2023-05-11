@@ -11,10 +11,7 @@ import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@material-ui/lab";
 import { getAdmissions } from "../../../../../state/admissions/actions";
 import { getAgeTypes } from "../../../../../state/ageTypes/actions";
-import { getAdmissionTypes } from "../../../../../state/admissionTypes/actions";
-import { getWards } from "../../../../../state/ward/actions";
 import { IOwnProps } from "../types";
-import { toggleFullscreen } from "../../card/consts";
 import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
@@ -22,13 +19,15 @@ import "../../card/styles.scss";
 
 export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getAdmissions({ admissionrange: period }));
+    //dispatch(getAdmissions({ admissionrange: period }));
     dispatch(getAgeTypes());
   }, [dispatch]);
 
@@ -38,7 +37,6 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
 
   const { total, success, admissionStatus, ageTypeStatus, dataByAgeType } =
     useData();
-  const admissionbyagetypecardref = useRef<HTMLDivElement>(null);
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -75,13 +73,9 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (admissionbyagetypecardref.current) {
-        await toggleFullscreen(admissionbyagetypecardref.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },
@@ -100,7 +94,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
 
       {success && ageTypeStatus === "SUCCESS" && (
         <DashboardCard
-          cardRef={admissionbyagetypecardref}
+          cardRef={cardRef}
           title={t("admission.admissionbyagetype")}
           actions={actions}
           sizeChangeHandler={onSizeChange}

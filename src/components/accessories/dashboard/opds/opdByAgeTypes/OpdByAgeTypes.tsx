@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,7 @@ import { Barchart } from "../../../charts/bar/Barchart";
 
 export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
@@ -32,6 +33,13 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   }, [dispatch, period]);
 
   const { opdStatus, ageTypeStatus, dataByAgeType, success, total } = useData();
+
+  const [displaySize, setDisplaySize] =
+    useState<{ width: number; height: number }>();
+
+  const onSizeChange = (width: number, height: number) => {
+    setDisplaySize({ width: width - 1, height: height - 73 });
+  };
 
   const PDFDownload = (
     <a href="#" className="download-link">
@@ -61,13 +69,9 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (opdbysexcardref.current) {
-        await toggleFullscreen(opdbysexcardref.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },
@@ -83,8 +87,13 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
           cardRef={opdbysexcardref}
           title={t("opd.opdbyagetype")}
           actions={actions}
+          sizeChangeHandler={onSizeChange}
         >
-          <Barchart data={dataByAgeType} />
+          <Barchart
+            data={dataByAgeType}
+            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
+            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
+          />
           <DataSummary
             label={t("opd.opdregistered")}
             value={total.toString()}

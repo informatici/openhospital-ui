@@ -19,22 +19,18 @@ import { Piechart } from "../../../charts/pie/Piechart";
 
 export const AdmissionsBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const admissionbysexcardref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getAdmissions({ admissionrange: period }));
-  }, [period]);
+  }, [dispatch, period]);
 
   const { total, success, admissionStatus, dataBySex } = useData();
-
-  const admissionbysexcardref = useRef<HTMLDivElement>(null);
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -71,13 +67,9 @@ export const AdmissionsBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (admissionbysexcardref.current) {
-        await toggleFullscreen(admissionbysexcardref.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },

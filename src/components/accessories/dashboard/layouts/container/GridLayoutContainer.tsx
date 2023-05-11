@@ -7,6 +7,7 @@ import {
   defaultGridLayoutBreakpoints,
   defaultGridLayoutCols,
   encodeLayout,
+  removeDuplicates,
 } from "../consts";
 import { TDashboardComponent } from "../types";
 import {
@@ -20,6 +21,7 @@ import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import "../styles.scss";
 import { CircularProgress } from "@material-ui/core";
+import { FullscreenCard } from "../../card/FullscreenCard";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -27,8 +29,10 @@ const GridLayoutContainer: FC = () => {
   const dispatch = useDispatch();
 
   const [mounted, setMounted] = useState(false);
-  const [canUpdateLayouts, setCanUpdateLayouts] = useState(false);
+  const [canUpdateLayouts, setCanUpdateLayouts] = useState(true);
   const [localBreakpoint, setLocalBreakpoint] = useState<string>("md");
+  const [fsDashboard, setFsDashboard] =
+    useState<TDashboardComponent | undefined>(undefined);
 
   const currentBreakpoint = useSelector<IState, string>(
     (state) => state.layouts.breakpoint
@@ -50,6 +54,8 @@ const GridLayoutContainer: FC = () => {
   const onBreakpointChange = (breakpoint: string) => {
     dispatch(setBreakpoint(breakpoint));
     setLocalBreakpoint(breakpoint);
+
+    //setCanUpdateLayouts(false);
   };
 
   const onLayoutChange = (newLayout: Layout[], allLayouts: Layouts) => {
@@ -62,22 +68,31 @@ const GridLayoutContainer: FC = () => {
   };
 
   const onItemRemove = (item: Layout) => {
-    let toolboxTmp = {
+    let toolboxTmp = removeDuplicates({
       ...toolbox,
       [localBreakpoint]: [...(toolbox[localBreakpoint] || []), item],
-    };
-    let layoutsTmp = {
+    });
+
+    let layoutsTmp = removeDuplicates({
       ...layouts,
       [localBreakpoint]: layouts[localBreakpoint].filter(
         ({ i }) => i !== item.i
       ),
-    };
+    });
 
-    setCanUpdateLayouts(false);
+    //setCanUpdateLayouts(false);
 
     dispatch(
       saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))
     );
+  };
+
+  const onFullScreenEnter = (label: TDashboardComponent) => {
+    setFsDashboard(label);
+  };
+
+  const onFullScreenExit = () => {
+    setFsDashboard(undefined);
   };
 
   const getLayoutsStatus = useSelector(
@@ -91,34 +106,41 @@ const GridLayoutContainer: FC = () => {
       )}
 
       {getLayoutsStatus === "SUCCESS" && (
-        <ResponsiveReactGridLayout
-          className="layout"
-          layouts={layouts}
-          onBreakpointChange={onBreakpointChange}
-          onLayoutChange={onLayoutChange}
-          isDraggable
-          isDroppable
-          isResizable
-          measureBeforeMount={false}
-          useCSSTransforms={mounted}
-          draggableHandle=".DashboardCard-item-header"
-          resizeHandles={["ne", "se"]}
-          breakpoints={defaultGridLayoutBreakpoints}
-          cols={defaultGridLayoutCols}
-        >
-          {layouts[localBreakpoint].map((l, key) => {
-            let ldash = l.i as TDashboardComponent;
+        <>
+          <ResponsiveReactGridLayout
+            className="layout"
+            layouts={layouts}
+            onBreakpointChange={onBreakpointChange}
+            onLayoutChange={onLayoutChange}
+            isDraggable
+            isDroppable
+            isResizable
+            measureBeforeMount={false}
+            useCSSTransforms={mounted}
+            draggableHandle=".DashboardCard-item-header"
+            resizeHandles={["ne", "se"]}
+            breakpoints={defaultGridLayoutBreakpoints}
+            cols={defaultGridLayoutCols}
+          >
+            {layouts[localBreakpoint].map((l, key) => {
+              let ldash = l.i as TDashboardComponent;
 
-            return (
-              <div key={ldash} style={{ background: "#ccc" }} data-grid={l}>
-                <GridLayoutItem
-                  dashboardKey={ldash}
-                  onRemove={() => onItemRemove(l)}
-                />
-              </div>
-            );
-          })}
-        </ResponsiveReactGridLayout>
+              return (
+                <div key={ldash} style={{ background: "#ccc" }} data-grid={l}>
+                  <GridLayoutItem
+                    dashboardKey={ldash}
+                    onRemove={() => onItemRemove(l)}
+                    onFullScreenEnter={() =>
+                      onFullScreenEnter(l.i as TDashboardComponent)
+                    }
+                  />
+                </div>
+              );
+            })}
+          </ResponsiveReactGridLayout>
+
+          <FullscreenCard dashboard={fsDashboard} onClose={onFullScreenExit} />
+        </>
       )}
     </>
   );

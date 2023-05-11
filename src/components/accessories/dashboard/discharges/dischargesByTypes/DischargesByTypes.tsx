@@ -8,10 +8,7 @@ import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@material-ui/lab";
-import {
-  getAdmissions,
-  getDischarges,
-} from "../../../../../state/admissions/actions";
+import { getDischarges } from "../../../../../state/admissions/actions";
 import { IOwnProps } from "../types";
 import { toggleFullscreen } from "../../card/consts";
 import { ListItemIcon } from "@material-ui/core";
@@ -23,19 +20,20 @@ import "../../card/styles.scss";
 
 export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
+  onFullScreenEnter,
   period,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getDischarges({ dischargerange: period }));
     dispatch(getDischargeTypes());
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: period }));
-  }, [period]);
+  }, [dispatch, period]);
 
   const {
     total,
@@ -44,7 +42,6 @@ export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
     dischargeTypeStatus,
     dataByDischargeType,
   } = useData();
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -81,13 +78,9 @@ export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   );
 
   const actions: TDashboardCardOptionActions = {
-    onClose: () => onRemove(),
+    onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: async () => {
-      if (cardRef.current) {
-        await toggleFullscreen(cardRef.current);
-      }
-    },
+    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
     onDownload: [
       { action: PDFDownload },

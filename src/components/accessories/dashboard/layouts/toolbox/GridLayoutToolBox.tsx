@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
 import { TGridLayoutToolboxItemProps, TDashboardComponent } from "../types";
-import { encodeLayout, getDashboardLabel } from "../consts";
+import { encodeLayout, getDashboardLabel, removeDuplicates } from "../consts";
 import { Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Layout, Layouts } from "react-grid-layout";
@@ -28,14 +28,15 @@ export const GridLayoutToolbox: FC = () => {
   );
 
   const onItemPut = (item: Layout) => {
-    let layoutsTmp = {
+    let layoutsTmp = removeDuplicates({
       ...layouts,
       [breakpoint]: [...layouts[breakpoint], item],
-    };
-    let toolboxTmp = {
+    });
+
+    let toolboxTmp = removeDuplicates({
       ...toolbox,
       [breakpoint]: toolbox[breakpoint].filter(({ i }) => i !== item.i),
-    };
+    });
 
     dispatch(
       saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))

@@ -28,13 +28,18 @@ export const getLayouts =
      */
     let layout: Layouts;
     let toolbox: Layouts;
+
     let savedConfig = localStorage.getItem("lc");
+
     if (savedConfig && atob(savedConfig) !== null) {
       savedConfig = atob(savedConfig);
       let decodedConfig = decodeLayoutConfig(savedConfig);
       if (decodedConfig) {
         layout = decodedConfig.layout;
-        toolbox = decodedConfig.toolbox;
+        toolbox = toolboxDashboards(
+          decodedConfig.layout,
+          decodedConfig.toolbox
+        );
       } else {
         layout = randomLayout(4);
         toolbox = toolboxDashboards(layout, {});

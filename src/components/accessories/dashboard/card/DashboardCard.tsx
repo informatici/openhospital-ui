@@ -15,15 +15,43 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
   sizeChangeHandler,
 }) => {
   const cardBodyRef = useRef<HTMLDivElement>(null);
-  const dimensions = useDimensions(cardBodyRef);
+  //const dimensions = useDimensions(cardBodyRef);
 
-  useEffect(() => {
+  const resizeObserver = new ResizeObserver((entries) => {
     if (sizeChangeHandler) {
-      if (dimensions) {
-        sizeChangeHandler(dimensions.width, dimensions.height);
+      let entry = entries[0];
+      if (entry.contentBoxSize) {
+        const contentBoxSize = entry.contentBoxSize[0];
+
+        sizeChangeHandler(
+          Math.ceil(contentBoxSize.inlineSize),
+          Math.ceil(contentBoxSize.blockSize)
+        );
+      } else {
+        sizeChangeHandler(
+          Math.ceil(entry.contentRect.width),
+          Math.ceil(entry.contentRect.height)
+        );
       }
     }
-  }, [dimensions]);
+  });
+
+  useEffect(() => {
+    if (sizeChangeHandler && cardBodyRef.current) {
+      resizeObserver.observe(cardBodyRef.current);
+    }
+  }, [cardBodyRef]);
+
+  // Remove the observer on component unmount
+  // useEffect(() => {
+  //   return () => {
+
+  //     if (sizeChangeHandler && cardBodyRef.current) {
+  //       resizeObserver.unobserve(cardBodyRef.current);
+  //       resizeObserver.disconnect();
+  //     }
+  //   };
+  // }, []);
 
   const getTitle = () => {
     return title ? (

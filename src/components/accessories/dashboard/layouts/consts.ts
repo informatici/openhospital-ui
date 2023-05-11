@@ -90,6 +90,21 @@ export function getDashboardLabel(dashboardKey: TDashboardComponent): string {
   }
 }
 
+export function removeDuplicates(input: Layouts): Layouts {
+  let cleanInput: Layouts = { ...input };
+
+  Object.keys(input).forEach((breakpoint) => {
+    let breakpointConfig = input[breakpoint].filter(
+      (layout, index, self) =>
+        self.findIndex((layoutTmp) => layoutTmp.i === layout.i) === index
+    );
+
+    cleanInput[breakpoint] = breakpointConfig;
+  });
+
+  return cleanInput;
+}
+
 /**
  * Generate layout for random Dashboards
  * @param nbDashboard Number of dashboard to generate
@@ -98,13 +113,13 @@ export function getDashboardLabel(dashboardKey: TDashboardComponent): string {
 export function randomLayout(nbDashboard: number): Layouts {
   let randomDashboards = randomItems(DASHBOARDS, nbDashboard);
 
-  return {
+  return removeDuplicates({
     lg: generateLayout("lg", randomDashboards),
     md: generateLayout("md", randomDashboards),
     sm: generateLayout("sm", randomDashboards),
     xs: generateLayout("xs", randomDashboards),
     xxs: generateLayout("xxs", randomDashboards),
-  };
+  });
 }
 
 /**
@@ -120,25 +135,49 @@ export function toolboxDashboards(
 ): Layouts {
   let toolbox = { ...currentToolBox };
 
-  let knownDashboard: string[] = [];
-  let unknownDashboard: string[] = [];
+  let knownDashboard: { [key: string]: string[] } = {};
+  let unknownDashboard: { [key: string]: string[] } = {};
 
-  knownDashboard = [
-    ...getLayoutDashboards(shownDashboard),
-    ...getLayoutDashboards(currentToolBox),
-  ];
+  ["lg", "md", "sm", "xs", "xxs"].forEach((breakpoint) => {
+    knownDashboard[breakpoint] = [
+      ...(getLayoutDashboards(shownDashboard)[breakpoint] ?? []),
+      ...(getLayoutDashboards(currentToolBox)[breakpoint] ?? []),
+    ];
+  });
 
-  unknownDashboard = DASHBOARDS.filter(
-    (dashboard) => !knownDashboard.includes(dashboard)
-  );
+  ["lg", "md", "sm", "xs", "xxs"].forEach((breakpoint) => {
+    unknownDashboard[breakpoint] = DASHBOARDS.filter(
+      (dashboard) => !knownDashboard[breakpoint].includes(dashboard)
+    );
+  });
 
-  if (unknownDashboard.length > 0) {
+  let unknownDashsCount = 0;
+  Object.keys(unknownDashboard).forEach((obj) => {
+    unknownDashsCount += unknownDashboard[obj].length;
+  });
+
+  if (unknownDashsCount > 0) {
     let unknownDashboardLayout: Layouts = {
-      lg: generateLayout("lg", unknownDashboard),
-      md: generateLayout("md", unknownDashboard),
-      sm: generateLayout("sm", unknownDashboard),
-      xs: generateLayout("xs", unknownDashboard),
-      xxs: generateLayout("xxs", unknownDashboard),
+      lg: generateLayout(
+        "lg",
+        unknownDashboard["lg"].length > 0 ? unknownDashboard["lg"] : []
+      ),
+      md: generateLayout(
+        "md",
+        unknownDashboard["md"].length > 0 ? unknownDashboard["md"] : []
+      ),
+      sm: generateLayout(
+        "sm",
+        unknownDashboard["sm"].length > 0 ? unknownDashboard["sm"] : []
+      ),
+      xs: generateLayout(
+        "xs",
+        unknownDashboard["xs"].length > 0 ? unknownDashboard["xs"] : []
+      ),
+      xxs: generateLayout(
+        "xxs",
+        unknownDashboard["xxs"].length > 0 ? unknownDashboard["xxs"] : []
+      ),
     };
 
     ["lg", "md", "sm", "xs", "xxs"].forEach((breakpoint) => {
@@ -149,20 +188,24 @@ export function toolboxDashboards(
     });
   }
 
-  return toolbox;
+  return removeDuplicates(toolbox);
 }
 
 /**
  * Return dashboard in layout
  * @param layout Layout
  */
-export function getLayoutDashboards(layout: Layouts): string[] {
-  let dashboards: string[] = [];
+export function getLayoutDashboards(layout: Layouts): {
+  [key: string]: string[];
+} {
+  let dashboards: { [key: string]: string[] } = {};
 
   Object.keys(layout).forEach((breakpoint) => {
     layout[breakpoint].forEach((layout) => {
-      if (!dashboards.includes(layout.i)) {
-        dashboards.push(layout.i);
+      if (!dashboards[breakpoint]) {
+        dashboards[breakpoint] = [layout.i];
+      } else if (!dashboards[breakpoint].includes(layout.i)) {
+        dashboards[breakpoint].push(layout.i);
       }
     });
   });
