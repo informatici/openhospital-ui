@@ -9,13 +9,20 @@
     "password": "Password",
     "incorrectcredentials": "Invalid username or password",
     "forgotpassword": "Forgot the password?",
-    "insertavalidusername": "Insert a valid user name",
+    "insertavalidemail": "Insert a valid user email address",
+    "insertavalidusername": "Insert a valid username",
     "insertthepassword": "Insert the password",
     "login": "Login",
     "signout": "Logout",
     "signoutText": "Are you sure you want to Logout?",
     "passwordtooshort": "Password too short",
-    "signin": "Sign in"
+    "signin": "Sign in",
+    "forgottitle": "Reset your password",
+    "forgotdescription": "Type the username you used to sign up and we'll send you a password reset email.",
+    "forgotsuccess": "We'll send you an email if it's associated with your account.",
+    "email": "Email Address",
+    "takemeback": "Take me back to login",
+    "tryanotherusername": "Try another Username"
   },
   "dashboard": {
     "welcomename": "Welcome",
@@ -177,7 +184,10 @@
     "prescription": "Prescription",
     "opdregistered": "Opds registered in the period",
     "opdbysex": "Opds by sex",
-    "opdbyagetype": "Opds by age type"
+    "opdbyagetype": "Opds by age type",
+    "futuredatenotallow": "Future date not allowed",
+    "belowminage": "Min. age is 0",
+    "abovemaxage": "max. age is 200"
   },
   "visit": {
     "date": "Date (d/m/y)",

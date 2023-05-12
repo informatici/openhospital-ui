@@ -15,7 +15,7 @@ export const useData = () => {
   const { t } = useTranslation();
   const discharges = useSelector<IState, AdmissionDTO[]>(
     (state) =>
-      state.admissions.getAdmissions.data?.filter(
+      state.admissions.getDischarges.data?.filter(
         (e) => e?.disDate !== undefined
       ) ?? []
   );
@@ -35,11 +35,11 @@ export const useData = () => {
     (state) => state.dischargeTypes.allDischargeTypes.status ?? "IDLE"
   );
   const admissionStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.admissions.getAdmissions.status ?? "IDLE"
+    (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
   const success = useSelector<IState, boolean>((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
-      state.admissions.getAdmissions.status ?? ""
+      state.admissions.getDischarges.status ?? ""
     )
   );
   const wardStatus = useSelector<IState, TAPIResponseStatus>(

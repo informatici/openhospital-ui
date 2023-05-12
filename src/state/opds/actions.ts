@@ -17,6 +17,9 @@ import {
   DELETE_OPD_LOADING,
   DELETE_OPD_RESET,
   DELETE_OPD_SUCCESS,
+  GET_LAST_OPD_FAIL,
+  GET_LAST_OPD_LOADING,
+  GET_LAST_OPD_SUCCESS,
   GET_OPD_FAIL,
   GET_OPD_LOADING,
   GET_OPD_RESET,
@@ -192,6 +195,41 @@ export const getOpdsWithOperationRows =
       });
     }
   };
+
+export const getLastOpd =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<OpdDTO, {}>>): void => {
+    dispatch({
+      type: GET_LAST_OPD_LOADING,
+    });
+
+    if (code) {
+      opdControllerApi
+        .getLastOpdUsingGET({
+          code: code,
+        })
+        .subscribe(
+          (payload) => {
+            dispatch({
+              type: GET_LAST_OPD_SUCCESS,
+              payload: payload,
+            });
+          },
+          (error) => {
+            dispatch({
+              type: GET_LAST_OPD_FAIL,
+              error,
+            });
+          }
+        );
+    } else {
+      dispatch({
+        type: GET_LAST_OPD_FAIL,
+        error: "patient code should not be empty",
+      });
+    }
+  };
+
 export const searchOpds =
   (query: any) =>
   (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {

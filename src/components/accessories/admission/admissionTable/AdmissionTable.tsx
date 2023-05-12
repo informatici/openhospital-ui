@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
-import { getAdmissions } from "../../../../state/admissions/actions";
+import { getPatientAdmissions } from "../../../../state/admissions/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
@@ -44,8 +44,8 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const dispatch = useDispatch();
 
   const data = useSelector<IState, AdmissionDTO[]>((state) =>
-    state.admissions.getAdmissions.data
-      ? state.admissions.getAdmissions.data
+    state.admissions.getPatientAdmissions.data
+      ? state.admissions.getPatientAdmissions.data
       : []
   );
 
@@ -59,7 +59,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode) {
-      dispatch(getAdmissions({ patientcode: patientCode }));
+      dispatch(getPatientAdmissions({ patientCode: patientCode as number }));
     }
   }, [shouldUpdateTable, dispatch, patientCode]);
 
@@ -83,12 +83,12 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     });
   };
   const status = useSelector<IState, string | undefined>(
-    (state) => state.admissions.getAdmissions.status
+    (state) => state.admissions.getPatientAdmissions.status
   );
 
   const errorMessage = useSelector<IState>(
     (state) =>
-      state.admissions.getAdmissions.error?.message ||
+      state.admissions.getPatientAdmissions.error?.message ||
       t("common.somethingwrong")
   ) as string;
   const createAdmissionStatus = useSelector<IState>(

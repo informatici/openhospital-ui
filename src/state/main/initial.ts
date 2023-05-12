@@ -7,4 +7,7 @@ export const initial: IMainState = {
   logout: {
     status: "IDLE",
   },
+  forgotpassword: {
+    status: "IDLE",
+  },
 };

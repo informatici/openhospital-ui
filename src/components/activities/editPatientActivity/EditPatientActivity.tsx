@@ -88,12 +88,14 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   useEffect(() => {
+    console.log(activityTransitionState);
     if (activityTransitionState === "TO_PATIENT") {
       getPatientThunk(id!);
       updatePatientReset();
       setShouldResetForm(true);
     } else if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
+      setActivityTransitionState("IDLE");
     }
   }, [activityTransitionState, updatePatientReset, getPatientThunk, id]);
 
