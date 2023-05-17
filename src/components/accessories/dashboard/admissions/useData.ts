@@ -7,7 +7,7 @@ import {
   AdmissionTypeDTO,
   AgeTypeDTO,
 } from "../../../../generated";
-import { generateColor } from "../../../../libraries/uiUtils/colorGenerator";
+import { colorGen } from "../../../../libraries/uiUtils/colorGenerator";
 import { TAPIResponseStatus } from "../../../../state/types";
 import { IState } from "../../../../types";
 
@@ -102,9 +102,7 @@ export const useData = () => {
         data: admissionTypes.map(
           (e) => admissions.filter((adm) => adm.admType?.code === e.code).length
         ),
-        backgroundColor: admissionTypes.map((e, index) =>
-          generateColor({ red: 255 })
-        ),
+        backgroundColor: colorGen(admissionTypes.length),
       },
     ],
   };
