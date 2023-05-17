@@ -124,7 +124,7 @@ export const LaboratoryDetails: FC = () => {
                     {t("lab.examdate")}:
                   </div>
                   <div className="labDetails__content__item__value">
-                    {renderDate(lab?.date || "-")}
+                    {renderDate(lab?.labDate || "-")}
                   </div>
                 </div>
                 <div className="labDetails__content__item">

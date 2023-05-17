@@ -117,7 +117,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     lab.patName = patient?.firstName + " " + patient?.secondName;
     lab.sex = patient?.sex;
     lab.age = patient?.age;
-    lab.date = parseDate(lab.date ?? "");
+    lab.labDate = parseDate(lab.labDate ?? new Date().toISOString());
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = patientData?.status
       ? patientData.status === "O"
@@ -125,7 +125,6 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
         : LaboratoryDTOInOutPatientEnum.I
       : LaboratoryDTOInOutPatientEnum.O;
     lab.material = ""; // material needs to be removed from backend env
-    lab.date = new Date().toISOString(); // Date will be modified when processing the exam request
     lab.result = "";
     lab.status = LaboratoryDTOStatusEnum.DRAFT;
 

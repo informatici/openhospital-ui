@@ -8798,7 +8798,7 @@ definitions:
         type: integer
         format: int32
         description: Laboratory Code
-      date:
+      labDate:
         type: string
         format: date-time
         description: Laboratory Exam Date

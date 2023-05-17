@@ -47,7 +47,7 @@ export const ExamTable: FC<IExamTableProps> = ({
       results = data.map((e) => {
         return {
           id: e.laboratoryDTO?.code ?? "",
-          date: renderDate(e.laboratoryDTO?.date ?? ""),
+          date: renderDate(e.laboratoryDTO?.labDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
           exam:
             e.laboratoryDTO?.exam?.description ?? e.laboratoryDTO?.exam ?? "", //The second case should be removed when the api is ready
