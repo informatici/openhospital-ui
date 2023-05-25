@@ -22,7 +22,7 @@
     padding-top: 0;
     padding-bottom: 0 !important;
     flex: 1 1 auto;
-    max-height: 100%;
+    max-height: calc(100% - 40px);
   }
   
   .MuiCardHeader-action {

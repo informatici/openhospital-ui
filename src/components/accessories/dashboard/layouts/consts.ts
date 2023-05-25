@@ -90,6 +90,11 @@ export function getDashboardLabel(dashboardKey: TDashboardComponent): string {
   }
 }
 
+/**
+ * Remove duplicates in layout config.
+ * @param input
+ * @returns Return the config without duplicates
+ */
 export function removeDuplicates(input: Layouts): Layouts {
   let cleanInput: Layouts = { ...input };
 
@@ -98,6 +103,26 @@ export function removeDuplicates(input: Layouts): Layouts {
       (layout, index, self) =>
         self.findIndex((layoutTmp) => layoutTmp.i === layout.i) === index
     );
+
+    cleanInput[breakpoint] = breakpointConfig;
+  });
+
+  return cleanInput;
+}
+
+/**
+ * Remove duplicated widgets in toolbox and layout
+ * @param input1 Toolbox
+ * @param input2 Layout
+ * @returns Toolbox without duplicates
+ */
+export function removeDoubles(input1: Layouts, input2: Layouts): Layouts {
+  let cleanInput: Layouts = {};
+
+  Object.keys(input1).forEach((breakpoint) => {
+    let breakpointConfig = input1[breakpoint].filter((layout) => {
+      return !input2[breakpoint].some((layout1) => layout1.i == layout.i);
+    });
 
     cleanInput[breakpoint] = breakpointConfig;
   });
@@ -188,7 +213,7 @@ export function toolboxDashboards(
     });
   }
 
-  return removeDuplicates(toolbox);
+  return removeDoubles(removeDuplicates(toolbox), shownDashboard);
 }
 
 /**
