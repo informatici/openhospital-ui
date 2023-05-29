@@ -3,7 +3,6 @@ import { TDashboardCardProps } from "./types";
 import React, { useRef, useEffect } from "react";
 import "./styles.scss";
 import { DashboardCardActions } from "./DashboardCardOptions";
-import { useDimensions } from "../layouts/useDimensions";
 
 export const DashboardCard: React.FC<TDashboardCardProps> = ({
   actions,
@@ -15,7 +14,6 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
   sizeChangeHandler,
 }) => {
   const cardBodyRef = useRef<HTMLDivElement>(null);
-  //const dimensions = useDimensions(cardBodyRef);
 
   const resizeObserver = new ResizeObserver((entries) => {
     if (sizeChangeHandler) {
@@ -43,15 +41,14 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
   }, [cardBodyRef]);
 
   // Remove the observer on component unmount
-  // useEffect(() => {
-  //   return () => {
-
-  //     if (sizeChangeHandler && cardBodyRef.current) {
-  //       resizeObserver.unobserve(cardBodyRef.current);
-  //       resizeObserver.disconnect();
-  //     }
-  //   };
-  // }, []);
+  useEffect(() => {
+    return () => {
+      if (sizeChangeHandler && cardBodyRef.current) {
+        resizeObserver.unobserve(cardBodyRef.current);
+        resizeObserver.disconnect();
+      }
+    };
+  }, []);
 
   const getTitle = () => {
     return title ? (
