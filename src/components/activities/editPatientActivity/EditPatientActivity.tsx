@@ -69,6 +69,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       updatePatient(patient?.data?.code, {
         ...updatePatientValues,
         code: patient?.data?.code,
+        allergies: patient.data?.allergies,
+        anamnesis: patient.data?.anamnesis,
       });
     else
       console.error(

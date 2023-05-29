@@ -3,17 +3,30 @@ FROM maven:3.8.6-jdk-11
 ARG GITHUB_ORG=intesys
 ARG OH_CORE_BRANCH=develop
 ARG OH_API_BRANCH=develop
+ARG API_PORT
+ARG JWT_TOKEN_SECRET
 
-WORKDIR /
-RUN git clone --depth=1 -b ${OH_CORE_BRANCH} https://github.com/${GITHUB_ORG}/openhospital-core.git
-WORKDIR /openhospital-core
-RUN mvn install -DskipTests
+RUN apt-get update
+RUN apt-get install make git -y
 
 WORKDIR /
 RUN git clone --depth=1 -b ${OH_API_BRANCH} https://github.com/${GITHUB_ORG}/openhospital-api.git
-WORKDIR /openhospital-api
-# Database connection must be changed in order to work in docker network
-RUN sed -i 's/localhost/database/g' src/main/resources/database.properties
-RUN mvn install -DskipTests
 
-CMD mvn spring-boot:run
+WORKDIR /openhospital-api/deps
+RUN git clone --depth=1 -b ${OH_CORE_BRANCH} https://github.com/${GITHUB_ORG}/openhospital-core.git
+
+WORKDIR /openhospital-api
+RUN cp dotenv .env
+# RUN sed -i 's/JWT_TOKEN_SECRET=/JWT_TOKEN_SECRET=${JWT_TOKEN_SECRET}/g' .env
+RUN make
+
+WORKDIR /openhospital-api/deps/openhospital-core
+RUN --mount=type=cache,target=/root/.m2 mvn clean install -DskipTests=true
+
+
+WORKDIR /openhospital-api
+RUN --mount=type=cache,target=/root/.m2 mvn clean install -DskipTests=true
+
+# CMD mvn spring-boot:run
+WORKDIR /openhospital-api/target
+CMD java -cp "openhospital-api-0.0.2.jar:rsc/:static/" org.springframework.boot.loader.JarLauncher

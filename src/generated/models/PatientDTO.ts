@@ -191,7 +191,6 @@ export enum PatientDTOFatherEnum {
   D = "D",
   A = "A",
 }
-
 /**
  * @export
  * @enum {string}

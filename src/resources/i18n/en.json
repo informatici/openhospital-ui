@@ -332,7 +332,12 @@
     "rowdeletesuccess": "Operation Row deleted successfully",
     "dateafteradmission": "Must be greater than admission date",
     "noitemaddedyet": "No operation row data, click the Add button to add one.",
-    "deletionwarning": "Are you sure you want to delete operation {{code}}?"
+    "deletionwarning": "Are you sure you want to delete operation {{code}}?",
+    "result": {
+      "unknown": "Unknown",
+      "success": "Success",
+      "failure": "Failure"
+    }
   },
   "common": {
     "ok": "OK",

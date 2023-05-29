@@ -18,6 +18,7 @@ import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
+import SelectField from "../../selectField/SelectField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { OperationRowProps } from "./types";
@@ -137,6 +138,21 @@ const OperationRowForm: FC<OperationRowProps> = ({
     (state: IState) => state.operations.operationList.status
   );
 
+  const operationResultOptions = [
+    {
+      label: t("operation.result.unknown"),
+      value: "unknown",
+    },
+    {
+      label: t("operation.result.failure"),
+      value: "failure",
+    },
+    {
+      label: t("operation.result.success"),
+      value: "success",
+    },
+  ];
+
   return (
     <>
       <div className="patientOperationForm">
@@ -198,16 +214,14 @@ const OperationRowForm: FC<OperationRowProps> = ({
           </div>
           <div className="row start-sm center-xs">
             <div className="fullWidth patientOperationForm__item">
-              <TextField
-                field={formik.getFieldProps("opResult")}
-                theme="regular"
+              <SelectField
+                fieldName="opResult"
+                fieldValue={formik.values.opResult}
                 label={t("operation.opResult")}
-                multiline={true}
-                type="text"
                 isValid={isValid("opResult")}
                 errorText={getErrorText("opResult")}
-                onBlur={formik.handleBlur}
-                rows={5}
+                onBlur={onBlurCallback("opResult")}
+                options={operationResultOptions}
                 disabled={isLoading}
               />
             </div>

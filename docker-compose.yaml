@@ -1,5 +1,5 @@
 version: "3.9"
-  
+
 x-repo: &repository-args
   OH_CORE_BRANCH: develop
   OH_API_BRANCH: develop
@@ -50,7 +50,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile.backend
-      args: 
+      args:
         <<: *mariadb-env
     environment: *repository-args
     ports:
@@ -58,10 +58,10 @@ services:
     depends_on:
       - database
     logging:
-        driver: "json-file"
-        options:
-            max-size: "100m"
-            max-file: "10"
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
     networks:
       - openhospital
 
