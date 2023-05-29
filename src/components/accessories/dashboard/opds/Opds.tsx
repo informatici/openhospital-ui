@@ -1,13 +1,11 @@
 import { Skeleton } from "@material-ui/lab";
-import moment from "moment";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAgeTypes } from "../../../../state/ageTypes/actions";
 import { searchOpds } from "../../../../state/opds/actions";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
-import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import { DataSummary } from "../summary/DataSummary";
 import "./styles.scss";
 import { IOwnProps } from "./types";
@@ -25,8 +23,15 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
     );
     dispatch(getAgeTypes());
   }, [dispatch, period]);
-  const { ageTypeStatus, opdStatus, dataByAgeType, dataBySex, success, total } =
-    useData();
+  const {
+    ageTypeStatus,
+    opdStatus,
+    dataByAgeType,
+    dataBySex,
+    success,
+    total,
+    opds,
+  } = useData();
 
   return (
     <>
