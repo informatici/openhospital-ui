@@ -1,18 +1,24 @@
 import React, { FunctionComponent, useState } from "react";
-import { IProps } from "./types";
+import { IOwnProps } from "./types";
 import "./styles.scss";
 import { CSVLink } from "react-csv";
 import { IconButton, ListItemIcon, Typography } from "@material-ui/core";
 import {
-  CloudDownloadOutlined,
+  DescriptionOutlined,
+  ImageOutlined,
   SaveAlt as SaveAltIcon,
+  ViewHeadlineOutlined,
 } from "@material-ui/icons";
 import { Menu, MenuItem } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import {
+  exportComponentAsPDF,
+  exportComponentAsPNG,
+} from "react-component-export-image";
 
-const DataDownloadButton: FunctionComponent<IProps> = ({
+const DataDownloadButton: FunctionComponent<IOwnProps> = ({
   csvData,
-  handleDownloadPDF: downloadPDF,
+  graphRef,
   title,
 }) => {
   const { t } = useTranslation();
@@ -28,9 +34,15 @@ const DataDownloadButton: FunctionComponent<IProps> = ({
   };
   const handleDownloadPDF = () => {
     handleClose();
-    if (downloadPDF) {
-      downloadPDF();
-    }
+    exportComponentAsPDF(graphRef, {
+      fileName: title,
+      pdfOptions: { pdfFormat: "a3", orientation: "l" },
+    });
+  };
+
+  const handleDownloadPNG = () => {
+    handleClose();
+    exportComponentAsPNG(graphRef, { fileName: title });
   };
 
   return (
@@ -52,19 +64,23 @@ const DataDownloadButton: FunctionComponent<IProps> = ({
         <MenuItem onClick={handleDownloadCSV}>
           <CSVLink data={csvData} filename={title ?? "data"}>
             <ListItemIcon>
-              <CloudDownloadOutlined fontSize="small" />
+              <ViewHeadlineOutlined fontSize="small" />
             </ListItemIcon>
           </CSVLink>
           <Typography variant="inherit">{t("dashboard.csv")}</Typography>
         </MenuItem>
-        {downloadPDF && (
-          <MenuItem onClick={handleDownloadPDF}>
-            <ListItemIcon>
-              <CloudDownloadOutlined fontSize="small" />
-            </ListItemIcon>
-            <Typography variant="inherit">{t("dashboard.pdf")}</Typography>
-          </MenuItem>
-        )}
+        <MenuItem onClick={handleDownloadPDF}>
+          <ListItemIcon>
+            <DescriptionOutlined fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">{t("dashboard.pdf")}</Typography>
+        </MenuItem>
+        <MenuItem onClick={handleDownloadPNG}>
+          <ListItemIcon>
+            <ImageOutlined fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">{t("dashboard.png")}</Typography>
+        </MenuItem>
       </Menu>
     </>
   );
