@@ -16,7 +16,11 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labWithRowsDTO);
+          res.status(200).json(
+            labWithRowsDTO.filter(
+              lab => lab.laboratoryDTO.status !== "OPEN" && lab.laboratoryDTO.status !== "DRAFT"
+            )
+          );
       }
     });
 
@@ -31,7 +35,9 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labDTO);
+          res.status(200).json(
+            labDTO.filter(lab => lab.status === "OPEN" || lab.status === "DRAFT")
+          );
       }
     });
 

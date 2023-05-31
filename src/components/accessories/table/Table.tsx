@@ -180,28 +180,30 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
-          {onView && displayRowAction && displayRowAction(row, "view")
+          {onView && (displayRowAction ? displayRowAction(row, "view") : true)
             ? renderIcon("view", row)
             : ""}
-          {onPay && displayRowAction && displayRowAction(row, "pay")
+          {onPay && (displayRowAction ? displayRowAction(row, "pay") : true)
             ? renderIcon("pay", row)
             : ""}
-          {onEdit && displayRowAction && displayRowAction(row, "edit")
+          {onEdit && (displayRowAction ? displayRowAction(row, "edit") : true)
             ? renderIcon("edit", row)
             : ""}
-          {onPrint && displayRowAction && displayRowAction(row, "print")
+          {onPrint && (displayRowAction ? displayRowAction(row, "print") : true)
             ? renderIcon("print", row)
             : ""}
-          {onClose && displayRowAction && displayRowAction(row, "close")
+          {onClose && (displayRowAction ? displayRowAction(row, "close") : true)
             ? renderIcon("close", row)
             : ""}
-          {onDelete && displayRowAction && displayRowAction(row, "delete")
+          {onDelete &&
+          (displayRowAction ? displayRowAction(row, "delete") : true)
             ? renderIcon("delete", row)
             : ""}
-          {onAdd && displayRowAction && displayRowAction(row, "add")
+          {onAdd && (displayRowAction ? displayRowAction(row, "add") : true)
             ? renderIcon("add", row)
             : ""}
-          {onCancel && displayRowAction && displayRowAction(row, "cancel")
+          {onCancel &&
+          (displayRowAction ? displayRowAction(row, "cancel") : true)
             ? renderIcon("cancel", row)
             : ""}
         </TableCell>
