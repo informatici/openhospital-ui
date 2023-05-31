@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LaboratoryDTO } from "../../../../generated";
+import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import InfoBox from "../../infoBox/InfoBox";
 import { getLabsRequestByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { statusLabel } from "../../laboratory/table/ExamTable";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -60,7 +61,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       return {
         code: item.code,
         date: item.labDate ? renderDate(item.labDate) : "",
-        status: item.status ?? "",
+        status: item.status ? statusLabel(item.status) : "",
         exam: item.exam?.description ?? "",
         material: item.material ? t(item.material) : "",
         note: item.note ?? "",

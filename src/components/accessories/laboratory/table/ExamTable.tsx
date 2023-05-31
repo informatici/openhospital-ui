@@ -12,6 +12,26 @@ import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { LabWithRowsDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
+import { LabelBadge } from "../../labelBadge/LabelBadge";
+import { TActions } from "../../table/types";
+
+export const statusLabel = (status: LaboratoryDTOStatusEnum) => {
+  switch (status) {
+    case LaboratoryDTOStatusEnum.DELETED:
+      return <LabelBadge color="danger" label={status} />;
+    case LaboratoryDTOStatusEnum.INVALID:
+      return <LabelBadge color="warning" label={status} />;
+
+    case LaboratoryDTOStatusEnum.OPEN:
+      return <LabelBadge color="info" label={status} />;
+
+    case LaboratoryDTOStatusEnum.DONE:
+      return <LabelBadge color="success" label={status} />;
+
+    default:
+      return <LabelBadge color="default" label={status} />;
+  }
+};
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
@@ -57,13 +77,28 @@ export const ExamTable: FC<IExamTableProps> = ({
               ? e.laboratoryDTO?.result ?? ""
               : t("lab.multipleresults"),
           patientCode: e.laboratoryDTO?.patientCode ?? "",
-          status: e.laboratoryDTO?.status,
+          status: e.laboratoryDTO?.status
+            ? statusLabel(e.laboratoryDTO.status)
+            : "",
+          statusText: e.laboratoryDTO?.status ?? "",
         };
       });
     return results;
   };
 
   const formattedData: any[] = formatDataToDisplay(data);
+
+  const shouldDisplayAction = (row: any, action: TActions): boolean => {
+    if (
+      (row.statusText === LaboratoryDTOStatusEnum.DELETED ||
+        row.statusText === LaboratoryDTOStatusEnum.INVALID) &&
+      action === "delete"
+    ) {
+      return false;
+    }
+
+    return true;
+  };
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -116,6 +151,7 @@ export const ExamTable: FC<IExamTableProps> = ({
         onView={handleView}
         onEdit={canUpdate ? onEdit : undefined}
         onDelete={canDelete ? onDelete : undefined}
+        displayRowAction={shouldDisplayAction}
       />
       {deleteStatus === "FAIL" && (
         <div className="info-box-container">

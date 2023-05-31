@@ -9,6 +9,7 @@ import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { statusLabel } from "../../laboratory/table/ExamTable";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -70,7 +71,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
             ? item.laboratoryDTO?.result
             : item.laboratoryRowList?.join(", "),
         note: item.laboratoryDTO?.note,
-        status: item.laboratoryDTO?.status ?? "",
+        status: item.laboratoryDTO?.status
+          ? statusLabel(item.laboratoryDTO.status)
+          : "",
         material: item.laboratoryDTO?.material
           ? t(item.laboratoryDTO.material)
           : "",
