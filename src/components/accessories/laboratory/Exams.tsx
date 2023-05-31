@@ -17,6 +17,8 @@ import {
   updateFilterFields,
 } from "../../../libraries/formDataHandling/functions";
 import {
+  cancelLab,
+  cancelLabReset,
   deleteLab,
   deleteLabReset,
   searchLabs,
@@ -43,6 +45,7 @@ export const Exams: FC = () => {
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [deletedObjCode, setDeletedObjCode] = useState("");
+  const [canceledObjCode, setCanceledObjCode] = useState("");
 
   const [showStatusChangeModal, setShowStatusChangeModal] = useState(false);
   const [selectedExamRow, setSelectedExamRow] =
@@ -105,6 +108,11 @@ export const Exams: FC = () => {
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
     dispatch(deleteLab(code));
+  };
+
+  const onCancel = (code: number | undefined) => {
+    setCanceledObjCode(`${code}` ?? "");
+    dispatch(cancelLab(code));
   };
 
   const errorMessage = useSelector((state: IState) =>
@@ -187,6 +195,7 @@ export const Exams: FC = () => {
               <ExamTable
                 data={data ?? []}
                 handleDelete={onDelete}
+                handleCancel={onCancel}
                 handleEdit={onEdit}
               />
             )}
@@ -195,6 +204,7 @@ export const Exams: FC = () => {
                 style={{ marginLeft: "50%", position: "relative" }}
               />
             )}
+
             <ConfirmationDialog
               isOpen={labStore.deleteLab.status === "SUCCESS"}
               title={t("lab.deleted")}
@@ -203,6 +213,19 @@ export const Exams: FC = () => {
               primaryButtonLabel={t("common.ok")}
               handlePrimaryButtonClick={() => {
                 dispatch(deleteLabReset());
+                dispatch(searchLabs(filter));
+              }}
+              handleSecondaryButtonClick={() => {}}
+            />
+
+            <ConfirmationDialog
+              isOpen={labStore.cancelLab.status === "SUCCESS"}
+              title={t("lab.canceled")}
+              icon={checkIcon}
+              info={t("lab.cancelsuccess", { code: canceledObjCode })}
+              primaryButtonLabel={t("common.ok")}
+              handlePrimaryButtonClick={() => {
+                dispatch(cancelLabReset());
                 dispatch(searchLabs(filter));
               }}
               handleSecondaryButtonClick={() => {}}

@@ -13,30 +13,31 @@ import { usePermission } from "../../../../libraries/permissionUtils/usePermissi
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit?: (row: any) => void;
-  handleDelete?: (code: number | undefined) => void;
+  handleCancel?: (code: number | undefined) => void;
 }
 
 const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
-  handleDelete,
+  handleCancel,
 }) => {
   const { t } = useTranslation();
-  //const canUpdate = usePermission("exam.update");
-  //const canDelete = usePermission("exam.delete");
+  const canUpdate = usePermission("exam.update");
+  const canCancel = usePermission("exam.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["date", "exam"];
+  const header = ["date", "exam", "status"];
   const dateFields = ["date"];
 
   const label = {
     code: t("common.code"),
     date: t("lab.date"),
     exam: t("lab.exam"),
-    result: t("lab.result"),
+    status: t("lab.status"),
     note: t("lab.note"),
+    material: t("lab.material"),
   };
-  const order = ["date", "exam"];
+  const order = ["date", "exam", "status"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, LaboratoryDTO[]>((state) =>
@@ -52,40 +53,40 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   useEffect(() => {
     if (shouldUpdateTable || patientCode)
       dispatch(getLabsRequestByPatientId(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable]);
+  }, [patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
       return {
         code: item.code,
         date: item.labDate ? renderDate(item.labDate) : "",
+        status: item.status ?? "",
         exam: item.exam?.description ?? "",
-        result: "",
+        material: item.material ? t(item.material) : "",
+        note: item.note ?? "",
       };
     });
-    //   .sort(dateComparator("desc", "date"));
   };
+
   const labRequestStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsRequestByPatientId.status
   );
+
   const errorMessage = useSelector<IState>(
     (state) =>
       state.laboratories.labsRequestByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const labRequestData = useSelector<IState, LaboratoryDTO[] | undefined>(
-    (state) => state.laboratories.labsRequestByPatientId.data
-  );
-
   const onEdit = (row: any) => {
     if (handleEdit) {
-      handleEdit(labRequestData?.find((item) => item.code === row.code));
+      handleEdit(data?.find((item) => item.code === row.code));
     }
   };
-  const onDelete = (row: any) => {
-    if (handleDelete) {
-      handleDelete(row.code);
+
+  const onCancel = (row: any) => {
+    if (handleCancel) {
+      handleCancel(row.code);
     }
   };
 
@@ -100,14 +101,14 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={undefined}
+          onCancel={canCancel ? onCancel : undefined}
+          //onEdit={canUpdate ? onEdit : undefined}
           isCollapsabile={true}
-          onEdit={undefined}
         />
       )}
       {labRequestStatus === "SUCCESS_EMPTY" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="warning" message={t("common.emptydata")} />
+          <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
       {labRequestStatus === "IDLE" && (

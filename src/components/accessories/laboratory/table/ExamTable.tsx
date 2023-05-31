@@ -11,12 +11,13 @@ import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
-import { LabWithRowsDTO } from "../../../../generated";
+import { LabWithRowsDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
   handleDelete,
   handleEdit,
+  handleCancel,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -85,12 +86,21 @@ export const ExamTable: FC<IExamTableProps> = ({
       );
     }
   };
+
   const onDelete = (row: any) => {
-    if (handleDelete !== undefined) {
-      handleDelete(
-        data.find((item) => item.laboratoryDTO?.code === row.id)?.laboratoryDTO
-          ?.code
-      );
+    let labExam = data.find(
+      (item) => item.laboratoryDTO?.code === row.id
+    )?.laboratoryDTO;
+
+    if (labExam) {
+      if (
+        labExam.status === LaboratoryDTOStatusEnum.DRAFT ||
+        labExam.status === LaboratoryDTOStatusEnum.OPEN
+      ) {
+        if (handleCancel !== undefined) handleCancel(labExam.code);
+      } else {
+        if (handleDelete !== undefined) handleDelete(labExam.code);
+      }
     }
   };
 
@@ -102,7 +112,7 @@ export const ExamTable: FC<IExamTableProps> = ({
         tableHeader={header}
         labelData={label}
         columnsOrder={order}
-        rowsPerPage={5}
+        rowsPerPage={10}
         onView={handleView}
         onEdit={canUpdate ? onEdit : undefined}
         onDelete={canDelete ? onDelete : undefined}

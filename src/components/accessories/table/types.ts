@@ -22,6 +22,7 @@ export interface IProps {
   getCoreRow?: <T>(val: T) => any | undefined;
   onPay?: (row: any) => void;
   onClose?: (row: any) => void;
+  onCancel?: (row: any) => void;
   detailColSpan?: number;
 }
 
@@ -45,4 +46,5 @@ export type TActions =
   | "print"
   | "pay"
   | "close"
+  | "cancel"
   | "add";

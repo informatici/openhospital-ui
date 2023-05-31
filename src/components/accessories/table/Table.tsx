@@ -20,6 +20,7 @@ import {
   MonetizationOn,
   Archive,
   Add,
+  Close,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -52,6 +53,7 @@ const Table: FunctionComponent<IProps> = ({
   renderItemDetails,
   getCoreRow,
   onClose,
+  onCancel,
   detailColSpan,
 }) => {
   const { t } = useTranslation();
@@ -144,6 +146,17 @@ const Table: FunctionComponent<IProps> = ({
             <Archive htmlColor="#0373fc" />
           </IconButton>
         );
+
+      case "cancel":
+        return (
+          <IconButton
+            size="small"
+            title="Cancel"
+            onClick={() => onCancel && onCancel(row)}
+          >
+            <Close color="primary" />
+          </IconButton>
+        );
       case "add":
         return (
           <IconButton
@@ -158,7 +171,7 @@ const Table: FunctionComponent<IProps> = ({
   };
 
   const renderActions = (row: any) => {
-    if (onEdit || onDelete || onPrint || onView) {
+    if (onEdit || onDelete || onPrint || onView || onCancel) {
       return (
         <TableCell
           scope="row"
@@ -173,6 +186,7 @@ const Table: FunctionComponent<IProps> = ({
           {onClose ? renderIcon("close", row) : ""}
           {onDelete ? renderIcon("delete", row) : ""}
           {onAdd ? renderIcon("add", row) : ""}
+          {onCancel ? renderIcon("cancel", row) : ""}
         </TableCell>
       );
     }

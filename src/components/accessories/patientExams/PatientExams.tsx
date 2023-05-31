@@ -11,6 +11,8 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
 import checkIcon from "../../../assets/check-icon.png";
 import {
+  cancelLab,
+  cancelLabReset,
   createLab,
   createLabReset,
   deleteLab,
@@ -24,6 +26,7 @@ import {
 import {
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
+  LaboratoryDTOStatusEnum,
 } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
@@ -51,6 +54,7 @@ const PatientExams: FC = () => {
     useState<TherapyTransitionState>("IDLE");
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
+  const [canceledObjCode, setCanceledObjCode] = useState("");
 
   const [labToEdit, setLabToEdit] = useState({} as LaboratoryDTO);
 
@@ -70,6 +74,7 @@ const PatientExams: FC = () => {
     dispatch(createLabReset());
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
+    dispatch(cancelLabReset());
     dispatch(getLabWithRowsByCodeReset());
     setCreationMode(true);
   }, [dispatch]);
@@ -79,9 +84,11 @@ const PatientExams: FC = () => {
       dispatch(createLabReset());
       dispatch(updateLabReset());
       dispatch(deleteLabReset());
+      dispatch(cancelLabReset());
       dispatch(getLabWithRowsByCodeReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
+      setShouldUpdateRequestsTable(true);
     }
   }, [dispatch, activityTransitionState]);
 
@@ -128,6 +135,13 @@ const PatientExams: FC = () => {
       laboratoryDTO: lab,
       laboratoryRowList: rows,
     };
+
+    // Fix status according to results
+    lab.status =
+      (lab.result && lab.result.length > 0) || rows.length > 0
+        ? LaboratoryDTOStatusEnum.DONE
+        : LaboratoryDTOStatusEnum.OPEN;
+
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));
     } else {
@@ -145,6 +159,11 @@ const PatientExams: FC = () => {
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
     dispatch(deleteLab(code));
+  };
+
+  const onCancel = (code: number | undefined) => {
+    setCanceledObjCode(`${code}` ?? "");
+    dispatch(cancelLab(code));
   };
 
   const resetFormCallback = () => {
@@ -169,28 +188,29 @@ const PatientExams: FC = () => {
             handleSuccess={onSuccess}
           />
         )}
-        {labStore.getLabWithRowsByCode.status !== "LOADING" && (
-          <ExamForm
-            fields={
-              creationMode
-                ? initialFields
-                : updateLabFields(initialFields, labToEdit)
-            }
-            onSubmit={onSubmit}
-            creationMode={creationMode}
-            labWithRowsToEdit={labWithRows}
-            submitButtonLabel={
-              creationMode ? t("common.save") : t("common.update")
-            }
-            resetButtonLabel={t("common.reset")}
-            shouldResetForm={shouldResetForm}
-            resetFormCallback={resetFormCallback}
-            isLoading={
-              labStore.createLab.status === "LOADING" ||
-              labStore.updateLab.status === "LOADING"
-            }
-          />
-        )}
+        {labStore.getLabWithRowsByCode.status !== "LOADING" &&
+          !creationMode && (
+            <ExamForm
+              fields={
+                creationMode
+                  ? initialFields
+                  : updateLabFields(initialFields, labToEdit)
+              }
+              onSubmit={onSubmit}
+              creationMode={creationMode}
+              labWithRowsToEdit={labWithRows}
+              submitButtonLabel={
+                creationMode ? t("common.save") : t("common.update")
+              }
+              resetButtonLabel={t("common.reset")}
+              shouldResetForm={shouldResetForm}
+              resetFormCallback={resetFormCallback}
+              isLoading={
+                labStore.createLab.status === "LOADING" ||
+                labStore.updateLab.status === "LOADING"
+              }
+            />
+          )}
         <ConfirmationDialog
           isOpen={
             labStore.createLab.status === "SUCCESS" ||
@@ -226,6 +246,8 @@ const PatientExams: FC = () => {
       <Permission require="exam.read">
         <PatientExamRequestsTable
           shouldUpdateTable={shouldUpdateRequestsTable}
+          handleCancel={onCancel}
+          handleEdit={onEdit}
         />
         <PatientExamsTable
           handleEdit={onEdit}
@@ -241,6 +263,19 @@ const PatientExams: FC = () => {
           handlePrimaryButtonClick={() =>
             setActivityTransitionState("TO_RESET")
           }
+          handleSecondaryButtonClick={() => {}}
+        />
+
+        <ConfirmationDialog
+          isOpen={labStore.cancelLab.status === "SUCCESS"}
+          title={t("lab.canceled")}
+          icon={checkIcon}
+          info={t("lab.cancelsuccess", { code: canceledObjCode })}
+          primaryButtonLabel={t("common.ok")}
+          handlePrimaryButtonClick={() => {
+            setActivityTransitionState("TO_RESET");
+            window.location.reload();
+          }}
           handleSecondaryButtonClick={() => {}}
         />
       </Permission>

@@ -152,7 +152,7 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string()
+    labDate: string()
       .required(t("common.required"))
       .test({
         name: "date",
@@ -359,7 +359,7 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab") + " thanks"
-            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.labDate)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
@@ -378,31 +378,18 @@ const ExamForm: FC<ExamProps> = ({
             <div className="patientExamForm__item">
               <DateField
                 fieldName="date"
-                fieldValue={formik.values.date}
+                fieldValue={formik.values.labDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("date")}
                 errorText={getErrorText("date")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("labDate")}
                 disabled={false}
               />
             </div>
             <div className="patientExamForm__item">
-              <AutocompleteField
-                fieldName="exam"
-                fieldValue={formik.values.exam}
-                label={t("lab.exam")}
-                isValid={isValid("exam")}
-                errorText={getErrorText("exam")}
-                onBlur={onBlurCallback("exam")}
-                options={examOptionsSelector(examList)}
-                isLoading={examsLoading}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="fullWidth patientExamForm__item">
               <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
@@ -412,6 +399,19 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={onBlurCallback("material")}
                 isLoading={materialsLoading}
                 options={materialsOptionsSelector(materialsList)}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientExamForm__item fullWidth">
+              <AutocompleteField
+                fieldName="exam"
+                fieldValue={formik.values.exam}
+                label={t("lab.exam")}
+                isValid={isValid("exam")}
+                errorText={getErrorText("exam")}
+                onBlur={onBlurCallback("exam")}
+                options={examOptionsSelector(examList)}
+                isLoading={examsLoading}
                 disabled={isLoading}
               />
             </div>

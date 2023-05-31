@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
-import { ExamDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
+import { ExamDTO } from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -51,7 +51,7 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string()
+    labDate: string()
       .required(t("common.required"))
       .test({
         name: "date",
@@ -61,22 +61,6 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    status: string()
-      .required(t("common.required"))
-      .test({
-        name: "results",
-        message: t("lab.statusmustbedone"),
-        test: function (value) {
-          if (
-            rowsData.length > 0 ||
-            (this.parent.result && this.parent.result.length > 0)
-          ) {
-            return value === LaboratoryDTOStatusEnum.DONE;
-          } else {
-            return value !== LaboratoryDTOStatusEnum.DONE;
-          }
-        },
-      }),
     result: string(),
     note: string().test({
       name: "maxLength",
@@ -143,10 +127,6 @@ const ExamForm: FC<ExamProps> = ({
   const materialsList = useSelector(
     (state: IState) => state.laboratories.materials.data
   );
-
-  const statusOptions = Object.values(LaboratoryDTOStatusEnum).map((status) => {
-    return { label: status as string, value: status as string };
-  });
 
   const formik = useFormik({
     initialValues,
@@ -265,34 +245,21 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab")
-            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.labDate)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">
               <DateField
                 fieldName="date"
-                fieldValue={formik.values.date}
+                fieldValue={formik.values.labDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("date")}
                 errorText={getErrorText("date")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientExamForm__item">
-              <AutocompleteField
-                fieldName="exam"
-                fieldValue={formik.values.exam}
-                label={t("lab.exam")}
-                isValid={isValid("exam")}
-                errorText={getErrorText("exam")}
-                onBlur={onBlurCallback("exam")}
-                options={examOptionsSelector(examList)}
-                isLoading={examsLoading}
+                onChange={dateFieldHandleOnChange("labDate")}
                 disabled={isLoading}
               />
             </div>
@@ -309,15 +276,16 @@ const ExamForm: FC<ExamProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientExamForm__item">
+            <div className="patientExamForm__item fullWidth">
               <AutocompleteField
-                fieldName="status"
-                fieldValue={formik.values.status}
-                label={t("lab.status")}
-                isValid={isValid("status")}
-                errorText={getErrorText("status")}
-                onBlur={onBlurCallback("status")}
-                options={statusOptions}
+                fieldName="exam"
+                fieldValue={formik.values.exam}
+                label={t("lab.exam")}
+                isValid={isValid("exam")}
+                errorText={getErrorText("exam")}
+                onBlur={onBlurCallback("exam")}
+                options={examOptionsSelector(examList)}
+                isLoading={examsLoading}
                 disabled={isLoading}
               />
             </div>

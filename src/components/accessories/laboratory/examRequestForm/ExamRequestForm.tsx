@@ -32,6 +32,7 @@ import { ExamRequestProps } from "./types";
 import "./styles.scss";
 import InfoBox from "../../infoBox/InfoBox";
 import { ExamTransitionState } from "../examForm/type";
+import { TAPIResponseStatus } from "../../../../state/types";
 
 const ExamRequestForm: FC<ExamRequestProps> = ({
   fields,
@@ -77,6 +78,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     (state: IState) => state.laboratories
   );
 
+  const createLabRequestStatus = useSelector<
+    IState,
+    TAPIResponseStatus | undefined
+  >((state: IState) => state.laboratories.createLabRequest.status);
+
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<ExamTransitionState>("IDLE");
@@ -96,11 +102,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
   }, [dispatch, activityTransitionState]);
 
   useEffect(() => {
-    if (labStore.createLabRequest.status === "SUCCESS") {
+    if (createLabRequestStatus === "SUCCESS") {
       if (handleSuccess) handleSuccess(true);
       setActivityTransitionState("TO_RESET");
     }
-  }, [labStore]);
+  }, [createLabRequestStatus]);
 
   const errorMessage = useSelector<IState>(
     (state) =>
@@ -160,6 +166,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
+
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName)
       ? (get(formik.errors, fieldName) as string)
@@ -190,7 +197,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 
-  const isLoading = labStore.createLabRequest.status === "LOADING";
+  const isLoading = createLabRequestStatus === "LOADING";
 
   return (
     <>
@@ -245,12 +252,12 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
               </div>
             </div>
 
-            {labStore.createLabRequest.status === "FAIL" && (
+            {createLabRequestStatus === "FAIL" && (
               <div ref={infoBoxRef} className="info-box-container">
                 <InfoBox type="error" message={errorMessage} />
               </div>
             )}
-            {labStore.createLabRequest.status === "SUCCESS" && (
+            {createLabRequestStatus === "SUCCESS" && (
               <div ref={infoBoxRef} className="info-box-container">
                 <InfoBox type="info" message={successMessage} />
               </div>

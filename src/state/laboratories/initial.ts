@@ -4,6 +4,7 @@ export const initial: ILaboratoriesState = {
   createLab: { status: "IDLE" },
   createLabRequest: { status: "IDLE" },
   deleteLab: { status: "IDLE" },
+  cancelLab: { status: "IDLE" },
   updateLab: { status: "IDLE" },
   materials: { status: "IDLE", data: [] },
   labsByPatientId: { status: "IDLE", data: [] },

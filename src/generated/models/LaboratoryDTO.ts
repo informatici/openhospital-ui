@@ -119,4 +119,6 @@ export enum LaboratoryDTOStatusEnum {
   DONE = "DONE",
   DRAFT = "DRAFT",
   OPEN = "OPEN",
+  INVALID = "INVALID",
+  DELETED = "DELETED",
 }

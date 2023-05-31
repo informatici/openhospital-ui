@@ -19,6 +19,10 @@ import {
     ResponseEntity,
 } from '../models';
 
+export interface DeleteExamRequestUsingDELETERequest {
+    code: number;
+}
+
 export interface DeleteExamUsingDELETE2Request {
     code: number;
 }
@@ -73,6 +77,25 @@ export interface UpdateLaboratoryUsingPUTRequest {
  * no description
  */
 export class LaboratoryControllerApi extends BaseAPI {
+
+    /**
+     * deleteExamRequest
+     */
+    deleteExamRequestUsingDELETE({ code }: DeleteExamRequestUsingDELETERequest): Observable<boolean>
+    deleteExamRequestUsingDELETE({ code }: DeleteExamRequestUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteExamRequestUsingDELETE({ code }: DeleteExamRequestUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteExamRequestUsingDELETE');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<boolean>({
+            url: '/laboratories/examRequest/{code}'.replace('{code}', encodeURI(code)),
+            method: 'DELETE',
+            headers,
+        }, opts?.responseOpts);
+    };
 
     /**
      * deleteExam

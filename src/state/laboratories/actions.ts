@@ -49,6 +49,10 @@ import {
   GET_LABS_REQUEST_SUCCESS,
   GET_LABS_REQUEST_SUCCESS_EMPTY,
   GET_LABS_REQUEST_FAIL,
+  CANCEL_LAB_LOADING,
+  CANCEL_LAB_SUCCESS,
+  CANCEL_LAB_FAIL,
+  CANCEL_LAB_RESET,
 } from "./consts";
 
 const labControllerApi = new LaboratoryControllerApi(customConfiguration());
@@ -158,6 +162,14 @@ export const deleteLabReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: DELETE_LAB_RESET,
+    });
+  };
+
+export const cancelLabReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CANCEL_LAB_RESET,
     });
   };
 
@@ -445,6 +457,35 @@ export const deleteLab =
     } else {
       dispatch({
         type: DELETE_LAB_FAIL,
+        error: "The code should not be empty",
+      });
+    }
+  };
+
+export const cancelLab =
+  (code: number | undefined) =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CANCEL_LAB_LOADING,
+    });
+    if (code) {
+      labControllerApi.deleteExamRequestUsingDELETE({ code }).subscribe(
+        () => {
+          dispatch({
+            type: CANCEL_LAB_SUCCESS,
+            payload: { code },
+          });
+        },
+        (error) => {
+          dispatch({
+            type: CANCEL_LAB_FAIL,
+            error: error?.response,
+          });
+        }
+      );
+    } else {
+      dispatch({
+        type: CANCEL_LAB_FAIL,
         error: "The code should not be empty",
       });
     }

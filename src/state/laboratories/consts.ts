@@ -32,6 +32,11 @@ export const DELETE_LAB_SUCCESS = "laboratories/DELETE_LAB_SUCCESS";
 export const DELETE_LAB_FAIL = "laboratories/DELETE_LAB_FAIL";
 export const DELETE_LAB_RESET = "laboratories/DELETE_LAB_RESET";
 
+export const CANCEL_LAB_LOADING = "laboratories/CANCEL_LAB_LOADING";
+export const CANCEL_LAB_SUCCESS = "laboratories/CANCEL_LAB_SUCCESS";
+export const CANCEL_LAB_FAIL = "laboratories/CANCEL_LAB_FAIL";
+export const CANCEL_LAB_RESET = "laboratories/CANCEL_LAB_RESET";
+
 export const GET_LABS_LOADING = "laboratories/GET_LABS_LOADING";
 export const GET_LABS_SUCCESS = "laboratories/GET_LABS_SUCCESS";
 export const GET_LABS_FAIL = "laboratories/GET_LABS_FAIL";

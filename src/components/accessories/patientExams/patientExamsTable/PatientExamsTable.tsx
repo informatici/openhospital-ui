@@ -26,7 +26,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const canDelete = usePermission("exam.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["date", "exam"];
+  const header = ["date", "exam", "status"];
   const dateFields = ["date"];
 
   const label = {
@@ -35,8 +35,10 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
+    status: t("lab.status"),
+    material: t("lab.material"),
   };
-  const order = ["date", "exam"];
+  const order = ["date", "exam", "status"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
@@ -50,8 +52,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode)
+    if (shouldUpdateTable || patientCode) {
       dispatch(getLabsByPatientId(patientCode));
+    }
   }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
@@ -67,18 +70,25 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
             ? item.laboratoryDTO?.result
             : item.laboratoryRowList?.join(", "),
         note: item.laboratoryDTO?.note,
+        status: item.laboratoryDTO?.status ?? "",
+        material: item.laboratoryDTO?.material
+          ? t(item.laboratoryDTO.material)
+          : "",
       };
     });
     //   .sort(dateComparator("desc", "date"));
   };
+
   const labStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
+
   const errorMessage = useSelector<IState>(
     (state) =>
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
   const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
@@ -89,6 +99,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
         ?.laboratoryDTO
     );
   };
+
   const onDelete = (row: any) => {
     handleDelete(row.code);
   };
@@ -104,9 +115,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={canDelete ? onDelete : undefined}
+          //onDelete={canDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={canUpdate ? onEdit : undefined}
+          //onEdit={canUpdate ? onEdit : undefined}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (

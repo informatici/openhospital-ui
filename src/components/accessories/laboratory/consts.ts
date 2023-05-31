@@ -3,7 +3,6 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 import { ExamFormFieldName } from "./examForm/type";
 import { ExamFilterFormFieldName, TFilterValues } from "./filter/types";
 import { ExamRequestFormFieldName } from "./examRequestForm/types";
-import { LaboratoryDTOStatusEnum } from "../../../generated";
 import {
   fixFilterDateFrom,
   fixFilterDateTo,
@@ -32,7 +31,7 @@ export const initialFields: TFields<ExamFormFieldName> = {
     value: "",
     type: "number",
   },
-  date: {
+  labDate: {
     value: moment().toISOString(),
     type: "text",
   },
