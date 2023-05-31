@@ -55,6 +55,7 @@ const Table: FunctionComponent<IProps> = ({
   onClose,
   onCancel,
   detailColSpan,
+  displayRowAction,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -179,14 +180,30 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
-          {onView ? renderIcon("view", row) : ""}
-          {onPay ? renderIcon("pay", row) : ""}
-          {onEdit ? renderIcon("edit", row) : ""}
-          {onPrint ? renderIcon("print", row) : ""}
-          {onClose ? renderIcon("close", row) : ""}
-          {onDelete ? renderIcon("delete", row) : ""}
-          {onAdd ? renderIcon("add", row) : ""}
-          {onCancel ? renderIcon("cancel", row) : ""}
+          {onView && displayRowAction && displayRowAction(row, "view")
+            ? renderIcon("view", row)
+            : ""}
+          {onPay && displayRowAction && displayRowAction(row, "pay")
+            ? renderIcon("pay", row)
+            : ""}
+          {onEdit && displayRowAction && displayRowAction(row, "edit")
+            ? renderIcon("edit", row)
+            : ""}
+          {onPrint && displayRowAction && displayRowAction(row, "print")
+            ? renderIcon("print", row)
+            : ""}
+          {onClose && displayRowAction && displayRowAction(row, "close")
+            ? renderIcon("close", row)
+            : ""}
+          {onDelete && displayRowAction && displayRowAction(row, "delete")
+            ? renderIcon("delete", row)
+            : ""}
+          {onAdd && displayRowAction && displayRowAction(row, "add")
+            ? renderIcon("add", row)
+            : ""}
+          {onCancel && displayRowAction && displayRowAction(row, "cancel")
+            ? renderIcon("cancel", row)
+            : ""}
         </TableCell>
       );
     }

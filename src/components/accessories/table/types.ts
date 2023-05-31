@@ -24,6 +24,7 @@ export interface IProps {
   onClose?: (row: any) => void;
   onCancel?: (row: any) => void;
   detailColSpan?: number;
+  displayRowAction?: (row: any, action: TActions) => boolean;
 }
 
 export interface IRowProps {
