@@ -15,6 +15,8 @@ import { ListItemIcon } from "@material-ui/core";
 import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
 import "../../card/styles.scss";
+import { useOpdBySexData } from "../../../../../libraries/dashboardUtils/opds/useOpdBySexData";
+import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
 
 export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -29,7 +31,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
     dispatch(searchOpds({ dateFrom: period[0], dateTo: period[1] }));
   }, [dispatch, period]);
 
-  const { opdStatus, dataBySex, success, total } = useData();
+  const { status, data, success, total, csvData } = useOpdBySexData();
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -38,48 +40,23 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
     setDisplaySize({ width: width - 1, height: height - 73 });
   };
 
-  const PDFDownload = (
-    <a href="#" className="download-link">
-      <ListItemIcon>
-        <PictureAsPdf />
-      </ListItemIcon>
-      <span className="download-format"> PDF </span>
-    </a>
-  );
-
-  const CSVDownload = (
-    <a href="#" className="download-link">
-      <ListItemIcon>
-        <Description />
-      </ListItemIcon>
-      <span className="download-format"> CSV </span>
-    </a>
-  );
-
-  const XLSDownload = (
-    <a href="#" className="download-link">
-      <ListItemIcon>
-        <SaveAlt />
-      </ListItemIcon>
-      <span className="download-format"> Excel </span>
-    </a>
+  const downloadOptions = (
+    <DataDownloadButton
+      csvData={csvData}
+      title={t("opd.opdbysex").replace(/ /g, "-")}
+      graphRef={opdbysexcardref}
+    />
   );
 
   const actions: TDashboardCardOptionActions = {
     onClose: onRemove ? () => onRemove() : undefined,
-
     onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
-
-    onDownload: [
-      { action: PDFDownload },
-      { action: XLSDownload },
-      { action: CSVDownload },
-    ],
+    downloadButton: downloadOptions,
   };
 
   return (
     <>
-      {opdStatus === "LOADING" && (
+      {status === "LOADING" && (
         <div className="item">
           <Skeleton />
         </div>
@@ -93,7 +70,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
           sizeChangeHandler={onSizeChange}
         >
           <Piechart
-            data={dataBySex}
+            data={data}
             width={displaySize?.width ? `${displaySize.width}px` : "320px"}
             height={displaySize?.height ? `${displaySize.height}px` : "320px"}
           />

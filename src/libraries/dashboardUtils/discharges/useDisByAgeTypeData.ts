@@ -33,7 +33,10 @@ export const useDisByAgeTypeData = () => {
           (e) =>
             admissions.filter(
               (adm) =>
-                adm.patient?.agetype === e.code && adm.patient?.sex === "M"
+                adm.patient?.age &&
+                adm.patient?.age >= (e.from ?? 0) &&
+                adm.patient?.age <= (e.to ?? 0) &&
+                adm.patient?.sex === "M"
             ).length
         ),
         backgroundColor: "rgba(255, 99, 132, 0.8)",
@@ -44,7 +47,10 @@ export const useDisByAgeTypeData = () => {
           (e) =>
             admissions.filter(
               (adm) =>
-                adm.patient?.agetype === e.code && adm.patient?.sex === "F"
+                adm.patient?.age &&
+                adm.patient?.age >= (e.from ?? 0) &&
+                adm.patient?.age <= (e.to ?? 0) &&
+                adm.patient?.sex === "F"
             ).length
         ),
         backgroundColor: "rgba(54, 162, 235, 0.8)",
@@ -56,10 +62,18 @@ export const useDisByAgeTypeData = () => {
     ...ageTypes.map((e) => ({
       [t("patient.agetype")]: t(`patient.agetypes.${e.code ?? ""}`),
       [t("common.male")]: admissions.filter(
-        (adm) => adm.patient?.agetype === e.code && adm.patient?.sex === "M"
+        (adm) =>
+          adm.patient?.age &&
+          adm.patient?.age >= (e.from ?? 0) &&
+          adm.patient?.age <= (e.to ?? 0) &&
+          adm.patient?.sex === "M"
       ).length,
       [t("common.female")]: admissions.filter(
-        (adm) => adm.patient?.agetype === e.code && adm.patient?.sex === "F"
+        (adm) =>
+          adm.patient?.age &&
+          adm.patient?.age >= (e.from ?? 0) &&
+          adm.patient?.age <= (e.to ?? 0) &&
+          adm.patient?.sex === "F"
       ).length,
     })),
   ];

@@ -17,6 +17,7 @@ export type TDashboardCardOptionActions = {
   onExpand?: () => void;
   onClose?: () => void;
   onDownload?: TDashboardDownloadProps[];
+  downloadButton?: React.ReactNode;
 };
 
 export type TFullscreenCardProps = {

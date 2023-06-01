@@ -1,14 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import {
-  AdmissionDTO,
-  WardDTO,
-  AdmissionTypeDTO,
-  AgeTypeDTO,
-} from "../../../generated";
+import { AdmissionDTO, AdmissionTypeDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
-import { generateColor } from "../../uiUtils/colorGenerator";
+import { colorGen } from "../../uiUtils/colorGenerator";
 
 export const useAdmByAdmTypeData = () => {
   const { t } = useTranslation();
@@ -41,9 +36,7 @@ export const useAdmByAdmTypeData = () => {
         data: admissionTypes.map(
           (e) => admissions.filter((adm) => adm.admType?.code === e.code).length
         ),
-        backgroundColor: admissionTypes.map((e, index) =>
-          generateColor({ red: 255 })
-        ),
+        backgroundColor: colorGen(admissionTypes.length),
       },
     ],
   };

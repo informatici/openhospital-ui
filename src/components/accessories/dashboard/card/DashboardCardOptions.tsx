@@ -25,6 +25,7 @@ export const DashboardCardActions = React.forwardRef<
 
   return (
     <>
+      {actions.downloadButton}
       {actions.onDownload && (
         <>
           <IconButton

@@ -16,6 +16,8 @@ import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
 import "../../card/styles.scss";
 import { Piechart } from "../../../charts/pie/Piechart";
+import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
+import { useDisBySexData } from "../../../../../libraries/dashboardUtils/discharges/useDisBySexData";
 
 export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -30,7 +32,7 @@ export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
     dispatch(getDischarges({ dischargerange: period }));
   }, [dispatch, period]);
 
-  const { total, success, admissionStatus, dataBySex } = useData();
+  const { total, success, status, data, csvData } = useDisBySexData();
 
   const [displaySize, setDisplaySize] =
     useState<{ width: number; height: number }>();
@@ -39,48 +41,23 @@ export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
     setDisplaySize({ width: width - 1, height: height - 73 });
   };
 
-  const PDFDownload = (
-    <a href="#" className="download-link">
-      <ListItemIcon>
-        <PictureAsPdf />
-      </ListItemIcon>
-      <span className="download-format"> PDF </span>
-    </a>
-  );
-
-  const CSVDownload = (
-    <a href="#" className="download-link">
-      <ListItemIcon>
-        <Description />
-      </ListItemIcon>
-      <span className="download-format"> CSV </span>
-    </a>
-  );
-
-  const XLSDownload = (
-    <a href="#" className="download-link">
-      <ListItemIcon>
-        <SaveAlt />
-      </ListItemIcon>
-      <span className="download-format"> Excel </span>
-    </a>
+  const downloadOptions = (
+    <DataDownloadButton
+      csvData={csvData}
+      title={t("admission.dischargebysex").replace(/ /g, "-")}
+      graphRef={cardRef}
+    />
   );
 
   const actions: TDashboardCardOptionActions = {
     onClose: onRemove ? () => onRemove() : undefined,
-
     onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
-
-    onDownload: [
-      { action: PDFDownload },
-      { action: XLSDownload },
-      { action: CSVDownload },
-    ],
+    downloadButton: downloadOptions,
   };
 
   return (
     <>
-      {admissionStatus === "LOADING" && (
+      {status === "LOADING" && (
         <div className="item">
           <Skeleton />
         </div>
@@ -94,7 +71,7 @@ export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
           sizeChangeHandler={onSizeChange}
         >
           <Piechart
-            data={dataBySex}
+            data={data}
             width={displaySize?.width ? `${displaySize.width}px` : "320px"}
             height={displaySize?.height ? `${displaySize.height}px` : "320px"}
           />
