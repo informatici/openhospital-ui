@@ -102,10 +102,10 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       }),
     ageFrom: number()
       .test({
-        name: "ageFrom",
+        name: "ageTo",
         message: t("opd.validatefromage"),
         test: function (value) {
-          if (isEmpty(this.parent.ageTo)) {
+          if (!this.parent.ageTo) {
             return true;
           }
           return +this.parent.ageTo - +value >= 0;
@@ -127,10 +127,10 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       }),
     ageTo: number()
       .test({
-        name: "ageTo",
+        name: "ageFrom",
         message: t("opd.validatetoage"),
         test: function (value) {
-          if (isEmpty(this.parent.ageFrom)) {
+          if (!this.parent.ageFrom) {
             return true;
           }
           return +value - +this.parent.ageFrom >= 0;
@@ -341,8 +341,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 </div>
                 <div className="filterOpdForm__item">
                   <AutocompleteField
-                    fieldName="diseaseType"
-                    fieldValue={formik.values.diseaseType}
+                    fieldName="diseaseTypeCode"
+                    fieldValue={formik.values.diseaseTypeCode}
                     label={t("opd.diseasetype")}
                     isValid={isValid("diseaseTypeCode")}
                     errorText={getErrorText("diseaseTypeCode")}
@@ -352,8 +352,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 </div>
                 <div className="filterOpdForm__item">
                   <AutocompleteField
-                    fieldName="disease"
-                    fieldValue={formik.values.disease}
+                    fieldName="diseaseCode"
+                    fieldValue={formik.values.diseaseCode}
                     label={t("opd.disease")}
                     isValid={isValid("diseaseCode")}
                     errorText={getErrorText("diseaseCode")}

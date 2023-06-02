@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { AgeTypeDTO, OpdDTO } from "../../../../generated";
-import { TAPIResponseStatus } from "../../../../state/types";
-import { IState } from "../../../../types";
+import { AgeTypeDTO, OpdDTO } from "../../../generated";
+import { TAPIResponseStatus } from "../../../state/types";
+import { IState } from "../../../types";
 
-export const useData = () => {
+export const useOpdByAgeTypeData = () => {
   const { t } = useTranslation();
   const opds = useSelector<IState, OpdDTO[]>(
     (state) => state.opds.searchOpds.data ?? []
@@ -15,32 +15,15 @@ export const useData = () => {
   const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const opdStatus = useSelector<IState, TAPIResponseStatus>(
+  const status = useSelector<IState, TAPIResponseStatus>(
     (state) => state.opds.searchOpds.status ?? "IDLE"
   );
   const success = useSelector<IState, boolean>((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
-  const sexLabels = [t("common.male"), t("common.female")];
-  const ageTypeLabels = ageTypes.map((e) =>
-    t(`patient.agetypes.${e.code ?? ""}`)
-  );
-  const dataBySex = {
-    labels: sexLabels,
-    datasets: [
-      {
-        data: [
-          opds.filter((e) => e.sex === "M").length,
-          opds.filter((e) => e.sex === "F").length,
-        ],
-        borderJoinStyle: "bevel",
-        backgroundColor: ["rgba(255, 99, 132, 0.8)", "rgba(54, 162, 235, 0.8)"],
-        hoverOffset: 4,
-      },
-    ],
-  };
-  const dataByAgeType = {
-    labels: ageTypeLabels,
+  const labels = ageTypes.map((e) => t(`patient.agetypes.${e.code ?? ""}`));
+  const data = {
+    labels: labels,
     datasets: [
       {
         label: t("opd.male"),
@@ -63,11 +46,23 @@ export const useData = () => {
     ],
   };
 
+  const csvData = [
+    ...ageTypes.map((e) => ({
+      [t("patient.agetype")]: t(`patient.agetypes.${e.code ?? ""}`),
+      [t("common.male")]: opds.filter(
+        (opd) => opd.ageType === e.code && opd.sex === "M"
+      ).length,
+      [t("common.female")]: opds.filter(
+        (opd) => opd.ageType === e.code && opd.sex === "F"
+      ).length,
+    })),
+  ];
+
   return {
     ageTypeStatus,
-    opdStatus,
-    dataByAgeType,
-    dataBySex,
+    status,
+    data,
+    csvData,
     success,
     total: opds.length,
     opds,
