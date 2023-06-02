@@ -360,7 +360,7 @@ export function randomItems<T>(input: T[], nbItems: number): T[] {
  * @returns Returns JSON string
  */
 export function encodeLayout(config: LayoutConfiguration): string {
-  return JSON.stringify(config);
+  return btoa(JSON.stringify(config));
 }
 
 /**
@@ -371,7 +371,7 @@ export function encodeLayout(config: LayoutConfiguration): string {
 export function decodeLayoutConfig(
   configString: string
 ): LayoutConfiguration | null {
-  let decodeConfig = JSON.parse(configString);
+  let decodeConfig = JSON.parse(atob(configString));
 
   if (!decodeConfig.layout || !decodeConfig.toolbox) {
     return null;

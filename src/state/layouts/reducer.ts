@@ -72,7 +72,7 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case GET_LAYOUTS_SUCCESS_EMPTY: {
       draft.getLayouts.status = "SUCCESS_EMPTY";
-      draft.getLayouts.data = "";
+      draft.getLayouts.data = {};
 
       draft.layouts = randomLayout(4);
       draft.toolbox = toolboxDashboards(draft.layouts, {});
@@ -105,10 +105,8 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
     case RESET_LAYOUTS_SUCCESS: {
       draft.resetLayouts.status = "SUCCESS";
       draft.resetLayouts.data = action.payload;
-
       draft.layouts = randomLayout(4);
       draft.toolbox = toolboxDashboards(draft.layouts, {});
-
       delete draft.resetLayouts.error;
       break;
     }

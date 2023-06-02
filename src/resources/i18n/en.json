@@ -76,7 +76,11 @@
     "dischargebytype":"Discharges by type",
     "togglefullscreen": "Toggle Fullscreen",
     "removedashboard": "Remove the Dashboard component",
-    "downloaddata": "Download the underlying data"
+    "downloaddata": "Download the underlying data",
+    "cantretrieveconfig": "Can't retrieve customisations",
+    "cantsaveconfig": "Can't save customisations",
+    "reset": "Reset",
+    "resetcustomization": "Reset customisations"
   },
   "patient": {
     "address": "Address",
@@ -412,6 +416,7 @@
     "emptydataforfilter": "Empty data for the specified filter",
     "addanotherrow": "Add another operation row",
     "hospitalname": "Your Hospital",
+    "retry": "Retry",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",

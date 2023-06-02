@@ -19,6 +19,8 @@
       margin-bottom: 20px;
     }
     .dashboard__main-content {
+      display: flex;
+      flex-direction: column;
       width: 75%;
       @include susy-media($medium) {
         width: 100%;
@@ -32,6 +34,9 @@
           align-items: flex-end;
           gap: 16px 4px;
         }
+      }
+      .dashboard__main-body {
+        flex: 1 1 auto;
       }
     }
   }

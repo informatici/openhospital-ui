@@ -1,5 +1,5 @@
 import React from "react";
-import { FC, createRef, useEffect, useState } from "react";
+import { FC, useRef, useEffect, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
@@ -12,16 +12,22 @@ import {
 import { TDashboardComponent } from "../types";
 import {
   getLayouts,
+  getLayoutsReset,
+  resetLayouts,
   saveLayouts,
+  saveLayoutsReset,
   setBreakpoint,
 } from "../../../../../state/layouts/actions";
 import { GridLayoutItem } from "../item/GridLayoutItem";
+import { Button, CircularProgress } from "@material-ui/core";
+import { FullscreenCard } from "../../card/FullscreenCard";
+import { ErrorOutline } from "@material-ui/icons";
+import { useTranslation } from "react-i18next";
 
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import "../styles.scss";
-import { CircularProgress } from "@material-ui/core";
-import { FullscreenCard } from "../../card/FullscreenCard";
+import InfoBox from "../../../infoBox/InfoBox";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -33,10 +39,8 @@ const GridLayoutContainer: FC = () => {
   const [localBreakpoint, setLocalBreakpoint] = useState<string>("md");
   const [fsDashboard, setFsDashboard] =
     useState<TDashboardComponent | undefined>(undefined);
-
-  const currentBreakpoint = useSelector<IState, string>(
-    (state) => state.layouts.breakpoint
-  );
+  const { t } = useTranslation();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const layouts = useSelector<IState, Layouts>(
     (state) => state.layouts.layouts
@@ -47,15 +51,23 @@ const GridLayoutContainer: FC = () => {
   );
 
   useEffect(() => {
-    dispatch(getLayouts("1"));
+    dispatch(getLayouts());
     setMounted(true);
   }, []);
+
+  const onRetry = () => {
+    dispatch(getLayouts());
+  };
+
+  const onReset = () => {
+    dispatch(resetLayouts());
+    dispatch(getLayoutsReset());
+    dispatch(saveLayoutsReset());
+  };
 
   const onBreakpointChange = (breakpoint: string) => {
     dispatch(setBreakpoint(breakpoint));
     setLocalBreakpoint(breakpoint);
-
-    //setCanUpdateLayouts(false);
   };
 
   const onLayoutChange = (newLayout: Layout[], allLayouts: Layouts) => {
@@ -99,14 +111,66 @@ const GridLayoutContainer: FC = () => {
     (state: IState) => state.layouts.getLayouts.status
   );
 
+  const resetLayoutsStatus = useSelector(
+    (state: IState) => state.layouts.resetLayouts.status
+  );
+
+  const saveLayoutsStatus = useSelector(
+    (state: IState) => state.layouts.saveLayouts.status
+  );
+
+  const errorMessage = useSelector(
+    (state: IState) =>
+      state.layouts.getLayouts.error?.response ||
+      state.layouts.resetLayouts.error?.response ||
+      t("dashboard.cantretrieveconfig")
+  );
+
+  const saveErrorMessage = useSelector(
+    (state: IState) =>
+      state.layouts.saveLayouts.error?.response ?? t("dashboard.cantsaveconfig")
+  );
+
   return (
     <>
-      {getLayoutsStatus === "LOADING" && (
+      {(getLayoutsStatus === "LOADING" || resetLayoutsStatus === "LOADING") && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
 
-      {getLayoutsStatus === "SUCCESS" && (
+      {(getLayoutsStatus === "FAIL" || resetLayoutsStatus === "FAIL") && (
+        <div className="error">
+          <p>
+            <ErrorOutline className="icon" color="primary" fontSize="large" />
+          </p>
+          <h2>{errorMessage}</h2>
+          <div className="actions">
+            <Button
+              onClick={onRetry}
+              variant="outlined"
+              color="primary"
+              style={{ marginRight: "10px" }}
+            >
+              {t("common.retry")}
+            </Button>
+            <Button
+              onClick={onReset}
+              variant="outlined"
+              title={t("dashboard.resetcustomization")}
+              color="secondary"
+            >
+              {t("dashboard.reset")}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {(getLayoutsStatus === "SUCCESS" || resetLayoutsStatus === "SUCCESS") && (
         <>
+          {saveLayoutsStatus === "FAIL" && (
+            <div ref={infoBoxRef} className="info-box-container">
+              <InfoBox type="error" message={saveErrorMessage} />
+            </div>
+          )}
           <ResponsiveReactGridLayout
             className="layout"
             layouts={layouts}
