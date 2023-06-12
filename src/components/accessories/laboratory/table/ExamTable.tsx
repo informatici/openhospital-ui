@@ -92,6 +92,22 @@ export const ExamTable: FC<IExamTableProps> = ({
     if (
       (row.statusText === LaboratoryDTOStatusEnum.DELETED ||
         row.statusText === LaboratoryDTOStatusEnum.INVALID) &&
+      (action === "delete" || action === "edit")
+    ) {
+      return false;
+    }
+
+    if (
+      row.statusText !== LaboratoryDTOStatusEnum.DRAFT &&
+      row.statusText !== LaboratoryDTOStatusEnum.OPEN &&
+      action === "cancel"
+    ) {
+      return false;
+    }
+
+    if (
+      (row.statusText === LaboratoryDTOStatusEnum.DRAFT ||
+        row.statusText === LaboratoryDTOStatusEnum.OPEN) &&
       action === "delete"
     ) {
       return false;
@@ -119,6 +135,12 @@ export const ExamTable: FC<IExamTableProps> = ({
         data.find((item) => item.laboratoryDTO?.code === row.id)
           ?.laboratoryDTO ?? {}
       );
+    }
+  };
+
+  const onCancel = (row: any) => {
+    if (handleCancel) {
+      handleCancel(row.id);
     }
   };
 
@@ -151,6 +173,7 @@ export const ExamTable: FC<IExamTableProps> = ({
         onView={handleView}
         onEdit={canUpdate ? onEdit : undefined}
         onDelete={canDelete ? onDelete : undefined}
+        onCancel={canDelete ? onCancel : undefined}
         displayRowAction={shouldDisplayAction}
       />
       {deleteStatus === "FAIL" && (

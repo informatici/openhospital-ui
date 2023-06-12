@@ -62,6 +62,7 @@ const Table: FunctionComponent<IProps> = ({
   const [orderBy, setOrderBy] = React.useState(initialOrderBy ?? "date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -153,7 +154,10 @@ const Table: FunctionComponent<IProps> = ({
           <IconButton
             size="small"
             title="Cancel"
-            onClick={() => onCancel && onCancel(row)}
+            onClick={() => {
+              setCurrentRow(row);
+              setOpenCancelConfirmation(true);
+            }}
           >
             <Close color="primary" />
           </IconButton>
@@ -213,6 +217,11 @@ const Table: FunctionComponent<IProps> = ({
   const handleDelete = () => {
     if (onDelete) onDelete(currentRow);
     setOpenDeleteConfirmation(false);
+  };
+
+  const handleCancel = () => {
+    if (onCancel) onCancel(currentRow);
+    setOpenCancelConfirmation(false);
   };
 
   return (
@@ -296,6 +305,19 @@ const Table: FunctionComponent<IProps> = ({
         secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleDelete}
         handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
+      />
+
+      <ConfirmationDialog
+        isOpen={openCancelConfirmation}
+        title={t("common.cancel")}
+        info={t("common.cancelconfirmation", {
+          code: currentRow.code,
+        })}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleCancel}
+        handleSecondaryButtonClick={() => setOpenCancelConfirmation(false)}
       />
     </>
   );
