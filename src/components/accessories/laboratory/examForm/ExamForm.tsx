@@ -43,6 +43,8 @@ import {
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
+import { useNavigate } from "react-router";
+import { PATHS } from "../../../../consts";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -52,6 +54,7 @@ const ExamForm: FC<ExamProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [currentExamCode, setCurrentExamCode] = useState("");
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
 
@@ -516,7 +519,10 @@ const ExamForm: FC<ExamProps> = ({
             : t("lab.updatesuccess", { code: labToEdit.code })
         }
         primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handlePrimaryButtonClick={() => {
+          setActivityTransitionState("TO_RESET");
+          navigate(PATHS.laboratory);
+        }}
         handleSecondaryButtonClick={() => ({})}
       />
     </>
