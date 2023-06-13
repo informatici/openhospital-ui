@@ -7,6 +7,7 @@ import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
 import "./styles.scss";
+import { statusLabel } from "./table/ExamTable";
 
 export const LaboratoryDetails: FC = () => {
   const { t } = useTranslation();
@@ -167,8 +168,11 @@ export const LaboratoryDetails: FC = () => {
                   <div className="labDetails__content__item__label">
                     {t("lab.status")}:
                   </div>
-                  <div className="labDetails__content__item__value">
-                    {lab?.status ?? ""}
+                  <div
+                    className="labDetails__content__item__value"
+                    style={{ marginTop: "5px" }}
+                  >
+                    {lab?.status ? statusLabel(lab.status) : ""}
                   </div>
                 </div>
               </div>

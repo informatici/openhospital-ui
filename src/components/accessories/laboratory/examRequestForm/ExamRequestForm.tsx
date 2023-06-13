@@ -33,6 +33,8 @@ import "./styles.scss";
 import InfoBox from "../../infoBox/InfoBox";
 import { ExamTransitionState } from "../examForm/type";
 import { TAPIResponseStatus } from "../../../../state/types";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../assets/check-icon.png";
 
 const ExamRequestForm: FC<ExamRequestProps> = ({
   fields,
@@ -94,26 +96,20 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       if (handleSuccess) handleSuccess(false);
-      setTimeout(() => {
-        dispatch(createLabRequestReset());
-        setShouldResetForm(true);
-      }, 3000);
+      dispatch(createLabRequestReset());
+      setShouldResetForm(true);
     }
   }, [dispatch, activityTransitionState]);
 
-  useEffect(() => {
-    if (createLabRequestStatus === "SUCCESS") {
-      if (handleSuccess) handleSuccess(true);
-      setActivityTransitionState("TO_RESET");
-    }
-  }, [createLabRequestStatus]);
+  const onClose = () => {
+    if (handleSuccess) handleSuccess(true);
+    setActivityTransitionState("TO_RESET");
+  };
 
   const errorMessage = useSelector<IState>(
     (state) =>
       labStore.createLabRequest.error?.message || t("common.somethingwrong")
   ) as string;
-
-  const successMessage = t("lab.examrequestcreated");
 
   const onSubmit = (lab: LaboratoryDTO) => {
     setShouldResetForm(false);
@@ -243,11 +239,12 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
               <div className="submit_button">
                 <Button
                   type="submit"
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   disabled={isLoading}
                 >
-                  <ControlPoint /> {t("lab.examrequestbtn")}
+                  {/* <ControlPoint style={{ marginRight: "5px" }} /> */}
+                  {t("lab.examrequestbtn")}
                 </Button>
               </div>
             </div>
@@ -257,11 +254,15 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
                 <InfoBox type="error" message={errorMessage} />
               </div>
             )}
-            {createLabRequestStatus === "SUCCESS" && (
-              <div ref={infoBoxRef} className="info-box-container">
-                <InfoBox type="info" message={successMessage} />
-              </div>
-            )}
+            <ConfirmationDialog
+              isOpen={createLabRequestStatus === "SUCCESS"}
+              title={t("lab.examrequest")}
+              icon={checkIcon}
+              info={t("lab.examrequestcreated")}
+              primaryButtonLabel="Ok"
+              handlePrimaryButtonClick={onClose}
+              handleSecondaryButtonClick={() => ({})}
+            />
           </div>
         </form>
       </div>

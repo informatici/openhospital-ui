@@ -23,7 +23,8 @@ describe("Patient Details / Exams", () => {
 
   it("should display an success info box if the exam creation call succeed", () => {
     cy.get("[class='submit_button']").eq(0).click();
-    cy.get("div.infoBox").should("have.class", "info");
+    cy.get("div.dialog__title").contains("Request an exam");
+    cy.get("div.return_button").click();
   });
   //End Exam request test
 
