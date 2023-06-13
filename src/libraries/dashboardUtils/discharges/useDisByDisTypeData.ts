@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AdmissionDTO, AdmissionTypeDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
-import { generateColor } from "../../uiUtils/colorGenerator";
+import { colorGen } from "../../uiUtils/colorGenerator";
 
 export const useDisByDisTypeData = () => {
   const { t } = useTranslation();
@@ -32,9 +32,7 @@ export const useDisByDisTypeData = () => {
         data: dischargeTypes.map(
           (e) => admissions.filter((adm) => adm.disType?.code === e.code).length
         ),
-        backgroundColor: dischargeTypes.map((e, index) =>
-          generateColor({ red: 255 })
-        ),
+        backgroundColor: colorGen(dischargeTypes.length),
       },
     ],
   };

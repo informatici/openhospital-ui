@@ -62,7 +62,25 @@
         "last2": "1-2 years",
         "last3": "1-3 years"
       }
-    }
+    },
+    "availabledashboard": "Available Dashboards",
+    "opdbyagetype":"OPDs by age type",
+    "opdbysex":"OPDs by sex",
+    "admissionbyagetype":"Admissions by age type",
+    "admissionbysex":"Admissions by sex",
+    "admissionbyward": "Admissions by ward",
+    "admissionbytype":"Admissions by type",
+    "dischargebysex":"Discharges by sex",
+    "dischargebyagetype":"Discharges by age type",
+    "dischargebyward": "Discharges by ward",
+    "dischargebytype":"Discharges by type",
+    "togglefullscreen": "Toggle Fullscreen",
+    "removedashboard": "Remove the Dashboard component",
+    "downloaddata": "Download the underlying data",
+    "cantretrieveconfig": "Can't retrieve customisations",
+    "cantsaveconfig": "Can't save customisations",
+    "reset": "Reset",
+    "resetcustomization": "Reset customisations"
   },
   "patient": {
     "address": "Address",
@@ -398,6 +416,7 @@
     "emptydataforfilter": "Empty data for the specified filter",
     "addanotherrow": "Add another operation row",
     "hospitalname": "Your Hospital",
+    "retry": "Retry",
     "moment": {
       "duration": "Duration",
       "days": "Day(s)",

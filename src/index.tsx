@@ -31,9 +31,11 @@ import diseaseTypes from "./state/diseaseTypes/reducer";
 import examTypes from "./state/examTypes/reducer";
 import ageTypes from "./state/ageTypes/reducer";
 import hospital from "./state/hospital/reducer";
+import layouts from "./state/layouts/reducer";
+import dashboard from "./state/dashboard/reducer";
 
 if (process.env.REACT_APP_USE_MOCK_API) {
-  console.log("Using mocked api");
+  //console.log("Using mocked api");
   makeServer();
 }
 
@@ -60,6 +62,8 @@ const reducer = combineReducers<IState>({
   examTypes,
   ageTypes,
   hospital,
+  layouts,
+  dashboard,
 });
 const store = createStore(
   reducer,

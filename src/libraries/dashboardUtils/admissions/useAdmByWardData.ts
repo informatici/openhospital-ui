@@ -1,16 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import {
-  AdmissionDTO,
-  WardDTO,
-  AdmissionTypeDTO,
-  AgeTypeDTO,
-} from "../../../generated";
+import { AdmissionDTO, WardDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
-import { generateColor } from "../../uiUtils/colorGenerator";
 
-export const useAdmByAdmTypeData = () => {
+export const useAdmByAdmWardData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
     (state) => state.admissions.getAdmissions.data ?? []

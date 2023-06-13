@@ -11,10 +11,16 @@
     padding: 16px;
     display: flex;
     width: 100%;
+
+    @include susy-media($medium) {
+      display: block;
+    }
     .dashboard__main-header {
       margin-bottom: 20px;
     }
     .dashboard__main-content {
+      display: flex;
+      flex-direction: column;
       width: 75%;
       @include susy-media($medium) {
         width: 100%;
@@ -23,11 +29,14 @@
         .panel {
           display: flex;
           flex-flow: row wrap;
-          overflow: auto;
+          //overflow: auto;
           justify-content: space-evenly;
           align-items: flex-end;
           gap: 16px 4px;
         }
+      }
+      .dashboard__main-body {
+        flex: 1 1 auto;
       }
     }
   }
@@ -35,13 +44,16 @@
     width: 25%;
     padding-left: 20px;
     @include susy-media($medium) {
-      display: none;
+      //display: none;
+      width: 100%;
+      padding-left: 0;
     }
     .side {
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 480px;
+      height: auto;
+      max-height: 650px;
       background-color: $c-gray;
       border-radius: 5px;
       padding: 16px;
