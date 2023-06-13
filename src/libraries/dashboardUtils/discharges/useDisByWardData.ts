@@ -3,9 +3,8 @@ import { useSelector } from "react-redux";
 import { AdmissionDTO, WardDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
-import { generateColor } from "../../uiUtils/colorGenerator";
 
-export const useADisByWardData = () => {
+export const useDisByWardData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
     (state) => state.admissions.getDischarges.data ?? []

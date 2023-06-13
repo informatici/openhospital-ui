@@ -1,14 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import {
-  AdmissionDTO,
-  WardDTO,
-  AdmissionTypeDTO,
-  AgeTypeDTO,
-} from "../../../generated";
+import { AdmissionDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
-import { generateColor } from "../../uiUtils/colorGenerator";
 
 export const useAdmBySexData = () => {
   const { t } = useTranslation();

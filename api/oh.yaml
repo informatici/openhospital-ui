@@ -83,6 +83,8 @@ tags:
     description: Therapy Controller
   - name: user-controller
     description: User Controller
+  - name: user-setting-controller
+    description: User Setting Controller
   - name: vaccine-controller
     description: Vaccine Controller
   - name: vaccine-type-controller
@@ -7578,6 +7580,61 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /usersettings:
+    post:
+      tags:
+      - user-setting-controller
+      summary: newUserSetting
+      operationId: newUserSettingUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: userSettingDTO
+        description: userSettingDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/UserSettingDTO"
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/UserSettingDTO"
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+  /usersettings/dashboard:
+    get:
+      tags:
+      - user-setting-controller
+      summary: getUserSettingDashBoard
+      operationId: getUserSettingDashBoardUsingGET
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/UserSettingDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
   /vaccines:
     get:
       tags:
@@ -9998,6 +10055,22 @@ definitions:
         type: string
         description: full name of user
     title: UserProfileDTO
+  UserSettingDTO:
+    type: object
+    properties:
+      configName:
+        type: string
+        example: dashboard
+        description: the the name of the setting
+      configValue:
+        type: string
+        description: the the value of the user
+      id:
+        type: integer
+        format: int32
+        example: 1
+        description: the id of the setting (must be unique)
+    title: UserSettingDTO
   VaccineDTO:
     type: object
     properties:

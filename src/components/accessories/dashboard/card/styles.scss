@@ -1,0 +1,35 @@
+.download-link {
+  .MuiListItemIcon-root {
+    min-width: 30px !important;
+  }
+  
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.DashboardCard-item{
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+
+  .DashboardCard-item-header {
+    padding: 1px 16px 8px 16px;
+    align-items: center;
+  }
+
+  .DashboardCard-item-content {
+    padding-top: 0;
+    padding-bottom: 0 !important;
+    flex: 1 1 auto;
+    max-height: calc(100% - 40px);
+  }
+  
+  .MuiCardHeader-action {
+    margin-top: 0;
+
+    .MuiIconButton-root {
+      padding: 5px !important;
+    }
+  }
+}
