@@ -128,40 +128,6 @@ const AppHeader: FunctionComponent<TProps> = ({
               <div className="trigger_z"></div>
             </div>
           </div>
-          <div className="appHeader__nav">
-            <div className="appHeader__nav_items">
-              <div
-                className="appHeader__nav__item"
-                onClick={() => navigate(PATHS.dashboard)}
-              >
-                {t("nav.dashboard")}
-              </div>
-              {canAccessPatient && (
-                <div
-                  className="appHeader__nav__item"
-                  onClick={() => navigate(PATHS.patients)}
-                >
-                  {t("nav.patients")}
-                </div>
-              )}
-              {canAccessVisit && (
-                <div
-                  className="appHeader__nav__item"
-                  onClick={() => navigate(PATHS.visits)}
-                >
-                  {t("nav.visits")}
-                </div>
-              )}
-              {canAccessLaboratory && (
-                <div
-                  className="appHeader__nav__item"
-                  onClick={() => navigate(PATHS.laboratory)}
-                >
-                  {t("nav.laboratory")}
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
       <ConfirmationDialog
