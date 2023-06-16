@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { FC, useRef, useEffect, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import {
   defaultGridLayoutBreakpoints,
   defaultGridLayoutCols,
   encodeLayout,
+  getBreakpointFromWidth,
   removeDuplicates,
 } from "../consts";
 import { TDashboardComponent } from "../types";
@@ -23,11 +24,11 @@ import { Button, CircularProgress } from "@material-ui/core";
 import { FullscreenCard } from "../../card/FullscreenCard";
 import { ErrorOutline } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
+import InfoBox from "../../../infoBox/InfoBox";
 
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import "../styles.scss";
-import InfoBox from "../../../infoBox/InfoBox";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -41,6 +42,7 @@ const GridLayoutContainer: FC = () => {
     useState<TDashboardComponent | undefined>(undefined);
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+  const gridLayoutRef = useRef<HTMLDivElement>(null);
 
   const layouts = useSelector<IState, Layouts>(
     (state) => state.layouts.layouts
@@ -49,6 +51,14 @@ const GridLayoutContainer: FC = () => {
   const toolbox = useSelector<IState, Layouts>(
     (state) => state.layouts.toolbox
   );
+
+  useLayoutEffect(() => {
+    if (gridLayoutRef.current) {
+      setLocalBreakpoint(
+        getBreakpointFromWidth(gridLayoutRef.current.offsetWidth)
+      );
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(getLayouts());
@@ -66,13 +76,27 @@ const GridLayoutContainer: FC = () => {
   };
 
   const onBreakpointChange = (breakpoint: string) => {
-    dispatch(setBreakpoint(breakpoint));
     setLocalBreakpoint(breakpoint);
+    dispatch(setBreakpoint(breakpoint));
+  };
+
+  const getRealBreakpoint = (): string => {
+    if (gridLayoutRef.current) {
+      return getBreakpointFromWidth(gridLayoutRef.current.offsetWidth);
+    }
+
+    return localBreakpoint;
   };
 
   const onLayoutChange = (newLayout: Layout[], allLayouts: Layouts) => {
     if (!canUpdateLayouts) {
       setCanUpdateLayouts(true);
+      return;
+    }
+
+    let currentBreakpoint = getRealBreakpoint();
+
+    if (currentBreakpoint !== localBreakpoint) {
       return;
     }
 
@@ -92,7 +116,7 @@ const GridLayoutContainer: FC = () => {
       ),
     });
 
-    //setCanUpdateLayouts(false);
+    setCanUpdateLayouts(false);
 
     dispatch(
       saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))
@@ -132,7 +156,7 @@ const GridLayoutContainer: FC = () => {
   );
 
   return (
-    <>
+    <div ref={gridLayoutRef}>
       {(getLayoutsStatus === "LOADING" || resetLayoutsStatus === "LOADING") && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
@@ -186,7 +210,7 @@ const GridLayoutContainer: FC = () => {
             breakpoints={defaultGridLayoutBreakpoints}
             cols={defaultGridLayoutCols}
           >
-            {layouts[localBreakpoint].map((l, key) => {
+            {layouts[getRealBreakpoint()].map((l, key) => {
               let ldash = l.i as TDashboardComponent;
 
               return (
@@ -206,7 +230,7 @@ const GridLayoutContainer: FC = () => {
           <FullscreenCard dashboard={fsDashboard} onClose={onFullScreenExit} />
         </>
       )}
-    </>
+    </div>
   );
 };
 
