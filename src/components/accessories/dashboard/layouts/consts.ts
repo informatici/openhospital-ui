@@ -49,6 +49,31 @@ export const defaultGridLayoutBreakpoints = {
 };
 
 /**
+ * Determine breakpoint to apply based on display size
+ * @param width number
+ * @returns The breakpoint to be applied
+ */
+export const getBreakpointFromWidth = (width: number): string => {
+  if (width >= defaultGridLayoutBreakpoints.lg) {
+    return "lg";
+  }
+
+  if (width >= defaultGridLayoutBreakpoints.md) {
+    return "md";
+  }
+
+  if (width >= defaultGridLayoutBreakpoints.sm) {
+    return "sm";
+  }
+
+  if (width >= defaultGridLayoutBreakpoints.xs) {
+    return "xs";
+  }
+
+  return "md";
+};
+
+/**
  * Get dashboard label's translation key
  * @param dashboardKey Dashboard key
  * @returns Return the translation key
