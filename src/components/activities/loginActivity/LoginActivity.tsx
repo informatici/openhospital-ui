@@ -55,8 +55,9 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorType = useSelector<IState>(
-    (state) => state.main.authentication.error?.description || "unknown error"
+  const errorMessage = useSelector<IState>(
+    (state) =>
+      state.main.authentication.error?.description || t("common.somethingwrong")
   );
 
   const status = useSelector<IState>(
@@ -127,9 +128,7 @@ const LoginActivity: FC = () => {
                 hidden: status !== "FAIL",
               })}
             >
-              {errorType === ErrorDescription.PASSWORDTOOSHORT
-                ? t("login.passwordtooshort")
-                : t("login.incorrectcredentials")}
+              {errorMessage}
             </div>
             <div className="login__buttonContainer">
               <Button
