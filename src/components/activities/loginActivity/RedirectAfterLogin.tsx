@@ -8,13 +8,12 @@ import { IRedirectAfterLogin } from "./types";
 
 export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
   children,
-  successRoute,
 }) => {
   const location = useLocation();
   const landingPageRoute = useLandingPageRoute();
   const to = useMemo(
-    () => location.state?.from || landingPageRoute || successRoute,
-    [landingPageRoute, location, successRoute]
+    () => location.state?.from || landingPageRoute,
+    [landingPageRoute, location]
   );
 
   const status = useSelector<IState, TAPIResponseStatus>(
