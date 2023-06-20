@@ -34,6 +34,7 @@ export * from './StockMovementControllerApi';
 export * from './SupplierControllerApi';
 export * from './TherapyControllerApi';
 export * from './UserControllerApi';
+export * from './UserSettingControllerApi';
 export * from './VaccineControllerApi';
 export * from './VaccineTypeControllerApi';
 export * from './VisitsControllerApi';

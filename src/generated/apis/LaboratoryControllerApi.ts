@@ -16,7 +16,6 @@ import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, Ope
 import {
     LabWithRowsDTO,
     LaboratoryDTO,
-    LaboratoryForPrintDTO,
     ResponseEntity,
 } from '../models';
 
@@ -121,9 +120,9 @@ export class LaboratoryControllerApi extends BaseAPI {
     /**
      * getLaboratoryForPrint
      */
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LaboratoryForPrintDTO>>
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LaboratoryForPrintDTO>>>
-    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LaboratoryForPrintDTO> | RawAjaxResponse<Array<LaboratoryForPrintDTO>>> {
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest): Observable<Array<LabWithRowsDTO>>
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<LabWithRowsDTO>>>
+    getLaboratoryForPrintUsingGET({ dateFrom, dateTo, examName, patientCode }: GetLaboratoryForPrintUsingGETRequest, opts?: OperationOpts): Observable<Array<LabWithRowsDTO> | RawAjaxResponse<Array<LabWithRowsDTO>>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getLaboratoryForPrintUsingGET');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getLaboratoryForPrintUsingGET');
 
@@ -139,7 +138,7 @@ export class LaboratoryControllerApi extends BaseAPI {
         if (examName != null) { query['examName'] = examName; }
         if (patientCode != null) { query['patientCode'] = patientCode; }
 
-        return this.request<Array<LaboratoryForPrintDTO>>({
+        return this.request<Array<LabWithRowsDTO>>({
             url: '/laboratories/exams',
             method: 'GET',
             headers,

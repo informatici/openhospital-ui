@@ -1,16 +1,18 @@
+import { FC, useEffect } from "react";
 import { InputAdornment } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import { RemoveRedEye } from "@material-ui/icons";
 import classNames from "classnames";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import { default as React, FunctionComponent, useState } from "react";
+import { default as React, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { ErrorDescription } from "../../../generated";
+import { ErrorDescription, HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -18,16 +20,13 @@ import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, IValues, TProps } from "./types";
+import { IValues } from "./types";
+import { getHospital } from "../../../state/hospital/actions";
 
-const LoginActivity: FunctionComponent<TProps> = ({
-  setAuthenticationThunk,
-  status,
-  errorType,
-}) => {
+const LoginActivity: FC = () => {
   useAuthentication();
-
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const initialValues: IValues = {
     username: "",
@@ -43,7 +42,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      setAuthenticationThunk(values.username, values.password);
+      dispatch(setAuthenticationThunk(values.username, values.password));
     },
   });
 
@@ -56,6 +55,21 @@ const LoginActivity: FunctionComponent<TProps> = ({
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
+  const errorType = useSelector<IState>(
+    (state) => state.main.authentication.error?.description || "unknown error"
+  );
+
+  const status = useSelector<IState>(
+    (state) => state.main.authentication.status || "IDLE"
+  );
+
+  useEffect(() => {
+    dispatch(getHospital());
+  }, [dispatch]);
+
+  const hospital = useSelector<IState>(
+    (state) => state.hospital.getHospital.data
+  ) as HospitalDTO;
 
   return (
     <div className="login">
@@ -67,7 +81,7 @@ const LoginActivity: FunctionComponent<TProps> = ({
           width="150px"
         />
         <div className="login__title">
-          Princeton-Plainsboro Teaching Hospital
+          {hospital?.description ?? t("login.signin")}
         </div>
         <div className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
@@ -127,13 +141,15 @@ const LoginActivity: FunctionComponent<TProps> = ({
                 {t("login.login")}
               </Button>
             </div>
-            <div>
+          </form>
+          <div>
+            <RouterLink to="/forgot">
               <Link className="login__panel__resetPassword" component="button">
                 {t("login.forgotpassword")}
               </Link>
-            </div>
-            &emsp;
-          </form>
+            </RouterLink>
+          </div>
+          &emsp;
         </div>
       </div>
       <Footer />
@@ -141,13 +157,4 @@ const LoginActivity: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  status: state.main.authentication.status || "IDLE",
-  errorType: state.main.authentication.error?.description,
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  setAuthenticationThunk,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginActivity);
+export default LoginActivity;

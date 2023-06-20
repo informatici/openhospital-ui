@@ -69,6 +69,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
       updatePatient(patient?.data?.code, {
         ...updatePatientValues,
         code: patient?.data?.code,
+        allergies: patient.data?.allergies,
+        anamnesis: patient.data?.anamnesis,
       });
     else
       console.error(
@@ -88,12 +90,14 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   }, [patient, id, getPatientThunk]);
 
   useEffect(() => {
+    console.log(activityTransitionState);
     if (activityTransitionState === "TO_PATIENT") {
       getPatientThunk(id!);
       updatePatientReset();
       setShouldResetForm(true);
     } else if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
+      setActivityTransitionState("IDLE");
     }
   }, [activityTransitionState, updatePatientReset, getPatientThunk, id]);
 

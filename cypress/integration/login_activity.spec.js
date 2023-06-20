@@ -12,11 +12,11 @@ describe("LoginActivity spec", () => {
 
   it("should validate the username input", () => {
     cy.get("[id=username]").focus().clear().blur();
-    cy.get("[class=login__panel]").contains("Insert a valid user name");
+    cy.get("[class=login__panel]").contains("Insert a valid username");
     cy.get("[id=username]").focus().type("hribeiro").blur();
     cy.get("[class=login__panel]").should(
       "not.contain",
-      "Insert a valid user name"
+      "Insert a valid username"
     );
   });
 
@@ -68,7 +68,7 @@ describe("LoginActivity spec", () => {
   });
 
   // Waiting to be implemented
-  it.skip("should reset the activity state to login mode after submitting the resetPassword’s email input", () => {
+  it.skip("should reset the activity state to login mode after submitting the resetPassword’s username input", () => {
     cy.get("[class=password-reset]").click();
     cy.get("[id=username]").focus().type("username").blur();
     cy.get("[class=send-request]").click();

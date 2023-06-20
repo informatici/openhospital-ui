@@ -7,7 +7,7 @@ import {
   AdmissionTypeDTO,
   AgeTypeDTO,
 } from "../../../../generated";
-import { generateColor } from "../../../../libraries/uiUtils/colorGenerator";
+import { colorGen } from "../../../../libraries/uiUtils/colorGenerator";
 import { TAPIResponseStatus } from "../../../../state/types";
 import { IState } from "../../../../types";
 
@@ -15,7 +15,7 @@ export const useData = () => {
   const { t } = useTranslation();
   const discharges = useSelector<IState, AdmissionDTO[]>(
     (state) =>
-      state.admissions.getAdmissions.data?.filter(
+      state.admissions.getDischarges.data?.filter(
         (e) => e?.disDate !== undefined
       ) ?? []
   );
@@ -35,11 +35,11 @@ export const useData = () => {
     (state) => state.dischargeTypes.allDischargeTypes.status ?? "IDLE"
   );
   const admissionStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.admissions.getAdmissions.status ?? "IDLE"
+    (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
   const success = useSelector<IState, boolean>((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
-      state.admissions.getAdmissions.status ?? ""
+      state.admissions.getDischarges.status ?? ""
     )
   );
   const wardStatus = useSelector<IState, TAPIResponseStatus>(
@@ -74,7 +74,10 @@ export const useData = () => {
           (e) =>
             discharges.filter(
               (adm) =>
-                adm.patient?.agetype === e.code && adm.patient?.sex === "M"
+                adm.patient?.age &&
+                adm.patient?.age >= (e.from ?? 0) &&
+                adm.patient?.age <= (e.to ?? 0) &&
+                adm.patient?.sex === "M"
             ).length
         ),
         backgroundColor: "rgba(255, 99, 132, 0.8)",
@@ -85,7 +88,10 @@ export const useData = () => {
           (e) =>
             discharges.filter(
               (adm) =>
-                adm.patient?.agetype === e.code && adm.patient?.sex === "F"
+                adm.patient?.age &&
+                adm.patient?.age >= (e.from ?? 0) &&
+                adm.patient?.age <= (e.to ?? 0) &&
+                adm.patient?.sex === "F"
             ).length
         ),
         backgroundColor: "rgba(54, 162, 235, 0.8)",
@@ -99,9 +105,7 @@ export const useData = () => {
         data: dischargeTypes.map(
           (e) => discharges.filter((adm) => adm.disType?.code === e.code).length
         ),
-        backgroundColor: dischargeTypes.map((e, index) =>
-          generateColor({ red: 255 })
-        ),
+        backgroundColor: colorGen(dischargeTypes.length),
       },
     ],
   };

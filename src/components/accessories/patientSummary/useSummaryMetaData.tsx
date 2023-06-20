@@ -54,7 +54,7 @@ const useSummaryMetaData = () => {
   };
   const dateFields = [
     "date",
-    "examDate",
+    //"date",
     "admDate",
     "disDate",
     "opDate",

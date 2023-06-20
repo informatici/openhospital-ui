@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router";
 import Dashboard from "../components/accessories/dashboard/Dashboard";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
+import ForgotActivity from "../components/activities/forgotActivity/ForgotActivity";
 import NotFound from "../components/activities/notFound/NotFound";
 import { Private } from "../components/Private";
 import { PATHS } from "../consts";
@@ -18,11 +19,12 @@ export const MainRouter: React.FC = () => {
         <Route
           path="login"
           element={
-            <RedirectAfterLogin successRoute="/dashboard">
+            <RedirectAfterLogin>
               <LoginActivity />
             </RedirectAfterLogin>
           }
         />
+        <Route path="forgot" element={<ForgotActivity />} />
 
         <Route element={<Private />}>
           <Route path={`${PATHS.dashboard}`} element={<Dashboard />} />
@@ -33,3 +35,4 @@ export const MainRouter: React.FC = () => {
     </BrowserRouter>
   );
 };
+

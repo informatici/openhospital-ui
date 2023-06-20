@@ -6,7 +6,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO } from "../../../generated";
+import { AdmissionDTO, OpdDTO } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
@@ -22,6 +22,7 @@ import { getPatientThunk } from "../../../state/patients/actions";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import { isEmpty } from "lodash";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { getLastOpd } from "../../../state/opds/actions";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -67,12 +68,30 @@ const PatientAdmission: FC = () => {
       t("common.somethingwrong")
   ) as string;
 
+  const lastOpd = useSelector<IState, OpdDTO | undefined>(
+    (state) => state.opds.lastOpd.data
+  );
+
+  const lastOpdStatus = useSelector<IState, string | undefined>(
+    (state) => state.opds.lastOpd.status
+  );
+
+  const patientCode = useSelector<IState, number | undefined>(
+    (state) => state.patients.selectedPatient.data?.code
+  );
+
+  useEffect(() => {
+    if (patientCode && creationMode) {
+      dispatch(getLastOpd(patientCode ?? -1));
+    }
+  }, [dispatch, patientCode, creationMode]);
+
   const open = useMemo(() => {
     if (creationMode) return showForm && canCreate;
     return showForm;
   }, [showForm, canCreate, creationMode]);
 
-  const fields = useFields(admissionToEdit);
+  const fields = useFields(admissionToEdit, lastOpd?.disease);
 
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
@@ -183,7 +202,11 @@ const PatientAdmission: FC = () => {
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
           admitted={!isEmpty(admissionToEdit?.disType)}
-          isLoading={createStatus === "LOADING" || updateStatus === "LOADING"}
+          isLoading={
+            createStatus === "LOADING" ||
+            updateStatus === "LOADING" ||
+            lastOpdStatus === "LOADING"
+          }
         />
       )}
       {(createStatus === "FAIL" || createStatus === "FAIL") && (

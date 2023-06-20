@@ -4,6 +4,11 @@ export const GET_OPD_FAIL = "opds/GET_OPD_FAIL";
 export const GET_OPD_SUCCESS_EMPTY = "opds/GET_OPD_SUCCESS_EMPTY";
 export const GET_OPD_RESET = "opds/GET_OPD_RESET";
 
+export const GET_LAST_OPD_LOADING = "opds/GET_LAST_OPD_LOADING";
+export const GET_LAST_OPD_SUCCESS = "opds/GET_LAST_OPD_SUCCESS";
+export const GET_LAST_OPD_FAIL = "opds/GET_LAST_OPD_FAIL";
+export const GET_LAST_OPD_RESET = "opds/GET_LAST_OPD_RESET";
+
 export const SEARCH_OPD_LOADING = "opds/SEARCH_OPD_LOADING";
 export const SEARCH_OPD_SUCCESS = "opds/SEARCH_OPD_SUCCESS";
 export const SEARCH_OPD_FAIL = "opds/SEARCH_OPD_FAIL";

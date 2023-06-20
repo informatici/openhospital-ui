@@ -10,6 +10,10 @@ import {
   DELETE_OPD_LOADING,
   DELETE_OPD_RESET,
   DELETE_OPD_SUCCESS,
+  GET_LAST_OPD_FAIL,
+  GET_LAST_OPD_LOADING,
+  GET_LAST_OPD_RESET,
+  GET_LAST_OPD_SUCCESS,
   GET_OPD_FAIL,
   GET_OPD_LOADING,
   GET_OPD_RESET,
@@ -56,6 +60,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       delete draft.createOpd.error;
       break;
     }
+
     case GET_OPD_LOADING: {
       draft.getOpds.status = "LOADING";
       break;
@@ -84,6 +89,31 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case GET_OPD_RESET: {
       draft.getOpds.status = "IDLE";
       delete draft.getOpds.error;
+      break;
+    }
+
+    case GET_LAST_OPD_LOADING: {
+      draft.lastOpd.status = "LOADING";
+      break;
+    }
+
+    case GET_LAST_OPD_SUCCESS: {
+      draft.lastOpd.status = "SUCCESS";
+      draft.lastOpd.data = action.payload;
+      delete draft.lastOpd.error;
+      break;
+    }
+
+    case GET_LAST_OPD_FAIL: {
+      draft.lastOpd.status = "FAIL";
+      draft.lastOpd.error = action.error;
+      draft.lastOpd.data = undefined;
+      break;
+    }
+
+    case GET_LAST_OPD_RESET: {
+      draft.lastOpd.status = "IDLE";
+      delete draft.lastOpd.error;
       break;
     }
 

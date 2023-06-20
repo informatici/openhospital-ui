@@ -35,6 +35,7 @@ apis\StockMovementControllerApi.ts
 apis\SupplierControllerApi.ts
 apis\TherapyControllerApi.ts
 apis\UserControllerApi.ts
+apis\UserSettingControllerApi.ts
 apis\VaccineControllerApi.ts
 apis\VaccineTypeControllerApi.ts
 apis\VisitsControllerApi.ts
@@ -98,6 +99,7 @@ models\UserDTO.ts
 models\UserGroupDTO.ts
 models\UserMenuItemDTO.ts
 models\UserProfileDTO.ts
+models\UserSettingDTO.ts
 models\VaccineDTO.ts
 models\VaccineTypeDTO.ts
 models\VisitDTO.ts

@@ -13,7 +13,7 @@ export const initialFields: TFields<OperationRowFormFieldName> = {
     type: "date",
   },
   opResult: {
-    value: "",
+    value: "unknown",
     type: "text",
   },
   operation: {

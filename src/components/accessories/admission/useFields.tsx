@@ -1,4 +1,4 @@
-import { AdmissionDTO } from "../../../generated";
+import { AdmissionDTO, DiseaseDTO } from "../../../generated";
 import {
   differenceInDays,
   parseDate,
@@ -7,7 +7,10 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
 import { initialFields } from "./consts";
 
-export const useFields = (admission?: AdmissionDTO) => {
+export const useFields = (
+  admission?: AdmissionDTO,
+  lastOPDDisease?: DiseaseDTO
+) => {
   const fields: TFields<AdmissionFormFieldName> = {
     ...initialFields,
     ward: {
@@ -19,7 +22,10 @@ export const useFields = (admission?: AdmissionDTO) => {
       type: "text",
     },
     diseaseIn: {
-      value: admission?.diseaseIn?.code?.toString() ?? "",
+      value:
+        admission?.diseaseIn?.code?.toString() ??
+        lastOPDDisease?.code?.toString() ??
+        "",
       type: "text",
     },
     admDate: {

@@ -18,6 +18,7 @@
 
   .login__logo {
     margin-top: 0px;
+    margin-bottom: 15px;
   }
 
   .login__title {
@@ -32,9 +33,9 @@
       padding: 25px;
     }
   }
-
   .login__panel {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0px;

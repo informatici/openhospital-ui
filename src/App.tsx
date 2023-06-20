@@ -13,11 +13,12 @@ import { LocalizationProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
 
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
+  .use(LanguageDetector)
   .init({
     resources,
     fallbackLng: I18N_FALLBACK_LNG,
+    supportedLngs: ["en", "fr", "it"],
     interpolation: {
       escapeValue: false,
     },

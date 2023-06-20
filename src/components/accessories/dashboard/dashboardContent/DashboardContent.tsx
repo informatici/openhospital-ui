@@ -1,33 +1,16 @@
-import { DateRange } from "@material-ui/pickers";
-import moment from "moment";
-import React, { FunctionComponent, useCallback, useState } from "react";
-import { useTranslation } from "react-i18next";
-import Tabs from "../../tabs/Tabs";
-import { TTabConfig } from "../../tabs/types";
-import { Admissions } from "../admissions/Admissions";
-import { Discharges } from "../discharges/Discharges";
-import { Opds } from "../opds/Opds";
+import React, { FunctionComponent } from "react";
 import { DashboardFilter } from "./filter/DashboardFilter";
-import { SideContent } from "./SideContent";
+import { GridLayoutToolbox } from "../layouts/toolbox/GridLayoutToolBox";
+import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
+import { setDashboardPeriod } from "../../../../state/dashboard/actions";
+import { useDispatch } from "react-redux";
 import "./styles.scss";
 
 export const DashboardContent: FunctionComponent = () => {
-  const { t } = useTranslation();
-
-  const [period, setPeriod] = useState([
-    moment().startOf("day").toISOString(),
-    moment().endOf("day").toISOString(),
-  ]);
-
-  const handlePeriodChange = useCallback((value: string[]) => {
-    setPeriod(value);
-  }, []);
-
-  const patientSummaryTabs: TTabConfig = [
-    { label: "OPD", content: <Opds period={period} /> },
-    { label: "Admissions", content: <Admissions period={period} /> },
-    { label: "Discharges", content: <Discharges period={period} /> },
-  ];
+  const dispatch = useDispatch();
+  const handlePeriodChange = (value: string[]) => {
+    dispatch(setDashboardPeriod(value));
+  };
 
   return (
     <div className="dashboard__content">
@@ -37,11 +20,11 @@ export const DashboardContent: FunctionComponent = () => {
             <DashboardFilter onPeriodChange={handlePeriodChange} />
           </div>
           <div className="dashboard__main-body">
-            <Tabs config={patientSummaryTabs} />
+            <GridLayoutContainer />
           </div>
         </div>
         <div className="dashboard__main-side">
-          <SideContent />
+          <GridLayoutToolbox />
         </div>
       </div>
     </div>

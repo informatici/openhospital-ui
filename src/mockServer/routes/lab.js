@@ -72,7 +72,7 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labForPrintDTO);
+          res.status(200).json(labWithRowsDTO);
       }
     });
 

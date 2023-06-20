@@ -19,6 +19,9 @@ import { IOperationState } from "./state/operations/types";
 import { IDiseaseTypeState } from "./state/diseaseTypes/types";
 import { IExamTypeState } from "./state/examTypes/types";
 import { IAgeTypeState } from "./state/ageTypes/types";
+import { IHospitalState } from "./state/hospital/types";
+import { ILayoutsState } from "./state/layouts/types";
+import { IDashboardState } from "./state/dashboard/types";
 
 export interface IState {
   main: IMainState;
@@ -42,6 +45,9 @@ export interface IState {
   diseaseTypes: IDiseaseTypeState;
   examTypes: IExamTypeState;
   ageTypes: IAgeTypeState;
+  hospital: IHospitalState;
+  layouts: ILayoutsState;
+  dashboard: IDashboardState;
 }
 
 export enum FIELD_VALIDATION {
@@ -52,6 +58,7 @@ export enum FIELD_VALIDATION {
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js
 export type TPermission =
+  | "dashboard.access"
   | "patient.access"
   | "laboratory.access"
   | "visit.access"

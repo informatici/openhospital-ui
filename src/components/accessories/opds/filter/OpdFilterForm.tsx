@@ -61,6 +61,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
             ) <= 0
           );
         },
+      })
+      .test({
+        name: "isFuture",
+        message: t("opd.futuredatenotallow"),
+        test: function (value) {
+          if (!moment(value).isValid()) return true;
+          return differenceInSeconds(new Date(value), new Date()) <= 0;
+        },
       }),
     dateTo: string()
       .required(t("common.required"))
@@ -83,27 +91,65 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
             ) <= 0
           );
         },
+      })
+      .test({
+        name: "isFuture",
+        message: t("opd.futuredatenotallow"),
+        test: function (value) {
+          if (!moment(value).isValid()) return true;
+          return differenceInSeconds(new Date(value), new Date()) <= 0;
+        },
       }),
-    ageFrom: number().test({
-      name: "ageFrom",
-      message: t("opd.validatefromage"),
-      test: function (value) {
-        if (isEmpty(this.parent.ageTo)) {
-          return true;
-        }
-        return +this.parent.ageTo - +value >= 0;
-      },
-    }),
-    ageTo: number().test({
-      name: "ageTo",
-      message: t("opd.validatetoage"),
-      test: function (value) {
-        if (isEmpty(this.parent.ageFrom)) {
-          return true;
-        }
-        return +value - +this.parent.ageFrom >= 0;
-      },
-    }),
+    ageFrom: number()
+      .test({
+        name: "ageTo",
+        message: t("opd.validatefromage"),
+        test: function (value) {
+          if (!this.parent.ageTo) {
+            return true;
+          }
+          return +this.parent.ageTo - +value >= 0;
+        },
+      })
+      .test({
+        name: "minAgeFrom",
+        message: t("opd.belowminage"),
+        test: function (value) {
+          return !value || (value && value >= 0);
+        },
+      })
+      .test({
+        name: "maxAgeFrom",
+        message: t("opd.abovemaxage"),
+        test: function (value) {
+          return !value || (value && value <= 200);
+        },
+      }),
+    ageTo: number()
+      .test({
+        name: "ageFrom",
+        message: t("opd.validatetoage"),
+        test: function (value) {
+          if (!this.parent.ageFrom) {
+            return true;
+          }
+          return +value - +this.parent.ageFrom >= 0;
+        },
+      })
+      .test({
+        name: "minAgeTo",
+        message: t("opd.belowminage"),
+        test: function (value) {
+          return !value || (value && value >= 0);
+        },
+      })
+      .test({
+        name: "maxAgeTo",
+        message: t("opd.abovemaxage"),
+        test: function (value) {
+          return !value || (value && value <= 200);
+        },
+      }),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -158,17 +204,35 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
 
       if (fieldName === "month") {
         const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
-        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
+        const year =
+          formik.values.year?.getUTCFullYear() ?? new Date().getUTCFullYear();
         const start = new Date(year, month, 1);
         const end = new Date(year, month + 1, 0);
+        const currentDate = new Date();
+        if (
+          month === currentDate.getUTCMonth() &&
+          year === currentDate.getUTCFullYear()
+        ) {
+          end.setDate(currentDate.getDate());
+        }
+
         setFieldValue("dateFrom", start);
         setFieldValue("dateTo", end);
       }
 
       if (fieldName === "year") {
         const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
-        const start = new Date(year, 0, 1);
-        const end = new Date(year, 11, 31);
+
+        let startMonth = 0;
+        let endMonth = 11;
+
+        if (formik.values.month) {
+          startMonth = formik.values.month.getUTCMonth();
+          endMonth = formik.values.month.getUTCMonth();
+        }
+
+        const start = new Date(year, startMonth, 1);
+        const end = new Date(year, endMonth, 31);
         setFieldValue("dateFrom", start);
         setFieldValue("dateTo", end);
       }
@@ -277,8 +341,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 </div>
                 <div className="filterOpdForm__item">
                   <AutocompleteField
-                    fieldName="diseaseType"
-                    fieldValue={formik.values.diseaseType}
+                    fieldName="diseaseTypeCode"
+                    fieldValue={formik.values.diseaseTypeCode}
                     label={t("opd.diseasetype")}
                     isValid={isValid("diseaseTypeCode")}
                     errorText={getErrorText("diseaseTypeCode")}
@@ -288,8 +352,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 </div>
                 <div className="filterOpdForm__item">
                   <AutocompleteField
-                    fieldName="disease"
-                    fieldValue={formik.values.disease}
+                    fieldName="diseaseCode"
+                    fieldValue={formik.values.diseaseCode}
                     label={t("opd.disease")}
                     isValid={isValid("diseaseCode")}
                     errorText={getErrorText("diseaseCode")}
@@ -309,7 +373,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     theme={"regular"}
                     fieldName="dateFrom"
                     fieldValue={formik.values.dateFrom}
-                    disableFuture={false}
+                    disableFuture={true}
                     format="dd/MM/yyyy"
                     isValid={isValid("dateFrom")}
                     errorText={getErrorText("dateFrom")}
@@ -321,7 +385,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                   <DateField
                     fieldName="dateTo"
                     fieldValue={formik.values.dateTo}
-                    disableFuture={false}
+                    disableFuture={true}
                     theme="regular"
                     format="dd/MM/yyyy"
                     isValid={isValid("dateTo")}
