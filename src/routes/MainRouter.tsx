@@ -22,15 +22,12 @@ export const MainRouter: React.FC = () => {
         <Route
           path="login"
           element={
-            <RedirectAfterLogin successRoute="/patients">
+            <RedirectAfterLogin>
               <LoginActivity />
             </RedirectAfterLogin>
           }
         />
-        <Route 
-          path="forgot"
-          element={<ForgotActivity />}
-        />
+        <Route path="forgot" element={<ForgotActivity />} />
 
         <Route element={<Private />}>
           <Route path={`${PATHS.dashboard}`} element={<Dashboard />} />
