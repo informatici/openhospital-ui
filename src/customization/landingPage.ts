@@ -1,9 +1,11 @@
 import { TPermission } from "../types";
 
-type TLandingPagePriority = {
+export type TLandingPagePriority = {
   permission: TPermission;
   route: string;
 };
+
+export const defaultRoute = "/patients";
 
 // Landing page will be the first route matching permission,
 // you can change priority rules by moving elements in this list

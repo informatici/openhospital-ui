@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { landingPagePriority } from "../../customization/landingPage";
-import { defaultRoute } from "../../routes/const";
-import { TPermission } from "../../types";
+import {
+  landingPagePriority,
+  defaultRoute,
+} from "../../customization/landingPage";
 import { usePermissions } from "../permissionUtils/usePermissions";
 
 /* Custom hook that returns the landing page route based on the user's permissions.
