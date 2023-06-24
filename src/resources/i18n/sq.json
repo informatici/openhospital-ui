@@ -236,7 +236,7 @@
     "newtriage": "Krijo triazh të ri",
     "edittriage": "Redakto triazhin",
     "ap": {
-      "max": "max",
+      "max": "Presioni maksimal arterial (mmHg)",
       "min": "min",
       "lessthanmax": "Duhet të jetë më pak se sa maks",
       "morethanmin": "Duhet të jetë më i madh sesa min"
