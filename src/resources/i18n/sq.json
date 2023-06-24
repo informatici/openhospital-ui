@@ -26,8 +26,8 @@
   },
   "dashboard": {
     "welcomename": "Mirë se vini",
-    "newpatient": "New patient",
-    "searchpatients": "Search patients",
+    "newpatient": "Pacient i ri",
+    "searchpatients": "Kërko Pacientë",
     "userange": "Përdorni Zgjedhësin e diapazonit",
     "csv": "CSV",
     "pdf": "PDF",
