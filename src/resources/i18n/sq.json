@@ -360,9 +360,9 @@
   "common": {
     "ok": "OK",
     "results": "Rezultatet",
-    "feedback": "Feedback",
-    "submit": "Submit",
-    "reset": "Reset",
+    "feedback": "Reagimet",
+    "submit": "Dërgo",
+    "reset": "Rivendos",
     "search": "Search",
     "searching": "Searching",
     "patient": "Patient",
