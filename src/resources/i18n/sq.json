@@ -466,9 +466,9 @@
     "updatesuccess": "Një rresht terapie me kodin {{code}} është përditësuar me sukses!"
   },
   "booking": {
-    "category": "Category",
-    "service": "Service",
-    "bookingdate": "Date",
+    "category": "Kategoria",
+    "service": "Shërbimi",
+    "bookingdate": "Data",
     "saveform": "Libri"
   },
   "summary": {
