@@ -296,8 +296,8 @@
   "nav": {
     "pharmacy": "Farmaci",
     "ward": "Reparti",
-    "billing": "Billing",
-    "summary": "Summary",
+    "billing": "Faturimi",
+    "summary": "Përmbledhje",
     "opd": "OPD",
     "triage": "Triage",
     "therapy": "Therapy",
