@@ -5,7 +5,7 @@
     "lastlogin": "Hyrja e fundit"
   },
   "login": {
-    "username": "Username",
+    "username": "Përdoruesi",
     "password": "Password",
     "incorrectcredentials": "Invalid username or password",
     "forgotpassword": "Forgot the password?",
