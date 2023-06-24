@@ -152,7 +152,7 @@
   "opd": {
     "newopd": "Krijo nje vizitë Ambulatore",
     "editopd": "Edit OPD Visit",
-    "dateopd": "Date (d/m/y)",
+    "dateopd": "Data (d/m/v)",
     "note": "Complain",
     "complaint": "Ankesat e Pacientit",
     "disease1": "Diagnostic 1",
