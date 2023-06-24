@@ -6,7 +6,7 @@
   },
   "login": {
     "username": "Përdoruesi",
-    "password": "Password",
+    "password": "Fjalëkalimi",
     "incorrectcredentials": "Invalid username or password",
     "forgotpassword": "Forgot the password?",
     "insertavalidemail": "Vendosni adresë email përdoruesi të vlefshme",
