@@ -7,8 +7,8 @@
   "login": {
     "username": "Përdoruesi",
     "password": "Fjalëkalimi",
-    "incorrectcredentials": "Invalid username or password",
-    "forgotpassword": "Forgot the password?",
+    "incorrectcredentials": "Përdoruesi ose fjalëkalimi gabim",
+    "forgotpassword": "Harruat fjalëkalimin?",
     "insertavalidemail": "Vendosni adresë email përdoruesi të vlefshme",
     "insertavalidusername": "Insert a valid user name",
     "insertthepassword": "Insert the password",
