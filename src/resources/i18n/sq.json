@@ -83,8 +83,8 @@
     "resetcustomization": "Rivendos përshtatjet"
   },
   "patient": {
-    "address": "ADDRESS",
-    "birthdate": "Birth Date",
+    "address": "Adresa",
+    "birthdate": "Datëlindja",
     "bloodtype": "Blood type",
     "city": "City",
     "fathername": "Fathername",
