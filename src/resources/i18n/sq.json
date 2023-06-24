@@ -261,7 +261,7 @@
     "note": "Ankesat",
     "respiratoryrate": "Ritmi i frymëmarrjes",
     "respiratoryrateabbr": "RR",
-    "respiratoryrateunit": "bpm",
+    "respiratoryrateunit": "rrpm",
     "saturation": "Saturation",
     "saturationabbr": "O2",
     "temperature": "Temperature",
