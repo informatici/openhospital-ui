@@ -8,7 +8,7 @@ import { colorGen } from "../../uiUtils/colorGenerator";
 export const useDisByDisTypeData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getDischarges.data ?? []
+    (state) => state.admissions.getDischarges.data?.data ?? []
   );
   const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
     (state) => state.dischargeTypes.allDischargeTypes.data ?? []

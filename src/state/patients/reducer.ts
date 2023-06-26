@@ -21,6 +21,9 @@ import {
   GET_CITIES_SUCCESS,
   GET_CITIES_FAIL,
   GET_CITIES_RESET,
+  GET_PATIENTS_FAIL,
+  GET_PATIENTS_LOADING,
+  GET_PATIENTS_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IPatientsState } from "./types";
@@ -174,6 +177,26 @@ export default produce((draft: IPatientsState, action: IAction<any, any>) => {
       draft.getCities.status = "IDLE";
       draft.getCities.data = [];
       delete draft.getCities.error;
+      break;
+    }
+
+    /**
+     * GET_PATIENTS
+     */
+    case GET_PATIENTS_LOADING: {
+      draft.getPatients.status = "LOADING";
+      break;
+    }
+
+    case GET_PATIENTS_SUCCESS: {
+      draft.getPatients.status = "SUCCESS";
+      draft.getPatients.data = action.payload;
+      delete draft.getPatients.error;
+      break;
+    }
+    case GET_PATIENTS_FAIL: {
+      draft.getPatients.status = "FAIL";
+      draft.getPatients.error = action.error;
       break;
     }
   }

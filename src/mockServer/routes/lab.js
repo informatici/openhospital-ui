@@ -72,7 +72,9 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labWithRowsDTO);
+          res
+            .status(200)
+            .json({ data: labWithRowsDTO, pageInfo: { totalPages: 8 } });
       }
     });
 

@@ -14,6 +14,7 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
+    PageOfPatientExaminationDTO,
     PatientExaminationDTO,
     ResponseEntity,
 } from '../models';
@@ -39,8 +40,10 @@ export interface GetLastByPatientIdUsingGETRequest {
 }
 
 export interface GetLastNByPatIDUsingGETRequest {
-    limit: number;
+    page: number;
+    size: number;
     patId: number;
+    paged?: boolean;
 }
 
 export interface NewPatientExaminationUsingPOSTRequest {
@@ -160,10 +163,11 @@ export class ExaminationControllerApi extends BaseAPI {
     /**
      * getLastNByPatID
      */
-    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest): Observable<Array<PatientExaminationDTO>>
-    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PatientExaminationDTO>>>
-    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<Array<PatientExaminationDTO> | RawAjaxResponse<Array<PatientExaminationDTO>>> {
-        throwIfNullOrUndefined(limit, 'limit', 'getLastNByPatIDUsingGET');
+    getLastNByPatIDUsingGET({ page, size, patId, paged }: GetLastNByPatIDUsingGETRequest): Observable<PageOfPatientExaminationDTO>
+    getLastNByPatIDUsingGET({ page, size, patId, paged }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfPatientExaminationDTO>>
+    getLastNByPatIDUsingGET({ page, size, patId, paged }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<PageOfPatientExaminationDTO | RawAjaxResponse<PageOfPatientExaminationDTO>> {
+        throwIfNullOrUndefined(page, 'page', 'getLastNByPatIDUsingGET');
+        throwIfNullOrUndefined(size, 'size', 'getLastNByPatIDUsingGET');
         throwIfNullOrUndefined(patId, 'patId', 'getLastNByPatIDUsingGET');
 
         const headers: HttpHeaders = {
@@ -171,11 +175,14 @@ export class ExaminationControllerApi extends BaseAPI {
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'limit': limit,
+            'page': page,
+            'size': size,
             'patId': patId,
         };
 
-        return this.request<Array<PatientExaminationDTO>>({
+        if (paged != null) { query['paged'] = paged; }
+
+        return this.request<PageOfPatientExaminationDTO>({
             url: '/examinations/lastNByPatId',
             method: 'GET',
             headers,

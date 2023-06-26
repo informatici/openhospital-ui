@@ -58,10 +58,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case CREATE_ADMISSION_SUCCESS: {
       draft.createAdmission.status = "SUCCESS";
       draft.createAdmission.data = action.payload;
-      draft.getAdmissions.data = [
-        ...(draft.getAdmissions.data ?? []),
-        action.payload,
-      ];
       draft.currentAdmissionByPatientId.data = action.payload;
       delete draft.createAdmission.error;
       break;
@@ -90,11 +86,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case DISCHARGE_PATIENT_SUCCESS: {
       draft.dischargePatient.status = "SUCCESS";
       draft.dischargePatient.data = action.payload;
-      draft.getAdmissions.data = draft.getAdmissions.data?.map((e) => {
-        return e.id === action.payload?.id
-          ? (action.payload as AdmissionDTO)
-          : e;
-      });
       draft.currentAdmissionByPatientId.data = undefined;
       delete draft.dischargePatient.error;
       break;
@@ -123,11 +114,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case UPDATE_ADMISSION_SUCCESS: {
       draft.updateAdmission.status = "SUCCESS";
       draft.updateAdmission.data = action.payload;
-      draft.getAdmissions.data = draft.getAdmissions.data?.map((e) => {
-        return e.id === action.payload?.id
-          ? (action.payload as AdmissionDTO)
-          : e;
-      });
       if (draft.currentAdmissionByPatientId.data?.id === action.payload?.id) {
         draft.currentAdmissionByPatientId.data = action.payload;
       }
@@ -162,12 +148,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
       break;
     }
 
-    case GET_ADMISSIONS_SUCCESS_EMPTY: {
-      draft.getAdmissions.status = "SUCCESS_EMPTY";
-      draft.getAdmissions.data = [];
-      delete draft.getAdmissions.error;
-      break;
-    }
     case GET_ADMISSIONS_FAIL: {
       draft.getAdmissions.status = "FAIL";
       draft.getAdmissions.error = action.error;
@@ -212,13 +192,6 @@ export default produce((draft: IAdmissionsState, action: IAction<any, any>) => {
     case GET_DISCHARGES_SUCCESS: {
       draft.getDischarges.status = "SUCCESS";
       draft.getDischarges.data = action.payload;
-      delete draft.getDischarges.error;
-      break;
-    }
-
-    case GET_DISCHARGES_SUCCESS_EMPTY: {
-      draft.getDischarges.status = "SUCCESS_EMPTY";
-      draft.getDischarges.data = [];
       delete draft.getDischarges.error;
       break;
     }
