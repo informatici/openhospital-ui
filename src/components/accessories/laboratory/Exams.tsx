@@ -138,22 +138,24 @@ export const Exams: FC = () => {
               <InfoBox type="error" message={errorMessage} />
             )}
             {status === "SUCCESS" && (
-              <ExamTable
-                data={data ?? []}
-                handleDelete={onDelete}
-                handleEdit={onEdit}
-              />
+              <>
+                <ExamTable
+                  data={data ?? []}
+                  handleDelete={onDelete}
+                  handleEdit={onEdit}
+                />
+                <Pagination
+                  page={(pageInfo?.page ?? 0) + 1}
+                  count={pageInfo?.totalPages}
+                  onChange={onPageChange}
+                />
+              </>
             )}
             {labStore.deleteLab.status === "LOADING" && (
               <CircularProgress
                 style={{ marginLeft: "50%", position: "relative" }}
               />
             )}
-            <Pagination
-              page={(pageInfo?.page ?? 0) + 1}
-              count={pageInfo?.totalPages}
-              onChange={onPageChange}
-            />
             <ConfirmationDialog
               isOpen={labStore.deleteLab.status === "SUCCESS"}
               title={t("lab.deleted")}
