@@ -34,7 +34,7 @@ export const Opds: FC = () => {
   }, [filter]);
 
   useEffect(() => {
-    setFilter({ ...filter, page: page });
+    setFilter((previous) => ({ ...previous, page: page }));
   }, [page]);
 
   const onSubmit = (values: TFilterValues) => {

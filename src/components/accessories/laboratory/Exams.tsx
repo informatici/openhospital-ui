@@ -55,7 +55,7 @@ export const Exams: FC = () => {
   );
 
   useEffect(() => {
-    setFilter({ ...filter, page: page });
+    setFilter((previous) => ({ ...previous, page: page }));
   }, [page]);
 
   useEffect(() => {
