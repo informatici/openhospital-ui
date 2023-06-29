@@ -1,6 +1,4 @@
-export interface IRedirectAfterLogin {
-  successRoute: string;
-}
+export interface IRedirectAfterLogin {}
 
 export interface IValues {
   username: string;

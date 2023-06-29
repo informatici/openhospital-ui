@@ -4,13 +4,15 @@ import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import {
+  addWidget,
   defaultGridLayoutBreakpoints,
   defaultGridLayoutCols,
   encodeLayout,
   getBreakpointFromWidth,
   removeDuplicates,
+  removeWidget,
 } from "../consts";
-import { TDashboardComponent } from "../types";
+import { LayoutBreakpoints, TDashboardComponent } from "../types";
 import {
   getLayouts,
   getLayoutsReset,
@@ -106,14 +108,12 @@ const GridLayoutContainer: FC = () => {
   const onItemRemove = (item: Layout) => {
     let toolboxTmp = removeDuplicates({
       ...toolbox,
-      [localBreakpoint]: [...(toolbox[localBreakpoint] || []), item],
+      ...addWidget(toolbox, item, localBreakpoint as LayoutBreakpoints),
     });
 
     let layoutsTmp = removeDuplicates({
       ...layouts,
-      [localBreakpoint]: layouts[localBreakpoint].filter(
-        ({ i }) => i !== item.i
-      ),
+      ...removeWidget(layouts, item),
     });
 
     setCanUpdateLayouts(false);
