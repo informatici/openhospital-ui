@@ -135,16 +135,9 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       break;
     }
 
-    case SEARCH_OPD_SUCCESS_EMPTY: {
-      draft.searchOpds.status = "SUCCESS_EMPTY";
-      draft.searchOpds.data = [];
-      delete draft.searchOpds.error;
-      break;
-    }
-
     case SEARCH_OPD_RESET: {
       draft.searchOpds.status = "IDLE";
-      draft.getOpds.data = [];
+      draft.getOpds.data = undefined;
       delete draft.getOpds.error;
       break;
     }

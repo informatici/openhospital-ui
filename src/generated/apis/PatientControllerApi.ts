@@ -14,6 +14,7 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
+    PageOfPatientDTO,
     PatientDTO,
 } from '../models';
 
@@ -32,6 +33,7 @@ export interface GetPatientUsingGETRequest {
 export interface GetPatientsUsingGETRequest {
     page?: number;
     size?: number;
+    paged?: boolean;
 }
 
 export interface MergePatientsUsingGETRequest {
@@ -106,14 +108,14 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * getPatientCities
      */
-    getPatientCitiesUsingGET(): Observable<Array<object>>
-    getPatientCitiesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<object>>>
-    getPatientCitiesUsingGET(opts?: OperationOpts): Observable<Array<object> | RawAjaxResponse<Array<object>>> {
+    getPatientCitiesUsingGET(): Observable<Array<string>>
+    getPatientCitiesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<string>>>
+    getPatientCitiesUsingGET(opts?: OperationOpts): Observable<Array<string> | RawAjaxResponse<Array<string>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<Array<object>>({
+        return this.request<Array<string>>({
             url: '/patients/cities',
             method: 'GET',
             headers,
@@ -159,9 +161,9 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * getPatients
      */
-    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest): Observable<Array<PatientDTO>>
-    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PatientDTO>>>
-    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<Array<PatientDTO> | RawAjaxResponse<Array<PatientDTO>>> {
+    getPatientsUsingGET({ page, size, paged }: GetPatientsUsingGETRequest): Observable<PageOfPatientDTO>
+    getPatientsUsingGET({ page, size, paged }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfPatientDTO>>
+    getPatientsUsingGET({ page, size, paged }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<PageOfPatientDTO | RawAjaxResponse<PageOfPatientDTO>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -171,8 +173,9 @@ export class PatientControllerApi extends BaseAPI {
 
         if (page != null) { query['page'] = page; }
         if (size != null) { query['size'] = size; }
+        if (paged != null) { query['paged'] = paged; }
 
-        return this.request<Array<PatientDTO>>({
+        return this.request<PageOfPatientDTO>({
             url: '/patients',
             method: 'GET',
             headers,

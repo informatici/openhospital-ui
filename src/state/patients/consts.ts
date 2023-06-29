@@ -13,6 +13,11 @@ export const GET_PATIENT_SUCCESS = "patients/GET_PATIENT_SUCCESS";
 export const GET_PATIENT_FAIL = "patients/GET_PATIENT_FAIL";
 export const GET_PATIENT_RESET = "patients/GET_PATIENT_RESET";
 
+export const GET_PATIENTS_LOADING = "patients/GET_PATIENTS_LOADING";
+export const GET_PATIENTS_SUCCESS = "patients/GET_PATIENTS_SUCCESS";
+export const GET_PATIENTS_FAIL = "patients/GET_PATIENTS_FAIL";
+export const GET_PATIENTS_RESET = "patients/GET_PATIENTS_RESET";
+
 export const UPDATE_PATIENT_LOADING = "patients/UPDATE_PATIENT_LOADING";
 export const UPDATE_PATIENT_SUCCESS = "patients/UPDATE_PATIENT_SUCCESS";
 export const UPDATE_PATIENT_FAIL = "patients/UPDATE_PATIENT_FAIL";

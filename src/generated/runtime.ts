@@ -104,7 +104,6 @@ export class BaseAPI {
             headers,
             body: body instanceof FormData ? body : JSON.stringify(body),
             responseType: responseType ?? 'json',
-            withCredentials: true,
         };
     }
 
@@ -160,7 +159,6 @@ export interface RequestOpts extends AjaxRequest {
     headers?: HttpHeaders;
     body?: HttpBody;
     responseType?: 'json' | 'blob' | 'arraybuffer' | 'text';
-    withCredentials?: boolean;
 }
 
 export interface ResponseOpts {

@@ -6,7 +6,13 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
-import { ExamDTO, LaboratoryDTO, PatientDTO } from "../../../../generated";
+import {
+  ExamDTO,
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+  PatientDTO,
+  PatientDTOStatusEnum,
+} from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -99,7 +105,12 @@ const ExamForm: FC<ExamProps> = ({
     lab.age = patientData?.age;
     lab.date = parseDate(lab.date ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient = "R";
+    lab.inOutPatient =
+      patientData?.status === PatientDTOStatusEnum.I
+        ? LaboratoryDTOInOutPatientEnum.I
+        : patientData?.status === PatientDTOStatusEnum.O
+        ? LaboratoryDTOInOutPatientEnum.O
+        : undefined;
     lab.material = "angal.lab.urine"; // material needs to be removed from backend env
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;

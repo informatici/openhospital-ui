@@ -17,6 +17,8 @@ export type TFilterValues = {
   sex?: ISex;
   newPatient?: IStatus;
   patientCode?: number;
+  page?: number;
+  size?: number;
 };
 
 export type TOpdFilterValues = Record<OpdFilterFormFieldName, string>;

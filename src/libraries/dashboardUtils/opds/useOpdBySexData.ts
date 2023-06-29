@@ -7,7 +7,7 @@ import { IState } from "../../../types";
 export const useOpdBySexData = () => {
   const { t } = useTranslation();
   const opds = useSelector<IState, OpdDTO[]>(
-    (state) => state.opds.searchOpds.data ?? []
+    (state) => state.opds.searchOpds.data?.data ?? []
   );
   const status = useSelector<IState, TAPIResponseStatus>(
     (state) => state.opds.searchOpds.status ?? "IDLE"

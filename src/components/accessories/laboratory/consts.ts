@@ -13,6 +13,8 @@ export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
 export const initialFilter: TFilterValues = {
   dateFrom: moment().subtract(1, "years").toISOString(),
   dateTo: moment().toISOString(),
+  page: 0,
+  size: 80,
 };
 
 export const initialFields: TFields<ExamFormFieldName> = {

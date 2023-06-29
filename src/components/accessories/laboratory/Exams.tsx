@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import React, { FC, Fragment, useMemo, useState } from "react";
+import React, { FC, Fragment, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
@@ -12,7 +12,6 @@ import "./styles.scss";
 import { ExamTable } from "./table/ExamTable";
 import checkIcon from "../../../assets/check-icon.png";
 import { useEffect } from "react";
-import { TFilterValues } from "../billTable/types";
 import {
   getFromFields,
   updateFilterFields,
@@ -31,6 +30,9 @@ import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { useLaboratories } from "../../../libraries/hooks/api/useLaboratories";
+import Pagination from "../pagination/Pagination";
+import { TFilterValues } from "./filter/types";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -42,9 +44,7 @@ export const Exams: FC = () => {
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
-  const data = useSelector(
-    (state: IState) => state.laboratories.searchLabs.data
-  );
+  const { data, pageInfo, page, handlePageChange } = useLaboratories();
 
   const fields = useMemo(
     () => updateFilterFields(initialFilterFields, filter),
@@ -55,10 +55,19 @@ export const Exams: FC = () => {
   );
 
   useEffect(() => {
+    setFilter((previous) => ({ ...previous, page: page }));
+  }, [page]);
+
+  useEffect(() => {
+    dispatch(searchLabs(getFromFields(fields, "value")));
+    dispatch(getExams());
+  }, []);
+
+  useEffect(() => {
     if (!isEmpty(filter.patientCode)) {
-      dispatch(getPatientThunk(filter.patientCode?.toString()));
+      dispatch(getPatientThunk(filter.patientCode?.toString() ?? "0"));
     }
-    dispatch(searchLabs(filter));
+    dispatch(searchLabs({ ...filter, paged: true }));
   }, [filter]);
 
   useEffect(() => {
@@ -71,7 +80,7 @@ export const Exams: FC = () => {
   }, [location]);
 
   const onSubmit = (values: TFilterValues) => {
-    setFilter(values);
+    setFilter({ ...values, page: 0, size: filter.size });
   };
 
   const onEdit = (row: LaboratoryDTO) => {
@@ -82,6 +91,8 @@ export const Exams: FC = () => {
     dispatch(deleteLab(code));
   };
 
+  const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
+
   const errorMessage = useSelector((state: IState) =>
     state.laboratories.searchLabs.error?.message
       ? state.laboratories.searchLabs.error?.message
@@ -90,11 +101,6 @@ export const Exams: FC = () => {
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status
   );
-
-  useEffect(() => {
-    dispatch(searchLabs(getFromFields(fields, "value")));
-    dispatch(getExams());
-  }, []);
 
   const ExamContent = useMemo(() => {
     return (
@@ -132,11 +138,18 @@ export const Exams: FC = () => {
               <InfoBox type="error" message={errorMessage} />
             )}
             {status === "SUCCESS" && (
-              <ExamTable
-                data={data ?? []}
-                handleDelete={onDelete}
-                handleEdit={onEdit}
-              />
+              <>
+                <ExamTable
+                  data={data ?? []}
+                  handleDelete={onDelete}
+                  handleEdit={onEdit}
+                />
+                <Pagination
+                  page={(pageInfo?.page ?? 0) + 1}
+                  count={pageInfo?.totalPages}
+                  onChange={onPageChange}
+                />
+              </>
             )}
             {labStore.deleteLab.status === "LOADING" && (
               <CircularProgress
