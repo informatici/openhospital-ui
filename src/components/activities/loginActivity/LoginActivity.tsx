@@ -55,9 +55,12 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorMessage = useSelector<IState>(
-    (state) =>
-      state.main.authentication.error?.description || t("common.somethingwrong")
+  const errorMessage = useSelector<IState>((state) =>
+    t(
+      `errors.${
+        state.main.authentication.error?.description ?? "somethingwrong"
+      }`
+    )
   );
 
   const status = useSelector<IState>(
