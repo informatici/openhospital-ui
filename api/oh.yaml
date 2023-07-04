@@ -83,6 +83,8 @@ tags:
     description: Therapy Controller
   - name: user-controller
     description: User Controller
+  - name: user-setting-controller
+    description: User Setting Controller
   - name: vaccine-controller
     description: Vaccine Controller
   - name: vaccine-type-controller
@@ -97,319 +99,42 @@ paths:
   /admissions:
     get:
       tags:
-      - admission-controller
-      summary: getAdmissions
-      operationId: getAdmissionsUsingGET_1
-      produces:
-      - application/json
-      parameters:
-      - name: admissionrange
-        in: query
-        description: admissionrange
-        required: true
-        type: array
-      - name: page
-        in: query
-        description: page
-        required: false
-        type: integer
-        default: 0
-        format: int32
-      - name: size
-        in: query
-        description: size
-        required: false
-        type: integer
-        default: 80
-        format: int32
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/AdmissionDTO"
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-    post:
-      tags:
-      - admission-controller
-      summary: newAdmissions
-      operationId: newAdmissionsUsingPOST
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: newAdmissionDTO
-        description: newAdmissionDTO
-        required: true
-        schema:
-          "$ref": "#/definitions/AdmissionDTO"
-      responses:
-        '200':
-          description: OK
-          schema:
-            "$ref": "#/definitions/AdmissionDTO"
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-    put:
-      tags:
-      - admission-controller
-      summary: updateAdmissions
-      operationId: updateAdmissionsUsingPUT
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: updateAdmissionDTO
-        description: updateAdmissionDTO
-        required: true
-        schema:
-          "$ref": "#/definitions/AdmissionDTO"
-      responses:
-        '200':
-          description: OK
-          schema:
-            "$ref": "#/definitions/AdmissionDTO"
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-  /admissions/admittedPatients:
-    get:
-      tags:
-      - admission-controller
-      summary: getAdmittedPatients
-      operationId: getAdmittedPatientsUsingGET
-      produces:
-      - application/json
-      parameters:
-      - name: admissionrange
-        in: query
-        description: admissionrange
-        required: false
-        type: array
-      - name: dischargerange
-        in: query
-        description: dischargerange
-        required: false
-        type: array
-      - name: searchterms
-        in: query
-        description: searchterms
-        required: false
-        type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/AdmittedPatientDTO"
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-  /admissions/current:
-    get:
-      tags:
-      - admission-controller
-      summary: getCurrentAdmission
-      operationId: getCurrentAdmissionUsingGET
-      produces:
-      - application/json
-      parameters:
-      - name: patientCode
-        in: query
-        description: patientCode
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: OK
-          schema:
-            "$ref": "#/definitions/AdmissionDTO"
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-  /admissions/discharge:
-    post:
-      tags:
-      - admission-controller
-      summary: dischargePatient
-      operationId: dischargePatientUsingPOST
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: currentAdmissionDTO
-        description: currentAdmissionDTO
-        required: true
-        schema:
-          "$ref": "#/definitions/AdmissionDTO"
-      - name: patientCode
-        in: query
-        description: patientCode
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: boolean
-        '201':
-          description: Created
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-  /admissions/getBedsOccupationInWard:
-    get:
-      tags:
-      - admission-controller
-      summary: getUsedWardBed
-      operationId: getUsedWardBedUsingGET
-      produces:
-      - application/json
-      parameters:
-      - name: wardid
-        in: query
-        description: wardid
-        required: true
-        type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: integer
-            format: int32
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-  /admissions/getNextProgressiveIdInYear:
-    get:
-      tags:
-      - admission-controller
-      summary: getNextYProg
-      operationId: getNextYProgUsingGET
-      produces:
-      - application/json
-      parameters:
-      - name: wardcode
-        in: query
-        description: wardcode
-        required: true
-        type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: integer
-            format: int32
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
-  /admissions/{id}:
-    delete:
-      tags:
-      - admission-controller
-      summary: deleteAdmissionType
-      operationId: deleteAdmissionTypeUsingDELETE
-      produces:
-      - application/json
-      parameters:
-      - name: id
-        in: path
-        description: id
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: boolean
-        '204':
-          description: No Content
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-      security:
-      - JWT: []
-  /admissions/{patientCode}:
-    get:
-      tags:
-      - admission-controller
+        - admission-controller
       summary: getAdmissions
       operationId: getAdmissionsUsingGET
       produces:
-      - application/json
+        - application/json
       parameters:
-      - name: patientCode
-        in: path
-        description: patientCode
-        required: true
-        type: integer
-        format: int32
+        - name: admissionrange
+          in: query
+          description: admissionrange
+          required: true
+          type: array
+        - name: page
+          in: query
+          description: page
+          required: false
+          type: integer
+          default: 0
+          format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          type: integer
+          default: 80
+          format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
       responses:
         '200':
           description: OK
           schema:
-            type: array
-            items:
-              "$ref": "#/definitions/AdmissionDTO"
+            $ref: '#/definitions/PageOfAdmissionDTO'
         '401':
           description: Unauthorized
         '403':
@@ -417,7 +142,346 @@ paths:
         '404':
           description: Not Found
       security:
-      - JWT: []
+        - JWT: []
+      deprecated: false
+    post:
+      tags:
+        - admission-controller
+      summary: newAdmissions
+      operationId: newAdmissionsUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: newAdmissionDTO
+          description: newAdmissionDTO
+          required: true
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+    put:
+      tags:
+        - admission-controller
+      summary: updateAdmissions
+      operationId: updateAdmissionsUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: updAdmissionDTO
+          description: updAdmissionDTO
+          required: true
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/admittedPatients:
+    get:
+      tags:
+        - admission-controller
+      summary: getAdmittedPatients
+      operationId: getAdmittedPatientsUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: admissionrange
+          in: query
+          description: admissionrange
+          required: false
+          type: array
+        - name: dischargerange
+          in: query
+          description: dischargerange
+          required: false
+          type: array
+        - name: searchterms
+          in: query
+          description: searchterms
+          required: false
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/AdmittedPatientDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/current:
+    get:
+      tags:
+        - admission-controller
+      summary: getCurrentAdmission
+      operationId: getCurrentAdmissionUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: patientCode
+          in: query
+          description: patientCode
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/discharge:
+    post:
+      tags:
+        - admission-controller
+      summary: dischargePatient
+      operationId: dischargePatientUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: currentAdmissionDTO
+          description: currentAdmissionDTO
+          required: true
+          schema:
+            $ref: "#/definitions/AdmissionDTO"
+        - name: patientCode
+          in: query
+          description: patientCode
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /discharges:
+    get:
+      tags:
+        - admission-controller
+      summary: getDischarges
+      operationId: getDischargesUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: dischargerange
+          in: query
+          description: dischargerange
+          required: true
+          type: array
+        - name: page
+          in: query
+          description: page
+          required: false
+          type: integer
+          default: 0
+          format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          type: integer
+          default: 80
+          format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PageOfAdmissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
+  /admissions/getBedsOccupationInWard:
+    get:
+      tags:
+        - admission-controller
+      summary: getUsedWardBed
+      operationId: getUsedWardBedUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: wardid
+          in: query
+          description: wardid
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/getNextProgressiveIdInYear:
+    get:
+      tags:
+        - admission-controller
+      summary: getNextYProg
+      operationId: getNextYProgUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: warcode
+          in: query
+          description: warcode
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+            format: int32
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/{id}:
+    delete:
+      tags:
+        - admission-controller
+      summary: deleteAdmissionType
+      operationId: deleteAdmissionTypeUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+        - JWT: []
+      deprecated: false
+  /admissions/{patientCode}:
+    get:
+      tags:
+        - admission-controller
+      summary: getAdmissions
+      operationId: getPatientAdmissionsUsingGET
+      produces:
+        - application/json
+      parameters:
+        - name: patientCode
+          in: path
+          description: patientCode
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AdmissionDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - JWT: []
   /admissiontypes:
     get:
       tags:
@@ -1384,49 +1448,6 @@ paths:
       security:
         - JWT: []
       deprecated: false
-  /discharges:
-    get:
-      tags:
-      - admission-controller
-      summary: getDischarges
-      operationId: getDischargesUsingGET
-      produces:
-      - application/json
-      parameters:
-      - name: dischargerange
-        in: query
-        description: dischargerange
-        required: true
-        type: array
-      - name: page
-        in: query
-        description: page
-        required: false
-        type: integer
-        default: 0
-        format: int32
-      - name: size
-        in: query
-        description: size
-        required: false
-        type: integer
-        default: 80
-        format: int32
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/AdmissionDTO"
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      security:
-      - JWT: []
   /dischargetypes:
     get:
       tags:
@@ -2185,9 +2206,15 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: limit
+        - name: page
           in: query
-          description: limit
+          description: page
+          required: true
+          type: integer
+          format: int32
+        - name: size
+          in: query
+          description: size
           required: true
           type: integer
           format: int32
@@ -2197,13 +2224,17 @@ paths:
           required: true
           type: integer
           format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
       responses:
         "200":
           description: OK
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientExaminationDTO"
+            $ref: '#/definitions/PageOfPatientExaminationDTO'
         "401":
           description: Unauthorized
         "403":
@@ -2823,13 +2854,35 @@ paths:
       operationId: getLaboratoryUsingGET_1
       produces:
         - application/json
+      parameters:
+        - name: oneWeek
+          in: query
+          description: oneWeek
+          required: true
+          type: boolean
+        - name: page
+          in: query
+          description: page
+          required: true
+          type: integer
+          format: int32
+        - name: size
+          in: query
+          description: size
+          required: true
+          type: integer
+          format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
       responses:
         "200":
           description: OK
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/LaboratoryDTO"
+            $ref: '#/definitions/PageOfLabWithRowsDTO'
         "401":
           description: Unauthorized
         "403":
@@ -2902,6 +2955,159 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /laboratories/examRequest:
+    get:
+      tags:
+      - laboratory-controller
+      summary: getLaboratoryExamRequest
+      operationId: getLaboratoryExamRequestUsingGET
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/LaboratoryDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+    post:
+      tags:
+      - laboratory-controller
+      summary: newExamRequest
+      operationId: newExamRequestUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: laboratoryDTO
+        description: laboratoryDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/LaboratoryDTO"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+  /laboratories/examRequest/{code}:
+    put:
+      tags:
+      - laboratory-controller
+      summary: updateExamRequest
+      operationId: updateExamRequestUsingPUT
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: code
+        required: true
+        type: integer
+        format: int32
+      - name: status
+        in: query
+        description: status
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+    delete:
+      tags:
+        - laboratory-controller
+      summary: deleteExamRequest
+      operationId: deleteExamRequestUsingDELETE
+      produces:
+        - application/json
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: boolean
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - JWT:
+        - global
+  /laboratories/examRequest/{patId}:
+    get:
+      tags:
+      - laboratory-controller
+      summary: getLaboratoryExamRequest
+      operationId: getLaboratoryExamRequestUsingGET_1
+      produces:
+      - application/json
+      parameters:
+      - name: patId
+        in: path
+        description: patId
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/LaboratoryDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
   /laboratories/exams:
     get:
       tags:
@@ -2931,13 +3137,35 @@ paths:
           in: query
           description: patientCode
           type: number
+        - name: status
+          in: query
+          description: status
+          type: string
+        - name: page
+          in: query
+          description: page
+          required: false
+          type: integer
+          default: 0
+          format: int32
+        - name: size
+          in: query
+          description: size
+          required: false
+          type: integer
+          default: 80
+          format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
       responses:
         "200":
           description: OK
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/LabWithRowsDTO"
+            $ref: "#/definitions/PageOfLabWithRowsDTO"
         "401":
           description: Unauthorized
         "403":
@@ -4261,6 +4489,7 @@ paths:
         - JWT: []
       deprecated: false
   /opds/search:
+
     get:
       tags:
         - opd-controller
@@ -4272,55 +4501,88 @@ paths:
         - name: ageFrom
           in: query
           description: ageFrom
+          required: false
           type: integer
+          default: 0
           format: int32
         - name: ageTo
           in: query
           description: ageTo
+          required: false
           type: integer
+          default: 200
           format: int32
         - name: dateFrom
           in: query
+          description: dateFrom
           required: true
           type: string
+          format: datetime
         - name: dateTo
           in: query
           description: dateTo
           required: true
           type: string
+          format: datetime
         - name: diseaseCode
           in: query
           description: diseaseCode
+          required: false
           type: string
         - name: diseaseTypeCode
           in: query
           description: diseaseTypeCode
+          required: false
           type: string
         - name: newPatient
           in: query
           description: newPatient
+          required: false
           type: string
+          default: A
+        - name: page
+          in: query
+          description: page
+          required: false
+          type: integer
+          default: 0
+          format: int32
         - name: patientCode
           in: query
-          description: Patient Code
+          description: patientCode
+          required: false
           type: integer
+          default: 0
           format: int32
         - name: sex
           in: query
           description: sex
+          required: false
           type: string
+          default: A
+        - name: size
+          in: query
+          description: size
+          required: false
+          type: integer
+          default: 80
+          format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
       responses:
-        "200":
+        '200':
           description: OK
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/OpdDTO"
-        "401":
+            $ref: '#/definitions/PageOfOpdDTO'
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden
-        "404":
+        '404':
           description: Not Found
       security:
         - JWT: []
@@ -4977,13 +5239,17 @@ paths:
           type: integer
           default: 80
           format: int32
+        - name: paged
+          in: query
+          description: paged
+          required: false
+          type: boolean
+          default: false
       responses:
         "200":
           description: OK
           schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientDTO"
+            $ref: '#/definitions/PageOfPatientDTO'
         "401":
           description: Unauthorized
         "403":
@@ -5260,13 +5526,13 @@ paths:
       operationId: getPatientCitiesUsingGET
       produces:
         - application/json
-
       responses:
         "200":
           description: OK
           schema:
             type: array
-            items: string
+            items:
+              type: string
         "401":
           description: Unauthorized
         "403":
@@ -7453,6 +7719,61 @@ paths:
       security:
         - JWT: []
       deprecated: false
+  /usersettings:
+    post:
+      tags:
+      - user-setting-controller
+      summary: newUserSetting
+      operationId: newUserSettingUsingPOST
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: userSettingDTO
+        description: userSettingDTO
+        required: true
+        schema:
+          "$ref": "#/definitions/UserSettingDTO"
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/UserSettingDTO"
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
+  /usersettings/dashboard:
+    get:
+      tags:
+      - user-setting-controller
+      summary: getUserSettingDashBoard
+      operationId: getUserSettingDashBoardUsingGET
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/UserSettingDTO"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - JWT:
+        - global
   /vaccines:
     get:
       tags:
@@ -8661,53 +8982,67 @@ definitions:
   LaboratoryDTO:
     type: object
     properties:
-      code:
-        type: integer
-        format: int32
-        description: Laboratory Code
-      lock:
-        type: integer
-        format: int32
-        description: Laboratory Code
-      material:
-        type: string
-        description: Laboratory Material
-      exam:
-        description: Laboratory Exam
-        $ref: "#/definitions/ExamDTO"
-      registrationDate:
-        type: string
-        example: "2020-03-19T14:58:00.000Z"
-        description: Laboratory Registration Date
-      date:
-        type: string
-        example: "2020-03-19T14:58:00.000Z"
-        description: Laboratory Exam Date
-      result:
-        type: string
-        description: Laboratory Result
-      note:
-        type: string
-        description: Laboratory Note
-      patientCode:
-        type: integer
-        format: int32
-        description: Laboratory Patient Code
-      patName:
-        type: string
-        description: Laboratory Patient Name
-      inOutPatient:
-        type: string
-        example: 0
-        description: Laboratory Patient InOut
       age:
         type: integer
         format: int32
         description: Laboratory Patient Age
+      code:
+        type: integer
+        format: int32
+        description: Laboratory Code
+      date:
+        type: string
+        format: date-time
+        description: Laboratory Exam Date
+      exam:
+        description: Laboratory Exam
+        "$ref": "#/definitions/ExamDTO"
+      inOutPatient:
+        type: string
+        example: 0
+        description: Laboratory Patient InOut
+        enum:
+        - I
+        - O
+      lock:
+        type: integer
+        format: int32
+        example: 0
+        description: lock
+      material:
+        type: string
+        description: Blood
+      note:
+        type: string
+        description: Note by laboratorist
+      patName:
+        type: string
+        description: Laboratory Patient Name
+      patientCode:
+        type: integer
+        format: int32
+        description: Laboratory Patient Code
+      registrationDate:
+        type: string
+        format: date-time
+        description: Laboratory Registration Date
+      result:
+        type: string
+        description: Laboratory Result
       sex:
         type: string
         example: M
         description: Laboratory Patient Sex
+      status:
+        type: string
+        example: DRAFT
+        description: Laboratory status
+        enum:
+        - DONE
+        - DRAFT
+        - OPEN
+        - INVALID
+        - DELETED
     title: LaboratoryDTO
   LaboratoryForPrintDTO:
     type: object
@@ -9143,6 +9478,78 @@ definitions:
       description:
         type: string
     title: OperationTypeDTO
+  PageInfoDTO:
+    type: object
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      nbOfElements:
+        type: integer
+        format: int32
+      totalNbOfElements:
+        type: integer
+        format: int32
+      page:
+        type: integer
+        format: int32
+      size:
+        type: integer
+        format: int32
+      totalPages:
+        type: integer
+        format: int64
+    title: PageInfoDTO
+  PageOfAdmissionDTO:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/AdmissionDTO'
+      pageInfo:
+        $ref: '#/definitions/PageInfoDTO'
+    title: PageOfAdmissionDTO
+  PageOfLabWithRowsDTO:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/LabWithRowsDTO'
+      pageInfo:
+        $ref: '#/definitions/PageInfoDTO'
+    title: PageOfLabWithRowsDTO
+  PageOfPatientDTO:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/PatientDTO'
+      pageInfo:
+        $ref: '#/definitions/PageInfoDTO'
+    title: PageOfPatientDTO
+  PageOfPatientExaminationDTO:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/PatientExaminationDTO'
+      pageInfo:
+        $ref: '#/definitions/PageInfoDTO'
+    title: PageOfPatientExaminationDTO
+  PageOfOpdDTO:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/OpdDTO'
+      pageInfo:
+        $ref: '#/definitions/PageInfoDTO'
   PatientDTO:
     type: object
     properties:
@@ -9859,6 +10266,22 @@ definitions:
         type: string
         description: full name of user
     title: UserProfileDTO
+  UserSettingDTO:
+    type: object
+    properties:
+      configName:
+        type: string
+        example: dashboard
+        description: the the name of the setting
+      configValue:
+        type: string
+        description: the the value of the user
+      id:
+        type: integer
+        format: int32
+        example: 1
+        description: the id of the setting (must be unique)
+    title: UserSettingDTO
   VaccineDTO:
     type: object
     properties:

@@ -9,6 +9,9 @@ export type TFilterValues = {
   dateFrom?: string;
   dateTo?: string;
   examName?: string;
+  patientCode?: number;
+  page?: number;
+  size?: number;
 };
 
 export type TExamFilterValues = Record<ExamFilterFormFieldName, string>;

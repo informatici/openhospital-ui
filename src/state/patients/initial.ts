@@ -6,4 +6,5 @@ export const initial: IPatientsState = {
   selectedPatient: { status: "IDLE", data: {} },
   updatePatient: { status: "IDLE" },
   getCities: { status: "IDLE", data: [] },
+  getPatients: { status: "IDLE" },
 };

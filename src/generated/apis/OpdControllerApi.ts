@@ -16,6 +16,7 @@ import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, Ope
 import {
     OpdDTO,
     OpdWithOperatioRowDTO,
+    PageOfOpdDTO,
 } from '../models';
 
 export interface DeleteOpdUsingDELETERequest {
@@ -34,8 +35,11 @@ export interface GetOpdByDatesUsingGETRequest {
     diseaseCode?: string;
     diseaseTypeCode?: string;
     newPatient?: string;
+    page?: number;
     patientCode?: number;
     sex?: string;
+    size?: number;
+    paged?: boolean;
 }
 
 export interface GetOpdByPatientUsingGETRequest {
@@ -119,9 +123,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * getOpdByDates
      */
-    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, patientCode, sex }: GetOpdByDatesUsingGETRequest): Observable<Array<OpdDTO>>
-    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, patientCode, sex }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdDTO>>>
-    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, patientCode, sex }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | RawAjaxResponse<Array<OpdDTO>>> {
+    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, page, patientCode, sex, size, paged }: GetOpdByDatesUsingGETRequest): Observable<PageOfOpdDTO>
+    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, page, patientCode, sex, size, paged }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfOpdDTO>>
+    getOpdByDatesUsingGET({ dateFrom, dateTo, ageFrom, ageTo, diseaseCode, diseaseTypeCode, newPatient, page, patientCode, sex, size, paged }: GetOpdByDatesUsingGETRequest, opts?: OperationOpts): Observable<PageOfOpdDTO | RawAjaxResponse<PageOfOpdDTO>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getOpdByDatesUsingGET');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getOpdByDatesUsingGET');
 
@@ -139,10 +143,13 @@ export class OpdControllerApi extends BaseAPI {
         if (diseaseCode != null) { query['diseaseCode'] = diseaseCode; }
         if (diseaseTypeCode != null) { query['diseaseTypeCode'] = diseaseTypeCode; }
         if (newPatient != null) { query['newPatient'] = newPatient; }
+        if (page != null) { query['page'] = page; }
         if (patientCode != null) { query['patientCode'] = patientCode; }
         if (sex != null) { query['sex'] = sex; }
+        if (size != null) { query['size'] = size; }
+        if (paged != null) { query['paged'] = paged; }
 
-        return this.request<Array<OpdDTO>>({
+        return this.request<PageOfOpdDTO>({
             url: '/opds/search',
             method: 'GET',
             headers,

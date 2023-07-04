@@ -177,13 +177,6 @@ export default produce(
         break;
       }
 
-      case SEARCH_LAB_SUCCESS_EMPTY: {
-        draft.searchLabs.status = "SUCCESS_EMPTY";
-        draft.searchLabs.data = [];
-        delete draft.searchLabs.error;
-        break;
-      }
-
       case SEARCH_LAB_RESET: {
         draft.searchLabs.status = "IDLE";
         delete draft.searchLabs.error;

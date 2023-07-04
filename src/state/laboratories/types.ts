@@ -2,6 +2,7 @@ import {
   LaboratoryDTO,
   LaboratoryForPrintDTO,
   LabWithRowsDTO,
+  PageOfLabWithRowsDTO,
 } from "../../generated";
 import { IApiResponse } from "../types";
 
@@ -13,5 +14,5 @@ export type ILaboratoriesState = {
   labsByPatientId: IApiResponse<Array<LabWithRowsDTO>>;
   getLabByCode: IApiResponse<LaboratoryDTO | null>;
   getLabWithRowsByCode: IApiResponse<LabWithRowsDTO | null>;
-  searchLabs: IApiResponse<Array<LabWithRowsDTO>>;
+  searchLabs: IApiResponse<PageOfLabWithRowsDTO | null>;
 };

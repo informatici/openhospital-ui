@@ -7,14 +7,14 @@ import {
   AdmissionTypeDTO,
   AgeTypeDTO,
 } from "../../../../generated";
-import { generateColor } from "../../../../libraries/uiUtils/colorGenerator";
+import { colorGen } from "../../../../libraries/uiUtils/colorGenerator";
 import { TAPIResponseStatus } from "../../../../state/types";
 import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getAdmissions.data ?? []
+    (state) => state.admissions.getAdmissions.data?.data ?? []
   );
   const wards = useSelector<IState, WardDTO[]>(
     (state) => state.wards.allWards.data ?? []
@@ -71,7 +71,10 @@ export const useData = () => {
           (e) =>
             admissions.filter(
               (adm) =>
-                adm.patient?.agetype === e.code && adm.patient?.sex === "M"
+                adm.patient?.age &&
+                adm.patient?.age >= (e.from ?? 0) &&
+                adm.patient?.age <= (e.to ?? 0) &&
+                adm.patient?.sex === "M"
             ).length
         ),
         backgroundColor: "rgba(255, 99, 132, 0.8)",
@@ -82,7 +85,10 @@ export const useData = () => {
           (e) =>
             admissions.filter(
               (adm) =>
-                adm.patient?.agetype === e.code && adm.patient?.sex === "F"
+                adm.patient?.age &&
+                adm.patient?.age >= (e.from ?? 0) &&
+                adm.patient?.age <= (e.to ?? 0) &&
+                adm.patient?.sex === "F"
             ).length
         ),
         backgroundColor: "rgba(54, 162, 235, 0.8)",
@@ -96,9 +102,7 @@ export const useData = () => {
         data: admissionTypes.map(
           (e) => admissions.filter((adm) => adm.admType?.code === e.code).length
         ),
-        backgroundColor: admissionTypes.map((e, index) =>
-          generateColor({ red: 255 })
-        ),
+        backgroundColor: colorGen(admissionTypes.length),
       },
     ],
   };

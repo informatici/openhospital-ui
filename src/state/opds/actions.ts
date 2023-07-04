@@ -4,6 +4,7 @@ import {
   OpdControllerApi,
   OpdDTO,
   OpdWithOperatioRowDTO,
+  PageOfOpdDTO,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
@@ -232,7 +233,7 @@ export const getLastOpd =
 
 export const searchOpds =
   (query: any) =>
-  (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<PageOfOpdDTO, {}>>): void => {
     dispatch({
       type: SEARCH_OPD_LOADING,
     });
@@ -248,20 +249,16 @@ export const searchOpds =
         diseaseCode: query.diseaseCode,
         diseaseTypeCode: query.diseaseTypeCode,
         patientCode: isNaN(query.patientCode) ? null : query.patientCode,
+        paged: false,
+        page: isNaN(query.page) ? null : query.page,
+        size: isNaN(query.size) ? null : query.size,
       })
       .subscribe(
         (payload) => {
-          if (Array.isArray(payload) && payload.length > 0) {
-            dispatch({
-              type: SEARCH_OPD_SUCCESS,
-              payload: payload,
-            });
-          } else {
-            dispatch({
-              type: SEARCH_OPD_SUCCESS_EMPTY,
-              payload: [],
-            });
-          }
+          dispatch({
+            type: SEARCH_OPD_SUCCESS,
+            payload: payload,
+          });
         },
         (error) => {
           dispatch({

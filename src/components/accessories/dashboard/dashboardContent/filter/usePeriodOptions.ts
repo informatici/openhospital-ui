@@ -2,14 +2,17 @@ import { DateRange } from "@material-ui/pickers";
 import moment from "moment";
 import { useState, useMemo } from "react";
 import { TViewType, TPeriodType } from "./types";
+import { getCachedPeriod } from "./consts";
 
 export const usePeriodOptions = () => {
-  const [view, setView] = useState<TViewType>("day");
+  const cachedPeriod = getCachedPeriod();
+  const [view, setView] = useState<TViewType>("range");
   const [selection, setSelection] = useState<TPeriodType>("current");
   const [dateRange, setDateRange] = useState<DateRange<Date>>([
-    moment().add(-7, "days").toDate(),
-    moment().toDate(),
+    new Date(cachedPeriod[0]),
+    new Date(cachedPeriod[1]),
   ]);
+
   /**
    * We will discuss about the logic behind range
    */

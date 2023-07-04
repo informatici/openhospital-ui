@@ -35,6 +35,7 @@ apis\StockMovementControllerApi.ts
 apis\SupplierControllerApi.ts
 apis\TherapyControllerApi.ts
 apis\UserControllerApi.ts
+apis\UserSettingControllerApi.ts
 apis\VaccineControllerApi.ts
 apis\VaccineTypeControllerApi.ts
 apis\VisitsControllerApi.ts
@@ -80,6 +81,12 @@ models\OpdWithOperatioRowDTO.ts
 models\OperationDTO.ts
 models\OperationRowDTO.ts
 models\OperationTypeDTO.ts
+models\PageInfoDTO.ts
+models\PageOfAdmissionDTO.ts
+models\PageOfLabWithRowsDTO.ts
+models\PageOfOpdDTO.ts
+models\PageOfPatientDTO.ts
+models\PageOfPatientExaminationDTO.ts
 models\PatientDTO.ts
 models\PatientExaminationDTO.ts
 models\PatientVaccineDTO.ts
@@ -98,6 +105,7 @@ models\UserDTO.ts
 models\UserGroupDTO.ts
 models\UserMenuItemDTO.ts
 models\UserProfileDTO.ts
+models\UserSettingDTO.ts
 models\VaccineDTO.ts
 models\VaccineTypeDTO.ts
 models\VisitDTO.ts

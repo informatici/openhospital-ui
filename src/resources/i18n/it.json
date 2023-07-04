@@ -1,20 +1,86 @@
 {
+  "user": {
+    "username": "Username",
+    "groups": "Grouppi",
+    "lastlogin": "Ultimo accesso"
+  },
   "login": {
     "username": "Username",
     "password": "Password",
     "incorrectcredentials": "Username o password non valide",
     "forgotpassword": "Hai dimenticato la password?",
+    "insertavalidemail": "Inserisci una email valida",
     "insertavalidusername": "Inserisci uno username valido",
     "insertthepassword": "Inserisci una password valida",
     "login": "Login",
     "signout": "Logout",
     "signoutText": "Sei sicuro di vole uscire?",
-    "passwordtooshort": "Password troppo corta"
+    "passwordtooshort": "Password troppo corta",
+    "signin": "Registrazione",
+    "forgottitle": "Resetta password",
+    "forgotdescription": "Digita lo username che usi per accedere e ti invieeremo una email con le istruzioni per resettare la password",
+    "forgotsuccess": "Ti invieeremo una email se associata al tuo account",
+    "email": "Indirizzo Email",
+    "takemeback": "Torna alla login",
+    "tryanotherusername": "Prova un altro username"
   },
   "dashboard": {
     "welcomename": "Benvenuto",
     "newpatient": "Nuovo Paziente",
-    "searchpatients": "Cerca pazienti"
+    "searchpatients": "Cerca pazienti",
+    "userange": "Seleziona un periodo",
+    "csv": "CSV",
+    "pdf": "PDF",
+    "png": "PNG",
+    "period": {
+      "day": "Giorno",
+      "week": "Settimana",
+      "month": "Mese",
+      "year": "Anno",
+      "range": "Intervallo",
+      "days": {
+        "current": "Oggi",
+        "previous": "Ieri",
+        "last2": "1-2 giorni",
+        "last3": "1-3 giorni"
+      },
+      "weeks": {
+        "current": "Questa settimana",
+        "previous": "Settimana scorsa",
+        "last2": "1-2 settimane",
+        "last3": "1-3 settimane"
+      },
+      "months": {
+        "current": "Questo mese",
+        "previous": "Mese scorso",
+        "last2": "1-2 mesi",
+        "last3": "1-3 mesi"
+      },
+      "years": {
+        "current": "Quest'anno",
+        "previous": "Anno scorso",
+        "last2": "1-2 anni",
+        "last3": "1-3 anni"
+      }
+    },
+    "availabledashboard": "Panelli disponibili",
+    "opdbyagetype":"Visite per fasce d'età",
+    "opdbysex":"Visite per genere",
+    "admissionbyagetype":"Ricoveri per fasce d'età",
+    "admissionbysex":"Ricoveri per genere",
+    "admissionbyward": "Ricoveri per reparti",
+    "admissionbytype":"Ricoveri per tipo",
+    "dischargebysex":"Dimissioni per genere",
+    "dischargebyagetype":"Dimissioni per fasce d'età",
+    "dischargebyward": "Dimissioni per reparto",
+    "dischargebytype":"Dimissioni per tipo",
+    "togglefullscreen": "Alterna schermo intero",
+    "removedashboard": "Rimuove il pannello",
+    "downloaddata": "Scarica i dati sottostanti",
+    "cantretrieveconfig": "Impossibile recuperare le personalizzazioni",
+    "cantsaveconfig": "Impossibile salvare le personalizzazioni",
+    "reset": "Azzera",
+    "resetcustomization": "Azzera personalizzazioni"
   },
   "patient": {
     "address": "Indirizzo",
@@ -63,7 +129,25 @@
     "dataupdated": "Dati paziente aggiornati",
     "dataupdatedsuccessfully": "I dati del paziente sono stati aggiornati",
     "noallergies": "Per il paziente non sono riportate allergie",
-    "noanamnesis": "Per il paziente non sono riportate informazioni di anamnesi"
+    "noanamnesis": "Per il paziente non sono riportate informazioni di anamnesi",
+    "laboratory": "Laboratorio",
+    "therapy": "Terapia",
+    "triage": "Triage",
+    "summary": "Riepilogo",
+    "discharge": "Dimissioni",
+    "visits": "Visite",
+    "agetypes": {
+      "d0": "Neonato",
+      "d1": "Prima infanzia",
+      "d2": "Tarda infanzia",
+      "d3": "Adolescente",
+      "d4": "Adulto",
+      "d5": "Anziani"
+    },
+    "operation": "Intervento",
+    "updated": "Paziente aggiornato",
+    "created": "Paziente creato",
+    "updatesuccessful": "Il paziente è stato aggiornato correttamente."
   },
   "opd": {
     "newopd": "Inserisci una nuova visita ambulatoriale",
@@ -118,7 +202,13 @@
     "validatefromdate": "Deve essere maggiore della data fine",
     "validatetoage": "Deve essere maggiore della età FROM",
     "validatefromage": "Deve essere minore della età FROM",
-    "prescription": "Prescrizione"
+    "prescription": "Prescrizione",
+    "opdregistered": "Visite registrate nel periodo",
+    "opdbysex": "Visite per genere",
+    "opdbyagetype": "Visite per fasce d'età",
+    "futuredatenotallow": "Date nel futuro non permesse",
+    "belowminage": "L'età minima è 0",
+    "abovemaxage": "L'età massima è 200"
   },
   "visit": {
     "date": "Data visita (gg/mm/aaaa)",
@@ -147,7 +237,9 @@
     "edittriage": "Aggiorna esame obiettivo",
     "ap": {
       "max": "Pressione massima (mmHg)",
-      "min": "Pressione minima (mmHg)"
+      "min": "Pressione minima (mmHg)",
+      "lessthanmax": "Deve essere minore del massimo",
+      "morethanmin": "Deve essere maggiore del minimo"
     },
     "auscultation": "Auscultazione",
     "arterialpressure": "Pressione Arteriosa",
@@ -256,7 +348,14 @@
     "rowupdatesuccess": "Riga intervnto aggiornata con successo",
     "rowcreatesuccess": "Riga intervento aggiornata con successo",
     "rowdeletesuccess": "Riga intervento cancellata",
-    "dateafteradmission": "Deve essere successiva rispetto alla data di ricovero"
+    "dateafteradmission": "Deve essere successiva rispetto alla data di ricovero",
+    "noitemaddedyet": "Non ci sono dati di interventi, premere Aggiungi per aggiungere uno.",
+    "deletionwarning": "Sei sicuro di voler cancellare l'intervento {{code}}?",
+    "result": {
+      "unknown": "Sconosciuto",
+      "success": "Successo",
+      "failure": "Fallimento"
+    }
   },
   "common": {
     "ok": "OK",
@@ -306,7 +405,40 @@
     "lessthan": "Il valore non deve eccedere {{value}}",
     "confirm": "Conferma",
     "invaliddate": "Data non valida",
-    "outofrange": "Valore oltre i limiti"
+    "outofrange": "Valore oltre i limiti",
+    "invalidnumber": "Numero non valido",
+    "invalidnumberinrange": "Non valido: il numero dev'essere >= {{min}} e <= {{max}}",
+    "orderbydate": "Ordina per data",
+    "orderbytype": "Ordina per tipo",
+    "addnewoption": "Aggiungi",
+    "cancel": "Cancella",
+    "discardconfirmationmessage": "Tutte le modifiche non salvata verranno perse. Continuare?",
+    "emptydataforfilter": "Azzera il filtro specificato",
+    "addanotherrow": "Aggiungi un'altra riga intervento",
+    "hospitalname": "Il tuo ospedale",
+    "retry": "Riprova",
+    "moment": {
+      "duration": "Durata",
+      "days": "Giorno(i)",
+      "weeks": "Settimana(e)",
+      "months": "Mese(i)",
+      "years": "Anno(i)"
+    },
+    "period": {
+      "today": "Oggi",
+      "yesterday": "Ieri",
+      "thisweek": "Questa settimana",
+      "lastweek": "Settimana scorsa",
+      "thismonth": "Questo mese",
+      "lastmonth": "Mese scorso",
+      "thisyear": "Quest'anno",
+      "lastyear": "Anno scorso"
+    }
+  },
+  "permission": {
+    "denied": "Autorizzazione negata",
+    "unauthorized": "Non autorizzato",
+    "accessdenied": "Non hai i permessi richiesti per accedere a qesto contenuto"
   },
   "therapy": {
     "newtherapy": "Nuova terapia",
@@ -388,7 +520,8 @@
     "labcode": "Codice prestazione / esame",
     "examtype": "Tipo esame",
     "validatetodate": "Deve essere maggiore della data inizio",
-    "validatefromdate": "Deve essere maggiore della data fine"
+    "validatefromdate": "Deve essere maggiore della data fine",
+    "multipleresults": "Risultati multipli"
   },
   "admission": {
     "admDate": "Data ricovero",
@@ -398,6 +531,7 @@
     "diseaseIn": "Diagnosi di accettazione",
     "ward": "Reparto",
     "transUnit": "Proveniente da",
+    "fhu": "Da unità sanitaria",
     "disType": "Tipo dimissione",
     "disDate": "Data dimissione (gg/mm/aaaa)",
     "bedDays": "Giorni degenza",
@@ -420,7 +554,17 @@
     "patientalreadyadmitted": "Il paziente è già ricoverato, di seguito puoi vedere la storia dei ricoveri pregressi. Per la dimissione vai alla pagina relativa.",
     "updated": "Ricovero aggiornato",
     "updatesuccess": "Ricovero aggiornato",
-    "datebefore": "La data di ammissione deve essere antecedente la data di dimissione"
+    "datebefore": "La data di ammissione deve essere antecedente la data di dimissione",
+    "admissionbysex": "Ricoveri per genere",
+    "admissionbytype": "Ricoveri per tipo",
+    "admissionbyagetype": "Ricoveri per fasce d'età",
+    "admissionbywards": "Ricoveri per reparto",
+    "dischargebysex": "Dimissioni per genere",
+    "dischargebytype": "Dimissioni per tipo",
+    "dischargebyagetype": "Dimissioni per fasce d'età",
+    "dischargebywards": "Dimissioni per reparto",
+    "admregistered": "Ricoveri nel periodo specificato",
+    "disregistered": "Dimissioni nel periodo specificato"
   },
   "bill": {
     "title": "Benvenuto nell'area pagamenti",
@@ -518,7 +662,8 @@
     "delete": "Cancella",
     "discard": "Annulla",
     "suspend": "Sospendi",
-    "add": "Aggiungi"
+    "add": "Aggiungi",
+    "addoperation": "Aggiungi intervento"
   },
   "picture": {
     "edit": "Modifica immagine",
@@ -539,5 +684,15 @@
     "cs": "Ceco",
     "sq": "Albanese",
     "zh": "Chinese"
+  },
+  "angal": {
+    "agetype": {
+      "newborn": "Neonato",
+      "earlychildhood": "Prima infanzia",
+      "latechildhood": "Tarda infanzia",
+      "adolescents": "Adolescente",
+      "adult": "Adulto",
+      "elderly": "Anziani"
+    }
   }
 }

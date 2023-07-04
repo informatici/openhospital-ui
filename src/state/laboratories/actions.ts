@@ -4,6 +4,7 @@ import {
   LaboratoryControllerApi,
   LaboratoryDTO,
   LabWithRowsDTO,
+  PageOfLabWithRowsDTO,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
@@ -126,7 +127,7 @@ export const getLabWithRowsByCodeReset =
 
 export const searchLabs =
   (query: any) =>
-  (dispatch: Dispatch<IAction<LabWithRowsDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<PageOfLabWithRowsDTO, {}>>): void => {
     dispatch({
       type: SEARCH_LAB_LOADING,
     });
@@ -136,24 +137,16 @@ export const searchLabs =
         dateFrom: query.dateFrom ?? moment().toISOString(),
         examName: query.examName,
         patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
+        paged: query.paged,
+        page: query.page,
+        size: query.size,
       })
       .subscribe(
         (payload) => {
-          if (Array.isArray(payload) && payload.length > 0) {
-            dispatch({
-              type: SEARCH_LAB_SUCCESS,
-              //to keep the method working since the api is not ready
-              //has to be removed when the api is ready
-              payload: payload.map((item) =>
-                item.laboratoryDTO ? item : { laboratoryDTO: item }
-              ),
-            });
-          } else {
-            dispatch({
-              type: SEARCH_LAB_SUCCESS_EMPTY,
-              payload: [],
-            });
-          }
+          dispatch({
+            type: SEARCH_LAB_SUCCESS,
+            payload: payload,
+          });
         },
         (error) => {
           dispatch({
