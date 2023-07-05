@@ -40,12 +40,12 @@ export interface AgeType {
      * @type {string}
      * @memberof AgeType
      */
-    description?: string;
+    description: string;
     /**
      * @type {number}
      * @memberof AgeType
      */
-    from?: number;
+    from: number;
     /**
      * @type {string}
      * @memberof AgeType
@@ -60,5 +60,5 @@ export interface AgeType {
      * @type {number}
      * @memberof AgeType
      */
-    to?: number;
+    to: number;
 }

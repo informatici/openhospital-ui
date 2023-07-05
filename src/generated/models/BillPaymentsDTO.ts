@@ -18,10 +18,11 @@
  */
 export interface BillPaymentsDTO {
     /**
+     * the payment amount
      * @type {number}
      * @memberof BillPaymentsDTO
      */
-    id?: number;
+    amount?: number;
     /**
      * Bill id
      * @type {number}
@@ -35,11 +36,10 @@ export interface BillPaymentsDTO {
      */
     date?: string;
     /**
-     * the payment amount
      * @type {number}
      * @memberof BillPaymentsDTO
      */
-    amount?: number;
+    id?: number;
     /**
      * the current user
      * @type {string}

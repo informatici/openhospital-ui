@@ -25,7 +25,7 @@ export interface PriceList {
      * @type {string}
      * @memberof PriceList
      */
-    code?: string;
+    code: string;
     /**
      * @type {string}
      * @memberof PriceList
@@ -40,12 +40,12 @@ export interface PriceList {
      * @type {string}
      * @memberof PriceList
      */
-    currency?: string;
+    currency: string;
     /**
      * @type {string}
      * @memberof PriceList
      */
-    description?: string;
+    description: string;
     /**
      * @type {number}
      * @memberof PriceList
@@ -65,5 +65,5 @@ export interface PriceList {
      * @type {string}
      * @memberof PriceList
      */
-    name?: string;
+    name: string;
 }

@@ -21,46 +21,22 @@ import {
  */
 export interface TherapyDTO {
     /**
-     * The therapy\'s ID
-     * @type {number}
-     * @memberof TherapyDTO
-     */
-    therapyID?: number;
-    /**
-     * The patient\'s ID
-     * @type {number}
-     * @memberof TherapyDTO
-     */
-    patID?: number;
-    /**
      * The dates of the therapy
-     * @type {Array<string>}
+     * @type {object}
      * @memberof TherapyDTO
      */
-    dates?: Array<string>;
-    /**
-     * @type {MedicalDTO}
-     * @memberof TherapyDTO
-     */
-    medical?: MedicalDTO;
-    /**
-     * The quantity of the medical
-     * @type {number}
-     * @memberof TherapyDTO
-     */
-    qty?: number;
-    /**
-     * The units
-     * @type {string}
-     * @memberof TherapyDTO
-     */
-    units?: string;
+    dates?: object;
     /**
      * The frequency in day
      * @type {number}
      * @memberof TherapyDTO
      */
     freqInDay?: number;
+    /**
+     * @type {MedicalDTO}
+     * @memberof TherapyDTO
+     */
+    medical?: MedicalDTO;
     /**
      * A note for the therapy
      * @type {string}
@@ -74,9 +50,33 @@ export interface TherapyDTO {
      */
     notify?: boolean;
     /**
+     * The patient\'s ID
+     * @type {number}
+     * @memberof TherapyDTO
+     */
+    patID?: number;
+    /**
+     * The quantity of the medical
+     * @type {number}
+     * @memberof TherapyDTO
+     */
+    qty?: number;
+    /**
      * the sms flag: true if sms need to be sent to patient, false otherwise
      * @type {boolean}
      * @memberof TherapyDTO
      */
     sms?: boolean;
+    /**
+     * The therapy\'s ID
+     * @type {number}
+     * @memberof TherapyDTO
+     */
+    therapyID?: number;
+    /**
+     * The units
+     * @type {string}
+     * @memberof TherapyDTO
+     */
+    units?: string;
 }

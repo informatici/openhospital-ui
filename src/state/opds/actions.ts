@@ -207,7 +207,7 @@ export const getLastOpd =
     if (code) {
       opdControllerApi
         .getLastOpdUsingGET({
-          code: code,
+          patientCode: code,
         })
         .subscribe(
           (payload) => {

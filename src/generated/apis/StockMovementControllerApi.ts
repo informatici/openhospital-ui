@@ -27,12 +27,6 @@ export interface GetLotByMedicalUsingGETRequest {
     medCode: number;
 }
 
-export interface GetMovementsUsingGETRequest {
-    from: string;
-    to: string;
-    wardId: string;
-}
-
 export interface GetMovementsUsingGET1Request {
     lotDueFrom?: string;
     lotDueTo?: string;
@@ -47,6 +41,12 @@ export interface GetMovementsUsingGET1Request {
 }
 
 export interface GetMovementsUsingGET2Request {
+    from: string;
+    to: string;
+    wardId: string;
+}
+
+export interface GetMovementsUsingGET3Request {
     ref: string;
 }
 
@@ -113,28 +113,17 @@ export class StockMovementControllerApi extends BaseAPI {
     /**
      * getMovements
      */
-    getMovementsUsingGET({ from, to, wardId }: GetMovementsUsingGETRequest): Observable<Array<MovementDTO>>
-    getMovementsUsingGET({ from, to, wardId }: GetMovementsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementDTO>>>
-    getMovementsUsingGET({ from, to, wardId }: GetMovementsUsingGETRequest, opts?: OperationOpts): Observable<Array<MovementDTO> | RawAjaxResponse<Array<MovementDTO>>> {
-        throwIfNullOrUndefined(from, 'from', 'getMovementsUsingGET');
-        throwIfNullOrUndefined(to, 'to', 'getMovementsUsingGET');
-        throwIfNullOrUndefined(wardId, 'wardId', 'getMovementsUsingGET');
-
+    getMovementsUsingGET(): Observable<Array<MovementDTO>>
+    getMovementsUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementDTO>>>
+    getMovementsUsingGET(opts?: OperationOpts): Observable<Array<MovementDTO> | RawAjaxResponse<Array<MovementDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'from': (from as any).toISOString(),
-            'to': (to as any).toISOString(),
-            'ward_id': wardId,
-        };
-
         return this.request<Array<MovementDTO>>({
-            url: '/stockmovements/filter/v1',
+            url: '/stockmovements',
             method: 'GET',
             headers,
-            query,
         }, opts?.responseOpts);
     };
 
@@ -173,10 +162,38 @@ export class StockMovementControllerApi extends BaseAPI {
     /**
      * getMovements
      */
-    getMovementsUsingGET2({ ref }: GetMovementsUsingGET2Request): Observable<Array<MovementDTO>>
-    getMovementsUsingGET2({ ref }: GetMovementsUsingGET2Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementDTO>>>
-    getMovementsUsingGET2({ ref }: GetMovementsUsingGET2Request, opts?: OperationOpts): Observable<Array<MovementDTO> | RawAjaxResponse<Array<MovementDTO>>> {
-        throwIfNullOrUndefined(ref, 'ref', 'getMovementsUsingGET2');
+    getMovementsUsingGET2({ from, to, wardId }: GetMovementsUsingGET2Request): Observable<Array<MovementDTO>>
+    getMovementsUsingGET2({ from, to, wardId }: GetMovementsUsingGET2Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementDTO>>>
+    getMovementsUsingGET2({ from, to, wardId }: GetMovementsUsingGET2Request, opts?: OperationOpts): Observable<Array<MovementDTO> | RawAjaxResponse<Array<MovementDTO>>> {
+        throwIfNullOrUndefined(from, 'from', 'getMovementsUsingGET2');
+        throwIfNullOrUndefined(to, 'to', 'getMovementsUsingGET2');
+        throwIfNullOrUndefined(wardId, 'wardId', 'getMovementsUsingGET2');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'from': (from as any).toISOString(),
+            'to': (to as any).toISOString(),
+            'ward_id': wardId,
+        };
+
+        return this.request<Array<MovementDTO>>({
+            url: '/stockmovements/filter/v1',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     * getMovements
+     */
+    getMovementsUsingGET3({ ref }: GetMovementsUsingGET3Request): Observable<Array<MovementDTO>>
+    getMovementsUsingGET3({ ref }: GetMovementsUsingGET3Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementDTO>>>
+    getMovementsUsingGET3({ ref }: GetMovementsUsingGET3Request, opts?: OperationOpts): Observable<Array<MovementDTO> | RawAjaxResponse<Array<MovementDTO>>> {
+        throwIfNullOrUndefined(ref, 'ref', 'getMovementsUsingGET3');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -184,23 +201,6 @@ export class StockMovementControllerApi extends BaseAPI {
 
         return this.request<Array<MovementDTO>>({
             url: '/stockmovements/{ref}'.replace('{ref}', encodeURI(ref)),
-            method: 'GET',
-            headers,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * getMovements
-     */
-    getMovementsUsingGET3(): Observable<Array<MovementDTO>>
-    getMovementsUsingGET3(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementDTO>>>
-    getMovementsUsingGET3(opts?: OperationOpts): Observable<Array<MovementDTO> | RawAjaxResponse<Array<MovementDTO>>> {
-        const headers: HttpHeaders = {
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        return this.request<Array<MovementDTO>>({
-            url: '/stockmovements',
             method: 'GET',
             headers,
         }, opts?.responseOpts);

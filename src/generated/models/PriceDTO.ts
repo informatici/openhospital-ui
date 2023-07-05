@@ -22,15 +22,11 @@ import {
  */
 export interface PriceDTO {
     /**
-     * @type {number}
+     * the description
+     * @type {string}
      * @memberof PriceDTO
      */
-    id?: number;
-    /**
-     * @type {PriceList}
-     * @memberof PriceDTO
-     */
-    list?: PriceList;
+    description?: string;
     /**
      * the group
      * @type {string}
@@ -38,17 +34,21 @@ export interface PriceDTO {
      */
     group?: string;
     /**
+     * @type {number}
+     * @memberof PriceDTO
+     */
+    id?: number;
+    /**
      * the item name
      * @type {string}
      * @memberof PriceDTO
      */
     item?: string;
     /**
-     * the description
-     * @type {string}
+     * @type {PriceList}
      * @memberof PriceDTO
      */
-    description?: string;
+    list?: PriceList;
     /**
      * price
      * @type {number}

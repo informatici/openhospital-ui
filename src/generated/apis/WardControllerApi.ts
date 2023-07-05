@@ -14,7 +14,6 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    ResponseEntity,
     WardDTO,
 } from '../models';
 
@@ -88,16 +87,16 @@ export class WardControllerApi extends BaseAPI {
     /**
      * deleteWard
      */
-    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest): Observable<ResponseEntity>
-    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest): Observable<boolean>
+    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteWardUsingDELETE({ code }: DeleteWardUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteWardUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/wards/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
@@ -160,9 +159,9 @@ export class WardControllerApi extends BaseAPI {
     /**
      * newWard
      */
-    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest): Observable<ResponseEntity>
-    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest): Observable<WardDTO>
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<WardDTO>>
+    newWardUsingPOST({ newWard }: NewWardUsingPOSTRequest, opts?: OperationOpts): Observable<WardDTO | RawAjaxResponse<WardDTO>> {
         throwIfNullOrUndefined(newWard, 'newWard', 'newWardUsingPOST');
 
         const headers: HttpHeaders = {
@@ -170,7 +169,7 @@ export class WardControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<WardDTO>({
             url: '/wards',
             method: 'POST',
             headers,
@@ -181,9 +180,9 @@ export class WardControllerApi extends BaseAPI {
     /**
      * updateWard
      */
-    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest): Observable<ResponseEntity>
-    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest): Observable<WardDTO>
+    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<WardDTO>>
+    updateWardUsingPUT({ updateWard }: UpdateWardUsingPUTRequest, opts?: OperationOpts): Observable<WardDTO | RawAjaxResponse<WardDTO>> {
         throwIfNullOrUndefined(updateWard, 'updateWard', 'updateWardUsingPUT');
 
         const headers: HttpHeaders = {
@@ -191,7 +190,7 @@ export class WardControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<WardDTO>({
             url: '/wards',
             method: 'PUT',
             headers,

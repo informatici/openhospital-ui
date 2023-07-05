@@ -89,27 +89,29 @@ const PatientOPD: FunctionComponent = () => {
 
   const onSubmit = (opdValues: OpdWithOperatioRowDTO) => {
     setShouldResetForm(false);
-    opdValues.opdDTO.patientCode = patient?.code;
-    opdValues.opdDTO.age = patient?.age;
-    opdValues.opdDTO.sex = patient?.sex;
-    opdValues.opdDTO.userID = userId;
-    opdValues.opdDTO.patientName =
-      patient?.firstName + " " + patient?.secondName;
-    const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
-    if (!creationMode && opdToEdit.opdDTO.code) {
-      dispatch(
-        updateOpdWithOperationRows(opdToEdit.opdDTO.code, {
-          opdDTO: opdToSave,
-          operationRows: opdValues.operationRows,
-        } as OpdWithOperatioRowDTO)
-      );
-    } else {
-      dispatch(
-        createOpdWithOperationsRows({
-          opdDTO: { ...opdToSave, code: 0 },
-          operationRows: opdValues.operationRows,
-        })
-      );
+    if (opdValues.opdDTO) {
+      opdValues.opdDTO.patientCode = patient?.code;
+      opdValues.opdDTO.age = patient?.age;
+      opdValues.opdDTO.sex = patient?.sex;
+      opdValues.opdDTO.userID = userId;
+      opdValues.opdDTO.patientName =
+        patient?.firstName + " " + patient?.secondName;
+      const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
+      if (!creationMode && opdToEdit.opdDTO?.code) {
+        dispatch(
+          updateOpdWithOperationRows(opdToEdit.opdDTO?.code, {
+            opdDTO: opdToSave,
+            operationRows: opdValues.operationRows,
+          } as OpdWithOperatioRowDTO)
+        );
+      } else {
+        dispatch(
+          createOpdWithOperationsRows({
+            opdDTO: { ...opdToSave, code: 0 },
+            operationRows: opdValues.operationRows,
+          })
+        );
+      }
     }
   };
 
@@ -168,7 +170,7 @@ const PatientOPD: FunctionComponent = () => {
           info={
             creationMode
               ? t("opd.createsuccess")
-              : t("opd.updatesuccess", { code: opdToEdit.opdDTO.code })
+              : t("opd.updatesuccess", { code: opdToEdit.opdDTO?.code })
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() =>

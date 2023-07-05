@@ -2,12 +2,13 @@ import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
 import {
+  LoginApiApi,
   LoginControllerApi,
   LoginRequest,
-  LoginResponse,
   UserControllerApi,
   UserProfileDTO,
 } from "../../generated";
+import { LoginResponse } from "../../generated/models/LoginResponse";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
 import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
@@ -34,6 +35,7 @@ import {
 import { IAuthentication } from "./types";
 
 const api = new LoginControllerApi(customConfiguration(false));
+const loginApi = new LoginApiApi(customConfiguration(false));
 const usersApi = new UserControllerApi(customConfiguration());
 
 export const setAuthenticationSuccess = (
@@ -54,7 +56,7 @@ export const setAuthenticationThunk =
 
     concat(
       api
-        .authenticationUserUsingPOST({ loginRequest })
+        .authenticateUserUsingPOST({ loginRequest })
         .pipe(tap(saveAuthenticationDataToSession)),
       usersApi
         .retrieveProfileByCurrentLoggedInUserUsingGET()
@@ -87,7 +89,7 @@ export const setLogoutThunk =
       type: SET_LOGOUT_LOADING,
     });
     SessionStorage.clear();
-    api.logoutUsingPOST().subscribe(
+    loginApi.logoutUsingPOST().subscribe(
       () => {
         dispatch({
           type: GET_PATIENT_RESET,

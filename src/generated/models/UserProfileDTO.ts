@@ -26,16 +26,4 @@ export interface UserProfileDTO {
      * @memberof UserProfileDTO
      */
     userName?: string;
-    /**
-     * the name of the group of user
-     * @type {string}
-     * @memberof UserProfileDTO
-     */
-    userGroupName?: string;
-    /**
-     * full name of user
-     * @type {string}
-     * @memberof UserProfileDTO
-     */
-    userDesc?: string;
 }

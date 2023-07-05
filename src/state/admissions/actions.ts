@@ -116,7 +116,7 @@ export const updateAdmission =
     });
 
     admissionControllerApi
-      .updateAdmissionsUsingPUT({ updAdmissionDTO: updateAdmissionDTO })
+      .updateAdmissionsUsingPUT({ updateAdmissionDTO })
       .subscribe(
         (payload) => {
           dispatch({
@@ -212,7 +212,7 @@ export const getAdmissions =
       type: GET_ADMISSIONS_LOADING,
     });
     admissionControllerApi
-      .getAdmissionsUsingGET({
+      .getAdmissionsUsingGET1({
         admissionrange,
         page: page ?? 0,
         size: size ?? 80,
@@ -239,7 +239,7 @@ export const getPatientAdmissions =
     dispatch({
       type: GET_PATIENT_ADMISSIONS_LOADING,
     });
-    admissionControllerApi.getPatientAdmissionsUsingGET(query).subscribe(
+    admissionControllerApi.getAdmissionsUsingGET(query).subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({

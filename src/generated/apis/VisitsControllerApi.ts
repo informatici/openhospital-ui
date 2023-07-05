@@ -56,7 +56,7 @@ export class VisitsControllerApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
+            url: '/visit/delete/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'DELETE',
             headers,
         }, opts?.responseOpts);
@@ -75,7 +75,7 @@ export class VisitsControllerApi extends BaseAPI {
         };
 
         return this.request<Array<VisitDTO>>({
-            url: '/visit/{patID}'.replace('{patID}', encodeURI(patID)),
+            url: '/visit/patient/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -84,9 +84,9 @@ export class VisitsControllerApi extends BaseAPI {
     /**
      * newVisit
      */
-    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest): Observable<number>
-    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest): Observable<VisitDTO>
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
+    newVisitUsingPOST({ newVisit }: NewVisitUsingPOSTRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
         throwIfNullOrUndefined(newVisit, 'newVisit', 'newVisitUsingPOST');
 
         const headers: HttpHeaders = {
@@ -94,7 +94,7 @@ export class VisitsControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<VisitDTO>({
             url: '/visit',
             method: 'POST',
             headers,

@@ -14,7 +14,6 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    ResponseEntity,
     VaccineTypeDTO,
 } from '../models';
 
@@ -61,16 +60,16 @@ export class VaccineTypeControllerApi extends BaseAPI {
     /**
      * deleteVaccineType
      */
-    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest): Observable<ResponseEntity>
-    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest): Observable<boolean>
+    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteVaccineTypeUsingDELETE({ code }: DeleteVaccineTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteVaccineTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/vaccinetype/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
@@ -97,9 +96,9 @@ export class VaccineTypeControllerApi extends BaseAPI {
     /**
      * newVaccineType
      */
-    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest): Observable<ResponseEntity>
-    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest): Observable<VaccineTypeDTO>
+    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VaccineTypeDTO>>
+    newVaccineTypeUsingPOST({ newVaccineType }: NewVaccineTypeUsingPOSTRequest, opts?: OperationOpts): Observable<VaccineTypeDTO | RawAjaxResponse<VaccineTypeDTO>> {
         throwIfNullOrUndefined(newVaccineType, 'newVaccineType', 'newVaccineTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -107,7 +106,7 @@ export class VaccineTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<VaccineTypeDTO>({
             url: '/vaccinetype',
             method: 'POST',
             headers,
@@ -118,9 +117,9 @@ export class VaccineTypeControllerApi extends BaseAPI {
     /**
      * updateVaccineType
      */
-    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest): Observable<ResponseEntity>
-    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest): Observable<VaccineTypeDTO>
+    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VaccineTypeDTO>>
+    updateVaccineTypeUsingPUT({ updateVaccineType }: UpdateVaccineTypeUsingPUTRequest, opts?: OperationOpts): Observable<VaccineTypeDTO | RawAjaxResponse<VaccineTypeDTO>> {
         throwIfNullOrUndefined(updateVaccineType, 'updateVaccineType', 'updateVaccineTypeUsingPUT');
 
         const headers: HttpHeaders = {
@@ -128,7 +127,7 @@ export class VaccineTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<VaccineTypeDTO>({
             url: '/vaccinetype',
             method: 'PUT',
             headers,

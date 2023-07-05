@@ -27,7 +27,7 @@ export const getExams =
     dispatch({
       type: GET_EXAM_LOADING,
     });
-    examControllerApi.getExamsUsingGET1().subscribe(
+    examControllerApi.getExamsUsingGET().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({

@@ -17,11 +17,17 @@
  */
 export interface SmsDTO {
     /**
-     * SMS Id
-     * @type {number}
+     * SMS module name
+     * @type {string}
      * @memberof SmsDTO
      */
-    smsId?: number;
+    module?: string;
+    /**
+     * SMS module Id
+     * @type {string}
+     * @memberof SmsDTO
+     */
+    moduleID?: string;
     /**
      * SMS Date
      * @type {string}
@@ -35,6 +41,18 @@ export interface SmsDTO {
      */
     smsDateSched?: string;
     /**
+     * SMS sent date
+     * @type {string}
+     * @memberof SmsDTO
+     */
+    smsDateSent?: string;
+    /**
+     * SMS Id
+     * @type {number}
+     * @memberof SmsDTO
+     */
+    smsId?: number;
+    /**
      * SMS target phone number
      * @type {string}
      * @memberof SmsDTO
@@ -47,27 +65,9 @@ export interface SmsDTO {
      */
     smsText?: string;
     /**
-     * SMS sent date
-     * @type {string}
-     * @memberof SmsDTO
-     */
-    smsDateSent?: string;
-    /**
      * SMS user
      * @type {string}
      * @memberof SmsDTO
      */
     smsUser?: string;
-    /**
-     * SMS module name
-     * @type {string}
-     * @memberof SmsDTO
-     */
-    module?: string;
-    /**
-     * SMS module Id
-     * @type {string}
-     * @memberof SmsDTO
-     */
-    moduleID?: string;
 }

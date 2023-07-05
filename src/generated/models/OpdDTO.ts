@@ -13,7 +13,6 @@
 
 import {
     DiseaseDTO,
-    WardDTO,
 } from './';
 
 /**
@@ -22,6 +21,31 @@ import {
  */
 export interface OpdDTO {
     /**
+     * the patient age
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    age?: number;
+    /**
+     * Age type
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    ageType?: string;
+    /**
+     * allergies of patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    allergies?: string;
+    /**
+     * history of a medical or psychiatric patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    anamnesis?: string;
+    /**
+     * the code of the opd
      * @type {number}
      * @memberof OpdDTO
      */
@@ -32,54 +56,6 @@ export interface OpdDTO {
      * @memberof OpdDTO
      */
     date?: string;
-    /**
-     * the visit date
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    visitDate?: string;
-    /**
-     * the next visit date
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    nextVisitDate?: string;
-    /**
-     * the admitted patient code
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    patientCode?: number;
-    /**
-     * the patient age
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    age?: number;
-    /**
-     * the patient sex
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    sex?: string;
-    /**
-     * the patient full name
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    patientName?: string;
-    /**
-     * the admission note
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    note?: string;
-    /**
-     * a progr. in year for each ward
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    prog_year?: number;
     /**
      * @type {DiseaseDTO}
      * @memberof OpdDTO
@@ -96,11 +72,59 @@ export interface OpdDTO {
      */
     disease3?: DiseaseDTO;
     /**
+     * lock
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    lock?: number;
+    /**
      * new(N) or reattendance(R) patient
      * @type {string}
      * @memberof OpdDTO
      */
     newPatient?: string;
+    /**
+     * the next visit date
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    nextVisitDate?: string;
+    /**
+     * the admission note
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    note?: string;
+    /**
+     * the admitted patient code
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    patientCode?: number;
+    /**
+     * the patient sex
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    patientName?: string;
+    /**
+     * prescription
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    prescription?: string;
+    /**
+     * a progr. in year for each ward
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    prog_year?: number;
+    /**
+     * reasons for entry
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    reason?: string;
     /**
      * referral from another unit
      * @type {string}
@@ -114,17 +138,17 @@ export interface OpdDTO {
      */
     referralTo?: string;
     /**
-     * Prescription
+     * the patient sex
      * @type {string}
      * @memberof OpdDTO
      */
-    prescription?: string;
+    sex?: string;
     /**
-     * Age type
+     * Current therapies
      * @type {string}
      * @memberof OpdDTO
      */
-    ageType?: string;
+    therapies?: string;
     /**
      * user id
      * @type {string}
@@ -132,14 +156,9 @@ export interface OpdDTO {
      */
     userID?: string;
     /**
-     * opd lock column
-     * @type {number}
+     * the visit date
+     * @type {string}
      * @memberof OpdDTO
      */
-    lock?: number;
-    /**
-     * @type {WardDTO}
-     * @memberof OpdDTO
-     */
-    ward?: WardDTO;
+    visitDate?: string;
 }

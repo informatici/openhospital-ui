@@ -16,7 +16,6 @@ import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, Ope
 import {
     PageOfPatientExaminationDTO,
     PatientExaminationDTO,
-    ResponseEntity,
 } from '../models';
 
 export interface GetByIDUsingGETRequest {
@@ -40,10 +39,8 @@ export interface GetLastByPatientIdUsingGETRequest {
 }
 
 export interface GetLastNByPatIDUsingGETRequest {
-    page: number;
-    size: number;
+    limit: number;
     patId: number;
-    paged?: boolean;
 }
 
 export interface NewPatientExaminationUsingPOSTRequest {
@@ -163,11 +160,10 @@ export class ExaminationControllerApi extends BaseAPI {
     /**
      * getLastNByPatID
      */
-    getLastNByPatIDUsingGET({ page, size, patId, paged }: GetLastNByPatIDUsingGETRequest): Observable<PageOfPatientExaminationDTO>
-    getLastNByPatIDUsingGET({ page, size, patId, paged }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfPatientExaminationDTO>>
-    getLastNByPatIDUsingGET({ page, size, patId, paged }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<PageOfPatientExaminationDTO | RawAjaxResponse<PageOfPatientExaminationDTO>> {
-        throwIfNullOrUndefined(page, 'page', 'getLastNByPatIDUsingGET');
-        throwIfNullOrUndefined(size, 'size', 'getLastNByPatIDUsingGET');
+    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest): Observable<PageOfPatientExaminationDTO>
+    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfPatientExaminationDTO>>
+    getLastNByPatIDUsingGET({ limit, patId }: GetLastNByPatIDUsingGETRequest, opts?: OperationOpts): Observable<PageOfPatientExaminationDTO | RawAjaxResponse<PageOfPatientExaminationDTO>> {
+        throwIfNullOrUndefined(limit, 'limit', 'getLastNByPatIDUsingGET');
         throwIfNullOrUndefined(patId, 'patId', 'getLastNByPatIDUsingGET');
 
         const headers: HttpHeaders = {
@@ -175,12 +171,9 @@ export class ExaminationControllerApi extends BaseAPI {
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'page': page,
-            'size': size,
+            'limit': limit,
             'patId': patId,
         };
-
-        if (paged != null) { query['paged'] = paged; }
 
         return this.request<PageOfPatientExaminationDTO>({
             url: '/examinations/lastNByPatId',
@@ -214,9 +207,9 @@ export class ExaminationControllerApi extends BaseAPI {
     /**
      * updateExamination
      */
-    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest): Observable<ResponseEntity>
-    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest): Observable<boolean>
+    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    updateExaminationUsingPUT({ id, dto }: UpdateExaminationUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(id, 'id', 'updateExaminationUsingPUT');
         throwIfNullOrUndefined(dto, 'dto', 'updateExaminationUsingPUT');
 
@@ -225,7 +218,7 @@ export class ExaminationControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/examinations/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,

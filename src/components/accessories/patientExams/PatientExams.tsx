@@ -101,7 +101,7 @@ const PatientExams: FC = () => {
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.date = parseDate(lab.date ?? "");
+    lab.labDate = parseDate(lab.labDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient =
       patientData?.status === PatientDTOStatusEnum.I

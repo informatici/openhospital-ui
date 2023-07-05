@@ -254,7 +254,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const handleAddOperationRow = (values: OperationRowDTO) => {
     setAddOperationLoading(true);
     let opRow: OperationRowDTO = values;
-    opRow.prescriber = username;
+    opRow.prescriber = username ?? "";
     setTimeout(() => {
       if (operationCreationMode) {
         opRow.id = 0;
@@ -273,7 +273,14 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const operationsRowFields = useMemo(() => {
     return opRowFields(
-      operationCreationMode ? { opDate: formik.values?.date } : opRowToEdit
+      operationCreationMode
+        ? {
+            opDate: formik.values?.date,
+            operation: {},
+            prescriber: "",
+            opResult: "",
+          }
+        : opRowToEdit
     );
   }, [operationCreationMode, opRowToEdit]);
 

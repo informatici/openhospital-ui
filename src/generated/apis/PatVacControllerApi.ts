@@ -93,8 +93,8 @@ export class PatVacControllerApi extends BaseAPI {
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'ageFrom': ageFrom,
             'ageTo': ageTo,
-            'dateFrom': (dateFrom as any).toISOString(),
-            'dateTo': (dateTo as any).toISOString(),
+            'dateFrom': (dateFrom as any).toISOString().split('T')[0],
+            'dateTo': (dateTo as any).toISOString().split('T')[0],
             'sex': sex,
             'vaccineCode': vaccineCode,
             'vaccineTypeCode': vaccineTypeCode,
@@ -153,9 +153,9 @@ export class PatVacControllerApi extends BaseAPI {
     /**
      * newPatientVaccine
      */
-    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest): Observable<boolean>
-    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest): Observable<PatientVaccineDTO>
+    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientVaccineDTO>>
+    newPatientVaccineUsingPOST({ patientVaccineDTO }: NewPatientVaccineUsingPOSTRequest, opts?: OperationOpts): Observable<PatientVaccineDTO | RawAjaxResponse<PatientVaccineDTO>> {
         throwIfNullOrUndefined(patientVaccineDTO, 'patientVaccineDTO', 'newPatientVaccineUsingPOST');
 
         const headers: HttpHeaders = {
@@ -163,7 +163,7 @@ export class PatVacControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<PatientVaccineDTO>({
             url: '/patientvaccines',
             method: 'POST',
             headers,
@@ -174,9 +174,9 @@ export class PatVacControllerApi extends BaseAPI {
     /**
      * updatePatientVaccinet
      */
-    updatePatientVaccinetUsingPUT({ code, patientVaccineDTO }: UpdatePatientVaccinetUsingPUTRequest): Observable<number>
-    updatePatientVaccinetUsingPUT({ code, patientVaccineDTO }: UpdatePatientVaccinetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    updatePatientVaccinetUsingPUT({ code, patientVaccineDTO }: UpdatePatientVaccinetUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    updatePatientVaccinetUsingPUT({ code, patientVaccineDTO }: UpdatePatientVaccinetUsingPUTRequest): Observable<PatientVaccineDTO>
+    updatePatientVaccinetUsingPUT({ code, patientVaccineDTO }: UpdatePatientVaccinetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientVaccineDTO>>
+    updatePatientVaccinetUsingPUT({ code, patientVaccineDTO }: UpdatePatientVaccinetUsingPUTRequest, opts?: OperationOpts): Observable<PatientVaccineDTO | RawAjaxResponse<PatientVaccineDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updatePatientVaccinetUsingPUT');
         throwIfNullOrUndefined(patientVaccineDTO, 'patientVaccineDTO', 'updatePatientVaccinetUsingPUT');
 
@@ -185,7 +185,7 @@ export class PatVacControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<PatientVaccineDTO>({
             url: '/patientvaccines/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

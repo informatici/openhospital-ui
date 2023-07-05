@@ -204,7 +204,7 @@ export const getLabByCode =
       type: GET_LAB_LOADING,
     });
     if (code) {
-      labControllerApi.getLaboratoryByIdUsingGET({ code }).subscribe(
+      labControllerApi.getLaboratoryUsingGET({ patId: code }).subscribe(
         (payload) => {
           dispatch({
             type: GET_LAB_SUCCESS,
@@ -233,7 +233,7 @@ export const getLabWithRowsByCode =
       type: GET_LABWROW_LOADING,
     });
     if (code) {
-      labControllerApi.getLabWithRowsByIdUsingGET({ code }).subscribe(
+      labControllerApi.getExamWithRowsByIdUsingGET({ code }).subscribe(
         (payload) => {
           dispatch({
             type: GET_LABWROW_SUCCESS,

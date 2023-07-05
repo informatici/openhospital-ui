@@ -21,46 +21,11 @@ import {
  */
 export interface TherapyRowDTO {
     /**
-     * The therapy\'s ID
-     * @type {number}
-     * @memberof TherapyRowDTO
-     */
-    therapyID?: number;
-    /**
-     * @type {PatientDTO}
-     * @memberof TherapyRowDTO
-     */
-    patID?: PatientDTO;
-    /**
-     * The start date of therapy
-     * @type {string}
-     * @memberof TherapyRowDTO
-     */
-    startDate?: string;
-    /**
      * The end date of the therapy
      * @type {string}
      * @memberof TherapyRowDTO
      */
     endDate?: string;
-    /**
-     * The ID of the medical concerned by the therapy
-     * @type {number}
-     * @memberof TherapyRowDTO
-     */
-    medicalId?: number;
-    /**
-     * The quantity of medicals
-     * @type {number}
-     * @memberof TherapyRowDTO
-     */
-    qty?: number;
-    /**
-     * The unit\'s ID
-     * @type {number}
-     * @memberof TherapyRowDTO
-     */
-    unitID?: number;
     /**
      * The frequency in day
      * @type {number}
@@ -74,6 +39,12 @@ export interface TherapyRowDTO {
      */
     freqInPeriod?: number;
     /**
+     * The ID of the medical concerned by the therapy
+     * @type {number}
+     * @memberof TherapyRowDTO
+     */
+    medicalId?: number;
+    /**
      * A note for the therapy
      * @type {string}
      * @memberof TherapyRowDTO
@@ -86,9 +57,38 @@ export interface TherapyRowDTO {
      */
     notifyInt?: number;
     /**
+     * @type {PatientDTO}
+     * @memberof TherapyRowDTO
+     */
+    patID?: PatientDTO;
+    /**
+     * The quantity of medicals
+     * @type {number}
+     * @memberof TherapyRowDTO
+     */
+    qty?: number;
+    /**
      * the sms flag: 1 if sms need to be sent to patient, 0 otherwise
      * @type {number}
      * @memberof TherapyRowDTO
      */
     smsInt?: number;
+    /**
+     * The start date of therapy
+     * @type {string}
+     * @memberof TherapyRowDTO
+     */
+    startDate?: string;
+    /**
+     * The therapy\'s ID
+     * @type {number}
+     * @memberof TherapyRowDTO
+     */
+    therapyID?: number;
+    /**
+     * The unit\'s ID
+     * @type {number}
+     * @memberof TherapyRowDTO
+     */
+    unitID?: number;
 }

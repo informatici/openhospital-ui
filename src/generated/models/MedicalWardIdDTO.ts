@@ -22,13 +22,13 @@ import {
  */
 export interface MedicalWardIdDTO {
     /**
-     * @type {WardDTO}
-     * @memberof MedicalWardIdDTO
-     */
-    ward?: WardDTO;
-    /**
      * @type {MedicalDTO}
      * @memberof MedicalWardIdDTO
      */
     medical?: MedicalDTO;
+    /**
+     * @type {WardDTO}
+     * @memberof MedicalWardIdDTO
+     */
+    ward?: WardDTO;
 }

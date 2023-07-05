@@ -1,6 +1,5 @@
 import {
   LaboratoryDTO,
-  LaboratoryForPrintDTO,
   LabWithRowsDTO,
   PageOfLabWithRowsDTO,
 } from "../../generated";

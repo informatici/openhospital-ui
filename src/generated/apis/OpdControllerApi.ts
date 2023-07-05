@@ -24,7 +24,7 @@ export interface DeleteOpdUsingDELETERequest {
 }
 
 export interface GetLastOpdUsingGETRequest {
-    code: number;
+    patientCode: number;
 }
 
 export interface GetOpdByDatesUsingGETRequest {
@@ -104,17 +104,17 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * getLastOpd
      */
-    getLastOpdUsingGET({ code }: GetLastOpdUsingGETRequest): Observable<OpdDTO>
-    getLastOpdUsingGET({ code }: GetLastOpdUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdDTO>>
-    getLastOpdUsingGET({ code }: GetLastOpdUsingGETRequest, opts?: OperationOpts): Observable<OpdDTO | RawAjaxResponse<OpdDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'getLastOpdUsingGET');
+    getLastOpdUsingGET({ patientCode }: GetLastOpdUsingGETRequest): Observable<OpdDTO>
+    getLastOpdUsingGET({ patientCode }: GetLastOpdUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdDTO>>
+    getLastOpdUsingGET({ patientCode }: GetLastOpdUsingGETRequest, opts?: OperationOpts): Observable<OpdDTO | RawAjaxResponse<OpdDTO>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getLastOpdUsingGET');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<OpdDTO>({
-            url: '/opds/last/{code}'.replace('{code}', encodeURI(code)),
+            url: '/opds/last/{patientCode}'.replace('{patientCode}', encodeURI(patientCode)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -134,8 +134,8 @@ export class OpdControllerApi extends BaseAPI {
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'dateFrom': dateFrom,
-            'dateTo': dateTo,
+            'dateFrom': (dateFrom as any).toISOString().split('T')[0],
+            'dateTo': (dateTo as any).toISOString().split('T')[0],
         };
 
         if (ageFrom != null) { query['ageFrom'] = ageFrom; }
@@ -247,9 +247,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * newOpd
      */
-    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest): Observable<boolean>
-    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest): Observable<OpdDTO>
+    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdDTO>>
+    newOpdUsingPOST({ opdDTO }: NewOpdUsingPOSTRequest, opts?: OperationOpts): Observable<OpdDTO | RawAjaxResponse<OpdDTO>> {
         throwIfNullOrUndefined(opdDTO, 'opdDTO', 'newOpdUsingPOST');
 
         const headers: HttpHeaders = {
@@ -257,7 +257,7 @@ export class OpdControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<OpdDTO>({
             url: '/opds',
             method: 'POST',
             headers,
@@ -268,9 +268,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * newOpdWithOperationRow
      */
-    newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO }: NewOpdWithOperationRowUsingPOSTRequest): Observable<boolean>
-    newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO }: NewOpdWithOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO }: NewOpdWithOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO }: NewOpdWithOperationRowUsingPOSTRequest): Observable<OpdWithOperatioRowDTO>
+    newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO }: NewOpdWithOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdWithOperatioRowDTO>>
+    newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO }: NewOpdWithOperationRowUsingPOSTRequest, opts?: OperationOpts): Observable<OpdWithOperatioRowDTO | RawAjaxResponse<OpdWithOperatioRowDTO>> {
         throwIfNullOrUndefined(opdWithOperatioRowDTO, 'opdWithOperatioRowDTO', 'newOpdWithOperationRowUsingPOST');
 
         const headers: HttpHeaders = {
@@ -278,7 +278,7 @@ export class OpdControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<OpdWithOperatioRowDTO>({
             url: '/opds/rows',
             method: 'POST',
             headers,
@@ -289,9 +289,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * updateOpd
      */
-    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest): Observable<number>
-    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest): Observable<OpdDTO>
+    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdDTO>>
+    updateOpdUsingPUT({ code, opdDTO }: UpdateOpdUsingPUTRequest, opts?: OperationOpts): Observable<OpdDTO | RawAjaxResponse<OpdDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateOpdUsingPUT');
         throwIfNullOrUndefined(opdDTO, 'opdDTO', 'updateOpdUsingPUT');
 
@@ -300,7 +300,7 @@ export class OpdControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<number>({
+        return this.request<OpdDTO>({
             url: '/opds/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,
@@ -311,9 +311,9 @@ export class OpdControllerApi extends BaseAPI {
     /**
      * updateOpdWithOperationRow
      */
-    updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowUsingPUTRequest): Observable<boolean>
-    updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowUsingPUTRequest): Observable<OpdWithOperatioRowDTO>
+    updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdWithOperatioRowDTO>>
+    updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowUsingPUTRequest, opts?: OperationOpts): Observable<OpdWithOperatioRowDTO | RawAjaxResponse<OpdWithOperatioRowDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateOpdWithOperationRowUsingPUT');
         throwIfNullOrUndefined(opdWithOperatioRowDTO, 'opdWithOperatioRowDTO', 'updateOpdWithOperationRowUsingPUT');
 
@@ -322,9 +322,9 @@ export class OpdControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<OpdWithOperatioRowDTO>({
             url: '/opds/rows/{code}'.replace('{code}', encodeURI(code)),
-            method: 'POST',
+            method: 'PUT',
             headers,
             body: opdWithOperatioRowDTO,
         }, opts?.responseOpts);

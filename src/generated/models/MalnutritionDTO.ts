@@ -21,17 +21,16 @@ import {
  */
 export interface MalnutritionDTO {
     /**
+     * @type {AdmissionDTO}
+     * @memberof MalnutritionDTO
+     */
+    admission?: AdmissionDTO;
+    /**
      * The code malnutrition control
      * @type {number}
      * @memberof MalnutritionDTO
      */
     code?: number;
-    /**
-     * The date of this malnutrition control
-     * @type {string}
-     * @memberof MalnutritionDTO
-     */
-    dateSupp?: string;
     /**
      * The date of the next malnutrition control
      * @type {string}
@@ -39,16 +38,23 @@ export interface MalnutritionDTO {
      */
     dateConf?: string;
     /**
-     * @type {AdmissionDTO}
+     * The date of this malnutrition control
+     * @type {string}
      * @memberof MalnutritionDTO
      */
-    admission?: AdmissionDTO;
+    dateSupp?: string;
     /**
      * The height of the patient
      * @type {number}
      * @memberof MalnutritionDTO
      */
     height?: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof MalnutritionDTO
+     */
+    lock?: number;
     /**
      * The weight of the patient
      * @type {number}

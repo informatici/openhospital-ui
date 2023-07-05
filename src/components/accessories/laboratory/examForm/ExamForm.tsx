@@ -103,7 +103,7 @@ const ExamForm: FC<ExamProps> = ({
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.date = parseDate(lab.date ?? "");
+    lab.labDate = parseDate(lab.labDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient =
       patientData?.status === PatientDTOStatusEnum.I
@@ -144,10 +144,10 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string()
+    labDate: string()
       .required(t("common.required"))
       .test({
-        name: "date",
+        name: "labDate",
         message: t("common.invaliddate"),
         test: function (value) {
           return moment(value).isValid();
@@ -317,7 +317,7 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab") + " thanks"
-            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.labDate)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
@@ -335,15 +335,15 @@ const ExamForm: FC<ExamProps> = ({
             </div>
             <div className="patientExamForm__item">
               <DateField
-                fieldName="date"
-                fieldValue={formik.values.date}
+                fieldName="labDate"
+                fieldValue={formik.values.labDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("labDate")}
+                errorText={getErrorText("labDate")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("labDate")}
                 disabled={false}
               />
             </div>

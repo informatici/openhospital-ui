@@ -22,6 +22,24 @@ import {
  */
 export interface BillDTO {
     /**
+     * Bill Amount
+     * @type {number}
+     * @memberof BillDTO
+     */
+    amount?: number;
+    /**
+     * Bill balance
+     * @type {number}
+     * @memberof BillDTO
+     */
+    balance?: number;
+    /**
+     * Date of bill creation
+     * @type {string}
+     * @memberof BillDTO
+     */
+    date?: string;
+    /**
      * @type {number}
      * @memberof BillDTO
      */
@@ -37,23 +55,6 @@ export interface BillDTO {
      */
     listId?: number;
     /**
-     * @type {PatientDTO}
-     * @memberof BillDTO
-     */
-    patient?: PatientDTO;
-    /**
-     * Date of bill creation
-     * @type {string}
-     * @memberof BillDTO
-     */
-    date?: string;
-    /**
-     * Date of bill updated
-     * @type {string}
-     * @memberof BillDTO
-     */
-    update?: string;
-    /**
      * Price list name
      * @type {string}
      * @memberof BillDTO
@@ -66,23 +67,28 @@ export interface BillDTO {
      */
     patName?: string;
     /**
+     * @type {PatientDTO}
+     * @memberof BillDTO
+     */
+    patient?: PatientDTO;
+    /**
+     * Is bill belongs to a patient?
+     * @type {boolean}
+     * @memberof BillDTO
+     */
+    patientTrue?: boolean;
+    /**
      * Bill status
      * @type {string}
      * @memberof BillDTO
      */
     status?: string;
     /**
-     * Bill Amount
-     * @type {number}
+     * Date of bill updated
+     * @type {string}
      * @memberof BillDTO
      */
-    amount?: number;
-    /**
-     * Bill balance
-     * @type {number}
-     * @memberof BillDTO
-     */
-    balance?: number;
+    update?: string;
     /**
      * user name who create the bill
      * @type {string}

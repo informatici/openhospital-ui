@@ -31,10 +31,38 @@ export interface MovementDTO {
      */
     code?: number;
     /**
+     * The movement date
+     * @type {string}
+     * @memberof MovementDTO
+     */
+    date?: string;
+    /**
+     * @type {LotDTO}
+     * @memberof MovementDTO
+     */
+    lot?: LotDTO;
+    /**
      * @type {MedicalDTO}
      * @memberof MovementDTO
      */
     medical?: MedicalDTO;
+    /**
+     * The movement\'s medical quantity
+     * @type {number}
+     * @memberof MovementDTO
+     */
+    quantity?: number;
+    /**
+     * The movement reference
+     * @type {string}
+     * @memberof MovementDTO
+     */
+    refNo?: string;
+    /**
+     * @type {SupplierDTO}
+     * @memberof MovementDTO
+     */
+    supplier?: SupplierDTO;
     /**
      * @type {MovementTypeDTO}
      * @memberof MovementDTO
@@ -45,32 +73,4 @@ export interface MovementDTO {
      * @memberof MovementDTO
      */
     ward?: WardDTO;
-    /**
-     * @type {LotDTO}
-     * @memberof MovementDTO
-     */
-    lot?: LotDTO;
-    /**
-     * The movement date
-     * @type {string}
-     * @memberof MovementDTO
-     */
-    date?: string;
-    /**
-     * The movement\'s medical quantity
-     * @type {number}
-     * @memberof MovementDTO
-     */
-    quantity?: number;
-    /**
-     * @type {SupplierDTO}
-     * @memberof MovementDTO
-     */
-    supplier?: SupplierDTO;
-    /**
-     * The movement reference
-     * @type {string}
-     * @memberof MovementDTO
-     */
-    refNo?: string;
 }

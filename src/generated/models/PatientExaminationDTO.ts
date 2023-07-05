@@ -17,41 +17,17 @@
  */
 export interface PatientExaminationDTO {
     /**
-     * Patient Examination Id
-     * @type {number}
-     * @memberof PatientExaminationDTO
-     */
-    pex_ID?: number;
-    /**
-     * Date of Patient Examination
-     * @type {string}
-     * @memberof PatientExaminationDTO
-     */
-    pex_date?: string;
-    /**
      * Patient Examination Code
      * @type {number}
      * @memberof PatientExaminationDTO
      */
     patientCode?: number;
     /**
-     * Patient Height in cm
+     * Patient Examination Id
      * @type {number}
      * @memberof PatientExaminationDTO
      */
-    pex_height?: number;
-    /**
-     * Patient Weight in Kg
-     * @type {number}
-     * @memberof PatientExaminationDTO
-     */
-    pex_weight?: number;
-    /**
-     * Blood Pressure MIN in mmHg
-     * @type {number}
-     * @memberof PatientExaminationDTO
-     */
-    pex_ap_min?: number;
+    pex_ID?: number;
     /**
      * Blood Pressure MAX in mmHg
      * @type {number}
@@ -59,29 +35,11 @@ export interface PatientExaminationDTO {
      */
     pex_ap_max?: number;
     /**
-     * Heart Rate in APm
+     * Blood Pressure MIN in mmHg
      * @type {number}
      * @memberof PatientExaminationDTO
      */
-    pex_rr?: number;
-    /**
-     * Patient Temperature in °C
-     * @type {number}
-     * @memberof PatientExaminationDTO
-     */
-    pex_temp?: number;
-    /**
-     * Patient Saturation in %
-     * @type {number}
-     * @memberof PatientExaminationDTO
-     */
-    pex_sat?: number;
-    /**
-     * Heart Rate in Apm
-     * @type {number}
-     * @memberof PatientExaminationDTO
-     */
-    pex_hr?: number;
+    pex_ap_min?: number;
     /**
      * patient ausculation
      * @type {string}
@@ -89,11 +47,17 @@ export interface PatientExaminationDTO {
      */
     pex_auscultation?: PatientExaminationDTOPexAuscultationEnum;
     /**
-     * Hemo Glucose Test
-     * @type {number}
+     * Bowel Function
+     * @type {string}
      * @memberof PatientExaminationDTO
      */
-    pex_hgt?: number;
+    pex_bowel_desc?: PatientExaminationDTOPexBowelDescEnum;
+    /**
+     * Date of Patient Examination
+     * @type {string}
+     * @memberof PatientExaminationDTO
+     */
+    pex_date?: string;
     /**
      * Daily urine Volume in ml
      * @type {number}
@@ -107,17 +71,53 @@ export interface PatientExaminationDTO {
      */
     pex_diuresis_desc?: PatientExaminationDTOPexDiuresisDescEnum;
     /**
-     * Bowel Function
-     * @type {string}
+     * Patient Height in cm
+     * @type {number}
      * @memberof PatientExaminationDTO
      */
-    pex_bowel_desc?: PatientExaminationDTOPexBowelDescEnum;
+    pex_height?: number;
+    /**
+     * Hemo Glucose Test
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_hgt?: number;
+    /**
+     * Heart Rate in Apm
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_hr?: number;
     /**
      * Examination Note
      * @type {string}
      * @memberof PatientExaminationDTO
      */
     pex_note?: string;
+    /**
+     * Respiratory Rate in bpm
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_rr?: number;
+    /**
+     * Patient Saturation in %
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_sat?: number;
+    /**
+     * Patient Temperature in °C
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_temp?: number;
+    /**
+     * Patient Weight in Kg
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_weight?: number;
 }
 
 /**
@@ -125,26 +125,12 @@ export interface PatientExaminationDTO {
  * @enum {string}
  */
 export enum PatientExaminationDTOPexAuscultationEnum {
-    Normal = 'normal',
-    Wheezes = 'wheezes',
-    Rhonchi = 'rhonchi',
+    Bronchial = 'bronchial',
     Crackles = 'crackles',
+    Normal = 'normal',
+    Rhonchi = 'rhonchi',
     Stridor = 'stridor',
-    Bronchial = 'bronchial'
-}
-/**
- * @export
- * @enum {string}
- */
-export enum PatientExaminationDTOPexDiuresisDescEnum {
-    Physiological = 'physiological',
-    Oliguria = 'oliguria',
-    Anuria = 'anuria',
-    Frequent = 'frequent',
-    Nocturia = 'nocturia',
-    Stranguria = 'stranguria',
-    Hematuria = 'hematuria',
-    Pyuria = 'pyuria'
+    Wheezes = 'wheezes'
 }
 /**
  * @export
@@ -152,8 +138,22 @@ export enum PatientExaminationDTOPexDiuresisDescEnum {
  */
 export enum PatientExaminationDTOPexBowelDescEnum {
     Constipation = 'constipation',
-    Regular = 'regular',
     Diarrheal = 'diarrheal',
-    Irregular = 'irregular'
+    Irregular = 'irregular',
+    Regular = 'regular'
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum PatientExaminationDTOPexDiuresisDescEnum {
+    Anuria = 'anuria',
+    Frequent = 'frequent',
+    Hematuria = 'hematuria',
+    Nocturia = 'nocturia',
+    Oliguria = 'oliguria',
+    Physiological = 'physiological',
+    Pyuria = 'pyuria',
+    Stranguria = 'stranguria'
 }
 

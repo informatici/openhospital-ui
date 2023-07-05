@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { ErrorDescription, HospitalDTO } from "../../../generated";
+import { HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -56,7 +56,7 @@ const LoginActivity: FC = () => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
   const errorType = useSelector<IState>(
-    (state) => state.main.authentication.error?.description || "unknown error"
+    (state) => state.main.authentication.error?.description || "unknown error"
   );
 
   const status = useSelector<IState>(
@@ -127,7 +127,7 @@ const LoginActivity: FC = () => {
                 hidden: status !== "FAIL",
               })}
             >
-              {errorType === ErrorDescription.PASSWORDTOOSHORT
+              {errorType === "passwordtooshort"
                 ? t("login.passwordtooshort")
                 : t("login.incorrectcredentials")}
             </div>

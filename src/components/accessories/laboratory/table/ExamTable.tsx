@@ -29,16 +29,16 @@ export const ExamTable: FC<IExamTableProps> = ({
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
-  const header = ["id", "date", "patName", "exam", "result"];
-  const dateFields = ["date"];
+  const header = ["id", "labDate", "patName", "exam", "result"];
+  const dateFields = ["labDate"];
   const label = {
     id: t("lab.code"),
-    date: t("lab.date"),
+    labDate: t("lab.date"),
     patName: t("lab.patient"),
     exam: t("lab.exam"),
     result: t("lab.result"),
   };
-  const order = ["id", "date", "patName", "exam", "result"];
+  const order = ["id", "labDate", "patName", "exam", "result"];
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     let results: any = [];
@@ -46,7 +46,7 @@ export const ExamTable: FC<IExamTableProps> = ({
       results = data.map((e) => {
         return {
           id: e.laboratoryDTO?.code ?? "",
-          date: renderDate(e.laboratoryDTO?.date ?? ""),
+          labDate: renderDate(e.laboratoryDTO?.labDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
           exam:
             e.laboratoryDTO?.exam?.description ?? e.laboratoryDTO?.exam ?? "", //The second case should be removed when the api is ready

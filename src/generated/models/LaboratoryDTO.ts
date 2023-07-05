@@ -33,12 +33,6 @@ export interface LaboratoryDTO {
      */
     code?: number;
     /**
-     * Laboratory Exam Date
-     * @type {string}
-     * @memberof LaboratoryDTO
-     */
-    date?: string;
-    /**
      * @type {ExamDTO}
      * @memberof LaboratoryDTO
      */
@@ -49,6 +43,12 @@ export interface LaboratoryDTO {
      * @memberof LaboratoryDTO
      */
     inOutPatient?: LaboratoryDTOInOutPatientEnum;
+    /**
+     * Laboratory Exam Date
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    labDate?: string;
     /**
      * lock
      * @type {number}
@@ -118,10 +118,10 @@ export enum LaboratoryDTOInOutPatientEnum {
  * @enum {string}
  */
 export enum LaboratoryDTOStatusEnum {
+    DELETED = 'DELETED',
     DONE = 'DONE',
     DRAFT = 'DRAFT',
-    OPEN = 'OPEN',
     INVALID = 'INVALID',
-    DELETED = 'DELETED'
+    OPEN = 'OPEN'
 }
 

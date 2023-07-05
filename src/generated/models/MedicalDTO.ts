@@ -27,17 +27,6 @@ export interface MedicalDTO {
      */
     code?: number;
     /**
-     * The product code
-     * @type {string}
-     * @memberof MedicalDTO
-     */
-    prod_code?: string;
-    /**
-     * @type {MedicalTypeDTO}
-     * @memberof MedicalDTO
-     */
-    type?: MedicalTypeDTO;
-    /**
      * The description of the medical
      * @type {string}
      * @memberof MedicalDTO
@@ -50,17 +39,23 @@ export interface MedicalDTO {
      */
     initialqty?: number;
     /**
-     * The number of pieces per packet
-     * @type {number}
-     * @memberof MedicalDTO
-     */
-    pcsperpck?: number;
-    /**
      * The input quantity of the medical
      * @type {number}
      * @memberof MedicalDTO
      */
     inqty?: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof MedicalDTO
+     */
+    lock?: number;
+    /**
+     * The min quantity of the medical
+     * @type {number}
+     * @memberof MedicalDTO
+     */
+    minqty?: number;
     /**
      * The out quantity of the medical
      * @type {number}
@@ -68,9 +63,20 @@ export interface MedicalDTO {
      */
     outqty?: number;
     /**
-     * The min quantity of the medical
+     * The number of pieces per packet
      * @type {number}
      * @memberof MedicalDTO
      */
-    minqty?: number;
+    pcsperpck?: number;
+    /**
+     * The product code
+     * @type {string}
+     * @memberof MedicalDTO
+     */
+    prod_code?: string;
+    /**
+     * @type {MedicalTypeDTO}
+     * @memberof MedicalDTO
+     */
+    type?: MedicalTypeDTO;
 }

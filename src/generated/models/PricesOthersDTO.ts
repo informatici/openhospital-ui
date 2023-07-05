@@ -18,10 +18,22 @@
  */
 export interface PricesOthersDTO {
     /**
+     * the prices code
+     * @type {string}
+     * @memberof PricesOthersDTO
+     */
+    code?: string;
+    /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
-    daily?: boolean;
+    daily: boolean;
+    /**
+     * the description
+     * @type {string}
+     * @memberof PricesOthersDTO
+     */
+    description?: string;
     /**
      * @type {boolean}
      * @memberof PricesOthersDTO
@@ -36,27 +48,15 @@ export interface PricesOthersDTO {
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
-    ipdInclude?: boolean;
+    ipdInclude: boolean;
     /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
-    opdInclude?: boolean;
+    opdInclude: boolean;
     /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
     undefined?: boolean;
-    /**
-     * the prices code
-     * @type {string}
-     * @memberof PricesOthersDTO
-     */
-    code?: string;
-    /**
-     * the description
-     * @type {string}
-     * @memberof PricesOthersDTO
-     */
-    description?: string;
 }

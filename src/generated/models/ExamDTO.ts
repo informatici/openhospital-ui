@@ -21,28 +21,11 @@ import {
  */
 export interface ExamDTO {
     /**
-     * @type {ExamTypeDTO}
-     * @memberof ExamDTO
-     */
-    examtype?: ExamTypeDTO;
-    /**
      * Exam Code
      * @type {string}
      * @memberof ExamDTO
      */
     code?: string;
-    /**
-     * Exam Description
-     * @type {string}
-     * @memberof ExamDTO
-     */
-    description?: string;
-    /**
-     * Exam Procedure
-     * @type {number}
-     * @memberof ExamDTO
-     */
-    procedure?: number;
     /**
      * Exam Default Result
      * @type {string}
@@ -50,9 +33,26 @@ export interface ExamDTO {
      */
     defaultResult?: string;
     /**
-     * Exam Db Version to increment
+     * Exam Description
+     * @type {string}
+     * @memberof ExamDTO
+     */
+    description?: string;
+    /**
+     * @type {ExamTypeDTO}
+     * @memberof ExamDTO
+     */
+    examtype?: ExamTypeDTO;
+    /**
+     * lock
      * @type {number}
      * @memberof ExamDTO
      */
     lock?: number;
+    /**
+     * Exam Procedure
+     * @type {number}
+     * @memberof ExamDTO
+     */
+    procedure?: number;
 }

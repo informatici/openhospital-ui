@@ -42,12 +42,12 @@ export interface OperationRowDTO {
      * @type {string}
      * @memberof OperationRowDTO
      */
-    opDate?: string;
+    opDate: string;
     /**
      * @type {string}
      * @memberof OperationRowDTO
      */
-    opResult?: string;
+    opResult: string;
     /**
      * @type {OpdDTO}
      * @memberof OperationRowDTO
@@ -57,12 +57,12 @@ export interface OperationRowDTO {
      * @type {OperationDTO}
      * @memberof OperationRowDTO
      */
-    operation?: OperationDTO;
+    operation: OperationDTO;
     /**
      * @type {string}
      * @memberof OperationRowDTO
      */
-    prescriber?: string;
+    prescriber: string;
     /**
      * @type {string}
      * @memberof OperationRowDTO

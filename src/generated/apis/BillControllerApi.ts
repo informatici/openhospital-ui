@@ -18,7 +18,6 @@ import {
     BillItemsDTO,
     BillPaymentsDTO,
     FullBillDTO,
-    ResponseEntity,
 } from '../models';
 
 export interface DeleteBillUsingDELETERequest {
@@ -84,16 +83,16 @@ export class BillControllerApi extends BaseAPI {
     /**
      * deleteBill
      */
-    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest): Observable<ResponseEntity>
-    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest): Observable<boolean>
+    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteBillUsingDELETE({ id }: DeleteBillUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(id, 'id', 'deleteBillUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/bills/{id}'.replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,

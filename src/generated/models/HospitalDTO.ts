@@ -17,18 +17,6 @@
  */
 export interface HospitalDTO {
     /**
-     * Hospital Code
-     * @type {string}
-     * @memberof HospitalDTO
-     */
-    code?: string;
-    /**
-     * Hospital Description
-     * @type {string}
-     * @memberof HospitalDTO
-     */
-    description?: string;
-    /**
      * Hospital Address
      * @type {string}
      * @memberof HospitalDTO
@@ -41,23 +29,11 @@ export interface HospitalDTO {
      */
     city?: string;
     /**
-     * Hospital Telephone
+     * Hospital Code
      * @type {string}
      * @memberof HospitalDTO
      */
-    telephone?: string;
-    /**
-     * Hospital Fax
-     * @type {string}
-     * @memberof HospitalDTO
-     */
-    fax?: string;
-    /**
-     * Hospital Email
-     * @type {string}
-     * @memberof HospitalDTO
-     */
-    email?: string;
+    code?: string;
     /**
      * Hospital Currency Cod
      * @type {string}
@@ -65,9 +41,33 @@ export interface HospitalDTO {
      */
     currencyCod?: string;
     /**
-     * Hospital Version to increment
+     * Hospital Description
+     * @type {string}
+     * @memberof HospitalDTO
+     */
+    description?: string;
+    /**
+     * Hospital Email
+     * @type {string}
+     * @memberof HospitalDTO
+     */
+    email?: string;
+    /**
+     * Hospital Fax
+     * @type {string}
+     * @memberof HospitalDTO
+     */
+    fax?: string;
+    /**
+     * lock
      * @type {number}
      * @memberof HospitalDTO
      */
     lock?: number;
+    /**
+     * Hospital Telephone
+     * @type {string}
+     * @memberof HospitalDTO
+     */
+    telephone?: string;
 }

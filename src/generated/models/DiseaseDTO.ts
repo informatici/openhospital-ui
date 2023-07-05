@@ -51,6 +51,12 @@ export interface DiseaseDTO {
      */
     ipdOutInclude?: boolean;
     /**
+     * lock
+     * @type {number}
+     * @memberof DiseaseDTO
+     */
+    lock?: number;
+    /**
      * indicates whether the disease is an OPD disease
      * @type {boolean}
      * @memberof DiseaseDTO

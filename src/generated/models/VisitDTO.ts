@@ -23,39 +23,11 @@ import {
  */
 export interface VisitDTO {
     /**
-     * The visit\'s ID
-     * @type {number}
-     * @memberof VisitDTO
-     */
-    visitID?: number;
-    /**
-     * @type {PatientDTO}
-     * @memberof VisitDTO
-     */
-    patient?: PatientDTO;
-    /**
      * Date of the visit
      * @type {string}
      * @memberof VisitDTO
      */
     date?: string;
-    /**
-     * Note of the visit
-     * @type {string}
-     * @memberof VisitDTO
-     */
-    note?: string;
-    /**
-     * Sms of the visit
-     * @type {boolean}
-     * @memberof VisitDTO
-     */
-    sms?: boolean;
-    /**
-     * @type {Ward}
-     * @memberof VisitDTO
-     */
-    ward?: Ward;
     /**
      * duration of the visit
      * @type {number}
@@ -63,9 +35,37 @@ export interface VisitDTO {
      */
     duration?: number;
     /**
+     * Note of the visit
+     * @type {string}
+     * @memberof VisitDTO
+     */
+    note?: string;
+    /**
+     * @type {PatientDTO}
+     * @memberof VisitDTO
+     */
+    patient?: PatientDTO;
+    /**
      * service done during the visit
      * @type {string}
      * @memberof VisitDTO
      */
     service?: string;
+    /**
+     * Sms of the visit
+     * @type {boolean}
+     * @memberof VisitDTO
+     */
+    sms?: boolean;
+    /**
+     * The visit\'s ID
+     * @type {number}
+     * @memberof VisitDTO
+     */
+    visitID?: number;
+    /**
+     * @type {Ward}
+     * @memberof VisitDTO
+     */
+    ward?: Ward;
 }

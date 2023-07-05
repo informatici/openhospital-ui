@@ -26,17 +26,17 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const canDelete = usePermission("exam.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["date", "exam"];
-  const dateFields = ["date"];
+  const header = ["labDate", "exam"];
+  const dateFields = ["labDate"];
 
   const label = {
     code: t("common.code"),
-    date: t("lab.date"),
+    labDate: t("lab.date"),
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
   };
-  const order = ["date", "exam"];
+  const order = ["labDate", "exam"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
@@ -58,8 +58,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.laboratoryDTO?.code,
-        date: item.laboratoryDTO?.date
-          ? renderDate(item.laboratoryDTO?.date)
+        labDate: item.laboratoryDTO?.labDate
+          ? renderDate(item.laboratoryDTO?.labDate)
           : "",
         exam: item.laboratoryDTO?.exam?.description ?? "",
         result:

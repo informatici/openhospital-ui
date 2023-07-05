@@ -38,7 +38,7 @@ export const getLayouts =
     let toolbox: Layouts;
     let savedConfig: string | undefined;
 
-    userSettingControllerApi.getUserSettingDashBoardUsingGET().subscribe(
+    userSettingControllerApi.getUserSettingDashboardUsingGET().subscribe(
       (payload) => {
         savedConfig = payload?.configValue;
         if (savedConfig && atob(savedConfig) !== null) {

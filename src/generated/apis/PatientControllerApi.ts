@@ -33,7 +33,6 @@ export interface GetPatientUsingGETRequest {
 export interface GetPatientsUsingGETRequest {
     page?: number;
     size?: number;
-    paged?: boolean;
 }
 
 export interface MergePatientsUsingGETRequest {
@@ -161,9 +160,9 @@ export class PatientControllerApi extends BaseAPI {
     /**
      * getPatients
      */
-    getPatientsUsingGET({ page, size, paged }: GetPatientsUsingGETRequest): Observable<PageOfPatientDTO>
-    getPatientsUsingGET({ page, size, paged }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfPatientDTO>>
-    getPatientsUsingGET({ page, size, paged }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<PageOfPatientDTO | RawAjaxResponse<PageOfPatientDTO>> {
+    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest): Observable<PageOfPatientDTO>
+    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOfPatientDTO>>
+    getPatientsUsingGET({ page, size }: GetPatientsUsingGETRequest, opts?: OperationOpts): Observable<PageOfPatientDTO | RawAjaxResponse<PageOfPatientDTO>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -173,7 +172,6 @@ export class PatientControllerApi extends BaseAPI {
 
         if (page != null) { query['page'] = page; }
         if (size != null) { query['size'] = size; }
-        if (paged != null) { query['paged'] = paged; }
 
         return this.request<PageOfPatientDTO>({
             url: '/patients',
@@ -244,7 +242,7 @@ export class PatientControllerApi extends BaseAPI {
         const query: HttpQuery = {};
 
         if (address != null) { query['address'] = address; }
-        if (birthDate != null) { query['birthDate'] = birthDate; }
+        if (birthDate != null) { query['birthDate'] = (birthDate as any).toISOString(); }
         if (firstName != null) { query['firstName'] = firstName; }
         if (secondName != null) { query['secondName'] = secondName; }
 

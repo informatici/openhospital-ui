@@ -3,8 +3,7 @@ import { IAuthentication } from "../../state/main/types";
 import { SessionStorage } from "../storage/storage";
 
 export const getAuthenticationFromSession = (): IAuthentication => {
-  const { permissions, userGroupName, userDesc } =
-    SessionStorage.read(PERMISSION_KEY);
+  const { permissions, userName } = SessionStorage.read(PERMISSION_KEY);
   const { username, token } = SessionStorage.read(AUTH_KEY);
 
   if (!(token && username && permissions)) {
@@ -14,8 +13,6 @@ export const getAuthenticationFromSession = (): IAuthentication => {
   return {
     username,
     permissions,
-    userDesc,
-    userGroupName,
     token,
   };
 };

@@ -23,7 +23,7 @@ import {
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { LaboratoryDTO, LaboratoryForPrintDTO } from "../../../generated";
+import { LaboratoryDTO } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
