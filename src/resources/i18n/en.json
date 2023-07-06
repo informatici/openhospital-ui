@@ -3,7 +3,7 @@
     "somethingwrong": "Something went wrong, please retry later.",
     "incorrectcredentials": "Invalid username or password",
     "passwordtooshort": "Password too short",
-    "badrequest": "Bad reauest",
+    "badrequest": "Bad request",
     "internalerror": "An internal error occured"
   },
   "user": {

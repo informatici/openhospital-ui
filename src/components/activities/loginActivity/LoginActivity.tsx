@@ -58,8 +58,8 @@ const LoginActivity: FC = () => {
   const errorMessage = useSelector<IState>((state) => {
     const error = state.main.authentication.error;
     return error?.status == 401
-      ? t("login.incorrectcredentials")
-      : error?.message ?? t("common.somethingwrong");
+      ? t("errors.incorrectcredentials")
+      : error?.message ?? t("errors.somethingwrong");
   });
 
   const status = useSelector<IState>(
