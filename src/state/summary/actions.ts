@@ -52,11 +52,21 @@ export const loadSummaryData =
           catchError((err) => of([]))
         ),
         opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.opd)),
+          map((res) =>
+            convertToSummaryData(
+              res.map((e) => e.opdDTO),
+              SummaryField.opd
+            )
+          ),
           catchError((err) => of([]))
         ),
         laboratoryControllerApi.getLaboratoryUsingGET({ patId: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.exam)),
+          map((res) =>
+            convertToSummaryData(
+              res.map((e) => e.laboratoryDTO),
+              SummaryField.exam
+            )
+          ),
           catchError((err) => of([]))
         ),
         admissionControllerApi

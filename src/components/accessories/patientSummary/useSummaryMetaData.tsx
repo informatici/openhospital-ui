@@ -54,7 +54,6 @@ const useSummaryMetaData = () => {
   };
   const dateFields = [
     "date",
-    //"date",
     "admDate",
     "disDate",
     "opDate",
