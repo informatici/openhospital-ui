@@ -55,13 +55,12 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorMessage = useSelector<IState>((state) =>
-    t(
-      `errors.${
-        state.main.authentication.error?.description ?? "somethingwrong"
-      }`
-    )
-  );
+  const errorMessage = useSelector<IState>((state) => {
+    const error = state.main.authentication.error;
+    return error?.status == 401
+      ? t("login.incorrectcredentials")
+      : error?.message ?? t("common.somethingwrong");
+  });
 
   const status = useSelector<IState>(
     (state) => state.main.authentication.status || "IDLE"
