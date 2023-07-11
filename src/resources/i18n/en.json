@@ -1,4 +1,11 @@
 {
+  "errors": {
+    "somethingwrong": "Something went wrong, please retry later.",
+    "incorrectcredentials": "Invalid username or password",
+    "passwordtooshort": "Password too short",
+    "badrequest": "Bad request",
+    "internalerror": "An internal error occured"
+  },
   "user": {
     "username": "Username",
     "groups": "Groups",
@@ -64,16 +71,16 @@
       }
     },
     "availabledashboard": "Available Dashboards",
-    "opdbyagetype":"OPDs by age type",
-    "opdbysex":"OPDs by sex",
-    "admissionbyagetype":"Admissions by age type",
-    "admissionbysex":"Admissions by sex",
+    "opdbyagetype": "OPDs by age type",
+    "opdbysex": "OPDs by sex",
+    "admissionbyagetype": "Admissions by age type",
+    "admissionbysex": "Admissions by sex",
     "admissionbyward": "Admissions by ward",
-    "admissionbytype":"Admissions by type",
-    "dischargebysex":"Discharges by sex",
-    "dischargebyagetype":"Discharges by age type",
+    "admissionbytype": "Admissions by type",
+    "dischargebysex": "Discharges by sex",
+    "dischargebyagetype": "Discharges by age type",
     "dischargebyward": "Discharges by ward",
-    "dischargebytype":"Discharges by type",
+    "dischargebytype": "Discharges by type",
     "togglefullscreen": "Toggle Fullscreen",
     "removedashboard": "Remove the Dashboard component",
     "downloaddata": "Download the underlying data",
