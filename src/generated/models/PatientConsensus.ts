@@ -21,16 +21,6 @@ import {
  */
 export interface PatientConsensus {
     /**
-     * @type {number}
-     * @memberof PatientConsensus
-     */
-    active?: number;
-    /**
-     * @type {boolean}
-     * @memberof PatientConsensus
-     */
-    consensusFlag?: boolean;
-    /**
      * @type {string}
      * @memberof PatientConsensus
      */
@@ -40,11 +30,6 @@ export interface PatientConsensus {
      * @memberof PatientConsensus
      */
     createdDate?: string;
-    /**
-     * @type {number}
-     * @memberof PatientConsensus
-     */
-    id?: number;
     /**
      * @type {string}
      * @memberof PatientConsensus
@@ -56,13 +41,28 @@ export interface PatientConsensus {
      */
     lastModifiedDate?: string;
     /**
-     * @type {Patient}
+     * @type {number}
      * @memberof PatientConsensus
      */
-    patient?: Patient;
+    active?: number;
+    /**
+     * @type {number}
+     * @memberof PatientConsensus
+     */
+    id?: number;
+    /**
+     * @type {boolean}
+     * @memberof PatientConsensus
+     */
+    consensusFlag?: boolean;
     /**
      * @type {boolean}
      * @memberof PatientConsensus
      */
     serviceFlag?: boolean;
+    /**
+     * @type {Patient}
+     * @memberof PatientConsensus
+     */
+    patient?: Patient;
 }

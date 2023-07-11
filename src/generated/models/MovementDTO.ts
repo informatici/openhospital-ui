@@ -31,46 +31,46 @@ export interface MovementDTO {
      */
     code?: number;
     /**
-     * The movement date
-     * @type {string}
+     * @type {MedicalDTO}
      * @memberof MovementDTO
      */
-    date?: string;
+    medical: MedicalDTO;
+    /**
+     * @type {MovementTypeDTO}
+     * @memberof MovementDTO
+     */
+    type: MovementTypeDTO;
+    /**
+     * @type {WardDTO}
+     * @memberof MovementDTO
+     */
+    ward?: WardDTO;
     /**
      * @type {LotDTO}
      * @memberof MovementDTO
      */
     lot?: LotDTO;
     /**
-     * @type {MedicalDTO}
+     * The movement date
+     * @type {string}
      * @memberof MovementDTO
      */
-    medical?: MedicalDTO;
+    date: string;
     /**
      * The movement\'s medical quantity
      * @type {number}
      * @memberof MovementDTO
      */
-    quantity?: number;
-    /**
-     * The movement reference
-     * @type {string}
-     * @memberof MovementDTO
-     */
-    refNo?: string;
+    quantity: number;
     /**
      * @type {SupplierDTO}
      * @memberof MovementDTO
      */
     supplier?: SupplierDTO;
     /**
-     * @type {MovementTypeDTO}
+     * The movement reference
+     * @type {string}
      * @memberof MovementDTO
      */
-    type?: MovementTypeDTO;
-    /**
-     * @type {WardDTO}
-     * @memberof MovementDTO
-     */
-    ward?: WardDTO;
+    refNo: string;
 }

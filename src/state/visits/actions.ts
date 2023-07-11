@@ -1,6 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { VisitDTO, VisitsControllerApi } from "../../generated";
+import { VisitDTO } from "../../generated";
+import { VisitsControllerApi } from "../../generated/apis/VisitsControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

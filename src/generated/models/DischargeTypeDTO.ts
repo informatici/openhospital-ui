@@ -12,6 +12,7 @@
  */
 
 /**
+ * disChargeType
  * @export
  * @interface DischargeTypeDTO
  */
@@ -21,11 +22,11 @@ export interface DischargeTypeDTO {
      * @type {string}
      * @memberof DischargeTypeDTO
      */
-    code?: string;
+    code: string;
     /**
      * description of the discharge type
      * @type {string}
      * @memberof DischargeTypeDTO
      */
-    description?: string;
+    description: string;
 }

@@ -21,11 +21,6 @@ import {
  */
 export interface TherapyRow {
     /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    active?: number;
-    /**
      * @type {string}
      * @memberof TherapyRow
      */
@@ -35,21 +30,6 @@ export interface TherapyRow {
      * @memberof TherapyRow
      */
     createdDate?: string;
-    /**
-     * @type {string}
-     * @memberof TherapyRow
-     */
-    endDate: string;
-    /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    freqInDay: number;
-    /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    freqInPeriod: number;
     /**
      * @type {string}
      * @memberof TherapyRow
@@ -64,60 +44,80 @@ export interface TherapyRow {
      * @type {number}
      * @memberof TherapyRow
      */
-    medical?: number;
-    /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    medicalId: number;
-    /**
-     * @type {string}
-     * @memberof TherapyRow
-     */
-    note?: string;
-    /**
-     * @type {boolean}
-     * @memberof TherapyRow
-     */
-    notify?: boolean;
-    /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    notifyInt: number;
-    /**
-     * @type {Patient}
-     * @memberof TherapyRow
-     */
-    patient: Patient;
-    /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    qty: number;
-    /**
-     * @type {boolean}
-     * @memberof TherapyRow
-     */
-    sms?: boolean;
-    /**
-     * @type {number}
-     * @memberof TherapyRow
-     */
-    smsInt: number;
-    /**
-     * @type {string}
-     * @memberof TherapyRow
-     */
-    startDate: string;
+    active?: number;
     /**
      * @type {number}
      * @memberof TherapyRow
      */
     therapyID?: number;
     /**
+     * @type {Patient}
+     * @memberof TherapyRow
+     */
+    patient: Patient;
+    /**
+     * @type {string}
+     * @memberof TherapyRow
+     */
+    startDate: string;
+    /**
+     * @type {string}
+     * @memberof TherapyRow
+     */
+    endDate: string;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    medicalId: number;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    qty: number;
+    /**
      * @type {number}
      * @memberof TherapyRow
      */
     unitID: number;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    freqInDay: number;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    freqInPeriod: number;
+    /**
+     * @type {string}
+     * @memberof TherapyRow
+     */
+    note?: string;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    notifyInt: number;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    smsInt: number;
+    /**
+     * @type {number}
+     * @memberof TherapyRow
+     */
+    medical?: number;
+    /**
+     * @type {boolean}
+     * @memberof TherapyRow
+     */
+    notify?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof TherapyRow
+     */
+    sms?: boolean;
 }

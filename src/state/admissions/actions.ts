@@ -2,11 +2,11 @@ import { isEmpty } from "lodash";
 import moment from "moment";
 import { Dispatch } from "redux";
 import {
-  AdmissionControllerApi,
   AdmissionDTO,
   AdmittedPatientDTO,
-  PageOfAdmissionDTO,
+  PageAdmissionDTO,
 } from "../../generated";
+import { AdmissionControllerApi } from "../../generated/apis/AdmissionControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -207,7 +207,7 @@ export const getAdmissions =
     page?: number;
     size?: number;
   }) =>
-  (dispatch: Dispatch<IAction<PageOfAdmissionDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PageAdmissionDTO, {}>>): void => {
     dispatch({
       type: GET_ADMISSIONS_LOADING,
     });
@@ -272,7 +272,7 @@ export const getDischarges =
     page?: number;
     size?: number;
   }) =>
-  (dispatch: Dispatch<IAction<PageOfAdmissionDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PageAdmissionDTO, {}>>): void => {
     dispatch({
       type: GET_DISCHARGES_LOADING,
     });

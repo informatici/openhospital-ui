@@ -111,7 +111,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
         pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
           ? null
           : formattedValues.pex_bowel_desc,
-      });
+      } as any);
     },
   });
 

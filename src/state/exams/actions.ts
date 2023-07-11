@@ -1,11 +1,8 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import {
-  ExamControllerApi,
-  ExamDTO,
-  ExamRowControllerApi,
-  ExamRowDTO,
-} from "../../generated";
+import { ExamDTO, ExamRowDTO } from "../../generated";
+import { ExamControllerApi } from "../../generated/apis/ExamControllerApi";
+import { ExamRowControllerApi } from "../../generated/apis/ExamRowControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

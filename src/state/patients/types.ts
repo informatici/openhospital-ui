@@ -1,4 +1,4 @@
-import { PageOfPatientDTO, PatientDTO } from "../../generated";
+import { PagePatientDTO, PatientDTO } from "../../generated";
 import { IApiResponse } from "../types";
 
 export type IPatientsState = {
@@ -7,5 +7,5 @@ export type IPatientsState = {
   selectedPatient: IApiResponse<PatientDTO>;
   updatePatient: IApiResponse<PatientDTO>;
   getCities: IApiResponse<Array<string>>;
-  getPatients: IApiResponse<PageOfPatientDTO>;
+  getPatients: IApiResponse<PagePatientDTO>;
 };

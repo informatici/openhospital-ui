@@ -91,8 +91,10 @@ const PatientOPD: FunctionComponent = () => {
     setShouldResetForm(false);
     if (opdValues.opdDTO) {
       opdValues.opdDTO.patientCode = patient?.code;
-      opdValues.opdDTO.age = patient?.age;
-      opdValues.opdDTO.sex = patient?.sex;
+      if (patient) {
+        opdValues.opdDTO.age = patient?.age;
+        opdValues.opdDTO.sex = patient?.sex;
+      }
       opdValues.opdDTO.userID = userId;
       opdValues.opdDTO.patientName =
         patient?.firstName + " " + patient?.secondName;

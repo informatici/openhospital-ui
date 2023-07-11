@@ -14,7 +14,7 @@ export const labWithRowsDTO = [
         },
         lock: 1,
       },
-      date: "2021-08-04T15:19:44.000Z",
+      labDate: "2021-08-04T15:19:44.000Z",
       result: "NEGATIVE",
       lock: 0,
       note: "should take exam after 1 month",
@@ -24,7 +24,7 @@ export const labWithRowsDTO = [
       age: 78,
       sex: "M",
     },
-    laboratoryRowList: []
+    laboratoryRowList: [],
   },
 
   {
@@ -42,7 +42,7 @@ export const labWithRowsDTO = [
         },
         lock: 1,
       },
-      date: "2021-08-05T15:19:44.000Z",
+      labDate: "2021-08-05T15:19:44.000Z",
       result: "POSITIVE",
       lock: 0,
       note: "After a two weeks",
@@ -52,7 +52,7 @@ export const labWithRowsDTO = [
       age: 78,
       sex: "M",
     },
-    laboratoryRowList: []
+    laboratoryRowList: [],
   },
   {
     laboratoryDTO: {
@@ -68,7 +68,7 @@ export const labWithRowsDTO = [
         },
         lock: 1,
       },
-      date: "2021-08-05T15:19:44.000Z",
+      labDate: "2021-08-05T15:19:44.000Z",
       result: "POSITIVE",
       lock: 0,
       note: "After a week",
@@ -78,6 +78,6 @@ export const labWithRowsDTO = [
       age: 78,
       sex: "M",
     },
-    laboratoryRowList: ["RB", "CH", "RT"]
+    laboratoryRowList: ["RB", "CH", "RT"],
   },
 ];

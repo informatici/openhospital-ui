@@ -26,22 +26,22 @@ export interface VaccineDTO {
      * @type {string}
      * @memberof VaccineDTO
      */
-    code?: string;
+    code: string;
     /**
      * Description of the vaccine
      * @type {string}
      * @memberof VaccineDTO
      */
-    description?: string;
+    description: string;
+    /**
+     * @type {VaccineTypeDTO}
+     * @memberof VaccineDTO
+     */
+    vaccineType: VaccineTypeDTO;
     /**
      * lock
      * @type {number}
      * @memberof VaccineDTO
      */
     lock?: number;
-    /**
-     * @type {VaccineTypeDTO}
-     * @memberof VaccineDTO
-     */
-    vaccineType?: VaccineTypeDTO;
 }

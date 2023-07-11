@@ -12,6 +12,7 @@
  */
 
 /**
+ * The lot
  * @export
  * @interface LotDTO
  */
@@ -21,23 +22,23 @@ export interface LotDTO {
      * @type {string}
      * @memberof LotDTO
      */
-    code?: string;
+    code: string;
+    /**
+     * The preparation date
+     * @type {string}
+     * @memberof LotDTO
+     */
+    preparationDate: string;
+    /**
+     * The due date
+     * @type {string}
+     * @memberof LotDTO
+     */
+    dueDate: string;
     /**
      * The lot\'s code
      * @type {number}
      * @memberof LotDTO
      */
     cost?: number;
-    /**
-     * The due date
-     * @type {string}
-     * @memberof LotDTO
-     */
-    dueDate?: string;
-    /**
-     * The preparation date
-     * @type {string}
-     * @memberof LotDTO
-     */
-    preparationDate?: string;
 }

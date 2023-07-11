@@ -21,11 +21,11 @@ export interface MedicalTypeDTO {
      * @type {string}
      * @memberof MedicalTypeDTO
      */
-    code?: string;
+    code: string;
     /**
      * Description of the medical type
      * @type {string}
      * @memberof MedicalTypeDTO
      */
-    description?: string;
+    description: string;
 }

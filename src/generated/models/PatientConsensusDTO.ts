@@ -24,15 +24,15 @@ export interface PatientConsensusDTO {
      */
     consensusFlag?: boolean;
     /**
-     * patient id
-     * @type {number}
-     * @memberof PatientConsensusDTO
-     */
-    patientId?: number;
-    /**
      * service flag
      * @type {boolean}
      * @memberof PatientConsensusDTO
      */
     serviceFlag?: boolean;
+    /**
+     * patient id
+     * @type {number}
+     * @memberof PatientConsensusDTO
+     */
+    patientId: number;
 }

@@ -2,11 +2,8 @@ import isEmpty from "lodash.isempty";
 import moment from "moment";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
-import {
-  PageOfPatientDTO,
-  PatientControllerApi,
-  PatientDTO,
-} from "../../generated";
+import { PagePatientDTO, PatientDTO } from "../../generated";
+import { PatientControllerApi } from "../../generated/apis/PatientControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -247,7 +244,7 @@ export const getCities =
 
 export const getPatients =
   ({ page, size }: { page?: number; size?: number }) =>
-  (dispatch: Dispatch<IAction<PageOfPatientDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PagePatientDTO, {}>>): void => {
     dispatch({
       type: GET_PATIENTS_LOADING,
     });

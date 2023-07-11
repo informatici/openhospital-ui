@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
-import { AdmissionDTO, AgeTypeControllerApi } from "../../generated";
+import { AdmissionDTO } from "../../generated";
+import { AgeTypeControllerApi } from "../../generated/apis/AgeTypeControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

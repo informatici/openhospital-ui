@@ -18,23 +18,145 @@
  */
 export interface PatientDTO {
   /**
-   * Address
+   * @type {number}
+   * @memberof PatientDTO
+   */
+  readonly code?: number;
+  /**
+   * First name of the patient
    * @type {string}
    * @memberof PatientDTO
    */
-  address?: string;
+  firstName: string;
+  /**
+   * Last name of the patient
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  secondName: string;
+  /**
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  readonly name?: string;
+  /**
+   * Birth date
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  birthDate?: string;
   /**
    * Age
    * @type {number}
    * @memberof PatientDTO
    */
-  age?: number;
+  age: number;
   /**
    * Age type
    * @type {string}
    * @memberof PatientDTO
    */
   agetype?: string;
+  /**
+   * Sex
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  sex: PatientDTOSexEnum;
+  /**
+   * Address
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  address?: string;
+  /**
+   * City
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  city: string;
+  /**
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  readonly nextKin?: string;
+  /**
+   * Telephone
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  telephone?: string;
+  /**
+   * Note
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  note?: string;
+  /**
+   * Mother\'s name
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  motherName: string;
+  /**
+   * Mother\'s status (D=dead, A=alive)
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  mother?: PatientDTOMotherEnum;
+  /**
+   * Father\'s name
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  fatherName: string;
+  /**
+   * Father\'s status (D=dead, A=alive)
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  father?: PatientDTOFatherEnum;
+  /**
+   * Blood type (0-/+, A-/+ , B-/+, AB-/+)
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  bloodType: string;
+  /**
+   * hasInsurance (Y=Yes, N=no)
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  hasInsurance?: PatientDTOHasInsuranceEnum;
+  /**
+   * Parent together (Y=Yes, N=no)
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  parentTogether?: PatientDTOParentTogetherEnum;
+  /**
+   * Tax code
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  taxCode?: string;
+  /**
+   * lock
+   * @type {number}
+   * @memberof PatientDTO
+   */
+  lock?: number;
+  /**
+   * BlobPhoto
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  blobPhoto?: string;
+  /**
+   * @type {number}
+   * @memberof PatientDTO
+   */
+  readonly hashCode?: number;
   /**
    * allergies of patient
    * @type {string}
@@ -48,35 +170,11 @@ export interface PatientDTO {
    */
   anamnesis?: string;
   /**
-   * Birth date
+   * status
    * @type {string}
    * @memberof PatientDTO
    */
-  birthDate?: string;
-  /**
-   * BlobPhoto
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  blobPhoto?: string;
-  /**
-   * Blood type (0-/+, A-/+ , B-/+, AB-/+)
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  bloodType?: string;
-  /**
-   * City
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  city?: string;
-  /**
-   * code of the Patient
-   * @type {number}
-   * @memberof PatientDTO
-   */
-  code?: number;
+  status?: PatientDTOStatusEnum;
   /**
    * consensus flag
    * @type {boolean}
@@ -89,131 +187,47 @@ export interface PatientDTO {
    * @memberof PatientDTO
    */
   consensusServiceFlag?: boolean;
-  /**
-   * Father\'s status (D=dead, A=alive)
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  father?: PatientDTOFatherEnum;
-  /**
-   * Father\'s name
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  fatherName?: string;
-  /**
-   * First name of the patient
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  firstName?: string;
-  /**
-   * hasInsurance (Y=Yes, N=no)
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  hasInsurance?: PatientDTOHasInsuranceEnum;
-  /**
-   * lock
-   * @type {number}
-   * @memberof PatientDTO
-   */
-  lock?: number;
-  /**
-   * Mother\'s status (D=dead, A=alive)
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  mother?: PatientDTOMotherEnum;
-  /**
-   * Mother\'s name
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  motherName?: string;
-  /**
-   * Note
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  note?: string;
-  /**
-   * Parent together (Y=Yes, N=no)
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  parentTogether?: PatientDTOParentTogetherEnum;
-  /**
-   * Last name of the patient
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  secondName?: string;
-  /**
-   * Sex
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  sex?: PatientDTOSexEnum;
-  /**
-   * status
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  status?: PatientDTOStatusEnum;
-  /**
-   * Tax code
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  taxCode?: string;
-  /**
-   * Telephone
-   * @type {string}
-   * @memberof PatientDTO
-   */
-  telephone?: string;
 }
 
 /**
  * @export
  * @enum {string}
  */
-export enum PatientDTOFatherEnum {
-  A = "A",
-  D = "D",
-}
-/**
- * @export
- * @enum {string}
- */
-export enum PatientDTOHasInsuranceEnum {
-  N = "N",
-  Y = "Y",
+export enum PatientDTOSexEnum {
+  M = "M",
+  F = "F",
 }
 /**
  * @export
  * @enum {string}
  */
 export enum PatientDTOMotherEnum {
-  A = "A",
   D = "D",
+  A = "A",
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum PatientDTOFatherEnum {
+  D = "D",
+  A = "A",
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum PatientDTOHasInsuranceEnum {
+  Y = "Y",
+  N = "N",
 }
 /**
  * @export
  * @enum {string}
  */
 export enum PatientDTOParentTogetherEnum {
-  N = "N",
   Y = "Y",
-}
-/**
- * @export
- * @enum {string}
- */
-export enum PatientDTOSexEnum {
-  F = "F",
-  M = "M",
+  N = "N",
 }
 /**
  * @export

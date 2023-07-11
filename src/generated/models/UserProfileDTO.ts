@@ -17,13 +17,13 @@
  */
 export interface UserProfileDTO {
     /**
-     * @type {Array<string>}
-     * @memberof UserProfileDTO
-     */
-    permissions?: Array<string>;
-    /**
      * @type {string}
      * @memberof UserProfileDTO
      */
     userName?: string;
+    /**
+     * @type {Array<string>}
+     * @memberof UserProfileDTO
+     */
+    permissions?: Array<string>;
 }

@@ -1,13 +1,10 @@
 import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
-import {
-  LoginApiApi,
-  LoginControllerApi,
-  LoginRequest,
-  UserControllerApi,
-  UserProfileDTO,
-} from "../../generated";
+import { LoginRequest, UserProfileDTO } from "../../generated";
+import { LoginApiApi } from "../../generated/apis/LoginApiApi";
+import { LoginControllerApi } from "../../generated/apis/LoginControllerApi";
+import { UserControllerApi } from "../../generated/apis/UserControllerApi";
 import { LoginResponse } from "../../generated/models/LoginResponse";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";

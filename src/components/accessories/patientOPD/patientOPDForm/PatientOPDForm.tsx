@@ -134,7 +134,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      const opdToSave: OpdDTO = {
+      const opdToSave: any = {
         ...formattedValues,
         referralFrom: isEmpty(formattedValues.referralFrom)
           ? undefined
@@ -276,7 +276,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       operationCreationMode
         ? {
             opDate: formik.values?.date,
-            operation: {},
             prescriber: "",
             opResult: "",
           }

@@ -135,7 +135,6 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
       creationMode
         ? {
             opDate: opd?.date!,
-            operation: {},
             prescriber: "",
             opResult: "",
           }

@@ -136,7 +136,7 @@ const DischargeForm: FC<DischargeProps> = ({
         (item) => item.code === formattedValues.disType
       );
 
-      onSubmit(formattedValues);
+      onSubmit(formattedValues as any);
     },
   });
 

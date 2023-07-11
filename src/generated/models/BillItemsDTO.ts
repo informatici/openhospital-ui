@@ -18,55 +18,60 @@
  */
 export interface BillItemsDTO {
     /**
+     * @type {number}
+     * @memberof BillItemsDTO
+     */
+    id?: number;
+    /**
      * Bill id
      * @type {number}
      * @memberof BillItemsDTO
      */
     billId?: number;
     /**
-     * @type {number}
+     * The price Id
+     * @type {string}
      * @memberof BillItemsDTO
      */
-    id?: number;
-    /**
-     * item amount
-     * @type {number}
-     * @memberof BillItemsDTO
-     */
-    itemAmount?: number;
+    priceId: string;
     /**
      * item description
      * @type {string}
      * @memberof BillItemsDTO
      */
-    itemDescription?: string;
+    itemDescription: string;
     /**
-     * item display code
-     * @type {string}
+     * item amount
+     * @type {number}
      * @memberof BillItemsDTO
      */
-    itemDisplayCode?: string;
-    /**
-     * item id
-     * @type {string}
-     * @memberof BillItemsDTO
-     */
-    itemId?: string;
+    itemAmount: number;
     /**
      * item quantity
      * @type {number}
      * @memberof BillItemsDTO
      */
-    itemQuantity?: number;
+    itemQuantity: number;
+    /**
+     * item display code
+     * @type {string}
+     * @memberof BillItemsDTO
+     */
+    itemDisplayCode: string;
+    /**
+     * item id
+     * @type {string}
+     * @memberof BillItemsDTO
+     */
+    itemId: string;
+    /**
+     * @type {number}
+     * @memberof BillItemsDTO
+     */
+    readonly hashCode?: number;
     /**
      * @type {boolean}
      * @memberof BillItemsDTO
      */
     price?: boolean;
-    /**
-     * The price Id
-     * @type {string}
-     * @memberof BillItemsDTO
-     */
-    priceId?: string;
 }

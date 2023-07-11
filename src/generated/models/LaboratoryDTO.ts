@@ -21,64 +21,22 @@ import {
  */
 export interface LaboratoryDTO {
     /**
-     * Laboratory Patient Age
-     * @type {number}
-     * @memberof LaboratoryDTO
-     */
-    age?: number;
-    /**
      * Laboratory Code
      * @type {number}
      * @memberof LaboratoryDTO
      */
     code?: number;
     /**
-     * @type {ExamDTO}
-     * @memberof LaboratoryDTO
-     */
-    exam?: ExamDTO;
-    /**
-     * Laboratory Patient InOut
-     * @type {string}
-     * @memberof LaboratoryDTO
-     */
-    inOutPatient?: LaboratoryDTOInOutPatientEnum;
-    /**
-     * Laboratory Exam Date
-     * @type {string}
-     * @memberof LaboratoryDTO
-     */
-    labDate?: string;
-    /**
-     * lock
-     * @type {number}
-     * @memberof LaboratoryDTO
-     */
-    lock?: number;
-    /**
-     * Blood
+     * Laboratory Material
      * @type {string}
      * @memberof LaboratoryDTO
      */
     material?: string;
     /**
-     * Note by laboratorist
-     * @type {string}
+     * @type {ExamDTO}
      * @memberof LaboratoryDTO
      */
-    note?: string;
-    /**
-     * Laboratory Patient Name
-     * @type {string}
-     * @memberof LaboratoryDTO
-     */
-    patName?: string;
-    /**
-     * Laboratory Patient Code
-     * @type {number}
-     * @memberof LaboratoryDTO
-     */
-    patientCode?: number;
+    exam?: ExamDTO;
     /**
      * Laboratory Registration Date
      * @type {string}
@@ -86,11 +44,53 @@ export interface LaboratoryDTO {
      */
     registrationDate?: string;
     /**
+     * Laboratory Exam Date
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    labDate?: string;
+    /**
      * Laboratory Result
      * @type {string}
      * @memberof LaboratoryDTO
      */
     result?: string;
+    /**
+     * lock
+     * @type {number}
+     * @memberof LaboratoryDTO
+     */
+    lock?: number;
+    /**
+     * Laboratory Note
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    note?: string;
+    /**
+     * Laboratory Patient Code
+     * @type {number}
+     * @memberof LaboratoryDTO
+     */
+    patientCode?: number;
+    /**
+     * Laboratory Patient Name
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    patName?: string;
+    /**
+     * Laboratory Patient InOut
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    inOutPatient?: LaboratoryDTOInOutPatientEnum;
+    /**
+     * Laboratory Patient Age
+     * @type {number}
+     * @memberof LaboratoryDTO
+     */
+    age?: number;
     /**
      * Laboratory Patient Sex
      * @type {string}
@@ -118,10 +118,10 @@ export enum LaboratoryDTOInOutPatientEnum {
  * @enum {string}
  */
 export enum LaboratoryDTOStatusEnum {
-    DELETED = 'DELETED',
-    DONE = 'DONE',
-    DRAFT = 'DRAFT',
-    INVALID = 'INVALID',
-    OPEN = 'OPEN'
+    Draft = 'draft',
+    Open = 'open',
+    Done = 'done',
+    Invalid = 'invalid',
+    Deleted = 'deleted'
 }
 

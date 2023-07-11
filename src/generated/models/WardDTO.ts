@@ -17,11 +17,6 @@
  */
 export interface WardDTO {
     /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    beds: number;
-    /**
      * @type {string}
      * @memberof WardDTO
      */
@@ -32,25 +27,40 @@ export interface WardDTO {
      */
     description: string;
     /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    docs: number;
-    /**
      * @type {string}
      * @memberof WardDTO
      */
-    email?: string;
+    telephone?: string;
     /**
      * @type {string}
      * @memberof WardDTO
      */
     fax?: string;
     /**
-     * @type {boolean}
+     * @type {string}
      * @memberof WardDTO
      */
-    female?: boolean;
+    email?: string;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    beds: number;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    nurs: number;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    docs: number;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    visitDuration: number;
     /**
      * lock
      * @type {number}
@@ -61,25 +71,15 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    male?: boolean;
-    /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    nurs: number;
+    pharmacy?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO
      */
-    pharmacy?: boolean;
+    female?: boolean;
     /**
-     * @type {string}
+     * @type {boolean}
      * @memberof WardDTO
      */
-    telephone?: string;
-    /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    visitDuration: number;
+    male?: boolean;
 }

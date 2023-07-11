@@ -46,7 +46,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         itemToEdit == undefined
           ? (items.map((e) => e.id).sort()[items.length - 1] ?? 0) + 1
           : itemToEdit?.id;
-      let item: BillItemsDTO = { id: id };
+      let item: any = { id: id };
       item.itemQuantity = values?.itemQuantity;
       if (itemType == ItemGroups.other.id) {
         item.itemAmount = values?.itemAmount;
@@ -63,7 +63,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         item.itemDescription = priceDTO.description;
         item.itemId = priceDTO.item;
         item.price = true;
-        item.priceId = priceDTO.id?.toString();
+        item.priceId = priceDTO.id?.toString() ?? "";
         onSubmit(item, itemToEdit == undefined ? true : false);
       }
     },

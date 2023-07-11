@@ -140,14 +140,14 @@ export class StockMovementControllerApi extends BaseAPI {
 
         const query: HttpQuery = {};
 
-        if (lotDueFrom != null) { query['lot_due_from'] = (lotDueFrom as any).toISOString(); }
-        if (lotDueTo != null) { query['lot_due_to'] = (lotDueTo as any).toISOString(); }
-        if (lotPrepFrom != null) { query['lot_prep_from'] = (lotPrepFrom as any).toISOString(); }
-        if (lotPrepTo != null) { query['lot_prep_to'] = (lotPrepTo as any).toISOString(); }
+        if (lotDueFrom != null) { query['lot_due_from'] = lotDueFrom; }
+        if (lotDueTo != null) { query['lot_due_to'] = lotDueTo; }
+        if (lotPrepFrom != null) { query['lot_prep_from'] = lotPrepFrom; }
+        if (lotPrepTo != null) { query['lot_prep_to'] = lotPrepTo; }
         if (medCode != null) { query['med_code'] = medCode; }
         if (medType != null) { query['med_type'] = medType; }
-        if (movFrom != null) { query['mov_from'] = (movFrom as any).toISOString(); }
-        if (movTo != null) { query['mov_to'] = (movTo as any).toISOString(); }
+        if (movFrom != null) { query['mov_from'] = movFrom; }
+        if (movTo != null) { query['mov_to'] = movTo; }
         if (movType != null) { query['mov_type'] = movType; }
         if (wardId != null) { query['ward_id'] = wardId; }
 
@@ -174,8 +174,8 @@ export class StockMovementControllerApi extends BaseAPI {
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'from': (from as any).toISOString(),
-            'to': (to as any).toISOString(),
+            'from': from,
+            'to': to,
             'ward_id': wardId,
         };
 

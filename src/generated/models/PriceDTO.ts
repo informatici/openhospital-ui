@@ -22,37 +22,47 @@ import {
  */
 export interface PriceDTO {
     /**
-     * the description
-     * @type {string}
-     * @memberof PriceDTO
-     */
-    description?: string;
-    /**
-     * the group
-     * @type {string}
-     * @memberof PriceDTO
-     */
-    group?: string;
-    /**
      * @type {number}
      * @memberof PriceDTO
      */
     id?: number;
     /**
+     * @type {PriceList}
+     * @memberof PriceDTO
+     */
+    list: PriceList;
+    /**
+     * the group
+     * @type {string}
+     * @memberof PriceDTO
+     */
+    group: string;
+    /**
      * the item name
      * @type {string}
      * @memberof PriceDTO
      */
-    item?: string;
+    item: string;
     /**
-     * @type {PriceList}
+     * the description
+     * @type {string}
      * @memberof PriceDTO
      */
-    list?: PriceList;
+    description: string;
     /**
      * price
      * @type {number}
      * @memberof PriceDTO
      */
-    price?: number;
+    price: number;
+    /**
+     * @type {boolean}
+     * @memberof PriceDTO
+     */
+    readonly editable?: boolean;
+    /**
+     * @type {number}
+     * @memberof PriceDTO
+     */
+    readonly hashCode?: number;
 }

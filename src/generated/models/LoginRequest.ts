@@ -17,15 +17,15 @@
  */
 export interface LoginRequest {
     /**
-     * password of user
-     * @type {string}
-     * @memberof LoginRequest
-     */
-    password?: string;
-    /**
      * username
      * @type {string}
      * @memberof LoginRequest
      */
-    username?: string;
+    username: string;
+    /**
+     * password of user
+     * @type {string}
+     * @memberof LoginRequest
+     */
+    password: string;
 }

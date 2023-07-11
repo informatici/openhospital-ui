@@ -187,7 +187,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
         (item) => item.code === formattedValues.disType
       );
 
-      onSubmit(formattedValues);
+      onSubmit(formattedValues as any);
     },
   });
 

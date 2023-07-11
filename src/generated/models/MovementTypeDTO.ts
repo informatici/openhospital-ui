@@ -21,17 +21,17 @@ export interface MovementTypeDTO {
      * @type {string}
      * @memberof MovementTypeDTO
      */
-    code?: string;
+    code: string;
     /**
      * Description of the movement type
      * @type {string}
      * @memberof MovementTypeDTO
      */
-    description?: string;
+    description: string;
     /**
      * Type of the movement type
      * @type {string}
      * @memberof MovementTypeDTO
      */
-    type?: string;
+    type: string;
 }

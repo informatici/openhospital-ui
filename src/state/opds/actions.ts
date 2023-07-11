@@ -1,11 +1,7 @@
 import moment from "moment";
 import { Dispatch } from "redux";
-import {
-  OpdControllerApi,
-  OpdDTO,
-  OpdWithOperatioRowDTO,
-  PageOfOpdDTO,
-} from "../../generated";
+import { OpdDTO, OpdWithOperatioRowDTO, PageOpdDTO } from "../../generated";
+import { OpdControllerApi } from "../../generated/apis/OpdControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 
@@ -233,7 +229,7 @@ export const getLastOpd =
 
 export const searchOpds =
   (query: any) =>
-  (dispatch: Dispatch<IAction<PageOfOpdDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PageOpdDTO, {}>>): void => {
     dispatch({
       type: SEARCH_OPD_LOADING,
     });

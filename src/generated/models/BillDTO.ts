@@ -22,77 +22,77 @@ import {
  */
 export interface BillDTO {
     /**
-     * Bill Amount
-     * @type {number}
-     * @memberof BillDTO
-     */
-    amount?: number;
-    /**
-     * Bill balance
-     * @type {number}
-     * @memberof BillDTO
-     */
-    balance?: number;
-    /**
-     * Date of bill creation
-     * @type {string}
-     * @memberof BillDTO
-     */
-    date?: string;
-    /**
      * @type {number}
      * @memberof BillDTO
      */
     id?: number;
-    /**
-     * @type {boolean}
-     * @memberof BillDTO
-     */
-    list?: boolean;
-    /**
-     * @type {number}
-     * @memberof BillDTO
-     */
-    listId?: number;
-    /**
-     * Price list name
-     * @type {string}
-     * @memberof BillDTO
-     */
-    listName?: string;
-    /**
-     * patient name
-     * @type {string}
-     * @memberof BillDTO
-     */
-    patName?: string;
     /**
      * @type {PatientDTO}
      * @memberof BillDTO
      */
     patient?: PatientDTO;
     /**
-     * Is bill belongs to a patient?
-     * @type {boolean}
+     * @type {number}
      * @memberof BillDTO
      */
-    patientTrue?: boolean;
+    listId?: number;
     /**
-     * Bill status
+     * Date of bill creation
      * @type {string}
      * @memberof BillDTO
      */
-    status?: string;
+    date: string;
     /**
      * Date of bill updated
      * @type {string}
      * @memberof BillDTO
      */
-    update?: string;
+    update: string;
+    /**
+     * Price list name
+     * @type {string}
+     * @memberof BillDTO
+     */
+    listName: string;
+    /**
+     * Is bill belongs to a patient?
+     * @type {boolean}
+     * @memberof BillDTO
+     */
+    patientTrue: boolean;
+    /**
+     * patient name
+     * @type {string}
+     * @memberof BillDTO
+     */
+    patName: string;
+    /**
+     * Bill status
+     * @type {string}
+     * @memberof BillDTO
+     */
+    status: string;
+    /**
+     * Bill Amount
+     * @type {number}
+     * @memberof BillDTO
+     */
+    amount: number;
+    /**
+     * Bill balance
+     * @type {number}
+     * @memberof BillDTO
+     */
+    balance: number;
     /**
      * user name who create the bill
      * @type {string}
      * @memberof BillDTO
      */
-    user?: string;
+    user: string;
+    /**
+     * @type {boolean}
+     * @memberof BillDTO
+     */
+    list?: boolean;
 }

@@ -17,41 +17,29 @@
  */
 export interface SupplierDTO {
     /**
+     * The supplier\'s ID
+     * @type {number}
+     * @memberof SupplierDTO
+     */
+    supId: number;
+    /**
+     * The supplier\'s name
+     * @type {string}
+     * @memberof SupplierDTO
+     */
+    supName: string;
+    /**
      * The supplier\'s address
      * @type {string}
      * @memberof SupplierDTO
      */
     supAddress?: string;
     /**
-     * The supplier\'s e-mail address
+     * The supplier\'s tax code
      * @type {string}
      * @memberof SupplierDTO
      */
-    supEmail?: string;
-    /**
-     * The supplier\'s fax number
-     * @type {string}
-     * @memberof SupplierDTO
-     */
-    supFax?: string;
-    /**
-     * The supplier\'s ID
-     * @type {number}
-     * @memberof SupplierDTO
-     */
-    supId?: number;
-    /**
-     * The supplier\'s name
-     * @type {string}
-     * @memberof SupplierDTO
-     */
-    supName?: string;
-    /**
-     * The supplier\'s notes
-     * @type {string}
-     * @memberof SupplierDTO
-     */
-    supNote?: string;
+    supTaxcode?: string;
     /**
      * The supplier\'s phone
      * @type {string}
@@ -59,9 +47,21 @@ export interface SupplierDTO {
      */
     supPhone?: string;
     /**
-     * The supplier\'s tax code
+     * The supplier\'s fax number
      * @type {string}
      * @memberof SupplierDTO
      */
-    supTaxcode?: string;
+    supFax?: string;
+    /**
+     * The supplier\'s e-mail address
+     * @type {string}
+     * @memberof SupplierDTO
+     */
+    supEmail?: string;
+    /**
+     * The supplier\'s notes
+     * @type {string}
+     * @memberof SupplierDTO
+     */
+    supNote?: string;
 }

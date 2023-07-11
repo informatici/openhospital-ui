@@ -27,5 +27,10 @@ export interface PregnantTreatmentTypeDTO {
      * @type {string}
      * @memberof PregnantTreatmentTypeDTO
      */
-    description?: string;
+    description: string;
+    /**
+     * @type {number}
+     * @memberof PregnantTreatmentTypeDTO
+     */
+    readonly hashCode?: number;
 }

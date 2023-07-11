@@ -43,8 +43,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id!);
+    if (isEmpty(patient.data) && patient.status === "IDLE" && id) {
+      getPatientThunk(id);
     }
   }, [patient, id, getPatientThunk]);
 

@@ -1,11 +1,11 @@
 import moment from "moment";
 import { Dispatch } from "redux";
 import {
-  LaboratoryControllerApi,
   LaboratoryDTO,
   LabWithRowsDTO,
-  PageOfLabWithRowsDTO,
+  PageLabWithRowsDTO,
 } from "../../generated";
+import { LaboratoryControllerApi } from "../../generated/apis/LaboratoryControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -127,7 +127,7 @@ export const getLabWithRowsByCodeReset =
 
 export const searchLabs =
   (query: any) =>
-  (dispatch: Dispatch<IAction<PageOfLabWithRowsDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PageLabWithRowsDTO, {}>>): void => {
     dispatch({
       type: SEARCH_LAB_LOADING,
     });

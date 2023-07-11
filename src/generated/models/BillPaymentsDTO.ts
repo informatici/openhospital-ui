@@ -18,32 +18,37 @@
  */
 export interface BillPaymentsDTO {
     /**
-     * the payment amount
-     * @type {number}
-     * @memberof BillPaymentsDTO
-     */
-    amount?: number;
-    /**
-     * Bill id
-     * @type {number}
-     * @memberof BillPaymentsDTO
-     */
-    billId?: number;
-    /**
-     * date of payment
-     * @type {string}
-     * @memberof BillPaymentsDTO
-     */
-    date?: string;
-    /**
      * @type {number}
      * @memberof BillPaymentsDTO
      */
     id?: number;
     /**
+     * Bill id
+     * @type {number}
+     * @memberof BillPaymentsDTO
+     */
+    billId: number;
+    /**
+     * date of payment
+     * @type {string}
+     * @memberof BillPaymentsDTO
+     */
+    date: string;
+    /**
+     * the payment amount
+     * @type {number}
+     * @memberof BillPaymentsDTO
+     */
+    amount: number;
+    /**
      * the current user
      * @type {string}
      * @memberof BillPaymentsDTO
      */
-    user?: string;
+    user: string;
+    /**
+     * @type {number}
+     * @memberof BillPaymentsDTO
+     */
+    readonly hashCode?: number;
 }

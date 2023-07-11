@@ -93,8 +93,8 @@ export class PatVacControllerApi extends BaseAPI {
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
             'ageFrom': ageFrom,
             'ageTo': ageTo,
-            'dateFrom': (dateFrom as any).toISOString().split('T')[0],
-            'dateTo': (dateTo as any).toISOString().split('T')[0],
+            'dateFrom': dateFrom,
+            'dateTo': dateTo,
             'sex': sex,
             'vaccineCode': vaccineCode,
             'vaccineTypeCode': vaccineTypeCode,

@@ -1,15 +1,13 @@
 import { Dispatch } from "redux";
 import { concat, of } from "rxjs";
 import { catchError, map, toArray } from "rxjs/operators";
-import {
-  AdmissionControllerApi,
-  ExaminationControllerApi,
-  LaboratoryControllerApi,
-  OpdControllerApi,
-  OperationControllerApi,
-  TherapyControllerApi,
-  VisitsControllerApi,
-} from "../../generated";
+import { AdmissionControllerApi } from "../../generated/apis/AdmissionControllerApi";
+import { ExaminationControllerApi } from "../../generated/apis/ExaminationControllerApi";
+import { LaboratoryControllerApi } from "../../generated/apis/LaboratoryControllerApi";
+import { OpdControllerApi } from "../../generated/apis/OpdControllerApi";
+import { OperationControllerApi } from "../../generated/apis/OperationControllerApi";
+import { TherapyControllerApi } from "../../generated/apis/TherapyControllerApi";
+import { VisitsControllerApi } from "../../generated/apis/VisitsControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { IAction } from "../types";

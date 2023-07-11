@@ -4,12 +4,12 @@ import { forkJoin, Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 import { TFilterValues } from "../../components/accessories/billTable/types";
 import {
-  BillControllerApi,
   BillDTO,
   BillItemsDTO,
   BillPaymentsDTO,
   FullBillDTO,
 } from "../../generated";
+import { BillControllerApi } from "../../generated/apis/BillControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -238,9 +238,9 @@ const getPayments = (bills: BillDTO[]): Observable<FullBillDTO[]> => {
             billDTO: bill,
             billItemsDTO: new Array<BillItemsDTO>(),
             billPaymentsDTO: payments,
-          } as FullBillDTO;
+          } as any as FullBillDTO;
         }),
-        catchError((error) => of({ billDTO: bill } as FullBillDTO))
+        catchError((error) => of({ billDTO: bill } as any as FullBillDTO))
       );
     })
   );
@@ -260,7 +260,7 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
             billDTO: fbill.bill,
             billItemsDTO: items,
             billPaymentsDTO: fbill.billPayments,
-          } as FullBillDTO;
+          } as any as FullBillDTO;
         }),
         catchError((error) => of({ ...fbill }))
       );
@@ -360,7 +360,7 @@ export const payBill =
       billControllerApi
         .updateBillUsingPUT({
           id: payment.billId,
-          odBillDto: { billPayments: [payment] },
+          odBillDto: { billPayments: [payment] } as any,
         })
         .subscribe(
           (payload) => {
@@ -394,7 +394,7 @@ export const closeBill =
       type: CLOSE_BILL_LOADING,
     });
     billControllerApi
-      .updateBillUsingPUT({ id: id, odBillDto: { bill: bill } })
+      .updateBillUsingPUT({ id: id, odBillDto: { bill: bill } as any })
       .subscribe(
         (payload) => {
           dispatch({

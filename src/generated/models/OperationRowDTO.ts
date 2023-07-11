@@ -24,35 +24,10 @@ import {
  */
 export interface OperationRowDTO {
     /**
-     * @type {AdmissionDTO}
-     * @memberof OperationRowDTO
-     */
-    admission?: AdmissionDTO;
-    /**
-     * @type {BillDTO}
-     * @memberof OperationRowDTO
-     */
-    bill?: BillDTO;
-    /**
      * @type {number}
      * @memberof OperationRowDTO
      */
     id?: number;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    opDate: string;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    opResult: string;
-    /**
-     * @type {OpdDTO}
-     * @memberof OperationRowDTO
-     */
-    opd?: OpdDTO;
     /**
      * @type {OperationDTO}
      * @memberof OperationRowDTO
@@ -67,10 +42,40 @@ export interface OperationRowDTO {
      * @type {string}
      * @memberof OperationRowDTO
      */
+    opResult: string;
+    /**
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    opDate: string;
+    /**
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
     remarks?: string;
+    /**
+     * @type {AdmissionDTO}
+     * @memberof OperationRowDTO
+     */
+    admission?: AdmissionDTO;
+    /**
+     * @type {OpdDTO}
+     * @memberof OperationRowDTO
+     */
+    opd?: OpdDTO;
+    /**
+     * @type {BillDTO}
+     * @memberof OperationRowDTO
+     */
+    bill?: BillDTO;
     /**
      * @type {number}
      * @memberof OperationRowDTO
      */
     transUnit?: number;
+    /**
+     * @type {number}
+     * @memberof OperationRowDTO
+     */
+    readonly hashCode?: number;
 }

@@ -12,8 +12,8 @@
  */
 
 import {
-    Image,
     Patient,
+    PatientProfilePhotoPhotoAsImage,
 } from './';
 
 /**
@@ -27,13 +27,13 @@ export interface PatientProfilePhoto {
      */
     patient?: Patient;
     /**
-     * @type {string}
+     * @type {Array<string>}
      * @memberof PatientProfilePhoto
      */
-    photo?: string;
+    photo?: Array<string>;
     /**
-     * @type {Image}
+     * @type {PatientProfilePhotoPhotoAsImage}
      * @memberof PatientProfilePhoto
      */
-    photoAsImage?: Image;
+    photoAsImage?: PatientProfilePhotoPhotoAsImage;
 }

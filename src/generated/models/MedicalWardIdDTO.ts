@@ -17,18 +17,19 @@ import {
 } from './';
 
 /**
+ * The medical ward\'s id
  * @export
  * @interface MedicalWardIdDTO
  */
 export interface MedicalWardIdDTO {
     /**
-     * @type {MedicalDTO}
-     * @memberof MedicalWardIdDTO
-     */
-    medical?: MedicalDTO;
-    /**
      * @type {WardDTO}
      * @memberof MedicalWardIdDTO
      */
-    ward?: WardDTO;
+    ward: WardDTO;
+    /**
+     * @type {MedicalDTO}
+     * @memberof MedicalWardIdDTO
+     */
+    medical: MedicalDTO;
 }

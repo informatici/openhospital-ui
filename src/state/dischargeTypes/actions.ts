@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
-import { AdmissionDTO, DischargeTypeControllerApi } from "../../generated";
+import { AdmissionDTO } from "../../generated";
+import { DischargeTypeControllerApi } from "../../generated/apis/DischargeTypeControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

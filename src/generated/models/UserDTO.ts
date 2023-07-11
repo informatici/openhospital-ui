@@ -21,26 +21,26 @@ import {
  */
 export interface UserDTO {
     /**
-     * the user\'s description
+     * the username (must be unique)
      * @type {string}
      * @memberof UserDTO
      */
-    desc?: string;
+    userName: string;
+    /**
+     * @type {UserGroupDTO}
+     * @memberof UserDTO
+     */
+    userGroupName: UserGroupDTO;
     /**
      * the user\'s password
      * @type {string}
      * @memberof UserDTO
      */
-    passwd?: string;
+    passwd: string;
     /**
-     * @type {UserGroupDTO}
-     * @memberof UserDTO
-     */
-    userGroupName?: UserGroupDTO;
-    /**
-     * the username (must be unique)
+     * the user\'s description
      * @type {string}
      * @memberof UserDTO
      */
-    userName?: string;
+    desc?: string;
 }

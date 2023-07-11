@@ -21,30 +21,6 @@ import {
  */
 export interface OpdDTO {
     /**
-     * the patient age
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    age?: number;
-    /**
-     * Age type
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    ageType?: string;
-    /**
-     * allergies of patient
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    allergies?: string;
-    /**
-     * history of a medical or psychiatric patient
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    anamnesis?: string;
-    /**
      * the code of the opd
      * @type {number}
      * @memberof OpdDTO
@@ -56,6 +32,60 @@ export interface OpdDTO {
      * @memberof OpdDTO
      */
     date?: string;
+    /**
+     * the visit date
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    visitDate: string;
+    /**
+     * the next visit date
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    nextVisitDate?: string;
+    /**
+     * the admitted patient code
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    patientCode?: number;
+    /**
+     * the patient age
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    age: number;
+    /**
+     * the patient sex
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    sex: string;
+    /**
+     * the patient sex
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    patientName?: string;
+    /**
+     * Age type
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    ageType?: string;
+    /**
+     * the admission note
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    note: string;
+    /**
+     * a progr. in year for each ward
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    prog_year?: number;
     /**
      * @type {DiseaseDTO}
      * @memberof OpdDTO
@@ -72,59 +102,11 @@ export interface OpdDTO {
      */
     disease3?: DiseaseDTO;
     /**
-     * lock
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    lock?: number;
-    /**
      * new(N) or reattendance(R) patient
      * @type {string}
      * @memberof OpdDTO
      */
-    newPatient?: string;
-    /**
-     * the next visit date
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    nextVisitDate?: string;
-    /**
-     * the admission note
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    note?: string;
-    /**
-     * the admitted patient code
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    patientCode?: number;
-    /**
-     * the patient sex
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    patientName?: string;
-    /**
-     * prescription
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    prescription?: string;
-    /**
-     * a progr. in year for each ward
-     * @type {number}
-     * @memberof OpdDTO
-     */
-    prog_year?: number;
-    /**
-     * reasons for entry
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    reason?: string;
+    newPatient: string;
     /**
      * referral from another unit
      * @type {string}
@@ -138,11 +120,39 @@ export interface OpdDTO {
      */
     referralTo?: string;
     /**
-     * the patient sex
+     * user id
      * @type {string}
      * @memberof OpdDTO
      */
-    sex?: string;
+    userID?: string;
+    /**
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    readonly lock?: number;
+    /**
+     * @type {number}
+     * @memberof OpdDTO
+     */
+    readonly hashCode?: number;
+    /**
+     * reasons for entry
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    reason?: string;
+    /**
+     * history of a medical or psychiatric patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    anamnesis?: string;
+    /**
+     * allergies of patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    allergies?: string;
     /**
      * Current therapies
      * @type {string}
@@ -150,15 +160,9 @@ export interface OpdDTO {
      */
     therapies?: string;
     /**
-     * user id
+     * prescription
      * @type {string}
      * @memberof OpdDTO
      */
-    userID?: string;
-    /**
-     * the visit date
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    visitDate?: string;
+    prescription?: string;
 }

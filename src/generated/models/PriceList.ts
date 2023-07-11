@@ -12,20 +12,11 @@
  */
 
 /**
+ * the price list
  * @export
  * @interface PriceList
  */
 export interface PriceList {
-    /**
-     * @type {number}
-     * @memberof PriceList
-     */
-    active?: number;
-    /**
-     * @type {string}
-     * @memberof PriceList
-     */
-    code: string;
     /**
      * @type {string}
      * @memberof PriceList
@@ -40,12 +31,17 @@ export interface PriceList {
      * @type {string}
      * @memberof PriceList
      */
-    currency: string;
+    lastModifiedBy?: string;
     /**
      * @type {string}
      * @memberof PriceList
      */
-    description: string;
+    lastModifiedDate?: string;
+    /**
+     * @type {number}
+     * @memberof PriceList
+     */
+    active?: number;
     /**
      * @type {number}
      * @memberof PriceList
@@ -55,15 +51,20 @@ export interface PriceList {
      * @type {string}
      * @memberof PriceList
      */
-    lastModifiedBy?: string;
-    /**
-     * @type {string}
-     * @memberof PriceList
-     */
-    lastModifiedDate?: string;
+    code: string;
     /**
      * @type {string}
      * @memberof PriceList
      */
     name: string;
+    /**
+     * @type {string}
+     * @memberof PriceList
+     */
+    description: string;
+    /**
+     * @type {string}
+     * @memberof PriceList
+     */
+    currency: string;
 }

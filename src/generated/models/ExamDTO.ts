@@ -16,6 +16,7 @@ import {
 } from './';
 
 /**
+ * Laboratory Exam
  * @export
  * @interface ExamDTO
  */
@@ -27,17 +28,23 @@ export interface ExamDTO {
      */
     code?: string;
     /**
-     * Exam Default Result
-     * @type {string}
-     * @memberof ExamDTO
-     */
-    defaultResult?: string;
-    /**
      * Exam Description
      * @type {string}
      * @memberof ExamDTO
      */
     description?: string;
+    /**
+     * Exam Procedure
+     * @type {number}
+     * @memberof ExamDTO
+     */
+    procedure?: number;
+    /**
+     * Exam Default Result
+     * @type {string}
+     * @memberof ExamDTO
+     */
+    defaultResult?: string;
     /**
      * @type {ExamTypeDTO}
      * @memberof ExamDTO
@@ -49,10 +56,4 @@ export interface ExamDTO {
      * @memberof ExamDTO
      */
     lock?: number;
-    /**
-     * Exam Procedure
-     * @type {number}
-     * @memberof ExamDTO
-     */
-    procedure?: number;
 }

@@ -130,7 +130,7 @@ const PatientPicker: FC<IProps> = ({
 
   useEffect(() => {
     const pat = patientData?.find((item) => item.code === fieldValue);
-    pat ? setValue(pat) : setValue(initialValue ?? {});
+    pat ? setValue(pat) : setValue(initialValue ?? ({} as any));
   }, [fieldValue]);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -219,7 +219,7 @@ const PatientPicker: FC<IProps> = ({
                     color="inherit"
                     onMouseDown={(event: any) => {
                       event.stopPropagation();
-                      setValue({});
+                      setValue({} as any);
                     }}
                     aria-label="close"
                   >
