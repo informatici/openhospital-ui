@@ -2,11 +2,11 @@ import { isEmpty } from "lodash";
 import moment from "moment";
 import { Dispatch } from "redux";
 import {
-  AdmissionControllerApi,
   AdmissionDTO,
   AdmittedPatientDTO,
-  PageOfAdmissionDTO,
+  PageAdmissionDTO,
 } from "../../generated";
+import { AdmissionControllerApi } from "../../generated/apis/AdmissionControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -116,7 +116,7 @@ export const updateAdmission =
     });
 
     admissionControllerApi
-      .updateAdmissionsUsingPUT({ updAdmissionDTO: updateAdmissionDTO })
+      .updateAdmissionsUsingPUT({ updateAdmissionDTO })
       .subscribe(
         (payload) => {
           dispatch({
@@ -207,12 +207,12 @@ export const getAdmissions =
     page?: number;
     size?: number;
   }) =>
-  (dispatch: Dispatch<IAction<PageOfAdmissionDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PageAdmissionDTO, {}>>): void => {
     dispatch({
       type: GET_ADMISSIONS_LOADING,
     });
     admissionControllerApi
-      .getAdmissionsUsingGET({
+      .getAdmissionsUsingGET1({
         admissionrange,
         page: page ?? 0,
         size: size ?? 80,
@@ -239,7 +239,7 @@ export const getPatientAdmissions =
     dispatch({
       type: GET_PATIENT_ADMISSIONS_LOADING,
     });
-    admissionControllerApi.getPatientAdmissionsUsingGET(query).subscribe(
+    admissionControllerApi.getAdmissionsUsingGET(query).subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({
@@ -272,7 +272,7 @@ export const getDischarges =
     page?: number;
     size?: number;
   }) =>
-  (dispatch: Dispatch<IAction<PageOfAdmissionDTO, {}>>): void => {
+  (dispatch: Dispatch<IAction<PageAdmissionDTO, {}>>): void => {
     dispatch({
       type: GET_DISCHARGES_LOADING,
     });

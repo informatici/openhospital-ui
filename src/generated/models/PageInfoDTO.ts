@@ -17,25 +17,10 @@
  */
 export interface PageInfoDTO {
     /**
-     * @type {boolean}
-     * @memberof PageInfoDTO
-     */
-    hasNextPage?: boolean;
-    /**
-     * @type {boolean}
-     * @memberof PageInfoDTO
-     */
-    hasPreviousPage?: boolean;
-    /**
      * @type {number}
      * @memberof PageInfoDTO
      */
-    nbOfElements?: number;
-    /**
-     * @type {number}
-     * @memberof PageInfoDTO
-     */
-    totalNbOfElements?: number;
+    size?: number;
     /**
      * @type {number}
      * @memberof PageInfoDTO
@@ -45,10 +30,25 @@ export interface PageInfoDTO {
      * @type {number}
      * @memberof PageInfoDTO
      */
-    size?: number;
+    nbOfElements?: number;
     /**
      * @type {number}
      * @memberof PageInfoDTO
      */
-    totalPages?: number;
+    totalPage?: number;
+    /**
+     * @type {number}
+     * @memberof PageInfoDTO
+     */
+    totalNbOfElements?: number;
+    /**
+     * @type {boolean}
+     * @memberof PageInfoDTO
+     */
+    hasPreviousPage?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PageInfoDTO
+     */
+    hasNextPage?: boolean;
 }

@@ -15,10 +15,9 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     LoginRequest,
-    LoginResponse,
 } from '../models';
 
-export interface AuthenticationUserUsingPOSTRequest {
+export interface AuthenticateUserUsingPOSTRequest {
     loginRequest: LoginRequest;
 }
 
@@ -28,41 +27,23 @@ export interface AuthenticationUserUsingPOSTRequest {
 export class LoginControllerApi extends BaseAPI {
 
     /**
-     * Login with the given credentials.
-     * Login
+     * authenticateUser
      */
-    authenticationUserUsingPOST({ loginRequest }: AuthenticationUserUsingPOSTRequest): Observable<LoginResponse>
-    authenticationUserUsingPOST({ loginRequest }: AuthenticationUserUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LoginResponse>>
-    authenticationUserUsingPOST({ loginRequest }: AuthenticationUserUsingPOSTRequest, opts?: OperationOpts): Observable<LoginResponse | RawAjaxResponse<LoginResponse>> {
-        throwIfNullOrUndefined(loginRequest, 'loginRequest', 'authenticationUserUsingPOST');
+    authenticateUserUsingPOST({ loginRequest }: AuthenticateUserUsingPOSTRequest): Observable<object>
+    authenticateUserUsingPOST({ loginRequest }: AuthenticateUserUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<object>>
+    authenticateUserUsingPOST({ loginRequest }: AuthenticateUserUsingPOSTRequest, opts?: OperationOpts): Observable<object | RawAjaxResponse<object>> {
+        throwIfNullOrUndefined(loginRequest, 'loginRequest', 'authenticateUserUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<LoginResponse>({
+        return this.request<object>({
             url: '/auth/login',
             method: 'POST',
             headers,
             body: loginRequest,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * Logout the current user.
-     * Logout
-     */
-    logoutUsingPOST(): Observable<void>
-    logoutUsingPOST(opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    logoutUsingPOST(opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
-        const headers: HttpHeaders = {
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        return this.request<void>({
-            url: '/auth/logout',
-            method: 'POST',
-            headers,
         }, opts?.responseOpts);
     };
 

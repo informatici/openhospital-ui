@@ -152,7 +152,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       draft.updateOpd.status = "SUCCESS";
       draft.updateOpd.data = action.payload;
       draft.getOpds.data = draft.getOpds.data?.map((e) => {
-        return e.opdDTO.code === action.payload.opdDTO.code
+        return e.opdDTO?.code === action.payload.opdDTO.code
           ? (action.payload as OpdWithOperatioRowDTO)
           : e;
       });
@@ -173,7 +173,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case DELETE_OPD_SUCCESS: {
       draft.deleteOpd.status = "SUCCESS";
       draft.getOpds.data = draft.getOpds.data?.filter(
-        (e) => e.opdDTO.code !== action.payload.opdDTO.code
+        (e) => e.opdDTO?.code !== action.payload.opdDTO.code
       );
       delete draft.deleteOpd.error;
       break;

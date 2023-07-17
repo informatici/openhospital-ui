@@ -23,11 +23,6 @@ export interface BillItemsDTO {
      */
     id?: number;
     /**
-     * @type {boolean}
-     * @memberof BillItemsDTO
-     */
-    price?: boolean;
-    /**
      * Bill id
      * @type {number}
      * @memberof BillItemsDTO
@@ -38,35 +33,45 @@ export interface BillItemsDTO {
      * @type {string}
      * @memberof BillItemsDTO
      */
-    priceId?: string;
+    priceId: string;
     /**
      * item description
      * @type {string}
      * @memberof BillItemsDTO
      */
-    itemDescription?: string;
+    itemDescription: string;
     /**
      * item amount
      * @type {number}
      * @memberof BillItemsDTO
      */
-    itemAmount?: number;
+    itemAmount: number;
     /**
      * item quantity
      * @type {number}
      * @memberof BillItemsDTO
      */
-    itemQuantity?: number;
+    itemQuantity: number;
     /**
      * item display code
      * @type {string}
      * @memberof BillItemsDTO
      */
-    itemDisplayCode?: string;
+    itemDisplayCode: string;
     /**
      * item id
      * @type {string}
      * @memberof BillItemsDTO
      */
-    itemId?: string;
+    itemId: string;
+    /**
+     * @type {number}
+     * @memberof BillItemsDTO
+     */
+    readonly hashCode?: number;
+    /**
+     * @type {boolean}
+     * @memberof BillItemsDTO
+     */
+    price?: boolean;
 }

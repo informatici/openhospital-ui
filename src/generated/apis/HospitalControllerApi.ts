@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     HospitalDTO,
-    ResponseEntity,
 } from '../models';
 
 export interface UpdateHospitalUsingPUTRequest {
@@ -65,9 +64,9 @@ export class HospitalControllerApi extends BaseAPI {
     /**
      * updateHospital
      */
-    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest): Observable<ResponseEntity>
-    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest): Observable<HospitalDTO>
+    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<HospitalDTO>>
+    updateHospitalUsingPUT({ code, hospitalDTO }: UpdateHospitalUsingPUTRequest, opts?: OperationOpts): Observable<HospitalDTO | RawAjaxResponse<HospitalDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateHospitalUsingPUT');
         throwIfNullOrUndefined(hospitalDTO, 'hospitalDTO', 'updateHospitalUsingPUT');
 
@@ -76,7 +75,7 @@ export class HospitalControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<HospitalDTO>({
             url: '/hospitals/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

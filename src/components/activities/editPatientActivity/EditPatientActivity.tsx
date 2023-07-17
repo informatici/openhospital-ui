@@ -43,8 +43,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id!);
+    if (isEmpty(patient.data) && patient.status === "IDLE" && id) {
+      getPatientThunk(id);
     }
   }, [patient, id, getPatientThunk]);
 
@@ -121,6 +121,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   };
 
   switch (activityTransitionState) {
+    case "TO_DASHBOARD":
+      return <Navigate to={`${PATHS.patients}`} replace />;
     case "TO_PATIENT":
       return (
         <Navigate

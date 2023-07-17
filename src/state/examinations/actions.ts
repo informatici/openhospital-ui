@@ -1,8 +1,6 @@
 import { Dispatch } from "redux";
-import {
-  ExaminationControllerApi,
-  PatientExaminationDTO,
-} from "../../generated";
+import { PatientExaminationDTO } from "../../generated";
+import { ExaminationControllerApi } from "../../generated/apis/ExaminationControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

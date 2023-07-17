@@ -22,11 +22,11 @@ export const useLaboratories = () => {
       error?: any;
     }
   >((state) => {
-    const admissionState = state.laboratories.searchLabs;
-    const pageInfo = admissionState.data?.pageInfo;
-    const data = admissionState.data?.data ?? [];
-    const status = admissionState?.status ?? "IDLE";
-    const error = admissionState.error;
+    const laboratoryState = state.laboratories.searchLabs;
+    const pageInfo = laboratoryState.data?.pageInfo;
+    const data = laboratoryState.data?.data ?? [];
+    const status = laboratoryState?.status ?? "IDLE";
+    const error = laboratoryState.error;
     return { pageInfo, data, status, error };
   });
 

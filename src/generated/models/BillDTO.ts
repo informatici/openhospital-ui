@@ -27,66 +27,72 @@ export interface BillDTO {
      */
     id?: number;
     /**
-     * @type {boolean}
+     * @type {PatientDTO}
      * @memberof BillDTO
      */
-    list?: boolean;
+    patient?: PatientDTO;
     /**
      * @type {number}
      * @memberof BillDTO
      */
     listId?: number;
     /**
-     * @type {PatientDTO}
-     * @memberof BillDTO
-     */
-    patient?: PatientDTO;
-    /**
      * Date of bill creation
      * @type {string}
      * @memberof BillDTO
      */
-    date?: string;
+    date: string;
     /**
      * Date of bill updated
      * @type {string}
      * @memberof BillDTO
      */
-    update?: string;
+    update: string;
     /**
      * Price list name
      * @type {string}
      * @memberof BillDTO
      */
-    listName?: string;
+    listName: string;
+    /**
+     * Is bill belongs to a patient?
+     * @type {boolean}
+     * @memberof BillDTO
+     */
+    patientTrue: boolean;
     /**
      * patient name
      * @type {string}
      * @memberof BillDTO
      */
-    patName?: string;
+    patName: string;
     /**
      * Bill status
      * @type {string}
      * @memberof BillDTO
      */
-    status?: string;
+    status: string;
     /**
      * Bill Amount
      * @type {number}
      * @memberof BillDTO
      */
-    amount?: number;
+    amount: number;
     /**
      * Bill balance
      * @type {number}
      * @memberof BillDTO
      */
-    balance?: number;
+    balance: number;
     /**
      * user name who create the bill
      * @type {string}
      * @memberof BillDTO
      */
-    user?: string;
+    user: string;
+    /**
+     * @type {boolean}
+     * @memberof BillDTO
+     */
+    list?: boolean;
 }

@@ -1,11 +1,9 @@
 import isEmpty from "lodash.isempty";
+import moment from "moment";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
-import {
-  PageOfPatientDTO,
-  PatientControllerApi,
-  PatientDTO,
-} from "../../generated";
+import { PagePatientDTO, PatientDTO } from "../../generated";
+import { PatientControllerApi } from "../../generated/apis/PatientControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -147,27 +145,34 @@ export const searchPatient =
           }
         );
     } else {
-      patientControllerApi.searchPatientUsingGET(values).subscribe(
-        (payload) => {
-          if (Array.isArray(payload)) {
-            dispatch({
-              type: SEARCH_PATIENT_SUCCESS,
-              payload,
-            });
-          } else {
+      patientControllerApi
+        .searchPatientUsingGET({
+          ...values,
+          birthDate: moment(values.birthDate).isValid()
+            ? values.birthDate
+            : undefined,
+        })
+        .subscribe(
+          (payload) => {
+            if (Array.isArray(payload)) {
+              dispatch({
+                type: SEARCH_PATIENT_SUCCESS,
+                payload,
+              });
+            } else {
+              dispatch({
+                type: SEARCH_PATIENT_FAIL,
+                error: { message: "Unexpected response payload" },
+              });
+            }
+          },
+          (error) => {
             dispatch({
               type: SEARCH_PATIENT_FAIL,
-              error: { message: "Unexpected response payload" },
+              error: error?.response,
             });
           }
-        },
-        (error) => {
-          dispatch({
-            type: SEARCH_PATIENT_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+        );
     }
   };
 
@@ -237,17 +242,9 @@ export const getCities =
     );
   };
 
-export const getDischarges =
-  ({
-    dischargerange,
-    page,
-    size,
-  }: {
-    dischargerange: string[];
-    page?: number;
-    size?: number;
-  }) =>
-  (dispatch: Dispatch<IAction<PageOfPatientDTO, {}>>): void => {
+export const getPatients =
+  ({ page, size }: { page?: number; size?: number }) =>
+  (dispatch: Dispatch<IAction<PagePatientDTO, {}>>): void => {
     dispatch({
       type: GET_PATIENTS_LOADING,
     });

@@ -1,6 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { DiseaseTypeControllerApi, DiseaseTypeDTO } from "../../generated";
+import { DiseaseTypeDTO } from "../../generated";
+import { DiseaseTypeControllerApi } from "../../generated/apis/DiseaseTypeControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

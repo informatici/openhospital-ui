@@ -18,11 +18,11 @@ import {
 } from '../models';
 
 export interface DeleteDiseaseUsingDELETERequest {
-    code: number;
+    code: string;
 }
 
 export interface GetDiseaseByCodeUsingGETRequest {
-    code: number;
+    code: string;
 }
 
 export interface GetDiseasesIpdInByCodeUsingGETRequest {
@@ -37,7 +37,7 @@ export interface GetDiseasesOpdByCodeUsingGETRequest {
     typecode: string;
 }
 
-export interface GetDiseasesUsingGETRequest {
+export interface GetDiseasesUsingGET1Request {
     typecode: string;
 }
 
@@ -220,17 +220,15 @@ export class DiseaseControllerApi extends BaseAPI {
     /**
      * getDiseases
      */
-    getDiseasesUsingGET({ typecode }: GetDiseasesUsingGETRequest): Observable<Array<DiseaseDTO>>
-    getDiseasesUsingGET({ typecode }: GetDiseasesUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesUsingGET({ typecode }: GetDiseasesUsingGETRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
-        throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesUsingGET');
-
+    getDiseasesUsingGET(): Observable<Array<DiseaseDTO>>
+    getDiseasesUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesUsingGET(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            url: '/diseases/both/{typecode}'.replace('{typecode}', encodeURI(typecode)),
+            url: '/diseases/both',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -239,15 +237,17 @@ export class DiseaseControllerApi extends BaseAPI {
     /**
      * getDiseases
      */
-    getDiseasesUsingGET1(): Observable<Array<DiseaseDTO>>
-    getDiseasesUsingGET1(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesUsingGET1(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesUsingGET1({ typecode }: GetDiseasesUsingGET1Request): Observable<Array<DiseaseDTO>>
+    getDiseasesUsingGET1({ typecode }: GetDiseasesUsingGET1Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesUsingGET1({ typecode }: GetDiseasesUsingGET1Request, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+        throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesUsingGET1');
+
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
         return this.request<Array<DiseaseDTO>>({
-            url: '/diseases/both',
+            url: '/diseases/both/{typecode}'.replace('{typecode}', encodeURI(typecode)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);

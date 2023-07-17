@@ -72,7 +72,7 @@ export const updateFields = (
   values: PatientDTO | undefined
 ): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
+    Object.keys(values ?? {}).forEach((key) => {
       if (draft[key as string]) {
         return (draft[key as string].value = values![key as keyof PatientDTO]);
       }

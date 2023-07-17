@@ -72,7 +72,7 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case GET_LAYOUTS_SUCCESS_EMPTY: {
       draft.getLayouts.status = "SUCCESS_EMPTY";
-      draft.getLayouts.data = {};
+      draft.getLayouts.data = undefined;
 
       draft.layouts = randomLayout(4);
       draft.toolbox = toolboxDashboards(draft.layouts, {});

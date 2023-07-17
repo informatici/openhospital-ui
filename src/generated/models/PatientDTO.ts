@@ -18,23 +18,27 @@
  */
 export interface PatientDTO {
   /**
-   * code of the Patient
    * @type {number}
    * @memberof PatientDTO
    */
-  code?: number;
+  readonly code?: number;
   /**
    * First name of the patient
    * @type {string}
    * @memberof PatientDTO
    */
-  firstName?: string;
+  firstName: string;
   /**
    * Last name of the patient
    * @type {string}
    * @memberof PatientDTO
    */
-  secondName?: string;
+  secondName: string;
+  /**
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  readonly name?: string;
   /**
    * Birth date
    * @type {string}
@@ -46,7 +50,7 @@ export interface PatientDTO {
    * @type {number}
    * @memberof PatientDTO
    */
-  age?: number;
+  age: number;
   /**
    * Age type
    * @type {string}
@@ -58,7 +62,7 @@ export interface PatientDTO {
    * @type {string}
    * @memberof PatientDTO
    */
-  sex?: PatientDTOSexEnum;
+  sex: PatientDTOSexEnum;
   /**
    * Address
    * @type {string}
@@ -70,7 +74,12 @@ export interface PatientDTO {
    * @type {string}
    * @memberof PatientDTO
    */
-  city?: string;
+  city: string;
+  /**
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  readonly nextKin?: string;
   /**
    * Telephone
    * @type {string}
@@ -88,7 +97,7 @@ export interface PatientDTO {
    * @type {string}
    * @memberof PatientDTO
    */
-  motherName?: string;
+  motherName: string;
   /**
    * Mother\'s status (D=dead, A=alive)
    * @type {string}
@@ -100,7 +109,7 @@ export interface PatientDTO {
    * @type {string}
    * @memberof PatientDTO
    */
-  fatherName?: string;
+  fatherName: string;
   /**
    * Father\'s status (D=dead, A=alive)
    * @type {string}
@@ -112,7 +121,7 @@ export interface PatientDTO {
    * @type {string}
    * @memberof PatientDTO
    */
-  bloodType?: string;
+  bloodType: string;
   /**
    * hasInsurance (Y=Yes, N=no)
    * @type {string}
@@ -132,17 +141,11 @@ export interface PatientDTO {
    */
   taxCode?: string;
   /**
-   * Height
+   * lock
    * @type {number}
    * @memberof PatientDTO
    */
-  height?: number;
-  /**
-   * Weight
-   * @type {number}
-   * @memberof PatientDTO
-   */
-  weight?: number;
+  lock?: number;
   /**
    * BlobPhoto
    * @type {string}
@@ -150,21 +153,40 @@ export interface PatientDTO {
    */
   blobPhoto?: string;
   /**
+   * @type {number}
+   * @memberof PatientDTO
+   */
+  readonly hashCode?: number;
+  /**
+   * allergies of patient
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  allergies?: string;
+  /**
+   * Current anamnesis
+   * @type {string}
+   * @memberof PatientDTO
+   */
+  anamnesis?: string;
+  /**
    * status
    * @type {string}
    * @memberof PatientDTO
    */
   status?: PatientDTOStatusEnum;
   /**
-   * @type {string}
+   * consensus flag
+   * @type {boolean}
    * @memberof PatientDTO
    */
-  anamnesis?: string;
+  consensusFlag?: boolean;
   /**
-   * @type {string}
+   * consensus service flag
+   * @type {boolean}
    * @memberof PatientDTO
    */
-  allergies?: string;
+  consensusServiceFlag?: boolean;
 }
 
 /**
@@ -172,8 +194,8 @@ export interface PatientDTO {
  * @enum {string}
  */
 export enum PatientDTOSexEnum {
-  F = "F",
   M = "M",
+  F = "F",
 }
 /**
  * @export

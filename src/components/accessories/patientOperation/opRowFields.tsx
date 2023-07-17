@@ -4,7 +4,7 @@ import { TFields } from "../../../libraries/formDataHandling/types";
 import { initialFields } from "./consts";
 import { OperationRowFormFieldName } from "./operationForm/types";
 
-export const opRowFields = (opRow?: OperationRowDTO) => {
+export const opRowFields = (opRow?: Partial<OperationRowDTO>) => {
   const fields: TFields<OperationRowFormFieldName> = {
     ...initialFields,
     opDate: {

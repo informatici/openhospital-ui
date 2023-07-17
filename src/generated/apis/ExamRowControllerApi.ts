@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     ExamRowDTO,
-    ResponseEntity,
 } from '../models';
 
 export interface DeleteExamUsingDELETE1Request {
@@ -47,16 +46,16 @@ export class ExamRowControllerApi extends BaseAPI {
     /**
      * deleteExam
      */
-    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request): Observable<ResponseEntity>
-    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request): Observable<boolean>
+    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteExamUsingDELETE1({ code }: DeleteExamUsingDELETE1Request, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteExamUsingDELETE1');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<boolean>({
             url: '/examrows/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
@@ -147,9 +146,9 @@ export class ExamRowControllerApi extends BaseAPI {
     /**
      * newExamRow
      */
-    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest): Observable<ResponseEntity>
-    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ResponseEntity>>
-    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<ResponseEntity | RawAjaxResponse<ResponseEntity>> {
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest): Observable<ExamRowDTO>
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamRowDTO>>
+    newExamRowUsingPOST({ examRowDTO }: NewExamRowUsingPOSTRequest, opts?: OperationOpts): Observable<ExamRowDTO | RawAjaxResponse<ExamRowDTO>> {
         throwIfNullOrUndefined(examRowDTO, 'examRowDTO', 'newExamRowUsingPOST');
 
         const headers: HttpHeaders = {
@@ -157,7 +156,7 @@ export class ExamRowControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<ResponseEntity>({
+        return this.request<ExamRowDTO>({
             url: '/examrows',
             method: 'POST',
             headers,

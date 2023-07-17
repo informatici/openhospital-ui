@@ -27,23 +27,28 @@ export interface BillPaymentsDTO {
      * @type {number}
      * @memberof BillPaymentsDTO
      */
-    billId?: number;
+    billId: number;
     /**
      * date of payment
      * @type {string}
      * @memberof BillPaymentsDTO
      */
-    date?: string;
+    date: string;
     /**
      * the payment amount
      * @type {number}
      * @memberof BillPaymentsDTO
      */
-    amount?: number;
+    amount: number;
     /**
      * the current user
      * @type {string}
      * @memberof BillPaymentsDTO
      */
-    user?: string;
+    user: string;
+    /**
+     * @type {number}
+     * @memberof BillPaymentsDTO
+     */
+    readonly hashCode?: number;
 }

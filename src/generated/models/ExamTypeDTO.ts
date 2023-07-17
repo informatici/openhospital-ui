@@ -12,6 +12,7 @@
  */
 
 /**
+ * Exam Type
  * @export
  * @interface ExamTypeDTO
  */

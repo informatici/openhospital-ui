@@ -1,15 +1,13 @@
 import { Dispatch } from "redux";
 import { concat, of } from "rxjs";
 import { catchError, map, toArray } from "rxjs/operators";
-import {
-  AdmissionControllerApi,
-  ExaminationControllerApi,
-  LaboratoryControllerApi,
-  OpdControllerApi,
-  OperationControllerApi,
-  TherapyControllerApi,
-  VisitsControllerApi,
-} from "../../generated";
+import { AdmissionControllerApi } from "../../generated/apis/AdmissionControllerApi";
+import { ExaminationControllerApi } from "../../generated/apis/ExaminationControllerApi";
+import { LaboratoryControllerApi } from "../../generated/apis/LaboratoryControllerApi";
+import { OpdControllerApi } from "../../generated/apis/OpdControllerApi";
+import { OperationControllerApi } from "../../generated/apis/OperationControllerApi";
+import { TherapyControllerApi } from "../../generated/apis/TherapyControllerApi";
+import { VisitsControllerApi } from "../../generated/apis/VisitsControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { IAction } from "../types";
@@ -52,15 +50,25 @@ export const loadSummaryData =
           catchError((err) => of([]))
         ),
         opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.opd)),
+          map((res) =>
+            convertToSummaryData(
+              res.map((e) => e.opdDTO),
+              SummaryField.opd
+            )
+          ),
           catchError((err) => of([]))
         ),
         laboratoryControllerApi.getLaboratoryUsingGET({ patId: code }).pipe(
-          map((res) => convertToSummaryData(res, SummaryField.exam)),
+          map((res) =>
+            convertToSummaryData(
+              res.map((e) => e.laboratoryDTO),
+              SummaryField.exam
+            )
+          ),
           catchError((err) => of([]))
         ),
         admissionControllerApi
-          .getPatientAdmissionsUsingGET({ patientCode: code })
+          .getAdmissionsUsingGET({ patientCode: code })
           .pipe(
             map((res) => convertToSummaryData(res, SummaryField.admission)),
             catchError((err) => of([]))

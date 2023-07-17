@@ -20,8 +20,9 @@ import {
   toolboxDashboards,
 } from "../../components/accessories/dashboard/layouts/consts";
 import { Layouts } from "react-grid-layout";
-import { UserSettingControllerApi, UserSettingDTO } from "../../generated";
+import { UserSettingDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
+import { UserSettingControllerApi } from "../../generated/apis/UserSettingControllerApi";
 
 const userSettingControllerApi = new UserSettingControllerApi(
   customConfiguration()
@@ -38,7 +39,7 @@ export const getLayouts =
     let toolbox: Layouts;
     let savedConfig: string | undefined;
 
-    userSettingControllerApi.getUserSettingDashBoardUsingGET().subscribe(
+    userSettingControllerApi.getUserSettingDashboardUsingGET().subscribe(
       (payload) => {
         savedConfig = payload?.configValue;
         if (savedConfig && atob(savedConfig) !== null) {
@@ -82,7 +83,7 @@ export const saveLayouts =
     let setting: UserSettingDTO = {
       configName: "dashboard",
       configValue: layoutConfig,
-    };
+    } as any;
 
     userSettingControllerApi
       .newUserSettingUsingPOST({ userSettingDTO: setting })

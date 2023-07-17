@@ -27,13 +27,13 @@ export interface PatientExaminationDTO {
      * @type {string}
      * @memberof PatientExaminationDTO
      */
-    pex_date?: string;
+    pex_date: string;
     /**
      * Patient Examination Code
      * @type {number}
      * @memberof PatientExaminationDTO
      */
-    patientCode?: number;
+    patientCode: number;
     /**
      * Patient Height in cm
      * @type {number}
@@ -59,7 +59,7 @@ export interface PatientExaminationDTO {
      */
     pex_ap_max?: number;
     /**
-     * Heart Rate in APm
+     * Respiratory Rate in bpm
      * @type {number}
      * @memberof PatientExaminationDTO
      */
@@ -107,17 +107,17 @@ export interface PatientExaminationDTO {
      */
     pex_diuresis_desc?: PatientExaminationDTOPexDiuresisDescEnum;
     /**
-     * Bowel Function
-     * @type {string}
-     * @memberof PatientExaminationDTO
-     */
-    pex_bowel_desc?: PatientExaminationDTOPexBowelDescEnum;
-    /**
      * Examination Note
      * @type {string}
      * @memberof PatientExaminationDTO
      */
     pex_note?: string;
+    /**
+     * Bowel Function
+     * @type {string}
+     * @memberof PatientExaminationDTO
+     */
+    pex_bowel_desc?: PatientExaminationDTOPexBowelDescEnum;
 }
 
 /**

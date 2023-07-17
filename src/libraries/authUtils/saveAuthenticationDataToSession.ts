@@ -1,5 +1,5 @@
 import { AUTH_KEY } from "../../consts";
-import { LoginResponse } from "../../generated";
+import { LoginResponse } from "../../generated/models/LoginResponse";
 import { SessionStorage } from "../storage/storage";
 
 export const saveAuthenticationDataToSession = (payload: LoginResponse) =>

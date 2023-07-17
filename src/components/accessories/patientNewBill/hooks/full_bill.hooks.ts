@@ -23,7 +23,7 @@ import { useItemPrices } from "./price.hooks";
 
 export const useSelectedPatient = () => {
   const patient = useSelector<IState, PatientDTO>(
-    (state: IState) => state.patients.selectedPatient.data ?? {}
+    (state: IState) => state.patients.selectedPatient.data ?? ({} as any)
   );
   return { patient };
 };
@@ -83,7 +83,7 @@ export const useFullBill = () => {
   const itemsRowData = useMemo(() => {
     return billItems.map((item) => {
       const priceDTO = prices.find(
-        (e) => e.id == item.priceId || e.item == item.itemId
+        (e) => (e.id ?? 0).toString() == item.priceId || e.item == item.itemId
       );
       const groupLabel = Object.entries(ItemGroups).find(
         (e) => e[1].id == priceDTO?.group
@@ -113,8 +113,8 @@ export const useFullBill = () => {
           id: billPayments.length + 1,
           amount: values?.paymentAmount,
           date: values?.paymentDate,
-          billId: bill.id,
-          user: user,
+          billId: bill.id ?? -1,
+          user: user as any,
         },
       ]),
     [billPayments]

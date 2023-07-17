@@ -41,9 +41,9 @@ export class MedicalTypeControllerApi extends BaseAPI {
     /**
      * createMedicalType
      */
-    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest): Observable<void>
-    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest): Observable<MedicalTypeDTO>
+    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalTypeDTO>>
+    createMedicalTypeUsingPOST({ medicalTypeDTO }: CreateMedicalTypeUsingPOSTRequest, opts?: OperationOpts): Observable<MedicalTypeDTO | RawAjaxResponse<MedicalTypeDTO>> {
         throwIfNullOrUndefined(medicalTypeDTO, 'medicalTypeDTO', 'createMedicalTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -51,7 +51,7 @@ export class MedicalTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<void>({
+        return this.request<MedicalTypeDTO>({
             url: '/medicaltypes',
             method: 'POST',
             headers,
@@ -117,9 +117,9 @@ export class MedicalTypeControllerApi extends BaseAPI {
     /**
      * updateMedicalType
      */
-    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest): Observable<void>
-    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest): Observable<MedicalTypeDTO>
+    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalTypeDTO>>
+    updateMedicalTypeUsingPUT({ medicalTypeDTO }: UpdateMedicalTypeUsingPUTRequest, opts?: OperationOpts): Observable<MedicalTypeDTO | RawAjaxResponse<MedicalTypeDTO>> {
         throwIfNullOrUndefined(medicalTypeDTO, 'medicalTypeDTO', 'updateMedicalTypeUsingPUT');
 
         const headers: HttpHeaders = {
@@ -127,7 +127,7 @@ export class MedicalTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<void>({
+        return this.request<MedicalTypeDTO>({
             url: '/medicaltypes',
             method: 'PUT',
             headers,

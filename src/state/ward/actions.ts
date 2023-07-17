@@ -1,6 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
-import { DiseaseDTO, WardControllerApi } from "../../generated";
+import { DiseaseDTO } from "../../generated";
+import { WardControllerApi } from "../../generated/apis/WardControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import { GET_WARD_FAIL, GET_WARD_LOADING, GET_WARD_SUCCESS } from "./consts";

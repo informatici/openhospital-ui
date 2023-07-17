@@ -22,13 +22,13 @@ import {
  */
 export interface AdmittedPatientDTO {
     /**
-     * @type {AdmissionDTO}
-     * @memberof AdmittedPatientDTO
-     */
-    admission?: AdmissionDTO;
-    /**
      * @type {PatientDTO}
      * @memberof AdmittedPatientDTO
      */
     patient?: PatientDTO;
+    /**
+     * @type {AdmissionDTO}
+     * @memberof AdmittedPatientDTO
+     */
+    admission?: AdmissionDTO;
 }

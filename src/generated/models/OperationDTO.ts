@@ -30,16 +30,22 @@ export interface OperationDTO {
      * @type {string}
      * @memberof OperationDTO
      */
-    description?: string;
+    description: string;
     /**
      * @type {OperationTypeDTO}
      * @memberof OperationDTO
      */
-    type?: OperationTypeDTO;
+    type: OperationTypeDTO;
     /**
      * the operation major
      * @type {number}
      * @memberof OperationDTO
      */
-    major?: number;
+    major: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof OperationDTO
+     */
+    lock?: number;
 }

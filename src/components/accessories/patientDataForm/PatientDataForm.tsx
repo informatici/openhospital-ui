@@ -130,7 +130,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         birthDate: birthDate,
         age: age,
         agetype: "",
-      });
+      } as any);
     },
   });
 

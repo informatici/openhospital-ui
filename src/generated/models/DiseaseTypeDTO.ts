@@ -22,11 +22,11 @@ export interface DiseaseTypeDTO {
      * @type {string}
      * @memberof DiseaseTypeDTO
      */
-    code?: string;
+    code: string;
     /**
      * Disease type description
      * @type {string}
      * @memberof DiseaseTypeDTO
      */
-    description?: string;
+    description: string;
 }

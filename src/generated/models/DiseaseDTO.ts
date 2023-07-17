@@ -26,34 +26,45 @@ export interface DiseaseDTO {
      * @type {string}
      * @memberof DiseaseDTO
      */
-    code?: string;
+    code: string;
     /**
      * Disease description
      * @type {string}
      * @memberof DiseaseDTO
      */
-    description?: string;
+    description: string;
     /**
      * @type {DiseaseTypeDTO}
      * @memberof DiseaseDTO
      */
-    diseaseType?: DiseaseTypeDTO;
-    /**
-     * indicates whether the disease is an IPD-IN disease
-     * @type {boolean}
-     * @memberof DiseaseDTO
-     */
-    ipdInInclude?: boolean;
-    /**
-     * indicates whether the disease is an IPD-OUT disease
-     * @type {boolean}
-     * @memberof DiseaseDTO
-     */
-    ipdOutInclude?: boolean;
+    diseaseType: DiseaseTypeDTO;
     /**
      * indicates whether the disease is an OPD disease
      * @type {boolean}
      * @memberof DiseaseDTO
      */
-    opdInclude?: boolean;
+    opdInclude: boolean;
+    /**
+     * indicates whether the disease is an IPD-IN disease
+     * @type {boolean}
+     * @memberof DiseaseDTO
+     */
+    ipdInInclude: boolean;
+    /**
+     * indicates whether the disease is an IPD-OUT disease
+     * @type {boolean}
+     * @memberof DiseaseDTO
+     */
+    ipdOutInclude: boolean;
+    /**
+     * @type {number}
+     * @memberof DiseaseDTO
+     */
+    readonly hashCode?: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof DiseaseDTO
+     */
+    lock?: number;
 }

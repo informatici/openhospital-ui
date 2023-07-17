@@ -20,7 +20,7 @@ export interface PermissionDTO {
      * @type {string}
      * @memberof PermissionDTO
      */
-    description?: string;
+    name?: string;
     /**
      * @type {number}
      * @memberof PermissionDTO
@@ -30,7 +30,7 @@ export interface PermissionDTO {
      * @type {string}
      * @memberof PermissionDTO
      */
-    name?: string;
+    description?: string;
     /**
      * @type {Array<string>}
      * @memberof PermissionDTO

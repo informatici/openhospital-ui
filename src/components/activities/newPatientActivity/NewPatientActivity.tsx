@@ -104,6 +104,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
       return <Navigate to={dashboardRoute} />;
+    case "TO_PATIENT_DASHBOARD":
+      return <Navigate to={`${PATHS.patients_details}/${patient?.code}`} />;
     default:
       return (
         <div className="newPatient">

@@ -27,11 +27,11 @@ export interface NewUserSettingUsingPOSTRequest {
 export class UserSettingControllerApi extends BaseAPI {
 
     /**
-     * getUserSettingDashBoard
+     * getUserSettingDashboard
      */
-    getUserSettingDashBoardUsingGET(): Observable<UserSettingDTO>
-    getUserSettingDashBoardUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<UserSettingDTO>>
-    getUserSettingDashBoardUsingGET(opts?: OperationOpts): Observable<UserSettingDTO | RawAjaxResponse<UserSettingDTO>> {
+    getUserSettingDashboardUsingGET(): Observable<UserSettingDTO>
+    getUserSettingDashboardUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<UserSettingDTO>>
+    getUserSettingDashboardUsingGET(opts?: OperationOpts): Observable<UserSettingDTO | RawAjaxResponse<UserSettingDTO>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };

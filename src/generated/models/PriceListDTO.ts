@@ -46,4 +46,9 @@ export interface PriceListDTO {
      * @memberof PriceListDTO
      */
     currency?: string;
+    /**
+     * @type {number}
+     * @memberof PriceListDTO
+     */
+    readonly hashCode?: number;
 }

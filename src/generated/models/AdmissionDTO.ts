@@ -29,31 +29,6 @@ import {
  */
 export interface AdmissionDTO {
     /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    abortDate?: string;
-    /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    ctrlDate1?: string;
-    /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    ctrlDate2?: string;
-    /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    fhu?: string;
-    /**
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yprog?: number;
-    /**
      * admission key
      * @type {number}
      * @memberof AdmissionDTO
@@ -64,13 +39,13 @@ export interface AdmissionDTO {
      * @type {number}
      * @memberof AdmissionDTO
      */
-    admitted?: number;
+    admitted: number;
     /**
      * type of admission
      * @type {string}
      * @memberof AdmissionDTO
      */
-    type?: string;
+    type: string;
     /**
      * @type {WardDTO}
      * @memberof AdmissionDTO
@@ -86,7 +61,7 @@ export interface AdmissionDTO {
      * @type {string}
      * @memberof AdmissionDTO
      */
-    admDate?: string;
+    admDate: string;
     /**
      * @type {AdmissionTypeDTO}
      * @memberof AdmissionDTO
@@ -186,15 +161,51 @@ export interface AdmissionDTO {
      */
     weight?: number;
     /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    ctrlDate1?: string;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    ctrlDate2?: string;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    abortDate?: string;
+    /**
      * weight
      * @type {string}
      * @memberof AdmissionDTO
      */
     userID?: string;
     /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    readonly hashCode?: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    lock?: number;
+    /**
      * flag record deleted, values are \'Y\' OR \'N\' 
      * @type {string}
      * @memberof AdmissionDTO
      */
-    deleted?: string;
+    deleted: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    fhu?: string;
 }

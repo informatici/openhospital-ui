@@ -17,7 +17,7 @@ import {
     MovementTypeDTO,
 } from '../models';
 
-export interface DeleteMedicaldsrstockmovTypeUsingDELETERequest {
+export interface DeleteMedicalDsrStockMovementTypeUsingDELETERequest {
     code: string;
 }
 
@@ -29,12 +29,12 @@ export interface IsCodeUsedUsingGETRequest {
     code: string;
 }
 
-export interface NewMedicaldsrstockmovTypeUsingPOSTRequest {
-    medicaldsrstockmovType: MovementTypeDTO;
+export interface NewMedicalDsrStockMovementTypeUsingPOSTRequest {
+    medicalDsrStockMovementType: MovementTypeDTO;
 }
 
-export interface UpdateMedicaldsrstockmovTypeUsingPUTRequest {
-    medicaldsrstockmovTypeDTO: MovementTypeDTO;
+export interface UpdateMedicalDsrStockMovementTypeUsingPUTRequest {
+    medicalDsrStockMovementTypeDTO: MovementTypeDTO;
 }
 
 /**
@@ -43,12 +43,12 @@ export interface UpdateMedicaldsrstockmovTypeUsingPUTRequest {
 export class MedStockMovementTypeControllerApi extends BaseAPI {
 
     /**
-     * deleteMedicaldsrstockmovType
+     * deleteMedicalDsrStockMovementType
      */
-    deleteMedicaldsrstockmovTypeUsingDELETE({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest): Observable<boolean>
-    deleteMedicaldsrstockmovTypeUsingDELETE({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteMedicaldsrstockmovTypeUsingDELETE({ code }: DeleteMedicaldsrstockmovTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
-        throwIfNullOrUndefined(code, 'code', 'deleteMedicaldsrstockmovTypeUsingDELETE');
+    deleteMedicalDsrStockMovementTypeUsingDELETE({ code }: DeleteMedicalDsrStockMovementTypeUsingDELETERequest): Observable<boolean>
+    deleteMedicalDsrStockMovementTypeUsingDELETE({ code }: DeleteMedicalDsrStockMovementTypeUsingDELETERequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteMedicalDsrStockMovementTypeUsingDELETE({ code }: DeleteMedicalDsrStockMovementTypeUsingDELETERequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(code, 'code', 'deleteMedicalDsrStockMovementTypeUsingDELETE');
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -62,11 +62,11 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     };
 
     /**
-     * getMedicaldsrstockmovType
+     * getMedicalDsrStockMovementType
      */
-    getMedicaldsrstockmovTypeUsingGET(): Observable<Array<MovementTypeDTO>>
-    getMedicaldsrstockmovTypeUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementTypeDTO>>>
-    getMedicaldsrstockmovTypeUsingGET(opts?: OperationOpts): Observable<Array<MovementTypeDTO> | RawAjaxResponse<Array<MovementTypeDTO>>> {
+    getMedicalDsrStockMovementTypeUsingGET(): Observable<Array<MovementTypeDTO>>
+    getMedicalDsrStockMovementTypeUsingGET(opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementTypeDTO>>>
+    getMedicalDsrStockMovementTypeUsingGET(opts?: OperationOpts): Observable<Array<MovementTypeDTO> | RawAjaxResponse<Array<MovementTypeDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
@@ -117,44 +117,44 @@ export class MedStockMovementTypeControllerApi extends BaseAPI {
     };
 
     /**
-     * newMedicaldsrstockmovType
+     * newMedicalDsrStockMovementType
      */
-    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest): Observable<void>
-    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    newMedicaldsrstockmovTypeUsingPOST({ medicaldsrstockmovType }: NewMedicaldsrstockmovTypeUsingPOSTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
-        throwIfNullOrUndefined(medicaldsrstockmovType, 'medicaldsrstockmovType', 'newMedicaldsrstockmovTypeUsingPOST');
+    newMedicalDsrStockMovementTypeUsingPOST({ medicalDsrStockMovementType }: NewMedicalDsrStockMovementTypeUsingPOSTRequest): Observable<MovementTypeDTO>
+    newMedicalDsrStockMovementTypeUsingPOST({ medicalDsrStockMovementType }: NewMedicalDsrStockMovementTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementTypeDTO>>
+    newMedicalDsrStockMovementTypeUsingPOST({ medicalDsrStockMovementType }: NewMedicalDsrStockMovementTypeUsingPOSTRequest, opts?: OperationOpts): Observable<MovementTypeDTO | RawAjaxResponse<MovementTypeDTO>> {
+        throwIfNullOrUndefined(medicalDsrStockMovementType, 'medicalDsrStockMovementType', 'newMedicalDsrStockMovementTypeUsingPOST');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<void>({
+        return this.request<MovementTypeDTO>({
             url: '/medstockmovementtype',
             method: 'POST',
             headers,
-            body: medicaldsrstockmovType,
+            body: medicalDsrStockMovementType,
         }, opts?.responseOpts);
     };
 
     /**
-     * updateMedicaldsrstockmovType
+     * updateMedicalDsrStockMovementType
      */
-    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest): Observable<void>
-    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    updateMedicaldsrstockmovTypeUsingPUT({ medicaldsrstockmovTypeDTO }: UpdateMedicaldsrstockmovTypeUsingPUTRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
-        throwIfNullOrUndefined(medicaldsrstockmovTypeDTO, 'medicaldsrstockmovTypeDTO', 'updateMedicaldsrstockmovTypeUsingPUT');
+    updateMedicalDsrStockMovementTypeUsingPUT({ medicalDsrStockMovementTypeDTO }: UpdateMedicalDsrStockMovementTypeUsingPUTRequest): Observable<MovementTypeDTO>
+    updateMedicalDsrStockMovementTypeUsingPUT({ medicalDsrStockMovementTypeDTO }: UpdateMedicalDsrStockMovementTypeUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MovementTypeDTO>>
+    updateMedicalDsrStockMovementTypeUsingPUT({ medicalDsrStockMovementTypeDTO }: UpdateMedicalDsrStockMovementTypeUsingPUTRequest, opts?: OperationOpts): Observable<MovementTypeDTO | RawAjaxResponse<MovementTypeDTO>> {
+        throwIfNullOrUndefined(medicalDsrStockMovementTypeDTO, 'medicalDsrStockMovementTypeDTO', 'updateMedicalDsrStockMovementTypeUsingPUT');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<void>({
+        return this.request<MovementTypeDTO>({
             url: '/medstockmovementtype',
             method: 'PUT',
             headers,
-            body: medicaldsrstockmovTypeDTO,
+            body: medicalDsrStockMovementTypeDTO,
         }, opts?.responseOpts);
     };
 

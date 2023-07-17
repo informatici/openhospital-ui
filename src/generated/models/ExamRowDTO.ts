@@ -21,11 +21,6 @@ import {
  */
 export interface ExamRowDTO {
     /**
-     * @type {ExamDTO}
-     * @memberof ExamRowDTO
-     */
-    exam?: ExamDTO;
-    /**
      * Exam Row Code
      * @type {number}
      * @memberof ExamRowDTO
@@ -37,4 +32,9 @@ export interface ExamRowDTO {
      * @memberof ExamRowDTO
      */
     description?: string;
+    /**
+     * @type {ExamDTO}
+     * @memberof ExamRowDTO
+     */
+    exam?: ExamDTO;
 }

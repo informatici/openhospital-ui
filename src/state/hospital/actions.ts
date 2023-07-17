@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
-import { HospitalControllerApi, HospitalDTO } from "../../generated";
+import { HospitalDTO } from "../../generated";
+import { HospitalControllerApi } from "../../generated/apis/HospitalControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
