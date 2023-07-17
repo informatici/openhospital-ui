@@ -73,7 +73,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }}
       >
         <Pageview fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.visits")}:</span>
+        <span>{t("nav.consultancy")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 

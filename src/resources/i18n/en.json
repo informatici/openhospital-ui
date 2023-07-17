@@ -332,7 +332,8 @@
     "managebills": "Manage Bills",
     "billrecords": "Bill Records",
     "visits": "Visits",
-    "patients": "Patients"
+    "patients": "Patients",
+    "consultancy": "Consultancy"
   },
   "operation": {
     "newoperation": "New Operation",

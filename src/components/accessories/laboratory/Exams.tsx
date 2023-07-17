@@ -59,7 +59,14 @@ export const Exams: FC = () => {
   }, [page]);
 
   useEffect(() => {
-    dispatch(searchLabs(getFromFields(fields, "value")));
+    dispatch(
+      searchLabs({
+        ...getFromFields(fields, "value"),
+        page: 0,
+        size: 80,
+        paged: true,
+      })
+    );
     dispatch(getExams());
   }, []);
 
