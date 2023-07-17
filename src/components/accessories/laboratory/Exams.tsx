@@ -132,7 +132,7 @@ export const Exams: FC = () => {
           <Permission require="exam.read">
             <ExamFilterForm onSubmit={onSubmit} fields={fields} />
             {status === "SUCCESS_EMPTY" && (
-              <InfoBox type="warning" message={t("common.emptydata")} />
+              <InfoBox type="info" message={t("common.emptydata")} />
             )}
             {status === "FAIL" && (
               <InfoBox type="error" message={errorMessage} />

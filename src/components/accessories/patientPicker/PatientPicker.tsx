@@ -181,7 +181,7 @@ const PatientPicker: FC<IProps> = ({
         );
 
       case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.searchnotfound")} />;
+        return <InfoBox type="info" message={t("common.searchnotfound")} />;
 
       default:
         return <InfoBox type="error" message={errorMessage} />;

@@ -111,7 +111,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       )}
       {labStatus === "SUCCESS_EMPTY" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="warning" message={t("common.emptydata")} />
+          <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
       {labStatus === "IDLE" && (

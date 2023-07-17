@@ -238,7 +238,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
             );
 
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
 
           case "SUCCESS":
             return (
