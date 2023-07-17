@@ -131,7 +131,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
             );
 
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
 
           default:
             return;

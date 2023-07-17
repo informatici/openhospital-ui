@@ -91,7 +91,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         />
       ) : (
         opdStatus === "SUCCESS_EMPTY" && (
-          <InfoBox type="warning" message={t("common.emptydata")} />
+          <InfoBox type="info" message={t("common.emptydata")} />
         )
       )}
       {opdStatus === "LOADING" && (

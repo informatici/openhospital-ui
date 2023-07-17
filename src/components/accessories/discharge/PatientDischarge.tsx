@@ -119,7 +119,7 @@ const PatientDischarge: FC = () => {
       )}
       {currentAdmissionStatus === "SUCCESS_EMPTY" && (
         <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="warning" message={t("admission.patientnotadmitted")} />
+          <InfoBox type="info" message={t("admission.patientnotadmitted")} />
         </div>
       )}
       {(dischargeStatus === "FAIL" || currentAdmissionStatus === "FAIL") && (

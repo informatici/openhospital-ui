@@ -90,7 +90,7 @@ export const Opds: FC = () => {
               return (
                 <Permission require="opd.read">
                   <OpdFilterForm onSubmit={onSubmit} fields={fields} />
-                  <InfoBox type="warning" message={t("common.emptydata")} />
+                  <InfoBox type="info" message={t("common.emptydata")} />
                 </Permission>
               );
 
