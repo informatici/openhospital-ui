@@ -14,7 +14,7 @@ export const SideContent: FC = () => {
     <div className="side">
       <div className="side__header">
         <div>
-          <span>{user?.userDesc}</span>
+          <span>{user?.username}</span>
         </div>
       </div>
       <div className="side__body">
@@ -22,12 +22,6 @@ export const SideContent: FC = () => {
           <span className="title">{t("user.username")}</span>
           <div className="content">
             <span>{user?.username}</span>
-          </div>
-        </div>
-        <div className="section">
-          <span className="title">{t("user.groups")}</span>
-          <div className="content">
-            <span>{user?.userGroupName}</span>
           </div>
         </div>
         <div className="section">

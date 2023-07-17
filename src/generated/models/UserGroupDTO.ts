@@ -12,6 +12,7 @@
  */
 
 /**
+ * the user\'s group
  * @export
  * @interface UserGroupDTO
  */
@@ -21,7 +22,7 @@ export interface UserGroupDTO {
      * @type {string}
      * @memberof UserGroupDTO
      */
-    code?: string;
+    code: string;
     /**
      * the description of the group
      * @type {string}

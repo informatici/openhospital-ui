@@ -11,5 +11,5 @@ export const initial: ILaboratoriesState = {
   labsRequestByPatientId: { status: "IDLE", data: [] },
   getLabByCode: { status: "IDLE", data: null },
   getLabWithRowsByCode: { status: "IDLE", data: null },
-  searchLabs: { status: "IDLE", data: [] },
+  searchLabs: { status: "IDLE" },
 };

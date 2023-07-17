@@ -25,5 +25,5 @@ export interface OperationTypeDTO {
      * @type {string}
      * @memberof OperationTypeDTO
      */
-    description?: string;
+    description: string;
 }

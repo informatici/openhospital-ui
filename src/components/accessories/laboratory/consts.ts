@@ -20,6 +20,8 @@ export const initialFilter: TFilterValues = {
   dateFrom: fixFilterDateFrom(moment().subtract(1, "years").toISOString()),
   dateTo: fixFilterDateTo(moment().toISOString()),
   status: "",
+  page: 0,
+  size: 80,
 };
 
 export const initialFields: TFields<ExamFormFieldName> = {

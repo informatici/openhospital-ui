@@ -30,29 +30,39 @@ export interface PriceDTO {
      * @type {PriceList}
      * @memberof PriceDTO
      */
-    list?: PriceList;
+    list: PriceList;
     /**
      * the group
      * @type {string}
      * @memberof PriceDTO
      */
-    group?: string;
+    group: string;
     /**
      * the item name
      * @type {string}
      * @memberof PriceDTO
      */
-    item?: string;
+    item: string;
     /**
      * the description
      * @type {string}
      * @memberof PriceDTO
      */
-    description?: string;
+    description: string;
     /**
      * price
      * @type {number}
      * @memberof PriceDTO
      */
-    price?: number;
+    price: number;
+    /**
+     * @type {boolean}
+     * @memberof PriceDTO
+     */
+    readonly editable?: boolean;
+    /**
+     * @type {number}
+     * @memberof PriceDTO
+     */
+    readonly hashCode?: number;
 }

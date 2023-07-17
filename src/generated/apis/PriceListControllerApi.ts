@@ -148,9 +148,9 @@ export class PriceListControllerApi extends BaseAPI {
     /**
      * newPriceList
      */
-    newPriceListUsingPOST({ priceListDTO }: NewPriceListUsingPOSTRequest): Observable<string>
-    newPriceListUsingPOST({ priceListDTO }: NewPriceListUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    newPriceListUsingPOST({ priceListDTO }: NewPriceListUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    newPriceListUsingPOST({ priceListDTO }: NewPriceListUsingPOSTRequest): Observable<PriceListDTO>
+    newPriceListUsingPOST({ priceListDTO }: NewPriceListUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PriceListDTO>>
+    newPriceListUsingPOST({ priceListDTO }: NewPriceListUsingPOSTRequest, opts?: OperationOpts): Observable<PriceListDTO | RawAjaxResponse<PriceListDTO>> {
         throwIfNullOrUndefined(priceListDTO, 'priceListDTO', 'newPriceListUsingPOST');
 
         const headers: HttpHeaders = {
@@ -158,7 +158,7 @@ export class PriceListControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<PriceListDTO>({
             url: '/pricelists',
             method: 'POST',
             headers,
@@ -169,9 +169,9 @@ export class PriceListControllerApi extends BaseAPI {
     /**
      * updatePriceListt
      */
-    updatePriceListtUsingPUT({ id, priceListDTO }: UpdatePriceListtUsingPUTRequest): Observable<string>
-    updatePriceListtUsingPUT({ id, priceListDTO }: UpdatePriceListtUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    updatePriceListtUsingPUT({ id, priceListDTO }: UpdatePriceListtUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    updatePriceListtUsingPUT({ id, priceListDTO }: UpdatePriceListtUsingPUTRequest): Observable<PriceListDTO>
+    updatePriceListtUsingPUT({ id, priceListDTO }: UpdatePriceListtUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PriceListDTO>>
+    updatePriceListtUsingPUT({ id, priceListDTO }: UpdatePriceListtUsingPUTRequest, opts?: OperationOpts): Observable<PriceListDTO | RawAjaxResponse<PriceListDTO>> {
         throwIfNullOrUndefined(id, 'id', 'updatePriceListtUsingPUT');
         throwIfNullOrUndefined(priceListDTO, 'priceListDTO', 'updatePriceListtUsingPUT');
 
@@ -180,7 +180,7 @@ export class PriceListControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<PriceListDTO>({
             url: '/pricelists/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,

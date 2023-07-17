@@ -96,7 +96,7 @@ const TherapyForm: FC<TherapyProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      onSubmit(formattedValues as any);
     },
   });
 

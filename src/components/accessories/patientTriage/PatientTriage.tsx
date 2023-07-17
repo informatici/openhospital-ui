@@ -92,7 +92,7 @@ const PatientTriage: FC = () => {
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
-    triage.patientCode = patientDataCode;
+    triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
       dispatch(updateExamination(triageToEdit.pex_ID, triage));

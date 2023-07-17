@@ -7,7 +7,7 @@ import { IState } from "../../../types";
 export const useAdmBySexData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getAdmissions.data ?? []
+    (state) => state.admissions.getAdmissions.data?.data ?? []
   );
   const status = useSelector<IState, TAPIResponseStatus>(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"

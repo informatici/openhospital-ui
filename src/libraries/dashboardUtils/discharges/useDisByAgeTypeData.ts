@@ -7,7 +7,7 @@ import { IState } from "../../../types";
 export const useDisByAgeTypeData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getDischarges.data ?? []
+    (state) => state.admissions.getDischarges.data?.data ?? []
   );
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []

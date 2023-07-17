@@ -25,9 +25,8 @@ export interface OpdWithOperatioRowDTO {
      * @type {OpdDTO}
      * @memberof OpdWithOperatioRowDTO
      */
-    opdDTO: OpdDTO;
+    opdDTO?: OpdDTO;
     /**
-     * list of OperationRowDTO
      * @type {Array<OperationRowDTO>}
      * @memberof OpdWithOperatioRowDTO
      */

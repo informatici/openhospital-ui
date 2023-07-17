@@ -1,10 +1,7 @@
 import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import {
-  OperationControllerApi,
-  OperationDTO,
-  OperationRowDTO,
-} from "../../generated";
+import { OperationDTO, OperationRowDTO } from "../../generated";
+import { OperationControllerApi } from "../../generated/apis/OperationControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

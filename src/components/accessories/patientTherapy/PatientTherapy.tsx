@@ -97,7 +97,7 @@ const PatientTherapy: FC = () => {
   const onSubmit = (valuesToSave: TherapyRowDTO) => {
     setShouldResetForm(false);
     valuesToSave.therapyID = therapyToEdit.therapyID;
-    valuesToSave.patID = patientData;
+    valuesToSave.patID = patientData as any;
     if (!creationMode && therapyToEdit.therapyID) {
       dispatch(updateTherapy(valuesToSave));
     } else dispatch(createTherapy(valuesToSave));

@@ -16,10 +16,7 @@ export const useItems = () => {
     (state) => state.exams.examList.data || []
   );
 
-  const surgeries: OperationDTO[] = [
-    { code: "srg1", description: "Surgery 1" },
-    { code: "srg2", description: "Surgery 2" },
-  ];
+  const surgeries: OperationDTO[] = [];
   useEffect(() => {
     dispatch(getMedicals());
     dispatch(getExams());

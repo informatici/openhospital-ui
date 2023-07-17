@@ -25,7 +25,7 @@ export const labWithRowsDTO = [
       sex: "M",
       status: "DONE"
     },
-    laboratoryRowList: []
+    laboratoryRowList: [],
   },
 
   {
@@ -54,7 +54,7 @@ export const labWithRowsDTO = [
       sex: "M",
       status: "DONE"
     },
-    laboratoryRowList: []
+    laboratoryRowList: [],
   },
   {
     laboratoryDTO: {
@@ -81,6 +81,6 @@ export const labWithRowsDTO = [
       sex: "M",
       status: "DONE"
     },
-    laboratoryRowList: ["RB", "CH", "RT"]
+    laboratoryRowList: ["RB", "CH", "RT"],
   },
 ];

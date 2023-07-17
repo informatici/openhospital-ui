@@ -13,7 +13,6 @@
 
 import {
     DiseaseDTO,
-    WardDTO,
 } from './';
 
 /**
@@ -22,6 +21,7 @@ import {
  */
 export interface OpdDTO {
     /**
+     * the code of the opd
      * @type {number}
      * @memberof OpdDTO
      */
@@ -37,7 +37,7 @@ export interface OpdDTO {
      * @type {string}
      * @memberof OpdDTO
      */
-    visitDate?: string;
+    visitDate: string;
     /**
      * the next visit date
      * @type {string}
@@ -55,25 +55,31 @@ export interface OpdDTO {
      * @type {number}
      * @memberof OpdDTO
      */
-    age?: number;
+    age: number;
     /**
      * the patient sex
      * @type {string}
      * @memberof OpdDTO
      */
-    sex?: string;
+    sex: string;
     /**
-     * the patient full name
+     * the patient sex
      * @type {string}
      * @memberof OpdDTO
      */
     patientName?: string;
     /**
+     * Age type
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    ageType?: string;
+    /**
      * the admission note
      * @type {string}
      * @memberof OpdDTO
      */
-    note?: string;
+    note: string;
     /**
      * a progr. in year for each ward
      * @type {number}
@@ -100,7 +106,7 @@ export interface OpdDTO {
      * @type {string}
      * @memberof OpdDTO
      */
-    newPatient?: string;
+    newPatient: string;
     /**
      * referral from another unit
      * @type {string}
@@ -114,32 +120,49 @@ export interface OpdDTO {
      */
     referralTo?: string;
     /**
-     * Prescription
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    prescription?: string;
-    /**
-     * Age type
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    ageType?: string;
-    /**
      * user id
      * @type {string}
      * @memberof OpdDTO
      */
     userID?: string;
     /**
-     * opd lock column
      * @type {number}
      * @memberof OpdDTO
      */
-    lock?: number;
+    readonly lock?: number;
     /**
-     * @type {WardDTO}
+     * @type {number}
      * @memberof OpdDTO
      */
-    ward?: WardDTO;
+    readonly hashCode?: number;
+    /**
+     * reasons for entry
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    reason?: string;
+    /**
+     * history of a medical or psychiatric patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    anamnesis?: string;
+    /**
+     * allergies of patient
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    allergies?: string;
+    /**
+     * Current therapies
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    therapies?: string;
+    /**
+     * prescription
+     * @type {string}
+     * @memberof OpdDTO
+     */
+    prescription?: string;
 }

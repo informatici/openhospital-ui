@@ -3,8 +3,18 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
-import { TGridLayoutToolboxItemProps, TDashboardComponent } from "../types";
-import { encodeLayout, getDashboardLabel, removeDuplicates } from "../consts";
+import {
+  TGridLayoutToolboxItemProps,
+  TDashboardComponent,
+  LayoutBreakpoints,
+} from "../types";
+import {
+  addWidget,
+  encodeLayout,
+  getDashboardLabel,
+  removeDuplicates,
+  removeWidget,
+} from "../consts";
 import { Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Layout, Layouts } from "react-grid-layout";
@@ -30,12 +40,12 @@ export const GridLayoutToolbox: FC = () => {
   const onItemPut = (item: Layout) => {
     let layoutsTmp = removeDuplicates({
       ...layouts,
-      [breakpoint]: [...layouts[breakpoint], item],
+      ...addWidget(layouts, item, breakpoint as LayoutBreakpoints),
     });
 
     let toolboxTmp = removeDuplicates({
       ...toolbox,
-      [breakpoint]: toolbox[breakpoint].filter(({ i }) => i !== item.i),
+      ...removeWidget(toolbox, item),
     });
 
     dispatch(

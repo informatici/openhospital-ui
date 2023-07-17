@@ -21,13 +21,13 @@ export interface SupplierDTO {
      * @type {number}
      * @memberof SupplierDTO
      */
-    supId?: number;
+    supId: number;
     /**
      * The supplier\'s name
      * @type {string}
      * @memberof SupplierDTO
      */
-    supName?: string;
+    supName: string;
     /**
      * The supplier\'s address
      * @type {string}

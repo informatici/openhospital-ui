@@ -31,7 +31,7 @@ export interface MalnutritionDTO {
      * @type {string}
      * @memberof MalnutritionDTO
      */
-    dateSupp?: string;
+    dateSupp: string;
     /**
      * The date of the next malnutrition control
      * @type {string}
@@ -42,17 +42,23 @@ export interface MalnutritionDTO {
      * @type {AdmissionDTO}
      * @memberof MalnutritionDTO
      */
-    admission?: AdmissionDTO;
+    admission: AdmissionDTO;
     /**
      * The height of the patient
      * @type {number}
      * @memberof MalnutritionDTO
      */
-    height?: number;
+    height: number;
     /**
      * The weight of the patient
      * @type {number}
      * @memberof MalnutritionDTO
      */
-    weight?: number;
+    weight: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof MalnutritionDTO
+     */
+    lock?: number;
 }

@@ -26,11 +26,11 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
     (state) => state.patients.searchResults.status || "IDLE"
   );
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    onBlur(e, value ?? {});
+    onBlur(e, value ?? undefined);
   };
 
   const onChange = (e: object, val: PatientDTO | null) => {
-    setValue(val ?? {});
+    setValue(val ?? undefined);
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
   }, [inputValue]);
 
   const handleOnInputChange = (event: any, value: string) => {
-    if (value === "") setValue({});
+    if (value === "") setValue(undefined);
     debounce(() => {
       setInputValue(value);
     }, 250);

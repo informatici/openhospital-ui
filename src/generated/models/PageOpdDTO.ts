@@ -11,12 +11,24 @@
  * Do not edit the class manually.
  */
 
-/**
- * 
- * @export
- * @enum {string}
- */
-export enum ErrorDescription {
-    PASSWORDTOOSHORT = 'PASSWORD_TOO_SHORT'
-}
+import {
+    OpdDTO,
+    PageInfoDTO,
+} from './';
 
+/**
+ * @export
+ * @interface PageOpdDTO
+ */
+export interface PageOpdDTO {
+    /**
+     * @type {Array<OpdDTO>}
+     * @memberof PageOpdDTO
+     */
+    data?: Array<OpdDTO>;
+    /**
+     * @type {PageInfoDTO}
+     * @memberof PageOpdDTO
+     */
+    pageInfo?: PageInfoDTO;
+}

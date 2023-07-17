@@ -146,7 +146,7 @@ const BillRecords = () => {
       billId: selectedObj.code,
       date: parseDate(values.paymentDate),
       amount: parseFloat(values.paymentAmount),
-      user: user,
+      user: user as any,
     };
     dispatch(payBill(newPayment));
     setOpenPaymentDialog(false);
@@ -170,7 +170,7 @@ const BillRecords = () => {
       ) ?? {};
 
     const content = (
-      <RenderBillDetails fullBill={bill} skipPatientHeader={false} />
+      <RenderBillDetails fullBill={bill as any} skipPatientHeader={false} />
     );
     const frame = (
       document.getElementById("ifmcontentstoprint") as HTMLIFrameElement

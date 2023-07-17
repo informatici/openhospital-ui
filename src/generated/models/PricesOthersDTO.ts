@@ -18,45 +18,50 @@
  */
 export interface PricesOthersDTO {
     /**
+     * @type {number}
+     * @memberof PricesOthersDTO
+     */
+    id?: number;
+    /**
+     * the prices code
+     * @type {string}
+     * @memberof PricesOthersDTO
+     */
+    code: string;
+    /**
+     * the description
+     * @type {string}
+     * @memberof PricesOthersDTO
+     */
+    description: string;
+    /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
-    daily?: boolean;
+    opdInclude: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PricesOthersDTO
+     */
+    ipdInclude: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PricesOthersDTO
+     */
+    daily: boolean;
     /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
     discharge?: boolean;
     /**
-     * @type {number}
-     * @memberof PricesOthersDTO
-     */
-    id?: number;
-    /**
-     * @type {boolean}
-     * @memberof PricesOthersDTO
-     */
-    ipdInclude?: boolean;
-    /**
-     * @type {boolean}
-     * @memberof PricesOthersDTO
-     */
-    opdInclude?: boolean;
-    /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */
     undefined?: boolean;
     /**
-     * the prices code
-     * @type {string}
+     * @type {number}
      * @memberof PricesOthersDTO
      */
-    code?: string;
-    /**
-     * the description
-     * @type {string}
-     * @memberof PricesOthersDTO
-     */
-    description?: string;
+    readonly hashCode?: number;
 }

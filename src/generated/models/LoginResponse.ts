@@ -12,24 +12,25 @@
  */
 
 /**
+ * Class representing a Login response
  * @export
  * @interface LoginResponse
  */
 export interface LoginResponse {
     /**
-     * token authentication
+     * token
      * @type {string}
      * @memberof LoginResponse
      */
     token?: string;
     /**
-     * type of token using
+     * type of Token
      * @type {string}
      * @memberof LoginResponse
      */
     type?: string;
     /**
-     * token authentication
+     * user name
      * @type {string}
      * @memberof LoginResponse
      */

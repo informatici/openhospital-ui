@@ -158,7 +158,7 @@ const ExamForm: FC<ExamProps> = ({
     labDate: string()
       .required(t("common.required"))
       .test({
-        name: "date",
+        name: "labDate",
         message: t("common.invaliddate"),
         test: function (value) {
           return moment(value).isValid();
@@ -385,8 +385,8 @@ const ExamForm: FC<ExamProps> = ({
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("labDate")}
+                errorText={getErrorText("labDate")}
                 label={t("lab.date")}
                 onChange={dateFieldHandleOnChange("labDate")}
                 disabled={false}

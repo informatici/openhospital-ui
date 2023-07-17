@@ -18,11 +18,11 @@ import {
 } from '../models';
 
 export interface GetSuppliersUsingGETRequest {
-    id: number;
+    excludeDeleted?: boolean;
 }
 
 export interface GetSuppliersUsingGET1Request {
-    excludeDeleted?: boolean;
+    id: number;
 }
 
 export interface SaveSupplierUsingPOSTRequest {
@@ -41,28 +41,9 @@ export class SupplierControllerApi extends BaseAPI {
     /**
      * getSuppliers
      */
-    getSuppliersUsingGET({ id }: GetSuppliersUsingGETRequest): Observable<SupplierDTO>
-    getSuppliersUsingGET({ id }: GetSuppliersUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
-    getSuppliersUsingGET({ id }: GetSuppliersUsingGETRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
-        throwIfNullOrUndefined(id, 'id', 'getSuppliersUsingGET');
-
-        const headers: HttpHeaders = {
-            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
-        };
-
-        return this.request<SupplierDTO>({
-            url: '/suppliers/{id}'.replace('{id}', encodeURI(id)),
-            method: 'GET',
-            headers,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     * getSuppliers
-     */
-    getSuppliersUsingGET1({ excludeDeleted }: GetSuppliersUsingGET1Request): Observable<Array<SupplierDTO>>
-    getSuppliersUsingGET1({ excludeDeleted }: GetSuppliersUsingGET1Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<SupplierDTO>>>
-    getSuppliersUsingGET1({ excludeDeleted }: GetSuppliersUsingGET1Request, opts?: OperationOpts): Observable<Array<SupplierDTO> | RawAjaxResponse<Array<SupplierDTO>>> {
+    getSuppliersUsingGET({ excludeDeleted }: GetSuppliersUsingGETRequest): Observable<Array<SupplierDTO>>
+    getSuppliersUsingGET({ excludeDeleted }: GetSuppliersUsingGETRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<SupplierDTO>>>
+    getSuppliersUsingGET({ excludeDeleted }: GetSuppliersUsingGETRequest, opts?: OperationOpts): Observable<Array<SupplierDTO> | RawAjaxResponse<Array<SupplierDTO>>> {
 
         const headers: HttpHeaders = {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
@@ -81,11 +62,30 @@ export class SupplierControllerApi extends BaseAPI {
     };
 
     /**
+     * getSuppliers
+     */
+    getSuppliersUsingGET1({ id }: GetSuppliersUsingGET1Request): Observable<SupplierDTO>
+    getSuppliersUsingGET1({ id }: GetSuppliersUsingGET1Request, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
+    getSuppliersUsingGET1({ id }: GetSuppliersUsingGET1Request, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getSuppliersUsingGET1');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
+        };
+
+        return this.request<SupplierDTO>({
+            url: '/suppliers/{id}'.replace('{id}', encodeURI(id)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
      * saveSupplier
      */
-    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest): Observable<boolean>
-    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest): Observable<SupplierDTO>
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
+    saveSupplierUsingPOST({ supplierDTO }: SaveSupplierUsingPOSTRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'saveSupplierUsingPOST');
 
         const headers: HttpHeaders = {
@@ -93,7 +93,7 @@ export class SupplierControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<SupplierDTO>({
             url: '/suppliers',
             method: 'POST',
             headers,
@@ -104,9 +104,9 @@ export class SupplierControllerApi extends BaseAPI {
     /**
      * updateSupplier
      */
-    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest): Observable<boolean>
-    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest): Observable<SupplierDTO>
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
+    updateSupplierUsingPUT({ supplierDTO }: UpdateSupplierUsingPUTRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'updateSupplierUsingPUT');
 
         const headers: HttpHeaders = {
@@ -114,7 +114,7 @@ export class SupplierControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<SupplierDTO>({
             url: '/suppliers',
             method: 'PUT',
             headers,

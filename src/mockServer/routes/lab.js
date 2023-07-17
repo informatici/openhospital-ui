@@ -92,7 +92,13 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labWithRowsDTO);
+          res.status(200).json({
+            data: labWithRowsDTO,
+            pageInfo: {
+              totalPage: 8,
+              page: !isNaN(req.query.page) ? parseInt(req.query.page) : 0,
+            },
+          });
       }
     });
 

@@ -12,6 +12,8 @@ export type TFilterValues = {
   examName?: string;
   patientCode?: number;
   status?: string;
+  page?: number;
+  size?: number;
 };
 
 export type TExamFilterValues = Record<ExamFilterFormFieldName, string>;

@@ -32,13 +32,13 @@ export interface MovementWardDTO {
      * @type {WardDTO}
      * @memberof MovementWardDTO
      */
-    ward?: WardDTO;
+    ward: WardDTO;
     /**
      * The movement ward\'s date
      * @type {string}
      * @memberof MovementWardDTO
      */
-    date?: string;
+    date: string;
     /**
      * @type {PatientDTO}
      * @memberof MovementWardDTO
@@ -61,7 +61,7 @@ export interface MovementWardDTO {
      * @type {string}
      * @memberof MovementWardDTO
      */
-    description?: string;
+    description: string;
     /**
      * @type {MedicalDTO}
      * @memberof MovementWardDTO
@@ -72,13 +72,13 @@ export interface MovementWardDTO {
      * @type {number}
      * @memberof MovementWardDTO
      */
-    quantity?: number;
+    quantity: number;
     /**
      * The measure\'s unit of the medical concerned by the movement
      * @type {string}
      * @memberof MovementWardDTO
      */
-    units?: string;
+    units: string;
     /**
      * @type {WardDTO}
      * @memberof MovementWardDTO

@@ -74,9 +74,9 @@ export class PregnantTreatmentTypeControllerApi extends BaseAPI {
     /**
      * newPregnantTreatmentType
      */
-    newPregnantTreatmentTypeUsingPOST({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeUsingPOSTRequest): Observable<string>
-    newPregnantTreatmentTypeUsingPOST({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    newPregnantTreatmentTypeUsingPOST({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeUsingPOSTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    newPregnantTreatmentTypeUsingPOST({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeUsingPOSTRequest): Observable<PregnantTreatmentTypeDTO>
+    newPregnantTreatmentTypeUsingPOST({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PregnantTreatmentTypeDTO>>
+    newPregnantTreatmentTypeUsingPOST({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeUsingPOSTRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | RawAjaxResponse<PregnantTreatmentTypeDTO>> {
         throwIfNullOrUndefined(pregnantTreatmentTypeDTO, 'pregnantTreatmentTypeDTO', 'newPregnantTreatmentTypeUsingPOST');
 
         const headers: HttpHeaders = {
@@ -84,7 +84,7 @@ export class PregnantTreatmentTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<PregnantTreatmentTypeDTO>({
             url: '/pregnanttreatmenttypes',
             method: 'POST',
             headers,
@@ -95,9 +95,9 @@ export class PregnantTreatmentTypeControllerApi extends BaseAPI {
     /**
      * updatePregnantTreatmentTypet
      */
-    updatePregnantTreatmentTypetUsingPUT({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetUsingPUTRequest): Observable<string>
-    updatePregnantTreatmentTypetUsingPUT({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    updatePregnantTreatmentTypetUsingPUT({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetUsingPUTRequest, opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    updatePregnantTreatmentTypetUsingPUT({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetUsingPUTRequest): Observable<PregnantTreatmentTypeDTO>
+    updatePregnantTreatmentTypetUsingPUT({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetUsingPUTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PregnantTreatmentTypeDTO>>
+    updatePregnantTreatmentTypetUsingPUT({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetUsingPUTRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | RawAjaxResponse<PregnantTreatmentTypeDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updatePregnantTreatmentTypetUsingPUT');
         throwIfNullOrUndefined(pregnantTreatmentTypeDTO, 'pregnantTreatmentTypeDTO', 'updatePregnantTreatmentTypetUsingPUT');
 
@@ -106,7 +106,7 @@ export class PregnantTreatmentTypeControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<string>({
+        return this.request<PregnantTreatmentTypeDTO>({
             url: '/pregnanttreatmenttypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,

@@ -92,7 +92,7 @@ const PatientVisit: FunctionComponent = () => {
   const onSubmit = (visitValuesToSave: VisitDTO) => {
     setShouldResetForm(false);
     visitValuesToSave = { ...visitToEdit, ...visitValuesToSave };
-    visitValuesToSave.patient = patient;
+    if (patient) visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
       dispatch(
         updateVisit(visitToEdit.visitID, {

@@ -8,7 +8,7 @@ import { colorGen } from "../../uiUtils/colorGenerator";
 export const useAdmByAdmTypeData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getAdmissions.data ?? []
+    (state) => state.admissions.getAdmissions.data?.data ?? []
   );
   const admissionTypes = useSelector<IState, AdmissionTypeDTO[]>(
     (state) => state.admissionTypes.allAdmissionTypes.data ?? []

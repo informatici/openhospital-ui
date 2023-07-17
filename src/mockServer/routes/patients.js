@@ -10,7 +10,7 @@ export const patientRoutes = (server) => {
           res.status(400);
           break;
         default:
-          res.status(201).json(body);
+          res.status(201).json({ ...body, code: 1 });
           break;
       }
     });

@@ -16,6 +16,7 @@ import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts,
 import {
     MedicalDTO,
     TherapyDTO,
+    TherapyRow,
     TherapyRowDTO,
 } from '../models';
 
@@ -177,9 +178,9 @@ export class TherapyControllerApi extends BaseAPI {
     /**
      * replaceTherapies
      */
-    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest): Observable<boolean>
-    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest): Observable<TherapyRow>
+    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyRow>>
+    replaceTherapiesUsingPOST({ thRowDTOs }: ReplaceTherapiesUsingPOSTRequest, opts?: OperationOpts): Observable<TherapyRow | RawAjaxResponse<TherapyRow>> {
         throwIfNullOrUndefined(thRowDTOs, 'thRowDTOs', 'replaceTherapiesUsingPOST');
 
         const headers: HttpHeaders = {
@@ -187,7 +188,7 @@ export class TherapyControllerApi extends BaseAPI {
             ...(this.configuration.apiKey && { 'Authorization': this.configuration.apiKey('Authorization') }), // JWT authentication
         };
 
-        return this.request<boolean>({
+        return this.request<TherapyRow>({
             url: '/therapies/replace',
             method: 'POST',
             headers,

@@ -1,7 +1,9 @@
 import isEmpty from "lodash.isempty";
+import moment from "moment";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
-import { PatientControllerApi, PatientDTO } from "../../generated";
+import { PagePatientDTO, PatientDTO } from "../../generated";
+import { PatientControllerApi } from "../../generated/apis/PatientControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -12,6 +14,9 @@ import {
   GET_CITIES_FAIL,
   GET_CITIES_LOADING,
   GET_CITIES_SUCCESS,
+  GET_PATIENTS_FAIL,
+  GET_PATIENTS_LOADING,
+  GET_PATIENTS_SUCCESS,
   GET_PATIENT_FAIL,
   GET_PATIENT_LOADING,
   GET_PATIENT_RESET,
@@ -140,27 +145,34 @@ export const searchPatient =
           }
         );
     } else {
-      patientControllerApi.searchPatientUsingGET(values).subscribe(
-        (payload) => {
-          if (Array.isArray(payload)) {
-            dispatch({
-              type: SEARCH_PATIENT_SUCCESS,
-              payload,
-            });
-          } else {
+      patientControllerApi
+        .searchPatientUsingGET({
+          ...values,
+          birthDate: moment(values.birthDate).isValid()
+            ? values.birthDate
+            : undefined,
+        })
+        .subscribe(
+          (payload) => {
+            if (Array.isArray(payload)) {
+              dispatch({
+                type: SEARCH_PATIENT_SUCCESS,
+                payload,
+              });
+            } else {
+              dispatch({
+                type: SEARCH_PATIENT_FAIL,
+                error: { message: "Unexpected response payload" },
+              });
+            }
+          },
+          (error) => {
             dispatch({
               type: SEARCH_PATIENT_FAIL,
-              error: { message: "Unexpected response payload" },
+              error: error?.response,
             });
           }
-        },
-        (error) => {
-          dispatch({
-            type: SEARCH_PATIENT_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+        );
     }
   };
 
@@ -228,4 +240,31 @@ export const getCities =
         });
       }
     );
+  };
+
+export const getPatients =
+  ({ page, size }: { page?: number; size?: number }) =>
+  (dispatch: Dispatch<IAction<PagePatientDTO, {}>>): void => {
+    dispatch({
+      type: GET_PATIENTS_LOADING,
+    });
+    patientControllerApi
+      .getPatientsUsingGET({
+        page: page ?? 0,
+        size: size ?? 80,
+      })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: GET_PATIENTS_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: GET_PATIENTS_FAIL,
+            error,
+          });
+        }
+      );
   };

@@ -54,7 +54,7 @@ export const ExamTable: FC<IExamTableProps> = ({
   const dateFields = ["date"];
   const label = {
     id: t("lab.code"),
-    date: t("lab.date"),
+    labDate: t("lab.date"),
     patName: t("lab.patient"),
     exam: t("lab.exam"),
     result: t("lab.result"),

@@ -32,7 +32,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   const label = {
     code: t("common.code"),
-    date: t("lab.date"),
+    labDate: t("lab.date"),
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
@@ -125,7 +125,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       )}
       {labStatus === "SUCCESS_EMPTY" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="warning" message={t("common.emptydata")} />
+          <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
       {labStatus === "IDLE" && (

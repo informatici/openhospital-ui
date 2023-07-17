@@ -49,6 +49,31 @@ export const defaultGridLayoutBreakpoints = {
 };
 
 /**
+ * Determine breakpoint to apply based on display size
+ * @param width number
+ * @returns The breakpoint to be applied
+ */
+export const getBreakpointFromWidth = (width: number): string => {
+  if (width >= defaultGridLayoutBreakpoints.lg) {
+    return "lg";
+  }
+
+  if (width >= defaultGridLayoutBreakpoints.md) {
+    return "md";
+  }
+
+  if (width >= defaultGridLayoutBreakpoints.sm) {
+    return "sm";
+  }
+
+  if (width >= defaultGridLayoutBreakpoints.xs) {
+    return "xs";
+  }
+
+  return "md";
+};
+
+/**
  * Get dashboard label's translation key
  * @param dashboardKey Dashboard key
  * @returns Return the translation key
@@ -341,6 +366,50 @@ export function generateLayout(
     return dashboardLayout;
   });
 }
+
+/**
+ *  When a widget in all breakpoints
+ *
+ * @param input Layouts configuration
+ * @param widget Widget to be removed
+ * @returns The Layout configuration without the whole widget
+ */
+export const removeWidget = (input: Layouts, widget: Layout): Layouts => {
+  let layouts: Layouts = {};
+  Object.keys(input).forEach((breakpoint) => {
+    let breakpointConfig = input[breakpoint].filter(({ i }) => i !== widget.i);
+    layouts[breakpoint] = breakpointConfig;
+  });
+
+  return layouts;
+};
+
+/**
+ * Add a widget in all breakpoints
+ *
+ * @param input Layout configuration
+ * @param widget Widget to be added
+ * @param breakpoint The actual breakpoint
+ * @returns The layout configuration with the widget added
+ */
+export const addWidget = (
+  input: Layouts,
+  widget: Layout,
+  breakpoint: LayoutBreakpoints
+): Layouts => {
+  let layouts: Layouts = {};
+  Object.keys(input).forEach((currentBreakpoint) => {
+    let breakpointConfig = [
+      ...input[currentBreakpoint],
+      breakpoint === currentBreakpoint
+        ? widget
+        : generateLayout(currentBreakpoint as LayoutBreakpoints, [widget.i])[0],
+    ];
+    layouts[currentBreakpoint] = breakpointConfig;
+  });
+
+  return layouts;
+};
 
 /**
  * Pick random items in an Array

@@ -22,11 +22,11 @@ export interface VaccineTypeDTO {
      * @type {string}
      * @memberof VaccineTypeDTO
      */
-    code?: string;
+    code: string;
     /**
      * Description of the vaccine type
      * @type {string}
      * @memberof VaccineTypeDTO
      */
-    description?: string;
+    description: string;
 }

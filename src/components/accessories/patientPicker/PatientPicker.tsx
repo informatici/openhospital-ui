@@ -135,7 +135,7 @@ const PatientPicker: FC<IProps> = ({
 
   useEffect(() => {
     const pat = patientData?.find((item) => item.code === fieldValue);
-    pat ? setValue(pat) : setValue(initialValue ?? {});
+    pat ? setValue(pat) : setValue(initialValue ?? ({} as any));
   }, [fieldValue]);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -186,7 +186,7 @@ const PatientPicker: FC<IProps> = ({
         );
 
       case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.searchnotfound")} />;
+        return <InfoBox type="info" message={t("common.searchnotfound")} />;
 
       default:
         return <InfoBox type="error" message={errorMessage} />;
@@ -224,7 +224,7 @@ const PatientPicker: FC<IProps> = ({
                     color="inherit"
                     onMouseDown={(event: any) => {
                       event.stopPropagation();
-                      setValue({});
+                      setValue({} as any);
                     }}
                     aria-label="close"
                   >

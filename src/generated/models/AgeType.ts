@@ -17,16 +17,6 @@
  */
 export interface AgeType {
     /**
-     * @type {number}
-     * @memberof AgeType
-     */
-    active?: number;
-    /**
-     * @type {string}
-     * @memberof AgeType
-     */
-    code?: string;
-    /**
      * @type {string}
      * @memberof AgeType
      */
@@ -36,16 +26,6 @@ export interface AgeType {
      * @memberof AgeType
      */
     createdDate?: string;
-    /**
-     * @type {string}
-     * @memberof AgeType
-     */
-    description?: string;
-    /**
-     * @type {number}
-     * @memberof AgeType
-     */
-    from?: number;
     /**
      * @type {string}
      * @memberof AgeType
@@ -60,5 +40,25 @@ export interface AgeType {
      * @type {number}
      * @memberof AgeType
      */
-    to?: number;
+    active?: number;
+    /**
+     * @type {string}
+     * @memberof AgeType
+     */
+    code?: string;
+    /**
+     * @type {string}
+     * @memberof AgeType
+     */
+    description: string;
+    /**
+     * @type {number}
+     * @memberof AgeType
+     */
+    from: number;
+    /**
+     * @type {number}
+     * @memberof AgeType
+     */
+    to: number;
 }

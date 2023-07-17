@@ -31,21 +31,32 @@ export interface PatientVaccineDTO {
      * @type {number}
      * @memberof PatientVaccineDTO
      */
-    progr?: number;
+    progr: number;
     /**
      * the vaccine date
      * @type {string}
      * @memberof PatientVaccineDTO
      */
-    vaccineDate?: string;
+    vaccineDate: string;
     /**
      * @type {PatientDTO}
      * @memberof PatientVaccineDTO
      */
-    patient?: PatientDTO;
+    patient: PatientDTO;
     /**
      * @type {VaccineDTO}
      * @memberof PatientVaccineDTO
      */
-    vaccine?: VaccineDTO;
+    vaccine: VaccineDTO;
+    /**
+     * lock
+     * @type {number}
+     * @memberof PatientVaccineDTO
+     */
+    lock?: number;
+    /**
+     * @type {number}
+     * @memberof PatientVaccineDTO
+     */
+    readonly hashCode?: number;
 }

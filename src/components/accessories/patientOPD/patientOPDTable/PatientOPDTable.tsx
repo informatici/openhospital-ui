@@ -71,7 +71,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   const onEdit = (row?: OpdDTO) => {
-    handleEdit(data.find((item) => item.opdDTO.code === row?.code));
+    handleEdit(data.find((item) => item.opdDTO?.code === row?.code));
   };
 
   return (
@@ -91,7 +91,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
         />
       ) : (
         opdStatus === "SUCCESS_EMPTY" && (
-          <InfoBox type="warning" message={t("common.emptydata")} />
+          <InfoBox type="info" message={t("common.emptydata")} />
         )
       )}
       {opdStatus === "LOADING" && (

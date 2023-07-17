@@ -25,18 +25,18 @@ export interface UserDTO {
      * @type {string}
      * @memberof UserDTO
      */
-    userName?: string;
+    userName: string;
     /**
      * @type {UserGroupDTO}
      * @memberof UserDTO
      */
-    userGroupName?: UserGroupDTO;
+    userGroupName: UserGroupDTO;
     /**
      * the user\'s password
      * @type {string}
      * @memberof UserDTO
      */
-    passwd?: string;
+    passwd: string;
     /**
      * the user\'s description
      * @type {string}

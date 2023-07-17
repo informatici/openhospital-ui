@@ -73,4 +73,10 @@ export interface MedicalDTO {
      * @memberof MedicalDTO
      */
     minqty?: number;
+    /**
+     * lock
+     * @type {number}
+     * @memberof MedicalDTO
+     */
+    lock?: number;
 }

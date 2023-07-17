@@ -119,11 +119,12 @@ export const opdRoutes = (server) => {
           break;
         default:
           if (code >= 0) {
-            res.status(200).json([opdDTO, opdDTO, opdDTO]);
-          } else
             res
               .status(200)
-              .json([
+              .json({ data: [opdDTO, opdDTO, opdDTO], pageInfo: {} });
+          } else
+            res.status(200).json({
+              data: [
                 opdDTO,
                 { ...opdDTO, sex: "F", ageType: "d1" },
                 { ...opdDTO, sex: "F", ageType: "d1" },
@@ -136,7 +137,9 @@ export const opdRoutes = (server) => {
                 { ...opdDTO, sex: "M", ageType: "d2" },
                 { ...opdDTO, sex: "F", ageType: "d5" },
                 { ...opdDTO, sex: "M", ageType: "d5" },
-              ]);
+              ],
+              pageInfo: {},
+            });
       }
     });
 

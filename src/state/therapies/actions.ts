@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
+import { TherapyRowDTO } from "../../generated";
 import {
   ReplaceTherapiesUsingPOSTRequest,
   TherapyControllerApi,
-  TherapyRowDTO,
-} from "../../generated";
+} from "../../generated/apis/TherapyControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

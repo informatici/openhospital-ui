@@ -24,10 +24,45 @@ import {
  */
 export interface OperationRowDTO {
     /**
+     * @type {number}
+     * @memberof OperationRowDTO
+     */
+    id?: number;
+    /**
+     * @type {OperationDTO}
+     * @memberof OperationRowDTO
+     */
+    operation: OperationDTO;
+    /**
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    prescriber: string;
+    /**
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    opResult: string;
+    /**
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    opDate: string;
+    /**
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    remarks?: string;
+    /**
      * @type {AdmissionDTO}
      * @memberof OperationRowDTO
      */
     admission?: AdmissionDTO;
+    /**
+     * @type {OpdDTO}
+     * @memberof OperationRowDTO
+     */
+    opd?: OpdDTO;
     /**
      * @type {BillDTO}
      * @memberof OperationRowDTO
@@ -37,40 +72,10 @@ export interface OperationRowDTO {
      * @type {number}
      * @memberof OperationRowDTO
      */
-    id?: number;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    opDate?: string;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    opResult?: string;
-    /**
-     * @type {OpdDTO}
-     * @memberof OperationRowDTO
-     */
-    opd?: OpdDTO;
-    /**
-     * @type {OperationDTO}
-     * @memberof OperationRowDTO
-     */
-    operation?: OperationDTO;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    prescriber?: string;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    remarks?: string;
+    transUnit?: number;
     /**
      * @type {number}
      * @memberof OperationRowDTO
      */
-    transUnit?: number;
+    readonly hashCode?: number;
 }

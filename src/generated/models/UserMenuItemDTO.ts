@@ -17,28 +17,23 @@
  */
 export interface UserMenuItemDTO {
     /**
-     * @type {boolean}
-     * @memberof UserMenuItemDTO
-     */
-    asubMenu?: boolean;
-    /**
      * code of the menu item (must be unique)
      * @type {string}
      * @memberof UserMenuItemDTO
      */
-    code?: string;
+    code: string;
     /**
      * button label of the menu item
      * @type {string}
      * @memberof UserMenuItemDTO
      */
-    buttonLabel?: string;
+    buttonLabel: string;
     /**
      * alt label of the menu item
      * @type {string}
      * @memberof UserMenuItemDTO
      */
-    altLabel?: string;
+    altLabel: string;
     /**
      * tooltip label of the menu item
      * @type {string}
@@ -56,17 +51,22 @@ export interface UserMenuItemDTO {
      * @type {string}
      * @memberof UserMenuItemDTO
      */
-    mySubmenu?: string;
+    mySubmenu: string;
     /**
      * the main window class associated
      * @type {string}
      * @memberof UserMenuItemDTO
      */
-    myClass?: string;
+    myClass: string;
     /**
      * position of the menu item
      * @type {number}
      * @memberof UserMenuItemDTO
      */
-    position?: number;
+    position: number;
+    /**
+     * @type {boolean}
+     * @memberof UserMenuItemDTO
+     */
+    asubMenu?: boolean;
 }

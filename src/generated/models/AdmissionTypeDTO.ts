@@ -12,6 +12,7 @@
  */
 
 /**
+ * admission type
  * @export
  * @interface AdmissionTypeDTO
  */
@@ -21,11 +22,11 @@ export interface AdmissionTypeDTO {
      * @type {string}
      * @memberof AdmissionTypeDTO
      */
-    code?: string;
+    code: string;
     /**
      * description of the admission type
      * @type {string}
      * @memberof AdmissionTypeDTO
      */
-    description?: string;
+    description: string;
 }

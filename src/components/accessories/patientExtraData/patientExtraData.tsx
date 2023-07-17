@@ -61,7 +61,7 @@ export const PatientExtraData: FunctionComponent = () => {
         ...patient,
         allergies: values.allergies,
         anamnesis: values.anamnesis,
-      });
+      } as any);
     },
   });
 

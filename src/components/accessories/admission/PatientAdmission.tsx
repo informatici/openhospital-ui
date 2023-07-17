@@ -101,12 +101,15 @@ const PatientAdmission: FC = () => {
       adm.abortDate = adm.admDate;
       adm.admitted = 1;
       adm.deleted = "N";
-      adm.type = adm.admType?.code;
+      if (adm.admType) adm.type = adm.admType.code;
       adm.id = 0;
       dispatch(createAdmission(adm));
     } else {
       let admissionToSave: AdmissionDTO = {
         ...admissionToEdit,
+        deleted: "N",
+        type: adm.type,
+        admitted: adm.admitted,
         fhu: adm.fhu,
         admDate: adm.admDate,
         admType: adm.admType,

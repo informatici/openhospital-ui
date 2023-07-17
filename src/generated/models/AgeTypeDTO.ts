@@ -28,17 +28,17 @@ export interface AgeTypeDTO {
      * @type {string}
      * @memberof AgeTypeDTO
      */
-    description?: string;
+    description: string;
     /**
      * The minimum value of the range
      * @type {number}
      * @memberof AgeTypeDTO
      */
-    from?: number;
+    from: number;
     /**
      * The maximum value of the range
      * @type {number}
      * @memberof AgeTypeDTO
      */
-    to?: number;
+    to: number;
 }

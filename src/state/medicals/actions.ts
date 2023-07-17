@@ -1,10 +1,10 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
+import { MedicalDTO } from "../../generated";
 import {
   GetMedicalsUsingGETSortByEnum,
   MedicalControllerApi,
-  MedicalDTO,
-} from "../../generated";
+} from "../../generated/apis/MedicalControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {

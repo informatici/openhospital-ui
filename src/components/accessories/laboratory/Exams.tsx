@@ -35,6 +35,8 @@ import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TFilterValues } from "./filter/types";
 import { ChangeLabStatus } from "./ChangeLabStatus";
+import { useLaboratories } from "../../../libraries/hooks/api/useLaboratories";
+import Pagination from "../pagination/Pagination";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -51,9 +53,7 @@ export const Exams: FC = () => {
   const [selectedExamRow, setSelectedExamRow] =
     useState<LaboratoryDTO | undefined>(undefined);
 
-  const data = useSelector(
-    (state: IState) => state.laboratories.searchLabs.data
-  );
+  const { data, pageInfo, page, handlePageChange } = useLaboratories();
 
   const fields = useMemo(
     () => updateFilterFields(initialFilterFields, filter),
@@ -64,10 +64,19 @@ export const Exams: FC = () => {
   );
 
   useEffect(() => {
-    if (filter.patientCode !== undefined && !isEmpty(filter.patientCode)) {
-      dispatch(getPatientThunk(filter.patientCode?.toString()));
+    setFilter((previous) => ({ ...previous, page: page }));
+  }, [page]);
+
+  useEffect(() => {
+    dispatch(searchLabs(getFromFields(fields, "value")));
+    dispatch(getExams());
+  }, []);
+
+  useEffect(() => {
+    if (!isEmpty(filter.patientCode)) {
+      dispatch(getPatientThunk(filter.patientCode?.toString() ?? "0"));
     }
-    dispatch(searchLabs(filter));
+    dispatch(searchLabs({ ...filter, paged: true }));
   }, [filter]);
 
   useEffect(() => {
@@ -75,12 +84,12 @@ export const Exams: FC = () => {
       location.state as { refresh: boolean | undefined } | undefined
     )?.refresh;
     if (refresh) {
-      dispatch(searchLabs(filter));
+      dispatch(searchLabs({ ...filter, paged: true }));
     }
   }, [location]);
 
   const onSubmit = (values: TFilterValues) => {
-    setFilter(values);
+    setFilter({ ...values, page: 0, size: filter.size });
   };
 
   const onEdit = (row: LaboratoryDTO) => {
@@ -114,6 +123,7 @@ export const Exams: FC = () => {
     setCanceledObjCode(`${code}` ?? "");
     dispatch(cancelLab(code));
   };
+  const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
 
   const errorMessage = useSelector((state: IState) =>
     state.laboratories.searchLabs.error?.message
@@ -137,7 +147,7 @@ export const Exams: FC = () => {
 
   useEffect(() => {
     if (changeStatus === "SUCCESS") {
-      dispatch(searchLabs(filter));
+      dispatch(searchLabs({ ...filter, paged: true }));
     }
   }, [changeStatus]);
 
@@ -181,7 +191,7 @@ export const Exams: FC = () => {
           <Permission require="exam.read">
             <ExamFilterForm onSubmit={onSubmit} fields={fields} />
             {status === "SUCCESS_EMPTY" && (
-              <InfoBox type="warning" message={t("common.emptydata")} />
+              <InfoBox type="info" message={t("common.emptydata")} />
             )}
             {status === "FAIL" && (
               <InfoBox type="error" message={errorMessage} />
@@ -192,12 +202,19 @@ export const Exams: FC = () => {
               </div>
             )}
             {status === "SUCCESS" && (
-              <ExamTable
-                data={data ?? []}
-                handleDelete={onDelete}
-                handleCancel={onCancel}
-                handleEdit={onEdit}
-              />
+              <>
+                <ExamTable
+                  data={data ?? []}
+                  handleDelete={onDelete}
+                  handleCancel={onCancel}
+                  handleEdit={onEdit}
+                />
+                <Pagination
+                  page={(pageInfo?.page ?? 0) + 1}
+                  count={pageInfo?.totalPage}
+                  onChange={onPageChange}
+                />
+              </>
             )}
             {labStore.deleteLab.status === "LOADING" && (
               <CircularProgress
@@ -213,7 +230,7 @@ export const Exams: FC = () => {
               primaryButtonLabel={t("common.ok")}
               handlePrimaryButtonClick={() => {
                 dispatch(deleteLabReset());
-                dispatch(searchLabs(filter));
+                dispatch(searchLabs({ ...filter, paged: true }));
               }}
               handleSecondaryButtonClick={() => {}}
             />
@@ -226,7 +243,7 @@ export const Exams: FC = () => {
               primaryButtonLabel={t("common.ok")}
               handlePrimaryButtonClick={() => {
                 dispatch(cancelLabReset());
-                dispatch(searchLabs(filter));
+                dispatch(searchLabs({ ...filter, paged: true }));
               }}
               handleSecondaryButtonClick={() => {}}
             />
