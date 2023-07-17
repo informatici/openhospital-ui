@@ -394,7 +394,7 @@
     "emptydata": "No entry found!",
     "save": "Save",
     "code": "Code",
-    "update": "update",
+    "update": "Update",
     "delete": "Delete",
     "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
     "deletesuccess": "The item with code {{code}} was deleted successfully!",

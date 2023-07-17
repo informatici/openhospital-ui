@@ -17,7 +17,7 @@
     "searchpatients": "Search patients"
   },
   "patient": {
-    "address": "DIRECCIÓN",
+    "address": "Dirección",
     "birthdate": "Birth Date",
     "bloodtype": "Grupo sanguíneo",
     "city": "Ciudad",

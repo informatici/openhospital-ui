@@ -17,7 +17,7 @@
     "searchpatients": "Search patients"
   },
   "patient": {
-    "address": "ANWANI",
+    "address": "Anwani",
     "birthdate": "Birth Date",
     "bloodtype": "Aina ya damu",
     "city": "Jiji",
@@ -47,7 +47,7 @@
     "telephone": "Simu",
     "titleedit": "Hariri Mgonjwa",
     "personaldata": "Personal Data",
-    "parentslivetoghether": "wazazi wanaishi pamoja",
+    "parentslivetoghether": "Wazazi wanaishi pamoja",
     "insertdataofnewpatient": "Pachika data ya mgonjwa mpya",
     "admissions": "Admissions",
     "code": "Code",
