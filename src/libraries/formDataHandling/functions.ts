@@ -32,14 +32,18 @@ export const getFromFields = (
   }, {});
 };
 
-export const parseDate = (raw: string) => {
+export const parseDate = (raw: string, withTimezone: boolean = true) => {
   if (raw) {
     var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
-    const timezonedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    );
-    timezonedDate.setUTCHours(0);
-    return timezonedDate.toISOString();
+    if (withTimezone) {
+      const timezonedDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      );
+      timezonedDate.setUTCHours(0);
+      return timezonedDate.toISOString();
+    }
+    date.setHours(0);
+    return date.toISOString();
   } else {
     return "";
   }
@@ -79,7 +83,8 @@ export const fixFilterDateTo = (date: string | Date): string => {
 
 export const formatAllFieldValues = (
   fields: TFields,
-  values: Record<string, string>
+  values: Record<string, string>,
+  withTimezone: boolean = true
 ): Record<string, TFieldFormattedValue> => {
   return Object.keys(fields).reduce(
     (acc: Record<string, TFieldFormattedValue>, key) => {
@@ -88,7 +93,7 @@ export const formatAllFieldValues = (
           acc[key] = parseInt(values[key]);
           break;
         case "date":
-          acc[key] = parseDate(values[key]);
+          acc[key] = parseDate(values[key], withTimezone);
           break;
         default:
           acc[key] = values[key];
@@ -147,14 +152,18 @@ export const updateLabFields = (
     });
   });
 };
-export const updateFilterFields = (fields: TFields, values: any): TFields => {
+export const updateFilterFields = (
+  fields: TFields,
+  values: any,
+  withTimezone: boolean = true
+): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
       let value = values![key];
       if (key === "status") return (draft[key as string].value = value);
       if (draft[key as string]) {
         return (draft[key as string].value = moment(value).isValid()
-          ? parseDate(value as string)
+          ? parseDate(value as string, withTimezone)
           : value);
       }
     });

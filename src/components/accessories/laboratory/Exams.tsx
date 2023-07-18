@@ -56,7 +56,7 @@ export const Exams: FC = () => {
   const { data, pageInfo, page, handlePageChange } = useLaboratories();
 
   const fields = useMemo(
-    () => updateFilterFields(initialFilterFields, filter),
+    () => updateFilterFields(initialFilterFields, filter, false),
     [filter]
   );
   const labStore = useSelector<IState, ILaboratoriesState>(

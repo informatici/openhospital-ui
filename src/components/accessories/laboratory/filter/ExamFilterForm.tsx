@@ -117,7 +117,8 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(
         fields,
-        values
+        values,
+        false
       ) as TFilterValues;
 
       if (formattedValues.dateFrom) {
@@ -131,6 +132,8 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
       onSubmit(formattedValues);
     },
   });
+
+  console.log("formik", formik.values);
 
   const { setFieldValue, handleBlur } = formik;
 
