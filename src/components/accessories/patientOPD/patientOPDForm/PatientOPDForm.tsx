@@ -56,8 +56,11 @@ import { CustomDialog } from "../../customDialog/CustomDialog";
 import ContentCutIcon from "../../icons/content-cut";
 import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
 import {
+  createOperationRowReset,
   deleteOperationRow,
+  deleteOperationRowReset,
   getOperations,
+  updateOperationRowReset,
 } from "../../../../state/operations/actions";
 import { IOperationState } from "../../../../state/operations/types";
 import checkIcon from "../../../../assets/check-icon.png";
@@ -248,8 +251,18 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }
   };
   const [addOperationLoading, setAddOperationLoading] = useState(false);
+  const [shouldResetOperationForm, setShouldResetOperationForm] =
+    useState(false);
   const [opRowToEdit, setOpRowToEdit] = useState({} as OperationRowDTO);
   const [indexToEdit, setIndexToEdit] = useState(-1);
+
+  const resetOperationFormCallback = () => {
+    setShouldResetOperationForm(false);
+    setOperationCreationMode(true);
+    dispatch(createOperationRowReset());
+    dispatch(updateOperationRowReset());
+    dispatch(deleteOperationRowReset());
+  };
 
   const handleAddOperationRow = (values: OperationRowDTO) => {
     setAddOperationLoading(true);
@@ -258,11 +271,16 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     setTimeout(() => {
       if (operationCreationMode) {
         opRow.id = 0;
-        setOperationRows((state) => [...state, opRow]);
+        setOperationRows((state) => [
+          ...state,
+          { ...opRow, opResult: "unknown" },
+        ]);
       } else {
         if (indexToEdit > -1) operationRows[indexToEdit] = opRow;
       }
-      if (!isChecked) setShowModal(false);
+      if (!isChecked) {
+        setShowModal(false);
+      } else setShouldResetOperationForm(true);
       setAddOperationLoading(false);
     }, 500);
   };
@@ -587,14 +605,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             <OperationRowForm
               fields={operationsRowFields}
               onSubmit={handleAddOperationRow}
-              creationMode={creationMode}
+              creationMode={operationCreationMode}
               submitButtonLabel={
                 operationCreationMode ? t("common.save") : t("common.update")
               }
               resetButtonLabel={t("common.reset")}
-              shouldResetForm={shouldResetForm}
-              resetFormCallback={resetFormCallback}
+              shouldResetForm={shouldResetOperationForm}
+              resetFormCallback={resetOperationFormCallback}
               isLoading={addOperationLoading}
+              hideResultField={operationCreationMode}
             />
             <FormControlLabel
               control={

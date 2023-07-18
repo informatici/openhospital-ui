@@ -12,6 +12,7 @@ interface IOperationRowProps {
   admissionId?: number;
   creationMode: boolean;
   resetFormCallback: () => void;
+  hideResultField?: boolean;
 }
 
 export type OperationRowProps = IOperationRowProps;
