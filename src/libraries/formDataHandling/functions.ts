@@ -42,7 +42,7 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
       timezonedDate.setUTCHours(0);
       return timezonedDate.toISOString();
     }
-    date.setHours(0);
+    date.setUTCHours(0);
     return date.toISOString();
   } else {
     return "";
@@ -63,6 +63,18 @@ export const fixFilterDateFrom = (date: string | Date): string => {
   dateFrom = date.toISOString();
 
   return dateFrom;
+};
+
+export const removeTime = (date: string | Date): string => {
+  if (date instanceof Date) {
+    date.setUTCHours(0);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+
+    date = date.toISOString();
+  }
+
+  return date.split("T")[0];
 };
 
 export const fixFilterDateTo = (date: string | Date): string => {

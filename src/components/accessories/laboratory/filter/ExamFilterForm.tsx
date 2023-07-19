@@ -23,6 +23,7 @@ import {
   formatAllFieldValues,
   fixFilterDateFrom,
   fixFilterDateTo,
+  removeTime,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
@@ -110,6 +111,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   });
 
   const initialValues = getFromFields(fields, "value");
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -132,8 +134,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
       onSubmit(formattedValues);
     },
   });
-
-  console.log("formik", formik.values);
 
   const { setFieldValue, handleBlur } = formik;
 
@@ -262,7 +262,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                   <DateField
                     theme={"regular"}
                     fieldName="dateFrom"
-                    fieldValue={formik.values.dateFrom}
+                    fieldValue={removeTime(formik.values.dateFrom)}
                     disableFuture={true}
                     format="dd/MM/yyyy"
                     isValid={isValid("dateFrom")}
@@ -274,7 +274,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                 <div className="filterLabForm__item">
                   <DateField
                     fieldName="dateTo"
-                    fieldValue={formik.values.dateTo}
+                    fieldValue={removeTime(formik.values.dateTo)}
                     disableFuture={true}
                     theme="regular"
                     format="dd/MM/yyyy"

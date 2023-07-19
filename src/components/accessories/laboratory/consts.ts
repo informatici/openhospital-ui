@@ -9,11 +9,8 @@ import {
 } from "../../../libraries/formDataHandling/functions";
 
 export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
-  dateFrom: {
-    type: "date",
-    value: fixFilterDateFrom(moment().subtract(1, "years").toISOString()),
-  },
-  dateTo: { type: "date", value: fixFilterDateTo(moment().toISOString()) },
+  dateFrom: { type: "date", value: moment().startOf("month").toISOString() },
+  dateTo: { type: "date", value: moment().toISOString() },
   examName: { type: "text", value: "" },
   patientCode: { type: "number", value: "" },
   status: { type: "text", value: "" },
