@@ -66,14 +66,17 @@
     }
     .filterForm__buttonSet {
       display: flex;
+      justify-content: flex-end;
       width: 100%;
-      .MuiButton-contained {
-        width: 24%;
+      row-gap: 4px;
+
+      .MuiButton-root {
+        width: 16%;
         @include susy-media($tablet_land) {
-          width: 32%;
+          width: 26%;
         }
         @include susy-media($phone) {
-          width: 100%;
+          width: 50%;
         }
       }
     }

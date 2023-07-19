@@ -3,6 +3,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 export interface IOpdFilterProps {
   fields: TFields<OpdFilterFormFieldName>;
   onSubmit: (values: any) => void;
+  handleResetFilter: () => void;
 }
 export type IStatus = "" | "A" | "R";
 export type ISex = "" | "F" | "M" | "U";

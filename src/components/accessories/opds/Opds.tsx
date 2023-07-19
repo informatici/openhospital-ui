@@ -41,6 +41,10 @@ export const Opds: FC = () => {
     setFilter({ ...values, page: 0, size: filter.size });
   };
 
+  const handleResetFilter = () => {
+    setFilter({} as TFilterValues);
+  };
+
   const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
 
   const errorMessage = error || t("common.somethingwrong");
@@ -74,7 +78,11 @@ export const Opds: FC = () => {
             case "FAIL":
               return (
                 <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <InfoBox type="error" message={errorMessage} />
                 </Permission>
               );
@@ -89,7 +97,11 @@ export const Opds: FC = () => {
             case "SUCCESS_EMPTY":
               return (
                 <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <InfoBox type="info" message={t("common.emptydata")} />
                 </Permission>
               );
@@ -97,7 +109,11 @@ export const Opds: FC = () => {
             case "SUCCESS":
               return (
                 <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <OpdTable data={data ?? []} />
                   <Pagination
                     page={(pageInfo?.page ?? 0) + 1}

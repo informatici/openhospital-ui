@@ -12,36 +12,35 @@ import has from "lodash.has";
 import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { date, number, object, string } from "yup";
-import {
-  DiseaseDTO,
-  DiseaseTypeDTO,
-  ExamDTO,
-  ExamTypeDTO,
-  PatientDTO,
-} from "../../../../generated";
+import { object, string } from "yup";
+import { ExamDTO, PatientDTO } from "../../../../generated";
 import {
   getFromFields,
   formatAllFieldValues,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
-import SelectField from "../../selectField/SelectField";
 import { IExamFilterProps, TFilterValues } from "./types";
 import "./styles.scss";
-import TextField from "../../textField/TextField";
 import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import SmallButton from "../../smallButton/SmallButton";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../../assets/warning-icon.png";
 
-export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
+export const ExamFilterForm: FC<IExamFilterProps> = ({
+  fields,
+  onSubmit,
+  handleResetFilter,
+}) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
@@ -109,6 +108,12 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   });
 
   const { setFieldValue, handleBlur } = formik;
+
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    handleResetFilter();
+    formik.resetForm();
+  };
 
   const mapToOptions = (value: ExamDTO) => ({
     value: value.description ?? "",
@@ -268,13 +273,31 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
               </div>
             </div>
             <div className="filterForm__buttonSet">
-              <Button type="submit" color="primary" variant="contained">
+              <Button
+                type="reset"
+                variant="text"
+                onClick={() => setOpenResetConfirmation(true)}
+                className="reset_button"
+              >
+                {t("common.reset")}
+              </Button>
+              <Button variant="contained" color="primary" type="submit">
                 {t("lab.filter")}
               </Button>
             </div>
           </form>
         </AccordionDetails>
       </Accordion>
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.reset").toUpperCase()}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.reset")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleResetConfirmation}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
     </div>
   );
 };
