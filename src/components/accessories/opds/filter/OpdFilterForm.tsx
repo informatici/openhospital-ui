@@ -327,7 +327,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
               <div className="filterOpdForm__section_title">
                 {t("opd.general")}
               </div>
-              <div className="filterOpdForm__section_content">
+              <div className="filterOpdForm__section_content__general">
                 <div className="filterOpdForm__item">
                   <SelectField
                     fieldName="newPatiient"
@@ -339,7 +339,8 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     options={newPatientOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="space"></div>
+                <div className="filterOpdForm__item large">
                   <AutocompleteField
                     fieldName="diseaseTypeCode"
                     fieldValue={formik.values.diseaseTypeCode}
@@ -350,7 +351,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     options={diseaseTypeOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item large">
                   <AutocompleteField
                     fieldName="diseaseCode"
                     fieldValue={formik.values.diseaseCode}

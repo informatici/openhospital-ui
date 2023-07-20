@@ -46,7 +46,14 @@ export const Opds: FC = () => {
   const errorMessage = error || t("common.somethingwrong");
 
   useEffect(() => {
-    dispatch(searchOpds(getFromFields(fields, "value")));
+    dispatch(
+      searchOpds({
+        ...getFromFields(fields, "value"),
+        page: 0,
+        size: 80,
+        paged: true,
+      })
+    );
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
   }, []);
