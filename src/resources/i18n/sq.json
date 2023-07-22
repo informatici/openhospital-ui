@@ -1,4 +1,11 @@
 {
+  "errors": {
+    "somethingwrong": "Ndodhi një gabim. Provo sërish më vonë.",
+    "incorrectcredentials": "Përdoruesi ose fjalëkalimi i pavlefshëm",
+    "passwordtooshort": "Fjalëkalimi është shumë i shkurtër",
+    "badrequest": "Kerkese e pavlefshme",
+    "internalerror": "Ndodhi një gabim i brendshëm"
+  },
   "user": {
     "username": "Përdoruesi",
     "groups": "Grupet",
@@ -64,16 +71,16 @@
       }
     },
     "availabledashboard": "Panele në dispozicion",
-    "opdbyagetype":"VA sipas llojit të moshës",
-    "opdbysex":"VA sipas Gjinisë",
-    "admissionbyagetype":"Pranime sipas llojit të moshës",
-    "admissionbysex":"Pranime sipas gjinisë",
+    "opdbyagetype": "VA sipas llojit të moshës",
+    "opdbysex": "VA sipas Gjinisë",
+    "admissionbyagetype": "Pranime sipas llojit të moshës",
+    "admissionbysex": "Pranime sipas gjinisë",
     "admissionbyward": "Pranime sipas repartit",
-    "admissionbytype":"Pranime sipas llojit",
-    "dischargebysex":"Shkarkime sipas gjinisë",
-    "dischargebyagetype":"Shkarkime sipas llojit të moshës",
+    "admissionbytype": "Pranime sipas llojit",
+    "dischargebysex": "Shkarkime sipas gjinisë",
+    "dischargebyagetype": "Shkarkime sipas llojit të moshës",
     "dischargebyward": "Shkarkime sipas repartit",
-    "dischargebytype":"Shkarkime sipas llojeve",
+    "dischargebytype": "Shkarkime sipas llojeve",
     "togglefullscreen": "Kalo në ekran të plotë",
     "removedashboard": "Hiq komponentin e Panelit",
     "downloaddata": "Shkarkoni të dhënat themelore",
