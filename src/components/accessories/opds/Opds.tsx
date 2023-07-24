@@ -18,6 +18,7 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { useOpds } from "../../../libraries/hooks/api/useOpds";
 import { TFilterValues } from "./filter/types";
 import Pagination from "../pagination/Pagination";
+import { getWards } from "../../../state/ward/actions";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;
@@ -49,6 +50,7 @@ export const Opds: FC = () => {
     dispatch(searchOpds(getFromFields(fields, "value")));
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
+    dispatch(getWards());
   }, []);
 
   return (

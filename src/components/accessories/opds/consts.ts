@@ -15,4 +15,5 @@ export const initialFilterFields: TFields<OpdFilterFormFieldName> = {
   sex: { type: "text", value: "" },
   newPatient: { type: "text", value: "" },
   patientCode: { type: "number", value: "" },
+  wardCode: { type: "text", value: "" },
 };
