@@ -238,7 +238,7 @@ const DischargeForm: FC<DischargeProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="disType"
                 fieldValue={formik.values.disType}
@@ -251,7 +251,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="diseaseOut1"
                 fieldValue={formik.values.diseaseOut1}
@@ -264,7 +264,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="diseaseOut2"
                 fieldValue={formik.values.diseaseOut2}
@@ -277,7 +277,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="diseaseOut3"
                 fieldValue={formik.values.diseaseOut3}
