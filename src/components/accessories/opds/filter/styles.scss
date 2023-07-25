@@ -57,46 +57,8 @@
             width: 30%;
           }
         }
-      }
-      .filterOpdForm__section_content__general {
-        display: flex;
-        flex-flow: wrap row;
-        justify-content: space-between;
-
-        .space {
-          display: none;
-          @include susy-media($medium-up) {
-            display: flex;
-            width: 50%;
-          }
-          @include susy-media($large) {
-            display: none;
-          }
-        }
-
-        .filterOpdForm__item {
-          margin-right: 5px;
-          align-items: center;
+        .fullWidth {
           width: 100%;
-          @include susy-media($medium-up) {
-            width: 49%;
-          }
-          @include susy-media($large) {
-            width: 24%;
-          }
-          .selectField,
-          .autocompleteField {
-            width: 100%;
-          }
-        }
-        .large {
-          width: 100%;
-          @include susy-media($medium-up) {
-            width: 49%;
-          }
-          @include susy-media($large) {
-            width: 37%;
-          }
         }
       }
     }
