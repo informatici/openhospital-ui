@@ -1,4 +1,11 @@
 {
+  "errors": {
+    "somethingwrong": "Es ist ein interner Fehler aufgetreten",
+    "incorrectcredentials": "Benutzername oder Passwort ungültig",
+    "passwordtooshort": "Passwort zu kurz",
+    "badrequest": "Ungültige Anforderung",
+    "internalerror": "Es ist ein interner Fehler aufgetreten"
+  },
   "user": {
     "username": "Benutzername",
     "groups": "Gruppen ",
@@ -64,16 +71,16 @@
       }
     },
     "availabledashboard": "Verfügbare Instrumententafel",
-    "opdbyagetype":"OPDs nach Alterstyp",
-    "opdbysex":"OPDs nach Geschlecht",
-    "admissionbyagetype":"Eintritte nach Altersgruppe",
-    "admissionbysex":"Aufnahme nach Geschlecht",
+    "opdbyagetype": "OPDs nach Alterstyp",
+    "opdbysex": "OPDs nach Geschlecht",
+    "admissionbyagetype": "Eintritte nach Altersgruppe",
+    "admissionbysex": "Aufnahme nach Geschlecht",
     "admissionbyward": "Aufnahme nach Station",
-    "admissionbytype":"Aufnahme nach typ",
-    "dischargebysex":"Entlassungen nach geschlecht",
-    "dischargebyagetype":"Entlassungen nach Alterstyp",
+    "admissionbytype": "Aufnahme nach typ",
+    "dischargebysex": "Entlassungen nach geschlecht",
+    "dischargebyagetype": "Entlassungen nach Alterstyp",
     "dischargebyward": "Entlassungen nach station",
-    "dischargebytype":"Entlassungen nach typ",
+    "dischargebytype": "Entlassungen nach typ",
     "togglefullscreen": "Vollbild umschalten",
     "removedashboard": "Entfernen Sie die Dashboard-Komponente",
     "downloaddata": "Laden Sie die daten herunter",
@@ -414,7 +421,7 @@
     "cancel": "Abbrechen",
     "discardconfirmationmessage": "Alle nicht gespeicherten Änderungen gehen verloren. Weiter?",
     "emptydataforfilter": "Leere Daten für den angegebenen Filter",
-    "addanotherrow": "Fügen Sie eine weitere Operationszeile hinzu",
+    "addanotherrow": "Einen anderen Eingriff hinzufügen",
     "hospitalname": "Ihr Krankenhaus",
     "retry": "Wiederholen",
     "moment": {
