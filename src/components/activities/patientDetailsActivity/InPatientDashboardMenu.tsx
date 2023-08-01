@@ -104,19 +104,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 
-      <div
-        className={
-          "align__element patientDetails__main_menu__item " +
-          isActive("therapy")
-        }
-        onClick={() => {
-          changeUserSection("therapy");
-        }}
-      >
-        <Healing fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.therapy")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
+      {false && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("therapy")
+          }
+          onClick={() => {
+            changeUserSection("therapy");
+          }}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.therapy")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
 
       <div
         className={
