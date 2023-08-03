@@ -198,12 +198,14 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const wardsOptionsSelector = (state: IState) => {
     return state.wards.allWards.data
-      ? state.wards.allWards.data.map((item) => {
-          return {
-            value: item.code ?? "",
-            label: item.description ?? "",
-          };
-        })
+      ? state.wards.allWards.data
+          .filter((ward) => ward.opd)
+          .map((item) => {
+            return {
+              value: item.code ?? "",
+              label: item.description ?? "",
+            };
+          })
       : [];
   };
   const wardsOptions = useSelector<IState, { value: string; label: string }[]>(
