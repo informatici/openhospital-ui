@@ -71,16 +71,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBounds {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBounds
      */
-    minX?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBounds
-     */
-    minY?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBounds
-     */
     maxX?: number;
     /**
      * @type {number}
@@ -97,4 +87,14 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBounds {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBounds
      */
     centerY?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBounds
+     */
+    minX?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBounds
+     */
+    minY?: number;
 }

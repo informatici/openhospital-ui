@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     OpdDTO,
-    OpdWithOperatioRowDTO,
+    OpdWithOperationRowDTO,
     PageOpdDTO,
 } from '../models';
 
@@ -40,6 +40,7 @@ export interface GetOpdByDatesRequest {
     page?: number;
     size?: number;
     paged?: boolean;
+    wardCode?: string;
 }
 
 export interface GetOpdByPatientRequest {
@@ -64,7 +65,7 @@ export interface NewOpdRequest {
 }
 
 export interface NewOpdWithOperationRowRequest {
-    opdWithOperatioRowDTO: OpdWithOperatioRowDTO;
+    opdWithOperationRowDTO: OpdWithOperationRowDTO;
 }
 
 export interface UpdateOpdRequest {
@@ -74,7 +75,7 @@ export interface UpdateOpdRequest {
 
 export interface UpdateOpdWithOperationRowRequest {
     code: number;
-    opdWithOperatioRowDTO: OpdWithOperatioRowDTO;
+    opdWithOperationRowDTO: OpdWithOperationRowDTO;
 }
 
 /**
@@ -120,9 +121,9 @@ export class OpdsApi extends BaseAPI {
 
     /**
      */
-    getOpdByDates({ dateFrom, dateTo, diseaseTypeCode, diseaseCode, ageFrom, ageTo, sex, newPatient, patientCode, page, size, paged }: GetOpdByDatesRequest): Observable<PageOpdDTO>
-    getOpdByDates({ dateFrom, dateTo, diseaseTypeCode, diseaseCode, ageFrom, ageTo, sex, newPatient, patientCode, page, size, paged }: GetOpdByDatesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOpdDTO>>
-    getOpdByDates({ dateFrom, dateTo, diseaseTypeCode, diseaseCode, ageFrom, ageTo, sex, newPatient, patientCode, page, size, paged }: GetOpdByDatesRequest, opts?: OperationOpts): Observable<PageOpdDTO | RawAjaxResponse<PageOpdDTO>> {
+    getOpdByDates({ dateFrom, dateTo, diseaseTypeCode, diseaseCode, ageFrom, ageTo, sex, newPatient, patientCode, page, size, paged, wardCode }: GetOpdByDatesRequest): Observable<PageOpdDTO>
+    getOpdByDates({ dateFrom, dateTo, diseaseTypeCode, diseaseCode, ageFrom, ageTo, sex, newPatient, patientCode, page, size, paged, wardCode }: GetOpdByDatesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PageOpdDTO>>
+    getOpdByDates({ dateFrom, dateTo, diseaseTypeCode, diseaseCode, ageFrom, ageTo, sex, newPatient, patientCode, page, size, paged, wardCode }: GetOpdByDatesRequest, opts?: OperationOpts): Observable<PageOpdDTO | RawAjaxResponse<PageOpdDTO>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getOpdByDates');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getOpdByDates');
 
@@ -145,6 +146,7 @@ export class OpdsApi extends BaseAPI {
         if (page != null) { query['page'] = page; }
         if (size != null) { query['size'] = size; }
         if (paged != null) { query['paged'] = paged; }
+        if (wardCode != null) { query['wardCode'] = wardCode; }
 
         return this.request<PageOpdDTO>({
             url: '/opds/search',
@@ -156,16 +158,16 @@ export class OpdsApi extends BaseAPI {
 
     /**
      */
-    getOpdByPatient({ pcode }: GetOpdByPatientRequest): Observable<Array<OpdWithOperatioRowDTO>>
-    getOpdByPatient({ pcode }: GetOpdByPatientRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdWithOperatioRowDTO>>>
-    getOpdByPatient({ pcode }: GetOpdByPatientRequest, opts?: OperationOpts): Observable<Array<OpdWithOperatioRowDTO> | RawAjaxResponse<Array<OpdWithOperatioRowDTO>>> {
+    getOpdByPatient({ pcode }: GetOpdByPatientRequest): Observable<Array<OpdWithOperationRowDTO>>
+    getOpdByPatient({ pcode }: GetOpdByPatientRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<OpdWithOperationRowDTO>>>
+    getOpdByPatient({ pcode }: GetOpdByPatientRequest, opts?: OperationOpts): Observable<Array<OpdWithOperationRowDTO> | RawAjaxResponse<Array<OpdWithOperationRowDTO>>> {
         throwIfNullOrUndefined(pcode, 'pcode', 'getOpdByPatient');
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<Array<OpdWithOperatioRowDTO>>({
+        return this.request<Array<OpdWithOperationRowDTO>>({
             url: '/opds/patient/{pcode}'.replace('{pcode}', encodeURI(pcode)),
             method: 'GET',
             headers,
@@ -259,21 +261,21 @@ export class OpdsApi extends BaseAPI {
 
     /**
      */
-    newOpdWithOperationRow({ opdWithOperatioRowDTO }: NewOpdWithOperationRowRequest): Observable<OpdWithOperatioRowDTO>
-    newOpdWithOperationRow({ opdWithOperatioRowDTO }: NewOpdWithOperationRowRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdWithOperatioRowDTO>>
-    newOpdWithOperationRow({ opdWithOperatioRowDTO }: NewOpdWithOperationRowRequest, opts?: OperationOpts): Observable<OpdWithOperatioRowDTO | RawAjaxResponse<OpdWithOperatioRowDTO>> {
-        throwIfNullOrUndefined(opdWithOperatioRowDTO, 'opdWithOperatioRowDTO', 'newOpdWithOperationRow');
+    newOpdWithOperationRow({ opdWithOperationRowDTO }: NewOpdWithOperationRowRequest): Observable<OpdWithOperationRowDTO>
+    newOpdWithOperationRow({ opdWithOperationRowDTO }: NewOpdWithOperationRowRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdWithOperationRowDTO>>
+    newOpdWithOperationRow({ opdWithOperationRowDTO }: NewOpdWithOperationRowRequest, opts?: OperationOpts): Observable<OpdWithOperationRowDTO | RawAjaxResponse<OpdWithOperationRowDTO>> {
+        throwIfNullOrUndefined(opdWithOperationRowDTO, 'opdWithOperationRowDTO', 'newOpdWithOperationRow');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<OpdWithOperatioRowDTO>({
+        return this.request<OpdWithOperationRowDTO>({
             url: '/opds/rows',
             method: 'POST',
             headers,
-            body: opdWithOperatioRowDTO,
+            body: opdWithOperationRowDTO,
         }, opts?.responseOpts);
     };
 
@@ -300,22 +302,22 @@ export class OpdsApi extends BaseAPI {
 
     /**
      */
-    updateOpdWithOperationRow({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowRequest): Observable<OpdWithOperatioRowDTO>
-    updateOpdWithOperationRow({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdWithOperatioRowDTO>>
-    updateOpdWithOperationRow({ code, opdWithOperatioRowDTO }: UpdateOpdWithOperationRowRequest, opts?: OperationOpts): Observable<OpdWithOperatioRowDTO | RawAjaxResponse<OpdWithOperatioRowDTO>> {
+    updateOpdWithOperationRow({ code, opdWithOperationRowDTO }: UpdateOpdWithOperationRowRequest): Observable<OpdWithOperationRowDTO>
+    updateOpdWithOperationRow({ code, opdWithOperationRowDTO }: UpdateOpdWithOperationRowRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OpdWithOperationRowDTO>>
+    updateOpdWithOperationRow({ code, opdWithOperationRowDTO }: UpdateOpdWithOperationRowRequest, opts?: OperationOpts): Observable<OpdWithOperationRowDTO | RawAjaxResponse<OpdWithOperationRowDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateOpdWithOperationRow');
-        throwIfNullOrUndefined(opdWithOperatioRowDTO, 'opdWithOperatioRowDTO', 'updateOpdWithOperationRow');
+        throwIfNullOrUndefined(opdWithOperationRowDTO, 'opdWithOperationRowDTO', 'updateOpdWithOperationRow');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<OpdWithOperatioRowDTO>({
+        return this.request<OpdWithOperationRowDTO>({
             url: '/opds/rows/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,
-            body: opdWithOperatioRowDTO,
+            body: opdWithOperationRowDTO,
         }, opts?.responseOpts);
     };
 

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { OpdWithOperatioRowDTO } from "../../../generated";
+import { OpdWithOperationRowDTO } from "../../../generated";
 import {
   createOpdReset,
   createOpdWithOperationsRows,
@@ -35,7 +35,7 @@ const PatientOPD: FunctionComponent = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperatioRowDTO);
+  const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperationRowDTO);
   const [creationMode, setCreationMode] = useState(true);
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
@@ -87,7 +87,7 @@ const PatientOPD: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (opdValues: OpdWithOperatioRowDTO) => {
+  const onSubmit = (opdValues: OpdWithOperationRowDTO) => {
     setShouldResetForm(false);
     if (opdValues.opdDTO) {
       opdValues.opdDTO.patientCode = patient?.code;
@@ -104,7 +104,7 @@ const PatientOPD: FunctionComponent = () => {
           updateOpdWithOperationRows(opdToEdit.opdDTO?.code, {
             opdDTO: opdToSave,
             operationRows: opdValues.operationRows,
-          } as OpdWithOperatioRowDTO)
+          } as OpdWithOperationRowDTO)
         );
       } else {
         dispatch(
@@ -128,7 +128,7 @@ const PatientOPD: FunctionComponent = () => {
     scrollToElement(null);
   };
 
-  const onEdit = (row: OpdWithOperatioRowDTO) => {
+  const onEdit = (row: OpdWithOperationRowDTO) => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
