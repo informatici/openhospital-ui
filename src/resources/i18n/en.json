@@ -396,7 +396,8 @@
     "code": "Code",
     "update": "update",
     "delete": "Delete",
-    "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
+    "deleteconfirmation": "Are you sure to delete item with code {{code}} ?",
+    "cancelconfirmation": "Are you sure to cancel item with code {{code}} ?",
     "deletesuccess": "The item with code {{code}} was deleted successfully!",
     "incorrectformat": "Is not in correct format",
     "yes": "Yes",
@@ -423,6 +424,7 @@
     "emptydataforfilter": "Empty data for the specified filter",
     "addanotherrow": "Add another operation",
     "hospitalname": "Your Hospital",
+    "maxlengthexceeded": "Length exceeded. Max. is {{maxLength}}",
     "retry": "Retry",
     "moment": {
       "duration": "Duration",
@@ -440,7 +442,8 @@
       "lastmonth": "Last Month",
       "thisyear": "This Year",
       "lastyear": "Last Year"
-    }
+    },
+    "continue": "Continue ?"
   },
   "permission": {
     "denied": "Permission denied",
@@ -501,7 +504,9 @@
     "updated": "Patient exam updated",
     "createsuccess": "Patient exam added successfully!",
     "updatesuccess": "Patient exam {{code}} updated successfully!",
+    "cancelsuccess": "Patient exam {{code}} canceled successfully!",
     "deleted": "Patient Exam deleted",
+    "canceled": "Patient Exam canceled",
     "resultrow": "Result row",
     "value": "Value",
     "resultstitle": "Results",
@@ -528,7 +533,24 @@
     "examtype": "Exam Type",
     "validatetodate": "Must be greater than date from",
     "validatefromdate": "Must be less than date to",
-    "multipleresults": "Multiple results"
+    "multipleresults": "Multiple results",
+    "examrequest": "Request an exam",
+    "examrequestbtn": "Request",
+    "examrequestcreated": "The exam request has been successfully created",
+    "futuredatenotallow": "Future date not allowed",
+    "statusall": "All",
+    "statusrequested": "Requested",
+    "statustreated": "Treated",
+    "patientrequestedexam": "Requested exams for the patient",
+    "statusmustbedone": "Exam status must be 'DONE' if results are provided",
+    "changestatus": "Change Exam Status",
+    "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
+    "statuses" : {
+      "DRAFT" : "DRAFT",
+      "ALL" : "ALL",
+      "OPEN" : "OPEN",
+      "DONE" : "DONE"
+    }
   },
   "admission": {
     "admDate": "Date",
@@ -700,6 +722,17 @@
       "adolescents": "Adolescents",
       "adult": "Adult",
       "elderly": "Elderly"
+    },
+    "lab": {
+      "undefined" : {"txt": "Undefined"},
+      "blood": {"txt": "Blood"},
+      "cfs": {"txt": "CFS"},
+      "film": {"txt": "FILM"},
+      "sputum":{"txt": "Sputum"},
+      "stool":{"txt": "Stool"},
+      "swabs":{"txt": "Swabs"},
+      "tissues":{"txt": "Tissues"},
+      "urine":{"txt": "Urine"}
     }
   }
 }

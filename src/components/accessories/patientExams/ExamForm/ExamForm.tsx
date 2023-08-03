@@ -51,7 +51,7 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string()
+    labDate: string()
       .required(t("common.required"))
       .test({
         name: "date",
@@ -62,6 +62,14 @@ const ExamForm: FC<ExamProps> = ({
       }),
     exam: string().required(t("common.required")),
     result: string(),
+    note: string().test({
+      name: "maxLength",
+      message: t("common.maxlengthexceeded", { maxLength: 255 }),
+      test: function (value) {
+        if (!value) return true;
+        return value.length <= 255;
+      },
+    }),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -97,6 +105,27 @@ const ExamForm: FC<ExamProps> = ({
 
   const examRows = useSelector((state: IState) =>
     examRowOptionsSelector(state)
+  );
+
+  const materialsLoading = useSelector(
+    (state: IState) => state.laboratories.materials.status === "LOADING"
+  );
+
+  const materialsOptionsSelector = (materials: string[] | undefined) => {
+    if (materials) {
+      return materials.map((item) => {
+        let label = item ? t(item) : "";
+        return {
+          value: item ?? "",
+          label:
+            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
+        };
+      });
+    } else return [];
+  };
+
+  const materialsList = useSelector(
+    (state: IState) => state.laboratories.materials.data
   );
 
   const formik = useFormik({
@@ -162,6 +191,11 @@ const ExamForm: FC<ExamProps> = ({
         if (fieldName === "exam") {
           setCurrentExamCode(value);
         }
+
+        // Clear rowsData variable for exam status validation
+        if (fieldName === "result") {
+          setRowsData([]);
+        }
       },
     [setFieldValue, handleBlur]
   );
@@ -211,25 +245,38 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab")
-            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.labDate)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             <div className="patientExamForm__item">
               <DateField
                 fieldName="date"
-                fieldValue={formik.values.date}
+                fieldValue={formik.values.labDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
                 isValid={isValid("date")}
                 errorText={getErrorText("date")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("labDate")}
                 disabled={isLoading}
               />
             </div>
             <div className="patientExamForm__item">
+              <AutocompleteField
+                fieldName="material"
+                fieldValue={formik.values.material}
+                label={t("lab.material")}
+                isValid={isValid("material")}
+                errorText={getErrorText("material")}
+                onBlur={onBlurCallback("material")}
+                isLoading={materialsLoading}
+                options={materialsOptionsSelector(materialsList)}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientExamForm__item fullWidth">
               <AutocompleteField
                 fieldName="exam"
                 fieldValue={formik.values.exam}

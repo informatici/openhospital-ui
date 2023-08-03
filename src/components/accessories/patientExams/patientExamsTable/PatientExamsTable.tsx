@@ -9,6 +9,7 @@ import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { statusLabel } from "../../laboratory/table/ExamTable";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -26,8 +27,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const canDelete = usePermission("exam.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["labDate", "exam"];
-  const dateFields = ["labDate"];
+  const header = ["date", "exam", "status"];
+  const dateFields = ["date"];
 
   const label = {
     code: t("common.code"),
@@ -35,8 +36,10 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
+    status: t("lab.status"),
+    material: t("lab.material"),
   };
-  const order = ["labDate", "exam"];
+  const order = ["date", "exam", "status"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
@@ -50,15 +53,16 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode)
+    if (shouldUpdateTable || patientCode) {
       dispatch(getLabsByPatientId(patientCode));
+    }
   }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     return data.map((item) => {
       return {
         code: item.laboratoryDTO?.code,
-        labDate: item.laboratoryDTO?.labDate
+        date: item.laboratoryDTO?.labDate
           ? renderDate(item.laboratoryDTO?.labDate)
           : "",
         exam: item.laboratoryDTO?.exam?.description ?? "",
@@ -67,18 +71,27 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
             ? item.laboratoryDTO?.result
             : item.laboratoryRowList?.join(", "),
         note: item.laboratoryDTO?.note,
+        status: item.laboratoryDTO?.status
+          ? statusLabel(item.laboratoryDTO.status)
+          : "",
+        material: item.laboratoryDTO?.material
+          ? t(item.laboratoryDTO.material)
+          : "",
       };
     });
     //   .sort(dateComparator("desc", "date"));
   };
+
   const labStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
+
   const errorMessage = useSelector<IState>(
     (state) =>
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
   const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
@@ -89,6 +102,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
         ?.laboratoryDTO
     );
   };
+
   const onDelete = (row: any) => {
     handleDelete(row.code);
   };
@@ -104,9 +118,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={canDelete ? onDelete : undefined}
+          //onDelete={canDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={canUpdate ? onEdit : undefined}
+          //onEdit={canUpdate ? onEdit : undefined}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (

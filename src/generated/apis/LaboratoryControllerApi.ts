@@ -27,6 +27,10 @@ export interface DeleteExamRequestUsingDELETERequest {
   code: number;
 }
 
+export interface DeleteExamRequestUsingDELETERequest {
+  code: number;
+}
+
 export interface DeleteExamUsingDELETE2Request {
   code: number;
 }
@@ -37,6 +41,10 @@ export interface GetExamByIdUsingGETRequest {
 
 export interface GetExamWithRowsByIdUsingGETRequest {
   code: number;
+}
+
+export interface GetLaboratoryExamRequestUsingGET1Request {
+  patId: number;
 }
 
 export interface GetLaboratoryExamRequestUsingGET1Request {
@@ -68,12 +76,21 @@ export interface NewExamRequestUsingPOSTRequest {
   laboratoryDTO: LaboratoryDTO;
 }
 
+export interface NewExamRequestUsingPOSTRequest {
+  laboratoryDTO: LaboratoryDTO;
+}
+
 export interface NewLaboratory2UsingPOSTRequest {
   labsWithRows: Array<LabWithRowsDTO>;
 }
 
 export interface NewLaboratoryUsingPOSTRequest {
   labWithRowsDTO: LabWithRowsDTO;
+}
+
+export interface UpdateExamRequestUsingPUTRequest {
+  code: number;
+  status: string;
 }
 
 export interface UpdateExamRequestUsingPUTRequest {

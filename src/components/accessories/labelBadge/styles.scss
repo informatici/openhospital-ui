@@ -1,0 +1,53 @@
+.labelBadge {
+  max-width: 100%;
+  display: inline-flex;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  height: 25px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(202, 202, 202);
+  border-radius: 16px;
+  white-space: nowrap;
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  cursor: default;
+  outline: 0px;
+  text-decoration: none;
+  border: 0px none;
+  padding: 0px;
+  vertical-align: middle;
+
+  &.default {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(202, 202, 202);
+  }
+
+  &.success {
+    color: white;
+    background-color: rgb(34, 161, 62);
+  }
+
+  &.danger {
+    color: white;
+    background-color: rgb(221, 20, 6);
+  }
+
+  &.warning {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(216, 213, 42);
+  }
+
+  &.info {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(71, 112, 248);
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 12px;
+    padding-right: 12px;
+    white-space: nowrap;
+  }
+}

@@ -47,6 +47,7 @@ const PatientPicker: FC<IProps> = ({
   label,
   theme,
   initialValue,
+  enableFocus = true,
 }) => {
   const [value, setValue] = useState((initialValue ?? {}) as PatientDTO);
   const { t } = useTranslation();
@@ -64,6 +65,7 @@ const PatientPicker: FC<IProps> = ({
   }
 
   const [open, setOpen] = useState(false);
+  const [hasFocus, setHasFocus] = useState(enableFocus);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -121,12 +123,15 @@ const PatientPicker: FC<IProps> = ({
 
   const handleClick = (patient: PatientDTO) => {
     setValue(patient);
+    setHasFocus(true);
     handleClose();
   };
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, [value]);
+    if (hasFocus) {
+      inputRef.current.focus();
+    }
+  }, [value, hasFocus]);
 
   useEffect(() => {
     const pat = patientData?.find((item) => item.code === fieldValue);

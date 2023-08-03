@@ -40,6 +40,7 @@
         justify-content: start;
         .filterLabForm__item {
           margin-right: 5px;
+          margin-bottom: 15px;
           align-items: center;
           width: 32.8%;
           .dateField,
@@ -60,6 +61,21 @@
           }
           @include susy-media($watch) {
             width: 100%;
+          }
+          &.col-3 {
+            width: 24.4%;
+            @include susy-media($tablet_land) {
+              width: 32.5%;
+            }
+            @include susy-media($smartphone) {
+              width: 48.5%;
+            }
+            @include susy-media($phone) {
+              width: 100%;
+            }
+            @include susy-media($watch) {
+              width: 100%;
+            }
           }
         }
       }

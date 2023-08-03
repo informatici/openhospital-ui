@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import React, { FC, Fragment, useCallback, useMemo, useState } from "react";
+import React, { FC, Fragment, useMemo, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
@@ -17,22 +17,26 @@ import {
   updateFilterFields,
 } from "../../../libraries/formDataHandling/functions";
 import {
+  cancelLab,
+  cancelLabReset,
   deleteLab,
   deleteLabReset,
   searchLabs,
+  updateLabStatus,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { LaboratoryDTO } from "../../../generated";
+import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { getPatientThunk } from "../../../state/patients/actions";
 import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { TFilterValues } from "./filter/types";
+import { ChangeLabStatus } from "./ChangeLabStatus";
 import { useLaboratories } from "../../../libraries/hooks/api/useLaboratories";
 import Pagination from "../pagination/Pagination";
-import { TFilterValues } from "./filter/types";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
@@ -41,13 +45,18 @@ export const Exams: FC = () => {
   const navigate = useNavigate();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
-
+  const infoBoxRef = useRef<HTMLDivElement>(null);
   const [deletedObjCode, setDeletedObjCode] = useState("");
+  const [canceledObjCode, setCanceledObjCode] = useState("");
+
+  const [showStatusChangeModal, setShowStatusChangeModal] = useState(false);
+  const [selectedExamRow, setSelectedExamRow] =
+    useState<LaboratoryDTO | undefined>(undefined);
 
   const { data, pageInfo, page, handlePageChange } = useLaboratories();
 
   const fields = useMemo(
-    () => updateFilterFields(initialFilterFields, filter),
+    () => updateFilterFields(initialFilterFields, filter, false),
     [filter]
   );
   const labStore = useSelector<IState, ILaboratoriesState>(
@@ -75,7 +84,7 @@ export const Exams: FC = () => {
       location.state as { refresh: boolean | undefined } | undefined
     )?.refresh;
     if (refresh) {
-      dispatch(searchLabs(filter));
+      dispatch(searchLabs({ ...filter, paged: true }));
     }
   }, [location]);
 
@@ -84,13 +93,36 @@ export const Exams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryDTO) => {
-    navigate(`${PATHS.laboratory}/${row.code}/edit`);
+    if (row.status === LaboratoryDTOStatusEnum.DRAFT) {
+      setSelectedExamRow(row);
+      setShowStatusChangeModal(true);
+    } else {
+      navigate(`${PATHS.laboratory}/${row.code}/edit`);
+    }
   };
+
+  const onExamStatusChangeClick = () => {
+    if (selectedExamRow?.code) {
+      dispatch(
+        updateLabStatus(selectedExamRow?.code, LaboratoryDTOStatusEnum.OPEN)
+      );
+    }
+  };
+
+  const onExamStatusChangeClose = () => {
+    setSelectedExamRow(undefined);
+    setShowStatusChangeModal(false);
+  };
+
   const onDelete = (code: number | undefined) => {
     setDeletedObjCode(`${code}` ?? "");
     dispatch(deleteLab(code));
   };
 
+  const onCancel = (code: number | undefined) => {
+    setCanceledObjCode(`${code}` ?? "");
+    dispatch(cancelLab(code));
+  };
   const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
 
   const errorMessage = useSelector((state: IState) =>
@@ -98,9 +130,36 @@ export const Exams: FC = () => {
       ? state.laboratories.searchLabs.error?.message
       : t("common.somethingwrong")
   );
+
+  const updateLabErrorMsg = useSelector((state: IState) =>
+    state.laboratories.updateLab.error?.message
+      ? state.laboratories.updateLab.error?.message
+      : t("common.somethingwrong")
+  );
+
   let status = useSelector(
     (state: IState) => state.laboratories.searchLabs.status
   );
+
+  let changeStatus = useSelector(
+    (state: IState) => state.laboratories.updateLab.status
+  );
+
+  useEffect(() => {
+    if (changeStatus === "SUCCESS") {
+      dispatch(searchLabs({ ...filter, paged: true }));
+    }
+  }, [changeStatus]);
+
+  /**
+   * I commented the following lignes because they were causing issue with filter.
+   * They should be removed.
+   *
+   * useEffect(() => {
+   *   dispatch(searchLabs(getFromFields(fields, "value")));
+   *   dispatch(getExams());
+   * }, []);
+   */
 
   const ExamContent = useMemo(() => {
     return (
@@ -137,11 +196,17 @@ export const Exams: FC = () => {
             {status === "FAIL" && (
               <InfoBox type="error" message={errorMessage} />
             )}
+            {changeStatus === "FAIL" && (
+              <div ref={infoBoxRef} className="info-box-container">
+                <InfoBox type="error" message={updateLabErrorMsg} />
+              </div>
+            )}
             {status === "SUCCESS" && (
               <>
                 <ExamTable
                   data={data ?? []}
                   handleDelete={onDelete}
+                  handleCancel={onCancel}
                   handleEdit={onEdit}
                 />
                 <Pagination
@@ -156,6 +221,7 @@ export const Exams: FC = () => {
                 style={{ marginLeft: "50%", position: "relative" }}
               />
             )}
+
             <ConfirmationDialog
               isOpen={labStore.deleteLab.status === "SUCCESS"}
               title={t("lab.deleted")}
@@ -164,15 +230,38 @@ export const Exams: FC = () => {
               primaryButtonLabel={t("common.ok")}
               handlePrimaryButtonClick={() => {
                 dispatch(deleteLabReset());
-                dispatch(searchLabs(filter));
+                dispatch(searchLabs({ ...filter, paged: true }));
+              }}
+              handleSecondaryButtonClick={() => {}}
+            />
+
+            <ConfirmationDialog
+              isOpen={labStore.cancelLab.status === "SUCCESS"}
+              title={t("lab.canceled")}
+              icon={checkIcon}
+              info={t("lab.cancelsuccess", { code: canceledObjCode })}
+              primaryButtonLabel={t("common.ok")}
+              handlePrimaryButtonClick={() => {
+                dispatch(cancelLabReset());
+                dispatch(searchLabs({ ...filter, paged: true }));
               }}
               handleSecondaryButtonClick={() => {}}
             />
           </Permission>
         )}
+
+        {showStatusChangeModal && selectedExamRow && (
+          <ChangeLabStatus
+            onClick={onExamStatusChangeClick}
+            onClose={onExamStatusChangeClose}
+            status={LaboratoryDTOStatusEnum.OPEN}
+            isOpen={true}
+            labCode={`${selectedExamRow.code}`}
+          />
+        )}
       </>
     );
-  }, [status, fields, data, filter, dispatch, labStore]);
+  }, [status, fields, data, filter, dispatch, labStore, showStatusChangeModal]);
 
   return (
     <Fragment>
