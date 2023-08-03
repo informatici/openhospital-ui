@@ -13,6 +13,9 @@
   &.error {
     color: $c-color-primary;
     border: 1px solid $c-error-light;
+    @media print {
+      display: none !important;
+    }
   }
   &.warning {
     color: $c-warning;
