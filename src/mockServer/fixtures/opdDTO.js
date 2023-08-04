@@ -1,10 +1,10 @@
 import { diseaseDTO } from "./diseaseDTO";
 import patientDTO from "./patientDTO";
+import { wards } from "./wardDTO";
 
 const opdDTO = {
   code: Math.floor(Math.random() * 100 + 1),
   date: "2021-08-01T15:19:44.000Z",
-  visitDate: "2021-08-01T15:19:44.000Z",
   nextVisitDate: "2021-08-01T15:19:44.000Z",
   patientCode: patientDTO.code,
   patientName: "Antonio Carlos",
@@ -15,6 +15,7 @@ const opdDTO = {
   disease: diseaseDTO,
   disease2: diseaseDTO,
   disease3: diseaseDTO,
+  ward: wards[0],
   newPatient: "N",
   referralFrom: "R",
   referralTo: "R",

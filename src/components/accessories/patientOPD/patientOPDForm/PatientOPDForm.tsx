@@ -25,6 +25,9 @@ import { IState } from "../../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -40,9 +43,9 @@ import {
 } from "@material-ui/core";
 import {
   DiseaseDTO,
-  OpdDTO,
-  OpdWithOperatioRowDTO,
+  OpdWithOperationRowDTO,
   OperationRowDTO,
+  WardDTO,
 } from "../../../../generated";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
@@ -66,6 +69,8 @@ import { IOperationState } from "../../../../state/operations/types";
 import checkIcon from "../../../../assets/check-icon.png";
 import { opRowFields } from "../../patientOperation/opRowFields";
 import InfoBox from "../../infoBox/InfoBox";
+import { Add, Edit } from "@material-ui/icons";
+import { getWards } from "../../../../state/ward/actions";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -81,17 +86,19 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const [operationCreationMode, setOperationCreationMode] = useState(true);
   const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState<boolean>(true);
 
   const validationSchema = object({
-    visitDate: string()
+    date: string()
       .required(t("common.required"))
       .test({
-        name: "visitDate",
+        name: "date",
         message: t("common.invaliddate"),
         test: function (value) {
           return moment(value).isValid();
         },
       }),
+    ward: string().required(t("common.required")),
     disease: string().required(t("common.required")),
     disease2: string().test({
       name: "disease2",
@@ -120,6 +127,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   const diseases = useSelector<IState, DiseaseDTO[]>(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
+
+  const wards = useSelector<IState, WardDTO[]>(
+    (state: IState) => state.wards.allWards.data ?? []
+  );
+
   const username = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
@@ -145,7 +157,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         referralTo: isEmpty(formattedValues.referralTo)
           ? undefined
           : formattedValues.referralTo,
-        date: formattedValues.visitDate,
+        date: formattedValues.date,
+        ward: wards.find((e) => e.code === formik.values.ward),
         disease: diseases.find((e) => e.code === formik.values.disease),
         disease2: diseases.find((e) => e.code === formik.values.disease2),
         disease3: diseases.find((e) => e.code === formik.values.disease3),
@@ -153,7 +166,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       const combinedValues = {
         opdDTO: opdToSave,
         operationRows,
-      } as OpdWithOperatioRowDTO;
+      } as OpdWithOperationRowDTO;
       onSubmit(combinedValues);
     },
   });
@@ -169,6 +182,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     },
     [setFieldValue]
   );
+
   const diseasesOptionsSelector = (state: IState) => {
     return state.diseases.diseasesOpd.data
       ? state.diseases.diseasesOpd.data.map((item) => {
@@ -179,10 +193,27 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         })
       : [];
   };
+
   const diseasesOptions = useSelector<
     IState,
     { value: string; label: string }[]
   >((state: IState) => diseasesOptionsSelector(state));
+
+  const wardsOptionsSelector = (state: IState) => {
+    return state.wards.allWards.data
+      ? state.wards.allWards.data
+          .filter((ward) => ward.opd)
+          .map((item) => {
+            return {
+              value: item.code ?? "",
+              label: item.description ?? "",
+            };
+          })
+      : [];
+  };
+  const wardsOptions = useSelector<IState, { value: string; label: string }[]>(
+    (state: IState) => wardsOptionsSelector(state)
+  );
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -204,6 +235,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     dispatch(getOperations());
+    dispatch(getWards());
   }, [dispatch]);
 
   const onBlurCallback = useCallback(
@@ -338,262 +370,297 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
   return (
     <>
       <div className="patientOpdForm">
-        <h5 className="formInsertMode">
-          {creationMode
-            ? t("opd.newopd")
-            : t("opd.editopd") + ": " + renderDate(formik.values.visitDate)}
-        </h5>
-        <form className="patientOpdForm__form" onSubmit={formik.handleSubmit}>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item">
-              <FormControl component="fieldset">
-                <FormLabel component="legend">{t("opd.newpatient")}</FormLabel>
-                <RadioGroup
-                  aria-label="newpatient"
-                  name="newpatient"
-                  value={formik.values["newPatient"]}
-                  onChange={(event) => {
-                    formik.setFieldValue("newPatient", event.target.value);
-                  }}
-                >
-                  <FormControlLabel
-                    value="R"
-                    control={<Radio />}
-                    label={t("opd.reattendance")}
-                    checked={formik.values["newPatient"] === "R"}
-                  />
-                  <FormControlLabel
-                    value="N"
-                    control={<Radio />}
-                    label={t("opd.newadmittance")}
-                    checked={formik.values["newPatient"] === "N"}
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <div className="checkboxes">
-                <CheckboxField
-                  fieldName={"referralFrom"}
-                  checked={formik.values.referralFrom === "R"}
-                  label={t("opd.referralfrom")}
-                  onChange={handleCheckboxChange("referralFrom")}
-                />
-                <CheckboxField
-                  fieldName={"referralTo"}
-                  checked={formik.values.referralTo === "R"}
-                  label={t("opd.referralto")}
-                  onChange={handleCheckboxChange("referralTo")}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item">
-              <DateField
-                fieldName="visitDate"
-                fieldValue={formik.values.visitDate}
-                disableFuture={true}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("visitDate")}
-                errorText={getErrorText("visitDate")}
-                label={t("opd.dateopd")}
-                onChange={dateFieldHandleOnChange("visitDate")}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <TextField
-                field={formik.getFieldProps("note")}
-                multiline={true}
-                theme="regular"
-                label={t("opd.note")}
-                isValid={isValid("note")}
-                errorText={getErrorText("note")}
-                onBlur={formik.handleBlur}
-                type="string"
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <AutocompleteField
-                fieldName="disease"
-                fieldValue={formik.values.disease}
-                label={t("opd.disease1")}
-                isValid={isValid("disease")}
-                errorText={getErrorText("disease")}
-                onBlur={onBlurCallback("disease")}
-                options={diseasesOptions}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <AutocompleteField
-                fieldName="disease2"
-                fieldValue={formik.values.disease2}
-                label={t("opd.disease2")}
-                isValid={isValid("disease2")}
-                errorText={getErrorText("disease2")}
-                onBlur={onBlurCallback("disease2")}
-                options={diseasesOptions}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <AutocompleteField
-                fieldName="disease3"
-                fieldValue={formik.values.disease3}
-                label={t("opd.disease3")}
-                isValid={isValid("disease3")}
-                errorText={getErrorText("disease3")}
-                onBlur={onBlurCallback("disease3")}
-                options={diseasesOptions}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <TextField
-                field={formik.getFieldProps("prescription")}
-                multiline={true}
-                theme="regular"
-                label={t("opd.prescription")}
-                isValid={isValid("prescription")}
-                errorText={getErrorText("prescription")}
-                onBlur={formik.handleBlur}
-                type="string"
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs">
-            <div className="patientOpdForm__item fullWidth">
-              <details open>
-                <summary>
-                  {" "}
-                  <ContentCutIcon
-                    fontSize="small"
-                    className="operation_icon"
-                  />{" "}
-                  Patient Operations
-                </summary>
-                <List dense={true} className="opd_operations">
-                  {operationRows.map((value, index: number) => (
-                    <ListItem key={index}>
-                      <ListItemIcon>
-                        <FileIcon color="secondary" />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={
-                          value.operation?.code +
-                          " " +
-                          value.operation?.description
-                        }
-                        secondary={renderDate(value.opDate!)}
+        <Accordion expanded={expanded}>
+          <AccordionSummary onClick={() => setExpanded(!expanded)}>
+            {creationMode ? (
+              <>
+                <Add fontSize="small" />
+                {t("opd.newopd")}
+              </>
+            ) : (
+              <>
+                <Edit fontSize="small" />
+                {t("opd.editopd") + ": " + renderDate(formik.values.date)}
+              </>
+            )}
+          </AccordionSummary>
+          <AccordionDetails>
+            <form
+              className="patientOpdForm__form"
+              onSubmit={formik.handleSubmit}
+            >
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item">
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">
+                      {t("opd.newpatient")}
+                    </FormLabel>
+                    <RadioGroup
+                      aria-label="newpatient"
+                      name="newpatient"
+                      value={formik.values["newPatient"]}
+                      onChange={(event) => {
+                        formik.setFieldValue("newPatient", event.target.value);
+                      }}
+                    >
+                      <FormControlLabel
+                        value="R"
+                        control={<Radio />}
+                        label={t("opd.reattendance")}
+                        checked={formik.values["newPatient"] === "R"}
                       />
-                      <ListItemSecondaryAction>
-                        <IconButton
-                          onClick={handleRemoveOperationRow(value)}
-                          edge="end"
-                          aria-label="delete"
-                        >
-                          <DeleteIcon color="primary" />
-                        </IconButton>
-                        <IconButton
-                          onClick={handleUpdateOperationRow(value, index)}
-                          edge="end"
-                          aria-label="update"
-                        >
-                          <EditIcon color="secondary" />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  ))}
-                  {changeStatus === "FAIL" && (
-                    <div className="info-box-container">
-                      <InfoBox type="error" message={errorMessage} />
-                    </div>
-                  )}
-                  {operationRows.length <= 0 && (
-                    <span className="empty_operation_rows">
-                      {t("operation.noitemaddedyet")}
-                    </span>
-                  )}
-                </List>
-              </details>
-            </div>
-          </div>
-          <div className="patientOpdForm__buttonSet">
-            <div className="visits_button">
-              <div className="submit_button">
-                <Button type="submit" variant="contained" disabled={isLoading}>
-                  {submitButtonLabel}
-                </Button>
+                      <FormControlLabel
+                        value="N"
+                        control={<Radio />}
+                        label={t("opd.newadmittance")}
+                        checked={formik.values["newPatient"] === "N"}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
               </div>
-              <div className="reset_button">
-                <Button
-                  type="reset"
-                  variant="text"
-                  disabled={isLoading}
-                  onClick={() => setOpenResetConfirmation(true)}
-                >
-                  {resetButtonLabel}
-                </Button>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <div className="checkboxes">
+                    <CheckboxField
+                      fieldName={"referralFrom"}
+                      checked={formik.values.referralFrom === "R"}
+                      label={t("opd.referralfrom")}
+                      onChange={handleCheckboxChange("referralFrom")}
+                    />
+                    <CheckboxField
+                      fieldName={"referralTo"}
+                      checked={formik.values.referralTo === "R"}
+                      label={t("opd.referralto")}
+                      onChange={handleCheckboxChange("referralTo")}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="add_button">
-              <Button
-                type="button"
-                onClick={() => onAddOperation()}
-                disabled={false}
-              >
-                {" "}
-                <AddIcon fontSize="small" />
-                {t("button.addoperation")}
-              </Button>
-            </div>
-          </div>
-          <ConfirmationDialog
-            isOpen={openResetConfirmation}
-            title={resetButtonLabel.toUpperCase()}
-            info={t("common.resetform")}
-            icon={warningIcon}
-            primaryButtonLabel={resetButtonLabel}
-            secondaryButtonLabel={t("common.discard")}
-            handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-          />
-          <ConfirmationDialog
-            isOpen={openDeleteOperationConfirmation}
-            title={t("common.delete").toUpperCase()}
-            info={t("operation.deletionwarning", {
-              code: operationRows.find((item) => item.id === deletedObjCode)
-                ?.operation?.description,
-            })}
-            icon={warningIcon}
-            primaryButtonLabel={t("common.delete")}
-            secondaryButtonLabel={t("common.discard")}
-            handlePrimaryButtonClick={() => {
-              dispatch(deleteOperationRow(deletedObjCode));
-              setOpenDeleteOperationConfirmation(false);
-            }}
-            handleSecondaryButtonClick={() => {
-              setOpenDeleteOperationConfirmation(false);
-            }}
-          />
-        </form>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item">
+                  <DateField
+                    fieldName="date"
+                    fieldValue={formik.values.date}
+                    disableFuture={true}
+                    theme="regular"
+                    format="dd/MM/yyyy"
+                    isValid={isValid("date")}
+                    errorText={getErrorText("date")}
+                    label={t("opd.dateopd")}
+                    onChange={dateFieldHandleOnChange("date")}
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="patientOpdForm__item">
+                  <AutocompleteField
+                    fieldName="ward"
+                    fieldValue={formik.values.ward}
+                    label={t("visit.ward")}
+                    isValid={isValid("ward")}
+                    errorText={getErrorText("ward")}
+                    onBlur={onBlurCallback("ward")}
+                    options={wardsOptions}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <TextField
+                    field={formik.getFieldProps("note")}
+                    multiline={true}
+                    theme="regular"
+                    label={t("opd.note")}
+                    isValid={isValid("note")}
+                    errorText={getErrorText("note")}
+                    onBlur={formik.handleBlur}
+                    type="string"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <AutocompleteField
+                    fieldName="disease"
+                    fieldValue={formik.values.disease}
+                    label={t("opd.disease1")}
+                    isValid={isValid("disease")}
+                    errorText={getErrorText("disease")}
+                    onBlur={onBlurCallback("disease")}
+                    options={diseasesOptions}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <AutocompleteField
+                    fieldName="disease2"
+                    fieldValue={formik.values.disease2}
+                    label={t("opd.disease2")}
+                    isValid={isValid("disease2")}
+                    errorText={getErrorText("disease2")}
+                    onBlur={onBlurCallback("disease2")}
+                    options={diseasesOptions}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <AutocompleteField
+                    fieldName="disease3"
+                    fieldValue={formik.values.disease3}
+                    label={t("opd.disease3")}
+                    isValid={isValid("disease3")}
+                    errorText={getErrorText("disease3")}
+                    onBlur={onBlurCallback("disease3")}
+                    options={diseasesOptions}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <TextField
+                    field={formik.getFieldProps("prescription")}
+                    multiline={true}
+                    theme="regular"
+                    label={t("opd.prescription")}
+                    isValid={isValid("prescription")}
+                    errorText={getErrorText("prescription")}
+                    onBlur={formik.handleBlur}
+                    type="string"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+              <div className="row start-sm center-xs">
+                <div className="patientOpdForm__item fullWidth">
+                  <details open>
+                    <summary>
+                      {" "}
+                      <ContentCutIcon
+                        fontSize="small"
+                        className="operation_icon"
+                      />{" "}
+                      Patient Operations
+                    </summary>
+                    <List dense={true} className="opd_operations">
+                      {operationRows.map((value, index: number) => (
+                        <ListItem key={index}>
+                          <ListItemIcon>
+                            <FileIcon color="secondary" />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={
+                              value.operation?.code +
+                              " " +
+                              value.operation?.description
+                            }
+                            secondary={renderDate(value.opDate!)}
+                          />
+                          <ListItemSecondaryAction>
+                            <IconButton
+                              onClick={handleRemoveOperationRow(value)}
+                              edge="end"
+                              aria-label="delete"
+                            >
+                              <DeleteIcon color="primary" />
+                            </IconButton>
+                            <IconButton
+                              onClick={handleUpdateOperationRow(value, index)}
+                              edge="end"
+                              aria-label="update"
+                            >
+                              <EditIcon color="secondary" />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      ))}
+                      {changeStatus === "FAIL" && (
+                        <div className="info-box-container">
+                          <InfoBox type="error" message={errorMessage} />
+                        </div>
+                      )}
+                      {operationRows.length <= 0 && (
+                        <span className="empty_operation_rows">
+                          {t("operation.noitemaddedyet")}
+                        </span>
+                      )}
+                    </List>
+                  </details>
+                </div>
+              </div>
+              <div className="patientOpdForm__buttonSet">
+                <div className="visits_button">
+                  <div className="submit_button">
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      disabled={isLoading}
+                    >
+                      {submitButtonLabel}
+                    </Button>
+                  </div>
+                  <div className="reset_button">
+                    <Button
+                      type="reset"
+                      variant="text"
+                      disabled={isLoading}
+                      onClick={() => setOpenResetConfirmation(true)}
+                    >
+                      {resetButtonLabel}
+                    </Button>
+                  </div>
+                </div>
+                <div className="add_button">
+                  <Button
+                    type="button"
+                    onClick={() => onAddOperation()}
+                    disabled={false}
+                  >
+                    {" "}
+                    <AddIcon fontSize="small" />
+                    {t("button.addoperation")}
+                  </Button>
+                </div>
+              </div>
+              <ConfirmationDialog
+                isOpen={openResetConfirmation}
+                title={resetButtonLabel.toUpperCase()}
+                info={t("common.resetform")}
+                icon={warningIcon}
+                primaryButtonLabel={resetButtonLabel}
+                secondaryButtonLabel={t("common.discard")}
+                handlePrimaryButtonClick={handleResetConfirmation}
+                handleSecondaryButtonClick={() =>
+                  setOpenResetConfirmation(false)
+                }
+              />
+              <ConfirmationDialog
+                isOpen={openDeleteOperationConfirmation}
+                title={t("common.delete").toUpperCase()}
+                info={t("operation.deletionwarning", {
+                  code: operationRows.find((item) => item.id === deletedObjCode)
+                    ?.operation?.description,
+                })}
+                icon={warningIcon}
+                primaryButtonLabel={t("common.delete")}
+                secondaryButtonLabel={t("common.discard")}
+                handlePrimaryButtonClick={() => {
+                  dispatch(deleteOperationRow(deletedObjCode));
+                  setOpenDeleteOperationConfirmation(false);
+                }}
+                handleSecondaryButtonClick={() => {
+                  setOpenDeleteOperationConfirmation(false);
+                }}
+              />
+            </form>
+          </AccordionDetails>
+        </Accordion>
       </div>
       <CustomDialog
         title={t("opd.addoperation")}

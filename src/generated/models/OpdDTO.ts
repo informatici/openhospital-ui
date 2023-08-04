@@ -13,6 +13,7 @@
 
 import {
     DiseaseDTO,
+    WardDTO,
 } from './';
 
 /**
@@ -32,12 +33,6 @@ export interface OpdDTO {
      * @memberof OpdDTO
      */
     date?: string;
-    /**
-     * the visit date
-     * @type {string}
-     * @memberof OpdDTO
-     */
-    visitDate: string;
     /**
      * the next visit date
      * @type {string}
@@ -165,4 +160,9 @@ export interface OpdDTO {
      * @memberof OpdDTO
      */
     prescription?: string;
+    /**
+     * @type {WardDTO}
+     * @memberof OpdDTO
+     */
+    ward: WardDTO;
 }

@@ -25,7 +25,7 @@ export interface NewOperationTypeRequest {
     operationTypeDTO: OperationTypeDTO;
 }
 
-export interface UpdateOperationTypetRequest {
+export interface UpdateOperationTypesRequest {
     code: string;
     operationTypeDTO: OperationTypeDTO;
 }
@@ -91,11 +91,11 @@ export class OperationsTypesApi extends BaseAPI {
 
     /**
      */
-    updateOperationTypet({ code, operationTypeDTO }: UpdateOperationTypetRequest): Observable<OperationTypeDTO>
-    updateOperationTypet({ code, operationTypeDTO }: UpdateOperationTypetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationTypeDTO>>
-    updateOperationTypet({ code, operationTypeDTO }: UpdateOperationTypetRequest, opts?: OperationOpts): Observable<OperationTypeDTO | RawAjaxResponse<OperationTypeDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'updateOperationTypet');
-        throwIfNullOrUndefined(operationTypeDTO, 'operationTypeDTO', 'updateOperationTypet');
+    updateOperationTypes({ code, operationTypeDTO }: UpdateOperationTypesRequest): Observable<OperationTypeDTO>
+    updateOperationTypes({ code, operationTypeDTO }: UpdateOperationTypesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<OperationTypeDTO>>
+    updateOperationTypes({ code, operationTypeDTO }: UpdateOperationTypesRequest, opts?: OperationOpts): Observable<OperationTypeDTO | RawAjaxResponse<OperationTypeDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'updateOperationTypes');
+        throwIfNullOrUndefined(operationTypeDTO, 'operationTypeDTO', 'updateOperationTypes');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

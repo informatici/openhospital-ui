@@ -19,7 +19,6 @@ export const opdDataFormatter = (
       ? diseases.find((el) => el.code === data.disease3)
       : null;
   data.date = parseDate(data.date);
-  data.visitDate = data.date;
   return data;
 };
 

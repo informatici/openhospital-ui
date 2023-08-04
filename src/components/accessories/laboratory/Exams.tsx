@@ -211,7 +211,7 @@ export const Exams: FC = () => {
                 />
                 <Pagination
                   page={(pageInfo?.page ?? 0) + 1}
-                  count={pageInfo?.totalPage}
+                  count={pageInfo?.totalPages}
                   onChange={onPageChange}
                 />
               </>
