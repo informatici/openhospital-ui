@@ -11,9 +11,14 @@
   & > div {
     height: 100vh;
   }
-  [class*="Form"] {
+
+  [class*="Form"],
+  .tabs_header,
+  .MuiIconButton-root,
+  .MuiButton-root,
+  .MuiSvgIcon-root {
     @media print {
-      display: none;
+      display: none !important;
     }
   }
 }

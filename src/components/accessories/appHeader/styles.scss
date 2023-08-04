@@ -508,8 +508,8 @@
     .appHeader__help {
       padding-left: 10px;
     }
-    @media print {
-      display: none !important;
-    }
+  }
+  @media print {
+    display: none !important;
   }
 }
