@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import _ from "lodash";
-import { Collapse, IconButton } from "@material-ui/core";
+import { Collapse, IconButton, useMediaQuery } from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
@@ -20,6 +20,8 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   detailColSpan,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const isPrintMode = useMediaQuery("print");
+
   return (
     <>
       <TableRow key={rowIndex}>
@@ -54,7 +56,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
             colSpan={detailColSpan ?? 6}
           >
             <Collapse
-              in={open}
+              in={isPrintMode ?? open}
               timeout="auto"
               unmountOnExit
               className="collapseWrapper"
