@@ -1,11 +1,4 @@
 {
-  "errors": {
-    "somethingwrong": "Es ist ein interner Fehler aufgetreten",
-    "incorrectcredentials": "Benutzername oder Passwort ungültig",
-    "passwordtooshort": "Passwort zu kurz",
-    "badrequest": "Ungültige Anforderung",
-    "internalerror": "Es ist ein interner Fehler aufgetreten"
-  },
   "user": {
     "username": "Benutzername",
     "groups": "Gruppen ",
@@ -71,16 +64,16 @@
       }
     },
     "availabledashboard": "Verfügbare Instrumententafel",
-    "opdbyagetype": "OPDs nach Alterstyp",
-    "opdbysex": "OPDs nach Geschlecht",
-    "admissionbyagetype": "Eintritte nach Altersgruppe",
-    "admissionbysex": "Aufnahme nach Geschlecht",
+    "opdbyagetype":"OPDs nach Alterstyp",
+    "opdbysex":"OPDs nach Geschlecht",
+    "admissionbyagetype":"Eintritte nach Altersgruppe",
+    "admissionbysex":"Aufnahme nach Geschlecht",
     "admissionbyward": "Aufnahme nach Station",
-    "admissionbytype": "Aufnahme nach typ",
-    "dischargebysex": "Entlassungen nach geschlecht",
-    "dischargebyagetype": "Entlassungen nach Alterstyp",
+    "admissionbytype":"Aufnahme nach typ",
+    "dischargebysex":"Entlassungen nach geschlecht",
+    "dischargebyagetype":"Entlassungen nach Alterstyp",
     "dischargebyward": "Entlassungen nach station",
-    "dischargebytype": "Entlassungen nach typ",
+    "dischargebytype":"Entlassungen nach typ",
     "togglefullscreen": "Vollbild umschalten",
     "removedashboard": "Entfernen Sie die Dashboard-Komponente",
     "downloaddata": "Laden Sie die daten herunter",
@@ -396,8 +389,7 @@
     "code": "Code",
     "update": "aktualisieren",
     "delete": "Löschen",
-    "deleteconfirmation": "Sind Sie sicher, dass Sie den Artikel mit dem Code {{code}} löschen?",
-    "cancelconfirmation": "Möchten Sie den Artikel mit dem Code {{code}} wirklich stornieren?",
+    "deleteconfirmation": "Sind Sie sicher, dass Sie den Artikel mit dem Code {{code}} löschen wollen?",
     "deletesuccess": "Der Artikel mit dem Code {{code}} wurde erfolgreich gelöscht!",
     "incorrectformat": "Hat nicht das richtige Format",
     "yes": "Ja",
@@ -422,9 +414,8 @@
     "cancel": "Abbrechen",
     "discardconfirmationmessage": "Alle nicht gespeicherten Änderungen gehen verloren. Weiter?",
     "emptydataforfilter": "Leere Daten für den angegebenen Filter",
-    "addanotherrow": "Einen anderen Eingriff hinzufügen",
+    "addanotherrow": "Fügen Sie eine weitere Operationszeile hinzu",
     "hospitalname": "Ihr Krankenhaus",
-    "maxlengthexceeded": "Länge überschritten. Max. ist {{maxLength}}",
     "retry": "Wiederholen",
     "moment": {
       "duration": "Dauer",
@@ -442,8 +433,7 @@
       "lastmonth": "Letzten Monat",
       "thisyear": "Dieses Jahr",
       "lastyear": "Letztes Jahr"
-    },
-    "continue": "Weiter ?"
+    }
   },
   "permission": {
     "denied": "Zugriff verweigert",
@@ -504,9 +494,7 @@
     "updated": "Patientenuntersuchung aktualisiert",
     "createsuccess": "Patientenuntersuchung erfolgreich hinzugefügt!",
     "updatesuccess": "Patientenuntersuchung {{code}} erfolgreich aktualisiert!",
-    "cancelsuccess": "Patientenuntersuchung {{code}} erfolgreich abgebrochen!",
     "deleted": "Patientenuntersuchung gelöscht",
-    "canceled": "Patientenuntersuchung abgesagt",
     "resultrow": "Ergebniszeile",
     "value": "Wert",
     "resultstitle": "Ergebniss",
@@ -533,24 +521,7 @@
     "examtype": "Exam Typ",
     "validatetodate": "Muss größer sein als das von Datum",
     "validatefromdate": "Muss kleiner als das bis Datum sein",
-    "multipleresults": "Mehrere Ergebnisse",
-    "examrequest": "Eine Exam anfordern",
-    "examrequestbtn": "Anfordern",
-    "examrequestcreated": "Die Examenanfrage wurde erfolgreich erstellt",
-    "futuredatenotallow": "Datum in zukunft ist nicht erlaubt",
-    "statusall": "Alle",
-    "statusrequested": "Angefordert",
-    "statustreated": "Behandelt",
-    "patientrequestedexam": "Angeforderte Untersuchungen für den Patienten",
-    "statusmustbedone": "Wenn Ergebnisse vorliegen, muss der Prüfungsstatus „FERTIG“ lauten",
-    "changestatus": "Untersuchungsstatus ändern",
-    "changelabstatusto": "Der Status der Untersuchung {{code}} wird in {{status}} geändert",
-    "statuses" : {
-      "DRAFT" : "ENTWURF",
-      "ALL" : "ALLE",
-      "OPEN" : "OFFEN",
-      "DONE" : "FERTIG"
-    }
+    "multipleresults": "Mehrere Ergebnisse"
   },
   "admission": {
     "admDate": "Datum",
@@ -722,17 +693,6 @@
       "adolescents": "Teenager",
       "adult": "Erwachsen",
       "elderly": "Älter"
-    },
-    "lab": {
-      "undefined" : {"txt": "Nicht definiert"},
-      "blood": {"txt": "Blut"},
-      "cfs": {"txt": "CFS"},
-      "film": {"txt": "FILM"},
-      "sputum":{"txt": "Spucke"},
-      "stool":{"txt": "Stuhl"},
-      "swabs":{"txt": "Wattestäbchen"},
-      "tissues":{"txt": "Gewebe"},
-      "urine":{"txt": "Urin"}
     }
   }
 }
