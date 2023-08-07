@@ -25,7 +25,7 @@ export interface NewPregnantTreatmentTypeRequest {
     pregnantTreatmentTypeDTO: PregnantTreatmentTypeDTO;
 }
 
-export interface UpdatePregnantTreatmentTypetRequest {
+export interface UpdatePregnantTreatmentTypesRequest {
     code: string;
     pregnantTreatmentTypeDTO: PregnantTreatmentTypeDTO;
 }
@@ -91,11 +91,11 @@ export class PregnantTreatmentTypesApi extends BaseAPI {
 
     /**
      */
-    updatePregnantTreatmentTypet({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetRequest): Observable<PregnantTreatmentTypeDTO>
-    updatePregnantTreatmentTypet({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PregnantTreatmentTypeDTO>>
-    updatePregnantTreatmentTypet({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypetRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | RawAjaxResponse<PregnantTreatmentTypeDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'updatePregnantTreatmentTypet');
-        throwIfNullOrUndefined(pregnantTreatmentTypeDTO, 'pregnantTreatmentTypeDTO', 'updatePregnantTreatmentTypet');
+    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest): Observable<PregnantTreatmentTypeDTO>
+    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PregnantTreatmentTypeDTO>>
+    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | RawAjaxResponse<PregnantTreatmentTypeDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'updatePregnantTreatmentTypes');
+        throwIfNullOrUndefined(pregnantTreatmentTypeDTO, 'pregnantTreatmentTypeDTO', 'updatePregnantTreatmentTypes');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

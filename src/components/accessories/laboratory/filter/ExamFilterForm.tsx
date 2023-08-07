@@ -12,31 +12,30 @@ import has from "lodash.has";
 import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { date, number, object, string } from "yup";
+import { number, object, string } from "yup";
 import {
-  DiseaseDTO,
-  DiseaseTypeDTO,
   ExamDTO,
-  ExamTypeDTO,
+  LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
 import {
   getFromFields,
   formatAllFieldValues,
+  fixFilterDateFrom,
+  fixFilterDateTo,
+  removeTime,
 } from "../../../../libraries/formDataHandling/functions";
 import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
-import SelectField from "../../selectField/SelectField";
 import { IExamFilterProps, TFilterValues } from "./types";
 import "./styles.scss";
-import TextField from "../../textField/TextField";
 import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import SmallButton from "../../smallButton/SmallButton";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import SelectField from "../../selectField/SelectField";
 
 export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   const { t } = useTranslation();
@@ -69,6 +68,14 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
             ) <= 0
           );
         },
+      })
+      .test({
+        name: "isFuture",
+        message: t("lab.futuredatenotallow"),
+        test: function (value) {
+          if (!moment(value).isValid()) return true;
+          return differenceInSeconds(new Date(value), new Date()) <= 0;
+        },
       }),
     dateTo: string()
       .required(t("common.required"))
@@ -80,7 +87,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
         },
       })
       .test({
-        name: "dateTo",
+        name: "dateFrom",
         message: t("lab.validatetodate"),
         test: function (value) {
           if (!moment(this.parent.dateFrom).isValid()) return true;
@@ -91,10 +98,20 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
             ) <= 0
           );
         },
+      })
+      .test({
+        name: "isFuture",
+        message: t("lab.futuredatenotallow"),
+        test: function (value) {
+          if (!moment(value).isValid()) return true;
+          return differenceInSeconds(new Date(value), new Date()) <= 0;
+        },
       }),
+    status: string(),
   });
 
   const initialValues = getFromFields(fields, "value");
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -102,8 +119,18 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(
         fields,
-        values
+        values,
+        false
       ) as TFilterValues;
+
+      if (formattedValues.dateFrom) {
+        formattedValues.dateFrom = fixFilterDateFrom(formattedValues.dateFrom);
+      }
+
+      if (formattedValues.dateTo) {
+        formattedValues.dateTo = fixFilterDateTo(formattedValues.dateTo);
+      }
+
       onSubmit(formattedValues);
     },
   });
@@ -114,6 +141,13 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
     value: value.description ?? "",
     label: value.description ?? "",
   });
+
+  const examStatusOptions = [{ label: "ALL", value: "" }].concat(
+    Object.values(LaboratoryDTOStatusEnum).map((status) => {
+      return { label: status as string, value: status as string };
+    })
+  );
+
   const examOptions = useSelector((state: IState) => {
     return state.exams.examList.data?.map((e) => mapToOptions(e)) ?? [];
   });
@@ -130,22 +164,40 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
 
       if (fieldName === "month") {
         const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
-        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
+        const year =
+          formik.values.year?.getUTCFullYear() ?? new Date().getUTCFullYear();
         const start = new Date(year, month, 1);
         const end = new Date(year, month + 1, 0);
+        const currentDate = new Date();
+        if (
+          month === currentDate.getUTCMonth() &&
+          year === currentDate.getUTCFullYear()
+        ) {
+          end.setDate(currentDate.getDate());
+        }
+
         setFieldValue("dateFrom", start);
         setFieldValue("dateTo", end);
       }
 
       if (fieldName === "year") {
         const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
-        const start = new Date(year, 0, 1);
-        const end = new Date(year, 11, 31);
+
+        let startMonth = 0;
+        let endMonth = 11;
+
+        if (formik.values.month) {
+          startMonth = formik.values.month.getUTCMonth();
+          endMonth = formik.values.month.getUTCMonth();
+        }
+
+        const start = new Date(year, startMonth, 1);
+        const end = new Date(year, endMonth + 1, 0);
         setFieldValue("dateFrom", start);
         setFieldValue("dateTo", end);
       }
     },
-    [setFieldValue]
+    [formik]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -165,9 +217,16 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
         value: PatientDTO | string | undefined
       ) => {
         handleBlur(e);
-        typeof value === "string"
-          ? setFieldValue(fieldName, value)
-          : setFieldValue(fieldName, value?.code ?? "");
+        if (fieldName === "status") {
+          let examStatus = examStatusOptions.find(
+            (exaStatus) => exaStatus.label === value
+          );
+          setFieldValue(fieldName, examStatus?.value);
+        } else {
+          typeof value === "string" || typeof value === "number"
+            ? setFieldValue(fieldName, value)
+            : setFieldValue(fieldName, value?.code ?? "");
+        }
       },
     [setFieldValue, handleBlur]
   );
@@ -203,8 +262,8 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                   <DateField
                     theme={"regular"}
                     fieldName="dateFrom"
-                    fieldValue={formik.values.dateFrom}
-                    disableFuture={false}
+                    fieldValue={removeTime(formik.values.dateFrom)}
+                    disableFuture={true}
                     format="dd/MM/yyyy"
                     isValid={isValid("dateFrom")}
                     errorText={getErrorText("dateFrom")}
@@ -215,8 +274,8 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                 <div className="filterLabForm__item">
                   <DateField
                     fieldName="dateTo"
-                    fieldValue={formik.values.dateTo}
-                    disableFuture={false}
+                    fieldValue={removeTime(formik.values.dateTo)}
+                    disableFuture={true}
                     theme="regular"
                     format="dd/MM/yyyy"
                     isValid={isValid("dateTo")}
@@ -226,7 +285,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                   />
                 </div>
 
-                <div className="filterLabForm__item">
+                <div className="filterLabForm__item col-3">
                   <DateField
                     fieldName="month"
                     views={["month"]}
@@ -240,7 +299,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                     onChange={dateFieldHandleOnChange("month")}
                   />
                 </div>
-                <div className="filterLabForm__item">
+                <div className="filterLabForm__item col-3">
                   <DateField
                     fieldName="year"
                     views={["year"]}
@@ -254,7 +313,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                     onChange={dateFieldHandleOnChange("year")}
                   />
                 </div>
-                <div className="filterLabForm__item">
+                <div className="filterLabForm__item col-3">
                   <AutocompleteField
                     fieldName="examName"
                     fieldValue={formik.values.examName}
@@ -263,6 +322,17 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                     errorText={getErrorText("examName")}
                     onBlur={onBlurCallback("examName")}
                     options={examOptions}
+                  />
+                </div>
+                <div className="filterLabForm__item col-3">
+                  <SelectField
+                    fieldName="status"
+                    fieldValue={formik.values.status}
+                    label={t("lab.status")}
+                    isValid={isValid("status")}
+                    errorText={getErrorText("status")}
+                    onBlur={onBlurCallback("status")}
+                    options={examStatusOptions}
                   />
                 </div>
               </div>

@@ -12,15 +12,13 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
+import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     LoginRequest,
     LoginResponse,
 } from '../models';
 
-export interface Login1Request {
-    username: string;
-    password: string;
+export interface AuthenticateUserRequest {
     loginRequest: LoginRequest;
 }
 
@@ -30,30 +28,21 @@ export interface Login1Request {
 export class LoginApi extends BaseAPI {
 
     /**
-     * Login with the given credentials.
      */
-    login1({ username, password, loginRequest }: Login1Request): Observable<LoginResponse>
-    login1({ username, password, loginRequest }: Login1Request, opts?: OperationOpts): Observable<RawAjaxResponse<LoginResponse>>
-    login1({ username, password, loginRequest }: Login1Request, opts?: OperationOpts): Observable<LoginResponse | RawAjaxResponse<LoginResponse>> {
-        throwIfNullOrUndefined(username, 'username', 'login1');
-        throwIfNullOrUndefined(password, 'password', 'login1');
-        throwIfNullOrUndefined(loginRequest, 'loginRequest', 'login1');
+    authenticateUser({ loginRequest }: AuthenticateUserRequest): Observable<LoginResponse>
+    authenticateUser({ loginRequest }: AuthenticateUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LoginResponse>>
+    authenticateUser({ loginRequest }: AuthenticateUserRequest, opts?: OperationOpts): Observable<LoginResponse | RawAjaxResponse<LoginResponse>> {
+        throwIfNullOrUndefined(loginRequest, 'loginRequest', 'authenticateUser');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
-            'username': username,
-            'password': password,
-        };
-
         return this.request<LoginResponse>({
             url: '/auth/login',
             method: 'POST',
             headers,
-            query,
             body: loginRequest,
         }, opts?.responseOpts);
     };

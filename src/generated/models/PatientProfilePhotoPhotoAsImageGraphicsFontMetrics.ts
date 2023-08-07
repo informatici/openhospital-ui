@@ -30,11 +30,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetrics {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
-    height?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
-     */
     ascent?: number;
     /**
      * @type {number}
@@ -46,6 +41,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetrics {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
     leading?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
+     */
+    height?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics

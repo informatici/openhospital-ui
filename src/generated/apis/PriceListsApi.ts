@@ -36,7 +36,7 @@ export interface NewPriceListRequest {
     priceListDTO: PriceListDTO;
 }
 
-export interface UpdatePriceListtRequest {
+export interface UpdatePriceListsRequest {
     id: number;
     priceListDTO: PriceListDTO;
 }
@@ -162,11 +162,11 @@ export class PriceListsApi extends BaseAPI {
 
     /**
      */
-    updatePriceListt({ id, priceListDTO }: UpdatePriceListtRequest): Observable<PriceListDTO>
-    updatePriceListt({ id, priceListDTO }: UpdatePriceListtRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PriceListDTO>>
-    updatePriceListt({ id, priceListDTO }: UpdatePriceListtRequest, opts?: OperationOpts): Observable<PriceListDTO | RawAjaxResponse<PriceListDTO>> {
-        throwIfNullOrUndefined(id, 'id', 'updatePriceListt');
-        throwIfNullOrUndefined(priceListDTO, 'priceListDTO', 'updatePriceListt');
+    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest): Observable<PriceListDTO>
+    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PriceListDTO>>
+    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest, opts?: OperationOpts): Observable<PriceListDTO | RawAjaxResponse<PriceListDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'updatePriceLists');
+        throwIfNullOrUndefined(priceListDTO, 'priceListDTO', 'updatePriceLists');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

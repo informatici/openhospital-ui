@@ -1,7 +1,7 @@
 export const labDTO = [
   {
     code: 222,
-    material: "angal.lab.sputum",
+    material: "angal.lab.blood.txt",
     exam: {
       code: "01.01",
       description: "1.1 HB",
@@ -22,10 +22,11 @@ export const labDTO = [
     inOutPatient: "O",
     age: 78,
     sex: "M",
+    status: "OPEN"
   },
   {
     code: 224,
-    material: "angal.lab.sputum",
+    material: "angal.lab.sputum.txt",
     exam: {
       code: "01.01",
       description: "1.1 HB",
@@ -46,10 +47,11 @@ export const labDTO = [
     inOutPatient: "O",
     age: 78,
     sex: "M",
+    status: "DRAFT"
   },
   {
     code: 225,
-    material: "angal.lab.sputum",
+    material: "angal.lab.urine.txt",
     exam: {
       code: "05.05",
       description: "5.5 ZN",
@@ -70,5 +72,6 @@ export const labDTO = [
     inOutPatient: "O",
     age: 78,
     sex: "M",
+    status: "DRAFT"
   },
 ];

@@ -103,7 +103,7 @@ export const Opds: FC = () => {
                   <OpdTable data={data ?? []} />
                   <Pagination
                     page={(pageInfo?.page ?? 0) + 1}
-                    count={pageInfo?.totalPage}
+                    count={pageInfo?.totalPages}
                     onChange={onPageChange}
                   />
                 </Permission>

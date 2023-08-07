@@ -1,6 +1,7 @@
 import moment from "moment";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { ExamFormFieldName } from "./ExamForm/types";
+import { LaboratoryDTOStatusEnum } from "../../../generated";
 
 const examsOptions = [
   {
@@ -43,13 +44,19 @@ const materialOptions = [
   },
 ];
 
+const examStatusOptions = Object.values(LaboratoryDTOStatusEnum).map(
+  (status) => {
+    return { label: status as string, value: status as string };
+  }
+);
+
 export const initialFields: TFields<ExamFormFieldName> = {
   exam: {
     value: "",
     type: "text",
     options: examsOptions,
   },
-  date: {
+  labDate: {
     value: moment().toISOString(),
     type: "text",
   },
@@ -61,6 +68,11 @@ export const initialFields: TFields<ExamFormFieldName> = {
     value: "",
     type: "text",
     options: resultsOptions,
+  },
+  status: {
+    value: "",
+    type: "text",
+    options: examStatusOptions,
   },
   material: {
     value: "",

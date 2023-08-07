@@ -12,7 +12,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const { t } = useTranslation();
   const header = [
     "id",
-    "visitDate",
+    "date",
     "patientCode",
     "patientName",
     "sex",
@@ -20,10 +20,10 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
     "disease",
     "newPatient",
   ];
-  const dateFields = ["visitDate"];
+  const dateFields = ["date"];
   const label = {
     id: t("opd.code"),
-    visitDate: t("opd.date"),
+    date: t("opd.date"),
     patientCode: t("opd.patientcode"),
     patientName: t("opd.patient"),
     sex: t("opd.sex"),
@@ -38,14 +38,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
     nextVisitDate: t("opd.nextvisitdate"),
     age: t("opd.age"),
   };
-  const order = [
-    "id",
-    "visitDate",
-    "patientCode",
-    "patientName",
-    "age",
-    "disease",
-  ];
+  const order = ["id", "date", "patientCode", "patientName", "age", "disease"];
   const [opd, setOpd] = useState({} as OpdDTO);
 
   const formatDataToDisplay = (data: OpdDTO[]) => {
@@ -54,7 +47,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
       results = data.map((e) => {
         return {
           id: e.code ?? "",
-          visitDate: renderDate(e.visitDate ?? ""),
+          date: renderDate(e.date ?? ""),
           nextVisitDate: renderDate(e.nextVisitDate ?? ""),
           patientCode: e.patientCode ?? "",
           patientName: e.patientName ?? "",

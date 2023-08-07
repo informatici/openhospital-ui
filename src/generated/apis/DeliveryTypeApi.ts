@@ -25,7 +25,7 @@ export interface NewDeliveryTypeRequest {
     deliveryTypeDTO: DeliveryTypeDTO;
 }
 
-export interface UpdateDeliveryTypetRequest {
+export interface UpdateDeliveryTypesRequest {
     deliveryTypeDTO: DeliveryTypeDTO;
 }
 
@@ -90,10 +90,10 @@ export class DeliveryTypeApi extends BaseAPI {
 
     /**
      */
-    updateDeliveryTypet({ deliveryTypeDTO }: UpdateDeliveryTypetRequest): Observable<DeliveryTypeDTO>
-    updateDeliveryTypet({ deliveryTypeDTO }: UpdateDeliveryTypetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DeliveryTypeDTO>>
-    updateDeliveryTypet({ deliveryTypeDTO }: UpdateDeliveryTypetRequest, opts?: OperationOpts): Observable<DeliveryTypeDTO | RawAjaxResponse<DeliveryTypeDTO>> {
-        throwIfNullOrUndefined(deliveryTypeDTO, 'deliveryTypeDTO', 'updateDeliveryTypet');
+    updateDeliveryTypes({ deliveryTypeDTO }: UpdateDeliveryTypesRequest): Observable<DeliveryTypeDTO>
+    updateDeliveryTypes({ deliveryTypeDTO }: UpdateDeliveryTypesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DeliveryTypeDTO>>
+    updateDeliveryTypes({ deliveryTypeDTO }: UpdateDeliveryTypesRequest, opts?: OperationOpts): Observable<DeliveryTypeDTO | RawAjaxResponse<DeliveryTypeDTO>> {
+        throwIfNullOrUndefined(deliveryTypeDTO, 'deliveryTypeDTO', 'updateDeliveryTypes');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

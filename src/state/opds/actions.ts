@@ -1,6 +1,6 @@
 import moment from "moment";
 import { Dispatch } from "redux";
-import { OpdDTO, OpdWithOperatioRowDTO, PageOpdDTO } from "../../generated";
+import { OpdDTO, OpdWithOperationRowDTO, PageOpdDTO } from "../../generated";
 import { OpdControllerApi } from "../../generated/apis/OpdControllerApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
@@ -66,7 +66,7 @@ export const createOpd =
   };
 
 export const createOpdWithOperationsRows =
-  (opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (opdWithOperatioRowDTO: OpdWithOperationRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
@@ -148,7 +148,7 @@ export const getOpds =
 
 export const getOpdsWithOperationRows =
   (code: number | undefined) =>
-  (dispatch: Dispatch<IAction<OpdWithOperatioRowDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<OpdWithOperationRowDTO[], {}>>): void => {
     dispatch({
       type: GET_OPD_LOADING,
     });
@@ -168,7 +168,7 @@ export const getOpdsWithOperationRows =
                 payload: payload.map((item) =>
                   item.opdDTO
                     ? item
-                    : ({ opdDTO: item } as OpdWithOperatioRowDTO)
+                    : ({ opdDTO: item } as OpdWithOperationRowDTO)
                 ),
               });
             } else {
@@ -309,7 +309,7 @@ export const updateOpd =
   };
 
 export const updateOpdWithOperationRows =
-  (code: number, opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (code: number, opdWithOperatioRowDTO: OpdWithOperationRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_OPD_LOADING,

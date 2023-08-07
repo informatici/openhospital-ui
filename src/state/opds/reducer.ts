@@ -1,5 +1,5 @@
 import produce from "immer";
-import { OpdDTO, OpdWithOperatioRowDTO } from "../../generated";
+import { OpdDTO, OpdWithOperationRowDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_OPD_FAIL,
@@ -153,7 +153,7 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
       draft.updateOpd.data = action.payload;
       draft.getOpds.data = draft.getOpds.data?.map((e) => {
         return e.opdDTO?.code === action.payload.opdDTO.code
-          ? (action.payload as OpdWithOperatioRowDTO)
+          ? (action.payload as OpdWithOperationRowDTO)
           : e;
       });
       delete draft.updateOpd.error;

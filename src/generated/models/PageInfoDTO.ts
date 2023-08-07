@@ -35,7 +35,7 @@ export interface PageInfoDTO {
      * @type {number}
      * @memberof PageInfoDTO
      */
-    totalPage?: number;
+    totalPages?: number;
     /**
      * @type {number}
      * @memberof PageInfoDTO

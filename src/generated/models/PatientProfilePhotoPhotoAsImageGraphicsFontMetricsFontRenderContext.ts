@@ -21,16 +21,6 @@ import {
  */
 export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext {
     /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
-     */
-    antiAliased?: boolean;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
-     */
-    transformType?: number;
-    /**
      * @type {PatientProfilePhotoPhotoAsImageGraphicsFontTransform}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
      */
@@ -50,4 +40,14 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderCon
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
      */
     transformed?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
+     */
+    antiAliased?: boolean;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
+     */
+    transformType?: number;
 }

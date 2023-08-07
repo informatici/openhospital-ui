@@ -1,4 +1,4 @@
-import { LaboratoryDTO, LabWithRowsDTO } from "../../../../generated";
+import { LabWithRowsDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IExamProps {
