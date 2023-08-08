@@ -198,7 +198,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
   });
 
   const wards = useSelector<IState, WardDTO[]>((state: IState) => {
-    return state.wards.allWards.data ?? [];
+    return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
   });
 
   const wardOptions = useMemo(() => {

@@ -22,11 +22,9 @@ import {
 import { Layouts } from "react-grid-layout";
 import { UserSettingDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import { UserSettingControllerApi } from "../../generated/apis/UserSettingControllerApi";
+import { UserSettingsApi } from "../../generated/apis/UserSettingsApi";
 
-const userSettingControllerApi = new UserSettingControllerApi(
-  customConfiguration()
-);
+const userSettingsApi = new UserSettingsApi(customConfiguration());
 
 export const getLayouts =
   () =>
@@ -39,7 +37,7 @@ export const getLayouts =
     let toolbox: Layouts;
     let savedConfig: string | undefined;
 
-    userSettingControllerApi.getUserSettingDashboardUsingGET().subscribe(
+    userSettingsApi.getUserSettingDashboard().subscribe(
       (payload) => {
         savedConfig = payload?.configValue;
         if (savedConfig && atob(savedConfig) !== null) {
@@ -85,24 +83,22 @@ export const saveLayouts =
       configValue: layoutConfig,
     } as any;
 
-    userSettingControllerApi
-      .newUserSettingUsingPOST({ userSettingDTO: setting })
-      .subscribe(
-        (payload) => {
-          let decodedConfig = decodeLayoutConfig(layoutConfig);
+    userSettingsApi.newUserSetting({ userSettingDTO: setting }).subscribe(
+      (payload) => {
+        let decodedConfig = decodeLayoutConfig(layoutConfig);
 
-          dispatch({
-            type: SAVE_LAYOUTS_SUCCESS,
-            payload: decodedConfig,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: SAVE_LAYOUTS_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+        dispatch({
+          type: SAVE_LAYOUTS_SUCCESS,
+          payload: decodedConfig,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: SAVE_LAYOUTS_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const resetLayouts =

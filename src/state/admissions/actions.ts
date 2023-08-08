@@ -6,7 +6,7 @@ import {
   AdmittedPatientDTO,
   PageAdmissionDTO,
 } from "../../generated";
-import { AdmissionControllerApi } from "../../generated/apis/AdmissionControllerApi";
+import { AdmissionsApi } from "../../generated/apis/AdmissionsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -48,9 +48,7 @@ import {
   GET_PATIENT_ADMISSIONS_SUCCESS_EMPTY,
 } from "./consts";
 
-const admissionControllerApi = new AdmissionControllerApi(
-  customConfiguration()
-);
+const admissionsApi = new AdmissionsApi(customConfiguration());
 
 export const createAdmission =
   (newAdmissionDTO: AdmissionDTO) =>
@@ -59,22 +57,20 @@ export const createAdmission =
       type: CREATE_ADMISSION_LOADING,
     });
 
-    admissionControllerApi
-      .newAdmissionsUsingPOST({ newAdmissionDTO })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: CREATE_ADMISSION_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: CREATE_ADMISSION_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    admissionsApi.newAdmissions({ admissionDTO: newAdmissionDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_ADMISSION_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_ADMISSION_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const dischargePatient =
@@ -84,8 +80,8 @@ export const dischargePatient =
       type: DISCHARGE_PATIENT_LOADING,
     });
     if (patientCode) {
-      admissionControllerApi
-        .dischargePatientUsingPOST({ patientCode, currentAdmissionDTO })
+      admissionsApi
+        .dischargePatient({ patientCode, admissionDTO: currentAdmissionDTO })
         .subscribe(
           (payload) => {
             dispatch({
@@ -115,8 +111,8 @@ export const updateAdmission =
       type: UPDATE_ADMISSION_LOADING,
     });
 
-    admissionControllerApi
-      .updateAdmissionsUsingPUT({ updateAdmissionDTO })
+    admissionsApi
+      .updateAdmissions({ admissionDTO: updateAdmissionDTO })
       .subscribe(
         (payload) => {
           dispatch({
@@ -168,8 +164,8 @@ export const getAdmittedPatients =
       type: GET_ADMITTED_PATIENTS_LOADING,
     });
 
-    admissionControllerApi
-      .getAdmittedPatientsUsingGET({
+    admissionsApi
+      .getAdmittedPatients({
         admissionrange: query.admissionrange ?? [],
         dischargerange: query.dischargerange ?? [],
         searchterms: query.searchterms,
@@ -211,8 +207,8 @@ export const getAdmissions =
     dispatch({
       type: GET_ADMISSIONS_LOADING,
     });
-    admissionControllerApi
-      .getAdmissionsUsingGET1({
+    admissionsApi
+      .getAdmissions({
         admissionrange,
         page: page ?? 0,
         size: size ?? 80,
@@ -239,7 +235,7 @@ export const getPatientAdmissions =
     dispatch({
       type: GET_PATIENT_ADMISSIONS_LOADING,
     });
-    admissionControllerApi.getAdmissionsUsingGET(query).subscribe(
+    admissionsApi.getAdmissions1(query).subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({
@@ -276,8 +272,8 @@ export const getDischarges =
     dispatch({
       type: GET_DISCHARGES_LOADING,
     });
-    admissionControllerApi
-      .getDischargesUsingGET({
+    admissionsApi
+      .getDischarges({
         dischargerange,
         page: page ?? 0,
         size: size ?? 80,
@@ -305,29 +301,27 @@ export const getCurrentAdmissionByPatientId =
       type: GET_CURRENTADMISSION_LOADING,
     });
     if (patientCode) {
-      admissionControllerApi
-        .getCurrentAdmissionUsingGET({ patientCode })
-        .subscribe(
-          (payload) => {
-            if (isEmpty(payload)) {
-              dispatch({
-                type: GET_CURRENTADMISSION_EMPTY,
-                payload: payload,
-              });
-            } else {
-              dispatch({
-                type: GET_CURRENTADMISSION_SUCCESS,
-                payload: payload,
-              });
-            }
-          },
-          (error) => {
+      admissionsApi.getCurrentAdmission({ patientCode }).subscribe(
+        (payload) => {
+          if (isEmpty(payload)) {
             dispatch({
-              type: GET_CURRENTADMISSION_FAIL,
-              error,
+              type: GET_CURRENTADMISSION_EMPTY,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: GET_CURRENTADMISSION_SUCCESS,
+              payload: payload,
             });
           }
-        );
+        },
+        (error) => {
+          dispatch({
+            type: GET_CURRENTADMISSION_FAIL,
+            error,
+          });
+        }
+      );
     } else {
       dispatch({
         type: GET_CURRENTADMISSION_FAIL,

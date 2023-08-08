@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { AdmissionDTO } from "../../generated";
-import { DischargeTypeControllerApi } from "../../generated/apis/DischargeTypeControllerApi";
+import { DischargeTypeApi } from "../../generated/apis/DischargeTypeApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -10,9 +10,7 @@ import {
   GET_DISCHARGETYPE_SUCCESS_EMPTY,
 } from "./consts";
 
-const dischargeTypeControllerApi = new DischargeTypeControllerApi(
-  customConfiguration()
-);
+const dischargeTypeApi = new DischargeTypeApi(customConfiguration());
 
 export const getDischargeTypes =
   () =>
@@ -20,7 +18,7 @@ export const getDischargeTypes =
     dispatch({
       type: GET_DISCHARGETYPE_LOADING,
     });
-    dischargeTypeControllerApi.getDischargeTypesUsingGET().subscribe(
+    dischargeTypeApi.getDischargeTypes().subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({

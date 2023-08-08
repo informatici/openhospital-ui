@@ -17,15 +17,15 @@ import { TActions } from "../../table/types";
 
 export const statusLabel = (status: LaboratoryDTOStatusEnum) => {
   switch (status) {
-    case LaboratoryDTOStatusEnum.DELETED:
+    case LaboratoryDTOStatusEnum.Deleted:
       return <LabelBadge color="danger" label={status} />;
-    case LaboratoryDTOStatusEnum.INVALID:
+    case LaboratoryDTOStatusEnum.Invalid:
       return <LabelBadge color="warning" label={status} />;
 
-    case LaboratoryDTOStatusEnum.OPEN:
+    case LaboratoryDTOStatusEnum.Open:
       return <LabelBadge color="info" label={status} />;
 
-    case LaboratoryDTOStatusEnum.DONE:
+    case LaboratoryDTOStatusEnum.Done:
       return <LabelBadge color="success" label={status} />;
 
     default:
@@ -90,24 +90,24 @@ export const ExamTable: FC<IExamTableProps> = ({
 
   const shouldDisplayAction = (row: any, action: TActions): boolean => {
     if (
-      (row.statusText === LaboratoryDTOStatusEnum.DELETED ||
-        row.statusText === LaboratoryDTOStatusEnum.INVALID) &&
+      (row.statusText === LaboratoryDTOStatusEnum.Deleted ||
+        row.statusText === LaboratoryDTOStatusEnum.Invalid) &&
       (action === "delete" || action === "edit")
     ) {
       return false;
     }
 
     if (
-      row.statusText !== LaboratoryDTOStatusEnum.DRAFT &&
-      row.statusText !== LaboratoryDTOStatusEnum.OPEN &&
+      row.statusText !== LaboratoryDTOStatusEnum.Draft &&
+      row.statusText !== LaboratoryDTOStatusEnum.Open &&
       action === "cancel"
     ) {
       return false;
     }
 
     if (
-      (row.statusText === LaboratoryDTOStatusEnum.DRAFT ||
-        row.statusText === LaboratoryDTOStatusEnum.OPEN) &&
+      (row.statusText === LaboratoryDTOStatusEnum.Draft ||
+        row.statusText === LaboratoryDTOStatusEnum.Open) &&
       action === "delete"
     ) {
       return false;
@@ -151,8 +151,8 @@ export const ExamTable: FC<IExamTableProps> = ({
 
     if (labExam) {
       if (
-        labExam.status === LaboratoryDTOStatusEnum.DRAFT ||
-        labExam.status === LaboratoryDTOStatusEnum.OPEN
+        labExam.status === LaboratoryDTOStatusEnum.Draft ||
+        labExam.status === LaboratoryDTOStatusEnum.Open
       ) {
         if (handleCancel !== undefined) handleCancel(labExam.code);
       } else {

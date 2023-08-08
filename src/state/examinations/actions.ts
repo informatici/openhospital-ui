@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { PatientExaminationDTO } from "../../generated";
-import { ExaminationControllerApi } from "../../generated/apis/ExaminationControllerApi";
+import { ExaminationsApi } from "../../generated/apis/ExaminationsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -20,9 +20,7 @@ import {
   UPDATE_EXAMINATION_SUCCESS,
 } from "./consts";
 
-const examinationControllerApi = new ExaminationControllerApi(
-  customConfiguration()
-);
+const examinationsApi = new ExaminationsApi(customConfiguration());
 
 export const createExamination =
   (newPatientExamination: PatientExaminationDTO) =>
@@ -30,8 +28,8 @@ export const createExamination =
     dispatch({
       type: CREATE_EXAMINATION_LOADING,
     });
-    examinationControllerApi
-      .newPatientExaminationUsingPOST({ newPatientExamination })
+    examinationsApi
+      .newPatientExamination({ patientExaminationDTO: newPatientExamination })
       .subscribe(
         (payload) => {
           dispatch({
@@ -61,20 +59,22 @@ export const updateExamination =
     dispatch({
       type: UPDATE_EXAMINATION_LOADING,
     });
-    examinationControllerApi.updateExaminationUsingPUT({ id, dto }).subscribe(
-      (payload) => {
-        dispatch({
-          type: UPDATE_EXAMINATION_SUCCESS,
-          payload: payload,
-        });
-      },
-      (error) => {
-        dispatch({
-          type: UPDATE_EXAMINATION_FAIL,
-          error: error?.response,
-        });
-      }
-    );
+    examinationsApi
+      .updateExamination({ id, patientExaminationDTO: dto })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: UPDATE_EXAMINATION_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: UPDATE_EXAMINATION_FAIL,
+            error: error?.response,
+          });
+        }
+      );
   };
 
 export const updateExaminationReset =
@@ -100,29 +100,27 @@ export const examinationsByPatientId =
       type: SEARCH_EXAMINATION_LOADING,
     });
     if (patId) {
-      examinationControllerApi
-        .getByPatientIdUsingGET({ patId: patId })
-        .subscribe(
-          (payload) => {
-            if (Array.isArray(payload) && payload.length > 0) {
-              dispatch({
-                type: SEARCH_EXAMINATION_SUCCESS,
-                payload: payload,
-              });
-            } else {
-              dispatch({
-                type: SEARCH_EXAMINATION_SUCCESS_EMPTY,
-                payload: [],
-              });
-            }
-          },
-          (error) => {
+      examinationsApi.getByPatientId({ patId: patId }).subscribe(
+        (payload) => {
+          if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
-              type: SEARCH_EXAMINATION_FAIL,
-              error,
+              type: SEARCH_EXAMINATION_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: SEARCH_EXAMINATION_SUCCESS_EMPTY,
+              payload: [],
             });
           }
-        );
+        },
+        (error) => {
+          dispatch({
+            type: SEARCH_EXAMINATION_FAIL,
+            error,
+          });
+        }
+      );
     } else
       dispatch({
         type: SEARCH_EXAMINATION_FAIL,

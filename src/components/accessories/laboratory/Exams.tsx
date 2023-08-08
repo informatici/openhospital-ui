@@ -100,7 +100,7 @@ export const Exams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryDTO) => {
-    if (row.status === LaboratoryDTOStatusEnum.DRAFT) {
+    if (row.status === LaboratoryDTOStatusEnum.Draft) {
       setSelectedExamRow(row);
       setShowStatusChangeModal(true);
     } else {
@@ -111,7 +111,7 @@ export const Exams: FC = () => {
   const onExamStatusChangeClick = () => {
     if (selectedExamRow?.code) {
       dispatch(
-        updateLabStatus(selectedExamRow?.code, LaboratoryDTOStatusEnum.OPEN)
+        updateLabStatus(selectedExamRow?.code, LaboratoryDTOStatusEnum.Open)
       );
     }
   };
@@ -261,7 +261,7 @@ export const Exams: FC = () => {
           <ChangeLabStatus
             onClick={onExamStatusChangeClick}
             onClose={onExamStatusChangeClose}
-            status={LaboratoryDTOStatusEnum.OPEN}
+            status={LaboratoryDTOStatusEnum.Open}
             isOpen={true}
             labCode={`${selectedExamRow.code}`}
           />
