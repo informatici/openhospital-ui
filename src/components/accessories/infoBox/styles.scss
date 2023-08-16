@@ -32,4 +32,8 @@
     margin-right: 5px;
     font-size: medium;
   }
+
+  @media print {
+    display: none;
+  }
 }
