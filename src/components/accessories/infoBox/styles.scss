@@ -13,6 +13,9 @@
   &.error {
     color: $c-color-primary;
     border: 1px solid $c-error-light;
+    @media print {
+      display: none !important;
+    }
   }
   &.warning {
     color: $c-warning;
@@ -28,5 +31,9 @@
   .infoBox_icon {
     margin-right: 5px;
     font-size: medium;
+  }
+
+  @media print {
+    display: none;
   }
 }

@@ -81,6 +81,100 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
     setExpanded(section === expanded ? false : section);
   };
 
+  const personalData = (
+    <>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.birthdate")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {renderDate(patient.data?.birthDate || "-")}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.sex")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.sex || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.bloodtype")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.bloodType || "-"}
+        </div>
+      </div>
+
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.address")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.address || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.city")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.city || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.telephone")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.telephone || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.taxcode")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.taxCode || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.hasinsurance")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.hasInsurance || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.parentslivetoghether")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.parentTogether || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.mothername")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.motherName || "-"}
+        </div>
+      </div>
+      <div className="patientDetails__personalData__item">
+        <div className="patientDetails__personalData__item__label">
+          {t("patient.fathername")}:
+        </div>
+        <div className="patientDetails__personalData__item__value">
+          {patient.data?.fatherName || "-"}
+        </div>
+      </div>
+    </>
+  );
+
   switch (activityTransitionState) {
     case "TO_PATIENT_EDITING":
       return <Navigate to="edit" />;
@@ -221,97 +315,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                           <Person fontSize="small" style={{ color: "white" }} />
                           <span>{t("patient.personaldata")}</span>
                         </AccordionSummary>
-                        <AccordionDetails>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.birthdate")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {renderDate(patient.data?.birthDate || "-")}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.sex")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.sex || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.bloodtype")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.bloodType || "-"}
-                            </div>
-                          </div>
-
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.address")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.address || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.city")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.city || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.telephone")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.telephone || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.taxcode")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.taxCode || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.hasinsurance")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.hasInsurance || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.parentslivetoghether")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.parentTogether || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.mothername")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.motherName || "-"}
-                            </div>
-                          </div>
-                          <div className="patientDetails__personalData__item">
-                            <div className="patientDetails__personalData__item__label">
-                              {t("patient.fathername")}:
-                            </div>
-                            <div className="patientDetails__personalData__item__value">
-                              {patient.data?.fatherName || "-"}
-                            </div>
-                          </div>
-                        </AccordionDetails>
+                        <AccordionDetails>{personalData}</AccordionDetails>
                       </Accordion>
                       {patient.data?.note ? (
                         <Accordion expanded={expanded === "panel_2"}>
@@ -339,6 +343,31 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
+                  <div className="patientDetails__profilePictureContainer_wrapper">
+                    <div className="patientDetails__profilePictureContainer">
+                      <ProfilePicture
+                        isEditable={false}
+                        preLoadedPicture={patient.data?.blobPhoto}
+                      />
+                    </div>
+                    <div className="patientDetails__header__info">
+                      <div className="patientDetails__header__info__item">
+                        {patient.data?.firstName || "-"}
+                      </div>
+                      <div className="patientDetails__header__info__item">
+                        <strong>{patient.data?.secondName || "-"}</strong>
+                      </div>
+                      <div className="patientDetails__header__info__item">
+                        <small>
+                          {t("patient.patientID")}:&nbsp;
+                          {patient.data?.code || "-"}
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="patientDetails__personalData">
+                    {personalData}
+                  </div>
                   <div className={"patientDetails__nested_content"}>
                     <Outlet context={patient?.data?.status} />
                   </div>

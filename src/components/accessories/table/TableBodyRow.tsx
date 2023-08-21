@@ -1,11 +1,13 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import _ from "lodash";
-import { Collapse, IconButton } from "@material-ui/core";
+import { Collapse, IconButton, useMediaQuery } from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import "./styles.scss";
 import { IRowProps } from "./types";
+import { useHotkeys } from "react-hotkeys-hook";
+import { sleep } from "../../../libraries/asyncUtils/asyncUtils";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -20,6 +22,18 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   detailColSpan,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const isPrintMode = useMediaQuery("print");
+  useHotkeys("ctrl+p", async (event, handler) => {
+    setOpen(true);
+    await sleep(1000);
+  });
+
+  useEffect(() => {
+    if (!isPrintMode) {
+      setOpen(false);
+    }
+  }, [isPrintMode]);
+
   return (
     <>
       <TableRow key={rowIndex}>
@@ -54,7 +68,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
             colSpan={detailColSpan ?? 6}
           >
             <Collapse
-              in={open}
+              in={isPrintMode ? isPrintMode : open}
               timeout="auto"
               unmountOnExit
               className="collapseWrapper"
