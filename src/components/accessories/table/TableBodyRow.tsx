@@ -23,9 +23,9 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const isPrintMode = useMediaQuery("print");
-  useHotkeys("ctrl+p", async (event, handler) => {
-    setOpen(true);
-    await sleep(1000);
+  useHotkeys("ctrl+space", async (event, handler) => {
+    event.preventDefault();
+    setOpen((previousState) => !previousState);
   });
 
   useEffect(() => {
