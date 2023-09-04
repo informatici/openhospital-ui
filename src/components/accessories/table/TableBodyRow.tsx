@@ -20,19 +20,9 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   renderCellDetails,
   coreRow,
   detailColSpan,
+  expanded,
 }) => {
   const [open, setOpen] = React.useState(false);
-  const isPrintMode = useMediaQuery("print");
-  useHotkeys("ctrl+space", async (event, handler) => {
-    event.preventDefault();
-    setOpen((previousState) => !previousState);
-  });
-
-  useEffect(() => {
-    if (!isPrintMode) {
-      setOpen(false);
-    }
-  }, [isPrintMode]);
 
   return (
     <>
@@ -44,7 +34,11 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               size="small"
               onClick={() => setOpen(!open)}
             >
-              {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+              {(expanded ? expanded : open) ? (
+                <KeyboardArrowUp />
+              ) : (
+                <KeyboardArrowDown />
+              )}
             </IconButton>
           </TableCell>
         ) : (
@@ -68,7 +62,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
             colSpan={detailColSpan ?? 6}
           >
             <Collapse
-              in={isPrintMode ? isPrintMode : open}
+              in={expanded ? expanded : open}
               timeout="auto"
               unmountOnExit
               className="collapseWrapper"

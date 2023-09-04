@@ -32,6 +32,8 @@ import {
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
+import SmallButton from "../smallButton/SmallButton";
+import Button from "../button/Button";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -64,6 +66,7 @@ const Table: FunctionComponent<IProps> = ({
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
+  const [expanded, setExpanded] = useState(false);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -224,9 +227,18 @@ const Table: FunctionComponent<IProps> = ({
     setOpenCancelConfirmation(false);
   };
 
+  const handleExpand = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
       <TableContainer component={Paper}>
+        <div className="header">
+          <Button type="button" onClick={handleExpand}>
+            {t("common.toggle_expand_all")}
+          </Button>
+        </div>
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">
             <TableRow>
@@ -276,6 +288,7 @@ const Table: FunctionComponent<IProps> = ({
                   showEmptyCell={showEmptyCell}
                   renderCellDetails={renderItemDetails}
                   detailColSpan={detailColSpan}
+                  expanded={expanded}
                 />
               ))}
           </TableBody>

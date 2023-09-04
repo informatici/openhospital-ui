@@ -38,6 +38,7 @@ export interface IRowProps {
   renderCellDetails?: <T>(row: T) => any;
   coreRow?: any;
   detailColSpan?: number;
+  expanded?: boolean;
 }
 
 export type TActions =
