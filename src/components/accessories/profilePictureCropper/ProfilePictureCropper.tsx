@@ -1,24 +1,17 @@
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactCrop, { Crop } from "react-image-crop";
-import Cropper from "react-easy-crop";
 import "./styles.scss";
 import { IProps } from "./types";
-import { useEffect, useMemo } from "@storybook/addons";
 import getCroppedImg from "../../../libraries/uiUtils/imageUtils";
-import { image } from "pdfkit";
 import { useStyles } from "./styles";
 import {
-  Typography,
-  Slider,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
 } from "@material-ui/core";
-import { CustomDialog } from "../customDialog/CustomDialog";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 
 export const ProfilePictureCropper: FunctionComponent<IProps> = ({
   picture,
