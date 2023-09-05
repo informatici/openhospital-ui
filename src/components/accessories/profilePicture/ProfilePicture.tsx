@@ -28,6 +28,9 @@ import { IProps } from "./types";
 import { handlePictureSelection, preprocessImage } from "./utils";
 import classNames from "classnames";
 import { GridCloseIcon } from "@material-ui/data-grid";
+import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
+import { isEmpty } from "lodash";
+import { Crop } from "@material-ui/icons";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
@@ -45,6 +48,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   const [showError, setShowError] = React.useState("");
   const [showModal, setShowModal] = React.useState(false);
   const [showWebcam, setShowWebcam] = React.useState(false);
+  const [showCropper, setShowCropper] = React.useState(false);
   const { t } = useTranslation();
 
   const handleCloseError = () => {
@@ -75,6 +79,8 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   const openWebcam = () => setShowWebcam(true);
   const closeWebcam = () => setShowWebcam(false);
+  const openCropper = () => setShowCropper(true);
+  const closeCropper = () => setShowCropper(false);
 
   const removePicture = () => {
     setPicture({
@@ -84,6 +90,10 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     if (pictureInputRef.current) {
       pictureInputRef.current.value = "";
     }
+  };
+
+  const handleCropped = (value: string) => {
+    preprocessImage(setPicture, value);
   };
 
   const confirmWebcamPicture = useCallback(
@@ -103,12 +113,19 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   return (
     <div className="profilePicture">
+      <ProfilePictureCropper
+        open={showCropper}
+        onSave={handleCropped}
+        onClose={closeCropper}
+        picture={picture.original}
+      />
       <input
         id="profilePicture_input"
         ref={pictureInputRef}
         style={{ display: "none" }}
         disabled={!isEditable}
         type="file"
+        accept="image/*"
         onChange={handlePictureSelection(setPicture, setShowError, 360000)}
       />
       <div
@@ -141,6 +158,14 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
               onClick={removePicture}
             >
               <DeleteRoundedIcon fontSize="small" style={{ color: "white" }} />
+            </div>
+          ) : null}
+          {!isEmpty(picture.original) ? (
+            <div
+              className="profilePicture_button profilePicture_cropIcon"
+              onClick={openCropper}
+            >
+              <Crop fontSize="small" style={{ color: "white" }} />
             </div>
           ) : null}
         </div>
