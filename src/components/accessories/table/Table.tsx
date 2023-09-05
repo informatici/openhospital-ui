@@ -236,7 +236,7 @@ const Table: FunctionComponent<IProps> = ({
       <TableContainer component={Paper}>
         <div className="header">
           <Button type="button" onClick={handleExpand}>
-            {t("common.toggle_expand_all")}
+            {expanded ? t("common.collapse_all") : t("common.expand_all")}
           </Button>
         </div>
         <MaterialComponent className="table" aria-label="simple table">

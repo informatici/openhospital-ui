@@ -445,7 +445,8 @@
       "lastyear": "Last Year"
     },
     "continue": "Continue ?",
-    "toggle_expand_all": "Toggle Expand All"
+    "collapse_all": "Collapse All",
+    "expand_all": "Expand All"
   },
   "permission": {
     "denied": "Permission denied",

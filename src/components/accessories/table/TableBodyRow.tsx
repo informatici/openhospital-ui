@@ -24,6 +24,10 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    setOpen(expanded ?? open);
+  }, [expanded]);
+
   return (
     <>
       <TableRow key={rowIndex}>
@@ -34,11 +38,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               size="small"
               onClick={() => setOpen(!open)}
             >
-              {(expanded ? expanded : open) ? (
-                <KeyboardArrowUp />
-              ) : (
-                <KeyboardArrowDown />
-              )}
+              {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </IconButton>
           </TableCell>
         ) : (
@@ -62,7 +62,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
             colSpan={detailColSpan ?? 6}
           >
             <Collapse
-              in={expanded ? expanded : open}
+              in={open}
               timeout="auto"
               unmountOnExit
               className="collapseWrapper"
