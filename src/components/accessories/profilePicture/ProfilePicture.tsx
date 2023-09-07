@@ -26,7 +26,11 @@ import Webcam from "../../accessories/webcam/Webcam";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
 import { IProps } from "./types";
-import { handlePictureSelection, preprocessImage } from "./utils";
+import {
+  extractPictureFromSelection,
+  handlePictureSelection,
+  preprocessImage,
+} from "./utils";
 import classNames from "classnames";
 import { GridCloseIcon } from "@material-ui/data-grid";
 import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
@@ -45,20 +49,22 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     original: "",
   });
 
-  const [showError, setShowError] = React.useState("");
-  const [showModal, setShowModal] = React.useState(false);
-  const [showWebcam, setShowWebcam] = React.useState(false);
-  const [showCropper, setShowCropper] = React.useState(false);
-  const [fromFileSystem, setFromFileSystem] = React.useState(false);
+  const [showError, setShowError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+  const [fromFileSystem, setFromFileSystem] = useState(false);
+  const [pictureToResize, setPictureToResize] = useState("");
   const { t } = useTranslation();
 
   const handleCloseError = () => {
+    removePicture();
     setShowError("");
   };
 
   useEffect(() => {
     if (preLoadedPicture) {
-      preprocessImage(setPicture, preLoadedPicture);
+      preprocessImage(setPicture, preLoadedPicture, setShowError);
     }
   }, [preLoadedPicture]);
 
@@ -66,11 +72,14 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     if (onChange) {
       onChange(picture.original);
     }
-    if (!showModal && !isEmpty(picture.original) && fromFileSystem) {
+  }, [onChange, picture.original]);
+
+  useEffect(() => {
+    if (!showModal && !isEmpty(pictureToResize) && fromFileSystem) {
       setFromFileSystem(false);
       openCropper();
     }
-  }, [onChange, picture.original]);
+  }, [pictureToResize]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -88,6 +97,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   const closeCropper = () => setShowCropper(false);
 
   const removePicture = () => {
+    setPictureToResize("");
     setPicture({
       preview: profilePicturePlaceholder,
       original: "",
@@ -97,14 +107,17 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     }
   };
 
-  const handleCropped = (value: string) => {
-    preprocessImage(setPicture, value);
-    closeCropper();
-  };
+  const handleCropped = useCallback(
+    (value: string) => {
+      preprocessImage(setPicture, value, setShowError);
+      closeCropper();
+    },
+    [setPicture]
+  );
 
   const confirmWebcamPicture = useCallback(
     (image: string) => {
-      preprocessImage(setPicture, image);
+      preprocessImage(setPicture, image, setShowError);
       closeModal();
     },
     [setPicture]
@@ -113,9 +126,9 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   const handleChange = useCallback(
     () => (e: ChangeEvent<HTMLInputElement>) => {
       setFromFileSystem(true);
-      handlePictureSelection(setPicture, setShowError, 360000)(e);
+      extractPictureFromSelection(setPictureToResize)(e);
     },
-    [setPicture, setShowError]
+    [setPictureToResize]
   );
 
   const handleReset = () => {
@@ -137,7 +150,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         open={showCropper}
         onSave={handleCropped}
         onReset={handleReset}
-        picture={picture.original}
+        picture={pictureToResize}
       />
       <input
         id="profilePicture_input"

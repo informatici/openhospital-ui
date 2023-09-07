@@ -1,4 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { MAX_FILE_UPLOAD_SIZE } from "./consts";
 
 const createPreview = (img: HTMLImageElement) => {
   const canvas = document.createElement("canvas");
@@ -24,35 +25,53 @@ const createPreview = (img: HTMLImageElement) => {
   return canvas.toDataURL("image/jpeg", 0.7); // get the data from canvas as 70% JPG
 };
 
-export const handlePictureSelection = (
-  setPicture: Dispatch<
-    SetStateAction<{
-      preview: string;
-      original: string;
-    }>
-  >, setShowError: React.Dispatch<React.SetStateAction<string>>, maxFileUpload: number
-) => (e: ChangeEvent<HTMLInputElement>): void => {
-  const newPic = e.target.files && e.target.files[0];
-  if (getFileSize(newPic, maxFileUpload)) {
+export const handlePictureSelection =
+  (
+    setPicture: Dispatch<
+      SetStateAction<{
+        preview: string;
+        original: string;
+      }>
+    >,
+    setShowError: React.Dispatch<React.SetStateAction<string>>
+  ) =>
+  (e: ChangeEvent<HTMLInputElement>): void => {
+    const newPic = e.target.files && e.target.files[0];
     if (newPic) {
       const dataURLReader = new FileReader();
       dataURLReader.onload = (e) => {
         const pictureURI = e.target?.result;
         if (typeof pictureURI === "string") {
-          preprocessImage(setPicture, pictureURI);
+          preprocessImage(setPicture, pictureURI, setShowError);
         }
       };
       dataURLReader.readAsDataURL(newPic);
     }
-  } else {
-    setShowError("File is too big! (Max upload file is " + maxFileUpload / 1000 + " KB)");
-    return;
-  }
-};
+  };
 
-export const getFileSize = (file: File | null, maxFileUpload: number): boolean => (
-  !file || file.size > maxFileUpload ? false : true
-);
+export const extractPictureFromSelection =
+  (setPictureToResize: React.Dispatch<React.SetStateAction<string>>) =>
+  (e: ChangeEvent<HTMLInputElement>): void => {
+    const newPic = e.target.files && e.target.files[0];
+    if (newPic) {
+      const dataURLReader = new FileReader();
+      dataURLReader.onload = (e) => {
+        const pictureURI = e.target?.result;
+        if (typeof pictureURI === "string") {
+          setPictureToResize(pictureURI);
+        }
+      };
+      dataURLReader.readAsDataURL(newPic);
+    }
+  };
+
+export const getFileSize = (
+  file: File | null,
+  maxFileUpload: number
+): boolean => (!file || file.size > maxFileUpload ? false : true);
+
+export const isValidSize = (file: Blob, maxFileUpload: number): boolean =>
+  file.size > maxFileUpload ? false : true;
 
 export const preprocessImage = (
   setPicture: Dispatch<
@@ -61,7 +80,8 @@ export const preprocessImage = (
       original: string;
     }>
   >,
-  picture: string
+  picture: string,
+  setShowError?: React.Dispatch<React.SetStateAction<string>>
 ): void => {
   let pictureURI = "";
   let pictureData = "";
@@ -72,12 +92,24 @@ export const preprocessImage = (
     pictureURI = "data:image/jpeg;base64," + picture;
     pictureData = picture;
   }
+  const newFile = new Blob([atob(pictureData)], { type: "image/jpeg" });
 
-  const image = new Image();
-  image.src = pictureURI;
+  if (isValidSize(newFile, MAX_FILE_UPLOAD_SIZE)) {
+    const image = new Image();
+    image.src = pictureURI;
 
-  image.onload = function () {
-    const preview = createPreview(image);
-    setPicture({ original: pictureData, preview });
-  };
+    image.onload = function () {
+      const preview = createPreview(image);
+      setPicture({ original: pictureData, preview });
+    };
+  } else {
+    if (setShowError) {
+      setShowError(
+        "File is too big! (Max upload file is " +
+          MAX_FILE_UPLOAD_SIZE / 1000 +
+          " KB)"
+      );
+    }
+    return;
+  }
 };

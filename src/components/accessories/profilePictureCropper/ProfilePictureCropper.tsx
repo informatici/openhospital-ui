@@ -10,15 +10,13 @@ export const ProfilePictureCropper: FunctionComponent<IProps> = ({
   onReset,
   open,
 }) => {
-  const image = `data:image/png;base64,${picture}`;
-
   return (
     <div className="croppedProfilePicture">
       <Dialog open={open} aria-describedby="alert-dialog-description">
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <ImageResize
-              imageToResize={image}
+              imageToResize={picture}
               onConfirm={onSave}
               onReset={onReset}
             />
