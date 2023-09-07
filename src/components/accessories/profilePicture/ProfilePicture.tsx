@@ -14,6 +14,7 @@ import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import React, {
+  ChangeEvent,
   FunctionComponent,
   useCallback,
   useEffect,
@@ -30,7 +31,6 @@ import classNames from "classnames";
 import { GridCloseIcon } from "@material-ui/data-grid";
 import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
 import { isEmpty } from "lodash";
-import { Crop } from "@material-ui/icons";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
@@ -49,6 +49,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   const [showModal, setShowModal] = React.useState(false);
   const [showWebcam, setShowWebcam] = React.useState(false);
   const [showCropper, setShowCropper] = React.useState(false);
+  const [fromFileSystem, setFromFileSystem] = React.useState(false);
   const { t } = useTranslation();
 
   const handleCloseError = () => {
@@ -64,6 +65,10 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   useEffect(() => {
     if (onChange) {
       onChange(picture.original);
+    }
+    if (!showModal && !isEmpty(picture.original) && fromFileSystem) {
+      setFromFileSystem(false);
+      openCropper();
     }
   }, [onChange, picture.original]);
 
@@ -94,6 +99,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   const handleCropped = (value: string) => {
     preprocessImage(setPicture, value);
+    closeCropper();
   };
 
   const confirmWebcamPicture = useCallback(
@@ -103,6 +109,20 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     },
     [setPicture]
   );
+
+  const handleChange = useCallback(
+    () => (e: ChangeEvent<HTMLInputElement>) => {
+      setFromFileSystem(true);
+      handlePictureSelection(setPicture, setShowError, 360000)(e);
+    },
+    [setPicture, setShowError]
+  );
+
+  const handleReset = () => {
+    closeCropper();
+    removePicture();
+    pictureInputRef.current?.click();
+  };
 
   useEffect(() => {
     if (shouldReset && resetCallback) {
@@ -116,7 +136,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       <ProfilePictureCropper
         open={showCropper}
         onSave={handleCropped}
-        onClose={closeCropper}
+        onReset={handleReset}
         picture={picture.original}
       />
       <input
@@ -126,7 +146,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         disabled={!isEditable}
         type="file"
         accept="image/*"
-        onChange={handlePictureSelection(setPicture, setShowError, 360000)}
+        onChange={handleChange()}
       />
       <div
         className={classNames("profilePicture_mask", { editable: isEditable })}
@@ -158,14 +178,6 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
               onClick={removePicture}
             >
               <DeleteRoundedIcon fontSize="small" style={{ color: "white" }} />
-            </div>
-          ) : null}
-          {!isEmpty(picture.original) ? (
-            <div
-              className="profilePicture_button profilePicture_cropIcon"
-              onClick={openCropper}
-            >
-              <Crop fontSize="small" style={{ color: "white" }} />
             </div>
           ) : null}
         </div>
