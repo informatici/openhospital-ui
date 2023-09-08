@@ -1,1 +1,1 @@
-export const MAX_FILE_UPLOAD_SIZE = 648000; // 65536 ;
+export const MAX_FILE_UPLOAD_SIZE = 65536; // 65536 ;

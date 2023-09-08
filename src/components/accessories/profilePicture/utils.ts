@@ -1,5 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import imageCompression from "browser-image-compression";
 import { MAX_FILE_UPLOAD_SIZE } from "./consts";
+import { pick } from "lodash";
 
 const createPreview = (img: HTMLImageElement) => {
   const canvas = document.createElement("canvas");
@@ -73,7 +75,7 @@ export const getFileSize = (
 export const isValidSize = (file: Blob, maxFileUpload: number): boolean =>
   file.size > maxFileUpload ? false : true;
 
-export const preprocessImage = (
+export const preprocessImage = async (
   setPicture: Dispatch<
     SetStateAction<{
       preview: string;
@@ -82,7 +84,7 @@ export const preprocessImage = (
   >,
   picture: string,
   setShowError?: React.Dispatch<React.SetStateAction<string>>
-): void => {
+) => {
   let pictureURI = "";
   let pictureData = "";
   if (picture.includes("data:")) {
@@ -92,9 +94,15 @@ export const preprocessImage = (
     pictureURI = "data:image/jpeg;base64," + picture;
     pictureData = picture;
   }
-  const newFile = new Blob([atob(pictureData)], { type: "image/jpeg" });
-
-  if (isValidSize(newFile, MAX_FILE_UPLOAD_SIZE)) {
+  let file = await imageCompression.getFilefromDataUrl(picture, "avatar");
+  const compressionOptions = {
+    maxSizeMB: MAX_FILE_UPLOAD_SIZE / 1024 / 1024,
+    useWebWorker: true,
+  };
+  file = await imageCompression(file, compressionOptions);
+  pictureURI = await imageCompression.getDataUrlFromFile(file);
+  pictureData = pictureURI.split(",")[1];
+  if (file.size < MAX_FILE_UPLOAD_SIZE) {
     const image = new Image();
     image.src = pictureURI;
 
