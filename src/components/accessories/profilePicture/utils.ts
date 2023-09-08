@@ -106,7 +106,7 @@ export const preprocessImage = (
     if (setShowError) {
       setShowError(
         "File is too big! (Max upload file is " +
-          MAX_FILE_UPLOAD_SIZE / 1000 +
+          MAX_FILE_UPLOAD_SIZE / 1024 +
           " KB)"
       );
     }
