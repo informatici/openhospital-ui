@@ -64,7 +64,10 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   useEffect(() => {
     if (preLoadedPicture) {
-      preprocessImage(setPicture, preLoadedPicture, setShowError);
+      setPicture({
+        preview: "data:image/jpeg;base64," + preLoadedPicture,
+        original: preLoadedPicture,
+      });
     }
   }, [preLoadedPicture]);
 
