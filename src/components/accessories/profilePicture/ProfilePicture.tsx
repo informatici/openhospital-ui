@@ -14,6 +14,7 @@ import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import React, {
+  ChangeEvent,
   FunctionComponent,
   useCallback,
   useEffect,
@@ -25,9 +26,15 @@ import Webcam from "../../accessories/webcam/Webcam";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
 import "./styles.scss";
 import { IProps } from "./types";
-import { handlePictureSelection, preprocessImage } from "./utils";
+import {
+  extractPictureFromSelection,
+  handlePictureSelection,
+  preprocessImage,
+} from "./utils";
 import classNames from "classnames";
 import { GridCloseIcon } from "@material-ui/data-grid";
+import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
+import { isEmpty } from "lodash";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
@@ -42,18 +49,25 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     original: "",
   });
 
-  const [showError, setShowError] = React.useState("");
-  const [showModal, setShowModal] = React.useState(false);
-  const [showWebcam, setShowWebcam] = React.useState(false);
+  const [showError, setShowError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+  const [fromFileSystem, setFromFileSystem] = useState(false);
+  const [pictureToResize, setPictureToResize] = useState("");
   const { t } = useTranslation();
 
   const handleCloseError = () => {
+    removePicture();
     setShowError("");
   };
 
   useEffect(() => {
     if (preLoadedPicture) {
-      preprocessImage(setPicture, preLoadedPicture);
+      setPicture({
+        preview: "data:image/jpeg;base64," + preLoadedPicture,
+        original: preLoadedPicture,
+      });
     }
   }, [preLoadedPicture]);
 
@@ -62,6 +76,13 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       onChange(picture.original);
     }
   }, [onChange, picture.original]);
+
+  useEffect(() => {
+    if (!showModal && !isEmpty(pictureToResize) && fromFileSystem) {
+      setFromFileSystem(false);
+      openCropper();
+    }
+  }, [pictureToResize]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -75,8 +96,11 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   const openWebcam = () => setShowWebcam(true);
   const closeWebcam = () => setShowWebcam(false);
+  const openCropper = () => setShowCropper(true);
+  const closeCropper = () => setShowCropper(false);
 
   const removePicture = () => {
+    setPictureToResize("");
     setPicture({
       preview: profilePicturePlaceholder,
       original: "",
@@ -86,13 +110,35 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
     }
   };
 
+  const handleCropped = useCallback(
+    (value: string) => {
+      preprocessImage(setPicture, value, setShowError);
+      closeCropper();
+    },
+    [setPicture]
+  );
+
   const confirmWebcamPicture = useCallback(
     (image: string) => {
-      preprocessImage(setPicture, image);
+      preprocessImage(setPicture, image, setShowError);
       closeModal();
     },
     [setPicture]
   );
+
+  const handleChange = useCallback(
+    () => (e: ChangeEvent<HTMLInputElement>) => {
+      setFromFileSystem(true);
+      extractPictureFromSelection(setPictureToResize)(e);
+    },
+    [setPictureToResize]
+  );
+
+  const handleReset = () => {
+    closeCropper();
+    removePicture();
+    pictureInputRef.current?.click();
+  };
 
   useEffect(() => {
     if (shouldReset && resetCallback) {
@@ -103,13 +149,20 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 
   return (
     <div className="profilePicture">
+      <ProfilePictureCropper
+        open={showCropper}
+        onSave={handleCropped}
+        onReset={handleReset}
+        picture={pictureToResize}
+      />
       <input
         id="profilePicture_input"
         ref={pictureInputRef}
         style={{ display: "none" }}
         disabled={!isEditable}
         type="file"
-        onChange={handlePictureSelection(setPicture, setShowError, 360000)}
+        accept="image/*"
+        onChange={handleChange()}
       />
       <div
         className={classNames("profilePicture_mask", { editable: isEditable })}
