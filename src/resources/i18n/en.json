@@ -444,7 +444,9 @@
       "thisyear": "This Year",
       "lastyear": "Last Year"
     },
-    "continue": "Continue ?"
+    "continue": "Continue ?",
+    "collapse_all": "Collapse All",
+    "expand_all": "Expand All"
   },
   "permission": {
     "denied": "Permission denied",
@@ -546,11 +548,11 @@
     "statusmustbedone": "Exam status must be 'DONE' if results are provided",
     "changestatus": "Change Exam Status",
     "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
-    "statuses" : {
-      "DRAFT" : "DRAFT",
-      "ALL" : "ALL",
-      "OPEN" : "OPEN",
-      "DONE" : "DONE"
+    "statuses": {
+      "DRAFT": "DRAFT",
+      "ALL": "ALL",
+      "OPEN": "OPEN",
+      "DONE": "DONE"
     }
   },
   "admission": {
@@ -725,15 +727,15 @@
       "elderly": "Elderly"
     },
     "lab": {
-      "undefined" : {"txt": "Undefined"},
-      "blood": {"txt": "Blood"},
-      "cfs": {"txt": "CFS"},
-      "film": {"txt": "FILM"},
-      "sputum":{"txt": "Sputum"},
-      "stool":{"txt": "Stool"},
-      "swabs":{"txt": "Swabs"},
-      "tissues":{"txt": "Tissues"},
-      "urine":{"txt": "Urine"}
+      "undefined": { "txt": "Undefined" },
+      "blood": { "txt": "Blood" },
+      "cfs": { "txt": "CFS" },
+      "film": { "txt": "FILM" },
+      "sputum": { "txt": "Sputum" },
+      "stool": { "txt": "Stool" },
+      "swabs": { "txt": "Swabs" },
+      "tissues": { "txt": "Tissues" },
+      "urine": { "txt": "Urine" }
     }
   }
 }

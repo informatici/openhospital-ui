@@ -29,6 +29,7 @@
     "@types/react-router": "^5.1.19",
     "@types/react-router-dom": "^5.3.3",
     "@types/yup": "^0.29.0",
+    "browser-image-compression": "^2.0.2",
     "chart.js": "^3.9.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.16.1",
