@@ -49,14 +49,14 @@ const TextField: FunctionComponent<IProps> = ({
       {maxLength && maxLength > 0 && (
         <div
           style={{
-            bottom: "0px",
-            transform: "translate(14px, -6px) scale(0.75);",
+            bottom: "-9px",
+            transform: "translate(14px, -6px) scale(0.75)",
             position: "absolute",
             right: "25px",
             backgroundColor: "white",
             padding: "2px 6px",
             color: "gray",
-            fontSize: "12px",
+            fontSize: "14px",
           }}
         >
           <small>

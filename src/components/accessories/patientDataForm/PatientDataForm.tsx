@@ -258,6 +258,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={30}
             />
           </div>
         </div>
@@ -470,6 +471,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               clearOnBlur={true}
               selectOnFocus={true}
               handleHomeEndKeys={true}
+              maxLength={50}
             />
           </div>
 

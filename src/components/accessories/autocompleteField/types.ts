@@ -23,6 +23,7 @@ export interface IProps {
   selectOnFocus?: boolean;
   handleHomeEndKeys?: boolean;
   options_limit?: number;
+  maxLength?: number;
 }
 export type DefaultOptionType = {
   value: string | number | JSX.Element;
