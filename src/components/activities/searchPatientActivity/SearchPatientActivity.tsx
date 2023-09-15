@@ -211,7 +211,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                       errorText={getErrorText("firstName")}
                       onBlur={formik.handleBlur}
                       disabled={isSearchById}
-                      maxLength={50}
                     />
                   </div>
                   <div className="searchPatient__formItem">
@@ -223,7 +222,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                       errorText={getErrorText("secondName")}
                       onBlur={formik.handleBlur}
                       disabled={isSearchById}
-                      maxLength={50}
                     />
                   </div>
                 </div>
@@ -251,7 +249,6 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                       errorText={getErrorText("address")}
                       onBlur={formik.handleBlur}
                       disabled={isSearchById}
-                      maxLength={50}
                     />
                   </div>
                 </div>
