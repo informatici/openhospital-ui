@@ -286,6 +286,7 @@ const PatientPicker: FC<IProps> = ({
                     onBlur={formik.handleBlur}
                     type="text"
                     disabled={isLoading}
+                    maxLength={50}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -298,6 +299,7 @@ const PatientPicker: FC<IProps> = ({
                     onBlur={formik.handleBlur}
                     type="text"
                     disabled={isLoading}
+                    maxLength={50}
                   />
                 </div>
               </div>
@@ -312,6 +314,7 @@ const PatientPicker: FC<IProps> = ({
                     onBlur={formik.handleBlur}
                     type="text"
                     disabled={isLoading}
+                    maxLength={50}
                   />
                 </div>
                 <div className="patientSearchForm__item">

@@ -223,6 +223,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.REQUIRED
               }
+              maxLength={50}
             />
           </div>
           <div className="patientDataForm__item">
@@ -239,6 +240,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.REQUIRED
               }
+              maxLength={50}
             />
           </div>
 
@@ -392,6 +394,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={50}
             />
           </div>
 
@@ -409,6 +412,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={50}
             />
           </div>
 
@@ -447,6 +451,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={50}
             />
           </div>
 
@@ -485,6 +490,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                       ? FIELD_VALIDATION.SUGGESTED
                       : FIELD_VALIDATION.IDLE
                   }
+                  maxLength={50}
                 />
               </div>
             </Tooltip>
@@ -528,6 +534,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={65535}
             />
           </div>
         </div>

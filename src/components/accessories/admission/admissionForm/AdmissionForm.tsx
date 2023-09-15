@@ -307,6 +307,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 type="text"
                 disabled={isLoading}
+                maxLength={50}
               />
             </div>
           </div>
@@ -482,6 +483,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={65535}
               />
             </div>
           </div>

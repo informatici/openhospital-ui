@@ -446,7 +446,8 @@
     },
     "continue": "Continue ?",
     "collapse_all": "Collapse All",
-    "expand_all": "Expand All"
+    "expand_all": "Expand All",
+    "remainingchars": "Remaining : {{current}} / {{max}}"
   },
   "permission": {
     "denied": "Permission denied",
