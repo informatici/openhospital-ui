@@ -305,6 +305,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={65535}
               />
             </div>
           </div>

@@ -1,8 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { TextField as MaterialComponent } from "@material-ui/core";
 import "./styles.scss";
 import { IProps } from "./types";
 import { FIELD_VALIDATION } from "../../../types";
+import { useTranslation } from "react-i18next";
 
 const TextField: FunctionComponent<IProps> = ({
   field,
@@ -17,10 +18,14 @@ const TextField: FunctionComponent<IProps> = ({
   InputProps,
   rows = 10,
   required = FIELD_VALIDATION.IDLE,
+  maxLength,
 }) => {
+  const { t } = useTranslation();
+
   const actualClassName = theme === "light" ? "textField__light" : "textField";
+
   return (
-    <React.Fragment>
+    <div style={{ position: "relative" }}>
       <MaterialComponent
         id={field.name}
         label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
@@ -38,9 +43,31 @@ const TextField: FunctionComponent<IProps> = ({
         margin="dense"
         disabled={disabled}
         InputProps={InputProps}
+        inputProps={{ maxLength }}
         required={required === FIELD_VALIDATION.REQUIRED}
       />
-    </React.Fragment>
+      {maxLength && maxLength > 0 && (
+        <div
+          style={{
+            bottom: "-9px",
+            transform: "translate(14px, -6px) scale(0.75)",
+            position: "absolute",
+            right: "25px",
+            backgroundColor: "white",
+            padding: "2px 6px",
+            color: "gray",
+            fontSize: "14px",
+          }}
+        >
+          <small>
+            {t("common.remainingchars", {
+              current: maxLength - field.value.length,
+              max: maxLength,
+            })}
+          </small>
+        </div>
+      )}
+    </div>
   );
 };
 

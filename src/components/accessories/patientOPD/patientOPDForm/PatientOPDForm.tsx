@@ -477,6 +477,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                     onBlur={formik.handleBlur}
                     type="string"
                     disabled={isLoading}
+                    maxLength={65535}
                   />
                 </div>
               </div>
@@ -534,6 +535,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                     onBlur={formik.handleBlur}
                     type="string"
                     disabled={isLoading}
+                    maxLength={255}
                   />
                 </div>
               </div>

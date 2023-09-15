@@ -242,6 +242,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={250}
               />
             </div>
           </div>
