@@ -23,6 +23,7 @@ import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import { isEmpty } from "lodash";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { getLastOpd } from "../../../state/opds/actions";
+import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ const PatientAdmission: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
+  const [isEditingCurrent, setIsEditingCurrent] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [admissionToEdit, setAdmissionToEdit] =
     useState<AdmissionDTO | undefined>();
@@ -188,11 +190,16 @@ const PatientAdmission: FC = () => {
     scrollToElement(null);
   };
 
+  const onCurrentAdmissionChange = (value: boolean) => {
+    setIsEditingCurrent(value);
+  };
+
   return (
     <div className="patientAdmission">
       {patient?.status === PatientDTOStatusEnum.I && (
         <InfoBox type="info" message={t("admission.patientalreadyadmitted")} />
       )}
+      <CurrentAdmission onEditChange={onCurrentAdmissionChange} />
       {open && (
         <AdmissionForm
           fields={fields}
@@ -224,7 +231,10 @@ const PatientAdmission: FC = () => {
       />
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        isOpen={
+          (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
+          !isEditingCurrent
+        }
         title={creationMode ? t("admission.created") : t("admission.updated")}
         icon={checkIcon}
         info={
