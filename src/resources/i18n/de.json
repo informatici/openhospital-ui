@@ -584,7 +584,7 @@
     "validatelastdate": "sollte größer oder gleich dem Aufnahmedatum {{admDate}} sein",
     "currentadmissionexists": "Der Patient hat eine laufende Aufnahme vom {{Datum}}. Entlassen Sie ihn zuerst.",
     "patientnotadmitted": "Keine aktuelle Aufnahme gefunden!",
-    "patientalreadyadmitted": "Der Patient wurde bereits aufgenommen, hier finden Sie die Aufnahmehistorie. Um zurückzutreten, gehen Sie zur Entlassungsseite.",
+    "patientalreadyadmitted": "Der Patient wurde bereits aufgenommen, hier finden Sie die Aufnahmehistorie. Um zu entlassen, gehen Sie zur Entlassungsseite.",
     "updated": "Aufnahme aktualisiert",
     "updatesuccess": "Aufnahme erfolgreich aktualisiert",
     "datebefore": "Das Aufnahmedatum muss vor dem Entlassungsdatum liegen",
