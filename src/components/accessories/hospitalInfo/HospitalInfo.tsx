@@ -31,10 +31,10 @@ export const HospitalInfo: FC<TProps> = ({}) => {
             {hospital?.description ?? t("common.hospitalname")}
           </div>
           <div className="hospitalInfo__main__details">
-            {hospital.city && <div>{hospital.city}</div>}
-            {hospital.address && <div>{hospital.address}</div>}
-            {hospital.fax && <div>{hospital.fax}</div>}
-            {hospital.email && <div>{hospital.email}</div>}
+            {hospital?.city && <div>{hospital.city}</div>}
+            {hospital?.address && <div>{hospital.address}</div>}
+            {hospital?.fax && <div>{hospital.fax}</div>}
+            {hospital?.email && <div>{hospital.email}</div>}
           </div>
         </div>
       </div>
