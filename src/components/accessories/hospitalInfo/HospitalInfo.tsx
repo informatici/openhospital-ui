@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { TProps } from "./types";
