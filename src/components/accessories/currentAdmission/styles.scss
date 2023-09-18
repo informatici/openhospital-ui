@@ -21,7 +21,6 @@
     }
     .currentAdmissionData__content {
       display: flex;
-      flex-direction: column;
       flex-wrap: wrap;
       column-gap: 4px;
       .currentAdmissionData__item {
@@ -29,6 +28,10 @@
         flex-direction: column;
         justify-content: start;
         flex-grow: 0;
+        width: 48%;
+        @include susy-media($smartphone) {
+          width: 100%;
+        }
 
         &.fullWidth {
           width: 100%;

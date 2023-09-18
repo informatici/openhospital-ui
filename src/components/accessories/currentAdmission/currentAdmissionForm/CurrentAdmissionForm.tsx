@@ -119,6 +119,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       formattedValues.admType = admissionTypes?.find(
         (item) => item.code === formattedValues.admType
       );
+      formattedValues.type = formattedValues.admType?.code;
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );
@@ -241,30 +242,6 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               onBlur={onBlurCallback("diseaseIn")}
               options={renderOptions(diagnosisInList)}
               loading={diagnosisInStatus === "LOADING"}
-              disabled={isLoading}
-            />
-          </div>
-          <div className="currentAdmissionForm__item">
-            <TextField
-              field={formik.getFieldProps("cliDiaryCharge")}
-              theme="regular"
-              label={t("admission.cliDiaryCharge")}
-              isValid={isValid("cliDiaryCharge")}
-              errorText={getErrorText("cliDiaryCharge")}
-              onBlur={formik.handleBlur}
-              type="text"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="currentAdmissionForm__item">
-            <TextField
-              field={formik.getFieldProps("imageryCharge")}
-              theme="regular"
-              label={t("admission.imageryCharge")}
-              isValid={isValid("imageryCharge")}
-              errorText={getErrorText("imageryCharge")}
-              onBlur={formik.handleBlur}
-              type="text"
               disabled={isLoading}
             />
           </div>

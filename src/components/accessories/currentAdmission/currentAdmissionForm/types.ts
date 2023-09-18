@@ -10,9 +10,7 @@ export type TCurrentAdmissionFieldName =
   | "admType"
   | "diseaseIn"
   | "fhu"
-  | "note"
-  | "cliDiaryCharge"
-  | "imageryCharge";
+  | "note";
 
 export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 

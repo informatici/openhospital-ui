@@ -199,7 +199,7 @@ const PatientAdmission: FC = () => {
       {patient?.status === PatientDTOStatusEnum.I && (
         <InfoBox type="info" message={t("admission.patientalreadyadmitted")} />
       )}
-      <CurrentAdmission onEditChange={onCurrentAdmissionChange} />
+      {!open && <CurrentAdmission onEditChange={onCurrentAdmissionChange} />}
       {open && (
         <AdmissionForm
           fields={fields}

@@ -38,13 +38,5 @@ export const initialFields = (
       value: "",
       type: "text",
     },
-    cliDiaryCharge: {
-      value: "",
-      type: "text",
-    },
-    imageryCharge: {
-      value: "",
-      type: "text",
-    },
   };
 };

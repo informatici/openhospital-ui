@@ -170,6 +170,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       formattedValues.admType = admissionTypes?.find(
         (item) => item.code === formattedValues.admType
       );
+      formattedValues.type = formattedValues.admType?.code;
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );

@@ -79,7 +79,7 @@ export const admissionRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(admissionDTO);
+          res.status(200).json({ ...admissionDTO, id: 0 });
       }
     });
     server.post("/discharge").intercept((req, res) => {
