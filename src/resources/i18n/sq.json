@@ -584,7 +584,7 @@
     "validatelastdate": "duhet të jetë më e madhe ose e barabartë me datën e pranimit {{admDate}}",
     "currentadmissionexists": "Pacienti ka një pranim të vazhdueshëm që daton nga {{data}}. Lironi atë së pari.",
     "patientnotadmitted": "Nuk u gjet asnjë pranim aktual!",
-    "patientalreadyadmitted": "Pacienti tashmë është shtruar, këtu do të gjeni historinë e shtrimeve. Për të bërë heqjen, shkoni në faqen e shkarkimit.",
+    "patientalreadyadmitted": "Pacienti tashmë është shtruar, këtu do të gjeni historinë e shtrimeve. Për të bërë shkarkimin, shkoni në faqen e shkarkimit.",
     "updated": "Pranimi u aktualizua",
     "updatesuccess": "Pranimi u aktualizua me sukses",
     "datebefore": "Data e pranimit duhet të jetë para datës së shkarkimit",
