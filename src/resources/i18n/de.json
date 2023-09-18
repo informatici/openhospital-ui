@@ -446,7 +446,8 @@
     },
     "continue": "Weiter ?",
     "collapse_all": "Alle einklappen",
-    "expand_all": "Alle erweitern"
+    "expand_all": "Alle erweitern",
+    "remainingchars": "Übrig: {{current}} / {{max}}"
   },
   "permission": {
     "denied": "Zugriff verweigert",

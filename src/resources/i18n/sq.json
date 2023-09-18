@@ -446,7 +446,8 @@
     },
     "continue": "Vazhdo ?",
     "collapse_all": "Redukto të gjitha",
-    "expand_all": "Zgjëro të gjitha"
+    "expand_all": "Zgjëro të gjitha",
+    "remainingchars": "Mbetur : {{current}} / {{max}}"
   },
   "permission": {
     "denied": "Leja u refuzua",
