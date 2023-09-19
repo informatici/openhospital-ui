@@ -130,6 +130,7 @@ const ExamForm: FC<ExamProps> = ({
     } else {
       lab.status = LaboratoryDTOStatusEnum.OPEN;
     }
+    lab.material = "Undefined";
 
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));
@@ -165,7 +166,7 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    material: string().required(t("common.required")),
+    ///material: string().required(t("common.required")),
     result: string(),
     note: string().test({
       name: "maxLength",
@@ -392,7 +393,7 @@ const ExamForm: FC<ExamProps> = ({
                 disabled={false}
               />
             </div>
-            <div className="patientExamForm__item">
+            {/* <div className="patientExamForm__item">
               <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
@@ -404,8 +405,8 @@ const ExamForm: FC<ExamProps> = ({
                 options={materialsOptionsSelector(materialsList)}
                 disabled={isLoading}
               />
-            </div>
-            <div className="patientExamForm__item fullWidth">
+            </div> */}
+            <div className="patientExamForm__item">
               <AutocompleteField
                 fieldName="exam"
                 fieldValue={formik.values.exam}
