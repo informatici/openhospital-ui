@@ -27,6 +27,7 @@ import {
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
+import { HospitalInfo } from "../../accessories/hospitalInfo/HospitalInfo";
 import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture";
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
@@ -343,6 +344,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                   </div>
                 </div>
                 <div className="patientDetails__content">
+                  <HospitalInfo />
                   <div className="patientDetails__profilePictureContainer_wrapper">
                     <div className="patientDetails__profilePictureContainer">
                       <ProfilePicture

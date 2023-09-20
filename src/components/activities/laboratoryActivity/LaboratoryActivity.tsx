@@ -8,6 +8,7 @@ import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
+import { HospitalInfo } from "../../accessories/hospitalInfo/HospitalInfo";
 import { Exams } from "../../accessories/laboratory/Exams";
 import "./styles.scss";
 
@@ -42,6 +43,7 @@ const LaboratoryActivity: FC = () => {
       />
       <div className="labs__background">
         <div className="labs__content">
+          <HospitalInfo />
           <Permission require="laboratory.access">
             <Exams />
           </Permission>
