@@ -37,7 +37,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     result: t("lab.result"),
     note: t("lab.note"),
     status: t("lab.status"),
-    material: t("lab.material"),
+    //material: t("lab.material"),
   };
   const order = ["date", "exam", "status"];
 
@@ -74,9 +74,9 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
         status: item.laboratoryDTO?.status
           ? statusLabel(item.laboratoryDTO.status)
           : "",
-        material: item.laboratoryDTO?.material
-          ? t(item.laboratoryDTO.material)
-          : "",
+        // material: item.laboratoryDTO?.material
+        //   ? t(item.laboratoryDTO.material)
+        //   : "",
       };
     });
     //   .sort(dateComparator("desc", "date"));

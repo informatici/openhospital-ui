@@ -263,7 +263,7 @@ const ExamForm: FC<ExamProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientExamForm__item">
+            {/* <div className="patientExamForm__item">
               <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
@@ -275,7 +275,7 @@ const ExamForm: FC<ExamProps> = ({
                 options={materialsOptionsSelector(materialsList)}
                 disabled={isLoading}
               />
-            </div>
+            </div> */}
             <div className="patientExamForm__item fullWidth">
               <AutocompleteField
                 fieldName="exam"
