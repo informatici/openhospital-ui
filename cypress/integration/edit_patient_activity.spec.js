@@ -8,7 +8,7 @@ describe("EditPatientActivity spec", () => {
     cy.get("[class=editPatient]");
   });
 
-  it.skip("should have access to the user credentials", () => { });
+  it.skip("should have access to the user credentials", () => {});
 
   it("should have a PatientDataForm as a child component", () => {
     cy.get("[class=patientDataForm]");
@@ -43,6 +43,8 @@ describe("EditPatientActivity spec", () => {
           "images/profilePicture.jpg",
           { force: true }
         );
+
+        cy.get("[class=MuiDialogContent-root]").contains("Confirm").click();
 
         cy.wait(1000);
         cy.get("[class=profilePicture]")
@@ -79,11 +81,10 @@ describe("EditPatientActivity spec", () => {
   it("should not leave on the Cancel button click, if the Cancel button of the Cancel Dialog is click", () => {
     cy.get("[id=firstName]").clear().type("Marcelo");
     cy.get("[class=patientDataForm]").contains("Cancel").click();
-    cy.url().then(url => {
+    cy.url().then((url) => {
       cy.get("div.dialog__buttonSet").contains("Keep").click();
-      cy.url().should('eq', url);
+      cy.url().should("eq", url);
     });
     //cy.get("[id=firstName]").should("have.value", "Antonio Carlos");
   });
-
 });

@@ -125,6 +125,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
               onBlur={formik.handleBlur}
               type="string"
               disabled={isLoading}
+              maxLength={255}
             />
           ) : (
             <p className="item_content">
@@ -149,6 +150,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
               onBlur={formik.handleBlur}
               type="string"
               disabled={isLoading}
+              maxLength={255}
             />
           ) : (
             <p className="item_content">

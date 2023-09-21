@@ -102,4 +102,7 @@
       }
     }
   }
+  @media print {
+    display: none !important;
+  }
 }

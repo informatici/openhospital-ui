@@ -1,11 +1,13 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import _ from "lodash";
-import { Collapse, IconButton } from "@material-ui/core";
+import { Collapse, IconButton, useMediaQuery } from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import "./styles.scss";
 import { IRowProps } from "./types";
+import { useHotkeys } from "react-hotkeys-hook";
+import { sleep } from "../../../libraries/asyncUtils/asyncUtils";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -18,8 +20,14 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   renderCellDetails,
   coreRow,
   detailColSpan,
+  expanded,
 }) => {
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    setOpen(expanded ?? open);
+  }, [expanded]);
+
   return (
     <>
       <TableRow key={rowIndex}>

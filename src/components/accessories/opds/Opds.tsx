@@ -47,7 +47,14 @@ export const Opds: FC = () => {
   const errorMessage = error || t("common.somethingwrong");
 
   useEffect(() => {
-    dispatch(searchOpds(getFromFields(fields, "value")));
+    dispatch(
+      searchOpds({
+        ...getFromFields(fields, "value"),
+        page: 0,
+        size: 80,
+        paged: true,
+      })
+    );
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
     dispatch(getWards());
@@ -59,7 +66,6 @@ export const Opds: FC = () => {
         <div className="opd__header">
           <div className="opd__title">{t("nav.visits")}</div>
         </div>
-
         {(() => {
           switch (status) {
             case "FAIL":

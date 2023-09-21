@@ -341,6 +341,7 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={formik.handleBlur}
                 type="text"
                 disabled={isLoading}
+                maxLength={255}
               />
             </div>
           </div>

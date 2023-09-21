@@ -380,6 +380,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 onBlur={formik.handleBlur}
                 multiline
                 disabled={isLoading}
+                maxLength={65535}
               />
             </div>
           </div>

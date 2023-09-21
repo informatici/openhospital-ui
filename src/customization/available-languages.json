@@ -1,7 +1,3 @@
 {
-  "availableLanguages": [
-    "en",
-    "fr",
-    "it"
-  ]
+  "availableLanguages": ["en", "fr", "it", "de", "sq"]
 }
