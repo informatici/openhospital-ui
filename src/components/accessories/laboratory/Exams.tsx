@@ -173,21 +173,6 @@ export const Exams: FC = () => {
       <>
         <div className="lab__header">
           <div className="lab__title">{t("nav.laboratory")}</div>
-          <div className="lab__actions">
-            <Permission require="exam.create">
-              <Button
-                onClick={() => {
-                  navigate(`${PATHS.laboratory}/new`);
-                }}
-                type="button"
-                variant="contained"
-                color="primary"
-              >
-                <Add fontSize="small" />
-                <span className="new__button__label">{t("lab.newlab")}</span>
-              </Button>
-            </Permission>
-          </div>
         </div>
         {status === "LOADING" && (
           <CircularProgress
