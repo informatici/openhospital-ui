@@ -126,7 +126,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
         ? LaboratoryDTOInOutPatientEnum.O
         : LaboratoryDTOInOutPatientEnum.I
       : LaboratoryDTOInOutPatientEnum.O;
-    lab.material = ""; // material needs to be removed from backend env
+    lab.material = "Undefined";
     lab.result = "";
     lab.status = LaboratoryDTOStatusEnum.DRAFT;
 

@@ -39,7 +39,7 @@ const useSummaryMetaData = () => {
     pex_auscultation: t("examination.auscultation"),
     pex_note: t("examination.note"),
     exam: t("lab.exam"),
-    material: t("lab.material"),
+    //material: t("lab.material"),
     labDate: t("lab.date"),
     startDate: t("therapy.startDate"),
     endDate: t("therapy.endDate"),

@@ -126,7 +126,7 @@ const PatientExams: FC = () => {
         ? LaboratoryDTOInOutPatientEnum.O
         : LaboratoryDTOInOutPatientEnum.I
       : LaboratoryDTOInOutPatientEnum.O;
-    lab.material = "angal.lab.urine";
+    lab.material = "Undefined";
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;
