@@ -42,6 +42,15 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
 
+  // Reset patient update state to avoid error displaying
+  // in patient details activity.
+  // See issue [OHCS-107](https://openhospital.atlassian.net/browse/OHCS-107)
+  useEffect(() => {
+    return () => {
+      updatePatientReset();
+    };
+  }, []);
+
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE" && id) {
       getPatientThunk(id);
