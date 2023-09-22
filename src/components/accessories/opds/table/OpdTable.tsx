@@ -13,6 +13,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const header = [
     "id",
     "date",
+    "ward",
     "patientCode",
     "patientName",
     "sex",
@@ -37,8 +38,17 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
     referralTo: t("opd.referralto"),
     nextVisitDate: t("opd.nextvisitdate"),
     age: t("opd.age"),
+    ward: t("opd.ward"),
   };
-  const order = ["id", "date", "patientCode", "patientName", "age", "disease"];
+  const order = [
+    "id",
+    "date",
+    "ward",
+    "patientCode",
+    "patientName",
+    "age",
+    "disease",
+  ];
   const [opd, setOpd] = useState({} as OpdDTO);
 
   const formatDataToDisplay = (data: OpdDTO[]) => {
@@ -58,6 +68,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
           disease3: e.disease3?.description ?? "",
           referralFrom: e.referralFrom ?? "",
           referralTo: e.referralTo ?? "",
+          ward: e.ward?.description ?? "",
           newPatient:
             e.newPatient === "R"
               ? t("opd.reattendance")

@@ -1,13 +1,13 @@
 import { Dispatch } from "redux";
 import { concat, of } from "rxjs";
 import { catchError, map, toArray } from "rxjs/operators";
-import { AdmissionControllerApi } from "../../generated/apis/AdmissionControllerApi";
-import { ExaminationControllerApi } from "../../generated/apis/ExaminationControllerApi";
-import { LaboratoryControllerApi } from "../../generated/apis/LaboratoryControllerApi";
-import { OpdControllerApi } from "../../generated/apis/OpdControllerApi";
-import { OperationControllerApi } from "../../generated/apis/OperationControllerApi";
-import { TherapyControllerApi } from "../../generated/apis/TherapyControllerApi";
-import { VisitsControllerApi } from "../../generated/apis/VisitsControllerApi";
+import { AdmissionsApi } from "../../generated/apis/AdmissionsApi";
+import { ExaminationsApi } from "../../generated/apis/ExaminationsApi";
+import { LaboratoriesApi } from "../../generated/apis/LaboratoriesApi";
+import { OpdsApi } from "../../generated/apis/OpdsApi";
+import { OperationsApi } from "../../generated/apis/OperationsApi";
+import { TherapiesApi } from "../../generated/apis/TherapiesApi";
+import { VisitApi } from "../../generated/apis/VisitApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { IAction } from "../types";
@@ -18,24 +18,16 @@ import {
   SummaryField,
 } from "./consts";
 
-const therapyControllerApi = new TherapyControllerApi(customConfiguration());
+const therapiesApi = new TherapiesApi(customConfiguration());
 
-const operationControllerApi = new OperationControllerApi(
-  customConfiguration()
-);
-const admissionControllerApi = new AdmissionControllerApi(
-  customConfiguration()
-);
-const opdControllerrApi = new OpdControllerApi(customConfiguration());
-const visitControllerrApi = new VisitsControllerApi(customConfiguration());
+const operationsApi = new OperationsApi(customConfiguration());
+const admissionsApi = new AdmissionsApi(customConfiguration());
+const opdControllerrApi = new OpdsApi(customConfiguration());
+const visitControllerrApi = new VisitApi(customConfiguration());
 
-const examinationControllerApi = new ExaminationControllerApi(
-  customConfiguration()
-);
+const examinationsApi = new ExaminationsApi(customConfiguration());
 
-const laboratoryControllerApi = new LaboratoryControllerApi(
-  customConfiguration()
-);
+const laboratoriesApi = new LaboratoriesApi(customConfiguration());
 
 export const loadSummaryData =
   (code: number) =>
@@ -45,11 +37,11 @@ export const loadSummaryData =
     });
     if (code)
       concat(
-        examinationControllerApi.getByPatientIdUsingGET({ patId: code }).pipe(
+        examinationsApi.getByPatientId({ patId: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.triage)),
           catchError((err) => of([]))
         ),
-        opdControllerrApi.getOpdByPatientUsingGET({ pcode: code }).pipe(
+        opdControllerrApi.getOpdByPatient({ pcode: code }).pipe(
           map((res) =>
             convertToSummaryData(
               res.map((e) => e.opdDTO),
@@ -58,7 +50,7 @@ export const loadSummaryData =
           ),
           catchError((err) => of([]))
         ),
-        laboratoryControllerApi.getLaboratoryUsingGET({ patId: code }).pipe(
+        laboratoriesApi.getLaboratory1({ patId: code }).pipe(
           map((res) =>
             convertToSummaryData(
               res.map((e) => e.laboratoryDTO),
@@ -67,23 +59,19 @@ export const loadSummaryData =
           ),
           catchError((err) => of([]))
         ),
-        admissionControllerApi
-          .getAdmissionsUsingGET({ patientCode: code })
-          .pipe(
-            map((res) => convertToSummaryData(res, SummaryField.admission)),
-            catchError((err) => of([]))
-          ),
-        visitControllerrApi.getVisitUsingGET({ patID: code }).pipe(
+        admissionsApi.getAdmissions1({ patientCode: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.admission)),
+          catchError((err) => of([]))
+        ),
+        visitControllerrApi.getVisit({ patID: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.visit)),
           catchError((err) => of([]))
         ),
-        operationControllerApi
-          .getOperationRowsByPatientUsingGET({ patientCode: code })
-          .pipe(
-            map((res) => convertToSummaryData(res, SummaryField.operation)),
-            catchError((err) => of([]))
-          ),
-        therapyControllerApi.getTherapyRowsUsingGET({ codePatient: code }).pipe(
+        operationsApi.getOperationRowsByPatient({ patientCode: code }).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.operation)),
+          catchError((err) => of([]))
+        ),
+        therapiesApi.getTherapyRows({ codePatient: code }).pipe(
           map((res) => convertToSummaryData(res, SummaryField.therapy)),
           catchError((err) => of([]))
         )

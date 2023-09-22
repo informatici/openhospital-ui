@@ -18,6 +18,7 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { useOpds } from "../../../libraries/hooks/api/useOpds";
 import { TFilterValues } from "./filter/types";
 import Pagination from "../pagination/Pagination";
+import { getWards } from "../../../state/ward/actions";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;
@@ -56,6 +57,7 @@ export const Opds: FC = () => {
     );
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
+    dispatch(getWards());
   }, []);
 
   return (
@@ -63,19 +65,7 @@ export const Opds: FC = () => {
       <div className="opd_opds">
         <div className="opd__header">
           <div className="opd__title">{t("nav.visits")}</div>
-          <div className="opd__actions">
-            <Button
-              onClick={() => navigate("/search")}
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              <Add fontSize="small" />
-              <span className="new__button__label">{t("opd.newopd")}</span>
-            </Button>
-          </div>
         </div>
-
         {(() => {
           switch (status) {
             case "FAIL":

@@ -128,7 +128,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       : LaboratoryDTOInOutPatientEnum.O;
     lab.material = "Undefined";
     lab.result = "";
-    lab.status = LaboratoryDTOStatusEnum.DRAFT;
+    lab.status = LaboratoryDTOStatusEnum.Draft;
 
     dispatch(createLabRequest(lab));
   };

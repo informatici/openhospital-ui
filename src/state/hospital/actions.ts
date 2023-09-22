@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { HospitalDTO } from "../../generated";
-import { HospitalControllerApi } from "../../generated/apis/HospitalControllerApi";
+import { HospitalsApi } from "../../generated/apis/HospitalsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -9,9 +9,7 @@ import {
   GET_HOSPITAL_SUCCESS,
 } from "./consts";
 
-const hospitalControllerApi = new HospitalControllerApi(
-  customConfiguration(false)
-);
+const hospitalsApi = new HospitalsApi(customConfiguration(false));
 
 export const getHospital =
   () =>
@@ -19,7 +17,7 @@ export const getHospital =
     dispatch({
       type: GET_HOSPITAL_LOADING,
     });
-    hospitalControllerApi.getHospitalUsingGET().subscribe(
+    hospitalsApi.getHospital().subscribe(
       (payload) => {
         dispatch({
           type: GET_HOSPITAL_SUCCESS,

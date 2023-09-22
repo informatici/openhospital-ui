@@ -100,7 +100,7 @@ export const Exams: FC = () => {
   };
 
   const onEdit = (row: LaboratoryDTO) => {
-    if (row.status === LaboratoryDTOStatusEnum.DRAFT) {
+    if (row.status === LaboratoryDTOStatusEnum.Draft) {
       setSelectedExamRow(row);
       setShowStatusChangeModal(true);
     } else {
@@ -111,7 +111,7 @@ export const Exams: FC = () => {
   const onExamStatusChangeClick = () => {
     if (selectedExamRow?.code) {
       dispatch(
-        updateLabStatus(selectedExamRow?.code, LaboratoryDTOStatusEnum.OPEN)
+        updateLabStatus(selectedExamRow?.code, LaboratoryDTOStatusEnum.Open)
       );
     }
   };
@@ -173,21 +173,6 @@ export const Exams: FC = () => {
       <>
         <div className="lab__header">
           <div className="lab__title">{t("nav.laboratory")}</div>
-          <div className="lab__actions">
-            <Permission require="exam.create">
-              <Button
-                onClick={() => {
-                  navigate(`${PATHS.laboratory}/new`);
-                }}
-                type="button"
-                variant="contained"
-                color="primary"
-              >
-                <Add fontSize="small" />
-                <span className="new__button__label">{t("lab.newlab")}</span>
-              </Button>
-            </Permission>
-          </div>
         </div>
         {status === "LOADING" && (
           <CircularProgress
@@ -261,7 +246,7 @@ export const Exams: FC = () => {
           <ChangeLabStatus
             onClick={onExamStatusChangeClick}
             onClose={onExamStatusChangeClose}
-            status={LaboratoryDTOStatusEnum.OPEN}
+            status={LaboratoryDTOStatusEnum.Open}
             isOpen={true}
             labCode={`${selectedExamRow.code}`}
           />

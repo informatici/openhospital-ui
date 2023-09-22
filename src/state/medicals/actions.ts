@@ -2,9 +2,9 @@ import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { MedicalDTO } from "../../generated";
 import {
-  GetMedicalsUsingGETSortByEnum,
-  MedicalControllerApi,
-} from "../../generated/apis/MedicalControllerApi";
+  GetMedicalsSortByEnum,
+  MedicalsApi,
+} from "../../generated/apis/MedicalsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -13,7 +13,7 @@ import {
   GET_MEDICAL_SUCCESS,
 } from "./consts";
 
-const medicalControllerApi = new MedicalControllerApi(customConfiguration());
+const medicalsApi = new MedicalsApi(customConfiguration());
 
 export const getMedicals =
   () =>
@@ -21,9 +21,9 @@ export const getMedicals =
     dispatch({
       type: GET_MEDICAL_LOADING,
     });
-    medicalControllerApi
-      .getMedicalsUsingGET({
-        sortBy: GetMedicalsUsingGETSortByEnum.NAME,
+    medicalsApi
+      .getMedicals({
+        sortBy: GetMedicalsSortByEnum.NAME,
       })
       .subscribe(
         (payload) => {

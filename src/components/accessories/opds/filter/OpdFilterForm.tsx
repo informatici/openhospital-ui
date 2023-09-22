@@ -13,7 +13,12 @@ import React, { useCallback, useState } from "react";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { date, number, object, string } from "yup";
-import { DiseaseDTO, DiseaseTypeDTO, PatientDTO } from "../../../../generated";
+import {
+  DiseaseDTO,
+  DiseaseTypeDTO,
+  PatientDTO,
+  WardDTO,
+} from "../../../../generated";
 import {
   getFromFields,
   formatAllFieldValues,
@@ -170,7 +175,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
 
   const { setFieldValue, handleBlur } = formik;
 
-  const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO) => ({
+  const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO | WardDTO) => ({
     value: value.code ?? "",
     label: value.description ?? "",
   });
@@ -191,6 +196,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       state.diseaseTypes.getDiseaseTypes.data?.map((e) => mapToOptions(e)) ?? []
     );
   });
+
+  const wards = useSelector<IState, WardDTO[]>((state: IState) => {
+    return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
+  });
+
+  const wardOptions = useMemo(() => {
+    return wards.map((e) => mapToOptions(e));
+  }, [wards]);
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
@@ -361,6 +374,17 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     errorText={getErrorText("diseaseCode")}
                     onBlur={onBlurCallback("diseaseCode")}
                     options={diseaseOptions}
+                  />
+                </div>
+                <div className="filterOpdForm__item">
+                  <AutocompleteField
+                    fieldName="wardCode"
+                    fieldValue={formik.values.wardCode}
+                    label={t("opd.ward")}
+                    isValid={isValid("wardCode")}
+                    errorText={getErrorText("wardCode")}
+                    onBlur={onBlurCallback("wardCode")}
+                    options={wardOptions}
                   />
                 </div>
               </div>

@@ -126,9 +126,9 @@ const ExamForm: FC<ExamProps> = ({
     };
 
     if (rowsData.length > 0 || (lab.result && lab.result.length > 0)) {
-      lab.status = LaboratoryDTOStatusEnum.DONE;
+      lab.status = LaboratoryDTOStatusEnum.Done;
     } else {
-      lab.status = LaboratoryDTOStatusEnum.OPEN;
+      lab.status = LaboratoryDTOStatusEnum.Open;
     }
     lab.material = "Undefined";
 

@@ -1,7 +1,7 @@
 import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
 import { OperationDTO, OperationRowDTO } from "../../generated";
-import { OperationControllerApi } from "../../generated/apis/OperationControllerApi";
+import { OperationsApi } from "../../generated/apis/OperationsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -27,9 +27,7 @@ import {
   UPDATE_OPERATIONROW_SUCCESS,
 } from "./consts";
 
-const operationControllerApi = new OperationControllerApi(
-  customConfiguration()
-);
+const operationsApi = new OperationsApi(customConfiguration());
 
 export const createOperationRow =
   (operationRowDTO: OperationRowDTO) =>
@@ -37,22 +35,20 @@ export const createOperationRow =
     dispatch({
       type: CREATE_OPERATIONROW_LOADING,
     });
-    operationControllerApi
-      .newOperationRowUsingPOST({ operationRowDTO })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: CREATE_OPERATIONROW_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: CREATE_OPERATIONROW_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    operationsApi.newOperationRow({ operationRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_OPERATIONROW_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_OPERATIONROW_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const updateOperationRow =
@@ -61,22 +57,20 @@ export const updateOperationRow =
     dispatch({
       type: UPDATE_OPERATIONROW_LOADING,
     });
-    operationControllerApi
-      .updateOperationRowUsingPUT({ operationRowDTO })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: UPDATE_OPERATIONROW_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: UPDATE_OPERATIONROW_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    operationsApi.updateOperationRow({ operationRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_OPERATIONROW_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_OPERATIONROW_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const deleteOperationRow =
@@ -86,7 +80,7 @@ export const deleteOperationRow =
       type: DELETE_OPERATIONROW_LOADING,
     });
 
-    operationControllerApi.deleteOperationRowUsingDELETE({ code }).subscribe(
+    operationsApi.deleteOperationRow({ code }).subscribe(
       (payload) => {
         dispatch({
           type: DELETE_OPERATIONROW_SUCCESS,
@@ -132,7 +126,7 @@ export const getOperations =
     dispatch({
       type: GET_OPERATIONS_LOADING,
     });
-    operationControllerApi.getOperationsUsingGET().subscribe(
+    operationsApi.getOperations().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -161,27 +155,25 @@ export const getOperationsByAdmissionId =
     dispatch({
       type: GET_OPERATIONROW_ADM_LOADING,
     });
-    operationControllerApi
-      .getOperationRowsByAdmtUsingGET({ admissionId })
-      .subscribe(
-        (payload) => {
-          if (!isEmpty(payload)) {
-            dispatch({
-              type: GET_OPERATIONROW_ADM_SUCCESS,
-              payload: payload,
-            });
-          } else {
-            dispatch({
-              type: GET_OPERATIONROW_ADM_EMPTY,
-              payload: [],
-            });
-          }
-        },
-        (error) => {
+    operationsApi.getOperationRowsByAdmt({ admissionId }).subscribe(
+      (payload) => {
+        if (!isEmpty(payload)) {
           dispatch({
-            type: GET_OPERATIONROW_ADM_FAIL,
-            error: error?.response,
+            type: GET_OPERATIONROW_ADM_SUCCESS,
+            payload: payload,
+          });
+        } else {
+          dispatch({
+            type: GET_OPERATIONROW_ADM_EMPTY,
+            payload: [],
           });
         }
-      );
+      },
+      (error) => {
+        dispatch({
+          type: GET_OPERATIONROW_ADM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };

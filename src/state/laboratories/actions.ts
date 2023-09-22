@@ -5,7 +5,7 @@ import {
   LabWithRowsDTO,
   PageLabWithRowsDTO,
 } from "../../generated";
-import { LaboratoryControllerApi } from "../../generated/apis/LaboratoryControllerApi";
+import { LaboratoriesApi } from "../../generated/apis/LaboratoriesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -56,7 +56,7 @@ import {
   CANCEL_LAB_RESET,
 } from "./consts";
 
-const labControllerApi = new LaboratoryControllerApi(customConfiguration());
+const labsApi = new LaboratoriesApi(customConfiguration());
 
 export const createLab =
   (labWithRowsDTO: LabWithRowsDTO) =>
@@ -65,7 +65,7 @@ export const createLab =
       type: CREATE_LAB_LOADING,
     });
 
-    labControllerApi.newLaboratoryUsingPOST({ labWithRowsDTO }).subscribe(
+    labsApi.newLaboratory({ labWithRowsDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_LAB_SUCCESS,
@@ -88,7 +88,7 @@ export const createLabRequest =
       type: CREATE_LAB_REQUEST_LOADING,
     });
 
-    labControllerApi.newExamRequestUsingPOST({ laboratoryDTO }).subscribe(
+    labsApi.newExamRequest({ laboratoryDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_LAB_REQUEST_SUCCESS,
@@ -126,7 +126,7 @@ export const updateLabStatus =
     dispatch({
       type: UPDATE_LAB_LOADING,
     });
-    labControllerApi.updateExamRequestUsingPUT({ code, status }).subscribe(
+    labsApi.updateExamRequest({ code, status }).subscribe(
       (payload) => {
         dispatch({
           type: UPDATE_LAB_SUCCESS,
@@ -212,8 +212,8 @@ export const searchLabs =
     dispatch({
       type: SEARCH_LAB_LOADING,
     });
-    labControllerApi
-      .getLaboratoryForPrintUsingGET({
+    labsApi
+      .getLaboratoryForPrint({
         dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
         dateFrom: query.dateFrom ?? moment().toISOString(),
         examName: query.examName,
@@ -246,7 +246,7 @@ export const getLabsByPatientId =
       type: GET_LABS_LOADING,
     });
     if (patId) {
-      labControllerApi.getLaboratoryUsingGET({ patId }).subscribe(
+      labsApi.getLaboratory1({ patId }).subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
@@ -286,7 +286,7 @@ export const getLabsRequestByPatientId =
       type: GET_LABS_REQUEST_LOADING,
     });
     if (patId) {
-      labControllerApi.getLaboratoryExamRequestUsingGET1({ patId }).subscribe(
+      labsApi.getLaboratoryExamRequest1({ patId }).subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({
@@ -322,7 +322,7 @@ export const getLabByCode =
       type: GET_LAB_LOADING,
     });
     if (code) {
-      labControllerApi.getLaboratoryUsingGET({ patId: code }).subscribe(
+      labsApi.getLaboratory1({ patId: code }).subscribe(
         (payload) => {
           dispatch({
             type: GET_LAB_SUCCESS,
@@ -351,7 +351,7 @@ export const getLabWithRowsByCode =
       type: GET_LABWROW_LOADING,
     });
     if (code) {
-      labControllerApi.getExamWithRowsByIdUsingGET({ code }).subscribe(
+      labsApi.getExamWithRowsById({ code }).subscribe(
         (payload) => {
           dispatch({
             type: GET_LABWROW_SUCCESS,
@@ -379,7 +379,7 @@ export const getMaterials =
     dispatch({
       type: GET_MATERIALS_LOADING,
     });
-    labControllerApi.getMaterialsUsingGET().subscribe(
+    labsApi.getMaterials().subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({
@@ -408,22 +408,20 @@ export const updateLab =
     dispatch({
       type: UPDATE_LAB_LOADING,
     });
-    labControllerApi
-      .updateLaboratoryUsingPUT({ code, labWithRowsDTO })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: UPDATE_LAB_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: UPDATE_LAB_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    labsApi.updateLaboratory({ code, labWithRowsDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_LAB_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_LAB_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const deleteLab =
@@ -433,7 +431,7 @@ export const deleteLab =
       type: DELETE_LAB_LOADING,
     });
     if (code) {
-      labControllerApi.deleteExamUsingDELETE2({ code }).subscribe(
+      labsApi.deleteExam({ code }).subscribe(
         () => {
           dispatch({
             type: DELETE_LAB_SUCCESS,
@@ -462,7 +460,7 @@ export const cancelLab =
       type: CANCEL_LAB_LOADING,
     });
     if (code) {
-      labControllerApi.deleteExamRequestUsingDELETE({ code }).subscribe(
+      labsApi.deleteExamRequest({ code }).subscribe(
         () => {
           dispatch({
             type: CANCEL_LAB_SUCCESS,

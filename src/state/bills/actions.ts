@@ -9,7 +9,7 @@ import {
   BillPaymentsDTO,
   FullBillDTO,
 } from "../../generated";
-import { BillControllerApi } from "../../generated/apis/BillControllerApi";
+import { BillsApi } from "../../generated/apis/BillsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -50,7 +50,7 @@ import {
   UPDATE_BILL_SUCCESS,
 } from "./consts";
 
-const billControllerApi = new BillControllerApi(customConfiguration());
+const billsApi = new BillsApi(customConfiguration());
 
 export const newBill =
   (newBillDto: FullBillDTO) =>
@@ -59,7 +59,7 @@ export const newBill =
       type: NEW_BILL_LOADING,
     });
 
-    billControllerApi.newBillUsingPOST({ newBillDto }).subscribe(
+    billsApi.newBill({ fullBillDTO: newBillDto }).subscribe(
       (payload) => {
         dispatch({
           type: NEW_BILL_SUCCESS,
@@ -82,7 +82,7 @@ export const updateBill =
       type: UPDATE_BILL_LOADING,
     });
 
-    billControllerApi.updateBillUsingPUT({ id, odBillDto }).subscribe(
+    billsApi.updateBill({ id, fullBillDTO: odBillDto }).subscribe(
       (payload) => {
         dispatch({
           type: UPDATE_BILL_SUCCESS,
@@ -119,7 +119,7 @@ export const getBill =
     dispatch({
       type: GET_BILL_LOADING,
     });
-    billControllerApi.getBillUsingGET({ id: code }).subscribe(
+    billsApi.getBill({ id: code }).subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -148,8 +148,8 @@ export const getPendingBills =
     dispatch({
       type: PENDING_BILL_LOADING,
     });
-    billControllerApi
-      .getPendingBillsUsingGET({
+    billsApi
+      .getPendingBills({
         patientCode,
       })
       .pipe(
@@ -188,8 +188,8 @@ export const searchBills =
     dispatch({
       type: SEARCH_BILL_LOADING,
     });
-    billControllerApi
-      .searchBillsUsingGET({
+    billsApi
+      .searchBills1({
         datefrom: filter.fromDate,
         dateto: filter.toDate,
         patientCode: filter.patientCode,
@@ -229,7 +229,7 @@ const getPayments = (bills: BillDTO[]): Observable<FullBillDTO[]> => {
   if (bills.length === 0) return of([]);
   const fbills = forkJoin(
     bills.map((bill: BillDTO) => {
-      const obs = billControllerApi.getPaymentsByBillIdUsingGET({
+      const obs = billsApi.getPaymentsByBillId({
         billId: bill.id ? bill.id : 0,
       });
       return obs.pipe(
@@ -251,7 +251,7 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
   if (bills.length === 0) return of([]);
   const fbills = forkJoin(
     bills.map((fbill: FullBillDTO) => {
-      const obs = billControllerApi.getItemsUsingGET({
+      const obs = billsApi.getItems({
         billId: fbill?.bill?.id ? fbill.bill.id : 0,
       });
       return obs.pipe(
@@ -276,8 +276,8 @@ export const searchPayments =
     dispatch({
       type: SEARCH_PAYMENTS_LOADING,
     });
-    billControllerApi
-      .searchBillsPaymentsUsingGET({
+    billsApi
+      .searchBillsPayments({
         datefrom: filter.fromDate,
         dateto: filter.toDate,
         patientCode: filter.patientCode,
@@ -312,7 +312,7 @@ export const deleteBill =
       type: DELETE_BILL_LOADING,
     });
     if (id) {
-      billControllerApi.deleteBillUsingDELETE({ id }).subscribe(
+      billsApi.deleteBill({ id }).subscribe(
         () => {
           dispatch({
             type: DELETE_BILL_SUCCESS,
@@ -357,10 +357,10 @@ export const payBill =
       type: EDIT_BILL_LOADING,
     });
     if (payment.billId) {
-      billControllerApi
-        .updateBillUsingPUT({
+      billsApi
+        .updateBill({
           id: payment.billId,
-          odBillDto: { billPayments: [payment] } as any,
+          fullBillDTO: { billPayments: [payment] } as any,
         })
         .subscribe(
           (payload) => {
@@ -393,8 +393,8 @@ export const closeBill =
     dispatch({
       type: CLOSE_BILL_LOADING,
     });
-    billControllerApi
-      .updateBillUsingPUT({ id: id, odBillDto: { bill: bill } as any })
+    billsApi
+      .updateBill({ id: id, fullBillDTO: { bill: bill } as any })
       .subscribe(
         (payload) => {
           dispatch({
@@ -417,8 +417,8 @@ export const getBillsByYear =
     dispatch({
       type: SEARCH_BILLS_BY_YEAR_LOADING,
     });
-    billControllerApi
-      .searchBillsUsingGET({
+    billsApi
+      .searchBills1({
         datefrom: new Date(year, 0, 1).toISOString(),
         dateto: new Date(year, 11, 31).toISOString(),
         patientCode: 0,

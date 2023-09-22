@@ -139,8 +139,8 @@ const PatientExams: FC = () => {
     // Fix status according to results
     lab.status =
       (lab.result && lab.result.length > 0) || rows.length > 0
-        ? LaboratoryDTOStatusEnum.DONE
-        : LaboratoryDTOStatusEnum.OPEN;
+        ? LaboratoryDTOStatusEnum.Done
+        : LaboratoryDTOStatusEnum.Open;
 
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));

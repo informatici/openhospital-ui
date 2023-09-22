@@ -2,9 +2,8 @@ import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
 import { LoginRequest, UserProfileDTO } from "../../generated";
-import { LoginApiApi } from "../../generated/apis/LoginApiApi";
-import { LoginControllerApi } from "../../generated/apis/LoginControllerApi";
-import { UserControllerApi } from "../../generated/apis/UserControllerApi";
+import { LoginApi } from "../../generated/apis/LoginApi";
+import { UsersApi } from "../../generated/apis/UsersApi";
 import { LoginResponse } from "../../generated/models/LoginResponse";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
@@ -31,9 +30,8 @@ import {
 } from "./consts";
 import { IAuthentication } from "./types";
 
-const api = new LoginControllerApi(customConfiguration(false));
-const loginApi = new LoginApiApi(customConfiguration(false));
-const usersApi = new UserControllerApi(customConfiguration());
+const loginApi = new LoginApi(customConfiguration(false));
+const usersApi = new UsersApi(customConfiguration());
 
 export const setAuthenticationSuccess = (
   payload: IAuthentication
@@ -52,11 +50,11 @@ export const setAuthenticationThunk =
     const loginRequest: LoginRequest = { username, password };
 
     concat(
-      api
-        .authenticateUserUsingPOST({ loginRequest })
+      loginApi
+        .authenticateUser({ loginRequest })
         .pipe(tap(saveAuthenticationDataToSession)),
       usersApi
-        .retrieveProfileByCurrentLoggedInUserUsingGET()
+        .retrieveProfileByCurrentLoggedInUser()
         .pipe(tap(savePermissionDataToSession))
     )
       .pipe(toArray())
@@ -86,7 +84,7 @@ export const setLogoutThunk =
       type: SET_LOGOUT_LOADING,
     });
     SessionStorage.clear();
-    loginApi.logoutUsingPOST().subscribe(
+    loginApi.logout().subscribe(
       () => {
         dispatch({
           type: GET_PATIENT_RESET,
