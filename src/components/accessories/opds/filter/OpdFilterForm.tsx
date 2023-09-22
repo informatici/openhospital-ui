@@ -234,7 +234,9 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       }
 
       if (fieldName === "year") {
-        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
+        // Use getUTCFullYear() can result to wrong year as timezone can
+        // differ from one user to another, get the year as input instead
+        const year = val?.getFullYear() ?? new Date().getFullYear();
 
         let startMonth = 0;
         let endMonth = 11;

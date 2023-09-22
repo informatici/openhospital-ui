@@ -36,7 +36,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     exam: t("lab.exam"),
     status: t("lab.status"),
     note: t("lab.note"),
-    material: t("lab.material"),
+    //material: t("lab.material"),
   };
   const order = ["date", "exam", "status"];
 
@@ -63,7 +63,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
         date: item.labDate ? renderDate(item.labDate) : "",
         status: item.status ? statusLabel(item.status) : "",
         exam: item.exam?.description ?? "",
-        material: item.material ? t(item.material) : "",
+        //material: item.material ? t(item.material) : "",
         note: item.note ?? "",
       };
     });
