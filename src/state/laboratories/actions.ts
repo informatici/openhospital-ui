@@ -214,8 +214,8 @@ export const searchLabs =
     });
     labsApi
       .getLaboratoryForPrint({
-        dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
-        dateFrom: query.dateFrom ?? moment().toISOString(),
+        dateFrom: query.dateFrom ?? moment().add("-30", "days").toISOString(),
+        dateTo: query.dateTo ?? moment().toISOString(),
         examName: query.examName,
         patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
         status: query.status ?? undefined,

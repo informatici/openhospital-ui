@@ -24,7 +24,6 @@ export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [filter, setFilter] = useState({} as TFilterValues);
 

@@ -237,8 +237,8 @@ export const searchOpds =
       .getOpdByDates({
         sex: query.sex,
         newPatient: query.newPatient,
-        dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
-        dateFrom: query.dateFrom ?? moment().toISOString(),
+        dateFrom: query.dateFrom ?? moment().add("-30", "days").toISOString(),
+        dateTo: query.dateTo ?? moment().toISOString(),
         ageFrom: isNaN(query.ageFrom) ? null : query.ageFrom,
         ageTo: isNaN(query.ageTo) ? null : query.ageTo,
         diseaseCode: query.diseaseCode,
