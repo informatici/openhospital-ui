@@ -302,6 +302,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
         }
         if (fieldName === "diseaseTypeCode") {
           setDiseaseTypeCode((value ?? "") as string);
+          formik.setFieldValue("diseaseCode", "");
         }
       },
     [setFieldValue, handleBlur]
