@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { OpdDTO, OpdWithOperatioRowDTO } from "../../../../generated";
+import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import {
   getOpds,
   getOpdsWithOperationRows,
@@ -23,21 +23,22 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
   const canUpdate = usePermission("opd.update");
-  const header = ["visitDate", "disease"];
-  const dateFields = ["visitDate"];
+  const header = ["date", "disease"];
+  const dateFields = ["date"];
   const label = {
     code: t("opd.code"),
-    visitDate: t("opd.dateopd"),
+    date: t("opd.dateopd"),
     disease: t("opd.disease1"),
+    ward: t("visit.ward"),
     disease2: t("opd.disease2"),
     disease3: t("opd.disease3"),
     note: t("opd.note"),
   };
-  const order = ["visitDate", "disease"];
+  const order = ["date", "disease"];
   const dispatch = useDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, OpdWithOperatioRowDTO[]>((state) =>
+  const data = useSelector<IState, OpdWithOperationRowDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
   const opdStatus = useSelector<IState, string | undefined>(
@@ -54,14 +55,15 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       dispatch(getOpdsWithOperationRows(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
-  const formatDataToDisplay = (data: OpdWithOperatioRowDTO[] | undefined) => {
+  const formatDataToDisplay = (data: OpdWithOperationRowDTO[] | undefined) => {
     let results: any = [];
     if (data)
       results = data.map((item) => {
         return {
           code: item.opdDTO?.code,
-          visitDate: item.opdDTO?.date ? renderDate(item.opdDTO.date) : "",
+          date: item.opdDTO?.date ? renderDate(item.opdDTO.date) : "",
           disease: item.opdDTO?.disease?.description || "",
+          ward: item.opdDTO?.ward.description,
           disease2: item.opdDTO?.disease2?.description || "",
           disease3: item.opdDTO?.disease3?.description || "",
           note: item.opdDTO?.note || "",

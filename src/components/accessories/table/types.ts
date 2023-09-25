@@ -22,7 +22,9 @@ export interface IProps {
   getCoreRow?: <T>(val: T) => any | undefined;
   onPay?: (row: any) => void;
   onClose?: (row: any) => void;
+  onCancel?: (row: any) => void;
   detailColSpan?: number;
+  displayRowAction?: (row: any, action: TActions) => boolean;
 }
 
 export interface IRowProps {
@@ -36,6 +38,7 @@ export interface IRowProps {
   renderCellDetails?: <T>(row: T) => any;
   coreRow?: any;
   detailColSpan?: number;
+  expanded?: boolean;
 }
 
 export type TActions =
@@ -45,4 +48,5 @@ export type TActions =
   | "print"
   | "pay"
   | "close"
+  | "cancel"
   | "add";

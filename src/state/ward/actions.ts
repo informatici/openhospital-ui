@@ -1,12 +1,12 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { DiseaseDTO } from "../../generated";
-import { WardControllerApi } from "../../generated/apis/WardControllerApi";
+import { WardsApi } from "../../generated/apis/WardsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import { GET_WARD_FAIL, GET_WARD_LOADING, GET_WARD_SUCCESS } from "./consts";
 
-const wardControllerApi = new WardControllerApi(customConfiguration());
+const wardsApi = new WardsApi(customConfiguration());
 
 export const getWards =
   () =>
@@ -14,7 +14,7 @@ export const getWards =
     dispatch({
       type: GET_WARD_LOADING,
     });
-    wardControllerApi.getWardsUsingGET().subscribe(
+    wardsApi.getWards().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({

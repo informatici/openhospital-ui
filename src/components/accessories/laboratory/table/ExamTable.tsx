@@ -11,12 +11,33 @@ import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
-import { LabWithRowsDTO } from "../../../../generated";
+import { LabWithRowsDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
+import { LabelBadge } from "../../labelBadge/LabelBadge";
+import { TActions } from "../../table/types";
+
+export const statusLabel = (status: LaboratoryDTOStatusEnum) => {
+  switch (status) {
+    case LaboratoryDTOStatusEnum.Deleted:
+      return <LabelBadge color="danger" label={status} />;
+    case LaboratoryDTOStatusEnum.Invalid:
+      return <LabelBadge color="warning" label={status} />;
+
+    case LaboratoryDTOStatusEnum.Open:
+      return <LabelBadge color="info" label={status} />;
+
+    case LaboratoryDTOStatusEnum.Done:
+      return <LabelBadge color="success" label={status} />;
+
+    default:
+      return <LabelBadge color="default" label={status} />;
+  }
+};
 
 export const ExamTable: FC<IExamTableProps> = ({
   data,
   handleDelete,
   handleEdit,
+  handleCancel,
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -29,16 +50,17 @@ export const ExamTable: FC<IExamTableProps> = ({
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
-  const header = ["id", "labDate", "patName", "exam", "result"];
-  const dateFields = ["labDate"];
+  const header = ["id", "date", "patName", "exam", "result", "status"];
+  const dateFields = ["date"];
   const label = {
     id: t("lab.code"),
-    labDate: t("lab.date"),
+    date: t("lab.date"),
     patName: t("lab.patient"),
     exam: t("lab.exam"),
     result: t("lab.result"),
+    status: t("lab.status"),
   };
-  const order = ["id", "labDate", "patName", "exam", "result"];
+  const order = ["id", "date", "patName", "exam", "result", "status"];
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     let results: any = [];
@@ -46,7 +68,7 @@ export const ExamTable: FC<IExamTableProps> = ({
       results = data.map((e) => {
         return {
           id: e.laboratoryDTO?.code ?? "",
-          labDate: renderDate(e.laboratoryDTO?.labDate ?? ""),
+          date: renderDate(e.laboratoryDTO?.labDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
           exam:
             e.laboratoryDTO?.exam?.description ?? e.laboratoryDTO?.exam ?? "", //The second case should be removed when the api is ready
@@ -55,12 +77,44 @@ export const ExamTable: FC<IExamTableProps> = ({
               ? e.laboratoryDTO?.result ?? ""
               : t("lab.multipleresults"),
           patientCode: e.laboratoryDTO?.patientCode ?? "",
+          status: e.laboratoryDTO?.status
+            ? statusLabel(e.laboratoryDTO.status)
+            : "",
+          statusText: e.laboratoryDTO?.status ?? "",
         };
       });
     return results;
   };
 
   const formattedData: any[] = formatDataToDisplay(data);
+
+  const shouldDisplayAction = (row: any, action: TActions): boolean => {
+    if (
+      (row.statusText === LaboratoryDTOStatusEnum.Deleted ||
+        row.statusText === LaboratoryDTOStatusEnum.Invalid) &&
+      (action === "delete" || action === "edit")
+    ) {
+      return false;
+    }
+
+    if (
+      row.statusText !== LaboratoryDTOStatusEnum.Draft &&
+      row.statusText !== LaboratoryDTOStatusEnum.Open &&
+      action === "cancel"
+    ) {
+      return false;
+    }
+
+    if (
+      (row.statusText === LaboratoryDTOStatusEnum.Draft ||
+        row.statusText === LaboratoryDTOStatusEnum.Open) &&
+      action === "delete"
+    ) {
+      return false;
+    }
+
+    return true;
+  };
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -83,12 +137,27 @@ export const ExamTable: FC<IExamTableProps> = ({
       );
     }
   };
+
+  const onCancel = (row: any) => {
+    if (handleCancel) {
+      handleCancel(row.id);
+    }
+  };
+
   const onDelete = (row: any) => {
-    if (handleDelete !== undefined) {
-      handleDelete(
-        data.find((item) => item.laboratoryDTO?.code === row.id)?.laboratoryDTO
-          ?.code
-      );
+    let labExam = data.find(
+      (item) => item.laboratoryDTO?.code === row.id
+    )?.laboratoryDTO;
+
+    if (labExam) {
+      if (
+        labExam.status === LaboratoryDTOStatusEnum.Draft ||
+        labExam.status === LaboratoryDTOStatusEnum.Open
+      ) {
+        if (handleCancel !== undefined) handleCancel(labExam.code);
+      } else {
+        if (handleDelete !== undefined) handleDelete(labExam.code);
+      }
     }
   };
 
@@ -100,10 +169,12 @@ export const ExamTable: FC<IExamTableProps> = ({
         tableHeader={header}
         labelData={label}
         columnsOrder={order}
-        rowsPerPage={5}
+        rowsPerPage={10}
         onView={handleView}
         onEdit={canUpdate ? onEdit : undefined}
         onDelete={canDelete ? onDelete : undefined}
+        onCancel={canDelete ? onCancel : undefined}
+        displayRowAction={shouldDisplayAction}
       />
       {deleteStatus === "FAIL" && (
         <div className="info-box-container">

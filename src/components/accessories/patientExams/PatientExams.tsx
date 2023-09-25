@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { TherapyTransitionState } from "./types";
 import { initialFields } from "./consts";
@@ -11,6 +11,8 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
 import checkIcon from "../../../assets/check-icon.png";
 import {
+  cancelLab,
+  cancelLabReset,
   createLab,
   createLabReset,
   deleteLab,
@@ -24,7 +26,7 @@ import {
 import {
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
-  PatientDTOStatusEnum,
+  LaboratoryDTOStatusEnum,
 } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
@@ -36,6 +38,9 @@ import {
 import { CircularProgress } from "@material-ui/core";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
+import { initialRequestFields } from "../laboratory/consts";
+import PatientExamRequestsTable from "./patientExamRequestsTable/PatientExamRequestsTable";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
@@ -43,10 +48,13 @@ const PatientExams: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [shouldUpdateRequestsTable, setShouldUpdateRequestsTable] =
+    useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TherapyTransitionState>("IDLE");
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
+  const [canceledObjCode, setCanceledObjCode] = useState("");
 
   const [labToEdit, setLabToEdit] = useState({} as LaboratoryDTO);
 
@@ -66,6 +74,7 @@ const PatientExams: FC = () => {
     dispatch(createLabReset());
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
+    dispatch(cancelLabReset());
     dispatch(getLabWithRowsByCodeReset());
     setCreationMode(true);
   }, [dispatch]);
@@ -75,9 +84,11 @@ const PatientExams: FC = () => {
       dispatch(createLabReset());
       dispatch(updateLabReset());
       dispatch(deleteLabReset());
+      dispatch(cancelLabReset());
       dispatch(getLabWithRowsByCodeReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
+      setShouldUpdateRequestsTable(true);
     }
   }, [dispatch, activityTransitionState]);
 
@@ -94,6 +105,13 @@ const PatientExams: FC = () => {
   ) as string;
   const exams = useSelector((state: IState) => state.exams.examList.data);
 
+  const onSuccess = useCallback(
+    (shoudlReset: boolean) => {
+      setShouldUpdateRequestsTable(shoudlReset);
+    },
+    [dispatch]
+  );
+
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
     lab.patientCode = patientData?.code;
@@ -103,13 +121,12 @@ const PatientExams: FC = () => {
     lab.age = patientData?.age;
     lab.labDate = parseDate(lab.labDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient =
-      patientData?.status === PatientDTOStatusEnum.I
-        ? LaboratoryDTOInOutPatientEnum.I
-        : patientData?.status === PatientDTOStatusEnum.O
+    lab.inOutPatient = patientData?.status
+      ? patientData.status === "O"
         ? LaboratoryDTOInOutPatientEnum.O
-        : undefined;
-    lab.material = "angal.lab.urine";
+        : LaboratoryDTOInOutPatientEnum.I
+      : LaboratoryDTOInOutPatientEnum.O;
+    lab.material = "Undefined";
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;
@@ -118,6 +135,13 @@ const PatientExams: FC = () => {
       laboratoryDTO: lab,
       laboratoryRowList: rows,
     };
+
+    // Fix status according to results
+    lab.status =
+      (lab.result && lab.result.length > 0) || rows.length > 0
+        ? LaboratoryDTOStatusEnum.Done
+        : LaboratoryDTOStatusEnum.Open;
+
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));
     } else {
@@ -137,6 +161,11 @@ const PatientExams: FC = () => {
     dispatch(deleteLab(code));
   };
 
+  const onCancel = (code: number | undefined) => {
+    setCanceledObjCode(`${code}` ?? "");
+    dispatch(cancelLab(code));
+  };
+
   const resetFormCallback = () => {
     setShouldResetForm(false);
     setShouldUpdateTable(false);
@@ -152,28 +181,36 @@ const PatientExams: FC = () => {
   return (
     <div className="patientExam">
       <Permission require={creationMode ? "exam.create" : "exam.update"}>
-        {labStore.getLabWithRowsByCode.status !== "LOADING" && (
-          <ExamForm
-            fields={
-              creationMode
-                ? initialFields
-                : updateLabFields(initialFields, labToEdit)
-            }
-            onSubmit={onSubmit}
-            creationMode={creationMode}
-            labWithRowsToEdit={labWithRows}
-            submitButtonLabel={
-              creationMode ? t("common.save") : t("common.update")
-            }
-            resetButtonLabel={t("common.reset")}
-            shouldResetForm={shouldResetForm}
-            resetFormCallback={resetFormCallback}
-            isLoading={
-              labStore.createLab.status === "LOADING" ||
-              labStore.updateLab.status === "LOADING"
-            }
+        {creationMode && (
+          <ExamRequestForm
+            fields={initialRequestFields}
+            patient={patientData}
+            handleSuccess={onSuccess}
           />
         )}
+        {labStore.getLabWithRowsByCode.status !== "LOADING" &&
+          !creationMode && (
+            <ExamForm
+              fields={
+                creationMode
+                  ? initialFields
+                  : updateLabFields(initialFields, labToEdit)
+              }
+              onSubmit={onSubmit}
+              creationMode={creationMode}
+              labWithRowsToEdit={labWithRows}
+              submitButtonLabel={
+                creationMode ? t("common.save") : t("common.update")
+              }
+              resetButtonLabel={t("common.reset")}
+              shouldResetForm={shouldResetForm}
+              resetFormCallback={resetFormCallback}
+              isLoading={
+                labStore.createLab.status === "LOADING" ||
+                labStore.updateLab.status === "LOADING"
+              }
+            />
+          )}
         <ConfirmationDialog
           isOpen={
             labStore.createLab.status === "SUCCESS" ||
@@ -207,6 +244,11 @@ const PatientExams: FC = () => {
       )}
 
       <Permission require="exam.read">
+        <PatientExamRequestsTable
+          shouldUpdateTable={shouldUpdateRequestsTable}
+          handleCancel={onCancel}
+          handleEdit={onEdit}
+        />
         <PatientExamsTable
           handleEdit={onEdit}
           handleDelete={onDelete}
@@ -221,6 +263,19 @@ const PatientExams: FC = () => {
           handlePrimaryButtonClick={() =>
             setActivityTransitionState("TO_RESET")
           }
+          handleSecondaryButtonClick={() => {}}
+        />
+
+        <ConfirmationDialog
+          isOpen={labStore.cancelLab.status === "SUCCESS"}
+          title={t("lab.canceled")}
+          icon={checkIcon}
+          info={t("lab.cancelsuccess", { code: canceledObjCode })}
+          primaryButtonLabel={t("common.ok")}
+          handlePrimaryButtonClick={() => {
+            setActivityTransitionState("TO_RESET");
+            window.location.reload();
+          }}
           handleSecondaryButtonClick={() => {}}
         />
       </Permission>

@@ -1,8 +1,8 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { ExamDTO, ExamRowDTO } from "../../generated";
-import { ExamControllerApi } from "../../generated/apis/ExamControllerApi";
-import { ExamRowControllerApi } from "../../generated/apis/ExamRowControllerApi";
+import { ExamsApi } from "../../generated/apis/ExamsApi";
+import { ExamRowsApi } from "../../generated/apis/ExamRowsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -14,9 +14,9 @@ import {
   GET_EXAM_SUCCESS,
 } from "./consts";
 
-const examControllerApi = new ExamControllerApi(customConfiguration());
+const examsApi = new ExamsApi(customConfiguration());
 
-const examRowControllerApi = new ExamRowControllerApi(customConfiguration());
+const examRowsApi = new ExamRowsApi(customConfiguration());
 
 export const getExams =
   () =>
@@ -24,7 +24,7 @@ export const getExams =
     dispatch({
       type: GET_EXAM_LOADING,
     });
-    examControllerApi.getExamsUsingGET().subscribe(
+    examsApi.getExams().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -54,29 +54,27 @@ export const getExamRows =
       dispatch({
         type: GET_EXAMROW_LOADING,
       });
-      examRowControllerApi
-        .getExamRowsByExamCodeUsingGET({ examCode })
-        .subscribe(
-          (payload) => {
-            if (typeof payload === "object" && !isEmpty(payload)) {
-              dispatch({
-                type: GET_EXAMROW_SUCCESS,
-                payload: payload,
-              });
-            } else {
-              dispatch({
-                type: GET_EXAMROW_SUCCESS,
-                payload: [],
-              });
-            }
-          },
-          (error) => {
+      examRowsApi.getExamRowsByExamCode({ examCode }).subscribe(
+        (payload) => {
+          if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
-              type: GET_EXAMROW_FAIL,
-              error,
+              type: GET_EXAMROW_SUCCESS,
+              payload: payload,
+            });
+          } else {
+            dispatch({
+              type: GET_EXAMROW_SUCCESS,
+              payload: [],
             });
           }
-        );
+        },
+        (error) => {
+          dispatch({
+            type: GET_EXAMROW_FAIL,
+            error,
+          });
+        }
+      );
     } else {
       dispatch({
         type: GET_EXAMROW_FAIL,

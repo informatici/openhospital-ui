@@ -13,7 +13,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { date, number, object, string } from "yup";
-import { DiseaseDTO, DiseaseTypeDTO, PatientDTO } from "../../../../generated";
+import {
+  DiseaseDTO,
+  DiseaseTypeDTO,
+  PatientDTO,
+  WardDTO,
+} from "../../../../generated";
 import {
   getFromFields,
   formatAllFieldValues,
@@ -182,8 +187,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
     handleResetFilter();
     formik.resetForm();
   };
-
-  const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO) => ({
+  const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO | WardDTO) => ({
     value: value.code ?? "",
     label: value.description ?? "",
   });
@@ -204,6 +208,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
       state.diseaseTypes.getDiseaseTypes.data?.map((e) => mapToOptions(e)) ?? []
     );
   });
+
+  const wards = useSelector<IState, WardDTO[]>((state: IState) => {
+    return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
+  });
+
+  const wardOptions = useMemo(() => {
+    return wards.map((e) => mapToOptions(e));
+  }, [wards]);
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
@@ -234,7 +246,9 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
       }
 
       if (fieldName === "year") {
-        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
+        // Use getUTCFullYear() can result to wrong year as timezone can
+        // differ from one user to another, get the year as input instead
+        const year = val?.getFullYear() ?? new Date().getFullYear();
 
         let startMonth = 0;
         let endMonth = 11;
@@ -352,7 +366,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                     options={newPatientOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item fullWidth">
                   <AutocompleteField
                     fieldName="diseaseTypeCode"
                     fieldValue={formik.values.diseaseTypeCode}
@@ -363,7 +377,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                     options={diseaseTypeOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item fullWidth">
                   <AutocompleteField
                     fieldName="diseaseCode"
                     fieldValue={formik.values.diseaseCode}
@@ -372,6 +386,17 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                     errorText={getErrorText("diseaseCode")}
                     onBlur={onBlurCallback("diseaseCode")}
                     options={diseaseOptions}
+                  />
+                </div>
+                <div className="filterOpdForm__item">
+                  <AutocompleteField
+                    fieldName="wardCode"
+                    fieldValue={formik.values.wardCode}
+                    label={t("opd.ward")}
+                    isValid={isValid("wardCode")}
+                    errorText={getErrorText("wardCode")}
+                    onBlur={onBlurCallback("wardCode")}
+                    options={wardOptions}
                   />
                 </div>
               </div>

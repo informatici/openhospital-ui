@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import isEmpty from "lodash.isempty";
 import React, {
   FunctionComponent,
   useCallback,
@@ -127,6 +128,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
       onSubmit({
         ...formattedValues,
+        blobPhoto: isEmpty(formattedValues.blobPhoto)
+          ? null
+          : formattedValues.blobPhoto,
         birthDate: birthDate,
         age: age,
         agetype: "",
@@ -223,6 +227,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.REQUIRED
               }
+              maxLength={50}
             />
           </div>
           <div className="patientDataForm__item">
@@ -239,6 +244,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.REQUIRED
               }
+              maxLength={50}
             />
           </div>
 
@@ -256,6 +262,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={30}
             />
           </div>
         </div>
@@ -392,6 +399,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={50}
             />
           </div>
 
@@ -409,6 +417,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={50}
             />
           </div>
 
@@ -447,6 +456,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={50}
             />
           </div>
 
@@ -465,6 +475,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               clearOnBlur={true}
               selectOnFocus={true}
               handleHomeEndKeys={true}
+              maxLength={50}
             />
           </div>
 
@@ -485,6 +496,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                       ? FIELD_VALIDATION.SUGGESTED
                       : FIELD_VALIDATION.IDLE
                   }
+                  maxLength={50}
                 />
               </div>
             </Tooltip>
@@ -528,6 +540,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                   ? FIELD_VALIDATION.SUGGESTED
                   : FIELD_VALIDATION.IDLE
               }
+              maxLength={65535}
             />
           </div>
         </div>

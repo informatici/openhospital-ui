@@ -45,7 +45,9 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 
   const data = useSelector<IState, AdmissionDTO[]>((state) =>
     state.admissions.getPatientAdmissions.data
-      ? state.admissions.getPatientAdmissions.data
+      ? state.admissions.getPatientAdmissions.data.filter(
+          (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
+        )
       : []
   );
 

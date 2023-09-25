@@ -6,7 +6,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO, OpdDTO } from "../../../generated";
+import { AdmissionDTO, OpdDTO, PatientDTOStatusEnum } from "../../../generated";
 import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
@@ -23,6 +23,7 @@ import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import { isEmpty } from "lodash";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { getLastOpd } from "../../../state/opds/actions";
+import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ const PatientAdmission: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
+  const [isEditingCurrent, setIsEditingCurrent] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [admissionToEdit, setAdmissionToEdit] =
     useState<AdmissionDTO | undefined>();
@@ -188,11 +190,16 @@ const PatientAdmission: FC = () => {
     scrollToElement(null);
   };
 
+  const onCurrentAdmissionChange = (value: boolean) => {
+    setIsEditingCurrent(value);
+  };
+
   return (
     <div className="patientAdmission">
-      {!showForm && (
+      {patient?.status === PatientDTOStatusEnum.I && (
         <InfoBox type="info" message={t("admission.patientalreadyadmitted")} />
       )}
+      {!open && <CurrentAdmission onEditChange={onCurrentAdmissionChange} />}
       {open && (
         <AdmissionForm
           fields={fields}
@@ -224,7 +231,10 @@ const PatientAdmission: FC = () => {
       />
 
       <ConfirmationDialog
-        isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
+        isOpen={
+          (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
+          !isEditingCurrent
+        }
         title={creationMode ? t("admission.created") : t("admission.updated")}
         icon={checkIcon}
         info={

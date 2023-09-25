@@ -32,6 +32,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
   creationMode,
   shouldResetForm,
   resetFormCallback,
+  hideResultField,
 }) => {
   const { t } = useTranslation();
 
@@ -212,20 +213,22 @@ const OperationRowForm: FC<OperationRowProps> = ({
               />
             </div>
           </div>
-          <div className="row start-sm center-xs">
-            <div className="fullWidth patientOperationForm__item">
-              <SelectField
-                fieldName="opResult"
-                fieldValue={formik.values.opResult}
-                label={t("operation.opResult")}
-                isValid={isValid("opResult")}
-                errorText={getErrorText("opResult")}
-                onBlur={onBlurCallback("opResult")}
-                options={operationResultOptions}
-                disabled={isLoading}
-              />
+          {!hideResultField && (
+            <div className="row start-sm center-xs">
+              <div className="fullWidth patientOperationForm__item">
+                <SelectField
+                  fieldName="opResult"
+                  fieldValue={formik.values.opResult}
+                  label={t("operation.opResult")}
+                  isValid={isValid("opResult")}
+                  errorText={getErrorText("opResult")}
+                  onBlur={onBlurCallback("opResult")}
+                  options={operationResultOptions}
+                  disabled={isLoading}
+                />
+              </div>
             </div>
-          </div>
+          )}
           <div className="row start-sm center-xs">
             <div className="fullWidth patientOperationForm__item">
               <TextField
@@ -239,6 +242,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={250}
               />
             </div>
           </div>

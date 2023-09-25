@@ -3,7 +3,7 @@ import { Cancel } from "@material-ui/icons";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useLocation, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import "./styles.scss";
@@ -16,14 +16,12 @@ import {
 import { getExams } from "../../../state/exams/actions";
 import ExamForm from "./examForm/ExamForm";
 import { getPatientThunk } from "../../../state/patients/actions";
-import { examRoutes } from "../../../mockServer/routes/exam";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string | undefined }>();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const creationMode = useMemo(() => (id ? false : true), [id]);

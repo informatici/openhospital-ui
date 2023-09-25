@@ -170,6 +170,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       formattedValues.admType = admissionTypes?.find(
         (item) => item.code === formattedValues.admType
       );
+      formattedValues.type = formattedValues.admType?.code;
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );
@@ -307,6 +308,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 type="text"
                 disabled={isLoading}
+                maxLength={50}
               />
             </div>
           </div>
@@ -482,6 +484,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={65535}
               />
             </div>
           </div>

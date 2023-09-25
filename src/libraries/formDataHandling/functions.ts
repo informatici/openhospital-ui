@@ -32,22 +32,71 @@ export const getFromFields = (
   }, {});
 };
 
-export const parseDate = (raw: string) => {
+export const parseDate = (raw: string, withTimezone: boolean = true) => {
   if (raw) {
     var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
-    const timezonedDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    );
-    timezonedDate.setUTCHours(0);
-    return timezonedDate.toISOString();
+    if (withTimezone) {
+      const timezonedDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      );
+      timezonedDate.setUTCHours(0);
+      return timezonedDate.toISOString();
+    }
+    date.setUTCHours(0);
+    return date.toISOString();
   } else {
     return "";
   }
 };
 
+export const fixFilterDateFrom = (date: string | Date): string => {
+  let dateFrom: string;
+
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
+
+  date.setUTCHours(0);
+  date.setUTCMinutes(0);
+  date.setUTCSeconds(0);
+
+  dateFrom = date.toISOString();
+
+  return dateFrom;
+};
+
+export const removeTime = (date: string | Date): string => {
+  if (date instanceof Date) {
+    date.setUTCHours(0);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+
+    date = date.toISOString();
+  }
+
+  return date.split("T")[0];
+};
+
+export const fixFilterDateTo = (date: string | Date): string => {
+  let dateTo: string;
+
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
+
+  date.setUTCHours(23);
+  date.setUTCMinutes(59);
+  date.setUTCSeconds(0);
+
+  dateTo = date.toISOString();
+
+  return dateTo;
+};
+
 export const formatAllFieldValues = (
   fields: TFields,
-  values: Record<string, string>
+  values: Record<string, string>,
+  withTimezone: boolean = true
 ): Record<string, TFieldFormattedValue> => {
   return Object.keys(fields).reduce(
     (acc: Record<string, TFieldFormattedValue>, key) => {
@@ -56,7 +105,7 @@ export const formatAllFieldValues = (
           acc[key] = parseInt(values[key]);
           break;
         case "date":
-          acc[key] = parseDate(values[key]);
+          acc[key] = parseDate(values[key], withTimezone);
           break;
         default:
           acc[key] = values[key];
@@ -115,13 +164,18 @@ export const updateLabFields = (
     });
   });
 };
-export const updateFilterFields = (fields: TFields, values: any): TFields => {
+export const updateFilterFields = (
+  fields: TFields,
+  values: any,
+  withTimezone: boolean = true
+): TFields => {
   return produce(fields, (draft: Record<string, any>) => {
     Object.keys(values!).forEach((key) => {
       let value = values![key];
+      if (key === "status") return (draft[key as string].value = value);
       if (draft[key as string]) {
         return (draft[key as string].value = moment(value).isValid()
-          ? parseDate(value as string)
+          ? parseDate(value as string, withTimezone)
           : value);
       }
     });

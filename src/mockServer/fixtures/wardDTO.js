@@ -11,7 +11,8 @@ export const wards = [
         "lock": 2,
         "pharmacy": true,
         "male": true,
-        "female": true
+        "female": true,
+        "opd": true
     },
     {
         "code": "F",
@@ -53,6 +54,7 @@ export const wards = [
         "lock": 1,
         "pharmacy": true,
         "male": false,
-        "female": true
+        "female": true,
+        "opd": true
     }
 ]

@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+.croppedProfilePicture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.croppedProfilePicture img {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  object-fit: cover;
+}

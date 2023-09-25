@@ -20,6 +20,7 @@ export type TFilterValues = {
   patientCode?: number;
   page?: number;
   size?: number;
+  wardCode?: string;
 };
 
 export type TOpdFilterValues = Record<OpdFilterFormFieldName, string>;
@@ -33,7 +34,8 @@ export type OpdFilterFormFieldName =
   | "patientCode"
   | "diseaseCode"
   | "diseaseTypeCode"
-  | "sex";
+  | "sex"
+  | "wardCode";
 
 export interface IFilterAction {
   type: "update";

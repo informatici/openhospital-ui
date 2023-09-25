@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { AdmissionDTO } from "../../generated";
-import { AdmissionTypeControllerApi } from "../../generated/apis/AdmissionTypeControllerApi";
+import { AdmissionTypesApi } from "../../generated/apis/AdmissionTypesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -10,9 +10,7 @@ import {
   GET_ADMISSIONTYPE_SUCCESS_EMPTY,
 } from "./consts";
 
-const admissionTypeControllerApi = new AdmissionTypeControllerApi(
-  customConfiguration()
-);
+const admissionTypesApi = new AdmissionTypesApi(customConfiguration());
 
 export const getAdmissionTypes =
   () =>
@@ -20,7 +18,7 @@ export const getAdmissionTypes =
     dispatch({
       type: GET_ADMISSIONTYPE_LOADING,
     });
-    admissionTypeControllerApi.getAdmissionTypesUsingGET().subscribe(
+    admissionTypesApi.getAdmissionTypes().subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({

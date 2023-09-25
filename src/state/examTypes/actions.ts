@@ -1,7 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { ExamTypeDTO } from "../../generated";
-import { ExamTypeControllerApi } from "../../generated/apis/ExamTypeControllerApi";
+import { ExamTypesApi } from "../../generated/apis/ExamTypesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -10,9 +10,7 @@ import {
   GET_EXAMTYPE_SUCCESS,
 } from "./consts";
 
-const desaseTypeControllerApi = new ExamTypeControllerApi(
-  customConfiguration()
-);
+const desaseTypesApi = new ExamTypesApi(customConfiguration());
 
 export const getExamTypes =
   () =>
@@ -20,7 +18,7 @@ export const getExamTypes =
     dispatch({
       type: GET_EXAMTYPE_LOADING,
     });
-    desaseTypeControllerApi.getExamTypesUsingGET().subscribe(
+    desaseTypesApi.getExamTypes().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({

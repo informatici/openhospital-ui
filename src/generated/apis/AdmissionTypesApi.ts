@@ -25,7 +25,7 @@ export interface NewAdmissionTypeRequest {
     admissionTypeDTO: AdmissionTypeDTO;
 }
 
-export interface UpdateAdmissionTypetRequest {
+export interface UpdateAdmissionTypesRequest {
     admissionTypeDTO: AdmissionTypeDTO;
 }
 
@@ -90,10 +90,10 @@ export class AdmissionTypesApi extends BaseAPI {
 
     /**
      */
-    updateAdmissionTypet({ admissionTypeDTO }: UpdateAdmissionTypetRequest): Observable<AdmissionTypeDTO>
-    updateAdmissionTypet({ admissionTypeDTO }: UpdateAdmissionTypetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionTypeDTO>>
-    updateAdmissionTypet({ admissionTypeDTO }: UpdateAdmissionTypetRequest, opts?: OperationOpts): Observable<AdmissionTypeDTO | RawAjaxResponse<AdmissionTypeDTO>> {
-        throwIfNullOrUndefined(admissionTypeDTO, 'admissionTypeDTO', 'updateAdmissionTypet');
+    updateAdmissionTypes({ admissionTypeDTO }: UpdateAdmissionTypesRequest): Observable<AdmissionTypeDTO>
+    updateAdmissionTypes({ admissionTypeDTO }: UpdateAdmissionTypesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AdmissionTypeDTO>>
+    updateAdmissionTypes({ admissionTypeDTO }: UpdateAdmissionTypesRequest, opts?: OperationOpts): Observable<AdmissionTypeDTO | RawAjaxResponse<AdmissionTypeDTO>> {
+        throwIfNullOrUndefined(admissionTypeDTO, 'admissionTypeDTO', 'updateAdmissionTypes');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

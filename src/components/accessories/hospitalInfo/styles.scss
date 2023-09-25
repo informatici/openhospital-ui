@@ -1,0 +1,44 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.hospitalInfo {
+  display: none;
+  box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+  width: 100%;
+  margin-bottom: 32px;
+  .hospitalInfo__background {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    background-color: $c-white;
+    padding: 30px 30px 20px 30px;
+    width: 100%;
+  }
+
+  .hospitalInfo__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+  }
+  .hospitalInfo__main {
+    display: flex;
+    flex-flow: wrap column;
+    align-items: end;
+    .hospitalInfo__main__headline {
+      font-size: x-large;
+      font-weight: bolder;
+      margin-bottom: 5px;
+    }
+    .hospitalInfo__main__details {
+      display: flex;
+      font-size: small;
+      font-weight: 300;
+      color: $c-grey-light;
+      column-gap: 24px;
+    }
+  }
+  @media print {
+    display: flex;
+  }
+}

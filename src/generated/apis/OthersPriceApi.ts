@@ -25,7 +25,7 @@ export interface NewPricesOthersRequest {
     pricesOthersDTO: PricesOthersDTO;
 }
 
-export interface UpdatePricesOtherstRequest {
+export interface UpdatePricesOthersRequest {
     id: number;
     pricesOthersDTO: PricesOthersDTO;
 }
@@ -55,9 +55,9 @@ export class OthersPriceApi extends BaseAPI {
 
     /**
      */
-    getPricesOtherss(): Observable<Array<PricesOthersDTO>>
-    getPricesOtherss(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PricesOthersDTO>>>
-    getPricesOtherss(opts?: OperationOpts): Observable<Array<PricesOthersDTO> | RawAjaxResponse<Array<PricesOthersDTO>>> {
+    getPricesOthers(): Observable<Array<PricesOthersDTO>>
+    getPricesOthers(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PricesOthersDTO>>>
+    getPricesOthers(opts?: OperationOpts): Observable<Array<PricesOthersDTO> | RawAjaxResponse<Array<PricesOthersDTO>>> {
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
@@ -91,11 +91,11 @@ export class OthersPriceApi extends BaseAPI {
 
     /**
      */
-    updatePricesOtherst({ id, pricesOthersDTO }: UpdatePricesOtherstRequest): Observable<PricesOthersDTO>
-    updatePricesOtherst({ id, pricesOthersDTO }: UpdatePricesOtherstRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PricesOthersDTO>>
-    updatePricesOtherst({ id, pricesOthersDTO }: UpdatePricesOtherstRequest, opts?: OperationOpts): Observable<PricesOthersDTO | RawAjaxResponse<PricesOthersDTO>> {
-        throwIfNullOrUndefined(id, 'id', 'updatePricesOtherst');
-        throwIfNullOrUndefined(pricesOthersDTO, 'pricesOthersDTO', 'updatePricesOtherst');
+    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest): Observable<PricesOthersDTO>
+    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PricesOthersDTO>>
+    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest, opts?: OperationOpts): Observable<PricesOthersDTO | RawAjaxResponse<PricesOthersDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'updatePricesOthers');
+        throwIfNullOrUndefined(pricesOthersDTO, 'pricesOthersDTO', 'updatePricesOthers');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

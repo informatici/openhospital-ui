@@ -2,7 +2,6 @@
 apis\AdmissionTypesApi.ts
 apis\AdmissionsApi.ts
 apis\AgeTypesApi.ts
-apis\AuthApi.ts
 apis\BillsApi.ts
 apis\DeliveryResultTypeApi.ts
 apis\DeliveryTypeApi.ts
@@ -77,7 +76,7 @@ models\MovementDTO.ts
 models\MovementTypeDTO.ts
 models\MovementWardDTO.ts
 models\OpdDTO.ts
-models\OpdWithOperatioRowDTO.ts
+models\OpdWithOperationRowDTO.ts
 models\OperationDTO.ts
 models\OperationRowDTO.ts
 models\OperationTypeDTO.ts

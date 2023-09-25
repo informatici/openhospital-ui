@@ -26,11 +26,13 @@ import InfoBox from "../infoBox/InfoBox";
 import TextField from "../textField/TextField";
 import { initialFields } from "./consts";
 import "./styles.scss";
-import { TActivityTransitionState } from "./types";
+import { IOwnProps, TActivityTransitionState } from "./types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import isEmpty from "lodash.isempty";
 
-export const PatientExtraData: FunctionComponent = () => {
+export const PatientExtraData: FunctionComponent<IOwnProps> = ({
+  readOnly,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [editionMode, setEditionMode] = useState(false);
@@ -101,7 +103,7 @@ export const PatientExtraData: FunctionComponent = () => {
   return (
     <div className="patientExtraData">
       <div className="patientExtraData_leading">
-        {!editionMode && (
+        {!editionMode && !readOnly && (
           <IconButton onClick={onEdit}>
             <Edit />
           </IconButton>
@@ -123,6 +125,7 @@ export const PatientExtraData: FunctionComponent = () => {
               onBlur={formik.handleBlur}
               type="string"
               disabled={isLoading}
+              maxLength={255}
             />
           ) : (
             <p className="item_content">
@@ -147,6 +150,7 @@ export const PatientExtraData: FunctionComponent = () => {
               onBlur={formik.handleBlur}
               type="string"
               disabled={isLoading}
+              maxLength={255}
             />
           ) : (
             <p className="item_content">

@@ -1,7 +1,8 @@
+import isEmpty from "lodash.isempty";
 import moment from "moment";
 import { Dispatch } from "redux";
-import { OpdDTO, OpdWithOperatioRowDTO, PageOpdDTO } from "../../generated";
-import { OpdControllerApi } from "../../generated/apis/OpdControllerApi";
+import { OpdDTO, OpdWithOperationRowDTO, PageOpdDTO } from "../../generated";
+import { OpdsApi } from "../../generated/apis/OpdsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 
@@ -33,7 +34,7 @@ import {
   UPDATE_OPD_SUCCESS,
 } from "./consts";
 
-const opdControllerApi = new OpdControllerApi(customConfiguration());
+const opdsApi = new OpdsApi(customConfiguration());
 
 /**
  *
@@ -49,7 +50,7 @@ export const createOpd =
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
+    opdsApi.newOpd({ opdDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_OPD_SUCCESS,
@@ -66,27 +67,25 @@ export const createOpd =
   };
 
 export const createOpdWithOperationsRows =
-  (opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (opdWithOperationRowDTO: OpdWithOperationRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    opdControllerApi
-      .newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: CREATE_OPD_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: CREATE_OPD_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    opdsApi.newOpdWithOperationRow({ opdWithOperationRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_OPD_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_OPD_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const createOpdReset =
@@ -113,8 +112,8 @@ export const getOpds =
     });
 
     if (code) {
-      opdControllerApi
-        .getOpdByPatientUsingGET({
+      opdsApi
+        .getOpdByPatient({
           pcode: code,
         })
         .subscribe(
@@ -148,14 +147,14 @@ export const getOpds =
 
 export const getOpdsWithOperationRows =
   (code: number | undefined) =>
-  (dispatch: Dispatch<IAction<OpdWithOperatioRowDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<OpdWithOperationRowDTO[], {}>>): void => {
     dispatch({
       type: GET_OPD_LOADING,
     });
 
     if (code) {
-      opdControllerApi
-        .getOpdByPatientUsingGET({
+      opdsApi
+        .getOpdByPatient({
           pcode: code,
         })
         .subscribe(
@@ -168,7 +167,7 @@ export const getOpdsWithOperationRows =
                 payload: payload.map((item) =>
                   item.opdDTO
                     ? item
-                    : ({ opdDTO: item } as OpdWithOperatioRowDTO)
+                    : ({ opdDTO: item } as OpdWithOperationRowDTO)
                 ),
               });
             } else {
@@ -201,8 +200,8 @@ export const getLastOpd =
     });
 
     if (code) {
-      opdControllerApi
-        .getLastOpdUsingGET({
+      opdsApi
+        .getLastOpd({
           patientCode: code,
         })
         .subscribe(
@@ -234,8 +233,8 @@ export const searchOpds =
       type: SEARCH_OPD_LOADING,
     });
 
-    opdControllerApi
-      .getOpdByDatesUsingGET({
+    opdsApi
+      .getOpdByDates({
         sex: query.sex,
         newPatient: query.newPatient,
         dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
@@ -245,6 +244,7 @@ export const searchOpds =
         diseaseCode: query.diseaseCode,
         diseaseTypeCode: query.diseaseTypeCode,
         patientCode: isNaN(query.patientCode) ? null : query.patientCode,
+        wardCode: isEmpty(query.wardCode) ? null : query.wardCode,
         paged: false,
         page: isNaN(query.page) ? null : query.page,
         size: isNaN(query.size) ? null : query.size,
@@ -292,7 +292,7 @@ export const updateOpd =
     dispatch({
       type: UPDATE_OPD_LOADING,
     });
-    opdControllerApi.updateOpdUsingPUT({ code, opdDTO }).subscribe(
+    opdsApi.updateOpd({ code, opdDTO }).subscribe(
       (payload) => {
         dispatch({
           type: UPDATE_OPD_SUCCESS,
@@ -309,13 +309,13 @@ export const updateOpd =
   };
 
 export const updateOpdWithOperationRows =
-  (code: number, opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (code: number, opdWithOperationRowDTO: OpdWithOperationRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_OPD_LOADING,
     });
-    opdControllerApi
-      .updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO })
+    opdsApi
+      .updateOpdWithOperationRow({ code, opdWithOperationRowDTO })
       .subscribe(
         (payload) => {
           dispatch({
@@ -346,7 +346,7 @@ export const deleteOpd =
       dispatch({
         type: DELETE_OPD_LOADING,
       });
-      opdControllerApi.deleteOpdUsingDELETE({ code }).subscribe(
+      opdsApi.deleteOpd({ code }).subscribe(
         () => {
           dispatch({
             type: DELETE_OPD_SUCCESS,

@@ -2,7 +2,7 @@ export const labWithRowsDTO = [
   {
     laboratoryDTO: {
       code: 222,
-      material: "angal.lab.sputum",
+      material: "angal.lab.sputum.txt",
       exam: {
         code: "01.01",
         description: "1.1 HB",
@@ -23,6 +23,7 @@ export const labWithRowsDTO = [
       inOutPatient: "O",
       age: 78,
       sex: "M",
+      status: "DONE"
     },
     laboratoryRowList: [],
   },
@@ -30,7 +31,7 @@ export const labWithRowsDTO = [
   {
     laboratoryDTO: {
       code: 224,
-      material: "angal.lab.sputum",
+      material: "angal.lab.sputum.txt",
       exam: {
         code: "01.01",
         description: "1.1 HB",
@@ -51,13 +52,14 @@ export const labWithRowsDTO = [
       inOutPatient: "O",
       age: 78,
       sex: "M",
+      status: "DONE"
     },
     laboratoryRowList: [],
   },
   {
     laboratoryDTO: {
       code: 225,
-      material: "angal.lab.sputum",
+      material: "angal.lab.sputum.txt",
       exam: {
         code: "05.05",
         description: "5.5 ZN",
@@ -77,6 +79,7 @@ export const labWithRowsDTO = [
       inOutPatient: "O",
       age: 78,
       sex: "M",
+      status: "DONE"
     },
     laboratoryRowList: ["RB", "CH", "RT"],
   },

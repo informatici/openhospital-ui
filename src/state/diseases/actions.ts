@@ -1,7 +1,7 @@
 import isEmpty from "lodash.isempty";
 import { Dispatch } from "redux";
 import { DiseaseDTO } from "../../generated";
-import { DiseaseControllerApi } from "../../generated/apis/DiseaseControllerApi";
+import { DiseasesApi } from "../../generated/apis/DiseasesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -16,7 +16,7 @@ import {
   GET_DISEASE_SUCCESS,
 } from "./consts";
 
-const desaseControllerApi = new DiseaseControllerApi(customConfiguration());
+const desasesApi = new DiseasesApi(customConfiguration());
 
 export const getDiseasesOpd =
   () =>
@@ -24,7 +24,7 @@ export const getDiseasesOpd =
     dispatch({
       type: GET_DISEASE_LOADING,
     });
-    desaseControllerApi.getDiseasesOpdUsingGET().subscribe(
+    desasesApi.getDiseasesOpd().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -53,7 +53,7 @@ export const getDiseasesIpdIn =
     dispatch({
       type: GET_DISEASEIPDIN_LOADING,
     });
-    desaseControllerApi.getDiseasesIpdInUsingGET().subscribe(
+    desasesApi.getDiseasesIpdIn().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -82,7 +82,7 @@ export const getDiseasesIpdOut =
     dispatch({
       type: GET_DISEASEIPDOUT_LOADING,
     });
-    desaseControllerApi.getDiseasesIpdOutUsingGET().subscribe(
+    desasesApi.getDiseasesIpdOut().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
