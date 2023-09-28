@@ -83,9 +83,7 @@ export const Exams: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isEmpty(filter.patientCode)) {
-      dispatch(getPatientThunk(filter.patientCode?.toString() ?? "0"));
-    }
+    console.log(JSON.stringify(filter));
     dispatch(searchLabs({ ...filter, paged: true }));
   }, [filter]);
 
