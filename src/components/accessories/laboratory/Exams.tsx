@@ -83,7 +83,6 @@ export const Exams: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log(JSON.stringify(filter));
     dispatch(searchLabs({ ...filter, paged: true }));
   }, [filter]);
 
