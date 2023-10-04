@@ -16,16 +16,17 @@ import { LabelBadge } from "../../labelBadge/LabelBadge";
 import { TActions } from "../../table/types";
 
 export const statusLabel = (status: LaboratoryDTOStatusEnum) => {
+  status = status.toUpperCase() as LaboratoryDTOStatusEnum;
   switch (status) {
-    case LaboratoryDTOStatusEnum.Deleted:
+    case LaboratoryDTOStatusEnum.Deleted.toUpperCase():
       return <LabelBadge color="danger" label={status} />;
-    case LaboratoryDTOStatusEnum.Invalid:
+    case LaboratoryDTOStatusEnum.Invalid.toUpperCase():
       return <LabelBadge color="warning" label={status} />;
 
-    case LaboratoryDTOStatusEnum.Open:
+    case LaboratoryDTOStatusEnum.Open.toUpperCase():
       return <LabelBadge color="info" label={status} />;
 
-    case LaboratoryDTOStatusEnum.Done:
+    case LaboratoryDTOStatusEnum.Done.toUpperCase():
       return <LabelBadge color="success" label={status} />;
 
     default:
