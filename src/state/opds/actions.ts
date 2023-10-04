@@ -235,19 +235,21 @@ export const searchOpds =
 
     opdsApi
       .getOpdByDates({
-        sex: query.sex,
-        newPatient: query.newPatient,
-        dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
-        dateFrom: query.dateFrom ?? moment().toISOString(),
+        sex: isEmpty(query.sex) ? null : query.sex,
+        newPatient: isEmpty(query.newPatient) ? null : query.newPatient,
+        dateFrom: query.dateFrom ?? moment().add("-30", "days").toISOString(),
+        dateTo: query.dateTo ?? moment().toISOString(),
         ageFrom: isNaN(query.ageFrom) ? null : query.ageFrom,
         ageTo: isNaN(query.ageTo) ? null : query.ageTo,
-        diseaseCode: query.diseaseCode,
-        diseaseTypeCode: query.diseaseTypeCode,
+        diseaseCode: isEmpty(query.diseaseCode) ? null : query.diseaseCode,
+        diseaseTypeCode: isEmpty(query.diseaseTypeCode)
+          ? null
+          : query.diseaseTypeCode,
         patientCode: isNaN(query.patientCode) ? null : query.patientCode,
         wardCode: isEmpty(query.wardCode) ? null : query.wardCode,
-        paged: false,
-        page: isNaN(query.page) ? null : query.page,
-        size: isNaN(query.size) ? null : query.size,
+        paged: !!query.paged,
+        page: isNaN(query.page) ? 0 : query.page,
+        size: isNaN(query.size) ? 80 : query.size,
       })
       .subscribe(
         (payload) => {

@@ -62,6 +62,9 @@ export const Exams: FC = () => {
   const labStore = useSelector<IState, ILaboratoriesState>(
     (state: IState) => state.laboratories
   );
+  const handleResetFilter = () => {
+    setFilter(initialFilter as TFilterValues);
+  };
 
   useEffect(() => {
     setFilter((previous) => ({ ...previous, page: page }));
@@ -80,9 +83,6 @@ export const Exams: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isEmpty(filter.patientCode)) {
-      dispatch(getPatientThunk(filter.patientCode?.toString() ?? "0"));
-    }
     dispatch(searchLabs({ ...filter, paged: true }));
   }, [filter]);
 
@@ -181,7 +181,11 @@ export const Exams: FC = () => {
         )}
         {status !== "LOADING" && (
           <Permission require="exam.read">
-            <ExamFilterForm onSubmit={onSubmit} fields={fields} />
+            <ExamFilterForm
+              onSubmit={onSubmit}
+              fields={fields}
+              handleResetFilter={handleResetFilter}
+            />
             {status === "SUCCESS_EMPTY" && (
               <InfoBox type="info" message={t("common.emptydata")} />
             )}

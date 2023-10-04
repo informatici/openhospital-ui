@@ -9,7 +9,7 @@ import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { date, number, object, string } from "yup";
@@ -35,12 +35,19 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../../assets/warning-icon.png";
 
-export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
+export const OpdFilterForm: FC<IOpdFilterProps> = ({
+  fields,
+  onSubmit,
+  handleResetFilter,
+}) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
   const [diseaseTypeCode, setDiseaseTypeCode] = useState("");
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const validationSchema = object({
     diseaseCode: string(),
@@ -175,6 +182,11 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
 
   const { setFieldValue, handleBlur } = formik;
 
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    handleResetFilter();
+    formik.resetForm();
+  };
   const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO | WardDTO) => ({
     value: value.code ?? "",
     label: value.description ?? "",
@@ -290,6 +302,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
         }
         if (fieldName === "diseaseTypeCode") {
           setDiseaseTypeCode((value ?? "") as string);
+          formik.setFieldValue("diseaseCode", "");
         }
       },
     [setFieldValue, handleBlur]
@@ -505,6 +518,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
               </div>
             </div>
             <div className="filterForm__buttonSet">
+              <Button
+                type="reset"
+                variant="text"
+                onClick={() => setOpenResetConfirmation(true)}
+                className="reset_button"
+              >
+                {t("common.reset")}
+              </Button>
               <Button variant="contained" color="primary" type="submit">
                 {t("opd.filter")}
               </Button>
@@ -512,9 +533,16 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
           </form>
         </AccordionDetails>
       </Accordion>
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.reset").toUpperCase()}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.reset")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleResetConfirmation}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
     </div>
   );
 };
-function useEffect(arg0: () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-}

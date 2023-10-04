@@ -1,6 +1,10 @@
 import moment from "moment";
+import {
+  fixFilterDateFrom,
+  fixFilterDateTo,
+} from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { OpdFilterFormFieldName } from "./filter/types";
+import { OpdFilterFormFieldName, TFilterValues } from "./filter/types";
 
 export const initialFilterFields: TFields<OpdFilterFormFieldName> = {
   ageFrom: { type: "number", value: "" },
@@ -16,4 +20,11 @@ export const initialFilterFields: TFields<OpdFilterFormFieldName> = {
   newPatient: { type: "text", value: "" },
   patientCode: { type: "number", value: "" },
   wardCode: { type: "text", value: "" },
+};
+
+export const initialFilter: TFilterValues = {
+  dateFrom: fixFilterDateFrom(moment().subtract(1, "years").toISOString()),
+  dateTo: fixFilterDateTo(moment().toISOString()),
+  page: 0,
+  size: 80,
 };

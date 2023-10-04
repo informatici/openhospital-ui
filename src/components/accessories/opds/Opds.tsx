@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import InfoBox from "../infoBox/InfoBox";
-import { initialFilterFields } from "./consts";
+import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
 import "./styles.scss";
 import { OpdTable } from "./table/OpdTable";
@@ -24,14 +24,13 @@ export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const [filter, setFilter] = useState({} as TFilterValues);
+  const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
   const { data, status, error, page, pageInfo, handlePageChange } = useOpds();
 
   useEffect(() => {
-    dispatch(searchOpds({ ...filter, paged: true }));
+    dispatch(searchOpds({ ...filter, paged: false }));
   }, [filter]);
 
   useEffect(() => {
@@ -42,19 +41,15 @@ export const Opds: FC = () => {
     setFilter({ ...values, page: 0, size: filter.size });
   };
 
+  const handleResetFilter = () => {
+    setFilter(initialFilter as TFilterValues);
+  };
+
   const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
 
   const errorMessage = error || t("common.somethingwrong");
 
   useEffect(() => {
-    dispatch(
-      searchOpds({
-        ...getFromFields(fields, "value"),
-        page: 0,
-        size: 80,
-        paged: true,
-      })
-    );
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
     dispatch(getWards());
@@ -71,7 +66,11 @@ export const Opds: FC = () => {
             case "FAIL":
               return (
                 <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <InfoBox type="error" message={errorMessage} />
                 </Permission>
               );
@@ -86,7 +85,11 @@ export const Opds: FC = () => {
             case "SUCCESS_EMPTY":
               return (
                 <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <InfoBox type="info" message={t("common.emptydata")} />
                 </Permission>
               );
@@ -94,7 +97,11 @@ export const Opds: FC = () => {
             case "SUCCESS":
               return (
                 <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <OpdTable data={data ?? []} />
                   <Pagination
                     page={(pageInfo?.page ?? 0) + 1}

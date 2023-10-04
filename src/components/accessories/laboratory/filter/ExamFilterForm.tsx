@@ -35,15 +35,19 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../../assets/warning-icon.png";
 import SelectField from "../../selectField/SelectField";
 
-export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
+export const ExamFilterForm: FC<IExamFilterProps> = ({
+  fields,
+  onSubmit,
+  handleResetFilter,
+}) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
-  const patient = useSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const validationSchema = object({
     examName: string(),
@@ -136,6 +140,12 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
   });
 
   const { setFieldValue, handleBlur } = formik;
+
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    handleResetFilter();
+    formik.resetForm();
+  };
 
   const mapToOptions = (value: ExamDTO) => ({
     value: value.description ?? "",
@@ -252,9 +262,6 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
                       isValid={isValid("patientCode")}
                       errorText={getErrorText("patientCode")}
                       onBlur={onBlurCallback("patientCode")}
-                      initialValue={
-                        isEmpty(formik.values.patientCode) ? undefined : patient
-                      }
                     />
                   </div>
                 </Permission>
@@ -338,13 +345,31 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({ fields, onSubmit }) => {
               </div>
             </div>
             <div className="filterForm__buttonSet">
-              <Button type="submit" color="primary" variant="contained">
+              <Button
+                type="reset"
+                variant="text"
+                onClick={() => setOpenResetConfirmation(true)}
+                className="reset_button"
+              >
+                {t("common.reset")}
+              </Button>
+              <Button variant="contained" color="primary" type="submit">
                 {t("lab.filter")}
               </Button>
             </div>
           </form>
         </AccordionDetails>
       </Accordion>
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.reset").toUpperCase()}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.reset")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleResetConfirmation}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
     </div>
   );
 };

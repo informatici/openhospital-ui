@@ -173,6 +173,7 @@ export const updateFilterFields = (
     Object.keys(values!).forEach((key) => {
       let value = values![key];
       if (key === "status") return (draft[key as string].value = value);
+      if (key === "patientCode") return (draft[key as string].value = value);
       if (draft[key as string]) {
         return (draft[key as string].value = moment(value).isValid()
           ? parseDate(value as string, withTimezone)

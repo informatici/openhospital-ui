@@ -4,6 +4,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 export interface IExamFilterProps {
   fields: TFields<ExamFilterFormFieldName>;
   onSubmit: (values: any) => void;
+  handleResetFilter: () => void;
 }
 
 export type TFilterValues = {
