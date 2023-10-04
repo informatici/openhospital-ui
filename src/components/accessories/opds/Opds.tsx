@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import InfoBox from "../infoBox/InfoBox";
-import { initialFilterFields } from "./consts";
+import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
 import "./styles.scss";
 import { OpdTable } from "./table/OpdTable";
@@ -25,12 +25,12 @@ export const Opds: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [filter, setFilter] = useState({} as TFilterValues);
+  const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
   const { data, status, error, page, pageInfo, handlePageChange } = useOpds();
 
   useEffect(() => {
-    dispatch(searchOpds({ ...filter, paged: true }));
+    dispatch(searchOpds({ ...filter, paged: false }));
   }, [filter]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const Opds: FC = () => {
   };
 
   const handleResetFilter = () => {
-    setFilter({} as TFilterValues);
+    setFilter(initialFilter as TFilterValues);
   };
 
   const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
@@ -50,14 +50,6 @@ export const Opds: FC = () => {
   const errorMessage = error || t("common.somethingwrong");
 
   useEffect(() => {
-    dispatch(
-      searchOpds({
-        ...getFromFields(fields, "value"),
-        page: 0,
-        size: 80,
-        paged: true,
-      })
-    );
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
     dispatch(getWards());
