@@ -43,7 +43,6 @@ describe("NewPatientActivity spec", () => {
           "images/profilePicture.jpg",
           { force: true }
         );
-        cy.wait(1000);
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
         cy.wait(2000);
         cy.get("[class=profilePicture]")
