@@ -154,7 +154,8 @@
     "operation": "Operation",
     "updated": "Patient updated",
     "created": "Patient created",
-    "updatesuccessful": "The patient was edit successfully."
+    "updatesuccessful": "The patient was edit successfully.",
+    "createother": "Add Another Patient"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -452,7 +453,9 @@
     "continue": "Continue ?",
     "collapse_all": "Collapse All",
     "expand_all": "Expand All",
-    "remainingchars": "Remaining : {{current}} / {{max}}"
+    "remainingchars": "Remaining : {{current}} / {{max}}",
+    "gohome": "Go to home",
+    "gotopatientactivities": "Go to Patient Activities"
   },
   "permission": {
     "denied": "Permission denied",
