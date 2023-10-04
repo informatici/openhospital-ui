@@ -216,7 +216,8 @@
     "futuredatenotallow": "Future date not allowed",
     "belowminage": "Min. age is 0",
     "abovemaxage": "max. age is 200",
-    "ward": "Ward"
+    "ward": "Ward",
+    "previousentries": "Previous Visits"
   },
   "visit": {
     "date": "Date (d/m/y)",
@@ -238,7 +239,8 @@
     "updatefail": "Visit {{code}} has not been updated!",
     "notdeleted": "Visit not deleted",
     "addoperation": "Add operation",
-    "addoperationdesc": "Add operation for the visit"
+    "addoperationdesc": "Add operation for the visit",
+    "previousentries": "Previous Visits"
   },
   "examination": {
     "newtriage": "Create new Triage",
@@ -299,7 +301,8 @@
     "rhonchi": "Rhonchi",
     "crackles": "Crackles",
     "stridor": "Stridor",
-    "bronchial": "Bronchial"
+    "bronchial": "Bronchial",
+    "previousentries": "Previous Triages"
   },
   "nav": {
     "pharmacy": "Pharmacy",
@@ -364,7 +367,8 @@
       "unknown": "Unknown",
       "success": "Success",
       "failure": "Failure"
-    }
+    },
+    "previousentries": "Previous Operations"
   },
   "common": {
     "ok": "OK",
@@ -478,7 +482,8 @@
     "created": "Therapy created",
     "updated": "Therapy updated",
     "createsuccess": "A therapy row has been created successfully!",
-    "updatesuccess": "A therapy row with code {{code}} has been updated successfully!"
+    "updatesuccess": "A therapy row with code {{code}} has been updated successfully!",
+    "previousentries": "Previous Therapies"
   },
   "booking": {
     "category": "Category",
@@ -555,7 +560,8 @@
       "ALL": "ALL",
       "OPEN": "OPEN",
       "DONE": "DONE"
-    }
+    },
+    "previousentries": "Previous Exams"
   },
   "admission": {
     "admDate": "Date",
@@ -598,7 +604,8 @@
     "dischargebyagetype": "Discharges by age type",
     "dischargebywards": "Discharges by wards",
     "admregistered": "Admissions in the current period",
-    "disregistered": "Discharges in the current period"
+    "disregistered": "Discharges in the current period",
+    "previousentries": "Previous Admissions"
   },
   "bill": {
     "title": "Welcome to Billing",

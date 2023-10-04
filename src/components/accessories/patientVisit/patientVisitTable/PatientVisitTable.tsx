@@ -69,7 +69,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="PatientVisitTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("visit.previousentries")}</h5>
       {(() => {
         switch (visitStatus) {
           case "FAIL":

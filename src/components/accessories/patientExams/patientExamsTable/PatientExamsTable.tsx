@@ -109,7 +109,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientExamsTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("lab.previousentries")}</h5>
       {labStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
