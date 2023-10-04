@@ -42,148 +42,165 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
     <>
       {!isLoading ? (
         <div className="patientSummary_type">
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.opd")}({filterByType(SummaryType.OPD).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.OPD),
-                dateFields,
-                labels
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.opd}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
+          {filterByType(SummaryType.OPD).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.opd")}({filterByType(SummaryType.OPD).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.OPD),
+                  dateFields,
+                  labels
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.opd}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
 
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.admission")}(
-              {filterByType(SummaryType.ADMISSION).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.ADMISSION),
-                dateFields,
-                labels,
-                medicals
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.admission}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.VISIT),
-                dateFields,
-                labels,
-                medicals
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.visit}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.operation")}(
-              {filterByType(SummaryType.OPERATION).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.OPERATION),
-                dateFields,
-                labels,
-                medicals
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.operation}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
+          {filterByType(SummaryType.ADMISSION).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.admission")}(
+                {filterByType(SummaryType.ADMISSION).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.ADMISSION),
+                  dateFields,
+                  labels,
+                  medicals
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.admission}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
 
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.TRIAGE),
-                dateFields,
-                labels
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.triage}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
+          {filterByType(SummaryType.VISIT).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.visits")}({filterByType(SummaryType.VISIT).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.VISIT),
+                  dateFields,
+                  labels,
+                  medicals
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.visit}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
 
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.exams")}({filterByType(SummaryType.EXAMS).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.EXAMS),
-                dateFields,
-                labels
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.exam}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
+          {filterByType(SummaryType.OPERATION).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.operation")}(
+                {filterByType(SummaryType.OPERATION).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.OPERATION),
+                  dateFields,
+                  labels,
+                  medicals
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.operation}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
 
-          <div className="patientSummary_type_row">
-            <h4>
-              {t("summary.therapy")}({filterByType(SummaryType.THERAPY).length})
-            </h4>
-            <Table
-              rowData={renderSummary(
-                filterByType(SummaryType.THERAPY),
-                dateFields,
-                labels
-              )}
-              dateFields={dateFields}
-              tableHeader={header.type.therapy}
-              labelData={labels}
-              columnsOrder={order}
-              rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
-              isCollapsabile={true}
-              showEmptyCell={false}
-            />
-          </div>
+          {filterByType(SummaryType.TRIAGE).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.triage")}({filterByType(SummaryType.TRIAGE).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.TRIAGE),
+                  dateFields,
+                  labels
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.triage}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
+
+          {filterByType(SummaryType.EXAMS).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.exams")}({filterByType(SummaryType.EXAMS).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.EXAMS),
+                  dateFields,
+                  labels
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.exam}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
+
+          {filterByType(SummaryType.THERAPY).length > 0 && (
+            <div className="patientSummary_type_row">
+              <h4>
+                {t("summary.therapy")}(
+                {filterByType(SummaryType.THERAPY).length})
+              </h4>
+              <Table
+                rowData={renderSummary(
+                  filterByType(SummaryType.THERAPY),
+                  dateFields,
+                  labels
+                )}
+                dateFields={dateFields}
+                tableHeader={header.type.therapy}
+                labelData={labels}
+                columnsOrder={order}
+                rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
+                isCollapsabile={true}
+                showEmptyCell={false}
+              />
+            </div>
+          )}
         </div>
       ) : (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />

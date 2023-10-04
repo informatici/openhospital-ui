@@ -137,16 +137,16 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
                   info={t("common.patientregistrationsuccessfull")}
                   items={[
                     {
-                      label: t("common.dashboard"),
+                      label: t("common.gohome"),
                       onClick: () => setActivityTransitionState("TO_DASHBOARD"),
                     },
                     {
-                      label: t("common.keepediting"),
+                      label: t("patient.createother"),
                       onClick: () =>
                         setActivityTransitionState("TO_NEW_PATIENT_RESET"),
                     },
                     {
-                      label: t("patient.dashboard"),
+                      label: t("common.gotopatientactivities"),
                       onClick: () =>
                         setActivityTransitionState("TO_PATIENT_DASHBOARD"),
                     },

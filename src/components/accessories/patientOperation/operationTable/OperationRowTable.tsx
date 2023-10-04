@@ -78,7 +78,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientOperationTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("operation.previousentries")}</h5>
       {(() => {
         switch (status) {
           case "FAIL":
