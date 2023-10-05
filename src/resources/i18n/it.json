@@ -1,4 +1,11 @@
 {
+  "errors": {
+    "somethingwrong": "Something went wrong, please retry later.",
+    "incorrectcredentials": "Invalid username or password",
+    "passwordtooshort": "Password too short",
+    "badrequest": "Bad request",
+    "internalerror": "An internal error occured"
+  },
   "user": {
     "username": "Username",
     "groups": "Grouppi",
@@ -63,19 +70,19 @@
         "last3": "1-3 anni"
       }
     },
-    "availabledashboard": "Panelli disponibili",
-    "opdbyagetype":"Visite per fasce d'età",
-    "opdbysex":"Visite per genere",
-    "admissionbyagetype":"Ricoveri per fasce d'età",
-    "admissionbysex":"Ricoveri per genere",
+    "availabledashboard": "Dashboard disponibili",
+    "opdbyagetype": "Visite per fasce d'età",
+    "opdbysex": "Visite per genere",
+    "admissionbyagetype": "Ricoveri per fasce d'età",
+    "admissionbysex": "Ricoveri per genere",
     "admissionbyward": "Ricoveri per reparti",
-    "admissionbytype":"Ricoveri per tipo",
-    "dischargebysex":"Dimissioni per genere",
-    "dischargebyagetype":"Dimissioni per fasce d'età",
+    "admissionbytype": "Ricoveri per tipo",
+    "dischargebysex": "Dimissioni per genere",
+    "dischargebyagetype": "Dimissioni per fasce d'età",
     "dischargebyward": "Dimissioni per reparto",
-    "dischargebytype":"Dimissioni per tipo",
+    "dischargebytype": "Dimissioni per tipo",
     "togglefullscreen": "Alterna schermo intero",
-    "removedashboard": "Rimuove il pannello",
+    "removedashboard": "Rimuovi il componente Dashboard",
     "downloaddata": "Scarica i dati sottostanti",
     "cantretrieveconfig": "Impossibile recuperare le personalizzazioni",
     "cantsaveconfig": "Impossibile salvare le personalizzazioni",
@@ -115,7 +122,7 @@
     "personaldata": "Dati personali",
     "parentslivetoghether": "Genitori entrambi vivi",
     "insertdataofnewpatient": "Inserire i dati del nuovo paziente",
-    "admissions": "Accettazione",
+    "admissions": "Ricovero",
     "code": "Codice identificativo",
     "search": "Ricerca",
     "dashboard": "Dashboard paziente",
@@ -147,7 +154,8 @@
     "operation": "Intervento",
     "updated": "Paziente aggiornato",
     "created": "Paziente creato",
-    "updatesuccessful": "Il paziente è stato aggiornato correttamente."
+    "updatesuccessful": "Il paziente è stato aggiornato correttamente.",
+    "createother": "Add Another Patient"
   },
   "opd": {
     "newopd": "Inserisci una nuova visita ambulatoriale",
@@ -167,11 +175,11 @@
     "createsuccess": "La visita è stata creata",
     "updatesuccess": "La visita {{code}} è stata aggiornata",
     "deleted": "Visita cancellata",
-    "referralfrom": "Visita prescritta da altra unità ospedaliera",
-    "referralto": "Visita prescritta da esterno",
+    "referralfrom": "Riferito",
+    "referralto": "Rinvio ad altra struttura",
     "newpatient": "TIpo visita",
-    "newadmittance": "Nuovo ricovero",
-    "reattendance": "Continuazione di visita o ciclo di visite",
+    "newadmittance": "Nuova visita",
+    "reattendance": "Visita di controllo",
     "addoperation": "Aggiungi intervento",
     "addoperationdesc": "Aggiungi intervento per la visita",
     "filtervisits": "Seleziona visita",
@@ -208,7 +216,9 @@
     "opdbyagetype": "Visite per fasce d'età",
     "futuredatenotallow": "Date nel futuro non permesse",
     "belowminage": "L'età minima è 0",
-    "abovemaxage": "L'età massima è 200"
+    "abovemaxage": "L'età massima è 200",
+    "ward": "Ward",
+    "previousentries": "Previous Visits"
   },
   "visit": {
     "date": "Data visita (gg/mm/aaaa)",
@@ -230,7 +240,8 @@
     "updatefail": "La visita programmata {{code}} NON è stata aggiornata",
     "notdeleted": "La visita non è stata cancellata",
     "addoperation": "Aggiungi intervento",
-    "addoperationdesc": "Aggiungi intervento per la visita"
+    "addoperationdesc": "Aggiungi intervento per la visita",
+    "previousentries": "Previous Visits"
   },
   "examination": {
     "newtriage": "Crea nuovo esame obiettivo",
@@ -291,7 +302,8 @@
     "rhonchi": "Ronchi",
     "crackles": "Rantoli",
     "stridor": "Stridor",
-    "bronchial": "Soffio bronchiale"
+    "bronchial": "Soffio bronchiale",
+    "previousentries": "Previous Triages"
   },
   "nav": {
     "pharmacy": "Farmacia",
@@ -306,13 +318,13 @@
     "newlaboratory": "Nuovo",
     "editlaboratory": "Aggiorna",
     "operation": "Intervento chirurgico",
-    "admissions": "Accettazione",
+    "admissions": "Ricovero",
     "userclinic": "Storia clinica",
-    "dashboard": "Pannello di controllo",
+    "dashboard": "Dashboard",
     "newpatient": "Nuovo paziente",
     "editpatient": "Modifica Paziente",
     "searchpatient": "Cerca Paziente",
-    "patientdashboard": "Pannello di controllo Paziente",
+    "patientdashboard": "Dashboard Paziente",
     "admission": "Accettazione",
     "discharge": "Dimissione",
     "surgicalrecord": "Registro chirurgico",
@@ -325,7 +337,8 @@
     "managebills": "Gestisci pagamenti",
     "billrecords": "Pagamenti",
     "visits": "Visita",
-    "patients": "Pazienti"
+    "patients": "Pazienti",
+    "consultancy": "Consulenza"
   },
   "operation": {
     "newoperation": "Nuovo intervento chirurgico",
@@ -355,7 +368,8 @@
       "unknown": "Sconosciuto",
       "success": "Successo",
       "failure": "Fallimento"
-    }
+    },
+    "previousentries": "Previous Operations"
   },
   "common": {
     "ok": "OK",
@@ -367,16 +381,16 @@
     "searching": "Ricerca...",
     "patient": "Paziente",
     "clearall": "Cancella tutto",
-    "dashboard": "Pannello di controllo",
+    "dashboard": "Dashboard",
     "saveopd": "Salva OPD",
     "discard": "Annulla",
     "dismiss": "Rifiuta",
     "savetriage": "Salva esame obiettivo",
     "404notfound": "404 - Page Not Found",
-    "gobackdashboard": "Torna al Pannello di controllo",
+    "gobackdashboard": "Torna alla Dashboard",
     "keepediting": "Continua a editare",
     "titleedited": "Paziente Editato",
-    "previousentries": "Ricoveri precedenti",
+    "previousentries": "Visite precedenti",
     "resetform": "Confermi reset? Tutti i dati non salvati saranno persi.",
     "searchnotfound": "Nessuna corrispondenza, per favore prova un'altra ricerca.",
     "patienteditsuccessfull": "Edizione Paziente completata.",
@@ -389,7 +403,8 @@
     "code": "Codice identificativo",
     "update": "Aggiorna",
     "delete": "Cancella",
-    "deleteconfirmation": "Confermi la cancellazione dell'item  {{code}}?",
+    "deleteconfirmation": "Are you sure to delete item with code {{code}} ?",
+    "cancelconfirmation": "Are you sure to cancel item with code {{code}} ?",
     "deletesuccess": "L'item {{code}} è stato cancellato",
     "incorrectformat": "Formato non corretto",
     "yes": "SI",
@@ -409,13 +424,14 @@
     "invalidnumber": "Numero non valido",
     "invalidnumberinrange": "Non valido: il numero dev'essere >= {{min}} e <= {{max}}",
     "orderbydate": "Ordina per data",
-    "orderbytype": "Ordina per tipo",
+    "orderbytype": "Raggruppa per tipo",
     "addnewoption": "Aggiungi",
     "cancel": "Cancella",
     "discardconfirmationmessage": "Tutte le modifiche non salvata verranno perse. Continuare?",
     "emptydataforfilter": "Azzera il filtro specificato",
-    "addanotherrow": "Aggiungi un'altra riga intervento",
+    "addanotherrow": "Add another operation",
     "hospitalname": "Il tuo ospedale",
+    "maxlengthexceeded": "Length exceeded. Max. is {{maxLength}}",
     "retry": "Riprova",
     "moment": {
       "duration": "Durata",
@@ -433,7 +449,13 @@
       "lastmonth": "Mese scorso",
       "thisyear": "Quest'anno",
       "lastyear": "Anno scorso"
-    }
+    },
+    "continue": "Continue ?",
+    "collapse_all": "Collapse All",
+    "expand_all": "Expand All",
+    "remainingchars": "Remaining : {{current}} / {{max}}",
+    "gohome": "Go to home",
+    "gotopatientactivities": "Go to Patient Activities"
   },
   "permission": {
     "denied": "Autorizzazione negata",
@@ -463,7 +485,8 @@
     "created": "La terapia è stata salvata",
     "updated": "La terapia è stata aggiornata",
     "createsuccess": "La terapia è stata inserita correttamente",
-    "updatesuccess": "La terapia con codice {{code}} è stata inserita"
+    "updatesuccess": "La terapia con codice {{code}} è stata inserita",
+    "previousentries": "Previous Therapies"
   },
   "booking": {
     "category": "Categoria",
@@ -494,7 +517,9 @@
     "updated": "Esame aggiornato",
     "createsuccess": "Esame inserito correttamente",
     "updatesuccess": "Esame {{code}} inserito correttamente",
+    "cancelsuccess": "Patient exam {{code}} canceled successfully!",
     "deleted": "Esame cancellato",
+    "canceled": "Patient Exam canceled",
     "resultrow": "Record risultato",
     "value": "Valore",
     "resultstitle": "Risultati",
@@ -521,7 +546,25 @@
     "examtype": "Tipo esame",
     "validatetodate": "Deve essere maggiore della data inizio",
     "validatefromdate": "Deve essere maggiore della data fine",
-    "multipleresults": "Risultati multipli"
+    "multipleresults": "Risultati multipli",
+    "examrequest": "Request an exam",
+    "examrequestbtn": "Request",
+    "examrequestcreated": "The exam request has been successfully created",
+    "futuredatenotallow": "Future date not allowed",
+    "statusall": "All",
+    "statusrequested": "Requested",
+    "statustreated": "Treated",
+    "patientrequestedexam": "Requested exams for the patient",
+    "statusmustbedone": "Exam status must be 'DONE' if results are provided",
+    "changestatus": "Change Exam Status",
+    "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
+    "statuses": {
+      "DRAFT": "DRAFT",
+      "ALL": "ALL",
+      "OPEN": "OPEN",
+      "DONE": "DONE"
+    },
+    "previousentries": "Previous Exams"
   },
   "admission": {
     "admDate": "Data ricovero",
@@ -551,7 +594,7 @@
     "validatelastdate": "Deve essere maggiore o uguale alla data di ammissione {{admDate}}",
     "currentadmissionexists": "Il paziente risulta ricoverato dal {{Date}}. Prima devi effettuare la dimissione.",
     "patientnotadmitted": "Non risulta nessun ricovero in corso",
-    "patientalreadyadmitted": "Il paziente è già ricoverato, di seguito puoi vedere la storia dei ricoveri pregressi. Per la dimissione vai alla pagina relativa.",
+    "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To discharge, go to the Discharge page.",
     "updated": "Ricovero aggiornato",
     "updatesuccess": "Ricovero aggiornato",
     "datebefore": "La data di ammissione deve essere antecedente la data di dimissione",
@@ -564,7 +607,8 @@
     "dischargebyagetype": "Dimissioni per fasce d'età",
     "dischargebywards": "Dimissioni per reparto",
     "admregistered": "Ricoveri nel periodo specificato",
-    "disregistered": "Dimissioni nel periodo specificato"
+    "disregistered": "Dimissioni nel periodo specificato",
+    "previousentries": "Previous Admissions"
   },
   "bill": {
     "title": "Benvenuto nell'area pagamenti",
@@ -693,6 +737,17 @@
       "adolescents": "Adolescente",
       "adult": "Adulto",
       "elderly": "Anziani"
+    },
+    "lab": {
+      "undefined": { "txt": "Undefined" },
+      "blood": { "txt": "Blood" },
+      "cfs": { "txt": "CFS" },
+      "film": { "txt": "FILM" },
+      "sputum": { "txt": "Sputum" },
+      "stool": { "txt": "Stool" },
+      "swabs": { "txt": "Swabs" },
+      "tissues": { "txt": "Tissues" },
+      "urine": { "txt": "Urine" }
     }
   }
 }
