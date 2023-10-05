@@ -154,7 +154,8 @@
     "operation": "Operacion",
     "updated": "Pacienti u aktualizua",
     "created": "Pacienti u krijua",
-    "updatesuccessful": "Pacienti u redaktua me sukses."
+    "updatesuccessful": "Pacienti u redaktua me sukses.",
+    "createother": "Add Another Patient"
   },
   "opd": {
     "newopd": "Krijo nje vizitë Ambulatore",
@@ -215,7 +216,9 @@
     "opdbyagetype": "VA sipas llojit të moshës",
     "futuredatenotallow": "Data në të ardhmen nuk lejohet",
     "belowminage": "Mosha min. është 0",
-    "abovemaxage": "Mosha maks. është 200"
+    "abovemaxage": "Mosha maks. është 200",
+    "ward": "Ward",
+    "previousentries": "Previous Visits"
   },
   "visit": {
     "date": "Data (d/m/v)",
@@ -237,7 +240,8 @@
     "updatefail": "Vizita {{kodi}} nuk është aktualizuar!",
     "notdeleted": "Vizita nuk u fshi",
     "addoperation": "Shto operacion",
-    "addoperationdesc": "Shto operacion për vizitën"
+    "addoperationdesc": "Shto operacion për vizitën",
+    "previousentries": "Previous Visits"
   },
   "examination": {
     "newtriage": "Krijo triazh të ri",
@@ -298,7 +302,8 @@
     "rhonchi": "Rhonchi",
     "crackles": "Kërcitje",
     "stridor": "Stridor",
-    "bronchial": "Bronkial"
+    "bronchial": "Bronkial",
+    "previousentries": "Previous Triages"
   },
   "nav": {
     "pharmacy": "Farmaci",
@@ -363,7 +368,8 @@
       "unknown": "I panjohur",
       "success": "Sukses",
       "failure": "Dështoi"
-    }
+    },
+    "previousentries": "Previous Operations"
   },
   "common": {
     "ok": "OK",
@@ -447,7 +453,9 @@
     "continue": "Vazhdo ?",
     "collapse_all": "Redukto të gjitha",
     "expand_all": "Zgjëro të gjitha",
-    "remainingchars": "Mbetur : {{current}} / {{max}}"
+    "remainingchars": "Mbetur : {{current}} / {{max}}",
+    "gohome": "Go to home",
+    "gotopatientactivities": "Go to Patient Activities"
   },
   "permission": {
     "denied": "Leja u refuzua",
@@ -477,7 +485,8 @@
     "created": "Terapia u krijua",
     "updated": "Terapia u aktualizua",
     "createsuccess": "Një rresht terapie është krijuar me sukses!",
-    "updatesuccess": "Një rresht terapie me kodin {{code}} është përditësuar me sukses!"
+    "updatesuccess": "Një rresht terapie me kodin {{code}} është përditësuar me sukses!",
+    "previousentries": "Previous Therapies"
   },
   "booking": {
     "category": "Kategoria",
@@ -554,7 +563,8 @@
       "ALL": "TË GJITHA",
       "OPEN": "HAPUR",
       "DONE": "BËR"
-    }
+    },
+    "previousentries": "Previous Exams"
   },
   "admission": {
     "admDate": "Data",
@@ -597,7 +607,8 @@
     "dischargebyagetype": "Shkarkime sipas llojit të moshës",
     "dischargebywards": "Shkarkime sipas repartit",
     "admregistered": "Pranime në periudhën aktuale",
-    "disregistered": "Shkarkime në periudhën aktuale"
+    "disregistered": "Shkarkime në periudhën aktuale",
+    "previousentries": "Previous Admissions"
   },
   "bill": {
     "title": "Mirë se vini në Faturimi",
