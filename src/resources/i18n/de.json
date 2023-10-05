@@ -154,7 +154,8 @@
     "operation": "Eingriff",
     "updated": "Patient aktualisiert",
     "created": "Patient erstellt",
-    "updatesuccessful": "Der Patient wurde erfolgreich bearbeitet."
+    "updatesuccessful": "Der Patient wurde erfolgreich bearbeitet.",
+    "createother": "Add Another Patient"
   },
   "opd": {
     "newopd": "Erstellen Sie einen neuen OPD-Besuch",
@@ -215,7 +216,9 @@
     "opdbyagetype": "Opds nach Alterstyp",
     "futuredatenotallow": "Zukünftiges Datum nicht zulässig",
     "belowminage": "Mindest. Alter ist 0",
-    "abovemaxage": "max. Alter ist 200"
+    "abovemaxage": "max. Alter ist 200",
+    "ward": "Ward",
+    "previousentries": "Previous Visits"
   },
   "visit": {
     "date": "Datum (d/m/y)",
@@ -237,7 +240,8 @@
     "updatefail": "Besuch {{code}} wurde nicht aktualisiert!",
     "notdeleted": "Besuch nicht gelöscht",
     "addoperation": "Operation hinzufügen",
-    "addoperationdesc": "Operation für den Besuch hinzufügen"
+    "addoperationdesc": "Operation für den Besuch hinzufügen",
+    "previousentries": "Previous Visits"
   },
   "examination": {
     "newtriage": "Neue Triage erstellen",
@@ -298,7 +302,8 @@
     "rhonchi": "Rhonchi",
     "crackles": "Knistert",
     "stridor": "Stridor",
-    "bronchial": "Bronchial"
+    "bronchial": "Bronchial",
+    "previousentries": "Previous Triages"
   },
   "nav": {
     "pharmacy": "Apotheke",
@@ -363,7 +368,8 @@
       "unknown": "Unbekannt",
       "success": "Erfolgreich",
       "failure": "Fehlschlag"
-    }
+    },
+    "previousentries": "Previous Operations"
   },
   "common": {
     "ok": "OK",
@@ -447,7 +453,9 @@
     "continue": "Weiter ?",
     "collapse_all": "Alle einklappen",
     "expand_all": "Alle erweitern",
-    "remainingchars": "Übrig: {{current}} / {{max}}"
+    "remainingchars": "Übrig: {{current}} / {{max}}",
+    "gohome": "Go to home",
+    "gotopatientactivities": "Go to Patient Activities"
   },
   "permission": {
     "denied": "Zugriff verweigert",
@@ -477,7 +485,8 @@
     "created": "Therapie erstellt",
     "updated": "Therapie aktualisiert",
     "createsuccess": "Eine Therapiezeile wurde erfolgreich erstellt!",
-    "updatesuccess": "Eine Therapiezeile mit dem Code {{code}} wurde erfolgreich aktualisiert!"
+    "updatesuccess": "Eine Therapiezeile mit dem Code {{code}} wurde erfolgreich aktualisiert!",
+    "previousentries": "Previous Therapies"
   },
   "booking": {
     "category": "Kategorie",
@@ -554,7 +563,8 @@
       "ALL": "ALLE",
       "OPEN": "OFFEN",
       "DONE": "FERTIG"
-    }
+    },
+    "previousentries": "Previous Exams"
   },
   "admission": {
     "admDate": "Datum",
@@ -597,7 +607,8 @@
     "dischargebyagetype": "Entlassungen nach Alterstyp",
     "dischargebywards": "Entlassungen nach Stationen",
     "admregistered": "Aufnahmen in der aktuellen Periode",
-    "disregistered": "Entlassungen in der aktuellen Periode"
+    "disregistered": "Entlassungen in der aktuellen Periode",
+    "previousentries": "Previous Admissions"
   },
   "bill": {
     "title": "Willkommen bei der Abrechnung",
