@@ -155,7 +155,7 @@
     "updated": "Pacienti u aktualizua",
     "created": "Pacienti u krijua",
     "updatesuccessful": "Pacienti u redaktua me sukses.",
-    "createother": "Add Another Patient"
+    "createother": "Shto një Pacient të ri"
   },
   "opd": {
     "newopd": "Krijo nje vizitë Ambulatore",
@@ -217,8 +217,8 @@
     "futuredatenotallow": "Data në të ardhmen nuk lejohet",
     "belowminage": "Mosha min. është 0",
     "abovemaxage": "Mosha maks. është 200",
-    "ward": "Ward",
-    "previousentries": "Previous Visits"
+    "ward": "Stacioni",
+    "previousentries": "Vizita të mëparshme"
   },
   "visit": {
     "date": "Data (d/m/v)",
@@ -241,7 +241,7 @@
     "notdeleted": "Vizita nuk u fshi",
     "addoperation": "Shto operacion",
     "addoperationdesc": "Shto operacion për vizitën",
-    "previousentries": "Previous Visits"
+    "previousentries": "Vizita të mëparshme"
   },
   "examination": {
     "newtriage": "Krijo triazh të ri",
@@ -303,7 +303,7 @@
     "crackles": "Kërcitje",
     "stridor": "Stridor",
     "bronchial": "Bronkial",
-    "previousentries": "Previous Triages"
+    "previousentries": "Triazhet e mëparshme"
   },
   "nav": {
     "pharmacy": "Farmaci",
@@ -369,7 +369,7 @@
       "success": "Sukses",
       "failure": "Dështoi"
     },
-    "previousentries": "Previous Operations"
+    "previousentries": "Operacione të mëparshme"
   },
   "common": {
     "ok": "OK",
@@ -454,8 +454,8 @@
     "collapse_all": "Redukto të gjitha",
     "expand_all": "Zgjëro të gjitha",
     "remainingchars": "Mbetur : {{current}} / {{max}}",
-    "gohome": "Go to home",
-    "gotopatientactivities": "Go to Patient Activities"
+    "gohome": "Shko ne Fillim",
+    "gotopatientactivities": "Shko tek aktivitetet e Pacientit"
   },
   "permission": {
     "denied": "Leja u refuzua",
@@ -486,7 +486,7 @@
     "updated": "Terapia u aktualizua",
     "createsuccess": "Një rresht terapie është krijuar me sukses!",
     "updatesuccess": "Një rresht terapie me kodin {{code}} është përditësuar me sukses!",
-    "previousentries": "Previous Therapies"
+    "previousentries": "Terapi të mëparshme"
   },
   "booking": {
     "category": "Kategoria",
@@ -564,7 +564,7 @@
       "OPEN": "HAPUR",
       "DONE": "BËR"
     },
-    "previousentries": "Previous Exams"
+    "previousentries": "Ekzaminime të mëparshme"
   },
   "admission": {
     "admDate": "Data",
@@ -608,7 +608,7 @@
     "dischargebywards": "Shkarkime sipas repartit",
     "admregistered": "Pranime në periudhën aktuale",
     "disregistered": "Shkarkime në periudhën aktuale",
-    "previousentries": "Previous Admissions"
+    "previousentries": "Pranime të mëparshme"
   },
   "bill": {
     "title": "Mirë se vini në Faturimi",
