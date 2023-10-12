@@ -18,6 +18,7 @@ import { useFields } from "./useFields";
 import DischargeForm from "./dischargeForm/DischargeForm";
 import { getPatientThunk } from "../../../state/patients/actions";
 import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -106,16 +107,19 @@ const PatientDischarge: FC = () => {
   return (
     <div className="patientAdmission">
       {currentAdmissionStatus === "SUCCESS" && (
-        <DischargeForm
-          fields={fields}
-          onSubmit={onSubmit}
-          submitButtonLabel={t("common.save")}
-          resetButtonLabel={t("common.reset")}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          isLoading={dischargeStatus === "LOADING"}
-          admission={currentAdmission}
-        />
+        <>
+          <CurrentAdmission />
+          <DischargeForm
+            fields={fields}
+            onSubmit={onSubmit}
+            submitButtonLabel={t("common.save")}
+            resetButtonLabel={t("common.reset")}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            isLoading={dischargeStatus === "LOADING"}
+            admission={currentAdmission}
+          />
+        </>
       )}
       {currentAdmissionStatus === "SUCCESS_EMPTY" && (
         <div ref={infoBoxRef} className="info-box-container">

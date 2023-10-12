@@ -2,20 +2,13 @@ import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { AdmissionDTO, PatientDTO } from "../../../../generated";
-import { parseDate } from "../../../../libraries/formDataHandling/functions";
-import { IState } from "../../../../types";
-import Button from "../../button/Button";
-import TextField from "../../textField/TextField";
+import { AdmissionDTO } from "../../../../generated";
 import "../styles.scss";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import DateField from "../../dateField/DateField";
 import isEmpty from "lodash.isempty";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {
-  onEdit: () => void;
+  onEdit?: () => void;
   admission: AdmissionDTO;
 }
 
@@ -28,9 +21,11 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
   return (
     <div className="currentAdmissionData">
       <div className="currentAdmission_leading">
-        <IconButton onClick={onEdit}>
-          <Edit />
-        </IconButton>
+        {onEdit && (
+          <IconButton onClick={onEdit}>
+            <Edit />
+          </IconButton>
+        )}
       </div>
       <div className="currentAdmissionData__content">
         {!isEmpty(admission?.ward?.description) && (

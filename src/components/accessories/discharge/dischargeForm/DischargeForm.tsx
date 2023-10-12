@@ -240,19 +240,6 @@ const DischargeForm: FC<DischargeProps> = ({
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
-                fieldName="disType"
-                fieldValue={formik.values.disType}
-                label={t("admission.disType")}
-                isValid={isValid("disType")}
-                errorText={getErrorText("disType")}
-                onBlur={onBlurCallback("disType")}
-                options={renderOptions(dischargeTypes)}
-                loading={disTypeStatus === "LOADING"}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="fullWidth patientAdmissionForm__item">
-              <AutocompleteField
                 fieldName="diseaseOut1"
                 fieldValue={formik.values.diseaseOut1}
                 label={t("admission.diseaseOut1")}
@@ -287,6 +274,19 @@ const DischargeForm: FC<DischargeProps> = ({
                 onBlur={onBlurCallback("diseaseOut3")}
                 options={renderOptions(diagnosisOutList)}
                 loading={diagnosisOutStatus === "LOADING"}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <AutocompleteField
+                fieldName="disType"
+                fieldValue={formik.values.disType}
+                label={t("admission.disType")}
+                isValid={isValid("disType")}
+                errorText={getErrorText("disType")}
+                onBlur={onBlurCallback("disType")}
+                options={renderOptions(dischargeTypes)}
+                loading={disTypeStatus === "LOADING"}
                 disabled={isLoading}
               />
             </div>

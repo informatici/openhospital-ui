@@ -13,7 +13,6 @@ import { IOwnProps } from "./types";
 export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
   onEditChange,
 }) => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [editionMode, setEditionMode] = useState(false);
   const currentAdmission = useSelector(
@@ -50,14 +49,16 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
   };
 
   useEffect(() => {
-    onEditChange(editionMode);
+    if (onEditChange) {
+      onEditChange(editionMode);
+    }
   }, [editionMode]);
 
   return (
     <div className="currentAdmission">
       {currentAdmission && !editionMode && (
         <CurrentAdmissionData
-          onEdit={handleEdit}
+          onEdit={onEditChange ? handleEdit : undefined}
           admission={currentAdmission}
         />
       )}

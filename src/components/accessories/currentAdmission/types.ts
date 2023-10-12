@@ -1,3 +1,3 @@
 export interface IOwnProps {
-  onEditChange: (value: boolean) => void;
+  onEditChange?: (value: boolean) => void;
 }
