@@ -61,7 +61,7 @@ const ExamForm: FC<ExamProps> = ({
         },
       }),
     exam: string().required(t("common.required")),
-    result: string(),
+    result: string().required(t("common.required")),
     note: string().test({
       name: "maxLength",
       message: t("common.maxlengthexceeded", { maxLength: 255 }),
