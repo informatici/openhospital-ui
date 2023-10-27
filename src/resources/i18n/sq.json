@@ -206,7 +206,7 @@
     "age": "Vjeç",
     "status": "Statusi",
     "nextvisitdate": "Data e vizitës tjetër",
-    "validatetodate": "Duhet të jetë më i madh se nga data",
+    "validatetodate": "Duhet të jetë më i madh sesa nga data",
     "validatefromdate": "Duhet të jetë mëi vogel se deri me datën",
     "validatetoage": "Duhet të jetë më i madh sesa nga mosha",
     "validatefromage": "Duhet të jetë më pak sesa nga mosha",
