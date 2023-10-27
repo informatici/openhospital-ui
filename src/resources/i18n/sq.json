@@ -207,7 +207,7 @@
     "status": "Statusi",
     "nextvisitdate": "Data e vizitës tjetër",
     "validatetodate": "Duhet të jetë më i madh sesa nga data",
-    "validatefromdate": "Duhet të jetë mëi vogel se deri me datën",
+    "validatefromdate": "Duhet të jetë mëi vogel sesa deri me datën",
     "validatetoage": "Duhet të jetë më i madh sesa nga mosha",
     "validatefromage": "Duhet të jetë më pak sesa nga mosha",
     "prescription": "Receta",
