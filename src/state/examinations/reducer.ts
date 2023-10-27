@@ -18,6 +18,9 @@ import {
   SEARCH_EXAMINATION_LOADING,
   SEARCH_EXAMINATION_SUCCESS,
   SEARCH_EXAMINATION_SUCCESS_EMPTY,
+  GET_LAST_EXAMINATION_FAIL,
+  GET_LAST_EXAMINATION_LOADING,
+  GET_LAST_EXAMINATION_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IExaminationsState } from "./types";
@@ -86,6 +89,26 @@ export default produce(
       case UPDATE_EXAMINATION_RESET: {
         draft.updateExamination.status = "IDLE";
         delete draft.updateExamination.error;
+        break;
+      }
+
+      /**
+       * GET_LAST_EXAMINATION
+       */
+      case GET_LAST_EXAMINATION_LOADING: {
+        draft.getLastByPatientId.status = "LOADING";
+        break;
+      }
+
+      case GET_LAST_EXAMINATION_SUCCESS: {
+        draft.getLastByPatientId.status = "SUCCESS";
+        draft.getLastByPatientId.data = action.payload;
+        delete draft.getLastByPatientId.error;
+        break;
+      }
+      case GET_LAST_EXAMINATION_FAIL: {
+        draft.getLastByPatientId.status = "FAIL";
+        draft.getLastByPatientId.error = action.error;
         break;
       }
 
