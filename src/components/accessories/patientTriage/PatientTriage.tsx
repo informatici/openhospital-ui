@@ -77,7 +77,16 @@ const PatientTriage: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
+    if (status === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
   }, [status]);
+
+  useEffect(() => {
+    if (deleteStatus === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [deleteStatus]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
