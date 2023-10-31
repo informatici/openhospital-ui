@@ -12,6 +12,7 @@ import {
   deleteExamination,
   deleteExaminationReset,
   examinationsByPatientId,
+  getLastByPatientId,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations/actions";
@@ -39,6 +40,11 @@ const PatientTriage: FC = () => {
   const [triageToEdit, setTriageToEdit] = useState({} as PatientExaminationDTO);
 
   const [creationMode, setCreationMode] = useState(true);
+
+  const lastExamination = useSelector<
+    IState,
+    PatientExaminationDTO | undefined
+  >((state) => state.examinations.getLastByPatientId.data);
 
   const patientDataCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -71,7 +77,16 @@ const PatientTriage: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
+    if (status === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
   }, [status]);
+
+  useEffect(() => {
+    if (deleteStatus === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [deleteStatus]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
@@ -89,6 +104,12 @@ const PatientTriage: FC = () => {
       setShouldUpdateTable(true);
     }
   }, [dispatch, activityTransitionState]);
+
+  useEffect(() => {
+    if (patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [patientDataCode]);
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
@@ -132,8 +153,28 @@ const PatientTriage: FC = () => {
         <PatientTriageForm
           fields={
             creationMode
-              ? initialFields
-              : updateTriageFields(initialFields, triageToEdit)
+              ? {
+                  ...initialFields,
+                  pex_height: {
+                    ...initialFields.pex_height,
+                    value:
+                      lastExamination?.pex_height?.toString() ??
+                      initialFields.pex_height.value,
+                  },
+                  pex_weight: {
+                    ...initialFields.pex_weight,
+                    value:
+                      lastExamination?.pex_weight?.toString() ??
+                      initialFields.pex_weight.value,
+                  },
+                }
+              : updateTriageFields(initialFields, {
+                  ...triageToEdit,
+                  pex_height:
+                    triageToEdit.pex_height ?? lastExamination?.pex_height,
+                  pex_weight:
+                    triageToEdit.pex_weight ?? lastExamination?.pex_weight,
+                })
           }
           creationMode={creationMode}
           onSubmit={onSubmit}
