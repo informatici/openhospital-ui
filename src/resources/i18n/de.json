@@ -155,7 +155,7 @@
     "updated": "Patient aktualisiert",
     "created": "Patient erstellt",
     "updatesuccessful": "Der Patient wurde erfolgreich bearbeitet.",
-    "createother": "Add Another Patient"
+    "createother": "Weiteren Patienten hinzufügen"
   },
   "opd": {
     "newopd": "Erstellen Sie einen neuen OPD-Besuch",
@@ -217,8 +217,8 @@
     "futuredatenotallow": "Zukünftiges Datum nicht zulässig",
     "belowminage": "Mindest. Alter ist 0",
     "abovemaxage": "max. Alter ist 200",
-    "ward": "Ward",
-    "previousentries": "Previous Visits"
+    "ward": "Station",
+    "previousentries": "Frühere Besuche"
   },
   "visit": {
     "date": "Datum (d/m/y)",
@@ -241,7 +241,7 @@
     "notdeleted": "Besuch nicht gelöscht",
     "addoperation": "Operation hinzufügen",
     "addoperationdesc": "Operation für den Besuch hinzufügen",
-    "previousentries": "Previous Visits"
+    "previousentries": "Frühere Besuche"
   },
   "examination": {
     "newtriage": "Neue Triage erstellen",
@@ -303,7 +303,7 @@
     "crackles": "Knistert",
     "stridor": "Stridor",
     "bronchial": "Bronchial",
-    "previousentries": "Previous Triages"
+    "previousentries": "Frühere Triagen"
   },
   "nav": {
     "pharmacy": "Apotheke",
@@ -369,7 +369,7 @@
       "success": "Erfolgreich",
       "failure": "Fehlschlag"
     },
-    "previousentries": "Previous Operations"
+    "previousentries": "Frühere Operationen"
   },
   "common": {
     "ok": "OK",
@@ -454,8 +454,8 @@
     "collapse_all": "Alle einklappen",
     "expand_all": "Alle erweitern",
     "remainingchars": "Übrig: {{current}} / {{max}}",
-    "gohome": "Go to home",
-    "gotopatientactivities": "Go to Patient Activities"
+    "gohome": "Zur Startseite",
+    "gotopatientactivities": "Gehe zu Patientenaktivitäten"
   },
   "permission": {
     "denied": "Zugriff verweigert",
@@ -486,7 +486,7 @@
     "updated": "Therapie aktualisiert",
     "createsuccess": "Eine Therapiezeile wurde erfolgreich erstellt!",
     "updatesuccess": "Eine Therapiezeile mit dem Code {{code}} wurde erfolgreich aktualisiert!",
-    "previousentries": "Previous Therapies"
+    "previousentries": "Frühere Therapien"
   },
   "booking": {
     "category": "Kategorie",
@@ -564,7 +564,7 @@
       "OPEN": "OFFEN",
       "DONE": "FERTIG"
     },
-    "previousentries": "Previous Exams"
+    "previousentries": "Frühere Examen"
   },
   "admission": {
     "admDate": "Datum",
@@ -608,7 +608,7 @@
     "dischargebywards": "Entlassungen nach Stationen",
     "admregistered": "Aufnahmen in der aktuellen Periode",
     "disregistered": "Entlassungen in der aktuellen Periode",
-    "previousentries": "Previous Admissions"
+    "previousentries": "Frühere Aufnahmen"
   },
   "bill": {
     "title": "Willkommen bei der Abrechnung",
