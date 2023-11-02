@@ -50,13 +50,15 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       .min(30, t("common.greaterthan", { value: 30 }))
       .max(50, t("common.lessthan", { value: 50 })),
     pex_weight: number()
-      .min(0, t("common.greaterthan", { value: 0 }))
-      .max(200, t("common.lessthan", { value: 200 })),
+      .min(1, t("common.greaterthan", { value: 1 }))
+      .max(200, t("common.lessthan", { value: 200 }))
+      .required(t("common.required")),
     pex_height: number()
-      .min(0, t("common.greaterthan", { value: 0 }))
-      .max(250, t("common.lessthan", { value: 250 })),
+      .min(1, t("common.greaterthan", { value: 1 }))
+      .max(250, t("common.lessthan", { value: 250 }))
+      .required(t("common.required")),
     pex_hr: number()
-      .min(0, t("common.greaterthan", { value: 0 }))
+      .min(1, t("common.greaterthan", { value: 1 }))
       .max(240, t("common.lessthan", { value: 240 })),
     pex_sat: number()
       .min(50, t("common.greaterthan", { value: 50 }))
@@ -65,10 +67,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       .min(30, t("common.greaterthan", { value: 30 }))
       .max(600, t("common.lessthan", { value: 600 })),
     pex_diuresis: number()
-      .min(0, t("common.greaterthan", { value: 0 }))
+      .min(1, t("common.greaterthan", { value: 1 }))
       .max(2500, t("common.lessthan", { value: 2500 })),
     pex_rr: number()
-      .min(0, t("common.greaterthan", { value: 0 }))
+      .min(1, t("common.greaterthan", { value: 1 }))
       .max(100, t("common.lessthan", { value: 100 })),
     pex_ap_min: number()
       .min(80, t("common.greaterthan", { value: 80 }))

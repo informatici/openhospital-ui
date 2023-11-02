@@ -11,7 +11,6 @@ import {
   createExaminationReset,
   deleteExamination,
   deleteExaminationReset,
-  examinationsByPatientId,
   getDefaultPatientExamination,
   getLastByPatientId,
   updateExamination,
@@ -46,11 +45,6 @@ const PatientTriage: FC = () => {
     IState,
     PatientExaminationDTO | undefined
   >((state) => state.examinations.getLastByPatientId.data);
-
-  const defaultPatientExamination = useSelector<
-    IState,
-    PatientExaminationDTO | undefined
-  >((state) => state.examinations.getDefaultPatientExamination.data);
 
   const patientDataCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -160,14 +154,17 @@ const PatientTriage: FC = () => {
         <PatientTriageForm
           fields={
             creationMode
-              ? updateTriageFields(initialFields, {
-                  pex_height:
-                    lastExamination?.pex_height ??
-                    defaultPatientExamination?.pex_height,
-                  pex_weight:
-                    lastExamination?.pex_weight ??
-                    defaultPatientExamination?.pex_weight,
-                } as any)
+              ? {
+                  ...initialFields,
+                  pex_height: {
+                    ...initialFields.pex_height,
+                    value: lastExamination?.pex_height?.toString() ?? "",
+                  },
+                  pex_weight: {
+                    ...initialFields.pex_weight,
+                    value: lastExamination?.pex_weight?.toString() ?? "",
+                  },
+                }
               : updateTriageFields(initialFields, {
                   ...triageToEdit,
                   pex_height:
