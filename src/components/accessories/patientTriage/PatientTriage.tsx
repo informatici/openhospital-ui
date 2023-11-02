@@ -161,7 +161,6 @@ const PatientTriage: FC = () => {
           fields={
             creationMode
               ? updateTriageFields(initialFields, {
-                  ...(defaultPatientExamination ?? {}),
                   pex_height:
                     lastExamination?.pex_height ??
                     defaultPatientExamination?.pex_height,
