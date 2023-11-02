@@ -24,6 +24,16 @@ export const examinationsRoutes = (server) => {
           break;
       }
     });
+    server.get("/defaultPatientExamination").intercept((req, res) => {
+      const code = req.params.code;
+      switch (code) {
+        case "1":
+          res.status(400);
+          break;
+        default:
+          res.status(200).json(patientExaminationDTO);
+      }
+    });
     server.get("/lastByPatientId/:patId").intercept((req, res) => {
       const code = req.params.code;
       switch (code) {

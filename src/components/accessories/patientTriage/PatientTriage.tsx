@@ -11,7 +11,7 @@ import {
   createExaminationReset,
   deleteExamination,
   deleteExaminationReset,
-  examinationsByPatientId,
+  getDefaultPatientExamination,
   getLastByPatientId,
   updateExamination,
   updateExaminationReset,
@@ -108,6 +108,7 @@ const PatientTriage: FC = () => {
   useEffect(() => {
     if (patientDataCode) {
       dispatch(getLastByPatientId(patientDataCode));
+      dispatch(getDefaultPatientExamination(patientDataCode));
     }
   }, [patientDataCode]);
 
@@ -157,15 +158,11 @@ const PatientTriage: FC = () => {
                   ...initialFields,
                   pex_height: {
                     ...initialFields.pex_height,
-                    value:
-                      lastExamination?.pex_height?.toString() ??
-                      initialFields.pex_height.value,
+                    value: lastExamination?.pex_height?.toString() ?? "",
                   },
                   pex_weight: {
                     ...initialFields.pex_weight,
-                    value:
-                      lastExamination?.pex_weight?.toString() ??
-                      initialFields.pex_weight.value,
+                    value: lastExamination?.pex_weight?.toString() ?? "",
                   },
                 }
               : updateTriageFields(initialFields, {
