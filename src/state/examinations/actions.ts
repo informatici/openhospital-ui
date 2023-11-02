@@ -10,6 +10,9 @@ import {
   CREATE_EXAMINATION_SUCCESS,
   DELETE_EXAMINATION_FAIL,
   DELETE_EXAMINATION_RESET,
+  GET_DEFAULT_EXAMINATION_FAIL,
+  GET_DEFAULT_EXAMINATION_LOADING,
+  GET_DEFAULT_EXAMINATION_SUCCESS,
   GET_LAST_EXAMINATION_FAIL,
   GET_LAST_EXAMINATION_LOADING,
   GET_LAST_EXAMINATION_SUCCESS,
@@ -94,6 +97,34 @@ export const deleteExaminationReset =
     dispatch({
       type: DELETE_EXAMINATION_RESET,
     });
+  };
+
+export const getDefaultPatientExamination =
+  (patId: number) =>
+  (dispatch: Dispatch<IAction<PatientExaminationDTO, {}>>): void => {
+    dispatch({
+      type: GET_DEFAULT_EXAMINATION_LOADING,
+    });
+    if (patId) {
+      examinationsApi.getDefaultPatientExamination({ patId: patId }).subscribe(
+        (payload) => {
+          dispatch({
+            type: GET_DEFAULT_EXAMINATION_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: GET_DEFAULT_EXAMINATION_FAIL,
+            error,
+          });
+        }
+      );
+    } else
+      dispatch({
+        type: GET_DEFAULT_EXAMINATION_FAIL,
+        error: "patient object should not be empty",
+      });
   };
 
 export const getLastByPatientId =

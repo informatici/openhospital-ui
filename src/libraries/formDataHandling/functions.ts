@@ -102,7 +102,9 @@ export const formatAllFieldValues = (
     (acc: Record<string, TFieldFormattedValue>, key) => {
       switch (fields[key].type) {
         case "number":
-          acc[key] = parseInt(values[key]);
+          const int = parseInt(values[key]);
+          const float = parseFloat(values[key]);
+          acc[key] = int < float ? float : int;
           break;
         case "date":
           acc[key] = parseDate(values[key], withTimezone);
@@ -197,6 +199,10 @@ export const updateTriageFields = (
         return (draft[key as string].value = (
           (value ?? "") as string
         ).toLowerCase());
+      }
+      if (draft[key as string] && typeof value === "number") {
+        return (draft[key as string].value = draft[key as string].value =
+          value);
       }
       if (draft[key as string]) {
         return (draft[key as string].value = parseFloat(value as string)

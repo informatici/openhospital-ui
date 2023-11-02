@@ -12,6 +12,7 @@ import {
   deleteExamination,
   deleteExaminationReset,
   examinationsByPatientId,
+  getDefaultPatientExamination,
   getLastByPatientId,
   updateExamination,
   updateExaminationReset,
@@ -45,6 +46,11 @@ const PatientTriage: FC = () => {
     IState,
     PatientExaminationDTO | undefined
   >((state) => state.examinations.getLastByPatientId.data);
+
+  const defaultPatientExamination = useSelector<
+    IState,
+    PatientExaminationDTO | undefined
+  >((state) => state.examinations.getDefaultPatientExamination.data);
 
   const patientDataCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -108,6 +114,7 @@ const PatientTriage: FC = () => {
   useEffect(() => {
     if (patientDataCode) {
       dispatch(getLastByPatientId(patientDataCode));
+      dispatch(getDefaultPatientExamination(patientDataCode));
     }
   }, [patientDataCode]);
 
@@ -153,21 +160,15 @@ const PatientTriage: FC = () => {
         <PatientTriageForm
           fields={
             creationMode
-              ? {
-                  ...initialFields,
-                  pex_height: {
-                    ...initialFields.pex_height,
-                    value:
-                      lastExamination?.pex_height?.toString() ??
-                      initialFields.pex_height.value,
-                  },
-                  pex_weight: {
-                    ...initialFields.pex_weight,
-                    value:
-                      lastExamination?.pex_weight?.toString() ??
-                      initialFields.pex_weight.value,
-                  },
-                }
+              ? updateTriageFields(initialFields, {
+                  ...(defaultPatientExamination ?? {}),
+                  pex_height:
+                    lastExamination?.pex_height ??
+                    defaultPatientExamination?.pex_height,
+                  pex_weight:
+                    lastExamination?.pex_weight ??
+                    defaultPatientExamination?.pex_weight,
+                } as any)
               : updateTriageFields(initialFields, {
                   ...triageToEdit,
                   pex_height:
