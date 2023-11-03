@@ -7,7 +7,7 @@ import { usePermissions } from "./usePermissions";
  */
 export const usePermission = (name: TPermission): boolean => {
   const permissions = usePermissions();
-  if (!process.env.REACT_APP_ENABLE_PERMISSIONS) {
+  if (process.env.REACT_APP_ENABLE_PERMISSIONS === "false") {
     return true;
   }
   return Boolean(permissions.find((permission: string) => permission === name));

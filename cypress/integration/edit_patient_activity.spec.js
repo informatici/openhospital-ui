@@ -43,8 +43,8 @@ describe("EditPatientActivity spec", () => {
           "images/profilePicture.jpg",
           { force: true }
         );
-
-        cy.get("[class=MuiDialogContent-root]").contains("Confirm").click();
+        cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
+        cy.wait(2000);
 
         cy.wait(1000);
         cy.get("[class=profilePicture]")
