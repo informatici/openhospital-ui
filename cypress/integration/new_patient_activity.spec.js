@@ -43,8 +43,8 @@ describe("NewPatientActivity spec", () => {
           "images/profilePicture.jpg",
           { force: true }
         );
-
-        cy.get("[class=MuiDialogContent-root]").contains("Confirm").click();
+        cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
+        cy.wait(2000);
 
         cy.wait(1000);
         cy.get("[class=profilePicture]")
@@ -114,7 +114,7 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should reset the form if the user chooses to keep editing after a submit", () => {
-    cy.get("div.dialog__buttonSet").contains("Keep editing").click();
+    cy.get("div.dialog__buttonSet").contains("Add Another Patient").click();
     cy.get("[id=firstName]").should("have.value", "");
     cy.get("[id=secondName]").should("have.value", "");
     cy.get("[id=birthDate]").should("have.value", "");
@@ -129,7 +129,7 @@ describe("NewPatientActivity spec", () => {
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.get(".MuiMenu-list li[data-value=M]").click();
     cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.dialog__buttonSet").contains("Dashboard").click();
+    cy.get("div.dialog__buttonSet").contains("Go to home").click();
     cy.get("div.dashboard");
   });
 });
