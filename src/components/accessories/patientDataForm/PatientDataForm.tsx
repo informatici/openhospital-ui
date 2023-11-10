@@ -58,7 +58,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       secondName: string().required(t("common.required")),
       age:
         ageType === "age"
-          ? number().required(t("common.required")).min(0)
+          ? number().required(t("common.required")).min(0).max(200)
           : string(),
       agetype:
         ageType === "agetype"
