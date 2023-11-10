@@ -72,7 +72,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
           newPatient:
             e.newPatient === "R"
               ? t("opd.reattendance")
-              : t("opd.newadmittance"),
+              : t("opd.newattendance"),
           note: e.note ?? "",
         };
       });

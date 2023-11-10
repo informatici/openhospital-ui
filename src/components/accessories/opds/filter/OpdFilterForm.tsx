@@ -314,7 +314,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
       value: "A",
     },
     {
-      label: t("opd.newadmittance"),
+      label: t("opd.newattendance"),
       value: "N",
     },
     {

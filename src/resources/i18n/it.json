@@ -178,7 +178,7 @@
     "referralfrom": "Riferito",
     "referralto": "Rinvio ad altra struttura",
     "newpatient": "TIpo visita",
-    "newadmittance": "Nuova visita",
+    "newattendance": "Nuova visita",
     "reattendance": "Visita di controllo",
     "addoperation": "Aggiungi intervento",
     "addoperationdesc": "Aggiungi intervento per la visita",

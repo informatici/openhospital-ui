@@ -142,7 +142,7 @@
     "referralfrom": "Visite prescrite par une autre unité hospitalière",
     "referralto": "Visite prescrite de l'extérieur",
     "newpatient": "Type de visite",
-    "newadmittance": "Nouvelle hospitalisation",
+    "newattendance": "Nouvelle hospitalisation",
     "reattendance": "Suite de visite ou cycle de visites",
     "addoperation": "Ajouter une opération",
     "addoperationdesc": "Ajouter une opération pour la visite",
