@@ -9,10 +9,10 @@ import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { date, number, object, string } from "yup";
+import { number, object, string } from "yup";
 import {
   DiseaseDTO,
   DiseaseTypeDTO,
