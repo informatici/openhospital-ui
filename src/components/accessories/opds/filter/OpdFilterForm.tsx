@@ -311,11 +311,11 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
   const newPatientOptions = [
     {
       label: t("opd.all"),
-      value: "",
+      value: "A",
     },
     {
       label: t("opd.newadmittance"),
-      value: "A",
+      value: "N",
     },
     {
       label: t("opd.reattendance"),
