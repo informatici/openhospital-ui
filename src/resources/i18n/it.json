@@ -1,10 +1,10 @@
 {
   "errors": {
-    "somethingwrong": "Something went wrong, please retry later.",
-    "incorrectcredentials": "Invalid username or password",
-    "passwordtooshort": "Password too short",
-    "badrequest": "Bad request",
-    "internalerror": "An internal error occured"
+    "somethingwrong": "Si è verificato un errore, per cortesia riprovare più tardi",
+    "incorrectcredentials": "Nome utente o password non corretti",
+    "passwordtooshort": "Password troppo breve",
+    "badrequest": "Richiesta errata",
+    "internalerror": "Si è verificato un errore interno"
   },
   "user": {
     "username": "Username",
@@ -155,7 +155,7 @@
     "updated": "Paziente aggiornato",
     "created": "Paziente creato",
     "updatesuccessful": "Il paziente è stato aggiornato correttamente.",
-    "createother": "Add Another Patient"
+    "createother": "Aggiungere un altro paziente"
   },
   "opd": {
     "newopd": "Inserisci una nuova visita ambulatoriale",
@@ -178,7 +178,7 @@
     "referralfrom": "Riferito",
     "referralto": "Rinvio ad altra struttura",
     "newpatient": "TIpo visita",
-    "newattendance": "Nuova visita",
+    "newattendance": "Prima visita",
     "reattendance": "Visita di controllo",
     "addoperation": "Aggiungi intervento",
     "addoperationdesc": "Aggiungi intervento per la visita",
@@ -217,8 +217,8 @@
     "futuredatenotallow": "Date nel futuro non permesse",
     "belowminage": "L'età minima è 0",
     "abovemaxage": "L'età massima è 200",
-    "ward": "Ward",
-    "previousentries": "Previous Visits"
+    "ward": "Reparto",
+    "previousentries": "Visite precedenti"
   },
   "visit": {
     "date": "Data visita (gg/mm/aaaa)",
@@ -241,7 +241,7 @@
     "notdeleted": "La visita non è stata cancellata",
     "addoperation": "Aggiungi intervento",
     "addoperationdesc": "Aggiungi intervento per la visita",
-    "previousentries": "Previous Visits"
+    "previousentries": "Visite precedenti"
   },
   "examination": {
     "newtriage": "Crea nuovo esame obiettivo",
@@ -303,7 +303,7 @@
     "crackles": "Rantoli",
     "stridor": "Stridor",
     "bronchial": "Soffio bronchiale",
-    "previousentries": "Previous Triages"
+    "previousentries": "Precedenti esami obiettivi"
   },
   "nav": {
     "pharmacy": "Farmacia",
@@ -369,7 +369,7 @@
       "success": "Successo",
       "failure": "Fallimento"
     },
-    "previousentries": "Previous Operations"
+    "previousentries": "Interventi precedenti"
   },
   "common": {
     "ok": "OK",
@@ -403,8 +403,8 @@
     "code": "Codice identificativo",
     "update": "Aggiorna",
     "delete": "Cancella",
-    "deleteconfirmation": "Are you sure to delete item with code {{code}} ?",
-    "cancelconfirmation": "Are you sure to cancel item with code {{code}} ?",
+    "deleteconfirmation": "Confermi la cancellazione dell'item con codice {{code}} ?",
+    "cancelconfirmation": "Confermi la cancellazione dell'item con codice {{code}} ?",
     "deletesuccess": "L'item {{code}} è stato cancellato",
     "incorrectformat": "Formato non corretto",
     "yes": "SI",
@@ -429,9 +429,9 @@
     "cancel": "Cancella",
     "discardconfirmationmessage": "Tutte le modifiche non salvata verranno perse. Continuare?",
     "emptydataforfilter": "Azzera il filtro specificato",
-    "addanotherrow": "Add another operation",
+    "addanotherrow": "Aggiungi un altro intervento",
     "hospitalname": "Il tuo ospedale",
-    "maxlengthexceeded": "Length exceeded. Max. is {{maxLength}}",
+    "maxlengthexceeded": "Lunghezza oltre il limite massimo di {{maxLength}}",
     "retry": "Riprova",
     "moment": {
       "duration": "Durata",
@@ -450,12 +450,12 @@
       "thisyear": "Quest'anno",
       "lastyear": "Anno scorso"
     },
-    "continue": "Continue ?",
-    "collapse_all": "Collapse All",
-    "expand_all": "Expand All",
-    "remainingchars": "Remaining : {{current}} / {{max}}",
-    "gohome": "Go to home",
-    "gotopatientactivities": "Go to Patient Activities"
+    "continue": "Continuare?",
+    "collapse_all": "Comprimi visualizzazione",
+    "expand_all": "Espandi visualizzazione",
+    "remainingchars": "Ancora disponibili: {{current}} / {{max}}",
+    "gohome": "Vai alla home",
+    "gotopatientactivities": "Vai alle attività del patiente"
   },
   "permission": {
     "denied": "Autorizzazione negata",
@@ -486,7 +486,7 @@
     "updated": "La terapia è stata aggiornata",
     "createsuccess": "La terapia è stata inserita correttamente",
     "updatesuccess": "La terapia con codice {{code}} è stata inserita",
-    "previousentries": "Previous Therapies"
+    "previousentries": "Terapie precedenti"
   },
   "booking": {
     "category": "Categoria",
@@ -517,9 +517,9 @@
     "updated": "Esame aggiornato",
     "createsuccess": "Esame inserito correttamente",
     "updatesuccess": "Esame {{code}} inserito correttamente",
-    "cancelsuccess": "Patient exam {{code}} canceled successfully!",
+    "cancelsuccess": "Esame {{code}} cancellato con successo",
     "deleted": "Esame cancellato",
-    "canceled": "Patient Exam canceled",
+    "canceled": "Esame cancellato",
     "resultrow": "Record risultato",
     "value": "Valore",
     "resultstitle": "Risultati",
@@ -547,24 +547,24 @@
     "validatetodate": "Deve essere maggiore della data inizio",
     "validatefromdate": "Deve essere maggiore della data fine",
     "multipleresults": "Risultati multipli",
-    "examrequest": "Request an exam",
-    "examrequestbtn": "Request",
-    "examrequestcreated": "The exam request has been successfully created",
-    "futuredatenotallow": "Future date not allowed",
-    "statusall": "All",
-    "statusrequested": "Requested",
-    "statustreated": "Treated",
-    "patientrequestedexam": "Requested exams for the patient",
-    "statusmustbedone": "Exam status must be 'DONE' if results are provided",
-    "changestatus": "Change Exam Status",
-    "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
+    "examrequest": "Richiesi esame",
+    "examrequestbtn": "Inserisci richiesta",
+    "examrequestcreated": "La richiesta di esame è stata correttamente creata",
+    "futuredatenotallow": "Non sono consentite date future",
+    "statusall": "Tutti",
+    "statusrequested": "Valore obbligatorio",
+    "statustreated": "<Treated?>  Trattato",
+    "patientrequestedexam": "Esami richiesti ",
+    "statusmustbedone": "Lo stato dell'esame deve essere 'DONE' se sono stati inseriti i relativi risultati",
+    "changestatus": "Cambia lo stato dell'esame",
+    "changelabstatusto": "Lo stato dell'esame {{code}} verrà cambiato  in {{status}}",
     "statuses": {
       "DRAFT": "DRAFT",
-      "ALL": "ALL",
+      "ALL": "TUTTI",
       "OPEN": "OPEN",
-      "DONE": "DONE"
+      "DONE": "FATTO"
     },
-    "previousentries": "Previous Exams"
+    "previousentries": "Esami precedenti"
   },
   "admission": {
     "admDate": "Data ricovero",
@@ -594,7 +594,7 @@
     "validatelastdate": "Deve essere maggiore o uguale alla data di ammissione {{admDate}}",
     "currentadmissionexists": "Il paziente risulta ricoverato dal {{Date}}. Prima devi effettuare la dimissione.",
     "patientnotadmitted": "Non risulta nessun ricovero in corso",
-    "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To discharge, go to the Discharge page.",
+    "patientalreadyadmitted": "Il paziente è già stato ricoverato, qui troverai lo storico dei ricoveri. Per la dimissione andare alla pagina Dimissioni.",
     "updated": "Ricovero aggiornato",
     "updatesuccess": "Ricovero aggiornato",
     "datebefore": "La data di ammissione deve essere antecedente la data di dimissione",
@@ -608,7 +608,7 @@
     "dischargebywards": "Dimissioni per reparto",
     "admregistered": "Ricoveri nel periodo specificato",
     "disregistered": "Dimissioni nel periodo specificato",
-    "previousentries": "Previous Admissions"
+    "previousentries": "Ricoveri precedenti"
   },
   "bill": {
     "title": "Benvenuto nell'area pagamenti",
@@ -739,14 +739,14 @@
       "elderly": "Anziani"
     },
     "lab": {
-      "undefined": { "txt": "Undefined" },
-      "blood": { "txt": "Blood" },
+      "undefined": { "txt": "Non definito" },
+      "blood": { "txt": "Sangue" },
       "cfs": { "txt": "CFS" },
       "film": { "txt": "FILM" },
       "sputum": { "txt": "Sputum" },
-      "stool": { "txt": "Stool" },
-      "swabs": { "txt": "Swabs" },
-      "tissues": { "txt": "Tissues" },
+      "stool": { "txt": "(Stool) Feci" },
+      "swabs": { "txt": "Tamponi" },
+      "tissues": { "txt": "Tessuti" },
       "urine": { "txt": "Urine" }
     }
   }
