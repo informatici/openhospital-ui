@@ -12,7 +12,7 @@
  */
 
 /**
- * the price list
+ * The price list
  * @export
  * @interface PriceList
  */

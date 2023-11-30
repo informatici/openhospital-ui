@@ -114,10 +114,10 @@ export interface TherapyRow {
      * @type {boolean}
      * @memberof TherapyRow
      */
-    sms?: boolean;
+    notify?: boolean;
     /**
      * @type {boolean}
      * @memberof TherapyRow
      */
-    notify?: boolean;
+    sms?: boolean;
 }

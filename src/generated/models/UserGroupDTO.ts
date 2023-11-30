@@ -12,19 +12,19 @@
  */
 
 /**
- * the user\'s group
+ * The user\'s group
  * @export
  * @interface UserGroupDTO
  */
 export interface UserGroupDTO {
     /**
-     * name of the group (must be unique)
+     * Name of the group (must be unique)
      * @type {string}
      * @memberof UserGroupDTO
      */
     code: string;
     /**
-     * the description of the group
+     * The description of the group
      * @type {string}
      * @memberof UserGroupDTO
      */

@@ -23,13 +23,13 @@ export interface PricesOthersDTO {
      */
     id?: number;
     /**
-     * the prices code
+     * The prices code
      * @type {string}
      * @memberof PricesOthersDTO
      */
     code: string;
     /**
-     * the description
+     * The description
      * @type {string}
      * @memberof PricesOthersDTO
      */

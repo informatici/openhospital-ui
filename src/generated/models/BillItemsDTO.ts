@@ -35,31 +35,31 @@ export interface BillItemsDTO {
      */
     priceId: string;
     /**
-     * item description
+     * Item description
      * @type {string}
      * @memberof BillItemsDTO
      */
     itemDescription: string;
     /**
-     * item amount
+     * Item amount
      * @type {number}
      * @memberof BillItemsDTO
      */
     itemAmount: number;
     /**
-     * item quantity
+     * Item quantity
      * @type {number}
      * @memberof BillItemsDTO
      */
     itemQuantity: number;
     /**
-     * item display code
+     * Item display code
      * @type {string}
      * @memberof BillItemsDTO
      */
     itemDisplayCode: string;
     /**
-     * item id
+     * Item id
      * @type {string}
      * @memberof BillItemsDTO
      */

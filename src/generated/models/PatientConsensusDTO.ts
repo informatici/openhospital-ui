@@ -18,19 +18,19 @@
  */
 export interface PatientConsensusDTO {
     /**
-     * consensus flag
+     * Consensus flag
      * @type {boolean}
      * @memberof PatientConsensusDTO
      */
     consensusFlag?: boolean;
     /**
-     * service flag
+     * Service flag
      * @type {boolean}
      * @memberof PatientConsensusDTO
      */
     serviceFlag?: boolean;
     /**
-     * patient id
+     * Patient id
      * @type {number}
      * @memberof PatientConsensusDTO
      */

@@ -39,19 +39,19 @@ export interface DiseaseDTO {
      */
     diseaseType: DiseaseTypeDTO;
     /**
-     * indicates whether the disease is an OPD disease
+     * Indicates whether the disease is an OPD disease
      * @type {boolean}
      * @memberof DiseaseDTO
      */
     opdInclude: boolean;
     /**
-     * indicates whether the disease is an IPD-IN disease
+     * Indicates whether the disease is an IPD-IN disease
      * @type {boolean}
      * @memberof DiseaseDTO
      */
     ipdInInclude: boolean;
     /**
-     * indicates whether the disease is an IPD-OUT disease
+     * Indicates whether the disease is an IPD-OUT disease
      * @type {boolean}
      * @memberof DiseaseDTO
      */
@@ -62,7 +62,7 @@ export interface DiseaseDTO {
      */
     readonly hashCode?: number;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof DiseaseDTO
      */

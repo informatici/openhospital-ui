@@ -26,6 +26,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderCon
      */
     transform?: PatientProfilePhotoPhotoAsImageGraphicsFontTransform;
     /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
+     */
+    transformed?: boolean;
+    /**
      * @type {object}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
      */
@@ -35,11 +40,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderCon
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
      */
     fractionalMetricsHint?: object;
-    /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext
-     */
-    transformed?: boolean;
     /**
      * @type {boolean}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext

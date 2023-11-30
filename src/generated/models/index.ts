@@ -74,7 +74,6 @@ export * from './TherapyRow';
 export * from './TherapyRowDTO';
 export * from './UserDTO';
 export * from './UserGroupDTO';
-export * from './UserMenuItemDTO';
 export * from './UserProfileDTO';
 export * from './UserSettingDTO';
 export * from './VaccineDTO';

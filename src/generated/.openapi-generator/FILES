@@ -35,7 +35,6 @@ apis\SMSApi.ts
 apis\StockMovementsApi.ts
 apis\SuppliersApi.ts
 apis\TherapiesApi.ts
-apis\UserSettingsApi.ts
 apis\UsersApi.ts
 apis\VaccineTypeApi.ts
 apis\VaccinesApi.ts
@@ -119,7 +118,6 @@ models\TherapyRow.ts
 models\TherapyRowDTO.ts
 models\UserDTO.ts
 models\UserGroupDTO.ts
-models\UserMenuItemDTO.ts
 models\UserProfileDTO.ts
 models\UserSettingDTO.ts
 models\VaccineDTO.ts

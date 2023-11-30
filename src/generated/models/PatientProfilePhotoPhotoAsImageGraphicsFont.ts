@@ -41,55 +41,20 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFont {
      */
     attributes?: { [key: string]: object; };
     /**
-     * @type {string}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    family?: string;
-    /**
-     * @type {string}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    fontName?: string;
-    /**
      * @type {PatientProfilePhotoPhotoAsImageGraphicsFontTransform}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
     transform?: PatientProfilePhotoPhotoAsImageGraphicsFontTransform;
     /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    bold?: boolean;
-    /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    italic?: boolean;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    numGlyphs?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    missingGlyphCode?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    italicAngle?: number;
-    /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    transformed?: boolean;
-    /**
      * @type {string}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
     psname?: string;
+    /**
+     * @type {string}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    fontName?: string;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
@@ -101,8 +66,43 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFont {
      */
     plain?: boolean;
     /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    bold?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    italic?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    transformed?: boolean;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    numGlyphs?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    missingGlyphCode?: number;
+    /**
      * @type {Array<object>}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
     availableAttributes?: Array<object>;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    italicAngle?: number;
+    /**
+     * @type {string}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    family?: string;
 }

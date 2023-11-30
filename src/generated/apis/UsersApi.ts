@@ -17,8 +17,8 @@ import {
     LitePermissionDTO,
     UserDTO,
     UserGroupDTO,
-    UserMenuItemDTO,
     UserProfileDTO,
+    UserSettingDTO,
 } from '../models';
 
 export interface DeleteGroupRequest {
@@ -29,12 +29,8 @@ export interface DeleteUserRequest {
     username: string;
 }
 
-export interface GetGroupMenuRequest {
-    groupCode: string;
-}
-
-export interface GetMenuRequest {
-    username: string;
+export interface DeleteUserSettingRequest {
+    id: number;
 }
 
 export interface GetUserRequest {
@@ -45,6 +41,15 @@ export interface GetUserByNameRequest {
     username: string;
 }
 
+export interface GetUserSettingByIdRequest {
+    id: number;
+}
+
+export interface GetUserSettingByUserRequest {
+    userName: string;
+    configName: string;
+}
+
 export interface NewUserRequest {
     userDTO: UserDTO;
 }
@@ -53,13 +58,12 @@ export interface NewUserGroupRequest {
     userGroupDTO: UserGroupDTO;
 }
 
-export interface RetrievePermissionsByUsernameRequest {
-    username: string;
+export interface NewUserSettingsRequest {
+    userSettingDTO: UserSettingDTO;
 }
 
-export interface SetGroupMenuRequest {
-    groupCode: string;
-    userMenuItemDTO: Array<UserMenuItemDTO>;
+export interface RetrievePermissionsByUsernameRequest {
+    username: string;
 }
 
 export interface UpdateUserRequest {
@@ -69,6 +73,11 @@ export interface UpdateUserRequest {
 
 export interface UpdateUserGroupRequest {
     userGroupDTO: UserGroupDTO;
+}
+
+export interface UpdateUserSettingsRequest {
+    id: number;
+    userSettingDTO: UserSettingDTO;
 }
 
 /**
@@ -114,36 +123,18 @@ export class UsersApi extends BaseAPI {
 
     /**
      */
-    getGroupMenu({ groupCode }: GetGroupMenuRequest): Observable<Array<UserMenuItemDTO>>
-    getGroupMenu({ groupCode }: GetGroupMenuRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserMenuItemDTO>>>
-    getGroupMenu({ groupCode }: GetGroupMenuRequest, opts?: OperationOpts): Observable<Array<UserMenuItemDTO> | RawAjaxResponse<Array<UserMenuItemDTO>>> {
-        throwIfNullOrUndefined(groupCode, 'groupCode', 'getGroupMenu');
+    deleteUserSetting({ id }: DeleteUserSettingRequest): Observable<boolean>
+    deleteUserSetting({ id }: DeleteUserSettingRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteUserSetting({ id }: DeleteUserSettingRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+        throwIfNullOrUndefined(id, 'id', 'deleteUserSetting');
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<Array<UserMenuItemDTO>>({
-            url: '/users/group-menus/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
-            method: 'GET',
-            headers,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     */
-    getMenu({ username }: GetMenuRequest): Observable<Array<UserMenuItemDTO>>
-    getMenu({ username }: GetMenuRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserMenuItemDTO>>>
-    getMenu({ username }: GetMenuRequest, opts?: OperationOpts): Observable<Array<UserMenuItemDTO> | RawAjaxResponse<Array<UserMenuItemDTO>>> {
-        throwIfNullOrUndefined(username, 'username', 'getMenu');
-
-        const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
-        };
-
-        return this.request<Array<UserMenuItemDTO>>({
-            url: '/users/menus/{username}'.replace('{username}', encodeURI(username)),
-            method: 'GET',
+        return this.request<boolean>({
+            url: '/users/settings/{id}'.replace('{id}', encodeURI(id)),
+            method: 'DELETE',
             headers,
         }, opts?.responseOpts);
     };
@@ -206,6 +197,59 @@ export class UsersApi extends BaseAPI {
 
     /**
      */
+    getUserSettingById({ id }: GetUserSettingByIdRequest): Observable<UserSettingDTO>
+    getUserSettingById({ id }: GetUserSettingByIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserSettingDTO>>
+    getUserSettingById({ id }: GetUserSettingByIdRequest, opts?: OperationOpts): Observable<UserSettingDTO | RawAjaxResponse<UserSettingDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'getUserSettingById');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<UserSettingDTO>({
+            url: '/users/settings/{id}'.replace('{id}', encodeURI(id)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getUserSettingByUser({ userName, configName }: GetUserSettingByUserRequest): Observable<UserSettingDTO>
+    getUserSettingByUser({ userName, configName }: GetUserSettingByUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserSettingDTO>>
+    getUserSettingByUser({ userName, configName }: GetUserSettingByUserRequest, opts?: OperationOpts): Observable<UserSettingDTO | RawAjaxResponse<UserSettingDTO>> {
+        throwIfNullOrUndefined(userName, 'userName', 'getUserSettingByUser');
+        throwIfNullOrUndefined(configName, 'configName', 'getUserSettingByUser');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<UserSettingDTO>({
+            url: '/users/{userName}/settings/{configName}'.replace('{userName}', encodeURI(userName)).replace('{configName}', encodeURI(configName)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getUserSettings(): Observable<Array<UserSettingDTO>>
+    getUserSettings(opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserSettingDTO>>>
+    getUserSettings(opts?: OperationOpts): Observable<Array<UserSettingDTO> | RawAjaxResponse<Array<UserSettingDTO>>> {
+        const headers: HttpHeaders = {
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<Array<UserSettingDTO>>({
+            url: '/users/settings',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
     newUser({ userDTO }: NewUserRequest): Observable<boolean>
     newUser({ userDTO }: NewUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
     newUser({ userDTO }: NewUserRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
@@ -241,6 +285,26 @@ export class UsersApi extends BaseAPI {
             method: 'POST',
             headers,
             body: userGroupDTO,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    newUserSettings({ userSettingDTO }: NewUserSettingsRequest): Observable<UserSettingDTO>
+    newUserSettings({ userSettingDTO }: NewUserSettingsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserSettingDTO>>
+    newUserSettings({ userSettingDTO }: NewUserSettingsRequest, opts?: OperationOpts): Observable<UserSettingDTO | RawAjaxResponse<UserSettingDTO>> {
+        throwIfNullOrUndefined(userSettingDTO, 'userSettingDTO', 'newUserSettings');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<UserSettingDTO>({
+            url: '/users/settings',
+            method: 'POST',
+            headers,
+            body: userSettingDTO,
         }, opts?.responseOpts);
     };
 
@@ -296,27 +360,6 @@ export class UsersApi extends BaseAPI {
 
     /**
      */
-    setGroupMenu({ groupCode, userMenuItemDTO }: SetGroupMenuRequest): Observable<boolean>
-    setGroupMenu({ groupCode, userMenuItemDTO }: SetGroupMenuRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    setGroupMenu({ groupCode, userMenuItemDTO }: SetGroupMenuRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
-        throwIfNullOrUndefined(groupCode, 'groupCode', 'setGroupMenu');
-        throwIfNullOrUndefined(userMenuItemDTO, 'userMenuItemDTO', 'setGroupMenu');
-
-        const headers: HttpHeaders = {
-            'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
-        };
-
-        return this.request<boolean>({
-            url: '/users/groups/{group_code}'.replace('{group_code}', encodeURI(groupCode)),
-            method: 'POST',
-            headers,
-            body: userMenuItemDTO,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     */
     updateUser({ userDTO, password }: UpdateUserRequest): Observable<boolean>
     updateUser({ userDTO, password }: UpdateUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
     updateUser({ userDTO, password }: UpdateUserRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
@@ -357,6 +400,27 @@ export class UsersApi extends BaseAPI {
             method: 'PUT',
             headers,
             body: userGroupDTO,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    updateUserSettings({ id, userSettingDTO }: UpdateUserSettingsRequest): Observable<UserSettingDTO>
+    updateUserSettings({ id, userSettingDTO }: UpdateUserSettingsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserSettingDTO>>
+    updateUserSettings({ id, userSettingDTO }: UpdateUserSettingsRequest, opts?: OperationOpts): Observable<UserSettingDTO | RawAjaxResponse<UserSettingDTO>> {
+        throwIfNullOrUndefined(id, 'id', 'updateUserSettings');
+        throwIfNullOrUndefined(userSettingDTO, 'userSettingDTO', 'updateUserSettings');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<UserSettingDTO>({
+            url: '/users/settings/{id}'.replace('{id}', encodeURI(id)),
+            method: 'PUT',
+            headers,
+            body: userSettingDTO,
         }, opts?.responseOpts);
     };
 

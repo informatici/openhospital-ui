@@ -60,15 +60,15 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontTransform {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontTransform
      */
+    determinant?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontTransform
+     */
     toRotation?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontTransform
      */
     toQuadrantRotation?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontTransform
-     */
-    determinant?: number;
 }

@@ -56,7 +56,7 @@ export interface LaboratoryDTO {
      */
     result?: string;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof LaboratoryDTO
      */

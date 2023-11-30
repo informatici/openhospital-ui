@@ -83,7 +83,7 @@ export interface PatientExaminationDTO {
      */
     pex_hr?: number;
     /**
-     * patient ausculation
+     * Patient ausculation
      * @type {string}
      * @memberof PatientExaminationDTO
      */

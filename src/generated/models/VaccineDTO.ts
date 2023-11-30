@@ -39,7 +39,7 @@ export interface VaccineDTO {
      */
     vaccineType: VaccineTypeDTO;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof VaccineDTO
      */

@@ -18,19 +18,19 @@
  */
 export interface LoginResponse {
     /**
-     * token
+     * Token
      * @type {string}
      * @memberof LoginResponse
      */
     token?: string;
     /**
-     * type of Token
+     * Type of Token
      * @type {string}
      * @memberof LoginResponse
      */
     type?: string;
     /**
-     * user name
+     * User name
      * @type {string}
      * @memberof LoginResponse
      */
