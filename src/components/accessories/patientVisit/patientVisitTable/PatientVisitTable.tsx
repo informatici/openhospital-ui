@@ -19,7 +19,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("visit.update");
+  const canUpdate = usePermission("opd.update");
   const header = ["date", "duration"];
   const dateFields = ["date"];
   const label = {

@@ -20,7 +20,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
   onEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("operation.update");
+  const canUpdate = usePermission("operations.update");
 
   const header = ["opDate", "operation"];
   const dateFields = ["opDate"];
