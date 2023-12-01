@@ -9,6 +9,7 @@ import {
   defaultGridLayoutCols,
   encodeLayout,
   getBreakpointFromWidth,
+  isEmptyLayout,
   removeDuplicates,
   removeWidget,
 } from "../consts";
@@ -31,6 +32,8 @@ import InfoBox from "../../../infoBox/InfoBox";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import "../styles.scss";
+import { UserSettingDTO } from "../../../../../generated";
+import { IAuthentication } from "../../../../../state/main/types";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -46,8 +49,16 @@ const GridLayoutContainer: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const gridLayoutRef = useRef<HTMLDivElement>(null);
 
+  const userCredentials = useSelector<IState, IAuthentication | undefined>(
+    (state) => state.main.authentication.data
+  );
+
   const layouts = useSelector<IState, Layouts>(
     (state) => state.layouts.layouts
+  );
+
+  const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
+    (state) => state.layouts.getLayouts.data
   );
 
   const toolbox = useSelector<IState, Layouts>(
@@ -63,12 +74,12 @@ const GridLayoutContainer: FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getLayouts());
+    dispatch(getLayouts(userCredentials?.username!));
     setMounted(true);
   }, []);
 
   const onRetry = () => {
-    dispatch(getLayouts());
+    dispatch(getLayouts(userCredentials?.username!));
   };
 
   const onReset = () => {
@@ -102,7 +113,20 @@ const GridLayoutContainer: FC = () => {
       return;
     }
 
-    dispatch(saveLayouts(encodeLayout({ layout: allLayouts, toolbox })));
+    let setting: UserSettingDTO;
+
+    if (!dashboardSetting) {
+      setting = {
+        configName: "dashboard",
+        user: userCredentials?.username!,
+      } as UserSettingDTO;
+    } else {
+      setting = { ...dashboardSetting };
+    }
+
+    setting.configValue = encodeLayout({ layout: allLayouts, toolbox });
+
+    dispatch(saveLayouts(setting));
   };
 
   const onItemRemove = (item: Layout) => {
@@ -118,9 +142,23 @@ const GridLayoutContainer: FC = () => {
 
     setCanUpdateLayouts(false);
 
-    dispatch(
-      saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))
-    );
+    let setting: UserSettingDTO;
+
+    if (!dashboardSetting) {
+      setting = {
+        configName: "dashboard",
+        user: userCredentials?.username!,
+      } as UserSettingDTO;
+    } else {
+      setting = { ...dashboardSetting };
+    }
+
+    setting.configValue = encodeLayout({
+      layout: layoutsTmp,
+      toolbox: toolboxTmp,
+    });
+
+    dispatch(saveLayouts(setting));
   };
 
   const onFullScreenEnter = (label: TDashboardComponent) => {
@@ -143,16 +181,20 @@ const GridLayoutContainer: FC = () => {
     (state: IState) => state.layouts.saveLayouts.status
   );
 
-  const errorMessage = useSelector(
-    (state: IState) =>
-      state.layouts.getLayouts.error?.response ||
-      state.layouts.resetLayouts.error?.response ||
-      t("dashboard.cantretrieveconfig")
+  const errorMessage = useSelector((state: IState) =>
+    t(
+      state.layouts.getLayouts.error?.message ||
+        state.layouts.resetLayouts.error?.message ||
+        "dashboard.cantretrieveconfig"
+    )
   );
 
-  const saveErrorMessage = useSelector(
-    (state: IState) =>
-      state.layouts.saveLayouts.error?.response ?? t("dashboard.cantsaveconfig")
+  useEffect(() => {
+    console.log(errorMessage);
+  }, [errorMessage]);
+
+  const saveErrorMessage = useSelector((state: IState) =>
+    t(state.layouts.saveLayouts.error?.message || "dashboard.cantsaveconfig")
   );
 
   return (
@@ -195,39 +237,61 @@ const GridLayoutContainer: FC = () => {
               <InfoBox type="error" message={saveErrorMessage} />
             </div>
           )}
-          <ResponsiveReactGridLayout
-            className="layout"
-            layouts={layouts}
-            onBreakpointChange={onBreakpointChange}
-            onLayoutChange={onLayoutChange}
-            isDraggable
-            isDroppable
-            isResizable
-            measureBeforeMount={false}
-            useCSSTransforms={mounted}
-            draggableHandle=".DashboardCard-item-header"
-            resizeHandles={["ne", "se"]}
-            breakpoints={defaultGridLayoutBreakpoints}
-            cols={defaultGridLayoutCols}
-          >
-            {layouts[getRealBreakpoint()].map((l, key) => {
-              let ldash = l.i as TDashboardComponent;
 
-              return (
-                <div key={ldash} style={{ background: "#ccc" }} data-grid={l}>
-                  <GridLayoutItem
-                    dashboardKey={ldash}
-                    onRemove={() => onItemRemove(l)}
-                    onFullScreenEnter={() =>
-                      onFullScreenEnter(l.i as TDashboardComponent)
-                    }
-                  />
-                </div>
-              );
-            })}
-          </ResponsiveReactGridLayout>
+          {isEmptyLayout(layouts) && (
+            <div
+              ref={infoBoxRef}
+              style={{ textAlign: "center" }}
+              className="info-box-container"
+            >
+              <InfoBox type="info" message={t("dashboard.noallowedwidget")} />
+            </div>
+          )}
 
-          <FullscreenCard dashboard={fsDashboard} onClose={onFullScreenExit} />
+          {!isEmptyLayout(layouts) && (
+            <>
+              <ResponsiveReactGridLayout
+                className="layout"
+                layouts={layouts}
+                onBreakpointChange={onBreakpointChange}
+                onLayoutChange={onLayoutChange}
+                isDraggable
+                isDroppable
+                isResizable
+                measureBeforeMount={false}
+                useCSSTransforms={mounted}
+                draggableHandle=".DashboardCard-item-header"
+                resizeHandles={["ne", "se"]}
+                breakpoints={defaultGridLayoutBreakpoints}
+                cols={defaultGridLayoutCols}
+              >
+                {layouts[getRealBreakpoint()].map((l, key) => {
+                  let ldash = l.i as TDashboardComponent;
+
+                  return (
+                    <div
+                      key={ldash}
+                      style={{ background: "#ccc" }}
+                      data-grid={l}
+                    >
+                      <GridLayoutItem
+                        dashboardKey={ldash}
+                        onRemove={() => onItemRemove(l)}
+                        onFullScreenEnter={() =>
+                          onFullScreenEnter(l.i as TDashboardComponent)
+                        }
+                      />
+                    </div>
+                  );
+                })}
+              </ResponsiveReactGridLayout>
+
+              <FullscreenCard
+                dashboard={fsDashboard}
+                onClose={onFullScreenExit}
+              />
+            </>
+          )}
         </>
       )}
     </div>

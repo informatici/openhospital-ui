@@ -84,10 +84,12 @@
     "togglefullscreen": "Toggle Fullscreen",
     "removedashboard": "Remove the Dashboard component",
     "downloaddata": "Download the underlying data",
-    "cantretrieveconfig": "Can't retrieve customisations",
-    "cantsaveconfig": "Can't save customisations",
+    "cantretrieveconfig": "Can't retrieve customizations",
+    "cantsaveconfig": "Can't save customizations",
     "reset": "Reset",
-    "resetcustomization": "Reset customisations"
+    "resetcustomization": "Reset customizations",
+    "toolboxempty": "Toolbox is empty",
+    "noallowedwidget": "You don't have permission to see any widget"
   },
   "patient": {
     "address": "Address",

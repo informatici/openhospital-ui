@@ -16,18 +16,18 @@ import {
 } from "./consts";
 import {
   decodeLayoutConfig,
+  encodeLayout,
   randomLayout,
   toolboxDashboards,
 } from "../../components/accessories/dashboard/layouts/consts";
 import { Layouts } from "react-grid-layout";
-import { UserSettingDTO } from "../../generated";
+import { UserSettingDTO, UsersApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import { UserSettingsApi } from "../../generated/apis/UserSettingsApi";
 
-const userSettingsApi = new UserSettingsApi(customConfiguration());
+const userSettingsApi = new UsersApi(customConfiguration());
 
 export const getLayouts =
-  () =>
+  (user: string) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: GET_LAYOUTS_LOADING,
@@ -37,59 +37,76 @@ export const getLayouts =
     let toolbox: Layouts;
     let savedConfig: string | undefined;
 
-    userSettingsApi.getUserSettingDashboard().subscribe(
-      (payload) => {
-        savedConfig = payload?.configValue;
-        if (savedConfig && atob(savedConfig) !== null) {
-          let decodedConfig = decodeLayoutConfig(savedConfig);
-          if (decodedConfig) {
-            layout = decodedConfig.layout;
-            toolbox = toolboxDashboards(
-              decodedConfig.layout,
-              decodedConfig.toolbox
-            );
+    userSettingsApi
+      .getUserSettingByUser({ configName: "dashboard", userName: user })
+      .subscribe(
+        (payload) => {
+          savedConfig = payload?.configValue;
+          if (savedConfig && atob(savedConfig) !== null) {
+            let decodedConfig = decodeLayoutConfig(savedConfig);
+            if (decodedConfig) {
+              layout = decodedConfig.layout;
+              toolbox = toolboxDashboards(
+                decodedConfig.layout,
+                decodedConfig.toolbox
+              );
+            } else {
+              layout = randomLayout(4);
+              toolbox = toolboxDashboards(layout, {});
+            }
           } else {
             layout = randomLayout(4);
             toolbox = toolboxDashboards(layout, {});
           }
-        } else {
-          layout = randomLayout(4);
-          toolbox = toolboxDashboards(layout, {});
-        }
 
-        dispatch({
-          type: GET_LAYOUTS_SUCCESS,
-          payload: { layout, toolbox },
-        });
-      },
-      (error) => {
-        dispatch({
-          type: GET_LAYOUTS_FAIL,
-          error: error?.response,
-        });
-      }
-    );
+          dispatch({
+            type: GET_LAYOUTS_SUCCESS,
+            payload: {
+              layout,
+              toolbox,
+              data: {
+                ...payload,
+                configValue: encodeLayout({ layout, toolbox }),
+              },
+            },
+          });
+        },
+        (error) => {
+          dispatch({
+            type: GET_LAYOUTS_FAIL,
+            error: error?.response,
+          });
+        }
+      );
   };
 
 export const saveLayouts =
-  (layoutConfig: string) =>
+  (setting: UserSettingDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: SAVE_LAYOUTS_LOADING,
     });
 
-    let setting: UserSettingDTO = {
-      configName: "dashboard",
-      configValue: layoutConfig,
-    } as any;
+    let saveUserRequest;
 
-    userSettingsApi.newUserSetting({ userSettingDTO: setting }).subscribe(
+    if (setting.id > 0) {
+      saveUserRequest = userSettingsApi.updateUserSettings({
+        id: setting.id,
+        userSettingDTO: setting,
+      });
+    } else {
+      saveUserRequest = userSettingsApi.newUserSettings({
+        userSettingDTO: setting,
+      });
+    }
+
+    saveUserRequest.subscribe(
       (payload) => {
-        let decodedConfig = decodeLayoutConfig(layoutConfig);
+        let decodedConfig = decodeLayoutConfig(setting.configValue);
 
         dispatch({
           type: SAVE_LAYOUTS_SUCCESS,
-          payload: decodedConfig,
+          payload: { ...decodedConfig, data: payload },
         });
       },
       (error) => {

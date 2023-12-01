@@ -4,6 +4,8 @@ import {
   LayoutConfiguration,
   TDashboardComponent,
 } from "./types";
+import { TPermission } from "../../../../types";
+import { getAuthenticationFromSession } from "../../../../libraries/authUtils/getAuthenticationFromSession";
 
 /**
  * This array contains all dashboard widgets
@@ -11,7 +13,7 @@ import {
  * and a `switch case` should be added in the switch control of a component
  * src\components\accessories\dashboard\layouts\item\GridLayoutItem.tsx
  */
-export const DASHBOARDS = [
+export const DASHBOARDS: TDashboardComponent[] = [
   "opdByAgeType",
   "opdBySex",
   "admissionBySex",
@@ -23,6 +25,23 @@ export const DASHBOARDS = [
   "dischargeByWard",
   "dischargeByType",
 ];
+
+/**
+ * This array is a map of dashboard widgets and related permissions
+ */
+export const DASHBOARDS_PERMISSIONS: Record<TDashboardComponent, TPermission> =
+  {
+    admissionByAgeType: "admission.read",
+    admissionBySex: "admission.read",
+    admissionByType: "admission.read",
+    admissionByWard: "admission.read",
+    dischargeByAgeType: "discharges.read",
+    dischargeBySex: "discharges.read",
+    dischargeByType: "discharges.read",
+    dischargeByWard: "discharges.read",
+    opdByAgeType: "opd.read",
+    opdBySex: "opd.read",
+  };
 
 export const defaultLayoutConfig: Layouts = {
   lg: generateLayout("lg"),
@@ -77,6 +96,8 @@ export const getBreakpointFromWidth = (width: number): string => {
  * Get dashboard label's translation key
  * @param dashboardKey Dashboard key
  * @returns Return the translation key
+ * @todo Create a map like DASHBOARDS_PERMISSIONS use it
+ * to get dashboards widget labels.
  */
 export function getDashboardLabel(dashboardKey: TDashboardComponent): string {
   switch (dashboardKey) {
@@ -156,12 +177,46 @@ export function removeDoubles(input1: Layouts, input2: Layouts): Layouts {
 }
 
 /**
+ * This function uses permissions stored in session storage
+ * to check if Authenticated user has permission to vie
+ * @returns Allowed dashboard widgets
+ */
+export function allowedDashboards(): TDashboardComponent[] {
+  let allowedDashboards: TDashboardComponent[] = [];
+
+  let permissions: TPermission[] = [];
+  try {
+    permissions = getAuthenticationFromSession().permissions;
+  } catch (error) {
+    console.log(error);
+  }
+
+  DASHBOARDS.forEach((dash) => {
+    if (permissions.includes(DASHBOARDS_PERMISSIONS[dash])) {
+      allowedDashboards.push(dash);
+    }
+  });
+
+  return allowedDashboards;
+}
+
+export function isEmptyLayout(input: Layouts): boolean {
+  let nbWidgets = 0;
+
+  ["lg", "md", "sm", "xs", "xxs"].forEach((breakpoint) => {
+    nbWidgets += input[breakpoint] ? input[breakpoint].length : 0;
+  });
+
+  return nbWidgets == 0;
+}
+
+/**
  * Generate layout for random Dashboards
  * @param nbDashboard Number of dashboard to generate
  * @returns Returns the layout config for specified Dashboards number
  */
 export function randomLayout(nbDashboard: number): Layouts {
-  let randomDashboards = randomItems(DASHBOARDS, nbDashboard);
+  let randomDashboards = randomItems(allowedDashboards(), nbDashboard);
 
   return removeDuplicates({
     lg: generateLayout("lg", randomDashboards),
@@ -196,7 +251,7 @@ export function toolboxDashboards(
   });
 
   ["lg", "md", "sm", "xs", "xxs"].forEach((breakpoint) => {
-    unknownDashboard[breakpoint] = DASHBOARDS.filter(
+    unknownDashboard[breakpoint] = allowedDashboards().filter(
       (dashboard) => !knownDashboard[breakpoint].includes(dashboard)
     );
   });
@@ -274,7 +329,7 @@ export function generateLayout(
   dashboards?: string[]
 ): Layout[] {
   if (!dashboards || dashboards.length == 0) {
-    dashboards = DASHBOARDS;
+    dashboards = allowedDashboards();
   }
 
   return dashboards.map((dashboardKey, index) => {
