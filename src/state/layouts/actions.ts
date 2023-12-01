@@ -63,7 +63,7 @@ export const getLayouts =
             type: GET_LAYOUTS_SUCCESS,
             payload: {
               layout,
-              toolbox,
+              toolbox: toolboxDashboards(layout, toolbox),
               data: {
                 ...payload,
                 configValue: encodeLayout({ layout, toolbox }),
