@@ -56,7 +56,7 @@ export interface MalnutritionDTO {
      */
     weight: number;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof MalnutritionDTO
      */

@@ -17,48 +17,49 @@ import {
 } from './';
 
 /**
+ * The opd
  * @export
  * @interface OpdDTO
  */
 export interface OpdDTO {
     /**
-     * the code of the opd
+     * The code of the opd
      * @type {number}
      * @memberof OpdDTO
      */
     code?: number;
     /**
-     * the date of the admission
+     * The date of the admission
      * @type {string}
      * @memberof OpdDTO
      */
     date?: string;
     /**
-     * the next visit date
+     * The next visit date
      * @type {string}
      * @memberof OpdDTO
      */
     nextVisitDate?: string;
     /**
-     * the admitted patient code
+     * The admitted patient code
      * @type {number}
      * @memberof OpdDTO
      */
     patientCode?: number;
     /**
-     * the patient age
+     * The patient age
      * @type {number}
      * @memberof OpdDTO
      */
     age: number;
     /**
-     * the patient sex
+     * The patient sex
      * @type {string}
      * @memberof OpdDTO
      */
     sex: string;
     /**
-     * the patient sex
+     * The patient sex
      * @type {string}
      * @memberof OpdDTO
      */
@@ -70,13 +71,13 @@ export interface OpdDTO {
      */
     ageType?: string;
     /**
-     * the admission note
+     * The admission note
      * @type {string}
      * @memberof OpdDTO
      */
     note: string;
     /**
-     * a progr. in year for each ward
+     * A progr. in year for each ward
      * @type {number}
      * @memberof OpdDTO
      */
@@ -97,25 +98,25 @@ export interface OpdDTO {
      */
     disease3?: DiseaseDTO;
     /**
-     * new(N) or reattendance(R) patient
+     * New(N) or Reattendance(R) patient
      * @type {string}
      * @memberof OpdDTO
      */
     newPatient: string;
     /**
-     * referral from another unit
+     * Referral from another unit
      * @type {string}
      * @memberof OpdDTO
      */
     referralFrom?: string;
     /**
-     * referral to another unit
+     * Referral to another unit
      * @type {string}
      * @memberof OpdDTO
      */
     referralTo?: string;
     /**
-     * user id
+     * User id
      * @type {string}
      * @memberof OpdDTO
      */
@@ -131,19 +132,19 @@ export interface OpdDTO {
      */
     readonly hashCode?: number;
     /**
-     * reasons for entry
+     * Reasons for entry
      * @type {string}
      * @memberof OpdDTO
      */
     reason?: string;
     /**
-     * history of a medical or psychiatric patient
+     * History of a medical or psychiatric patient
      * @type {string}
      * @memberof OpdDTO
      */
     anamnesis?: string;
     /**
-     * allergies of patient
+     * Allergies of patient
      * @type {string}
      * @memberof OpdDTO
      */
@@ -155,7 +156,7 @@ export interface OpdDTO {
      */
     therapies?: string;
     /**
-     * prescription
+     * Prescription
      * @type {string}
      * @memberof OpdDTO
      */

@@ -21,7 +21,7 @@ import {
  */
 export interface UserDTO {
     /**
-     * the username (must be unique)
+     * The username (must be unique)
      * @type {string}
      * @memberof UserDTO
      */
@@ -32,13 +32,13 @@ export interface UserDTO {
      */
     userGroupName: UserGroupDTO;
     /**
-     * the user\'s password
+     * The user\'s password
      * @type {string}
      * @memberof UserDTO
      */
     passwd: string;
     /**
-     * the user\'s description
+     * The user\'s description
      * @type {string}
      * @memberof UserDTO
      */

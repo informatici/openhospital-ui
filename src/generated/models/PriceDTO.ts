@@ -32,25 +32,25 @@ export interface PriceDTO {
      */
     list: PriceList;
     /**
-     * the group
+     * The group
      * @type {string}
      * @memberof PriceDTO
      */
     group: string;
     /**
-     * the item name
+     * The item name
      * @type {string}
      * @memberof PriceDTO
      */
     item: string;
     /**
-     * the description
+     * The description
      * @type {string}
      * @memberof PriceDTO
      */
     description: string;
     /**
-     * price
+     * Price
      * @type {number}
      * @memberof PriceDTO
      */

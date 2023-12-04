@@ -16,8 +16,14 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
     [landingPageRoute, location]
   );
 
-  const status = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.main.authentication.status || "IDLE"
+  const state = useSelector<IState, IState>((state) => state);
+
+  const status = useMemo(
+    () =>
+      ["SUCCESS", "FAIL"].includes(state.main.settings.status!)
+        ? state.main.authentication.status!
+        : state.main.settings.status!,
+    [state.main.settings.status, state.main.authentication.status]
   );
 
   if (status === "SUCCESS") {

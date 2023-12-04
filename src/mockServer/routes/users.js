@@ -7,8 +7,13 @@ export const userRoutes = (server) => {
         userName: "admin",
         permissions: permissionList,
         userGroupName: "ADMIN",
-        userDesc: "John Doe"
+        userDesc: "John Doe",
       });
+    });
+    server.get("/settings").intercept((req, res) => {
+      res
+        .status(200)
+        .json([{ id: 1, configName: "landing", configValue: "/dashboard" }]);
     });
   });
 };

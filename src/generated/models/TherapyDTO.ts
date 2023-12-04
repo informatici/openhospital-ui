@@ -68,13 +68,13 @@ export interface TherapyDTO {
      */
     note?: string;
     /**
-     * the notify flag: true if the notification need to be activated, false otherwise
+     * The notify flag: true if the notification need to be activated, false otherwise
      * @type {boolean}
      * @memberof TherapyDTO
      */
     notify?: boolean;
     /**
-     * the sms flag: true if sms need to be sent to patient, false otherwise
+     * The sms flag: true if sms need to be sent to patient, false otherwise
      * @type {boolean}
      * @memberof TherapyDTO
      */

@@ -23,25 +23,25 @@ export interface PriceListDTO {
      */
     id?: number;
     /**
-     * the price list code
+     * The price list code
      * @type {string}
      * @memberof PriceListDTO
      */
     code?: string;
     /**
-     * the name of list
+     * The name of the price list
      * @type {string}
      * @memberof PriceListDTO
      */
     name?: string;
     /**
-     * the price list description
+     * The price list description
      * @type {string}
      * @memberof PriceListDTO
      */
     description?: string;
     /**
-     * the currency
+     * The currency
      * @type {string}
      * @memberof PriceListDTO
      */
