@@ -15,16 +15,14 @@ export const useLandingPageRoute = () => {
 
   // Calculate the landing page route based on the user's permissions.
   const landingPageRoute = useMemo(() => {
-    const route =
-      settings.find((e) => e.configName === "landing")?.configValue ?? "/";
-    const matched = landingPagePriority
-      .filter((e) => permissions.includes(e.permission))
-      .map((e) => e.route);
-    return matched.length > 0
-      ? matched.includes(route ?? "")
-        ? route
-        : matched[0]
-      : defaultRoute;
+    const route = settings.find((e) => e.configName === "landing")?.configValue;
+    return (
+      landingPagePriority.find((e) =>
+        route
+          ? e.route === route && permissions.includes(e.permission)
+          : permissions.includes(e.permission)
+      )?.route ?? defaultRoute
+    );
   }, [permissions, settings]);
 
   // Return the landing page route.
