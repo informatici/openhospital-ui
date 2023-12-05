@@ -17,11 +17,12 @@ export const useLandingPageRoute = () => {
   const landingPageRoute = useMemo(() => {
     const route = settings.find((e) => e.configName === "landing")?.configValue;
     return (
-      landingPagePriority.find((e) =>
-        route
-          ? e.route === route && permissions.includes(e.permission)
-          : permissions.includes(e.permission)
-      )?.route ?? defaultRoute
+      landingPagePriority.find(
+        (e) => e.route === route && permissions.includes(e.permission)
+      )?.route ??
+      landingPagePriority.find((e) => permissions.includes(e.permission))
+        ?.route ??
+      defaultRoute
     );
   }, [permissions, settings]);
 
