@@ -109,7 +109,7 @@ const GridLayoutToolbox: FC = () => {
         <div className="section">
           {isEmptyLayout(toolbox) && (
             <div className="info-box-container" style={{ textAlign: "center" }}>
-              <InfoBox type="info" message={t("dashboard.toolboxempty")} />
+              <InfoBox type="info" message={t("dashboard.nowidgets")} />
             </div>
           )}
 

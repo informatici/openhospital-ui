@@ -88,7 +88,7 @@
     "cantsaveconfig": "Can't save customizations",
     "reset": "Reset",
     "resetcustomization": "Reset customizations",
-    "toolboxempty": "Toolbox is empty",
+    "nowidgets": "No widgets",
     "noallowedwidget": "You don't have permission to see any widget",
     "emptylayout": "No displayed widget. Start by adding widgets"
   },
