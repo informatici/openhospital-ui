@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
-import { LoginRequest, UserProfileDTO } from "../../generated";
+import { LoginRequest, UserProfileDTO, UserSettingDTO } from "../../generated";
 import { LoginApi } from "../../generated/apis/LoginApi";
 import { UsersApi } from "../../generated/apis/UsersApi";
 import { LoginResponse } from "../../generated/models/LoginResponse";
@@ -27,6 +27,9 @@ import {
   SET_FORGOT_PASSWORD_LOADING,
   SET_FORGOT_PASSWORD_SUCCESS,
   RESET_FORGOT_PASSWORD,
+  GET_USER_SETTINGS_LOADING,
+  GET_USER_SETTINGS_SUCCESS,
+  GET_USER_SETTINGS_FAIL,
 } from "./consts";
 import { IAuthentication } from "./types";
 
@@ -161,4 +164,21 @@ export const resetForgotPasswordThunk =
     dispatch({
       type: RESET_FORGOT_PASSWORD,
     });
+  };
+
+export const getUserSettings =
+  () =>
+  (dispatch: Dispatch<IAction<UserSettingDTO[], {}>>): void => {
+    dispatch({
+      type: GET_USER_SETTINGS_LOADING,
+    });
+
+    usersApi.getUserSettings().subscribe(
+      (settings) => {
+        dispatch({ type: GET_USER_SETTINGS_SUCCESS, payload: settings });
+      },
+      () => {
+        dispatch({ type: GET_USER_SETTINGS_FAIL });
+      }
+    );
   };

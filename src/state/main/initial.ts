@@ -10,4 +10,7 @@ export const initial: IMainState = {
   forgotpassword: {
     status: "IDLE",
   },
+  settings: {
+    status: "IDLE",
+  },
 };
