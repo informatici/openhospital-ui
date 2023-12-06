@@ -145,7 +145,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   return (
     <div className="patientOperation">
       <Permission
-        require={creationMode ? "operation.create" : "operation.update"}
+        require={creationMode ? "operations.create" : "operations.update"}
       >
         <OperationRowForm
           fields={fields}
@@ -186,7 +186,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
         />
       </Permission>
 
-      <Permission require="operation.read">
+      <Permission require="operations.read">
         {!opd && (
           <PatientOperationTable
             onEdit={onEdit}
