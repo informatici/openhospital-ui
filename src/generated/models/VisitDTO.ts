@@ -57,13 +57,13 @@ export interface VisitDTO {
      */
     ward?: WardDTO;
     /**
-     * duration of the visit
+     * Duration of the visit
      * @type {number}
      * @memberof VisitDTO
      */
     duration?: number;
     /**
-     * service done during the visit
+     * Service done during the visit
      * @type {string}
      * @memberof VisitDTO
      */

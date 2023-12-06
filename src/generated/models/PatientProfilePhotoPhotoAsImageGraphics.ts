@@ -30,6 +30,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphics {
      */
     color?: PatientProfilePhotoPhotoAsImageGraphicsColor;
     /**
+     * @type {PatientProfilePhotoPhotoAsImageGraphicsColor}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphics
+     */
+    xormode?: PatientProfilePhotoPhotoAsImageGraphicsColor;
+    /**
      * @type {PatientProfilePhotoPhotoAsImageGraphicsFont}
      * @memberof PatientProfilePhotoPhotoAsImageGraphics
      */
@@ -44,11 +49,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphics {
      * @memberof PatientProfilePhotoPhotoAsImageGraphics
      */
     clipBounds?: PatientProfilePhotoPhotoAsImageGraphicsClipBounds;
-    /**
-     * @type {PatientProfilePhotoPhotoAsImageGraphicsColor}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphics
-     */
-    xormode?: PatientProfilePhotoPhotoAsImageGraphicsColor;
     /**
      * @type {PatientProfilePhotoPhotoAsImageGraphicsClip}
      * @memberof PatientProfilePhotoPhotoAsImageGraphics

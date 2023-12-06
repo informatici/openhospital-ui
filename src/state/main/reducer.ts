@@ -9,6 +9,9 @@ import {
   SET_LOGOUT_LOADING,
   SET_LOGOUT_SUCCESS,
   RESET_FORGOT_PASSWORD,
+  GET_USER_SETTINGS_SUCCESS,
+  GET_USER_SETTINGS_LOADING,
+  GET_USER_SETTINGS_FAIL,
 } from "./consts";
 import { initial } from "./initial";
 import { IMainState } from "./types";
@@ -40,6 +43,9 @@ export default produce((draft: IMainState, action: any) => {
       draft.authentication.status = "IDLE";
       draft.authentication.data = undefined;
       draft.logout.status = "SUCCESS";
+      draft.settings.status = "IDLE";
+      draft.settings.data = undefined;
+      draft.settings.error = undefined;
       break;
     }
     case SET_LOGOUT_LOADING: {
@@ -58,6 +64,22 @@ export default produce((draft: IMainState, action: any) => {
       draft.authentication.status = "IDLE";
       draft.authentication.data = undefined;
       draft.forgotpassword.status = "IDLE";
+      break;
+    }
+    case GET_USER_SETTINGS_LOADING: {
+      draft.settings.status = "LOADING";
+      break;
+    }
+    case GET_USER_SETTINGS_SUCCESS: {
+      draft.settings.status = "SUCCESS";
+      draft.settings.data = action.payload;
+      break;
+    }
+    case GET_USER_SETTINGS_FAIL: {
+      draft.settings.status = "FAIL";
+      draft.settings.error = action.error;
+      draft.settings.data = undefined;
+      break;
     }
   }
 }, initial);

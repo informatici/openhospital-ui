@@ -22,18 +22,21 @@ export interface PermissionDTO {
      */
     name?: string;
     /**
+     * The permission id
      * @type {number}
      * @memberof PermissionDTO
      */
-    id?: number;
+    id: number;
     /**
+     * The permission description
      * @type {string}
      * @memberof PermissionDTO
      */
-    description?: string;
+    description: string;
     /**
+     * The user group id
      * @type {Array<string>}
      * @memberof PermissionDTO
      */
-    userGroupIds?: Array<string>;
+    userGroupIds: Array<string>;
 }

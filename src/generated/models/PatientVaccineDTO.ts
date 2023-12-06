@@ -27,13 +27,13 @@ export interface PatientVaccineDTO {
      */
     code?: number;
     /**
-     * a progr. in year
+     * A progr. in year
      * @type {number}
      * @memberof PatientVaccineDTO
      */
     progr: number;
     /**
-     * the vaccine date
+     * The vaccine date
      * @type {string}
      * @memberof PatientVaccineDTO
      */
@@ -49,7 +49,7 @@ export interface PatientVaccineDTO {
      */
     vaccine: VaccineDTO;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof PatientVaccineDTO
      */

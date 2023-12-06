@@ -42,21 +42,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetrics {
      */
     leading?: number;
     /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
-     */
-    height?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
-     */
-    maxDescent?: number;
-    /**
-     * @type {Array<number>}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
-     */
-    widths?: Array<number>;
-    /**
      * @type {PatientProfilePhotoPhotoAsImageGraphicsFontMetricsFontRenderContext}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
@@ -70,10 +55,25 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetrics {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
+    maxDescent?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
+     */
     maxDecent?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
     maxAdvance?: number;
+    /**
+     * @type {Array<number>}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
+     */
+    widths?: Array<number>;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
+     */
+    height?: number;
 }

@@ -65,7 +65,7 @@ export interface HospitalDTO {
      */
     currencyCod?: string;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof HospitalDTO
      */

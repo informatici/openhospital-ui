@@ -123,7 +123,7 @@ export interface PatientDTO {
    */
   bloodType: string;
   /**
-   * hasInsurance (Y=Yes, N=no)
+   * HasInsurance (Y=Yes, N=no)
    * @type {string}
    * @memberof PatientDTO
    */
@@ -141,7 +141,7 @@ export interface PatientDTO {
    */
   taxCode?: string;
   /**
-   * lock
+   * Lock
    * @type {number}
    * @memberof PatientDTO
    */
@@ -158,7 +158,7 @@ export interface PatientDTO {
    */
   readonly hashCode?: number;
   /**
-   * allergies of patient
+   * Allergies of patient
    * @type {string}
    * @memberof PatientDTO
    */
@@ -170,19 +170,19 @@ export interface PatientDTO {
    */
   anamnesis?: string;
   /**
-   * status
+   * Status
    * @type {string}
    * @memberof PatientDTO
    */
   status?: PatientDTOStatusEnum;
   /**
-   * consensus flag
+   * Consensus flag
    * @type {boolean}
    * @memberof PatientDTO
    */
   consensusFlag?: boolean;
   /**
-   * consensus service flag
+   * Consensus service flag
    * @type {boolean}
    * @memberof PatientDTO
    */

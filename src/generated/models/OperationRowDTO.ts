@@ -34,21 +34,25 @@ export interface OperationRowDTO {
      */
     operation: OperationDTO;
     /**
+     * The presciber of the operation
      * @type {string}
      * @memberof OperationRowDTO
      */
     prescriber: string;
     /**
+     * The result of the operation
      * @type {string}
      * @memberof OperationRowDTO
      */
     opResult: string;
     /**
+     * Operation registration date
      * @type {string}
      * @memberof OperationRowDTO
      */
     opDate: string;
     /**
+     * The remark of the operation
      * @type {string}
      * @memberof OperationRowDTO
      */
@@ -69,6 +73,7 @@ export interface OperationRowDTO {
      */
     bill?: BillDTO;
     /**
+     * The transunit
      * @type {number}
      * @memberof OperationRowDTO
      */

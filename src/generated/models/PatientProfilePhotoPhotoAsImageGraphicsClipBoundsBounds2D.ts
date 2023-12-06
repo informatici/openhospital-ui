@@ -25,11 +25,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
-    height?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
-     */
     maxX?: number;
     /**
      * @type {number}
@@ -46,6 +41,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
     centerY?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
+     */
+    height?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D

@@ -86,7 +86,7 @@ export interface TherapyRowDTO {
      */
     notifyInt: number;
     /**
-     * the sms flag: 1 if sms need to be sent to patient, 0 otherwise
+     * The sms flag: 1 if sms need to be sent to patient, 0 otherwise
      * @type {number}
      * @memberof TherapyRowDTO
      */

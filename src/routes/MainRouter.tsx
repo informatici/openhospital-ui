@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Navigate, Route, Routes } from "react-router";
 import Dashboard from "../components/accessories/dashboard/Dashboard";
@@ -11,8 +11,22 @@ import VisitsActivity from "../components/activities/visitsActivity/VisitsActivi
 import { Private } from "../components/Private";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
 import { PATHS } from "../consts";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../types";
+import { TAPIResponseStatus } from "../state/types";
+import { getUserSettings } from "../state/main/actions";
 
 export const MainRouter: React.FC = () => {
+  const dispatch = useDispatch();
+  const status = useSelector<IState, TAPIResponseStatus>(
+    (state) => state.main.authentication.status!
+  );
+  useEffect(() => {
+    if (status === "SUCCESS") {
+      dispatch(getUserSettings());
+    }
+  }, [status]);
+
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>

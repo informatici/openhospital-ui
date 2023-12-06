@@ -34,7 +34,6 @@ export * from './SMSApi';
 export * from './StockMovementsApi';
 export * from './SuppliersApi';
 export * from './TherapiesApi';
-export * from './UserSettingsApi';
 export * from './UsersApi';
 export * from './VaccineTypeApi';
 export * from './VaccinesApi';

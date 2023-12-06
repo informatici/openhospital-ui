@@ -51,7 +51,7 @@ export interface ExamDTO {
      */
     examtype?: ExamTypeDTO;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof ExamDTO
      */

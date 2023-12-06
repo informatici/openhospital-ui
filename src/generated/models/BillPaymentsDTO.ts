@@ -29,19 +29,19 @@ export interface BillPaymentsDTO {
      */
     billId: number;
     /**
-     * date of payment
+     * Date of payment
      * @type {string}
      * @memberof BillPaymentsDTO
      */
     date: string;
     /**
-     * the payment amount
+     * The payment amount
      * @type {number}
      * @memberof BillPaymentsDTO
      */
     amount: number;
     /**
-     * the current user
+     * The current user
      * @type {string}
      * @memberof BillPaymentsDTO
      */

@@ -61,7 +61,7 @@ export interface BillDTO {
      */
     patientTrue: boolean;
     /**
-     * patient name
+     * Patient name
      * @type {string}
      * @memberof BillDTO
      */

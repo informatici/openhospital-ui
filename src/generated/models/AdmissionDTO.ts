@@ -24,24 +24,25 @@ import {
 } from './';
 
 /**
+ * The admission
  * @export
  * @interface AdmissionDTO
  */
 export interface AdmissionDTO {
     /**
-     * admission key
+     * Admission key
      * @type {number}
      * @memberof AdmissionDTO
      */
     id?: number;
     /**
-     * if admitted or not
+     * If admitted or not
      * @type {number}
      * @memberof AdmissionDTO
      */
     admitted: number;
     /**
-     * type of admission
+     * Type of admission
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -57,7 +58,7 @@ export interface AdmissionDTO {
      */
     patient?: PatientDTO;
     /**
-     * admission date
+     * Admission date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -93,19 +94,19 @@ export interface AdmissionDTO {
      */
     operation?: OperationDTO;
     /**
-     * operation date
+     * Operation date
      * @type {string}
      * @memberof AdmissionDTO
      */
     opDate?: string;
     /**
-     * operation result value is \'P\' or \'N\' 
+     * Operation result value is \'P\' or \'N\' 
      * @type {string}
      * @memberof AdmissionDTO
      */
     opResult?: string;
     /**
-     * discharge date
+     * Discharge date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -116,19 +117,19 @@ export interface AdmissionDTO {
      */
     disType?: DischargeTypeDTO;
     /**
-     * free note
+     * Free note
      * @type {string}
      * @memberof AdmissionDTO
      */
     note?: string;
     /**
-     * transfusional unit
+     * Transfusional unit
      * @type {number}
      * @memberof AdmissionDTO
      */
     transUnit?: number;
     /**
-     * visit date
+     * Visit date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -139,7 +140,7 @@ export interface AdmissionDTO {
      */
     pregTreatmentType?: PregnantTreatmentTypeDTO;
     /**
-     * delivery date
+     * Delivery date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -155,7 +156,7 @@ export interface AdmissionDTO {
      */
     deliveryResult?: DeliveryResultTypeDTO;
     /**
-     * weight
+     * Weight
      * @type {number}
      * @memberof AdmissionDTO
      */
@@ -176,7 +177,7 @@ export interface AdmissionDTO {
      */
     abortDate?: string;
     /**
-     * weight
+     * User id
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -187,25 +188,25 @@ export interface AdmissionDTO {
      */
     readonly hashCode?: number;
     /**
-     * lock
+     * Lock
      * @type {number}
      * @memberof AdmissionDTO
      */
     lock?: number;
     /**
-     * flag record deleted, values are \'Y\' OR \'N\' 
+     * Flag record deleted, values are \'Y\' OR \'N\' 
      * @type {string}
      * @memberof AdmissionDTO
      */
     deleted: string;
     /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    fhu?: string;
-    /**
      * @type {number}
      * @memberof AdmissionDTO
      */
     yprog?: number;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    fhu?: string;
 }

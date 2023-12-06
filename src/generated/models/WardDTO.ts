@@ -17,26 +17,31 @@
  */
 export interface WardDTO {
     /**
+     * The ward code
      * @type {string}
      * @memberof WardDTO
      */
     code?: string;
     /**
+     * The name of the ward
      * @type {string}
      * @memberof WardDTO
      */
     description: string;
     /**
+     * The phone number of the ward
      * @type {string}
      * @memberof WardDTO
      */
     telephone?: string;
     /**
+     * The fax number of the ward
      * @type {string}
      * @memberof WardDTO
      */
     fax?: string;
     /**
+     * The email of the ward
      * @type {string}
      * @memberof WardDTO
      */
@@ -71,12 +76,7 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    pharmacy?: boolean;
-    /**
-     * @type {boolean}
-     * @memberof WardDTO
-     */
-    male?: boolean;
+    opd?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO
@@ -86,5 +86,10 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    opd?: boolean;
+    male?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof WardDTO
+     */
+    pharmacy?: boolean;
 }
