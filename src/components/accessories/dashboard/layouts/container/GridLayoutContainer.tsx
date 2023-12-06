@@ -189,10 +189,6 @@ const GridLayoutContainer: FC = () => {
     )
   );
 
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
-
   const saveErrorMessage = useSelector((state: IState) =>
     t(state.layouts.saveLayouts.error?.message || "dashboard.cantsaveconfig")
   );
@@ -244,7 +240,11 @@ const GridLayoutContainer: FC = () => {
               style={{ textAlign: "center" }}
               className="info-box-container"
             >
-              <InfoBox type="info" message={t("dashboard.noallowedwidget")} />
+              {isEmptyLayout(toolbox) ? (
+                <InfoBox type="info" message={t("dashboard.noallowedwidget")} />
+              ) : (
+                <InfoBox type="info" message={t("dashboard.emptylayout")} />
+              )}
             </div>
           )}
 

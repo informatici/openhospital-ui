@@ -165,6 +165,10 @@ export function removeDuplicates(input: Layouts): Layouts {
 export function removeDoubles(input1: Layouts, input2: Layouts): Layouts {
   let cleanInput: Layouts = {};
 
+  if (Object.keys(input2).length === 0) {
+    return input1;
+  }
+
   Object.keys(input1).forEach((breakpoint) => {
     let breakpointConfig = input1[breakpoint].filter((layout) => {
       return !input2[breakpoint].some((layout1) => layout1.i == layout.i);
@@ -188,7 +192,7 @@ export function allowedDashboards(): TDashboardComponent[] {
   try {
     permissions = getAuthenticationFromSession().permissions;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 
   DASHBOARDS.forEach((dash) => {
@@ -453,15 +457,32 @@ export const addWidget = (
   breakpoint: LayoutBreakpoints
 ): Layouts => {
   let layouts: Layouts = {};
-  Object.keys(input).forEach((currentBreakpoint) => {
-    let breakpointConfig = [
-      ...input[currentBreakpoint],
-      breakpoint === currentBreakpoint
-        ? widget
-        : generateLayout(currentBreakpoint as LayoutBreakpoints, [widget.i])[0],
-    ];
-    layouts[currentBreakpoint] = breakpointConfig;
-  });
+
+  if (Object.keys(input).length === 0) {
+    ["lg", "md", "sm", "xs", "xxs"].forEach((currentBreakpoint) => {
+      let breakpointConfig = [
+        ...(input[currentBreakpoint] ?? []),
+        breakpoint === currentBreakpoint
+          ? widget
+          : generateLayout(currentBreakpoint as LayoutBreakpoints, [
+              widget.i,
+            ])[0],
+      ];
+      layouts[currentBreakpoint] = breakpointConfig;
+    });
+  } else {
+    Object.keys(input).forEach((currentBreakpoint) => {
+      let breakpointConfig = [
+        ...input[currentBreakpoint],
+        breakpoint === currentBreakpoint
+          ? widget
+          : generateLayout(currentBreakpoint as LayoutBreakpoints, [
+              widget.i,
+            ])[0],
+      ];
+      layouts[currentBreakpoint] = breakpointConfig;
+    });
+  }
 
   return layouts;
 };

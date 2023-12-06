@@ -89,7 +89,8 @@
     "reset": "Reset",
     "resetcustomization": "Reset customizations",
     "toolboxempty": "Toolbox is empty",
-    "noallowedwidget": "You don't have permission to see any widget"
+    "noallowedwidget": "You don't have permission to see any widget",
+    "emptylayout": "No displayed widget. Start by adding widgets"
   },
   "patient": {
     "address": "Address",

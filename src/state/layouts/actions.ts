@@ -72,10 +72,31 @@ export const getLayouts =
           });
         },
         (error) => {
-          dispatch({
-            type: GET_LAYOUTS_FAIL,
-            error: error?.response,
-          });
+          // If dashboard customization is not found, init an empty
+          // customization
+          if (error.status === 400) {
+            let layout: Layouts = {};
+            let toolbox: Layouts = toolboxDashboards({}, {});
+            let setting = {
+              configName: "dashboard",
+              configValue: encodeLayout({ layout, toolbox }),
+              user,
+            } as UserSettingDTO;
+
+            dispatch({
+              type: GET_LAYOUTS_SUCCESS,
+              payload: {
+                layout,
+                toolbox,
+                data: setting,
+              },
+            });
+          } else {
+            dispatch({
+              type: GET_LAYOUTS_FAIL,
+              error: error?.response,
+            });
+          }
         }
       );
   };
