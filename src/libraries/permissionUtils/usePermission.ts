@@ -10,5 +10,5 @@ export const usePermission = (name: TPermission): boolean => {
   if (process.env.REACT_APP_ENABLE_PERMISSIONS === "false") {
     return true;
   }
-  return Boolean(permissions.find((permission: string) => permission === name));
+  return permissions.includes(name);
 };

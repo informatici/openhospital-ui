@@ -13,7 +13,7 @@ export const userRoutes = (server) => {
     server.get("/settings").intercept((req, res) => {
       res
         .status(200)
-        .json([{ id: 1, configName: "landing", configValue: "/laboratory" }]);
+        .json([{ id: 1, configName: "landing", configValue: "/" }]);
     });
   });
 };
