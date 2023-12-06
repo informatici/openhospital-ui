@@ -51,12 +51,23 @@ export const getLayouts =
                 decodedConfig.toolbox
               );
             } else {
-              layout = randomLayout(4);
+              layout = {};
               toolbox = toolboxDashboards(layout, {});
             }
           } else {
-            layout = randomLayout(4);
+            //layout = randomLayout(4);
+            layout = {};
             toolbox = toolboxDashboards(layout, {});
+          }
+
+          if (!payload) {
+            payload = {
+              configName: "dashboard",
+              configValue: encodeLayout({ layout, toolbox }),
+              user,
+            } as UserSettingDTO;
+          } else {
+            payload.configValue = encodeLayout({ layout, toolbox });
           }
 
           dispatch({
@@ -64,17 +75,14 @@ export const getLayouts =
             payload: {
               layout,
               toolbox: toolboxDashboards(layout, toolbox),
-              data: {
-                ...payload,
-                configValue: encodeLayout({ layout, toolbox }),
-              },
+              data: payload,
             },
           });
         },
         (error) => {
           // If dashboard customization is not found, init an empty
           // customization
-          if (error.status === 400) {
+          if (error.status === 404) {
             let layout: Layouts = {};
             let toolbox: Layouts = toolboxDashboards({}, {});
             let setting = {
