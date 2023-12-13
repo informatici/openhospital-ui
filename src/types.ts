@@ -223,4 +223,4 @@ export type TPermission =
   | "dashboard.access"
   | "laboratories.access"
   | "patients.access"
-  | "visits.access";
+  | "opds.access";

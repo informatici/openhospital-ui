@@ -23,7 +23,7 @@ export const landingPagePriority: TLandingPagePriority[] = [
     route: "/laboratory",
   },
   {
-    permission: "visits.access",
+    permission: "opds.access",
     route: "/visits",
   },
 ];
