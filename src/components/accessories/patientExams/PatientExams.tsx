@@ -36,7 +36,6 @@ import {
   updateLabFields,
 } from "../../../libraries/formDataHandling/functions";
 import { CircularProgress } from "@material-ui/core";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
 import { initialRequestFields } from "../laboratory/consts";
@@ -180,7 +179,7 @@ const PatientExams: FC = () => {
 
   return (
     <div className="patientExam">
-      <Permission require={creationMode ? "exams.create" : "exams.update"}>
+      <Permission require={creationMode ? "laboratories.create" : "laboratories.update"}>
         {creationMode && (
           <ExamRequestForm
             fields={initialRequestFields}
@@ -243,7 +242,7 @@ const PatientExams: FC = () => {
         </div>
       )}
 
-      <Permission require="exams.read">
+      <Permission require="laboratories.read">
         <PatientExamRequestsTable
           shouldUpdateTable={shouldUpdateRequestsTable}
           handleCancel={onCancel}
