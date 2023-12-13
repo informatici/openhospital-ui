@@ -44,7 +44,7 @@ const LaboratoryActivity: FC = () => {
       <div className="labs__background">
         <div className="labs__content">
           <HospitalInfo />
-          <Permission require="laboratory.access">
+          <Permission require="laboratories.access">
             <Exams />
           </Permission>
         </div>

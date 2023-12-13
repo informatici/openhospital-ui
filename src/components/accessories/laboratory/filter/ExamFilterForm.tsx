@@ -252,7 +252,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
           <form className="filterLabForm__form" onSubmit={formik.handleSubmit}>
             <div className="filterLabForm__section">
               <div className="filterLabForm__section_content">
-                <Permission require="patient.read">
+                <Permission require="patients.read">
                   <div className="fullWidth filterLabForm__item">
                     <PatientPicker
                       theme={"regular"}

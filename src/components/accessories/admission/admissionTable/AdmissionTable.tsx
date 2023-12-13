@@ -20,7 +20,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("admission.update");
+  const canUpdate = usePermission("admissions.update");
 
   const header = ["admDate", "disDate"];
   const dateFields = ["admDate", "disDate"];

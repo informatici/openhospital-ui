@@ -128,7 +128,7 @@ const PatientTherapy: FC = () => {
 
   return (
     <div className="patientTherapy">
-      <Permission require={creationMode ? "therapy.create" : "therapy.update"}>
+      <Permission require={creationMode ? "therapies.create" : "therapies.update"}>
         <TherapyForm
           fields={
             creationMode
@@ -167,14 +167,14 @@ const PatientTherapy: FC = () => {
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
-      <Permission require="therapy.read">
+      <Permission require="therapies.read">
         <PatientTherapyTable
           handleDelete={onDelete}
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}
         />
       </Permission>
-      <Permission require="therapy.delete">
+      <Permission require="therapies.delete">
         <ConfirmationDialog
           isOpen={deleteStatus === "SUCCESS"}
           title={t("common.delete")}

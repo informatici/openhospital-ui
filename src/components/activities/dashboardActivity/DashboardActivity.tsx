@@ -25,7 +25,7 @@ const PatientDashboardActivity: FunctionComponent<TProps> = ({
     [t("nav.patients")]: PATHS.patients,
   };
 
-  const canCreate = usePermission("patient.create");
+  const canCreate = usePermission("patients.create");
 
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
@@ -43,7 +43,7 @@ const PatientDashboardActivity: FunctionComponent<TProps> = ({
             breadcrumbMap={breadcrumbMap}
           />
           <div className="dashboard__background">
-            <Permission require="patient.access">
+            <Permission require="patients.access">
               <div className="dashboard__greeter">
                 <span className="user-welcome">
                   {t("dashboard.welcomename")}

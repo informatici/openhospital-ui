@@ -21,7 +21,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("examination.update");
+  const canUpdate = usePermission("examinations.update");
   const label = {
     pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),

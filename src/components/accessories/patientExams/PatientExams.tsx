@@ -180,7 +180,7 @@ const PatientExams: FC = () => {
 
   return (
     <div className="patientExam">
-      <Permission require={creationMode ? "exam.create" : "exam.update"}>
+      <Permission require={creationMode ? "exams.create" : "exams.update"}>
         {creationMode && (
           <ExamRequestForm
             fields={initialRequestFields}
@@ -243,7 +243,7 @@ const PatientExams: FC = () => {
         </div>
       )}
 
-      <Permission require="exam.read">
+      <Permission require="exams.read">
         <PatientExamRequestsTable
           shouldUpdateTable={shouldUpdateRequestsTable}
           handleCancel={onCancel}

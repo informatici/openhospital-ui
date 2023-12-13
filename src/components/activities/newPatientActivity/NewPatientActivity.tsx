@@ -116,7 +116,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <div className="newPatient__background">
             <div className="newPatient__content">
               <div className="newPatient__title">{t("nav.newpatient")}</div>
-              <Permission require="patient.create">
+              <Permission require="patients.create">
                 <PatientDataForm
                   fields={initialFields}
                   onSubmit={onSubmit}

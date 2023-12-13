@@ -25,7 +25,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("therapy.update");
+  const canUpdate = usePermission("therapies.update");
 
   const header = ["startDate", "endDate", "medicalId"];
   const dateFields = ["startDate", "endDate"];

@@ -57,9 +57,9 @@ const AppHeader: FunctionComponent<TProps> = ({
   };
   const navigate = useNavigate();
 
-  const canAccessPatient = usePermission("patient.access");
-  const canAccessVisit = usePermission("visit.access");
-  const canAccessLaboratory = usePermission("laboratory.access");
+  const canAccessPatient = usePermission("patients.access");
+  const canAccessVisit = usePermission("visits.access");
+  const canAccessLaboratory = usePermission("laboratories.access");
   const canAccessDashboard = usePermission("dashboard.access");
 
   return (

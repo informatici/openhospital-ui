@@ -23,8 +23,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("exam.update");
-  const canDelete = usePermission("exam.delete");
+  const canUpdate = usePermission("exams.update");
+  const canDelete = usePermission("exams.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date", "exam", "status"];

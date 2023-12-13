@@ -28,7 +28,7 @@ import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const canCreate = usePermission("admission.create");
+  const canCreate = usePermission("admissions.create");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);

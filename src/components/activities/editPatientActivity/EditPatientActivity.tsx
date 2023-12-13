@@ -153,7 +153,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                   patient.data?.secondName
                 }`}
               </div>
-              <Permission require={"patient.update"}>
+              <Permission require={"patients.update"}>
                 <PatientDataForm
                   fields={updateFields(initialFields, patient?.data)}
                   profilePicture={patient.data?.blobPhoto}

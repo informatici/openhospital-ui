@@ -180,7 +180,7 @@ export const Exams: FC = () => {
           />
         )}
         {status !== "LOADING" && (
-          <Permission require="exam.read">
+          <Permission require="exams.read">
             <ExamFilterForm
               onSubmit={onSubmit}
               fields={fields}

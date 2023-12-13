@@ -141,7 +141,7 @@ const PatientOPD: FunctionComponent = () => {
 
   return (
     <div className="patientOpd">
-      <Permission require={creationMode ? "opd.create" : "opd.update"}>
+      <Permission require={creationMode ? "opds.create" : "opds.update"}>
         <PatientExtraData />
         <PatientOPDForm
           fields={
@@ -181,7 +181,7 @@ const PatientOPD: FunctionComponent = () => {
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
-      <Permission require="opd.read">
+      <Permission require="opds.read">
         <PatientOPDTable
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}
