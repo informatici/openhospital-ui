@@ -231,7 +231,7 @@ export class AdmissionsApi extends BaseAPI {
         if (size != null) { query['size'] = size; }
 
         return this.request<PageAdmissionDTO>({
-            url: '/discharges',
+            url: '/admissions/discharges',
             method: 'GET',
             headers,
             query,
