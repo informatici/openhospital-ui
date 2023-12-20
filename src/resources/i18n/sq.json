@@ -559,10 +559,10 @@
     "changestatus": "Ndrysho statusin e ekzaminimit",
     "changelabstatusto": "Statusi i ekzaminimit {{code}} do të ndryshohet në {{status}}",
     "statuses": {
-      "DRAFT": "DRAFT",
-      "ALL": "TË GJITHA",
-      "OPEN": "HAPUR",
-      "DONE": "BËR"
+      "draft": "DRAFT",
+      "all": "TË GJITHA",
+      "open": "HAPUR",
+      "done": "BËR"
     },
     "previousentries": "Ekzaminime të mëparshme"
   },

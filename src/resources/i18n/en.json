@@ -562,10 +562,10 @@
     "changestatus": "Change Exam Status",
     "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
     "statuses": {
-      "DRAFT": "DRAFT",
-      "ALL": "ALL",
-      "OPEN": "OPEN",
-      "DONE": "DONE"
+      "dragt": "DRAFT",
+      "all": "ALL",
+      "open": "OPEN",
+      "done": "DONE"
     },
     "previousentries": "Previous Exams"
   },

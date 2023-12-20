@@ -559,10 +559,10 @@
     "changestatus": "Untersuchungsstatus ändern",
     "changelabstatusto": "Der Status der Untersuchung {{code}} wird in {{status}} geändert",
     "statuses": {
-      "DRAFT": "ENTWURF",
-      "ALL": "ALLE",
-      "OPEN": "OFFEN",
-      "DONE": "FERTIG"
+      "draft": "ENTWURF",
+      "all": "ALLE",
+      "open": "OFFEN",
+      "done": "FERTIG"
     },
     "previousentries": "Frühere Examen"
   },
