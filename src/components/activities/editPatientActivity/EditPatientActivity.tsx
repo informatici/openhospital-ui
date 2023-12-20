@@ -49,7 +49,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
     return () => {
       updatePatientReset();
     };
-  }, []);
+  }, [updatePatientReset]);
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE" && id) {

@@ -56,10 +56,6 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
-  const selectedPatient = useSelector<IState, PatientDTO | undefined>(
-    (state) => state.patients.selectedPatient.data
-  );
-
   const patient = useSelector<IState, PatientDTO | undefined>(
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
@@ -67,7 +63,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     dispatch(getPatientReset());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (
@@ -77,14 +73,15 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     ) {
       createPatientReset();
       setShouldResetForm(true);
+      return createPatientReset;
     }
-  }, [activityTransitionState, createPatientReset]);
+  }, [activityTransitionState, createPatientReset, dispatch]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
       navigate(`/patients/details/${patient?.code}`, { replace: true });
     }
-  }, [patient, activityTransitionState, createPatientReset]);
+  }, [patient, activityTransitionState, createPatientReset, navigate]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
