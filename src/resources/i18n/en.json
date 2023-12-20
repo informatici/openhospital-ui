@@ -4,7 +4,10 @@
     "incorrectcredentials": "Invalid username or password",
     "passwordtooshort": "Password too short",
     "badrequest": "Bad request",
-    "internalerror": "An internal error occured"
+    "internalerror": "An internal error occured",
+    "lab": {
+      "someexamswithoutresultpleasecheck": "Some exams without result please check !"
+    }
   },
   "user": {
     "username": "Username",
@@ -562,7 +565,7 @@
     "changestatus": "Change Exam Status",
     "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
     "statuses": {
-      "dragt": "DRAFT",
+      "draft": "DRAFT",
       "all": "ALL",
       "open": "OPEN",
       "done": "DONE"
