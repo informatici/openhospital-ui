@@ -10,8 +10,10 @@ import "./styles.scss";
 import { useEffect } from "react";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
 import {
+  createLabReset,
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
+  updateLabReset,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import ExamForm from "./examForm/ExamForm";
@@ -36,18 +38,18 @@ export const EditLaboratoryContent: FC = () => {
     if (id) {
       dispatch(getLabWithRowsByCode(parseInt(id)));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (labToEdit?.patientCode) {
       dispatch(getPatientThunk(labToEdit.patientCode.toString()));
     }
-  }, [labWithRows]);
+  }, [labWithRows, dispatch, labToEdit?.patientCode]);
 
   const handleReset = useCallback(() => {
     dispatch(getLabWithRowsByCodeReset());
     navigate(0);
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -68,7 +70,16 @@ export const EditLaboratoryContent: FC = () => {
 
   useEffect(() => {
     dispatch(getExams());
-  }, []);
+  }, [dispatch]);
+
+  const handleBack = useCallback(() => {
+    if (creationMode) {
+      dispatch(createLabReset());
+    } else {
+      dispatch(updateLabReset());
+    }
+    navigate(-1);
+  }, [navigate, dispatch, creationMode]);
 
   return (
     <>
@@ -76,9 +87,7 @@ export const EditLaboratoryContent: FC = () => {
         <div className="lab__title">{t("nav.laboratory")}</div>
         <div className="lab__actions">
           <Button
-            onClick={() => {
-              navigate(-1);
-            }}
+            onClick={handleBack}
             type="button"
             variant="contained"
             color="primary"
