@@ -6,7 +6,7 @@
     "badrequest": "Bad request",
     "internalerror": "An internal error occured",
     "lab": {
-      "someexamswithoutresultpleasecheck": "Some exams without result please check !"
+      "someexamswithoutresultpleasecheck": "Some exams without result please check."
     }
   },
   "user": {
