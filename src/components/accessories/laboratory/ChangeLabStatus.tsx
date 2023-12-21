@@ -66,7 +66,7 @@ export const ChangeLabStatus: React.FC<ChangeLabStatusProps> = ({
           <p>
             {t("lab.changelabstatusto", {
               code: labCode,
-              status: t("lab.statuses." + status),
+              status: t("lab.statuses." + status.toLowerCase()),
             })}
             . {t("common.continue")}
           </p>

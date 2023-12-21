@@ -559,10 +559,10 @@
     "changestatus": "Changer le statut de l'examen",
     "changelabstatusto": "Le statut de l'examen {{code}} sera modifié en {{status}}",
     "statuses": {
-      "DRAFT": "DRAFT",
-      "ALL": "Tous",
-      "OPEN": "OUVRIR",
-      "DONE": "TERMINÉ"
+      "draft": "DRAFT",
+      "all": "Tous",
+      "open": "OUVRIR",
+      "done": "TERMINÉ"
     },
     "previousentries": "Examen précédentes"
   },

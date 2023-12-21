@@ -559,10 +559,10 @@
     "changestatus": "Cambia lo stato dell'esame",
     "changelabstatusto": "Lo stato dell'esame {{code}} verrà cambiato  in {{status}}",
     "statuses": {
-      "DRAFT": "DRAFT",
-      "ALL": "TUTTI",
-      "OPEN": "OPEN",
-      "DONE": "FATTO"
+      "draft": "DRAFT",
+      "all": "TUTTI",
+      "open": "OPEN",
+      "done": "FATTO"
     },
     "previousentries": "Esami precedenti"
   },

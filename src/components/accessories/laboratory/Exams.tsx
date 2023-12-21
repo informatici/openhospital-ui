@@ -135,13 +135,13 @@ export const Exams: FC = () => {
   const errorMessage = useSelector((state: IState) =>
     state.laboratories.searchLabs.error?.message
       ? state.laboratories.searchLabs.error?.message
-      : t("common.somethingwrong")
+      : "common.somethingwrong"
   );
 
   const updateLabErrorMsg = useSelector((state: IState) =>
     state.laboratories.updateLab.error?.message
       ? state.laboratories.updateLab.error?.message
-      : t("common.somethingwrong")
+      : "common.somethingwrong"
   );
 
   let status = useSelector(
@@ -156,7 +156,7 @@ export const Exams: FC = () => {
     if (changeStatus === "SUCCESS") {
       dispatch(searchLabs({ ...filter, paged: true }));
     }
-  }, [changeStatus]);
+  }, [changeStatus, dispatch, filter]);
 
   /**
    * I commented the following lignes because they were causing issue with filter.
@@ -190,11 +190,11 @@ export const Exams: FC = () => {
               <InfoBox type="info" message={t("common.emptydata")} />
             )}
             {status === "FAIL" && (
-              <InfoBox type="error" message={errorMessage} />
+              <InfoBox type="error" message={t(errorMessage)} />
             )}
             {changeStatus === "FAIL" && (
               <div ref={infoBoxRef} className="info-box-container">
-                <InfoBox type="error" message={updateLabErrorMsg} />
+                <InfoBox type="error" message={t(updateLabErrorMsg)} />
               </div>
             )}
             {status === "SUCCESS" && (
