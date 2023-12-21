@@ -54,7 +54,7 @@ export class MedicalStockMovementTypeApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medstockmovementtypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
         }, opts?.responseOpts);
@@ -70,7 +70,7 @@ export class MedicalStockMovementTypeApi extends BaseAPI {
         };
 
         return this.request<Array<MovementTypeDTO>>({
-            url: '/medstockmovementtype',
+            url: '/medstockmovementtypes',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -88,7 +88,7 @@ export class MedicalStockMovementTypeApi extends BaseAPI {
         };
 
         return this.request<MovementTypeDTO>({
-            url: '/medstockmovementtype/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medstockmovementtypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -106,7 +106,7 @@ export class MedicalStockMovementTypeApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/medstockmovementtype/check/{code}'.replace('{code}', encodeURI(code)),
+            url: '/medstockmovementtypes/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -125,7 +125,7 @@ export class MedicalStockMovementTypeApi extends BaseAPI {
         };
 
         return this.request<MovementTypeDTO>({
-            url: '/medstockmovementtype',
+            url: '/medstockmovementtypes',
             method: 'POST',
             headers,
             body: movementTypeDTO,
@@ -145,7 +145,7 @@ export class MedicalStockMovementTypeApi extends BaseAPI {
         };
 
         return this.request<MovementTypeDTO>({
-            url: '/medstockmovementtype',
+            url: '/medstockmovementtypes',
             method: 'PUT',
             headers,
             body: movementTypeDTO,

@@ -50,7 +50,7 @@ export class VaccineTypeApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/vaccinetype/check/{code}'.replace('{code}', encodeURI(code)),
+            url: '/vaccinetypes/check/{code}'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -68,7 +68,7 @@ export class VaccineTypeApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/vaccinetype/{code}'.replace('{code}', encodeURI(code)),
+            url: '/vaccinetypes/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
         }, opts?.responseOpts);
@@ -84,7 +84,7 @@ export class VaccineTypeApi extends BaseAPI {
         };
 
         return this.request<Array<VaccineTypeDTO>>({
-            url: '/vaccinetype',
+            url: '/vaccinetypes',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -103,7 +103,7 @@ export class VaccineTypeApi extends BaseAPI {
         };
 
         return this.request<VaccineTypeDTO>({
-            url: '/vaccinetype',
+            url: '/vaccinetypes',
             method: 'POST',
             headers,
             body: vaccineTypeDTO,
@@ -123,7 +123,7 @@ export class VaccineTypeApi extends BaseAPI {
         };
 
         return this.request<VaccineTypeDTO>({
-            url: '/vaccinetype',
+            url: '/vaccinetypes',
             method: 'PUT',
             headers,
             body: vaccineTypeDTO,

@@ -55,7 +55,7 @@ export class VisitApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/visit/delete/{patID}'.replace('{patID}', encodeURI(patID)),
+            url: '/visits/delete/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'DELETE',
             headers,
         }, opts?.responseOpts);
@@ -73,7 +73,7 @@ export class VisitApi extends BaseAPI {
         };
 
         return this.request<Array<VisitDTO>>({
-            url: '/visit/patient/{patID}'.replace('{patID}', encodeURI(patID)),
+            url: '/visits/patient/{patID}'.replace('{patID}', encodeURI(patID)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -92,7 +92,7 @@ export class VisitApi extends BaseAPI {
         };
 
         return this.request<VisitDTO>({
-            url: '/visit',
+            url: '/visits',
             method: 'POST',
             headers,
             body: visitDTO,
@@ -112,7 +112,7 @@ export class VisitApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/visits',
+            url: '/visits/insertList',
             method: 'POST',
             headers,
             body: visitDTO,
@@ -133,7 +133,7 @@ export class VisitApi extends BaseAPI {
         };
 
         return this.request<VisitDTO>({
-            url: '/visit/{visitID}'.replace('{visitID}', encodeURI(visitID)),
+            url: '/visits/{visitID}'.replace('{visitID}', encodeURI(visitID)),
             method: 'PUT',
             headers,
             body: visitDTO,
