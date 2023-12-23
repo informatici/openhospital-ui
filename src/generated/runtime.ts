@@ -104,6 +104,7 @@ export class BaseAPI {
             headers,
             body: body instanceof FormData ? body : JSON.stringify(body),
             responseType: responseType ?? 'json',
+            withCredentials: true,
         };
     }
 
@@ -153,12 +154,13 @@ export type HttpQuery = Partial<{ [key: string]: string | number | null | boolea
 export type HttpBody = Json | FormData;
 
 export interface RequestOpts extends AjaxRequest {
-    query?: HttpQuery; // additional prop
-    // the following props have improved types over AjaxRequest 
-    method: HttpMethod;
-    headers?: HttpHeaders;
-    body?: HttpBody;
-    responseType?: 'json' | 'blob' | 'arraybuffer' | 'text';
+  query?: HttpQuery; // additional prop
+  // the following props have improved types over AjaxRequest
+  method: HttpMethod;
+  headers?: HttpHeaders;
+  body?: HttpBody;
+  responseType?: "json" | "blob" | "arraybuffer" | "text";
+  withCredentials?: boolean;
 }
 
 export interface ResponseOpts {
