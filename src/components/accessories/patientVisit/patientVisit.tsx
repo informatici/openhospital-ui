@@ -131,7 +131,7 @@ const PatientVisit: FunctionComponent = () => {
   return (
     <div className="patientVisit">
       <Permission
-        require={creationMode ? "admission.create" : "admission.update"}
+        require={creationMode ? "admissions.create" : "admissions.update"}
       >
         <PatientVisitForm
           fields={
@@ -171,7 +171,7 @@ const PatientVisit: FunctionComponent = () => {
         />
       </Permission>
 
-      <Permission require="admission.read">
+      <Permission require="admissions.read">
         <PatientVisitTable
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}

@@ -15,15 +15,15 @@ export const landingPagePriority: TLandingPagePriority[] = [
     route: "/dashboard",
   },
   {
-    permission: "patient.access",
+    permission: "patients.access",
     route: "/patients",
   },
   {
-    permission: "laboratory.access",
+    permission: "laboratories.access",
     route: "/laboratory",
   },
   {
-    permission: "visit.access",
+    permission: "opds.access",
     route: "/visits",
   },
 ];

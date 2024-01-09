@@ -166,7 +166,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       <div className="searchPatient__background">
         <div className="container">
           <div className="searchPatient__title">{t("nav.searchpatient")}</div>
-          <Permission require="patient.read">
+          <Permission require="patients.read">
             <form
               className="searchPatient__panel"
               onSubmit={formik.handleSubmit}

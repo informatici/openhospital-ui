@@ -56,6 +56,10 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
+  const selectedPatient = useSelector<IState, PatientDTO | undefined>(
+    (state) => state.patients.selectedPatient.data
+  );
+
   const patient = useSelector<IState, PatientDTO | undefined>(
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
@@ -63,7 +67,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     dispatch(getPatientReset());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (
@@ -73,15 +77,14 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
     ) {
       createPatientReset();
       setShouldResetForm(true);
-      return createPatientReset;
     }
-  }, [activityTransitionState, createPatientReset, dispatch]);
+  }, [activityTransitionState, createPatientReset]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
       navigate(`/patients/details/${patient?.code}`, { replace: true });
     }
-  }, [patient, activityTransitionState, createPatientReset, navigate]);
+  }, [patient, activityTransitionState, createPatientReset]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -113,7 +116,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <div className="newPatient__background">
             <div className="newPatient__content">
               <div className="newPatient__title">{t("nav.newpatient")}</div>
-              <Permission require="patient.create">
+              <Permission require="patients.create">
                 <PatientDataForm
                   fields={initialFields}
                   onSubmit={onSubmit}

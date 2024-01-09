@@ -236,7 +236,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       </div>
                     </div>
 
-                    <Permission require="patient.update">
+                    <Permission require="patients.update">
                       <div className="patientDetails__personalData_edit_button_wrapper">
                         <div className="patientDetails__personalData_edit_button">
                           <Button

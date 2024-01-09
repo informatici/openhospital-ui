@@ -31,7 +31,7 @@ const VisitsActivity: FC = () => {
       <div className="visits__background">
         <div className="visits__content">
           <HospitalInfo />
-          <Permission require="visit.access">
+          <Permission require="opds.access">
             <Opds />
           </Permission>
         </div>

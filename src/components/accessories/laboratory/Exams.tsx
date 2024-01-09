@@ -135,13 +135,13 @@ export const Exams: FC = () => {
   const errorMessage = useSelector((state: IState) =>
     state.laboratories.searchLabs.error?.message
       ? state.laboratories.searchLabs.error?.message
-      : "common.somethingwrong"
+      : t("common.somethingwrong")
   );
 
   const updateLabErrorMsg = useSelector((state: IState) =>
     state.laboratories.updateLab.error?.message
       ? state.laboratories.updateLab.error?.message
-      : "common.somethingwrong"
+      : t("common.somethingwrong")
   );
 
   let status = useSelector(
@@ -156,7 +156,7 @@ export const Exams: FC = () => {
     if (changeStatus === "SUCCESS") {
       dispatch(searchLabs({ ...filter, paged: true }));
     }
-  }, [changeStatus, dispatch, filter]);
+  }, [changeStatus]);
 
   /**
    * I commented the following lignes because they were causing issue with filter.
@@ -180,7 +180,7 @@ export const Exams: FC = () => {
           />
         )}
         {status !== "LOADING" && (
-          <Permission require="exam.read">
+          <Permission require="exams.read">
             <ExamFilterForm
               onSubmit={onSubmit}
               fields={fields}
@@ -190,11 +190,11 @@ export const Exams: FC = () => {
               <InfoBox type="info" message={t("common.emptydata")} />
             )}
             {status === "FAIL" && (
-              <InfoBox type="error" message={t(errorMessage)} />
+              <InfoBox type="error" message={errorMessage} />
             )}
             {changeStatus === "FAIL" && (
               <div ref={infoBoxRef} className="info-box-container">
-                <InfoBox type="error" message={t(updateLabErrorMsg)} />
+                <InfoBox type="error" message={updateLabErrorMsg} />
               </div>
             )}
             {status === "SUCCESS" && (

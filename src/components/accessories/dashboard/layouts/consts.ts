@@ -31,16 +31,16 @@ export const DASHBOARDS: TDashboardComponent[] = [
  */
 export const DASHBOARDS_PERMISSIONS: Record<TDashboardComponent, TPermission> =
   {
-    admissionByAgeType: "admission.read",
-    admissionBySex: "admission.read",
-    admissionByType: "admission.read",
-    admissionByWard: "admission.read",
-    dischargeByAgeType: "discharges.read",
-    dischargeBySex: "discharges.read",
-    dischargeByType: "discharges.read",
-    dischargeByWard: "discharges.read",
-    opdByAgeType: "opd.read",
-    opdBySex: "opd.read",
+    admissionBySex: "admissions.read",
+    admissionByAgeType: "admissions.read",
+    admissionByType: "admissions.read",
+    admissionByWard: "admissions.read",
+    dischargeBySex: "admissions.read",
+    dischargeByAgeType: "admissions.read",
+    dischargeByType: "admissions.read",
+    dischargeByWard: "admissions.read",
+    opdByAgeType: "opds.read",
+    opdBySex: "opds.read",
   };
 
 export const defaultLayoutConfig: Layouts = {

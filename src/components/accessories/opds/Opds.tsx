@@ -65,7 +65,7 @@ export const Opds: FC = () => {
           switch (status) {
             case "FAIL":
               return (
-                <Permission require="opd.read">
+                <Permission require="opds.read">
                   <OpdFilterForm
                     onSubmit={onSubmit}
                     fields={fields}
@@ -84,7 +84,7 @@ export const Opds: FC = () => {
 
             case "SUCCESS_EMPTY":
               return (
-                <Permission require="opd.read">
+                <Permission require="opds.read">
                   <OpdFilterForm
                     onSubmit={onSubmit}
                     fields={fields}
@@ -96,7 +96,7 @@ export const Opds: FC = () => {
 
             case "SUCCESS":
               return (
-                <Permission require="opd.read">
+                <Permission require="opds.read">
                   <OpdFilterForm
                     onSubmit={onSubmit}
                     fields={fields}

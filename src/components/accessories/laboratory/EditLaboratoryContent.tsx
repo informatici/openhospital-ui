@@ -97,7 +97,7 @@ export const EditLaboratoryContent: FC = () => {
           </Button>
         </div>
       </div>
-      <Permission require={creationMode ? "exam.create" : "exam.update"}>
+      <Permission require={creationMode ? "exams.create" : "exams.update"}>
         {open && (
           <ExamForm
             fields={formFields}

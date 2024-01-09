@@ -149,7 +149,7 @@ const PatientTriage: FC = () => {
   return (
     <div className="patientTriage">
       <Permission
-        require={creationMode ? "examination.create" : "examination.update"}
+        require={creationMode ? "examinations.create" : "examinations.update"}
       >
         <PatientTriageForm
           fields={
@@ -207,7 +207,7 @@ const PatientTriage: FC = () => {
         />
       </Permission>
 
-      <Permission require="examination.read">
+      <Permission require="examinations.read">
         <PatientTriageTable
           handleDelete={onDelete}
           handleEdit={onEdit}
@@ -215,7 +215,7 @@ const PatientTriage: FC = () => {
         />
       </Permission>
 
-      <Permission require="examination.delete">
+      <Permission require="examinations.delete">
         <ConfirmationDialog
           isOpen={deleteStatus === "SUCCESS"}
           title={t("opd.deleted")}

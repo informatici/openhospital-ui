@@ -67,7 +67,7 @@ paths:
                 $ref: '#/components/schemas/WardDTO'
       security:
         - bearerAuth: []
-  /visit/{visitID}:
+  /visits/{visitID}:
     put:
       tags:
         - Visit
@@ -94,7 +94,7 @@ paths:
                 $ref: '#/components/schemas/VisitDTO'
       security:
         - bearerAuth: []
-  /vaccinetype:
+  /vaccinetypes:
     get:
       tags:
         - Vaccine Type
@@ -771,7 +771,7 @@ paths:
                 type: boolean
       security:
         - bearerAuth: []
-  /patientConsensus/{patientId}:
+  /patientconsensus/{patientId}:
     get:
       tags:
         - Patient Consensus
@@ -1041,7 +1041,7 @@ paths:
                 $ref: '#/components/schemas/OpdWithOperationRowDTO'
       security:
         - bearerAuth: []
-  /medstockmovementtype:
+  /medstockmovementtypes:
     get:
       tags:
         - Medical Stock Movement Type
@@ -2063,6 +2063,26 @@ paths:
     post:
       tags:
         - Visit
+      operationId: newVisit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisitDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisitDTO'
+      security:
+        - bearerAuth: []
+  /visits/insertList:
+    post:
+      tags:
+        - Visit
       operationId: newVisits
       requestBody:
         content:
@@ -2079,26 +2099,6 @@ paths:
             application/json:
               schema:
                 type: boolean
-      security:
-        - bearerAuth: []
-  /visit:
-    post:
-      tags:
-        - Visit
-      operationId: newVisit
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VisitDTO'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VisitDTO'
       security:
         - bearerAuth: []
   /users/settings:
@@ -2244,62 +2244,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TherapyDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements/discharge:
-    post:
-      tags:
-        - Stock Movements
-      operationId: newMultipleDischargingMovements
-      parameters:
-        - name: ref
-          in: query
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/MovementDTO'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: boolean
-      security:
-        - bearerAuth: []
-  /stockmovements/charge:
-    post:
-      tags:
-        - Stock Movements
-      operationId: newMultipleChargingMovements
-      parameters:
-        - name: ref
-          in: query
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/MovementDTO'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: boolean
       security:
         - bearerAuth: []
   /sms:
@@ -2727,6 +2671,62 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/MovementWardDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/discharge:
+    post:
+      tags:
+        - Stock Movements
+      operationId: newMultipleDischargingMovements
+      parameters:
+        - name: ref
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MovementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/charge:
+    post:
+      tags:
+        - Stock Movements
+      operationId: newMultipleChargingMovements
+      parameters:
+        - name: ref
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MovementDTO'
         required: true
       responses:
         '200':
@@ -3214,7 +3214,7 @@ paths:
                 type: boolean
       security:
         - bearerAuth: []
-  /visit/patient/{patID}:
+  /visits/patient/{patID}:
     get:
       tags:
         - Visit
@@ -3237,7 +3237,7 @@ paths:
                   $ref: '#/components/schemas/VisitDTO'
       security:
         - bearerAuth: []
-  /vaccinetype/check/{code}:
+  /vaccinetypes/check/{code}:
     get:
       tags:
         - Vaccine Type
@@ -3477,202 +3477,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SupplierDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements:
-    get:
-      tags:
-        - Stock Movements
-      operationId: getMovements
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MovementDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements/{ref}:
-    get:
-      tags:
-        - Stock Movements
-      operationId: getMovements_1
-      parameters:
-        - name: ref
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MovementDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements/lot/{med_code}:
-    get:
-      tags:
-        - Stock Movements
-      operationId: getLotByMedical
-      parameters:
-        - name: med_code
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/LotDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements/filter/v2:
-    get:
-      tags:
-        - Stock Movements
-      operationId: getMovements_2
-      parameters:
-        - name: med_code
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-        - name: med_type
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: ward_id
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: mov_type
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: mov_from
-          in: query
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: mov_to
-          in: query
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: lot_prep_from
-          in: query
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: lot_prep_to
-          in: query
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: lot_due_from
-          in: query
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: lot_due_to
-          in: query
-          required: false
-          schema:
-            type: string
-            format: date-time
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MovementDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements/filter/v1:
-    get:
-      tags:
-        - Stock Movements
-      operationId: getMovements_3
-      parameters:
-        - name: ward_id
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: from
-          in: query
-          required: true
-          schema:
-            type: string
-            format: date-time
-        - name: to
-          in: query
-          required: true
-          schema:
-            type: string
-            format: date-time
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/MovementDTO'
-      security:
-        - bearerAuth: []
-  /stockmovements/critical/check:
-    get:
-      tags:
-        - Stock Movements
-      operationId: alertCriticalQuantity
-      parameters:
-        - name: med_code
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: qty
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: boolean
       security:
         - bearerAuth: []
   /reports/exams-list:
@@ -4317,7 +4121,7 @@ paths:
                 format: int32
       security:
         - bearerAuth: []
-  /medstockmovementtype/{code}:
+  /medstockmovementtypes/{code}:
     get:
       tags:
         - Medical Stock Movement Type
@@ -4356,7 +4160,7 @@ paths:
                 type: boolean
       security:
         - bearerAuth: []
-  /medstockmovementtype/check/{code}:
+  /medstockmovementtypes/check/{code}:
     get:
       tags:
         - Medical Stock Movement Type
@@ -4511,6 +4315,202 @@ paths:
               schema:
                 type: integer
                 format: int32
+      security:
+        - bearerAuth: []
+  /medicalstockmovements:
+    get:
+      tags:
+        - Stock Movements
+      operationId: getMovements
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovementDTO'
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/{ref}:
+    get:
+      tags:
+        - Stock Movements
+      operationId: getMovements_1
+      parameters:
+        - name: ref
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovementDTO'
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/lot/{med_code}:
+    get:
+      tags:
+        - Stock Movements
+      operationId: getLotByMedical
+      parameters:
+        - name: med_code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LotDTO'
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/filter/v2:
+    get:
+      tags:
+        - Stock Movements
+      operationId: getMovements_2
+      parameters:
+        - name: med_code
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: med_type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ward_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: mov_type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: mov_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: mov_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_prep_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_prep_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_due_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_due_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovementDTO'
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/filter/v1:
+    get:
+      tags:
+        - Stock Movements
+      operationId: getMovements_3
+      parameters:
+        - name: ward_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovementDTO'
+      security:
+        - bearerAuth: []
+  /medicalstockmovements/critical/check:
+    get:
+      tags:
+        - Stock Movements
+      operationId: alertCriticalQuantity
+      parameters:
+        - name: med_code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: qty
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
       security:
         - bearerAuth: []
   /medicals/{code}:
@@ -5248,44 +5248,6 @@ paths:
                   $ref: '#/components/schemas/DiseaseDTO'
       security:
         - bearerAuth: []
-  /discharges:
-    get:
-      tags:
-        - Admissions
-      operationId: getDischarges
-      parameters:
-        - name: dischargerange
-          in: query
-          required: true
-          schema:
-            type: array
-            items:
-              type: string
-        - name: page
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: size
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 80
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PageAdmissionDTO'
-        '400':
-          description: Bad Request
-      security:
-        - bearerAuth: []
   /bills/pending:
     get:
       tags:
@@ -5542,6 +5504,44 @@ paths:
           description: Bad Request
       security:
         - bearerAuth: []
+  /admissions/discharges:
+    get:
+      tags:
+        - Admissions
+      operationId: getDischarges
+      parameters:
+        - name: dischargerange
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageAdmissionDTO'
+        '400':
+          description: Bad Request
+      security:
+        - bearerAuth: []
   /admissions/current:
     get:
       tags:
@@ -5624,7 +5624,7 @@ paths:
                 type: boolean
       security:
         - bearerAuth: []
-  /visit/delete/{patID}:
+  /visits/delete/{patID}:
     delete:
       tags:
         - Visit
@@ -5645,7 +5645,7 @@ paths:
                 type: boolean
       security:
         - bearerAuth: []
-  /vaccinetype/{code}:
+  /vaccinetypes/{code}:
     delete:
       tags:
         - Vaccine Type
@@ -5919,13 +5919,13 @@ components:
           description: lock
           format: int32
           example: 0
-        opd:
-          type: boolean
-        female:
+        pharmacy:
           type: boolean
         male:
           type: boolean
-        pharmacy:
+        female:
+          type: boolean
+        opd:
           type: boolean
     PatientDTO:
       required:
@@ -7598,9 +7598,9 @@ components:
           $ref: '#/components/schemas/PatientProfilePhoto'
         patientConsensus:
           $ref: '#/components/schemas/PatientConsensus'
-        searchString:
-          type: string
         informations:
+          type: string
+        searchString:
           type: string
     PatientConsensus:
       type: object
@@ -7663,6 +7663,12 @@ components:
                     alpha:
                       type: integer
                       format: int32
+                    rgb:
+                      type: integer
+                      format: int32
+                    transparency:
+                      type: integer
+                      format: int32
                     colorSpace:
                       type: object
                       properties:
@@ -7674,12 +7680,6 @@ components:
                           format: int32
                         cs_sRGB:
                           type: boolean
-                    rgb:
-                      type: integer
-                      format: int32
-                    transparency:
-                      type: integer
-                      format: int32
                 xormode:
                   type: object
                   properties:
@@ -7695,6 +7695,12 @@ components:
                     alpha:
                       type: integer
                       format: int32
+                    rgb:
+                      type: integer
+                      format: int32
+                    transparency:
+                      type: integer
+                      format: int32
                     colorSpace:
                       type: object
                       properties:
@@ -7706,12 +7712,6 @@ components:
                           format: int32
                         cs_sRGB:
                           type: boolean
-                    rgb:
-                      type: integer
-                      format: int32
-                    transparency:
-                      type: integer
-                      format: int32
                   writeOnly: true
                 font:
                   type: object
@@ -7728,6 +7728,8 @@ components:
                       type: object
                       additionalProperties:
                         type: object
+                    family:
+                      type: string
                     transform:
                       type: object
                       properties:
@@ -7793,8 +7795,6 @@ components:
                     italicAngle:
                       type: number
                       format: float
-                    family:
-                      type: string
                 fontMetrics:
                   type: object
                   properties:
@@ -7813,6 +7813,8 @@ components:
                           type: object
                           additionalProperties:
                             type: object
+                        family:
+                          type: string
                         transform:
                           type: object
                           properties:
@@ -7878,8 +7880,9 @@ components:
                         italicAngle:
                           type: number
                           format: float
-                        family:
-                          type: string
+                    height:
+                      type: integer
+                      format: int32
                     ascent:
                       type: integer
                       format: int32
@@ -7958,9 +7961,6 @@ components:
                       items:
                         type: integer
                         format: int32
-                    height:
-                      type: integer
-                      format: int32
                 clipBounds:
                   type: object
                   properties:
@@ -8001,16 +8001,10 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        maxX:
+                        'y':
                           type: number
                           format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
+                        x:
                           type: number
                           format: double
                         height:
@@ -8025,10 +8019,16 @@ components:
                         minY:
                           type: number
                           format: double
-                        x:
+                        maxX:
                           type: number
                           format: double
-                        'y':
+                        maxY:
+                          type: number
+                          format: double
+                        centerX:
+                          type: number
+                          format: double
+                        centerY:
                           type: number
                           format: double
                     rect:
@@ -8036,16 +8036,10 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        maxX:
+                        'y':
                           type: number
                           format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
+                        x:
                           type: number
                           format: double
                         height:
@@ -8060,13 +8054,25 @@ components:
                         minY:
                           type: number
                           format: double
-                        x:
+                        maxX:
                           type: number
                           format: double
-                        'y':
+                        maxY:
+                          type: number
+                          format: double
+                        centerX:
+                          type: number
+                          format: double
+                        centerY:
                           type: number
                           format: double
                       writeOnly: true
+                    minX:
+                      type: number
+                      format: double
+                    minY:
+                      type: number
+                      format: double
                     maxX:
                       type: number
                       format: double
@@ -8077,12 +8083,6 @@ components:
                       type: number
                       format: double
                     centerY:
-                      type: number
-                      format: double
-                    minX:
-                      type: number
-                      format: double
-                    minY:
                       type: number
                       format: double
                 clip:
@@ -8128,16 +8128,10 @@ components:
                           properties:
                             empty:
                               type: boolean
-                            maxX:
+                            'y':
                               type: number
                               format: double
-                            maxY:
-                              type: number
-                              format: double
-                            centerX:
-                              type: number
-                              format: double
-                            centerY:
+                            x:
                               type: number
                               format: double
                             height:
@@ -8152,10 +8146,16 @@ components:
                             minY:
                               type: number
                               format: double
-                            x:
+                            maxX:
                               type: number
                               format: double
-                            'y':
+                            maxY:
+                              type: number
+                              format: double
+                            centerX:
+                              type: number
+                              format: double
+                            centerY:
                               type: number
                               format: double
                         rect:
@@ -8163,16 +8163,10 @@ components:
                           properties:
                             empty:
                               type: boolean
-                            maxX:
+                            'y':
                               type: number
                               format: double
-                            maxY:
-                              type: number
-                              format: double
-                            centerX:
-                              type: number
-                              format: double
-                            centerY:
+                            x:
                               type: number
                               format: double
                             height:
@@ -8187,13 +8181,25 @@ components:
                             minY:
                               type: number
                               format: double
-                            x:
+                            maxX:
                               type: number
                               format: double
-                            'y':
+                            maxY:
+                              type: number
+                              format: double
+                            centerX:
+                              type: number
+                              format: double
+                            centerY:
                               type: number
                               format: double
                           writeOnly: true
+                        minX:
+                          type: number
+                          format: double
+                        minY:
+                          type: number
+                          format: double
                         maxX:
                           type: number
                           format: double
@@ -8204,12 +8210,6 @@ components:
                           type: number
                           format: double
                         centerY:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
                           type: number
                           format: double
                     bounds2D:
@@ -8217,16 +8217,10 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        maxX:
+                        'y':
                           type: number
                           format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
+                        x:
                           type: number
                           format: double
                         height:
@@ -8241,10 +8235,16 @@ components:
                         minY:
                           type: number
                           format: double
-                        x:
+                        maxX:
                           type: number
                           format: double
-                        'y':
+                        maxY:
+                          type: number
+                          format: double
+                        centerX:
+                          type: number
+                          format: double
+                        centerY:
                           type: number
                           format: double
                 clipRect:
@@ -8287,16 +8287,10 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        maxX:
+                        'y':
                           type: number
                           format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
+                        x:
                           type: number
                           format: double
                         height:
@@ -8311,10 +8305,16 @@ components:
                         minY:
                           type: number
                           format: double
-                        x:
+                        maxX:
                           type: number
                           format: double
-                        'y':
+                        maxY:
+                          type: number
+                          format: double
+                        centerX:
+                          type: number
+                          format: double
+                        centerY:
                           type: number
                           format: double
                     rect:
@@ -8322,16 +8322,10 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        maxX:
+                        'y':
                           type: number
                           format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
+                        x:
                           type: number
                           format: double
                         height:
@@ -8346,13 +8340,25 @@ components:
                         minY:
                           type: number
                           format: double
-                        x:
+                        maxX:
                           type: number
                           format: double
-                        'y':
+                        maxY:
+                          type: number
+                          format: double
+                        centerX:
+                          type: number
+                          format: double
+                        centerY:
                           type: number
                           format: double
                       writeOnly: true
+                    minX:
+                      type: number
+                      format: double
+                    minY:
+                      type: number
+                      format: double
                     maxX:
                       type: number
                       format: double
@@ -8363,12 +8369,6 @@ components:
                       type: number
                       format: double
                     centerY:
-                      type: number
-                      format: double
-                    minX:
-                      type: number
-                      format: double
-                    minY:
                       type: number
                       format: double
                   deprecated: true
@@ -8433,13 +8433,13 @@ components:
         smsInt:
           type: integer
           format: int32
-        medical:
-          type: integer
-          format: int32
         notify:
           type: boolean
         sms:
           type: boolean
+        medical:
+          type: integer
+          format: int32
     TherapyDTO:
       type: object
       properties:
@@ -8495,68 +8495,6 @@ components:
             The sms flag: true if sms need to be sent to patient, false
             otherwise
           example: false
-    LotDTO:
-      required:
-        - code
-        - dueDate
-        - preparationDate
-      type: object
-      properties:
-        code:
-          maxLength: 50
-          type: string
-          description: The lot's code
-          example: LT001
-        preparationDate:
-          type: string
-          description: The preparation date
-          example: '2020-06-24'
-        dueDate:
-          type: string
-          description: The due date
-          example: '2021-06-24'
-        cost:
-          type: number
-          description: The lot's code
-          example: 750
-      description: The lot
-    MovementDTO:
-      required:
-        - date
-        - medical
-        - quantity
-        - refNo
-        - type
-      type: object
-      properties:
-        code:
-          type: integer
-          description: The movement code
-          format: int32
-          example: 1
-        medical:
-          $ref: '#/components/schemas/MedicalDTO'
-        type:
-          $ref: '#/components/schemas/MovementTypeDTO'
-        ward:
-          $ref: '#/components/schemas/WardDTO'
-        lot:
-          $ref: '#/components/schemas/LotDTO'
-        date:
-          type: string
-          description: The movement date
-          example: '2020-06-24'
-        quantity:
-          type: integer
-          description: The movement's medical quantity
-          format: int32
-          example: 50
-        supplier:
-          $ref: '#/components/schemas/SupplierDTO'
-        refNo:
-          type: string
-          description: The movement reference
-          example: MVN152445
     SmsDTO:
       required:
         - module
@@ -8660,6 +8598,68 @@ components:
           $ref: '#/components/schemas/WardDTO'
         wardFrom:
           $ref: '#/components/schemas/WardDTO'
+    LotDTO:
+      required:
+        - code
+        - dueDate
+        - preparationDate
+      type: object
+      properties:
+        code:
+          maxLength: 50
+          type: string
+          description: The lot's code
+          example: LT001
+        preparationDate:
+          type: string
+          description: The preparation date
+          example: '2020-06-24'
+        dueDate:
+          type: string
+          description: The due date
+          example: '2021-06-24'
+        cost:
+          type: number
+          description: The lot's code
+          example: 750
+      description: The lot
+    MovementDTO:
+      required:
+        - date
+        - medical
+        - quantity
+        - refNo
+        - type
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The movement code
+          format: int32
+          example: 1
+        medical:
+          $ref: '#/components/schemas/MedicalDTO'
+        type:
+          $ref: '#/components/schemas/MovementTypeDTO'
+        ward:
+          $ref: '#/components/schemas/WardDTO'
+        lot:
+          $ref: '#/components/schemas/LotDTO'
+        date:
+          type: string
+          description: The movement date
+          example: '2020-06-24'
+        quantity:
+          type: integer
+          description: The movement's medical quantity
+          format: int32
+          example: 50
+        supplier:
+          $ref: '#/components/schemas/SupplierDTO'
+        refNo:
+          type: string
+          description: The movement reference
+          example: MVN152445
     ExamRowDTO:
       type: object
       properties:
@@ -8875,15 +8875,6 @@ components:
             $ref: '#/components/schemas/PatientExaminationDTO'
         pageInfo:
           $ref: '#/components/schemas/PageInfoDTO'
-    PageAdmissionDTO:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdmissionDTO'
-        pageInfo:
-          $ref: '#/components/schemas/PageInfoDTO'
     AgeType:
       required:
         - description
@@ -8914,6 +8905,15 @@ components:
         to:
           type: integer
           format: int32
+    PageAdmissionDTO:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdmissionDTO'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfoDTO'
     AdmittedPatientDTO:
       type: object
       properties:

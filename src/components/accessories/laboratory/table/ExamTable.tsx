@@ -42,8 +42,8 @@ export const ExamTable: FC<IExamTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const canUpdate = usePermission("exam.update");
-  const canDelete = usePermission("exam.delete");
+  const canUpdate = usePermission("exams.update");
+  const canDelete = usePermission("exams.delete");
   const deleteStatus = useSelector<IState, any>(
     (state: IState) => state.laboratories.deleteLab.status
   );

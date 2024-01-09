@@ -43,7 +43,7 @@ export class PatientConsensusApi extends BaseAPI {
         };
 
         return this.request<PatientConsensusDTO>({
-            url: '/patientConsensus/{patientId}'.replace('{patientId}', encodeURI(patientId)),
+            url: '/patientconsensus/{patientId}'.replace('{patientId}', encodeURI(patientId)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -63,7 +63,7 @@ export class PatientConsensusApi extends BaseAPI {
         };
 
         return this.request<PatientConsensusDTO>({
-            url: '/patientConsensus/{patientId}'.replace('{patientId}', encodeURI(patientId)),
+            url: '/patientconsensus/{patientId}'.replace('{patientId}', encodeURI(patientId)),
             method: 'PUT',
             headers,
             body: patientConsensusDTO,

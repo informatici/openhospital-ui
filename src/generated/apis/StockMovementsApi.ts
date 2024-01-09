@@ -83,7 +83,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/stockmovements/critical/check',
+            url: '/medicalstockmovements/critical/check',
             method: 'GET',
             headers,
             query,
@@ -102,7 +102,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<Array<LotDTO>>({
-            url: '/stockmovements/lot/{med_code}'.replace('{med_code}', encodeURI(medCode)),
+            url: '/medicalstockmovements/lot/{med_code}'.replace('{med_code}', encodeURI(medCode)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -118,7 +118,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<Array<MovementDTO>>({
-            url: '/stockmovements',
+            url: '/medicalstockmovements',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -136,7 +136,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<Array<MovementDTO>>({
-            url: '/stockmovements/{ref}'.replace('{ref}', encodeURI(ref)),
+            url: '/medicalstockmovements/{ref}'.replace('{ref}', encodeURI(ref)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -166,7 +166,7 @@ export class StockMovementsApi extends BaseAPI {
         if (lotDueTo != null) { query['lot_due_to'] = (lotDueTo as any).toISOString(); }
 
         return this.request<Array<MovementDTO>>({
-            url: '/stockmovements/filter/v2',
+            url: '/medicalstockmovements/filter/v2',
             method: 'GET',
             headers,
             query,
@@ -193,7 +193,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<Array<MovementDTO>>({
-            url: '/stockmovements/filter/v1',
+            url: '/medicalstockmovements/filter/v1',
             method: 'GET',
             headers,
             query,
@@ -218,7 +218,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/stockmovements/charge',
+            url: '/medicalstockmovements/charge',
             method: 'POST',
             headers,
             query,
@@ -244,7 +244,7 @@ export class StockMovementsApi extends BaseAPI {
         };
 
         return this.request<boolean>({
-            url: '/stockmovements/discharge',
+            url: '/medicalstockmovements/discharge',
             method: 'POST',
             headers,
             query,

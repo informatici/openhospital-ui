@@ -134,7 +134,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 
-      <Permission require="admission.update">
+      <Permission require="admissions.update">
         <div
           className={
             "align__element patientDetails__main_menu__item " +

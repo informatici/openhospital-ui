@@ -469,7 +469,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                 {t("opd.patient")}
               </div>
               <div className="filterOpdForm__section_content">
-                <Permission require="patient.read">
+                <Permission require="patients.read">
                   <div className="filterOpdForm__item">
                     <PatientPicker
                       theme={"regular"}
