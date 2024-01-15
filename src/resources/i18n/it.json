@@ -4,7 +4,10 @@
     "incorrectcredentials": "Nome utente o password non corretti",
     "passwordtooshort": "Password troppo breve",
     "badrequest": "Richiesta errata",
-    "internalerror": "Si è verificato un errore interno"
+    "internalerror": "Si è verificato un errore interno",
+    "lab": {
+      "someexamswithoutresultpleasecheck": "Alcuni esami senza esito, si prega di verificare."
+    }
   },
   "user": {
     "username": "Username",
@@ -87,7 +90,10 @@
     "cantretrieveconfig": "Impossibile recuperare le personalizzazioni",
     "cantsaveconfig": "Impossibile salvare le personalizzazioni",
     "reset": "Azzera",
-    "resetcustomization": "Azzera personalizzazioni"
+    "resetcustomization": "Reimposta le personalizzazioni",
+    "nowidgets": "Nessun widget",
+    "noallowedwidget": "Non hai il permesso per vedere alcun widget",
+    "emptylayout": "Nessun widget visualizzato. Inizia aggiungendo widget."
   },
   "patient": {
     "address": "Indirizzo",
@@ -559,9 +565,9 @@
     "changestatus": "Cambia lo stato dell'esame",
     "changelabstatusto": "Lo stato dell'esame {{code}} verrà cambiato  in {{status}}",
     "statuses": {
-      "draft": "DRAFT",
+      "draft": "APERTO",
       "all": "TUTTI",
-      "open": "OPEN",
+      "open": "IN CORSO",
       "done": "FATTO"
     },
     "previousentries": "Esami precedenti"
