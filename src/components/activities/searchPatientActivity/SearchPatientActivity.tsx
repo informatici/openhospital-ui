@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { formatAllFieldValues } from "../../../libraries/formDataHandling/functions";
@@ -50,7 +50,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     dispatch(searchPatientReset());
-  }, []);
+  }, [dispatch]);
 
   const errorMessage = useSelector<IState>(
     (state) =>
@@ -68,10 +68,10 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    id: string().when(["firstName", "secondName", "birthDate", "address"], {
+    id: number().when(["firstName", "secondName", "birthDate", "address"], {
       is: (firstName, secondName, birthDate, address) =>
         !firstName && !secondName && !birthDate && !address,
-      then: string().required(),
+      then: number().required(),
     }),
   });
 
@@ -181,6 +181,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                       isValid={isValid("id")}
                       errorText={getErrorText("id")}
                       onBlur={formik.handleBlur}
+                      type={"number"}
                     />
                   </div>
                 </div>
