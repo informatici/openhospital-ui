@@ -4,7 +4,7 @@ import { CustomModal } from "../../customModal/CustomModal";
 import Table from "../../table/Table";
 import { IExamTableProps, multipleResultsLabel } from "./types";
 import "./styles.scss";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
@@ -69,7 +69,7 @@ export const ExamTable: FC<IExamTableProps> = ({
       results = data.map((e) => {
         return {
           id: e.laboratoryDTO?.code ?? "",
-          date: renderDate(e.laboratoryDTO?.labDate ?? ""),
+          date: renderDateTime(e.laboratoryDTO?.labDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
           exam:
             e.laboratoryDTO?.exam?.description ?? e.laboratoryDTO?.exam ?? "", //The second case should be removed when the api is ready

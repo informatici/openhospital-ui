@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getPatientAdmissions } from "../../../../state/admissions/actions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
@@ -69,8 +69,8 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         id: item.id ?? "",
-        admDate: item.admDate ? renderDate(item.admDate) : "",
-        disDate: item.disDate ? renderDate(item.disDate) : "",
+        admDate: item.admDate ? renderDateTime(item.admDate) : "",
+        disDate: item.disDate ? renderDateTime(item.disDate) : "",
         admType: item.admType?.description ?? "",
         diseaseIn: item.diseaseIn?.description ?? "",
         transUnit: item.transUnit,

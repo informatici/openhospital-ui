@@ -7,7 +7,7 @@ import {
   PatientExaminationDTO,
   TherapyRowDTO,
 } from "../../generated";
-import { renderDate } from "../formatUtils/dataFormatting";
+import { renderDateTime } from "../formatUtils/dataFormatting";
 import { SummaryFieldType } from "./SummaryFieldType";
 
 export const convertToSummaryData = (
@@ -41,7 +41,7 @@ export const renderSummary = (
       if (typeof item[field] === "object") {
         obj[field] = item[field]?.description ?? "";
       } else if (dateFields.includes(field) && item[field]) {
-        obj[field] = renderDate(item[field]);
+        obj[field] = renderDateTime(item[field]);
       } else if (field === "medicalId" && item[field]) {
         obj[field] =
           medicals.find((medoc) => medoc.code === item[field])?.description ??

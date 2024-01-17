@@ -6,7 +6,7 @@ import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import Table from "../../table/Table";
 import { IOpdTableProps } from "./types";
 import "./styles.scss";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 
 export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const { t } = useTranslation();
@@ -57,8 +57,8 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
       results = data.map((e) => {
         return {
           id: e.code ?? "",
-          date: renderDate(e.date ?? ""),
-          nextVisitDate: renderDate(e.nextVisitDate ?? ""),
+          date: renderDateTime(e.date ?? ""),
+          nextVisitDate: renderDateTime(e.nextVisitDate ?? ""),
           patientCode: e.patientCode ?? "",
           patientName: e.patientName ?? "",
           sex: e.sex ?? "",

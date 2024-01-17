@@ -275,22 +275,31 @@ const Table: FunctionComponent<IProps> = ({
                   : defaultComparator(order, orderBy)
               )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => (
-                <TableBodyRow
-                  row={row}
-                  coreRow={getCoreRow && getCoreRow(row)}
-                  key={index}
-                  rowIndex={index}
-                  labelData={labelData}
-                  tableHeader={tableHeader}
-                  renderActions={() => renderActions(row)}
-                  isCollapsabile={isCollapsabile}
-                  showEmptyCell={showEmptyCell}
-                  renderCellDetails={renderItemDetails}
-                  detailColSpan={detailColSpan}
-                  expanded={expanded}
-                />
-              ))}
+              .map((row, index) => {
+                const newRow = { ...row };
+                dateFields.forEach((dateField) => {
+                  const parts = row[dateField].split(" ");
+                  if (parts.length === 2) {
+                    newRow[dateField] = parts[0];
+                  }
+                });
+                return (
+                  <TableBodyRow
+                    row={newRow}
+                    coreRow={getCoreRow && getCoreRow(newRow)}
+                    key={index}
+                    rowIndex={index}
+                    labelData={labelData}
+                    tableHeader={tableHeader}
+                    renderActions={() => renderActions(newRow)}
+                    isCollapsabile={isCollapsabile}
+                    showEmptyCell={showEmptyCell}
+                    renderCellDetails={renderItemDetails}
+                    detailColSpan={detailColSpan}
+                    expanded={expanded}
+                  />
+                );
+              })}
           </TableBody>
         </MaterialComponent>
       </TableContainer>

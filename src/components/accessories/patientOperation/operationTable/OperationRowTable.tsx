@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { OperationRowDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { getOperationsByAdmissionId } from "../../../../state/operations/actions";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
@@ -59,7 +59,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         id: item.id,
-        opDate: item.opDate ? renderDate(item.opDate) : "",
+        opDate: item.opDate ? renderDateTime(item.opDate) : "",
         opResult: t("operation.result." + item.opResult ?? "unknown"),
         remarks: item.remarks ?? "",
         operation: item.operation?.description ?? "",
