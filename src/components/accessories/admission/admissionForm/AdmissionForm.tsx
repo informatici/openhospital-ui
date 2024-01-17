@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import isEmpty from "lodash.isempty";
 import moment from "moment";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -90,7 +91,16 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const validationSchema = object({
-    ward: string().required(t("common.required")),
+    ward: string()
+      .required(t("common.required"))
+      .test({
+        name: "ward",
+        message: t("admission.no_beds"),
+        test: function (value) {
+          const beds = parseInt(this.parent.beds);
+          return !isNaN(beds) ? beds > 0 : true;
+        },
+      }),
     admType: string().required(t("common.required")),
     admDate: string()
       .required(t("common.required"))
@@ -204,7 +214,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       ).toString();
       setFieldValue("bedDays", days);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -222,8 +232,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+
+        if (fieldName === "ward") {
+          const ward = wards?.find((item) => item.code === value);
+          setFieldValue("beds", ward?.beds);
+        }
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, setFieldValue, wards]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
