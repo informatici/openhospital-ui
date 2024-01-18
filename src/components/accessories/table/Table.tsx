@@ -278,9 +278,11 @@ const Table: FunctionComponent<IProps> = ({
               .map((row, index) => {
                 const newRow = { ...row };
                 dateFields.forEach((dateField) => {
-                  const parts = row[dateField].split(" ");
-                  if (parts.length === 2) {
-                    newRow[dateField] = parts[0];
+                  if (row[dateField]) {
+                    const parts = row[dateField].split(" ");
+                    if (parts.length === 2) {
+                      newRow[dateField] = parts[0];
+                    }
                   }
                 });
                 return (
