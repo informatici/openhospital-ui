@@ -57,7 +57,9 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const admissionTypes = useSelector(
     (state: IState) => state.admissionTypes.allAdmissionTypes.data
   );
-  const wards = useSelector((state: IState) => state.wards.allWards.data);
+  const wards = useSelector((state: IState) =>
+    state.wards.allWards.data?.filter((ward) => !(ward.opd ?? false))
+  );
 
   const diagnosisOutList = useSelector(
     (state: IState) => state.diseases.diseasesIpdOut.data

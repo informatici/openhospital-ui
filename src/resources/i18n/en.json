@@ -573,7 +573,7 @@
     "previousentries": "Previous Exams"
   },
   "admission": {
-    "admDate": "Date",
+    "admDate": "Admission Date",
     "admType": "Admission Type",
     "newadmission": "New admission",
     "editadmission": "Edit admission",
