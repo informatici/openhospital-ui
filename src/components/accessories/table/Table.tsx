@@ -32,7 +32,6 @@ import {
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
-import SmallButton from "../smallButton/SmallButton";
 import Button from "../button/Button";
 
 const Table: FunctionComponent<IProps> = ({
@@ -276,29 +275,21 @@ const Table: FunctionComponent<IProps> = ({
               )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
-                const newRow = { ...row };
-                dateFields.forEach((dateField) => {
-                  if (row[dateField]) {
-                    const parts = row[dateField].split(" ");
-                    if (parts.length === 2) {
-                      newRow[dateField] = parts[0];
-                    }
-                  }
-                });
                 return (
                   <TableBodyRow
-                    row={newRow}
-                    coreRow={getCoreRow && getCoreRow(newRow)}
+                    row={row}
+                    coreRow={getCoreRow && getCoreRow(row)}
                     key={index}
                     rowIndex={index}
                     labelData={labelData}
                     tableHeader={tableHeader}
-                    renderActions={() => renderActions(newRow)}
+                    renderActions={() => renderActions(row)}
                     isCollapsabile={isCollapsabile}
                     showEmptyCell={showEmptyCell}
                     renderCellDetails={renderItemDetails}
                     detailColSpan={detailColSpan}
                     expanded={expanded}
+                    dateFields={dateFields}
                   />
                 );
               })}

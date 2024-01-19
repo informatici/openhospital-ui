@@ -1,5 +1,3 @@
-import { TOrder } from "../../../libraries/sortUtils/types";
-
 export interface IProps {
   rowData: Array<Record<string, any>>;
   labelData: Record<string, any>;
@@ -39,6 +37,7 @@ export interface IRowProps {
   coreRow?: any;
   detailColSpan?: number;
   expanded?: boolean;
+  dateFields: Array<string>;
 }
 
 export type TActions =

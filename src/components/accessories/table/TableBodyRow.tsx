@@ -1,13 +1,11 @@
 import React, { FunctionComponent, useEffect } from "react";
 import _ from "lodash";
-import { Collapse, IconButton, useMediaQuery } from "@material-ui/core";
+import { Collapse, IconButton } from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import "./styles.scss";
 import { IRowProps } from "./types";
-import { useHotkeys } from "react-hotkeys-hook";
-import { sleep } from "../../../libraries/asyncUtils/asyncUtils";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -21,12 +19,13 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   coreRow,
   detailColSpan,
   expanded,
+  dateFields,
 }) => {
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     setOpen(expanded ?? open);
-  }, [expanded]);
+  }, [expanded, open]);
 
   return (
     <>
@@ -45,9 +44,18 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
           ""
         )}
         {tableHeader.map((key, index) => {
-          return Object.keys(row).includes(key) ? (
+          const newRow = { ...row };
+          dateFields.forEach((dateField) => {
+            if (row[dateField]) {
+              const parts = row[dateField].split(" ");
+              if (parts.length === 2) {
+                newRow[dateField] = parts[0];
+              }
+            }
+          });
+          return Object.keys(newRow).includes(key) ? (
             <TableCell align="left" key={index}>
-              {row[key]}
+              {newRow[key]}
             </TableCell>
           ) : (
             ""
@@ -71,7 +79,12 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                 renderCellDetails({ ...coreRow })
               ) : (
                 <ul>
-                  {Object.keys(_.omit(row, tableHeader))
+                  {Object.keys(
+                    _.omit(
+                      row,
+                      tableHeader.filter((item) => !dateFields.includes(item))
+                    )
+                  )
                     .filter((key) => labelData[key] !== undefined)
                     .map(
                       (key, index) =>
