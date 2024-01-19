@@ -4,7 +4,10 @@
     "incorrectcredentials": "Benutzername oder Passwort ungültig",
     "passwordtooshort": "Passwort zu kurz",
     "badrequest": "Ungültige Anforderung",
-    "internalerror": "Es ist ein interner Fehler aufgetreten"
+    "internalerror": "Es ist ein interner Fehler aufgetreten",
+    "lab": {
+      "someexamswithoutresultpleasecheck": "Einige Prüfungen ohne Ergebnis, bitte überprüfen."
+    }
   },
   "user": {
     "username": "Benutzername",
@@ -87,7 +90,10 @@
     "cantretrieveconfig": "Anpassungen können nicht abgerufen werden",
     "cantsaveconfig": "Anpassungen können nicht gespeichert werden",
     "reset": "Zurücksetzen",
-    "resetcustomization": "Anpassungen zurücksetzen"
+    "resetcustomization": "Anpassungen zurücksetzen",
+    "nowidgets": "Keine Widgets",
+    "noallowedwidget": "Sie haben keine Berechtigung, ein Widget anzuzeigen",
+    "emptylayout": "Kein angezeigtes Widget. Beginnen Sie mit dem Hinzufügen von Widgets"
   },
   "patient": {
     "address": "Adresse",
@@ -562,12 +568,12 @@
       "draft": "ENTWURF",
       "all": "ALLE",
       "open": "OFFEN",
-      "done": "FERTIG"
+      "done": "ERLEDIGT"
     },
     "previousentries": "Frühere Examen"
   },
   "admission": {
-    "admDate": "Datum",
+    "admDate": "Aufnahmedatum",
     "admType": "Aufnahme Typ",
     "newadmission": "Neue aufnahme",
     "editadmission": "Aufnahme bearbeiten",
@@ -608,7 +614,8 @@
     "dischargebywards": "Entlassungen nach Stationen",
     "admregistered": "Aufnahmen in der aktuellen Periode",
     "disregistered": "Entlassungen in der aktuellen Periode",
-    "previousentries": "Frühere Aufnahmen"
+    "previousentries": "Frühere Aufnahmen",
+    "no_beds": "Auf der ausgewählten Station sind keine Betten vorhanden"
   },
   "bill": {
     "title": "Willkommen bei der Abrechnung",
