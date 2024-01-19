@@ -4,10 +4,7 @@
     "incorrectcredentials": "Nome utente o password non corretti",
     "passwordtooshort": "Password troppo breve",
     "badrequest": "Richiesta errata",
-    "internalerror": "Si è verificato un errore interno",
-    "lab": {
-      "someexamswithoutresultpleasecheck": "Alcuni esami senza esito, si prega di verificare."
-    }
+    "internalerror": "Si è verificato un errore interno"
   },
   "user": {
     "username": "Username",
@@ -90,10 +87,7 @@
     "cantretrieveconfig": "Impossibile recuperare le personalizzazioni",
     "cantsaveconfig": "Impossibile salvare le personalizzazioni",
     "reset": "Azzera",
-    "resetcustomization": "Reimposta le personalizzazioni",
-    "nowidgets": "Nessun widget",
-    "noallowedwidget": "Non hai il permesso per vedere alcun widget",
-    "emptylayout": "Nessun widget visualizzato. Inizia aggiungendo widget."
+    "resetcustomization": "Azzera personalizzazioni"
   },
   "patient": {
     "address": "Indirizzo",
@@ -565,9 +559,9 @@
     "changestatus": "Cambia lo stato dell'esame",
     "changelabstatusto": "Lo stato dell'esame {{code}} verrà cambiato  in {{status}}",
     "statuses": {
-      "draft": "APERTO",
+      "draft": "DRAFT",
       "all": "TUTTI",
-      "open": "IN CORSO",
+      "open": "OPEN",
       "done": "FATTO"
     },
     "previousentries": "Esami precedenti"
@@ -600,7 +594,7 @@
     "validatelastdate": "Deve essere maggiore o uguale alla data di ammissione {{admDate}}",
     "currentadmissionexists": "Il paziente risulta ricoverato dal {{Date}}. Prima devi effettuare la dimissione.",
     "patientnotadmitted": "Non risulta nessun ricovero in corso",
-    "patientalreadyadmitted": "Il paziente è ricoverato, qui troverai il dettaglio e in basso lo storico dei ricoveri. Per la dimissione andare alla pagina Dimissioni.",
+    "patientalreadyadmitted": "Il paziente è già stato ricoverato, qui troverai lo storico dei ricoveri. Per la dimissione andare alla pagina Dimissioni.",
     "updated": "Ricovero aggiornato",
     "updatesuccess": "Ricovero aggiornato",
     "datebefore": "La data di ammissione deve essere antecedente la data di dimissione",
