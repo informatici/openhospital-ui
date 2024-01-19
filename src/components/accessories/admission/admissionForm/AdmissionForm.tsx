@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import get from "lodash.get";
 import has from "lodash.has";
+import isEmpty from "lodash.isempty";
 import moment from "moment";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -56,7 +57,9 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const admissionTypes = useSelector(
     (state: IState) => state.admissionTypes.allAdmissionTypes.data
   );
-  const wards = useSelector((state: IState) => state.wards.allWards.data);
+  const wards = useSelector((state: IState) =>
+    state.wards.allWards.data?.filter((ward) => ward.beds > 0)
+  );
 
   const diagnosisOutList = useSelector(
     (state: IState) => state.diseases.diseasesIpdOut.data
@@ -204,7 +207,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       ).toString();
       setFieldValue("bedDays", days);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -222,8 +225,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+
+        if (fieldName === "ward") {
+          const ward = wards?.find((item) => item.code === value);
+          setFieldValue("beds", ward?.beds);
+        }
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, setFieldValue, wards]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
