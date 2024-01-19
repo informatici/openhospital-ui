@@ -58,7 +58,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
     (state: IState) => state.admissionTypes.allAdmissionTypes.data
   );
   const wards = useSelector((state: IState) =>
-    state.wards.allWards.data?.filter((ward) => !(ward.opd ?? false))
+    state.wards.allWards.data?.filter((ward) => ward.beds > 0)
   );
 
   const diagnosisOutList = useSelector(
@@ -93,16 +93,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const validationSchema = object({
-    ward: string()
-      .required(t("common.required"))
-      .test({
-        name: "ward",
-        message: t("admission.no_beds"),
-        test: function (value) {
-          const beds = parseInt(this.parent.beds);
-          return !isNaN(beds) ? beds > 0 : true;
-        },
-      }),
+    ward: string().required(t("common.required")),
     admType: string().required(t("common.required")),
     admDate: string()
       .required(t("common.required"))
