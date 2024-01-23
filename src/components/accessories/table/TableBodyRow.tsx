@@ -24,8 +24,8 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    setOpen(expanded ?? open);
-  }, [expanded, open]);
+    setOpen(expanded ?? false);
+  }, [expanded]);
 
   return (
     <>

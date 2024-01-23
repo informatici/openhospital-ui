@@ -16,6 +16,7 @@ export const convertToSummaryData = (
 ) => {
   const res = data.map(({ ...rest }) => ({
     ...rest,
+    [field.dateField]: undefined,
     type: field.type,
     date: rest[field.dateField],
   }));

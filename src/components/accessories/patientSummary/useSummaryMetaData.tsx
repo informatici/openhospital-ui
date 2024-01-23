@@ -67,7 +67,7 @@ const useSummaryMetaData = () => {
     type: {
       opd: ["date", "disease"],
       triage: ["date", "pex_temp"],
-      exam: ["date", "exam"],
+      exam: ["labDate", "exam"],
       admission: ["date", "diseaseIn"],
       operation: ["date", "operation"],
       therapy: ["date", "medicalId"],

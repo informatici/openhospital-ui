@@ -32,7 +32,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   const label = {
     code: t("common.code"),
-    labDate: t("lab.date"),
+    date: t("lab.date"),
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
