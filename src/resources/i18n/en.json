@@ -573,7 +573,7 @@
     "previousentries": "Previous Exams"
   },
   "admission": {
-    "admDate": "Date",
+    "admDate": "Admission Date",
     "admType": "Admission Type",
     "newadmission": "New admission",
     "editadmission": "Edit admission",
@@ -614,7 +614,8 @@
     "dischargebywards": "Discharges by wards",
     "admregistered": "Admissions in the current period",
     "disregistered": "Discharges in the current period",
-    "previousentries": "Previous Admissions"
+    "previousentries": "Previous Admissions",
+    "no_beds": "There is not beds in the selected ward"
   },
   "bill": {
     "title": "Welcome to Billing",

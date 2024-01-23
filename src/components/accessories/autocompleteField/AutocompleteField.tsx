@@ -64,8 +64,13 @@ const AutocompleteField: FC<IProps> = ({
       setValue(result[0].value);
       onBlur(e, result[0].value);
     } else {
-      setValue(inputValue);
-      onBlur(e, inputValue);
+      if (freeSolo) {
+        setValue(inputValue);
+        onBlur(e, inputValue);
+      } else {
+        setValue("");
+        onBlur(e, "");
+      }
     }
   };
 
