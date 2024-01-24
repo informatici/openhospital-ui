@@ -41,6 +41,7 @@ const useSummaryMetaData = () => {
     exam: t("lab.exam"),
     //material: t("lab.material"),
     labDate: t("lab.date"),
+    opdDate: t("opd.date"),
     startDate: t("therapy.startDate"),
     endDate: t("therapy.endDate"),
     qty: t("therapy.quantity"),
@@ -67,7 +68,7 @@ const useSummaryMetaData = () => {
     type: {
       opd: ["date", "disease"],
       triage: ["date", "pex_temp"],
-      exam: ["labDate", "exam"],
+      exam: ["date", "exam"],
       admission: ["date", "diseaseIn"],
       operation: ["date", "operation"],
       therapy: ["date", "medicalId"],

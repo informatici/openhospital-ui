@@ -16,7 +16,6 @@ export const convertToSummaryData = (
 ) => {
   const res = data.map(({ ...rest }) => ({
     ...rest,
-    [field.dateField]: undefined,
     type: field.type,
     date: rest[field.dateField],
   }));
@@ -52,6 +51,12 @@ export const renderSummary = (
       }
       return obj[field];
     });
+    if (item["type"] === "OPD") {
+      obj["opdDate"] = item["date"];
+    }
+    if (item["type"] === "VISIT") {
+      obj["visitDate"] = item["date"];
+    }
     return obj;
   };
   return data.map((item: any) => {

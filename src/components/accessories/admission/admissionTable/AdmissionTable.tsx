@@ -26,6 +26,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   const dateFields = ["admDate", "disDate"];
 
   const label = {
+    id: t("admission.code"),
     admDate: t("admission.admDate"),
     disDate: t("admission.disDate"),
     admType: t("admission.admType"),

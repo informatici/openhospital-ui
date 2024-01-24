@@ -20,6 +20,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   detailColSpan,
   expanded,
   dateFields,
+  detailsExcludedFields,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -82,13 +83,15 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                   {Object.keys(
                     _.omit(
                       row,
-                      tableHeader.filter((item) => !dateFields.includes(item))
+                      tableHeader
+                        .filter((item) => !dateFields.includes(item))
+                        .concat(detailsExcludedFields ?? [])
                     )
                   )
                     .filter((key) => labelData[key] !== undefined)
                     .map(
                       (key, index) =>
-                        (showEmptyCell || (row[key] && labelData[key])) && (
+                        (showEmptyCell || (!!row[key] && !!labelData[key])) && (
                           <li className="collapseItem_row" key={index}>
                             <strong>{labelData[key]}:&nbsp;</strong>
                             <span>{row[key]}</span>

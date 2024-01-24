@@ -23,6 +23,7 @@ export interface IProps {
   onCancel?: (row: any) => void;
   detailColSpan?: number;
   displayRowAction?: (row: any, action: TActions) => boolean;
+  detailsExcludedFields?: string[];
 }
 
 export interface IRowProps {
@@ -38,6 +39,7 @@ export interface IRowProps {
   detailColSpan?: number;
   expanded?: boolean;
   dateFields: Array<string>;
+  detailsExcludedFields?: string[];
 }
 
 export type TActions =

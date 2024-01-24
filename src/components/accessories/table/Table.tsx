@@ -57,6 +57,7 @@ const Table: FunctionComponent<IProps> = ({
   onCancel,
   detailColSpan,
   displayRowAction,
+  detailsExcludedFields,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -290,6 +291,7 @@ const Table: FunctionComponent<IProps> = ({
                     detailColSpan={detailColSpan}
                     expanded={expanded}
                     dateFields={dateFields}
+                    detailsExcludedFields={detailsExcludedFields}
                   />
                 );
               })}

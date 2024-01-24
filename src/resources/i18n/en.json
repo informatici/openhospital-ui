@@ -513,7 +513,7 @@
   "lab": {
     "newlab": "New laboratory exam",
     "editlab": "Edit laboratory exam",
-    "date": "Date",
+    "date": "Exam Date",
     "exam": "Exam",
     "type": "IPD/OPD",
     "material": "Material",
@@ -573,6 +573,7 @@
     "previousentries": "Previous Exams"
   },
   "admission": {
+    "code": "Admission Code",
     "admDate": "Admission Date",
     "admType": "Admission Type",
     "newadmission": "New admission",
