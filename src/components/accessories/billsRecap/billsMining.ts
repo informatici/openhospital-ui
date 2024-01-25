@@ -1,10 +1,24 @@
 import moment from "moment";
 import { FullBillDTO } from "../../../generated";
-import {
-  combineData,
-  sortAndSlice,
-} from "../../../libraries/formatUtils/dataFormatting";
 import { IBillSummary } from "../../activities/billingActivity/types";
+
+
+export const combineData: any = (data: any) => {
+  return Object.entries(data).reduce(
+    (r, [k, v]) => ({
+      ...r,
+      [k]: v,
+    }),
+    {}
+  );
+};
+
+export const sortAndSlice: any = (data: any) => {
+  return Object.entries(data)
+    .sort(([, a], [, b]) => (b as number) - +(a as number))
+    .slice(0, 10)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+};
 
 export const computeBillSummary = (
   bills: FullBillDTO[] = [],

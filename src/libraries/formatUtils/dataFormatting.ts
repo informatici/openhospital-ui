@@ -44,19 +44,3 @@ export const unformatRenderDate = (value: string) => {
     : undefined;
 };
 
-export const combineData: any = (data: any) => {
-  return Object.entries(data).reduce(
-    (r, [k, v]) => ({
-      ...r,
-      [k]: v,
-    }),
-    {}
-  );
-};
-
-export const sortAndSlice: any = (data: any) => {
-  return Object.entries(data)
-    .sort(([, a], [, b]) => (b as number) - +(a as number))
-    .slice(0, 10)
-    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-};
