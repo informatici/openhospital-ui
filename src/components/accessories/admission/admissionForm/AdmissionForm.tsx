@@ -12,6 +12,7 @@ import {
   AdmissionTypeDTO,
   DiseaseDTO,
   DiseaseTypeDTO,
+  PatientDTOSexEnum,
   WardDTO,
 } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
@@ -57,6 +58,9 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const admissionTypes = useSelector(
     (state: IState) => state.admissionTypes.allAdmissionTypes.data
   );
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
   const wards = useSelector((state: IState) =>
     state.wards.allWards.data?.filter((ward) => ward.beds > 0)
   );
@@ -67,6 +71,18 @@ const AdmissionForm: FC<AdmissionProps> = ({
 
   const dischargeTypes = useSelector(
     (state: IState) => state.dischargeTypes.allDischargeTypes.data
+  );
+
+  const filteredWards = useMemo(
+    () =>
+      wards?.filter((ward) =>
+        patient?.sex === PatientDTOSexEnum.F
+          ? ward.female
+          : patient?.sex === PatientDTOSexEnum.M
+          ? ward.male
+          : true
+      ),
+    [patient, wards]
   );
 
   const renderOptions = (
@@ -261,7 +277,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
 
   useEffect(() => {
     dispatch(getDiseasesIpdOut());
-  }, [dispatch, getDiseasesIpdOut]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getDiseasesIpdIn());
@@ -301,7 +317,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("ward")}
                 errorText={getErrorText("ward")}
                 onBlur={onBlurCallback("ward")}
-                options={renderOptions(wards)}
+                options={renderOptions(filteredWards)}
                 loading={wardStatus === "LOADING"}
                 disabled={isLoading}
               />
