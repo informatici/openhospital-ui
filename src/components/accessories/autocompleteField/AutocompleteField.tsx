@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { DefaultOptionType, IProps } from "./types";
 import "./styles.scss";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import {
   Autocomplete,
   createFilterOptions,

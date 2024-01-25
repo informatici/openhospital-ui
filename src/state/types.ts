@@ -1,5 +1,3 @@
-import { PageInfoDTO } from "../generated";
-
 export interface IAction<Payload, Error> {
   type: string;
   payload?: Payload | Error;

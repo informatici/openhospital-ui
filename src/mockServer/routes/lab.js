@@ -43,7 +43,7 @@ export const labRoutes = (server) => {
 
     server.get("/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labDTO.find((e) => e.code == code);
+      const lab = labDTO.find((e) => e.code === code);
       switch (code) {
         case "1000":
           res.status(400);
@@ -63,7 +63,7 @@ export const labRoutes = (server) => {
 
     server.get("/exams/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code == code);
+      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code === code);
       switch (code) {
         case "1000":
           res.status(400);

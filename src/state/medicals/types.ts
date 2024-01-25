@@ -1,4 +1,4 @@
-import { MedicalDTO, VisitDTO } from "../../generated";
+import { MedicalDTO } from "../../generated";
 import { IApiResponse } from "../types";
 
 export type IMedicalState = {

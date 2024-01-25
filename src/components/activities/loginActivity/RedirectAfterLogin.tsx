@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
 import { useLandingPageRoute } from "../../../libraries/hooks/useLandingPageRoute";
-import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 import { IRedirectAfterLogin } from "./types";
 

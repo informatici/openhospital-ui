@@ -82,9 +82,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const formattedData: any[] = formatDataToDisplay(data);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);

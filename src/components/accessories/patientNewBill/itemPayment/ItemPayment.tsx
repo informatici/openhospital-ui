@@ -37,7 +37,7 @@ const ItemPayment: FC<IOwnProps> = ({
         <span>{currencyFormat(billTotal - paymentTotal)}</span>
       </div>
       <div className="payment__buttons">
-        {(billTotal > 0 && billTotal - paymentTotal == 0 && (
+        {(billTotal > 0 && billTotal - paymentTotal === 0 && (
           <div>
             <Button
               className={"paid"}

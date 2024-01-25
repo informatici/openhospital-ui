@@ -1,13 +1,11 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { OpdDTO, PageInfoDTO } from "../../../generated";
-import { searchOpds } from "../../../state/opds/actions";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 
 export const useOpds = () => {
-  const dispatch = useDispatch();
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(0);
   const [range, setRange] = useState(

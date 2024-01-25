@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHospital } from "../../../state/hospital/actions";
 import { HospitalDTO } from "../../../generated";
 
-export const HospitalInfo: FC<TProps> = ({}) => {
+export const HospitalInfo: FC<TProps> = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   useEffect(() => {

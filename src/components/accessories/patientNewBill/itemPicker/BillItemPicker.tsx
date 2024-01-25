@@ -1,17 +1,11 @@
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
-import { useFormik } from "formik";
+
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { number, object, string } from "yup";
-import { BillItemsDTO } from "../../../../generated";
 import { PriceDTO } from "../../../../generated/models/PriceDTO";
-import {
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../../libraries/formDataHandling/functions";
+import { formatAllFieldValues } from "../../../../libraries/formDataHandling/functions";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import SmallButton from "../../smallButton/SmallButton";
-import TextButton from "../../textButton/TextButton";
 import TextField from "../../textField/TextField";
 import { ItemGroups } from "../consts";
 import { useItemPrices } from "../hooks/price.hooks";
@@ -51,7 +45,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
       if (itemType == ItemGroups.other.id) {
         item.itemAmount = values?.itemAmount;
         item.itemDescription = values?.itemDescription;
-        onSubmit(item, itemToEdit == undefined ? true : false);
+        onSubmit(item, itemToEdit === undefined ? true : false);
         return;
       }
       let priceDTO: PriceDTO | undefined = prices.find(
@@ -64,7 +58,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         item.itemId = priceDTO.item;
         item.price = true;
         item.priceId = priceDTO.id?.toString() ?? "";
-        onSubmit(item, itemToEdit == undefined ? true : false);
+        onSubmit(item, itemToEdit === undefined ? true : false);
       }
     },
     [itemType]
@@ -73,7 +67,6 @@ const BillItemPickerForm: FC<BillItemProps> = ({
   const {
     getErrorText,
     getFieldProps,
-    handleResetConfirmation,
     onBlurCallback,
     handleBlur,
     isValid,

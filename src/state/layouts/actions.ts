@@ -17,7 +17,6 @@ import {
 import {
   decodeLayoutConfig,
   encodeLayout,
-  randomLayout,
   toolboxDashboards,
 } from "../../components/accessories/dashboard/layouts/consts";
 import { Layouts } from "react-grid-layout";

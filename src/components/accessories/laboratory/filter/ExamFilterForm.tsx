@@ -12,7 +12,7 @@ import has from "lodash.has";
 import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { number, object, string } from "yup";
+import { object, string } from "yup";
 import {
   ExamDTO,
   LaboratoryDTOStatusEnum,
@@ -29,7 +29,6 @@ import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
 import { IExamFilterProps, TFilterValues } from "./types";
 import "./styles.scss";
-import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
 import { useSelector } from "react-redux";

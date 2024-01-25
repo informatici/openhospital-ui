@@ -17,7 +17,6 @@ export const visitRoutes = (server) => {
       }
     });
     server.put("/:visitID").intercept((req, res) => {
-      const visitID = req.params.visitID;
       const body = req.jsonBody();
       switch (body.duration) {
         case 100:

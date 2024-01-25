@@ -56,10 +56,6 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
-  const selectedPatient = useSelector<IState, PatientDTO | undefined>(
-    (state) => state.patients.selectedPatient.data
-  );
-
   const patient = useSelector<IState, PatientDTO | undefined>(
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
