@@ -82,16 +82,16 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                 <ul>
                   {Object.keys(
                     _.omit(
-                      row,
+                      labelData,
                       tableHeader
                         .filter((item) => !dateFields.includes(item))
                         .concat(detailsExcludedFields ?? [])
                     )
                   )
-                    .filter((key) => labelData[key] !== undefined)
+                    .filter((key) => Object.keys(row).includes(key))
                     .map(
                       (key, index) =>
-                        (showEmptyCell || (!!row[key] && !!labelData[key])) && (
+                        (showEmptyCell || !!row[key]) && (
                           <li className="collapseItem_row" key={index}>
                             <strong>{labelData[key]}:&nbsp;</strong>
                             <span>{row[key]}</span>
