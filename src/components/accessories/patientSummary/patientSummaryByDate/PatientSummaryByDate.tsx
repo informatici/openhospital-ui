@@ -42,7 +42,6 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
             columnsOrder={order}
             rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
             isCollapsabile={true}
-            showEmptyCell={false}
             detailsExcludedFields={["date"]}
           />
         ) : (

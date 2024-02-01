@@ -59,7 +59,6 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 columnsOrder={order}
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
-                showEmptyCell={false}
                 detailsExcludedFields={["date"]}
               />
             </div>

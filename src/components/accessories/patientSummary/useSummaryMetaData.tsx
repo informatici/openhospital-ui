@@ -3,6 +3,10 @@ import { useTranslation } from "react-i18next";
 const useSummaryMetaData = () => {
   const { t } = useTranslation();
   const labels = {
+    id: t("common.code"),
+    code: t("common.code"),
+    pex_ID: t("common.code"),
+    therapyID: t("common.code"),
     date: t("common.date"),
     visitDate: t("opd.date"),
     labDate: t("lab.date"),
