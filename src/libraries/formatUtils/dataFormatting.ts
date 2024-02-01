@@ -38,6 +38,12 @@ export const renderDate = (date: string) => {
   return moment(date).isValid() ? moment(date).format("DD/MM/YYYY") : "";
 };
 
+export const renderDateTime = (date: string) => {
+  return moment(date).isValid()
+    ? moment(date).format("DD/MM/YYYY HH:mm:ss")
+    : "";
+};
+
 export const unformatRenderDate = (value: string) => {
   return moment(value, "DD/MM/YYYY").isValid()
     ? moment(value, "DD/MM/YYYY").toDate()

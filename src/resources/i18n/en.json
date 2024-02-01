@@ -166,7 +166,7 @@
   "opd": {
     "newopd": "Create new OPD Visit",
     "editopd": "Edit OPD Visit",
-    "dateopd": "Date (d/m/y)",
+    "dateopd": "Date",
     "note": "Notes and symptoms",
     "complaint": "Patient complaints",
     "disease1": "Diagnosis 1",
@@ -227,7 +227,7 @@
     "previousentries": "Previous Visits"
   },
   "visit": {
-    "date": "Date (d/m/y)",
+    "date": "Date",
     "note": "Notes and symptoms",
     "duration": "Duration",
     "ward": "Ward",
@@ -264,7 +264,7 @@
     "auscultationabbr": "AUSC",
     "bowelabbr": "B",
     "bowel": "Bowel",
-    "datetriage": "Date (d/m/y)",
+    "datetriage": "Date",
     "diuresis": "Diuresis",
     "diuresisabbr": "D",
     "diuresisvolume24h": "Diuresis Vol 24H",
@@ -513,7 +513,7 @@
   "lab": {
     "newlab": "New laboratory exam",
     "editlab": "Edit laboratory exam",
-    "date": "Date",
+    "date": "Exam Date",
     "exam": "Exam",
     "type": "IPD/OPD",
     "material": "Material",
@@ -573,6 +573,7 @@
     "previousentries": "Previous Exams"
   },
   "admission": {
+    "code": "Admission Code",
     "admDate": "Admission Date",
     "admType": "Admission Type",
     "newadmission": "New admission",

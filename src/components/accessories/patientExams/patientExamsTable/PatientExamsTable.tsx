@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 
@@ -32,7 +32,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   const label = {
     code: t("common.code"),
-    labDate: t("lab.date"),
+    date: t("lab.date"),
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
@@ -63,7 +63,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       return {
         code: item.laboratoryDTO?.code,
         date: item.laboratoryDTO?.labDate
-          ? renderDate(item.laboratoryDTO?.labDate)
+          ? renderDateTime(item.laboratoryDTO?.labDate)
           : "",
         exam: item.laboratoryDTO?.exam?.description ?? "",
         result:
