@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { AdmissionDTO, OpdDTO, PatientDTO } from "../../../generated";
+import { AdmissionDTO, OpdDTO } from "../../../generated";
 import { updateAdmission } from "../../../state/admissions/actions";
 import { IState } from "../../../types";
 import { useFields } from "../admission/useFields";
@@ -52,7 +51,7 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
     if (onEditChange) {
       onEditChange(editionMode);
     }
-  }, [editionMode]);
+  }, [editionMode, onEditChange]);
 
   return (
     <div className="currentAdmission">

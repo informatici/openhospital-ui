@@ -25,6 +25,7 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const label = {
     id: t("opd.code"),
     date: t("opd.date"),
+    nextVisitDate: t("opd.nextvisitdate"),
     patientCode: t("opd.patientcode"),
     patientName: t("opd.patient"),
     sex: t("opd.sex"),
@@ -36,7 +37,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
     note: t("opd.note"),
     referralFrom: t("opd.referralfrom"),
     referralTo: t("opd.referralto"),
-    nextVisitDate: t("opd.nextvisitdate"),
     age: t("opd.age"),
     ward: t("opd.ward"),
   };
@@ -49,7 +49,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
     "age",
     "disease",
   ];
-  const [opd, setOpd] = useState({} as OpdDTO);
 
   const formatDataToDisplay = (data: OpdDTO[]) => {
     let results: any = [];
@@ -82,9 +81,6 @@ export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const formattedData: any[] = formatDataToDisplay(data);
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);

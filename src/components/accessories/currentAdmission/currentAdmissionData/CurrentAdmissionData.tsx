@@ -28,6 +28,12 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
         )}
       </div>
       <div className="currentAdmissionData__content">
+        {!isEmpty(admission?.admDate) && (
+          <div className="currentAdmissionData__item">
+            <span className="item_label">{t("admission.admDate")}</span>
+            <p className="item_content">{renderDate(admission?.admDate)}</p>
+          </div>
+        )}
         {!isEmpty(admission?.ward?.description) && (
           <div className="currentAdmissionData__item">
             <span className="item_label">{t("admission.ward")}</span>
@@ -38,12 +44,6 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
           <div className="currentAdmissionData__item">
             <span className="item_label">{t("admission.fhu")}</span>
             <p className="item_content">{admission?.fhu}</p>
-          </div>
-        )}
-        {!isEmpty(admission?.admDate) && (
-          <div className="currentAdmissionData__item">
-            <span className="item_label">{t("admission.admDate")}</span>
-            <p className="item_content">{renderDate(admission?.admDate)}</p>
           </div>
         )}
         {!isEmpty(admission?.admType?.description) && (
