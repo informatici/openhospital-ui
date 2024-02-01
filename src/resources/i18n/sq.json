@@ -4,10 +4,7 @@
     "incorrectcredentials": "Përdoruesi ose fjalëkalimi i pavlefshëm",
     "passwordtooshort": "Fjalëkalimi është shumë i shkurtër",
     "badrequest": "Kerkese e pavlefshme",
-    "internalerror": "Ndodhi një gabim i brendshëm",
-    "lab": {
-      "someexamswithoutresultpleasecheck": "Disa ekzaminime pa rezultat ju lutemi kontrolloni."
-    }
+    "internalerror": "Ndodhi një gabim i brendshëm"
   },
   "user": {
     "username": "Përdoruesi",
@@ -88,12 +85,9 @@
     "removedashboard": "Hiq komponentin e Panelit",
     "downloaddata": "Shkarkoni të dhënat themelore",
     "cantretrieveconfig": "Përshtatjet nuk mund të merren",
-    "cantsaveconfig": "Nuk mund të ruhen përshtatjet",
+    "cantsaveconfig": "Përshtatjet nuk mund të ruhen",
     "reset": "Rivendos",
-    "resetcustomization": "Rivendos përshtatjet",
-    "nowidgets": "Nuk ka miniaplikacione",
-    "noallowedwidget": "Nuk ke leje për të parë ndonjë miniaplikacion",
-    "emptylayout": "Asnjë miniaplikacion i shfaqur. Filloni duke shtuar miniaplikacione"
+    "resetcustomization": "Rivendos përshtatjet"
   },
   "patient": {
     "address": "Adresa",
@@ -565,15 +559,15 @@
     "changestatus": "Ndrysho statusin e ekzaminimit",
     "changelabstatusto": "Statusi i ekzaminimit {{code}} do të ndryshohet në {{status}}",
     "statuses": {
-      "draft": "PROJEKT",
-      "all": "TE GJITHA",
+      "draft": "DRAFT",
+      "all": "TË GJITHA",
       "open": "HAPUR",
-      "done": "KRYER"
+      "done": "BËR"
     },
     "previousentries": "Ekzaminime të mëparshme"
   },
   "admission": {
-    "admDate": "Data e pranimit",
+    "admDate": "Data",
     "admType": "Lloji i pranimit",
     "newadmission": "Pranim i ri",
     "editadmission": "Redakto pranimin",
@@ -614,8 +608,7 @@
     "dischargebywards": "Shkarkime sipas repartit",
     "admregistered": "Pranime në periudhën aktuale",
     "disregistered": "Shkarkime në periudhën aktuale",
-    "previousentries": "Pranime të mëparshme",
-    "no_beds": "Nuk ka shtretër në repartin e zgjedhur"
+    "previousentries": "Pranime të mëparshme"
   },
   "bill": {
     "title": "Mirë se vini në Faturimi",
