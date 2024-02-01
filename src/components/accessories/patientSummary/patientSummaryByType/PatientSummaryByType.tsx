@@ -60,6 +60,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}
@@ -84,6 +85,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}
@@ -107,6 +109,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}
@@ -131,6 +134,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}
@@ -153,6 +157,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}
@@ -175,6 +180,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}
@@ -198,6 +204,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
                 rowsPerPage={ORDER_BY_TYPE_PAGE_SIZE}
                 isCollapsabile={true}
                 showEmptyCell={false}
+                detailsExcludedFields={["date"]}
               />
             </div>
           )}

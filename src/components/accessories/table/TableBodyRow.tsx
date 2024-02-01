@@ -7,7 +7,6 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import "./styles.scss";
 import { IRowProps } from "./types";
 
-
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
   rowIndex,
@@ -20,11 +19,13 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   coreRow,
   detailColSpan,
   expanded,
+  dateFields,
+  detailsExcludedFields,
 }) => {
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    setOpen(expanded ?? open);
+    setOpen(expanded ?? false);
   }, [expanded]);
 
   return (
@@ -44,9 +45,18 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
           ""
         )}
         {tableHeader.map((key, index) => {
-          return Object.keys(row).includes(key) ? (
+          const newRow = { ...row };
+          dateFields.forEach((dateField) => {
+            if (row[dateField]) {
+              const parts = row[dateField].split(" ");
+              if (parts.length === 2) {
+                newRow[dateField] = parts[0];
+              }
+            }
+          });
+          return Object.keys(newRow).includes(key) ? (
             <TableCell align="left" key={index}>
-              {row[key]}
+              {newRow[key]}
             </TableCell>
           ) : (
             ""
@@ -70,11 +80,18 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                 renderCellDetails({ ...coreRow })
               ) : (
                 <ul>
-                  {Object.keys(_.omit(row, tableHeader))
-                    .filter((key) => labelData[key] !== undefined)
+                  {Object.keys(
+                    _.omit(
+                      labelData,
+                      tableHeader
+                        .filter((item) => !dateFields.includes(item))
+                        .concat(detailsExcludedFields ?? [])
+                    )
+                  )
+                    .filter((key) => Object.keys(row).includes(key))
                     .map(
                       (key, index) =>
-                        (showEmptyCell || (row[key] && labelData[key])) && (
+                        (showEmptyCell || !!row[key]) && (
                           <li className="collapseItem_row" key={index}>
                             <strong>{labelData[key]}:&nbsp;</strong>
                             <span>{row[key]}</span>

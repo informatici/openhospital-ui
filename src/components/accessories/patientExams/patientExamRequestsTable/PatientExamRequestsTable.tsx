@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
+import { LaboratoryDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsRequestByPatientId } from "../../../../state/laboratories/actions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 
@@ -60,7 +60,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         code: item.code,
-        date: item.labDate ? renderDate(item.labDate) : "",
+        date: item.labDate ? renderDateTime(item.labDate) : "",
         status: item.status ? statusLabel(item.status) : "",
         exam: item.exam?.description ?? "",
         //material: item.material ? t(item.material) : "",

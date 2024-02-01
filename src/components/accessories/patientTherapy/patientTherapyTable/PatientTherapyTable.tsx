@@ -7,7 +7,7 @@ import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { getMedicals } from "../../../../state/medicals/actions";
 import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
 import moment from "moment";
@@ -86,8 +86,8 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
       return {
         therapyID: item.therapyID,
         medicalId: medical ? medical.description : item.medicalId,
-        startDate: item.startDate ? renderDate(item.startDate) : "",
-        endDate: item.endDate ? renderDate(item.endDate) : "",
+        startDate: item.startDate ? renderDateTime(item.startDate) : "",
+        endDate: item.endDate ? renderDateTime(item.endDate) : "",
         qty: item.qty,
         freqInDay: item.freqInDay,
         freqInPeriod: item.freqInPeriod,

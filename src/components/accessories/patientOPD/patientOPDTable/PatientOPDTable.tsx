@@ -1,16 +1,13 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
-import {
-  getOpds,
-  getOpdsWithOperationRows,
-} from "../../../../state/opds/actions";
+import { getOpdsWithOperationRows } from "../../../../state/opds/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -61,7 +58,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
       results = data.map((item) => {
         return {
           code: item.opdDTO?.code,
-          date: item.opdDTO?.date ? renderDate(item.opdDTO.date) : "",
+          date: item.opdDTO?.date ? renderDateTime(item.opdDTO.date) : "",
           disease: item.opdDTO?.disease?.description || "",
           ward: item.opdDTO?.ward.description,
           disease2: item.opdDTO?.disease2?.description || "",

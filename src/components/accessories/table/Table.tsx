@@ -32,7 +32,6 @@ import {
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
-import SmallButton from "../smallButton/SmallButton";
 import Button from "../button/Button";
 
 const Table: FunctionComponent<IProps> = ({
@@ -58,6 +57,7 @@ const Table: FunctionComponent<IProps> = ({
   onCancel,
   detailColSpan,
   displayRowAction,
+  detailsExcludedFields,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -275,22 +275,26 @@ const Table: FunctionComponent<IProps> = ({
                   : defaultComparator(order, orderBy)
               )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => (
-                <TableBodyRow
-                  row={row}
-                  coreRow={getCoreRow && getCoreRow(row)}
-                  key={index}
-                  rowIndex={index}
-                  labelData={labelData}
-                  tableHeader={tableHeader}
-                  renderActions={() => renderActions(row)}
-                  isCollapsabile={isCollapsabile}
-                  showEmptyCell={showEmptyCell}
-                  renderCellDetails={renderItemDetails}
-                  detailColSpan={detailColSpan}
-                  expanded={expanded}
-                />
-              ))}
+              .map((row, index) => {
+                return (
+                  <TableBodyRow
+                    row={row}
+                    coreRow={getCoreRow && getCoreRow(row)}
+                    key={index}
+                    rowIndex={index}
+                    labelData={labelData}
+                    tableHeader={tableHeader}
+                    renderActions={() => renderActions(row)}
+                    isCollapsabile={isCollapsabile}
+                    showEmptyCell={showEmptyCell}
+                    renderCellDetails={renderItemDetails}
+                    detailColSpan={detailColSpan}
+                    expanded={expanded}
+                    dateFields={dateFields}
+                    detailsExcludedFields={detailsExcludedFields}
+                  />
+                );
+              })}
           </TableBody>
         </MaterialComponent>
       </TableContainer>

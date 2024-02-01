@@ -6,6 +6,8 @@ const formats = [
   "YYYY-MM-DD",
   "YYYY-MM-DD HH:mm:ss",
   "DD/MM/YYYY HH:mm:ss",
+  "YYYY-MM-DD HH:mm",
+  "DD/MM/YYYY HH:mm",
 ];
 export function dateComparator<Key extends keyof any>(order: TOrder, key: Key) {
   let reverse = order === "desc" ? 1 : -1;
