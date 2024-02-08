@@ -15,7 +15,7 @@ import { Observable, of, Subscriber } from 'rxjs';
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { map, concatMap } from 'rxjs/operators';
 
-export const BASE_PATH = 'http://localhost:8080'.replace(/\/+$/, '');
+export const BASE_PATH = 'http://oh2.open-hospital.org".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
