@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get } from "lodash";
+import { has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { TherapyFormFieldName, TherapyProps } from "./types";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { initialFields } from "../consts";
 
 const TherapyForm: FC<TherapyProps> = ({

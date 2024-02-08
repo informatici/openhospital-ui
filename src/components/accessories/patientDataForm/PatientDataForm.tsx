@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
-import isEmpty from "lodash.isempty";
+import { get } from "lodash";
+import { has } from "lodash";
+import { isEmpty } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,

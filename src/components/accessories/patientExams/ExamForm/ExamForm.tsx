@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get } from "lodash";
+import { has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";

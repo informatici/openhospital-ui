@@ -16,14 +16,14 @@ import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
 import TextField from "../../textField/TextField";
-import has from "lodash.has";
-import get from "lodash.get";
+import { has } from "lodash";
+import { get } from "lodash";
 import SelectField from "../../selectField/SelectField";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,

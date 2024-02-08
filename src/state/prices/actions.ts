@@ -1,4 +1,4 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
 import { PriceListsApi } from "../../generated/apis/PriceListsApi";
 import { PriceDTO } from "../../generated/models/PriceDTO";

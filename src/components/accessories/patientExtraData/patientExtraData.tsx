@@ -1,8 +1,8 @@
 import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get } from "lodash";
+import { has } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,
@@ -28,7 +28,7 @@ import { initialFields } from "./consts";
 import "./styles.scss";
 import { IOwnProps, TActivityTransitionState } from "./types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 
 export const PatientExtraData: FunctionComponent<IOwnProps> = ({
   readOnly,

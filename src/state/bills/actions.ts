@@ -1,4 +1,4 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
 import { forkJoin, Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
