@@ -1,5 +1,3 @@
-import moment from "moment";
-
 const billPaymentsDTO = {
     id: 0,
     billId: 10,

@@ -1,5 +1,4 @@
-import { Button, CircularProgress } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { CircularProgress } from "@material-ui/core";
 import React, { FC, Fragment, useMemo, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,8 +27,6 @@ import { getExams } from "../../../state/exams/actions";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import { getPatientThunk } from "../../../state/patients/actions";
-import isEmpty from "lodash.isempty";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";

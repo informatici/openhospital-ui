@@ -1,13 +1,11 @@
 import moment from "moment";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { LabWithRowsDTO, PageInfoDTO } from "../../../generated";
-import { searchLabs } from "../../../state/laboratories/actions";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 
 export const useLaboratories = () => {
-  const dispatch = useDispatch();
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(0);
   const [range, setRange] = useState(

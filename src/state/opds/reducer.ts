@@ -1,5 +1,5 @@
 import produce from "immer";
-import { OpdDTO, OpdWithOperationRowDTO } from "../../generated";
+import { OpdWithOperationRowDTO } from "../../generated";
 import { IAction } from "../types";
 import {
   CREATE_OPD_FAIL,
@@ -22,7 +22,6 @@ import {
   SEARCH_OPD_FAIL,
   SEARCH_OPD_RESET,
   SEARCH_OPD_SUCCESS,
-  SEARCH_OPD_SUCCESS_EMPTY,
   UPDATE_OPD_FAIL,
   UPDATE_OPD_LOADING,
   UPDATE_OPD_RESET,
@@ -114,11 +113,6 @@ export default produce((draft: IOpdState, action: IAction<any, any>) => {
     case GET_LAST_OPD_RESET: {
       draft.lastOpd.status = "IDLE";
       delete draft.lastOpd.error;
-      break;
-    }
-
-    case GET_OPD_LOADING: {
-      draft.getOpds.status = "LOADING";
       break;
     }
 
