@@ -4,15 +4,12 @@ import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { searchOpds } from "../../../../../state/opds/actions";
-import { useData } from "../useData";
 import { TDashboardCardOptionActions } from "../../card/types";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { Piechart } from "../../../charts/pie/Piechart";
 import { DataSummary } from "../../summary/DataSummary";
 import { Skeleton } from "@material-ui/lab";
-import { ListItemIcon } from "@material-ui/core";
-import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
 
 import "../../card/styles.scss";
 import { useOpdBySexData } from "../../../../../libraries/dashboardUtils/opds/useOpdBySexData";

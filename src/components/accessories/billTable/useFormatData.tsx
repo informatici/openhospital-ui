@@ -3,7 +3,7 @@ import { BillPaymentsDTO, FullBillDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Link } from "react-router-dom";
 import React from "react";
-import { IStatus } from "./types";
+import { IStatus, TBillDisplayData } from "./types";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 
 const useFormatData = (
@@ -33,7 +33,7 @@ const useFormatData = (
     });
   };
 
-  let results = new Array();
+  let results: Array<TBillDisplayData> = [];
   if (data)
     results = data
       .filter(

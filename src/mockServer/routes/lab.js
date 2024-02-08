@@ -16,11 +16,15 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(
-            labWithRowsDTO.filter(
-              lab => lab.laboratoryDTO.status !== "OPEN" && lab.laboratoryDTO.status !== "DRAFT"
-            )
-          );
+          res
+            .status(200)
+            .json(
+              labWithRowsDTO.filter(
+                (lab) =>
+                  lab.laboratoryDTO.status !== "OPEN" &&
+                  lab.laboratoryDTO.status !== "DRAFT"
+              )
+            );
       }
     });
 
@@ -35,15 +39,19 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(
-            labDTO.filter(lab => lab.status === "OPEN" || lab.status === "DRAFT")
-          );
+          res
+            .status(200)
+            .json(
+              labDTO.filter(
+                (lab) => lab.status === "OPEN" || lab.status === "DRAFT"
+              )
+            );
       }
     });
 
     server.get("/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labDTO.find((e) => e.code == code);
+      const lab = labDTO.find((e) => e.code === code);
       switch (code) {
         case "1000":
           res.status(400);
@@ -63,7 +71,7 @@ export const labRoutes = (server) => {
 
     server.get("/exams/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code == code);
+      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code === code);
       switch (code) {
         case "1000":
           res.status(400);

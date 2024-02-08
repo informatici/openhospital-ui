@@ -1,6 +1,6 @@
-import { DatePickerView, DateRange, RangeInput } from "@material-ui/pickers";
+import { DatePickerView, DateRange } from "@material-ui/pickers";
 import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
-import { ComponentType, ReactNode } from "react";
+import { ComponentType } from "react";
 import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {

@@ -88,8 +88,9 @@
     "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
     "clear": "rm -rf ./.cache ./dist ./build",
     "convert": "convert-resources --path-generated src/resources/old",
-    "storybook": "storybook dev -p 6006 -s public",
-    "build-storybook": "storybook build -s public"
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint src/"
   },
   "eslintConfig": {
     "extends": "react-app",

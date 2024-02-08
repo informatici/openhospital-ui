@@ -30,7 +30,6 @@ import {
 import { Add, FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
 import { useNavigate } from "react-router";
-import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import InfoBox from "../infoBox/InfoBox";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {

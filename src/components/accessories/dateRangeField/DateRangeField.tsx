@@ -1,9 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent } from "react";
 import {
-  DateRange,
   DesktopDateRangePicker,
   MobileDateRangePicker,
-  RangeInput,
 } from "@material-ui/pickers";
 import { IProps } from "./types";
 import "./styles.scss";

@@ -210,9 +210,6 @@ const ExamForm: FC<ExamProps> = ({
   };
 
   const examList = useSelector((state: IState) => state.exams.examList.data);
-  const materialsList = useSelector(
-    (state: IState) => state.laboratories.materials.data
-  );
 
   const examRowOptionsSelector = (state: IState) => {
     if (state.exams.examRowsByExamCode.data) {
@@ -343,10 +340,6 @@ const ExamForm: FC<ExamProps> = ({
 
   const examsLoading = useSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
-  );
-
-  const materialsLoading = useSelector(
-    (state: IState) => state.laboratories.materials.status === "LOADING"
   );
 
   const isLoading =

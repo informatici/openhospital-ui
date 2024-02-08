@@ -30,3 +30,14 @@ export type BillFilterFormFieldName =
   | "status"
   | "month"
   | "year";
+
+  export type TBillDisplayData = {
+    id: string | number,
+    date: string,
+    patient: JSX.Element,
+    amount: string,
+    balance: string,
+    status: string,
+    patId: number | undefined,
+    lastPayment: string,
+  }
