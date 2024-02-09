@@ -22,8 +22,7 @@ import {
   createLabRequestReset,
 } from "../../../../state/laboratories/actions";
 import PatientPicker from "../../patientPicker/PatientPicker";
-import { has } from "lodash";
-import { get } from "lodash";
+import { has, get } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import { Button } from "@material-ui/core";

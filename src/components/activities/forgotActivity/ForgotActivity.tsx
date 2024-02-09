@@ -4,8 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import classNames from "classnames";
 import { useFormik } from "formik";
-import { get } from "lodash";
-import { has } from "lodash";
+import { has, get } from "lodash";
 import { default as React } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
