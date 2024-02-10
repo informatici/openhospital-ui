@@ -4,7 +4,10 @@
     "incorrectcredentials": "Përdoruesi ose fjalëkalimi i pavlefshëm",
     "passwordtooshort": "Fjalëkalimi është shumë i shkurtër",
     "badrequest": "Kerkese e pavlefshme",
-    "internalerror": "Ndodhi një gabim i brendshëm"
+    "internalerror": "Ndodhi një gabim i brendshëm",
+    "lab": {
+      "someexamswithoutresultpleasecheck": "Disa ekzaminime pa rezultat ju lutemi kontrolloni."
+    }
   },
   "user": {
     "username": "Përdoruesi",
@@ -85,9 +88,12 @@
     "removedashboard": "Hiq komponentin e Panelit",
     "downloaddata": "Shkarkoni të dhënat themelore",
     "cantretrieveconfig": "Përshtatjet nuk mund të merren",
-    "cantsaveconfig": "Përshtatjet nuk mund të ruhen",
+    "cantsaveconfig": "Nuk mund të ruhen përshtatjet",
     "reset": "Rivendos",
-    "resetcustomization": "Rivendos përshtatjet"
+    "resetcustomization": "Rivendos përshtatjet",
+    "nowidgets": "Nuk ka miniaplikacione",
+    "noallowedwidget": "Nuk ke leje për të parë ndonjë miniaplikacion",
+    "emptylayout": "Asnjë miniaplikacion i shfaqur. Filloni duke shtuar miniaplikacione"
   },
   "patient": {
     "address": "Adresa",
@@ -160,7 +166,7 @@
   "opd": {
     "newopd": "Krijo nje vizitë Ambulatore",
     "editopd": "Redakto vizitën Ambulatore",
-    "dateopd": "Data (d/m/v)",
+    "dateopd": "Data",
     "note": "Shënime dhe simptoma",
     "complaint": "Ankesat e Pacientit",
     "disease1": "Diagnoza 1",
@@ -221,7 +227,7 @@
     "previousentries": "Vizita të mëparshme"
   },
   "visit": {
-    "date": "Data (d/m/v)",
+    "date": "Data",
     "note": "Shënime dhe simptoma",
     "duration": "Kohëzgjatja",
     "ward": "Reparti",
@@ -258,7 +264,7 @@
     "auscultationabbr": "AUSC",
     "bowelabbr": "B",
     "bowel": "Zorra",
-    "datetriage": "Data (d/m/v)",
+    "datetriage": "Data",
     "diuresis": "Diureza",
     "diuresisabbr": "D",
     "diuresisvolume24h": "Diureza Vol 24H",
@@ -507,7 +513,7 @@
   "lab": {
     "newlab": "Ekzaminim i ri laboratorik",
     "editlab": "Redakto ekzaminimin laboratorik",
-    "date": "Data",
+    "date": "Data e ekzaminimit",
     "exam": "Ekzaminimi",
     "type": "PB/PJ",
     "material": "Materiali",
@@ -559,15 +565,16 @@
     "changestatus": "Ndrysho statusin e ekzaminimit",
     "changelabstatusto": "Statusi i ekzaminimit {{code}} do të ndryshohet në {{status}}",
     "statuses": {
-      "draft": "DRAFT",
-      "all": "TË GJITHA",
+      "draft": "PROJEKT",
+      "all": "TE GJITHA",
       "open": "HAPUR",
-      "done": "BËR"
+      "done": "KRYER"
     },
     "previousentries": "Ekzaminime të mëparshme"
   },
   "admission": {
-    "admDate": "Data",
+    "code": "Kodi i pranimit",
+    "admDate": "Data e pranimit",
     "admType": "Lloji i pranimit",
     "newadmission": "Pranim i ri",
     "editadmission": "Redakto pranimin",
@@ -608,7 +615,8 @@
     "dischargebywards": "Shkarkime sipas repartit",
     "admregistered": "Pranime në periudhën aktuale",
     "disregistered": "Shkarkime në periudhën aktuale",
-    "previousentries": "Pranime të mëparshme"
+    "previousentries": "Pranime të mëparshme",
+    "no_beds": "Nuk ka shtretër në repartin e zgjedhur"
   },
   "bill": {
     "title": "Mirë se vini në Faturimi",
