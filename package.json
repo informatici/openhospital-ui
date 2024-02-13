@@ -145,6 +145,6 @@
     "prop-types": "^15.8.1",
     "start-server-and-test": "^2.0.3",
     "storybook-addon-material-ui": "^0.9.0-alpha.24",
-    "webpack": "^5.74.0"
+    "webpack": "^5.76.0"
   }
 }
