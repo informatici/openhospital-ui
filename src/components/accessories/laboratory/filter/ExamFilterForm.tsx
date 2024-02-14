@@ -7,8 +7,7 @@ import {
 import { FilterList } from "@material-ui/icons";
 import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import React, { useCallback, useState } from "react";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

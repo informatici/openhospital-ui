@@ -1,5 +1,5 @@
 import { Person, Notes, AssignmentInd } from "@material-ui/icons";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";

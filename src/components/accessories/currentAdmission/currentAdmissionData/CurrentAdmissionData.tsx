@@ -4,7 +4,7 @@ import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { AdmissionDTO } from "../../../../generated";
 import "../styles.scss";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 interface IOwnProps {

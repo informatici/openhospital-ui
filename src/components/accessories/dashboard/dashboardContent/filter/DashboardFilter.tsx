@@ -9,7 +9,7 @@ import { IconButton } from "@material-ui/core";
 import { CalendarTodaySharp } from "@material-ui/icons";
 import DateField from "../../../dateField/DateField";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { usePeriodOptions } from "./usePeriodOptions";
 
 export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
