@@ -1,8 +1,7 @@
 import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,

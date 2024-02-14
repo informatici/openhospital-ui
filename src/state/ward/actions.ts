@@ -1,4 +1,4 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
 import { DiseaseDTO } from "../../generated";
 import { WardsApi } from "../../generated/apis/WardsApi";

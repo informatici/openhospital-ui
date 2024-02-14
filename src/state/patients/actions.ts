@@ -1,4 +1,4 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import moment from "moment";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
