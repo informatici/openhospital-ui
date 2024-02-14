@@ -9,9 +9,7 @@ describe("SearchPatientActivity spec", () => {
   it("should present single search result if search param is patient ID", () => {
     cy.get("[id=id]").clear().type("1234567");
     cy.get("[class=searchPatient__panel]").submit();
-    cy.get(["div.patientSearchItem"]).then((els) =>
-      expect(els.length).equal(1)
-    );
+    cy.get("div.patientSearchItem").then((els) => expect(els.length).equal(1));
     cy.get("[id=id]").clear();
   });
 
@@ -50,9 +48,7 @@ describe("SearchPatientActivity spec", () => {
   });
 
   it("should go to PatientDetailsActivity when a PatientSearchItem is clicked", () => {
-    cy.get(["div.patientSearchItem"]).then((els) =>
-      cy.get(els[0]).first().click()
-    );
+    cy.get("div.patientSearchItem").first().click();
     cy.get("div.patientDetails");
   });
 });

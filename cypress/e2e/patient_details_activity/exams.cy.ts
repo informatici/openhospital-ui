@@ -1,9 +1,6 @@
-const HOSTNAME = Cypress.env("HOSTNAME");
-const START_PATH = `${HOSTNAME}/patients/details/1`;
-
 describe("Patient Details / Exams", () => {
   before(() => {
-    cy.authenticate(START_PATH);
+    cy.authenticate(`${Cypress.env("HOSTNAME")}/patients/details/1`);
   });
 
   it("should render the ui", () => {

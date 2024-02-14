@@ -62,7 +62,7 @@ describe("EditPatientActivity spec", () => {
       .invoke("attr", "src")
       .then((firstSrc) => {
         const currentPicture = firstSrc;
-        expect(currentPicture).to.be.a('string');
+        expect(currentPicture).to.be.a("string");
         cy.get(".profilePicture_button.profilePicture_removeIcon").click();
         cy.get("[class=profilePicture]")
           .find("img")
@@ -70,9 +70,8 @@ describe("EditPatientActivity spec", () => {
           .then((nextSrc) => {
             expect(nextSrc).to.not.equal(currentPicture);
           });
-        });
       });
-
+  });
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.get("[id=firstName]").clear().type("Marcelo");

@@ -1,8 +1,6 @@
-const START_PATH = "http://localhost:3000/";
-
 describe("LoginActivity spec", () => {
   it("should render the ui", () => {
-    cy.visit(START_PATH, {
+    cy.visit("http://localhost:3000/", {
       onBeforeLoad(w) {
         w.sessionStorage.clear();
       },
