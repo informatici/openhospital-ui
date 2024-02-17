@@ -1,10 +1,13 @@
 {
   "errors": {
-    "somethingwrong": "Un erreur est survenu, veuillez réessayer plus tard.",
+    "somethingwrong": "Un erreur est survenue, veuillez réessayer plus tard.",
     "incorrectcredentials": "Utilisateur ou mot de passe invalide",
     "passwordtooshort": "Mot de passe trop court",
-    "badrequest": "Mauvaise demande",
-    "internalerror": "Une erreur interne s'est produite"
+    "badrequest": "Erreur lors de la requête",
+    "internalerror": "Une erreur interne s'est produite",
+    "lab": {
+      "someexamswithoutresultpleasecheck": "Certains examens n'ont pas de résultats. Veuillez vérifier."
+    }
   },
   "user": {
     "username": "Nom d'utilisateur",
@@ -16,25 +19,25 @@
     "password": "Mot de passe",
     "incorrectcredentials": "Utilisateur ou mot de passe invalide",
     "forgotpassword": "Mot de passe oublié?",
-    "insertavalidemail": "Insérez une adresse e-mail d'utilisateur valide",
+    "insertavalidemail": "Saisissez une adresse e-mail valide",
     "insertavalidusername": "Insérer un nom d'utilisateur valide",
     "insertthepassword": "Insérer le mot de passe",
     "login": "Se connecter",
     "signout": "Se déconnecter",
-    "signoutText": "Êtes-vous sûr de vouloir vous déconnecter?",
+    "signoutText": "Êtes-vous sûr de vouloir vous déconnecter ?",
     "passwordtooshort": "Mot de passe trop court",
     "signin": "S'identifier",
     "forgottitle": "Réinitialisez votre mot de passe",
     "forgotdescription": "Saisissez le nom d'utilisateur que vous avez utilisé pour vous inscrire et nous vous enverrons un e-mail de réinitialisation de mot de passe.",
     "forgotsuccess": "Nous vous enverrons un e-mail s'il est associé à votre compte.",
     "email": "Adresse e-mail",
-    "takemeback": "Ramenez-moi au login pour me connecter",
+    "takemeback": "Retour au login",
     "tryanotherusername": "Essayez un autre nom d'utilisateur"
   },
   "dashboard": {
     "welcomename": "Bienvenue",
     "newpatient": "Nouveau patient",
-    "searchpatients": "Chercher patients",
+    "searchpatients": "Recherche de patients",
     "userange": "Utiliser le sélecteur de plage",
     "csv": "CSV",
     "pdf": "PDF",
@@ -44,7 +47,7 @@
       "week": "Semaine",
       "month": "Mois",
       "year": "Année",
-      "range": "Tranche",
+      "range": "Période",
       "days": {
         "current": "Aujourd'hui",
         "previous": "Hier",
@@ -85,9 +88,12 @@
     "removedashboard": "Supprimer le composant Tableau de bord",
     "downloaddata": "Téléchargez les données sous-jacentes",
     "cantretrieveconfig": "Impossible de récupérer les personnalisations",
-    "cantsaveconfig": "Impossible de sauver les personnalisations",
+    "cantsaveconfig": "Impossible de sauvegarder les personnalisations",
     "reset": "Réinitialiser",
-    "resetcustomization": "Réinitialiser les personnalisations"
+    "resetcustomization": "Réinitialiser les personnalisations",
+    "nowidgets": "Aucun widget",
+    "noallowedwidget": "Vous n'avez pas les droits requis pour afficher les widgets",
+    "emptylayout": "Aucun widget à afficher."
   },
   "patient": {
     "address": "Adresse",
@@ -101,7 +107,7 @@
     "note": "Remarques",
     "height": "Hauteur (cm)",
     "weight": "Poids (kg)",
-    "secondname": "2ème nom",
+    "secondname": "Nom de famille",
     "sex": "Sexe",
     "opd": "OPD",
     "instatus": "Patient hospitalisé",
@@ -119,13 +125,13 @@
     "taxcode": "NID",
     "telephone": "Téléphone",
     "titleedit": "Éditer Patient",
-    "personaldata": "Donnés personnels",
+    "personaldata": "Données personnelles",
     "parentslivetoghether": "Les parents vivants ensemble",
     "insertdataofnewpatient": "Insérez les données du nouveau patient",
     "admissions": "Admission",
     "code": "Code",
-    "search": "Chercher",
-    "dashboard": "Patient Tableau de bord",
+    "search": "Rechercher",
+    "dashboard": "Tableau de bord du patient",
     "agetype": "Type d'âge",
     "agerange": "Tranche d'âge",
     "age": "Age",
@@ -134,7 +140,7 @@
     "savechanges": "Sauvegarder les modifications",
     "discardchanges": "Annuler les modifications",
     "dataupdated": "Données patients mises à jour",
-    "dataupdatedsuccessfully": "Les données du patient ont été mises à jour avec succès",
+    "dataupdatedsuccessfully": "Les données du patient ont été mises à jour",
     "noallergies": "Il n'y a pas d'allergies enregistrées pour ce patient",
     "noanamnesis": "Il n'y a pas d'anamnèse enregistrée pour ce patient",
     "laboratory": "Laboratoire",
@@ -144,12 +150,12 @@
     "discharge": "Décharge",
     "visits": "Visites",
     "agetypes": {
-      "d0": "Nouveau née",
+      "d0": "Nouveau né",
       "d1": "Petite enfance",
-      "d2": "La fin de l'enfance",
-      "d3": "Adolescents",
-      "d4": "Adultes",
-      "d5": "Âgé"
+      "d2": "Enfance",
+      "d3": "Adolescence",
+      "d4": "Âge adulte",
+      "d5": "Personne âgée"
     },
     "operation": "Opération",
     "updated": "Mis à jour du patient",
@@ -160,7 +166,7 @@
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
     "editopd": "Modifier la visite OPD",
-    "dateopd": "Date (j/m/a)",
+    "dateopd": "Date",
     "note": "Remarques et symptômes",
     "complaint": "Plaintes des patients",
     "disease1": "Diagnostic 1",
@@ -183,8 +189,8 @@
     "addoperation": "Ajouter une opération",
     "addoperationdesc": "Ajouter une opération pour la visite",
     "filtervisits": "Filtrer les visites",
-    "fromdate": "Dater de",
-    "todate": "Date de",
+    "fromdate": "Date de début",
+    "todate": "Date de fin",
     "sex": "Sexe",
     "month": "Mois",
     "year": "Année",
@@ -204,7 +210,7 @@
     "disease": "Maladie",
     "patientcode": "Patient ID",
     "age": "Age",
-    "status": "état de santé",
+    "status": "État de santé",
     "nextvisitdate": "Date de la prochaine visite",
     "validatetodate": "Doit être supérieur à la date de",
     "validatefromdate": "Doit être inférieur à la date de",
@@ -221,7 +227,7 @@
     "previousentries": "Visites précédentes"
   },
   "visit": {
-    "date": "Date (jj/mm/aaaa)",
+    "date": "Date",
     "note": "Remarques et symptômes",
     "duration": "Durée",
     "ward": "Pavillon",
@@ -258,7 +264,7 @@
     "auscultationabbr": "AUSC",
     "bowelabbr": "I",
     "bowel": "Intestin",
-    "datetriage": "Date (jj/mm/aaaa)",
+    "datetriage": "Date",
     "diuresis": "Diurèse",
     "diuresisabbr": "D",
     "diuresisvolume24h": "Diurèse Vol 24H",
@@ -338,7 +344,7 @@
     "billrecords": "Registre des factures",
     "visits": "Visites",
     "patients": "Patients",
-    "consultancy": "Conseil"
+    "consultancy": "Consultations"
   },
   "operation": {
     "newoperation": "Nouvelle opération",
@@ -352,9 +358,9 @@
     "created": "Opération crée",
     "deleted": "Opération supprimée",
     "updated": "Opération modifiée",
-    "updatesuccess": "Opération modifiée avec succès",
-    "createsuccess": "Opd a été creé avec succès",
-    "deletesuccess": "Opération supprimée avec succès",
+    "updatesuccess": "L'opération a bien été modifiée",
+    "createsuccess": "L'opération a bien été créée",
+    "deletesuccess": "L'opération a bien été supprimée",
     "rowcreated": "Ligne d'opération créée",
     "rowdeleted": "Ligne d'opération supprimée",
     "rowupdated": "Ligne d'opération mise à jour",
@@ -399,7 +405,7 @@
     "searchpatientinstruction": "Si vous n'avez pas de ID patient, remplissez autant de champs que vous pouvez et cliquez rechercher",
     "required": "Ces données sont obligatoires",
     "emptydata": "Aucune donnée n'a été trouvée !",
-    "save": "Enregistré",
+    "save": "Enregistrer",
     "code": "Code",
     "update": "mise à jour",
     "delete": "Effacer",
@@ -412,7 +418,7 @@
     "unknown": "Inconnue",
     "male": "Mâle",
     "female": "Femelle",
-    "date": "Date (de naissance?)",
+    "date": "Date",
     "type": "Type",
     "nooptionsfound": "Aucune option trouvée",
     "close": "Fermer",
@@ -432,7 +438,7 @@
     "addanotherrow": "Ajouter une opération",
     "hospitalname": "Votre Hôpital",
     "maxlengthexceeded": "Longueur dépassée. Le maximum est {{maxLength}}",
-    "retry": "Recommencez",
+    "retry": "Réessayer",
     "moment": {
       "duration": "Durée",
       "days": "Jour(s)",
@@ -458,7 +464,7 @@
     "gotopatientactivities": "Aller aux activités du patient"
   },
   "permission": {
-    "denied": "Authorisation refusée",
+    "denied": "Autorisation refusée",
     "unauthorized": "Non autorisé",
     "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu"
   },
@@ -480,7 +486,7 @@
     "sendsms": "Envoyer un SMS",
     "note": "Remarques",
     "validatelastdate": "Doit être supérieur ou égal à la date de début",
-    "savetherapy": "Sauver",
+    "savetherapy": "Enregistrer",
     "updatetherapy": "Mise à jour",
     "created": "Thérapie créée",
     "updated": "Thérapie mise à jour",
@@ -507,7 +513,7 @@
   "lab": {
     "newlab": "Nouvel examen de laboratoire",
     "editlab": "Modifiér examen de laboratoire",
-    "date": "Date (de laboratoire?)",
+    "date": "Date d'examen",
     "exam": "Examen",
     "type": "IPD/OPD",
     "material": "Matériel",
@@ -526,8 +532,8 @@
     "filter": "Filtre",
     "month": "Mois",
     "year": "Année",
-    "fromdate": "Dater de",
-    "todate": "Date de",
+    "fromdate": "Date de début",
+    "todate": "Date de fin",
     "filterexams": "Filtrer les examens",
     "id": "Laboratoire ID",
     "details": "Détails",
@@ -539,7 +545,7 @@
     "name": "Nom",
     "sex": "Sexe",
     "age": "Age",
-    "status": "état de santé",
+    "status": "État de santé",
     "registrationdate": "Date d'enregistrement",
     "examdate": "Date de l'examen",
     "labcode": "Code du laboratoire",
@@ -559,15 +565,16 @@
     "changestatus": "Changer le statut de l'examen",
     "changelabstatusto": "Le statut de l'examen {{code}} sera modifié en {{status}}",
     "statuses": {
-      "draft": "DRAFT",
-      "all": "Tous",
-      "open": "OUVRIR",
+      "draft": "BROUILLON",
+      "all": "TOUS",
+      "open": "EN COURS",
       "done": "TERMINÉ"
     },
     "previousentries": "Examen précédentes"
   },
   "admission": {
-    "admDate": "Date de admission",
+    "code": "Code d'admission",
+    "admDate": "Date d'admission",
     "admType": "Type d'admission",
     "newadmission": "Nouvelle hospitalisation",
     "editadmission": "Mise a jour de l'admission",
@@ -608,7 +615,8 @@
     "dischargebywards": "Sortie par pavillon",
     "admregistered": "Admissions pour la période en cours",
     "disregistered": "Sortie pour la période en cours",
-    "previousentries": "Admissions précédentes"
+    "previousentries": "Admissions précédentes",
+    "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné"
   },
   "bill": {
     "title": "Bienvenue dans la facturation",
@@ -621,8 +629,8 @@
     "patient": "Patient",
     "billitem": "éléments de la facture",
     "affiliate": "Personne affiliée",
-    "fromdate": "Dater de",
-    "todate": "Date de",
+    "fromdate": "Date de début",
+    "todate": "Date de fin",
     "today": "Aujourd'hui",
     "period": "Période",
     "notpaid": "Non payé",
@@ -702,7 +710,7 @@
     "paid": "Payé"
   },
   "button": {
-    "save": "Sauver",
+    "save": "Enregistrer",
     "delete": "Effacer",
     "discard": "Annuler",
     "suspend": "Suspendre",
