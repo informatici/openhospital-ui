@@ -57,9 +57,10 @@ const AppHeader: FunctionComponent<TProps> = ({
   };
   const navigate = useNavigate();
 
-  const canAccessPatient = usePermission("patient.access");
-  const canAccessVisit = usePermission("visit.access");
-  const canAccessLaboratory = usePermission("laboratory.access");
+  const canAccessPatient = usePermission("patients.access");
+  const canAccessVisit = usePermission("opds.access");
+  const canAccessLaboratory = usePermission("laboratories.access");
+  const canAccessDashboard = usePermission("dashboard.access");
 
   return (
     <div className={classNames("appHeader", { open_menu: isOpen })}>
@@ -126,6 +127,42 @@ const AppHeader: FunctionComponent<TProps> = ({
               <div className="trigger_x"></div>
               <div className="trigger_y"></div>
               <div className="trigger_z"></div>
+            </div>
+          </div>
+          <div className="appHeader__nav">
+            <div className="appHeader__nav_items">
+              {canAccessDashboard && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.dashboard)}
+                >
+                  {t("nav.dashboard")}
+                </div>
+              )}
+              {canAccessPatient && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.patients)}
+                >
+                  {t("nav.patients")}
+                </div>
+              )}
+              {canAccessVisit && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.visits)}
+                >
+                  {t("nav.visits")}
+                </div>
+              )}
+              {canAccessLaboratory && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.laboratory)}
+                >
+                  {t("nav.laboratory")}
+                </div>
+              )}
             </div>
           </div>
         </div>

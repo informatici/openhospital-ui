@@ -78,7 +78,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
     setShouldResetForm(false);
     let opRow: OperationRowDTO = values;
     if (creationMode) {
-      opRow.prescriber = username;
+      opRow.prescriber = username ?? "";
       if (!isEmpty(opd)) {
         opRow.opd = opd;
       } else opRow.admission = currentAdmission;
@@ -131,13 +131,21 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   };
 
   const fields = useMemo(() => {
-    return opRowFields(creationMode ? { opDate: opd?.date } : opRowToEdit);
+    return opRowFields(
+      creationMode
+        ? {
+            opDate: opd?.date!,
+            prescriber: "",
+            opResult: "",
+          }
+        : opRowToEdit
+    );
   }, [creationMode]);
 
   return (
     <div className="patientOperation">
       <Permission
-        require={creationMode ? "operation.create" : "operation.update"}
+        require={creationMode ? "operations.create" : "operations.update"}
       >
         <OperationRowForm
           fields={fields}
@@ -178,7 +186,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
         />
       </Permission>
 
-      <Permission require="operation.read">
+      <Permission require="operations.read">
         {!opd && (
           <PatientOperationTable
             onEdit={onEdit}

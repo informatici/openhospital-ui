@@ -1,0 +1,10 @@
+@import "../../../styles/variables";
+
+.pagination {
+  padding: 10px 5px;
+  margin: 15px auto;
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-end;
+}

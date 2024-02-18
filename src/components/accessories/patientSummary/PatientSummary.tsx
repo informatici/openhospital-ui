@@ -23,7 +23,7 @@ const PatientSummary: FunctionComponent = () => {
 
   return (
     <div className="patientSummary">
-      <PatientExtraData />
+      <PatientExtraData readOnly={true} />
       <Tabs config={patientSummaryTabs} />
     </div>
   );

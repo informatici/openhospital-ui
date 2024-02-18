@@ -19,7 +19,6 @@ export const opdDataFormatter = (
       ? diseases.find((el) => el.code === data.disease3)
       : null;
   data.date = parseDate(data.date);
-  data.visitDate = data.date;
   return data;
 };
 
@@ -37,6 +36,12 @@ export const visitDataFormatter = (
 
 export const renderDate = (date: string) => {
   return moment(date).isValid() ? moment(date).format("DD/MM/YYYY") : "";
+};
+
+export const renderDateTime = (date: string) => {
+  return moment(date).isValid()
+    ? moment(date).format("DD/MM/YYYY HH:mm:ss")
+    : "";
 };
 
 export const unformatRenderDate = (value: string) => {

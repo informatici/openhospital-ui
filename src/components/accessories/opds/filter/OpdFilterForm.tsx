@@ -7,13 +7,17 @@ import {
 import { FilterList } from "@material-ui/icons";
 import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import React, { useCallback, useState } from "react";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { date, number, object, string } from "yup";
-import { DiseaseDTO, DiseaseTypeDTO, PatientDTO } from "../../../../generated";
+import { number, object, string } from "yup";
+import {
+  DiseaseDTO,
+  DiseaseTypeDTO,
+  PatientDTO,
+  WardDTO,
+} from "../../../../generated";
 import {
   getFromFields,
   formatAllFieldValues,
@@ -30,12 +34,19 @@ import { IState } from "../../../../types";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import warningIcon from "../../../../assets/warning-icon.png";
 
-export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
+export const OpdFilterForm: FC<IOpdFilterProps> = ({
+  fields,
+  onSubmit,
+  handleResetFilter,
+}) => {
   const { t } = useTranslation();
 
   const [expanded, setExpanded] = useState(true);
   const [diseaseTypeCode, setDiseaseTypeCode] = useState("");
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const validationSchema = object({
     diseaseCode: string(),
@@ -170,7 +181,12 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
 
   const { setFieldValue, handleBlur } = formik;
 
-  const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO) => ({
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    handleResetFilter();
+    formik.resetForm();
+  };
+  const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO | WardDTO) => ({
     value: value.code ?? "",
     label: value.description ?? "",
   });
@@ -191,6 +207,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       state.diseaseTypes.getDiseaseTypes.data?.map((e) => mapToOptions(e)) ?? []
     );
   });
+
+  const wards = useSelector<IState, WardDTO[]>((state: IState) => {
+    return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
+  });
+
+  const wardOptions = useMemo(() => {
+    return wards.map((e) => mapToOptions(e));
+  }, [wards]);
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (val: Date | null) => {
@@ -221,7 +245,9 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
       }
 
       if (fieldName === "year") {
-        const year = val?.getUTCFullYear() ?? new Date().getUTCFullYear();
+        // Use getUTCFullYear() can result to wrong year as timezone can
+        // differ from one user to another, get the year as input instead
+        const year = val?.getFullYear() ?? new Date().getFullYear();
 
         let startMonth = 0;
         let endMonth = 11;
@@ -275,6 +301,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
         }
         if (fieldName === "diseaseTypeCode") {
           setDiseaseTypeCode((value ?? "") as string);
+          formik.setFieldValue("diseaseCode", "");
         }
       },
     [setFieldValue, handleBlur]
@@ -283,11 +310,11 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
   const newPatientOptions = [
     {
       label: t("opd.all"),
-      value: "",
+      value: "A",
     },
     {
-      label: t("opd.newadmittance"),
-      value: "A",
+      label: t("opd.newattendance"),
+      value: "N",
     },
     {
       label: t("opd.reattendance"),
@@ -339,7 +366,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     options={newPatientOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item fullWidth">
                   <AutocompleteField
                     fieldName="diseaseTypeCode"
                     fieldValue={formik.values.diseaseTypeCode}
@@ -350,7 +377,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     options={diseaseTypeOptions}
                   />
                 </div>
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item fullWidth">
                   <AutocompleteField
                     fieldName="diseaseCode"
                     fieldValue={formik.values.diseaseCode}
@@ -359,6 +386,17 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                     errorText={getErrorText("diseaseCode")}
                     onBlur={onBlurCallback("diseaseCode")}
                     options={diseaseOptions}
+                  />
+                </div>
+                <div className="filterOpdForm__item">
+                  <AutocompleteField
+                    fieldName="wardCode"
+                    fieldValue={formik.values.wardCode}
+                    label={t("opd.ward")}
+                    isValid={isValid("wardCode")}
+                    errorText={getErrorText("wardCode")}
+                    onBlur={onBlurCallback("wardCode")}
+                    options={wardOptions}
                   />
                 </div>
               </div>
@@ -430,7 +468,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
                 {t("opd.patient")}
               </div>
               <div className="filterOpdForm__section_content">
-                <Permission require="patient.read">
+                <Permission require="patients.read">
                   <div className="filterOpdForm__item">
                     <PatientPicker
                       theme={"regular"}
@@ -479,6 +517,14 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
               </div>
             </div>
             <div className="filterForm__buttonSet">
+              <Button
+                type="reset"
+                variant="text"
+                onClick={() => setOpenResetConfirmation(true)}
+                className="reset_button"
+              >
+                {t("common.reset")}
+              </Button>
               <Button variant="contained" color="primary" type="submit">
                 {t("opd.filter")}
               </Button>
@@ -486,9 +532,16 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({ fields, onSubmit }) => {
           </form>
         </AccordionDetails>
       </Accordion>
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.reset").toUpperCase()}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.reset")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleResetConfirmation}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
     </div>
   );
 };
-function useEffect(arg0: () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-}

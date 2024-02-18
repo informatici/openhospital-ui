@@ -1,5 +1,3 @@
-import { TOrder } from "../../../libraries/sortUtils/types";
-
 export interface IProps {
   rowData: Array<Record<string, any>>;
   labelData: Record<string, any>;
@@ -22,7 +20,10 @@ export interface IProps {
   getCoreRow?: <T>(val: T) => any | undefined;
   onPay?: (row: any) => void;
   onClose?: (row: any) => void;
+  onCancel?: (row: any) => void;
   detailColSpan?: number;
+  displayRowAction?: (row: any, action: TActions) => boolean;
+  detailsExcludedFields?: string[];
 }
 
 export interface IRowProps {
@@ -36,6 +37,9 @@ export interface IRowProps {
   renderCellDetails?: <T>(row: T) => any;
   coreRow?: any;
   detailColSpan?: number;
+  expanded?: boolean;
+  dateFields: Array<string>;
+  detailsExcludedFields?: string[];
 }
 
 export type TActions =
@@ -45,4 +49,5 @@ export type TActions =
   | "print"
   | "pay"
   | "close"
+  | "cancel"
   | "add";

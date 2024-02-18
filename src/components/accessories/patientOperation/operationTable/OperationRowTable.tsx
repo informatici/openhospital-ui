@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { OperationRowDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { getOperationsByAdmissionId } from "../../../../state/operations/actions";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
@@ -20,7 +20,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
   onEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("operation.update");
+  const canUpdate = usePermission("operations.update");
 
   const header = ["opDate", "operation"];
   const dateFields = ["opDate"];
@@ -59,7 +59,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         id: item.id,
-        opDate: item.opDate ? renderDate(item.opDate) : "",
+        opDate: item.opDate ? renderDateTime(item.opDate) : "",
         opResult: t("operation.result." + item.opResult ?? "unknown"),
         remarks: item.remarks ?? "",
         operation: item.operation?.description ?? "",
@@ -78,7 +78,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientOperationTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("operation.previousentries")}</h5>
       {(() => {
         switch (status) {
           case "FAIL":
@@ -107,7 +107,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
             );
 
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
 
           default:
             return;

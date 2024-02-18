@@ -38,6 +38,7 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
       draft.saveLayouts.status = "SUCCESS";
       draft.layouts = action.payload.layout;
       draft.toolbox = action.payload.toolbox;
+      draft.getLayouts.data = action.payload.data;
       delete draft.saveLayouts.error;
       break;
     }
@@ -64,6 +65,7 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case GET_LAYOUTS_SUCCESS: {
       draft.getLayouts.status = "SUCCESS";
+      draft.getLayouts.data = action.payload.data;
       draft.layouts = action.payload.layout;
       draft.toolbox = action.payload.toolbox;
       delete draft.getLayouts.error;
@@ -72,7 +74,7 @@ export default produce((draft: ILayoutsState, action: IAction<any, any>) => {
 
     case GET_LAYOUTS_SUCCESS_EMPTY: {
       draft.getLayouts.status = "SUCCESS_EMPTY";
-      draft.getLayouts.data = {};
+      draft.getLayouts.data = undefined;
 
       draft.layouts = randomLayout(4);
       draft.toolbox = toolboxDashboards(draft.layouts, {});

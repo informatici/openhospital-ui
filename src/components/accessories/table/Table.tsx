@@ -20,6 +20,7 @@ import {
   MonetizationOn,
   Archive,
   Add,
+  Close,
 } from "@material-ui/icons";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
@@ -31,6 +32,7 @@ import {
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
+import Button from "../button/Button";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -52,14 +54,19 @@ const Table: FunctionComponent<IProps> = ({
   renderItemDetails,
   getCoreRow,
   onClose,
+  onCancel,
   detailColSpan,
+  displayRowAction,
+  detailsExcludedFields,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
   const [orderBy, setOrderBy] = React.useState(initialOrderBy ?? "date"); //keyof -> DTO
   const [page, setPage] = React.useState(0);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
+  const [expanded, setExpanded] = useState(false);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -144,6 +151,20 @@ const Table: FunctionComponent<IProps> = ({
             <Archive htmlColor="#0373fc" />
           </IconButton>
         );
+
+      case "cancel":
+        return (
+          <IconButton
+            size="small"
+            title="Cancel"
+            onClick={() => {
+              setCurrentRow(row);
+              setOpenCancelConfirmation(true);
+            }}
+          >
+            <Close color="primary" />
+          </IconButton>
+        );
       case "add":
         return (
           <IconButton
@@ -158,7 +179,7 @@ const Table: FunctionComponent<IProps> = ({
   };
 
   const renderActions = (row: any) => {
-    if (onEdit || onDelete || onPrint || onView) {
+    if (onEdit || onDelete || onPrint || onView || onCancel) {
       return (
         <TableCell
           scope="row"
@@ -166,13 +187,32 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
-          {onView ? renderIcon("view", row) : ""}
-          {onPay ? renderIcon("pay", row) : ""}
-          {onEdit ? renderIcon("edit", row) : ""}
-          {onPrint ? renderIcon("print", row) : ""}
-          {onClose ? renderIcon("close", row) : ""}
-          {onDelete ? renderIcon("delete", row) : ""}
-          {onAdd ? renderIcon("add", row) : ""}
+          {onView && (displayRowAction ? displayRowAction(row, "view") : true)
+            ? renderIcon("view", row)
+            : ""}
+          {onPay && (displayRowAction ? displayRowAction(row, "pay") : true)
+            ? renderIcon("pay", row)
+            : ""}
+          {onEdit && (displayRowAction ? displayRowAction(row, "edit") : true)
+            ? renderIcon("edit", row)
+            : ""}
+          {onPrint && (displayRowAction ? displayRowAction(row, "print") : true)
+            ? renderIcon("print", row)
+            : ""}
+          {onClose && (displayRowAction ? displayRowAction(row, "close") : true)
+            ? renderIcon("close", row)
+            : ""}
+          {onDelete &&
+          (displayRowAction ? displayRowAction(row, "delete") : true)
+            ? renderIcon("delete", row)
+            : ""}
+          {onAdd && (displayRowAction ? displayRowAction(row, "add") : true)
+            ? renderIcon("add", row)
+            : ""}
+          {onCancel &&
+          (displayRowAction ? displayRowAction(row, "cancel") : true)
+            ? renderIcon("cancel", row)
+            : ""}
         </TableCell>
       );
     }
@@ -182,9 +222,23 @@ const Table: FunctionComponent<IProps> = ({
     setOpenDeleteConfirmation(false);
   };
 
+  const handleCancel = () => {
+    if (onCancel) onCancel(currentRow);
+    setOpenCancelConfirmation(false);
+  };
+
+  const handleExpand = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
       <TableContainer component={Paper}>
+        <div className="header">
+          <Button type="button" onClick={handleExpand}>
+            {expanded ? t("common.collapse_all") : t("common.expand_all")}
+          </Button>
+        </div>
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">
             <TableRow>
@@ -221,21 +275,26 @@ const Table: FunctionComponent<IProps> = ({
                   : defaultComparator(order, orderBy)
               )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => (
-                <TableBodyRow
-                  row={row}
-                  coreRow={getCoreRow && getCoreRow(row)}
-                  key={index}
-                  rowIndex={index}
-                  labelData={labelData}
-                  tableHeader={tableHeader}
-                  renderActions={() => renderActions(row)}
-                  isCollapsabile={isCollapsabile}
-                  showEmptyCell={showEmptyCell}
-                  renderCellDetails={renderItemDetails}
-                  detailColSpan={detailColSpan}
-                />
-              ))}
+              .map((row, index) => {
+                return (
+                  <TableBodyRow
+                    row={row}
+                    coreRow={getCoreRow && getCoreRow(row)}
+                    key={index}
+                    rowIndex={index}
+                    labelData={labelData}
+                    tableHeader={tableHeader}
+                    renderActions={() => renderActions(row)}
+                    isCollapsabile={isCollapsabile}
+                    showEmptyCell={showEmptyCell}
+                    renderCellDetails={renderItemDetails}
+                    detailColSpan={detailColSpan}
+                    expanded={expanded}
+                    dateFields={dateFields}
+                    detailsExcludedFields={detailsExcludedFields}
+                  />
+                );
+              })}
           </TableBody>
         </MaterialComponent>
       </TableContainer>
@@ -263,6 +322,19 @@ const Table: FunctionComponent<IProps> = ({
         secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleDelete}
         handleSecondaryButtonClick={() => setOpenDeleteConfirmation(false)}
+      />
+
+      <ConfirmationDialog
+        isOpen={openCancelConfirmation}
+        title={t("common.cancel")}
+        info={t("common.cancelconfirmation", {
+          code: currentRow.code,
+        })}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleCancel}
+        handleSecondaryButtonClick={() => setOpenCancelConfirmation(false)}
       />
     </>
   );

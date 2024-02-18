@@ -1,12 +1,17 @@
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
-import { ExamDTO, LaboratoryDTO, PatientDTO } from "../../../../generated";
+import {
+  ExamDTO,
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+  LaboratoryDTOStatusEnum,
+  PatientDTO,
+} from "../../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -32,10 +37,13 @@ import {
   deleteLabReset,
   updateLab,
   createLab,
+  getMaterials,
 } from "../../../../state/laboratories/actions";
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
+import { useNavigate } from "react-router";
+import { PATHS } from "../../../../consts";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -45,6 +53,7 @@ const ExamForm: FC<ExamProps> = ({
 }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [currentExamCode, setCurrentExamCode] = useState("");
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
 
@@ -59,6 +68,7 @@ const ExamForm: FC<ExamProps> = ({
 
   useEffect(() => {
     dispatch(getExams());
+    dispatch(getMaterials());
     dispatch(createLabReset());
     dispatch(updateLabReset());
     dispatch(deleteLabReset());
@@ -88,6 +98,7 @@ const ExamForm: FC<ExamProps> = ({
       labStore.deleteLab.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
   const exams = useSelector((state: IState) => state.exams.examList.data);
 
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
@@ -97,10 +108,13 @@ const ExamForm: FC<ExamProps> = ({
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.date = parseDate(lab.date ?? "");
+    lab.labDate = parseDate(lab.labDate ?? "");
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient = "R";
-    lab.material = "angal.lab.urine"; // material needs to be removed from backend env
+    lab.inOutPatient = patientData?.status
+      ? patientData.status === "O"
+        ? LaboratoryDTOInOutPatientEnum.O
+        : LaboratoryDTOInOutPatientEnum.I
+      : LaboratoryDTOInOutPatientEnum.O;
     if (!creationMode && labToEdit.code) {
       lab.code = labToEdit.code;
       lab.lock = labToEdit.lock;
@@ -109,6 +123,14 @@ const ExamForm: FC<ExamProps> = ({
       laboratoryDTO: lab,
       laboratoryRowList: rows,
     };
+
+    if (rowsData.length > 0 || (lab.result && lab.result.length > 0)) {
+      lab.status = LaboratoryDTOStatusEnum.Done;
+    } else {
+      lab.status = LaboratoryDTOStatusEnum.Open;
+    }
+    lab.material = "Undefined";
+
     if (!creationMode && labToEdit.code) {
       dispatch(updateLab(labToEdit.code, labWithRowsDTO));
     } else {
@@ -133,17 +155,26 @@ const ExamForm: FC<ExamProps> = ({
   ];
 
   const validationSchema = object({
-    date: string()
+    labDate: string()
       .required(t("common.required"))
       .test({
-        name: "date",
+        name: "labDate",
         message: t("common.invaliddate"),
         test: function (value) {
           return moment(value).isValid();
         },
       }),
     exam: string().required(t("common.required")),
+    ///material: string().required(t("common.required")),
     result: string(),
+    note: string().test({
+      name: "maxLength",
+      message: t("common.maxlengthexceeded", { maxLength: 255 }),
+      test: function (value) {
+        if (!value) return true;
+        return value.length <= 255;
+      },
+    }),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -159,6 +190,19 @@ const ExamForm: FC<ExamProps> = ({
               item.description?.length > 30 &&
               item.description.slice(0, 30) + "...") ||
             (item.description ?? ""),
+        };
+      });
+    } else return [];
+  };
+
+  const materialsOptionsSelector = (materials: string[] | undefined) => {
+    if (materials) {
+      return materials.map((item) => {
+        let label = item ? t(item) : "";
+        return {
+          value: item ?? "",
+          label:
+            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
         };
       });
     } else return [];
@@ -245,6 +289,11 @@ const ExamForm: FC<ExamProps> = ({
           if (fieldName === "exam") {
             setCurrentExamCode(value);
           }
+
+          // Clear rowsData variable for exam status validation
+          if (fieldName === "result") {
+            setRowsData([]);
+          }
         } else {
           setFieldValue(fieldName, value?.code ?? "");
           setPatientData(value as PatientDTO);
@@ -306,7 +355,7 @@ const ExamForm: FC<ExamProps> = ({
         <h5 className="formInsertMode">
           {creationMode
             ? t("lab.newlab") + " thanks"
-            : t("lab.editlab") + ": " + renderDate(formik.values.date)}
+            : t("lab.editlab") + ": " + renderDate(formik.values.labDate)}
         </h5>
         <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
@@ -325,17 +374,30 @@ const ExamForm: FC<ExamProps> = ({
             <div className="patientExamForm__item">
               <DateField
                 fieldName="date"
-                fieldValue={formik.values.date}
+                fieldValue={formik.values.labDate}
                 disableFuture={false}
                 theme="regular"
                 format="dd/MM/yyyy"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("labDate")}
+                errorText={getErrorText("labDate")}
                 label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("date")}
+                onChange={dateFieldHandleOnChange("labDate")}
                 disabled={false}
               />
             </div>
+            {/* <div className="patientExamForm__item">
+              <AutocompleteField
+                fieldName="material"
+                fieldValue={formik.values.material}
+                label={t("lab.material")}
+                isValid={isValid("material")}
+                errorText={getErrorText("material")}
+                onBlur={onBlurCallback("material")}
+                isLoading={materialsLoading}
+                options={materialsOptionsSelector(materialsList)}
+                disabled={isLoading}
+              />
+            </div> */}
             <div className="patientExamForm__item">
               <AutocompleteField
                 fieldName="exam"
@@ -401,6 +463,7 @@ const ExamForm: FC<ExamProps> = ({
                 onBlur={formik.handleBlur}
                 type="text"
                 disabled={isLoading}
+                maxLength={255}
               />
             </div>
           </div>
@@ -450,7 +513,10 @@ const ExamForm: FC<ExamProps> = ({
             : t("lab.updatesuccess", { code: labToEdit.code })
         }
         primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handlePrimaryButtonClick={() => {
+          setActivityTransitionState("TO_RESET");
+          navigate(PATHS.laboratory);
+        }}
         handleSecondaryButtonClick={() => ({})}
       />
     </>

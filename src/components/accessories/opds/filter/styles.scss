@@ -38,10 +38,11 @@
         display: flex;
         flex-flow: wrap row;
         justify-content: space-between;
+
         .filterOpdForm__item {
           margin-right: 5px;
           align-items: center;
-          width: 24%;
+          width: 100%;
           .dateField,
           .dateField__light,
           .textField,
@@ -49,33 +50,36 @@
           .autocompleteField {
             width: 100%;
           }
-          @include susy-media($tablet_land) {
+          @include susy-media($large) {
+            width: 24%;
+          }
+          @include susy-media($medium-up) {
             width: 30%;
           }
-          @include susy-media($smartphone) {
-            width: 48%;
-          }
-          @include susy-media($phone) {
-            width: 100%;
-          }
-          @include susy-media($watch) {
-            width: 100%;
-          }
+        }
+        .fullWidth {
+          width: 100%;
         }
       }
     }
     .filterForm__buttonSet {
       display: flex;
+      justify-content: flex-end;
       width: 100%;
-      .MuiButton-contained {
-        width: 24%;
+      gap: 8px;
+
+      .MuiButton-root {
+        width: 16%;
         @include susy-media($tablet_land) {
-          width: 32%;
+          width: 26%;
         }
         @include susy-media($phone) {
-          width: 100%;
+          width: 50%;
         }
       }
     }
+  }
+  @media print {
+    display: none !important;
   }
 }

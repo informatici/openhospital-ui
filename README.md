@@ -29,20 +29,18 @@ Examples:
 
 - you want to develop using real api instead of mocked: use this `.env.local` file
 
-  ```
-  # .env.local
-  REACT_APP_USE_MOCK_API=
-  ```
+    # .env.local
+    REACT_APP_USE_MOCK_API=false
 
-  - then: `npm start`
+then: `npm start`
 
 - you want to connect your local dev environment to docker api:
-  ```
-  # .env.local
-  REACT_APP_USE_MOCK_API=
-  REACT_APP_BASE_PATH=http://localhost:8080/oh-api
-  ```
-  - then: `docker-compose up && npm start`
+
+    # .env.local
+    REACT_APP_USE_MOCK_API=false
+    REACT_APP_BASE_PATH=http://localhost:8080/oh-api
+
+then: `docker-compose up && npm start`
 
 ## Run local development environment
 
@@ -56,7 +54,7 @@ You can run a full OH2 stack locally using [Docker](https://www.docker.com/) (re
 Then you can access to:
 
 - OH2 react app: [localhost:3030](http://localhost:3030)
-- Swagger api spec: [localhost:8080/oh-api/swagger-ui.html](http://localhost:8080/oh-api/swagger-ui.html)
+- Swagger api spec: [localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 - Phpmyadmin, for looking inside database: [localhost:9000](http://localhost:9000)
 
 ## How to publish on Web Server

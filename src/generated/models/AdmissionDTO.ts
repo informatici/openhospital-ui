@@ -24,53 +24,29 @@ import {
 } from './';
 
 /**
+ * The admission
  * @export
  * @interface AdmissionDTO
  */
 export interface AdmissionDTO {
     /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    abortDate?: string;
-    /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    ctrlDate1?: string;
-    /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    ctrlDate2?: string;
-    /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    fhu?: string;
-    /**
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yprog?: number;
-    /**
-     * admission key
+     * Admission key
      * @type {number}
      * @memberof AdmissionDTO
      */
     id?: number;
     /**
-     * if admitted or not
+     * If admitted or not
      * @type {number}
      * @memberof AdmissionDTO
      */
-    admitted?: number;
+    admitted: number;
     /**
-     * type of admission
+     * Type of admission
      * @type {string}
      * @memberof AdmissionDTO
      */
-    type?: string;
+    type: string;
     /**
      * @type {WardDTO}
      * @memberof AdmissionDTO
@@ -82,11 +58,11 @@ export interface AdmissionDTO {
      */
     patient?: PatientDTO;
     /**
-     * admission date
+     * Admission date
      * @type {string}
      * @memberof AdmissionDTO
      */
-    admDate?: string;
+    admDate: string;
     /**
      * @type {AdmissionTypeDTO}
      * @memberof AdmissionDTO
@@ -118,19 +94,19 @@ export interface AdmissionDTO {
      */
     operation?: OperationDTO;
     /**
-     * operation date
+     * Operation date
      * @type {string}
      * @memberof AdmissionDTO
      */
     opDate?: string;
     /**
-     * operation result value is \'P\' or \'N\' 
+     * Operation result value is \'P\' or \'N\' 
      * @type {string}
      * @memberof AdmissionDTO
      */
     opResult?: string;
     /**
-     * discharge date
+     * Discharge date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -141,19 +117,19 @@ export interface AdmissionDTO {
      */
     disType?: DischargeTypeDTO;
     /**
-     * free note
+     * Free note
      * @type {string}
      * @memberof AdmissionDTO
      */
     note?: string;
     /**
-     * transfusional unit
+     * Transfusional unit
      * @type {number}
      * @memberof AdmissionDTO
      */
     transUnit?: number;
     /**
-     * visit date
+     * Visit date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -164,7 +140,7 @@ export interface AdmissionDTO {
      */
     pregTreatmentType?: PregnantTreatmentTypeDTO;
     /**
-     * delivery date
+     * Delivery date
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -180,21 +156,57 @@ export interface AdmissionDTO {
      */
     deliveryResult?: DeliveryResultTypeDTO;
     /**
-     * weight
+     * Weight
      * @type {number}
      * @memberof AdmissionDTO
      */
     weight?: number;
     /**
-     * weight
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    ctrlDate1?: string;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    ctrlDate2?: string;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    abortDate?: string;
+    /**
+     * User id
      * @type {string}
      * @memberof AdmissionDTO
      */
     userID?: string;
     /**
-     * flag record deleted, values are \'Y\' OR \'N\' 
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    readonly hashCode?: number;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    lock?: number;
+    /**
+     * Flag record deleted, values are \'Y\' OR \'N\' 
      * @type {string}
      * @memberof AdmissionDTO
      */
-    deleted?: string;
+    deleted: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    fhu?: string;
 }

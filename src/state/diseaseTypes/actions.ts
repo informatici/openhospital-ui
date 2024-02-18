@@ -1,6 +1,7 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import { DiseaseTypeControllerApi, DiseaseTypeDTO } from "../../generated";
+import { DiseaseTypeDTO } from "../../generated";
+import { DiseaseTypesApi } from "../../generated/apis/DiseaseTypesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -9,9 +10,7 @@ import {
   GET_DISEASETYPE_SUCCESS,
 } from "./consts";
 
-const desaseTypeControllerApi = new DiseaseTypeControllerApi(
-  customConfiguration()
-);
+const desaseTypesApi = new DiseaseTypesApi(customConfiguration());
 
 export const getDiseaseTypes =
   () =>
@@ -19,7 +18,7 @@ export const getDiseaseTypes =
     dispatch({
       type: GET_DISEASETYPE_LOADING,
     });
-    desaseTypeControllerApi.getAllDiseaseTypesUsingGET().subscribe(
+    desaseTypesApi.getAllDiseaseTypes().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({

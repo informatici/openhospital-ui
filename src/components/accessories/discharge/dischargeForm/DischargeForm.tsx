@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -136,7 +135,7 @@ const DischargeForm: FC<DischargeProps> = ({
         (item) => item.code === formattedValues.disType
       );
 
-      onSubmit(formattedValues);
+      onSubmit(formattedValues as any);
     },
   });
 
@@ -238,20 +237,7 @@ const DischargeForm: FC<DischargeProps> = ({
             </div>
           </div>
           <div className="row start-sm center-xs">
-            <div className="patientAdmissionForm__item">
-              <AutocompleteField
-                fieldName="disType"
-                fieldValue={formik.values.disType}
-                label={t("admission.disType")}
-                isValid={isValid("disType")}
-                errorText={getErrorText("disType")}
-                onBlur={onBlurCallback("disType")}
-                options={renderOptions(dischargeTypes)}
-                loading={disTypeStatus === "LOADING"}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="diseaseOut1"
                 fieldValue={formik.values.diseaseOut1}
@@ -264,7 +250,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="diseaseOut2"
                 fieldValue={formik.values.diseaseOut2}
@@ -277,7 +263,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 disabled={isLoading}
               />
             </div>
-            <div className="patientAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <AutocompleteField
                 fieldName="diseaseOut3"
                 fieldValue={formik.values.diseaseOut3}
@@ -287,6 +273,19 @@ const DischargeForm: FC<DischargeProps> = ({
                 onBlur={onBlurCallback("diseaseOut3")}
                 options={renderOptions(diagnosisOutList)}
                 loading={diagnosisOutStatus === "LOADING"}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <AutocompleteField
+                fieldName="disType"
+                fieldValue={formik.values.disType}
+                label={t("admission.disType")}
+                isValid={isValid("disType")}
+                errorText={getErrorText("disType")}
+                onBlur={onBlurCallback("disType")}
+                options={renderOptions(dischargeTypes)}
+                loading={disTypeStatus === "LOADING"}
                 disabled={isLoading}
               />
             </div>
@@ -305,6 +304,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={65535}
               />
             </div>
           </div>

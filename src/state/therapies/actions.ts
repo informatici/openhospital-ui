@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
+import { TherapyRowDTO } from "../../generated";
 import {
-  ReplaceTherapiesUsingPOSTRequest,
-  TherapyControllerApi,
-  TherapyRowDTO,
-} from "../../generated";
+  ReplaceTherapiesRequest,
+  TherapiesApi,
+} from "../../generated/apis/TherapiesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -23,7 +23,7 @@ import {
   UPDATE_THERAPY_SUCCESS,
 } from "./consts";
 
-const therapyControllerApi = new TherapyControllerApi(customConfiguration());
+const therapiesApi = new TherapiesApi(customConfiguration());
 
 export const createTherapy =
   (thRowDTO: TherapyRowDTO) =>
@@ -31,7 +31,7 @@ export const createTherapy =
     dispatch({
       type: CREATE_THERAPY_LOADING,
     });
-    therapyControllerApi.newTherapyUsingPOST({ thRowDTO }).subscribe(
+    therapiesApi.newTherapy({ therapyRowDTO: thRowDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_THERAPY_SUCCESS,
@@ -53,10 +53,10 @@ export const updateTherapy =
     dispatch({
       type: UPDATE_THERAPY_LOADING,
     });
-    therapyControllerApi
-      .replaceTherapiesUsingPOST({
-        thRowDTOs: [thRowDTO],
-      } as ReplaceTherapiesUsingPOSTRequest)
+    therapiesApi
+      .replaceTherapies({
+        therapyRowDTO: [thRowDTO],
+      } as ReplaceTherapiesRequest)
       .subscribe(
         (payload) => {
           dispatch({
@@ -104,7 +104,7 @@ export const getTherapiesByPatientId =
       type: GET_THERAPY_LOADING,
     });
     if (codePatient) {
-      therapyControllerApi.getTherapyRowsUsingGET({ codePatient }).subscribe(
+      therapiesApi.getTherapyRows({ codePatient }).subscribe(
         (payload) => {
           if (Array.isArray(payload) && payload.length > 0) {
             dispatch({

@@ -23,4 +23,5 @@ export interface IProps {
     | Partial<OutlinedInputProps>;
   rows?: number;
   required?: FIELD_VALIDATION;
+  maxLength?: number;
 }

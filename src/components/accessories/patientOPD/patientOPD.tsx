@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
-import { OpdWithOperatioRowDTO } from "../../../generated";
+import { OpdWithOperationRowDTO } from "../../../generated";
 import {
   createOpdReset,
   createOpdWithOperationsRows,
@@ -35,7 +35,7 @@ const PatientOPD: FunctionComponent = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperatioRowDTO);
+  const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperationRowDTO);
   const [creationMode, setCreationMode] = useState(true);
   const changeStatus = useSelector<IState, string | undefined>((state) => {
     /*
@@ -87,29 +87,33 @@ const PatientOPD: FunctionComponent = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const onSubmit = (opdValues: OpdWithOperatioRowDTO) => {
+  const onSubmit = (opdValues: OpdWithOperationRowDTO) => {
     setShouldResetForm(false);
-    opdValues.opdDTO.patientCode = patient?.code;
-    opdValues.opdDTO.age = patient?.age;
-    opdValues.opdDTO.sex = patient?.sex;
-    opdValues.opdDTO.userID = userId;
-    opdValues.opdDTO.patientName =
-      patient?.firstName + " " + patient?.secondName;
-    const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
-    if (!creationMode && opdToEdit.opdDTO.code) {
-      dispatch(
-        updateOpdWithOperationRows(opdToEdit.opdDTO.code, {
-          opdDTO: opdToSave,
-          operationRows: opdValues.operationRows,
-        } as OpdWithOperatioRowDTO)
-      );
-    } else {
-      dispatch(
-        createOpdWithOperationsRows({
-          opdDTO: { ...opdToSave, code: 0 },
-          operationRows: opdValues.operationRows,
-        })
-      );
+    if (opdValues.opdDTO) {
+      opdValues.opdDTO.patientCode = patient?.code;
+      if (patient) {
+        opdValues.opdDTO.age = patient?.age;
+        opdValues.opdDTO.sex = patient?.sex;
+      }
+      opdValues.opdDTO.userID = userId;
+      opdValues.opdDTO.patientName =
+        patient?.firstName + " " + patient?.secondName;
+      const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
+      if (!creationMode && opdToEdit.opdDTO?.code) {
+        dispatch(
+          updateOpdWithOperationRows(opdToEdit.opdDTO?.code, {
+            opdDTO: opdToSave,
+            operationRows: opdValues.operationRows,
+          } as OpdWithOperationRowDTO)
+        );
+      } else {
+        dispatch(
+          createOpdWithOperationsRows({
+            opdDTO: { ...opdToSave, code: 0 },
+            operationRows: opdValues.operationRows,
+          })
+        );
+      }
     }
   };
 
@@ -124,7 +128,7 @@ const PatientOPD: FunctionComponent = () => {
     scrollToElement(null);
   };
 
-  const onEdit = (row: OpdWithOperatioRowDTO) => {
+  const onEdit = (row: OpdWithOperationRowDTO) => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
@@ -137,7 +141,7 @@ const PatientOPD: FunctionComponent = () => {
 
   return (
     <div className="patientOpd">
-      <Permission require={creationMode ? "opd.create" : "opd.update"}>
+      <Permission require={creationMode ? "opds.create" : "opds.update"}>
         <PatientExtraData />
         <PatientOPDForm
           fields={
@@ -168,7 +172,7 @@ const PatientOPD: FunctionComponent = () => {
           info={
             creationMode
               ? t("opd.createsuccess")
-              : t("opd.updatesuccess", { code: opdToEdit.opdDTO.code })
+              : t("opd.updatesuccess", { code: opdToEdit.opdDTO?.code })
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() =>
@@ -177,7 +181,7 @@ const PatientOPD: FunctionComponent = () => {
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
-      <Permission require="opd.read">
+      <Permission require="opds.read">
         <PatientOPDTable
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}

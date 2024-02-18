@@ -47,6 +47,7 @@ const PatientPicker: FC<IProps> = ({
   label,
   theme,
   initialValue,
+  enableFocus = true,
 }) => {
   const [value, setValue] = useState((initialValue ?? {}) as PatientDTO);
   const { t } = useTranslation();
@@ -64,6 +65,7 @@ const PatientPicker: FC<IProps> = ({
   }
 
   const [open, setOpen] = useState(false);
+  const [hasFocus, setHasFocus] = useState(enableFocus);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -121,16 +123,19 @@ const PatientPicker: FC<IProps> = ({
 
   const handleClick = (patient: PatientDTO) => {
     setValue(patient);
+    setHasFocus(true);
     handleClose();
   };
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, [value]);
+    if (hasFocus) {
+      inputRef.current.focus();
+    }
+  }, [value, hasFocus]);
 
   useEffect(() => {
     const pat = patientData?.find((item) => item.code === fieldValue);
-    pat ? setValue(pat) : setValue(initialValue ?? {});
+    pat ? setValue(pat) : setValue(initialValue ?? ({} as any));
   }, [fieldValue]);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -181,7 +186,7 @@ const PatientPicker: FC<IProps> = ({
         );
 
       case "SUCCESS_EMPTY":
-        return <InfoBox type="warning" message={t("common.searchnotfound")} />;
+        return <InfoBox type="info" message={t("common.searchnotfound")} />;
 
       default:
         return <InfoBox type="error" message={errorMessage} />;
@@ -197,7 +202,7 @@ const PatientPicker: FC<IProps> = ({
           label={label}
           name={fieldName}
           variant="outlined"
-          value={value.firstName ?? ""}
+          value={value.name ?? ""}
           type={"text"}
           onBlur={handleOnBlur}
           onMouseDown={handleCriteriaChange}
@@ -219,7 +224,7 @@ const PatientPicker: FC<IProps> = ({
                     color="inherit"
                     onMouseDown={(event: any) => {
                       event.stopPropagation();
-                      setValue({});
+                      setValue({} as any);
                     }}
                     aria-label="close"
                   >
@@ -281,6 +286,7 @@ const PatientPicker: FC<IProps> = ({
                     onBlur={formik.handleBlur}
                     type="text"
                     disabled={isLoading}
+                    maxLength={50}
                   />
                 </div>
                 <div className="patientSearchForm__item">
@@ -293,6 +299,7 @@ const PatientPicker: FC<IProps> = ({
                     onBlur={formik.handleBlur}
                     type="text"
                     disabled={isLoading}
+                    maxLength={50}
                   />
                 </div>
               </div>
@@ -307,6 +314,7 @@ const PatientPicker: FC<IProps> = ({
                     onBlur={formik.handleBlur}
                     type="text"
                     disabled={isLoading}
+                    maxLength={50}
                   />
                 </div>
                 <div className="patientSearchForm__item">

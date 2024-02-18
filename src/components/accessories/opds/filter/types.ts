@@ -3,6 +3,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 export interface IOpdFilterProps {
   fields: TFields<OpdFilterFormFieldName>;
   onSubmit: (values: any) => void;
+  handleResetFilter: () => void;
 }
 export type IStatus = "" | "A" | "R";
 export type ISex = "" | "F" | "M" | "U";
@@ -17,6 +18,9 @@ export type TFilterValues = {
   sex?: ISex;
   newPatient?: IStatus;
   patientCode?: number;
+  page?: number;
+  size?: number;
+  wardCode?: string;
 };
 
 export type TOpdFilterValues = Record<OpdFilterFormFieldName, string>;
@@ -30,7 +34,8 @@ export type OpdFilterFormFieldName =
   | "patientCode"
   | "diseaseCode"
   | "diseaseTypeCode"
-  | "sex";
+  | "sex"
+  | "wardCode";
 
 export interface IFilterAction {
   type: "update";

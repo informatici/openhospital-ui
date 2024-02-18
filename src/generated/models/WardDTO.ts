@@ -17,41 +17,57 @@
  */
 export interface WardDTO {
     /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    beds?: number;
-    /**
+     * The ward code
      * @type {string}
      * @memberof WardDTO
      */
     code?: string;
     /**
+     * The name of the ward
      * @type {string}
      * @memberof WardDTO
      */
-    description?: string;
+    description: string;
     /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    docs?: number;
-    /**
+     * The phone number of the ward
      * @type {string}
      * @memberof WardDTO
      */
-    email?: string;
+    telephone?: string;
     /**
+     * The fax number of the ward
      * @type {string}
      * @memberof WardDTO
      */
     fax?: string;
     /**
-     * @type {boolean}
+     * The email of the ward
+     * @type {string}
      * @memberof WardDTO
      */
-    isFemale?: boolean;
+    email?: string;
     /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    beds: number;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    nurs: number;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    docs: number;
+    /**
+     * @type {number}
+     * @memberof WardDTO
+     */
+    visitDuration: number;
+    /**
+     * lock
      * @type {number}
      * @memberof WardDTO
      */
@@ -60,30 +76,20 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    isMale?: boolean;
-    /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    nurs?: number;
+    opd?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO
      */
-    isPharmacy?: boolean;
+    female?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO
      */
-    isOpd?: boolean;
+    male?: boolean;
     /**
-     * @type {string}
+     * @type {boolean}
      * @memberof WardDTO
      */
-    telephone?: string;
-    /**
-     * @type {number}
-     * @memberof WardDTO
-     */
-    visitDuration?: number;
+    pharmacy?: boolean;
 }

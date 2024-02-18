@@ -17,7 +17,6 @@ import {
   SEARCH_LAB_FAIL,
   SEARCH_LAB_RESET,
   SEARCH_LAB_SUCCESS,
-  SEARCH_LAB_SUCCESS_EMPTY,
   GET_MATERIALS_FAIL,
   GET_MATERIALS_LOADING,
   GET_MATERIALS_SUCCESS,
@@ -34,6 +33,19 @@ import {
   GET_LABWROW_RESET,
   GET_LABWROW_SUCCESS,
   SEARCH_LAB_LOADING,
+  CREATE_LAB_REQUEST_LOADING,
+  CREATE_LAB_REQUEST_SUCCESS,
+  CREATE_LAB_REQUEST_FAIL,
+  CREATE_LAB_REQUEST_RESET,
+  GET_LABS_REQUEST_LOADING,
+  GET_LABS_REQUEST_SUCCESS,
+  GET_LABS_REQUEST_SUCCESS_EMPTY,
+  GET_LABS_REQUEST_FAIL,
+  GET_LABS_REQUEST_RESET,
+  CANCEL_LAB_LOADING,
+  CANCEL_LAB_SUCCESS,
+  CANCEL_LAB_FAIL,
+  CANCEL_LAB_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { ILaboratoriesState } from "./types";
@@ -73,6 +85,33 @@ export default produce(
       }
 
       /**
+       * CREATE_LAB_REQUEST
+       */
+      case CREATE_LAB_REQUEST_LOADING: {
+        draft.createLabRequest.status = "LOADING";
+        break;
+      }
+
+      case CREATE_LAB_REQUEST_SUCCESS: {
+        draft.createLabRequest.status = "SUCCESS";
+        draft.createLabRequest.data = action.payload;
+        delete draft.createLabRequest.error;
+        break;
+      }
+
+      case CREATE_LAB_REQUEST_FAIL: {
+        draft.createLabRequest.status = "FAIL";
+        draft.createLabRequest.error = action.error;
+        break;
+      }
+
+      case CREATE_LAB_REQUEST_RESET: {
+        draft.createLabRequest.status = "IDLE";
+        delete draft.createLabRequest.error;
+        break;
+      }
+
+      /**
        * GET_LABS
        */
       case GET_LABS_LOADING: {
@@ -103,6 +142,40 @@ export default produce(
         draft.labsByPatientId.status = "IDLE";
         delete draft.labsByPatientId.data;
         delete draft.labsByPatientId.error;
+        break;
+      }
+
+      /**
+       * GET_LABS_REQUEST_BY_PATIENT
+       */
+      case GET_LABS_REQUEST_LOADING: {
+        draft.labsRequestByPatientId.status = "LOADING";
+        break;
+      }
+
+      case GET_LABS_REQUEST_SUCCESS: {
+        draft.labsRequestByPatientId.status = "SUCCESS";
+        draft.labsRequestByPatientId.data = action.payload;
+        delete draft.labsRequestByPatientId.error;
+        break;
+      }
+
+      case GET_LABS_REQUEST_SUCCESS_EMPTY: {
+        draft.labsRequestByPatientId.status = "SUCCESS_EMPTY";
+        draft.labsRequestByPatientId.data = [];
+        delete draft.labsRequestByPatientId.error;
+        break;
+      }
+      case GET_LABS_REQUEST_FAIL: {
+        draft.labsRequestByPatientId.status = "FAIL";
+        draft.labsRequestByPatientId.error = action.error;
+        break;
+      }
+
+      case GET_LABS_REQUEST_RESET: {
+        draft.labsRequestByPatientId.status = "IDLE";
+        delete draft.labsRequestByPatientId.data;
+        delete draft.labsRequestByPatientId.error;
         break;
       }
 
@@ -177,13 +250,6 @@ export default produce(
         break;
       }
 
-      case SEARCH_LAB_SUCCESS_EMPTY: {
-        draft.searchLabs.status = "SUCCESS_EMPTY";
-        draft.searchLabs.data = [];
-        delete draft.searchLabs.error;
-        break;
-      }
-
       case SEARCH_LAB_RESET: {
         draft.searchLabs.status = "IDLE";
         delete draft.searchLabs.error;
@@ -231,9 +297,6 @@ export default produce(
 
       case DELETE_LAB_SUCCESS: {
         draft.deleteLab.status = "SUCCESS";
-        draft.labsByPatientId.data = draft.labsByPatientId.data?.filter(
-          (e) => e.laboratoryDTO?.code !== action.payload.code
-        );
         delete draft.deleteLab.error;
         break;
       }
@@ -250,6 +313,31 @@ export default produce(
         break;
       }
 
+      // Cancel lab exam
+      case CANCEL_LAB_LOADING: {
+        draft.cancelLab.status = "LOADING";
+        break;
+      }
+
+      case CANCEL_LAB_SUCCESS: {
+        draft.cancelLab.status = "SUCCESS";
+        delete draft.cancelLab.error;
+        break;
+      }
+
+      case CANCEL_LAB_FAIL: {
+        draft.cancelLab.status = "FAIL";
+        draft.cancelLab.error = action.error;
+        break;
+      }
+
+      case CANCEL_LAB_RESET: {
+        draft.cancelLab.status = "IDLE";
+        delete draft.cancelLab.error;
+        break;
+      }
+
+      // Get lab exams materials
       case GET_MATERIALS_LOADING: {
         draft.materials.status = "LOADING";
         break;

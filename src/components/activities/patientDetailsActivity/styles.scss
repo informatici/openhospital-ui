@@ -26,7 +26,7 @@
   .patientDetails__nested_content {
     padding: 30px;
     @include susy-media($smartphone) {
-        padding: 30px 0;
+      padding: 30px 0;
     }
   }
 
@@ -84,6 +84,9 @@
       flex-direction: initial;
       border-radius: 10px;
       box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    }
+    @media print {
+      display: none !important;
     }
   }
 
@@ -356,6 +359,54 @@
       flex-direction: initial;
       background-color: $c-white;
       box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+    }
+    .patientDetails__personalData {
+      display: none !important;
+      flex-flow: column wrap;
+      background-color: transparent;
+      box-shadow: 2px 1px 5px $c-grey-lighter;
+      padding: 8px;
+      margin: 24px;
+      border-radius: 5px;
+      color: inherit;
+      height: 200px;
+      .patientDetails__personalData__item {
+        width: 150px;
+        color: $c-gray;
+      }
+      @media print {
+        display: flex !important;
+      }
+    }
+    .patientDetails__profilePictureContainer_wrapper {
+      display: none;
+      padding: 20px;
+      margin: 20px;
+      align-items: center;
+      border-radius: 10px;
+      background-color: lighten($c-gray, 10%);
+      @media print {
+        display: flex;
+      }
+    }
+
+    .patientDetails__profilePictureContainer {
+      width: 60px;
+      height: 60px;
+      display: inline-block;
+      .profilePicture_mask {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .patientDetails__header__info {
+      margin-left: 12px;
+      .patientDetails__header__info__item {
+        color: $c-white;
+        display: block;
+        text-transform: uppercase;
+      }
     }
   }
 

@@ -24,53 +24,63 @@ import {
  */
 export interface OperationRowDTO {
     /**
-     * @type {AdmissionDTO}
-     * @memberof OperationRowDTO
-     */
-    admission?: AdmissionDTO;
-    /**
-     * @type {BillDTO}
-     * @memberof OperationRowDTO
-     */
-    bill?: BillDTO;
-    /**
      * @type {number}
      * @memberof OperationRowDTO
      */
     id?: number;
     /**
-     * @type {string}
+     * @type {OperationDTO}
      * @memberof OperationRowDTO
      */
-    opDate?: string;
+    operation: OperationDTO;
     /**
+     * The presciber of the operation
      * @type {string}
      * @memberof OperationRowDTO
      */
-    opResult?: string;
+    prescriber: string;
+    /**
+     * The result of the operation
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    opResult: string;
+    /**
+     * Operation registration date
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    opDate: string;
+    /**
+     * The remark of the operation
+     * @type {string}
+     * @memberof OperationRowDTO
+     */
+    remarks?: string;
+    /**
+     * @type {AdmissionDTO}
+     * @memberof OperationRowDTO
+     */
+    admission?: AdmissionDTO;
     /**
      * @type {OpdDTO}
      * @memberof OperationRowDTO
      */
     opd?: OpdDTO;
     /**
-     * @type {OperationDTO}
+     * @type {BillDTO}
      * @memberof OperationRowDTO
      */
-    operation?: OperationDTO;
+    bill?: BillDTO;
     /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    prescriber?: string;
-    /**
-     * @type {string}
-     * @memberof OperationRowDTO
-     */
-    remarks?: string;
-    /**
+     * The transunit
      * @type {number}
      * @memberof OperationRowDTO
      */
     transUnit?: number;
+    /**
+     * @type {number}
+     * @memberof OperationRowDTO
+     */
+    readonly hashCode?: number;
 }

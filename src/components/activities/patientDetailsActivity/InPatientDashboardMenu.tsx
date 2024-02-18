@@ -73,7 +73,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         }}
       >
         <Pageview fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.visits")}:</span>
+        <span>{t("nav.consultancy")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 
@@ -104,19 +104,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 
-      <div
-        className={
-          "align__element patientDetails__main_menu__item " +
-          isActive("therapy")
-        }
-        onClick={() => {
-          changeUserSection("therapy");
-        }}
-      >
-        <Healing fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.therapy")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
+      {false && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("therapy")
+          }
+          onClick={() => {
+            changeUserSection("therapy");
+          }}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.therapy")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
 
       <div
         className={
@@ -132,7 +134,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 
-      <Permission require="admission.update">
+      <Permission require="admissions.update">
         <div
           className={
             "align__element patientDetails__main_menu__item " +

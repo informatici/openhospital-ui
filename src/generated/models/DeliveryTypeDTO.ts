@@ -12,20 +12,21 @@
  */
 
 /**
+ * Delivery type
  * @export
  * @interface DeliveryTypeDTO
  */
 export interface DeliveryTypeDTO {
     /**
-     * code of the delivery type
+     * Code of the delivery type
      * @type {string}
      * @memberof DeliveryTypeDTO
      */
-    code?: string;
+    code: string;
     /**
-     * description of the delivery type
+     * Description of the delivery type
      * @type {string}
      * @memberof DeliveryTypeDTO
      */
-    description?: string;
+    description: string;
 }

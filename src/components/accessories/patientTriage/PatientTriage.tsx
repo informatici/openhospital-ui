@@ -11,7 +11,8 @@ import {
   createExaminationReset,
   deleteExamination,
   deleteExaminationReset,
-  examinationsByPatientId,
+  getDefaultPatientExamination,
+  getLastByPatientId,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations/actions";
@@ -39,6 +40,11 @@ const PatientTriage: FC = () => {
   const [triageToEdit, setTriageToEdit] = useState({} as PatientExaminationDTO);
 
   const [creationMode, setCreationMode] = useState(true);
+
+  const lastExamination = useSelector<
+    IState,
+    PatientExaminationDTO | undefined
+  >((state) => state.examinations.getLastByPatientId.data);
 
   const patientDataCode = useSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -71,7 +77,16 @@ const PatientTriage: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
+    if (status === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
   }, [status]);
+
+  useEffect(() => {
+    if (deleteStatus === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [deleteStatus]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
@@ -90,9 +105,16 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, activityTransitionState]);
 
+  useEffect(() => {
+    if (patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+      dispatch(getDefaultPatientExamination(patientDataCode));
+    }
+  }, [patientDataCode]);
+
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
-    triage.patientCode = patientDataCode;
+    triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
       dispatch(updateExamination(triageToEdit.pex_ID, triage));
@@ -127,13 +149,29 @@ const PatientTriage: FC = () => {
   return (
     <div className="patientTriage">
       <Permission
-        require={creationMode ? "examination.create" : "examination.update"}
+        require={creationMode ? "examinations.create" : "examinations.update"}
       >
         <PatientTriageForm
           fields={
             creationMode
-              ? initialFields
-              : updateTriageFields(initialFields, triageToEdit)
+              ? {
+                  ...initialFields,
+                  pex_height: {
+                    ...initialFields.pex_height,
+                    value: lastExamination?.pex_height?.toString() ?? "",
+                  },
+                  pex_weight: {
+                    ...initialFields.pex_weight,
+                    value: lastExamination?.pex_weight?.toString() ?? "",
+                  },
+                }
+              : updateTriageFields(initialFields, {
+                  ...triageToEdit,
+                  pex_height:
+                    triageToEdit.pex_height ?? lastExamination?.pex_height,
+                  pex_weight:
+                    triageToEdit.pex_weight ?? lastExamination?.pex_weight,
+                })
           }
           creationMode={creationMode}
           onSubmit={onSubmit}
@@ -169,7 +207,7 @@ const PatientTriage: FC = () => {
         />
       </Permission>
 
-      <Permission require="examination.read">
+      <Permission require="examinations.read">
         <PatientTriageTable
           handleDelete={onDelete}
           handleEdit={onEdit}
@@ -177,7 +215,7 @@ const PatientTriage: FC = () => {
         />
       </Permission>
 
-      <Permission require="examination.delete">
+      <Permission require="examinations.delete">
         <ConfirmationDialog
           isOpen={deleteStatus === "SUCCESS"}
           title={t("opd.deleted")}

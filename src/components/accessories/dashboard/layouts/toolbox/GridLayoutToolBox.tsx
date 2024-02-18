@@ -1,5 +1,5 @@
 import { FC } from "react";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ import {
   addWidget,
   encodeLayout,
   getDashboardLabel,
+  isEmptyLayout,
   removeDuplicates,
   removeWidget,
 } from "../consts";
@@ -20,10 +21,17 @@ import { Add } from "@material-ui/icons";
 import { Layout, Layouts } from "react-grid-layout";
 import { saveLayouts } from "../../../../../state/layouts/actions";
 import "./styles.scss";
+import { UserSettingDTO } from "../../../../../generated";
+import { TUserCredentials } from "../../../../../state/main/types";
+import InfoBox from "../../../infoBox/InfoBox";
 
-export const GridLayoutToolbox: FC = () => {
+const GridLayoutToolbox: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const userCredentials = useSelector<IState, TUserCredentials>(
+    (state) => state.main.authentication.data
+  );
 
   const breakpoint = useSelector<IState, string>(
     (state) => state.layouts.breakpoint
@@ -31,6 +39,10 @@ export const GridLayoutToolbox: FC = () => {
 
   const layouts = useSelector<IState, Layouts>(
     (state: IState) => state.layouts.layouts
+  );
+
+  const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
+    (state) => state.layouts.getLayouts.data
   );
 
   const toolbox = useSelector<IState, Layouts>(
@@ -48,9 +60,23 @@ export const GridLayoutToolbox: FC = () => {
       ...removeWidget(toolbox, item),
     });
 
-    dispatch(
-      saveLayouts(encodeLayout({ layout: layoutsTmp, toolbox: toolboxTmp }))
-    );
+    let setting: UserSettingDTO;
+
+    if (!dashboardSetting) {
+      setting = {
+        configName: "dashboard",
+        user: userCredentials?.username!,
+      } as UserSettingDTO;
+    } else {
+      setting = { ...dashboardSetting };
+    }
+
+    setting.configValue = encodeLayout({
+      layout: layoutsTmp,
+      toolbox: toolboxTmp,
+    });
+
+    dispatch(saveLayouts(setting));
   };
 
   const GridLayoutToolboxItem: FC<TGridLayoutToolboxItemProps> = ({
@@ -81,19 +107,31 @@ export const GridLayoutToolbox: FC = () => {
       </div>
       <div className="side__body">
         <div className="section">
-          {toolbox[breakpoint]
-            ? toolbox[breakpoint].map((layout) => {
-                return (
-                  <GridLayoutToolboxItem
-                    key={layout.i}
-                    item={layout}
-                    onTake={() => onItemPut(layout)}
-                  />
-                );
-              })
-            : ""}
+          {isEmptyLayout(toolbox) && (
+            <div className="info-box-container" style={{ textAlign: "center" }}>
+              <InfoBox type="info" message={t("dashboard.nowidgets")} />
+            </div>
+          )}
+
+          {!isEmptyLayout(toolbox) && (
+            <>
+              {toolbox[breakpoint]
+                ? toolbox[breakpoint].map((layout) => {
+                    return (
+                      <GridLayoutToolboxItem
+                        key={layout.i}
+                        item={layout}
+                        onTake={() => onItemPut(layout)}
+                      />
+                    );
+                  })
+                : ""}
+            </>
+          )}
         </div>
       </div>
     </div>
   );
 };
+
+export default GridLayoutToolbox;

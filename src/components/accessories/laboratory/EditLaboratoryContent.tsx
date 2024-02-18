@@ -3,27 +3,27 @@ import { Cancel } from "@material-ui/icons";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useLocation, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import "./styles.scss";
 import { useEffect } from "react";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
 import {
+  createLabReset,
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
+  updateLabReset,
 } from "../../../state/laboratories/actions";
 import { getExams } from "../../../state/exams/actions";
 import ExamForm from "./examForm/ExamForm";
 import { getPatientThunk } from "../../../state/patients/actions";
-import { examRoutes } from "../../../mockServer/routes/exam";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string | undefined }>();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const creationMode = useMemo(() => (id ? false : true), [id]);
@@ -38,18 +38,18 @@ export const EditLaboratoryContent: FC = () => {
     if (id) {
       dispatch(getLabWithRowsByCode(parseInt(id)));
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (labToEdit?.patientCode) {
       dispatch(getPatientThunk(labToEdit.patientCode.toString()));
     }
-  }, [labWithRows]);
+  }, [labWithRows, dispatch, labToEdit?.patientCode]);
 
   const handleReset = useCallback(() => {
     dispatch(getLabWithRowsByCodeReset());
     navigate(0);
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -70,7 +70,16 @@ export const EditLaboratoryContent: FC = () => {
 
   useEffect(() => {
     dispatch(getExams());
-  }, []);
+  }, [dispatch]);
+
+  const handleBack = useCallback(() => {
+    if (creationMode) {
+      dispatch(createLabReset());
+    } else {
+      dispatch(updateLabReset());
+    }
+    navigate(-1);
+  }, [navigate, dispatch, creationMode]);
 
   return (
     <>
@@ -78,9 +87,7 @@ export const EditLaboratoryContent: FC = () => {
         <div className="lab__title">{t("nav.laboratory")}</div>
         <div className="lab__actions">
           <Button
-            onClick={() => {
-              navigate(-1);
-            }}
+            onClick={handleBack}
             type="button"
             variant="contained"
             color="primary"
@@ -90,7 +97,7 @@ export const EditLaboratoryContent: FC = () => {
           </Button>
         </div>
       </div>
-      <Permission require={creationMode ? "exam.create" : "exam.update"}>
+      <Permission require={creationMode ? "exams.create" : "exams.update"}>
         {open && (
           <ExamForm
             fields={formFields}

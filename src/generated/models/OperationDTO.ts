@@ -21,25 +21,32 @@ import {
  */
 export interface OperationDTO {
     /**
+     * The code of operation
      * @type {string}
      * @memberof OperationDTO
      */
-    code?: string;
+    code: string;
     /**
-     * the operation description
+     * The operation description
      * @type {string}
      * @memberof OperationDTO
      */
-    description?: string;
+    description: string;
     /**
      * @type {OperationTypeDTO}
      * @memberof OperationDTO
      */
-    type?: OperationTypeDTO;
+    type: OperationTypeDTO;
     /**
-     * the operation major
+     * The operation major
      * @type {number}
      * @memberof OperationDTO
      */
-    major?: number;
+    major: number;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof OperationDTO
+     */
+    lock?: number;
 }

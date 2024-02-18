@@ -34,9 +34,9 @@ import hospital from "./state/hospital/reducer";
 import layouts from "./state/layouts/reducer";
 import dashboard from "./state/dashboard/reducer";
 
-if (process.env.REACT_APP_USE_MOCK_API) {
-  //console.log("Using mocked api");
-  //makeServer();
+if (process.env.REACT_APP_USE_MOCK_API === "true") {
+  console.log("Using mocked api");
+  makeServer();
 }
 
 const reducer = combineReducers<IState>({

@@ -11,7 +11,7 @@
   padding: 25px;
   background-color: $c-gray;
   height: 120px;
-  z-index:10;
+  z-index: 10;
   @include susy-media($smartphone) {
     position: static;
     display: block;
@@ -19,7 +19,7 @@
     height: auto;
   }
 
-  img{
+  img {
     height: auto;
     max-width: 100%;
   }
@@ -43,5 +43,8 @@
   .footer__infoBox__row {
     color: $c-white;
     font-size: small;
+  }
+  @media print {
+    display: none;
   }
 }

@@ -5,6 +5,6 @@ export const initial: IOpdState = {
   updateOpd: { status: "IDLE" },
   getOpds: { status: "IDLE", data: [] },
   lastOpd: { status: "IDLE", data: undefined },
-  searchOpds: { status: "IDLE", data: [] },
+  searchOpds: { status: "IDLE" },
   deleteOpd: { status: "IDLE" },
 };

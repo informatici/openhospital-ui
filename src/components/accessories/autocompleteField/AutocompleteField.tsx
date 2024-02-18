@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { DefaultOptionType, IProps } from "./types";
 import "./styles.scss";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import {
   Autocomplete,
   createFilterOptions,
@@ -41,6 +41,7 @@ const AutocompleteField: FC<IProps> = ({
   selectOnFocus,
   handleHomeEndKeys,
   options_limit = 10,
+  maxLength,
   optionsComparator = (option: DefaultOptionType, val: string | number) =>
     option.value + "" === val + "",
 }) => {
@@ -63,8 +64,13 @@ const AutocompleteField: FC<IProps> = ({
       setValue(result[0].value);
       onBlur(e, result[0].value);
     } else {
-      setValue(inputValue);
-      onBlur(e, inputValue);
+      if (freeSolo) {
+        setValue(inputValue);
+        onBlur(e, inputValue);
+      } else {
+        setValue("");
+        onBlur(e, "");
+      }
     }
   };
 
@@ -160,15 +166,39 @@ const AutocompleteField: FC<IProps> = ({
         onChange={handleOnChange}
         onBlur={handleOnBlur}
         renderInput={(params) => (
-          <TextField
-            label={label}
-            {...params}
-            name={fieldName}
-            variant="outlined"
-            size="small"
-            error={isValid}
-            fullWidth
-          />
+          <div style={{ position: "relative" }}>
+            <TextField
+              label={label}
+              {...params}
+              name={fieldName}
+              variant="outlined"
+              size="small"
+              error={isValid}
+              inputProps={{ ...params.inputProps, maxLength }}
+              fullWidth
+            />
+            {maxLength && maxLength > 0 && (
+              <div
+                style={{
+                  bottom: "-9px",
+                  transform: "translate(14px, -6px) scale(0.75)",
+                  position: "absolute",
+                  right: "25px",
+                  backgroundColor: "white",
+                  padding: "2px 6px",
+                  color: "gray",
+                  fontSize: "14px",
+                }}
+              >
+                <small>
+                  {t("common.remainingchars", {
+                    current: maxLength - inputValue.length,
+                    max: maxLength,
+                  })}
+                </small>
+              </div>
+            )}
+          </div>
         )}
       />
       <FormHelperText error>{errorText || ""}</FormHelperText>

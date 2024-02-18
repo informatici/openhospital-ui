@@ -17,21 +17,27 @@
  */
 export interface UserSettingDTO {
     /**
-     * the the name of the setting
-     * @type {string}
-     * @memberof UserSettingDTO
-     */
-    configName?: string;
-    /**
-     * the the value of the user
-     * @type {string}
-     * @memberof UserSettingDTO
-     */
-    configValue?: string;
-    /**
-     * the id of the setting (must be unique)
+     * The id of the setting (must be unique)
      * @type {number}
      * @memberof UserSettingDTO
      */
-    id?: number;
+    id: number;
+    /**
+     * The name of the setting
+     * @type {string}
+     * @memberof UserSettingDTO
+     */
+    configName: string;
+    /**
+     * The name of the user
+     * @type {string}
+     * @memberof UserSettingDTO
+     */
+    user: string;
+    /**
+     * The value of the user
+     * @type {string}
+     * @memberof UserSettingDTO
+     */
+    configValue: string;
 }

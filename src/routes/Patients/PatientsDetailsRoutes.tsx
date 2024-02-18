@@ -38,15 +38,17 @@ export const PatientDetailsRoutes: FC = () => {
             />
           }
         />
-        <Route
-          path="therapy"
-          element={
-            <PatientDetailsContent
-              title={t("patient.therapy")}
-              content={PatientTherapy}
-            />
-          }
-        />
+        {false && (
+          <Route
+            path="therapy"
+            element={
+              <PatientDetailsContent
+                title={t("patient.therapy")}
+                content={PatientTherapy}
+              />
+            }
+          />
+        )}
         <Route
           path="triage"
           element={

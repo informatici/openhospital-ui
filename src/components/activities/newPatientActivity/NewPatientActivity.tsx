@@ -56,10 +56,6 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
-  const selectedPatient = useSelector<IState, PatientDTO | undefined>(
-    (state) => state.patients.selectedPatient.data
-  );
-
   const patient = useSelector<IState, PatientDTO | undefined>(
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
@@ -104,6 +100,8 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
       return <Navigate to={dashboardRoute} />;
+    case "TO_PATIENT_DASHBOARD":
+      return <Navigate to={`${PATHS.patients_details}/${patient?.code}`} />;
     default:
       return (
         <div className="newPatient">
@@ -114,7 +112,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
           <div className="newPatient__background">
             <div className="newPatient__content">
               <div className="newPatient__title">{t("nav.newpatient")}</div>
-              <Permission require="patient.create">
+              <Permission require="patients.create">
                 <PatientDataForm
                   fields={initialFields}
                   onSubmit={onSubmit}
@@ -135,16 +133,16 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
                   info={t("common.patientregistrationsuccessfull")}
                   items={[
                     {
-                      label: t("common.dashboard"),
+                      label: t("common.gohome"),
                       onClick: () => setActivityTransitionState("TO_DASHBOARD"),
                     },
                     {
-                      label: t("common.keepediting"),
+                      label: t("patient.createother"),
                       onClick: () =>
                         setActivityTransitionState("TO_NEW_PATIENT_RESET"),
                     },
                     {
-                      label: t("patient.dashboard"),
+                      label: t("common.gotopatientactivities"),
                       onClick: () =>
                         setActivityTransitionState("TO_PATIENT_DASHBOARD"),
                     },

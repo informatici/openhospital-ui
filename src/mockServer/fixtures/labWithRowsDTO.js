@@ -2,7 +2,7 @@ export const labWithRowsDTO = [
   {
     laboratoryDTO: {
       code: 222,
-      material: "angal.lab.sputum",
+      material: "angal.lab.sputum.txt",
       exam: {
         code: "01.01",
         description: "1.1 HB",
@@ -14,7 +14,7 @@ export const labWithRowsDTO = [
         },
         lock: 1,
       },
-      date: "2021-08-04T15:19:44.000Z",
+      labDate: "2021-08-04T15:19:44.000Z",
       result: "NEGATIVE",
       lock: 0,
       note: "should take exam after 1 month",
@@ -23,14 +23,15 @@ export const labWithRowsDTO = [
       inOutPatient: "O",
       age: 78,
       sex: "M",
+      status: "DONE"
     },
-    laboratoryRowList: []
+    laboratoryRowList: [],
   },
 
   {
     laboratoryDTO: {
       code: 224,
-      material: "angal.lab.sputum",
+      material: "angal.lab.sputum.txt",
       exam: {
         code: "01.01",
         description: "1.1 HB",
@@ -42,7 +43,7 @@ export const labWithRowsDTO = [
         },
         lock: 1,
       },
-      date: "2021-08-05T15:19:44.000Z",
+      labDate: "2021-08-05T15:19:44.000Z",
       result: "POSITIVE",
       lock: 0,
       note: "After a two weeks",
@@ -51,13 +52,14 @@ export const labWithRowsDTO = [
       inOutPatient: "O",
       age: 78,
       sex: "M",
+      status: "DONE"
     },
-    laboratoryRowList: []
+    laboratoryRowList: [],
   },
   {
     laboratoryDTO: {
       code: 225,
-      material: "angal.lab.sputum",
+      material: "angal.lab.sputum.txt",
       exam: {
         code: "05.05",
         description: "5.5 ZN",
@@ -68,7 +70,7 @@ export const labWithRowsDTO = [
         },
         lock: 1,
       },
-      date: "2021-08-05T15:19:44.000Z",
+      labDate: "2021-08-05T15:19:44.000Z",
       result: "POSITIVE",
       lock: 0,
       note: "After a week",
@@ -77,7 +79,8 @@ export const labWithRowsDTO = [
       inOutPatient: "O",
       age: 78,
       sex: "M",
+      status: "DONE"
     },
-    laboratoryRowList: ["RB", "CH", "RT"]
+    laboratoryRowList: ["RB", "CH", "RT"],
   },
 ];

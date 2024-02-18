@@ -5,7 +5,7 @@ export type TLandingPagePriority = {
   route: string;
 };
 
-export const defaultRoute = "/dashboard";
+export const defaultRoute = "/patients";
 
 // Landing page will be the first route matching permission,
 // you can change priority rules by moving elements in this list
@@ -15,15 +15,15 @@ export const landingPagePriority: TLandingPagePriority[] = [
     route: "/dashboard",
   },
   {
-    permission: "patient.access",
+    permission: "patients.access",
     route: "/patients",
   },
   {
-    permission: "laboratory.access",
+    permission: "laboratories.access",
     route: "/laboratory",
   },
   {
-    permission: "visit.access",
+    permission: "opds.access",
     route: "/visits",
   },
 ];

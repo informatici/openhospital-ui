@@ -30,7 +30,6 @@ import {
 import { Add, FilterList } from "@material-ui/icons";
 import PatientPicker from "../patientPicker/PatientPicker";
 import { useNavigate } from "react-router";
-import PatientAutocomplete from "../patientAutocomplete/PatientAutocomplete";
 import InfoBox from "../infoBox/InfoBox";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
@@ -185,8 +184,8 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     setOpen(false);
   };
   const handleView = (row: any) => {
-    const bill = data.find((item) => item.bill?.id === row.id) ?? {};
-    setFullBill(bill);
+    const bill = data.find((item) => item.bill?.id === row.id) ?? undefined;
+    if (bill) setFullBill(bill);
     handleOpen();
   };
 
@@ -238,7 +237,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
             );
 
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
 
           case "SUCCESS":
             return (

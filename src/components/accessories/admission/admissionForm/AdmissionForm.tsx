@@ -1,8 +1,7 @@
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import moment from "moment";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
@@ -11,6 +10,7 @@ import {
   AdmissionTypeDTO,
   DiseaseDTO,
   DiseaseTypeDTO,
+  PatientDTOSexEnum,
   WardDTO,
 } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
@@ -56,7 +56,12 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const admissionTypes = useSelector(
     (state: IState) => state.admissionTypes.allAdmissionTypes.data
   );
-  const wards = useSelector((state: IState) => state.wards.allWards.data);
+  const patient = useSelector(
+    (state: IState) => state.patients.selectedPatient.data
+  );
+  const wards = useSelector((state: IState) =>
+    state.wards.allWards.data?.filter((ward) => ward.beds > 0)
+  );
 
   const diagnosisOutList = useSelector(
     (state: IState) => state.diseases.diseasesIpdOut.data
@@ -64,6 +69,18 @@ const AdmissionForm: FC<AdmissionProps> = ({
 
   const dischargeTypes = useSelector(
     (state: IState) => state.dischargeTypes.allDischargeTypes.data
+  );
+
+  const filteredWards = useMemo(
+    () =>
+      wards?.filter((ward) =>
+        patient?.sex === PatientDTOSexEnum.F
+          ? ward.female
+          : patient?.sex === PatientDTOSexEnum.M
+          ? ward.male
+          : true
+      ),
+    [patient, wards]
   );
 
   const renderOptions = (
@@ -170,6 +187,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       formattedValues.admType = admissionTypes?.find(
         (item) => item.code === formattedValues.admType
       );
+      formattedValues.type = formattedValues.admType?.code;
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );
@@ -187,7 +205,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
         (item) => item.code === formattedValues.disType
       );
 
-      onSubmit(formattedValues);
+      onSubmit(formattedValues as any);
     },
   });
 
@@ -203,7 +221,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
       ).toString();
       setFieldValue("bedDays", days);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -221,8 +239,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+
+        if (fieldName === "ward") {
+          const ward = wards?.find((item) => item.code === value);
+          setFieldValue("beds", ward?.beds);
+        }
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, setFieldValue, wards]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -252,7 +275,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
 
   useEffect(() => {
     dispatch(getDiseasesIpdOut());
-  }, [dispatch, getDiseasesIpdOut]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getDiseasesIpdIn());
@@ -292,7 +315,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 isValid={isValid("ward")}
                 errorText={getErrorText("ward")}
                 onBlur={onBlurCallback("ward")}
-                options={renderOptions(wards)}
+                options={renderOptions(filteredWards)}
                 loading={wardStatus === "LOADING"}
                 disabled={isLoading}
               />
@@ -307,6 +330,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 type="text"
                 disabled={isLoading}
+                maxLength={50}
               />
             </div>
           </div>
@@ -482,6 +506,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
+                maxLength={65535}
               />
             </div>
           </div>

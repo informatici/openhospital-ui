@@ -21,7 +21,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("examination.update");
+  const canUpdate = usePermission("examinations.update");
   const label = {
     pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),
@@ -103,7 +103,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientTriageTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("examination.previousentries")}</h5>
       {(() => {
         switch (triageStatus) {
           case "FAIL":
@@ -131,7 +131,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
             );
 
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
 
           default:
             return;

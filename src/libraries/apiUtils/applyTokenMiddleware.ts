@@ -1,5 +1,5 @@
 import produce from "immer";
-import set from "lodash.set";
+import { set } from "lodash";
 import { AUTH_KEY } from "../../consts";
 import { Middleware, RequestArgs } from "../../generated";
 import { SessionStorage } from "../storage/storage";

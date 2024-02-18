@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import _ from "lodash";
 import { Collapse, IconButton } from "@material-ui/core";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,8 +18,16 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   renderCellDetails,
   coreRow,
   detailColSpan,
+  expanded,
+  dateFields,
+  detailsExcludedFields,
 }) => {
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    setOpen(expanded ?? false);
+  }, [expanded]);
+
   return (
     <>
       <TableRow key={rowIndex}>
@@ -37,9 +45,18 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
           ""
         )}
         {tableHeader.map((key, index) => {
-          return Object.keys(row).includes(key) ? (
+          const newRow = { ...row };
+          dateFields.forEach((dateField) => {
+            if (row[dateField]) {
+              const parts = row[dateField].split(" ");
+              if (parts.length === 2) {
+                newRow[dateField] = parts[0];
+              }
+            }
+          });
+          return Object.keys(newRow).includes(key) ? (
             <TableCell align="left" key={index}>
-              {row[key]}
+              {newRow[key]}
             </TableCell>
           ) : (
             ""
@@ -63,11 +80,18 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                 renderCellDetails({ ...coreRow })
               ) : (
                 <ul>
-                  {Object.keys(_.omit(row, tableHeader))
-                    .filter((key) => labelData[key] !== undefined)
+                  {Object.keys(
+                    _.omit(
+                      labelData,
+                      tableHeader
+                        .filter((item) => !dateFields.includes(item))
+                        .concat(detailsExcludedFields ?? [])
+                    )
+                  )
+                    .filter((key) => Object.keys(row).includes(key))
                     .map(
                       (key, index) =>
-                        (showEmptyCell || (row[key] && labelData[key])) && (
+                        (showEmptyCell || !!row[key]) && (
                           <li className="collapseItem_row" key={index}>
                             <strong>{labelData[key]}:&nbsp;</strong>
                             <span>{row[key]}</span>

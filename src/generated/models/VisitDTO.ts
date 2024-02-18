@@ -13,7 +13,7 @@
 
 import {
     PatientDTO,
-    Ward,
+    WardDTO,
 } from './';
 
 /**
@@ -32,13 +32,13 @@ export interface VisitDTO {
      * @type {PatientDTO}
      * @memberof VisitDTO
      */
-    patient?: PatientDTO;
+    patient: PatientDTO;
     /**
      * Date of the visit
      * @type {string}
      * @memberof VisitDTO
      */
-    date?: string;
+    date: string;
     /**
      * Note of the visit
      * @type {string}
@@ -52,18 +52,18 @@ export interface VisitDTO {
      */
     sms?: boolean;
     /**
-     * @type {Ward}
+     * @type {WardDTO}
      * @memberof VisitDTO
      */
-    ward?: Ward;
+    ward?: WardDTO;
     /**
-     * duration of the visit
+     * Duration of the visit
      * @type {number}
      * @memberof VisitDTO
      */
     duration?: number;
     /**
-     * service done during the visit
+     * Service done during the visit
      * @type {string}
      * @memberof VisitDTO
      */

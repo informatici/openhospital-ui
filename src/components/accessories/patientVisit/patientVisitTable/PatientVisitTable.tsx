@@ -19,7 +19,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("visit.update");
+  const canUpdate = usePermission("opds.update");
   const header = ["date", "duration"];
   const dateFields = ["date"];
   const label = {
@@ -69,7 +69,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="PatientVisitTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("visit.previousentries")}</h5>
       {(() => {
         switch (visitStatus) {
           case "FAIL":
@@ -101,7 +101,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
             );
 
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
 
           default:
             return;

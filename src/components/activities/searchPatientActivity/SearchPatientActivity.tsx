@@ -1,7 +1,6 @@
 import Button from "@material-ui/core/Button";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,
@@ -10,7 +9,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { formatAllFieldValues } from "../../../libraries/formDataHandling/functions";
@@ -50,7 +49,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     dispatch(searchPatientReset());
-  }, []);
+  }, [dispatch]);
 
   const errorMessage = useSelector<IState>(
     (state) =>
@@ -68,10 +67,10 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   const validationSchema = object({
-    id: string().when(["firstName", "secondName", "birthDate", "address"], {
+    id: number().when(["firstName", "secondName", "birthDate", "address"], {
       is: (firstName, secondName, birthDate, address) =>
         !firstName && !secondName && !birthDate && !address,
-      then: string().required(),
+      then: number().required(),
     }),
   });
 
@@ -137,7 +136,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       case "SUCCESS_EMPTY":
         return (
           <div className="searchPatient__results">
-            <InfoBox type="warning" message={t("common.searchnotfound")} />
+            <InfoBox type="info" message={t("common.searchnotfound")} />
           </div>
         );
 
@@ -166,7 +165,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       <div className="searchPatient__background">
         <div className="container">
           <div className="searchPatient__title">{t("nav.searchpatient")}</div>
-          <Permission require="patient.read">
+          <Permission require="patients.read">
             <form
               className="searchPatient__panel"
               onSubmit={formik.handleSubmit}
@@ -181,6 +180,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
                       isValid={isValid("id")}
                       errorText={getErrorText("id")}
                       onBlur={formik.handleBlur}
+                      type={"number"}
                     />
                   </div>
                 </div>

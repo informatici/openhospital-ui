@@ -2,10 +2,10 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Chart, registerables } from "chart.js";
 
-Chart.register(...registerables);
-
 import { Piechart } from "./Piechart";
 import moment from "moment";
+
+Chart.register(...registerables);
 
 export default {
   title: "Charts/Piechart",

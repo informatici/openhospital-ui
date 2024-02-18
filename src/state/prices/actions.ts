@@ -1,6 +1,6 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import { PriceListControllerApi } from "../../generated/apis/PriceListControllerApi";
+import { PriceListsApi } from "../../generated/apis/PriceListsApi";
 import { PriceDTO } from "../../generated/models/PriceDTO";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
@@ -13,7 +13,7 @@ import {
   GET_PRICE_SUCCESS,
 } from "./consts";
 
-const priceControllerApi = new PriceListControllerApi(customConfiguration());
+const pricesApi = new PriceListsApi(customConfiguration());
 
 export const getPrices =
   () =>
@@ -21,7 +21,7 @@ export const getPrices =
     dispatch({
       type: GET_PRICE_LOADING,
     });
-    priceControllerApi.getPricesUsingGET({}).subscribe(
+    pricesApi.getPrices({}).subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -50,7 +50,7 @@ export const getPriceLists =
     dispatch({
       type: GET_PRICELISTS_LOADING,
     });
-    priceControllerApi.getPriceListsUsingGET({}).subscribe(
+    pricesApi.getPriceLists({}).subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({

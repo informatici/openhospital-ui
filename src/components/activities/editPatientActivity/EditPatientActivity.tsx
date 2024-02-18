@@ -1,4 +1,4 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
@@ -42,9 +42,18 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
 
+  // Reset patient update state to avoid error displaying
+  // in patient details activity.
+  // See issue [OHCS-107](https://openhospital.atlassian.net/browse/OHCS-107)
   useEffect(() => {
-    if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id!);
+    return () => {
+      updatePatientReset();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isEmpty(patient.data) && patient.status === "IDLE" && id) {
+      getPatientThunk(id);
     }
   }, [patient, id, getPatientThunk]);
 
@@ -121,6 +130,8 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   };
 
   switch (activityTransitionState) {
+    case "TO_DASHBOARD":
+      return <Navigate to={`${PATHS.patients}`} replace />;
     case "TO_PATIENT":
       return (
         <Navigate
@@ -142,7 +153,7 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
                   patient.data?.secondName
                 }`}
               </div>
-              <Permission require={"patient.update"}>
+              <Permission require={"patients.update"}>
                 <PatientDataForm
                   fields={updateFields(initialFields, patient?.data)}
                   profilePicture={patient.data?.blobPhoto}

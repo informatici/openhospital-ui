@@ -27,12 +27,6 @@ export interface LaboratoryDTO {
      */
     code?: number;
     /**
-     * Laboratory Code
-     * @type {number}
-     * @memberof LaboratoryDTO
-     */
-    lock?: number;
-    /**
      * Laboratory Material
      * @type {string}
      * @memberof LaboratoryDTO
@@ -54,13 +48,19 @@ export interface LaboratoryDTO {
      * @type {string}
      * @memberof LaboratoryDTO
      */
-    date?: string;
+    labDate?: string;
     /**
      * Laboratory Result
      * @type {string}
      * @memberof LaboratoryDTO
      */
     result?: string;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof LaboratoryDTO
+     */
+    lock?: number;
     /**
      * Laboratory Note
      * @type {string}
@@ -84,7 +84,7 @@ export interface LaboratoryDTO {
      * @type {string}
      * @memberof LaboratoryDTO
      */
-    inOutPatient?: string;
+    inOutPatient?: LaboratoryDTOInOutPatientEnum;
     /**
      * Laboratory Patient Age
      * @type {number}
@@ -97,4 +97,31 @@ export interface LaboratoryDTO {
      * @memberof LaboratoryDTO
      */
     sex?: string;
+    /**
+     * Laboratory status
+     * @type {string}
+     * @memberof LaboratoryDTO
+     */
+    status?: LaboratoryDTOStatusEnum;
 }
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum LaboratoryDTOInOutPatientEnum {
+    I = 'I',
+    O = 'O'
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum LaboratoryDTOStatusEnum {
+    Draft = 'draft',
+    Open = 'open',
+    Done = 'done',
+    Invalid = 'invalid',
+    Deleted = 'deleted'
+}
+

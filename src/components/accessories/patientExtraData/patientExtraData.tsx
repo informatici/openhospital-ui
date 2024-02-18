@@ -1,8 +1,7 @@
 import { IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,
@@ -26,11 +25,13 @@ import InfoBox from "../infoBox/InfoBox";
 import TextField from "../textField/TextField";
 import { initialFields } from "./consts";
 import "./styles.scss";
-import { TActivityTransitionState } from "./types";
+import { IOwnProps, TActivityTransitionState } from "./types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 
-export const PatientExtraData: FunctionComponent = () => {
+export const PatientExtraData: FunctionComponent<IOwnProps> = ({
+  readOnly,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [editionMode, setEditionMode] = useState(false);
@@ -61,7 +62,7 @@ export const PatientExtraData: FunctionComponent = () => {
         ...patient,
         allergies: values.allergies,
         anamnesis: values.anamnesis,
-      });
+      } as any);
     },
   });
 
@@ -101,7 +102,7 @@ export const PatientExtraData: FunctionComponent = () => {
   return (
     <div className="patientExtraData">
       <div className="patientExtraData_leading">
-        {!editionMode && (
+        {!editionMode && !readOnly && (
           <IconButton onClick={onEdit}>
             <Edit />
           </IconButton>
@@ -123,6 +124,7 @@ export const PatientExtraData: FunctionComponent = () => {
               onBlur={formik.handleBlur}
               type="string"
               disabled={isLoading}
+              maxLength={255}
             />
           ) : (
             <p className="item_content">
@@ -147,6 +149,7 @@ export const PatientExtraData: FunctionComponent = () => {
               onBlur={formik.handleBlur}
               type="string"
               disabled={isLoading}
+              maxLength={255}
             />
           ) : (
             <p className="item_content">

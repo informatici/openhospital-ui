@@ -7,7 +7,7 @@ import { IState } from "../../../types";
 export const useOpdByAgeTypeData = () => {
   const { t } = useTranslation();
   const opds = useSelector<IState, OpdDTO[]>(
-    (state) => state.opds.searchOpds.data ?? []
+    (state) => state.opds.searchOpds.data?.data ?? []
   );
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []

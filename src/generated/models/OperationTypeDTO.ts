@@ -17,13 +17,15 @@
  */
 export interface OperationTypeDTO {
     /**
+     * The operation code
      * @type {string}
      * @memberof OperationTypeDTO
      */
-    code?: string;
+    code: string;
     /**
+     * The operation type
      * @type {string}
      * @memberof OperationTypeDTO
      */
-    description?: string;
+    description: string;
 }

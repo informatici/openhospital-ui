@@ -52,9 +52,9 @@ export const admissionRoutes = (server) => {
       }
     });
     server.get("/").intercept((req, res) => {
-      res.status(200).json(admissions);
+      res.status(200).json({ data: admissions, pageInfo: {} });
     });
-    server.get("/:patientCode").intercept((req, res) => {
+    server.get("/patient/:patientCode").intercept((req, res) => {
       const code = req.query.patientCode;
       switch (code) {
         case "10000":
@@ -79,7 +79,7 @@ export const admissionRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(admissionDTO);
+          res.status(200).json({ ...admissionDTO, id: 0 });
       }
     });
     server.post("/discharge").intercept((req, res) => {
@@ -93,10 +93,16 @@ export const admissionRoutes = (server) => {
           res.status(200).json(null);
       }
     });
-  });
-  server.namespace("/discharges", () => {
-    server.get("/").intercept((req, res) => {
-      res.status(200).json(admissions);
+    server.get("/discharges").intercept((req, res) => {
+      const body = req.jsonBody();
+
+      switch (body.note) {
+        case "fail":
+          res.status(400).json(null);
+          break;
+        default:
+          res.status(200).json({ data: admissions, pageInfo: {} });
+      }
     });
   });
 };

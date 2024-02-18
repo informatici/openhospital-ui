@@ -5,14 +5,13 @@ import Link from "@material-ui/core/Link";
 import { RemoveRedEye } from "@material-ui/icons";
 import classNames from "classnames";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import { default as React, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
-import { ErrorDescription, HospitalDTO } from "../../../generated";
+import { HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
 import { setAuthenticationThunk } from "../../../state/main/actions";
 import { IState } from "../../../types";
@@ -55,9 +54,12 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorType = useSelector<IState>(
-    (state) => state.main.authentication.error?.description || "unknown error"
-  );
+  const errorMessage = useSelector<IState>((state) => {
+    const error = state.main.authentication.error;
+    return error?.status === 401
+      ? t("errors.incorrectcredentials")
+      : error?.message ?? t("errors.somethingwrong");
+  });
 
   const status = useSelector<IState>(
     (state) => state.main.authentication.status || "IDLE"
@@ -127,9 +129,7 @@ const LoginActivity: FC = () => {
                 hidden: status !== "FAIL",
               })}
             >
-              {errorType === ErrorDescription.PASSWORDTOOSHORT
-                ? t("login.passwordtooshort")
-                : t("login.incorrectcredentials")}
+              {errorMessage}
             </div>
             <div className="login__buttonContainer">
               <Button

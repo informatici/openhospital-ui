@@ -3,6 +3,7 @@ const patientDTO = {
   status: "I",
   firstName: "Antonio Carlos",
   secondName: "Jobim",
+  name: "Antonio Carlos Jobim",
   birthDate: "1991-08-30T00:00:00.000Z",
   age: 40,
   agetype: "year",

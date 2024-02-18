@@ -18,14 +18,20 @@
  */
 export interface PregnantTreatmentTypeDTO {
     /**
+     * The code
      * @type {string}
      * @memberof PregnantTreatmentTypeDTO
      */
-    code?: string;
+    code: string;
     /**
-     * the description
+     * The description
      * @type {string}
      * @memberof PregnantTreatmentTypeDTO
      */
-    description?: string;
+    description: string;
+    /**
+     * @type {number}
+     * @memberof PregnantTreatmentTypeDTO
+     */
+    readonly hashCode?: number;
 }

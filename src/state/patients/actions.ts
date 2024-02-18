@@ -1,7 +1,9 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
+import moment from "moment";
 import { Dispatch } from "redux";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
-import { PatientControllerApi, PatientDTO } from "../../generated";
+import { PagePatientDTO, PatientDTO } from "../../generated";
+import { PatientsApi } from "../../generated/apis/PatientsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -12,6 +14,9 @@ import {
   GET_CITIES_FAIL,
   GET_CITIES_LOADING,
   GET_CITIES_SUCCESS,
+  GET_PATIENTS_FAIL,
+  GET_PATIENTS_LOADING,
+  GET_PATIENTS_SUCCESS,
   GET_PATIENT_FAIL,
   GET_PATIENT_LOADING,
   GET_PATIENT_RESET,
@@ -26,7 +31,7 @@ import {
   UPDATE_PATIENT_SUCCESS,
 } from "./consts";
 
-const patientControllerApi = new PatientControllerApi(customConfiguration());
+const patientsApi = new PatientsApi(customConfiguration());
 
 export const createPatient =
   (newPatient: PatientDTO) =>
@@ -35,7 +40,7 @@ export const createPatient =
       type: CREATE_PATIENT_LOADING,
     });
 
-    patientControllerApi.newPatientUsingPOST({ newPatient }).subscribe(
+    patientsApi.newPatient({ patientDTO: newPatient }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_PATIENT_SUCCESS,
@@ -58,22 +63,20 @@ export const updatePatient =
       type: UPDATE_PATIENT_LOADING,
     });
 
-    patientControllerApi
-      .updatePatientUsingPUT({ code, updatePatient })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: UPDATE_PATIENT_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: UPDATE_PATIENT_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    patientsApi.updatePatient({ code, patientDTO: updatePatient }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_PATIENT_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_PATIENT_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const updatePatientReset =
@@ -116,51 +119,56 @@ export const searchPatient =
     });
 
     if (values.id) {
-      patientControllerApi
-        .getPatientUsingGET({ code: parseInt(values.id) })
-        .subscribe(
-          (payload) => {
-            if (typeof payload === "object" && !isEmpty(payload)) {
-              dispatch({
-                type: SEARCH_PATIENT_SUCCESS,
-                payload: [payload],
-              });
-            } else {
-              dispatch({
-                type: SEARCH_PATIENT_SUCCESS,
-                payload: [],
-              });
-            }
-          },
-          (error) => {
-            dispatch({
-              type: SEARCH_PATIENT_FAIL,
-              error,
-            });
-          }
-        );
-    } else {
-      patientControllerApi.searchPatientUsingGET(values).subscribe(
+      patientsApi.getPatient({ code: parseInt(values.id) }).subscribe(
         (payload) => {
-          if (Array.isArray(payload)) {
+          if (typeof payload === "object" && !isEmpty(payload)) {
             dispatch({
               type: SEARCH_PATIENT_SUCCESS,
-              payload,
+              payload: [payload],
             });
           } else {
             dispatch({
-              type: SEARCH_PATIENT_FAIL,
-              error: { message: "Unexpected response payload" },
+              type: SEARCH_PATIENT_SUCCESS,
+              payload: [],
             });
           }
         },
         (error) => {
           dispatch({
             type: SEARCH_PATIENT_FAIL,
-            error: error?.response,
+            error,
           });
         }
       );
+    } else {
+      patientsApi
+        .searchPatient({
+          ...values,
+          birthDate: moment(values.birthDate).isValid()
+            ? values.birthDate
+            : undefined,
+        })
+        .subscribe(
+          (payload) => {
+            if (Array.isArray(payload)) {
+              dispatch({
+                type: SEARCH_PATIENT_SUCCESS,
+                payload,
+              });
+            } else {
+              dispatch({
+                type: SEARCH_PATIENT_FAIL,
+                error: { message: "Unexpected response payload" },
+              });
+            }
+          },
+          (error) => {
+            dispatch({
+              type: SEARCH_PATIENT_FAIL,
+              error: error?.response,
+            });
+          }
+        );
     }
   };
 
@@ -180,7 +188,7 @@ export const getPatientThunk =
       type: GET_PATIENT_LOADING,
     });
 
-    patientControllerApi.getPatientUsingGET({ code: parseInt(id) }).subscribe(
+    patientsApi.getPatient({ code: parseInt(id) }).subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch(getPatientSuccess(payload));
@@ -207,7 +215,7 @@ export const getCities =
       type: GET_CITIES_LOADING,
     });
 
-    patientControllerApi.getPatientCitiesUsingGET().subscribe(
+    patientsApi.getPatientCities().subscribe(
       (payload) => {
         if (Array.isArray(payload)) {
           dispatch({
@@ -228,4 +236,31 @@ export const getCities =
         });
       }
     );
+  };
+
+export const getPatients =
+  ({ page, size }: { page?: number; size?: number }) =>
+  (dispatch: Dispatch<IAction<PagePatientDTO, {}>>): void => {
+    dispatch({
+      type: GET_PATIENTS_LOADING,
+    });
+    patientsApi
+      .getPatients({
+        page: page ?? 0,
+        size: size ?? 80,
+      })
+      .subscribe(
+        (payload) => {
+          dispatch({
+            type: GET_PATIENTS_SUCCESS,
+            payload: payload,
+          });
+        },
+        (error) => {
+          dispatch({
+            type: GET_PATIENTS_FAIL,
+            error,
+          });
+        }
+      );
   };

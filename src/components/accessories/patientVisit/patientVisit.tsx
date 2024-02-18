@@ -92,7 +92,7 @@ const PatientVisit: FunctionComponent = () => {
   const onSubmit = (visitValuesToSave: VisitDTO) => {
     setShouldResetForm(false);
     visitValuesToSave = { ...visitToEdit, ...visitValuesToSave };
-    visitValuesToSave.patient = patient;
+    if (patient) visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
       dispatch(
         updateVisit(visitToEdit.visitID, {
@@ -131,7 +131,7 @@ const PatientVisit: FunctionComponent = () => {
   return (
     <div className="patientVisit">
       <Permission
-        require={creationMode ? "admission.create" : "admission.update"}
+        require={creationMode ? "admissions.create" : "admissions.update"}
       >
         <PatientVisitForm
           fields={
@@ -171,7 +171,7 @@ const PatientVisit: FunctionComponent = () => {
         />
       </Permission>
 
-      <Permission require="admission.read">
+      <Permission require="admissions.read">
         <PatientVisitTable
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}

@@ -98,7 +98,7 @@ export const useItemFormik = (
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(formattedValues);
+      onSubmit(formattedValues as any);
     },
   });
 

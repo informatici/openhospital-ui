@@ -15,7 +15,7 @@ export const useData = () => {
   const { t } = useTranslation();
   const discharges = useSelector<IState, AdmissionDTO[]>(
     (state) =>
-      state.admissions.getDischarges.data?.filter(
+      state.admissions.getDischarges.data?.data?.filter(
         (e) => e?.disDate !== undefined
       ) ?? []
   );

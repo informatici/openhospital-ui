@@ -11,31 +11,28 @@
  * Do not edit the class manually.
  */
 
+import {
+    UserGroupDTO,
+} from './';
+
 /**
  * @export
  * @interface UserProfileDTO
  */
 export interface UserProfileDTO {
     /**
-     * @type {Array<string>}
-     * @memberof UserProfileDTO
-     */
-    permissions?: Array<string>;
-    /**
      * @type {string}
      * @memberof UserProfileDTO
      */
     userName?: string;
     /**
-     * the name of the group of user
-     * @type {string}
+     * @type {Array<string>}
      * @memberof UserProfileDTO
      */
-    userGroupName?: string;
+    permissions?: Array<string>;
     /**
-     * full name of user
-     * @type {string}
+     * @type {UserGroupDTO}
      * @memberof UserProfileDTO
      */
-    userDesc?: string;
+    userGroup?: UserGroupDTO;
 }

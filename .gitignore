@@ -10,6 +10,7 @@ coverage
 
 # production
 build
+storybook-static
 
 # misc
 .DS_Store
@@ -26,3 +27,4 @@ yarn-error.log*
 # IntelliJ
 .idea
 *.iml
+/.project

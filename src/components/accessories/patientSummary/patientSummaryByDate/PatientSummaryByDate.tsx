@@ -43,6 +43,7 @@ const PatientSummaryByDate: FunctionComponent<TProps> = ({
             rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
             isCollapsabile={true}
             showEmptyCell={false}
+            detailsExcludedFields={["date"]}
           />
         ) : (
           <CircularProgress

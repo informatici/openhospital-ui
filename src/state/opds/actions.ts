@@ -1,10 +1,8 @@
+import { isEmpty } from "lodash";
 import moment from "moment";
 import { Dispatch } from "redux";
-import {
-  OpdControllerApi,
-  OpdDTO,
-  OpdWithOperatioRowDTO,
-} from "../../generated";
+import { OpdDTO, OpdWithOperationRowDTO, PageOpdDTO } from "../../generated";
+import { OpdsApi } from "../../generated/apis/OpdsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 
@@ -29,14 +27,13 @@ import {
   SEARCH_OPD_LOADING,
   SEARCH_OPD_RESET,
   SEARCH_OPD_SUCCESS,
-  SEARCH_OPD_SUCCESS_EMPTY,
   UPDATE_OPD_FAIL,
   UPDATE_OPD_LOADING,
   UPDATE_OPD_RESET,
   UPDATE_OPD_SUCCESS,
 } from "./consts";
 
-const opdControllerApi = new OpdControllerApi(customConfiguration());
+const opdsApi = new OpdsApi(customConfiguration());
 
 /**
  *
@@ -52,7 +49,7 @@ export const createOpd =
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    opdControllerApi.newOpdUsingPOST({ opdDTO }).subscribe(
+    opdsApi.newOpd({ opdDTO }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_OPD_SUCCESS,
@@ -69,27 +66,25 @@ export const createOpd =
   };
 
 export const createOpdWithOperationsRows =
-  (opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (opdWithOperationRowDTO: OpdWithOperationRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_OPD_LOADING,
     });
-    opdControllerApi
-      .newOpdWithOperationRowUsingPOST({ opdWithOperatioRowDTO })
-      .subscribe(
-        (payload) => {
-          dispatch({
-            type: CREATE_OPD_SUCCESS,
-            payload: payload,
-          });
-        },
-        (error) => {
-          dispatch({
-            type: CREATE_OPD_FAIL,
-            error: error?.response,
-          });
-        }
-      );
+    opdsApi.newOpdWithOperationRow({ opdWithOperationRowDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_OPD_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_OPD_FAIL,
+          error: error?.response,
+        });
+      }
+    );
   };
 
 export const createOpdReset =
@@ -116,8 +111,8 @@ export const getOpds =
     });
 
     if (code) {
-      opdControllerApi
-        .getOpdByPatientUsingGET({
+      opdsApi
+        .getOpdByPatient({
           pcode: code,
         })
         .subscribe(
@@ -151,14 +146,14 @@ export const getOpds =
 
 export const getOpdsWithOperationRows =
   (code: number | undefined) =>
-  (dispatch: Dispatch<IAction<OpdWithOperatioRowDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<OpdWithOperationRowDTO[], {}>>): void => {
     dispatch({
       type: GET_OPD_LOADING,
     });
 
     if (code) {
-      opdControllerApi
-        .getOpdByPatientUsingGET({
+      opdsApi
+        .getOpdByPatient({
           pcode: code,
         })
         .subscribe(
@@ -171,7 +166,7 @@ export const getOpdsWithOperationRows =
                 payload: payload.map((item) =>
                   item.opdDTO
                     ? item
-                    : ({ opdDTO: item } as OpdWithOperatioRowDTO)
+                    : ({ opdDTO: item } as OpdWithOperationRowDTO)
                 ),
               });
             } else {
@@ -204,9 +199,9 @@ export const getLastOpd =
     });
 
     if (code) {
-      opdControllerApi
-        .getLastOpdUsingGET({
-          code: code,
+      opdsApi
+        .getLastOpd({
+          patientCode: code,
         })
         .subscribe(
           (payload) => {
@@ -232,36 +227,35 @@ export const getLastOpd =
 
 export const searchOpds =
   (query: any) =>
-  (dispatch: Dispatch<IAction<OpdDTO[], {}>>): void => {
+  (dispatch: Dispatch<IAction<PageOpdDTO, {}>>): void => {
     dispatch({
       type: SEARCH_OPD_LOADING,
     });
 
-    opdControllerApi
-      .getOpdByDatesUsingGET({
-        sex: query.sex,
-        newPatient: query.newPatient,
-        dateTo: query.dateTo ?? moment().add("-30", "days").toISOString(),
-        dateFrom: query.dateFrom ?? moment().toISOString(),
+    opdsApi
+      .getOpdByDates({
+        sex: isEmpty(query.sex) ? null : query.sex,
+        newPatient: isEmpty(query.newPatient) ? null : query.newPatient,
+        dateFrom: query.dateFrom ?? moment().add("-30", "days").toISOString(),
+        dateTo: query.dateTo ?? moment().toISOString(),
         ageFrom: isNaN(query.ageFrom) ? null : query.ageFrom,
         ageTo: isNaN(query.ageTo) ? null : query.ageTo,
-        diseaseCode: query.diseaseCode,
-        diseaseTypeCode: query.diseaseTypeCode,
+        diseaseCode: isEmpty(query.diseaseCode) ? null : query.diseaseCode,
+        diseaseTypeCode: isEmpty(query.diseaseTypeCode)
+          ? null
+          : query.diseaseTypeCode,
         patientCode: isNaN(query.patientCode) ? null : query.patientCode,
+        wardCode: isEmpty(query.wardCode) ? null : query.wardCode,
+        paged: !!query.paged,
+        page: isNaN(query.page) ? 0 : query.page,
+        size: isNaN(query.size) ? 80 : query.size,
       })
       .subscribe(
         (payload) => {
-          if (Array.isArray(payload) && payload.length > 0) {
-            dispatch({
-              type: SEARCH_OPD_SUCCESS,
-              payload: payload,
-            });
-          } else {
-            dispatch({
-              type: SEARCH_OPD_SUCCESS_EMPTY,
-              payload: [],
-            });
-          }
+          dispatch({
+            type: SEARCH_OPD_SUCCESS,
+            payload: payload,
+          });
         },
         (error) => {
           dispatch({
@@ -299,7 +293,7 @@ export const updateOpd =
     dispatch({
       type: UPDATE_OPD_LOADING,
     });
-    opdControllerApi.updateOpdUsingPUT({ code, opdDTO }).subscribe(
+    opdsApi.updateOpd({ code, opdDTO }).subscribe(
       (payload) => {
         dispatch({
           type: UPDATE_OPD_SUCCESS,
@@ -316,13 +310,13 @@ export const updateOpd =
   };
 
 export const updateOpdWithOperationRows =
-  (code: number, opdWithOperatioRowDTO: OpdWithOperatioRowDTO) =>
+  (code: number, opdWithOperationRowDTO: OpdWithOperationRowDTO) =>
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_OPD_LOADING,
     });
-    opdControllerApi
-      .updateOpdWithOperationRowUsingPUT({ code, opdWithOperatioRowDTO })
+    opdsApi
+      .updateOpdWithOperationRow({ code, opdWithOperationRowDTO })
       .subscribe(
         (payload) => {
           dispatch({
@@ -353,7 +347,7 @@ export const deleteOpd =
       dispatch({
         type: DELETE_OPD_LOADING,
       });
-      opdControllerApi.deleteOpdUsingDELETE({ code }).subscribe(
+      opdsApi.deleteOpd({ code }).subscribe(
         () => {
           dispatch({
             type: DELETE_OPD_SUCCESS,

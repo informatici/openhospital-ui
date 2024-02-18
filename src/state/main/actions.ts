@@ -1,13 +1,10 @@
 import { Dispatch } from "redux";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
-import {
-  LoginControllerApi,
-  LoginRequest,
-  LoginResponse,
-  UserControllerApi,
-  UserProfileDTO,
-} from "../../generated";
+import { LoginRequest, UserProfileDTO, UserSettingDTO } from "../../generated";
+import { LoginApi } from "../../generated/apis/LoginApi";
+import { UsersApi } from "../../generated/apis/UsersApi";
+import { LoginResponse } from "../../generated/models/LoginResponse";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
 import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
@@ -30,11 +27,14 @@ import {
   SET_FORGOT_PASSWORD_LOADING,
   SET_FORGOT_PASSWORD_SUCCESS,
   RESET_FORGOT_PASSWORD,
+  GET_USER_SETTINGS_LOADING,
+  GET_USER_SETTINGS_SUCCESS,
+  GET_USER_SETTINGS_FAIL,
 } from "./consts";
 import { IAuthentication } from "./types";
 
-const api = new LoginControllerApi(customConfiguration(false));
-const usersApi = new UserControllerApi(customConfiguration());
+const loginApi = new LoginApi(customConfiguration(false));
+const usersApi = new UsersApi(customConfiguration());
 
 export const setAuthenticationSuccess = (
   payload: IAuthentication
@@ -53,11 +53,11 @@ export const setAuthenticationThunk =
     const loginRequest: LoginRequest = { username, password };
 
     concat(
-      api
-        .authenticationUserUsingPOST({ loginRequest })
+      loginApi
+        .authenticateUser({ loginRequest })
         .pipe(tap(saveAuthenticationDataToSession)),
       usersApi
-        .retrieveProfileByCurrentLoggedInUserUsingGET()
+        .retrieveProfileByCurrentLoggedInUser()
         .pipe(tap(savePermissionDataToSession))
     )
       .pipe(toArray())
@@ -87,7 +87,7 @@ export const setLogoutThunk =
       type: SET_LOGOUT_LOADING,
     });
     SessionStorage.clear();
-    api.logoutUsingPOST().subscribe(
+    loginApi.logout().subscribe(
       () => {
         dispatch({
           type: GET_PATIENT_RESET,
@@ -164,4 +164,21 @@ export const resetForgotPasswordThunk =
     dispatch({
       type: RESET_FORGOT_PASSWORD,
     });
+  };
+
+export const getUserSettings =
+  () =>
+  (dispatch: Dispatch<IAction<UserSettingDTO[], {}>>): void => {
+    dispatch({
+      type: GET_USER_SETTINGS_LOADING,
+    });
+
+    usersApi.getUserSettings().subscribe(
+      (settings) => {
+        dispatch({ type: GET_USER_SETTINGS_SUCCESS, payload: settings });
+      },
+      () => {
+        dispatch({ type: GET_USER_SETTINGS_FAIL });
+      }
+    );
   };

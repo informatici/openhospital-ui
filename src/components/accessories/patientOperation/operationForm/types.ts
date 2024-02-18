@@ -3,7 +3,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IOperationRowProps {
   fields: TFields<OperationRowFormFieldName>;
-  onSubmit: (values: Record<OperationRowFormFieldName, any>) => void;
+  onSubmit: (values: Record<keyof OperationRowDTO, any>) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
@@ -12,6 +12,7 @@ interface IOperationRowProps {
   admissionId?: number;
   creationMode: boolean;
   resetFormCallback: () => void;
+  hideResultField?: boolean;
 }
 
 export type OperationRowProps = IOperationRowProps;

@@ -30,49 +30,49 @@ export interface TherapyRowDTO {
      * @type {PatientDTO}
      * @memberof TherapyRowDTO
      */
-    patID?: PatientDTO;
+    patID: PatientDTO;
     /**
      * The start date of therapy
      * @type {string}
      * @memberof TherapyRowDTO
      */
-    startDate?: string;
+    startDate: string;
     /**
      * The end date of the therapy
      * @type {string}
      * @memberof TherapyRowDTO
      */
-    endDate?: string;
+    endDate: string;
     /**
      * The ID of the medical concerned by the therapy
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    medicalId?: number;
+    medicalId: number;
     /**
      * The quantity of medicals
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    qty?: number;
+    qty: number;
     /**
      * The unit\'s ID
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    unitID?: number;
+    unitID: number;
     /**
      * The frequency in day
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    freqInDay?: number;
+    freqInDay: number;
     /**
      * The frequency in period
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    freqInPeriod?: number;
+    freqInPeriod: number;
     /**
      * A note for the therapy
      * @type {string}
@@ -84,11 +84,11 @@ export interface TherapyRowDTO {
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    notifyInt?: number;
+    notifyInt: number;
     /**
-     * the sms flag: 1 if sms need to be sent to patient, 0 otherwise
+     * The sms flag: 1 if sms need to be sent to patient, 0 otherwise
      * @type {number}
      * @memberof TherapyRowDTO
      */
-    smsInt?: number;
+    smsInt: number;
 }

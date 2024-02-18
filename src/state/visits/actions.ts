@@ -1,6 +1,7 @@
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import { VisitDTO, VisitsControllerApi } from "../../generated";
+import { VisitDTO } from "../../generated";
+import { VisitApi } from "../../generated/apis/VisitApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -18,7 +19,7 @@ import {
   UPDATE_VISIT_SUCCESS,
 } from "./consts";
 
-const visitsControllerApi = new VisitsControllerApi(customConfiguration());
+const visitsApi = new VisitApi(customConfiguration());
 
 export const createVisit =
   (newVisit: VisitDTO) =>
@@ -26,7 +27,7 @@ export const createVisit =
     dispatch({
       type: CREATE_VISIT_LOADING,
     });
-    visitsControllerApi.newVisitUsingPOST({ newVisit }).subscribe(
+    visitsApi.newVisit({ visitDTO: newVisit }).subscribe(
       (payload) => {
         dispatch({
           type: CREATE_VISIT_SUCCESS,
@@ -64,8 +65,8 @@ export const getVisits =
     dispatch({
       type: GET_VISIT_LOADING,
     });
-    visitsControllerApi
-      .getVisitUsingGET({
+    visitsApi
+      .getVisit({
         patID: code,
       })
       .subscribe(
@@ -97,7 +98,7 @@ export const updateVisit =
     dispatch({
       type: UPDATE_VISIT_LOADING,
     });
-    visitsControllerApi.updateVisitUsingPUT({ visitID, updateVisit }).subscribe(
+    visitsApi.updateVisit({ visitID, visitDTO: updateVisit }).subscribe(
       (payload) => {
         dispatch({
           type: UPDATE_VISIT_SUCCESS,

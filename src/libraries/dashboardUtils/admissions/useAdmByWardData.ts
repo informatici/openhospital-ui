@@ -7,7 +7,7 @@ import { IState } from "../../../types";
 export const useAdmByAdmWardData = () => {
   const { t } = useTranslation();
   const admissions = useSelector<IState, AdmissionDTO[]>(
-    (state) => state.admissions.getAdmissions.data ?? []
+    (state) => state.admissions.getAdmissions.data?.data ?? []
   );
   const wards = useSelector<IState, WardDTO[]>(
     (state) => state.wards.allWards.data ?? []

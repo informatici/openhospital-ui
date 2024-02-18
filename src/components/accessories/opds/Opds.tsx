@@ -2,11 +2,10 @@ import { Button, CircularProgress } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import React, { FC, Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
-import { initialFilterFields } from "./consts";
+import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
 import "./styles.scss";
 import { OpdTable } from "./table/OpdTable";
@@ -14,38 +13,46 @@ import { getDiseasesOpd } from "../../../state/diseases/actions";
 import { getDiseaseTypes } from "../../../state/diseaseTypes/actions";
 import { useEffect } from "react";
 import { searchOpds } from "../../../state/opds/actions";
-import { TFilterValues } from "../billTable/types";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { useOpds } from "../../../libraries/hooks/api/useOpds";
+import { TFilterValues } from "./filter/types";
+import Pagination from "../pagination/Pagination";
+import { getWards } from "../../../state/ward/actions";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const [filter, setFilter] = useState({} as TFilterValues);
+  const [filter, setFilter] = useState(initialFilter as TFilterValues);
 
-  const data = useSelector((state: IState) => state.opds.searchOpds.data);
+  const { data, status, error, page, pageInfo, handlePageChange } = useOpds();
 
   useEffect(() => {
-    dispatch(searchOpds(filter));
+    dispatch(searchOpds({ ...filter, paged: false }));
   }, [filter]);
 
+  useEffect(() => {
+    setFilter((previous) => ({ ...previous, page: page }));
+  }, [page]);
+
   const onSubmit = (values: TFilterValues) => {
-    setFilter(values);
+    setFilter({ ...values, page: 0, size: filter.size });
   };
 
-  const errorMessage = useSelector(
-    (state: IState) =>
-      state.opds.searchOpds.error?.message || t("common.somethingwrong")
-  );
-  let status = useSelector((state: IState) => state.opds.searchOpds.status);
+  const handleResetFilter = () => {
+    setFilter(initialFilter as TFilterValues);
+  };
+
+  const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
+
+  const errorMessage = error || t("common.somethingwrong");
 
   useEffect(() => {
-    dispatch(searchOpds(getFromFields(fields, "value")));
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
+    dispatch(getWards());
   }, []);
 
   return (
@@ -53,25 +60,17 @@ export const Opds: FC = () => {
       <div className="opd_opds">
         <div className="opd__header">
           <div className="opd__title">{t("nav.visits")}</div>
-          <div className="opd__actions">
-            <Button
-              onClick={() => navigate("/search")}
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              <Add fontSize="small" />
-              <span className="new__button__label">{t("opd.newopd")}</span>
-            </Button>
-          </div>
         </div>
-
         {(() => {
           switch (status) {
             case "FAIL":
               return (
-                <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                <Permission require="opds.read">
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <InfoBox type="error" message={errorMessage} />
                 </Permission>
               );
@@ -85,17 +84,30 @@ export const Opds: FC = () => {
 
             case "SUCCESS_EMPTY":
               return (
-                <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
-                  <InfoBox type="warning" message={t("common.emptydata")} />
+                <Permission require="opds.read">
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
+                  <InfoBox type="info" message={t("common.emptydata")} />
                 </Permission>
               );
 
             case "SUCCESS":
               return (
-                <Permission require="opd.read">
-                  <OpdFilterForm onSubmit={onSubmit} fields={fields} />
+                <Permission require="opds.read">
+                  <OpdFilterForm
+                    onSubmit={onSubmit}
+                    fields={fields}
+                    handleResetFilter={handleResetFilter}
+                  />
                   <OpdTable data={data ?? []} />
+                  <Pagination
+                    page={(pageInfo?.page ?? 0) + 1}
+                    count={pageInfo?.totalPages}
+                    onChange={onPageChange}
+                  />
                 </Permission>
               );
           }

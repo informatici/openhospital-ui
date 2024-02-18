@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getPatientAdmissions } from "../../../../state/admissions/actions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {
@@ -20,12 +20,13 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("admission.update");
+  const canUpdate = usePermission("admissions.update");
 
   const header = ["admDate", "disDate"];
   const dateFields = ["admDate", "disDate"];
 
   const label = {
+    id: t("admission.code"),
     admDate: t("admission.admDate"),
     disDate: t("admission.disDate"),
     admType: t("admission.admType"),
@@ -45,7 +46,9 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 
   const data = useSelector<IState, AdmissionDTO[]>((state) =>
     state.admissions.getPatientAdmissions.data
-      ? state.admissions.getPatientAdmissions.data
+      ? state.admissions.getPatientAdmissions.data.filter(
+          (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
+        )
       : []
   );
 
@@ -67,8 +70,8 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     return data.map((item) => {
       return {
         id: item.id ?? "",
-        admDate: item.admDate ? renderDate(item.admDate) : "",
-        disDate: item.disDate ? renderDate(item.disDate) : "",
+        admDate: item.admDate ? renderDateTime(item.admDate) : "",
+        disDate: item.disDate ? renderDateTime(item.disDate) : "",
         admType: item.admType?.description ?? "",
         diseaseIn: item.diseaseIn?.description ?? "",
         transUnit: item.transUnit,
@@ -97,7 +100,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 
   return (
     <div className="patientAdmissionTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("admission.previousentries")}</h5>
       {(() => {
         switch (status) {
           case "FAIL":
@@ -129,7 +132,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
               />
             );
           case "SUCCESS_EMPTY":
-            return <InfoBox type="warning" message={t("common.emptydata")} />;
+            return <InfoBox type="info" message={t("common.emptydata")} />;
           default:
             return;
         }

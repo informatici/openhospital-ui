@@ -7,8 +7,9 @@ import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { statusLabel } from "../../laboratory/table/ExamTable";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -22,11 +23,11 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("exam.update");
-  const canDelete = usePermission("exam.delete");
+  const canUpdate = usePermission("exams.update");
+  const canDelete = usePermission("exams.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = ["date", "exam"];
+  const header = ["date", "exam", "status"];
   const dateFields = ["date"];
 
   const label = {
@@ -35,8 +36,10 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     exam: t("lab.exam"),
     result: t("lab.result"),
     note: t("lab.note"),
+    status: t("lab.status"),
+    //material: t("lab.material"),
   };
-  const order = ["date", "exam"];
+  const order = ["date", "exam", "status"];
 
   const dispatch = useDispatch();
   const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
@@ -50,16 +53,17 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode)
+    if (shouldUpdateTable || patientCode) {
       dispatch(getLabsByPatientId(patientCode));
+    }
   }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     return data.map((item) => {
       return {
         code: item.laboratoryDTO?.code,
-        date: item.laboratoryDTO?.date
-          ? renderDate(item.laboratoryDTO?.date)
+        date: item.laboratoryDTO?.labDate
+          ? renderDateTime(item.laboratoryDTO?.labDate)
           : "",
         exam: item.laboratoryDTO?.exam?.description ?? "",
         result:
@@ -67,18 +71,27 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
             ? item.laboratoryDTO?.result
             : item.laboratoryRowList?.join(", "),
         note: item.laboratoryDTO?.note,
+        status: item.laboratoryDTO?.status
+          ? statusLabel(item.laboratoryDTO.status)
+          : "",
+        // material: item.laboratoryDTO?.material
+        //   ? t(item.laboratoryDTO.material)
+        //   : "",
       };
     });
     //   .sort(dateComparator("desc", "date"));
   };
+
   const labStatus = useSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
+
   const errorMessage = useSelector<IState>(
     (state) =>
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
+
   const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
@@ -89,13 +102,14 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
         ?.laboratoryDTO
     );
   };
+
   const onDelete = (row: any) => {
     handleDelete(row.code);
   };
 
   return (
     <div className="patientExamsTable">
-      <h5>{t("common.previousentries")}</h5>
+      <h5>{t("lab.previousentries")}</h5>
       {labStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
@@ -104,14 +118,14 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={canDelete ? onDelete : undefined}
+          //onDelete={canDelete ? onDelete : undefined}
           isCollapsabile={true}
-          onEdit={canUpdate ? onEdit : undefined}
+          //onEdit={canUpdate ? onEdit : undefined}
         />
       )}
       {labStatus === "SUCCESS_EMPTY" && (
         <div ref={infoBoxRef}>
-          <InfoBox type="warning" message={t("common.emptydata")} />
+          <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
       {labStatus === "IDLE" && (

@@ -1,4 +1,14 @@
 {
+  "errors": {
+    "somethingwrong": "Something went wrong, please retry later.",
+    "incorrectcredentials": "Invalid username or password",
+    "passwordtooshort": "Password too short",
+    "badrequest": "Bad request",
+    "internalerror": "An internal error occured",
+    "lab": {
+      "someexamswithoutresultpleasecheck": "Some exams without result please check."
+    }
+  },
   "user": {
     "username": "Username",
     "groups": "Groups",
@@ -64,23 +74,26 @@
       }
     },
     "availabledashboard": "Available Dashboards",
-    "opdbyagetype":"OPDs by age type",
-    "opdbysex":"OPDs by sex",
-    "admissionbyagetype":"Admissions by age type",
-    "admissionbysex":"Admissions by sex",
+    "opdbyagetype": "OPDs by age type",
+    "opdbysex": "OPDs by sex",
+    "admissionbyagetype": "Admissions by age type",
+    "admissionbysex": "Admissions by sex",
     "admissionbyward": "Admissions by ward",
-    "admissionbytype":"Admissions by type",
-    "dischargebysex":"Discharges by sex",
-    "dischargebyagetype":"Discharges by age type",
+    "admissionbytype": "Admissions by type",
+    "dischargebysex": "Discharges by sex",
+    "dischargebyagetype": "Discharges by age type",
     "dischargebyward": "Discharges by ward",
-    "dischargebytype":"Discharges by type",
+    "dischargebytype": "Discharges by type",
     "togglefullscreen": "Toggle Fullscreen",
     "removedashboard": "Remove the Dashboard component",
     "downloaddata": "Download the underlying data",
-    "cantretrieveconfig": "Can't retrieve customisations",
-    "cantsaveconfig": "Can't save customisations",
+    "cantretrieveconfig": "Can't retrieve customizations",
+    "cantsaveconfig": "Can't save customizations",
     "reset": "Reset",
-    "resetcustomization": "Reset customisations"
+    "resetcustomization": "Reset customizations",
+    "nowidgets": "No widgets",
+    "noallowedwidget": "You don't have permission to see any widget",
+    "emptylayout": "No displayed widget. Start by adding widgets"
   },
   "patient": {
     "address": "Address",
@@ -147,12 +160,13 @@
     "operation": "Operation",
     "updated": "Patient updated",
     "created": "Patient created",
-    "updatesuccessful": "The patient was edit successfully."
+    "updatesuccessful": "The patient was edit successfully.",
+    "createother": "Add Another Patient"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
     "editopd": "Edit OPD Visit",
-    "dateopd": "Date (d/m/y)",
+    "dateopd": "Date",
     "note": "Notes and symptoms",
     "complaint": "Patient complaints",
     "disease1": "Diagnosis 1",
@@ -170,7 +184,7 @@
     "referralfrom": "Referral From",
     "referralto": "Referral To",
     "newpatient": "Attendance Type",
-    "newadmittance": "New Admittance",
+    "newattendance": "New Attendance",
     "reattendance": "Re-attendance",
     "addoperation": "Add operation",
     "addoperationdesc": "Add operation for the visit",
@@ -208,10 +222,12 @@
     "opdbyagetype": "Opds by age type",
     "futuredatenotallow": "Future date not allowed",
     "belowminage": "Min. age is 0",
-    "abovemaxage": "max. age is 200"
+    "abovemaxage": "max. age is 200",
+    "ward": "Ward",
+    "previousentries": "Previous Visits"
   },
   "visit": {
-    "date": "Date (d/m/y)",
+    "date": "Date",
     "note": "Notes and symptoms",
     "duration": "Duration",
     "ward": "Ward",
@@ -230,7 +246,8 @@
     "updatefail": "Visit {{code}} has not been updated!",
     "notdeleted": "Visit not deleted",
     "addoperation": "Add operation",
-    "addoperationdesc": "Add operation for the visit"
+    "addoperationdesc": "Add operation for the visit",
+    "previousentries": "Previous Visits"
   },
   "examination": {
     "newtriage": "Create new Triage",
@@ -247,7 +264,7 @@
     "auscultationabbr": "AUSC",
     "bowelabbr": "B",
     "bowel": "Bowel",
-    "datetriage": "Date (d/m/y)",
+    "datetriage": "Date",
     "diuresis": "Diuresis",
     "diuresisabbr": "D",
     "diuresisvolume24h": "Diuresis Vol 24H",
@@ -291,7 +308,8 @@
     "rhonchi": "Rhonchi",
     "crackles": "Crackles",
     "stridor": "Stridor",
-    "bronchial": "Bronchial"
+    "bronchial": "Bronchial",
+    "previousentries": "Previous Triages"
   },
   "nav": {
     "pharmacy": "Pharmacy",
@@ -325,7 +343,8 @@
     "managebills": "Manage Bills",
     "billrecords": "Bill Records",
     "visits": "Visits",
-    "patients": "Patients"
+    "patients": "Patients",
+    "consultancy": "Consultancy"
   },
   "operation": {
     "newoperation": "New Operation",
@@ -355,7 +374,8 @@
       "unknown": "Unknown",
       "success": "Success",
       "failure": "Failure"
-    }
+    },
+    "previousentries": "Previous Operations"
   },
   "common": {
     "ok": "OK",
@@ -389,7 +409,8 @@
     "code": "Code",
     "update": "update",
     "delete": "Delete",
-    "deleteconfirmation": "Are you sure to delete item with code {{code}}?",
+    "deleteconfirmation": "Are you sure to delete item with code {{code}} ?",
+    "cancelconfirmation": "Are you sure to cancel item with code {{code}} ?",
     "deletesuccess": "The item with code {{code}} was deleted successfully!",
     "incorrectformat": "Is not in correct format",
     "yes": "Yes",
@@ -414,8 +435,9 @@
     "cancel": "Cancel",
     "discardconfirmationmessage": "All unsaved changes will be lost. Continue ?",
     "emptydataforfilter": "Empty data for the specified filter",
-    "addanotherrow": "Add another operation row",
+    "addanotherrow": "Add another operation",
     "hospitalname": "Your Hospital",
+    "maxlengthexceeded": "Length exceeded. Max. is {{maxLength}}",
     "retry": "Retry",
     "moment": {
       "duration": "Duration",
@@ -433,7 +455,13 @@
       "lastmonth": "Last Month",
       "thisyear": "This Year",
       "lastyear": "Last Year"
-    }
+    },
+    "continue": "Continue ?",
+    "collapse_all": "Collapse All",
+    "expand_all": "Expand All",
+    "remainingchars": "Remaining : {{current}} / {{max}}",
+    "gohome": "Go to home",
+    "gotopatientactivities": "Go to Patient Activities"
   },
   "permission": {
     "denied": "Permission denied",
@@ -463,7 +491,8 @@
     "created": "Therapy created",
     "updated": "Therapy updated",
     "createsuccess": "A therapy row has been created successfully!",
-    "updatesuccess": "A therapy row with code {{code}} has been updated successfully!"
+    "updatesuccess": "A therapy row with code {{code}} has been updated successfully!",
+    "previousentries": "Previous Therapies"
   },
   "booking": {
     "category": "Category",
@@ -484,7 +513,7 @@
   "lab": {
     "newlab": "New laboratory exam",
     "editlab": "Edit laboratory exam",
-    "date": "Date",
+    "date": "Exam Date",
     "exam": "Exam",
     "type": "IPD/OPD",
     "material": "Material",
@@ -494,7 +523,9 @@
     "updated": "Patient exam updated",
     "createsuccess": "Patient exam added successfully!",
     "updatesuccess": "Patient exam {{code}} updated successfully!",
+    "cancelsuccess": "Patient exam {{code}} canceled successfully!",
     "deleted": "Patient Exam deleted",
+    "canceled": "Patient Exam canceled",
     "resultrow": "Result row",
     "value": "Value",
     "resultstitle": "Results",
@@ -521,10 +552,29 @@
     "examtype": "Exam Type",
     "validatetodate": "Must be greater than date from",
     "validatefromdate": "Must be less than date to",
-    "multipleresults": "Multiple results"
+    "multipleresults": "Multiple results",
+    "examrequest": "Request an exam",
+    "examrequestbtn": "Request",
+    "examrequestcreated": "The exam request has been successfully created",
+    "futuredatenotallow": "Future date not allowed",
+    "statusall": "All",
+    "statusrequested": "Requested",
+    "statustreated": "Treated",
+    "patientrequestedexam": "Requested exams for the patient",
+    "statusmustbedone": "Exam status must be 'DONE' if results are provided",
+    "changestatus": "Change Exam Status",
+    "changelabstatusto": "The status of the exam {{code}} will be changed to {{status}}",
+    "statuses": {
+      "draft": "DRAFT",
+      "all": "ALL",
+      "open": "OPEN",
+      "done": "DONE"
+    },
+    "previousentries": "Previous Exams"
   },
   "admission": {
-    "admDate": "Date",
+    "code": "Admission Code",
+    "admDate": "Admission Date",
     "admType": "Admission Type",
     "newadmission": "New admission",
     "editadmission": "Edit admission",
@@ -551,7 +601,7 @@
     "validatelastdate": "should be greater or equal to admission date {{admDate}}",
     "currentadmissionexists": "The patient has an ongoing admission dating from {{date}}. Discharge him first.",
     "patientnotadmitted": "No current admission found !",
-    "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To resign, go to the dismission page.",
+    "patientalreadyadmitted": "The patient has already been admitted, here you will find the history of admissions. To discharge, go to the Discharge page.",
     "updated": "Admission updated",
     "updatesuccess": "Admimission updated successfully",
     "datebefore": "Admission date must be before the discharge date",
@@ -564,7 +614,9 @@
     "dischargebyagetype": "Discharges by age type",
     "dischargebywards": "Discharges by wards",
     "admregistered": "Admissions in the current period",
-    "disregistered": "Discharges in the current period"
+    "disregistered": "Discharges in the current period",
+    "previousentries": "Previous Admissions",
+    "no_beds": "There is not beds in the selected ward"
   },
   "bill": {
     "title": "Welcome to Billing",
@@ -693,6 +745,17 @@
       "adolescents": "Adolescents",
       "adult": "Adult",
       "elderly": "Elderly"
+    },
+    "lab": {
+      "undefined": { "txt": "Undefined" },
+      "blood": { "txt": "Blood" },
+      "cfs": { "txt": "CFS" },
+      "film": { "txt": "FILM" },
+      "sputum": { "txt": "Sputum" },
+      "stool": { "txt": "Stool" },
+      "swabs": { "txt": "Swabs" },
+      "tissues": { "txt": "Tissues" },
+      "urine": { "txt": "Urine" }
     }
   }
 }

@@ -1,7 +1,6 @@
 import { isEmpty } from "lodash";
 import { labDTO } from "../fixtures/laboratoryDTO";
 import { labWithRowsDTO } from "../fixtures/labWithRowsDTO";
-import { labForPrintDTO } from "../fixtures/laboratoryForPrintDTO";
 import { materialsDTO } from "../fixtures/materialsDTO";
 
 export const labRoutes = (server) => {
@@ -17,13 +16,34 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labWithRowsDTO);
+          res.status(200).json(
+            labWithRowsDTO.filter(
+              lab => lab.laboratoryDTO.status !== "OPEN" && lab.laboratoryDTO.status !== "DRAFT"
+            )
+          );
+      }
+    });
+
+    server.get("/examRequest/:patId").intercept((req, res) => {
+      const code = req.params.patId;
+      switch (code) {
+        case "1000":
+          res.status(400);
+          break;
+        case "2000":
+          res.status(204);
+          res.body = null;
+          break;
+        default:
+          res.status(200).json(
+            labDTO.filter(lab => lab.status === "OPEN" || lab.status === "DRAFT")
+          );
       }
     });
 
     server.get("/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labDTO.find((e) => e.code == code);
+      const lab = labDTO.find((e) => e.code === code);
       switch (code) {
         case "1000":
           res.status(400);
@@ -43,7 +63,7 @@ export const labRoutes = (server) => {
 
     server.get("/exams/:code").intercept((req, res) => {
       const code = req.params.code;
-      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code == code);
+      const lab = labWithRowsDTO.find((e) => e.laboratoryDTO.code === code);
       switch (code) {
         case "1000":
           res.status(400);
@@ -72,7 +92,13 @@ export const labRoutes = (server) => {
           res.body = null;
           break;
         default:
-          res.status(200).json(labWithRowsDTO);
+          res.status(200).json({
+            data: labWithRowsDTO,
+            pageInfo: {
+              totalPage: 8,
+              page: !isNaN(req.query.page) ? parseInt(req.query.page) : 0,
+            },
+          });
       }
     });
 
@@ -86,6 +112,11 @@ export const labRoutes = (server) => {
           res.status(201).json({ laboratoryDTO: body.laboratoryDTO });
           break;
       }
+    });
+
+    server.post("/examRequest").intercept((req, res) => {
+      const body = req.jsonBody();
+      res.status(201).json({ laboratoryDTO: body.laboratoryDTO });
     });
 
     server.delete("/:code").intercept((req, res) => {

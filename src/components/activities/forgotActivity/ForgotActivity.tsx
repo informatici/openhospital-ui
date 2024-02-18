@@ -4,15 +4,17 @@ import { Link as RouterLink } from "react-router-dom";
 
 import classNames from "classnames";
 import { useFormik } from "formik";
-import get from "lodash.get";
-import has from "lodash.has";
+import { get, has } from "lodash";
 import { default as React } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
-import { setForgotPasswordThunk, resetForgotPasswordThunk } from "../../../state/main/actions";
+import {
+  setForgotPasswordThunk,
+  resetForgotPasswordThunk,
+} from "../../../state/main/actions";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -42,9 +44,8 @@ const ForgotActivity: FC = () => {
   });
 
   const onResetForgotPassword = useCallback(() => {
-    dispatch(resetForgotPasswordThunk())
-  }, [dispatch])
-
+    dispatch(resetForgotPasswordThunk());
+  }, [dispatch]);
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -84,45 +85,45 @@ const ForgotActivity: FC = () => {
         <div className="forgot__panel">
           <form className="forgot__panel__form" onSubmit={formik.handleSubmit}>
             <div className="forgot__description">
-              {status === "SUCCESS" ? t("login.forgotsuccess") : t("login.forgotdescription")}
+              {status === "SUCCESS"
+                ? t("login.forgotsuccess")
+                : t("login.forgotdescription")}
             </div>
             {status !== "SUCCESS" && (
               <>
                 <div className="forgot__panel__textField">
-                <TextField
-                  field={formik.getFieldProps("username")}
-                  theme="regular"
-                  label={t("login.username")}
-                  isValid={isValid("username")}
-                  errorText={getErrorText("username")}
-                  onBlur={formik.handleBlur}
-                />
-              </div>
-              <div
-                className={classNames("forgot__error", {
-                  hidden: status !== "FAIL",
-                })}
-              >
-                {errorType}
-              </div>
-              <div className="forgot__buttonContainer">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={status === "LOADING"}
+                  <TextField
+                    field={formik.getFieldProps("username")}
+                    theme="regular"
+                    label={t("login.username")}
+                    isValid={isValid("username")}
+                    errorText={getErrorText("username")}
+                    onBlur={formik.handleBlur}
+                  />
+                </div>
+                <div
+                  className={classNames("forgot__error", {
+                    hidden: status !== "FAIL",
+                  })}
                 >
-                  {t("common.submit")}
-                </Button>
-              </div>
-            </>
+                  {errorType}
+                </div>
+                <div className="forgot__buttonContainer">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={status === "LOADING"}
+                  >
+                    {t("common.submit")}
+                  </Button>
+                </div>
+              </>
             )}
           </form>
           <div className="forgot__back">
             <RouterLink to="/login">
-              <Link component="button">
-                {t("login.takemeback")}
-              </Link>
+              <Link component="button">{t("login.takemeback")}</Link>
             </RouterLink>
             {status !== "IDLE" && (
               <>

@@ -11,10 +11,12 @@ interface IOwnProps {
 export type TProps = IForm<TPatientOPDFormFieldName, any> & IOwnProps;
 
 export type TPatientOPDFormFieldName =
-  | "visitDate"
+  | "date"
+  | "disease"
   | "disease"
   | "disease2"
   | "disease3"
+  | "ward"
   | "note"
   | "newPatient"
   | "referralFrom"

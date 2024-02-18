@@ -16,15 +16,11 @@ import {
 } from './';
 
 /**
+ * Laboratory Exam
  * @export
  * @interface ExamDTO
  */
 export interface ExamDTO {
-    /**
-     * @type {ExamTypeDTO}
-     * @memberof ExamDTO
-     */
-    examtype?: ExamTypeDTO;
     /**
      * Exam Code
      * @type {string}
@@ -50,7 +46,12 @@ export interface ExamDTO {
      */
     defaultResult?: string;
     /**
-     * Exam Db Version to increment
+     * @type {ExamTypeDTO}
+     * @memberof ExamDTO
+     */
+    examtype?: ExamTypeDTO;
+    /**
+     * Lock
      * @type {number}
      * @memberof ExamDTO
      */

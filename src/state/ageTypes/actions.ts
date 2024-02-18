@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
-import { AdmissionDTO, AgeTypeControllerApi } from "../../generated";
+import { AdmissionDTO } from "../../generated";
+import { AgeTypesApi } from "../../generated/apis/AgeTypesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
@@ -9,7 +10,7 @@ import {
   GET_AGETYPES_SUCCESS_EMPTY,
 } from "./consts";
 
-const ageTypeControllerApi = new AgeTypeControllerApi(customConfiguration());
+const ageTypesApi = new AgeTypesApi(customConfiguration());
 
 export const getAgeTypes =
   () =>
@@ -17,7 +18,7 @@ export const getAgeTypes =
     dispatch({
       type: GET_AGETYPES_LOADING,
     });
-    ageTypeControllerApi.getAllAgeTypesUsingGET().subscribe(
+    ageTypesApi.getAllAgeTypes().subscribe(
       (payload) => {
         if (Array.isArray(payload) && payload.length > 0) {
           dispatch({
