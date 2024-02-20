@@ -19,7 +19,7 @@ const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
   };
 
   return (
-    <div className="dashboard">
+    <div data-cy="dashboard" className="dashboard">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}

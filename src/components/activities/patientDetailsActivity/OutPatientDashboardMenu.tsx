@@ -42,7 +42,10 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
   );
 
   return (
-    <div className="patientDetails__main_menu">
+    <div
+      data-cy="patient-details-main-menu"
+      className="patientDetails__main_menu"
+    >
       <h6>{t("patient.usersections")}</h6>
 
       <div

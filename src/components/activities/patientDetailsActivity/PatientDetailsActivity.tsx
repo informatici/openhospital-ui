@@ -181,7 +181,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
       return <Navigate to="edit" />;
     default:
       return (
-        <div className="patientDetails">
+        <div data-cy="patient-details" className="patientDetails">
           <AppHeader
             userCredentials={userCredentials}
             breadcrumbMap={breadcrumbMap}

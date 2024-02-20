@@ -37,7 +37,7 @@ const PatientDashboardActivity: FunctionComponent<TProps> = ({
       return <Navigate to={searchPatientRoute} />;
     default:
       return (
-        <div className="dashboard">
+        <div data-cy="dashboard-activity" className="dashboard">
           <AppHeader
             userCredentials={userCredentials ? userCredentials : {}}
             breadcrumbMap={breadcrumbMap}

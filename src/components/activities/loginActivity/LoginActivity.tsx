@@ -85,7 +85,7 @@ const LoginActivity: FC = () => {
         <div className="login__title">
           {hospital?.description ?? t("login.signin")}
         </div>
-        <div className="login__panel">
+        <div data-cy="login-panel" className="login__panel">
           <form className="login__panel__form" onSubmit={formik.handleSubmit}>
             <div className="login__panel__textField">
               <TextField
@@ -125,6 +125,7 @@ const LoginActivity: FC = () => {
               />
             </div>
             <div
+              data-cy="login-invalid-credentials"
               className={classNames("login__invalidCredentials", {
                 hidden: status !== "FAIL",
               })}

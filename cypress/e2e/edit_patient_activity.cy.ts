@@ -5,17 +5,17 @@ const START_PATH = "http://localhost:3000/patients/details/72/edit";
 describe("EditPatientActivity spec", () => {
   it("should render the ui", () => {
     cy.authenticate(START_PATH);
-    cy.get("[class=editPatient]");
+    cy.dataCy("edit-patient");
   });
 
   it.skip("should have access to the user credentials", () => {});
 
   it("should have a PatientDataForm as a child component", () => {
-    cy.get("[class=patientDataForm]");
+    cy.dataCy("patient-data-form");
   });
 
   it("should have an AppHeader", () => {
-    cy.get("[class=appHeader]");
+    cy.dataCy("app-header");
   });
 
   it("should pass in initialValues carrying only default values", () => {
@@ -29,17 +29,17 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should pass the “submit” button label", () => {
-    cy.get("[class=patientDataForm]").contains("Submit");
+    cy.dataCy("patient-data-form").contains("Submit");
   });
 
   it("should allow the user to change the profile picture", () => {
-    cy.get("[class=profilePicture]")
+    cy.dataCy("profile-picture")
       .find("img")
       .invoke("attr", "src")
       .then((firstSrc) => {
         const currentPicture = firstSrc;
 
-        cy.get("[id=profilePicture_input]").attachFile(
+        cy.dataCy("profile-picture-input").attachFile(
           "images/profilePicture.jpg",
           { force: true }
         );
@@ -47,7 +47,7 @@ describe("EditPatientActivity spec", () => {
         cy.wait(2000);
 
         cy.wait(1000);
-        cy.get("[class=profilePicture]")
+        cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")
           .then((nextSrc) => {
@@ -57,14 +57,14 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should allow the user to remove the profile picture", () => {
-    cy.get("[class=profilePicture]")
+    cy.dataCy("profile-picture")
       .find("img")
       .invoke("attr", "src")
       .then((firstSrc) => {
         const currentPicture = firstSrc;
         expect(currentPicture).to.be.a("string");
-        cy.get(".profilePicture_button.profilePicture_removeIcon").click();
-        cy.get("[class=profilePicture]")
+        cy.dataCy("remove-profile-picture").click();
+        cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")
           .then((nextSrc) => {
@@ -74,34 +74,34 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should show a confirmation dialog when the call is successful", () => {
-    cy.get("[id=firstName]").clear().type("Marcelo");
-    cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.dialog__info").contains("The patient was edit successfully.");
+    cy.byId("firstName").clear().type("Marcelo");
+    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("dialog-info").contains("The patient was edit successfully.");
   });
 
   it("should reset the form if the user chooses to keep editing after a submit", () => {
-    cy.get("div.dialog__buttonSet").contains("Keep editing").click();
-    cy.get("[class=patientDataForm]");
+    cy.dataCy("dialog-button-set").contains("Keep editing").click();
+    cy.dataCy("patient-data-form");
   });
 
   it("should redirect the user to the Patient on Patient button click", () => {
-    cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.dialog__buttonSet").contains("Patient").click();
-    cy.get("[class=patientDetails]");
+    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("dialog-button-set").contains("Patient").click();
+    cy.dataCy("patient-details");
   });
 
   it("should return back to patient edit form", () => {
     cy.authenticate(START_PATH);
-    cy.get("[class=editPatient]");
+    cy.dataCy("edit-patient");
   });
 
   it("should not leave on the Cancel button click, if the Cancel button of the Cancel Dialog is click", () => {
-    cy.get("[id=firstName]").clear().type("Marcelo");
-    cy.get("[class=patientDataForm]").contains("Cancel").click();
+    cy.byId("firstName").clear().type("Marcelo");
+    cy.dataCy("patient-data-form").contains("Cancel").click();
     cy.url().then((url) => {
-      cy.get("div.dialog__buttonSet").contains("Keep").click();
+      cy.dataCy("dialog-button-set").contains("Keep").click();
       cy.url().should("eq", url);
     });
-    //cy.get("[id=firstName]").should("have.value", "Antonio Carlos");
+    //cy.byId("firstName").should("have.value", "Antonio Carlos");
   });
 });

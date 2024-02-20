@@ -9,6 +9,10 @@ declare global {
        */
       dataCy(value: string): Chainable<JQuery<HTMLElement>>;
 
+      dataValue(value: string): Chainable<JQuery<HTMLElement>>;
+
+      byId(value: string): Chainable<JQuery<HTMLElement>>;
+
       authenticate(value: string): void;
     }
   }
