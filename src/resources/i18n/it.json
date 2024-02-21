@@ -155,7 +155,8 @@
     "updated": "Paziente aggiornato",
     "created": "Paziente creato",
     "updatesuccessful": "Il paziente è stato aggiornato correttamente.",
-    "createother": "Aggiungere un altro paziente"
+    "createother": "Aggiungere un altro paziente",
+    "status": "Stato"
   },
   "opd": {
     "newopd": "Inserisci una nuova visita ambulatoriale",

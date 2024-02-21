@@ -161,7 +161,8 @@
     "updated": "Patient aktualisiert",
     "created": "Patient erstellt",
     "updatesuccessful": "Der Patient wurde erfolgreich bearbeitet.",
-    "createother": "Weiteren Patienten hinzufügen"
+    "createother": "Weiteren Patienten hinzufügen",
+    "status": "Status"
   },
   "opd": {
     "newopd": "Erstellen Sie einen neuen OPD-Besuch",
