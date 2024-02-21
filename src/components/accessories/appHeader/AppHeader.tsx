@@ -63,7 +63,10 @@ const AppHeader: FunctionComponent<TProps> = ({
   const canAccessDashboard = usePermission("dashboard.access");
 
   return (
-    <div className={classNames("appHeader", { open_menu: isOpen })}>
+    <div
+      data-cy={"app-header"}
+      className={classNames("appHeader", { open_menu: isOpen })}
+    >
       <div className="appHeader__top">
         <div className="appHeader__nav_lang_switcher">{<LangSwitcher />}</div>
         <div className="userInfo__wrapper">
@@ -121,6 +124,7 @@ const AppHeader: FunctionComponent<TProps> = ({
               </Breadcrumbs>
             </div>
             <div
+              data-cy="app-header-identified-trigger"
               className="appHeader__identified__trigger"
               onClick={() => openMenu(!isOpen)}
             >

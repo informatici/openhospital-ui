@@ -104,6 +104,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   const isSearchById = useIsSearchById(formik);
 
+  const RESULTS_DATA_CY = "search-patient-results";
+
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
@@ -116,7 +118,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
       case "SUCCESS":
         return (
-          <div className="searchPatient__results">
+          <div data-cy={RESULTS_DATA_CY} className="searchPatient__results">
             <div className="searchPatient__results_count">
               {t("common.results")}:{" "}
               <strong>{patientSearchResults?.length}</strong>
@@ -135,14 +137,14 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
       case "SUCCESS_EMPTY":
         return (
-          <div className="searchPatient__results">
+          <div data-cy={RESULTS_DATA_CY} className="searchPatient__results">
             <InfoBox type="info" message={t("common.searchnotfound")} />
           </div>
         );
 
       default:
         return (
-          <div className="searchPatient__results">
+          <div data-cy={RESULTS_DATA_CY} className="searchPatient__results">
             <InfoBox type="error" message={errorMessage} />
           </div>
         );
@@ -157,7 +159,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   );
 
   return (
-    <div className="searchPatient">
+    <div data-cy="search-patient" className="searchPatient">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
@@ -167,6 +169,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
           <div className="searchPatient__title">{t("nav.searchpatient")}</div>
           <Permission require="patients.read">
             <form
+              data-cy="search-patient-panel"
               className="searchPatient__panel"
               onSubmit={formik.handleSubmit}
             >

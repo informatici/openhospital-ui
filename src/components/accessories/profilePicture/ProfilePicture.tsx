@@ -148,7 +148,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   }, [shouldReset, resetCallback]);
 
   return (
-    <div className="profilePicture">
+    <div data-cy="profile-picture" className="profilePicture">
       <ProfilePictureCropper
         open={showCropper}
         onSave={handleCropped}
@@ -156,6 +156,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         picture={pictureToResize}
       />
       <input
+        data-cy="profile-picture-input"
         id="profilePicture_input"
         ref={pictureInputRef}
         style={{ display: "none" }}
@@ -190,6 +191,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         <div className="profilePicture_buttons">
           {picture.original ? (
             <div
+              data-cy="remove-profile-picture"
               className="profilePicture_button profilePicture_removeIcon"
               onClick={removePicture}
             >
@@ -250,6 +252,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
                   color="primary"
                   variant="contained"
                   startIcon={<AddPhotoAlternateIcon />}
+                  data-cy="dialod-choose-photo-button"
                 >
                   {t("picture.upload")}
                 </Button>

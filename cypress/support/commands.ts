@@ -7,6 +7,14 @@ Cypress.Commands.add("dataCy", (value) => {
   return cy.get(`[data-cy=${value}]`);
 });
 
+Cypress.Commands.add("dataValue", (value) => {
+  return cy.get(`[data-value=${value}]`);
+});
+
+Cypress.Commands.add("byId", (value) => {
+  return cy.get(`[id=${value}]`);
+});
+
 Cypress.Commands.add("authenticate", (url: string) => {
   cy.visit(url, {
     onBeforeLoad(w) {

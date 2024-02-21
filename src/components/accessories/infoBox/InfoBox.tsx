@@ -18,7 +18,7 @@ const InfoBox: FunctionComponent<IProps> = ({ type, message }) => {
     }
   };
   return (
-    <div className={classNames(`infoBox ${type}`)}>
+    <div data-cy="info-box" className={classNames(`infoBox ${type}`)}>
       <h5>
         {renderIcon()}
         {message}

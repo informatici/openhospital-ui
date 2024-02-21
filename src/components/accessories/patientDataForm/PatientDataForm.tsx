@@ -200,7 +200,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   };
 
   return (
-    <div className="patientDataForm">
+    <div data-cy="patient-data-form" className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
         <ProfilePicture
           isEditable={!isLoading}

@@ -33,7 +33,10 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
       ) : null;
     default:
       return (
-        <div className="patientSearchItem col-xs-12">
+        <div
+          data-cy="patient-search-item"
+          className="patientSearchItem col-xs-12"
+        >
           <div
             className="patientSearchItem__panel"
             onClick={() => setActivityTransitionState("TO_PATIENT_DETAILS")}

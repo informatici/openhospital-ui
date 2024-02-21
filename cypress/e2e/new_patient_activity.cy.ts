@@ -11,11 +11,11 @@ describe("NewPatientActivity spec", () => {
   it.skip("should have access to the user credentials", () => {});
 
   it("should have a PatientDataForm as a child component", () => {
-    cy.get("[class=patientDataForm]");
+    cy.dataCy("patient-data-form");
   });
 
   it("should have an AppHeader", () => {
-    cy.get("[class=appHeader]");
+    cy.dataCy("app-header");
   });
 
   it("should pass in initialValues carrying only default values", () => {
@@ -33,13 +33,13 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should allow the user to add and remove a profile picture", () => {
-    cy.get("[class=profilePicture]")
+    cy.dataCy("profile-picture")
       .find("img")
       .invoke("attr", "src")
       .then((firstSrc) => {
         const placeholder = firstSrc;
 
-        cy.get("[id=profilePicture_input]").attachFile(
+        cy.dataCy("profile-picture-input").attachFile(
           "images/profilePicture.jpg",
           { force: true }
         );
@@ -47,7 +47,7 @@ describe("NewPatientActivity spec", () => {
         cy.wait(2000);
 
         cy.wait(1000);
-        cy.get("[class=profilePicture]")
+        cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")
           .then((nextSrc) => {
@@ -56,7 +56,7 @@ describe("NewPatientActivity spec", () => {
 
         cy.get(".profilePicture_removeIcon").click();
         cy.wait(1000);
-        cy.get("[class=profilePicture]")
+        cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")
           .then((nextSrc) => {
@@ -66,70 +66,70 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should allow the user to fill in the form with personal data", () => {
-    cy.get("[id=firstName]").type("Antonio Carlos");
-    cy.get("[id=secondName]").type("Jobim");
+    cy.byId("firstName").type("Antonio Carlos");
+    cy.byId("secondName").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
-    cy.get(".MuiMenu-list li[data-value=M]").click();
+    cy.dataValue("M").click();
   });
 
   it("should reset all the fields on the Clear All button click", () => {
-    cy.get("[id=firstName]").clear().type("Antonio Carlos");
-    cy.get("[id=secondName]").clear().type("Jobim");
-    cy.get("[class=patientDataForm]").contains("Clear All").click();
-    cy.get("div.dialog__buttonSet").contains("Clear All").click();
-    cy.get("[id=firstName]").should("have.value", "");
-    cy.get("[id=secondName]").should("have.value", "");
-    cy.get("[id=birthDate]").should("have.value", "");
+    cy.byId("firstName").clear().type("Antonio Carlos");
+    cy.byId("secondName").clear().type("Jobim");
+    cy.dataCy("patient-data-form").contains("Clear All").click();
+    cy.dataCy("dialog-button-set").contains("Clear All").click();
+    cy.byId("firstName").should("have.value", "");
+    cy.byId("secondName").should("have.value", "");
+    cy.byId("birthDate").should("have.value", "");
   });
 
   it.skip("should reset the profile picture on the Clear All button click", () => {
-    cy.get("[class=patientDataForm]").contains("Clear All").click();
-    cy.get("div.dialog__buttonSet").contains("Clear All").click();
+    cy.dataCy("patient-data-form").contains("Clear All").click();
+    cy.dataCy("dialog-button-set").contains("Clear All").click();
   });
 
   it("should show an error message when the call fails", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
-    cy.get("[id=firstName]").clear().type("fail");
-    cy.get("[id=secondName]").clear().type("fail");
+    cy.byId("firstName").clear().type("fail");
+    cy.byId("secondName").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
-    cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.infoBox").should("have.class", "error");
+    cy.dataValue("M").click();
+    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("info-box").should("have.class", "error");
   });
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
-    cy.get("[id=firstName]").clear().type("Antonio Carlos");
-    cy.get("[id=secondName]").clear().type("Jobim");
+    cy.byId("firstName").clear().type("Antonio Carlos");
+    cy.byId("secondName").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
-    cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.dialog__info").contains(
+    cy.dataValue("M").click();
+    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("dialog-info").contains(
       "The patient registration was successful."
     );
   });
 
   it("should reset the form if the user chooses to keep editing after a submit", () => {
-    cy.get("div.dialog__buttonSet").contains("Add Another Patient").click();
-    cy.get("[id=firstName]").should("have.value", "");
-    cy.get("[id=secondName]").should("have.value", "");
-    cy.get("[id=birthDate]").should("have.value", "");
+    cy.dataCy("dialog-button-set").contains("Add Another Patient").click();
+    cy.byId("firstName").should("have.value", "");
+    cy.byId("secondName").should("have.value", "");
+    cy.byId("birthDate").should("have.value", "");
   });
 
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
     cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
-    cy.get("[id=firstName]").type("Antonio Carlos");
-    cy.get("[id=secondName]").type("Jobim");
+    cy.byId("firstName").type("Antonio Carlos");
+    cy.byId("secondName").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
-    cy.get(".MuiMenu-list li[data-value=M]").click();
-    cy.get("[class=patientDataForm]").contains("Submit").click();
-    cy.get("div.dialog__buttonSet").contains("Go to home").click();
-    cy.get("div.dashboard");
+    cy.dataValue("M").click();
+    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("dialog-button-set").contains("Go to home").click();
+    cy.dataCy("dashboard-activity");
   });
 });
