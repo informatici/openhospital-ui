@@ -161,7 +161,8 @@
     "updated": "Pacienti u aktualizua",
     "created": "Pacienti u krijua",
     "updatesuccessful": "Pacienti u redaktua me sukses.",
-    "createother": "Shto një Pacient të ri"
+    "createother": "Shto një Pacient të ri",
+    "status": "Statusi"
   },
   "opd": {
     "newopd": "Krijo nje vizitë Ambulatore",

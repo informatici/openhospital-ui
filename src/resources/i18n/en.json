@@ -161,7 +161,8 @@
     "updated": "Patient updated",
     "created": "Patient created",
     "updatesuccessful": "The patient was edit successfully.",
-    "createother": "Add Another Patient"
+    "createother": "Add Another Patient",
+    "status": "Status"
   },
   "opd": {
     "newopd": "Create new OPD Visit",

@@ -261,7 +261,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       {patient?.data?.status === PatientDTOStatusEnum.I ? (
                         <div className="patientDetails_status_wrapper patientDetails_status_in">
                           <h6>
-                            Status: <span>Inpatient</span>
+                            Status: <span>{t("patient.instatus")}</span>
                             <div
                               className="patientDetails_status_button"
                               onClick={() => {
@@ -278,7 +278,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
                       ) : (
                         <div className="patientDetails_status_wrapper patientDetails_status_out">
                           <h6>
-                            Status: <span>Outpatient</span>
+                            Status: <span>{t("patient.outstatus")}</span>
                             <div
                               className="patientDetails_status_button"
                               onClick={() => {
