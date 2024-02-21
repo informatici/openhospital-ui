@@ -53,13 +53,13 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
                   {patient?.status === PatientDTOStatusEnum.I ? (
                     <div className="patientDetails_status_wrapper patientDetails_status_in">
                       <h6>
-                        Status: <span>Inpatient</span>
+                      {t("patient.status")}: <span>{t("patient.instatus")}</span>
                       </h6>
                     </div>
                   ) : (
                     <div className="patientDetails_status_wrapper patientDetails_status_out">
                       <h6>
-                        Status: <span>Outpatient</span>
+                      {t("patient.status")}: <span>{t("patient.outstatus")}</span>
                       </h6>
                     </div>
                   )}
