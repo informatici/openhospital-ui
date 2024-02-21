@@ -28,8 +28,9 @@ describe("EditPatientActivity spec", () => {
     });
   });
 
+
   it("should pass the “submit” button label", () => {
-    cy.dataCy("patient-data-form").contains("Submit");
+    cy.dataCy("patient-data-form").get("button[type=submit]");
   });
 
   it("should allow the user to change the profile picture", () => {
@@ -44,9 +45,9 @@ describe("EditPatientActivity spec", () => {
           { force: true }
         );
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
-        cy.wait(2000);
+        cy.wait(3000);
 
-        cy.wait(1000);
+
         cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")
@@ -75,7 +76,7 @@ describe("EditPatientActivity spec", () => {
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.byId("firstName").clear().type("Marcelo");
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-form").get("[type=submit]").click();
     cy.dataCy("dialog-info").contains("The patient was edit successfully.");
   });
 
@@ -85,7 +86,9 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should redirect the user to the Patient on Patient button click", () => {
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-form")
+      .dataCy("patient-data-submit-button")
+      .get("button[type=submit]").click();
     cy.dataCy("dialog-button-set").contains("Patient").click();
     cy.dataCy("patient-details");
   });

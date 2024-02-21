@@ -551,7 +551,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         </div>
 
         <div className="patientDataForm__buttonSet">
-          <div className="submit_button">
+          <div data-cy="patient-data-submit-button" className="submit_button">
             <Button type="submit" variant="contained" disabled={isLoading}>
               {submitButtonLabel}
             </Button>
@@ -563,13 +563,13 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
-              {mode == "create" && resetButtonLabel}
-              {mode == "edit" && t("common.cancel")}
+              {mode === "create" && resetButtonLabel}
+              {mode === "edit" && t("common.cancel")}
             </Button>
           </div>
         </div>
 
-        {mode == "create" && (
+        {mode === "create" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
@@ -582,7 +582,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           />
         )}
 
-        {mode == "edit" && (
+        {mode === "edit" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={t("common.cancel").toUpperCase()}
