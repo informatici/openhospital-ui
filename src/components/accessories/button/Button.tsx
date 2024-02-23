@@ -9,6 +9,7 @@ const Button: FunctionComponent<IProps> = ({
   color = "primary",
   variant,
   disabled,
+  dataCy,
   onClick,
 }) => {
   return (
@@ -20,6 +21,7 @@ const Button: FunctionComponent<IProps> = ({
       disableElevation
       disabled={disabled}
       onClick={onClick}
+      data-cy={dataCy}
     >
       {children}
     </MaterialComponent>
