@@ -1,6 +1,8 @@
+/// <reference types="cypress" />
+
 describe("LoginActivity spec", () => {
   it("should render the ui", () => {
-    cy.visit("http://localhost:3000/", {
+    cy.visit("/", {
       onBeforeLoad(w) {
         w.sessionStorage.clear();
       },
