@@ -7,7 +7,26 @@ import { mount } from 'cypress/react'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
+      /**
+       * select DOM element by data-cy attribute
+       */
+      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+
+      /**
+       * select DOM element by data-value attribute
+       */
+      dataValue(value: string): Chainable<JQuery<HTMLElement>>;
+
+      /**
+       * select DOM element by id
+       */
+      byId(value: string): Chainable<JQuery<HTMLElement>>;
+
+      /**
+       * authenticate by setting a session storage
+       */
+      authenticate(value: string): void;
     }
   }
 }
