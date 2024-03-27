@@ -1,5 +1,7 @@
 import initialValues from "../fixtures/editPatientInitialValues.json";
 
+type InitialValuesKeys = keyof typeof initialValues;
+
 const START_PATH = "http://localhost:3000/patients/details/72/edit";
 
 describe("EditPatientActivity spec", () => {
@@ -24,7 +26,7 @@ describe("EditPatientActivity spec", () => {
       id: `[id=${fieldName.toString()}]`,
     }));
     fields.forEach((field) => {
-      cy.get(field.id).should("have.value", initialValues[field.fieldName]);
+      cy.get(field.id).should("have.value", initialValues[field.fieldName as InitialValuesKeys]);
     });
   });
 
