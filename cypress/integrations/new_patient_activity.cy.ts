@@ -36,7 +36,7 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should pass the “submit” button label", () => {
-    cy.dataCy("patient-data-submit-button").contains("Save");
+    cy.dataCy("patient-data-submit-button").contains("Submit");
   });
 
   it("should allow the user to add and remove a profile picture", () => {
