@@ -2,7 +2,9 @@
 
 import initialValues from "../fixtures/newPatientInitialValues.json";
 
-const START_PATH = "http://localhost:3000/patients/new";
+type InitialValuesKeys = keyof typeof initialValues;
+
+const START_PATH = "/patients/new";
 
 describe("NewPatientActivity spec", () => {
   it("should render the ui", () => {
@@ -26,12 +28,15 @@ describe("NewPatientActivity spec", () => {
       id: `[id=${fieldName.toString()}]`,
     }));
     fields.forEach((field) => {
-      cy.get(field.id).should("have.value", initialValues[field.fieldName]);
+      cy.get(field.id).should(
+        "have.value",
+        initialValues[field.fieldName as InitialValuesKeys]
+      );
     });
   });
 
   it("should pass the “submit” button label", () => {
-    cy.get(".submit_button button");
+    cy.dataCy("patient-data-submit-button").contains("Save");
   });
 
   it("should allow the user to add and remove a profile picture", () => {
@@ -98,7 +103,7 @@ describe("NewPatientActivity spec", () => {
     cy.byId("secondName").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.dataValue("M").click();
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-submit-button").click();
     cy.dataCy("info-box").should("have.class", "error");
   });
 
@@ -110,7 +115,7 @@ describe("NewPatientActivity spec", () => {
     cy.byId("secondName").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.dataValue("M").click();
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-submit-button").click();
     cy.dataCy("dialog-info").contains(
       "The patient registration was successful."
     );
@@ -131,7 +136,7 @@ describe("NewPatientActivity spec", () => {
     cy.byId("secondName").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.dataValue("M").click();
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-submit-button").click();
     cy.dataCy("dialog-button-set").contains("Go to home").click();
     cy.dataCy("dashboard-activity");
   });
