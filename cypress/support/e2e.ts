@@ -1,19 +1,35 @@
-import "./commands";
+/// <reference types="cypress" />
 
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      /**
-       * Custom command to select DOM element by data-cy attribute.
-       * @example cy.dataCy('greeting')
-       */
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+import "cypress-file-upload";
+import permissionList from "../../src/mockServer/fixtures/permissionList";
 
-      dataValue(value: string): Chainable<JQuery<HTMLElement>>;
+Cypress.Commands.add("dataCy", (value) => {
+  return cy.get(`[data-cy=${value}]`);
+});
 
-      byId(value: string): Chainable<JQuery<HTMLElement>>;
+Cypress.Commands.add("dataValue", (value) => {
+  return cy.get(`[data-value=${value}]`);
+});
 
-      authenticate(value: string): void;
-    }
-  }
-}
+Cypress.Commands.add("byId", (value) => {
+  return cy.get(`[id=${value}]`);
+});
+
+Cypress.Commands.add("authenticate", (url: string) => {
+  cy.visit(url, {
+    onBeforeLoad(w) {
+      w.sessionStorage.clear();
+      w.sessionStorage.setItem(
+        "auth",
+        `{"username":"John Doe","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJhZG1pbiIsImV4cCI6MTczOTE5MzU1MTAwMH0.D50o5x2gcVcASSwl7EOqmRUDGqIGfhisbXlkujQolrY"}`
+      );
+      w.sessionStorage.setItem(
+        "permission",
+        JSON.stringify({
+          permission: permissionList,
+          userName: "admin",
+        })
+      );
+    },
+  });
+});

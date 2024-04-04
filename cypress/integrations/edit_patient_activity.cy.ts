@@ -1,6 +1,10 @@
+/// <reference types="cypress" />
+
 import initialValues from "../fixtures/editPatientInitialValues.json";
 
-const START_PATH = "http://localhost:3000/patients/details/72/edit";
+type InitialValuesKeys = keyof typeof initialValues;
+
+const START_PATH = "/patients/details/72/edit";
 
 describe("EditPatientActivity spec", () => {
   it("should render the ui", () => {
@@ -24,7 +28,10 @@ describe("EditPatientActivity spec", () => {
       id: `[id=${fieldName.toString()}]`,
     }));
     fields.forEach((field) => {
-      cy.get(field.id).should("have.value", initialValues[field.fieldName]);
+      cy.get(field.id).should(
+        "have.value",
+        initialValues[field.fieldName as InitialValuesKeys]
+      );
     });
   });
 
@@ -34,16 +41,16 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should allow the user to change the profile picture", () => {
+    cy.fixture("images/editPicture.jpg", null).as("editPicture");
     cy.dataCy("profile-picture")
       .find("img")
       .invoke("attr", "src")
       .then((firstSrc) => {
         const currentPicture = firstSrc;
 
-        cy.dataCy("profile-picture-input").attachFile(
-          "images/profilePicture.jpg",
-          { force: true }
-        );
+        cy.dataCy("profile-picture-input").selectFile("@editPicture", {
+          force: true,
+        });
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
         cy.wait(3000);
 
