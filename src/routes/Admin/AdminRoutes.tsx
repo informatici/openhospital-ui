@@ -59,7 +59,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "users",
+        path: "usersGroups",
         element: (
           <AdminActivityContent
             title={t("nav.usersGroups")}
@@ -68,7 +68,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "types",
+        path: "manageTypes",
         element: (
           <AdminActivityContent
             title={t("nav.manageTypes")}
