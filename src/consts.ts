@@ -17,4 +17,5 @@ export const PATHS = {
   laboratory_new: "/laboratory/new",
   laboratory_edit: "/laboratory/#id/edit",
   dashboard: "/dashboard",
+  admin: "/admin",
 };

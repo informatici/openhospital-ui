@@ -345,7 +345,19 @@
     "billrecords": "Bill Records",
     "visits": "Visits",
     "patients": "Patients",
-    "consultancy": "Consultancy"
+    "consultancy": "Consultancy",
+    "administration": "Administration",
+    "wards": "Wards",
+    "diseases": "Diseases",
+    "operations": "Operations",
+    "vaccines": "Vaccines",
+    "priceList": "Price List",
+    "suppliers": "Suppliers",
+    "telemetry": "Telemetry",
+    "usersGroups": "Users & Groups",
+    "manageTypes": "Manage Types",
+    "hospitalInfo": "Hospital Info",
+    "hospital": "Hospital"
   },
   "operation": {
     "newoperation": "New Operation",

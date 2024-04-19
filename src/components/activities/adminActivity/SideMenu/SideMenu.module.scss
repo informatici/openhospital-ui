@@ -1,0 +1,15 @@
+@import "../../../../styles/variables";
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0px;
+  overflow: auto;
+}
+
+.label {
+  margin: 4px 0px;
+  padding-left: 24px;
+  color: $c-grey-medium;
+  font-weight: bold;
+}

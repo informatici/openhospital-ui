@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../types";
 import { TAPIResponseStatus } from "../state/types";
 import { getUserSettings } from "../state/main/actions";
+import { AdminRoutes } from "./Admin";
 
 export const MainRouter: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export const MainRouter: React.FC = () => {
             element={<LaboratoryActivity />}
           />
           <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />
+          <Route path={`${PATHS.admin}/*`} element={<AdminRoutes />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
