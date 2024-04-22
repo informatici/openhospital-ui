@@ -351,11 +351,11 @@
     "diseases": "Diseases",
     "operations": "Operations",
     "vaccines": "Vaccines",
-    "priceList": "Price List",
+    "prices": "Price List",
     "suppliers": "Suppliers",
     "telemetry": "Telemetry",
-    "usersGroups": "Users & Groups",
-    "manageTypes": "Manage Types",
+    "users": "Users & Groups",
+    "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital"
   },
@@ -474,7 +474,8 @@
     "expand_all": "Expand All",
     "remainingchars": "Remaining : {{current}} / {{max}}",
     "gohome": "Go to home",
-    "gotopatientactivities": "Go to Patient Activities"
+    "gotopatientactivities": "Go to Patient Activities",
+    "permissionDenied": "Permission Denied - You don't have required privileges to access this content"
   },
   "permission": {
     "denied": "Permission denied",

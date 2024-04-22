@@ -64,11 +64,11 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
       icon: <SupervisedUserCircle />,
     },
     {
-      key: "usersGroups",
+      key: "users",
       icon: <People />,
     },
     {
-      key: "manageTypes",
+      key: "types",
       icon: <GroupWork />,
     },
   ];

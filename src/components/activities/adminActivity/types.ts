@@ -1,7 +1,3 @@
-import { TUserCredentials } from "../../../state/main/types";
-import { IApiResponse } from "../../../state/types";
-import { PatientDTO } from "../../../generated";
-
 export type TActivityTransitionState = "IDLE" | "TO_PATIENT_EDITING";
 
 export type IAdminSection =
@@ -10,9 +6,9 @@ export type IAdminSection =
   | "exams"
   | "operations"
   | "vaccines"
-  | "priceList"
+  | "prices"
   | "suppliers"
   | "telemetry"
-  | "usersGroups"
-  | "manageTypes"
+  | "users"
+  | "types"
   | "hospitalInfo";

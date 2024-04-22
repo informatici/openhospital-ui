@@ -59,21 +59,15 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "usersGroups",
+        path: "users",
         element: (
-          <AdminActivityContent
-            title={t("nav.usersGroups")}
-            children={<Wards />}
-          />
+          <AdminActivityContent title={t("nav.users")} children={<Wards />} />
         ),
       },
       {
-        path: "manageTypes",
+        path: "types",
         element: (
-          <AdminActivityContent
-            title={t("nav.manageTypes")}
-            children={<Wards />}
-          />
+          <AdminActivityContent title={t("nav.types")} children={<Wards />} />
         ),
       },
     ],

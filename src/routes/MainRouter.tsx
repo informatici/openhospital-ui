@@ -16,6 +16,8 @@ import { IState } from "../types";
 import { TAPIResponseStatus } from "../state/types";
 import { getUserSettings } from "../state/main/actions";
 import { AdminRoutes } from "./Admin";
+import { withPermission } from "../libraries/permissionUtils/withPermission";
+import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
 
 export const MainRouter: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,11 @@ export const MainRouter: React.FC = () => {
       dispatch(getUserSettings());
     }
   }, [status]);
+
+  const RequiredAdminAccess = withPermission(
+    "admin.access",
+    PermissionDenied
+  )(AdminRoutes);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -52,7 +59,7 @@ export const MainRouter: React.FC = () => {
             element={<LaboratoryActivity />}
           />
           <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />
-          <Route path={`${PATHS.admin}/*`} element={<AdminRoutes />} />
+          <Route path={`${PATHS.admin}/*`} element={<RequiredAdminAccess />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

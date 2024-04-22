@@ -1,11 +1,12 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import classes from "./AdminActivityContent.module.scss";
 
-type TProps = PropsWithChildren<{
+interface IOwnProps {
   title: ReactNode;
-}>;
+  children: ReactNode;
+}
 
-export const AdminActivityContent = ({ title, children }: TProps) => {
+export const AdminActivityContent = ({ title, children }: IOwnProps) => {
   return (
     <div className={classes.content}>
       <div className={classes.header}>
