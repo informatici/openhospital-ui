@@ -50,35 +50,35 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
   const menuItems: { key: IAdminSection; icon: ReactNode }[] = [
     {
       key: "wards",
-      icon: <AirlineSeatFlat />,
+      icon: <AirlineSeatFlat fontSize="small" />,
     },
     {
       key: "diseases",
-      icon: <BlurCircular />,
+      icon: <BlurCircular fontSize="small" />,
     },
     {
       key: "exams",
-      icon: <AssignmentInd />,
+      icon: <AssignmentInd fontSize="small" />,
     },
     {
       key: "operations",
-      icon: <Healing />,
+      icon: <Healing fontSize="small" />,
     },
     {
       key: "vaccines",
-      icon: <LocalDrink />,
+      icon: <LocalDrink fontSize="small" />,
     },
     {
       key: "suppliers",
-      icon: <SupervisedUserCircle />,
+      icon: <SupervisedUserCircle fontSize="small" />,
     },
     {
       key: "users",
-      icon: <People />,
+      icon: <People fontSize="small" />,
     },
     {
       key: "types",
-      icon: <GroupWork />,
+      icon: <GroupWork fontSize="small" />,
     },
   ];
 
@@ -93,12 +93,12 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
           onClick={() => {
             changeAdminSection(item.key);
           }}
-          trailingIcon={<ArrowForwardIosRounded />}
+          trailingIcon={<ArrowForwardIosRounded fontSize="small" />}
         />
       ))}
       <span className={classes.label}>{t("nav.hospital")}</span>
       <MenuItem
-        icon={<LocalHospitalSharp />}
+        icon={<LocalHospitalSharp fontSize="small" />}
         label={t(`nav.hospitalInfo`)}
         onClick={() => {}}
         expandedContent={
