@@ -11,7 +11,7 @@
   display: flex;
   background-color: $c-white;
   margin: 40px 80px;
-  height: 100%;
+  height: max-content;
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
   border-radius: 8px;
   @include susy-media($medium-down) {
@@ -32,6 +32,7 @@
   background-color: $c-gray;
   width: 300px;
   border-radius: 8px 0px 0px 8px;
+  padding: 8px 0px;
   @include susy-media($medium-down) {
     border-radius: 8px;
     width: 100%;
