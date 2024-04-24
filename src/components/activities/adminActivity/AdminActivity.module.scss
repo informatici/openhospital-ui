@@ -4,15 +4,26 @@
 .admin {
   position: relative;
   background-color: $c-color-secondary;
+  height: 100vh;
 }
 
 .content {
   display: flex;
   background-color: $c-white;
   margin: 40px 80px;
-  height: max-content;
+  height: 100%;
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
-  border-radius: 4px;
+  border-radius: 8px;
+  @include susy-media($medium-down) {
+    flex-direction: column;
+  }
+}
+
+.menuButton {
+  padding: 24px;
+  color: $c-white;
+  font-size: x-large;
+  font-weight: bold;
 }
 
 .sidebar {
@@ -21,9 +32,14 @@
   background-color: $c-gray;
   width: 300px;
   border-radius: 8px 0px 0px 8px;
+  @include susy-media($medium-down) {
+    border-radius: 8px;
+    width: 100%;
+  }
 }
 
 .outlet {
   display: flex;
   padding: 24px;
+  border-radius: 8px;
 }

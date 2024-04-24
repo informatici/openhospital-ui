@@ -12,15 +12,23 @@ import { IAdminSection } from "./types";
 import { IAuthentication } from "../../../state/main/types";
 import classes from "./AdminActivity.module.scss";
 import "./styles.scss";
+import { useMediaQuery } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "../../accessories/accordion/Accordion";
 
 const AdminActivity = () => {
+  const [expanded, setExpanded] = useState(false);
   const { t } = useTranslation();
+  const location = useLocation();
+  const matches = useMediaQuery("(min-width:768px)");
 
   const breadcrumbMap = {
     [t("nav.administration")]: PATHS.admin,
   };
 
-  const location = useLocation();
   const section =
     location.pathname.split("/")[location.pathname.split("/").length - 1];
   const [userSection, setUserSection] = useState<IAdminSection>(
@@ -43,10 +51,27 @@ const AdminActivity = () => {
       />
       <div className={classes.content}>
         <div className={classes.sidebar}>
-          <SideMenu
-            setAdminSection={setUserSection}
-            adminSection={userSection}
-          />
+          {matches ? (
+            <SideMenu
+              setAdminSection={setUserSection}
+              adminSection={userSection}
+            />
+          ) : (
+            <Accordion
+              data-cy={"expandable-item"}
+              expanded={matches ? true : expanded}
+            >
+              <AccordionSummary onClick={() => setExpanded(!expanded)}>
+                <div className={classes.menuButton}>{t("common.menu")}</div>
+              </AccordionSummary>
+              <AccordionDetails>
+                <SideMenu
+                  setAdminSection={setUserSection}
+                  adminSection={userSection}
+                />
+              </AccordionDetails>
+            </Accordion>
+          )}
         </div>
         <div className={classes.outlet}>
           <Outlet />

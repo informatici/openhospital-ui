@@ -32,6 +32,9 @@ $medium: (
 $medium-up: (
   min-width: 768px,
 );
+$medium-down: (
+  max-width: 767px,
+);
 $large: (
   min-width: 1025px,
 );

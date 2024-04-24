@@ -485,7 +485,8 @@
     "remainingchars": "Remaining : {{current}} / {{max}}",
     "gohome": "Go to home",
     "gotopatientactivities": "Go to Patient Activities",
-    "permissionDenied": "Permission Denied - You don't have required privileges to access this content"
+    "permissionDenied": "Permission Denied - You don't have required privileges to access this content",
+    "menu": "Menu"
   },
   "permission": {
     "denied": "Permission denied",
