@@ -14,6 +14,16 @@
     "groups": "Groups",
     "lastlogin": "Last login"
   },
+  "hospital": {
+    "address": "Address",
+    "city": "City",
+    "code": "Code",
+    "description": "Description",
+    "telephone": "Telephone",
+    "fax": "Fax",
+    "email": "Email Address",
+    "currencyCod": "Currency Code"
+  },
   "login": {
     "username": "Username",
     "password": "Password",

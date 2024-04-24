@@ -13,3 +13,25 @@
   color: $c-grey-medium;
   font-weight: bold;
 }
+
+.hospitalData {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 8px 8px 24px;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  color: $c-white;
+}
+
+.labelSmall {
+  font-size: medium;
+}
+
+.value {
+  font-size: large;
+  font-weight: 900;
+}
