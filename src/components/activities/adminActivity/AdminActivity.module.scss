@@ -2,18 +2,18 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .admin {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   background-color: $c-color-secondary;
-  height: 100vh;
 }
 
 .content {
   display: flex;
   background-color: $c-white;
-  margin: 40px 80px;
-  height: max-content;
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
   border-radius: 8px;
+  flex-grow: 1;
+  margin: 40px 80px;
   @include susy-media($medium-down) {
     flex-direction: column;
   }
@@ -30,8 +30,8 @@
   display: flex;
   flex-direction: column;
   background-color: $c-gray;
-  width: 300px;
   border-radius: 8px 0px 0px 8px;
+  width: max-content;
   padding: 8px 0px;
   @include susy-media($medium-down) {
     border-radius: 8px;
@@ -40,7 +40,7 @@
 }
 
 .outlet {
-  display: flex;
   padding: 24px;
   border-radius: 8px;
+  flex-grow: 1;
 }

@@ -239,7 +239,11 @@ const Table: FunctionComponent<IProps> = ({
             {expanded ? t("common.collapse_all") : t("common.expand_all")}
           </Button>
         </div>
-        <MaterialComponent className="table" aria-label="simple table">
+        <MaterialComponent
+          stickyHeader
+          className="table"
+          aria-label="simple table"
+        >
           <TableHead className="table_header">
             <TableRow>
               {isCollapsabile ? <TableCell /> : ""}

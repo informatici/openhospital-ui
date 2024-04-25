@@ -782,5 +782,20 @@
       "tissues": { "txt": "Tissues" },
       "urine": { "txt": "Urine" }
     }
+  },
+  "ward": {
+    "code": "Code",
+    "description": "Description",
+    "beds": "Beds",
+    "nurs": "Nurses",
+    "docs": "Doctors",
+    "pharmacy": "Pharmacy",
+    "male": "Male",
+    "female": "Female",
+    "telephone": "Telephone",
+    "fax": "Fax",
+    "opd": "OPD",
+    "email": "Email Address",
+    "visitDuration": "Visit Duration"
   }
 }
