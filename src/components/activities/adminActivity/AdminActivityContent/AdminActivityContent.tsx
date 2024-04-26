@@ -12,7 +12,7 @@ export const AdminActivityContent = ({ title, children }: IOwnProps) => {
       <div className={classes.header}>
         <h2>{title}</h2>
       </div>
-      <div className={classes.body}>{children}</div>
+      {children}
     </div>
   );
 };
