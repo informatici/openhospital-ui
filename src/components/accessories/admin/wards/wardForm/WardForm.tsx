@@ -107,7 +107,7 @@ const WardForm: FC<IWardProps> = ({
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
-      setFieldValue(fieldName, value);
+      setFieldValue(fieldName, value ? "true" : "false");
     },
     [setFieldValue]
   );
@@ -246,7 +246,7 @@ const WardForm: FC<IWardProps> = ({
           <div className="wardForm__item">
             <CheckboxField
               fieldName={"opd"}
-              checked={formik.values.opd === true}
+              checked={formik.values.opd === "true"}
               label={t("ward.opd")}
               onChange={handleCheckboxChange("opd")}
             />
@@ -254,7 +254,7 @@ const WardForm: FC<IWardProps> = ({
           <div className="wardForm__item">
             <CheckboxField
               fieldName={"pharmacy"}
-              checked={formik.values.pharmacy === true}
+              checked={formik.values.pharmacy === "true"}
               label={t("ward.pharmacy")}
               onChange={handleCheckboxChange("pharmacy")}
             />
@@ -262,7 +262,7 @@ const WardForm: FC<IWardProps> = ({
           <div className="wardForm__item">
             <CheckboxField
               fieldName={"male"}
-              checked={formik.values.male === true}
+              checked={formik.values.male === "true"}
               label={t("ward.male")}
               onChange={handleCheckboxChange("male")}
             />
@@ -270,7 +270,7 @@ const WardForm: FC<IWardProps> = ({
           <div className="wardForm__item">
             <CheckboxField
               fieldName={"female"}
-              checked={formik.values.female === true}
+              checked={formik.values.female === "true"}
               label={t("ward.female")}
               onChange={handleCheckboxChange("female")}
             />

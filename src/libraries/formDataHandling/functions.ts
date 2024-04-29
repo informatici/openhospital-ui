@@ -101,6 +101,9 @@ export const formatAllFieldValues = (
   return Object.keys(fields).reduce(
     (acc: Record<string, TFieldFormattedValue>, key) => {
       switch (fields[key].type) {
+        case "boolean":
+          acc[key] = values[key] === "true" ? true : false;
+          break;
         case "number":
           const int = parseInt(values[key]);
           const float = parseFloat(values[key]);
