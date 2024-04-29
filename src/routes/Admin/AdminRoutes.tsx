@@ -5,6 +5,8 @@ import NotFound from "../../components/activities/notFound/NotFound";
 import AdminActivity from "../../components/activities/adminActivity/AdminActivity";
 import { AdminActivityContent } from "../../components/activities/adminActivity/AdminActivityContent/AdminActivityContent";
 import { Wards } from "../../components/accessories/admin";
+import { NewWard } from "../../components/accessories/admin/wards/newWard/NewWard";
+import { EditWard } from "../../components/accessories/admin/wards/editWard/EditWard";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -14,6 +16,24 @@ export const AdminRoutes = () => {
         path: "wards",
         element: (
           <AdminActivityContent title={t("nav.wards")} children={<Wards />} />
+        ),
+      },
+      {
+        path: "wards/new",
+        element: (
+          <AdminActivityContent
+            title={t("ward.addWard")}
+            children={<NewWard />}
+          />
+        ),
+      },
+      {
+        path: "wards/:id/edit",
+        element: (
+          <AdminActivityContent
+            title={t("ward.editWard")}
+            children={<EditWard />}
+          />
         ),
       },
       {
