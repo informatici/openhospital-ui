@@ -8,8 +8,6 @@ export interface IWardProps {
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
-  shouldResetForm: boolean;
-  resetFormCallback: () => void;
 }
 
 export type WardFormFieldName =

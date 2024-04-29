@@ -107,7 +107,7 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
               Object.entries(hospital.data)
                 .filter((entry) => entry[0] !== "lock")
                 .map((entry) => (
-                  <div className={classes.item}>
+                  <div key={entry[0]} className={classes.item}>
                     <span className={classes.labelSmall}>
                       {t(`hospital.${entry[0]}`)}
                     </span>

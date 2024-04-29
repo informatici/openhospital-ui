@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -6,18 +6,25 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { WardDTO } from "../../../../../generated";
-import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 import { IApiResponse } from "../../../../../state/types";
 import { CheckOutlined } from "@material-ui/icons";
 import classes from "./WardTable.module.scss";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../../assets/check-icon.png";
+import { deleteWardReset } from "../../../../../state/ward/actions";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
+  onDelete: (row: any) => void;
 }
 
-export const WardTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
+export const WardTable: FunctionComponent<IOwnProps> = ({
+  onEdit,
+  onDelete,
+}) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const canUpdate = usePermission("wards.update");
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = [
     "code",
@@ -58,14 +65,20 @@ export const WardTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
     "female",
   ];
 
-  const dispatch = useDispatch();
-
   const { data, status, error } = useSelector<IState, IApiResponse<WardDTO[]>>(
     (state) => state.wards.allWards
   );
 
+  const deleteWard = useSelector<IState, IApiResponse<boolean>>(
+    (state) => state.wards.delete
+  );
+
   const handleEdit = (row: WardDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));
+  };
+
+  const handleDelete = (row: WardDTO) => {
+    onDelete(row);
   };
 
   const formatDataToDisplay = (data: WardDTO[]) => {
@@ -103,17 +116,35 @@ export const WardTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
 
           case "SUCCESS":
             return (
-              <Table
-                rowData={formatDataToDisplay(data ?? [])}
-                tableHeader={header}
-                labelData={label}
-                columnsOrder={order}
-                rowsPerPage={2}
-                isCollapsabile={true}
-                onEdit={canUpdate ? handleEdit : undefined}
-                initialOrderBy="disDate"
-                showEmptyCell={false}
-              />
+              <>
+                <Table
+                  rowData={formatDataToDisplay(data ?? [])}
+                  tableHeader={header}
+                  labelData={label}
+                  columnsOrder={order}
+                  rowsPerPage={2}
+                  isCollapsabile={true}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  showEmptyCell={false}
+                />
+                {deleteWard.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox type="error" message={deleteWard.error?.message} />
+                  </div>
+                )}
+                <ConfirmationDialog
+                  isOpen={!!deleteWard.hasSucceeded}
+                  title={t("ward.deleted")}
+                  icon={checkIcon}
+                  info={t("ward.deleteSuccess")}
+                  primaryButtonLabel="Ok"
+                  handlePrimaryButtonClick={() => {
+                    dispatch(deleteWardReset());
+                  }}
+                  handleSecondaryButtonClick={() => ({})}
+                />
+              </>
             );
           case "SUCCESS_EMPTY":
             return <InfoBox type="info" message={t("common.emptydata")} />;

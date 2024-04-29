@@ -9,6 +9,14 @@
       "someexamswithoutresultpleasecheck": "Some exams without result please check."
     }
   },
+  "validations": {
+    "min": "the value must be at least {{min}}",
+    "max": "the value must not exceed {{max}}",
+    "minLength": "the value length must be at least {{min}}",
+    "maxLength": "the value length must not exceed {{max}}",
+    "email": "The value is not a valid email address",
+    "number": "the value is not a valid number"
+  },
   "user": {
     "username": "Username",
     "groups": "Groups",
@@ -798,6 +806,14 @@
     "email": "Email Address",
     "visitDuration": "Visit Duration",
     "addWard": "Add Ward",
-    "editWard": "Edit Ward"
+    "editWard": "Edit Ward",
+    "updateWard": "update Ward",
+    "saveWard": "Save Ward",
+    "created": "Ward Created",
+    "updated": "Ward updated",
+    "deleted": "Ward deleted",
+    "createSuccess": "Ward has been created successfully!",
+    "updateSuccess": "Ward {{code}} has been updated successfully!",
+    "deleteSuccess": "Ward {{code}} has been deleted successfully!"
   }
 }

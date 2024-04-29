@@ -1,20 +1,40 @@
 import { useTranslation } from "react-i18next";
 import WardForm from "../wardForm/WardForm";
 import React from "react";
-import { initialFields } from "../wardForm/consts";
+import { getInitialFields } from "../wardForm/consts";
+import { useDispatch, useSelector } from "react-redux";
+import { WardDTO } from "../../../../../generated";
+import { IApiResponse } from "../../../../../state/types";
+import { updateWard } from "../../../../../state/ward/actions";
+import { IState } from "../../../../../types";
+import { Navigate, useLocation, useParams } from "react-router";
+import { PATHS } from "../../../../../consts";
 
 export const EditWard = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { state }: { state: WardDTO | undefined } = useLocation();
+  const { id } = useParams();
+  const update = useSelector<IState, IApiResponse<WardDTO>>(
+    (state) => state.wards.update
+  );
+
+  const handleSubmit = (value: WardDTO) => {
+    dispatch(updateWard(value));
+  };
+
+  if (state?.code !== id) {
+    return <Navigate to={PATHS.wards} />;
+  }
+
   return (
     <WardForm
-      creationMode
-      onSubmit={() => {}}
-      isLoading={false}
+      creationMode={false}
+      onSubmit={handleSubmit}
+      isLoading={!!update.isLoading}
       resetButtonLabel={t("common.reset")}
-      submitButtonLabel={t("common.submit")}
-      resetFormCallback={() => {}}
-      shouldResetForm={false}
-      fields={initialFields}
+      submitButtonLabel={t("ward.updateWard")}
+      fields={getInitialFields(state)}
     />
   );
 };
