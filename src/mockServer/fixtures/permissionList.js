@@ -166,6 +166,7 @@ const permissionList = [
   "laboratories.access",
   "patients.access",
   "visit.access",
+  "admin.access",
 ];
 
 export default permissionList;
