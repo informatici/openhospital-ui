@@ -1,4 +1,10 @@
-import React, { MouseEvent, useCallback, useState } from "react";
+import React, {
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { IOwnProps, TFilterFormFieldName } from "./types";
 import { IconButton, Menu } from "@material-ui/core";
 import { Filter1Outlined, LocalBar } from "@material-ui/icons";
@@ -12,11 +18,12 @@ import {
 } from "../../../../libraries/formDataHandling/functions";
 import TextField from "../../textField/TextField";
 import { useTranslation } from "react-i18next";
-import { get, has, isEmpty } from "lodash";
+import { forEach, get, has, isEmpty } from "lodash";
 import DateField from "../../dateField/DateField";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import SelectField from "../../selectField/SelectField";
 import CheckboxField from "../../checkboxField/CheckboxField";
+import classnames from "classnames";
 
 export const FilterButton = ({ field, onChange }: IOwnProps) => {
   const { t } = useTranslation();
@@ -30,11 +37,19 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
     setAnchorEl(null);
   };
 
-  const fields: TFields<TFilterFormFieldName> = {
-    value: { type: "text", value: "" },
-    min: { type: "text", value: "" },
-    max: { type: "text", value: "" },
-  };
+  const fields: TFields<TFilterFormFieldName> = useMemo(() => {
+    return {
+      value: {
+        type:
+          field.type === "number" || field.type === "boolean"
+            ? field.type
+            : "text",
+        value: "",
+      },
+      min: { type: field.type === "number" ? "number" : "text", value: "" },
+      max: { type: field.type === "number" ? "number" : "text", value: "" },
+    };
+  }, [field.type]);
 
   const validationSchema = object({
     value: string(),
@@ -46,7 +61,11 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onChange(formattedValues as any);
+      onChange({
+        value: isEmpty(values.value) ? undefined : formattedValues.value,
+        min: isEmpty(values.min) ? undefined : formattedValues.min,
+        max: isEmpty(values.max) ? undefined : formattedValues.max,
+      } as any);
     },
   });
 
@@ -83,6 +102,10 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
       : "";
   };
 
+  useEffect(() => {
+    formik.submitForm();
+  }, [formik.values]);
+
   return (
     <div>
       <IconButton
@@ -90,7 +113,15 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <LocalBar fontSize="small" />
+        <LocalBar
+          className={classnames(classes.icon, {
+            [classes.filtered]:
+              !isEmpty(formik.values.value) ||
+              !isEmpty(formik.values.min) ||
+              !isEmpty(formik.values.max),
+          })}
+          fontSize="small"
+        />
       </IconButton>
       <Menu
         id="filter-menu"
@@ -100,7 +131,7 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
         onClose={handleClose}
       >
         <div className={classes.filterButton}>
-          <span className={classes.label}>{field.label}</span>
+          <span className={classes.label}>{t("common.filter")}</span>
           {(field.type === "text" || field.type === "number") && (
             <TextField
               field={formik.getFieldProps("value")}

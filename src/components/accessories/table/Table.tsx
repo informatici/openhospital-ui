@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -35,6 +35,7 @@ import warningIcon from "../../../assets/warning-icon.png";
 import Button from "../button/Button";
 import { FilterButton } from "./filter/FilterButton";
 import { TFilterValues } from "./filter/types";
+import moment from "moment";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -61,6 +62,10 @@ const Table: FunctionComponent<IProps> = ({
   displayRowAction,
   detailsExcludedFields,
   filterColumns = [],
+  onFilterChange,
+  manualFilter = true,
+  rawData,
+  rowKey,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -70,7 +75,7 @@ const Table: FunctionComponent<IProps> = ({
   const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
   const [expanded, setExpanded] = useState(false);
-  const [filters, setFilters] = useState<Record<string, TFilterValues>>();
+  const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -235,6 +240,89 @@ const Table: FunctionComponent<IProps> = ({
     setExpanded(!expanded);
   };
 
+  const removeRowWhere = (
+    values: Record<string, any>[],
+    predicate: (row: Record<string, any>) => boolean
+  ) => {
+    return values.filter((entry) => {
+      const row = rawData?.find(
+        (item) => item[rowKey ?? ""] === entry[rowKey ?? ""]
+      );
+      return !!row ? !predicate(row) : false;
+    });
+  };
+
+  const filteredData = useMemo(() => {
+    if ((filterColumns?.length ?? 0) === 0 || manualFilter) {
+      return rowData;
+    }
+    let result = rowData;
+    filterColumns.forEach((field) => {
+      const filter = filters[field.key];
+      if (filter) {
+        switch (field.type) {
+          case "boolean":
+            result = removeRowWhere(result, (row) =>
+              filter.value === undefined
+                ? false
+                : (row[field.key] ?? false) !== filter.value
+            );
+            break;
+          case "number":
+            result = removeRowWhere(
+              result,
+              (row) =>
+                (filter.value === undefined
+                  ? false
+                  : row[field.key] !== filter.value) ||
+                (filter.min === undefined
+                  ? false
+                  : row[field.key] < filter.min) ||
+                (filter.max === undefined ? false : row[field.key] > filter.max)
+            );
+            break;
+          case "text":
+            result = removeRowWhere(result, (row) =>
+              filter.value === undefined
+                ? false
+                : row[field.key] !== filter.value
+            );
+            break;
+
+          case "select":
+            result = removeRowWhere(result, (row) =>
+              filter.value === undefined
+                ? false
+                : row[field.key] !== filter.value
+            );
+            break;
+
+          default:
+            result = removeRowWhere(
+              result,
+              (row) =>
+                (filter.value === undefined
+                  ? false
+                  : !moment(row[field.key]).isSame(
+                      moment(filter.value as string)
+                    )) ||
+                (filter.min === undefined
+                  ? false
+                  : moment(row[field.key]).isBefore(
+                      moment(filter.min as string)
+                    )) ||
+                (filter.max === undefined
+                  ? false
+                  : moment(row[field.key]).isAfter(
+                      moment(filter.max as string)
+                    ))
+            );
+        }
+      }
+    });
+    return result;
+  }, [filterColumns, filters, manualFilter, rowData]);
+
   return (
     <>
       <div className="header">
@@ -291,7 +379,7 @@ const Table: FunctionComponent<IProps> = ({
             </TableRow>
           </TableHead>
           <TableBody className="table_body">
-            {[...rowData]
+            {filteredData
               .sort(
                 dateFields.includes(orderBy)
                   ? dateComparator(order, orderBy)
@@ -321,10 +409,10 @@ const Table: FunctionComponent<IProps> = ({
           </TableBody>
         </MaterialComponent>
       </TableContainer>
-      {rowData.length > rowsPerPage ? (
+      {filteredData.length > rowsPerPage ? (
         <TablePagination
           component="div"
-          count={rowData.length}
+          count={filteredData.length}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[rowsPerPage]}
           page={page}

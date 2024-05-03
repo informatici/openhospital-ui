@@ -19,8 +19,8 @@ export type TFilterField =
 
 export type TFilterValues = {
   value?: number | string | boolean;
-  min?: number;
-  max?: number;
+  min?: number | string;
+  max?: number | string;
 };
 
 export type TFilterFormFieldName = "value" | "min" | "max";

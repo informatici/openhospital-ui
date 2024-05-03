@@ -494,7 +494,8 @@
     "gohome": "Go to home",
     "gotopatientactivities": "Go to Patient Activities",
     "permissionDenied": "Permission Denied - You don't have required privileges to access this content",
-    "menu": "Menu"
+    "menu": "Menu",
+    "filter": "Filter"
   },
   "permission": {
     "denied": "Permission denied",

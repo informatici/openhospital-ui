@@ -1,4 +1,4 @@
-import { TFilterField } from "./filter/types";
+import { TFilterField, TFilterValues } from "./filter/types";
 
 export interface IProps {
   rowData: Array<Record<string, any>>;
@@ -27,6 +27,10 @@ export interface IProps {
   displayRowAction?: (row: any, action: TActions) => boolean;
   detailsExcludedFields?: string[];
   filterColumns?: TFilterField[];
+  onFilterChange?: (filter: Record<string, TFilterValues>) => void;
+  manualFilter?: boolean;
+  rawData?: Record<string, any>[];
+  rowKey?: string;
 }
 
 export interface IRowProps {

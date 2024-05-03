@@ -57,9 +57,9 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
   const order = ["code", "description", "beds", "nurs", "docs"];
 
   const filters: TFilterField[] = [
-    { key: "pharmacy", label: t("ward.pharmacy"), type: "text" },
-    { key: "male", label: t("ward.male"), type: "text" },
-    { key: "female", label: t("ward.female"), type: "text" },
+    { key: "pharmacy", label: t("ward.pharmacy"), type: "boolean" },
+    { key: "male", label: t("ward.male"), type: "boolean" },
+    { key: "female", label: t("ward.female"), type: "boolean" },
     { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
@@ -126,6 +126,9 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
                   onDelete={handleDelete}
                   showEmptyCell={false}
                   filterColumns={filters}
+                  rawData={data}
+                  manualFilter={false}
+                  rowKey="code"
                 />
                 {deleteWard.status === "FAIL" && (
                   <div ref={infoBoxRef} className="info-box-container">
