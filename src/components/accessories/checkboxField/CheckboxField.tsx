@@ -8,6 +8,7 @@ const CheckboxField: FunctionComponent<IProps> = ({
   disabled,
   label,
   onChange,
+  indeterminate,
 }) => {
   const [value, setValue] = useState<boolean>(false);
 
@@ -28,6 +29,7 @@ const CheckboxField: FunctionComponent<IProps> = ({
           checked={value}
           onChange={handleChange}
           name={fieldName}
+          indeterminate={indeterminate}
         />
       }
       label={label}

@@ -1,0 +1,15 @@
+@use "../../../../styles/variables" as vars;
+
+.filterButton {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 8px;
+  min-width: 120px;
+  align-items: center;
+}
+
+.label {
+  font-size: small;
+  color: vars.$c-gray;
+}

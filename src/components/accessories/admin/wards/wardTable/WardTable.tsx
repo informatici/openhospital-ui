@@ -12,6 +12,7 @@ import classes from "./WardTable.module.scss";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { deleteWardReset } from "../../../../../state/ward/actions";
+import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -53,16 +54,13 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     fax: t("ward.fax"),
     visitDuration: t("ward.visitDuration"),
   };
-  const order = [
-    "code",
-    "description",
-    "beds",
-    "nurs",
-    "docs",
-    "opd",
-    "pharmacy",
-    "male",
-    "female",
+  const order = ["code", "description", "beds", "nurs", "docs"];
+
+  const filters: TFilterField[] = [
+    { key: "pharmacy", label: t("ward.pharmacy"), type: "text" },
+    { key: "male", label: t("ward.male"), type: "text" },
+    { key: "female", label: t("ward.female"), type: "text" },
+    { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
   const { data, status, error } = useSelector<IState, IApiResponse<WardDTO[]>>(
@@ -127,6 +125,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   showEmptyCell={false}
+                  filterColumns={filters}
                 />
                 {deleteWard.status === "FAIL" && (
                   <div ref={infoBoxRef} className="info-box-container">

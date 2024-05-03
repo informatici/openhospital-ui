@@ -33,6 +33,8 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
 import Button from "../button/Button";
+import { FilterButton } from "./filter/FilterButton";
+import { TFilterValues } from "./filter/types";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -58,6 +60,7 @@ const Table: FunctionComponent<IProps> = ({
   detailColSpan,
   displayRowAction,
   detailsExcludedFields,
+  filterColumns = [],
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -67,6 +70,7 @@ const Table: FunctionComponent<IProps> = ({
   const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
   const [expanded, setExpanded] = useState(false);
+  const [filters, setFilters] = useState<Record<string, TFilterValues>>();
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -243,27 +247,46 @@ const Table: FunctionComponent<IProps> = ({
           <TableHead className="table_header">
             <TableRow>
               {isCollapsabile ? <TableCell /> : ""}
-              {tableHeader.map((h: string, i) => (
-                <TableCell key={i}>
-                  {columnsOrder.includes(h) ? (
-                    <TableSortLabel
-                      active={orderBy === h}
-                      direction={
-                        orderBy === h
-                          ? order
-                          : dateFields.includes(h)
-                          ? "desc"
-                          : "asc"
-                      }
-                      onClick={createSortHandler(h)}
-                    >
-                      {labelData[h]}
-                    </TableSortLabel>
-                  ) : (
-                    labelData[h]
-                  )}
-                </TableCell>
-              ))}
+              {tableHeader.map((h: string, i) => {
+                const filterField = filterColumns?.find(
+                  (item) => item.key === h
+                );
+
+                return (
+                  <TableCell key={i}>
+                    <div className="headerCell">
+                      {columnsOrder.includes(h) ? (
+                        <TableSortLabel
+                          active={orderBy === h}
+                          direction={
+                            orderBy === h
+                              ? order
+                              : dateFields.includes(h)
+                              ? "desc"
+                              : "asc"
+                          }
+                          onClick={createSortHandler(h)}
+                        >
+                          {labelData[h]}
+                        </TableSortLabel>
+                      ) : (
+                        labelData[h]
+                      )}
+                      {filterField && (
+                        <FilterButton
+                          field={filterField}
+                          onChange={(value) =>
+                            setFilters((previous) => ({
+                              ...filters,
+                              [filterField.key]: value,
+                            }))
+                          }
+                        />
+                      )}
+                    </div>
+                  </TableCell>
+                );
+              })}
               <TableCell>&nbsp;</TableCell>
             </TableRow>
           </TableHead>

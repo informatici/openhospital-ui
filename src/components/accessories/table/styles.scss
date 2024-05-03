@@ -9,6 +9,10 @@
   @media print {
     height: auto !important;
   }
+  .headerCell {
+    display: flex;
+    align-items: center;
+  }
   .table_header {
     th {
       text-transform: capitalize;
