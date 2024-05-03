@@ -3,6 +3,7 @@ export interface IProps {
   labelData: Record<string, any>;
   tableHeader: Array<string>;
   dateFields?: string[];
+  /** allow the table to expand & collapse */
   isCollapsabile?: boolean;
   rowsPerPage: number;
   initialOrderBy?: string;

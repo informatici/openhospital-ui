@@ -7,6 +7,7 @@ import { AdminActivityContent } from "../../components/activities/adminActivity/
 import { Wards } from "../../components/accessories/admin";
 import { NewWard } from "../../components/accessories/admin/wards/newWard/NewWard";
 import { EditWard } from "../../components/accessories/admin/wards/editWard/EditWard";
+import { Exams } from "../../components/accessories/admin/exams";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -48,7 +49,7 @@ export const AdminRoutes = () => {
       {
         path: "exams",
         element: (
-          <AdminActivityContent title={t("nav.exams")} children={<Wards />} />
+          <AdminActivityContent title={t("nav.exams")} children={<Exams />} />
         ),
       },
       {
