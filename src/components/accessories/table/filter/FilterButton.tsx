@@ -21,7 +21,6 @@ import { useTranslation } from "react-i18next";
 import { get, has, isEmpty } from "lodash";
 import DateField from "../../dateField/DateField";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import SelectField from "../../selectField/SelectField";
 import CheckboxField from "../../checkboxField/CheckboxField";
 import classnames from "classnames";
 
@@ -97,6 +96,15 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
     [formik]
   );
 
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (e: React.FocusEvent<HTMLDivElement>, value: string) => {
+        formik.handleBlur(e);
+        formik.setFieldValue(fieldName, value);
+      },
+    [formik]
+  );
+
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
   };
@@ -108,6 +116,7 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
   };
 
   useEffect(() => {
+    console.log(formik.values);
     formik.submitForm();
   }, [formik.values]);
 
@@ -158,29 +167,15 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
             />
           )}
           {field.type === "select" && (
-            <>
-              {(field.autocomplete && (
-                <AutocompleteField
-                  fieldName="value"
-                  fieldValue={formik.values.value}
-                  label={field.label}
-                  isValid={isValid("value")}
-                  errorText={getErrorText("value")}
-                  onBlur={formik.handleBlur}
-                  options={field.options}
-                />
-              )) || (
-                <SelectField
-                  fieldName="value"
-                  fieldValue={formik.values.value}
-                  label={field.label}
-                  isValid={isValid("value")}
-                  errorText={getErrorText("value")}
-                  onBlur={formik.handleBlur}
-                  options={field.options}
-                />
-              )}
-            </>
+            <AutocompleteField
+              fieldName="value"
+              fieldValue={formik.values.value}
+              label={field.label}
+              isValid={isValid("value")}
+              errorText={getErrorText("value")}
+              options={[...field.options, { value: "", label: "" }]}
+              onBlur={onBlurCallback("value")}
+            />
           )}
           {field.type === "number" && (
             <>

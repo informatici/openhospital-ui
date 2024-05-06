@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useMemo, useState } from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
