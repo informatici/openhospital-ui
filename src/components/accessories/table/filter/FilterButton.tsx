@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { IOwnProps, TFilterFormFieldName } from "./types";
 import { IconButton, Menu } from "@material-ui/core";
-import { Filter1Outlined, LocalBar } from "@material-ui/icons";
+import { LocalBar } from "@material-ui/icons";
 import classes from "./FilterButton.module.scss";
 import { useFormik } from "formik";
 import { TFields } from "../../../../libraries/formDataHandling/types";
@@ -18,7 +18,7 @@ import {
 } from "../../../../libraries/formDataHandling/functions";
 import TextField from "../../textField/TextField";
 import { useTranslation } from "react-i18next";
-import { forEach, get, has, isEmpty } from "lodash";
+import { get, has, isEmpty } from "lodash";
 import DateField from "../../dateField/DateField";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import SelectField from "../../selectField/SelectField";
@@ -62,9 +62,14 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       onChange({
-        value: isEmpty(values.value) ? undefined : formattedValues.value,
-        min: isEmpty(values.min) ? undefined : formattedValues.min,
-        max: isEmpty(values.max) ? undefined : formattedValues.max,
+        value:
+          (values.value as string).length === 0
+            ? undefined
+            : formattedValues.value,
+        min:
+          (values.min as string).length === 0 ? undefined : formattedValues.min,
+        max:
+          (values.max as string).length === 0 ? undefined : formattedValues.max,
       } as any);
     },
   });
@@ -189,11 +194,11 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
                 type="number"
               />
               <TextField
-                field={formik.getFieldProps("min")}
+                field={formik.getFieldProps("max")}
                 theme="regular"
-                label={t("common.min")}
-                isValid={isValid("min")}
-                errorText={getErrorText("min")}
+                label={t("common.max")}
+                isValid={isValid("max")}
+                errorText={getErrorText("max")}
                 onBlur={formik.handleBlur}
                 type="number"
               />

@@ -269,6 +269,8 @@ const Table: FunctionComponent<IProps> = ({
             );
             break;
           case "number":
+            console.log(typeof filter.value);
+            console.log(filter.value);
             result = removeRowWhere(
               result,
               (row) =>
@@ -285,7 +287,7 @@ const Table: FunctionComponent<IProps> = ({
             result = removeRowWhere(result, (row) =>
               filter.value === undefined
                 ? false
-                : row[field.key] !== filter.value
+                : !(row[field.key] as string)?.includes(filter.value as string)
             );
             break;
 
