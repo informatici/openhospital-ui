@@ -54,10 +54,9 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     fax: t("ward.fax"),
     visitDuration: t("ward.visitDuration"),
   };
-  const order = ["code", "description", "beds", "docs"];
+  const order = ["code", "description", "beds", "nurs", "docs"];
 
   const filters: TFilterField[] = [
-    { key: "nurs", label: t("ward.nurs"), type: "number" },
     { key: "pharmacy", label: t("ward.pharmacy"), type: "boolean" },
     { key: "male", label: t("ward.male"), type: "boolean" },
     { key: "female", label: t("ward.female"), type: "boolean" },

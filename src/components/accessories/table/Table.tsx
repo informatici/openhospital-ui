@@ -245,7 +245,7 @@ const Table: FunctionComponent<IProps> = ({
     predicate: (row: Record<string, any>) => boolean
   ) => {
     return values.filter((entry) => {
-      const row = rawData?.find(
+      const row = (rawData ?? rowData).find(
         (item) => item[rowKey ?? ""] === entry[rowKey ?? ""]
       );
       return !!row ? !predicate(row) : false;
@@ -269,8 +269,6 @@ const Table: FunctionComponent<IProps> = ({
             );
             break;
           case "number":
-            console.log(typeof filter.value);
-            console.log(filter.value);
             result = removeRowWhere(
               result,
               (row) =>
