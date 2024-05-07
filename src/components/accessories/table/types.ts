@@ -31,6 +31,12 @@ export interface IProps {
    * Column used for the filter. When this prop is provided, don't forget to provide also [rawData]
    */
   filterColumns?: TFilterField[];
+  /**
+   *
+   * @param filter The current filter value
+   *
+   * When [manualFilter] is set to true, then the changes to the table filter will be dispatched through this callback (if provided)
+   */
   onFilterChange?: (filter: Record<string, TFilterValues>) => void;
   /**
    * When set to true(default value), the data are not filtered internally. That means changes to the filter will only be dispached

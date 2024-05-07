@@ -116,7 +116,6 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
   };
 
   useEffect(() => {
-    console.log(formik.values);
     formik.submitForm();
   }, [formik.values]);
 
