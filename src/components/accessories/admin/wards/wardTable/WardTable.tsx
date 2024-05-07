@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent, ReactNode, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -17,11 +17,13 @@ import { TFilterField } from "../../../table/filter/types";
 interface IOwnProps {
   onEdit: (row: any) => void;
   onDelete: (row: any) => void;
+  headerActions?: ReactNode;
 }
 
 export const WardTable: FunctionComponent<IOwnProps> = ({
   onEdit,
   onDelete,
+  headerActions,
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -129,6 +131,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
                   rawData={data}
                   manualFilter={false}
                   rowKey="code"
+                  headerActions={headerActions}
                 />
                 {deleteWard.status === "FAIL" && (
                   <div ref={infoBoxRef} className="info-box-container">

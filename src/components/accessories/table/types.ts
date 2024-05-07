@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { TFilterField, TFilterValues } from "./filter/types";
 
 export interface IProps {
@@ -47,6 +48,7 @@ export interface IProps {
    * uniquely each row(id for example) and should be present in each rowData and rawData item.
    */
   rowKey?: string;
+  headerActions?: ReactNode;
 }
 
 export interface IRowProps {

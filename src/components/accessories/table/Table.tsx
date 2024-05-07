@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -66,6 +66,7 @@ const Table: FunctionComponent<IProps> = ({
   manualFilter = true,
   rawData,
   rowKey,
+  headerActions,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -321,7 +322,13 @@ const Table: FunctionComponent<IProps> = ({
       }
     });
     return result;
-  }, [filterColumns, filters, manualFilter, rowData]);
+  }, [filterColumns, filters, manualFilter, removeRowWhere, rowData]);
+
+  useEffect(() => {
+    if (onFilterChange) {
+      onFilterChange(filters);
+    }
+  }, [filters]);
 
   return (
     <>
@@ -329,6 +336,7 @@ const Table: FunctionComponent<IProps> = ({
         <Button type="button" onClick={handleExpand}>
           {expanded ? t("common.collapse_all") : t("common.expand_all")}
         </Button>
+        {headerActions && <div className="headerActions">{headerActions}</div>}
       </div>
       <TableContainer component={Paper}>
         <MaterialComponent className="table" aria-label="simple table">
