@@ -61,6 +61,7 @@ const AppHeader: FunctionComponent<TProps> = ({
   const canAccessVisit = usePermission("opds.access");
   const canAccessLaboratory = usePermission("laboratories.access");
   const canAccessDashboard = usePermission("dashboard.access");
+  const canAccessAdmin = usePermission("admin.access");
 
   return (
     <div
@@ -141,6 +142,14 @@ const AppHeader: FunctionComponent<TProps> = ({
                   onClick={() => navigate(PATHS.dashboard)}
                 >
                   {t("nav.dashboard")}
+                </div>
+              )}
+              {canAccessAdmin && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.admin)}
+                >
+                  {t("nav.administration")}
                 </div>
               )}
               {canAccessPatient && (
