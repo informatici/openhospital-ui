@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -241,17 +247,20 @@ const Table: FunctionComponent<IProps> = ({
     setExpanded(!expanded);
   };
 
-  const removeRowWhere = (
-    values: Record<string, any>[],
-    predicate: (row: Record<string, any>) => boolean
-  ) => {
-    return values.filter((entry) => {
-      const row = (rawData ?? rowData).find(
-        (item) => item[rowKey ?? ""] === entry[rowKey ?? ""]
-      );
-      return !!row ? !predicate(row) : false;
-    });
-  };
+  const removeRowWhere = useCallback(
+    (
+      values: Record<string, any>[],
+      predicate: (row: Record<string, any>) => boolean
+    ) => {
+      return values.filter((entry) => {
+        const row = (rawData ?? rowData).find(
+          (item) => item[rowKey ?? ""] === entry[rowKey ?? ""]
+        );
+        return !!row ? !predicate(row) : false;
+      });
+    },
+    [rawData, rowData, rowKey]
+  );
 
   const filteredData = useMemo(() => {
     if ((filterColumns?.length ?? 0) === 0 || manualFilter) {
@@ -325,7 +334,7 @@ const Table: FunctionComponent<IProps> = ({
   }, [filterColumns, filters, manualFilter, removeRowWhere, rowData]);
 
   useEffect(() => {
-    if (onFilterChange) {
+    if (onFilterChange && !manualFilter) {
       onFilterChange(filters);
     }
   }, [filters]);
