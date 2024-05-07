@@ -112,6 +112,14 @@ const WardForm: FC<IWardProps> = ({
     [setFieldValue]
   );
 
+  const handleReset = useCallback(() => {
+    if (creationMode) {
+      setOpenResetConfirmation(true);
+    } else {
+      navigate(-1);
+    }
+  }, [creationMode, navigate]);
+
   const cleanUp = useCallback(() => {
     if (creationMode) {
       dispatch(createWardReset());
@@ -288,7 +296,7 @@ const WardForm: FC<IWardProps> = ({
               type="reset"
               variant="text"
               disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              onClick={handleReset}
             >
               {resetButtonLabel}
             </Button>

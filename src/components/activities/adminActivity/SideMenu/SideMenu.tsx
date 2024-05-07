@@ -96,7 +96,7 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
           trailingIcon={<ArrowForwardIosRounded fontSize="small" />}
         />
       ))}
-      <span className={classes.label}>{t("nav.hospital")}</span>
+      <h6 className={classes.label}>{t("nav.hospital")}</h6>
       <MenuItem
         icon={<LocalHospitalSharp fontSize="small" />}
         label={t(`nav.hospitalInfo`)}
