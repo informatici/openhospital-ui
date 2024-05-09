@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import { DiseaseDTO, WardDTO } from "../../generated";
+import { WardDTO } from "../../generated";
 import { WardsApi } from "../../generated/apis/WardsApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";

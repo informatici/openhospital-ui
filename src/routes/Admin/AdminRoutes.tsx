@@ -2,11 +2,10 @@ import React, { ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
 import NotFound from "../../components/activities/notFound/NotFound";
-import AdminActivity from "../../components/activities/adminActivity/AdminActivity";
-import { AdminActivityContent } from "../../components/activities/adminActivity/AdminActivityContent/AdminActivityContent";
-import { Wards } from "../../components/accessories/admin";
-import { NewWard } from "../../components/accessories/admin/wards/newWard/NewWard";
-import { EditWard } from "../../components/accessories/admin/wards/editWard/EditWard";
+import AdminActivity, {
+  AdminActivityContent,
+} from "../../components/activities/adminActivity";
+import { Wards, NewWard, EditWard } from "../../components/accessories/admin";
 import { Exams } from "../../components/accessories/admin/exams";
 
 export const AdminRoutes = () => {
