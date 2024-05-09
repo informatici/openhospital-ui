@@ -5,7 +5,13 @@ export type TFieldAddress =
   | "isVisible"
   | "options";
 
-export type TFieldType = "text" | "number" | "date" | "select" | "decimal";
+export type TFieldType =
+  | "text"
+  | "number"
+  | "date"
+  | "select"
+  | "decimal"
+  | "boolean";
 
 export type TFieldFormattedValue = string | number | any;
 

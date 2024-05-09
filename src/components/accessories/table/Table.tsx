@@ -233,12 +233,12 @@ const Table: FunctionComponent<IProps> = ({
 
   return (
     <>
+      <div className="header">
+        <Button type="button" onClick={handleExpand}>
+          {expanded ? t("common.collapse_all") : t("common.expand_all")}
+        </Button>
+      </div>
       <TableContainer component={Paper}>
-        <div className="header">
-          <Button type="button" onClick={handleExpand}>
-            {expanded ? t("common.collapse_all") : t("common.expand_all")}
-          </Button>
-        </div>
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">
             <TableRow>

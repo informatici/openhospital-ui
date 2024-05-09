@@ -9,10 +9,28 @@
       "someexamswithoutresultpleasecheck": "Some exams without result please check."
     }
   },
+  "validations": {
+    "min": "the value must be at least {{min}}",
+    "max": "the value must not exceed {{max}}",
+    "minLength": "the value length must be at least {{min}}",
+    "maxLength": "the value length must not exceed {{max}}",
+    "email": "The value is not a valid email address",
+    "number": "the value is not a valid number"
+  },
   "user": {
     "username": "Username",
     "groups": "Groups",
     "lastlogin": "Last login"
+  },
+  "hospital": {
+    "address": "Address",
+    "city": "City",
+    "code": "Code",
+    "description": "Description",
+    "telephone": "Telephone",
+    "fax": "Fax",
+    "email": "Email Address",
+    "currencyCod": "Currency Code"
   },
   "login": {
     "username": "Username",
@@ -345,7 +363,19 @@
     "billrecords": "Bill Records",
     "visits": "Visits",
     "patients": "Patients",
-    "consultancy": "Consultancy"
+    "consultancy": "Consultancy",
+    "administration": "Administration",
+    "wards": "Wards",
+    "diseases": "Diseases",
+    "operations": "Operations",
+    "vaccines": "Vaccines",
+    "prices": "Price List",
+    "suppliers": "Suppliers",
+    "telemetry": "Telemetry",
+    "users": "Users & Groups",
+    "types": "Manage Types",
+    "hospitalInfo": "Hospital Info",
+    "hospital": "Hospital"
   },
   "operation": {
     "newoperation": "New Operation",
@@ -462,7 +492,9 @@
     "expand_all": "Expand All",
     "remainingchars": "Remaining : {{current}} / {{max}}",
     "gohome": "Go to home",
-    "gotopatientactivities": "Go to Patient Activities"
+    "gotopatientactivities": "Go to Patient Activities",
+    "permissionDenied": "Permission Denied - You don't have required privileges to access this content",
+    "menu": "Menu"
   },
   "permission": {
     "denied": "Permission denied",
@@ -758,5 +790,30 @@
       "tissues": { "txt": "Tissues" },
       "urine": { "txt": "Urine" }
     }
+  },
+  "ward": {
+    "code": "Code",
+    "description": "Description",
+    "beds": "Beds",
+    "nurs": "Nurses",
+    "docs": "Doctors",
+    "pharmacy": "Pharmacy",
+    "male": "Male",
+    "female": "Female",
+    "telephone": "Telephone",
+    "fax": "Fax",
+    "opd": "OPD",
+    "email": "Email Address",
+    "visitDuration": "Visit Duration",
+    "addWard": "Add Ward",
+    "editWard": "Edit Ward",
+    "updateWard": "update Ward",
+    "saveWard": "Save Ward",
+    "created": "Ward Created",
+    "updated": "Ward updated",
+    "deleted": "Ward deleted",
+    "createSuccess": "Ward has been created successfully!",
+    "updateSuccess": "Ward {{code}} has been updated successfully!",
+    "deleteSuccess": "Ward {{code}} has been deleted successfully!"
   }
 }

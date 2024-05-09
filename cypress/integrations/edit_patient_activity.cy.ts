@@ -53,7 +53,6 @@ describe("EditPatientActivity spec", () => {
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
         cy.wait(3000);
 
-
         cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")

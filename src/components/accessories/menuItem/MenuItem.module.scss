@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+@import "../../../../node_modules/susy/sass/susy";
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  color: $c-white;
+  width: 100%;
+  height: 70px;
+  gap: 24px;
+  padding: 24px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba($c-grey-medium, 0.3);
+  }
+  &:not(:last-child) {
+    border-bottom: 1px solid $c-grey-light;
+  }
+}
+
+.active {
+  background-color: rgba($c-grey-medium, 0.6);
+}
+
+.trailingIcon {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  color: $c-grey-lighter;
+}
+
+.label {
+  flex-grow: 1;
+  color: $c-grey-lighter;
+  font-weight: bold;
+}
