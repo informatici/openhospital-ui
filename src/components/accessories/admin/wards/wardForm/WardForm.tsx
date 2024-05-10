@@ -102,7 +102,7 @@ const WardForm: FC<IWardProps> = ({
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
-    resetForm();
+    navigate(-1);
   };
 
   const handleCheckboxChange = useCallback(
@@ -111,14 +111,6 @@ const WardForm: FC<IWardProps> = ({
     },
     [setFieldValue]
   );
-
-  const handleReset = useCallback(() => {
-    if (creationMode) {
-      setOpenResetConfirmation(true);
-    } else {
-      navigate(-1);
-    }
-  }, [creationMode, navigate]);
 
   const cleanUp = useCallback(() => {
     if (creationMode) {
@@ -296,7 +288,7 @@ const WardForm: FC<IWardProps> = ({
               type="reset"
               variant="text"
               disabled={isLoading}
-              onClick={handleReset}
+              onClick={() => setOpenResetConfirmation(true)}
             >
               {resetButtonLabel}
             </Button>
@@ -307,7 +299,7 @@ const WardForm: FC<IWardProps> = ({
           title={resetButtonLabel.toUpperCase()}
           info={t("common.resetform")}
           icon={warningIcon}
-          primaryButtonLabel={resetButtonLabel}
+          primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
           handlePrimaryButtonClick={handleResetConfirmation}
           handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
