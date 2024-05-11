@@ -233,13 +233,13 @@ const Table: FunctionComponent<IProps> = ({
 
   return (
     <>
-      {isCollapsabile ?? (
         <div className="header">
+        {!!isCollapsabile && (
           <Button type="button" onClick={handleExpand}>
             {expanded ? t("common.collapse_all") : t("common.expand_all")}
           </Button>
+          )}
         </div>
-      )}
       <TableContainer component={Paper}>
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">
