@@ -21,7 +21,6 @@ import { useTranslation } from "react-i18next";
 import { get, has, isEmpty } from "lodash";
 import DateField from "../../dateField/DateField";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import CheckboxField from "../../checkboxField/CheckboxField";
 import classnames from "classnames";
 
 export const FilterButton = ({ field, onChange }: IOwnProps) => {
@@ -77,21 +76,6 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
     (fieldName: string) => (value: any) => {
       formik.setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
-    },
-    [formik]
-  );
-
-  const handleCheckboxChange = useCallback(
-    (fieldName: string) => (value: boolean) => {
-      const currentValue = formik.values.value;
-      if (currentValue === "false") {
-        formik.setFieldValue(fieldName, "");
-      } else {
-        formik.setFieldValue(
-          fieldName,
-          isEmpty(currentValue) ? "true" : "false"
-        );
-      }
     },
     [formik]
   );
@@ -157,12 +141,18 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
             />
           )}
           {field.type === "boolean" && (
-            <CheckboxField
-              fieldName={"value"}
-              checked={formik.values.value === "true"}
+            <AutocompleteField
+              fieldName="value"
+              fieldValue={formik.values.value}
               label={field.label}
-              onChange={handleCheckboxChange("value")}
-              indeterminate={isEmpty(formik.values.value)}
+              isValid={isValid("value")}
+              errorText={getErrorText("value")}
+              options={[
+                { value: "", label: t("common.all") },
+                { value: "true", label: t("common.yes") },
+                { value: "false", label: t("common.no") },
+              ]}
+              onBlur={onBlurCallback("value")}
             />
           )}
           {field.type === "select" && (
@@ -172,7 +162,10 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
               label={field.label}
               isValid={isValid("value")}
               errorText={getErrorText("value")}
-              options={[...field.options, { value: "", label: "" }]}
+              options={[
+                { value: "", label: t("common.all") },
+                ...field.options,
+              ]}
               onBlur={onBlurCallback("value")}
             />
           )}

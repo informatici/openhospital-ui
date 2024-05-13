@@ -498,7 +498,10 @@
     "filter": "Filter",
     "min": "Min",
     "max": "Max",
-    "value": "Value"
+    "value": "Value",
+    "true": "True",
+    "false": "False",
+    "all": "All"
   },
   "permission": {
     "denied": "Permission denied",
