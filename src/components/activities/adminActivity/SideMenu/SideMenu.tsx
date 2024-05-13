@@ -1,10 +1,9 @@
-import React, { FunctionComponent, ReactNode, useCallback } from "react";
+import React, { ReactNode, useCallback } from "react";
 import {
   AirlineSeatFlat,
   ArrowForwardIosRounded,
   AssignmentInd,
   BlurCircular,
-  ExpandMoreSharp,
   GroupWork,
   Healing,
   LocalDrink,
@@ -14,7 +13,7 @@ import {
 } from "@material-ui/icons";
 import { IAdminSection } from "../types";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import classes from "./SideMenu.module.scss";
 import { MenuItem } from "../../../accessories/menuItem";
 import { useSelector } from "react-redux";
@@ -22,18 +21,11 @@ import { IState } from "../../../../types";
 import { HospitalDTO } from "../../../../generated";
 import { IApiResponse } from "../../../../state/types";
 
-interface IOwnProps {
-  setAdminSection: React.Dispatch<React.SetStateAction<IAdminSection>>;
-  adminSection: IAdminSection;
-}
-
-const SideMenu: FunctionComponent<IOwnProps> = ({
-  setAdminSection: setUserSection,
-  adminSection: userSection,
-}) => {
+const SideMenu = () => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const hospital = useSelector<IState, IApiResponse<HospitalDTO>>(
     (state) => state.hospital.getHospital
@@ -41,10 +33,9 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
 
   const changeAdminSection = useCallback(
     (section: IAdminSection) => {
-      setUserSection(section);
       navigate(`${section}`, { replace: true });
     },
-    [navigate, setUserSection]
+    [navigate]
   );
 
   const menuItems: { key: IAdminSection; icon: ReactNode }[] = [
@@ -89,7 +80,7 @@ const SideMenu: FunctionComponent<IOwnProps> = ({
           key={item.key}
           icon={item.icon}
           label={t(`nav.${item.key}`)}
-          selected={userSection === item.key}
+          selected={location.pathname.includes(item.key)}
           onClick={() => {
             changeAdminSection(item.key);
           }}
