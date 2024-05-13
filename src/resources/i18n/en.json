@@ -791,6 +791,13 @@
       "urine": { "txt": "Urine" }
     }
   },
+  "exam": {
+    "code": "Code",
+    "examtype": "Exam Type",
+    "description": "Name",
+    "procedure": "Procedure",
+    "defaultResult": "Default value"
+  },
   "ward": {
     "code": "Code",
     "description": "Description",
