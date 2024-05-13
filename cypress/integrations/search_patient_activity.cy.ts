@@ -1,4 +1,6 @@
-const START_PATH = "http://localhost:3000/patients/search";
+/// <reference types="cypress" />
+
+const START_PATH = "/patients/search";
 
 describe("SearchPatientActivity spec", () => {
   it("should render the ui", () => {

@@ -1,6 +1,8 @@
+/// <reference types="cypress" />
+
 describe("Patient Details / Discharge", () => {
   before(() => {
-    cy.authenticate(`${Cypress.env("HOSTNAME")}/patients/details/1`);
+    cy.authenticate('/patients/details/1');
   });
 
   it("should render the ui", () => {
