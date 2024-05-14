@@ -341,12 +341,18 @@ const Table: FunctionComponent<IProps> = ({
 
   return (
     <>
-      <div className="header">
-        <Button type="button" onClick={handleExpand}>
-          {expanded ? t("common.collapse_all") : t("common.expand_all")}
-        </Button>
-        {headerActions && <div className="headerActions">{headerActions}</div>}
-      </div>
+      {!!isCollapsabile && !!headerActions && (
+        <div className="header">
+          {!!isCollapsabile && (
+            <Button type="button" onClick={handleExpand}>
+              {expanded ? t("common.collapse_all") : t("common.expand_all")}
+            </Button>
+          )}
+          {headerActions && (
+            <div className="headerActions">{headerActions}</div>
+          )}
+        </div>
+      )}
       <TableContainer component={Paper}>
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">

@@ -13,8 +13,8 @@
   box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
   border-radius: 8px;
   flex-grow: 1;
-  align-self: center;
   margin: 30px 160px;
+  align-self: center;
   @include susy-media($medium-down) {
     flex-direction: column;
     margin: 20px 20px;

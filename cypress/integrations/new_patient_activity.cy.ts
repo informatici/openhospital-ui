@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import initialValues from "../fixtures/newPatientInitialValues.json";
 
 const START_PATH = "http://localhost:3000/patients/new";
@@ -33,14 +35,15 @@ describe("NewPatientActivity spec", () => {
   });
 
   it("should allow the user to add and remove a profile picture", () => {
+    cy.fixture("images/profilePicture.jpg", null).as("profilePicture");
     cy.dataCy("profile-picture")
       .find("img")
       .invoke("attr", "src")
       .then((firstSrc) => {
         const placeholder = firstSrc;
 
-        cy.dataCy("profile-picture-input").attachFile(
-          "images/profilePicture.jpg",
+        cy.dataCy("profile-picture-input").selectFile(
+          "@profilePicture",
           { force: true }
         );
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
