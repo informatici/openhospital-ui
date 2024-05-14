@@ -815,5 +815,13 @@
     "createSuccess": "Ward has been created successfully!",
     "updateSuccess": "Ward {{code}} has been updated successfully!",
     "deleteSuccess": "Ward {{code}} has been deleted successfully!"
+  },
+  "disease": {
+    "code": "Code",
+    "name": "Name",
+    "diseaseType": "Type",
+    "opdInclude": "OPD",
+    "ipdInInclude": "IP In",
+    "ipdOutInclude": "IP Out"
   }
 }
