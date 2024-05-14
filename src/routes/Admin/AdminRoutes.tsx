@@ -10,6 +10,7 @@ import {
   NewWard,
   EditWard,
   Diseases,
+  Exams,
 } from "../../components/accessories/admin";
 
 export const AdminRoutes = () => {
@@ -52,7 +53,7 @@ export const AdminRoutes = () => {
       {
         path: "exams",
         element: (
-          <AdminActivityContent title={t("nav.exams")} children={<Wards />} />
+          <AdminActivityContent title={t("nav.exams")} children={<Exams />} />
         ),
       },
       {
