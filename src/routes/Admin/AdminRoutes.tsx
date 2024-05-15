@@ -5,7 +5,12 @@ import NotFound from "../../components/activities/notFound/NotFound";
 import AdminActivity, {
   AdminActivityContent,
 } from "../../components/activities/adminActivity";
-import { Wards, NewWard, EditWard } from "../../components/accessories/admin";
+import {
+  Wards,
+  NewWard,
+  EditWard,
+  Operations,
+} from "../../components/accessories/admin";
 import { Exams } from "../../components/accessories/admin/exams";
 
 export const AdminRoutes = () => {
@@ -56,7 +61,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
-            children={<Wards />}
+            children={<Operations />}
           />
         ),
       },

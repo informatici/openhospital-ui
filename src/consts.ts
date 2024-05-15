@@ -21,4 +21,6 @@ export const PATHS = {
   wards: "/admin/wards",
   wards_new: "/admin/wards/new",
   wards_edit: "/admin/wards/#id/edit",
+  operations: "/admin/operations",
+  operations_edit: "/admin/operations/#id/edit",
 };
