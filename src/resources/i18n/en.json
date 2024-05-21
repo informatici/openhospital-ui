@@ -503,7 +503,14 @@
     "gohome": "Go to home",
     "gotopatientactivities": "Go to Patient Activities",
     "permissionDenied": "Permission Denied - You don't have required privileges to access this content",
-    "menu": "Menu"
+    "menu": "Menu",
+    "filter": "Filter",
+    "min": "Min",
+    "max": "Max",
+    "value": "Value",
+    "true": "True",
+    "false": "False",
+    "all": "All"
   },
   "permission": {
     "denied": "Permission denied",

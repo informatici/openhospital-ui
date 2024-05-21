@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { TOrder } from "../../../libraries/sortUtils/types";
 import {
   IconButton,
@@ -33,6 +39,9 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
 import Button from "../button/Button";
+import { FilterButton } from "./filter/FilterButton";
+import { TFilterValues } from "./filter/types";
+import moment from "moment";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -58,6 +67,12 @@ const Table: FunctionComponent<IProps> = ({
   detailColSpan,
   displayRowAction,
   detailsExcludedFields,
+  filterColumns = [],
+  onFilterChange,
+  manualFilter = true,
+  rawData,
+  rowKey,
+  headerActions,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -67,6 +82,7 @@ const Table: FunctionComponent<IProps> = ({
   const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
   const [currentRow, setCurrentRow] = useState({} as any);
   const [expanded, setExpanded] = useState(false);
+  const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -231,46 +247,162 @@ const Table: FunctionComponent<IProps> = ({
     setExpanded(!expanded);
   };
 
+  const removeRowWhere = useCallback(
+    (
+      values: Record<string, any>[],
+      predicate: (row: Record<string, any>) => boolean
+    ) => {
+      return values.filter((entry) => {
+        const row = (rawData ?? rowData).find(
+          (item) => item[rowKey ?? ""] === entry[rowKey ?? ""]
+        );
+        return !!row ? !predicate(row) : false;
+      });
+    },
+    [rawData, rowData, rowKey]
+  );
+
+  const filteredData = useMemo(() => {
+    if ((filterColumns?.length ?? 0) === 0 || manualFilter) {
+      return rowData;
+    }
+    let result = rowData;
+    filterColumns.forEach((field) => {
+      const filter = filters[field.key];
+      if (filter) {
+        switch (field.type) {
+          case "boolean":
+            result = removeRowWhere(result, (row) =>
+              filter.value === undefined
+                ? false
+                : (row[field.key] ?? false) !== filter.value
+            );
+            break;
+          case "number":
+            result = removeRowWhere(
+              result,
+              (row) =>
+                (filter.value === undefined
+                  ? false
+                  : row[field.key] !== filter.value) ||
+                (filter.min === undefined
+                  ? false
+                  : row[field.key] < filter.min) ||
+                (filter.max === undefined ? false : row[field.key] > filter.max)
+            );
+            break;
+          case "text":
+            result = removeRowWhere(result, (row) =>
+              filter.value === undefined
+                ? false
+                : !(row[field.key] as string)?.includes(filter.value as string)
+            );
+            break;
+
+          case "select":
+            result = removeRowWhere(result, (row) =>
+              filter.value === undefined
+                ? false
+                : row[field.key] !== filter.value
+            );
+            break;
+
+          default:
+            result = removeRowWhere(
+              result,
+              (row) =>
+                (filter.value === undefined
+                  ? false
+                  : !moment(row[field.key]).isSame(
+                      moment(filter.value as string)
+                    )) ||
+                (filter.min === undefined
+                  ? false
+                  : moment(row[field.key]).isBefore(
+                      moment(filter.min as string)
+                    )) ||
+                (filter.max === undefined
+                  ? false
+                  : moment(row[field.key]).isAfter(
+                      moment(filter.max as string)
+                    ))
+            );
+        }
+      }
+    });
+    return result;
+  }, [filterColumns, filters, manualFilter, removeRowWhere, rowData]);
+
+  useEffect(() => {
+    if (onFilterChange && !manualFilter) {
+      onFilterChange(filters);
+    }
+  }, [filters]);
+
   return (
     <>
+      {!!isCollapsabile && !!headerActions && (
         <div className="header">
-        {!!isCollapsabile && (
-          <Button type="button" onClick={handleExpand}>
-            {expanded ? t("common.collapse_all") : t("common.expand_all")}
-          </Button>
+          {!!isCollapsabile && (
+            <Button type="button" onClick={handleExpand}>
+              {expanded ? t("common.collapse_all") : t("common.expand_all")}
+            </Button>
+          )}
+          {headerActions && (
+            <div className="headerActions">{headerActions}</div>
           )}
         </div>
+      )}
       <TableContainer component={Paper}>
         <MaterialComponent className="table" aria-label="simple table">
           <TableHead className="table_header">
             <TableRow>
               {isCollapsabile ? <TableCell /> : ""}
-              {tableHeader.map((h: string, i) => (
-                <TableCell key={i}>
-                  {columnsOrder.includes(h) ? (
-                    <TableSortLabel
-                      active={orderBy === h}
-                      direction={
-                        orderBy === h
-                          ? order
-                          : dateFields.includes(h)
-                          ? "desc"
-                          : "asc"
-                      }
-                      onClick={createSortHandler(h)}
-                    >
-                      {labelData[h]}
-                    </TableSortLabel>
-                  ) : (
-                    labelData[h]
-                  )}
-                </TableCell>
-              ))}
+              {tableHeader.map((h: string, i) => {
+                const filterField = filterColumns?.find(
+                  (item) => item.key === h
+                );
+
+                return (
+                  <TableCell key={i}>
+                    <div className="headerCell">
+                      {columnsOrder.includes(h) ? (
+                        <TableSortLabel
+                          active={orderBy === h}
+                          direction={
+                            orderBy === h
+                              ? order
+                              : dateFields.includes(h)
+                              ? "desc"
+                              : "asc"
+                          }
+                          onClick={createSortHandler(h)}
+                        >
+                          {labelData[h]}
+                        </TableSortLabel>
+                      ) : (
+                        labelData[h]
+                      )}
+                      {filterField && (
+                        <FilterButton
+                          field={filterField}
+                          onChange={(value) =>
+                            setFilters((previous) => ({
+                              ...filters,
+                              [filterField.key]: value,
+                            }))
+                          }
+                        />
+                      )}
+                    </div>
+                  </TableCell>
+                );
+              })}
               <TableCell>&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody className="table_body">
-            {[...rowData]
+            {filteredData
               .sort(
                 dateFields.includes(orderBy)
                   ? dateComparator(order, orderBy)
@@ -300,10 +432,10 @@ const Table: FunctionComponent<IProps> = ({
           </TableBody>
         </MaterialComponent>
       </TableContainer>
-      {rowData.length > rowsPerPage ? (
+      {filteredData.length > rowsPerPage ? (
         <TablePagination
           component="div"
-          count={rowData.length}
+          count={filteredData.length}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[rowsPerPage]}
           page={page}

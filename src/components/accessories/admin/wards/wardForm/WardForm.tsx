@@ -102,7 +102,7 @@ const WardForm: FC<IWardProps> = ({
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
-    resetForm();
+    navigate(-1);
   };
 
   const handleCheckboxChange = useCallback(
@@ -299,7 +299,7 @@ const WardForm: FC<IWardProps> = ({
           title={resetButtonLabel.toUpperCase()}
           info={t("common.resetform")}
           icon={warningIcon}
-          primaryButtonLabel={resetButtonLabel}
+          primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
           handlePrimaryButtonClick={handleResetConfirmation}
           handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}

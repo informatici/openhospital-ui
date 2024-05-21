@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent, ReactNode, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -12,15 +12,18 @@ import classes from "./WardTable.module.scss";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { deleteWardReset } from "../../../../../state/ward/actions";
+import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
   onDelete: (row: any) => void;
+  headerActions?: ReactNode;
 }
 
 export const WardTable: FunctionComponent<IOwnProps> = ({
   onEdit,
   onDelete,
+  headerActions,
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -53,16 +56,13 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     fax: t("ward.fax"),
     visitDuration: t("ward.visitDuration"),
   };
-  const order = [
-    "code",
-    "description",
-    "beds",
-    "nurs",
-    "docs",
-    "opd",
-    "pharmacy",
-    "male",
-    "female",
+  const order = ["code", "description", "beds", "nurs", "docs"];
+
+  const filters: TFilterField[] = [
+    { key: "pharmacy", label: t("ward.pharmacy"), type: "boolean" },
+    { key: "male", label: t("ward.male"), type: "boolean" },
+    { key: "female", label: t("ward.female"), type: "boolean" },
+    { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
   const { data, status, error } = useSelector<IState, IApiResponse<WardDTO[]>>(
@@ -127,6 +127,11 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   showEmptyCell={false}
+                  filterColumns={filters}
+                  rawData={data}
+                  manualFilter={false}
+                  rowKey="code"
+                  headerActions={headerActions}
                 />
                 {deleteWard.status === "FAIL" && (
                   <div ref={infoBoxRef} className="info-box-container">
