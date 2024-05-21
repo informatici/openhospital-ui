@@ -24,7 +24,7 @@ export const NewWard = () => {
       creationMode
       onSubmit={handleSubmit}
       isLoading={!!create.isLoading}
-      resetButtonLabel={t("common.reset")}
+      resetButtonLabel={t("common.cancel")}
       submitButtonLabel={t("ward.saveWard")}
       fields={getInitialFields(undefined)}
     />

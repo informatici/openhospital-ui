@@ -32,7 +32,7 @@ export const EditWard = () => {
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.reset")}
+      resetButtonLabel={t("common.cancel")}
       submitButtonLabel={t("ward.updateWard")}
       fields={getInitialFields(state)}
     />
