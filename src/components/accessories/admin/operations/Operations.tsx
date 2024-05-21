@@ -4,12 +4,14 @@ import { useDispatch } from "react-redux";
 import { OperationDTO } from "../../../../generated";
 import OperationTable from "./operationTable";
 import { getOperations } from "../../../../state/operations/actions";
+import { getOperationTypes } from "../../../../state/operationTypes/actions";
 
 export const Operations = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOperations());
+    dispatch(getOperationTypes());
   }, [dispatch]);
 
   const handleEdit = (row: OperationDTO) => {

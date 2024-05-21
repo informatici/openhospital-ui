@@ -23,7 +23,7 @@ export const operationsDTO = [
     code: "LNGRX",
     description: "Lung X-ray",
     major: 0,
-    operationType: {
+    type: {
       code: "RX",
       description: "Radiology",
     },
@@ -33,7 +33,7 @@ export const operationsDTO = [
     code: "DLSG",
     description: "Delivery Surgery",
     major: 1,
-    operationType: {
+    type: {
       code: "MT",
       description: "Maternity",
     },

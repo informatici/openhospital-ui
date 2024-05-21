@@ -21,6 +21,17 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const operationTypesOptions = useSelector<
+    IState,
+    { label: string; value: string }[]
+  >(
+    (state) =>
+      state.operationTypes.getOperationTypes.data?.map((item) => ({
+        label: item.description,
+        value: item.code,
+      })) ?? []
+  );
+
   const header = ["code", "type", "description", "class"];
 
   const label = {
@@ -32,6 +43,12 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
   const order = ["code", "type", "description", "class"];
   const filters: TFilterField[] = [
     { key: "description", label: t("operation.description"), type: "text" },
+    {
+      key: "type",
+      label: t("operation.type"),
+      type: "select",
+      options: operationTypesOptions,
+    },
     {
       key: "class",
       label: t("operation.class"),
@@ -99,9 +116,10 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
                   rowKey="code"
                   manualFilter={false}
                   rawData={
-                    data?.map((item) => ({
-                      ...item,
-                      class: item.major.toString(),
+                    data?.map((operation) => ({
+                      ...operation,
+                      class: operation.major.toString(),
+                      type: operation.type?.code,
                     })) ?? []
                   }
                 />
