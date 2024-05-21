@@ -71,7 +71,7 @@ const Table: FunctionComponent<IProps> = ({
   onFilterChange,
   manualFilter = true,
   rawData,
-  rowKey,
+  rowKey = "code",
   headerActions,
 }) => {
   const { t } = useTranslation();
