@@ -28,19 +28,22 @@ export const Wards = () => {
 
   return (
     <div className={classes.wards}>
-      <div className={classes.actions}>
-        <Button
-          onClick={() => {
-            navigate("./new");
-          }}
-          type="button"
-          variant="contained"
-          color="primary"
-        >
-          {t("ward.addWard")}
-        </Button>
-      </div>
-      <WardTable onEdit={handleEdit} onDelete={handleDelete} />
+      <WardTable
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        headerActions={
+          <Button
+            onClick={() => {
+              navigate("./new");
+            }}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            {t("ward.addWard")}
+          </Button>
+        }
+      />
     </div>
   );
 };

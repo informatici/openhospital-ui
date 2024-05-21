@@ -21,6 +21,7 @@ import {
   TAgeFieldName,
   TAgeType,
 } from "../../components/accessories/patientDataForm/types";
+import { isEmpty } from "lodash";
 
 export const getFromFields = (
   fields: TFields,
@@ -102,7 +103,7 @@ export const formatAllFieldValues = (
     (acc: Record<string, TFieldFormattedValue>, key) => {
       switch (fields[key].type) {
         case "boolean":
-          acc[key] = values[key] === "true" ? true : false;
+          acc[key] = isEmpty(values[key]) ? undefined : values[key] === "true";
           break;
         case "number":
           const int = parseInt(values[key]);
