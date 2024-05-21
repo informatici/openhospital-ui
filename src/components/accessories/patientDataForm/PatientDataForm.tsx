@@ -23,7 +23,7 @@ import SelectField from "../selectField/SelectField";
 import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
-import { TAgeFieldName, TAgeType, TProps } from "./types";
+import { TAgeFieldName, TProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@material-ui/core";
 import { formCustomization } from "../../../customization/formCustomization";
@@ -77,15 +77,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           : string(),
       sex: string().required(t("common.required")),
       telephone: string().matches(
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
         t("common.incorrectformat")
       ),
     });
-  }, [ageType]);
+  }, [ageType, t]);
 
   useEffect(() => {
     dispatch(getAgeTypes());
-  }, []);
+  }, [dispatch]);
 
   const initialValues = getFromFields(fields, "value");
   const cities = useSelector((state: IState) => state.patients.getCities.data);
@@ -167,7 +167,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
     },
-    [setFieldValue]
+    [setFieldValue, formik]
   );
 
   const onBlurCallback = useCallback(
@@ -303,7 +303,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               required={FIELD_VALIDATION.SUGGESTED}
             />
           </div>
-          {ageType == "agetype" && (
+          {ageType === "agetype" && (
             <div className="patientDataForm__item">
               <SelectField
                 fieldName="agetype"
@@ -323,7 +323,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               />
             </div>
           )}
-          {ageType == "age" && (
+          {ageType === "age" && (
             <div className="patientDataForm__item">
               <TextField
                 field={formik.getFieldProps("age")}
@@ -552,7 +552,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="patient-data-submit-button"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -562,14 +567,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="patient-data-cancel-button"
             >
-              {mode == "create" && resetButtonLabel}
-              {mode == "edit" && t("common.cancel")}
+              {mode === "create" && resetButtonLabel}
+              {mode === "edit" && t("common.cancel")}
             </Button>
           </div>
         </div>
 
-        {mode == "create" && (
+        {mode === "create" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
@@ -582,7 +588,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           />
         )}
 
-        {mode == "edit" && (
+        {mode === "edit" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={t("common.cancel").toUpperCase()}
