@@ -9,6 +9,7 @@ import { DiseaseDTO } from "../../../../../generated";
 import { IApiResponse } from "../../../../../state/types";
 import classes from "./DiseaseTable.module.scss";
 import { CheckOutlined } from "@material-ui/icons";
+import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -16,6 +17,17 @@ interface IOwnProps {
 
 export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
   const { t } = useTranslation();
+
+  const diseasesOptions = useSelector<
+    IState,
+    { label: string; value: string }[]
+  >(
+    (state) =>
+      state.diseaseTypes.getDiseaseTypes.data?.map((item) => ({
+        value: item.code,
+        label: item.description ?? "",
+      })) ?? []
+  );
 
   const header = [
     "code",
@@ -41,6 +53,16 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
     "opdInclude",
     "ipdInInclude",
     "ipdOutInclude",
+  ];
+
+  const filters: TFilterField[] = [
+    { key: "description", label: t("disease.name"), type: "text" },
+    {
+      key: "diseaseType",
+      label: t("disease.diseaseType"),
+      type: "select",
+      options: diseasesOptions,
+    },
   ];
 
   const { data, status, error } = useSelector<
@@ -97,6 +119,13 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
                   rowsPerPage={20}
                   onEdit={handleEdit}
                   showEmptyCell={false}
+                  rowKey={"code"}
+                  manualFilter={false}
+                  filterColumns={filters}
+                  rawData={(data ?? []).map((disease) => ({
+                    ...disease,
+                    diseaseType: disease.diseaseType.code,
+                  }))}
                 />
               </>
             );

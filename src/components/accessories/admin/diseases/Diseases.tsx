@@ -4,17 +4,17 @@ import { useDispatch } from "react-redux";
 import { DiseaseDTO } from "../../../../generated";
 import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
 import { PATHS } from "../../../../consts";
 import { getAllDiseases } from "../../../../state/diseases/actions";
+import { getDiseaseTypes } from "../../../../state/diseaseTypes/actions";
 
 export const Diseases = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getAllDiseases());
+    dispatch(getDiseaseTypes());
   }, [dispatch]);
 
   const handleEdit = (row: DiseaseDTO) => {
