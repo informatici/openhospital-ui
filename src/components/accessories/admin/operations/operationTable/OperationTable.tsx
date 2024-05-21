@@ -8,6 +8,7 @@ import { IState } from "../../../../../types";
 import { OperationDTO } from "../../../../../generated";
 import { IApiResponse } from "../../../../../state/types";
 import classes from "./OperationTable.module.scss";
+import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -29,6 +30,18 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     class: t("operation.class"),
   };
   const order = ["code", "type", "description", "class"];
+  const filters: TFilterField[] = [
+    { key: "description", label: t("operation.description"), type: "text" },
+    {
+      key: "class",
+      label: t("operation.class"),
+      type: "select",
+      options: [
+        { label: t("operation.classes.minor"), value: "0" },
+        { label: t("operation.classes.major"), value: "1" },
+      ],
+    },
+  ];
 
   const { data, status, error } = useSelector<
     IState,
@@ -82,6 +95,15 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   showEmptyCell={false}
+                  filterColumns={filters}
+                  rowKey="code"
+                  manualFilter={false}
+                  rawData={
+                    data?.map((item) => ({
+                      ...item,
+                      class: item.major.toString(),
+                    })) ?? []
+                  }
                 />
               </>
             );
