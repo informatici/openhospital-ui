@@ -5,8 +5,13 @@ import NotFound from "../../components/activities/notFound/NotFound";
 import AdminActivity, {
   AdminActivityContent,
 } from "../../components/activities/adminActivity";
-import { Wards, NewWard, EditWard } from "../../components/accessories/admin";
+import {
+  Wards,
+  NewWard,
+  EditWard,
+} from "../../components/accessories/admin/wards";
 import { Exams } from "../../components/accessories/admin/exams";
+import { Users } from "../../components/accessories/admin/users";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -81,7 +86,7 @@ export const AdminRoutes = () => {
       {
         path: "users",
         element: (
-          <AdminActivityContent title={t("nav.users")} children={<Wards />} />
+          <AdminActivityContent title={t("nav.users")} children={<Users />} />
         ),
       },
       {
