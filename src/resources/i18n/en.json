@@ -806,6 +806,15 @@
     "procedure": "Procedure",
     "defaultResult": "Default value"
   },
+  "supplier": {
+    "name": "Name",
+    "address": "Address",
+    "taxcode": "Tax Number ID",
+    "phone": "Phone number",
+    "fax": "Fax",
+    "email": "Email Address",
+    "note": "Note"
+  },
   "ward": {
     "code": "Code",
     "description": "Description",

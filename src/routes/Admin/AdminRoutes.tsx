@@ -12,6 +12,7 @@ import {
 } from "../../components/accessories/admin/wards";
 import { Exams } from "../../components/accessories/admin/exams";
 import { Users } from "../../components/accessories/admin/users";
+import { Suppliers } from "../../components/accessories/admin/suppliers";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -79,7 +80,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.suppliers")}
-            children={<Wards />}
+            children={<Suppliers />}
           />
         ),
       },
