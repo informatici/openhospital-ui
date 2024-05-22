@@ -9,9 +9,10 @@ import {
   Wards,
   NewWard,
   EditWard,
-} from "../../components/accessories/admin/wards";
-import { Exams } from "../../components/accessories/admin/exams";
-import { Users } from "../../components/accessories/admin/users";
+  Exams,
+  Users,
+  Operations,
+} from "../../components/accessories/admin";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
-            children={<Wards />}
+            children={<Operations />}
           />
         ),
       },
