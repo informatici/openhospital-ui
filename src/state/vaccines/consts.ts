@@ -1,0 +1,3 @@
+export const GET_VACCINES_LOADING = "vaccines/GET_VACCINES_LOADING";
+export const GET_VACCINES_SUCCESS = "vaccines/GET_VACCINES_SUCCESS";
+export const GET_VACCINES_FAIL = "vaccines/GET_VACCINES_FAIL";

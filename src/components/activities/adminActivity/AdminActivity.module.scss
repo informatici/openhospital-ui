@@ -14,7 +14,7 @@
   border-radius: 8px;
   flex-grow: 1;
   margin: 30px 160px;
-  align-self: center;
+  // align-self: center;
   @include susy-media($medium-down) {
     flex-direction: column;
     margin: 20px 20px;

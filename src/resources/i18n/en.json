@@ -806,6 +806,11 @@
     "procedure": "Procedure",
     "defaultResult": "Default value"
   },
+  "vaccine": {
+    "code": "Code",
+    "vaccinetype": "Vaccine Type",
+    "description": "Name"
+  },
   "ward": {
     "code": "Code",
     "description": "Description",

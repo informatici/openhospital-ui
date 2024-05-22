@@ -34,6 +34,7 @@ import hospital from "./state/hospital/reducer";
 import layouts from "./state/layouts/reducer";
 import dashboard from "./state/dashboard/reducer";
 import users from "./state/users/reducer";
+import vaccines from "./state/vaccines/reducer";
 
 if (process.env.REACT_APP_USE_MOCK_API === "true") {
   console.log("Using mocked api");
@@ -66,6 +67,7 @@ const reducer = combineReducers<IState>({
   layouts,
   dashboard,
   users,
+  vaccines,
 });
 const store = createStore(
   reducer,
