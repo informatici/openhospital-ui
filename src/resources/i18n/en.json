@@ -20,7 +20,8 @@
   "user": {
     "username": "Username",
     "groups": "Groups",
-    "lastlogin": "Last login"
+    "lastlogin": "Last login",
+    "description": "Description"
   },
   "hospital": {
     "address": "Address",

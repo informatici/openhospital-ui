@@ -35,8 +35,8 @@ describe("EditPatientActivity spec", () => {
     });
   });
 
-  it("should pass the “submit” button label", () => {
-    cy.dataCy("patient-data-form").contains("Submit");
+  it("should pass the “save” button label", () => {
+    cy.dataCy("patient-data-submit-button").contains("Save");
   });
 
   it("should allow the user to change the profile picture", () => {
@@ -51,9 +51,8 @@ describe("EditPatientActivity spec", () => {
           force: true,
         });
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
-        cy.wait(2000);
+        cy.wait(3000);
 
-        cy.wait(1000);
         cy.dataCy("profile-picture")
           .find("img")
           .invoke("attr", "src")
@@ -82,7 +81,7 @@ describe("EditPatientActivity spec", () => {
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.byId("firstName").clear().type("Marcelo");
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-submit-button").click();
     cy.dataCy("dialog-info").contains("The patient was edit successfully.");
   });
 
@@ -92,7 +91,7 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should redirect the user to the Patient on Patient button click", () => {
-    cy.dataCy("patient-data-form").contains("Submit").click();
+    cy.dataCy("patient-data-submit-button").click();
     cy.dataCy("dialog-button-set").contains("Patient").click();
     cy.dataCy("patient-details");
   });
@@ -104,7 +103,7 @@ describe("EditPatientActivity spec", () => {
 
   it("should not leave on the Cancel button click, if the Cancel button of the Cancel Dialog is click", () => {
     cy.byId("firstName").clear().type("Marcelo");
-    cy.dataCy("patient-data-form").contains("Cancel").click();
+    cy.dataCy("patient-data-cancel-button").click();
     cy.url().then((url) => {
       cy.dataCy("dialog-button-set").contains("Keep").click();
       cy.url().should("eq", url);
