@@ -14,7 +14,7 @@ const DischargeDetailsActivityContent: FunctionComponent = () => {
     <Fragment>
       <div className="patientDetails__content_header"></div>
       <div className="patientDetails__content_body">
-        {status.toString() === PatientDTOStatusEnum.O ? (
+        {status?.toString() === PatientDTOStatusEnum.O ? (
           <PatientDetailsContent
             title={t("patient.summary")}
             content={PatientSummary}
