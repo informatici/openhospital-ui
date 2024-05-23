@@ -12,6 +12,7 @@ import {
   Diseases,
   Exams,
   Users,
+  Operations,
 } from "../../components/accessories/admin";
 
 export const AdminRoutes = () => {
@@ -62,7 +63,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
-            children={<Wards />}
+            children={<Operations />}
           />
         ),
       },

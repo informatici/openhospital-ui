@@ -407,7 +407,16 @@
       "success": "Success",
       "failure": "Failure"
     },
-    "previousentries": "Previous Operations"
+    "previousentries": "Previous Operations",
+    "code": "Code",
+    "description": "Name",
+    "type": "Type",
+    "class": "Class",
+    "context": "Context",
+    "classes": {
+      "major": "Major",
+      "minor": "Minor"
+    }
   },
   "common": {
     "ok": "OK",

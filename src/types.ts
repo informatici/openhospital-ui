@@ -22,6 +22,7 @@ import { IAgeTypeState } from "./state/ageTypes/types";
 import { IHospitalState } from "./state/hospital/types";
 import { ILayoutsState } from "./state/layouts/types";
 import { IDashboardState } from "./state/dashboard/types";
+import { IOperationTypeState } from "./state/operationTypes/types";
 import { IUserState } from "./state/users/types";
 
 export interface IState {
@@ -49,6 +50,7 @@ export interface IState {
   hospital: IHospitalState;
   layouts: ILayoutsState;
   dashboard: IDashboardState;
+  operationTypes: IOperationTypeState;
   users: IUserState;
 }
 
