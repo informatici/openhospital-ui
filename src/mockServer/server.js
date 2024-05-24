@@ -24,6 +24,7 @@ import { pricesRoutes } from "./routes/prices";
 import { operationRoutes } from "./routes/operations";
 import { hospitalRoutes } from "./routes/hospital";
 import { operationTypeRoutes } from "./routes/operationTypes";
+import { vaccineTypesRoutes } from './routes/vaccineTypes'
 
 export function makeServer() {
   Polly.register(XHRAdapter);
