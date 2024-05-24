@@ -13,6 +13,10 @@ import {
 import { Exams } from "../../components/accessories/admin/exams";
 import { Users } from "../../components/accessories/admin/users";
 import TypesRoutes from "./TypesRoutes";
+import {
+  Diseases,
+  Operations,
+} from "../../components/accessories/admin";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -47,7 +51,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.diseases")}
-            children={<Wards />}
+            children={<Diseases />}
           />
         ),
       },
@@ -62,7 +66,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
-            children={<Wards />}
+            children={<Operations />}
           />
         ),
       },

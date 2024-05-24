@@ -71,7 +71,7 @@ const Table: FunctionComponent<IProps> = ({
   onFilterChange,
   manualFilter = true,
   rawData,
-  rowKey,
+  rowKey = "code",
   headerActions,
 }) => {
   const { t } = useTranslation();
@@ -295,7 +295,9 @@ const Table: FunctionComponent<IProps> = ({
             result = removeRowWhere(result, (row) =>
               filter.value === undefined
                 ? false
-                : !(row[field.key] as string)?.includes(filter.value as string)
+                : !(row[field.key] as string)
+                    ?.toLowerCase()
+                    ?.includes(filter.value.toString().toLowerCase())
             );
             break;
 

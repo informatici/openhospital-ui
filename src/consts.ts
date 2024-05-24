@@ -25,4 +25,9 @@ export const PATHS = {
   vaccinesTypes: "/admin/types/vaccines",
   vaccinesTypes_new: "/admin/types/vaccines/new",
   vaccinesTypes_edit: "/admin/types/vaccines/:code/edit",
+  diseases: "/admin/diseases",
+  diseases_new: "/admin/diseases/new",
+  diseases_edit: "/admin/diseases/#id/edit",
+  operations: "/admin/operations",
+  operations_edit: "/admin/operations/#id/edit",
 };
