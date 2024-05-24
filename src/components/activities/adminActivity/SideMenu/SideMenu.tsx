@@ -80,7 +80,9 @@ const SideMenu = () => {
           key={item.key}
           icon={item.icon}
           label={t(`nav.${item.key}`)}
-          selected={location.pathname.includes(item.key)}
+          selected={location.pathname
+            .slice(location.pathname.lastIndexOf("admin") + 6)
+            .startsWith(item.key)}
           onClick={() => {
             changeAdminSection(item.key);
           }}

@@ -12,6 +12,7 @@ import {
 } from "../../components/accessories/admin/wards";
 import { Exams } from "../../components/accessories/admin/exams";
 import { Users } from "../../components/accessories/admin/users";
+import TypesRoutes from "./TypesRoutes";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -90,9 +91,12 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "types",
+        path: "types/*",
         element: (
-          <AdminActivityContent title={t("nav.types")} children={<Wards />} />
+          <AdminActivityContent
+            title={t("nav.types")}
+            children={<TypesRoutes />}
+          />
         ),
       },
     ],
@@ -103,7 +107,11 @@ export const AdminRoutes = () => {
       <Route element={<AdminActivity />}>
         <Route index element={<Navigate to="wards" replace />} />
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route
+            key={route.path.replace("*", "")}
+            path={route.path}
+            element={route.element}
+          />
         ))}
       </Route>
       <Route path="*" element={<NotFound />} />

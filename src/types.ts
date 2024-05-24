@@ -23,6 +23,7 @@ import { IHospitalState } from "./state/hospital/types";
 import { ILayoutsState } from "./state/layouts/types";
 import { IDashboardState } from "./state/dashboard/types";
 import { IUserState } from "./state/users/types";
+import { IVaccineTypesState } from "./state/vaccineTypes/types";
 
 export interface IState {
   main: IMainState;
@@ -50,6 +51,7 @@ export interface IState {
   layouts: ILayoutsState;
   dashboard: IDashboardState;
   users: IUserState;
+  vaccineTypes: IVaccineTypesState;
 }
 
 export enum FIELD_VALIDATION {

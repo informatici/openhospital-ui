@@ -806,6 +806,26 @@
     "procedure": "Procedure",
     "defaultResult": "Default value"
   },
+  "types": {
+    "selectAType": "Select a type",
+    "vaccines": "Type of vaccines",
+    "chooseATypeToStart": "Choose a type to start..."
+  },
+  "vaccineTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage vaccine types",
+    "addVaccineType": "New vaccine type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The vaccine type has been deleted successfully!",
+    "saveVaccineTypes": "Save",
+    "editVaccineType": "Edit vaccine type",
+    "updateVaccineType": "Save changes",
+    "created": "Vaccine type created",
+    "createSuccess": "The vaccine type has been created successfully!",
+    "updated": "Vaccine type updated",
+    "updateSuccess": "The vaccine type has been updated successfully!"
+  },
   "ward": {
     "code": "Code",
     "description": "Description",

@@ -21,4 +21,8 @@ export const PATHS = {
   wards: "/admin/wards",
   wards_new: "/admin/wards/new",
   wards_edit: "/admin/wards/#id/edit",
+  types: "/admin/types",
+  vaccinesTypes: "/admin/types/vaccines",
+  vaccinesTypes_new: "/admin/types/vaccines/new",
+  vaccinesTypes_edit: "/admin/types/vaccines/:code/edit",
 };
