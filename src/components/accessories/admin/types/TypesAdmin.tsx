@@ -18,7 +18,10 @@ const TypesAdmin = () => {
   const [selectedOption, setSelectedOption] =
     useState<TypeOption>(defaultTypeOption);
 
-  const typeOptions: TypeOption[] = [defaultTypeOption];
+  const typeOptions: TypeOption[] = [
+    defaultTypeOption,
+    { label: t("types.vaccines"), routePath: "vaccines" },
+  ];
 
   useEffect(() => {
     if (
