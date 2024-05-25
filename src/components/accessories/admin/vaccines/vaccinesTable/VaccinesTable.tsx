@@ -9,6 +9,7 @@ import { VaccineDTO } from "../../../../../generated";
 import { IApiResponse } from "../../../../../state/types";
 import classes from "./VaccinesTable.module.scss";
 import { getVaccines } from "../../../../../state/vaccines/actions";
+import { TFilterField } from "../../../table/filter/types";
 
 export const VaccinesTable = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,12 @@ export const VaccinesTable = () => {
     type: t("vaccine.vaccinetype"),
     description: t("vaccine.description"),
   };
+
+  const filters: TFilterField[] = [
+    { key: "type", label: t("vaccine.vaccinetype"), type: "text" },
+    { key: "description", label: t("vaccine.description"), type: "text" },
+  ];
+
   const order = ["code", "type", "description"];
 
   const { data, status, error } = useSelector<
@@ -66,6 +73,10 @@ export const VaccinesTable = () => {
                 columnsOrder={order}
                 rowsPerPage={10}
                 isCollapsabile={false}
+                showEmptyCell={false}
+                filterColumns={filters}
+                manualFilter={false}
+                rowKey="code"
               />
             );
           case "SUCCESS_EMPTY":
