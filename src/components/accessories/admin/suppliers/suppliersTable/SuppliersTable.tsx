@@ -42,10 +42,6 @@ export const SuppliersTable = () => {
     IApiResponse<SupplierDTO[]>
   >((state) => state.suppliers.supplierList);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const formatDataToDisplay = (data: SupplierDTO[]) => {
     return data.map((item) => {
       return {

@@ -23,7 +23,8 @@ import { billRoutes } from "./routes/bill";
 import { pricesRoutes } from "./routes/prices";
 import { operationRoutes } from "./routes/operations";
 import { hospitalRoutes } from "./routes/hospital";
-import { suppliersRoutes } from "./routes/suppliers";
+import { operationTypeRoutes } from "./routes/operationTypes";
+import { suppliersRoutes } from './routes/suppliers';
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -56,7 +57,8 @@ export function makeServer() {
     diseaseTypeRoutes(server);
     ageTypeRoutes(server);
     hospitalRoutes(server);
-    suppliersRoutes(server)
+    operationTypeRoutes(server);
+    suppliersRoutes(server);
   });
   return server;
 }
