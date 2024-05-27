@@ -295,9 +295,10 @@ const Table: FunctionComponent<IProps> = ({
             result = removeRowWhere(result, (row) =>
               filter.value === undefined
                 ? false
-                : !(row[field.key] as string)
-                    ?.toLowerCase()
-                    ?.includes(filter.value.toString().toLowerCase())
+                : !row[field.key]
+                    ?.toString()
+                    .toLowerCase()
+                    .includes(filter.value.toString().toLowerCase())
             );
             break;
 
