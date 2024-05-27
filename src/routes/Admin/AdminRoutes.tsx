@@ -13,6 +13,8 @@ import {
   Exams,
   Users,
   Operations,
+  NewDisease,
+  EditDisease,
 } from "../../components/accessories/admin";
 
 export const AdminRoutes = () => {
@@ -49,6 +51,24 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.diseases")}
             children={<Diseases />}
+          />
+        ),
+      },
+      {
+        path: "diseases/new",
+        element: (
+          <AdminActivityContent
+            title={t("disease.addDisease")}
+            children={<NewDisease />}
+          />
+        ),
+      },
+      {
+        path: "diseases/:id/edit",
+        element: (
+          <AdminActivityContent
+            title={t("disease.editDisease")}
+            children={<EditDisease />}
           />
         ),
       },

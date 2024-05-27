@@ -846,6 +846,14 @@
     "diseaseType": "Type",
     "opdInclude": "OPD",
     "ipdInInclude": "IP In",
-    "ipdOutInclude": "IP Out"
+    "ipdOutInclude": "IP Out",
+    "addDisease": "Add Disease",
+    "editDisease": "Edit Disease",
+    "updateDisease": "update Disease",
+    "saveDisease": "Save Disease",
+    "created": "Disease Created",
+    "updated": "Disease updated",
+    "createSuccess": "Disease has been created successfully!",
+    "updateSuccess": "Disease {{code}} has been updated successfully!"
   }
 }

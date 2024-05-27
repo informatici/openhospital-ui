@@ -343,7 +343,7 @@ const Table: FunctionComponent<IProps> = ({
 
   return (
     <>
-      {!!isCollapsabile && !!headerActions && (
+      {(!!isCollapsabile || !!headerActions) && (
         <div className="header">
           {!!isCollapsabile && (
             <Button type="button" onClick={handleExpand}>

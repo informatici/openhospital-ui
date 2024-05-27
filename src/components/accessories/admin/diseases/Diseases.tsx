@@ -7,10 +7,13 @@ import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
 import { getAllDiseases } from "../../../../state/diseases/actions";
 import { getDiseaseTypes } from "../../../../state/diseaseTypes/actions";
+import Button from "../../button/Button";
+import { useTranslation } from "react-i18next";
 
 export const Diseases = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getAllDiseases());
@@ -23,8 +26,21 @@ export const Diseases = () => {
 
   return (
     <div className={classes.diseases}>
-      <div className={classes.actions}></div>
-      <DiseaseTable onEdit={handleEdit} />
+      <DiseaseTable
+        onEdit={handleEdit}
+        headerActions={
+          <Button
+            onClick={() => {
+              navigate("./new");
+            }}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            {t("disease.addDisease")}
+          </Button>
+        }
+      />
     </div>
   );
 };
