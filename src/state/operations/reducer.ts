@@ -6,10 +6,18 @@ import {
   CREATE_OPERATIONROW_LOADING,
   CREATE_OPERATIONROW_RESET,
   CREATE_OPERATIONROW_SUCCESS,
+  CREATE_OPERATION_FAIL,
+  CREATE_OPERATION_LOADING,
+  CREATE_OPERATION_RESET,
+  CREATE_OPERATION_SUCCESS,
   DELETE_OPERATIONROW_FAIL,
   DELETE_OPERATIONROW_LOADING,
   DELETE_OPERATIONROW_RESET,
   DELETE_OPERATIONROW_SUCCESS,
+  DELETE_OPERATION_FAIL,
+  DELETE_OPERATION_LOADING,
+  DELETE_OPERATION_RESET,
+  DELETE_OPERATION_SUCCESS,
   GET_OPERATIONROW_ADM_EMPTY,
   GET_OPERATIONROW_ADM_FAIL,
   GET_OPERATIONROW_ADM_LOADING,
@@ -24,6 +32,10 @@ import {
   UPDATE_OPERATIONROW_LOADING,
   UPDATE_OPERATIONROW_RESET,
   UPDATE_OPERATIONROW_SUCCESS,
+  UPDATE_OPERATION_FAIL,
+  UPDATE_OPERATION_LOADING,
+  UPDATE_OPERATION_RESET,
+  UPDATE_OPERATION_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IOperationState } from "./types";
@@ -192,6 +204,105 @@ export default produce((draft: IOperationState, action: IAction<any, any>) => {
     case DELETE_OPERATIONROW_RESET: {
       draft.deleteOperationRow.status = "IDLE";
       delete draft.deleteOperationRow.error;
+      break;
+    }
+
+    case CREATE_OPERATION_LOADING: {
+      draft.create.status = "LOADING";
+      draft.create.hasSucceeded = false;
+      draft.create.isLoading = true;
+      break;
+    }
+
+    case CREATE_OPERATION_SUCCESS: {
+      draft.create.status = "SUCCESS";
+      draft.create.data = action.payload;
+      draft.create.hasSucceeded = true;
+      draft.create.isLoading = false;
+      delete draft.create.error;
+      break;
+    }
+
+    case CREATE_OPERATION_FAIL: {
+      draft.create.status = "FAIL";
+      draft.create.error = action.error;
+      draft.create.hasSucceeded = false;
+      draft.create.isLoading = false;
+      break;
+    }
+
+    case CREATE_OPERATION_RESET: {
+      draft.create.status = "IDLE";
+      delete draft.create.error;
+      delete draft.create.data;
+      draft.create.hasSucceeded = false;
+      draft.create.isLoading = false;
+      break;
+    }
+
+    case UPDATE_OPERATION_LOADING: {
+      draft.update.status = "LOADING";
+      draft.update.hasSucceeded = false;
+      draft.update.isLoading = true;
+      break;
+    }
+
+    case UPDATE_OPERATION_SUCCESS: {
+      draft.update.status = "SUCCESS";
+      draft.update.data = action.payload;
+      draft.update.hasSucceeded = true;
+      draft.update.isLoading = false;
+      delete draft.update.error;
+      break;
+    }
+
+    case UPDATE_OPERATION_FAIL: {
+      draft.update.status = "FAIL";
+      draft.update.error = action.error;
+      draft.update.hasSucceeded = false;
+      draft.update.isLoading = false;
+      break;
+    }
+
+    case UPDATE_OPERATION_RESET: {
+      draft.update.status = "IDLE";
+      delete draft.update.error;
+      delete draft.update.data;
+      draft.update.hasSucceeded = false;
+      draft.update.isLoading = false;
+      break;
+    }
+
+    case DELETE_OPERATION_LOADING: {
+      draft.delete.status = "LOADING";
+      draft.delete.hasSucceeded = false;
+      draft.delete.isLoading = true;
+      break;
+    }
+
+    case DELETE_OPERATION_SUCCESS: {
+      draft.delete.status = "SUCCESS";
+      draft.delete.data = action.payload;
+      draft.delete.hasSucceeded = true;
+      draft.delete.isLoading = false;
+      delete draft.delete.error;
+      break;
+    }
+
+    case DELETE_OPERATION_FAIL: {
+      draft.delete.status = "FAIL";
+      draft.delete.error = action.error;
+      draft.delete.hasSucceeded = false;
+      draft.delete.isLoading = false;
+      break;
+    }
+
+    case DELETE_OPERATION_RESET: {
+      draft.delete.status = "IDLE";
+      delete draft.delete.error;
+      delete draft.delete.data;
+      draft.delete.hasSucceeded = false;
+      draft.delete.isLoading = false;
       break;
     }
   }

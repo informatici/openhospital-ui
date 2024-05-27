@@ -7,4 +7,7 @@ export const initial: IOperationState = {
   updateOperationRow: { status: "IDLE" },
   deleteOperationRow: { status: "IDLE" },
   operationRowsByQdmt: { status: "IDLE", data: new Array<OperationRowDTO>() },
+  create: { status: "IDLE" },
+  update: { status: "IDLE" },
+  delete: { status: "IDLE" },
 };

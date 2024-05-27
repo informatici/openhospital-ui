@@ -9,10 +9,18 @@ import {
   CREATE_OPERATIONROW_LOADING,
   CREATE_OPERATIONROW_RESET,
   CREATE_OPERATIONROW_SUCCESS,
+  CREATE_OPERATION_FAIL,
+  CREATE_OPERATION_LOADING,
+  CREATE_OPERATION_RESET,
+  CREATE_OPERATION_SUCCESS,
   DELETE_OPERATIONROW_FAIL,
   DELETE_OPERATIONROW_LOADING,
   DELETE_OPERATIONROW_RESET,
   DELETE_OPERATIONROW_SUCCESS,
+  DELETE_OPERATION_FAIL,
+  DELETE_OPERATION_LOADING,
+  DELETE_OPERATION_RESET,
+  DELETE_OPERATION_SUCCESS,
   GET_OPERATIONROW_ADM_EMPTY,
   GET_OPERATIONROW_ADM_FAIL,
   GET_OPERATIONROW_ADM_LOADING,
@@ -25,6 +33,10 @@ import {
   UPDATE_OPERATIONROW_LOADING,
   UPDATE_OPERATIONROW_RESET,
   UPDATE_OPERATIONROW_SUCCESS,
+  UPDATE_OPERATION_FAIL,
+  UPDATE_OPERATION_LOADING,
+  UPDATE_OPERATION_RESET,
+  UPDATE_OPERATION_SUCCESS,
 } from "./consts";
 
 const operationsApi = new OperationsApi(customConfiguration());
@@ -176,4 +188,94 @@ export const getOperationsByAdmissionId =
         });
       }
     );
+  };
+
+export const createOperation =
+  (operationDTO: OperationDTO) =>
+  (dispatch: Dispatch<IAction<OperationDTO, {}>>): void => {
+    dispatch({
+      type: CREATE_OPERATION_LOADING,
+    });
+    operationsApi.newOperation({ operationDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_OPERATION_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_OPERATION_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const updateOperation =
+  (payload: { code: string; operationDTO: OperationDTO }) =>
+  (dispatch: Dispatch<IAction<OperationDTO, {}>>): void => {
+    dispatch({
+      type: UPDATE_OPERATION_LOADING,
+    });
+    operationsApi.updateOperation(payload).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_OPERATION_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_OPERATION_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const deleteOperation =
+  (code: string) =>
+  (dispatch: Dispatch<IAction<boolean, {}>>): void => {
+    dispatch({
+      type: DELETE_OPERATION_LOADING,
+    });
+    operationsApi.deleteOperation({ code }).subscribe(
+      (payload) => {
+        dispatch({
+          type: DELETE_OPERATION_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: DELETE_OPERATION_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createOperationReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_OPERATION_RESET,
+    });
+  };
+
+export const updateOperationReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_OPERATION_RESET,
+    });
+  };
+
+export const deleteOperationReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_OPERATION_RESET,
+    });
   };

@@ -7,4 +7,7 @@ export type IOperationState = {
   updateOperationRow: IApiResponse<OperationRowDTO>;
   deleteOperationRow: IApiResponse<OperationRowDTO>;
   operationRowsByQdmt: IApiResponse<Array<OperationRowDTO>>;
+  create: IApiResponse<OperationDTO>;
+  update: IApiResponse<OperationDTO>;
+  delete: IApiResponse<boolean>;
 };
