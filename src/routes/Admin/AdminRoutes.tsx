@@ -9,6 +9,7 @@ import {
   Wards,
   NewWard,
   EditWard,
+  Diseases,
   Exams,
   Users,
   Operations,
@@ -49,7 +50,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.diseases")}
-            children={<Wards />}
+            children={<Diseases />}
           />
         ),
       },

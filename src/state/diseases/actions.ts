@@ -11,12 +11,37 @@ import {
   GET_DISEASEIPDOUT_FAIL,
   GET_DISEASEIPDOUT_LOADING,
   GET_DISEASEIPDOUT_SUCCESS,
+  GET_DISEASES_FAIL,
+  GET_DISEASES_LOADING,
+  GET_DISEASES_SUCCESS,
   GET_DISEASE_FAIL,
   GET_DISEASE_LOADING,
   GET_DISEASE_SUCCESS,
 } from "./consts";
 
 const desasesApi = new DiseasesApi(customConfiguration());
+
+export const getAllDiseases =
+  () =>
+  (dispatch: Dispatch<IAction<DiseaseDTO[], {}>>): void => {
+    dispatch({
+      type: GET_DISEASES_LOADING,
+    });
+    desasesApi.getAllDiseases().subscribe(
+      (payload) => {
+        dispatch({
+          type: GET_DISEASES_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: GET_DISEASES_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
 
 export const getDiseasesOpd =
   () =>

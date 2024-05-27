@@ -7,6 +7,9 @@ import {
   GET_DISEASEIPDOUT_FAIL,
   GET_DISEASEIPDOUT_LOADING,
   GET_DISEASEIPDOUT_SUCCESS,
+  GET_DISEASES_FAIL,
+  GET_DISEASES_LOADING,
+  GET_DISEASES_SUCCESS,
   GET_DISEASE_FAIL,
   GET_DISEASE_LOADING,
   GET_DISEASE_SUCCESS,
@@ -56,7 +59,7 @@ export default produce((draft: IDiseaseState, action: IAction<any, any>) => {
     }
 
     case GET_DISEASEIPDOUT_LOADING: {
-      draft.diseasesOpd.status = "LOADING";
+      draft.diseasesIpdOut.status = "LOADING";
       break;
     }
 
@@ -70,6 +73,24 @@ export default produce((draft: IDiseaseState, action: IAction<any, any>) => {
     case GET_DISEASEIPDOUT_FAIL: {
       draft.diseasesIpdOut.status = "FAIL";
       draft.diseasesIpdOut.error = action.error;
+      break;
+    }
+
+    case GET_DISEASES_LOADING: {
+      draft.allDiseases.status = "LOADING";
+      break;
+    }
+
+    case GET_DISEASES_SUCCESS: {
+      draft.allDiseases.status = "SUCCESS";
+      draft.allDiseases.data = action.payload;
+      delete draft.allDiseases.error;
+      break;
+    }
+
+    case GET_DISEASES_FAIL: {
+      draft.allDiseases.status = "FAIL";
+      draft.allDiseases.error = action.error;
       break;
     }
   }
