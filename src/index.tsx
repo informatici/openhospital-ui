@@ -35,6 +35,7 @@ import layouts from "./state/layouts/reducer";
 import dashboard from "./state/dashboard/reducer";
 import operationTypes from "./state/operationTypes/reducer";
 import users from "./state/users/reducer";
+import suppliers from "./state/suppliers/reducer";
 
 if (process.env.REACT_APP_USE_MOCK_API === "true") {
   console.log("Using mocked api");
@@ -68,6 +69,7 @@ const reducer = combineReducers<IState>({
   dashboard,
   operationTypes,
   users,
+  suppliers,
 });
 const store = createStore(
   reducer,
