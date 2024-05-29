@@ -816,13 +816,23 @@
     "defaultResult": "Default value"
   },
   "supplier": {
+    "id": "Supplier ID",
     "name": "Name",
     "address": "Address",
     "taxcode": "Tax Number ID",
     "phone": "Phone number",
     "fax": "Fax",
     "email": "Email Address",
-    "note": "Note"
+    "note": "Note",
+    "addNewSupplier": "Add a new supplier",
+    "editSupplier": "Edit supplier",
+    "updateSupplier": "Save changes",
+    "saveSupplier": "Save",
+    "addSupplier": "New supplier",
+    "updated": "Supplier updated",
+    "updateSuccess": "Supplier has been updated successfully!",
+    "created": "Supplier created",
+    "createSuccess": "Supplier has been created successfully!"
   },
   "ward": {
     "code": "Code",

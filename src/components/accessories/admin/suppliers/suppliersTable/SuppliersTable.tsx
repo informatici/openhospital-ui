@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -11,7 +11,12 @@ import { getSuppliers } from "../../../../../state/suppliers/actions";
 import { TFilterField } from "../../../table/filter/types";
 import classes from "./SuppliersTable.module.scss";
 
-export const SuppliersTable = () => {
+interface IOwnProps {
+  onEdit: (row: any) => void;
+  headerActions?: ReactNode;
+}
+
+export const SuppliersTable = ({ onEdit, headerActions }: IOwnProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -52,8 +57,13 @@ export const SuppliersTable = () => {
         fax: item.supFax ?? "",
         email: item.supEmail ?? "",
         note: item.supNote ?? "",
+        supId: item.supId,
       };
     });
+  };
+
+  const handleEdit = (row: SupplierDTO) => {
+    onEdit((data ?? []).find((item) => item.supId === row?.supId));
   };
 
   return (
@@ -77,11 +87,13 @@ export const SuppliersTable = () => {
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={10}
-                filterColumns={filters}
                 isCollapsabile={true}
+                onEdit={handleEdit}
+                filterColumns={filters}
                 showEmptyCell={false}
                 rowKey="name"
                 manualFilter={false}
+                headerActions={headerActions}
               />
             );
           case "SUCCESS_EMPTY":
