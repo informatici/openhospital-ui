@@ -3,3 +3,4 @@ export * from "./exams";
 export * from "./diseases";
 export * from "./users";
 export * from "./operations";
+export * from "./suppliers";

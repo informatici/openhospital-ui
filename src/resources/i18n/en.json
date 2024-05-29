@@ -835,6 +835,15 @@
     "updated": "Vaccine type updated",
     "updateSuccess": "The vaccine type has been updated successfully!"
   },
+  "supplier": {
+    "name": "Name",
+    "address": "Address",
+    "taxcode": "Tax Number ID",
+    "phone": "Phone number",
+    "fax": "Fax",
+    "email": "Email Address",
+    "note": "Note"
+  },
   "ward": {
     "code": "Code",
     "description": "Description",

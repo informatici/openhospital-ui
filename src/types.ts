@@ -25,6 +25,7 @@ import { IDashboardState } from "./state/dashboard/types";
 import { IOperationTypeState } from "./state/operationTypes/types";
 import { IUserState } from "./state/users/types";
 import { IVaccineTypesState } from "./state/vaccineTypes/types";
+import { ISupplierState } from "./state/suppliers/types";
 
 export interface IState {
   main: IMainState;
@@ -54,6 +55,7 @@ export interface IState {
   operationTypes: IOperationTypeState;
   users: IUserState;
   vaccineTypes: IVaccineTypesState;
+  suppliers: ISupplierState;
 }
 
 export enum FIELD_VALIDATION {

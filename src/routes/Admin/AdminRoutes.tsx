@@ -16,6 +16,7 @@ import TypesRoutes from "./TypesRoutes";
 import {
   Diseases,
   Operations,
+  Suppliers,
 } from "../../components/accessories/admin";
 
 export const AdminRoutes = () => {
@@ -84,7 +85,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.suppliers")}
-            children={<Wards />}
+            children={<Suppliers />}
           />
         ),
       },
