@@ -1,5 +1,6 @@
 import { IAgeTypeState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IAgeTypeState = {
-  getAllAgeTypes: { status: "IDLE", data: [] },
+  getAllAgeTypes: new ApiResponse({ status: "IDLE", data: [] }),
 };

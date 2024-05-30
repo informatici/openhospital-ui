@@ -12,10 +12,26 @@ export type TAPIResponseStatus =
   | "SUCCESS_EMPTY"
   | "FAIL";
 
-export interface IApiResponse<T> {
+export class ApiResponse<T> {
   status?: TAPIResponseStatus;
-  isLoading?: boolean;
-  hasSucceeded?: boolean;
   data?: T;
   error?: any;
+  get isLoading(): boolean {
+    return this.status === "LOADING";
+  }
+  get hasSucceeded(): boolean {
+    return this.status === "SUCCESS";
+  }
+  get hasFailed() {
+    return this.status === "FAIL";
+  }
+  get isSuccessEmpty() {
+    return this.status === "SUCCESS_EMPTY";
+  }
+
+  constructor(props: { status?: TAPIResponseStatus; data?: T; error?: any }) {
+    this.status = props.status;
+    this.data = props.data;
+    this.error = props.error;
+  }
 }

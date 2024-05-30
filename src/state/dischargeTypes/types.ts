@@ -1,6 +1,6 @@
 import { DischargeTypeDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IDischargeTypeState = {
-  allDischargeTypes: IApiResponse<Array<DischargeTypeDTO>>;
+  allDischargeTypes: ApiResponse<Array<DischargeTypeDTO>>;
 };

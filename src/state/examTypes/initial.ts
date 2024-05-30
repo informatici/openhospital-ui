@@ -1,5 +1,6 @@
 import { IExamTypeState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IExamTypeState = {
-  getExamTypes: { status: "IDLE", data: [] },
+  getExamTypes: new ApiResponse({ status: "IDLE", data: [] }),
 };

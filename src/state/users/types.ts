@@ -1,6 +1,6 @@
 import { UserDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IUserState = {
-  userList: IApiResponse<Array<UserDTO>>;
+  userList: ApiResponse<Array<UserDTO>>;
 };
