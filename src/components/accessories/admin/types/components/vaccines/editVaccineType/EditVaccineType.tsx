@@ -9,6 +9,7 @@ import { updateVaccineType } from "../../../../../../../state/vaccineTypes/actio
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
+import "./styles.scss";
 
 export const EditVaccineType = () => {
   const dispatch = useDispatch();
@@ -28,10 +29,8 @@ export const EditVaccineType = () => {
   }
 
   return (
-    <div>
-      <h3 style={{ marginBottom: "10px" }}>
-        {t("vaccineTypes.editVaccineType")}
-      </h3>
+    <div className="editVaccineType">
+      <h3 className="title">{t("vaccineTypes.editVaccineType")}</h3>
       <VaccineTypeForm
         creationMode={false}
         onSubmit={handleSubmit}

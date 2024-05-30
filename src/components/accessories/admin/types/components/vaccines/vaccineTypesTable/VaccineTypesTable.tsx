@@ -10,6 +10,7 @@ import Table from "../../../../../table/Table";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import { deleteVaccineTypeReset } from "../../../../../../../state/vaccineTypes/actions";
 import checkIcon from "../../../../../../../assets/check-icon.png";
+import "./styles.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -58,12 +59,12 @@ const VaccineTypesTable = (props: IOwnProps) => {
   };
 
   return (
-    <div style={{ display: "grid", marginTop: "50px" }}>
+    <div className="vaccineTypesTable">
       {(() => {
         switch (status) {
           case "FAIL":
             return (
-              <div style={{ width: "100%" }}>
+              <div className="fullWidth">
                 <InfoBox
                   type="error"
                   message={error?.error || error?.message}
@@ -71,11 +72,7 @@ const VaccineTypesTable = (props: IOwnProps) => {
               </div>
             );
           case "LOADING":
-            return (
-              <CircularProgress
-                style={{ marginLeft: "50%", position: "relative" }}
-              />
-            );
+            return <CircularProgress className="loader" />;
 
           case "SUCCESS":
             return (

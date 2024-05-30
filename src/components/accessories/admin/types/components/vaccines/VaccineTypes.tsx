@@ -10,6 +10,7 @@ import { VaccineTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import VaccineTypesTable from "./vaccineTypesTable";
 import Button from "../../../../button/Button";
+import "./styles.scss";
 
 const VaccineTypes = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const VaccineTypes = () => {
     <>
       <h3>{t("vaccineTypes.title")}</h3>
 
-      <div style={{ marginTop: "50px" }}>
+      <div className="vaccineTypes">
         <VaccineTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}

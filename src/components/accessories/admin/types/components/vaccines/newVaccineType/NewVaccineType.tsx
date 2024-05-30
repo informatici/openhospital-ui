@@ -7,6 +7,7 @@ import { VaccineTypeDTO } from "../../../../../../../generated";
 import { createVaccineType } from "../../../../../../../state/vaccineTypes/actions";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
 import { getInitialFields } from "../vaccineTypesForm/consts";
+import "./styles.scss";
 
 export const NewVaccineType = () => {
   const dispatch = useDispatch();
@@ -20,10 +21,8 @@ export const NewVaccineType = () => {
   };
 
   return (
-    <div>
-      <h3 style={{ marginBottom: "10px" }}>
-        {t("vaccineTypes.addVaccineType")}
-      </h3>
+    <div className="newVaccineType">
+      <h3 className="title">{t("vaccineTypes.addVaccineType")}</h3>
       <VaccineTypeForm
         creationMode
         onSubmit={handleSubmit}
