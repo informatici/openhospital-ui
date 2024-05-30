@@ -144,10 +144,10 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
                   </div>
                 )}
                 <ConfirmationDialog
-                  isOpen={!!deleteOperation.hasSucceeded}
-                  title={t("ward.deleted")}
+                  isOpen={deleteOperation.status === "SUCCESS"}
+                  title={t("operation.deleted")}
                   icon={checkIcon}
-                  info={t("ward.deleteSuccess")}
+                  info={t("operation.deleteSuccess")}
                   primaryButtonLabel="Ok"
                   handlePrimaryButtonClick={() => {
                     dispatch(deleteOperationReset());
