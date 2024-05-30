@@ -249,7 +249,7 @@ const OperationForm: FC<IOperationProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.operations);
+            navigate(PATHS.admin_operations);
           }}
           handleSecondaryButtonClick={() => ({})}
         />

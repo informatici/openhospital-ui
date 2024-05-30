@@ -24,7 +24,7 @@ export const EditOperation = () => {
   };
 
   if (state?.code !== id) {
-    return <Navigate to={PATHS.operations} />;
+    return <Navigate to={PATHS.admin_operations} />;
   }
 
   return (

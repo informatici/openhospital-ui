@@ -22,7 +22,9 @@ export const Operations = () => {
   }, [dispatch]);
 
   const handleEdit = (row: OperationDTO) => {
-    navigate(PATHS.operations_edit.replace("#id", row.code!), { state: row });
+    navigate(PATHS.admin_operations_edit.replace("#id", row.code!), {
+      state: row,
+    });
   };
 
   const handleDelete = (row: OperationDTO) => {
@@ -37,7 +39,7 @@ export const Operations = () => {
         headerActions={
           <Button
             onClick={() => {
-              navigate("./new");
+              navigate(PATHS.admin_operations_new);
             }}
             type="button"
             variant="contained"
