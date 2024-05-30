@@ -1,3 +1,5 @@
+import { immerable } from "immer";
+
 export interface IAction<Payload, Error> {
   type: string;
   payload?: Payload | Error;
@@ -13,6 +15,7 @@ export type TAPIResponseStatus =
   | "FAIL";
 
 export class ApiResponse<T> {
+  [immerable] = true;
   status?: TAPIResponseStatus;
   data?: T;
   error?: any;
@@ -30,7 +33,7 @@ export class ApiResponse<T> {
   }
 
   constructor(props: { status?: TAPIResponseStatus; data?: T; error?: any }) {
-    this.status = props.status;
+    this.status = props.status ?? "IDLE";
     this.data = props.data;
     this.error = props.error;
   }
