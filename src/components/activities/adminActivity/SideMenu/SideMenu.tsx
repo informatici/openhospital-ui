@@ -19,7 +19,7 @@ import { MenuItem } from "../../../accessories/menuItem";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { HospitalDTO } from "../../../../generated";
-import { IApiResponse } from "../../../../state/types";
+import { ApiResponse } from "../../../../state/types";
 
 const SideMenu = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const SideMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hospital = useSelector<IState, IApiResponse<HospitalDTO>>(
+  const hospital = useSelector<IState, ApiResponse<HospitalDTO>>(
     (state) => state.hospital.getHospital
   );
 

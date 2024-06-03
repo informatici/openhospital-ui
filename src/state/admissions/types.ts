@@ -3,15 +3,15 @@ import {
   AdmittedPatientDTO,
   PageAdmissionDTO,
 } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IAdmissionsState = {
-  createAdmission: IApiResponse<AdmissionDTO>;
-  updateAdmission: IApiResponse<AdmissionDTO>;
-  getAdmissions: IApiResponse<PageAdmissionDTO>;
-  getDischarges: IApiResponse<PageAdmissionDTO>;
-  getPatientAdmissions: IApiResponse<Array<AdmissionDTO>>;
-  getAdmittedPatients: IApiResponse<Array<AdmittedPatientDTO>>;
-  currentAdmissionByPatientId: IApiResponse<AdmissionDTO>;
-  dischargePatient: IApiResponse<AdmissionDTO>;
+  createAdmission: ApiResponse<AdmissionDTO>;
+  updateAdmission: ApiResponse<AdmissionDTO>;
+  getAdmissions: ApiResponse<PageAdmissionDTO>;
+  getDischarges: ApiResponse<PageAdmissionDTO>;
+  getPatientAdmissions: ApiResponse<Array<AdmissionDTO>>;
+  getAdmittedPatients: ApiResponse<Array<AdmittedPatientDTO>>;
+  currentAdmissionByPatientId: ApiResponse<AdmissionDTO>;
+  dischargePatient: ApiResponse<AdmissionDTO>;
 };
