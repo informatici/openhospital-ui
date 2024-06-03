@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { OperationDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import classes from "./OperationTable.module.scss";
 import { TFilterField } from "../../../table/filter/types";
 
@@ -62,7 +62,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
 
   const { data, status, error } = useSelector<
     IState,
-    IApiResponse<OperationDTO[]>
+    ApiResponse<OperationDTO[]>
   >((state) => state.operations.operationList);
 
   const handleEdit = (row: OperationDTO) => {

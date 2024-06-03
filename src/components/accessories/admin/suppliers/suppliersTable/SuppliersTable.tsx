@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { SupplierDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import { getSuppliers } from "../../../../../state/suppliers/actions";
 import { TFilterField } from "../../../table/filter/types";
 import classes from "./SuppliersTable.module.scss";
@@ -39,7 +39,7 @@ export const SuppliersTable = () => {
 
   const { data, status, error } = useSelector<
     IState,
-    IApiResponse<SupplierDTO[]>
+    ApiResponse<SupplierDTO[]>
   >((state) => state.suppliers.supplierList);
 
   const formatDataToDisplay = (data: SupplierDTO[]) => {

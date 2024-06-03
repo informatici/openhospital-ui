@@ -9,10 +9,29 @@
       "someexamswithoutresultpleasecheck": "Einige Prüfungen ohne Ergebnis, bitte überprüfen."
     }
   },
+  "validations": {
+    "min": "Der Wert muss mindestens {{min}} sein",
+    "max": "Der Wert darf {{max}} nicht überschreiten",
+    "minLength": "Die Wertlänge muss mindestens {{min}} sein",
+    "maxLength": "Die Wertlänge darf {{max}} nicht überschreiten",
+    "email": "Der Wert ist keine gültige E -Mail -Adresse",
+    "number": "Der Wert ist keine gültige Zahl"
+  },
   "user": {
     "username": "Benutzername",
     "groups": "Gruppen ",
-    "lastlogin": "Letzter login"
+    "lastlogin": "Letzter login",
+    "description": "Bezeichnung"
+  },
+  "hospital": {
+    "address": "Adresse",
+    "city": "Stadt",
+    "code": "Code",
+    "description": "Bezeichnung",
+    "telephone": "Telefon",
+    "fax": "Fax",
+    "email": "Email Adresse",
+    "currencyCod": "Währungscode"
   },
   "login": {
     "username": "Benutzername",
@@ -345,7 +364,19 @@
     "billrecords": "Rechnungsaufzeichnungen",
     "visits": "Besuche",
     "patients": "Patienten",
-    "consultancy": "Beratungsgespräch"
+    "consultancy": "Beratungsgespräch",
+    "administration": "Verwaltung",
+    "wards": "Stationen",
+    "diseases": "Krankheiten",
+    "operations": "Eingriffe",
+    "vaccines": "Impfungen",
+    "prices": "Preisliste",
+    "suppliers": "Lieferanten",
+    "telemetry": "Telemetrie",
+    "users": "Benutzer & Gruppen",
+    "types": "Typen verwalten",
+    "hospitalInfo": "Krankenhausinfo",
+    "hospital": "Krankenhaus"
   },
   "operation": {
     "newoperation": "Neue Operation",
@@ -376,7 +407,16 @@
       "success": "Erfolgreich",
       "failure": "Fehlschlag"
     },
-    "previousentries": "Frühere Operationen"
+    "previousentries": "Frühere Operationen",
+    "code": "Code",
+    "description": "Name",
+    "type": "Typ",
+    "class": "Klasse",
+    "context": "Kontext",
+    "classes": {
+      "major": "Gross",
+      "minor": "Klein"
+    }
   },
   "common": {
     "ok": "OK",
@@ -462,7 +502,16 @@
     "expand_all": "Alle erweitern",
     "remainingchars": "Übrig: {{current}} / {{max}}",
     "gohome": "Zur Startseite",
-    "gotopatientactivities": "Gehe zu Patientenaktivitäten"
+    "gotopatientactivities": "Gehe zu Patientenaktivitäten",
+    "permissionDenied": "Zugriff verweigert - Sie haben keine Berechtigungen, um auf diesen Inhalt zuzugreifen",
+    "menu": "Menu",
+    "filter": "Filter",
+    "min": "Min",
+    "max": "Max",
+    "value": "Wert",
+    "true": "Aktiv",
+    "false": "False",
+    "all": "Alle"
   },
   "permission": {
     "denied": "Zugriff verweigert",
@@ -758,5 +807,54 @@
       "tissues": { "txt": "Gewebe" },
       "urine": { "txt": "Urin" }
     }
+  },
+  "exam": {
+    "code": "Code",
+    "examtype": "Exam Typ",
+    "description": "Name",
+    "procedure": "Verfahren",
+    "defaultResult": "Standardwert"
+  },
+  "supplier": {
+    "name": "Name",
+    "address": "Adresse",
+    "taxcode": "MwST Nr.",
+    "phone": "Telefon",
+    "fax": "Fax",
+    "email": "Email Adresse",
+    "note": "Notiz"
+  },
+  "ward": {
+    "code": "Code",
+    "description": "Bezeichnung",
+    "beds": "Betten",
+    "nurs": "Krankenschwester",
+    "docs": "Ärzte",
+    "pharmacy": "Apotheke",
+    "male": "Männlich",
+    "female": "Weiblich",
+    "telephone": "Telefon",
+    "fax": "Fax",
+    "opd": "OPD",
+    "email": "Email Adresse",
+    "visitDuration": "Besuchsdauer",
+    "addWard": "Station hinzufügen",
+    "editWard": "Station bearbeiten",
+    "updateWard": "Station aktualisieren",
+    "saveWard": "Station speichern",
+    "created": "Station erstellt",
+    "updated": "Station aktualisiert",
+    "deleted": "Station gelöscht",
+    "createSuccess": "Station wurde erfolgreich erstellt!",
+    "updateSuccess": "Station {{Code}} wurde erfolgreich aktualisiert!",
+    "deleteSuccess": "Station {{Code}} wurde erfolgreich gelöscht!"
+  },
+  "disease": {
+    "code": "Code",
+    "name": "Name",
+    "diseaseType": "Typ",
+    "opdInclude": "OPD",
+    "ipdInInclude": "IP In",
+    "ipdOutInclude": "IP Out"
   }
 }

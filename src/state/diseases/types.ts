@@ -1,11 +1,11 @@
 import { DiseaseDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IDiseaseState = {
-  allDiseases: IApiResponse<Array<DiseaseDTO>>;
-  diseasesOpd: IApiResponse<Array<DiseaseDTO>>;
-  diseasesIpdIn: IApiResponse<Array<DiseaseDTO>>;
-  diseasesIpdOut: IApiResponse<Array<DiseaseDTO>>;
-  create: IApiResponse<DiseaseDTO>;
-  update: IApiResponse<DiseaseDTO>;
+  allDiseases: ApiResponse<Array<DiseaseDTO>>;
+  diseasesOpd: ApiResponse<Array<DiseaseDTO>>;
+  diseasesIpdIn: ApiResponse<Array<DiseaseDTO>>;
+  diseasesIpdOut: ApiResponse<Array<DiseaseDTO>>;
+  create: ApiResponse<DiseaseDTO>;
+  update: ApiResponse<DiseaseDTO>;
 };

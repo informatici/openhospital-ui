@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { DiseaseDTO } from "../../../../../generated";
 import { createDisease } from "../../../../../state/diseases/actions";
 import { IState } from "../../../../../types";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 
 export const NewDisease = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, IApiResponse<DiseaseDTO>>(
+  const create = useSelector<IState, ApiResponse<DiseaseDTO>>(
     (state) => state.diseases.create
   );
 
