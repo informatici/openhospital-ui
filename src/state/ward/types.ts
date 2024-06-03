@@ -1,9 +1,9 @@
 import { WardDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IWardState = {
-  allWards: IApiResponse<Array<WardDTO>>;
-  create: IApiResponse<WardDTO>;
-  update: IApiResponse<WardDTO>;
-  delete: IApiResponse<boolean>;
+  allWards: ApiResponse<Array<WardDTO>>;
+  create: ApiResponse<WardDTO>;
+  update: ApiResponse<WardDTO>;
+  delete: ApiResponse<boolean>;
 };

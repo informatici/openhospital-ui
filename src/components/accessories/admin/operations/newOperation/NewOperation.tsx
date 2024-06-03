@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { OperationDTO } from "../../../../../generated";
 import { createOperation } from "../../../../../state/operations/actions";
 import { IState } from "../../../../../types";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 
 export const NewOperation = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, IApiResponse<OperationDTO>>(
+  const create = useSelector<IState, ApiResponse<OperationDTO>>(
     (state) => state.operations.create
   );
 

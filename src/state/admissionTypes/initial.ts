@@ -1,5 +1,6 @@
 import { IAdmissionTypeState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IAdmissionTypeState = {
-  allAdmissionTypes: { status: "IDLE", data: [] },
+  allAdmissionTypes: new ApiResponse({ status: "IDLE", data: [] }),
 };

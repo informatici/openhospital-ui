@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getExams } from "../../../../../state/exams/actions";
 import { IState } from "../../../../../types";
 import { ExamDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import classes from "./ExamsTable.module.scss";
 
 export const ExamsTable = () => {
@@ -29,7 +29,7 @@ export const ExamsTable = () => {
   };
   const order = ["code", "type", "description", "procedure", "defaultResult"];
 
-  const { data, status, error } = useSelector<IState, IApiResponse<ExamDTO[]>>(
+  const { data, status, error } = useSelector<IState, ApiResponse<ExamDTO[]>>(
     (state) => state.exams.examList
   );
 

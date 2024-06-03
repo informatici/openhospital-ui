@@ -1,13 +1,19 @@
-import { OperationDTO, OperationRowDTO } from "../../generated";
 import { IOperationState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IOperationState = {
-  operationList: { status: "IDLE", data: new Array<OperationDTO>() },
-  createOperationRow: { status: "IDLE" },
-  updateOperationRow: { status: "IDLE" },
-  deleteOperationRow: { status: "IDLE" },
-  operationRowsByQdmt: { status: "IDLE", data: new Array<OperationRowDTO>() },
-  create: { status: "IDLE" },
-  update: { status: "IDLE" },
-  delete: { status: "IDLE" },
+  operationList: new ApiResponse({
+    status: "IDLE",
+    data: [],
+  }),
+  createOperationRow: new ApiResponse({ status: "IDLE" }),
+  updateOperationRow: new ApiResponse({ status: "IDLE" }),
+  deleteOperationRow: new ApiResponse({ status: "IDLE" }),
+  operationRowsByQdmt: new ApiResponse({
+    status: "IDLE",
+    data: [],
+  }),
+  create: new ApiResponse({ status: "IDLE" }),
+  update: new ApiResponse({ status: "IDLE" }),
+  delete: new ApiResponse({ status: "IDLE" }),
 };

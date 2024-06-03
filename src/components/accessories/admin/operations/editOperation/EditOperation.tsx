@@ -4,7 +4,7 @@ import React from "react";
 import { getInitialFields } from "../operationForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { OperationDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import { updateOperation } from "../../../../../state/operations/actions";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
@@ -15,7 +15,7 @@ export const EditOperation = () => {
   const { t } = useTranslation();
   const { state }: { state: OperationDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, IApiResponse<OperationDTO>>(
+  const update = useSelector<IState, ApiResponse<OperationDTO>>(
     (state) => state.operations.update
   );
 

@@ -4,7 +4,7 @@ import React from "react";
 import { getInitialFields } from "../wardForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { WardDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import { updateWard } from "../../../../../state/ward/actions";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
@@ -15,7 +15,7 @@ export const EditWard = () => {
   const { t } = useTranslation();
   const { state }: { state: WardDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, IApiResponse<WardDTO>>(
+  const update = useSelector<IState, ApiResponse<WardDTO>>(
     (state) => state.wards.update
   );
 

@@ -1,13 +1,13 @@
 import { OperationDTO, OperationRowDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IOperationState = {
-  operationList: IApiResponse<Array<OperationDTO>>;
-  createOperationRow: IApiResponse<OperationRowDTO>;
-  updateOperationRow: IApiResponse<OperationRowDTO>;
-  deleteOperationRow: IApiResponse<OperationRowDTO>;
-  operationRowsByQdmt: IApiResponse<Array<OperationRowDTO>>;
-  create: IApiResponse<OperationDTO>;
-  update: IApiResponse<OperationDTO>;
-  delete: IApiResponse<boolean>;
+  operationList: ApiResponse<Array<OperationDTO>>;
+  createOperationRow: ApiResponse<OperationRowDTO>;
+  updateOperationRow: ApiResponse<OperationRowDTO>;
+  deleteOperationRow: ApiResponse<OperationRowDTO>;
+  operationRowsByQdmt: ApiResponse<Array<OperationRowDTO>>;
+  create: ApiResponse<OperationDTO>;
+  update: ApiResponse<OperationDTO>;
+  delete: ApiResponse<boolean>;
 };

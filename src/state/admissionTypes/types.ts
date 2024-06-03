@@ -1,6 +1,6 @@
 import { AdmissionTypeDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IAdmissionTypeState = {
-  allAdmissionTypes: IApiResponse<Array<AdmissionTypeDTO>>;
+  allAdmissionTypes: ApiResponse<Array<AdmissionTypeDTO>>;
 };
