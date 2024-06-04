@@ -1,6 +1,6 @@
 import { OperationTypeDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IOperationTypeState = {
-  getOperationTypes: IApiResponse<Array<OperationTypeDTO>>;
+  getOperationTypes: ApiResponse<Array<OperationTypeDTO>>;
 };

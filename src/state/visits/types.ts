@@ -1,8 +1,8 @@
 import { VisitDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IVisitState = {
-  getVisits: IApiResponse<Array<VisitDTO>>;
-  createVisit: IApiResponse<VisitDTO>;
-  updateVisit: IApiResponse<VisitDTO>;
+  getVisits: ApiResponse<Array<VisitDTO>>;
+  createVisit: ApiResponse<VisitDTO>;
+  updateVisit: ApiResponse<VisitDTO>;
 };

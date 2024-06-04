@@ -1,3 +1,5 @@
+import { immerable } from "immer";
+
 export interface IAction<Payload, Error> {
   type: string;
   payload?: Payload | Error;
@@ -12,10 +14,27 @@ export type TAPIResponseStatus =
   | "SUCCESS_EMPTY"
   | "FAIL";
 
-export interface IApiResponse<T> {
+export class ApiResponse<T> {
+  [immerable] = true;
   status?: TAPIResponseStatus;
-  isLoading?: boolean;
-  hasSucceeded?: boolean;
   data?: T;
   error?: any;
+  get isLoading(): boolean {
+    return this.status === "LOADING";
+  }
+  get hasSucceeded(): boolean {
+    return this.status === "SUCCESS";
+  }
+  get hasFailed() {
+    return this.status === "FAIL";
+  }
+  get isSuccessEmpty() {
+    return this.status === "SUCCESS_EMPTY";
+  }
+
+  constructor(props: { status?: TAPIResponseStatus; data?: T; error?: any }) {
+    this.status = props.status ?? "IDLE";
+    this.data = props.data;
+    this.error = props.error;
+  }
 }

@@ -1,5 +1,6 @@
 import { IHospitalState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IHospitalState = {
-  getHospital: { status: "IDLE" },
+  getHospital: new ApiResponse({ status: "IDLE" }),
 };

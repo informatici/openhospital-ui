@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../../../../state/users/actions";
 import { IState } from "../../../../../types";
 import { UserDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import classes from "./UsersTable.module.scss";
 
 export const UsersTable = () => {
@@ -27,7 +27,7 @@ export const UsersTable = () => {
   };
   const order = ["userName", "userGroupName", "desc"];
 
-  const { data, status, error } = useSelector<IState, IApiResponse<UserDTO[]>>(
+  const { data, status, error } = useSelector<IState, ApiResponse<UserDTO[]>>(
     (state) => state.users.userList
   );
 

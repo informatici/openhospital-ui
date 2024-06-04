@@ -1,6 +1,7 @@
 import { IPricesState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IPricesState = {
-  getPrices: { status: "IDLE", data: [] },
-  getPriceLists: { status: "IDLE", data: [] },
+  getPrices: new ApiResponse({ status: "IDLE", data: [] }),
+  getPriceLists: new ApiResponse({ status: "IDLE", data: [] }),
 };

@@ -1,5 +1,6 @@
 import { IDiseaseTypeState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IDiseaseTypeState = {
-  getDiseaseTypes: { status: "IDLE", data: [] },
+  getDiseaseTypes: new ApiResponse({ status: "IDLE", data: [] }),
 };

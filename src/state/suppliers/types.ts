@@ -1,6 +1,6 @@
 import { SupplierDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type ISupplierState = {
-  supplierList: IApiResponse<Array<SupplierDTO>>;
+  supplierList: ApiResponse<Array<SupplierDTO>>;
 };

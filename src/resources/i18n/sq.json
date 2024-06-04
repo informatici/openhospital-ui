@@ -9,10 +9,29 @@
       "someexamswithoutresultpleasecheck": "Disa ekzaminime pa rezultat ju lutemi kontrolloni."
     }
   },
+  "validations": {
+    "min": "vlera duhet të jetë së paku {{min}}",
+    "max": "vlera nuk mund të tejkalojë {{max}}",
+    "minLength": "gjatësia e vlerës duhet të jetë të paktën {{min}}",
+    "maxLength": "gjatësia e vlerës duhet të tejkalojë {{max}}",
+    "email": "Vlera nuk është adresë e vlefshme emaili ",
+    "number": "Vlera nuk është një numër i vlefshëm"
+  },
   "user": {
     "username": "Përdoruesi",
     "groups": "Grupet",
-    "lastlogin": "Hyrja e fundit"
+    "lastlogin": "Hyrja e fundit",
+    "description": "Përshkrimi"
+  },
+  "hospital": {
+    "address": "Adresa",
+    "city": "Qyteti",
+    "code": "Kodi",
+    "description": "Përshkrimi",
+    "telephone": "Telefoni",
+    "fax": "Faks",
+    "email": "Adresa Email",
+    "currencyCod": "Kodi i valutës"
   },
   "login": {
     "username": "Përdoruesi",
@@ -345,7 +364,19 @@
     "billrecords": "Regjistrimet e faturave",
     "visits": "Vizitat",
     "patients": "Pacientët",
-    "consultancy": "Konsultim"
+    "consultancy": "Konsultim",
+    "administration": "Administrimi",
+    "wards": "Repartet",
+    "diseases": "Sëmundjet",
+    "operations": "Operacionet",
+    "vaccines": "Vaksinat",
+    "prices": "Lista e çmimeve",
+    "suppliers": "Furnitorët",
+    "telemetry": "Telemetria",
+    "users": "Përdoruesit & Grupet",
+    "types": "Menaxho llojet",
+    "hospitalInfo": "Info mbi Spitalin",
+    "hospital": "Spitali"
   },
   "operation": {
     "newoperation": "Operacion i ri",
@@ -376,7 +407,16 @@
       "success": "Sukses",
       "failure": "Dështoi"
     },
-    "previousentries": "Operacione të mëparshme"
+    "previousentries": "Operacione të mëparshme",
+    "code": "Kodi",
+    "description": "Emri",
+    "type": "Lloji",
+    "class": "Klasa",
+    "context": "Koneksti",
+    "classes": {
+      "major": "I madh",
+      "minor": "I vogël"
+    }
   },
   "common": {
     "ok": "OK",
@@ -462,7 +502,16 @@
     "expand_all": "Zgjëro të gjitha",
     "remainingchars": "Mbetur : {{current}} / {{max}}",
     "gohome": "Shko ne Fillim",
-    "gotopatientactivities": "Shko tek aktivitetet e Pacientit"
+    "gotopatientactivities": "Shko tek aktivitetet e Pacientit",
+    "permissionDenied": "Qasja nuk lejohet - ju nuk keni privilegjet e kërkuara për të hyrë në këtë përmbajtje",
+    "menu": "Meny",
+    "filter": "Filtri",
+    "min": "Min",
+    "max": "Maks",
+    "value": "Vlera",
+    "true": "Aktiv",
+    "false": "Jo-aktiv",
+    "all": "Të gjitha"
   },
   "permission": {
     "denied": "Leja u refuzua",
@@ -758,5 +807,54 @@
       "tissues": { "txt": "Indet" },
       "urine": { "txt": "Urina" }
     }
+  },
+  "exam": {
+    "code": "Kodi",
+    "examtype": "Lloji i ekzaminimit",
+    "description": "Emri",
+    "procedure": "Procedura",
+    "defaultResult": "Vlera standard"
+  },
+  "supplier": {
+    "name": "Emri",
+    "address": "Adresa",
+    "taxcode": "ID e TVSH-s",
+    "phone": "Nr. Tel",
+    "fax": "Faks",
+    "email": "Adresa Email",
+    "note": "Shënim"
+  },
+  "ward": {
+    "code": "Kodi",
+    "description": "Përshkrimi",
+    "beds": "Krevate",
+    "nurs": "Infermiere",
+    "docs": "Doktor",
+    "pharmacy": "Farmacia",
+    "male": "Mashkull",
+    "female": "Femër",
+    "telephone": "Telefoni",
+    "fax": "Faks",
+    "opd": "DPJ",
+    "email": "Adresa Email",
+    "visitDuration": "Kohëzgjatja e vizitës",
+    "addWard": "Shto Repart",
+    "editWard": "Redakto Repart",
+    "updateWard": "aktualizo Repart",
+    "saveWard": "Ruaj Repartin",
+    "created": "Reparti u krijua",
+    "updated": "Reparti u aktualizua",
+    "deleted": "Reparti u fshi",
+    "createSuccess": "Reparti u krijua me sukses!",
+    "updateSuccess": "Reparti {{code}} u krijua me sukses!",
+    "deleteSuccess": "Reparti {{code}} u fshi me sukses!"
+  },
+  "disease": {
+    "code": "Kodi",
+    "name": "Emri",
+    "diseaseType": "Lloji",
+    "opdInclude": "DPJ",
+    "ipdInInclude": "PB Hyrje",
+    "ipdOutInclude": "PB Dalje"
   }
 }

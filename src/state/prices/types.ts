@@ -1,8 +1,8 @@
 import { PriceDTO } from "../../generated/models/PriceDTO";
 import { PriceListDTO } from "../../generated/models/PriceListDTO";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IPricesState = {
-  getPrices: IApiResponse<Array<PriceDTO>>;
-  getPriceLists: IApiResponse<Array<PriceListDTO>>;
+  getPrices: ApiResponse<Array<PriceDTO>>;
+  getPriceLists: ApiResponse<Array<PriceListDTO>>;
 };
