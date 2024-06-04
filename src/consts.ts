@@ -24,6 +24,7 @@ export const PATHS = {
   diseases: "/admin/diseases",
   diseases_new: "/admin/diseases/new",
   diseases_edit: "/admin/diseases/#id/edit",
-  operations: "/admin/operations",
-  operations_edit: "/admin/operations/#id/edit",
+  admin_operations: "/admin/operations",
+  admin_operations_edit: "/admin/operations/#id/edit",
+  admin_operations_new: "/admin/operations/new",
 };

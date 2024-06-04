@@ -3,10 +3,10 @@
 .header {
   display: flex;
   justify-content: space-between;
-  .headetActions {
+  .headerActions {
     display: flex;
     justify-content: end;
-    width: 100%;
+    flex: 1;
   }
   margin-bottom: 12px;
 }

@@ -1,25 +1,32 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ReactNode, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { OperationDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./OperationTable.module.scss";
 import { TFilterField } from "../../../table/filter/types";
+import { deleteOperationReset } from "../../../../../state/operations/actions";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../../assets/check-icon.png";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
   onDelete: (row: any) => void;
+  headerActions?: ReactNode;
 }
 
 export const OperationTable: FunctionComponent<IOwnProps> = ({
   onEdit,
   onDelete,
+  headerActions,
 }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const operationTypesOptions = useSelector<
     IState,
@@ -64,6 +71,10 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     IState,
     ApiResponse<OperationDTO[]>
   >((state) => state.operations.operationList);
+
+  const deleteOperation = useSelector<IState, ApiResponse<boolean>>(
+    (state) => state.operations.delete
+  );
 
   const handleEdit = (row: OperationDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));
@@ -122,6 +133,26 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
                       type: operation.type?.code,
                     })) ?? []
                   }
+                  headerActions={headerActions}
+                />
+                {deleteOperation.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox
+                      type="error"
+                      message={deleteOperation.error?.message}
+                    />
+                  </div>
+                )}
+                <ConfirmationDialog
+                  isOpen={deleteOperation.status === "SUCCESS"}
+                  title={t("operation.deleted")}
+                  icon={checkIcon}
+                  info={t("operation.deleteSuccess")}
+                  primaryButtonLabel="Ok"
+                  handlePrimaryButtonClick={() => {
+                    dispatch(deleteOperationReset());
+                  }}
+                  handleSecondaryButtonClick={() => ({})}
                 />
               </>
             );
