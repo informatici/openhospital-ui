@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
-import { IApiResponse } from "../../../../../../../state/types";
+import { ApiResponse } from "../../../../../../../state/types";
 import { VaccineTypeDTO } from "../../../../../../../generated";
 import { createVaccineType } from "../../../../../../../state/vaccineTypes/actions";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
@@ -12,7 +12,7 @@ import "./styles.scss";
 export const NewVaccineType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, IApiResponse<VaccineTypeDTO>>(
+  const create = useSelector<IState, ApiResponse<VaccineTypeDTO>>(
     (state) => state.vaccineTypes.create
   );
 

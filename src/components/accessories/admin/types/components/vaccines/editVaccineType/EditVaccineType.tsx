@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { VaccineTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
-import { IApiResponse } from "../../../../../../../state/types";
+import { ApiResponse } from "../../../../../../../state/types";
 import { updateVaccineType } from "../../../../../../../state/vaccineTypes/actions";
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../vaccineTypesForm/consts";
@@ -16,7 +16,7 @@ export const EditVaccineType = () => {
   const { t } = useTranslation();
   const { state }: { state: VaccineTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, IApiResponse<VaccineTypeDTO>>(
+  const update = useSelector<IState, ApiResponse<VaccineTypeDTO>>(
     (state) => state.vaccineTypes.update
   );
 

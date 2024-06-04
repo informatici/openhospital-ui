@@ -1,7 +1,7 @@
 import React, { ReactNode, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { IApiResponse } from "../../../../../../../state/types";
+import { ApiResponse } from "../../../../../../../state/types";
 import { IState } from "../../../../../../../types";
 import { VaccineTypeDTO } from "../../../../../../../generated";
 import InfoBox from "../../../../../infoBox/InfoBox";
@@ -34,10 +34,10 @@ const VaccineTypesTable = (props: IOwnProps) => {
 
   const { data, status, error } = useSelector<
     IState,
-    IApiResponse<VaccineTypeDTO[]>
+    ApiResponse<VaccineTypeDTO[]>
   >((state) => state.vaccineTypes.getVaccineTypes);
 
-  const deleteVaccineType = useSelector<IState, IApiResponse<boolean>>(
+  const deleteVaccineType = useSelector<IState, ApiResponse<boolean>>(
     (state) => state.vaccineTypes.delete
   );
 
