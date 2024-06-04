@@ -15,6 +15,8 @@ import {
   Operations,
   NewDisease,
   EditDisease,
+  NewOperation,
+  EditOperation,
   Suppliers,
 } from "../../components/accessories/admin";
 
@@ -85,6 +87,24 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.operations")}
             children={<Operations />}
+          />
+        ),
+      },
+      {
+        path: "operations/new",
+        element: (
+          <AdminActivityContent
+            title={t("operation.addOperation")}
+            children={<NewOperation />}
+          />
+        ),
+      },
+      {
+        path: "operations/:id/edit",
+        element: (
+          <AdminActivityContent
+            title={t("operation.editOperation")}
+            children={<EditOperation />}
           />
         ),
       },
