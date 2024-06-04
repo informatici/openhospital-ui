@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { SupplierDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import { IState } from "../../../../../types";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
@@ -15,7 +15,7 @@ export const EditSupplier = () => {
   const { t } = useTranslation();
   const { state }: { state: SupplierDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, IApiResponse<SupplierDTO>>(
+  const update = useSelector<IState, ApiResponse<SupplierDTO>>(
     (state) => state.suppliers.update
   );
   const navigate = useNavigate();

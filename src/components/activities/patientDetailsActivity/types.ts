@@ -1,10 +1,10 @@
 import { TUserCredentials } from "../../../state/main/types";
-import { IApiResponse } from "../../../state/types";
+import { ApiResponse } from "../../../state/types";
 import { PatientDTO } from "../../../generated";
 
 export interface IStateProps {
   userCredentials: TUserCredentials;
-  patient: IApiResponse<PatientDTO>;
+  patient: ApiResponse<PatientDTO>;
 }
 
 export interface IDispatchProps {

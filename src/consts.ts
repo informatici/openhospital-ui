@@ -29,4 +29,7 @@ export const PATHS = {
   suppliers: "/admin/suppliers",
   suppliers_new: "/admin/suppliers/new",
   suppliers_edit: "/admin/suppliers/:id/edit",
+  admin_operations: "/admin/operations",
+  admin_operations_edit: "/admin/operations/#id/edit",
+  admin_operations_new: "/admin/operations/new",
 };

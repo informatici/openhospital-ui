@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { DiseaseDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import classes from "./DiseaseTable.module.scss";
 import { CheckOutlined } from "@material-ui/icons";
 import { TFilterField } from "../../../table/filter/types";
@@ -67,7 +67,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
 
   const { data, status, error } = useSelector<
     IState,
-    IApiResponse<DiseaseDTO[]>
+    ApiResponse<DiseaseDTO[]>
   >((state) => state.diseases.allDiseases);
 
   const handleEdit = (row: DiseaseDTO) => {

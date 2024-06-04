@@ -1,9 +1,9 @@
 import { SupplierDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type ISupplierState = {
-  supplierList: IApiResponse<Array<SupplierDTO>>;
-  create: IApiResponse<SupplierDTO>;
-  update: IApiResponse<SupplierDTO>;
-  delete: IApiResponse<boolean>;
+  supplierList: ApiResponse<Array<SupplierDTO>>;
+  create: ApiResponse<SupplierDTO>;
+  update: ApiResponse<SupplierDTO>;
+  delete: ApiResponse<boolean>;
 };

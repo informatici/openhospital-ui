@@ -1,16 +1,17 @@
 import { IMainState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IMainState = {
-  authentication: {
+  authentication: new ApiResponse({
     status: "IDLE",
-  },
-  logout: {
+  }),
+  logout: new ApiResponse({
     status: "IDLE",
-  },
-  forgotpassword: {
+  }),
+  forgotpassword: new ApiResponse({
     status: "IDLE",
-  },
-  settings: {
+  }),
+  settings: new ApiResponse({
     status: "IDLE",
-  },
+  }),
 };

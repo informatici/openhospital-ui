@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SupplierDTO } from "../../../../../generated";
 import { IState } from "../../../../../types";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import SupplierForm from "../supplierForm/SupplierForm";
 import { getInitialFields } from "../supplierForm/consts";
 import { createSupplier } from "../../../../../state/suppliers/actions";
@@ -11,7 +11,7 @@ import { createSupplier } from "../../../../../state/suppliers/actions";
 export const NewSupplier = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, IApiResponse<SupplierDTO>>(
+  const create = useSelector<IState, ApiResponse<SupplierDTO>>(
     (state) => state.suppliers.create
   );
 
