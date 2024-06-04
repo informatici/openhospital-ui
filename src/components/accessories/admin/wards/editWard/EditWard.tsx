@@ -24,7 +24,7 @@ export const EditWard = () => {
   };
 
   if (state?.code?.toString() !== id?.toString()) {
-    return <Navigate to={PATHS.wards} />;
+    return <Navigate to={PATHS.admin_wards} />;
   }
 
   return (

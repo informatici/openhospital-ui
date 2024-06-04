@@ -21,7 +21,9 @@ export const Diseases = () => {
   }, [dispatch]);
 
   const handleEdit = (row: DiseaseDTO) => {
-    navigate(PATHS.diseases_edit.replace("#id", row.code!), { state: row });
+    navigate(PATHS.admin_diseases_edit.replace("#id", row.code!), {
+      state: row,
+    });
   };
 
   return (
@@ -31,7 +33,7 @@ export const Diseases = () => {
         headerActions={
           <Button
             onClick={() => {
-              navigate("./new");
+              navigate(PATHS.admin_diseases_new);
             }}
             type="button"
             variant="contained"

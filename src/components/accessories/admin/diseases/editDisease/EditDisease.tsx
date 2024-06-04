@@ -24,7 +24,7 @@ export const EditDisease = () => {
   };
 
   if (state?.code?.toString() !== id?.toString()) {
-    return <Navigate to={PATHS.diseases} />;
+    return <Navigate to={PATHS.admin_diseases} />;
   }
 
   return (
