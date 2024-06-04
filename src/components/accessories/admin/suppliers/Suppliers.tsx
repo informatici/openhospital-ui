@@ -12,7 +12,7 @@ export const Suppliers = () => {
   const { t } = useTranslation();
 
   const handleEdit = (row: SupplierDTO) => {
-    navigate(PATHS.suppliers_edit.replace(":id", `${row.supId}`), {
+    navigate(PATHS.admin_suppliers_edit.replace(":id", `${row.supId}`), {
       state: row,
     });
   };
@@ -23,7 +23,7 @@ export const Suppliers = () => {
       headerActions={
         <Button
           onClick={() => {
-            navigate("./new");
+            navigate(PATHS.admin_suppliers_new);
           }}
           type="button"
           variant="contained"

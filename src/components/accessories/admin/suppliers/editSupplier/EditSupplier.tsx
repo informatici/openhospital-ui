@@ -26,7 +26,7 @@ export const EditSupplier = () => {
 
   useEffect(() => {
     if (state?.supId !== Number(id)) {
-      navigate(PATHS.suppliers);
+      navigate(PATHS.admin_suppliers);
     }
   }, [id, state]);
 
