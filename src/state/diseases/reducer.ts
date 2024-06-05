@@ -1,6 +1,10 @@
 import produce from "immer";
-import { IAction } from "../types";
+import { ApiResponse, IAction } from "../types";
 import {
+  CREATE_DISEASE_FAIL,
+  CREATE_DISEASE_LOADING,
+  CREATE_DISEASE_RESET,
+  CREATE_DISEASE_SUCCESS,
   GET_DISEASEIPDIN_FAIL,
   GET_DISEASEIPDIN_LOADING,
   GET_DISEASEIPDIN_SUCCESS,
@@ -13,6 +17,10 @@ import {
   GET_DISEASE_FAIL,
   GET_DISEASE_LOADING,
   GET_DISEASE_SUCCESS,
+  UPDATE_DISEASE_FAIL,
+  UPDATE_DISEASE_LOADING,
+  UPDATE_DISEASE_RESET,
+  UPDATE_DISEASE_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IDiseaseState } from "./types";
@@ -91,6 +99,52 @@ export default produce((draft: IDiseaseState, action: IAction<any, any>) => {
     case GET_DISEASES_FAIL: {
       draft.allDiseases.status = "FAIL";
       draft.allDiseases.error = action.error;
+      break;
+    }
+
+    case CREATE_DISEASE_LOADING: {
+      draft.create.status = "LOADING";
+      break;
+    }
+
+    case CREATE_DISEASE_SUCCESS: {
+      draft.create.status = "SUCCESS";
+      draft.create.data = action.payload;
+      delete draft.create.error;
+      break;
+    }
+
+    case CREATE_DISEASE_FAIL: {
+      draft.create.status = "FAIL";
+      draft.create.error = action.error;
+      break;
+    }
+
+    case CREATE_DISEASE_RESET: {
+      draft.create = new ApiResponse({ status: "IDLE" });
+      break;
+    }
+
+    case UPDATE_DISEASE_LOADING: {
+      draft.update.status = "LOADING";
+      break;
+    }
+
+    case UPDATE_DISEASE_SUCCESS: {
+      draft.update.status = "SUCCESS";
+      draft.update.data = action.payload;
+      delete draft.update.error;
+      break;
+    }
+
+    case UPDATE_DISEASE_FAIL: {
+      draft.update.status = "FAIL";
+      draft.update.error = action.error;
+      break;
+    }
+
+    case UPDATE_DISEASE_RESET: {
+      draft.update = new ApiResponse({ status: "IDLE" });
       break;
     }
   }

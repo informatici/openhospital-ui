@@ -6,4 +6,6 @@ export type IDiseaseState = {
   diseasesOpd: ApiResponse<Array<DiseaseDTO>>;
   diseasesIpdIn: ApiResponse<Array<DiseaseDTO>>;
   diseasesIpdOut: ApiResponse<Array<DiseaseDTO>>;
+  create: ApiResponse<DiseaseDTO>;
+  update: ApiResponse<DiseaseDTO>;
 };

@@ -6,4 +6,6 @@ export const initial: IDiseaseState = {
   diseasesOpd: new ApiResponse({ status: "IDLE", data: [] }),
   diseasesIpdIn: new ApiResponse({ status: "IDLE", data: [] }),
   diseasesIpdOut: new ApiResponse({ status: "IDLE", data: [] }),
+  create: new ApiResponse({ status: "IDLE" }),
+  update: new ApiResponse({ status: "IDLE" }),
 };

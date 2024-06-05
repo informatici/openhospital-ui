@@ -1,39 +1,39 @@
 import { useTranslation } from "react-i18next";
-import WardForm from "../wardForm/WardForm";
+import DiseaseForm from "../diseaseForm/DiseaseForm";
 import React from "react";
-import { getInitialFields } from "../wardForm/consts";
+import { getInitialFields } from "../diseaseForm/consts";
 import { useDispatch, useSelector } from "react-redux";
-import { WardDTO } from "../../../../../generated";
+import { DiseaseDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { updateWard } from "../../../../../state/ward/actions";
+import { updateDisease } from "../../../../../state/diseases/actions";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 
-export const EditWard = () => {
+export const EditDisease = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { state }: { state: WardDTO | undefined } = useLocation();
+  const { state }: { state: DiseaseDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<WardDTO>>(
-    (state) => state.wards.update
+  const update = useSelector<IState, ApiResponse<DiseaseDTO>>(
+    (state) => state.diseases.update
   );
 
-  const handleSubmit = (value: WardDTO) => {
-    dispatch(updateWard(value));
+  const handleSubmit = (value: DiseaseDTO) => {
+    dispatch(updateDisease(value));
   };
 
   if (state?.code?.toString() !== id?.toString()) {
-    return <Navigate to={PATHS.admin_wards} />;
+    return <Navigate to={PATHS.admin_diseases} />;
   }
 
   return (
-    <WardForm
+    <DiseaseForm
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
       resetButtonLabel={t("common.cancel")}
-      submitButtonLabel={t("ward.updateWard")}
+      submitButtonLabel={t("disease.updateDisease")}
       fields={getInitialFields(state)}
     />
   );

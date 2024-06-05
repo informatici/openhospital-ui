@@ -21,7 +21,7 @@ const VaccineTypes = () => {
   }, [dispatch]);
 
   const handleEdit = (row: VaccineTypeDTO) => {
-    navigate(PATHS.vaccinesTypes_edit.replace(":code", row.code!), {
+    navigate(PATHS.admin_vaccines_types_edit.replace(":code", row.code!), {
       state: row,
     });
   };

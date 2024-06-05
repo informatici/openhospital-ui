@@ -25,7 +25,7 @@ export const EditVaccineType = () => {
   };
 
   if (state?.code !== code) {
-    return <Navigate to={PATHS.vaccinesTypes} />;
+    return <Navigate to={PATHS.admin_vaccines_types} />;
   }
 
   return (

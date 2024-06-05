@@ -16,23 +16,28 @@ import TypesRoutes from "./TypesRoutes";
 import {
   Diseases,
   Operations,
+  NewDisease,
+  EditDisease,
   NewOperation,
   EditOperation,
   Suppliers,
 } from "../../components/accessories/admin";
+import { PATHS } from "../../consts";
+import { NewSupplier } from "../../components/accessories/admin/suppliers/newSupplier";
+import { EditSupplier } from "../../components/accessories/admin/suppliers/editSupplier";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
   const routes: { element: ReactNode; path: string }[] = useMemo(
     () => [
       {
-        path: "wards",
+        path: PATHS.admin_wards,
         element: (
           <AdminActivityContent title={t("nav.wards")} children={<Wards />} />
         ),
       },
       {
-        path: "wards/new",
+        path: PATHS.admin_wards_new,
         element: (
           <AdminActivityContent
             title={t("ward.addWard")}
@@ -41,7 +46,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "wards/:id/edit",
+        path: PATHS.admin_wards_edit,
         element: (
           <AdminActivityContent
             title={t("ward.editWard")}
@@ -50,11 +55,29 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "diseases",
+        path: PATHS.admin_diseases,
         element: (
           <AdminActivityContent
             title={t("nav.diseases")}
             children={<Diseases />}
+          />
+        ),
+      },
+      {
+        path: PATHS.admin_diseases_new,
+        element: (
+          <AdminActivityContent
+            title={t("disease.addDisease")}
+            children={<NewDisease />}
+          />
+        ),
+      },
+      {
+        path: PATHS.admin_diseases_edit,
+        element: (
+          <AdminActivityContent
+            title={t("disease.editDisease")}
+            children={<EditDisease />}
           />
         ),
       },
@@ -65,7 +88,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "operations",
+        path: PATHS.admin_operations,
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
@@ -74,7 +97,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "operations/new",
+        path: PATHS.admin_operations_new,
         element: (
           <AdminActivityContent
             title={t("operation.addOperation")}
@@ -83,7 +106,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "operations/:id/edit",
+        path: PATHS.admin_operations_edit,
         element: (
           <AdminActivityContent
             title={t("operation.editOperation")}
@@ -106,6 +129,24 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.suppliers")}
             children={<Suppliers />}
+          />
+        ),
+      },
+      {
+        path: "suppliers/new",
+        element: (
+          <AdminActivityContent
+            title={t("supplier.addNewSupplier")}
+            children={<NewSupplier />}
+          />
+        ),
+      },
+      {
+        path: "suppliers/:id/edit",
+        element: (
+          <AdminActivityContent
+            title={t("supplier.editSupplier")}
+            children={<EditSupplier />}
           />
         ),
       },
