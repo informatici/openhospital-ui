@@ -25,16 +25,17 @@ import { EditSupplier } from "../../components/accessories/admin/suppliers/editS
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
+  const getPath = (from: string) => from.replace(`${PATHS.admin}/`, "");
   const routes: { element: ReactNode; path: string }[] = useMemo(
     () => [
       {
-        path: PATHS.admin_wards,
+        path: getPath(PATHS.admin_wards),
         element: (
           <AdminActivityContent title={t("nav.wards")} children={<Wards />} />
         ),
       },
       {
-        path: PATHS.admin_wards_new,
+        path: getPath(PATHS.admin_wards_new),
         element: (
           <AdminActivityContent
             title={t("ward.addWard")}
@@ -43,7 +44,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_wards_edit,
+        path: getPath(PATHS.admin_wards_edit),
         element: (
           <AdminActivityContent
             title={t("ward.editWard")}
@@ -52,7 +53,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_diseases,
+        path: getPath(PATHS.admin_diseases),
         element: (
           <AdminActivityContent
             title={t("nav.diseases")}
@@ -61,7 +62,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_diseases_new,
+        path: getPath(PATHS.admin_diseases_new),
         element: (
           <AdminActivityContent
             title={t("disease.addDisease")}
@@ -70,7 +71,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_diseases_edit,
+        path: getPath(PATHS.admin_diseases_edit),
         element: (
           <AdminActivityContent
             title={t("disease.editDisease")}
@@ -85,7 +86,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_operations,
+        path: getPath(PATHS.admin_operations),
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
@@ -94,7 +95,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_operations_new,
+        path: getPath(PATHS.admin_operations_new),
         element: (
           <AdminActivityContent
             title={t("operation.addOperation")}
@@ -103,7 +104,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_operations_edit,
+        path: getPath(PATHS.admin_operations_edit),
         element: (
           <AdminActivityContent
             title={t("operation.editOperation")}
@@ -112,7 +113,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "vaccines",
+        path: getPath(PATHS.admin_vaccines),
         element: (
           <AdminActivityContent
             title={t("nav.vaccines")}
@@ -121,7 +122,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "suppliers",
+        path: getPath(PATHS.admin_suppliers),
         element: (
           <AdminActivityContent
             title={t("nav.suppliers")}
@@ -130,7 +131,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "suppliers/new",
+        path: getPath(PATHS.admin_suppliers_new),
         element: (
           <AdminActivityContent
             title={t("supplier.addNewSupplier")}
@@ -139,7 +140,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "suppliers/:id/edit",
+        path: getPath(PATHS.admin_suppliers_edit),
         element: (
           <AdminActivityContent
             title={t("supplier.editSupplier")}
@@ -148,13 +149,13 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "users",
+        path: getPath(PATHS.admin_users),
         element: (
           <AdminActivityContent title={t("nav.users")} children={<Users />} />
         ),
       },
       {
-        path: "types",
+        path: getPath(PATHS.admin_types),
         element: (
           <AdminActivityContent title={t("nav.types")} children={<Wards />} />
         ),
@@ -165,7 +166,10 @@ export const AdminRoutes = () => {
   return (
     <Routes>
       <Route element={<AdminActivity />}>
-        <Route index element={<Navigate to="wards" replace />} />
+        <Route
+          index
+          element={<Navigate to={getPath(PATHS.admin_wards)} replace />}
+        />
         {routes.map((route) => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
