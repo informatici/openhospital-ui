@@ -5,6 +5,10 @@ import { DiseasesApi } from "../../generated/apis/DiseasesApi";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { IAction } from "../types";
 import {
+  CREATE_DISEASE_FAIL,
+  CREATE_DISEASE_LOADING,
+  CREATE_DISEASE_RESET,
+  CREATE_DISEASE_SUCCESS,
   GET_DISEASEIPDIN_FAIL,
   GET_DISEASEIPDIN_LOADING,
   GET_DISEASEIPDIN_SUCCESS,
@@ -17,9 +21,13 @@ import {
   GET_DISEASE_FAIL,
   GET_DISEASE_LOADING,
   GET_DISEASE_SUCCESS,
+  UPDATE_DISEASE_FAIL,
+  UPDATE_DISEASE_LOADING,
+  UPDATE_DISEASE_RESET,
+  UPDATE_DISEASE_SUCCESS,
 } from "./consts";
 
-const desasesApi = new DiseasesApi(customConfiguration());
+const diseasesApi = new DiseasesApi(customConfiguration());
 
 export const getAllDiseases =
   () =>
@@ -27,7 +35,7 @@ export const getAllDiseases =
     dispatch({
       type: GET_DISEASES_LOADING,
     });
-    desasesApi.getAllDiseases().subscribe(
+    diseasesApi.getAllDiseases().subscribe(
       (payload) => {
         dispatch({
           type: GET_DISEASES_SUCCESS,
@@ -49,7 +57,7 @@ export const getDiseasesOpd =
     dispatch({
       type: GET_DISEASE_LOADING,
     });
-    desasesApi.getDiseasesOpd().subscribe(
+    diseasesApi.getDiseasesOpd().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -78,7 +86,7 @@ export const getDiseasesIpdIn =
     dispatch({
       type: GET_DISEASEIPDIN_LOADING,
     });
-    desasesApi.getDiseasesIpdIn().subscribe(
+    diseasesApi.getDiseasesIpdIn().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -107,7 +115,7 @@ export const getDiseasesIpdOut =
     dispatch({
       type: GET_DISEASEIPDOUT_LOADING,
     });
-    desasesApi.getDiseasesIpdOut().subscribe(
+    diseasesApi.getDiseasesIpdOut().subscribe(
       (payload) => {
         if (typeof payload === "object" && !isEmpty(payload)) {
           dispatch({
@@ -128,4 +136,64 @@ export const getDiseasesIpdOut =
         });
       }
     );
+  };
+
+export const createDisease =
+  (diseaseDTO: DiseaseDTO) =>
+  (dispatch: Dispatch<IAction<DiseaseDTO, {}>>): void => {
+    dispatch({
+      type: CREATE_DISEASE_LOADING,
+    });
+    diseasesApi.newDisease({ diseaseDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_DISEASE_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_DISEASE_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const updateDisease =
+  (diseaseDTO: DiseaseDTO) =>
+  (dispatch: Dispatch<IAction<DiseaseDTO, {}>>): void => {
+    dispatch({
+      type: UPDATE_DISEASE_LOADING,
+    });
+    diseasesApi.updateDisease({ diseaseDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_DISEASE_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_DISEASE_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createDiseaseReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_DISEASE_RESET,
+    });
+  };
+
+export const updateDiseaseReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_DISEASE_RESET,
+    });
   };

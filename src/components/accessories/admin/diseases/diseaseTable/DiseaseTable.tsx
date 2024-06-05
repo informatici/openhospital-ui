@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -13,9 +13,13 @@ import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
+  headerActions?: ReactNode;
 }
 
-export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
+export const DiseaseTable: FunctionComponent<IOwnProps> = ({
+  onEdit,
+  headerActions,
+}) => {
   const { t } = useTranslation();
 
   const diseasesOptions = useSelector<
@@ -126,6 +130,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
                     ...disease,
                     diseaseType: disease.diseaseType.code,
                   }))}
+                  headerActions={headerActions}
                 />
               </>
             );
