@@ -95,6 +95,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
         ) : (
           ""
         ),
+        lock: item.lock,
       };
     });
   };

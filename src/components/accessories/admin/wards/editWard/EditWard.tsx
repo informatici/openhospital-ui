@@ -20,7 +20,7 @@ export const EditWard = () => {
   );
 
   const handleSubmit = (value: WardDTO) => {
-    dispatch(updateWard(value));
+    dispatch(updateWard({ ...value, lock: state?.lock }));
   };
 
   if (state?.code?.toString() !== id?.toString()) {
