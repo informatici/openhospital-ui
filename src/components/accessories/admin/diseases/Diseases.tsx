@@ -21,7 +21,7 @@ export const Diseases = () => {
   }, [dispatch]);
 
   const handleEdit = (row: DiseaseDTO) => {
-    navigate(PATHS.admin_diseases_edit.replace("#id", row.code!), {
+    navigate(PATHS.admin_diseases_edit.replace(":id", row.code!), {
       state: row,
     });
   };
