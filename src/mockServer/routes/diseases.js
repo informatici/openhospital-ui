@@ -6,13 +6,17 @@ export const diseasesRoutes = (server) => {
       res.status(200).json(diseasesDTO);
     });
     server.get("/opd").intercept((req, res) => {
-      res.status(200).json(diseasesDTO);
+      res.status(200).json(diseasesDTO.filter(({ opdInclude }) => opdInclude));
     });
     server.get("/ipd/in").intercept((req, res) => {
-      res.status(200).json(diseasesDTO);
+      res
+        .status(200)
+        .json(diseasesDTO.filter(({ ipdInInclude }) => ipdInInclude));
     });
     server.get("/ipd/out").intercept((req, res) => {
-      res.status(200).json(diseasesDTO);
+      res
+        .status(200)
+        .json(diseasesDTO.filter(({ ipdOutInclude }) => ipdOutInclude));
     });
     server.post("/").intercept((req, res) => {
       const body = req.jsonBody();
