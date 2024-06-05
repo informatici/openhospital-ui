@@ -20,6 +20,8 @@ import {
   Suppliers,
 } from "../../components/accessories/admin";
 import { PATHS } from "../../consts";
+import { NewSupplier } from "../../components/accessories/admin/suppliers/newSupplier";
+import { EditSupplier } from "../../components/accessories/admin/suppliers/editSupplier";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -124,6 +126,24 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.suppliers")}
             children={<Suppliers />}
+          />
+        ),
+      },
+      {
+        path: "suppliers/new",
+        element: (
+          <AdminActivityContent
+            title={t("supplier.addNewSupplier")}
+            children={<NewSupplier />}
+          />
+        ),
+      },
+      {
+        path: "suppliers/:id/edit",
+        element: (
+          <AdminActivityContent
+            title={t("supplier.editSupplier")}
+            children={<EditSupplier />}
           />
         ),
       },
