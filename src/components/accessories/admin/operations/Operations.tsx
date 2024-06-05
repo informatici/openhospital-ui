@@ -22,7 +22,7 @@ export const Operations = () => {
   }, [dispatch]);
 
   const handleEdit = (row: OperationDTO) => {
-    navigate(PATHS.admin_operations_edit.replace("#id", row.code!), {
+    navigate(PATHS.admin_operations_edit.replace(":id", row.code!), {
       state: row,
     });
   };
