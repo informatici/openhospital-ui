@@ -22,19 +22,20 @@ import {
 import { PATHS } from "../../consts";
 import { NewSupplier } from "../../components/accessories/admin/suppliers/newSupplier";
 import { EditSupplier } from "../../components/accessories/admin/suppliers/editSupplier";
+import { extractUrlAfterAdmin } from "../../libraries/formatUtils/urlFormatting";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
   const routes: { element: ReactNode; path: string }[] = useMemo(
     () => [
       {
-        path: PATHS.admin_wards,
+        path: extractUrlAfterAdmin(PATHS.admin_wards),
         element: (
           <AdminActivityContent title={t("nav.wards")} children={<Wards />} />
         ),
       },
       {
-        path: PATHS.admin_wards_new,
+        path: extractUrlAfterAdmin(PATHS.admin_wards_new),
         element: (
           <AdminActivityContent
             title={t("ward.addWard")}
@@ -43,7 +44,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_wards_edit,
+        path: extractUrlAfterAdmin(PATHS.admin_wards_edit),
         element: (
           <AdminActivityContent
             title={t("ward.editWard")}
@@ -52,7 +53,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_diseases,
+        path: extractUrlAfterAdmin(PATHS.admin_diseases),
         element: (
           <AdminActivityContent
             title={t("nav.diseases")}
@@ -61,7 +62,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_diseases_new,
+        path: extractUrlAfterAdmin(PATHS.admin_diseases_new),
         element: (
           <AdminActivityContent
             title={t("disease.addDisease")}
@@ -70,7 +71,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_diseases_edit,
+        path: extractUrlAfterAdmin(PATHS.admin_diseases_edit),
         element: (
           <AdminActivityContent
             title={t("disease.editDisease")}
@@ -85,7 +86,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: PATHS.admin_operations,
+        path: extractUrlAfterAdmin(PATHS.admin_operations),
         element: (
           <AdminActivityContent
             title={t("nav.operations")}
