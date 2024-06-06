@@ -20,7 +20,12 @@ export const EditOperation = () => {
   );
 
   const handleSubmit = (value: OperationDTO) => {
-    dispatch(updateOperation({ code: id ?? "", operationDTO: value }));
+    dispatch(
+      updateOperation({
+        code: id ?? "",
+        operationDTO: { ...value, lock: state?.lock },
+      })
+    );
   };
 
   if (state?.code !== id) {

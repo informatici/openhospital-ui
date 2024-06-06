@@ -20,7 +20,7 @@ export const EditDisease = () => {
   );
 
   const handleSubmit = (value: DiseaseDTO) => {
-    dispatch(updateDisease(value));
+    dispatch(updateDisease({ ...value, lock: state?.lock }));
   };
 
   if (state?.code?.toString() !== id?.toString()) {

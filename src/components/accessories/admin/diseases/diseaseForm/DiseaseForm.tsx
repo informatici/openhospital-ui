@@ -93,6 +93,9 @@ const DiseaseForm: FC<IDiseaseProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.diseaseType = diseasesTypeState.data?.find(
+        (item) => item.code === values.diseaseType
+      );
       onSubmit(formattedValues as any);
     },
   });
