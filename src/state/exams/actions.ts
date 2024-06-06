@@ -12,6 +12,10 @@ import {
   GET_EXAM_FAIL,
   GET_EXAM_LOADING,
   GET_EXAM_SUCCESS,
+  DELETE_EXAM_FAIL,
+  DELETE_EXAM_LOADING,
+  DELETE_EXAM_SUCCESS,
+  DELETE_EXAM_RESET,
 } from "./consts";
 
 const examsApi = new ExamsApi(customConfiguration());
@@ -45,6 +49,34 @@ export const getExams =
         });
       }
     );
+  };
+
+export const deleteExam =
+  (code: string) =>
+  (dispatch: Dispatch<IAction<boolean, {}>>): void => {
+    dispatch({ type: DELETE_EXAM_LOADING });
+    examsApi.deleteExam1({ code }).subscribe(
+      (payload: boolean) => {
+        dispatch({
+          type: DELETE_EXAM_SUCCESS,
+          payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: DELETE_EXAM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const deleteExamReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_EXAM_RESET,
+    });
   };
 
 export const getExamRows =

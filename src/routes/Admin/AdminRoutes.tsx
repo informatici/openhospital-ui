@@ -80,7 +80,7 @@ export const AdminRoutes = () => {
         ),
       },
       {
-        path: "exams",
+        path: getPath(PATHS.admin_exams),
         element: (
           <AdminActivityContent title={t("nav.exams")} children={<Exams />} />
         ),

@@ -3,5 +3,6 @@ import { ApiResponse } from "../types";
 
 export type IExamState = {
   examList: ApiResponse<Array<ExamDTO>>;
+  examDelete: ApiResponse<boolean>;
   examRowsByExamCode: ApiResponse<Array<ExamRowDTO>>;
 };
