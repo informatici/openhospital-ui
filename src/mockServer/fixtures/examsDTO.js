@@ -34,7 +34,7 @@ export const examsDTO = [
     },
     {
         "code": "01.04",
-        "description": "1.4 Film Comment",
+        "description": "1.4 Error if trying to delete",
         "procedure": 1,
         "defaultResult": "",
         "examtype": {
