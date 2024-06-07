@@ -1,16 +1,20 @@
 import produce from "immer";
 import { IAction } from "../types";
 import {
-  GET_EXAMROW_FAIL,
-  GET_EXAMROW_LOADING,
-  GET_EXAMROW_SUCCESS,
   GET_EXAM_FAIL,
   GET_EXAM_LOADING,
   GET_EXAM_SUCCESS,
+  CREATE_EXAM_FAIL,
+  CREATE_EXAM_LOADING,
+  CREATE_EXAM_SUCCESS,
+  CREATE_EXAM_RESET,
   DELETE_EXAM_FAIL,
   DELETE_EXAM_LOADING,
   DELETE_EXAM_SUCCESS,
   DELETE_EXAM_RESET,
+  GET_EXAMROW_FAIL,
+  GET_EXAMROW_LOADING,
+  GET_EXAMROW_SUCCESS,
 } from "./consts";
 import { initial } from "./initial";
 import { IExamState } from "./types";
@@ -39,6 +43,35 @@ export default produce((draft: IExamState, action: IAction<any, any>) => {
     }
 
     /**
+     * GET_EXAMS
+     */
+
+    case CREATE_EXAM_LOADING: {
+      draft.examCreate.status = "LOADING";
+      break;
+    }
+
+    case CREATE_EXAM_SUCCESS: {
+      draft.examCreate.status = "SUCCESS";
+      draft.examCreate.data = action.payload;
+      delete draft.examCreate.error;
+      break;
+    }
+
+    case CREATE_EXAM_FAIL: {
+      draft.examCreate.status = "FAIL";
+      draft.examCreate.error = action.error;
+      break;
+    }
+
+    case CREATE_EXAM_RESET: {
+      draft.examCreate.status = "IDLE";
+      delete draft.examCreate.error;
+      delete draft.examCreate.data;
+      break;
+    }
+
+    /**
      * DELETE_EXAMS
      */
     case DELETE_EXAM_LOADING: {
@@ -61,8 +94,10 @@ export default produce((draft: IExamState, action: IAction<any, any>) => {
     case DELETE_EXAM_RESET: {
       draft.examDelete.status = "IDLE";
       delete draft.examDelete.error;
+      delete draft.examDelete.data;
       break;
     }
+
     /**
      * GET_EXAMROWS
      */

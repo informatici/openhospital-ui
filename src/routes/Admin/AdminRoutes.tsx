@@ -11,6 +11,7 @@ import {
   EditWard,
   Diseases,
   Exams,
+  NewExam,
   Users,
   Operations,
   NewDisease,
@@ -83,6 +84,12 @@ export const AdminRoutes = () => {
         path: getPath(PATHS.admin_exams),
         element: (
           <AdminActivityContent title={t("nav.exams")} children={<Exams />} />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_exams_new),
+        element: (
+          <AdminActivityContent title={t("nav.exams")} children={<NewExam />} />
         ),
       },
       {

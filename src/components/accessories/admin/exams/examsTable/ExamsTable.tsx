@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import { IState } from "../../../../../types";
 import { ExamDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { deleteExamReset } from "../../../../../state/exams/actions";
+import { ExamProps } from "../types";
 
 import InfoBox from "../../../infoBox/InfoBox";
 import Table from "../../../table/Table";
@@ -17,9 +18,10 @@ import classes from "./ExamsTable.module.scss";
 
 interface IOwnProps {
   onDelete: (row: ExamDTO) => void;
+  headerActions: ReactNode;
 }
 
-export const ExamsTable = ({ onDelete }: IOwnProps) => {
+export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -28,7 +30,13 @@ export const ExamsTable = ({ onDelete }: IOwnProps) => {
     dispatch(getExams());
   }, [dispatch]);
 
-  const header = ["code", "type", "description", "procedure", "defaultResult"];
+  const header: Array<ExamProps> = [
+    "code",
+    "type",
+    "description",
+    "procedure",
+    "defaultResult",
+  ];
 
   const label = {
     code: t("exam.code"),
@@ -37,7 +45,13 @@ export const ExamsTable = ({ onDelete }: IOwnProps) => {
     procedure: t("exam.procedure"),
     defaultResult: t("exam.defaultResult"),
   };
-  const order = ["code", "type", "description", "procedure", "defaultResult"];
+  const order: Array<ExamProps> = [
+    "code",
+    "type",
+    "description",
+    "procedure",
+    "defaultResult",
+  ];
 
   const { data, status, error } = useSelector<IState, ApiResponse<ExamDTO[]>>(
     (state) => state.exams.examList
@@ -83,6 +97,7 @@ export const ExamsTable = ({ onDelete }: IOwnProps) => {
                   rowsPerPage={10}
                   isCollapsabile={false}
                   onDelete={onDelete}
+                  headerActions={headerActions}
                 />
                 {deleteExam.status === "FAIL" && (
                   <div ref={infoBoxRef} className="info-box-container">

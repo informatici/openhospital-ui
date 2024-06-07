@@ -1,0 +1,13 @@
+import { ExamDTO } from "../../../../../generated";
+import { TFields } from "../../../../../libraries/formDataHandling/types";
+import { ExamProps } from "../types";
+
+export const getInitialFields: (
+  operation: ExamDTO | undefined
+) => TFields<ExamProps> = (exam) => ({
+  code: { type: "text", value: exam?.code ?? "" },
+  type: { type: "text", value: exam?.examtype?.toString() ?? "" },
+  description: { type: "text", value: exam?.description ?? "" },
+  procedure: { type: "number", value: exam?.description ?? "" },
+  defaultResult: { type: "text", value: exam?.description ?? "" },
+});

@@ -12,6 +12,10 @@ import {
   GET_EXAM_FAIL,
   GET_EXAM_LOADING,
   GET_EXAM_SUCCESS,
+  CREATE_EXAM_FAIL,
+  CREATE_EXAM_LOADING,
+  CREATE_EXAM_RESET,
+  CREATE_EXAM_SUCCESS,
   DELETE_EXAM_FAIL,
   DELETE_EXAM_LOADING,
   DELETE_EXAM_SUCCESS,
@@ -69,6 +73,36 @@ export const deleteExam =
         });
       }
     );
+  };
+
+export const createExam =
+  (examDTO: ExamDTO) =>
+  (dispatch: Dispatch<IAction<ExamDTO, {}>>): void => {
+    dispatch({
+      type: CREATE_EXAM_LOADING,
+    });
+    examsApi.newExam({ examDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_EXAM_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_EXAM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createExamReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_EXAM_RESET,
+    });
   };
 
 export const deleteExamReset =

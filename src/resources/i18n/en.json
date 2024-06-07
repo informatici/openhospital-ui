@@ -820,7 +820,14 @@
     "examtype": "Exam Type",
     "description": "Name",
     "procedure": "Procedure",
-    "defaultResult": "Default value"
+    "defaultResult": "Default value",
+    "addExam": "New exam",
+    "created": "Exam created",
+    "deleted": "Exam deleted",
+    "updated": "Exam updated",
+    "updateSuccess": "Exam updated successfully",
+    "createSuccess": "Exam created successfully",
+    "deleteSuccess": "Exam deleted successfully"
   },
   "supplier": {
     "id": "Supplier ID",
