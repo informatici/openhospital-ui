@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import {
   deleteVaccineType,
+  deleteVaccineTypeReset,
   getVaccineTypes,
 } from "../../../../../../state/vaccineTypes/actions";
 import { VaccineTypeDTO } from "../../../../../../generated";
@@ -18,6 +19,9 @@ const VaccineTypes = () => {
 
   useEffect(() => {
     dispatch(getVaccineTypes());
+    return () => {
+      dispatch(deleteVaccineTypeReset());
+    };
   }, [dispatch]);
 
   const handleEdit = (row: VaccineTypeDTO) => {
