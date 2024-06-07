@@ -35,6 +35,7 @@ import layouts from "./state/layouts/reducer";
 import dashboard from "./state/dashboard/reducer";
 import operationTypes from "./state/operationTypes/reducer";
 import users from "./state/users/reducer";
+import vaccines from "./state/vaccines/reducer";
 import vaccineTypes from "./state/vaccineTypes/reducer";
 import suppliers from "./state/suppliers/reducer";
 
@@ -70,6 +71,7 @@ const reducer = combineReducers<IState>({
   dashboard,
   operationTypes,
   users,
+  vaccines,
   vaccineTypes,
   suppliers,
 });

@@ -16,15 +16,16 @@ import TypesRoutes from "./TypesRoutes";
 import {
   Diseases,
   Operations,
+  Vaccines,
+  Suppliers,
+  NewSupplier,
+  EditSupplier,
   NewDisease,
   EditDisease,
   NewOperation,
   EditOperation,
-  Suppliers,
 } from "../../components/accessories/admin";
 import { PATHS } from "../../consts";
-import { NewSupplier } from "../../components/accessories/admin/suppliers/newSupplier";
-import { EditSupplier } from "../../components/accessories/admin/suppliers/editSupplier";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -120,7 +121,7 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.vaccines")}
-            children={<Wards />}
+            children={<Vaccines />}
           />
         ),
       },

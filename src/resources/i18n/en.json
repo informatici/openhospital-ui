@@ -822,6 +822,11 @@
     "procedure": "Procedure",
     "defaultResult": "Default value"
   },
+  "vaccine": {
+    "code": "Code",
+    "vaccinetype": "Vaccine Type",
+    "description": "Name"
+  },
   "types": {
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
