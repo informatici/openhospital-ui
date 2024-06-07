@@ -4,3 +4,4 @@ export * from "./diseases";
 export * from "./users";
 export * from "./operations";
 export * from "./vaccines";
+export * from "./suppliers";

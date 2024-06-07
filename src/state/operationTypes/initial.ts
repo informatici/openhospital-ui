@@ -1,5 +1,6 @@
 import { IOperationTypeState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IOperationTypeState = {
-  getOperationTypes: { status: "IDLE", data: [] },
+  getOperationTypes: new ApiResponse({ status: "IDLE", data: [] }),
 };

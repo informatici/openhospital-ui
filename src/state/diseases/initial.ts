@@ -1,8 +1,11 @@
 import { IDiseaseState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IDiseaseState = {
-  allDiseases: { status: "IDLE", data: [] },
-  diseasesOpd: { status: "IDLE", data: [] },
-  diseasesIpdIn: { status: "IDLE", data: [] },
-  diseasesIpdOut: { status: "IDLE", data: [] },
+  allDiseases: new ApiResponse({ status: "IDLE", data: [] }),
+  diseasesOpd: new ApiResponse({ status: "IDLE", data: [] }),
+  diseasesIpdIn: new ApiResponse({ status: "IDLE", data: [] }),
+  diseasesIpdOut: new ApiResponse({ status: "IDLE", data: [] }),
+  create: new ApiResponse({ status: "IDLE" }),
+  update: new ApiResponse({ status: "IDLE" }),
 };

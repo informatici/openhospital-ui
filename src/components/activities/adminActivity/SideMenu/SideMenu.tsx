@@ -19,7 +19,7 @@ import { MenuItem } from "../../../accessories/menuItem";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { HospitalDTO } from "../../../../generated";
-import { IApiResponse } from "../../../../state/types";
+import { ApiResponse } from "../../../../state/types";
 
 const SideMenu = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const SideMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hospital = useSelector<IState, IApiResponse<HospitalDTO>>(
+  const hospital = useSelector<IState, ApiResponse<HospitalDTO>>(
     (state) => state.hospital.getHospital
   );
 
@@ -80,7 +80,9 @@ const SideMenu = () => {
           key={item.key}
           icon={item.icon}
           label={t(`nav.${item.key}`)}
-          selected={location.pathname.includes(item.key)}
+          selected={location.pathname
+            .slice(location.pathname.lastIndexOf("admin") + 6)
+            .startsWith(item.key)}
           onClick={() => {
             changeAdminSection(item.key);
           }}

@@ -1,6 +1,6 @@
 import { ExamTypeDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IExamTypeState = {
-  getExamTypes: IApiResponse<Array<ExamTypeDTO>>;
+  getExamTypes: ApiResponse<Array<ExamTypeDTO>>;
 };

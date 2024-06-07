@@ -1,12 +1,13 @@
 import { IAdmissionsState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IAdmissionsState = {
-  createAdmission: { status: "IDLE" },
-  updateAdmission: { status: "IDLE" },
-  getAdmissions: { status: "IDLE", data: undefined },
-  getPatientAdmissions: { status: "IDLE", data: [] },
-  getDischarges: { status: "IDLE", data: undefined },
-  getAdmittedPatients: { status: "IDLE", data: [] },
-  currentAdmissionByPatientId: { status: "IDLE", data: undefined },
-  dischargePatient: { status: "IDLE" },
+  createAdmission: new ApiResponse({ status: "IDLE" }),
+  updateAdmission: new ApiResponse({ status: "IDLE" }),
+  getAdmissions: new ApiResponse({ status: "IDLE" }),
+  getPatientAdmissions: new ApiResponse({ status: "IDLE", data: [] }),
+  getDischarges: new ApiResponse({ status: "IDLE" }),
+  getAdmittedPatients: new ApiResponse({ status: "IDLE", data: [] }),
+  currentAdmissionByPatientId: new ApiResponse({ status: "IDLE" }),
+  dischargePatient: new ApiResponse({ status: "IDLE" }),
 };

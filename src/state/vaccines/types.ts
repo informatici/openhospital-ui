@@ -1,6 +1,6 @@
 import { VaccineDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IVaccineState = {
-  vaccineList: IApiResponse<Array<VaccineDTO>>;
+  vaccineList: ApiResponse<Array<VaccineDTO>>;
 };

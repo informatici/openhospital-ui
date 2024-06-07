@@ -1,16 +1,16 @@
 import { BillDTO, BillPaymentsDTO } from "../../generated";
 import { FullBillDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IBillsState = {
-  newBill: IApiResponse<FullBillDTO>;
-  updateBill: IApiResponse<FullBillDTO>;
-  getBill: IApiResponse<BillDTO>;
-  searchBills: IApiResponse<FullBillDTO[]>;
-  getPendingBills: IApiResponse<FullBillDTO[]>;
-  searchPayments: IApiResponse<BillPaymentsDTO[]>;
-  delete: IApiResponse<void>;
-  payBill: IApiResponse<FullBillDTO>;
-  closeBill: IApiResponse<FullBillDTO>;
-  getBillsByYear: IApiResponse<FullBillDTO[]>;
+  newBill: ApiResponse<FullBillDTO>;
+  updateBill: ApiResponse<FullBillDTO>;
+  getBill: ApiResponse<BillDTO>;
+  searchBills: ApiResponse<FullBillDTO[]>;
+  getPendingBills: ApiResponse<FullBillDTO[]>;
+  searchPayments: ApiResponse<BillPaymentsDTO[]>;
+  delete: ApiResponse<void>;
+  payBill: ApiResponse<FullBillDTO>;
+  closeBill: ApiResponse<FullBillDTO>;
+  getBillsByYear: ApiResponse<FullBillDTO[]>;
 };

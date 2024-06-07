@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -6,16 +6,20 @@ import { CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { DiseaseDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import classes from "./DiseaseTable.module.scss";
 import { CheckOutlined } from "@material-ui/icons";
 import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
+  headerActions?: ReactNode;
 }
 
-export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
+export const DiseaseTable: FunctionComponent<IOwnProps> = ({
+  onEdit,
+  headerActions,
+}) => {
   const { t } = useTranslation();
 
   const diseasesOptions = useSelector<
@@ -67,7 +71,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
 
   const { data, status, error } = useSelector<
     IState,
-    IApiResponse<DiseaseDTO[]>
+    ApiResponse<DiseaseDTO[]>
   >((state) => state.diseases.allDiseases);
 
   const handleEdit = (row: DiseaseDTO) => {
@@ -91,6 +95,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
         ) : (
           ""
         ),
+        lock: item.lock,
       };
     });
   };
@@ -126,6 +131,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({ onEdit }) => {
                     ...disease,
                     diseaseType: disease.diseaseType.code,
                   }))}
+                  headerActions={headerActions}
                 />
               </>
             );

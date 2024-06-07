@@ -1,6 +1,6 @@
-import { VaccineDTO } from "../../generated";
+import { ApiResponse } from "../types";
 import { IVaccineState } from "./types";
 
 export const initial: IVaccineState = {
-  vaccineList: { status: "IDLE", data: new Array<VaccineDTO>() },
+  vaccineList: new ApiResponse({ status: "IDLE", data: [] }),
 };

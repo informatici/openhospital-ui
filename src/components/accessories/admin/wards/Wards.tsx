@@ -19,7 +19,7 @@ export const Wards = () => {
   }, [dispatch]);
 
   const handleEdit = (row: WardDTO) => {
-    navigate(PATHS.wards_edit.replace("#id", row.code!), { state: row });
+    navigate(PATHS.admin_wards_edit.replace(":id", row.code!), { state: row });
   };
 
   const handleDelete = (row: WardDTO) => {
@@ -34,7 +34,7 @@ export const Wards = () => {
         headerActions={
           <Button
             onClick={() => {
-              navigate("./new");
+              navigate(PATHS.admin_wards_new);
             }}
             type="button"
             variant="contained"

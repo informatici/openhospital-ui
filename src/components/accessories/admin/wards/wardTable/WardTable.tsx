@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { WardDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { ApiResponse } from "../../../../../state/types";
 import { CheckOutlined } from "@material-ui/icons";
 import classes from "./WardTable.module.scss";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
@@ -65,11 +65,11 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
-  const { data, status, error } = useSelector<IState, IApiResponse<WardDTO[]>>(
+  const { data, status, error } = useSelector<IState, ApiResponse<WardDTO[]>>(
     (state) => state.wards.allWards
   );
 
-  const deleteWard = useSelector<IState, IApiResponse<boolean>>(
+  const deleteWard = useSelector<IState, ApiResponse<boolean>>(
     (state) => state.wards.delete
   );
 
@@ -97,6 +97,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
         telephone: item.telephone ?? "",
         fax: item.fax ?? "",
         visitDuration: item.visitDuration ?? "",
+        lock: item.lock,
       };
     });
   };

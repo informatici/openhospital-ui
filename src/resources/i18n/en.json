@@ -416,7 +416,14 @@
     "classes": {
       "major": "Major",
       "minor": "Minor"
-    }
+    },
+    "addOperation": "Add Operation",
+    "editOperation": "Edit Operation",
+    "updateOperation": "update Operation",
+    "saveOperation": "Save Operation",
+    "createSuccess": "Operation has been created successfully!",
+    "updateSuccess": "Operation {{code}} has been updated successfully!",
+    "deleteSuccess": "Operation {{code}} has been deleted successfully!"
   },
   "common": {
     "ok": "OK",
@@ -820,6 +827,45 @@
     "vaccinetype": "Vaccine Type",
     "description": "Name"
   },
+  "types": {
+    "selectAType": "Select a type",
+    "vaccines": "Type of vaccines",
+    "chooseATypeToStart": "Choose a type to start..."
+  },
+  "vaccineTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage vaccine types",
+    "addVaccineType": "New vaccine type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The vaccine type has been deleted successfully!",
+    "saveVaccineTypes": "Save",
+    "editVaccineType": "Edit vaccine type",
+    "updateVaccineType": "Save changes",
+    "created": "Vaccine type created",
+    "createSuccess": "The vaccine type has been created successfully!",
+    "updated": "Vaccine type updated",
+    "updateSuccess": "The vaccine type has been updated successfully!"
+  },
+  "supplier": {
+    "id": "Supplier ID",
+    "name": "Name",
+    "address": "Address",
+    "taxcode": "Tax Number ID",
+    "phone": "Phone number",
+    "fax": "Fax",
+    "email": "Email Address",
+    "note": "Note",
+    "addNewSupplier": "Add a new supplier",
+    "editSupplier": "Edit supplier",
+    "updateSupplier": "Save changes",
+    "saveSupplier": "Save",
+    "addSupplier": "New supplier",
+    "updated": "Supplier updated",
+    "updateSuccess": "Supplier has been updated successfully!",
+    "created": "Supplier created",
+    "createSuccess": "Supplier has been created successfully!"
+  },
   "ward": {
     "code": "Code",
     "description": "Description",
@@ -851,6 +897,14 @@
     "diseaseType": "Type",
     "opdInclude": "OPD",
     "ipdInInclude": "IP In",
-    "ipdOutInclude": "IP Out"
+    "ipdOutInclude": "IP Out",
+    "addDisease": "Add Disease",
+    "editDisease": "Edit Disease",
+    "updateDisease": "update Disease",
+    "saveDisease": "Save Disease",
+    "created": "Disease Created",
+    "updated": "Disease updated",
+    "createSuccess": "Disease has been created successfully!",
+    "updateSuccess": "Disease {{code}} has been updated successfully!"
   }
 }

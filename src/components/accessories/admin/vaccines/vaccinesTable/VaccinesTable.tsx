@@ -5,11 +5,12 @@ import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
-import { VaccineDTO } from "../../../../../generated";
-import { IApiResponse } from "../../../../../state/types";
+import { VaccineDTO, VaccineTypeDTO } from "../../../../../generated";
+import { ApiResponse } from "../../../../../state/types";
 import classes from "./VaccinesTable.module.scss";
 import { getVaccines } from "../../../../../state/vaccines/actions";
 import { TFilterField } from "../../../table/filter/types";
+import { getVaccineTypes } from "../../../../../state/vaccineTypes/actions";
 
 export const VaccinesTable = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export const VaccinesTable = () => {
 
   useEffect(() => {
     dispatch(getVaccines());
+    dispatch(getVaccineTypes());
   }, [dispatch]);
 
   const header = ["code", "type", "description"];
@@ -27,17 +29,31 @@ export const VaccinesTable = () => {
     description: t("vaccine.description"),
   };
 
-  const filters: TFilterField[] = [
-    { key: "type", label: t("vaccine.vaccinetype"), type: "text" },
-    { key: "description", label: t("vaccine.description"), type: "text" },
-  ];
-
   const order = ["code", "type", "description"];
 
   const { data, status, error } = useSelector<
     IState,
-    IApiResponse<VaccineDTO[]>
+    ApiResponse<VaccineDTO[]>
   >((state) => state.vaccines.vaccineList);
+
+  const { data: vaccineTypes } = useSelector<
+    IState,
+    ApiResponse<VaccineTypeDTO[]>
+  >((state) => state.vaccineTypes.getVaccineTypes);
+
+  const filters: TFilterField[] = [
+    {
+      key: "type",
+      label: t("vaccine.vaccinetype"),
+      type: "select",
+      options:
+        vaccineTypes?.map((vt) => ({
+          label: vt.description,
+          value: vt.description,
+        })) ?? [],
+    },
+    { key: "description", label: t("vaccine.description"), type: "text" },
+  ];
 
   const formatDataToDisplay = (data: VaccineDTO[]) => {
     return data.map((item) => {

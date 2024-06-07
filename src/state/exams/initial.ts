@@ -1,7 +1,7 @@
-import { ExamDTO, ExamRowDTO } from "../../generated";
 import { IExamState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IExamState = {
-  examList: { status: "IDLE", data: new Array<ExamDTO>() },
-  examRowsByExamCode: { status: "IDLE", data: new Array<ExamRowDTO>() },
+  examList: new ApiResponse({ status: "IDLE", data: [] }),
+  examRowsByExamCode: new ApiResponse({ status: "IDLE", data: [] }),
 };
