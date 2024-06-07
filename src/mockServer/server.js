@@ -24,6 +24,7 @@ import { pricesRoutes } from "./routes/prices";
 import { operationRoutes } from "./routes/operations";
 import { hospitalRoutes } from "./routes/hospital";
 import { operationTypeRoutes } from "./routes/operationTypes";
+import { vaccineRoutes } from './routes/vaccine'
 import { vaccineTypesRoutes } from './routes/vaccineTypes'
 import { suppliersRoutes } from './routes/suppliers';
 
@@ -59,6 +60,7 @@ export function makeServer() {
     ageTypeRoutes(server);
     hospitalRoutes(server);
     operationTypeRoutes(server);
+    vaccineRoutes(server);
     vaccineTypesRoutes(server);
     suppliersRoutes(server);
   });
