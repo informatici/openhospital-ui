@@ -9,9 +9,12 @@ import {
   Wards,
   NewWard,
   EditWard,
+} from "../../components/accessories/admin/wards";
+import { Exams } from "../../components/accessories/admin/exams";
+import { Users } from "../../components/accessories/admin/users";
+import TypesRoutes from "./TypesRoutes";
+import {
   Diseases,
-  Exams,
-  Users,
   Operations,
   NewDisease,
   EditDisease,
@@ -157,7 +160,10 @@ export const AdminRoutes = () => {
       {
         path: getPath(PATHS.admin_types),
         element: (
-          <AdminActivityContent title={t("nav.types")} children={<Wards />} />
+          <AdminActivityContent
+            title={t("nav.types")}
+            children={<TypesRoutes />}
+          />
         ),
       },
     ],
@@ -171,7 +177,11 @@ export const AdminRoutes = () => {
           element={<Navigate to={getPath(PATHS.admin_wards)} replace />}
         />
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route
+            key={route.path.replace("*", "")}
+            path={route.path}
+            element={route.element}
+          />
         ))}
       </Route>
       <Route path="*" element={<NotFound />} />
