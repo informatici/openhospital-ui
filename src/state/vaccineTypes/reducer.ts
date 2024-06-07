@@ -128,7 +128,7 @@ export default produce(
 
       case DELETE_VACCINE_TYPES_SUCCESS: {
         draft.delete.status = "SUCCESS";
-        draft.delete.data = action.payload;
+        draft.delete.data = action.payload.deleted;
         draft.getVaccineTypes.data = draft.getVaccineTypes.data?.filter((e) => {
           return e.code !== action.payload.code;
         });

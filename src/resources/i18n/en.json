@@ -845,7 +845,9 @@
     "created": "Vaccine type created",
     "createSuccess": "The vaccine type has been created successfully!",
     "updated": "Vaccine type updated",
-    "updateSuccess": "The vaccine type has been updated successfully!"
+    "updateSuccess": "The vaccine type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the vaccine type creation?",
+    "cancelUpdate": "Are you sure to cancel the vaccine type update?"
   },
   "supplier": {
     "id": "Supplier ID",

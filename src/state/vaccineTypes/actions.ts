@@ -127,7 +127,7 @@ export const deleteVaccineType =
       (payload) => {
         dispatch({
           type: DELETE_VACCINE_TYPES_SUCCESS,
-          payload: payload,
+          payload: { deleted: payload, code },
         });
       },
       (error) => {

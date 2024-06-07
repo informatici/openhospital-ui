@@ -158,7 +158,11 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
         <ConfirmationDialog
           isOpen={openResetConfirmation}
           title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
+          info={
+            creationMode
+              ? t("vaccineTypes.cancelCreation")
+              : t("vaccineTypes.cancelUpdate")
+          }
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
