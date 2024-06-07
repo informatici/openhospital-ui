@@ -97,6 +97,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
         telephone: item.telephone ?? "",
         fax: item.fax ?? "",
         visitDuration: item.visitDuration ?? "",
+        lock: item.lock,
       };
     });
   };

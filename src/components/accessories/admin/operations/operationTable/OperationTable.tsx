@@ -94,6 +94,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
           item.major === 0
             ? t("operation.classes.minor")
             : t("operation.classes.major"),
+        lock: item.lock,
       };
     });
   };

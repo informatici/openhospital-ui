@@ -19,7 +19,7 @@ export const Wards = () => {
   }, [dispatch]);
 
   const handleEdit = (row: WardDTO) => {
-    navigate(PATHS.admin_wards_edit.replace("#id", row.code!), { state: row });
+    navigate(PATHS.admin_wards_edit.replace(":id", row.code!), { state: row });
   };
 
   const handleDelete = (row: WardDTO) => {

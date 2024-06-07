@@ -93,6 +93,9 @@ const OperationForm: FC<IOperationProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.type = operationsTypeState.data?.find(
+        (item) => item.code === values.type
+      );
       onSubmit(formattedValues as any);
     },
   });
