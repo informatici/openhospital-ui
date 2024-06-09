@@ -35,7 +35,8 @@ export const UsersTable = () => {
     return data.map((item) => {
       return {
         userName: item.userName ?? "",
-        userGroupName: item.userGroupName ?? "",
+        userGroupName:
+          item.userGroupName?.desc ?? item.userGroupName?.code ?? "",
         desc: item.desc ?? "",
       };
     });
