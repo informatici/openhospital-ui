@@ -8,7 +8,7 @@ import InfoBox from "../../../../../infoBox/InfoBox";
 import { CircularProgress } from "@material-ui/core";
 import Table from "../../../../../table/Table";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
-import { deleteVaccineTypeReset } from "../../../../../../../state/vaccineTypes/actions";
+import { deleteVaccineTypeReset } from "../../../../../../../state/types/vaccines/actions";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 
@@ -35,10 +35,10 @@ const VaccineTypesTable = (props: IOwnProps) => {
   const { data, status, error } = useSelector<
     IState,
     ApiResponse<VaccineTypeDTO[]>
-  >((state) => state.vaccineTypes.getVaccineTypes);
+  >((state) => state.types.vaccines.getVaccineTypes);
 
   const deleteVaccineType = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.vaccineTypes.delete
+    (state) => state.types.vaccines.delete
   );
 
   const handleEdit = (row: VaccineTypeDTO) => {

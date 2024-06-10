@@ -4,6 +4,9 @@ import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import "./styles.scss";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
+import { useSelector } from "react-redux";
+import { IState } from "../../../../types";
+import { TypeMode } from "../../../../state/types/config";
 
 type TypeOption = {
   label: string;
@@ -17,6 +20,9 @@ const TypesAdmin = () => {
   const defaultTypeOption: TypeOption = { label: "", routePath: null };
   const [selectedOption, setSelectedOption] =
     useState<TypeOption>(defaultTypeOption);
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
 
   const typeOptions: TypeOption[] = [
     defaultTypeOption,
@@ -58,19 +64,21 @@ const TypesAdmin = () => {
 
   return (
     <>
-      <div className="selectTypeControl">
-        <AutocompleteField
-          fieldName="selectedType"
-          fieldValue={selectedOption?.label}
-          label={t("types.selectAType")}
-          onChange={handleTypeChange}
-          renderOption={renderOption}
-          options={typeOptions}
-          errorText={""}
-          isValid={false}
-          onBlur={() => {}}
-        />
-      </div>
+      {mode === "manage" && (
+        <div className="selectTypeControl">
+          <AutocompleteField
+            fieldName="selectedType"
+            fieldValue={selectedOption?.label}
+            label={t("types.selectAType")}
+            onChange={handleTypeChange}
+            renderOption={renderOption}
+            options={typeOptions}
+            errorText={""}
+            isValid={false}
+            onBlur={() => {}}
+          />
+        </div>
+      )}
 
       <div className="typeContent">
         <Outlet />

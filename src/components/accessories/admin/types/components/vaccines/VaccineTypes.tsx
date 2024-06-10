@@ -6,12 +6,13 @@ import {
   deleteVaccineType,
   deleteVaccineTypeReset,
   getVaccineTypes,
-} from "../../../../../../state/vaccineTypes/actions";
+} from "../../../../../../state/types/vaccines/actions";
 import { VaccineTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import VaccineTypesTable from "./vaccineTypesTable";
 import Button from "../../../../button/Button";
 import "./styles.scss";
+import { setTypeMode } from "../../../../../../state/types/config";
 
 const VaccineTypes = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const VaccineTypes = () => {
 
   useEffect(() => {
     dispatch(getVaccineTypes());
+    dispatch(setTypeMode("manage"));
+
     return () => {
       dispatch(deleteVaccineTypeReset());
     };

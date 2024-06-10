@@ -1,8 +1,8 @@
 import { isEmpty } from "lodash";
 import { Dispatch } from "redux";
-import { VaccineTypeApi, VaccineTypeDTO } from "../../generated";
-import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import { IAction } from "../types";
+import { VaccineTypeApi, VaccineTypeDTO } from "../../../generated";
+import { customConfiguration } from "../../../libraries/apiUtils/configuration";
+import { IAction } from "../../types";
 import {
   CREATE_VACCINE_TYPES_FAIL,
   CREATE_VACCINE_TYPES_LOADING,

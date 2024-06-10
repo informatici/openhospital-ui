@@ -17,7 +17,7 @@ import { IVaccineTypeFormProps } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
-import { IVaccineTypesState } from "../../../../../../../state/vaccineTypes/types";
+import { IVaccineTypesState } from "../../../../../../../state/types/vaccines/types";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,7 +25,7 @@ import {
 import {
   createVaccineTypeReset,
   updateVaccineTypeReset,
-} from "../../../../../../../state/vaccineTypes/actions";
+} from "../../../../../../../state/types/vaccines/actions";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
@@ -47,7 +47,7 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const vaccineTypesStore = useSelector<IState, IVaccineTypesState>(
-    (state) => state.vaccineTypes
+    (state) => state.types.vaccines
   );
 
   const errorMessage = useMemo(

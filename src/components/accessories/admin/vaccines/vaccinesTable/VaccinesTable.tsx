@@ -10,7 +10,7 @@ import { ApiResponse } from "../../../../../state/types";
 import classes from "./VaccinesTable.module.scss";
 import { getVaccines } from "../../../../../state/vaccines/actions";
 import { TFilterField } from "../../../table/filter/types";
-import { getVaccineTypes } from "../../../../../state/vaccineTypes/actions";
+import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
 
 export const VaccinesTable = () => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export const VaccinesTable = () => {
   const { data: vaccineTypes } = useSelector<
     IState,
     ApiResponse<VaccineTypeDTO[]>
-  >((state) => state.vaccineTypes.getVaccineTypes);
+  >((state) => state.types.vaccines.getVaccineTypes);
 
   const filters: TFilterField[] = [
     {

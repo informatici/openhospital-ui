@@ -1,6 +1,6 @@
 import produce from "immer";
-import { VaccineTypeDTO } from "../../generated";
-import { IAction } from "../types";
+import { VaccineTypeDTO } from "../../../generated";
+import { IAction } from "../../types";
 import {
   CREATE_VACCINE_TYPES_FAIL,
   CREATE_VACCINE_TYPES_LOADING,
