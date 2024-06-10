@@ -22,7 +22,6 @@ import { IAgeTypeState } from "./state/ageTypes/types";
 import { IHospitalState } from "./state/hospital/types";
 import { ILayoutsState } from "./state/layouts/types";
 import { IDashboardState } from "./state/dashboard/types";
-import { IOperationTypeState } from "./state/operationTypes/types";
 import { IUserState } from "./state/users/types";
 import { IVaccineState } from "./state/vaccines/types";
 import { ISupplierState } from "./state/suppliers/types";
@@ -53,7 +52,6 @@ export interface IState {
   hospital: IHospitalState;
   layouts: ILayoutsState;
   dashboard: IDashboardState;
-  operationTypes: IOperationTypeState;
   users: IUserState;
   vaccines: IVaccineState;
   types: ITypesState;
