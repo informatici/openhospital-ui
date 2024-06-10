@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import Table from "../../../table/Table";
+import { TFilterField } from "../../../table/filter/types";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getExams } from "../../../../../state/exams/actions";
 import { IState } from "../../../../../types";
-import { ExamDTO } from "../../../../../generated";
+import { ExamDTO, ExamTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./ExamsTable.module.scss";
+import { getExamTypes } from "../../../../../state/examTypes/actions";
 
 export const ExamsTable = () => {
   const dispatch = useDispatch();
@@ -16,9 +18,32 @@ export const ExamsTable = () => {
 
   useEffect(() => {
     dispatch(getExams());
+    dispatch(getExamTypes());
   }, [dispatch]);
 
+  const examTypesOptions = useSelector<
+    IState,
+    { label: string; value: string }[]
+  >(
+    (state) =>
+      state.examTypes.getExamTypes.data?.map((item: ExamTypeDTO) => ({
+        value: item.code ?? "",
+        label: item.description ?? item.code ?? "",
+      })) ?? []
+  );
+
   const header = ["code", "type", "description", "procedure", "defaultResult"];
+
+  const filters: TFilterField[] = [
+    {
+      key: "type",
+      label: t("exam.examtype"),
+      type: "select",
+      options: examTypesOptions,
+    },
+    { key: "description", label: t("exam.description"), type: "text" },
+    { key: "defaultResult", label: t("exam.defaultResult"), type: "text" },
+  ];
 
   const label = {
     code: t("exam.code"),
@@ -67,6 +92,13 @@ export const ExamsTable = () => {
                 columnsOrder={order}
                 rowsPerPage={10}
                 isCollapsabile={false}
+                filterColumns={filters}
+                rawData={(data ?? []).map((exam) => ({
+                  ...exam,
+                  type: exam.examtype?.code,
+                }))}
+                manualFilter={false}
+                rowKey="code"
               />
             );
           case "SUCCESS_EMPTY":

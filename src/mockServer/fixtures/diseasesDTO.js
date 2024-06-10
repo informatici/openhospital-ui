@@ -12,7 +12,7 @@ export const diseasesDTO = [
   },
   {
     code: 22,
-    description: "Fake diseases",
+    description: "Fake disease",
     diseaseType: {
       code: "FK",
       description: "4.FAKE DISEASES",
