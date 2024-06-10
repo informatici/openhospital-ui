@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { CircularProgress } from "@material-ui/core";
+
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
-import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
 import { getExams } from "../../../../../state/exams/actions";
+import { getExamTypes } from "../../../../../state/examTypes/actions";
 import { IState } from "../../../../../types";
 import { ExamDTO, ExamTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./ExamsTable.module.scss";
-import { getExamTypes } from "../../../../../state/examTypes/actions";
 
 export const ExamsTable = () => {
   const dispatch = useDispatch();
