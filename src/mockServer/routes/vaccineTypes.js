@@ -40,7 +40,7 @@ export const vaccineTypesRoutes = (server) => {
       const code = req.params.code;
       switch (code) {
         case "FAIL":
-          res.status(400).json({ message: "Fail to update vaccine type" });
+          res.status(400).json({ message: "Fail to delete vaccine type" });
           break;
         default:
           res.status(200).json(true);
