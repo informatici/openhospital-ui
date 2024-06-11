@@ -7,17 +7,18 @@ import { PATHS } from "../../../../consts";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { TypeMode } from "../../../../state/types/config";
+import SelectField from "../../selectField/SelectField";
 
 type TypeOption = {
   label: string;
-  routePath: string | null;
+  value: string;
 };
 
 const TypesAdmin = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  const defaultTypeOption: TypeOption = { label: "", routePath: null };
+  const defaultTypeOption: TypeOption = { label: "", value: "" };
   const [selectedOption, setSelectedOption] =
     useState<TypeOption>(defaultTypeOption);
   const mode = useSelector<IState, TypeMode>(
@@ -26,8 +27,8 @@ const TypesAdmin = () => {
 
   const typeOptions: TypeOption[] = [
     defaultTypeOption,
-    { label: t("types.vaccines"), routePath: "vaccines" },
-    { label: t("types.operations"), routePath: "operations" },
+    { label: t("types.vaccines"), value: "vaccines" },
+    { label: t("types.operations"), value: "operations" },
   ];
 
   useEffect(() => {
@@ -37,8 +38,8 @@ const TypesAdmin = () => {
     ) {
       const typeFromUrl = typeOptions.find(
         (typeOption) =>
-          typeOption.routePath !== null &&
-          typeOption.routePath.includes(
+          typeOption.value !== null &&
+          typeOption.value.includes(
             location.pathname.substring((PATHS.admin_types_base + "/").length)
           )
       );
@@ -51,28 +52,23 @@ const TypesAdmin = () => {
     }
   }, [location]);
 
-  const handleTypeChange = (e: any, type: TypeOption | null) => {
-    if (type?.routePath) {
-      navigate(PATHS.admin_types_base + "/" + type.routePath);
+  const handleTypeChange = (value: string) => {
+    if (value?.length > 0) {
+      navigate(PATHS.admin_types_base + "/" + value);
     } else {
       navigate(PATHS.admin_types_base);
     }
-  };
-
-  const renderOption = (option: TypeOption) => {
-    return <span>{option.label}</span>;
   };
 
   return (
     <>
       {mode === "manage" && (
         <div className="selectTypeControl">
-          <AutocompleteField
+          <SelectField
             fieldName="selectedType"
-            fieldValue={selectedOption?.label}
+            fieldValue={selectedOption?.value}
             label={t("types.selectAType")}
             onChange={handleTypeChange}
-            renderOption={renderOption}
             options={typeOptions}
             errorText={""}
             isValid={false}
