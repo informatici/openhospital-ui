@@ -830,6 +830,7 @@
   "types": {
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
+    "diseases": "Type of diseases",
     "chooseATypeToStart": "Choose a type to start..."
   },
   "vaccineTypes": {
@@ -848,6 +849,23 @@
     "updateSuccess": "The vaccine type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the vaccine type creation?",
     "cancelUpdate": "Are you sure to cancel the vaccine type update?"
+  },
+  "diseaseTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage disease types",
+    "addDiseaseType": "New disease type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The disease type has been deleted successfully!",
+    "saveDiseaseTypes": "Save",
+    "editDiseaseType": "Edit disease type",
+    "updateDiseaseType": "Save changes",
+    "created": "Disease type created",
+    "createSuccess": "The disease type has been created successfully!",
+    "updated": "Disease type updated",
+    "updateSuccess": "The disease type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the disease type creation?",
+    "cancelUpdate": "Are you sure to cancel the disease type update?"
   },
   "supplier": {
     "id": "Supplier ID",

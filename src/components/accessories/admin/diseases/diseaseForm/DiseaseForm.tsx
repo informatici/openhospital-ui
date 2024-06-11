@@ -33,7 +33,7 @@ import {
   updateDiseaseReset,
 } from "../../../../../state/diseases/actions";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
-import { getDiseaseTypes } from "../../../../../state/diseaseTypes/actions";
+import { getDiseaseTypes } from "../../../../../state/types/diseases";
 
 const DiseaseForm: FC<IDiseaseProps> = ({
   fields,
@@ -54,7 +54,7 @@ const DiseaseForm: FC<IDiseaseProps> = ({
   );
 
   const diseasesTypeState = useSelector(
-    (state: IState) => state.diseaseTypes.getDiseaseTypes
+    (state: IState) => state.types.diseases.getAll
   );
 
   const diseasesTypeOptions = useMemo(

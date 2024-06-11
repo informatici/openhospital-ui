@@ -37,4 +37,7 @@ export const PATHS = {
   admin_operations: "/admin/operations",
   admin_operations_edit: "/admin/operations/:id/edit",
   admin_operations_new: "/admin/operations/new",
+  admin_diseases_types: "/admin/types/diseases",
+  admin_diseases_types_new: "/admin/types/diseases/new",
+  admin_diseases_types_edit: "/admin/types/diseases/:code/edit",
 };

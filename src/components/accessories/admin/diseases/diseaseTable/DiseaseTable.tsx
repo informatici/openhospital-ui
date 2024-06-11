@@ -27,7 +27,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
     { label: string; value: string }[]
   >(
     (state) =>
-      state.diseaseTypes.getDiseaseTypes.data?.map((item) => ({
+      state.types.diseases.getAll.data?.map((item) => ({
         value: item.code,
         label: item.description ?? "",
       })) ?? []
