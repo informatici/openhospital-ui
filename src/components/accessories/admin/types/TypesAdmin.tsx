@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import "./styles.scss";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
