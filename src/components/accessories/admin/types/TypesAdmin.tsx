@@ -27,6 +27,7 @@ const TypesAdmin = () => {
   const typeOptions: TypeOption[] = [
     defaultTypeOption,
     { label: t("types.vaccines"), routePath: "vaccines" },
+    { label: t("types.admissions"), routePath: "admissions" },
   ];
 
   useEffect(() => {

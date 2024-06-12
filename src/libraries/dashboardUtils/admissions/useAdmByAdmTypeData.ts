@@ -11,10 +11,10 @@ export const useAdmByAdmTypeData = () => {
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
   const admissionTypes = useSelector<IState, AdmissionTypeDTO[]>(
-    (state) => state.admissionTypes.allAdmissionTypes.data ?? []
+    (state) => state.types.admissions.getAll.data ?? []
   );
   const admissionTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.admissionTypes.allAdmissionTypes.status ?? "IDLE"
+    (state) => state.types.admissions.getAll.status ?? "IDLE"
   );
   const status = useSelector<IState, TAPIResponseStatus>(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"

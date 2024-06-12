@@ -7,6 +7,10 @@ import { Route, Routes } from "react-router";
 import NotFound from "../../components/activities/notFound/NotFound";
 import Empty from "../../components/accessories/admin/types/Empty";
 import TypesAdmin from "../../components/accessories/admin/types/TypesAdmin";
+import AdmissionTypes, {
+  EditAdmissionType,
+  NewAdmissionType,
+} from "../../components/accessories/admin/types/components/admissions";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -21,6 +25,18 @@ const TypesRoutes = () => {
     {
       path: "vaccines/:code/edit",
       element: <EditVaccineType />,
+    },
+    {
+      path: "admissions",
+      element: <AdmissionTypes />,
+    },
+    {
+      path: "admissions/new",
+      element: <NewAdmissionType />,
+    },
+    {
+      path: "admissions/:code/edit",
+      element: <EditAdmissionType />,
     },
   ];
 

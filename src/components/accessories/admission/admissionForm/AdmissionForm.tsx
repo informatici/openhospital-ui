@@ -19,7 +19,6 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
 import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import {
   getDiseasesIpdIn,
@@ -34,6 +33,7 @@ import DateField from "../../dateField/DateField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { AdmissionProps } from "./types";
+import { getAdmissionTypes } from "../../../../state/types/admissions";
 
 const AdmissionForm: FC<AdmissionProps> = ({
   fields,
@@ -54,7 +54,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   );
 
   const admissionTypes = useSelector(
-    (state: IState) => state.admissionTypes.allAdmissionTypes.data
+    (state: IState) => state.types.admissions.getAll.data
   );
   const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -270,7 +270,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
     (state: IState) => state.wards.allWards.status
   );
   const admTypeStatus = useSelector(
-    (state: IState) => state.admissionTypes.allAdmissionTypes.status
+    (state: IState) => state.types.admissions.getAll.status
   );
 
   useEffect(() => {
