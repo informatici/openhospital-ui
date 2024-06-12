@@ -831,6 +831,7 @@
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
     "diseases": "Type of diseases",
+    "operations": "Type of operations",
     "chooseATypeToStart": "Choose a type to start..."
   },
   "vaccineTypes": {
@@ -866,6 +867,23 @@
     "updateSuccess": "The disease type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the disease type creation?",
     "cancelUpdate": "Are you sure to cancel the disease type update?"
+  },
+  "operationTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage operation types",
+    "addOperationType": "New operation type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The operation type has been deleted successfully!",
+    "saveOperationTypes": "Save",
+    "editOperationType": "Edit operation type",
+    "updateOperationType": "Save changes",
+    "created": "Operation type created",
+    "createSuccess": "The operation type has been created successfully!",
+    "updated": "Operation type updated",
+    "updateSuccess": "The operation type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the operation type creation?",
+    "cancelUpdate": "Are you sure to cancel the operation type update?"
   },
   "supplier": {
     "id": "Supplier ID",

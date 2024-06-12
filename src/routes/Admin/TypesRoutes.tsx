@@ -11,6 +11,10 @@ import DiseaseTypes, {
   EditDiseaseType,
   NewDiseaseType,
 } from "../../components/accessories/admin/types/components/diseases";
+import OperationTypes, {
+  EditOperationType,
+  NewOperationType,
+} from "../../components/accessories/admin/types/components/operations";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -37,6 +41,18 @@ const TypesRoutes = () => {
     {
       path: "diseases/:code/edit",
       element: <EditDiseaseType />,
+    },
+    {
+      path: "operations",
+      element: <OperationTypes />,
+    },
+    {
+      path: "operations/new",
+      element: <NewOperationType />,
+    },
+    {
+      path: "operations/:code/edit",
+      element: <EditOperationType />,
     },
   ];
 
