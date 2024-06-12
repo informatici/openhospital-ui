@@ -825,12 +825,14 @@
   "vaccine": {
     "code": "Code",
     "vaccinetype": "Vaccine Type",
-    "description": "Name"
+    "description": "Name",
+    "exams": "Type of exam"
   },
   "types": {
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
-    "chooseATypeToStart": "Choose a type to start..."
+    "chooseATypeToStart": "Choose a type to start...",
+    "exams": "Type of exams"
   },
   "vaccineTypes": {
     "code": "Code",
@@ -908,5 +910,22 @@
     "updated": "Disease updated",
     "createSuccess": "Disease has been created successfully!",
     "updateSuccess": "Disease {{code}} has been updated successfully!"
+  },
+  "examTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage exam types",
+    "addExamType": "New exam type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The exam type has been deleted successfully!",
+    "saveExamTypes": "Save",
+    "editVaccineType": "Edit exam type",
+    "updateExamType": "Save changes",
+    "created": "Exam type created",
+    "createSuccess": "The exam type has been created successfully!",
+    "updated": "Exam type updated",
+    "updateSuccess": "The exam type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the exam type creation?",
+    "cancelUpdate": "Are you sure to cancel the exam type update?"
   }
 }
