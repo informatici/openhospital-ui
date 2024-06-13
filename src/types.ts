@@ -8,7 +8,6 @@ import { ITherapiesState } from "./state/therapies/types";
 import { IDiseaseState } from "./state/diseases/types";
 import { IAdmissionsState } from "./state/admissions/types";
 import { IWardState } from "./state/ward/types";
-import { IDischargeTypeState } from "./state/dischargeTypes/types";
 import { ILaboratoriesState } from "./state/laboratories/types";
 import { IExamState } from "./state/exams/types";
 import { IBillsState } from "./state/bills/types";
@@ -35,7 +34,6 @@ export interface IState {
   opds: IOpdState;
   medicals: IMedicalState;
   admissions: IAdmissionsState;
-  dischargeTypes: IDischargeTypeState;
   wards: IWardState;
   laboratories: ILaboratoriesState;
   exams: IExamState;

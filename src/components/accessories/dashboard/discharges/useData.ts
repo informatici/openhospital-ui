@@ -23,7 +23,7 @@ export const useData = () => {
     (state) => state.wards.allWards.data ?? []
   );
   const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
-    (state) => state.dischargeTypes.allDischargeTypes.data ?? []
+    (state) => state.types.discharges.getAll.data ?? []
   );
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
@@ -32,7 +32,7 @@ export const useData = () => {
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
   const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.dischargeTypes.allDischargeTypes.status ?? "IDLE"
+    (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
   const admissionStatus = useSelector<IState, TAPIResponseStatus>(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
