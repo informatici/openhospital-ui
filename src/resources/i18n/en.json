@@ -831,6 +831,8 @@
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
     "admissions": "Types of admission",
+    "diseases": "Type of diseases",
+    "operations": "Type of operations",
     "chooseATypeToStart": "Choose a type to start..."
   },
   "vaccineTypes": {
@@ -866,6 +868,40 @@
     "updateSuccess": "The admission type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the admission type creation?",
     "cancelUpdate": "Are you sure to cancel the admission type update?"
+  },
+  "diseaseTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage disease types",
+    "addDiseaseType": "New disease type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The disease type has been deleted successfully!",
+    "saveDiseaseTypes": "Save",
+    "editDiseaseType": "Edit disease type",
+    "updateDiseaseType": "Save changes",
+    "created": "Disease type created",
+    "createSuccess": "The disease type has been created successfully!",
+    "updated": "Disease type updated",
+    "updateSuccess": "The disease type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the disease type creation?",
+    "cancelUpdate": "Are you sure to cancel the disease type update?"
+  },
+  "operationTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage operation types",
+    "addOperationType": "New operation type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The operation type has been deleted successfully!",
+    "saveOperationTypes": "Save",
+    "editOperationType": "Edit operation type",
+    "updateOperationType": "Save changes",
+    "created": "Operation type created",
+    "createSuccess": "The operation type has been created successfully!",
+    "updated": "Operation type updated",
+    "updateSuccess": "The operation type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the operation type creation?",
+    "cancelUpdate": "Are you sure to cancel the operation type update?"
   },
   "supplier": {
     "id": "Supplier ID",

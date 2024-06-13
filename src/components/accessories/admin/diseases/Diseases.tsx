@@ -6,9 +6,9 @@ import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
 import { getAllDiseases } from "../../../../state/diseases/actions";
-import { getDiseaseTypes } from "../../../../state/diseaseTypes/actions";
 import Button from "../../button/Button";
 import { useTranslation } from "react-i18next";
+import { getDiseaseTypes } from "../../../../state/types/diseases";
 
 export const Diseases = () => {
   const navigate = useNavigate();

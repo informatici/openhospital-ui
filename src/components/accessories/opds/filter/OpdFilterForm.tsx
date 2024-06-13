@@ -203,9 +203,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
   }, [diseaseTypeCode, diseases]);
 
   const diseaseTypeOptions = useSelector((state: IState) => {
-    return (
-      state.diseaseTypes.getDiseaseTypes.data?.map((e) => mapToOptions(e)) ?? []
-    );
+    return state.types.diseases.getAll.data?.map((e) => mapToOptions(e)) ?? [];
   });
 
   const wards = useSelector<IState, WardDTO[]>((state: IState) => {
