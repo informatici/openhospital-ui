@@ -830,6 +830,7 @@
   "types": {
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
+    "admissions": "Types of admission",
     "diseases": "Type of diseases",
     "operations": "Type of operations",
     "chooseATypeToStart": "Choose a type to start..."
@@ -850,6 +851,23 @@
     "updateSuccess": "The vaccine type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the vaccine type creation?",
     "cancelUpdate": "Are you sure to cancel the vaccine type update?"
+  },
+  "admissionTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage admission types",
+    "addAdmissionType": "New admission type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The admission type has been deleted successfully!",
+    "saveAdmissionTypes": "Save",
+    "editAdmissionType": "Edit admission type",
+    "updateAdmissionType": "Save changes",
+    "created": "Admission type created",
+    "createSuccess": "The admission type has been created successfully!",
+    "updated": "Admission type updated",
+    "updateSuccess": "The admission type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the admission type creation?",
+    "cancelUpdate": "Are you sure to cancel the admission type update?"
   },
   "diseaseTypes": {
     "code": "Code",
