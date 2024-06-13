@@ -1,9 +1,8 @@
 import { Skeleton } from "@material-ui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAdmissions } from "../../../../state/admissions/actions";
-import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
 import { getAgeTypes } from "../../../../state/ageTypes/actions";
 import { getWards } from "../../../../state/ward/actions";
 import { Barchart } from "../../charts/bar/Barchart";
@@ -12,6 +11,7 @@ import { DataSummary } from "../summary/DataSummary";
 import "./styles.scss";
 import { IOwnProps } from "./types";
 import { useData } from "./useData";
+import { getAdmissionTypes } from "../../../../state/types/admissions";
 
 export const Admissions: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();

@@ -11,6 +11,10 @@ import ExamTypes, {
   EditExamType,
   NewExamType,
 } from "../../components/accessories/admin/types/components/exams";
+import AdmissionTypes, {
+  EditAdmissionType,
+  NewAdmissionType,
+} from "../../components/accessories/admin/types/components/admissions";
 import DiseaseTypes, {
   EditDiseaseType,
   NewDiseaseType,
@@ -19,6 +23,10 @@ import OperationTypes, {
   EditOperationType,
   NewOperationType,
 } from "../../components/accessories/admin/types/components/operations";
+import DeliveryTypes, {
+  EditDeliveryType,
+  NewDeliveryType,
+} from "../../components/accessories/admin/types/components/deliveries";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -47,6 +55,18 @@ const TypesRoutes = () => {
       element: <EditExamType />,
     },
     {
+      path: "admissions",
+      element: <AdmissionTypes />,
+    },
+    {
+      path: "admissions/new",
+      element: <NewAdmissionType />,
+    },
+    {
+      path: "admissions/:code/edit",
+      element: <EditAdmissionType />,
+    },
+    {
       path: "diseases",
       element: <DiseaseTypes />,
     },
@@ -69,6 +89,18 @@ const TypesRoutes = () => {
     {
       path: "operations/:code/edit",
       element: <EditOperationType />,
+    },
+    {
+      path: "deliveries",
+      element: <DeliveryTypes />,
+    },
+    {
+      path: "deliveries/new",
+      element: <NewDeliveryType />,
+    },
+    {
+      path: "deliveries/:code/edit",
+      element: <EditDeliveryType />,
     },
   ];
 

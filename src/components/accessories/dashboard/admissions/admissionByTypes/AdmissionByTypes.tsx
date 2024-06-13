@@ -8,13 +8,13 @@ import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@material-ui/lab";
 import { getAdmissions } from "../../../../../state/admissions/actions";
-import { getAdmissionTypes } from "../../../../../state/admissionTypes/actions";
 import { IOwnProps } from "../types";
 import { Piechart } from "../../../charts/pie/Piechart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
 import { useAdmByAdmTypeData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByAdmTypeData";
 
 import "../../card/styles.scss";
+import { getAdmissionTypes } from "../../../../../state/types/admissions";
 
 export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -37,8 +37,10 @@ export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   const { total, success, status, admissionTypeStatus, data, csvData } =
     useAdmByAdmTypeData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
+  const [displaySize, setDisplaySize] = useState<{
+    width: number;
+    height: number;
+  }>();
 
   const onSizeChange = (width: number, height: number) => {
     setDisplaySize({ width: width - 1, height: height - 73 });
