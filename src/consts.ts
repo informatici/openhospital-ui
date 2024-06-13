@@ -49,4 +49,7 @@ export const PATHS = {
   admin_discharges_types: "/admin/types/discharges",
   admin_discharges_types_new: "/admin/types/discharges/new",
   admin_discharges_types_edit: "/admin/types/discharges/:code/edit",
+  admin_deliveries_types: "/admin/types/deliveries",
+  admin_deliveries_types_new: "/admin/types/deliveries/new",
+  admin_deliveries_types_edit: "/admin/types/deliveries/:code/edit",
 };

@@ -23,6 +23,10 @@ import DischargeTypes, {
   EditDischargeType,
   NewDischargeType,
 } from "../../components/accessories/admin/types/components/discharges";
+import DeliveryTypes, {
+  EditDeliveryType,
+  NewDeliveryType,
+} from "../../components/accessories/admin/types/components/deliveries";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -85,6 +89,18 @@ const TypesRoutes = () => {
     {
       path: "discharges/:code/edit",
       element: <EditDischargeType />,
+    },
+    {
+      path: "deliveries",
+      element: <DeliveryTypes />,
+    },
+    {
+      path: "deliveries/new",
+      element: <NewDeliveryType />,
+    },
+    {
+      path: "deliveries/:code/edit",
+      element: <EditDeliveryType />,
     },
   ];
 
