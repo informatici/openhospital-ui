@@ -70,7 +70,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   );
 
   const admissionTypes = useSelector(
-    (state: IState) => state.admissionTypes.allAdmissionTypes.data
+    (state: IState) => state.types.admissions.getAll.data
   );
   const wards = useSelector((state: IState) => state.wards.allWards.data);
   const diagnosisInStatus = useSelector(
@@ -80,7 +80,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     (state: IState) => state.wards.allWards.status
   );
   const admTypeStatus = useSelector(
-    (state: IState) => state.admissionTypes.allAdmissionTypes.status
+    (state: IState) => state.types.admissions.getAll.status
   );
 
   const renderOptions = (
