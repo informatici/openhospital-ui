@@ -28,6 +28,7 @@ const TypesAdmin = () => {
     defaultTypeOption,
     { label: t("types.vaccines"), value: "vaccines" },
     { label: t("types.operations"), value: "operations" },
+    { label: t("types.diseases"), value: "diseases" },
   ];
 
   useEffect(() => {
