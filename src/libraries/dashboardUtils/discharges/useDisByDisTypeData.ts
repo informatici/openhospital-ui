@@ -11,10 +11,10 @@ export const useDisByDisTypeData = () => {
     (state) => state.admissions.getDischarges.data?.data ?? []
   );
   const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
-    (state) => state.dischargeTypes.allDischargeTypes.data ?? []
+    (state) => state.types.discharges.getAll.data ?? []
   );
   const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.dischargeTypes.allDischargeTypes.status ?? "IDLE"
+    (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
   const status = useSelector<IState, TAPIResponseStatus>(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
