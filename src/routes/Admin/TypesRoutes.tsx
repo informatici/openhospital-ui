@@ -19,6 +19,10 @@ import OperationTypes, {
   EditOperationType,
   NewOperationType,
 } from "../../components/accessories/admin/types/components/operations";
+import DeliveryTypes, {
+  EditDeliveryType,
+  NewDeliveryType,
+} from "../../components/accessories/admin/types/components/deliveries";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -69,6 +73,18 @@ const TypesRoutes = () => {
     {
       path: "operations/:code/edit",
       element: <EditOperationType />,
+    },
+    {
+      path: "deliveries",
+      element: <DeliveryTypes />,
+    },
+    {
+      path: "deliveries/new",
+      element: <NewDeliveryType />,
+    },
+    {
+      path: "deliveries/:code/edit",
+      element: <EditDeliveryType />,
     },
   ];
 

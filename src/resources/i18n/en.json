@@ -832,6 +832,7 @@
     "vaccines": "Type of vaccines",
     "admissions": "Types of admission",
     "diseases": "Type of diseases",
+    "deliveries": "Types of delivery",
     "operations": "Type of operations",
     "chooseATypeToStart": "Choose a type to start..."
   },
@@ -851,6 +852,23 @@
     "updateSuccess": "The vaccine type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the vaccine type creation?",
     "cancelUpdate": "Are you sure to cancel the vaccine type update?"
+  },
+  "deliveryTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage delivery types",
+    "addDeliveryType": "New delivery type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The delivery type has been deleted successfully!",
+    "saveDeliveryTypes": "Save",
+    "editDeliveryType": "Edit delivery type",
+    "updateDeliveryType": "Save changes",
+    "created": "Delivery type created",
+    "createSuccess": "The delivery type has been created successfully!",
+    "updated": "Delivery type updated",
+    "updateSuccess": "The delivery type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the delivery type creation?",
+    "cancelUpdate": "Are you sure to cancel the delivery type update?"
   },
   "admissionTypes": {
     "code": "Code",
