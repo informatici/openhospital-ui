@@ -40,4 +40,10 @@ export const PATHS = {
   admin_exams_types: "/admin/types/exams",
   admin_exams_types_new: "/admin/types/exams/new",
   admin_exams_types_edit: "/admin/types/exams/:code/edit",
+  admin_diseases_types: "/admin/types/diseases",
+  admin_diseases_types_new: "/admin/types/diseases/new",
+  admin_diseases_types_edit: "/admin/types/diseases/:code/edit",
+  admin_operations_types: "/admin/types/operations",
+  admin_operations_types_new: "/admin/types/operations/new",
+  admin_operations_types_edit: "/admin/types/operations/:code/edit",
 };

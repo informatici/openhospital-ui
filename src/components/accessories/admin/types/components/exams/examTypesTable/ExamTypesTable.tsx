@@ -35,7 +35,7 @@ const ExamTypesTable = (props: IOwnProps) => {
   const { data, status, error } = useSelector<
     IState,
     ApiResponse<ExamTypeDTO[]>
-  >((state) => state.types.exams.getAllExamTypes);
+  >((state) => state.types.exams.getAll);
 
   const deleteExamType = useSelector<IState, ApiResponse<boolean>>(
     (state) => state.types.exams.delete

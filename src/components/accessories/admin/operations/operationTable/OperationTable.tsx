@@ -33,7 +33,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     { label: string; value: string }[]
   >(
     (state) =>
-      state.operationTypes.getOperationTypes.data?.map((item) => ({
+      state.types.operations.getAll.data?.map((item) => ({
         label: item.description,
         value: item.code,
       })) ?? []

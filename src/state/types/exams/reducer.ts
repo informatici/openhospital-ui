@@ -1,5 +1,5 @@
 import produce from "immer";
-import { VaccineTypeDTO } from "../../../generated";
+import { ExamTypeDTO } from "../../../generated";
 import { IAction } from "../../types";
 import {
   CREATE_EXAM_TYPES_FAIL,
@@ -35,10 +35,7 @@ export default produce((draft: IExamTypesState, action: IAction<any, any>) => {
     case CREATE_EXAM_TYPES_SUCCESS: {
       draft.create.status = "SUCCESS";
       draft.create.data = action.payload;
-      draft.getAllExamTypes.data = [
-        ...(draft.getAllExamTypes.data ?? []),
-        action.payload,
-      ];
+      draft.getAll.data = [...(draft.getAll.data ?? []), action.payload];
       delete draft.create.error;
       break;
     }
@@ -59,27 +56,27 @@ export default produce((draft: IExamTypesState, action: IAction<any, any>) => {
      *  Get exam types
      */
     case GET_EXAM_TYPES_LOADING: {
-      draft.getAllExamTypes.status = "LOADING";
+      draft.getAll.status = "LOADING";
       break;
     }
 
     case GET_EXAM_TYPES_SUCCESS: {
-      draft.getAllExamTypes.status = "SUCCESS";
-      draft.getAllExamTypes.data = action.payload;
-      delete draft.getAllExamTypes.error;
+      draft.getAll.status = "SUCCESS";
+      draft.getAll.data = action.payload;
+      delete draft.getAll.error;
       break;
     }
 
     case GET_EXAM_TYPES_FAIL: {
-      draft.getAllExamTypes.status = "FAIL";
-      draft.getAllExamTypes.error = action.error;
+      draft.getAll.status = "FAIL";
+      draft.getAll.error = action.error;
       break;
     }
 
     case GET_EXAM_TYPES_SUCCESS_EMPTY: {
-      draft.getAllExamTypes.status = "SUCCESS_EMPTY";
-      draft.getAllExamTypes.data = [];
-      delete draft.getAllExamTypes.error;
+      draft.getAll.status = "SUCCESS_EMPTY";
+      draft.getAll.data = [];
+      delete draft.getAll.error;
       break;
     }
 
@@ -95,9 +92,9 @@ export default produce((draft: IExamTypesState, action: IAction<any, any>) => {
     case UPDATE_EXAM_TYPES_SUCCESS: {
       draft.update.status = "SUCCESS";
       draft.update.data = action.payload;
-      draft.getAllExamTypes.data = draft.getAllExamTypes.data?.map((e) => {
+      draft.getAll.data = draft.getAll.data?.map((e) => {
         return e.code === action.payload.code
-          ? (action.payload as VaccineTypeDTO)
+          ? (action.payload as ExamTypeDTO)
           : e;
       });
       delete draft.update.error;
@@ -128,7 +125,7 @@ export default produce((draft: IExamTypesState, action: IAction<any, any>) => {
     case DELETE_EXAM_TYPES_SUCCESS: {
       draft.delete.status = "SUCCESS";
       draft.delete.data = action.payload.deleted;
-      draft.getAllExamTypes.data = draft.getAllExamTypes.data?.filter((e) => {
+      draft.getAll.data = draft.getAll.data?.filter((e) => {
         return e.code !== action.payload.code;
       });
       delete draft.delete.error;

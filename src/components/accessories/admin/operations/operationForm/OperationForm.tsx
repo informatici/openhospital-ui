@@ -33,7 +33,7 @@ import {
   updateOperationReset,
 } from "../../../../../state/operations/actions";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
-import { getOperationTypes } from "../../../../../state/operationTypes/actions";
+import { getOperationTypes } from "../../../../../state/types/operations";
 
 const OperationForm: FC<IOperationProps> = ({
   fields,
@@ -54,7 +54,7 @@ const OperationForm: FC<IOperationProps> = ({
   );
 
   const operationsTypeState = useSelector(
-    (state: IState) => state.operationTypes.getOperationTypes
+    (state: IState) => state.types.operations.getAll
   );
 
   const operationsTypeOptions = useMemo(

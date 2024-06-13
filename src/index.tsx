@@ -27,12 +27,12 @@ import bills from "./state/bills/reducer";
 import prices from "./state/prices/reducer";
 import visits from "./state/visits/reducer";
 import operations from "./state/operations/reducer";
-import diseaseTypes from "./state/diseaseTypes/reducer";
+import diseaseTypes from "./state/types/diseases/reducer";
+import examTypes from "./state/types/exams/reducer";
 import ageTypes from "./state/ageTypes/reducer";
 import hospital from "./state/hospital/reducer";
 import layouts from "./state/layouts/reducer";
 import dashboard from "./state/dashboard/reducer";
-import operationTypes from "./state/operationTypes/reducer";
 import users from "./state/users/reducer";
 import vaccines from "./state/vaccines/reducer";
 import types from "./state/types/reducer";
@@ -63,11 +63,11 @@ const reducer = combineReducers<IState>({
   visits,
   operations,
   diseaseTypes,
+  examTypes,
   ageTypes,
   hospital,
   layouts,
   dashboard,
-  operationTypes,
   users,
   vaccines,
   types,

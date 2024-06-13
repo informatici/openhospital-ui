@@ -49,7 +49,7 @@ const ExamTypes = () => {
           headerActions={
             <Button
               onClick={() => {
-                navigate("./new");
+                navigate(PATHS.admin_exams_types_new);
               }}
               type="button"
               variant="contained"

@@ -27,7 +27,7 @@ export const ExamsTable = () => {
     { label: string; value: string }[]
   >(
     (state) =>
-      state.types.exams.getAllExamTypes.data?.map((item: ExamTypeDTO) => ({
+      state.types.exams.getAll.data?.map((item: ExamTypeDTO) => ({
         value: item.code ?? "",
         label: item.description ?? item.code ?? "",
       })) ?? []
