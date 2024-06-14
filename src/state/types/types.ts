@@ -1,6 +1,7 @@
 import { IAdmissionTypesState } from "./admissions";
 import { ITypeConfigsState } from "./config";
 import { IDeliveryTypesState } from "./deliveries";
+import { IDeliveryResultTypeState } from "./deliveryResultType";
 import { IDiseaseTypesState } from "./diseases";
 import { IOperationTypesState } from "./operations";
 import { IVaccineTypesState } from "./vaccines";
@@ -12,4 +13,5 @@ export type ITypesState = {
   operations: IOperationTypesState;
   config: ITypeConfigsState;
   deliveries: IDeliveryTypesState;
+  deliveryResult: IDeliveryResultTypeState;
 };

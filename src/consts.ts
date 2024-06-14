@@ -49,4 +49,8 @@ export const PATHS = {
   admin_deliveries_types: "/admin/types/deliveries",
   admin_deliveries_types_new: "/admin/types/deliveries/new",
   admin_deliveries_types_edit: "/admin/types/deliveries/:code/edit",
+  admin_delivery_result_types: "/admin/types/deliveryresulttypes",
+  admin_delivery_result_types_new: "/admin/types/deliveryresulttypes/new",
+  admin_delivery_result_types_edit:
+    "/admin/types/deliveryresulttypes/:code/edit",
 };

@@ -834,7 +834,8 @@
     "diseases": "Type of diseases",
     "deliveries": "Types of delivery",
     "operations": "Type of operations",
-    "chooseATypeToStart": "Choose a type to start..."
+    "chooseATypeToStart": "Choose a type to start...",
+    "deliveryResultType": "Types of delivery result"
   },
   "vaccineTypes": {
     "code": "Code",
@@ -980,5 +981,22 @@
     "updated": "Disease updated",
     "createSuccess": "Disease has been created successfully!",
     "updateSuccess": "Disease {{code}} has been updated successfully!"
+  },
+  "deliveryResultType": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage delivery result types",
+    "addDeliveryResultType": "New delivery result type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The delivery result type has been deleted successfully!",
+    "saveDeliveryResultTypes": "Save",
+    "editDeliveryResultType": "Edit delivery result type",
+    "updateDeliveryResultType": "Save changes",
+    "created": "Delivery result type created",
+    "createSuccess": "The delivery result type has been created successfully!",
+    "updated": "Delivery result type updated",
+    "updateSuccess": "The delivery result type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the delivery result type creation?",
+    "cancelUpdate": "Are you sure to cancel the delivery result type update?"
   }
 }
