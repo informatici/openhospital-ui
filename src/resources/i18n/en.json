@@ -825,7 +825,19 @@
   "vaccine": {
     "code": "Code",
     "vaccinetype": "Vaccine Type",
-    "description": "Name"
+    "description": "Name",
+    "addVaccine": "Add Vaccine",
+    "editVaccine": "Edit Vaccine",
+    "updateVaccine": "update Vaccine",
+    "saveVaccine": "Save Vaccine",
+    "updated": "Vaccine updated",
+    "updateSuccess": "Vaccine {{code}} has been updated successfully!",
+    "created": "Vaccine Created",
+    "createSuccess": "Vaccine has been created successfully!",
+    "deleted": "Vaccine deleted",
+    "deleteSuccess": "Vaccine has been deleted successfully!",
+    "cancelCreation": "Are you sure to cancel the vaccine creation?",
+    "cancelUpdate": "Are you sure to cancel the vaccine update?"
   },
   "types": {
     "selectAType": "Select a type",

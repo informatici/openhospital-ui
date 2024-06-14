@@ -24,6 +24,8 @@ import {
   EditDisease,
   NewOperation,
   EditOperation,
+  EditVaccine,
+  NewVaccine,
 } from "../../components/accessories/admin";
 import { PATHS } from "../../consts";
 
@@ -122,6 +124,24 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.vaccines")}
             children={<Vaccines />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_vaccines_new),
+        element: (
+          <AdminActivityContent
+            title={t("vaccine.addVaccine")}
+            children={<NewVaccine />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_vaccines_edit),
+        element: (
+          <AdminActivityContent
+            title={t("vaccine.editVaccine")}
+            children={<EditVaccine />}
           />
         ),
       },
