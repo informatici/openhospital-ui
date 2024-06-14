@@ -19,7 +19,6 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import {
   getDiseasesIpdIn,
   getDiseasesIpdOut,
@@ -34,6 +33,7 @@ import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { AdmissionProps } from "./types";
 import { getAdmissionTypes } from "../../../../state/types/admissions";
+import { getDischargeTypes } from "../../../../state/types/discharges";
 
 const AdmissionForm: FC<AdmissionProps> = ({
   fields,
@@ -68,7 +68,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
   );
 
   const dischargeTypes = useSelector(
-    (state: IState) => state.dischargeTypes.allDischargeTypes.data
+    (state: IState) => state.types.discharges.getAll.data
   );
 
   const filteredWards = useMemo(
@@ -289,7 +289,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
     (state: IState) => state.diseases.diseasesIpdOut.status
   );
   const disTypeStatus = useSelector(
-    (state: IState) => state.dischargeTypes.allDischargeTypes.status
+    (state: IState) => state.types.discharges.getAll.status
   );
 
   return (

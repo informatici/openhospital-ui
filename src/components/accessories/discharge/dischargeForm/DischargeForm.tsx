@@ -16,7 +16,6 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
 import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
@@ -26,6 +25,7 @@ import DateField from "../../dateField/DateField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { DischargeProps } from "./types";
+import { getDischargeTypes } from "../../../../state/types/discharges";
 
 const DischargeForm: FC<DischargeProps> = ({
   fields,
@@ -45,7 +45,7 @@ const DischargeForm: FC<DischargeProps> = ({
   );
 
   const dischargeTypes = useSelector(
-    (state: IState) => state.dischargeTypes.allDischargeTypes.data
+    (state: IState) => state.types.discharges.getAll.data
   );
 
   const renderOptions = (
@@ -198,7 +198,7 @@ const DischargeForm: FC<DischargeProps> = ({
     (state: IState) => state.diseases.diseasesIpdOut.status
   );
   const disTypeStatus = useSelector(
-    (state: IState) => state.dischargeTypes.allDischargeTypes.status
+    (state: IState) => state.types.discharges.getAll.status
   );
 
   return (
