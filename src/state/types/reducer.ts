@@ -6,6 +6,7 @@ import config from "./config/reducer";
 import diseases from "./diseases/reducer";
 import discharges from "./discharges/reducer";
 import deliveries from "./deliveries/reducer";
+import pregnantTreatment from "./pregnantTreatment/reducer";
 
 const typesReducer = combineReducers({
   vaccines: vaccineTypes,
@@ -15,6 +16,7 @@ const typesReducer = combineReducers({
   config,
   discharges,
   deliveries,
+  pregnantTreatment,
 });
 
 export default typesReducer;

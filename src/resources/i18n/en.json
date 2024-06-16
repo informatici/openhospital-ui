@@ -847,7 +847,8 @@
     "discharges": "Types of discharge",
     "deliveries": "Types of delivery",
     "operations": "Type of operations",
-    "chooseATypeToStart": "Choose a type to start..."
+    "chooseATypeToStart": "Choose a type to start...",
+    "pregnantTreatment": "Type of pregnant treatment"
   },
   "vaccineTypes": {
     "code": "Code",
@@ -1010,5 +1011,23 @@
     "updated": "Disease updated",
     "createSuccess": "Disease has been created successfully!",
     "updateSuccess": "Disease {{code}} has been updated successfully!"
+  },
+
+  "pregnantTreatmentTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage pregnant treatment types",
+    "addPregnantTreatmentType": "New pregnant treatment type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The pregnant treatment type has been deleted successfully!",
+    "savePregnantTreatmentTypes": "Save",
+    "editPregnantTreatmentType": "Edit pregnant treatment type",
+    "updatePregnantTreatmentType": "Save changes",
+    "created": "Pregnant treatment type created",
+    "createSuccess": "The pregnant treatment type has been created successfully!",
+    "updated": "Pregnant treatment type updated",
+    "updateSuccess": "The pregnant treatment type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the pregnant treatment type creation?",
+    "cancelUpdate": "Are you sure to cancel the pregnant treatment type update?"
   }
 }

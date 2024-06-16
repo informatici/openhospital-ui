@@ -54,4 +54,8 @@ export const PATHS = {
   admin_deliveries_types: "/admin/types/deliveries",
   admin_deliveries_types_new: "/admin/types/deliveries/new",
   admin_deliveries_types_edit: "/admin/types/deliveries/:code/edit",
+  admin_pregnant_treatment_types: "/admin/types/pregnanttreatmenttypes",
+  admin_pregnant_treatment_types_new: "/admin/types/pregnanttreatmenttypes/new",
+  admin_pregnant_treatment_types_edit:
+    "/admin/types/pregnanttreatmenttypes/:code/edit",
 };
