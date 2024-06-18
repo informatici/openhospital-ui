@@ -1,7 +1,3 @@
-// types.ts
-
-export type PregnantTreatmentTypeFormFieldName = "code" | "description";
-
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
 import { TFields } from "../../../../../../../libraries/formDataHandling/types";
 
@@ -13,3 +9,5 @@ export interface IPregnantTreatmentTypeFormProps {
   resetButtonLabel: string;
   isLoading: boolean;
 }
+
+export type PregnantTreatmentTypeFormFieldName = "code" | "description";
