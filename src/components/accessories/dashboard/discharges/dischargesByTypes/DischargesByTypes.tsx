@@ -10,11 +10,11 @@ import { Skeleton } from "@material-ui/lab";
 import { getDischarges } from "../../../../../state/admissions/actions";
 import { IOwnProps } from "../types";
 import { Piechart } from "../../../charts/pie/Piechart";
-import { getDischargeTypes } from "../../../../../state/dischargeTypes/actions";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
 import { useDisByDisTypeData } from "../../../../../libraries/dashboardUtils/discharges/useDisByDisTypeData";
 
 import "../../card/styles.scss";
+import { getDischargeTypes } from "../../../../../state/types/discharges";
 
 export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -36,8 +36,10 @@ export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   const { total, success, status, dischargeTypeStatus, data, csvData } =
     useDisByDisTypeData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
+  const [displaySize, setDisplaySize] = useState<{
+    width: number;
+    height: number;
+  }>();
 
   const onSizeChange = (width: number, height: number) => {
     setDisplaySize({ width: width - 1, height: height - 73 });

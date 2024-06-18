@@ -834,6 +834,7 @@
     "exams": "Type of exams",
     "admissions": "Types of admission",
     "diseases": "Type of diseases",
+    "discharges": "Types of discharge",
     "deliveries": "Types of delivery",
     "operations": "Type of operations",
     "chooseATypeToStart": "Choose a type to start..."
@@ -854,6 +855,23 @@
     "updateSuccess": "The vaccine type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the vaccine type creation?",
     "cancelUpdate": "Are you sure to cancel the vaccine type update?"
+  },
+  "dischargeTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage discharge types",
+    "addDischargeType": "New discharge type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The discharge type has been deleted successfully!",
+    "saveDischargeTypes": "Save",
+    "editDischargeType": "Edit discharge type",
+    "updateDischargeType": "Save changes",
+    "created": "Discharge type created",
+    "createSuccess": "The discharge type has been created successfully!",
+    "updated": "Discharge type updated",
+    "updateSuccess": "The discharge type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the discharge type creation?",
+    "cancelUpdate": "Are you sure to cancel the discharge type update?"
   },
   "deliveryTypes": {
     "code": "Code",
