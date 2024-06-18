@@ -132,7 +132,7 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
             <TextField
               field={formik.getFieldProps("description")}
               theme="regular"
-              label={t("deliveryResultTypes.description")}
+              label={t("deliveryResultType.description")}
               isValid={isValid("description")}
               errorText={getErrorText("description")}
               onBlur={formik.handleBlur}
