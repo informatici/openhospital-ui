@@ -31,6 +31,10 @@ import DeliveryTypes, {
   EditDeliveryType,
   NewDeliveryType,
 } from "../../components/accessories/admin/types/components/deliveries";
+import PregnantTreatmentType, {
+  EditPregnantTreatmentType,
+  NewPregnantTreatmentType,
+} from "../../components/accessories/admin/types/components/pregnanttreatmenttypes";
 import DeliveryResultType, {
   EditDeliveryResultType,
   NewDeliveryResultType,
@@ -121,6 +125,18 @@ const TypesRoutes = () => {
     {
       path: "deliveries/:code/edit",
       element: <EditDeliveryType />,
+    },
+    {
+      path: "pregnanttreatmenttypes",
+      element: <PregnantTreatmentType />,
+    },
+    {
+      path: "pregnanttreatmenttypes/new",
+      element: <NewPregnantTreatmentType />,
+    },
+    {
+      path: "pregnanttreatmenttypes/:code/edit",
+      element: <EditPregnantTreatmentType />,
     },
     {
       path: "deliveryresulttypes",

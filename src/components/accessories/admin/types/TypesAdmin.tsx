@@ -34,6 +34,7 @@ const TypesAdmin = () => {
     { label: t("types.admissions"), value: "admissions" },
     { label: t("types.deliveryResultType"), value: "deliveryresulttypes" },
     { label: t("types.discharges"), value: "discharges" },
+    { label: t("types.pregnantTreatment"), value: "pregnanttreatmenttypes" },
   ];
 
   useEffect(() => {
