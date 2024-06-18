@@ -5,6 +5,7 @@ import { IDeliveryTypesState } from "./deliveries";
 import { IDiseaseTypesState } from "./diseases";
 import { IOperationTypesState } from "./operations";
 import { IVaccineTypesState } from "./vaccines";
+import { IMedicalTypesState } from "./medicals";
 
 export type ITypesState = {
   vaccines: IVaccineTypesState;
@@ -14,4 +15,5 @@ export type ITypesState = {
   config: ITypeConfigsState;
   discharges: IDischargeTypesState;
   deliveries: IDeliveryTypesState;
+  medicals: IMedicalTypesState;
 };
