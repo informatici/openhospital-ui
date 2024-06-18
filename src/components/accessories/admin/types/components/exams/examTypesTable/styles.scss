@@ -1,0 +1,13 @@
+.examTypesTable {
+  display: grid;
+  margin-top: 50px;
+
+  .fullWidth {
+    width: 100%;
+  }
+
+  .loader {
+    margin-left: 50%;
+    position: relative;
+  }
+}

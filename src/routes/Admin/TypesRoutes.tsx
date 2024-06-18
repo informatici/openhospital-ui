@@ -7,6 +7,10 @@ import { Route, Routes } from "react-router";
 import NotFound from "../../components/activities/notFound/NotFound";
 import Empty from "../../components/accessories/admin/types/Empty";
 import TypesAdmin from "../../components/accessories/admin/types/TypesAdmin";
+import ExamTypes, {
+  EditExamType,
+  NewExamType,
+} from "../../components/accessories/admin/types/components/exams";
 import AdmissionTypes, {
   EditAdmissionType,
   NewAdmissionType,
@@ -31,6 +35,14 @@ import MedicalTypes, {
   EditMedicalType,
   NewMedicalType,
 } from "../../components/accessories/admin/types/components/medicals";
+import PregnantTreatmentType, {
+  EditPregnantTreatmentType,
+  NewPregnantTreatmentType,
+} from "../../components/accessories/admin/types/components/pregnanttreatmenttypes";
+import DeliveryResultType, {
+  EditDeliveryResultType,
+  NewDeliveryResultType,
+} from "../../components/accessories/admin/types/components/deliveryresulttypes";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -45,6 +57,18 @@ const TypesRoutes = () => {
     {
       path: "vaccines/:code/edit",
       element: <EditVaccineType />,
+    },
+    {
+      path: "exams",
+      element: <ExamTypes />,
+    },
+    {
+      path: "exams/new",
+      element: <NewExamType />,
+    },
+    {
+      path: "exams/:code/edit",
+      element: <EditExamType />,
     },
     {
       path: "admissions",
@@ -117,6 +141,30 @@ const TypesRoutes = () => {
     {
       path: "medicals/:code/edit",
       element: <EditMedicalType />,
+    },
+    {
+      path: "pregnanttreatmenttypes",
+      element: <PregnantTreatmentType />,
+    },
+    {
+      path: "pregnanttreatmenttypes/new",
+      element: <NewPregnantTreatmentType />,
+    },
+    {
+      path: "pregnanttreatmenttypes/:code/edit",
+      element: <EditPregnantTreatmentType />,
+    },
+    {
+      path: "deliveryresulttypes",
+      element: <DeliveryResultType />,
+    },
+    {
+      path: "deliveryresulttypes/new",
+      element: <NewDeliveryResultType />,
+    },
+    {
+      path: "deliveryresulttypes/:code/edit",
+      element: <EditDeliveryResultType />,
     },
   ];
 

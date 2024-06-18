@@ -26,13 +26,16 @@ const TypesAdmin = () => {
 
   const typeOptions: TypeOption[] = [
     defaultTypeOption,
+    { label: t("types.exams"), value: "exams" },
     { label: t("types.vaccines"), value: "vaccines" },
     { label: t("types.operations"), value: "operations" },
     { label: t("types.diseases"), value: "diseases" },
     { label: t("types.deliveries"), value: "deliveries" },
     { label: t("types.admissions"), value: "admissions" },
+    { label: t("types.deliveryResultType"), value: "deliveryresulttypes" },
     { label: t("types.discharges"), value: "discharges" },
     { label: t("types.medicals"), value: "medicals" },
+    { label: t("types.pregnantTreatment"), value: "pregnanttreatmenttypes" },
   ];
 
   useEffect(() => {
