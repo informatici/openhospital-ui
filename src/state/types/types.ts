@@ -6,6 +6,7 @@ import { IDeliveryResultTypeState } from "./deliveryResultType";
 import { IDiseaseTypesState } from "./diseases";
 import { IOperationTypesState } from "./operations";
 import { IVaccineTypesState } from "./vaccines";
+import { IMedicalTypesState } from "./medicals";
 import { IPregnantTreatmentTypesState } from "./pregnantTreatment";
 import { IExamTypesState } from "./exams";
 
@@ -18,6 +19,7 @@ export type ITypesState = {
   exams: IExamTypesState;
   discharges: IDischargeTypesState;
   deliveries: IDeliveryTypesState;
+  medicals: IMedicalTypesState;
   pregnantTreatment: IPregnantTreatmentTypesState;
   deliveryResult: IDeliveryResultTypeState;
 };

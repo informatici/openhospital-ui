@@ -849,6 +849,7 @@
     "discharges": "Types of discharge",
     "deliveries": "Types of delivery",
     "operations": "Type of operations",
+    "medicals": "Types of medical",
     "chooseATypeToStart": "Choose a type to start...",
     "pregnantTreatment": "Type of pregnant treatment",
     "deliveryResultType": "Types of delivery result"
@@ -869,6 +870,23 @@
     "updateSuccess": "The vaccine type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the vaccine type creation?",
     "cancelUpdate": "Are you sure to cancel the vaccine type update?"
+  },
+  "medicalTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage medical types",
+    "addMedicalType": "New medical type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The medical type has been deleted successfully!",
+    "saveMedicalTypes": "Save",
+    "editMedicalType": "Edit medical type",
+    "updateMedicalType": "Save changes",
+    "created": "Medical type created",
+    "createSuccess": "The medical type has been created successfully!",
+    "updated": "Medical type updated",
+    "updateSuccess": "The medical type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the medical type creation?",
+    "cancelUpdate": "Are you sure to cancel the medical type update?"
   },
   "dischargeTypes": {
     "code": "Code",
