@@ -7,7 +7,7 @@ import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { getExams } from "../../../../../state/exams/actions";
-import { getExamTypes } from "../../../../../state/examTypes/actions";
+import { getExamTypes } from "../../../../../state/types/exams";
 import { IState } from "../../../../../types";
 import { ExamDTO, ExamTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
@@ -27,7 +27,7 @@ export const ExamsTable = () => {
     { label: string; value: string }[]
   >(
     (state) =>
-      state.examTypes.getExamTypes.data?.map((item: ExamTypeDTO) => ({
+      state.types.exams.getAll.data?.map((item: ExamTypeDTO) => ({
         value: item.code ?? "",
         label: item.description ?? item.code ?? "",
       })) ?? []
