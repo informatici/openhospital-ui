@@ -7,6 +7,7 @@ import exams from "./exams/reducer";
 import diseases from "./diseases/reducer";
 import discharges from "./discharges/reducer";
 import deliveries from "./deliveries/reducer";
+import deliveryResult from "./deliveryResultType/reducer";
 
 const typesReducer = combineReducers({
   vaccines: vaccineTypes,
@@ -17,6 +18,7 @@ const typesReducer = combineReducers({
   exams,
   discharges,
   deliveries,
+  deliveryResult,
 });
 
 export default typesReducer;
