@@ -3,6 +3,7 @@ import vaccineTypes from "./vaccines/reducer";
 import admissions from "./admissions/reducer";
 import operationTypes from "./operations/reducer";
 import config from "./config/reducer";
+import exams from "./exams/reducer";
 import diseases from "./diseases/reducer";
 import discharges from "./discharges/reducer";
 import deliveries from "./deliveries/reducer";
@@ -13,6 +14,7 @@ const typesReducer = combineReducers({
   diseases,
   operations: operationTypes,
   config,
+  exams,
   discharges,
   deliveries,
 });

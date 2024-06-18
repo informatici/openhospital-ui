@@ -26,6 +26,7 @@ const TypesAdmin = () => {
 
   const typeOptions: TypeOption[] = [
     defaultTypeOption,
+    { label: t("types.exams"), value: "exams" },
     { label: t("types.vaccines"), value: "vaccines" },
     { label: t("types.operations"), value: "operations" },
     { label: t("types.diseases"), value: "diseases" },
