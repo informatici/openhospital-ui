@@ -128,7 +128,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
               disabled={isLoading || !creationMode}
             />
           </div>
-          <div className="pregnantTreatmentTypeForm__item halfWidth">
+          <div className="pregnantTreatmentTypesForm__item halfWidth">
             <TextField
               field={formik.getFieldProps("description")}
               theme="regular"
