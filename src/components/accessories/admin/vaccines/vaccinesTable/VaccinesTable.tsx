@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -8,11 +8,26 @@ import { IState } from "../../../../../types";
 import { VaccineDTO, VaccineTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./VaccinesTable.module.scss";
-import { getVaccines } from "../../../../../state/vaccines/actions";
+import {
+  deleteVaccineReset,
+  getVaccines,
+} from "../../../../../state/vaccines/actions";
 import { TFilterField } from "../../../table/filter/types";
 import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../../assets/check-icon.png";
 
-export const VaccinesTable = () => {
+interface IOwnProps {
+  onEdit: (row: any) => void;
+  onDelete: (row: any) => void;
+  headerActions?: ReactNode;
+}
+
+export const VaccinesTable = ({
+  onEdit,
+  onDelete,
+  headerActions,
+}: IOwnProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -20,6 +35,8 @@ export const VaccinesTable = () => {
     dispatch(getVaccines());
     dispatch(getVaccineTypes());
   }, [dispatch]);
+
+  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["code", "type", "description"];
 
@@ -41,6 +58,10 @@ export const VaccinesTable = () => {
     ApiResponse<VaccineTypeDTO[]>
   >((state) => state.types.vaccines.getVaccineTypes);
 
+  const deleteVaccine = useSelector<IState, ApiResponse<boolean>>(
+    (state) => state.vaccines.delete
+  );
+
   const filters: TFilterField[] = [
     {
       key: "type",
@@ -54,6 +75,14 @@ export const VaccinesTable = () => {
     },
     { key: "description", label: t("vaccine.description"), type: "text" },
   ];
+
+  const handleEdit = (row: VaccineDTO) => {
+    onEdit((data ?? []).find((item) => item.code === row?.code));
+  };
+
+  const handleDelete = (row: VaccineDTO) => {
+    onDelete(row);
+  };
 
   const formatDataToDisplay = (data: VaccineDTO[]) => {
     return data.map((item) => {
@@ -82,18 +111,42 @@ export const VaccinesTable = () => {
 
           case "SUCCESS":
             return (
-              <Table
-                rowData={formatDataToDisplay(data ?? [])}
-                tableHeader={header}
-                labelData={label}
-                columnsOrder={order}
-                rowsPerPage={10}
-                isCollapsabile={false}
-                showEmptyCell={false}
-                filterColumns={filters}
-                manualFilter={false}
-                rowKey="code"
-              />
+              <>
+                <Table
+                  rowData={formatDataToDisplay(data ?? [])}
+                  tableHeader={header}
+                  labelData={label}
+                  columnsOrder={order}
+                  rowsPerPage={10}
+                  isCollapsabile={false}
+                  showEmptyCell={false}
+                  filterColumns={filters}
+                  manualFilter={false}
+                  rowKey="code"
+                  headerActions={headerActions}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+                {deleteVaccine.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox
+                      type="error"
+                      message={deleteVaccine.error?.message}
+                    />
+                  </div>
+                )}
+                <ConfirmationDialog
+                  isOpen={!!deleteVaccine.hasSucceeded}
+                  title={t("vaccine.deleted")}
+                  icon={checkIcon}
+                  info={t("vaccine.deleteSuccess")}
+                  primaryButtonLabel="Ok"
+                  handlePrimaryButtonClick={() => {
+                    dispatch(deleteVaccineReset());
+                  }}
+                  handleSecondaryButtonClick={() => ({})}
+                />
+              </>
             );
           case "SUCCESS_EMPTY":
             return <InfoBox type="info" message={t("common.emptydata")} />;
