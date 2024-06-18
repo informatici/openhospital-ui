@@ -25,7 +25,8 @@ import bills from "./state/bills/reducer";
 import prices from "./state/prices/reducer";
 import visits from "./state/visits/reducer";
 import operations from "./state/operations/reducer";
-import examTypes from "./state/examTypes/reducer";
+import diseaseTypes from "./state/types/diseases/reducer";
+import examTypes from "./state/types/exams/reducer";
 import ageTypes from "./state/ageTypes/reducer";
 import hospital from "./state/hospital/reducer";
 import layouts from "./state/layouts/reducer";
@@ -57,6 +58,7 @@ const reducer = combineReducers<IState>({
   prices,
   visits,
   operations,
+  diseaseTypes,
   examTypes,
   ageTypes,
   hospital,

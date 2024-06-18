@@ -825,18 +825,33 @@
   "vaccine": {
     "code": "Code",
     "vaccinetype": "Vaccine Type",
-    "description": "Name"
+    "description": "Name",
+    "exams": "Type of exam",
+    "addVaccine": "Add Vaccine",
+    "editVaccine": "Edit Vaccine",
+    "updateVaccine": "update Vaccine",
+    "saveVaccine": "Save Vaccine",
+    "updated": "Vaccine updated",
+    "updateSuccess": "Vaccine {{code}} has been updated successfully!",
+    "created": "Vaccine Created",
+    "createSuccess": "Vaccine has been created successfully!",
+    "deleted": "Vaccine deleted",
+    "deleteSuccess": "Vaccine has been deleted successfully!",
+    "cancelCreation": "Are you sure to cancel the vaccine creation?",
+    "cancelUpdate": "Are you sure to cancel the vaccine update?"
   },
   "types": {
     "selectAType": "Select a type",
     "vaccines": "Type of vaccines",
+    "exams": "Type of exams",
     "admissions": "Types of admission",
     "diseases": "Type of diseases",
     "discharges": "Types of discharge",
     "deliveries": "Types of delivery",
     "operations": "Type of operations",
     "chooseATypeToStart": "Choose a type to start...",
-    "pregnantTreatment": "Type of pregnant treatment"
+    "pregnantTreatment": "Type of pregnant treatment",
+    "deliveryResultType": "Types of delivery result"
   },
   "vaccineTypes": {
     "code": "Code",
@@ -1000,7 +1015,6 @@
     "createSuccess": "Disease has been created successfully!",
     "updateSuccess": "Disease {{code}} has been updated successfully!"
   },
-
   "pregnantTreatmentTypes": {
     "code": "Code",
     "description": "Description",
@@ -1017,5 +1031,39 @@
     "updateSuccess": "The pregnant treatment type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the pregnant treatment type creation?",
     "cancelUpdate": "Are you sure to cancel the pregnant treatment type update?"
+  },
+  "deliveryResultType": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage delivery result types",
+    "addDeliveryResultType": "New delivery result type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The delivery result type has been deleted successfully!",
+    "saveDeliveryResultTypes": "Save",
+    "editDeliveryResultType": "Edit delivery result type",
+    "updateDeliveryResultType": "Save changes",
+    "created": "Delivery result type created",
+    "createSuccess": "The delivery result type has been created successfully!",
+    "updated": "Delivery result type updated",
+    "updateSuccess": "The delivery result type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the delivery result type creation?",
+    "cancelUpdate": "Are you sure to cancel the delivery result type update?"
+  },
+  "examTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage exam types",
+    "addExamType": "New exam type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The exam type has been deleted successfully!",
+    "saveExamTypes": "Save",
+    "editVaccineType": "Edit exam type",
+    "updateExamType": "Save changes",
+    "created": "Exam type created",
+    "createSuccess": "The exam type has been created successfully!",
+    "updated": "Exam type updated",
+    "updateSuccess": "The exam type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the exam type creation?",
+    "cancelUpdate": "Are you sure to cancel the exam type update?"
   }
 }

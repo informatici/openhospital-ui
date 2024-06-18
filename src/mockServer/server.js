@@ -30,6 +30,7 @@ import { vaccineTypesRoutes } from "./routes/vaccineTypes";
 import { deliveryTypesRoutes } from "./routes/deliveryTypes";
 import { suppliersRoutes } from "./routes/suppliers";
 import { pregnantTreatmentTypeRoutes } from "./routes/pregnantTreatmentType";
+import { deliveryResultTypeRoutes } from "./routes/deliveryResultType";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -69,6 +70,7 @@ export function makeServer() {
     suppliersRoutes(server);
     deliveryTypesRoutes(server);
     pregnantTreatmentTypeRoutes(server);
+    deliveryResultTypeRoutes(server);
   });
   return server;
 }
