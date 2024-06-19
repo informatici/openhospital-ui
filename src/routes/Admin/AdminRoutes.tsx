@@ -13,21 +13,27 @@ import {
 import { Exams } from "../../components/accessories/admin/exams";
 import { Users } from "../../components/accessories/admin/users";
 import TypesRoutes from "./TypesRoutes";
+import { PATHS } from "../../consts";
 import {
   Diseases,
-  Operations,
-  Vaccines,
-  Suppliers,
-  NewSupplier,
-  EditSupplier,
-  NewDisease,
   EditDisease,
-  NewOperation,
+  NewDisease,
+} from "../../components/accessories/admin/diseases";
+import {
   EditOperation,
+  NewOperation,
+  Operations,
+} from "../../components/accessories/admin/operations";
+import {
   EditVaccine,
   NewVaccine,
-} from "../../components/accessories/admin";
-import { PATHS } from "../../consts";
+  Vaccines,
+} from "../../components/accessories/admin/vaccines";
+import {
+  EditSupplier,
+  NewSupplier,
+  Suppliers,
+} from "../../components/accessories/admin/suppliers";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
