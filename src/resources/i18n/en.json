@@ -852,7 +852,8 @@
     "medicals": "Types of medical",
     "chooseATypeToStart": "Choose a type to start...",
     "pregnantTreatment": "Type of pregnant treatment",
-    "deliveryResultType": "Types of delivery result"
+    "deliveryResultType": "Types of delivery result",
+    "ages": "Type of ages"
   },
   "vaccineTypes": {
     "code": "Code",
@@ -1075,7 +1076,7 @@
     "deleted": "Deleted",
     "deleteSuccess": "The exam type has been deleted successfully!",
     "saveExamTypes": "Save",
-    "editVaccineType": "Edit exam type",
+    "editExamType": "Edit exam type",
     "updateExamType": "Save changes",
     "created": "Exam type created",
     "createSuccess": "The exam type has been created successfully!",
@@ -1083,5 +1084,22 @@
     "updateSuccess": "The exam type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the exam type creation?",
     "cancelUpdate": "Are you sure to cancel the exam type update?"
+  },
+  "ageTypes": {
+    "code": "Code",
+    "description": "Description",
+    "title": "Manage age types",
+    "addAgeType": "New age type",
+    "deleted": "Deleted",
+    "deleteSuccess": "The age type has been deleted successfully!",
+    "saveAgeTypes": "Save",
+    "editAgeType": "Edit age type",
+    "updateAgeType": "Save changes",
+    "created": "Age type created",
+    "createSuccess": "The age type has been created successfully!",
+    "updated": "Age type updated",
+    "updateSuccess": "The age type has been updated successfully!",
+    "cancelCreation": "Are you sure to cancel the age type creation?",
+    "cancelUpdate": "Are you sure to cancel the age type update?"
   }
 }
