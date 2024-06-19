@@ -43,6 +43,8 @@ import DeliveryResultType, {
   EditDeliveryResultType,
   NewDeliveryResultType,
 } from "../../components/accessories/admin/types/components/deliveryresulttypes";
+import { EditAgeType } from "../../components/accessories/admin/types";
+import AgeTypes from "../../components/accessories/admin/types/components/agetypes";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [
@@ -165,6 +167,14 @@ const TypesRoutes = () => {
     {
       path: "deliveryresulttypes/:code/edit",
       element: <EditDeliveryResultType />,
+    },
+    {
+      path: "agetypes",
+      element: <AgeTypes />,
+    },
+    {
+      path: "agetypes/:code/edit",
+      element: <EditAgeType />,
     },
   ];
 

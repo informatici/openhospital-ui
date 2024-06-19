@@ -3,10 +3,11 @@ import { useTranslation } from "react-i18next";
 import "./styles.scss";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
-import { TypeMode } from "../../../../state/types/config";
+import { TypeMode, setTypeMode } from "../../../../state/types/config";
 import SelectField from "../../selectField/SelectField";
+import { dispatch } from "rxjs/internal/observable/range";
 
 type TypeOption = {
   label: string;
@@ -17,6 +18,8 @@ const TypesAdmin = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const defaultTypeOption: TypeOption = { label: "", value: "" };
   const [selectedOption, setSelectedOption] =
     useState<TypeOption>(defaultTypeOption);
@@ -36,6 +39,7 @@ const TypesAdmin = () => {
     { label: t("types.discharges"), value: "discharges" },
     { label: t("types.medicals"), value: "medicals" },
     { label: t("types.pregnantTreatment"), value: "pregnanttreatmenttypes" },
+    { label: t("types.ages"), value: "agetypes" },
   ];
 
   useEffect(() => {
@@ -58,6 +62,10 @@ const TypesAdmin = () => {
       }
     }
   }, [location]);
+
+  useEffect(() => {
+    dispatch(setTypeMode("manage"));
+  }, [dispatch]);
 
   const handleTypeChange = (value: string) => {
     if (value?.length > 0) {
