@@ -33,6 +33,7 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
           <div className="dialog__buttonSet" data-cy="dialog-button-set">
             <div data-cy="dialog-return-button" className="return_button">
               <Button
+                dataCy="approve-dialog"
                 type="submit"
                 variant="contained"
                 onClick={handlePrimaryButtonClick}
@@ -43,6 +44,7 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
             {secondaryButtonLabel ? (
               <div className="reset_button">
                 <Button
+                  dataCy="close-dialog"
                   type="reset"
                   variant="text"
                   onClick={handleSecondaryButtonClick}
