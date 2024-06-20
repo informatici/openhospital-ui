@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { TypeMode } from "../../../../state/types/config";
 import SelectField from "../../selectField/SelectField";
+import { sortBy } from "lodash";
 
 type TypeOption = {
   label: string;
@@ -24,19 +25,22 @@ const TypesAdmin = () => {
     (state) => state.types.config.mode
   );
 
-  const typeOptions: TypeOption[] = [
-    defaultTypeOption,
-    { label: t("types.exams"), value: "exams" },
-    { label: t("types.vaccines"), value: "vaccines" },
-    { label: t("types.operations"), value: "operations" },
-    { label: t("types.diseases"), value: "diseases" },
-    { label: t("types.deliveries"), value: "deliveries" },
-    { label: t("types.admissions"), value: "admissions" },
-    { label: t("types.deliveryResultType"), value: "deliveryresulttypes" },
-    { label: t("types.discharges"), value: "discharges" },
-    { label: t("types.medicals"), value: "medicals" },
-    { label: t("types.pregnantTreatment"), value: "pregnanttreatmenttypes" },
-  ];
+  const typeOptions: TypeOption[] = sortBy(
+    [
+      defaultTypeOption,
+      { label: t("types.exams"), value: "exams" },
+      { label: t("types.vaccines"), value: "vaccines" },
+      { label: t("types.operations"), value: "operations" },
+      { label: t("types.diseases"), value: "diseases" },
+      { label: t("types.deliveries"), value: "deliveries" },
+      { label: t("types.admissions"), value: "admissions" },
+      { label: t("types.deliveryResultType"), value: "deliveryresulttypes" },
+      { label: t("types.discharges"), value: "discharges" },
+      { label: t("types.medicals"), value: "medicals" },
+      { label: t("types.pregnantTreatment"), value: "pregnanttreatmenttypes" },
+    ],
+    (type) => type.label
+  );
 
   useEffect(() => {
     if (

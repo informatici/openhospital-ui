@@ -842,16 +842,16 @@
   },
   "types": {
     "selectAType": "Select a type",
-    "vaccines": "Type of vaccines",
-    "exams": "Type of exams",
+    "vaccines": "Types of vaccine",
+    "exams": "Types of exam",
     "admissions": "Types of admission",
-    "diseases": "Type of diseases",
+    "diseases": "Types of disease",
     "discharges": "Types of discharge",
     "deliveries": "Types of delivery",
-    "operations": "Type of operations",
+    "operations": "Types of operation",
     "medicals": "Types of medical",
     "chooseATypeToStart": "Choose a type to start...",
-    "pregnantTreatment": "Type of pregnant treatment",
+    "pregnantTreatment": "Types of pregnant treatment",
     "deliveryResultType": "Types of delivery result"
   },
   "vaccineTypes": {
