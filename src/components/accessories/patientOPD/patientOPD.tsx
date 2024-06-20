@@ -8,8 +8,8 @@ import {
   createOpdReset,
   createOpdWithOperationsRows,
   updateOpdWithOperationRows,
-  deleteOpd,
   updateOpdReset,
+  deleteOpdReset,
 } from "../../../state/opds/actions";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
@@ -22,8 +22,6 @@ import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
-
-import { initialFields as operationFields } from "../patientOperation/consts";
 import { deleteOperationRowReset } from "../../../state/operations/actions";
 
 const PatientOPD: FunctionComponent = () => {
@@ -66,6 +64,10 @@ const PatientOPD: FunctionComponent = () => {
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
     dispatch(getDiseasesOpd());
+
+    return () => {
+      dispatch(deleteOpdReset());
+    };
   }, [dispatch]);
 
   const patient = useSelector(
@@ -75,7 +77,6 @@ const PatientOPD: FunctionComponent = () => {
   const userId = useSelector(
     (state: IState) => state.main.authentication.data?.username
   );
-  const [deletedObjCode, setDeletedObjCode] = useState("");
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -132,11 +133,6 @@ const PatientOPD: FunctionComponent = () => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
-  };
-
-  const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteOpd(code));
   };
 
   return (
