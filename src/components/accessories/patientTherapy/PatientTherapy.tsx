@@ -67,9 +67,11 @@ const PatientTherapy: FC = () => {
   );
 
   useEffect(() => {
-    dispatch(deleteTherapyReset());
-    dispatch(deleteTherapyReset());
     dispatch(getMedicals());
+
+    return () => {
+      dispatch(deleteTherapyReset());
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -128,7 +130,9 @@ const PatientTherapy: FC = () => {
 
   return (
     <div className="patientTherapy">
-      <Permission require={creationMode ? "therapies.create" : "therapies.update"}>
+      <Permission
+        require={creationMode ? "therapies.create" : "therapies.update"}
+      >
         <TherapyForm
           fields={
             creationMode

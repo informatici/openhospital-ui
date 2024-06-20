@@ -3,6 +3,7 @@ import classes from "./Operations.module.scss";
 import { useDispatch } from "react-redux";
 import {
   deleteOperation,
+  deleteOperationReset,
   getOperations,
 } from "../../../../state/operations/actions";
 import { OperationDTO } from "../../../../generated";
@@ -19,6 +20,10 @@ export const Operations = () => {
 
   useEffect(() => {
     dispatch(getOperations());
+
+    return () => {
+      dispatch(deleteOperationReset());
+    };
   }, [dispatch]);
 
   const handleEdit = (row: OperationDTO) => {
