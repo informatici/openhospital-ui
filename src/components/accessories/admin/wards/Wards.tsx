@@ -35,7 +35,7 @@ export const Wards = () => {
   };
 
   return (
-    <div className={classes.wards}>
+    <div className={classes.wards} data-cy="wards-table">
       <WardTable
         onEdit={handleEdit}
         onDelete={handleDelete}
@@ -47,6 +47,7 @@ export const Wards = () => {
             type="button"
             variant="contained"
             color="primary"
+            dataCy="add-new-ward"
           >
             {t("ward.addWard")}
           </Button>
