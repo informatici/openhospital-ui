@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { WardDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { CheckOutlined } from "@material-ui/icons";
+import { CheckOutlined, CloseOutlined } from "@material-ui/icons";
 import classes from "./WardTable.module.scss";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
@@ -29,17 +29,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const header = [
-    "code",
-    "description",
-    "beds",
-    "nurs",
-    "docs",
-    "opd",
-    "pharmacy",
-    "male",
-    "female",
-  ];
+  const header = ["code", "description", "beds", "nurs", "docs"];
 
   const label = {
     code: t("ward.code"),
@@ -89,10 +79,26 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
         beds: item.beds ?? "",
         nurs: item.nurs ?? "",
         docs: item.docs ?? "",
-        opd: item.opd ? <CheckOutlined fontSize="small" /> : "",
-        male: item.male ? <CheckOutlined fontSize="small" /> : "",
-        female: item.female ? <CheckOutlined fontSize="small" /> : "",
-        pharmacy: item.pharmacy ? <CheckOutlined fontSize="small" /> : "",
+        opd: item.opd ? (
+          <CheckOutlined fontSize="small" />
+        ) : (
+          <CloseOutlined color="primary" fontSize="small" />
+        ),
+        male: item.male ? (
+          <CheckOutlined fontSize="small" />
+        ) : (
+          <CloseOutlined color="primary" fontSize="small" />
+        ),
+        female: item.female ? (
+          <CheckOutlined fontSize="small" />
+        ) : (
+          <CloseOutlined color="primary" fontSize="small" />
+        ),
+        pharmacy: item.pharmacy ? (
+          <CheckOutlined fontSize="small" />
+        ) : (
+          <CloseOutlined color="primary" fontSize="small" />
+        ),
         email: item.email ?? "",
         telephone: item.telephone ?? "",
         fax: item.fax ?? "",
@@ -118,6 +124,11 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
           case "SUCCESS":
             return (
               <>
+                {deleteWard.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox type="error" message={deleteWard.error?.message} />
+                  </div>
+                )}
                 <Table
                   rowData={formatDataToDisplay(data ?? [])}
                   tableHeader={header}
@@ -134,11 +145,6 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
                   rowKey="code"
                   headerActions={headerActions}
                 />
-                {deleteWard.status === "FAIL" && (
-                  <div ref={infoBoxRef} className="info-box-container">
-                    <InfoBox type="error" message={deleteWard.error?.message} />
-                  </div>
-                )}
                 <ConfirmationDialog
                   isOpen={!!deleteWard.hasSucceeded}
                   title={t("ward.deleted")}
