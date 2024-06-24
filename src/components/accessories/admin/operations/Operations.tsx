@@ -37,7 +37,7 @@ export const Operations = () => {
   };
 
   return (
-    <div className={classes.operations}>
+    <div className={classes.operations} data-cy="operations-table">
       <OperationTable
         onEdit={handleEdit}
         onDelete={handleDelete}
@@ -49,6 +49,7 @@ export const Operations = () => {
             type="button"
             variant="contained"
             color="primary"
+            dataCy="add-new-operation"
           >
             {t("operation.addOperation")}
           </Button>
