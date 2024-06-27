@@ -9,7 +9,7 @@ describe("Diseases Edit Activity specs", () => {
   });
 
   it("should show disease edit form", () => {
-    cy.get('button[title="Edit"]').first().click();
+    cy.dataCy("table-edit-action").first().click();
     cy.dataCy("activity-title").contains("Edit Disease");
   });
 
@@ -35,13 +35,13 @@ describe("Diseases Edit Activity specs", () => {
   });
 
   it("should cancel the cancellation of the disease creation", () => {
-    cy.get('button[title="Edit"]').first().click();
+    cy.dataCy("table-edit-action").first().click();
     cy.dataCy("cancel-form").click();
     cy.dataCy("dialog-info").contains(
       "Are you sure to Reset the Form? All the unsaved data will be lost."
     );
     cy.dataCy("close-dialog").click();
-    cy.dataCy("dialog-info").should("not.be.visible");
+    cy.dataCy("dialog-info").should("not.exist");
   });
 
   it("should cancel the disease update", () => {
