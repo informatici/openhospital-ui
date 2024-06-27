@@ -9,7 +9,7 @@ describe("Operations Edit Activity specs", () => {
   });
 
   it("should show operation edit form", () => {
-    cy.get('button[title="Edit"]').first().click();
+    cy.dataCy("table-edit-action").first().click();
     cy.dataCy("activity-title").contains("Edit Operation");
   });
 
@@ -35,7 +35,7 @@ describe("Operations Edit Activity specs", () => {
   });
 
   it("should cancel the cancellation of the operation creation", () => {
-    cy.get('button[title="Edit"]').first().click();
+    cy.dataCy("table-edit-action").first().click();
     cy.dataCy("cancel-form").click();
     cy.dataCy("dialog-info").contains(
       "Are you sure to Reset the Form? All the unsaved data will be lost."
