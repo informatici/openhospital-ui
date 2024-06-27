@@ -221,13 +221,19 @@ const DiseaseForm: FC<IDiseaseProps> = ({
 
         <div className="diseaseForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
           <div className="reset_button">
             <Button
               type="reset"
+              dataCy="cancel-form"
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}

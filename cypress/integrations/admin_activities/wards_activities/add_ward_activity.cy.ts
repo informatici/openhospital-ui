@@ -2,7 +2,7 @@
 
 const WARD_START_PATH = "/admin/wards";
 
-describe("Wards Activity specs", () => {
+describe("Add Ward Activity specs", () => {
   it("should render the ui", () => {
     cy.authenticate(WARD_START_PATH);
     cy.dataCy("activity-title").contains("Wards");
