@@ -88,7 +88,7 @@ const WardForm: FC<IWardProps> = ({
     },
   });
 
-  const { setFieldValue, resetForm } = formik;
+  const { setFieldValue } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -279,12 +279,18 @@ const WardForm: FC<IWardProps> = ({
 
         <div className="wardForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
           <div className="reset_button">
             <Button
+              dataCy="cancel-form"
               type="reset"
               variant="text"
               disabled={isLoading}

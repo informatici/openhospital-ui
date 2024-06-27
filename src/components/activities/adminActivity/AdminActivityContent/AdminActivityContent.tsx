@@ -10,7 +10,7 @@ export const AdminActivityContent = ({ title, children }: IOwnProps) => {
   return (
     <div className={classes.content}>
       <div className={classes.header}>
-        <h2>{title}</h2>
+        <h2 data-cy="activity-title">{title}</h2>
       </div>
       {children}
     </div>
