@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useRef } from "react";
+import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -13,6 +13,7 @@ import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { deleteWardReset } from "../../../../../state/ward/actions";
 import { TFilterField } from "../../../table/filter/types";
+import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -70,6 +71,12 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
   const handleDelete = (row: WardDTO) => {
     onDelete(row);
   };
+
+  useEffect(() => {
+    if (deleteWard.status === "FAIL") {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [deleteWard.status]);
 
   const formatDataToDisplay = (data: WardDTO[]) => {
     return data.map((item) => {
