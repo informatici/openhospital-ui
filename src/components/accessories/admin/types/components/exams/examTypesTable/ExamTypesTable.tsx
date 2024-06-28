@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { ApiResponse } from "../../../../../../../state/types";
@@ -11,6 +11,7 @@ import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDi
 import { deleteExamTypeReset } from "../../../../../../../state/types/exams/actions";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
+import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -49,6 +50,12 @@ const ExamTypesTable = (props: IOwnProps) => {
     onDelete(row);
   };
 
+  useEffect(() => {
+    if (deleteExamType.status === "FAIL") {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [deleteExamType.status]);
+
   const formatDataToDisplay = (data: ExamTypeDTO[]) => {
     return data.map((item) => {
       return {
@@ -77,6 +84,14 @@ const ExamTypesTable = (props: IOwnProps) => {
           case "SUCCESS":
             return (
               <>
+                {deleteExamType.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox
+                      type="error"
+                      message={deleteExamType.error?.message}
+                    />
+                  </div>
+                )}
                 <Table
                   rowData={formatDataToDisplay(data ?? [])}
                   tableHeader={header}
@@ -92,14 +107,6 @@ const ExamTypesTable = (props: IOwnProps) => {
                   rowKey="code"
                   headerActions={headerActions}
                 />
-                {deleteExamType.status === "FAIL" && (
-                  <div ref={infoBoxRef} className="info-box-container">
-                    <InfoBox
-                      type="error"
-                      message={deleteExamType.error?.message}
-                    />
-                  </div>
-                )}
                 <ConfirmationDialog
                   isOpen={!!deleteExamType.hasSucceeded}
                   title={t("examTypes.deleted")}

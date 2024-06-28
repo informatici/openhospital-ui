@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { ApiResponse } from "../../../../../../../state/types";
@@ -11,6 +11,7 @@ import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDi
 import { deleteVaccineTypeReset } from "../../../../../../../state/types/vaccines/actions";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
+import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -49,6 +50,12 @@ const VaccineTypesTable = (props: IOwnProps) => {
     onDelete(row);
   };
 
+  useEffect(() => {
+    if (deleteVaccineType.status === "FAIL") {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [deleteVaccineType.status]);
+
   const formatDataToDisplay = (data: VaccineTypeDTO[]) => {
     return data.map((item) => {
       return {
@@ -77,6 +84,14 @@ const VaccineTypesTable = (props: IOwnProps) => {
           case "SUCCESS":
             return (
               <>
+                {deleteVaccineType.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox
+                      type="error"
+                      message={deleteVaccineType.error?.message}
+                    />
+                  </div>
+                )}
                 <Table
                   rowData={formatDataToDisplay(data ?? [])}
                   tableHeader={header}
@@ -92,14 +107,6 @@ const VaccineTypesTable = (props: IOwnProps) => {
                   rowKey="code"
                   headerActions={headerActions}
                 />
-                {deleteVaccineType.status === "FAIL" && (
-                  <div ref={infoBoxRef} className="info-box-container">
-                    <InfoBox
-                      type="error"
-                      message={deleteVaccineType.error?.message}
-                    />
-                  </div>
-                )}
                 <ConfirmationDialog
                   isOpen={!!deleteVaccineType.hasSucceeded}
                   title={t("vaccineTypes.deleted")}

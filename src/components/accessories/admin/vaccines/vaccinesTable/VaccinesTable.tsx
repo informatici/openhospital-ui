@@ -16,6 +16,7 @@ import { TFilterField } from "../../../table/filter/types";
 import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -84,6 +85,12 @@ export const VaccinesTable = ({
     onDelete(row);
   };
 
+  useEffect(() => {
+    if (deleteVaccine.status === "FAIL") {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [deleteVaccine.status]);
+
   const formatDataToDisplay = (data: VaccineDTO[]) => {
     return data.map((item) => {
       return {
@@ -112,6 +119,14 @@ export const VaccinesTable = ({
           case "SUCCESS":
             return (
               <>
+                {deleteVaccine.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox
+                      type="error"
+                      message={deleteVaccine.error?.message}
+                    />
+                  </div>
+                )}
                 <Table
                   rowData={formatDataToDisplay(data ?? [])}
                   tableHeader={header}
@@ -127,14 +142,6 @@ export const VaccinesTable = ({
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                 />
-                {deleteVaccine.status === "FAIL" && (
-                  <div ref={infoBoxRef} className="info-box-container">
-                    <InfoBox
-                      type="error"
-                      message={deleteVaccine.error?.message}
-                    />
-                  </div>
-                )}
                 <ConfirmationDialog
                   isOpen={!!deleteVaccine.hasSucceeded}
                   title={t("vaccine.deleted")}
