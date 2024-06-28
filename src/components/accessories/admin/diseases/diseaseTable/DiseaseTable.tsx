@@ -8,7 +8,7 @@ import { IState } from "../../../../../types";
 import { DiseaseDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./DiseaseTable.module.scss";
-import { CheckOutlined } from "@material-ui/icons";
+import { CheckOutlined, CloseOutlined } from "@material-ui/icons";
 import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {
@@ -33,14 +33,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
       })) ?? []
   );
 
-  const header = [
-    "code",
-    "diseaseType",
-    "description",
-    "opdInclude",
-    "ipdInInclude",
-    "ipdOutInclude",
-  ];
+  const header = ["code", "diseaseType", "description"];
 
   const label = {
     code: t("disease.code"),
@@ -84,16 +77,20 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
         code: item.code ?? "",
         diseaseType: item.diseaseType?.description ?? "",
         description: item.description ?? "",
-        opdInclude: item.opdInclude ? <CheckOutlined fontSize="small" /> : "",
+        opdInclude: item.opdInclude ? (
+          <CheckOutlined fontSize="small" />
+        ) : (
+          <CloseOutlined color="primary" fontSize="small" />
+        ),
         ipdInInclude: item.ipdInInclude ? (
           <CheckOutlined fontSize="small" />
         ) : (
-          ""
+          <CloseOutlined color="primary" fontSize="small" />
         ),
         ipdOutInclude: item.ipdOutInclude ? (
           <CheckOutlined fontSize="small" />
         ) : (
-          ""
+          <CloseOutlined color="primary" fontSize="small" />
         ),
         lock: item.lock,
       };
@@ -126,6 +123,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
                   showEmptyCell={false}
                   rowKey={"code"}
                   manualFilter={false}
+                  isCollapsabile
                   filterColumns={filters}
                   rawData={(data ?? []).map((disease) => ({
                     ...disease,

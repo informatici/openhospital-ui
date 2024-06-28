@@ -13,7 +13,7 @@ describe("Diseases Activity specs", () => {
       .find("table")
       .then(($table) => {
         const rows = $table.find("tbody tr");
-        expect(rows.length).equal(3);
+        expect(rows.length).equal(6);
       });
   });
 });

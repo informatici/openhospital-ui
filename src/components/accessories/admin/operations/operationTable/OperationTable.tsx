@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useRef } from "react";
+import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -12,6 +12,7 @@ import { TFilterField } from "../../../table/filter/types";
 import { deleteOperationReset } from "../../../../../state/operations/actions";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -84,6 +85,12 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     onDelete(row);
   };
 
+  useEffect(() => {
+    if (deleteOperation.status === "FAIL") {
+      scrollToElement(infoBoxRef.current);
+    }
+  }, [deleteOperation.status]);
+
   const formatDataToDisplay = (data: OperationDTO[]) => {
     return data.map((item) => {
       return {
@@ -115,6 +122,14 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
           case "SUCCESS":
             return (
               <>
+                {deleteOperation.status === "FAIL" && (
+                  <div ref={infoBoxRef} className="info-box-container">
+                    <InfoBox
+                      type="error"
+                      message={deleteOperation.error?.message}
+                    />
+                  </div>
+                )}
                 <Table
                   rowData={formatDataToDisplay(data ?? [])}
                   tableHeader={header}
@@ -136,14 +151,6 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
                   }
                   headerActions={headerActions}
                 />
-                {deleteOperation.status === "FAIL" && (
-                  <div ref={infoBoxRef} className="info-box-container">
-                    <InfoBox
-                      type="error"
-                      message={deleteOperation.error?.message}
-                    />
-                  </div>
-                )}
                 <ConfirmationDialog
                   isOpen={deleteOperation.status === "SUCCESS"}
                   title={t("operation.deleted")}
