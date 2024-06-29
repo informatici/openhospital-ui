@@ -1,1 +1,2 @@
-export * from "./Users";
+export { Users } from "./Users";
+export { NewUser } from "./newUser";

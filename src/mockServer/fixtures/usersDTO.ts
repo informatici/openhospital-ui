@@ -1,5 +1,5 @@
 import { UserDTO } from "../../generated";
-import { userGroupsDTO } from "./userGroupDTO";
+import { userGroupsDTO } from "./userGroupsDTO";
 export const usersDTO: UserDTO[] = [
   {
     userName: "administrator",

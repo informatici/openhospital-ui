@@ -5,6 +5,7 @@ import { authRoutes } from "./routes/auth";
 import { examinationsRoutes } from "./routes/examinations";
 import { patientRoutes } from "./routes/patients";
 import { userRoutes } from "./routes/users";
+import { userGroupRoutes } from "./routes/userGroups";
 import { visitRoutes } from "./routes/visits";
 import { opdRoutes } from "./routes/opd";
 import { diseasesRoutes } from "./routes/diseases";
@@ -43,6 +44,7 @@ export function makeServer() {
   const { server } = polly;
   server.host(BASE_PATH, () => {
     userRoutes(server);
+    userGroupRoutes(server);
     authRoutes(server);
     patientRoutes(server);
     visitRoutes(server);

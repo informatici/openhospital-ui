@@ -18,10 +18,14 @@
     "number": "the value is not a valid number"
   },
   "user": {
+    "users": "Users",
     "username": "Username",
+    "group": "Group",
     "groups": "Groups",
+    "password": "Password",
     "lastlogin": "Last login",
-    "description": "Description"
+    "description": "Description",
+    "addUser": "New user"
   },
   "hospital": {
     "address": "Address",
