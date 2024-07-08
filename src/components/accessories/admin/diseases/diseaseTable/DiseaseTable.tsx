@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactNode, useMemo } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -14,11 +14,13 @@ import { TFilterField } from "../../../table/filter/types";
 interface IOwnProps {
   onEdit: (row: any) => void;
   headerActions?: ReactNode;
+  filterPredicate?: (disease: DiseaseDTO) => boolean;
 }
 
 export const DiseaseTable: FunctionComponent<IOwnProps> = ({
   onEdit,
   headerActions,
+  filterPredicate,
 }) => {
   const { t } = useTranslation();
 
@@ -71,6 +73,11 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
     onEdit((data ?? []).find((item) => item.code === row?.code));
   };
 
+  const filteredData = useMemo(
+    () => (filterPredicate ? data?.filter(filterPredicate) : data),
+    [data, filterPredicate]
+  );
+
   const formatDataToDisplay = (data: DiseaseDTO[]) => {
     return data.map((item) => {
       return {
@@ -114,7 +121,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
             return (
               <>
                 <Table
-                  rowData={formatDataToDisplay(data ?? [])}
+                  rowData={formatDataToDisplay(filteredData ?? [])}
                   tableHeader={header}
                   labelData={label}
                   columnsOrder={order}
@@ -125,7 +132,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
                   manualFilter={false}
                   isCollapsabile
                   filterColumns={filters}
-                  rawData={(data ?? []).map((disease) => ({
+                  rawData={(filteredData ?? []).map((disease) => ({
                     ...disease,
                     diseaseType: disease.diseaseType.code,
                   }))}
