@@ -56,7 +56,7 @@ export const NewUser = () => {
     values,
   } = useFormik({
     initialValues,
-    validationSchema: userSchema,
+    validationSchema: userSchema(t),
     onSubmit: (values: UserDTO) => {
       dispatch(createUser(values));
     },

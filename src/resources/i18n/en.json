@@ -25,7 +25,11 @@
     "password": "Password",
     "lastlogin": "Last login",
     "description": "Description",
-    "addUser": "New user"
+    "addUser": "New user",
+    "validateUserNeedsGroup": "Each user should belong to a group",
+    "validatePasswordNeeded": "No password provided.",
+    "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
+    "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit"
   },
   "hospital": {
     "address": "Address",
