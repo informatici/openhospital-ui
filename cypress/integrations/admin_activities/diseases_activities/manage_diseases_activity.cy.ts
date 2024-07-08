@@ -8,12 +8,12 @@ describe("Diseases Activity specs", () => {
     cy.dataCy("activity-title").contains("Diseases");
   });
 
-  it("should present the table with three rows", () => {
+  it("should present the table with 4 rows", () => {
     cy.dataCy("diseases-table")
       .find("table")
       .then(($table) => {
         const rows = $table.find("tbody tr");
-        expect(rows.length).equal(6);
+        expect(rows.length).equal(8);
       });
   });
 });
