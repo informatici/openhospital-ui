@@ -29,7 +29,8 @@
     "validateUserNeedsGroup": "Each user should belong to a group",
     "validatePasswordNeeded": "No password provided.",
     "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
-    "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit"
+    "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit",
+    "user.validateUserName": "You need to specify a user name"
   },
   "hospital": {
     "address": "Address",

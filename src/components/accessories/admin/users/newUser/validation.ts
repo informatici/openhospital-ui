@@ -7,7 +7,7 @@ export const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
 export const userSchema = (t: TFunction<"translation">) =>
   object().shape<UserDTO>({
-    userName: string().min(2).required(),
+    userName: string().min(2).required("user.validateUserName"),
     userGroupName: object<UserGroupDTO>({
       code: string().required(t("user.validateUserNeedsGroup")),
       desc: string(),
