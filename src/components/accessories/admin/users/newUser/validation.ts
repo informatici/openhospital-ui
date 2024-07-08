@@ -7,7 +7,7 @@ export const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 export const userSchema = object().shape<UserDTO>({
   userName: string().min(2).required(),
   userGroupName: object<UserGroupDTO>({
-    code: string().required(),
+    code: string().required("Each user should belong to a group"),
     desc: string(),
   })
     .nullable()

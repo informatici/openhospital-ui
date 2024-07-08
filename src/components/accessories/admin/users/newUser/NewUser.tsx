@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -20,6 +20,13 @@ import "./styles.scss";
 import { createUser } from "../../../../../state/users/actions";
 import { getUserGroups } from "../../../../../state/usergroups/actions";
 
+const initialValues = {
+  userName: "",
+  userGroupName: { code: "" },
+  desc: "",
+  passwd: "",
+};
+
 export const NewUser = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -40,16 +47,12 @@ export const NewUser = () => {
     setFieldTouched,
     isValid,
     dirty,
+    resetForm,
     errors,
     touched,
     values,
   } = useFormik({
-    initialValues: {
-      userName: "",
-      userGroupName: { code: "" },
-      desc: "",
-      passwd: "",
-    },
+    initialValues,
     validationSchema: userSchema,
     onSubmit: (values: UserDTO) => {
       dispatch(createUser(values));
@@ -92,9 +95,11 @@ export const NewUser = () => {
                   option.desc ?? option.code ?? "no option code"
                 }
               />
-              <FormHelperText error>
-                {errors.userGroupName || ""}
-              </FormHelperText>
+              {touched.userGroupName && errors.userGroupName && (
+                <FormHelperText error>
+                  {errors.userGroupName?.code || errors.userGroupName}
+                </FormHelperText>
+              )}
             </FormControl>
           </div>
           <div className="newUserForm__item fullWidth">
@@ -135,8 +140,8 @@ export const NewUser = () => {
               type="reset"
               variant="text"
               disabled={!!create.isLoading || !dirty}
-              onClick={() => {
-                /*setOpenResetConfirmation(true)*/
+              onClick={async () => {
+                resetForm()
               }}
             >
               {t("common.reset")}
