@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Autocomplete } from "@material-ui/lab";
 import {
@@ -19,6 +20,7 @@ import { userSchema } from "./validation";
 import "./styles.scss";
 import { createUser } from "../../../../../state/users/actions";
 import { getUserGroups } from "../../../../../state/usergroups/actions";
+import { PATHS } from "../../../../../consts";
 
 const initialValues = {
   userName: "",
@@ -30,6 +32,7 @@ const initialValues = {
 export const NewUser = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const navigate = useNavigate()
 
   const create = useSelector<IState, ApiResponse<UserDTO>>(
     (state) => state.users.create
@@ -56,7 +59,7 @@ export const NewUser = () => {
     validationSchema: userSchema,
     onSubmit: (values: UserDTO) => {
       dispatch(createUser(values));
-      alert("plop" + JSON.stringify(values));
+      navigate(PATHS.admin_users)
     },
   });
 
@@ -148,13 +151,6 @@ export const NewUser = () => {
             </Button>
           </div>
         </div>
-        {/* TODO: remove debug */}
-        <p>errors{JSON.stringify(errors)}</p>
-        <p>dirty {JSON.stringify(dirty)}</p>
-        <p>touched {JSON.stringify(touched)}</p>
-        <p>isLoading: {JSON.stringify(create.isLoading)}</p>
-        <p>isValid: {JSON.stringify(isValid)}</p>
-        <p>values: {JSON.stringify(values)}</p>
       </form>
     </div>
   );
