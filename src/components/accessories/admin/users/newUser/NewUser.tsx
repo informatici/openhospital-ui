@@ -2,10 +2,14 @@ import React, { useEffect, useMemo } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-
+import { Autocomplete } from "@material-ui/lab";
+import {
+  TextField as MuiTextField,
+  FormControl,
+  FormHelperText,
+} from "@material-ui/core";
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
-import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
@@ -28,20 +32,21 @@ export const NewUser = () => {
     (state: IState) => state.usergroups.groupList
   );
 
-  const userGroupsOptions = useMemo(
-    () =>
-      userGroupsTypeState.data?.map((item: UserGroupDTO) => ({
-        value: item.code,
-        label: item.desc ?? item.code,
-      })) ?? [],
-    [userGroupsTypeState.data]
-  );
-
-  const formik = useFormik({
+  const {
+    handleSubmit,
+    handleBlur,
+    setFieldValue,
+    getFieldProps,
+    setFieldTouched,
+    isValid,
+    dirty,
+    errors,
+    touched,
+    values,
+  } = useFormik({
     initialValues: {
-      // TODO: use specific file
       userName: "",
-      userGroupName: { code: "adm" },
+      userGroupName: { code: "" },
       desc: "",
       passwd: "",
     },
@@ -58,43 +63,59 @@ export const NewUser = () => {
 
   return (
     <div className="newUserForm">
-      <form className="newUserForm__form" onSubmit={formik.handleSubmit}>
+      <form className="newUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="newUserForm__item fullWidth">
-            <AutocompleteField
-              fieldName="type"
-              fieldValue={formik.values.userGroupName.code}
-              label={t("user.group")}
-              /*isValid={isValid("type")}
-              errorText={getErrorText("type")}
-              onBlur={onBlurCallback("type")}*/
-              isValid={true}
-              errorText={"is this mandatory?"}
-              onBlur={() => {}}
-              options={userGroupsOptions}
-              loading={userGroupsTypeState.isLoading}
-              disabled={create.isLoading}
-            />
+            <FormControl variant="outlined" className="autocomplete">
+              <Autocomplete
+                id="userGroupName"
+                options={userGroupsTypeState.data ?? []}
+                value={values.userGroupName}
+                disabled={userGroupsTypeState.isLoading || create.isLoading}
+                onBlur={() => setFieldTouched("userGroupName")}
+                onChange={(_ev: any, value: UserGroupDTO | null) => {
+                  console.log("onblur value", value);
+                  setFieldValue("userGroupName", value);
+                }}
+                renderInput={(params) => (
+                  <MuiTextField
+                    {...params}
+                    name="userGroupName"
+                    variant="outlined"
+                    size="small"
+                    error={!!errors.userGroupName}
+                    fullWidth
+                    label={t("user.group")}
+                  />
+                )}
+                getOptionLabel={(option: UserGroupDTO) =>
+                  option.desc ?? option.code ?? "no option code"
+                }
+              />
+              <FormHelperText error>
+                {errors.userGroupName || ""}
+              </FormHelperText>
+            </FormControl>
           </div>
           <div className="newUserForm__item fullWidth">
             <TextField
-              field={formik.getFieldProps("userName")}
+              field={getFieldProps("userName")}
               theme="regular"
               label={t("user.username")}
-              isValid={!!formik.touched.userName && !!formik.errors.userName}
-              errorText={formik.errors.userName ?? ""}
-              onBlur={formik.handleBlur}
+              isValid={!!touched.userName && !!errors.userName}
+              errorText={errors.userName ?? ""}
+              onBlur={handleBlur}
               type="text"
             />
           </div>
           <div className="newUserForm__item fullWidth">
             <TextField
-              field={formik.getFieldProps("passwd")}
+              field={getFieldProps("passwd")}
               theme="regular"
               label={t("user.password")}
-              isValid={!!formik.touched.passwd && !!formik.errors.passwd}
-              errorText={formik.errors.passwd ?? ""}
-              onBlur={formik.handleBlur}
+              isValid={!!touched.passwd && !!errors.passwd}
+              errorText={errors.passwd ?? ""}
+              onBlur={handleBlur}
               type="password"
             />
           </div>
@@ -104,7 +125,7 @@ export const NewUser = () => {
             <Button
               type="submit"
               variant="contained"
-              disabled={!!create.isLoading || !formik.isValid || !formik.dirty}
+              disabled={!!create.isLoading || !isValid || !dirty}
             >
               {t("common.save")}
             </Button>
@@ -113,7 +134,7 @@ export const NewUser = () => {
             <Button
               type="reset"
               variant="text"
-              disabled={!!create.isLoading || !formik.dirty}
+              disabled={!!create.isLoading || !dirty}
               onClick={() => {
                 /*setOpenResetConfirmation(true)*/
               }}
@@ -121,13 +142,14 @@ export const NewUser = () => {
               {t("common.reset")}
             </Button>
           </div>
-          {/* TODO: remove debug */}
         </div>
-        <p>errors{JSON.stringify(formik.errors)}</p>
-        <p>dirty {JSON.stringify(formik.dirty)}</p>
-        <p>touched {JSON.stringify(formik.touched)}</p>
+        {/* TODO: remove debug */}
+        <p>errors{JSON.stringify(errors)}</p>
+        <p>dirty {JSON.stringify(dirty)}</p>
+        <p>touched {JSON.stringify(touched)}</p>
         <p>isLoading: {JSON.stringify(create.isLoading)}</p>
-        <p>isValid: {JSON.stringify(formik.isValid)}</p>
+        <p>isValid: {JSON.stringify(isValid)}</p>
+        <p>values: {JSON.stringify(values)}</p>
       </form>
     </div>
   );
