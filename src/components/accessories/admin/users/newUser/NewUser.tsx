@@ -18,7 +18,7 @@ import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import { userSchema } from "./validation";
 import "./styles.scss";
-import { createUser } from "../../../../../state/users/actions";
+import { createUser, createUserReset } from "../../../../../state/users/actions";
 import { getUserGroups } from "../../../../../state/usergroups/actions";
 import { PATHS } from "../../../../../consts";
 
@@ -59,13 +59,19 @@ export const NewUser = () => {
     validationSchema: userSchema,
     onSubmit: (values: UserDTO) => {
       dispatch(createUser(values));
-      navigate(PATHS.admin_users)
     },
   });
 
   useEffect(() => {
     dispatch(getUserGroups());
   }, [dispatch]);
+
+  useEffect(() => {
+     if(create.hasSucceeded) navigate(PATHS.admin_users)
+      return () => {
+        dispatch(createUserReset());
+      };
+  }, [create.hasSucceeded, dispatch, navigate])
 
   return (
     <div className="newUserForm">
@@ -125,6 +131,8 @@ export const NewUser = () => {
               errorText={errors.passwd ?? ""}
               onBlur={handleBlur}
               type="password"
+              // this below prevents from saving the password on the computer
+              InputProps={{autoComplete:"one-time-code"}}
             />
           </div>
         </div>
