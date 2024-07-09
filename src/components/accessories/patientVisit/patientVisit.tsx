@@ -20,8 +20,6 @@ import checkIcon from "../../../assets/check-icon.png";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
 import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
 import { getWards } from "../../../state/ward/actions";
-import PatientOperation from "../patientOperation/PatientOperation";
-import { CustomDialog } from "../customDialog/CustomDialog";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientVisit: FunctionComponent = () => {
@@ -37,8 +35,6 @@ const PatientVisit: FunctionComponent = () => {
   const [visitToEdit, setVisitToEdit] = useState({} as VisitDTO);
 
   const [creationMode, setCreationMode] = useState(true);
-
-  const [selectedVisit, setSelectedVisit] = useState({} as VisitDTO);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -121,11 +117,6 @@ const PatientVisit: FunctionComponent = () => {
     setVisitToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
-  };
-
-  const onOperationCreated: () => void = () => {
-    setSelectedVisit({} as VisitDTO);
-    setShowModal(false);
   };
 
   return (

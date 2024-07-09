@@ -28,7 +28,7 @@ import { useNavigate } from "react-router";
 import { IExamState } from "../../../../../state/exams/types";
 import { PATHS } from "../../../../../consts";
 import { createExamReset } from "../../../../../state/exams/actions";
-import { getExamTypes } from "../../../../../state/examTypes/actions";
+import { getExamTypes } from "../../../../../state/types/exams/actions";
 
 import InfoBox from "../../../infoBox/InfoBox";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
@@ -49,8 +49,9 @@ const ExamForm: FC<IExamProps> = ({
 
   const examStore = useSelector<IState, IExamState>((state) => state.exams);
 
+  
   const examTypeState = useSelector(
-    (state: IState) => state.examTypes.getExamTypes
+    (state: IState) => state.types.exams.getAll
   );
   const examTypeStateOptions = useMemo(
     () =>

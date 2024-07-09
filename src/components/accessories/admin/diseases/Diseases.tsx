@@ -6,9 +6,9 @@ import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
 import { getAllDiseases } from "../../../../state/diseases/actions";
-import { getDiseaseTypes } from "../../../../state/diseaseTypes/actions";
 import Button from "../../button/Button";
 import { useTranslation } from "react-i18next";
+import { getDiseaseTypes } from "../../../../state/types/diseases";
 
 export const Diseases = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const Diseases = () => {
   };
 
   return (
-    <div className={classes.diseases}>
+    <div className={classes.diseases} data-cy="diseases-table">
       <DiseaseTable
         onEdit={handleEdit}
         headerActions={
@@ -35,6 +35,7 @@ export const Diseases = () => {
             onClick={() => {
               navigate(PATHS.admin_diseases_new);
             }}
+            dataCy="add-new-disease"
             type="button"
             variant="contained"
             color="primary"

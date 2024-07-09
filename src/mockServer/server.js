@@ -17,15 +17,21 @@ import { admissionTypesRoutes } from "./routes/admissionTypes";
 import { dischargeTypesRoutes } from "./routes/dischargeTypes";
 import { wardsRoutes } from "./routes/wards";
 import { labRoutes } from "./routes/lab";
-import { examTypesRoutes } from "./routes/examTypes";
 import { examRoutes } from "./routes/exam";
 import { examRowRoutes } from "./routes/examRow";
+import { examTypesRoutes } from "./routes/examTypes";
 import { billRoutes } from "./routes/bill";
 import { pricesRoutes } from "./routes/prices";
 import { operationRoutes } from "./routes/operations";
 import { hospitalRoutes } from "./routes/hospital";
 import { operationTypeRoutes } from "./routes/operationTypes";
+import { vaccineRoutes } from "./routes/vaccine";
+import { vaccineTypesRoutes } from "./routes/vaccineTypes";
+import { deliveryTypesRoutes } from "./routes/deliveryTypes";
 import { suppliersRoutes } from "./routes/suppliers";
+import { medicalTypesRoutes } from "./routes/medicalTypes";
+import { pregnantTreatmentTypeRoutes } from "./routes/pregnantTreatmentType";
+import { deliveryResultTypeRoutes } from "./routes/deliveryResultType";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -51,6 +57,7 @@ export function makeServer() {
     wardsRoutes(server);
     examTypesRoutes(server);
     examRoutes(server);
+    labRoutes(server);
     examRowRoutes(server);
     labRoutes(server);
     pricesRoutes(server);
@@ -60,7 +67,13 @@ export function makeServer() {
     ageTypeRoutes(server);
     hospitalRoutes(server);
     operationTypeRoutes(server);
+    vaccineRoutes(server);
+    vaccineTypesRoutes(server);
     suppliersRoutes(server);
+    deliveryTypesRoutes(server);
+    medicalTypesRoutes(server);
+    pregnantTreatmentTypeRoutes(server);
+    deliveryResultTypeRoutes(server);
   });
   return server;
 }

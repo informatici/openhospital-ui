@@ -7,24 +7,23 @@ import { ISummaryState } from "./state/summary/types";
 import { ITherapiesState } from "./state/therapies/types";
 import { IDiseaseState } from "./state/diseases/types";
 import { IAdmissionsState } from "./state/admissions/types";
-import { IAdmissionTypeState } from "./state/admissionTypes/types";
 import { IWardState } from "./state/ward/types";
-import { IDischargeTypeState } from "./state/dischargeTypes/types";
 import { ILaboratoriesState } from "./state/laboratories/types";
 import { IExamState } from "./state/exams/types";
 import { IBillsState } from "./state/bills/types";
 import { IPricesState } from "./state/prices/types";
 import { IVisitState } from "./state/visits/types";
 import { IOperationState } from "./state/operations/types";
-import { IDiseaseTypeState } from "./state/diseaseTypes/types";
-import { IExamTypeState } from "./state/examTypes/types";
+import { IDiseaseTypesState } from "./state/types/diseases/types";
+import { IExamTypesState } from "./state/types/exams/types";
 import { IAgeTypeState } from "./state/ageTypes/types";
 import { IHospitalState } from "./state/hospital/types";
 import { ILayoutsState } from "./state/layouts/types";
 import { IDashboardState } from "./state/dashboard/types";
-import { IOperationTypeState } from "./state/operationTypes/types";
 import { IUserState } from "./state/users/types";
+import { IVaccineState } from "./state/vaccines/types";
 import { ISupplierState } from "./state/suppliers/types";
+import { ITypesState } from "./state/types/types";
 
 export interface IState {
   main: IMainState;
@@ -36,8 +35,6 @@ export interface IState {
   opds: IOpdState;
   medicals: IMedicalState;
   admissions: IAdmissionsState;
-  admissionTypes: IAdmissionTypeState;
-  dischargeTypes: IDischargeTypeState;
   wards: IWardState;
   laboratories: ILaboratoriesState;
   exams: IExamState;
@@ -45,14 +42,15 @@ export interface IState {
   prices: IPricesState;
   visits: IVisitState;
   operations: IOperationState;
-  diseaseTypes: IDiseaseTypeState;
-  examTypes: IExamTypeState;
+  diseaseTypes: IDiseaseTypesState;
+  examTypes: IExamTypesState;
   ageTypes: IAgeTypeState;
   hospital: IHospitalState;
   layouts: ILayoutsState;
   dashboard: IDashboardState;
-  operationTypes: IOperationTypeState;
   users: IUserState;
+  vaccines: IVaccineState;
+  types: ITypesState;
   suppliers: ISupplierState;
 }
 

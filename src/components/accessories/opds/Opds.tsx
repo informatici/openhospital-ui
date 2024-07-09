@@ -1,24 +1,21 @@
-import { Button, CircularProgress } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { CircularProgress } from "@material-ui/core";
 import React, { FC, Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
 import "./styles.scss";
 import { OpdTable } from "./table/OpdTable";
 import { getDiseasesOpd } from "../../../state/diseases/actions";
-import { getDiseaseTypes } from "../../../state/diseaseTypes/actions";
 import { useEffect } from "react";
 import { searchOpds } from "../../../state/opds/actions";
-import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { useOpds } from "../../../libraries/hooks/api/useOpds";
 import { TFilterValues } from "./filter/types";
 import Pagination from "../pagination/Pagination";
 import { getWards } from "../../../state/ward/actions";
+import { getDiseaseTypes } from "../../../state/types/diseases";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;

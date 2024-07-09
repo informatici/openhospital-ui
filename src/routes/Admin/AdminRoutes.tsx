@@ -9,20 +9,31 @@ import {
   Wards,
   NewWard,
   EditWard,
-  Diseases,
-  Exams,
-  NewExam,
-  Users,
-  Operations,
-  NewDisease,
-  EditDisease,
-  NewOperation,
-  EditOperation,
-  Suppliers,
-} from "../../components/accessories/admin";
+} from "../../components/accessories/admin/wards";
+import { Exams, NewExam } from "../../components/accessories/admin/exams";
+import { Users } from "../../components/accessories/admin/users";
+import TypesRoutes from "./TypesRoutes";
 import { PATHS } from "../../consts";
-import { NewSupplier } from "../../components/accessories/admin/suppliers/newSupplier";
-import { EditSupplier } from "../../components/accessories/admin/suppliers/editSupplier";
+import {
+  Diseases,
+  EditDisease,
+  NewDisease,
+} from "../../components/accessories/admin/diseases";
+import {
+  EditOperation,
+  NewOperation,
+  Operations,
+} from "../../components/accessories/admin/operations";
+import {
+  EditVaccine,
+  NewVaccine,
+  Vaccines,
+} from "../../components/accessories/admin/vaccines";
+import {
+  EditSupplier,
+  NewSupplier,
+  Suppliers,
+} from "../../components/accessories/admin/suppliers";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();
@@ -124,7 +135,25 @@ export const AdminRoutes = () => {
         element: (
           <AdminActivityContent
             title={t("nav.vaccines")}
-            children={<Wards />}
+            children={<Vaccines />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_vaccines_new),
+        element: (
+          <AdminActivityContent
+            title={t("vaccine.addVaccine")}
+            children={<NewVaccine />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_vaccines_edit),
+        element: (
+          <AdminActivityContent
+            title={t("vaccine.editVaccine")}
+            children={<EditVaccine />}
           />
         ),
       },
@@ -164,7 +193,10 @@ export const AdminRoutes = () => {
       {
         path: getPath(PATHS.admin_types),
         element: (
-          <AdminActivityContent title={t("nav.types")} children={<Wards />} />
+          <AdminActivityContent
+            title={t("nav.types")}
+            children={<TypesRoutes />}
+          />
         ),
       },
     ],
@@ -178,7 +210,11 @@ export const AdminRoutes = () => {
           element={<Navigate to={getPath(PATHS.admin_wards)} replace />}
         />
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route
+            key={route.path.replace("*", "")}
+            path={route.path}
+            element={route.element}
+          />
         ))}
       </Route>
       <Route path="*" element={<NotFound />} />

@@ -1,11 +1,13 @@
-import React, { ReactNode, useEffect, useRef } from "react";
-import { CircularProgress } from "@material-ui/core";
+import React, { useEffect, ReactNode,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { CircularProgress } from "@material-ui/core";
 
+import { TFilterField } from "../../../table/filter/types";
 import { getExams } from "../../../../../state/exams/actions";
+import { getExamTypes } from "../../../../../state/types/exams";
 import { IState } from "../../../../../types";
-import { ExamDTO } from "../../../../../generated";
+import { ExamDTO, ExamTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { deleteExamReset } from "../../../../../state/exams/actions";
 import { ExamProps } from "../types";
@@ -28,6 +30,7 @@ export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
 
   useEffect(() => {
     dispatch(getExams());
+    dispatch(getExamTypes());
   }, [dispatch]);
 
   const header: Array<ExamProps> = [
@@ -36,6 +39,28 @@ export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
     "description",
     "procedure",
     "defaultResult",
+  ];
+  const examTypesOptions = useSelector<
+    IState,
+    { label: string; value: string }[]
+  >(
+    (state) =>
+      state.types.exams.getAll.data?.map((item: ExamTypeDTO) => ({
+        value: item.code ?? "",
+        label: item.description ?? item.code ?? "",
+      })) ?? []
+  );
+
+
+  const filters: TFilterField[] = [
+    {
+      key: "type",
+      label: t("exam.examtype"),
+      type: "select",
+      options: examTypesOptions,
+    },
+    { key: "description", label: t("exam.description"), type: "text" },
+    { key: "defaultResult", label: t("exam.defaultResult"), type: "text" },
   ];
 
   const label = {
@@ -98,6 +123,13 @@ export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
                   isCollapsabile={false}
                   onDelete={onDelete}
                   headerActions={headerActions}
+                  filterColumns={filters}
+                  rawData={(data ?? []).map((exam) => ({
+                    ...exam,
+                    type: exam.examtype?.code,
+                  }))}
+                  manualFilter={false}
+                  rowKey="code"
                 />
                 {deleteExam.status === "FAIL" && (
                   <div ref={infoBoxRef} className="info-box-container">

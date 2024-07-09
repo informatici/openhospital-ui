@@ -105,6 +105,7 @@ const Table: FunctionComponent<IProps> = ({
       case "edit":
         return (
           <IconButton
+            data-cy="table-edit-action"
             title="Edit"
             size="small"
             onClick={() => onEdit && onEdit(row)}
@@ -115,6 +116,7 @@ const Table: FunctionComponent<IProps> = ({
       case "delete":
         return (
           <IconButton
+            data-cy="table-delete-action"
             size="small"
             title="Delete"
             onClick={() => {
@@ -128,6 +130,7 @@ const Table: FunctionComponent<IProps> = ({
       case "print":
         return (
           <IconButton
+            data-cy="table-print-action"
             size="small"
             title="Print"
             onClick={() => onPrint && onPrint(row)}
@@ -139,6 +142,7 @@ const Table: FunctionComponent<IProps> = ({
       case "view":
         return (
           <IconButton
+            data-cy="table-view-action"
             size="small"
             title="View details"
             onClick={() => onView && onView(row)}
@@ -149,6 +153,7 @@ const Table: FunctionComponent<IProps> = ({
       case "pay":
         return (
           <IconButton
+            data-cy="table-pay-action"
             size="small"
             title="Add a payment"
             onClick={() => onPay && onPay(row)}
@@ -160,6 +165,7 @@ const Table: FunctionComponent<IProps> = ({
       case "close":
         return (
           <IconButton
+            data-cy="table-close-action"
             size="small"
             title="Close the bill"
             onClick={() => onClose && onClose(row)}
@@ -171,6 +177,7 @@ const Table: FunctionComponent<IProps> = ({
       case "cancel":
         return (
           <IconButton
+            data-cy="table-cancel-action"
             size="small"
             title="Cancel"
             onClick={() => {
@@ -184,6 +191,7 @@ const Table: FunctionComponent<IProps> = ({
       case "add":
         return (
           <IconButton
+            data-cy="table-add-action"
             size="small"
             title={addTitle ?? "Add"}
             onClick={() => onAdd && onAdd(row)}

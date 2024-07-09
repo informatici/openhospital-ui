@@ -47,8 +47,9 @@ export const Exams: FC = () => {
   const [canceledObjCode, setCanceledObjCode] = useState("");
 
   const [showStatusChangeModal, setShowStatusChangeModal] = useState(false);
-  const [selectedExamRow, setSelectedExamRow] =
-    useState<LaboratoryDTO | undefined>(undefined);
+  const [selectedExamRow, setSelectedExamRow] = useState<
+    LaboratoryDTO | undefined
+  >(undefined);
 
   const { data, pageInfo, page, handlePageChange } = useLaboratories();
 
@@ -77,6 +78,10 @@ export const Exams: FC = () => {
       })
     );
     dispatch(getExams());
+
+    return () => {
+      dispatch(deleteLabReset());
+    };
   }, []);
 
   useEffect(() => {
