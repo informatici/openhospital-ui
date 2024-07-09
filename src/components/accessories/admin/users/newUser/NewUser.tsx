@@ -18,7 +18,10 @@ import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import { userSchema } from "./validation";
 import "./styles.scss";
-import { createUser, createUserReset } from "../../../../../state/users/actions";
+import {
+  createUser,
+  createUserReset,
+} from "../../../../../state/users/actions";
 import { getUserGroups } from "../../../../../state/usergroups/actions";
 import { PATHS } from "../../../../../consts";
 
@@ -32,7 +35,7 @@ const initialValues = {
 export const NewUser = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const create = useSelector<IState, ApiResponse<UserDTO>>(
     (state) => state.users.create
@@ -67,11 +70,11 @@ export const NewUser = () => {
   }, [dispatch]);
 
   useEffect(() => {
-     if(create.hasSucceeded) navigate(PATHS.admin_users)
-      return () => {
-        dispatch(createUserReset());
-      };
-  }, [create.hasSucceeded, dispatch, navigate])
+    if (create.hasSucceeded) navigate(PATHS.admin_users);
+    return () => {
+      dispatch(createUserReset());
+    };
+  }, [create.hasSucceeded, dispatch, navigate]);
 
   return (
     <div className="newUserForm">
@@ -95,7 +98,7 @@ export const NewUser = () => {
                     name="userGroupName"
                     variant="outlined"
                     size="small"
-                    error={!!errors.userGroupName}
+                    error={!!(touched.userGroupName && errors.userGroupName)}
                     fullWidth
                     label={t("user.group")}
                   />
@@ -117,7 +120,7 @@ export const NewUser = () => {
               theme="regular"
               label={t("user.username")}
               isValid={!!touched.userName && !!errors.userName}
-              errorText={errors.userName ?? ""}
+              errorText={(touched.userName && errors.userName) || ""}
               onBlur={handleBlur}
               type="text"
             />
@@ -128,11 +131,11 @@ export const NewUser = () => {
               theme="regular"
               label={t("user.password")}
               isValid={!!touched.passwd && !!errors.passwd}
-              errorText={errors.passwd ?? ""}
+              errorText={(touched.passwd && errors.passwd) || ""}
               onBlur={handleBlur}
               type="password"
               // this below prevents from saving the password on the computer
-              InputProps={{autoComplete:"one-time-code"}}
+              InputProps={{ autoComplete: "one-time-code" }}
             />
           </div>
         </div>
@@ -152,7 +155,7 @@ export const NewUser = () => {
               variant="text"
               disabled={!!create.isLoading || !dirty}
               onClick={async () => {
-                resetForm()
+                resetForm();
               }}
             >
               {t("common.reset")}
