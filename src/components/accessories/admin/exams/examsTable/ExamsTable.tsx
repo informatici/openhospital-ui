@@ -20,10 +20,11 @@ import classes from "./ExamsTable.module.scss";
 
 interface IOwnProps {
   onDelete: (row: ExamDTO) => void;
+  onEdit: (row: ExamDTO) => void;
   headerActions: ReactNode;
 }
 
-export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
+export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -98,6 +99,11 @@ export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
     });
   };
 
+  const handleEdit = (row: ExamDTO) => {
+    const examDTO = (data ?? []).find((item) => item.code === row?.code) as ExamDTO
+    onEdit(examDTO);
+  };
+
   return (
     <div className={classes.table}>
       {(() => {
@@ -121,12 +127,13 @@ export const ExamsTable = ({ onDelete, headerActions }: IOwnProps) => {
                   columnsOrder={order}
                   rowsPerPage={10}
                   isCollapsabile={false}
+                  onEdit={handleEdit}
                   onDelete={onDelete}
                   headerActions={headerActions}
                   filterColumns={filters}
                   rawData={(data ?? []).map((exam) => ({
                     ...exam,
-                    type: exam.examtype?.code,
+                    type: exam.examtype?.description ?? exam.examtype?.code,
                   }))}
                   manualFilter={false}
                   rowKey="code"

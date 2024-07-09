@@ -20,6 +20,10 @@ import {
   DELETE_EXAM_LOADING,
   DELETE_EXAM_SUCCESS,
   DELETE_EXAM_RESET,
+  UPDATE_EXAM_FAIL,
+  UPDATE_EXAM_LOADING,
+  UPDATE_EXAM_RESET,
+  UPDATE_EXAM_SUCCESS,
 } from "./consts";
 
 const examsApi = new ExamsApi(customConfiguration());
@@ -110,6 +114,37 @@ export const deleteExamReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: DELETE_EXAM_RESET,
+    });
+  };
+
+export const updateExam =
+  (examDTO: ExamDTO) =>
+  (
+    dispatch: Dispatch<IAction<{ code: string; examDTO: ExamDTO }, {}>>
+  ): void => {
+    dispatch({
+      type: UPDATE_EXAM_LOADING,
+    });
+    examsApi.updateExams({ code: examDTO.code!, examDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_EXAM_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_EXAM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+export const updateExamReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_EXAM_RESET,
     });
   };
 

@@ -15,6 +15,9 @@ export const examRoutes = (server) => {
           res.status(200).json(body);
       }
     });
+    server.put("/:code").intercept((_req, res) => {
+      res.status(200).json(examsDTO);
+    });
     server.delete("/:code").intercept((req, res) => {
       const { code } = req.params;
       switch (code) {

@@ -822,6 +822,7 @@
     "procedure": "Procedure",
     "defaultResult": "Default value",
     "addExam": "New exam",
+    "editExam": "Edit exam",
     "created": "Exam created",
     "deleted": "Exam deleted",
     "updated": "Exam updated",

@@ -19,6 +19,11 @@ export const Exams = () => {
   const handleDelete = (row: ExamDTO) => {
     dispatch(deleteExam(row.code!));
   };
+  const handleEdit = (row: ExamDTO) => {
+    navigate(PATHS.admin_exams_edit.replace(":id", `${row.code}`), {
+      state: row,
+    });
+  };
 
   return (
     <div className={classes.exams}>
@@ -36,6 +41,7 @@ export const Exams = () => {
           </Button>
         }
         onDelete={handleDelete}
+        onEdit={handleEdit}
       />
     </div>
   );

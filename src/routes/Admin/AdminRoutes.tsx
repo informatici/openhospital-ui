@@ -10,7 +10,7 @@ import {
   NewWard,
   EditWard,
 } from "../../components/accessories/admin/wards";
-import { Exams, NewExam } from "../../components/accessories/admin/exams";
+import { Exams, EditExam, NewExam } from "../../components/accessories/admin/exams";
 import { Users } from "../../components/accessories/admin/users";
 import TypesRoutes from "./TypesRoutes";
 import { PATHS } from "../../consts";
@@ -100,7 +100,13 @@ export const AdminRoutes = () => {
       {
         path: getPath(PATHS.admin_exams_new),
         element: (
-          <AdminActivityContent title={t("nav.exams")} children={<NewExam />} />
+          <AdminActivityContent title={t("exam.addExam")} children={<NewExam />} />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_exams_edit),
+        element: (
+          <AdminActivityContent title={t("exam.editExam")} children={<EditExam />} />
         ),
       },
       {

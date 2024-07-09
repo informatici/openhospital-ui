@@ -27,7 +27,7 @@ import { IState } from "../../../../../types";
 import { useNavigate } from "react-router";
 import { IExamState } from "../../../../../state/exams/types";
 import { PATHS } from "../../../../../consts";
-import { createExamReset } from "../../../../../state/exams/actions";
+import { createExamReset, updateExamReset } from "../../../../../state/exams/actions";
 import { getExamTypes } from "../../../../../state/types/exams/actions";
 
 import InfoBox from "../../../infoBox/InfoBox";
@@ -66,13 +66,12 @@ const ExamForm: FC<IExamProps> = ({
     () =>
       (creationMode
         ? examStore.examCreate.error?.message
-        : // FIXME: examUpdate below ↓
-          examStore.examCreate.error?.message) ?? t("common.somethingwrong"),
+        : examStore.examUpdate.error?.message) ?? t("common.somethingwrong"),
     [
       creationMode,
       t,
       examStore.examCreate.error?.message,
-      // examStore.examCreate.error?.message, // examUpdate
+      examStore.examUpdate.error?.message,
     ]
   );
 
@@ -128,7 +127,7 @@ const ExamForm: FC<IExamProps> = ({
     if (creationMode) {
       dispatch(createExamReset());
     } else {
-      dispatch(createExamReset()); // FIXME: update
+      dispatch(updateExamReset());
     }
   }, [creationMode, dispatch]);
 

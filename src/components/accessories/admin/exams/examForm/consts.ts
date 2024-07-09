@@ -6,8 +6,8 @@ export const getInitialFields: (
   operation: ExamDTO | undefined
 ) => TFields<ExamProps> = (exam) => ({
   code: { type: "text", value: exam?.code ?? "" },
-  type: { type: "text", value: exam?.examtype?.toString() ?? "" },
+  type: { type: "text", value: exam?.examtype?.code ?? "" },
   description: { type: "text", value: exam?.description ?? "" },
-  procedure: { type: "number", value: exam?.description ?? "" },
-  defaultResult: { type: "text", value: exam?.description ?? "" },
+  procedure: { type: "number", value: exam?.procedure?.toString() ?? "" },
+  defaultResult: { type: "text", value: exam?.defaultResult ?? "" },
 });

@@ -12,6 +12,10 @@ import {
   DELETE_EXAM_LOADING,
   DELETE_EXAM_SUCCESS,
   DELETE_EXAM_RESET,
+  UPDATE_EXAM_FAIL,
+  UPDATE_EXAM_LOADING,
+  UPDATE_EXAM_SUCCESS,
+  UPDATE_EXAM_RESET,
   GET_EXAMROW_FAIL,
   GET_EXAMROW_LOADING,
   GET_EXAMROW_SUCCESS,
@@ -43,7 +47,7 @@ export default produce((draft: IExamState, action: IAction<any, any>) => {
     }
 
     /**
-     * GET_EXAMS
+     * CREATE_EXAMS
      */
 
     case CREATE_EXAM_LOADING: {
@@ -68,6 +72,35 @@ export default produce((draft: IExamState, action: IAction<any, any>) => {
       draft.examCreate.status = "IDLE";
       delete draft.examCreate.error;
       delete draft.examCreate.data;
+      break;
+    }
+
+    /**
+     * UPDATE_EXAMS
+     */
+
+    case UPDATE_EXAM_LOADING: {
+      draft.examUpdate.status = "LOADING";
+      break;
+    }
+
+    case UPDATE_EXAM_SUCCESS: {
+      draft.examUpdate.status = "SUCCESS";
+      draft.examUpdate.data = action.payload;
+      delete draft.examUpdate.error;
+      break;
+    }
+
+    case UPDATE_EXAM_FAIL: {
+      draft.examUpdate.status = "FAIL";
+      draft.examUpdate.error = action.error;
+      break;
+    }
+
+    case UPDATE_EXAM_RESET: {
+      draft.examUpdate.status = "IDLE";
+      delete draft.examUpdate.error;
+      delete draft.examUpdate.data;
       break;
     }
 

@@ -41,6 +41,7 @@ export const PATHS = {
   admin_operations_new: "/admin/operations/new",
   admin_exams: "/admin/exams",
   admin_exams_new: "/admin/exams/new",
+  admin_exams_edit: "/admin/exams/edit/:id",
   admin_exams_types: "/admin/types/exams",
   admin_exams_types_new: "/admin/types/exams/new",
   admin_exams_types_edit: "/admin/types/exams/:code/edit",
