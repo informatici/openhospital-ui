@@ -41,7 +41,7 @@ export const Users = () => {
           }
         />
       ) : (
-        <UserGroupsTable />
+        <UserGroupsTable headerActions={<>action</>} />
       )}
     </>
   );
