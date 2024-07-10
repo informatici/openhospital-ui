@@ -5,5 +5,8 @@ export const userGroupRoutes = (server) => {
     server.get("/").intercept((_req, res) => {
       res.status(200).json(userGroupsDTO);
     });
+    server.post("/").intercept((_req, res) => {
+      res.status(200).json(userGroupsDTO[0]);
+    });
   });
 };

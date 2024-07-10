@@ -8,6 +8,10 @@ import {
   GET_USERGROUP_FAIL,
   GET_USERGROUP_LOADING,
   GET_USERGROUP_SUCCESS,
+  CREATE_USERGROUP_FAIL,
+  CREATE_USERGROUP_LOADING,
+  CREATE_USERGROUP_SUCCESS,
+  CREATE_USERGROUP_RESET,
 } from "./consts";
 
 const usersApi = new UsersApi(customConfiguration());
@@ -39,4 +43,34 @@ export const getUserGroups =
         });
       }
     );
+  };
+
+export const createUserGroup =
+  (userGroupDTO: UserGroupDTO) =>
+  (dispatch: Dispatch<IAction<UserGroupDTO, {}>>): void => {
+    dispatch({
+      type: CREATE_USERGROUP_LOADING,
+    });
+    usersApi.newUserGroup({ userGroupDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_USERGROUP_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_USERGROUP_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createUserGroupReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_USERGROUP_RESET,
+    });
   };

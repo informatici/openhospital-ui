@@ -41,7 +41,16 @@ export const Users = () => {
           }
         />
       ) : (
-        <UserGroupsTable headerActions={<>action</>} />
+        <UserGroupsTable headerActions={<Button
+          onClick={() => {
+            navigate(PATHS.admin_usergroups_new);
+          }}
+          type="button"
+          variant="contained"
+          color="primary"
+        >
+          {t("user.addGroup")}
+        </Button>} />
       )}
     </>
   );

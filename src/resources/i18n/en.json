@@ -19,6 +19,7 @@
   },
   "user": {
     "code": "Code",
+    "desc": "Description",
     "users": "Users",
     "username": "Username",
     "group": "Group",
@@ -26,12 +27,14 @@
     "password": "Password",
     "lastlogin": "Last login",
     "description": "Description",
+    "addGroup": "New group",
     "addUser": "New user",
     "validateUserNeedsGroup": "Each user should belong to a group",
     "validatePasswordNeeded": "No password provided.",
     "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
     "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit",
-    "validateUserName": "You need to specify a user name"
+    "validateUserName": "You need to specify a user name",
+    "validateGroupCode": "Invalid group code"
   },
   "hospital": {
     "address": "Address",
