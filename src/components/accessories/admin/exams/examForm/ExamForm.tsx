@@ -238,7 +238,7 @@ const ExamForm: FC<IExamProps> = ({
         />
         {(creationMode
           ? examStore.examCreate.status === "FAIL"
-          : examStore.examCreate.status === "FAIL") && ( // FIXME update
+          : examStore.examUpdate.status === "FAIL") && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox type="error" message={errorMessage} />
           </div>
@@ -247,7 +247,7 @@ const ExamForm: FC<IExamProps> = ({
           isOpen={
             !!(creationMode
               ? examStore.examCreate.hasSucceeded
-              : examStore.examCreate.hasSucceeded) // FIXME update
+              : examStore.examUpdate.hasSucceeded)
           }
           title={creationMode ? t("exam.created") : t("exam.updated")}
           icon={checkIcon}
