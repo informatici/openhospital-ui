@@ -12,6 +12,7 @@ import { ApiResponse } from "../../../../../state/types";
 import { UserGroupDTO } from "../../../../../generated";
 
 import { userGroupSchema } from "./validation";
+import { TabOptions } from "../Users";
 import "./styles.scss";
 import {
   createUserGroup,
@@ -56,7 +57,7 @@ export const NewGroup = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (create.hasSucceeded) navigate(PATHS.admin_users);
+    if (create.hasSucceeded) navigate(PATHS.admin_users, { state: {tab: TabOptions.groups}});
     return () => {
       dispatch(createUserGroupReset());
     };

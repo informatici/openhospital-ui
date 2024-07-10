@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 import { Tabs, Tab } from "@material-ui/core";
 
@@ -10,22 +10,29 @@ import UserGroupsTable from "./userGroupsTable";
 
 import { PATHS } from "../../../../consts";
 
+export enum TabOptions {
+  "users" = "users",
+  "groups" = "groups",
+}
+
 export const Users = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const [tab, setTab] = useState<"users" | "groups">("users");
+  const { state }: { state: { tab?: TabOptions } } = useLocation();
+  const setTab = (tab: TabOptions) =>
+    navigate(PATHS.admin_users, { state: { tab } });
   return (
     <>
       <Tabs
-        value={tab}
+        value={state?.tab ?? TabOptions.users}
         onChange={(_, value) => setTab(value)}
         aria-label="switch between users and groups"
       >
         <Tab label={t("user.users")} value="users" />
         <Tab label={t("user.groups")} value="groups" />
       </Tabs>
-      {tab === "users" ? (
+      {state?.tab === TabOptions.users ? (
         <UsersTable
           headerActions={
             <Button
@@ -41,16 +48,20 @@ export const Users = () => {
           }
         />
       ) : (
-        <UserGroupsTable headerActions={<Button
-          onClick={() => {
-            navigate(PATHS.admin_usergroups_new);
-          }}
-          type="button"
-          variant="contained"
-          color="primary"
-        >
-          {t("user.addGroup")}
-        </Button>} />
+        <UserGroupsTable
+          headerActions={
+            <Button
+              onClick={() => {
+                navigate(PATHS.admin_usergroups_new);
+              }}
+              type="button"
+              variant="contained"
+              color="primary"
+            >
+              {t("user.addGroup")}
+            </Button>
+          }
+        />
       )}
     </>
   );
