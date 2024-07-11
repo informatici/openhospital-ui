@@ -9,6 +9,7 @@ import UsersTable from "./usersTable";
 import UserGroupsTable from "./userGroupsTable";
 
 import { PATHS } from "../../../../consts";
+import { UserGroupDTO } from "../../../../generated";
 
 export enum TabOptions {
   "users" = "users",
@@ -22,6 +23,12 @@ export const Users = () => {
   const { state }: { state: { tab?: TabOptions } } = useLocation();
   const setTab = (tab: TabOptions) =>
     navigate(PATHS.admin_users, { state: { tab } });
+
+  const handleEditGroup = (row: UserGroupDTO) =>
+    navigate(PATHS.admin_usergroups_edit.replace(":id", row.code!), {
+      state: row,
+    });
+
   return (
     <>
       <Tabs
@@ -61,6 +68,7 @@ export const Users = () => {
               {t("user.addGroup")}
             </Button>
           }
+          onEdit={handleEditGroup}
         />
       )}
     </>

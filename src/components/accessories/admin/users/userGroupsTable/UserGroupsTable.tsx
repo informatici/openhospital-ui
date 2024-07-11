@@ -14,9 +14,10 @@ import classes from "./UserGroupsTable.module.scss";
 
 interface IOwnProps {
   headerActions: ReactNode;
+  onEdit: (row: UserGroupDTO) => void
 }
 
-export const UserGroupsTable = ({ headerActions }: IOwnProps) => {
+export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -69,6 +70,7 @@ export const UserGroupsTable = ({ headerActions }: IOwnProps) => {
                 rowsPerPage={10}
                 manualFilter={false}
                 isCollapsabile={false}
+                onEdit={onEdit}
                 rawData={data}
                 rowKey="userName"
                 headerActions={headerActions}

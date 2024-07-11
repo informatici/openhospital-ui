@@ -36,6 +36,7 @@ import usergroups from "./state/usergroups/reducer";
 import vaccines from "./state/vaccines/reducer";
 import types from "./state/types/reducer";
 import suppliers from "./state/suppliers/reducer";
+import permissions from "./state/permissions/reducer";
 
 if (process.env.REACT_APP_USE_MOCK_API === "true") {
   console.log("Using mocked api");
@@ -70,6 +71,7 @@ const reducer = combineReducers<IState>({
   vaccines,
   types,
   suppliers,
+  permissions,
 });
 const store = createStore(
   reducer,

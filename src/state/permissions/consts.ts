@@ -1,0 +1,3 @@
+export const GET_PERMISSION_LOADING = "permissions/GET_PERMISSION_LOADING";
+export const GET_PERMISSION_SUCCESS = "permissions/GET_PERMISSION_SUCCESS";
+export const GET_PERMISSION_FAIL = "permissions/GET_PERMISSION_FAIL";

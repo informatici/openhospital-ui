@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Navigate, useLocation, useParams } from "react-router";
 
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
@@ -19,16 +20,16 @@ import {
   createUserGroup,
   createUserGroupReset,
 } from "../../../../../state/usergroups/actions";
+import { GroupPermissions } from "./GroupPermissions";
 
-const initialValues = {
-  code: "",
-  desc: "",
-};
-
-export const NewGroup = () => {
+export const EditGroup = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { state }: { state: UserGroupDTO } = useLocation();
+  const { id } = useParams();
+
+  console.log( { state, id})
 
   const create = useSelector<IState, ApiResponse<UserGroupDTO>>(
     (state) => state.usergroups.create
@@ -43,8 +44,9 @@ export const NewGroup = () => {
     resetForm,
     errors,
     touched,
+    values,
   } = useFormik({
-    initialValues,
+    initialValues: state,
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
       dispatch(createUserGroup(values));
@@ -52,12 +54,15 @@ export const NewGroup = () => {
   });
 
   useEffect(() => {
-    if (create.hasSucceeded)
-      navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
+    if (create.hasSucceeded) navigate(PATHS.admin_users, { state: {tab: TabOptions.groups}});
     return () => {
       dispatch(createUserGroupReset());
     };
   }, [create.hasSucceeded, dispatch, navigate]);
+
+  if (state?.code !== id) {
+    return <Navigate to={PATHS.admin_users} state={{tab: "groups"}} />;
+  }
 
   return (
     <div className="newGroupForm">
@@ -72,6 +77,7 @@ export const NewGroup = () => {
               errorText={(touched.code && errors.code) || ""}
               onBlur={handleBlur}
               type="text"
+              disabled
             />
           </div>
           <div className="newGroupForm__item fullWidth">
@@ -85,7 +91,7 @@ export const NewGroup = () => {
             />
           </div>
         </div>
-        You can edit a group's permission once you created it
+        <GroupPermissions userGroupId={values.code}/>
         <div className="newGroupForm__buttonSet">
           <div className="submit_button">
             <Button
