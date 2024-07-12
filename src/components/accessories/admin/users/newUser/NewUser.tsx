@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../../assets/check-icon.png";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
@@ -67,14 +69,10 @@ export const NewUser = () => {
 
   useEffect(() => {
     dispatch(getUserGroups());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (create.hasSucceeded) navigate(PATHS.admin_users);
     return () => {
       dispatch(createUserReset());
     };
-  }, [create.hasSucceeded, dispatch, navigate]);
+  }, [dispatch]);
 
   return (
     <div className="newUserForm">
@@ -84,12 +82,14 @@ export const NewUser = () => {
             <FormControl variant="outlined" className="autocomplete">
               <Autocomplete
                 id="userGroupName"
-                options={userGroupsTypeState.data ?? []}
+                options={[
+                  ...(userGroupsTypeState.data ?? []),
+                  { code: "", desc: "(none)" },
+                ]}
                 value={values.userGroupName}
                 disabled={userGroupsTypeState.isLoading || create.isLoading}
                 onBlur={() => setFieldTouched("userGroupName")}
                 onChange={(_ev: any, value: UserGroupDTO | null) => {
-                  console.log("onblur value", value);
                   setFieldValue("userGroupName", value);
                 }}
                 renderInput={(params) => (
@@ -106,6 +106,7 @@ export const NewUser = () => {
                 getOptionLabel={(option: UserGroupDTO) =>
                   option.desc ?? option.code ?? "no option code"
                 }
+                getOptionSelected={(a, b) => a.code === b.code}
               />
               {touched.userGroupName && errors.userGroupName && (
                 <FormHelperText error>
@@ -162,6 +163,28 @@ export const NewUser = () => {
             </Button>
           </div>
         </div>
+        <ConfirmationDialog
+          isOpen={create.hasSucceeded}
+          title={t("user.createdSuccessTitle")}
+          icon={checkIcon}
+          info={t("user.createdSuccessMessage")}
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() => {
+            navigate(PATHS.admin_users);
+          }}
+          handleSecondaryButtonClick={() => ({})}
+        />
+        <ConfirmationDialog
+          isOpen={create.hasFailed}
+          title={t("errors.internalerror")}
+          icon={checkIcon}
+          info={create.error?.toString()}
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() => {
+            navigate(PATHS.admin_users);
+          }}
+          handleSecondaryButtonClick={() => ({})}
+        />
       </form>
     </div>
   );

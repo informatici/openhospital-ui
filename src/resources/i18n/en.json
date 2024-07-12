@@ -26,6 +26,8 @@
     "lastlogin": "Last login",
     "description": "Description",
     "addUser": "New user",
+    "createdSuccessTitle": "User created",
+    "createdSuccessMessage": "User has been created successfully!",
     "validateUserNeedsGroup": "Each user should belong to a group",
     "validatePasswordNeeded": "No password provided.",
     "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
