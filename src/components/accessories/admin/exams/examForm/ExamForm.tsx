@@ -27,7 +27,10 @@ import { IState } from "../../../../../types";
 import { useNavigate } from "react-router";
 import { IExamState } from "../../../../../state/exams/types";
 import { PATHS } from "../../../../../consts";
-import { createExamReset, updateExamReset } from "../../../../../state/exams/actions";
+import {
+  createExamReset,
+  updateExamReset,
+} from "../../../../../state/exams/actions";
 import { getExamTypes } from "../../../../../state/types/exams/actions";
 
 import InfoBox from "../../../infoBox/InfoBox";
@@ -49,7 +52,6 @@ const ExamForm: FC<IExamProps> = ({
 
   const examStore = useSelector<IState, IExamState>((state) => state.exams);
 
-  
   const examTypeState = useSelector(
     (state: IState) => state.types.exams.getAll
   );
@@ -81,7 +83,14 @@ const ExamForm: FC<IExamProps> = ({
     code: string().required(t("common.required")),
     description: string().required(t("common.required")),
     type: string().required(t("common.required")),
-    procedure: number().positive().required(t("common.required")),
+    procedure: number()
+      .test({
+        name: "onetwothree",
+        exclusive: true,
+        test: (value) => [1, 2, 3].includes(value),
+        message: t("exam.validateProcedureMinMax"),
+      })
+      .required(t("common.required")),
   });
 
   const formik = useFormik({
