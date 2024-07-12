@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode,useRef } from "react";
+import React, { useEffect, ReactNode, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@material-ui/core";
@@ -52,7 +52,6 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
       })) ?? []
   );
 
-
   const filters: TFilterField[] = [
     {
       key: "type",
@@ -100,7 +99,9 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
   };
 
   const handleEdit = (row: ExamDTO) => {
-    const examDTO = (data ?? []).find((item) => item.code === row?.code) as ExamDTO
+    const examDTO = (data ?? []).find(
+      (item) => item.code === row?.code
+    ) as ExamDTO;
     onEdit(examDTO);
   };
 
@@ -133,7 +134,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
                   filterColumns={filters}
                   rawData={(data ?? []).map((exam) => ({
                     ...exam,
-                    type: exam.examtype?.description ?? exam.examtype?.code,
+                    type: exam.examtype?.code,
                   }))}
                   manualFilter={false}
                   rowKey="code"
