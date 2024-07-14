@@ -33,6 +33,7 @@ import { suppliersRoutes } from "./routes/suppliers";
 import { medicalTypesRoutes } from "./routes/medicalTypes";
 import { pregnantTreatmentTypeRoutes } from "./routes/pregnantTreatmentType";
 import { deliveryResultTypeRoutes } from "./routes/deliveryResultType";
+import { permissionRoutes } from "./routes/permission";
 
 export function makeServer() {
   Polly.register(XHRAdapter);
@@ -75,6 +76,7 @@ export function makeServer() {
     medicalTypesRoutes(server);
     pregnantTreatmentTypeRoutes(server);
     deliveryResultTypeRoutes(server);
+    permissionRoutes(server);
   });
   return server;
 }
