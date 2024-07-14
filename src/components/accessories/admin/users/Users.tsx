@@ -39,7 +39,7 @@ export const Users = () => {
         <Tab label={t("user.users")} value="users" />
         <Tab label={t("user.groups")} value="groups" />
       </Tabs>
-      {state?.tab === TabOptions.users ? (
+      {state?.tab !== TabOptions.groups ? (
         <UsersTable
           headerActions={
             <Button
