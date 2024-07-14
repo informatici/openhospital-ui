@@ -29,8 +29,6 @@ export const EditGroup = () => {
   const { state }: { state: UserGroupDTO } = useLocation();
   const { id } = useParams();
 
-  console.log( { state, id})
-
   const create = useSelector<IState, ApiResponse<UserGroupDTO>>(
     (state) => state.usergroups.create
   );
@@ -54,14 +52,15 @@ export const EditGroup = () => {
   });
 
   useEffect(() => {
-    if (create.hasSucceeded) navigate(PATHS.admin_users, { state: {tab: TabOptions.groups}});
+    if (create.hasSucceeded)
+      navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
     return () => {
       dispatch(createUserGroupReset());
     };
   }, [create.hasSucceeded, dispatch, navigate]);
 
   if (state?.code !== id) {
-    return <Navigate to={PATHS.admin_users} state={{tab: "groups"}} />;
+    return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
   }
 
   return (
@@ -91,7 +90,7 @@ export const EditGroup = () => {
             />
           </div>
         </div>
-        <GroupPermissions userGroupId={values.code}/>
+        <GroupPermissions userGroupId={values.code} />
         <div className="newGroupForm__buttonSet">
           <div className="submit_button">
             <Button
