@@ -139,6 +139,16 @@ export const NewUser = () => {
               InputProps={{ autoComplete: "one-time-code" }}
             />
           </div>
+          <div className="newUserForm__item fullWidth">
+            <TextField
+              field={getFieldProps("desc")}
+              theme="regular"
+              label={t("user.description")}
+              isValid={!!touched.desc && !!errors.desc}
+              errorText={(touched.desc && errors.desc) || ""}
+              onBlur={handleBlur}
+            />
+          </div>
         </div>
         <div className="newUserForm__buttonSet">
           <div className="submit_button">
