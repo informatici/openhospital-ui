@@ -192,7 +192,7 @@ const ExamForm: FC<IExamProps> = ({
         </div>
 
         <div className="row start-sm center-xs">
-          <div className="examForm__item">
+          <div className="examForm__item halfWidth">
             <TextField
               field={formik.getFieldProps("procedure")}
               theme="regular"
