@@ -829,6 +829,7 @@
     "updateSuccess": "Exam updated successfully",
     "createSuccess": "Exam created successfully",
     "deleteSuccess": "Exam deleted successfully",
+    "updateExam": "Update Exam",
     "validateProcedureMinMax": "Value can be only 1, 2 or 3"
   },
   "vaccine": {

@@ -33,7 +33,7 @@ export const EditExam = () => {
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
       resetButtonLabel={t("common.cancel")}
-      submitButtonLabel={t("operation.updateOperation")}
+      submitButtonLabel={t("exam.updateExam")}
       fields={getInitialFields(state)}
     />
   );
