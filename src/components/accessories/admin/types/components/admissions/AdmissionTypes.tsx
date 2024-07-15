@@ -40,9 +40,9 @@ const AdmissionTypes = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("admissionTypes.title")}</h3>
+      <h3 data-cy="sub-activity-title">{t("admissionTypes.title")}</h3>
 
-      <div className="admissionTypes">
+      <div className="admissionTypes" data-cy="admission-types-table">
         <AdmissionTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -54,6 +54,7 @@ const AdmissionTypes = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-admission-type"
             >
               {t("admissionTypes.addAdmissionType")}
             </Button>

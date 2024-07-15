@@ -35,7 +35,9 @@ export const EditAdmissionType = () => {
 
   return (
     <div className="editAdmissionType">
-      <h3 className="title">{t("admissionTypes.editAdmissionType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("admissionTypes.editAdmissionType")}
+      </h3>
       <AdmissionTypeForm
         creationMode={false}
         onSubmit={handleSubmit}

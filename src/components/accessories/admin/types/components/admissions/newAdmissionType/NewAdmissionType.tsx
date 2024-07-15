@@ -27,7 +27,9 @@ export const NewAdmissionType = () => {
 
   return (
     <div className="newAdmissionType">
-      <h3 className="title">{t("admissionTypes.addAdmissionType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("admissionTypes.addAdmissionType")}
+      </h3>
       <AdmissionTypeForm
         creationMode
         onSubmit={handleSubmit}
