@@ -7,7 +7,7 @@ import { UserGroupDTO, PermissionDTO } from "../../../../../generated";
 import InfoBox from "../../../infoBox/InfoBox";
 
 import { PermissionCheckbox } from "./PermissionCheckbox";
-import { CrudTable } from "./CrudTable";
+import { AclTable } from "./AclTable";
 
 interface IProps {
   userGroupId: Pick<UserGroupDTO, "code"> | string;
@@ -33,7 +33,7 @@ export const GroupPermissions = ({ userGroupId }: IProps) => {
   if (!permissionsState.data.length) return <>no permissions</>;
   return (
     <>
-      <h2>Areas</h2>
+      <h2>Areas access</h2>
       <ul>
         {permissionsState.data
           .filter(
@@ -49,27 +49,11 @@ export const GroupPermissions = ({ userGroupId }: IProps) => {
             </li>
           ))}
       </ul>
-      <h2>Permissions</h2>
-      <CrudTable
+      <h2>Access-control list</h2>
+      <AclTable
         permissions={permissionsState.data}
         userGroupId={userGroupId as string}
       />
-      <ul>
-        {permissionsState.data
-          .filter(
-            (perm: PermissionDTO) =>
-              perm.name && /\.(create|read|update|delete)$/.test(perm.name)
-          )
-          .map((perm, index) => (
-            <li key={index}>
-              <PermissionCheckbox
-                permission={perm}
-                onChange={() => console.log}
-                thisGroup={userGroupId as string}
-              />
-            </li>
-          ))}
-      </ul>
     </>
   );
 };

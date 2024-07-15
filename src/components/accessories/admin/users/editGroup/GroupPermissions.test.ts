@@ -1,5 +1,5 @@
 import { PermissionDTO } from "../../../../../generated";
-import { groupPermissions } from "./CrudTable";
+import { groupPermissions } from "./AclTable";
 
 describe("groupPermissions", () => {
   it("should ignore non-crud actions and badly formatted permission names", () => {
