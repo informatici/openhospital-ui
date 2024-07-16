@@ -1,6 +1,6 @@
 export type ExamProps =
   | "code"
-  | "type"
+  | "examtype"
   | "description"
   | "procedure"
   | "defaultResult";

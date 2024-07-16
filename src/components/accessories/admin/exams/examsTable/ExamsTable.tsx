@@ -36,7 +36,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
 
   const header: Array<ExamProps> = [
     "code",
-    "type",
+    "examtype",
     "description",
     "procedure",
     "defaultResult",
@@ -65,14 +65,14 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
 
   const label = {
     code: t("exam.code"),
-    type: t("exam.examtype"),
+    examtype: t("exam.examtype"),
     description: t("exam.description"),
     procedure: t("exam.procedure"),
     defaultResult: t("exam.defaultResult"),
   };
   const order: Array<ExamProps> = [
     "code",
-    "type",
+    "examtype",
     "description",
     "procedure",
     "defaultResult",
@@ -90,7 +90,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     return data.map((item) => {
       return {
         code: item.code ?? "",
-        type: item.examtype?.description ?? "",
+        examtype: item.examtype?.description ?? "",
         description: item.description ?? "",
         procedure: item.procedure ?? "",
         defaultResult: item.defaultResult ?? "",
@@ -132,10 +132,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
                   onDelete={onDelete}
                   headerActions={headerActions}
                   filterColumns={filters}
-                  rawData={(data ?? []).map((exam) => ({
-                    ...exam,
-                    type: exam.examtype?.code,
-                  }))}
+                  rawData={data ?? []}
                   manualFilter={false}
                   rowKey="code"
                 />

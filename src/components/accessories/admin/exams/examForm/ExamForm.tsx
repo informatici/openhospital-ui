@@ -82,7 +82,7 @@ const ExamForm: FC<IExamProps> = ({
   const validationSchema = object({
     code: string().required(t("common.required")),
     description: string().required(t("common.required")),
-    type: string().required(t("common.required")),
+    examtype: string().required(t("common.required")),
     procedure: number()
       .test({
         name: "onetwothree",
@@ -99,8 +99,8 @@ const ExamForm: FC<IExamProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      formattedValues.type = examTypeState.data?.find(
-        (item) => item.code === values.type
+      formattedValues.examtype = examTypeState.data?.find(
+        (item) => item.code === values.examtype
       );
       onSubmit(formattedValues as any);
     },
@@ -154,12 +154,12 @@ const ExamForm: FC<IExamProps> = ({
         <div className="row start-sm center-xs">
           <div className="examForm__item fullWidth">
             <AutocompleteField
-              fieldName="type"
-              fieldValue={formik.values.type}
+              fieldName="examtype"
+              fieldValue={formik.values.examtype}
               label={t("exam.examtype")}
-              isValid={isValid("type")}
-              errorText={getErrorText("type")}
-              onBlur={onBlurCallback("type")}
+              isValid={isValid("examtype")}
+              errorText={getErrorText("examtype")}
+              onBlur={onBlurCallback("examtype")}
               options={examTypeStateOptions}
               loading={examTypeState.status === "LOADING"}
               disabled={isLoading}
