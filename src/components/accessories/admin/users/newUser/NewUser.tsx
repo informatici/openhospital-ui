@@ -32,7 +32,10 @@ const initialValues = {
   userGroupName: { code: "" },
   desc: "",
   passwd: "",
+  passwd2: "",
 };
+
+export type FormProps = UserDTO & { passwd2: string };
 
 export const NewUser = () => {
   const dispatch = useDispatch();
@@ -59,11 +62,12 @@ export const NewUser = () => {
     errors,
     touched,
     values,
-  } = useFormik({
+  } = useFormik<FormProps>({
     initialValues,
     validationSchema: userSchema(t),
-    onSubmit: (values: UserDTO) => {
-      dispatch(createUser(values));
+    onSubmit: (values: FormProps) => {
+      const { passwd2, ...cleaned } = values;
+      dispatch(createUser(cleaned));
     },
   });
 
@@ -78,43 +82,6 @@ export const NewUser = () => {
     <div className="newUserForm">
       <form className="newUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
-          <div className="newUserForm__item fullWidth">
-            <FormControl variant="outlined" className="autocomplete">
-              <Autocomplete
-                id="userGroupName"
-                options={[
-                  ...(userGroupsTypeState.data ?? []),
-                  { code: "", desc: "(none)" },
-                ]}
-                value={values.userGroupName}
-                disabled={userGroupsTypeState.isLoading || create.isLoading}
-                onBlur={() => setFieldTouched("userGroupName")}
-                onChange={(_ev: any, value: UserGroupDTO | null) => {
-                  setFieldValue("userGroupName", value);
-                }}
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    name="userGroupName"
-                    variant="outlined"
-                    size="small"
-                    error={!!(touched.userGroupName && errors.userGroupName)}
-                    fullWidth
-                    label={t("user.group")}
-                  />
-                )}
-                getOptionLabel={(option: UserGroupDTO) =>
-                  option.desc ?? option.code ?? "no option code"
-                }
-                getOptionSelected={(a, b) => a.code === b.code}
-              />
-              {touched.userGroupName && errors.userGroupName && (
-                <FormHelperText error>
-                  {errors.userGroupName?.code || errors.userGroupName}
-                </FormHelperText>
-              )}
-            </FormControl>
-          </div>
           <div className="newUserForm__item fullWidth">
             <TextField
               field={getFieldProps("userName")}
@@ -138,6 +105,55 @@ export const NewUser = () => {
               // this below prevents from saving the password on the computer
               InputProps={{ autoComplete: "one-time-code" }}
             />
+          </div>
+          <div className="newUserForm__item fullWidth">
+            <TextField
+              field={getFieldProps("passwd2")}
+              theme="regular"
+              label={t("user.passwordRetype")}
+              isValid={!!touched.passwd2 && !!errors.passwd2}
+              errorText={(touched.passwd2 && errors.passwd2) || ""}
+              onBlur={handleBlur}
+              type="password"
+              // this below prevents from saving the password on the computer
+              InputProps={{ autoComplete: "one-time-code" }}
+            />
+          </div>
+          <hr />
+          <div className="newUserForm__item fullWidth">
+            <FormControl variant="outlined" className="autocomplete">
+              <Autocomplete
+                id="userGroupName"
+                options={userGroupsTypeState.data ?? []}
+                value={values.userGroupName}
+                disabled={userGroupsTypeState.isLoading || create.isLoading}
+                onBlur={() => setFieldTouched("userGroupName")}
+                onChange={(_ev: any, value: UserGroupDTO | null) => {
+                  setFieldValue("userGroupName", value);
+                }}
+                renderInput={(params) => (
+                  <MuiTextField
+                    {...params}
+                    name="userGroupName"
+                    variant="outlined"
+                    size="small"
+                    error={!!(touched.userGroupName && errors.userGroupName)}
+                    fullWidth
+                    label={t("user.group")}
+                  />
+                )}
+                getOptionLabel={(option: UserGroupDTO) =>
+                  option.code.toString() +
+                  (option.desc ? ` - ${option.desc}` : "")
+                }
+                getOptionSelected={(a, b) => a.code === b.code}
+              />
+              {touched.userGroupName && errors.userGroupName && (
+                <FormHelperText error>
+                  {errors.userGroupName?.code || errors.userGroupName}
+                </FormHelperText>
+              )}
+            </FormControl>
           </div>
           <div className="newUserForm__item fullWidth">
             <TextField
