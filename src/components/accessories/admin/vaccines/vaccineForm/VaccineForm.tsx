@@ -186,7 +186,12 @@ const VaccineForm: FC<IVaccineFormProps> = ({
 
         <div className="vaccineForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -194,6 +199,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
