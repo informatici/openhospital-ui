@@ -109,7 +109,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="deliveryTypesForm">
+    <div className="deliveryTypesForm" data-cy="delivery-types-form">
       <form className="deliveryTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="deliveryTypesForm__item halfWidth">
@@ -122,6 +122,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
+              id="code"
             />
           </div>
           <div className="deliveryTypesForm__item halfWidth">
@@ -134,13 +135,19 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
+              id="description"
             />
           </div>
         </div>
 
         <div className="deliveryTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="submit-form"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -150,6 +157,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="cancel-form"
             >
               {resetButtonLabel}
             </Button>
