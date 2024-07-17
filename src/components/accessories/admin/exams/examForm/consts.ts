@@ -10,4 +10,5 @@ export const getInitialFields: (
   description: { type: "text", value: exam?.description ?? "" },
   procedure: { type: "number", value: exam?.procedure?.toString() ?? "" },
   defaultResult: { type: "text", value: exam?.defaultResult ?? "" },
+  lock: { type: "number", value: exam?.lock ?? "" },
 });
