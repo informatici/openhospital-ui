@@ -27,7 +27,9 @@ export const NewDischargeType = () => {
 
   return (
     <div className="newDischargeType">
-      <h3 className="title">{t("dischargeTypes.addDischargeType")}</h3>
+      <h3 className="title" data-cy="sub-discharge-title">
+        {t("dischargeTypes.addDischargeType")}
+      </h3>
       <DischargeTypeForm
         creationMode
         onSubmit={handleSubmit}
