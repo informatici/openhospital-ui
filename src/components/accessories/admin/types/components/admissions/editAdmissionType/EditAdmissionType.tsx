@@ -9,7 +9,7 @@ import { updateAdmissionType } from "../../../../../../../state/types/admissions
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../admissionTypesForm/consts";
 import AdmissionTypeForm from "../admissionTypesForm/AdmissionTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditAdmissionType = () => {
@@ -20,14 +20,19 @@ export const EditAdmissionType = () => {
   const update = useSelector<IState, ApiResponse<AdmissionTypeDTO>>(
     (state) => state.types.admissions.update
   );
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
 
   const handleSubmit = (value: AdmissionTypeDTO) => {
     dispatch(updateAdmissionType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_admissions_types} />;
@@ -35,7 +40,9 @@ export const EditAdmissionType = () => {
 
   return (
     <div className="editAdmissionType">
-      <h3 className="title">{t("admissionTypes.editAdmissionType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("admissionTypes.editAdmissionType")}
+      </h3>
       <AdmissionTypeForm
         creationMode={false}
         onSubmit={handleSubmit}
