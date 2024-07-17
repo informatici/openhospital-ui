@@ -26,7 +26,7 @@ export const NewOperationType = () => {
   };
 
   return (
-    <div className="newOperationType">
+    <div className="newOperationType" data-cy="sub-operation-title">
       <h3 className="title">{t("operationTypes.addOperationType")}</h3>
       <OperationTypeForm
         creationMode

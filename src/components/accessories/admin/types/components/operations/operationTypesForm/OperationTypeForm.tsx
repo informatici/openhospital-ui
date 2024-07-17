@@ -109,7 +109,7 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="operationTypesForm">
+    <div className="operationTypesForm" data-cy="operation-types-form">
       <form className="operationTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="operationTypesForm__item halfWidth">
@@ -122,6 +122,7 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
+              id="code"
             />
           </div>
           <div className="operationTypesForm__item halfWidth">
@@ -134,13 +135,19 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
+              id="description"
             />
           </div>
         </div>
 
         <div className="operationTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="submit-form"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -150,6 +157,7 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="cancel-form"
             >
               {resetButtonLabel}
             </Button>
