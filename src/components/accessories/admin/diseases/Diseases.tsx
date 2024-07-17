@@ -78,7 +78,7 @@ export const Diseases = () => {
                 onChange={handleViewChange}
               >
                 {["enabled", "disabled", "all"].map((value) => (
-                  <ToggleButton key={value} value={value}>
+                  <ToggleButton key={value} value={value} data-cy={value}>
                     <span>{t(`disease.${value}`)}</span>
                   </ToggleButton>
                 ))}

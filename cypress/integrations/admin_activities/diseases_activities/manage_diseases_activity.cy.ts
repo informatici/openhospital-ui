@@ -16,4 +16,26 @@ describe("Diseases Activity specs", () => {
         expect(rows.length).equal(8);
       });
   });
+  it("Should show only enabled diseases", () => {
+    cy.dataCy("enabled")
+      .click()
+      .wait(1000)
+      .dataCy("diseases-table")
+      .find("table")
+      .then(($table) => {
+        const rows = $table.find("tbody tr");
+        expect(rows.length).equal(6);
+      });
+  });
+  it("Should show only disabled diseases", () => {
+    cy.dataCy("disabled")
+      .click()
+      .wait(1000)
+      .dataCy("diseases-table")
+      .find("table")
+      .then(($table) => {
+        const rows = $table.find("tbody tr");
+        expect(rows.length).equal(6);
+      });
+  });
 });
