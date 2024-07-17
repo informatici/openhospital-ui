@@ -109,7 +109,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="medicalTypesForm">
+    <div className="medicalTypesForm" data-cy="medical-types-form">
       <form className="medicalTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="medicalTypesForm__item halfWidth">
@@ -122,6 +122,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
+              id="code"
             />
           </div>
           <div className="medicalTypesForm__item halfWidth">
@@ -134,13 +135,19 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
+              id="description"
             />
           </div>
         </div>
 
         <div className="medicalTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="submit-form"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -150,6 +157,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="cancel-form"
             >
               {resetButtonLabel}
             </Button>

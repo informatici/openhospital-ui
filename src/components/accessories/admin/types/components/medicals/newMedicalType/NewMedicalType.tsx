@@ -26,7 +26,7 @@ export const NewMedicalType = () => {
   };
 
   return (
-    <div className="newMedicalType">
+    <div className="newMedicalType" data-cy="sub-medical-title">
       <h3 className="title">{t("medicalTypes.addMedicalType")}</h3>
       <MedicalTypeForm
         creationMode
