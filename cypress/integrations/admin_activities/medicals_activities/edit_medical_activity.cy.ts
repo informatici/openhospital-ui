@@ -21,7 +21,7 @@ describe("Medical types Edit Activity specs", () => {
   });
 
   it("should successfully save medical type changes", () => {
-    cy.byId("description").clear().type("Dedical type");
+    cy.byId("description").clear().type("Medical type");
     cy.dataCy("submit-form").click();
     cy.dataCy("dialog-info").contains("has been updated successfully!");
     cy.dataCy("approve-dialog").click();
