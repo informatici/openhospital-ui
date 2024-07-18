@@ -40,9 +40,9 @@ const DischargeTypes = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("dischargeTypes.title")}</h3>
+      <h3 data-cy="sub-discharge-title">{t("dischargeTypes.title")}</h3>
 
-      <div className="dischargeTypes">
+      <div className="dischargeTypes" data-cy="discharge-types-table">
         <DischargeTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -54,6 +54,7 @@ const DischargeTypes = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-discharge-type"
             >
               {t("dischargeTypes.addDischargeType")}
             </Button>
