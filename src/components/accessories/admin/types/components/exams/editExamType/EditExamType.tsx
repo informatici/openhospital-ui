@@ -37,7 +37,9 @@ export const EditExamType = () => {
 
   return (
     <div className="editExamType">
-      <h3 className="title">{t("examTypes.editExamType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("examTypes.editExamType")}
+      </h3>
       <ExamTypeForm
         creationMode={false}
         onSubmit={handleSubmit}

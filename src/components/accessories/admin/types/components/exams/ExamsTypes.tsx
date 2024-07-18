@@ -40,9 +40,9 @@ const ExamTypes = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("examTypes.title")}</h3>
+      <h3 data-cy="sub-activity-title">{t("examTypes.title")}</h3>
 
-      <div className="examTypes">
+      <div className="examTypes" data-cy="exam-types-table">
         <ExamTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -54,6 +54,7 @@ const ExamTypes = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-exam-type"
             >
               {t("examTypes.addExamType")}
             </Button>
