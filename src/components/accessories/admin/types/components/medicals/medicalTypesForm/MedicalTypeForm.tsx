@@ -140,7 +140,12 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
 
         <div className="medicalTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="submit-form"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -150,6 +155,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="cancel-form"
             >
               {resetButtonLabel}
             </Button>
