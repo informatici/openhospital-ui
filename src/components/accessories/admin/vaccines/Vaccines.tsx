@@ -39,21 +39,24 @@ export const Vaccines = () => {
   };
 
   return (
-    <VaccinesTable
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      headerActions={
-        <Button
-          onClick={() => {
-            navigate(PATHS.admin_vaccines_new);
-          }}
-          type="button"
-          variant="contained"
-          color="primary"
-        >
-          {t("vaccine.addVaccine")}
-        </Button>
-      }
-    />
+    <div data-cy="vaccines-table">
+      <VaccinesTable
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        headerActions={
+          <Button
+            onClick={() => {
+              navigate(PATHS.admin_vaccines_new);
+            }}
+            type="button"
+            variant="contained"
+            color="primary"
+            dataCy="add-new-vaccine"
+          >
+            {t("vaccine.addVaccine")}
+          </Button>
+        }
+      />
+    </div>
   );
 };
