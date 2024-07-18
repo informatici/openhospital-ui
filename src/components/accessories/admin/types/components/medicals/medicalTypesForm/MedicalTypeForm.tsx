@@ -109,7 +109,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="medicalTypesForm" data-cy="medical-types-form">
+    <div className="medicalTypesForm">
       <form className="medicalTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="medicalTypesForm__item halfWidth">
@@ -122,7 +122,6 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
-              id="code"
             />
           </div>
           <div className="medicalTypesForm__item halfWidth">
@@ -135,7 +134,6 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
-              id="description"
             />
           </div>
         </div>
