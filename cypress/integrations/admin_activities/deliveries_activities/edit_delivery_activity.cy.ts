@@ -18,7 +18,7 @@ describe("Delivery types Edit Activity specs", () => {
     cy.dataCy("dialog-info").should("not.exist");
   });
 
-  it("should successfully save admission type changes", () => {
+  it("should successfully save delivery type changes", () => {
     cy.byId("description").clear().type("Delivery type");
     cy.dataCy("submit-form").click();
     cy.dataCy("dialog-info").contains("has been updated successfully!");
@@ -39,7 +39,7 @@ describe("Delivery types Edit Activity specs", () => {
     cy.dataCy("dialog-info").should("not.exist");
   });
 
-  it("should cancel the admission type update", () => {
+  it("should cancel the delivery type update", () => {
     cy.dataCy("cancel-form").click();
     cy.dataCy("approve-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");

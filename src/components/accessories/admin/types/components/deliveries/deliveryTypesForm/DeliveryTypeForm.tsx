@@ -109,7 +109,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="deliveryTypesForm" data-cy="delivery-types-form">
+    <div className="deliveryTypesForm">
       <form className="deliveryTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="deliveryTypesForm__item halfWidth">
@@ -122,7 +122,6 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
-              id="code"
             />
           </div>
           <div className="deliveryTypesForm__item halfWidth">
@@ -135,7 +134,6 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
-              id="description"
             />
           </div>
         </div>
