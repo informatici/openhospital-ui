@@ -109,7 +109,7 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="operationTypesForm" data-cy="operation-types-form">
+    <div className="operationTypesForm">
       <form className="operationTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="operationTypesForm__item halfWidth">
@@ -122,7 +122,6 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
-              id="code"
             />
           </div>
           <div className="operationTypesForm__item halfWidth">
@@ -135,7 +134,6 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
-              id="description"
             />
           </div>
         </div>
