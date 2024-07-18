@@ -18,7 +18,7 @@ describe("Discharges Activity specs", () => {
   });
 
   it("should display the deletion dialog", () => {
-    cy.get('button[title="Delete"]').first().click();
+    cy.dataCy("table-delete-action").first().click();
     cy.dataCy("dialog-info").contains("Are you sure to delete item with code");
   });
 
@@ -34,11 +34,17 @@ describe("Discharges Activity specs", () => {
   });
 
   it("should delete the discharge", () => {
-    cy.get('button[title="Delete"]').first().click();
+    cy.dataCy("table-delete-action").first().click();
     cy.dataCy("approve-dialog").click();
     cy.dataCy("dialog-info").contains(
       "The discharge type has been deleted successfully!"
     );
     cy.dataCy("approve-dialog").last().click();
+    cy.dataCy("discharge-types-table")
+      .find("table")
+      .then(($table) => {
+        const rows = $table.find("tbody tr");
+        expect(rows.length).equal(2);
+      });
   });
 });

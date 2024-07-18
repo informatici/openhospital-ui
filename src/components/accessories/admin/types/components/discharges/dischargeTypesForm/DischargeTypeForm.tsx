@@ -109,7 +109,7 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
   }, [cleanUp]);
 
   return (
-    <div className="dischargeTypesForm" data-cy="discharge-types-form">
+    <div className="dischargeTypesForm">
       <form className="dischargeTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="dischargeTypesForm__item halfWidth">
@@ -122,7 +122,6 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
-              id="code"
             />
           </div>
           <div className="dischargeTypesForm__item halfWidth">
@@ -135,7 +134,6 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
-              id="description"
             />
           </div>
         </div>
