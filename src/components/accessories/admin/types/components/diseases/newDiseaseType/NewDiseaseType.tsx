@@ -27,7 +27,9 @@ export const NewDiseaseType = () => {
 
   return (
     <div className="newDiseaseType">
-      <h3 className="title">{t("diseaseTypes.addDiseaseType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("diseaseTypes.addDiseaseType")}
+      </h3>
       <DiseaseTypeForm
         creationMode
         onSubmit={handleSubmit}
