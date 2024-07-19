@@ -9,7 +9,7 @@ import { updateDiseaseType } from "../../../../../../../state/types/diseases/act
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../diseaseTypesForm/consts";
 import DiseaseTypeForm from "../diseaseTypesForm/DiseaseTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDiseaseType = () => {
@@ -20,14 +20,19 @@ export const EditDiseaseType = () => {
   const update = useSelector<IState, ApiResponse<DiseaseTypeDTO>>(
     (state) => state.types.diseases.update
   );
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
 
   const handleSubmit = (value: DiseaseTypeDTO) => {
     dispatch(updateDiseaseType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_diseases_types} />;
@@ -35,7 +40,9 @@ export const EditDiseaseType = () => {
 
   return (
     <div className="editDiseaseType">
-      <h3 className="title">{t("diseaseTypes.editDiseaseType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("diseaseTypes.editDiseaseType")}
+      </h3>
       <DiseaseTypeForm
         creationMode={false}
         onSubmit={handleSubmit}
