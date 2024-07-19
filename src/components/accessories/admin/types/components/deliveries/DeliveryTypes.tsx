@@ -40,9 +40,9 @@ const DeliveryTypes = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("deliveryTypes.title")}</h3>
+      <h3 data-cy="sub-delivery-title">{t("deliveryTypes.title")}</h3>
 
-      <div className="deliveryTypes">
+      <div className="deliveryTypes" data-cy="delivery-types-table">
         <DeliveryTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -54,6 +54,7 @@ const DeliveryTypes = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-delivery-type"
             >
               {t("deliveryTypes.addDeliveryType")}
             </Button>
