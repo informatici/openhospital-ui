@@ -6,3 +6,22 @@
   display: flex;
   justify-content: end;
 }
+
+.options {
+  flex-grow: 1;
+  button {
+    padding: 5px 15px;
+    & button {
+      padding: 0px 0px 0px 10px;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  padding-left: 8px;
+  gap: 4px;
+}

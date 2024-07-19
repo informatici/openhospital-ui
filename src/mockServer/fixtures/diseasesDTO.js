@@ -11,6 +11,17 @@ export const diseasesDTO = [
     ipdOutInclude: true,
   },
   {
+    code: 74,
+    description: "Disease DR8",
+    diseaseType: {
+      code: "CH",
+      description: "Disease DR8",
+    },
+    opdInclude: false,
+    ipdInInclude: false,
+    ipdOutInclude: false,
+  },
+  {
     code: 22,
     description: "Fake disease",
     diseaseType: {
