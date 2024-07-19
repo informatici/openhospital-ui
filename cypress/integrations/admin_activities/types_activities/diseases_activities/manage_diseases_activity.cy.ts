@@ -11,9 +11,8 @@ describe("Disease types Activity specs", () => {
   it("should present the table with two rows", () => {
     cy.dataCy("disease-types-table")
       .find("table")
-      .then(($table) => {
-        const rows = $table.find("tbody tr");
-        expect(rows.length).equal(2);
+      .then((table) => {
+        expect(table.find("tbody tr").length).equal(2);
       });
   });
 
@@ -32,9 +31,8 @@ describe("Disease types Activity specs", () => {
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("disease-types-table")
       .find("table")
-      .then(($table) => {
-        const rows = $table.find("tbody tr");
-        expect(rows.length).equal(1);
+      .then((table) => {
+        expect(table.find("tbody tr").length).equal(1);
       });
   });
 });
