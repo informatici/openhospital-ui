@@ -1026,12 +1026,15 @@
     "ipdOutInclude": "IP Out",
     "addDisease": "Add Disease",
     "editDisease": "Edit Disease",
-    "updateDisease": "update Disease",
+    "updateDisease": "Update Disease",
     "saveDisease": "Save Disease",
     "created": "Disease Created",
     "updated": "Disease updated",
     "createSuccess": "Disease has been created successfully!",
-    "updateSuccess": "Disease {{code}} has been updated successfully!"
+    "updateSuccess": "Disease {{code}} has been updated successfully!",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "all": "All diseases"
   },
   "pregnantTreatmentTypes": {
     "code": "Code",

@@ -3,10 +3,14 @@
 .header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
   .headerActions {
     display: flex;
     justify-content: end;
     flex: 1;
+    flex-wrap: wrap;
+    gap: 4px;
   }
   margin-bottom: 12px;
 }
