@@ -27,7 +27,9 @@ export const NewDeliveryType = () => {
 
   return (
     <div className="newDeliveryType">
-      <h3 className="title">{t("deliveryTypes.addDeliveryType")}</h3>
+      <h3 className="title" data-cy="sub-delivery-title">
+        {t("deliveryTypes.addDeliveryType")}
+      </h3>
       <DeliveryTypeForm
         creationMode
         onSubmit={handleSubmit}

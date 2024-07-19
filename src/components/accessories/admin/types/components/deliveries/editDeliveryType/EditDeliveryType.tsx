@@ -9,7 +9,7 @@ import { updateDeliveryType } from "../../../../../../../state/types/deliveries/
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../deliveryTypesForm/consts";
 import DeliveryTypeForm from "../deliveryTypesForm/DeliveryTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDeliveryType = () => {
@@ -21,13 +21,19 @@ export const EditDeliveryType = () => {
     (state) => state.types.deliveries.update
   );
 
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
+
   const handleSubmit = (value: DeliveryTypeDTO) => {
     dispatch(updateDeliveryType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_deliveries_types} />;
@@ -35,7 +41,9 @@ export const EditDeliveryType = () => {
 
   return (
     <div className="editDeliveryType">
-      <h3 className="title">{t("deliveryTypes.editDeliveryType")}</h3>
+      <h3 data-cy="sub-delivery-title" className="title">
+        {t("deliveryTypes.editDeliveryType")}
+      </h3>
       <DeliveryTypeForm
         creationMode={false}
         onSubmit={handleSubmit}

@@ -140,7 +140,12 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
 
         <div className="deliveryTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="submit-form"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -150,6 +155,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="cancel-form"
             >
               {resetButtonLabel}
             </Button>
