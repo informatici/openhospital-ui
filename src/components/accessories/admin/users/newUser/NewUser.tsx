@@ -13,6 +13,7 @@ import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../assets/warning-icon.png";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
@@ -203,8 +204,8 @@ export const NewUser = () => {
         <ConfirmationDialog
           isOpen={create.hasFailed}
           title={t("errors.internalerror")}
-          icon={checkIcon}
-          info={create.error?.toString()}
+          icon={warningIcon}
+          info={create.error?.message.toString()}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
             navigate(PATHS.admin_users);
