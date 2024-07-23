@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles.scss";
 import { IState } from "../../../../types";
 import { TAPIResponseStatus } from "../../../../state/types";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { Navigate } from "react-router";
 import { PATHS } from "../../../../consts";
 

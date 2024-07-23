@@ -6,7 +6,7 @@ import {
   ArtTrack,
   Colorize,
   Pageview,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import Arrow from "../../../assets/arrow-w.svg";
 import { IUserSection } from "./types";
 import "./styles.scss";

@@ -1,5 +1,5 @@
 import React, { Fragment, FunctionComponent } from "react";
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from "@mui/lab/Skeleton";
 
 const SkeletonLoader: FunctionComponent = () => {
   return (
@@ -7,7 +7,12 @@ const SkeletonLoader: FunctionComponent = () => {
       <Skeleton animation="wave" />
       <Skeleton animation="wave" />
       <Skeleton animation="wave" />
-      <Skeleton animation="wave" variant="rect" height={200} style={{ margin: '5px 0px' }} />
+      <Skeleton
+        animation="wave"
+        variant="rectangular"
+        height={200}
+        style={{ margin: "5px 0px" }}
+      />
       <Skeleton animation="wave" />
       <Skeleton animation="wave" />
       <Skeleton animation="wave" />

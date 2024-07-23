@@ -9,7 +9,7 @@ import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { Piechart } from "../../../charts/pie/Piechart";
 import { DataSummary } from "../../summary/DataSummary";
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/lab";
 
 import "../../card/styles.scss";
 import { useOpdBySexData } from "../../../../../libraries/dashboardUtils/opds/useOpdBySexData";
@@ -30,8 +30,10 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
   const { status, data, success, total, csvData } = useOpdBySexData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
+  const [displaySize, setDisplaySize] = useState<{
+    width: number;
+    height: number;
+  }>();
 
   const onSizeChange = (width: number, height: number) => {
     setDisplaySize({ width: width - 1, height: height - 73 });

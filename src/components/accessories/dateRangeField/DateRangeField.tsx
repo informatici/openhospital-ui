@@ -1,13 +1,9 @@
 import React, { FunctionComponent } from "react";
-import {
-  DesktopDateRangePicker,
-  MobileDateRangePicker,
-} from "@material-ui/pickers";
+import { DateRangePicker, MobileDateRangePicker } from "@mui/lab";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
-import { TextField, useMediaQuery } from "@material-ui/core";
-import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
+import { TextField, TextFieldProps, useMediaQuery } from "@mui/material";
 const DateRangeField: FunctionComponent<IProps> = ({
   fieldName,
   startErrorText,
@@ -41,7 +37,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
   return (
     <>
       {matches ? (
-        <DesktopDateRangePicker
+        <DateRangePicker
           inputFormat={format}
           disabled={disabled}
           disableFuture={disableFuture}
@@ -50,10 +46,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
           shouldDisableDate={shouldDisableDate}
           allowSameDateSelection={true}
           calendars={calendars ?? 2}
-          renderInput={(
-            startProps: MuiTextFieldProps,
-            endProps: MuiTextFieldProps
-          ) =>
+          renderInput={(startProps: TextFieldProps, endProps: TextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent />
             ) : (
@@ -110,10 +103,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
           value={fieldValue}
           shouldDisableDate={shouldDisableDate}
           allowSameDateSelection={allowSameDateSelection}
-          renderInput={(
-            startProps: MuiTextFieldProps,
-            endProps: MuiTextFieldProps
-          ) =>
+          renderInput={(startProps: TextFieldProps, endProps: TextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent />
             ) : (

@@ -7,10 +7,10 @@ import { LangContext } from "./libraries/langContext/langContext";
 import { initReactI18next } from "react-i18next";
 import resources from "./resources";
 import { I18N_FALLBACK_LNG } from "./resources/config";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { MainRouter } from "./routes";
-import { LocalizationProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 i18n
   .use(initReactI18next)
@@ -32,7 +32,7 @@ const App: FunctionComponent = () => {
     });
   };
 
-  const pickerTheme = createMuiTheme({
+  const pickerTheme = createTheme({
     palette: {
       primary: {
         main: "#fc1812",
@@ -48,12 +48,12 @@ const App: FunctionComponent = () => {
 
   return (
     <div className="App">
-      <LocalizationProvider dateAdapter={DateFnsUtils}>
-        <MuiThemeProvider theme={pickerTheme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <ThemeProvider theme={pickerTheme}>
           <LangContext.Provider value={{ changeLang }}>
             <MainRouter />
           </LangContext.Provider>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </LocalizationProvider>
     </div>
   );

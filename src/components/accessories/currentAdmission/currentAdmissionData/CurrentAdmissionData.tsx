@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { IconButton } from "@mui/material";
+import { Edit } from "@mui/icons-material";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { AdmissionDTO } from "../../../../generated";

@@ -1,4 +1,4 @@
-import { Person, Notes, AssignmentInd } from "@material-ui/icons";
+import { Person, Notes, AssignmentInd } from "@mui/icons-material";
 import { isEmpty } from "lodash";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";

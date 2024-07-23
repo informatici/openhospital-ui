@@ -8,7 +8,7 @@ import { CustomModal } from "../customModal/CustomModal";
 import BillItemPickerForm from "./itemPicker/BillItemPicker";
 import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import { BillItemsDTO } from "../../../generated";
-import { Add, Payment } from "@material-ui/icons";
+import { Add, Payment } from "@mui/icons-material";
 import { initialFields as initialItemFields } from "./itemPicker/consts";
 import { getPrices } from "../../../state/prices/actions";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ import {
   AccordionSummary,
   Backdrop,
   CircularProgress,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useStyles } from "./consts";
 import { parseDate } from "../../../libraries/formDataHandling/functions";
 
@@ -81,7 +81,7 @@ const PatientNewBill: FC = () => {
 
   const resetItemFormCallback = () => {};
 
-  const handleTableEdit = useCallback((row) => {
+  const handleTableEdit = useCallback((row: any) => {
     setItemToEdit(row);
     handleItemPicker();
   }, []);

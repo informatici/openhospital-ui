@@ -7,12 +7,12 @@ import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/lab";
 import { getDischarges } from "../../../../../state/admissions/actions";
 import { IOwnProps } from "../types";
 import { toggleFullscreen } from "../../card/consts";
-import { ListItemIcon } from "@material-ui/core";
-import { Description, PictureAsPdf, SaveAlt } from "@material-ui/icons";
+import { ListItemIcon } from "@mui/material";
+import { Description, PictureAsPdf, SaveAlt } from "@mui/icons-material";
 
 import "../../card/styles.scss";
 import { Piechart } from "../../../charts/pie/Piechart";
@@ -34,8 +34,10 @@ export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
   const { total, success, status, data, csvData } = useDisBySexData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
+  const [displaySize, setDisplaySize] = useState<{
+    width: number;
+    height: number;
+  }>();
 
   const onSizeChange = (width: number, height: number) => {
     setDisplaySize({ width: width - 1, height: height - 73 });

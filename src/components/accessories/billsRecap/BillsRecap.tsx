@@ -36,7 +36,7 @@ import { union } from "lodash";
 import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import SelectField from "../selectField/SelectField";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { useWindowWidth } from "../../../libraries/hooks/useWindowsWidth";
 import { isMobile } from "../../../libraries/uiUtils/screenUtils";
 

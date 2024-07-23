@@ -1,5 +1,5 @@
 import { FC, useEffect, useCallback } from "react";
-import Link from "@material-ui/core/Link";
+import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
 
 import classNames from "classnames";
@@ -54,7 +54,7 @@ const ForgotActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorType = useSelector<IState>(
+  const errorType = useSelector<IState, string | undefined>(
     (state) => state.main.forgotpassword.error?.description || "unknown error"
   );
 

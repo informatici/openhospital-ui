@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { useFormik } from "formik";
 import { get, has } from "lodash";
 import moment from "moment";

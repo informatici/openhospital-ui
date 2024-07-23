@@ -1,10 +1,9 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import { DesktopDatePicker, MobileDatePicker } from "@material-ui/pickers";
+import { DesktopDatePicker, MobileDatePicker } from "@mui/lab";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
-import { TextField, useMediaQuery } from "@material-ui/core";
-import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
+import { TextField, TextFieldProps, useMediaQuery } from "@mui/material";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -51,7 +50,7 @@ const DateField: FunctionComponent<IProps> = ({
     <div ref={anchorElRef}>
       {matches ? (
         <DesktopDatePicker
-          inputFormat={format}
+          format={format}
           label={
             required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
           }
@@ -66,7 +65,7 @@ const DateField: FunctionComponent<IProps> = ({
             placement: "bottom-end",
             anchorEl: anchorEl,
           }}
-          renderInput={(props: MuiTextFieldProps) =>
+          renderInput={(props: TextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent {...props} />
             ) : (
@@ -101,7 +100,7 @@ const DateField: FunctionComponent<IProps> = ({
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
           allowSameDateSelection
-          renderInput={(props: MuiTextFieldProps) =>
+          renderInput={(props: TextFieldProps) =>
             TextFieldComponent ? (
               <TextFieldComponent {...props} />
             ) : (

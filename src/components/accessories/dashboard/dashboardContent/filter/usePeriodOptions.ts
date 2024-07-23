@@ -1,8 +1,8 @@
-import { DateRange } from "@material-ui/pickers";
 import moment from "moment";
 import { useState, useMemo } from "react";
 import { TViewType, TPeriodType } from "./types";
 import { getCachedPeriod } from "./consts";
+import { DateRange } from "@mui/lab/DateRangePicker";
 
 export const usePeriodOptions = () => {
   const cachedPeriod = getCachedPeriod();

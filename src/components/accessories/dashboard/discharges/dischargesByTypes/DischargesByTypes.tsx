@@ -6,7 +6,7 @@ import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/lab";
 import { getDischarges } from "../../../../../state/admissions/actions";
 import { IOwnProps } from "../types";
 import { Piechart } from "../../../charts/pie/Piechart";

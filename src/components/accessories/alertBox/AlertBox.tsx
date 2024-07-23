@@ -6,7 +6,7 @@ import {
   HighlightOffRounded,
   InfoRounded,
   NewReleasesRounded,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 export const AlertBox: FunctionComponent<IProps> = ({
   type,

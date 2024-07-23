@@ -1,10 +1,10 @@
-import { Dialog, Fab } from "@material-ui/core";
+import { Dialog, Fab } from "@mui/material";
 import React, { FC } from "react";
 import { TFullscreenCardProps } from "./types";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { DashboardWidget } from "../layouts/item/GridLayoutItem";
-import { GridCloseIcon } from "@material-ui/data-grid";
+import { GridCloseIcon } from "@mui/x-data-grid";
 
 export const FullscreenCard: FC<TFullscreenCardProps> = ({
   dashboard,

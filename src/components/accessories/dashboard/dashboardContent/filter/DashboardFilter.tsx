@@ -3,14 +3,13 @@ import { IOwnProps, TPeriodType, TViewType } from "./types";
 import "./styles.scss";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import DateRangeField from "../../../dateRangeField/DateRangeField";
-import { DateRange } from "@material-ui/pickers";
-import { IconButton } from "@material-ui/core";
-import { CalendarTodaySharp } from "@material-ui/icons";
+import { IconButton } from "@mui/material";
+import { CalendarTodaySharp } from "@mui/icons-material";
 import DateField from "../../../dateField/DateField";
-import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
+import { ToggleButtonGroup, ToggleButton, DateRange } from "@mui/lab";
 import { isEmpty } from "lodash";
 import { usePeriodOptions } from "./usePeriodOptions";
+import DateRangeField from "../../../dateRangeField/DateRangeField";
 
 export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
   const { t } = useTranslation();

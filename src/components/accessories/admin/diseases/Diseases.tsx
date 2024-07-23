@@ -10,7 +10,7 @@ import Button from "../../button/Button";
 import { useTranslation } from "react-i18next";
 import { getDiseaseTypes } from "../../../../state/types/diseases";
 import { isEmpty } from "lodash";
-import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
+import { ToggleButtonGroup, ToggleButton } from "@mui/lab";
 import { IState } from "../../../../types";
 
 export const Diseases = () => {

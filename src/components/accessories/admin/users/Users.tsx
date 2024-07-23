@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabs, Tab } from "@material-ui/core";
+import { Tabs, Tab } from "@mui/material";
 
 import UsersTable from "./usersTable";
 import UserGroupsTable from "./userGroupsTable";

@@ -10,15 +10,15 @@ import {
   Typography,
   FormHelperText,
   CircularProgress,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FC, useCallback, useState, useRef, useEffect } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
 
-import { Search } from "@material-ui/icons";
+import { Search } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { GridCloseIcon } from "@material-ui/data-grid";
+import { GridCloseIcon } from "@mui/x-data-grid";
 import { get, has } from "lodash";
 import {
   formatAllFieldValues,
@@ -31,12 +31,12 @@ import { PatientDTO } from "../../../generated";
 import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
 import Button from "../button/Button";
-import { TextField as MaterialComponent } from "@material-ui/core";
+import { TextField as MaterialComponent } from "@mui/material";
 import { searchPatient } from "../../../state/patients/actions";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
-import { Pagination } from "@material-ui/lab";
+import { Pagination } from "@mui/lab";
 
 const PatientPicker: FC<IProps> = ({
   fieldName,
