@@ -59,7 +59,6 @@ export const NewUser = () => {
     setFieldTouched,
     isValid,
     dirty,
-    resetForm,
     errors,
     touched,
     values,
@@ -182,11 +181,11 @@ export const NewUser = () => {
               type="reset"
               variant="text"
               disabled={!!create.isLoading || !dirty}
-              onClick={async () => {
-                resetForm();
+              onClick={() => {
+                navigate(PATHS.admin_users);
               }}
             >
-              {t("common.reset")}
+              {t("common.cancel")}
             </Button>
           </div>
         </div>
@@ -208,7 +207,7 @@ export const NewUser = () => {
           info={create.error?.message.toString()}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_users);
+            dispatch(createUserReset());
           }}
           handleSecondaryButtonClick={() => ({})}
         />
