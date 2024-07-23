@@ -163,7 +163,7 @@ const AutocompleteField: FC<IProps> = ({
         onInputChange={handleOnInputChange}
         getOptionLabel={getOptionLabel ? getOptionLabel : optionLabel}
         value={getFullObject(value)}
-        renderOption={renderOption ? renderOption : rendOption}
+        renderOption={renderOption ? renderOption : undefined}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
         renderInput={(params) => (

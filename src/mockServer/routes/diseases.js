@@ -30,7 +30,7 @@ export const diseasesRoutes = (server) => {
     });
     server.put("/").intercept((req, res) => {
       const body = req.jsonBody();
-      switch (body.code) {
+      switch (body.description) {
         case "FAIL":
           res.status(400).json({ message: "Fail to update disease" });
           break;
