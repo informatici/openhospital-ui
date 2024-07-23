@@ -60,6 +60,7 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
+          slots={{ textField: TextFieldComponent }}
           slotProps={{
             popper: {
               placement: "bottom-end",
@@ -91,6 +92,7 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
+          slots={{ textField: TextFieldComponent }}
           slotProps={{
             textField: {
               id: fieldName,

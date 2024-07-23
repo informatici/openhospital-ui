@@ -46,4 +46,11 @@
       justify-content: end;
     }
   }
+  filter__datefield {
+    display: flex;
+    gap: 4px;
+    @include susy-media($smartphone) {
+      flex-direction: column;
+    }
+  }
 }
