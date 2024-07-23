@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import { DesktopDatePicker, MobileDatePicker } from "@mui/lab";
+import { DesktopDatePicker, MobileDatePicker } from "@mui/x-date-pickers";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
@@ -60,36 +60,28 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
-          allowSameDateSelection
-          PopperProps={{
-            placement: "bottom-end",
-            anchorEl: anchorEl,
+          slotProps={{
+            popper: {
+              placement: "bottom-end",
+              anchorEl: anchorEl,
+            },
+            textField: {
+              id: fieldName,
+              error: Boolean(errorText),
+              disabled,
+              helperText: errorText,
+              variant: "outlined",
+              margin: "dense",
+              required: required === FIELD_VALIDATION.REQUIRED,
+              className: actualClassName,
+            },
           }}
-          renderInput={(props: TextFieldProps) =>
-            TextFieldComponent ? (
-              <TextFieldComponent {...props} />
-            ) : (
-              <TextField
-                {...props}
-                id={fieldName}
-                error={Boolean(errorText)}
-                disabled={disabled}
-                helperText={errorText}
-                variant="outlined"
-                margin="dense"
-                required={required === FIELD_VALIDATION.REQUIRED}
-                className={actualClassName}
-              />
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
           views={views}
           open={open}
         />
       ) : (
         <MobileDatePicker
-          inputFormat={format}
+          format={format}
           label={
             required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
           }
@@ -99,26 +91,18 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
-          allowSameDateSelection
-          renderInput={(props: TextFieldProps) =>
-            TextFieldComponent ? (
-              <TextFieldComponent {...props} />
-            ) : (
-              <TextField
-                {...props}
-                id={fieldName}
-                error={Boolean(errorText)}
-                disabled={disabled}
-                helperText={errorText}
-                variant="outlined"
-                margin="dense"
-                required={required === FIELD_VALIDATION.REQUIRED}
-                className={actualClassName}
-              />
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
+          slotProps={{
+            textField: {
+              id: fieldName,
+              error: Boolean(errorText),
+              disabled,
+              helperText: errorText,
+              variant: "outlined",
+              margin: "dense",
+              required: required === FIELD_VALIDATION.REQUIRED,
+              className: actualClassName,
+            },
+          }}
           views={views}
           open={open}
         />
