@@ -11,7 +11,7 @@ import {
   EditWard,
 } from "../../components/accessories/admin/wards";
 import { Exams } from "../../components/accessories/admin/exams";
-import { Users } from "../../components/accessories/admin/users";
+import { Users, NewUser } from "../../components/accessories/admin/users";
 import TypesRoutes from "./TypesRoutes";
 import { PATHS } from "../../consts";
 import {
@@ -182,6 +182,12 @@ export const AdminRoutes = () => {
         path: getPath(PATHS.admin_users),
         element: (
           <AdminActivityContent title={t("nav.users")} children={<Users />} />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_users_new),
+        element: (
+          <AdminActivityContent title={t("nav.users")} children={<NewUser />} />
         ),
       },
       {
