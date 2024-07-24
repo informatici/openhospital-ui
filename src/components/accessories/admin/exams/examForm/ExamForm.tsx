@@ -19,6 +19,7 @@ import checkIcon from "../../../../../assets/check-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
+import SelectField from "../../../selectField/SelectField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
@@ -193,14 +194,16 @@ const ExamForm: FC<IExamProps> = ({
 
         <div className="row start-sm center-xs">
           <div className="examForm__item halfWidth">
-            <TextField
-              field={formik.getFieldProps("procedure")}
-              theme="regular"
+            <SelectField
+              fieldName="selectedType"
+              fieldValue={formik.values.procedure}
               label={t("exam.procedure")}
-              isValid={isValid("procedure")}
+              options={[{label:"1: a list of available \"string\" results", value: '1'},
+                {label:"2: a list of all \"boolean\" results", value: "2"},
+                {label: "3: exact value (it will be typed in by the laboratorist)", value: "3"}]}
               errorText={getErrorText("procedure")}
+              isValid={isValid("procedure")}
               onBlur={formik.handleBlur}
-              type="number"
               disabled={isLoading}
             />
           </div>
