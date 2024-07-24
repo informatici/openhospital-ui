@@ -39,7 +39,8 @@ describe("Wards Activity specs", () => {
   it("should delete the ward", () => {
     cy.get('button[title="Delete"]').first().click();
     cy.dataCy("approve-dialog").click();
-    cy.dataCy("dialog-info").should("not.be.visible");
+    cy.dataCy("dialog-info").contains("has been deleted successfully!");
     cy.dataCy("approve-dialog").last().click();
+    cy.dataCy("dialog-info").should("not.exist");
   });
 });
