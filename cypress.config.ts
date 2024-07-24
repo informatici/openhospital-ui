@@ -7,8 +7,9 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       plugin(on, config);
     },
-    specPattern: 'cypress/integrations/**/*.cy.ts',
+    specPattern: "cypress/integrations/**/*.cy.ts",
     testIsolation: false,
     experimentalRunAllSpecs: true,
+    chromeWebSecurity: false,
   },
 });
