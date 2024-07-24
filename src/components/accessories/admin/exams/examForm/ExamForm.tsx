@@ -203,6 +203,7 @@ const ExamForm: FC<IExamProps> = ({
                 {label: "3: exact value (it will be typed in by the laboratorist)", value: "3"}]}
               errorText={getErrorText("procedure")}
               isValid={isValid("procedure")}
+              onChange={v => formik.setFieldValue("procedure", v)}
               onBlur={formik.handleBlur}
               disabled={isLoading}
             />
