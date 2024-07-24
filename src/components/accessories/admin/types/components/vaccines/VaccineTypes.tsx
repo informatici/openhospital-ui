@@ -40,9 +40,9 @@ const VaccineTypes = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("vaccineTypes.title")}</h3>
+      <h3 data-cy="sub-activity-title">{t("vaccineTypes.title")}</h3>
 
-      <div className="vaccineTypes">
+      <div className="vaccineTypes" data-cy="vaccine-types-table">
         <VaccineTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -54,6 +54,7 @@ const VaccineTypes = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-vaccine-type"
             >
               {t("vaccineTypes.addVaccineType")}
             </Button>

@@ -9,7 +9,7 @@ import { updateVaccineType } from "../../../../../../../state/types/vaccines/act
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditVaccineType = () => {
@@ -21,13 +21,19 @@ export const EditVaccineType = () => {
     (state) => state.types.vaccines.update
   );
 
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
+
   const handleSubmit = (value: VaccineTypeDTO) => {
     dispatch(updateVaccineType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_vaccines_types} />;
@@ -35,7 +41,9 @@ export const EditVaccineType = () => {
 
   return (
     <div className="editVaccineType">
-      <h3 className="title">{t("vaccineTypes.editVaccineType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("vaccineTypes.editVaccineType")}
+      </h3>
       <VaccineTypeForm
         creationMode={false}
         onSubmit={handleSubmit}
