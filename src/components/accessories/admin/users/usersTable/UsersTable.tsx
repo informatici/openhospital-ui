@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 
@@ -13,7 +13,11 @@ import { ApiResponse } from "../../../../../state/types";
 
 import classes from "./UsersTable.module.scss";
 
-export const UsersTable = () => {
+interface IOwnProps {
+  headerActions: ReactNode;
+}
+
+export const UsersTable = ({ headerActions }: IOwnProps) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -75,6 +79,7 @@ export const UsersTable = () => {
                 isCollapsabile={false}
                 rawData={data}
                 rowKey="userName"
+                headerActions={headerActions}
               />
             );
           case "SUCCESS_EMPTY":

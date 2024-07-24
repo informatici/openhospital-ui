@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Tabs, Tab } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
+import Button from "../../button/Button";
 import UsersTable from "./usersTable";
 import UserGroupsTable from "./userGroupsTable";
 
+import { PATHS } from "../../../../consts";
+
 export const Users = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const [tab, setTab] = useState<"users" | "groups">("users");
   return (
     <>
@@ -13,10 +21,27 @@ export const Users = () => {
         onChange={(_, value) => setTab(value)}
         aria-label="switch between users and groups"
       >
-        <Tab label="Users" value="users" />
-        <Tab label="Groups" value="groups" />
+        <Tab label={t("user.users")} value="users" />
+        <Tab label={t("user.groups")} value="groups" />
       </Tabs>
-      {tab === "users" ? <UsersTable /> : <UserGroupsTable />}
+      {tab === "users" ? (
+        <UsersTable
+          headerActions={
+            <Button
+              onClick={() => {
+                navigate(PATHS.admin_users_new);
+              }}
+              type="button"
+              variant="contained"
+              color="primary"
+            >
+              {t("user.addUser")}
+            </Button>
+          }
+        />
+      ) : (
+        <UserGroupsTable />
+      )}
     </>
   );
 };

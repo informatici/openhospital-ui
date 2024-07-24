@@ -32,6 +32,7 @@ import hospital from "./state/hospital/reducer";
 import layouts from "./state/layouts/reducer";
 import dashboard from "./state/dashboard/reducer";
 import users from "./state/users/reducer";
+import usergroups from "./state/usergroups/reducer";
 import vaccines from "./state/vaccines/reducer";
 import types from "./state/types/reducer";
 import suppliers from "./state/suppliers/reducer";
@@ -65,6 +66,7 @@ const reducer = combineReducers<IState>({
   layouts,
   dashboard,
   users,
+  usergroups,
   vaccines,
   types,
   suppliers,
