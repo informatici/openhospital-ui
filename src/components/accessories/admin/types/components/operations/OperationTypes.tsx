@@ -40,9 +40,9 @@ const OperationTypes = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("operationTypes.title")}</h3>
+      <h3 data-cy="sub-operation-title">{t("operationTypes.title")}</h3>
 
-      <div className="operationTypes">
+      <div className="operationTypes" data-cy="operation-types-table">
         <OperationTypesTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -54,6 +54,7 @@ const OperationTypes = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-operation-type"
             >
               {t("operationTypes.addOperationType")}
             </Button>
