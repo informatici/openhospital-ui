@@ -9,7 +9,7 @@ import { updateDischargeType } from "../../../../../../../state/types/discharges
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../dischargeTypesForm/consts";
 import DischargeTypeForm from "../dischargeTypesForm/DischargeTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDischargeType = () => {
@@ -21,21 +21,28 @@ export const EditDischargeType = () => {
     (state) => state.types.discharges.update
   );
 
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
+
   const handleSubmit = (value: DischargeTypeDTO) => {
     dispatch(updateDischargeType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
-
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_discharges_types} />;
   }
 
   return (
     <div className="editDischargeType">
-      <h3 className="title">{t("dischargeTypes.editDischargeType")}</h3>
+      <h3 className="title" data-cy="sub-discharge-title">
+        {t("dischargeTypes.editDischargeType")}
+      </h3>
       <DischargeTypeForm
         creationMode={false}
         onSubmit={handleSubmit}

@@ -19,5 +19,8 @@ export const userRoutes = (server) => {
     server.get("/").intercept((_req, res) => {
       res.status(200).json(usersDTO);
     });
+    server.post("/").intercept((_req, res) => {
+      res.status(200).json(usersDTO[0]);
+    });
   });
 };

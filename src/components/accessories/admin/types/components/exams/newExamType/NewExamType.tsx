@@ -27,7 +27,9 @@ export const NewExamType = () => {
 
   return (
     <div className="newExamType">
-      <h3 className="title">{t("examTypes.addExamType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("examTypes.addExamType")}
+      </h3>
       <ExamTypeForm
         creationMode
         onSubmit={handleSubmit}

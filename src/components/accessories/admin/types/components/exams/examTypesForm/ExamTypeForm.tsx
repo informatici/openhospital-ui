@@ -139,7 +139,12 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
 
         <div className="examTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              dataCy="submit-form"
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -147,6 +152,7 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >

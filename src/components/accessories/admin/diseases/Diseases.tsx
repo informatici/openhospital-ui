@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classes from "./Diseases.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DiseaseDTO } from "../../../../generated";
 import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";
@@ -9,11 +9,23 @@ import { getAllDiseases } from "../../../../state/diseases/actions";
 import Button from "../../button/Button";
 import { useTranslation } from "react-i18next";
 import { getDiseaseTypes } from "../../../../state/types/diseases";
+import { isEmpty } from "lodash";
+import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
+import { IState } from "../../../../types";
 
 export const Diseases = () => {
+  const [view, setView] = useState<"enabled" | "disabled" | "all">("all");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const showFilter = useSelector<IState, boolean>(
+    (state) =>
+      (state.diseases.allDiseases.data?.filter(
+        (item) => !(item.opdInclude || item.ipdOutInclude || item.opdInclude)
+      )?.length ?? 0) > 0
+  );
 
   useEffect(() => {
     dispatch(getAllDiseases());
@@ -26,22 +38,76 @@ export const Diseases = () => {
     });
   };
 
+  const handleViewChange = useCallback(
+    (event: any, value: any) => {
+      if (!isEmpty(value)) {
+        setView(value);
+      }
+    },
+    [view]
+  );
+
+  const predicate = useCallback(
+    (disease: DiseaseDTO) => {
+      const enabled =
+        disease.ipdInInclude || disease.ipdOutInclude || disease.opdInclude;
+      switch (view) {
+        case "enabled":
+          return enabled;
+        case "disabled":
+          return !enabled;
+        default:
+          return true;
+      }
+    },
+    [view]
+  );
+
   return (
     <div className={classes.diseases} data-cy="diseases-table">
       <DiseaseTable
         onEdit={handleEdit}
+        filterPredicate={predicate}
         headerActions={
-          <Button
-            onClick={() => {
-              navigate(PATHS.admin_diseases_new);
-            }}
-            dataCy="add-new-disease"
-            type="button"
-            variant="contained"
-            color="primary"
-          >
-            {t("disease.addDisease")}
-          </Button>
+          showFilter ? (
+            <div className={classes.header}>
+              <ToggleButtonGroup
+                className={classes.options}
+                value={view}
+                exclusive
+                onChange={handleViewChange}
+              >
+                {["enabled", "disabled", "all"].map((value) => (
+                  <ToggleButton key={value} value={value} data-cy={value}>
+                    <span>{t(`disease.${value}`)}</span>
+                  </ToggleButton>
+                ))}
+              </ToggleButtonGroup>
+              <Button
+                onClick={() => {
+                  navigate(PATHS.admin_diseases_new);
+                }}
+                dataCy="add-new-disease"
+                type="button"
+                variant="contained"
+                color="primary"
+              >
+                {t("disease.addDisease")}
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={() => {
+                navigate(PATHS.admin_diseases_new);
+              }}
+              dataCy="add-new-disease"
+              type="button"
+              variant="contained"
+              color="primary"
+            >
+              {t("disease.addDisease")}
+            </Button>
+          )
         }
       />
     </div>

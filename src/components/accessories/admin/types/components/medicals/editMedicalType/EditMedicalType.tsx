@@ -9,7 +9,7 @@ import { updateMedicalType } from "../../../../../../../state/types/medicals/act
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../medicalTypesForm/consts";
 import MedicalTypeForm from "../medicalTypesForm/MedicalTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditMedicalType = () => {
@@ -21,13 +21,19 @@ export const EditMedicalType = () => {
     (state) => state.types.medicals.update
   );
 
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
+
   const handleSubmit = (value: MedicalTypeDTO) => {
     dispatch(updateMedicalType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_medicals_types} />;
@@ -35,7 +41,9 @@ export const EditMedicalType = () => {
 
   return (
     <div className="editMedicalType">
-      <h3 className="title">{t("medicalTypes.editMedicalType")}</h3>
+      <h3 className="title" data-cy="sub-medical-title">
+        {t("medicalTypes.editMedicalType")}
+      </h3>
       <MedicalTypeForm
         creationMode={false}
         onSubmit={handleSubmit}

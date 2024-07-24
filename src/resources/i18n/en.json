@@ -18,10 +18,23 @@
     "number": "the value is not a valid number"
   },
   "user": {
+    "users": "Users",
     "username": "Username",
+    "group": "Group",
     "groups": "Groups",
+    "password": "Password",
+    "passwordRetype": "Re-type Password",
     "lastlogin": "Last login",
-    "description": "Description"
+    "description": "Description",
+    "addUser": "New user",
+    "createdSuccessTitle": "User created",
+    "createdSuccessMessage": "User has been created successfully!",
+    "validateUserNeedsGroup": "Each user should belong to a group",
+    "validatePasswordNeeded": "No password provided.",
+    "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
+    "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit",
+    "validatePasswordMustMatch": "Passwords must match",
+    "validateUserName": "You need to specify a user name"
   },
   "hospital": {
     "address": "Address",
@@ -1036,12 +1049,15 @@
     "ipdOutInclude": "IP Out",
     "addDisease": "Add Disease",
     "editDisease": "Edit Disease",
-    "updateDisease": "update Disease",
+    "updateDisease": "Update Disease",
     "saveDisease": "Save Disease",
     "created": "Disease Created",
     "updated": "Disease updated",
     "createSuccess": "Disease has been created successfully!",
-    "updateSuccess": "Disease {{code}} has been updated successfully!"
+    "updateSuccess": "Disease {{code}} has been updated successfully!",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "all": "All diseases"
   },
   "pregnantTreatmentTypes": {
     "code": "Code",
@@ -1085,7 +1101,7 @@
     "deleted": "Deleted",
     "deleteSuccess": "The exam type has been deleted successfully!",
     "saveExamTypes": "Save",
-    "editVaccineType": "Edit exam type",
+    "editExamType": "Edit exam type",
     "updateExamType": "Save changes",
     "created": "Exam type created",
     "createSuccess": "The exam type has been created successfully!",
