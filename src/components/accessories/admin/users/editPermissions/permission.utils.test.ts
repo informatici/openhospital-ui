@@ -1,5 +1,9 @@
 import { PermissionDTO } from "../../../../../generated";
-import { computeNewPermission, groupPermissions } from "./permission.utils";
+import {
+  computeNewPermission,
+  groupPermissions,
+  filterChangedGroupsPermissions,
+} from "./permission.utils";
 
 describe("groupPermissions", () => {
   it("should ignore non-crud actions and badly formatted permission names", () => {
@@ -84,5 +88,39 @@ describe("computeNewPermission", () => {
     expect(
       computeNewPermission("baz", { ...samplePermission }, false).userGroupIds
     ).toEqual(["foo", "bar"]);
+  });
+});
+
+describe("filterChangedPermissions", () => {
+  const initialPermissions: PermissionDTO[] = [
+    {
+      description: "",
+      id: 163,
+      name: "laboratories.access",
+      userGroupIds: ["foo", "bar"],
+    },
+    {
+      description: "",
+      id: 147,
+      name: "vaccines.access",
+      userGroupIds: ["bar"],
+    },
+  ];
+  it("should filter out identical permissions", () => {
+    const changedPermission = {
+      ...initialPermissions[1],
+      userGroupIds: ["bar", "baz"],
+    };
+    expect(
+      filterChangedGroupsPermissions(initialPermissions, [
+        initialPermissions[0],
+        changedPermission,
+      ])
+    ).toEqual([changedPermission]);
+  });
+  it("should return an empty array if both are identical", () => {
+    expect(
+      filterChangedGroupsPermissions(initialPermissions, initialPermissions)
+    ).toEqual([]);
   });
 });

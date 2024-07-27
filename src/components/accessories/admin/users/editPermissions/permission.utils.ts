@@ -55,3 +55,21 @@ export const computeNewPermission = (
     userGroupIds: getUserGroups(),
   };
 };
+
+export const filterChangedGroupsPermissions = (
+  initialPermissions: PermissionDTO[],
+  stackedPermissions: PermissionDTO[]
+): PermissionDTO[] => {
+  let filteredPermissions: PermissionDTO[] = [];
+  for (let index = 0; index < stackedPermissions.length; index++) {
+    const reference = initialPermissions.find(
+      ({ id }) => stackedPermissions[index].id === id
+    );
+    if (
+      reference?.userGroupIds.sort().join(" ") !==
+      stackedPermissions[index].userGroupIds.sort().join(" ")
+    )
+      filteredPermissions = [...filteredPermissions, stackedPermissions[index]];
+  }
+  return filteredPermissions;
+};

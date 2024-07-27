@@ -27,6 +27,7 @@
     "password": "Password",
     "addGroup": "New group",
     "addUser": "New user",
+    "editGroup": "Edit group",
     "description": "Description",
     "lastlogin": "Last login",
     "passwordRetype": "Re-type Password",

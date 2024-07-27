@@ -7,6 +7,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
+import InfoBox from "../../../infoBox/InfoBox";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
@@ -20,8 +21,13 @@ import {
   updateUserGroup,
   updateUserGroupReset,
 } from "../../../../../state/usergroups/actions";
-import { updatePermission } from "../../../../../state/permissions/actions";
-import { GroupPermissions } from "../editPermissions/GroupPermissions";
+import {
+  getAllPermissions,
+  updatePermissionReset,
+  updatePermission,
+} from "../../../../../state/permissions/actions";
+import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
+import { filterChangedGroupsPermissions } from "../editPermissions/permission.utils";
 
 export const EditGroup = () => {
   const dispatch = useDispatch();
@@ -30,9 +36,13 @@ export const EditGroup = () => {
   const { state }: { state: UserGroupDTO } = useLocation();
   const { id } = useParams();
 
-  const create = useSelector<IState, ApiResponse<UserGroupDTO>>(
-    (state) => state.usergroups.create
+  const update = useSelector<IState, ApiResponse<UserGroupDTO>>(
+    (state) => state.usergroups.update
   );
+  const permissionsInitialState = useSelector(
+    (state: IState) => state.permissions.getAll
+  );
+
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
   const [permissionsStack, setPermissionsStack] = useState<PermissionDTO[]>([]);
 
@@ -40,7 +50,11 @@ export const EditGroup = () => {
     const otherPermissions = permissionsStack.filter(
       ({ id }) => id !== newPermission.id
     );
-    setPermissionsStack([...otherPermissions, newPermission]);
+    
+    setPermissionsStack([
+      ...otherPermissions,
+      ...filterChangedGroupsPermissions(permissionsInitialState.data!, [newPermission])
+    ]);
   };
 
   const {
@@ -70,16 +84,30 @@ export const EditGroup = () => {
   });
 
   useEffect(() => {
-    if (create.hasSucceeded)
+    if (update.hasSucceeded)
       navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
+    dispatch(getAllPermissions());
     return () => {
       dispatch(updateUserGroupReset());
+      dispatch(updatePermissionReset());
     };
-  }, [create.hasSucceeded, dispatch, navigate]);
+  }, [update.hasSucceeded, dispatch, navigate]);
 
   if (state?.code !== id) {
     return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
   }
+
+  if (permissionsInitialState.hasFailed)
+    return (
+      <InfoBox
+        type="error"
+        message={`Unable to load permissions ${permissionsInitialState.error?.toString()}`}
+      />
+    );
+  if (!permissionsInitialState.hasSucceeded || !permissionsInitialState.data)
+    return <>...</>;
+  if (!permissionsInitialState.data.length)
+    return <>no permissions in database</>;
 
   return (
     <div className="newGroupForm">
@@ -108,11 +136,13 @@ export const EditGroup = () => {
             />
           </div>
         </div>
-        <GroupPermissions
-          userGroupId={values.code}
+        <GroupPermissionsEditor
+          permissions={permissionsInitialState.data}
+          thisGroupId={values.code as string}
           setDirty={setDirtyPermissions}
           update={handleUpdatePermissions}
         />
+
         {permissionsStack.length > 0 && (
           <p>
             <code>
@@ -129,7 +159,7 @@ export const EditGroup = () => {
               type="submit"
               variant="contained"
               disabled={
-                !!create.isLoading || !isValid || !(dirty || dirtyPermissions)
+                !!update.isLoading || !isValid || !(dirty || dirtyPermissions)
               }
             >
               {t("common.save")}
@@ -139,7 +169,7 @@ export const EditGroup = () => {
             <Button
               type="reset"
               variant="text"
-              disabled={!!create.isLoading || !(dirty || dirtyPermissions)}
+              disabled={!!update.isLoading || !(dirty || dirtyPermissions)}
               onClick={async () => {
                 resetForm();
               }}
