@@ -12,6 +12,10 @@ import {
   CREATE_USERGROUP_LOADING,
   CREATE_USERGROUP_SUCCESS,
   CREATE_USERGROUP_RESET,
+  UPDATE_USERGROUP_LOADING,
+  UPDATE_USERGROUP_FAIL,
+  UPDATE_USERGROUP_SUCCESS,
+  UPDATE_USERGROUP_RESET,
 } from "./consts";
 
 const usersApi = new UsersApi(customConfiguration());
@@ -72,5 +76,35 @@ export const createUserGroupReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: CREATE_USERGROUP_RESET,
+    });
+  };
+
+export const updateUserGroup =
+  (userGroupDTO: UserGroupDTO) =>
+  (dispatch: Dispatch<IAction<UserGroupDTO, {}>>): void => {
+    dispatch({
+      type: UPDATE_USERGROUP_LOADING,
+    });
+    usersApi.updateUserGroup({ userGroupDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_USERGROUP_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_USERGROUP_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const updateUserGroupReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_USERGROUP_RESET,
     });
   };

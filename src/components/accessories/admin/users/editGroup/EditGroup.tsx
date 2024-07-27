@@ -10,16 +10,17 @@ import Button from "../../../button/Button";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
-import { UserGroupDTO } from "../../../../../generated";
+import { UserGroupDTO, PermissionDTO } from "../../../../../generated";
 import { PATHS } from "../../../../../consts";
 
 import { userGroupSchema } from "./validation";
 import { TabOptions } from "../Users";
 import "./styles.scss";
 import {
-  createUserGroup,
-  createUserGroupReset,
+  updateUserGroup,
+  updateUserGroupReset,
 } from "../../../../../state/usergroups/actions";
+import { updatePermission } from "../../../../../state/permissions/actions";
 import { GroupPermissions } from "../editPermissions/GroupPermissions";
 
 export const EditGroup = () => {
@@ -33,6 +34,14 @@ export const EditGroup = () => {
     (state) => state.usergroups.create
   );
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
+  const [permissionsStack, setPermissionsStack] = useState<PermissionDTO[]>([]);
+
+  const handleUpdatePermissions = (newPermission: PermissionDTO) => {
+    const otherPermissions = permissionsStack.filter(
+      ({ id }) => id !== newPermission.id
+    );
+    setPermissionsStack([...otherPermissions, newPermission]);
+  };
 
   const {
     handleSubmit,
@@ -48,7 +57,15 @@ export const EditGroup = () => {
     initialValues: state,
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
-      dispatch(createUserGroup(values));
+      dispatch(updateUserGroup(values));
+      for (let index = 0; index < permissionsStack.length; index++) {
+        dispatch(
+          updatePermission({
+            id: permissionsStack[index].id,
+            permissionDTO: permissionsStack[index],
+          })
+        );
+      }
     },
   });
 
@@ -56,7 +73,7 @@ export const EditGroup = () => {
     if (create.hasSucceeded)
       navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
     return () => {
-      dispatch(createUserGroupReset());
+      dispatch(updateUserGroupReset());
     };
   }, [create.hasSucceeded, dispatch, navigate]);
 
@@ -94,7 +111,18 @@ export const EditGroup = () => {
         <GroupPermissions
           userGroupId={values.code}
           setDirty={setDirtyPermissions}
+          update={handleUpdatePermissions}
         />
+        {permissionsStack.length > 0 && (
+          <p>
+            <code>
+              Editing permissions:{" "}
+              {permissionsStack.map(({ id }) => id).join(",")}
+            </code>
+            <br />
+            {permissionsStack.length} permissions will be updated.
+          </p>
+        )}
         <div className="newGroupForm__buttonSet">
           <div className="submit_button">
             <Button

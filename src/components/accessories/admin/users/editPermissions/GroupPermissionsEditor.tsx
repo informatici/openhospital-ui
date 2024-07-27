@@ -16,7 +16,6 @@ export const GroupPermissionsEditor = ({
   setDirty,
   update,
 }: IProps) => {
-  const [permissionsStack, setPermissionsStack] = useState<PermissionDTO[]>([]);
   const [permissionsState, setPermissionsState] = useState<PermissionDTO[]>([]);
 
   useEffect(() => {
@@ -25,10 +24,7 @@ export const GroupPermissionsEditor = ({
 
   const handleChange = (newPermission: PermissionDTO) => {
     setDirty(true);
-    const otherPermissions = permissionsStack.filter(
-      ({ id }) => id !== newPermission.id
-    );
-    setPermissionsStack([...otherPermissions, newPermission]);
+
     const newState = permissionsState.map((perm) =>
       perm.id === newPermission.id ? newPermission : perm
     );
@@ -51,11 +47,6 @@ export const GroupPermissionsEditor = ({
         userGroupId={thisGroupId}
         onChange={handleChange}
       />
-      {permissionsStack.length > 0 && (
-        <p>
-          Editing permissions: {permissionsStack.map(({ id }) => id).join(",")}
-        </p>
-      )}
     </>
   );
 };

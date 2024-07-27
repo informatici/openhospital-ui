@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   getAllPermissions,
-  updatePermission,
   updatePermissionReset,
 } from "../../../../../state/permissions/actions";
 import { IState } from "../../../../../types";
-import { PermissionDTO, UserGroupDTO } from "../../../../../generated";
+import { UserGroupDTO } from "../../../../../generated";
 import InfoBox from "../../../infoBox/InfoBox";
 import { GroupPermissionsEditor } from "./GroupPermissionsEditor";
 
 interface IProps {
   userGroupId: Pick<UserGroupDTO, "code"> | string;
   setDirty: (v: boolean) => void;
+  update: (a: any) => void; // TODO: rename this
 }
 
-export const GroupPermissions = ({ userGroupId, setDirty }: IProps) => {
+export const GroupPermissions = ({ userGroupId, setDirty, update }: IProps) => {
   const dispatch = useDispatch();
   const permissionsState = useSelector(
     (state: IState) => state.permissions.getAll
@@ -27,12 +27,6 @@ export const GroupPermissions = ({ userGroupId, setDirty }: IProps) => {
       dispatch(updatePermissionReset());
     };
   }, [dispatch]);
-
-  const handleUpdate = (newPerm: PermissionDTO) => {
-    console.log("newPerm");
-    console.log(newPerm);
-    dispatch(updatePermission({ id: newPerm.id, permissionDTO: newPerm }));
-  };
 
   if (permissionsState.hasFailed)
     return (
@@ -49,7 +43,7 @@ export const GroupPermissions = ({ userGroupId, setDirty }: IProps) => {
       permissions={permissionsState.data}
       thisGroupId={userGroupId as string}
       setDirty={setDirty}
-      update={handleUpdate}
+      update={update}
     />
   );
 };

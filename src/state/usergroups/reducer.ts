@@ -8,6 +8,10 @@ import {
   CREATE_USERGROUP_LOADING,
   CREATE_USERGROUP_SUCCESS,
   CREATE_USERGROUP_RESET,
+  UPDATE_USERGROUP_FAIL,
+  UPDATE_USERGROUP_LOADING,
+  UPDATE_USERGROUP_SUCCESS,
+  UPDATE_USERGROUP_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IUserGroupState } from "./types";
@@ -61,6 +65,35 @@ export default produce((draft: IUserGroupState, action: IAction<any, any>) => {
       draft.create.status = "IDLE";
       delete draft.create.error;
       delete draft.create.data;
+      break;
+    }
+
+    /**
+     * UPDATE_GROUP
+     */
+
+    case UPDATE_USERGROUP_LOADING: {
+      draft.update.status = "LOADING";
+      break;
+    }
+
+    case UPDATE_USERGROUP_SUCCESS: {
+      draft.update.status = "SUCCESS";
+      draft.update.data = action.payload;
+      delete draft.update.error;
+      break;
+    }
+
+    case UPDATE_USERGROUP_FAIL: {
+      draft.update.status = "FAIL";
+      draft.update.error = action.error;
+      break;
+    }
+
+    case UPDATE_USERGROUP_RESET: {
+      draft.update.status = "IDLE";
+      delete draft.update.error;
+      delete draft.update.data;
       break;
     }
   }
