@@ -20,7 +20,7 @@ import {
   createUserGroup,
   createUserGroupReset,
 } from "../../../../../state/usergroups/actions";
-import { GroupPermissions } from "./GroupPermissions";
+import { GroupPermissions } from "../editPermissions/GroupPermissions";
 
 export const EditGroup = () => {
   const dispatch = useDispatch();

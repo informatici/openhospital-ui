@@ -3,44 +3,15 @@ import React, { useMemo } from "react";
 import { PermissionDTO } from "../../../../../generated";
 import { AclPermissionCheckbox } from "./AclPermissionCheckbox";
 import classes from "./AclTable.module.scss";
+import { Crud, groupPermissions } from "./permission.utils";
 
 interface IProps {
   permissions: PermissionDTO[];
   userGroupId: string;
+  onChange: (permission: PermissionDTO) => void;
 }
 
-enum Crud {
-  CREATE = "create",
-  READ = "read",
-  UPDATE = "update",
-  DELETE = "delete",
-}
-
-export const groupPermissions = (
-  permissions: PermissionDTO[]
-): Map<string, Record<Crud, PermissionDTO>> => {
-  let permissionNames = new Map();
-  for (let i = 0; i < permissions.length; i++) {
-    const matches =
-      permissions[i].name &&
-      /([a-z]+)\.(create|read|update|delete)$/.exec(permissions[i].name || "");
-    // no match: skip
-    if (!matches) continue;
-    const [, key, access] = matches;
-
-    if (!!permissionNames.get(key)?.[access]) {
-      throw new Error(`duplicate permission ${key}.${access}`);
-    }
-
-    permissionNames.set(key, {
-      ...permissionNames.get(key),
-      [access]: permissions[i],
-    });
-  }
-  return permissionNames;
-};
-
-export const AclTable = ({ permissions, userGroupId }: IProps) => {
+export const AclTable = ({ permissions, userGroupId, onChange }: IProps) => {
   const crudPermissions = useMemo(() => {
     return groupPermissions(permissions);
   }, [permissions]);
@@ -69,12 +40,12 @@ export const AclTable = ({ permissions, userGroupId }: IProps) => {
                     <td key={index}>
                       <AclPermissionCheckbox
                         permission={crudPermission[access]}
-                        onChange={() => console.log}
-                        thisGroup={userGroupId}
+                        onChange={onChange}
+                        thisGroupId={userGroupId}
                       />
                     </td>
                   ) : (
-                    <td className={classes.empty}>
+                    <td key={index} className={classes.empty}>
                       <span>∅</span>
                     </td>
                   );

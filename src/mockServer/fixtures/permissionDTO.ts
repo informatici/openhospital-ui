@@ -7,6 +7,9 @@ export const permissionDTO: PermissionDTO[] = Array.from(permissionList).map(
     name: permissionName,
     id: i,
     description: "",
-    userGroupIds: ["admin", userGroupsDTO[i % userGroupsDTO.length].code],
+    userGroupIds: [
+      userGroupsDTO[0].code, //admin
+      userGroupsDTO[(i + 1) % (userGroupsDTO.length - 1)].code, //others
+    ],
   })
 );
