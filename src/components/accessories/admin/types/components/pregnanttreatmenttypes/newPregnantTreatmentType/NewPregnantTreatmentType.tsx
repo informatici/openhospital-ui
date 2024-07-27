@@ -27,7 +27,7 @@ export const NewPregnantTreatmentType = () => {
 
   return (
     <div className="newPregnantTreatmentType">
-      <h3 className="title">
+      <h3 data-cy="sub-activity-title" className="title">
         {t("pregnantTreatmentTypes.addPregnantTreatmentType")}
       </h3>
       <PregnantTreatmentTypeForm

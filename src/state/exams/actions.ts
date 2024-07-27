@@ -12,6 +12,18 @@ import {
   GET_EXAM_FAIL,
   GET_EXAM_LOADING,
   GET_EXAM_SUCCESS,
+  CREATE_EXAM_FAIL,
+  CREATE_EXAM_LOADING,
+  CREATE_EXAM_RESET,
+  CREATE_EXAM_SUCCESS,
+  DELETE_EXAM_FAIL,
+  DELETE_EXAM_LOADING,
+  DELETE_EXAM_SUCCESS,
+  DELETE_EXAM_RESET,
+  UPDATE_EXAM_FAIL,
+  UPDATE_EXAM_LOADING,
+  UPDATE_EXAM_RESET,
+  UPDATE_EXAM_SUCCESS,
 } from "./consts";
 
 const examsApi = new ExamsApi(customConfiguration());
@@ -45,6 +57,95 @@ export const getExams =
         });
       }
     );
+  };
+
+export const deleteExam =
+  (code: string) =>
+  (dispatch: Dispatch<IAction<boolean, {}>>): void => {
+    dispatch({ type: DELETE_EXAM_LOADING });
+    examsApi.deleteExam1({ code }).subscribe(
+      (payload: boolean) => {
+        dispatch({
+          type: DELETE_EXAM_SUCCESS,
+          payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: DELETE_EXAM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createExam =
+  (examDTO: ExamDTO) =>
+  (dispatch: Dispatch<IAction<ExamDTO, {}>>): void => {
+    dispatch({
+      type: CREATE_EXAM_LOADING,
+    });
+    examsApi.newExam({ examDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: CREATE_EXAM_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: CREATE_EXAM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const createExamReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: CREATE_EXAM_RESET,
+    });
+  };
+
+export const deleteExamReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_EXAM_RESET,
+    });
+  };
+
+export const updateExam =
+  (examDTO: ExamDTO) =>
+  (
+    dispatch: Dispatch<IAction<{ code: string; examDTO: ExamDTO }, {}>>
+  ): void => {
+    dispatch({
+      type: UPDATE_EXAM_LOADING,
+    });
+    examsApi.updateExams({ code: examDTO.code!, examDTO }).subscribe(
+      (payload) => {
+        dispatch({
+          type: UPDATE_EXAM_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: UPDATE_EXAM_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+export const updateExamReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: UPDATE_EXAM_RESET,
+    });
   };
 
 export const getExamRows =

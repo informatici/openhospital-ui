@@ -9,7 +9,7 @@ import { updatePregnantTreatmentType } from "../../../../../../../state/types/pr
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
 import PregnantTreatmentTypeForm from "../pregnantTreatmentTypeForm/PregnantTreatmentTypeForm";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditPregnantTreatmentType = () => {
@@ -22,6 +22,10 @@ export const EditPregnantTreatmentType = () => {
     (state) => state.types.pregnantTreatment.update
   );
 
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
+
   const handleSubmit = (value: PregnantTreatmentTypeDTO) => {
     if (code) {
       dispatch(updatePregnantTreatmentType(value, code));
@@ -29,8 +33,10 @@ export const EditPregnantTreatmentType = () => {
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_pregnant_treatment_types} />;
@@ -38,7 +44,7 @@ export const EditPregnantTreatmentType = () => {
 
   return (
     <div className="editPregnantTreatmentType">
-      <h3 className="title">
+      <h3 data-cy="sub-activity-title" className="title">
         {t("pregnantTreatmentTypes.editPregnantTreatmentType")}
       </h3>
       <PregnantTreatmentTypeForm

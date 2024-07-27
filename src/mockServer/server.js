@@ -58,10 +58,11 @@ export function makeServer() {
     admissionTypesRoutes(server);
     dischargeTypesRoutes(server);
     wardsRoutes(server);
-    examRoutes(server);
     examTypesRoutes(server);
+    examRoutes(server);
     labRoutes(server);
     examRowRoutes(server);
+    labRoutes(server);
     pricesRoutes(server);
     billRoutes(server);
     operationRoutes(server);
