@@ -7,10 +7,14 @@ import { AreaAccess } from "./AreaAccess";
 interface IProps {
   permissions: PermissionDTO[];
   thisGroupId: string;
+  setDirty: (v: boolean) => void;
+  update: (a: any) => void; // TODO: rename this
 }
 export const GroupPermissionsEditor = ({
   permissions,
   thisGroupId,
+  setDirty,
+  update,
 }: IProps) => {
   const [permissionsStack, setPermissionsStack] = useState<PermissionDTO[]>([]);
   const [permissionsState, setPermissionsState] = useState<PermissionDTO[]>([]);
@@ -20,6 +24,7 @@ export const GroupPermissionsEditor = ({
   }, [permissions]);
 
   const handleChange = (newPermission: PermissionDTO) => {
+    setDirty(true);
     const otherPermissions = permissionsStack.filter(
       ({ id }) => id !== newPermission.id
     );
@@ -28,6 +33,7 @@ export const GroupPermissionsEditor = ({
       perm.id === newPermission.id ? newPermission : perm
     );
     setPermissionsState(newState);
+    update(newPermission);
   };
 
   return (
@@ -45,7 +51,7 @@ export const GroupPermissionsEditor = ({
         userGroupId={thisGroupId}
         onChange={handleChange}
       />
-      {permissionsStack.length && (
+      {permissionsStack.length > 0 && (
         <p>
           Editing permissions: {permissionsStack.map(({ id }) => id).join(",")}
         </p>

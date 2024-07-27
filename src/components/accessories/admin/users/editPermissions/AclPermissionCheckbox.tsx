@@ -50,8 +50,6 @@ export const AclPermissionCheckbox = ({
           }}
         >
           {permission.name || "unknown"}
-          {/**- TODO REMOVE DEBUG */}
-          &bull;{permission.userGroupIds.join(",")} {thisGroupId}
         </span>
       </Popper>
     </>

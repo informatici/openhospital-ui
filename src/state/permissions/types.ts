@@ -3,4 +3,5 @@ import { ApiResponse } from "../types";
 
 export type IPermissionsState = {
   getAll: ApiResponse<Array<PermissionDTO>>;
+  update: ApiResponse<PermissionDTO>;
 };

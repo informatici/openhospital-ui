@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,7 @@ export const EditGroup = () => {
   const create = useSelector<IState, ApiResponse<UserGroupDTO>>(
     (state) => state.usergroups.create
   );
+  const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -90,13 +91,18 @@ export const EditGroup = () => {
             />
           </div>
         </div>
-        <GroupPermissions userGroupId={values.code} />
+        <GroupPermissions
+          userGroupId={values.code}
+          setDirty={setDirtyPermissions}
+        />
         <div className="newGroupForm__buttonSet">
           <div className="submit_button">
             <Button
               type="submit"
               variant="contained"
-              disabled={!!create.isLoading || !isValid || !dirty}
+              disabled={
+                !!create.isLoading || !isValid || !(dirty || dirtyPermissions)
+              }
             >
               {t("common.save")}
             </Button>
@@ -105,7 +111,7 @@ export const EditGroup = () => {
             <Button
               type="reset"
               variant="text"
-              disabled={!!create.isLoading || !dirty}
+              disabled={!!create.isLoading || !(dirty || dirtyPermissions)}
               onClick={async () => {
                 resetForm();
               }}
