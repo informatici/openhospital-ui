@@ -12,6 +12,10 @@ import {
   UPDATE_USERGROUP_LOADING,
   UPDATE_USERGROUP_SUCCESS,
   UPDATE_USERGROUP_RESET,
+  DELETE_USERGROUP_FAIL,
+  DELETE_USERGROUP_LOADING,
+  DELETE_USERGROUP_SUCCESS,
+  DELETE_USERGROUP_RESET,
 } from "./consts";
 import { initial } from "./initial";
 import { IUserGroupState } from "./types";
@@ -94,6 +98,34 @@ export default produce((draft: IUserGroupState, action: IAction<any, any>) => {
       draft.update.status = "IDLE";
       delete draft.update.error;
       delete draft.update.data;
+      break;
+    }
+    /**
+     * DELETE_GROUP
+     */
+
+    case DELETE_USERGROUP_LOADING: {
+      draft.delete.status = "LOADING";
+      break;
+    }
+
+    case DELETE_USERGROUP_SUCCESS: {
+      draft.delete.status = "SUCCESS";
+      draft.delete.data = action.payload;
+      delete draft.delete.error;
+      break;
+    }
+
+    case DELETE_USERGROUP_FAIL: {
+      draft.delete.status = "FAIL";
+      draft.delete.error = action.error;
+      break;
+    }
+
+    case DELETE_USERGROUP_RESET: {
+      draft.delete.status = "IDLE";
+      delete draft.delete.error;
+      delete draft.delete.data;
       break;
     }
   }

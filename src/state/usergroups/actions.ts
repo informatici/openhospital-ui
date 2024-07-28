@@ -16,6 +16,10 @@ import {
   UPDATE_USERGROUP_FAIL,
   UPDATE_USERGROUP_SUCCESS,
   UPDATE_USERGROUP_RESET,
+  DELETE_USERGROUP_LOADING,
+  DELETE_USERGROUP_FAIL,
+  DELETE_USERGROUP_SUCCESS,
+  DELETE_USERGROUP_RESET,
 } from "./consts";
 
 const usersApi = new UsersApi(customConfiguration());
@@ -106,5 +110,35 @@ export const updateUserGroupReset =
   (dispatch: Dispatch<IAction<null, {}>>): void => {
     dispatch({
       type: UPDATE_USERGROUP_RESET,
+    });
+  };
+
+export const deleteUserGroup =
+  (groupCode: string) =>
+  (dispatch: Dispatch<IAction<boolean, {}>>): void => {
+    dispatch({
+      type: DELETE_USERGROUP_LOADING,
+    });
+    usersApi.deleteGroup({ groupCode }).subscribe(
+      (payload) => {
+        dispatch({
+          type: DELETE_USERGROUP_SUCCESS,
+          payload: payload,
+        });
+      },
+      (error) => {
+        dispatch({
+          type: DELETE_USERGROUP_FAIL,
+          error: error?.response,
+        });
+      }
+    );
+  };
+
+export const deleteUserGroupReset =
+  () =>
+  (dispatch: Dispatch<IAction<null, {}>>): void => {
+    dispatch({
+      type: DELETE_USERGROUP_RESET,
     });
   };

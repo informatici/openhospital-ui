@@ -15,6 +15,7 @@ import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 import { UserGroupDTO, PermissionDTO } from "../../../../../generated";
 import { PATHS } from "../../../../../consts";
+import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
 import { userGroupSchema } from "./validation";
 import { TabOptions } from "../Users";
@@ -37,6 +38,7 @@ export const EditGroup = () => {
   const navigate = useNavigate();
   const { state }: { state: UserGroupDTO } = useLocation();
   const { id } = useParams();
+  const canUpdatePermissions = usePermission("grouppermission.update");
 
   const update = useSelector<IState, ApiResponse<UserGroupDTO>>(
     (state) => state.usergroups.update
@@ -88,7 +90,6 @@ export const EditGroup = () => {
   });
 
   useEffect(() => {
-    console.log('useeffect')
     dispatch(getAllPermissions());
     return () => {
       dispatch(updateUserGroupReset());
@@ -139,12 +140,15 @@ export const EditGroup = () => {
             />
           </div>
         </div>
-        <GroupPermissionsEditor
-          permissions={permissionsInitialState.data?? []}
-          thisGroupId={values.code as string}
-          setDirty={setDirtyPermissions}
-          update={handleUpdatePermissions}
-        />
+
+        {canUpdatePermissions && (
+          <GroupPermissionsEditor
+            permissions={permissionsInitialState.data ?? []}
+            thisGroupId={values.code as string}
+            setDirty={setDirtyPermissions}
+            update={handleUpdatePermissions}
+          />
+        )}
 
         <div className="newGroupForm__item fullWidth">
           {permissionsStack.length > 0 && (
