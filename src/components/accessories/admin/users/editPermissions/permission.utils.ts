@@ -66,8 +66,8 @@ export const filterChangedGroupsPermissions = (
       ({ id }) => stackedPermissions[index].id === id
     );
     if (
-      reference?.userGroupIds.sort().join(" ") !==
-      stackedPermissions[index].userGroupIds.sort().join(" ")
+      [...reference!.userGroupIds].sort().join(" ") !==
+      [...stackedPermissions[index].userGroupIds].sort().join(" ")
     )
       filteredPermissions = [...filteredPermissions, stackedPermissions[index]];
   }

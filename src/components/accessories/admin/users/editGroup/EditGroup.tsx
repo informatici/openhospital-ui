@@ -8,6 +8,8 @@ import { Navigate, useLocation, useParams } from "react-router";
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
 import InfoBox from "../../../infoBox/InfoBox";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../../assets/check-icon.png";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
@@ -50,10 +52,12 @@ export const EditGroup = () => {
     const otherPermissions = permissionsStack.filter(
       ({ id }) => id !== newPermission.id
     );
-    
+
     setPermissionsStack([
       ...otherPermissions,
-      ...filterChangedGroupsPermissions(permissionsInitialState.data!, [newPermission])
+      ...filterChangedGroupsPermissions(permissionsInitialState.data!, [
+        newPermission,
+      ]),
     ]);
   };
 
@@ -84,14 +88,13 @@ export const EditGroup = () => {
   });
 
   useEffect(() => {
-    if (update.hasSucceeded)
-      navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
+    console.log('useeffect')
     dispatch(getAllPermissions());
     return () => {
       dispatch(updateUserGroupReset());
       dispatch(updatePermissionReset());
     };
-  }, [update.hasSucceeded, dispatch, navigate]);
+  }, [dispatch]);
 
   if (state?.code !== id) {
     return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
@@ -137,22 +140,33 @@ export const EditGroup = () => {
           </div>
         </div>
         <GroupPermissionsEditor
-          permissions={permissionsInitialState.data}
+          permissions={permissionsInitialState.data?? []}
           thisGroupId={values.code as string}
           setDirty={setDirtyPermissions}
           update={handleUpdatePermissions}
         />
 
-        {permissionsStack.length > 0 && (
-          <p>
-            <code>
-              Editing permissions:{" "}
-              {permissionsStack.map(({ id }) => id).join(",")}
-            </code>
-            <br />
-            {permissionsStack.length} permissions will be updated.
-          </p>
-        )}
+        <div className="newGroupForm__item fullWidth">
+          {permissionsStack.length > 0 && (
+            <p>
+              <code>
+                Editing permissions:{" "}
+                {permissionsStack.map(({ id }) => id).join(",")}
+              </code>
+              <br />
+              {permissionsStack.length} permissions will be updated.
+            </p>
+          )}
+          {update.hasFailed && (
+            <div className="info-box-container">
+              <InfoBox
+                type="error"
+                message={update.error?.message ?? t("common.somethingwrong")}
+              />
+            </div>
+          )}
+        </div>
+
         <div className="newGroupForm__buttonSet">
           <div className="submit_button">
             <Button
@@ -179,6 +193,17 @@ export const EditGroup = () => {
           </div>
         </div>
       </form>
+      <ConfirmationDialog
+        isOpen={update.hasSucceeded}
+        title={t("user.groupUpdated")}
+        icon={checkIcon}
+        info={t("user.groupUpdateSuccess")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => {
+          navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
+        }}
+        handleSecondaryButtonClick={() => ({})}
+      />
     </div>
   );
 };

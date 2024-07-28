@@ -6,6 +6,9 @@ import { useTranslation } from "react-i18next";
 
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
+import InfoBox from "../../../infoBox/InfoBox";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import checkIcon from "../../../../../assets/check-icon.png";
 
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
@@ -52,12 +55,10 @@ export const NewGroup = () => {
   });
 
   useEffect(() => {
-    if (create.hasSucceeded)
-      navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
     return () => {
       dispatch(createUserGroupReset());
     };
-  }, [create.hasSucceeded, dispatch, navigate]);
+  }, [dispatch]);
 
   return (
     <div className="newGroupForm">
@@ -85,7 +86,17 @@ export const NewGroup = () => {
             />
           </div>
         </div>
-        You can edit a group's permission once you created it
+        <div className="newGroupForm__item fullWidth">
+          <p>You can edit a group's permission once you created it.</p>
+          {create.hasFailed && (
+            <div className="info-box-container">
+              <InfoBox
+                type="error"
+                message={create.error?.message ?? t("common.somethingwrong")}
+              />
+            </div>
+          )}
+        </div>
         <div className="newGroupForm__buttonSet">
           <div className="submit_button">
             <Button
@@ -110,6 +121,17 @@ export const NewGroup = () => {
           </div>
         </div>
       </form>
+      <ConfirmationDialog
+        isOpen={create.hasSucceeded}
+        title={t("user.groupCreated")}
+        icon={checkIcon}
+        info={t("user.groupCreateSuccess")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => {
+          navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
+        }}
+        handleSecondaryButtonClick={() => ({})}
+      />
     </div>
   );
 };
