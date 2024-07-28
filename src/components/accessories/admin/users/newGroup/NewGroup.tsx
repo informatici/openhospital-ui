@@ -87,7 +87,7 @@ export const NewGroup = () => {
           </div>
         </div>
         <div className="newGroupForm__item fullWidth">
-          <p>You can edit a group's permission once you created it.</p>
+          <p>{t("user.groupPermissionsOnlyOnUpdate")}</p>
           {create.hasFailed && (
             <div className="info-box-container">
               <InfoBox
