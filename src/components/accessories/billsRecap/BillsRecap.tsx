@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { FullBillDTO } from "../../../generated";
 import { getBillsByYear, searchBills } from "../../../state/bills";
 import { IState } from "../../../types";

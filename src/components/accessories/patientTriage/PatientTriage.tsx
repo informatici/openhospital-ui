@@ -1,6 +1,6 @@
 import { default as React, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
@@ -117,7 +117,12 @@ const PatientTriage: FC = () => {
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
-      dispatch(updateExamination(triageToEdit.pex_ID, triage));
+      dispatch(
+        updateExamination({
+          id: triageToEdit.pex_ID,
+          patientExaminationDTO: triage,
+        })
+      );
     } else {
       dispatch(createExamination(triage));
     }
@@ -135,8 +140,10 @@ const PatientTriage: FC = () => {
   };
 
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteExamination(code));
+    if (code) {
+      setDeletedObjCode(code.toString());
+      dispatch(deleteExamination(code));
+    }
   };
 
   const onEdit = (row: any) => {

@@ -9,6 +9,9 @@ export const patientSlice = createSlice({
     getPatientsReset: (state) => {
       state.getPatients = initial.getPatients;
     },
+    getPatientReset: (state) => {
+      state.selectedPatient = initial.selectedPatient;
+    },
     searchPatientsReset: (state) => {
       state.searchResults = initial.searchResults;
     },
@@ -97,6 +100,7 @@ export const patientSlice = createSlice({
 
 export const {
   getPatientsReset,
+  getPatientReset,
   searchPatientsReset,
   createPatientReset,
   updatePatientReset,

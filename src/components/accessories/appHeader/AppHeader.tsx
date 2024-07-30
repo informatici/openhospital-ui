@@ -10,11 +10,11 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, TProps } from "./types";
+import { IOwnProps } from "./types";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { IState } from "../../../types";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { setLogoutThunk } from "../../../state/main";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { setLogout } from "../../../state/main";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
@@ -24,10 +24,7 @@ import { usePermission } from "../../../libraries/permissionUtils/usePermission"
 import { getHospital } from "../../../state/hospital";
 import { HospitalDTO } from "../../../generated";
 
-const AppHeader: FunctionComponent<TProps> = ({
-  breadcrumbMap,
-  setLogoutThunk,
-}) => {
+const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
   const dispatch = useDispatch();
@@ -53,7 +50,7 @@ const AppHeader: FunctionComponent<TProps> = ({
   const showHelp = useShowHelp();
   const handleLogout = () => {
     setOpenLogoutConfirmation(false);
-    setLogoutThunk();
+    dispatch(setLogout());
   };
   const navigate = useNavigate();
 
@@ -194,12 +191,4 @@ const AppHeader: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  status: state.main.logout.status || "IDLE",
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  setLogoutThunk,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
+export default AppHeader;

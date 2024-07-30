@@ -1,7 +1,7 @@
 import { debounce } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import "./styles.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { searchPatient } from "../../../state/patients";
 import { IState } from "../../../types";
 import { PatientDTO } from "../../../generated";

@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";

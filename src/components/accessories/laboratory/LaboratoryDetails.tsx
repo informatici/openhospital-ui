@@ -2,7 +2,7 @@ import { Person, Notes, AssignmentInd } from "@mui/icons-material";
 import { isEmpty } from "lodash";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";

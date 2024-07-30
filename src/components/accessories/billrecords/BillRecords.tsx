@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { BillPaymentsDTO, FullBillDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -265,7 +265,7 @@ const BillRecords = () => {
         primaryButtonLabel="YES"
         secondaryButtonLabel="NO"
         handlePrimaryButtonClick={() => {
-          dispatch(closeBill(selectedObj.code, selectedObj));
+          dispatch(closeBill({ id: selectedObj.code, bill: selectedObj }));
           setOpenCloseBillDialog(false);
         }}
         handleSecondaryButtonClick={() => setOpenCloseBillDialog(false)}

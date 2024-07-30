@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IDeliveryTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IDeliveryTypesState } from "../../../../../../../state/types/deliveries/types";

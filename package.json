@@ -120,6 +120,7 @@
     "@types/jest": "^29.5.12",
     "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14.202",
+    "@types/module-alias": "^2.0.4",
     "@types/node": "^12.20.55",
     "@types/node-fetch": "^2.5.10",
     "@types/pdfmake": "^0.2.2",
@@ -138,12 +139,16 @@
     "cypress": "^13.13.1",
     "cypress-file-upload": "^5.0.8",
     "eslint-plugin-cypress": "^2.15.2",
+    "module-alias": "^2.2.3",
     "prop-types": "^15.8.1",
     "react-scripts": "^5.0.1",
     "start-server-and-test": "^2.0.3",
     "storybook": "^7.6.15",
     "storybook-addon-material-ui": "^0.9.0-alpha.24",
-    "typescript": "^5.5.4",
+    "typescript": "^5.2.2",
     "webpack": "^5.76.0"
+  },
+  "_moduleAliases": {
+    "@": "./dist"
   }
 }

@@ -8,12 +8,12 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import { default as React, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
-import { setAuthenticationThunk } from "../../../state/main";
+import { setAuthentication } from "../../../state/main";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
@@ -41,7 +41,7 @@ const LoginActivity: FC = () => {
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      dispatch(setAuthenticationThunk(values.username, values.password));
+      dispatch(setAuthentication(values));
     },
   });
 

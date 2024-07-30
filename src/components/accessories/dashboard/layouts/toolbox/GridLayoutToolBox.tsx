@@ -1,6 +1,6 @@
 import { FC } from "react";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
 import {

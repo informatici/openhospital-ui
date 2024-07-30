@@ -19,7 +19,7 @@ import {
 const loginApi = new LoginApi(customConfiguration(false));
 const usersApi = new UsersApi(customConfiguration());
 
-export const setAuthenticationThunk = createAsyncThunk(
+export const setAuthentication = createAsyncThunk(
   "main/getLayouts",
   async (payload: { username: string; password: string }, thunkApi) =>
     concat(
@@ -39,7 +39,7 @@ export const setAuthenticationThunk = createAsyncThunk(
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
-export const setLogoutThunk =
+export const setLogout =
   () =>
   (dispatch: Dispatch<IAction<void, {}>>): void => {
     dispatch(setLogoutLoading());

@@ -14,7 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
 import { debounce, isEmpty } from "lodash";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../../types";
 
 const ExamRowTable: FC<IEditableTableProps> = ({

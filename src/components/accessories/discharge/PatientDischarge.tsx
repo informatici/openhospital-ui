@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
 import { AdmissionDTO } from "../../../generated";
@@ -10,13 +10,13 @@ import InfoBox from "../infoBox/InfoBox";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import {
-  getCurrentAdmissionByPatientId,
+  getCurrentAdmission,
   dischargePatient,
   dischargePatientReset,
 } from "../../../state/admissions";
 import { useFields } from "./useFields";
 import DischargeForm from "./dischargeForm/DischargeForm";
-import { getPatientThunk } from "../../../state/patients";
+import { getPatient } from "../../../state/patients";
 import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
@@ -66,7 +66,12 @@ const PatientDischarge: FC = () => {
         note: adm.note,
         admitted: 0,
       };
-      dispatch(dischargePatient(patient?.code, dischargeToSave));
+      dispatch(
+        dischargePatient({
+          patientCode: patient?.code ?? -1,
+          admissionDTO: dischargeToSave,
+        })
+      );
     }
   };
 
@@ -83,8 +88,8 @@ const PatientDischarge: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(getCurrentAdmissionByPatientId(patient?.code));
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
+      dispatch(getCurrentAdmission(patient?.code));
+      dispatch(getPatient((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
     }
@@ -98,7 +103,7 @@ const PatientDischarge: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+    dispatch(getCurrentAdmission(patient?.code));
   }, [patient, dispatch]);
 
   return (

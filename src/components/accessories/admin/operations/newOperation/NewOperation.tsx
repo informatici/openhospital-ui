@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import OperationForm from "../operationForm/OperationForm";
 import React from "react";
 import { getInitialFields } from "../operationForm/consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { OperationDTO } from "../../../../../generated";
 import { createOperation } from "../../../../../state/operations";
 import { IState } from "../../../../../types";

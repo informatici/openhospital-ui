@@ -22,7 +22,7 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IOperationProps } from "./types";
 import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";

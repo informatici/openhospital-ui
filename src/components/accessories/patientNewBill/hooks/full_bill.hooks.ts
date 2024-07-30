@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import {
   BillDTO,
   BillItemsDTO,
@@ -77,7 +77,7 @@ export const useFullBill = () => {
   const saveBill = useCallback(() => {
     creationMode
       ? dispatch(newBill(fullBill))
-      : dispatch(updateBill(bill.id ?? 0, fullBill));
+      : dispatch(updateBill({ id: bill.id ?? 0, fullBillDTO: fullBill }));
   }, [fullBill, creationMode, dispatch]);
 
   const { prices } = useItemPrices(pendings[0]?.bill?.listId);

@@ -3,7 +3,7 @@ import AdmissionForm from "./admissionForm/AdmissionForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
 import { AdmissionDTO, OpdDTO, PatientDTOStatusEnum } from "../../../generated";
@@ -13,12 +13,12 @@ import checkIcon from "../../../assets/check-icon.png";
 import {
   createAdmission,
   createAdmissionReset,
-  getCurrentAdmissionByPatientId,
+  getCurrentAdmission,
   updateAdmission,
   updateAdmissionReset,
 } from "../../../state/admissions";
 import { useFields } from "./useFields";
-import { getPatientThunk } from "../../../state/patients";
+import { getPatient } from "../../../state/patients";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import { isEmpty } from "lodash";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
@@ -161,12 +161,12 @@ const PatientAdmission: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
+      dispatch(getPatient((patient?.code ?? 0).toString()));
       setCreationMode(true);
       setAdmissionToEdit(undefined);
       dispatch(createAdmissionReset());
       dispatch(updateAdmissionReset());
-      dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(getCurrentAdmission(patient?.code));
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
@@ -182,7 +182,7 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+    dispatch(getCurrentAdmission(patient?.code));
   }, [patient, dispatch]);
 
   const onEdit = (row: AdmissionDTO) => {

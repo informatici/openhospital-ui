@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../types";
 
 /**

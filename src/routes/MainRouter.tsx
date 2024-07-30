@@ -11,7 +11,7 @@ import VisitsActivity from "../components/activities/visitsActivity/VisitsActivi
 import { Private } from "../components/Private";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
 import { PATHS } from "../consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../types";
 import { TAPIResponseStatus } from "../state/types";
 import { getUserSettings } from "../state/main";

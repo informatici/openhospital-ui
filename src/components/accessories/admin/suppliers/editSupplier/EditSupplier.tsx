@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { SupplierDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { IState } from "../../../../../types";

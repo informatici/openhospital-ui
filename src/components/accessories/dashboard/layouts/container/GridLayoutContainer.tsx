@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import { FC, useRef, useEffect, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import {
   addWidget,

@@ -1,7 +1,6 @@
 import { isEmpty } from "lodash";
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
@@ -12,7 +11,7 @@ import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   updatePatient,
   updatePatientReset,
-  getPatientThunk,
+  getPatient,
 } from "../../../state/patients";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -22,25 +21,22 @@ import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "../newPatientActivity/consts";
 import "./styles.scss";
-import {
-  IDispatchProps,
-  IStateProps,
-  TActivityTransitionState,
-  TProps,
-} from "./types";
+import { IStateProps, TActivityTransitionState } from "./types";
+import { useDispatch, useSelector } from "../../../libraries/hooks/redux";
 
-const EditPatientActivity: FunctionComponent<TProps> = ({
-  userCredentials,
-  isLoading,
-  updatePatient,
-  updatePatientReset,
-  hasSucceeded,
-  hasFailed,
-  patient,
-  getPatientThunk,
-}) => {
+const EditPatientActivity = () => {
+  const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
+
+  const { userCredentials, isLoading, hasSucceeded, hasFailed, patient } =
+    useSelector<IState, IStateProps>((state) => ({
+      userCredentials: state.main.authentication.data,
+      isLoading: state.patients.updatePatient.status === "LOADING",
+      hasSucceeded: state.patients.updatePatient.status === "SUCCESS",
+      hasFailed: state.patients.updatePatient.status === "FAIL",
+      patient: state.patients.selectedPatient,
+    }));
 
   // Reset patient update state to avoid error displaying
   // in patient details activity.
@@ -53,9 +49,9 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE" && id) {
-      getPatientThunk(id);
+      dispatch(getPatient(id));
     }
-  }, [patient, id, getPatientThunk]);
+  }, [patient, id, getPatient]);
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -75,12 +71,17 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   const onSubmit = (updatePatientValues: PatientDTO) => {
     if (patient?.data?.code)
-      updatePatient(patient?.data?.code, {
-        ...updatePatientValues,
-        code: patient?.data?.code,
-        allergies: patient.data?.allergies,
-        anamnesis: patient.data?.anamnesis,
-      });
+      dispatch(
+        updatePatient({
+          code: patient?.data?.code,
+          patientDTO: {
+            ...updatePatientValues,
+            code: patient?.data?.code,
+            allergies: patient.data?.allergies,
+            anamnesis: patient.data?.anamnesis,
+          },
+        })
+      );
     else
       console.error(
         'The Patient: PatientDTO object must have a "code" property.'
@@ -94,21 +95,21 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id!);
+      getPatient(id!);
     }
-  }, [patient, id, getPatientThunk]);
+  }, [patient, id, getPatient]);
 
   useEffect(() => {
     console.log(activityTransitionState);
     if (activityTransitionState === "TO_PATIENT") {
-      getPatientThunk(id!);
+      getPatient(id!);
       updatePatientReset();
       setShouldResetForm(true);
     } else if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
       setActivityTransitionState("IDLE");
     }
-  }, [activityTransitionState, updatePatientReset, getPatientThunk, id]);
+  }, [activityTransitionState, updatePatientReset, getPatient, id]);
 
   useEffect(() => {
     setOpenConfirmationMessage(hasSucceeded);
@@ -191,21 +192,4 @@ const EditPatientActivity: FunctionComponent<TProps> = ({
   }
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-  isLoading: state.patients.updatePatient.status === "LOADING",
-  hasSucceeded: state.patients.updatePatient.status === "SUCCESS",
-  hasFailed: state.patients.updatePatient.status === "FAIL",
-  patient: state.patients.selectedPatient,
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  getPatientThunk,
-  updatePatientReset,
-  updatePatient,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditPatientActivity);
+export default EditPatientActivity;

@@ -9,12 +9,12 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { PatientDTO } from "../../../generated";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import checkIcon from "../../../assets/check-icon.png";
 import {
-  getPatientThunk,
+  getPatient,
   updatePatient,
   updatePatientReset,
 } from "../../../state/patients";
@@ -42,7 +42,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
   );
   const onSubmit = (values: PatientDTO) => {
     if (values.code) {
-      dispatch(updatePatient(values.code, values));
+      dispatch(updatePatient({ code: values.code, patientDTO: values }));
     }
   };
   const status = useSelector<IState, TAPIResponseStatus | undefined>(
@@ -75,7 +75,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
       setEditionMode(false);
       dispatch(updatePatientReset());
       if (patient?.code) {
-        dispatch(getPatientThunk(patient?.code?.toString()));
+        dispatch(getPatient(patient?.code?.toString()));
       }
       formik.resetForm();
       setActivityTransitionState("IDLE");

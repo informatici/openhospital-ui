@@ -4,7 +4,7 @@ import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { TProps } from "./types";
 import { IState } from "../../../types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { getHospital } from "../../../state/hospital";
 import { HospitalDTO } from "../../../generated";
 

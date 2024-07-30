@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import VaccinesTable from "./vaccinesTable";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
 import {
   deleteVaccine,

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
 import { PATHS } from "../../../consts";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -17,6 +16,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
+import { useSelector } from "../../../libraries/hooks/redux";
 
 const AdminActivity = () => {
   const [expanded, setExpanded] = useState(false);

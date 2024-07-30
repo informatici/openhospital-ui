@@ -10,14 +10,6 @@ export interface IStateProps {
   patient: ApiResponse<PatientDTO>;
 }
 
-export interface IDispatchProps {
-  getPatientThunk: (id: string) => void;
-  updatePatientReset: () => any;
-  updatePatient: (code: number, updatePatient: PatientDTO) => void;
-}
-
-export type TProps = IStateProps & IDispatchProps;
-
 export type TActivityTransitionState =
   | "IDLE"
   | "TO_KEEP_EDITING"

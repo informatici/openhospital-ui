@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import VaccineForm from "../vaccineForm/VaccineForm";
 import React from "react";
 import { getInitialFields } from "../vaccineForm/consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { VaccineDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { updateVaccine } from "../../../../../state/vaccines";

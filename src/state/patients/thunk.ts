@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { PatientDTO, PatientsApi } from "../../generated";
+import { PatientDTO, PatientsApi, UpdatePatientRequest } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import moment from "moment";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
@@ -69,7 +69,7 @@ export const createPatient = createAsyncThunk(
 
 export const updatePatient = createAsyncThunk(
   "patients/updatePatient",
-  async (payload: { code: number; patientDTO: PatientDTO }, thunkApi) =>
+  async (payload: UpdatePatientRequest, thunkApi) =>
     api
       .updatePatient(payload)
       .toPromise()

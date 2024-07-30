@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { VisitDTO } from "../../../generated";
@@ -91,9 +91,12 @@ const PatientVisit: FunctionComponent = () => {
     if (patient) visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
       dispatch(
-        updateVisit(visitToEdit.visitID, {
-          ...visitToEdit,
-          ...visitValuesToSave,
+        updateVisit({
+          visitID: visitToEdit.visitID,
+          visitDTO: {
+            ...visitToEdit,
+            ...visitValuesToSave,
+          },
         })
       );
     } else dispatch(createVisit({ ...visitValuesToSave, visitID: 0 }));

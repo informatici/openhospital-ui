@@ -6,11 +6,8 @@ export const configSlice = createSlice({
   name: "config",
   initialState: initial,
   reducers: {
-    setTypeMode: (
-      state,
-      { payload: { mode } }: PayloadAction<{ mode: TypeMode }>
-    ) => {
-      state.mode = mode;
+    setTypeMode: (state, { payload }: PayloadAction<TypeMode>) => {
+      state.mode = payload;
     },
     resetTypeMode: (state) => {
       state.mode = initial.mode;

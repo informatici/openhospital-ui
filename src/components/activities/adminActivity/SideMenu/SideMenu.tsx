@@ -16,10 +16,10 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import classes from "./SideMenu.module.scss";
 import { MenuItem } from "../../../accessories/menuItem";
-import { useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { HospitalDTO } from "../../../../generated";
 import { ApiResponse } from "../../../../state/types";
+import { useSelector } from "../../../../libraries/hooks/redux";
 
 const SideMenu = () => {
   const { t } = useTranslation();

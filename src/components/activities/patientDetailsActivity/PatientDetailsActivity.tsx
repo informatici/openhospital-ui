@@ -17,7 +17,7 @@ import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { getPatientThunk } from "../../../state/patients";
+import { getPatient } from "../../../state/patients";
 import { IState } from "../../../types";
 import {
   Accordion,
@@ -45,7 +45,7 @@ type ContextType = { status: string | null };
 const PatientDetailsActivity: FunctionComponent<TProps> = ({
   userCredentials,
   patient,
-  getPatientThunk,
+  getPatient,
 }) => {
   useEffect(() => {
     scrollToElement(null);
@@ -57,9 +57,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id!);
+      getPatient(id!);
     }
-  }, [patient, id, getPatientThunk]);
+  }, [patient, id, getPatient]);
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -391,7 +391,7 @@ const mapStateToProps = (state: IState): IStateProps => ({
 });
 
 const mapDispatchToProps: IDispatchProps = {
-  getPatientThunk,
+  getPatient,
 };
 
 export default connect(

@@ -5,7 +5,7 @@ import { CircularProgress } from "@mui/material";
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 import InfoBox from "../../../infoBox/InfoBox";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { getUsers } from "../../../../../state/users";
 import { IState } from "../../../../../types";
 import { UserDTO } from "../../../../../generated";

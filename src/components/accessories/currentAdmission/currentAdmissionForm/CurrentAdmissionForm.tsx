@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import {
   AdmissionTypeDTO,
   DiseaseDTO,
@@ -25,7 +25,7 @@ import {
 } from "../../../../libraries/formDataHandling/functions";
 import checkIcon from "../../../../assets/check-icon.png";
 import {
-  getPatientThunk,
+  getPatient,
   updatePatient,
   updatePatientReset,
 } from "../../../../state/patients";
@@ -133,7 +133,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     if (activityTransitionState === "TO_RESET") {
       dispatch(updateAdmissionReset());
       if (patient?.code) {
-        dispatch(getPatientThunk(patient?.code?.toString()));
+        dispatch(getPatient(patient?.code?.toString()));
       }
       onDiscard();
     }

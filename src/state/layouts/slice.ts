@@ -19,11 +19,8 @@ export const layoutSlice = createSlice({
        */
       state.resetLayouts.status = "SUCCESS";
     },
-    setBreakpoint: (
-      state,
-      { payload: { breakpoint } }: PayloadAction<{ breakpoint: string }>
-    ) => {
-      state.breakpoint = breakpoint;
+    setBreakpoint: (state, { payload }: PayloadAction<string>) => {
+      state.breakpoint = payload;
     },
     breakpointReset: (state) => {
       state.breakpoint = initial.breakpoint;

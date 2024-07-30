@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { TUserCredentials } from "../../../state/main/types";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
@@ -18,6 +17,7 @@ import ManageBillingActivityContent from "../manageBillingActivityContent/Manage
 
 import { TTabConfig } from "../../accessories/tabs/types";
 import { BillsRecap } from "../../accessories/billsRecap/BillsRecap";
+import { useSelector } from "../../../libraries/hooks/redux";
 
 const BillingActivity: FC = () => {
   const { t } = useTranslation();

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteDeliveryResultType,
   deleteDeliveryResultTypeReset,
-  getDeliveryResultType,
+  getDeliveryResultTypes,
 } from "../../../../../../state/types/deliveryResults";
 import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";
@@ -19,7 +19,7 @@ const DelevyResultType = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDeliveryResultType());
+    dispatch(getDeliveryResultTypes());
     dispatch(setTypeMode("manage"));
 
     return () => {

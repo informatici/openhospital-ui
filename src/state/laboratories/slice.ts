@@ -7,13 +7,13 @@ export const laboratorySlice = createSlice({
   name: "laboratories",
   initialState: initial,
   reducers: {
-    createLaboratoryReset: (state) => {
+    createLabReset: (state) => {
       state.createLab = initial.createLab;
     },
     createLabRequestReset: (state) => {
       state.createLabRequest = initial.createLabRequest;
     },
-    updateLaboratoryReset: (state) => {
+    updateLabReset: (state) => {
       state.updateLab = initial.updateLab;
     },
     updateLabStatusReset: (state) => {
@@ -165,9 +165,9 @@ export const laboratorySlice = createSlice({
 });
 
 export const {
-  createLaboratoryReset,
+  createLabReset,
   createLabRequestReset,
-  updateLaboratoryReset,
+  updateLabReset,
   updateLabStatusReset,
   cancelLabReset,
   deleteLabReset,

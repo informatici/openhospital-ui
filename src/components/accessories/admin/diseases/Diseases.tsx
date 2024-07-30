@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classes from "./Diseases.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { DiseaseDTO } from "../../../../generated";
 import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";

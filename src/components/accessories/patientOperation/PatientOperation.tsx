@@ -3,7 +3,7 @@ import OperationRowForm from "./operationForm/OperationRowForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../types";
 import { OperationRowTransitionState } from "./types";
 import { OpdDTO, OperationRowDTO, VisitDTO } from "../../../generated";
@@ -19,7 +19,7 @@ import {
   updateOperationRowReset,
 } from "../../../state/operations";
 import PatientOperationTable from "./operationTable/OperationRowTable";
-import { getCurrentAdmissionByPatientId } from "../../../state/admissions";
+import { getCurrentAdmission } from "../../../state/admissions";
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
 
@@ -121,7 +121,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+    dispatch(getCurrentAdmission(patient?.code));
   }, [patient, dispatch]);
 
   const onEdit = (row: OperationRowDTO) => {

@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
@@ -20,32 +19,33 @@ import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "./consts";
 import "./styles.scss";
-import {
-  IDispatchProps,
-  IStateProps,
-  TActivityTransitionState,
-  TProps,
-} from "./types";
+import { IStateProps, TActivityTransitionState, IOwnProps } from "./types";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 
-const NewPatientActivity: FunctionComponent<TProps> = ({
-  userCredentials,
-  createPatient,
-  createPatientReset,
-  isLoading,
-  hasSucceeded,
-  hasFailed,
+const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   dashboardRoute,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { userCredentials, isLoading, hasSucceeded, hasFailed } = useSelector<
+    IState,
+    IStateProps
+  >((state) => ({
+    userCredentials: state.main.authentication.data,
+    isLoading: state.patients.createPatient.status === "LOADING",
+    hasSucceeded: state.patients.createPatient.status === "SUCCESS",
+    hasFailed: state.patients.createPatient.status === "FAIL",
+  }));
+
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
     [t("nav.newpatient")]: PATHS.patients_new,
   };
 
   const onSubmit = (patient: PatientDTO) => {
-    createPatient(patient);
+    dispatch(createPatient(patient));
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -71,7 +71,7 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
       activityTransitionState === "TO_DASHBOARD" ||
       activityTransitionState === "TO_PATIENT_DASHBOARD"
     ) {
-      createPatientReset();
+      dispatch(createPatientReset());
       setShouldResetForm(true);
     }
   }, [activityTransitionState, createPatientReset]);
@@ -157,16 +157,4 @@ const NewPatientActivity: FunctionComponent<TProps> = ({
   }
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-  isLoading: state.patients.createPatient.status === "LOADING",
-  hasSucceeded: state.patients.createPatient.status === "SUCCESS",
-  hasFailed: state.patients.createPatient.status === "FAIL",
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  createPatient,
-  createPatientReset,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewPatientActivity);
+export default NewPatientActivity;

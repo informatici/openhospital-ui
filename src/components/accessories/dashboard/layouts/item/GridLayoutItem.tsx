@@ -2,7 +2,7 @@ import { FC, forwardRef } from "react";
 import { TDashboardWidgetProps, TGridLayoutItemProps } from "../types";
 import React from "react";
 import { AdmissionsByAgeType } from "../../admissions/admissionByAgeType/AdmissionByAgeType";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { AdmissionsBySex } from "../../admissions/admissionBySex/AdmissionBySex";
 import { AdmissionsByTypes } from "../../admissions/admissionByTypes/AdmissionByTypes";

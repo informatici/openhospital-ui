@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/libraries/hooks/redux";
 import { useData } from "../useData";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";

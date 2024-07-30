@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { Cancel } from "@mui/icons-material";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { useParams, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
@@ -17,7 +17,7 @@ import {
 } from "../../../state/laboratories";
 import { getExams } from "../../../state/exams";
 import ExamForm from "./examForm/ExamForm";
-import { getPatientThunk } from "../../../state/patients";
+import { getPatient } from "../../../state/patients";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const EditLaboratoryContent: FC = () => {
@@ -42,7 +42,7 @@ export const EditLaboratoryContent: FC = () => {
 
   useEffect(() => {
     if (labToEdit?.patientCode) {
-      dispatch(getPatientThunk(labToEdit.patientCode.toString()));
+      dispatch(getPatient(labToEdit.patientCode.toString()));
     }
   }, [labWithRows, dispatch, labToEdit?.patientCode]);
 

@@ -21,7 +21,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
   Accordion,

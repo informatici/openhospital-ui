@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -132,7 +132,7 @@ const ExamForm: FC<ExamProps> = ({
     lab.material = "Undefined";
 
     if (!creationMode && labToEdit.code) {
-      dispatch(updateLab(labToEdit.code, labWithRowsDTO));
+      dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
     } else {
       dispatch(createLab(labWithRowsDTO));
     }

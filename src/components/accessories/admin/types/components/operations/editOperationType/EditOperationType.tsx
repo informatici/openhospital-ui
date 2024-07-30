@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { OperationTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
@@ -22,7 +22,7 @@ export const EditOperationType = () => {
   );
 
   const handleSubmit = (code: string, value: OperationTypeDTO) => {
-    dispatch(updateOperationType(code, value));
+    dispatch(updateOperationType({ code, operationTypeDTO: value }));
   };
 
   useEffect(() => {

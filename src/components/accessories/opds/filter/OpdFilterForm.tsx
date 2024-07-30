@@ -31,7 +31,7 @@ import TextField from "../../textField/TextField";
 import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";

@@ -31,7 +31,7 @@ import { FIELD_VALIDATION, IState } from "../../../types";
 import moment from "moment";
 import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { getAgeTypes } from "../../../state/ageTypes";
 import { getCities } from "../../../state/patients";
 import { useNavigate } from "react-router-dom";

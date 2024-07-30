@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { OpdDTO, OpdWithOperationRowDTO, OpdsApi } from "../../generated";
+import {
+  OpdDTO,
+  OpdWithOperationRowDTO,
+  OpdsApi,
+  UpdateOpdWithOperationRowRequest,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { isEmpty } from "lodash";
 import moment from "moment";
@@ -104,10 +109,7 @@ export const updateOpd = createAsyncThunk(
 
 export const updateOpdWithOperationRow = createAsyncThunk(
   "opds/updateOpdWithOperationRow",
-  async (
-    payload: { code: number; opdWithOperationRowDTO: OpdWithOperationRowDTO },
-    thunkApi
-  ) =>
+  async (payload: UpdateOpdWithOperationRowRequest, thunkApi) =>
     api
       .updateOpdWithOperationRow(payload)
       .toPromise()

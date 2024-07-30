@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import DiseaseForm from "../diseaseForm/DiseaseForm";
 import React from "react";
 import { getInitialFields } from "../diseaseForm/consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { DiseaseDTO } from "../../../../../generated";
 import { createDisease } from "../../../../../state/diseases";
 import { IState } from "../../../../../types";

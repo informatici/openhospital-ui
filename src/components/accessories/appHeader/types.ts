@@ -7,13 +7,3 @@ export interface IOwnProps {
   userCredentials: TUserCredentials;
   breadcrumbMap: TBreadcrumbMap;
 }
-
-export interface IStateProps {
-  status: TAPIResponseStatus;
-}
-
-export interface IDispatchProps {
-  setLogoutThunk: () => void;
-}
-
-export type TProps = IOwnProps & IStateProps & IDispatchProps;

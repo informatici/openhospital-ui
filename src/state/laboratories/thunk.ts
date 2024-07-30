@@ -3,6 +3,7 @@ import {
   LaboratoryDTO,
   LaboratoriesApi,
   LabWithRowsDTO,
+  UpdateLaboratoryRequest,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import moment from "moment";
@@ -100,7 +101,7 @@ export const createLabRequest = createAsyncThunk(
 
 export const updateLab = createAsyncThunk(
   "laboratories/updateLab",
-  async (payload: { code: number; labWithRowsDTO: LabWithRowsDTO }, thunkApi) =>
+  async (payload: UpdateLaboratoryRequest, thunkApi) =>
     api
       .updateLaboratory(payload)
       .toPromise()

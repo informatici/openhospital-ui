@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { LabWithRowsDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";

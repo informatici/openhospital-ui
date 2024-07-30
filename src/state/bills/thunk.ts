@@ -5,6 +5,7 @@ import {
   BillPaymentsDTO,
   BillsApi,
   FullBillDTO,
+  UpdateBillRequest,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { TFilterValues } from "../../components/accessories/billTable/types";
@@ -69,7 +70,7 @@ export const newBill = createAsyncThunk(
 
 export const updateBill = createAsyncThunk(
   "bills/updateBill",
-  async (payload: { id: number; fullBillDTO: FullBillDTO }, thunkApi) =>
+  async (payload: UpdateBillRequest, thunkApi) =>
     api
       .updateBill(payload)
       .toPromise()

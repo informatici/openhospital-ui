@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { OpdWithOperationRowDTO } from "../../../generated";
 import {
   createOpdReset,
-  createOpdWithOperationsRows,
-  updateOpdWithOperationRows,
+  createOpdWithOperationsRow,
+  updateOpdWithOperationRow,
   updateOpdReset,
   deleteOpdReset,
 } from "../../../state/opds";
@@ -102,14 +102,17 @@ const PatientOPD: FunctionComponent = () => {
       const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
       if (!creationMode && opdToEdit.opdDTO?.code) {
         dispatch(
-          updateOpdWithOperationRows(opdToEdit.opdDTO?.code, {
-            opdDTO: opdToSave,
-            operationRows: opdValues.operationRows,
-          } as OpdWithOperationRowDTO)
+          updateOpdWithOperationRow({
+            code: opdToEdit.opdDTO?.code,
+            opdWithOperationRowDTO: {
+              opdDTO: opdToSave,
+              operationRows: opdValues.operationRows,
+            } as OpdWithOperationRowDTO,
+          })
         );
       } else {
         dispatch(
-          createOpdWithOperationsRows({
+          createOpdWithOperationsRow({
             opdDTO: { ...opdToSave, code: 0 },
             operationRows: opdValues.operationRows,
           })

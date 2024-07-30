@@ -7,7 +7,7 @@ export const mainSlice = createSlice({
   name: "main",
   initialState: initial,
   reducers: {
-    resetForgotPasswordThunk: (state) => {
+    resetForgotPassword: (state) => {
       state.forgotpassword = initial.forgotpassword;
     },
     setAuthenticationSuccess: (
@@ -31,14 +31,14 @@ export const mainSlice = createSlice({
   extraReducers: (builder) =>
     builder
       // Authentication
-      .addCase(thunks.setAuthenticationThunk.pending, (state) => {
+      .addCase(thunks.setAuthentication.pending, (state) => {
         state.authentication.status = "LOADING";
       })
-      .addCase(thunks.setAuthenticationThunk.fulfilled, (state, action) => {
+      .addCase(thunks.setAuthentication.fulfilled, (state, action) => {
         state.authentication.status = "SUCCESS";
         state.authentication.data = <IAuthentication>action.payload;
       })
-      .addCase(thunks.setAuthenticationThunk.rejected, (state, action) => {
+      .addCase(thunks.setAuthentication.rejected, (state, action) => {
         state.authentication.status = "FAIL";
         state.authentication.error = action.payload;
       })
@@ -56,7 +56,7 @@ export const mainSlice = createSlice({
 });
 
 export const {
-  resetForgotPasswordThunk,
+  resetForgotPassword,
   setAuthenticationSuccess,
   setLogoutLoading,
   setLogoutSuccess,

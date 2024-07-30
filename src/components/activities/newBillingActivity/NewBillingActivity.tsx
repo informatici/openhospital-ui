@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import "./styles.scss";
 
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/libraries/hooks/redux";
 import { IState } from "../../../types";
 import { TUserCredentials } from "../../../state/main/types";
 

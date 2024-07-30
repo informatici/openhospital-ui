@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { AdmissionDTO, OpdDTO } from "../../../generated";
 import { updateAdmission } from "../../../state/admissions";
 import { IState } from "../../../types";

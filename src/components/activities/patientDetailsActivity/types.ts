@@ -8,7 +8,7 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  getPatientThunk: (id: string) => void;
+  getPatient: (id: string) => void;
 }
 
 export type TProps = IStateProps & IDispatchProps;

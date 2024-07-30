@@ -7,13 +7,12 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import { default as React } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
 import {
   setForgotPasswordThunk,
-  resetForgotPasswordThunk,
+  resetForgotPassword,
 } from "../../../state/main";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
@@ -22,6 +21,7 @@ import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
 import { getHospital } from "../../../state/hospital";
+import { useDispatch, useSelector } from "../../../libraries/hooks/redux";
 
 const ForgotActivity: FC = () => {
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ const ForgotActivity: FC = () => {
   });
 
   const onResetForgotPassword = useCallback(() => {
-    dispatch(resetForgotPasswordThunk());
+    dispatch(resetForgotPassword());
   }, [dispatch]);
 
   const isValid = (fieldName: string): boolean => {

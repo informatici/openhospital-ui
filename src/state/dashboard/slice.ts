@@ -6,12 +6,9 @@ export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState: initial,
   reducers: {
-    setDashboardPeriod: (
-      state,
-      { payload: { period } }: PayloadAction<{ period: string[] }>
-    ) => {
-      localStorage.setItem(btoa("dfp"), btoa(JSON.stringify(period)));
-      state.period = period;
+    setDashboardPeriod: (state, { payload }: PayloadAction<string[]>) => {
+      localStorage.setItem(btoa("dfp"), btoa(JSON.stringify(payload)));
+      state.period = payload;
     },
     resetDashboardPeriod: (state) => {
       localStorage.removeItem(btoa("dfp"));

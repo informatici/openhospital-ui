@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { ExamTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
@@ -21,9 +21,9 @@ export const EditExamType = () => {
     (state) => state.types.exams.update
   );
 
-  const handleSubmit = (value: ExamTypeDTO) => {
+  const handleSubmit = (examTypeDTO: ExamTypeDTO) => {
     if (code) {
-      dispatch(updateExamType(value, code));
+      dispatch(updateExamType({ code, examTypeDTO }));
     }
   };
 

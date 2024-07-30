@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { IState } from "../../../types";
 import ExamForm from "./ExamForm/ExamForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/libraries/hooks/redux";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
 import checkIcon from "../../../assets/check-icon.png";
@@ -142,7 +142,7 @@ const PatientExams: FC = () => {
         : LaboratoryDTOStatusEnum.Open;
 
     if (!creationMode && labToEdit.code) {
-      dispatch(updateLab(labToEdit.code, labWithRowsDTO));
+      dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
     } else {
       dispatch(createLab(labWithRowsDTO));
     }
