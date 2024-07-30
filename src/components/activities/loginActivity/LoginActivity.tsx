@@ -13,14 +13,14 @@ import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
-import { setAuthenticationThunk } from "../../../state/main/actions";
+import { setAuthenticationThunk } from "../../../state/main";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
-import { getHospital } from "../../../state/hospital/actions";
+import { getHospital } from "../../../state/hospital";
 
 const LoginActivity: FC = () => {
   useAuthentication();

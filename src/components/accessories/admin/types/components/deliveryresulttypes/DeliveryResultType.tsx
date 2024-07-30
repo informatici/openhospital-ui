@@ -6,7 +6,7 @@ import {
   deleteDeliveryResultType,
   deleteDeliveryResultTypeReset,
   getDeliveryResultType,
-} from "../../../../../../state/types/deliveryResultType/actions";
+} from "../../../../../../state/types/deliveryResults";
 import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";
 import "./styles.scss";

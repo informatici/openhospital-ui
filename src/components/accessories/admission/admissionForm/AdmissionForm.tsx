@@ -22,8 +22,8 @@ import {
 import {
   getDiseasesIpdIn,
   getDiseasesIpdOut,
-} from "../../../../state/diseases/actions";
-import { getWards } from "../../../../state/ward/actions";
+} from "../../../../state/diseases";
+import { getWards } from "../../../../state/ward";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";

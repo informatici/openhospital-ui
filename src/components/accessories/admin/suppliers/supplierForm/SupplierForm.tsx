@@ -29,7 +29,7 @@ import { ISupplierState } from "../../../../../state/suppliers/types";
 import {
   createSupplierReset,
   updateSupplierReset,
-} from "../../../../../state/suppliers/actions";
+} from "../../../../../state/suppliers";
 import "./styles.scss";
 
 const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;

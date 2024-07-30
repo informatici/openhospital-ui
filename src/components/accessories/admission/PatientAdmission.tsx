@@ -16,13 +16,13 @@ import {
   getCurrentAdmissionByPatientId,
   updateAdmission,
   updateAdmissionReset,
-} from "../../../state/admissions/actions";
+} from "../../../state/admissions";
 import { useFields } from "./useFields";
-import { getPatientThunk } from "../../../state/patients/actions";
+import { getPatientThunk } from "../../../state/patients";
 import PatientAdmissionTable from "./admissionTable/AdmissionTable";
 import { isEmpty } from "lodash";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
-import { getLastOpd } from "../../../state/opds/actions";
+import { getLastOpd } from "../../../state/opds";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
 const PatientAdmission: FC = () => {
@@ -34,8 +34,9 @@ const PatientAdmission: FC = () => {
   const [creationMode, setCreationMode] = useState(true);
   const [isEditingCurrent, setIsEditingCurrent] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [admissionToEdit, setAdmissionToEdit] =
-    useState<AdmissionDTO | undefined>();
+  const [admissionToEdit, setAdmissionToEdit] = useState<
+    AdmissionDTO | undefined
+  >();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");

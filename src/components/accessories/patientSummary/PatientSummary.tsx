@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { getMedicals } from "../../../state/medicals/actions";
+import { getMedicals } from "../../../state/medicals";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import Tabs from "../tabs/Tabs";
 import { TTabConfig } from "../tabs/types";

@@ -3,7 +3,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { MedicalDTO } from "../../../../generated";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
-import { loadSummaryData } from "../../../../state/summary/actions";
+import { loadSummaryData } from "../../../../state/summary";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_DATE_PAGE_SIZE } from "../consts";

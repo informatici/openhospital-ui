@@ -10,7 +10,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getExamRows } from "../../../../state/exams/actions";
+import { getExamRows } from "../../../../state/exams";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";

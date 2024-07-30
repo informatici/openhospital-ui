@@ -11,7 +11,7 @@ import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
 import classes from "./WardTable.module.scss";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
-import { deleteWardReset } from "../../../../../state/ward/actions";
+import { deleteWardReset } from "../../../../../state/ward";
 import { TFilterField } from "../../../table/filter/types";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 

@@ -9,7 +9,7 @@ import { OperationDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./OperationTable.module.scss";
 import { TFilterField } from "../../../table/filter/types";
-import { deleteOperationReset } from "../../../../../state/operations/actions";
+import { deleteOperationReset } from "../../../../../state/operations";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";

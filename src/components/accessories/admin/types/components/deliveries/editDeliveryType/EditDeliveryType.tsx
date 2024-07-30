@@ -5,7 +5,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { DeliveryTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
-import { updateDeliveryType } from "../../../../../../../state/types/deliveries/actions";
+import { updateDeliveryType } from "../../../../../../../state/types/deliveries";
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../deliveryTypesForm/consts";
 import DeliveryTypeForm from "../deliveryTypesForm/DeliveryTypeForm";

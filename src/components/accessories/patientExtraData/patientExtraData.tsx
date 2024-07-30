@@ -17,7 +17,7 @@ import {
   getPatientThunk,
   updatePatient,
   updatePatientReset,
-} from "../../../state/patients/actions";
+} from "../../../state/patients";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 import Button from "../button/Button";

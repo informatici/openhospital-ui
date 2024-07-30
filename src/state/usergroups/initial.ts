@@ -8,4 +8,6 @@ export const initial: IUserGroupState = {
     data: new Array<UserGroupDTO>(),
   }),
   create: new ApiResponse({ status: "IDLE" }),
+  update: new ApiResponse({ status: "IDLE" }),
+  delete: new ApiResponse({ status: "IDLE" }),
 };

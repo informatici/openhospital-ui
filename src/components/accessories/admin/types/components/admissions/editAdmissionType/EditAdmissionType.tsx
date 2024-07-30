@@ -5,7 +5,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { AdmissionTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
-import { updateAdmissionType } from "../../../../../../../state/types/admissions/actions";
+import { updateAdmissionType } from "../../../../../../../state/types/admissions";
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../admissionTypesForm/consts";
 import AdmissionTypeForm from "../admissionTypesForm/AdmissionTypeForm";

@@ -16,7 +16,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
+import { getDiseasesIpdOut } from "../../../../state/diseases";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";

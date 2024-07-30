@@ -10,8 +10,8 @@ import {
   updateOpdWithOperationRows,
   updateOpdReset,
   deleteOpdReset,
-} from "../../../state/opds/actions";
-import { getDiseasesOpd } from "../../../state/diseases/actions";
+} from "../../../state/opds";
+import { getDiseasesOpd } from "../../../state/diseases";
 import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
 import { TActivityTransitionState } from "./types";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -22,7 +22,7 @@ import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { deleteOperationRowReset } from "../../../state/operations/actions";
+import { deleteOperationRowReset } from "../../../state/operations";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();

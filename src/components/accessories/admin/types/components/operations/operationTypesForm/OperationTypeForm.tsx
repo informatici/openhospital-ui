@@ -25,7 +25,7 @@ import {
 import {
   createOperationTypeReset,
   updateOperationTypeReset,
-} from "../../../../../../../state/types/operations/actions";
+} from "../../../../../../../state/types/operations";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

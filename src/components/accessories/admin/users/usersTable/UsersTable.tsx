@@ -6,7 +6,7 @@ import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../../../../state/users/actions";
+import { getUsers } from "../../../../../state/users";
 import { IState } from "../../../../../types";
 import { UserDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";

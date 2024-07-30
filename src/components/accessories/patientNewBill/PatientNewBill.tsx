@@ -10,7 +10,7 @@ import { PaymentDialog } from "../paymentDialog/PaymentDialog";
 import { BillItemsDTO } from "../../../generated";
 import { Add, Payment } from "@mui/icons-material";
 import { initialFields as initialItemFields } from "./itemPicker/consts";
-import { getPrices } from "../../../state/prices/actions";
+import { getPrices } from "../../../state/prices";
 import { useDispatch } from "react-redux";
 import { useSelectedPatient, useFullBill } from "./hooks/full_bill.hooks";
 import { useDialogStatus } from "./hooks/dialog.hooks";

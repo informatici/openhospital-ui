@@ -6,7 +6,7 @@ import {
   deleteVaccineType,
   deleteVaccineTypeReset,
   getVaccineTypes,
-} from "../../../../../../state/types/vaccines/actions";
+} from "../../../../../../state/types/vaccines";
 import { VaccineTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import VaccineTypesTable from "./vaccineTypesTable";

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
-import { getOpdsWithOperationRows } from "../../../../state/opds/actions";
+import { getOpdsWithOperationRows } from "../../../../state/opds";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@mui/material";

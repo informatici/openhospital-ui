@@ -4,7 +4,7 @@ import React from "react";
 import { getInitialFields } from "../wardForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { WardDTO } from "../../../../../generated";
-import { createWard } from "../../../../../state/ward/actions";
+import { createWard } from "../../../../../state/ward";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 

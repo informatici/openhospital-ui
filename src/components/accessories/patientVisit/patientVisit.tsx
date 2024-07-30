@@ -10,7 +10,7 @@ import {
   createVisitReset,
   updateVisit,
   updateVisitReset,
-} from "../../../state/visits/actions";
+} from "../../../state/visits";
 import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
 import { TActivityTransitionState } from "./types";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -19,7 +19,7 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
 import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
-import { getWards } from "../../../state/ward/actions";
+import { getWards } from "../../../state/ward";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientVisit: FunctionComponent = () => {

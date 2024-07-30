@@ -17,9 +17,9 @@ import {
   getOperationsByAdmissionId,
   updateOperationRow,
   updateOperationRowReset,
-} from "../../../state/operations/actions";
+} from "../../../state/operations";
 import PatientOperationTable from "./operationTable/OperationRowTable";
-import { getCurrentAdmissionByPatientId } from "../../../state/admissions/actions";
+import { getCurrentAdmissionByPatientId } from "../../../state/admissions";
 import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
 

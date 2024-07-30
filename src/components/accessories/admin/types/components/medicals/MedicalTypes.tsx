@@ -6,7 +6,7 @@ import {
   deleteMedicalType,
   deleteMedicalTypeReset,
   getMedicalTypes,
-} from "../../../../../../state/types/medicals/actions";
+} from "../../../../../../state/types/medicals";
 import { MedicalTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";

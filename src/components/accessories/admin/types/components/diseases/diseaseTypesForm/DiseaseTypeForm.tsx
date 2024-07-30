@@ -25,7 +25,7 @@ import {
 import {
   createDiseaseTypeReset,
   updateDiseaseTypeReset,
-} from "../../../../../../../state/types/diseases/actions";
+} from "../../../../../../../state/types/diseases";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

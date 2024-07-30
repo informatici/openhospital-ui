@@ -6,7 +6,7 @@ import { CircularProgress } from "@mui/material";
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 import InfoBox from "../../../infoBox/InfoBox";
-import { getExams } from "../../../../../state/exams/actions";
+import { getExams } from "../../../../../state/exams";
 import { getExamTypes } from "../../../../../state/types/exams";
 import { IState } from "../../../../../types";
 import { ExamDTO, ExamTypeDTO } from "../../../../../generated";

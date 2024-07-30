@@ -17,7 +17,7 @@ import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { getPatientThunk } from "../../../state/patients/actions";
+import { getPatientThunk } from "../../../state/patients";
 import { IState } from "../../../types";
 import {
   Accordion,

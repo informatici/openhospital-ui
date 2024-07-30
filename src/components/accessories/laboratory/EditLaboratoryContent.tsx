@@ -14,10 +14,10 @@ import {
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
   updateLabReset,
-} from "../../../state/laboratories/actions";
-import { getExams } from "../../../state/exams/actions";
+} from "../../../state/laboratories";
+import { getExams } from "../../../state/exams";
 import ExamForm from "./examForm/ExamForm";
-import { getPatientThunk } from "../../../state/patients/actions";
+import { getPatientThunk } from "../../../state/patients";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const EditLaboratoryContent: FC = () => {

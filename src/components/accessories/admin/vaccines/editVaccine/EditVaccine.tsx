@@ -5,7 +5,7 @@ import { getInitialFields } from "../vaccineForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { VaccineDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { updateVaccine } from "../../../../../state/vaccines/actions";
+import { updateVaccine } from "../../../../../state/vaccines";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";

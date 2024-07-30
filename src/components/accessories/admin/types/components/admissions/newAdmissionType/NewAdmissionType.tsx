@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { AdmissionTypeDTO } from "../../../../../../../generated";
-import { createAdmissionType } from "../../../../../../../state/types/admissions/actions";
+import { createAdmissionType } from "../../../../../../../state/types/admissions";
 import AdmissionTypeForm from "../admissionTypesForm/AdmissionTypeForm";
 import { getInitialFields } from "../admissionTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

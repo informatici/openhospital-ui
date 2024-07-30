@@ -9,8 +9,8 @@ import {
   deleteTherapy,
   updateTherapyReset,
   updateTherapy,
-} from "../../../state/therapies/actions";
-import { getMedicals } from "../../../state/medicals/actions";
+} from "../../../state/therapies";
+import { getMedicals } from "../../../state/medicals";
 import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";

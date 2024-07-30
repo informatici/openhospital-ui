@@ -8,12 +8,9 @@ import { IState } from "../../../../../types";
 import { VaccineDTO, VaccineTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./VaccinesTable.module.scss";
-import {
-  deleteVaccineReset,
-  getVaccines,
-} from "../../../../../state/vaccines/actions";
+import { deleteVaccineReset, getVaccines } from "../../../../../state/vaccines";
 import { TFilterField } from "../../../table/filter/types";
-import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
+import { getVaccineTypes } from "../../../../../state/types/vaccines";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";

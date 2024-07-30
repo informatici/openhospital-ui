@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
-import { createPregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment/actions";
+import { createPregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment";
 import PregnantTreatmentTypeForm from "../pregnantTreatmentTypeForm/PregnantTreatmentTypeForm";
 import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

@@ -21,7 +21,7 @@ import {
   saveLayouts,
   saveLayoutsReset,
   setBreakpoint,
-} from "../../../../../state/layouts/actions";
+} from "../../../../../state/layouts";
 import { GridLayoutItem } from "../item/GridLayoutItem";
 import { Button, CircularProgress } from "@mui/material";
 import { FullscreenCard } from "../../card/FullscreenCard";

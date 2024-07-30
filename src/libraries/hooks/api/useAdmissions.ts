@@ -2,7 +2,7 @@ import moment from "moment";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdmissionDTO, PageInfoDTO } from "../../../generated";
-import { getAdmissions } from "../../../state/admissions/actions";
+import { getAdmissions } from "../../../state/admissions";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 

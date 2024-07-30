@@ -6,7 +6,7 @@ import {
   deleteExamType,
   deleteExamTypeReset,
   getExamTypes,
-} from "../../../../../../state/types/exams/actions";
+} from "../../../../../../state/types/exams";
 import { ExamTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import ExamTypesTable from "./examTypesTable";

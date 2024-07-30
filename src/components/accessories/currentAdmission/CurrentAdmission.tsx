@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AdmissionDTO, OpdDTO } from "../../../generated";
-import { updateAdmission } from "../../../state/admissions/actions";
+import { updateAdmission } from "../../../state/admissions";
 import { IState } from "../../../types";
 import { useFields } from "../admission/useFields";
 import { CurrentAdmissionData } from "./currentAdmissionData/CurrentAdmissionData";

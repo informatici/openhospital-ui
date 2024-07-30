@@ -8,7 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 import SupplierForm from "../supplierForm/SupplierForm";
 import { getInitialFields } from "../supplierForm/consts";
-import { updateSupplier } from "../../../../../state/suppliers/actions";
+import { updateSupplier } from "../../../../../state/suppliers";
 
 export const EditSupplier = () => {
   const dispatch = useDispatch();

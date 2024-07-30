@@ -11,7 +11,7 @@ import {
   createPatient,
   createPatientReset,
   getPatientReset,
-} from "../../../state/patients/actions";
+} from "../../../state/patients";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDialog/ExtendedConfirmationDialog";

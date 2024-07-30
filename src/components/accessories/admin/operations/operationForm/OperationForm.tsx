@@ -31,7 +31,7 @@ import { PATHS } from "../../../../../consts";
 import {
   createOperationReset,
   updateOperationReset,
-} from "../../../../../state/operations/actions";
+} from "../../../../../state/operations";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import { getOperationTypes } from "../../../../../state/types/operations";
 

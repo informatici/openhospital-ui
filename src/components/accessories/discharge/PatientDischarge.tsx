@@ -13,10 +13,10 @@ import {
   getCurrentAdmissionByPatientId,
   dischargePatient,
   dischargePatientReset,
-} from "../../../state/admissions/actions";
+} from "../../../state/admissions";
 import { useFields } from "./useFields";
 import DischargeForm from "./dischargeForm/DischargeForm";
-import { getPatientThunk } from "../../../state/patients/actions";
+import { getPatientThunk } from "../../../state/patients";
 import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 

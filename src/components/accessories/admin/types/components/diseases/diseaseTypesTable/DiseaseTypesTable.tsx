@@ -8,7 +8,7 @@ import InfoBox from "../../../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
 import Table from "../../../../../table/Table";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
-import { deleteDiseaseTypeReset } from "../../../../../../../state/types/diseases/actions";
+import { deleteDiseaseTypeReset } from "../../../../../../../state/types/diseases";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";

@@ -2,8 +2,8 @@ import { argv } from "process";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MedicalDTO, ExamDTO, OperationDTO } from "../../../../generated";
-import { getExams } from "../../../../state/exams/actions";
-import { getMedicals } from "../../../../state/medicals/actions";
+import { getExams } from "../../../../state/exams";
+import { getMedicals } from "../../../../state/medicals";
 import { IState } from "../../../../types";
 
 export const useItems = () => {

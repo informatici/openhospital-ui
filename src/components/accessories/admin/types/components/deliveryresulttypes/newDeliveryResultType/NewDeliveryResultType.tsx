@@ -8,7 +8,7 @@ import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 import DeliveryResultTypeForm from "../deliveryResultTypeForm/DeliveryResultTypeForm";
 import { getInitialFields } from "../deliveryResultTypeForm/consts";
-import { createDeliveryResultType } from "../../../../../../../state/types/deliveryResultType/actions";
+import { createDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
 
 export const NewDeliveryResultType = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PriceDTO } from "../../../../generated/models/PriceDTO";
 import { PriceListDTO } from "../../../../generated/models/PriceListDTO";
-import { getPriceLists } from "../../../../state/prices/actions";
+import { getPriceLists } from "../../../../state/prices";
 import { IState } from "../../../../types";
 import { ItemGroups } from "../consts";
 

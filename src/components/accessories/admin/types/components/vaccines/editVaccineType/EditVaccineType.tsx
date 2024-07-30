@@ -5,7 +5,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { VaccineTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
-import { updateVaccineType } from "../../../../../../../state/types/vaccines/actions";
+import { updateVaccineType } from "../../../../../../../state/types/vaccines";
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";

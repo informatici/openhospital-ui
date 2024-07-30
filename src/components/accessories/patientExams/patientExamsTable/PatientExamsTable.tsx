@@ -6,7 +6,7 @@ import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 import InfoBox from "../../infoBox/InfoBox";
-import { getLabsByPatientId } from "../../../../state/laboratories/actions";
+import { getLabsByPatientId } from "../../../../state/laboratories";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { statusLabel } from "../../laboratory/table/ExamTable";

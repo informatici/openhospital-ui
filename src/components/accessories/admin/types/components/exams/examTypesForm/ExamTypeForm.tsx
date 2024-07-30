@@ -25,7 +25,7 @@ import {
 import {
   createExamTypeReset,
   updateExamTypeReset,
-} from "../../../../../../../state/types/exams/actions";
+} from "../../../../../../../state/types/exams";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

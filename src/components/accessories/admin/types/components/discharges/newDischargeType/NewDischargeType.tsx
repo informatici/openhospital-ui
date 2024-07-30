@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { DischargeTypeDTO } from "../../../../../../../generated";
-import { createDischargeType } from "../../../../../../../state/types/discharges/actions";
+import { createDischargeType } from "../../../../../../../state/types/discharges";
 import DischargeTypeForm from "../dischargeTypesForm/DischargeTypeForm";
 import { getInitialFields } from "../dischargeTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

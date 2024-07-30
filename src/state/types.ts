@@ -1,4 +1,5 @@
 import { immerable } from "immer";
+import { store } from "./store";
 
 export interface IAction<Payload, Error> {
   type: string;
@@ -38,3 +39,6 @@ export class ApiResponse<T> {
     this.error = props.error;
   }
 }
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

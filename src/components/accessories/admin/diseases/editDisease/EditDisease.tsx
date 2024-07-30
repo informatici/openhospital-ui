@@ -5,7 +5,7 @@ import { getInitialFields } from "../diseaseForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { DiseaseDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { updateDisease } from "../../../../../state/diseases/actions";
+import { updateDisease } from "../../../../../state/diseases";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";

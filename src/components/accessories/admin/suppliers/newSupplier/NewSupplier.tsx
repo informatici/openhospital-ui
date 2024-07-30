@@ -6,7 +6,7 @@ import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 import SupplierForm from "../supplierForm/SupplierForm";
 import { getInitialFields } from "../supplierForm/consts";
-import { createSupplier } from "../../../../../state/suppliers/actions";
+import { createSupplier } from "../../../../../state/suppliers";
 
 export const NewSupplier = () => {
   const dispatch = useDispatch();

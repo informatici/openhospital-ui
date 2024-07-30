@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { ExamTypeDTO } from "../../../../../../../generated";
-import { createExamType } from "../../../../../../../state/types/exams/actions";
+import { createExamType } from "../../../../../../../state/types/exams";
 import ExamTypeForm from "../examTypesForm/ExamTypeForm";
 import { getInitialFields } from "../examTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

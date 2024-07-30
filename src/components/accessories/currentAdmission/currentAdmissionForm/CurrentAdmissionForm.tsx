@@ -28,7 +28,7 @@ import {
   getPatientThunk,
   updatePatient,
   updatePatientReset,
-} from "../../../../state/patients/actions";
+} from "../../../../state/patients";
 import { TAPIResponseStatus } from "../../../../state/types";
 import { IState } from "../../../../types";
 import Button from "../../button/Button";
@@ -39,7 +39,7 @@ import { IOwnProps, TActivityTransitionState } from "./types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import DateField from "../../dateField/DateField";
-import { updateAdmissionReset } from "../../../../state/admissions/actions";
+import { updateAdmissionReset } from "../../../../state/admissions";
 
 export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   onDiscard,

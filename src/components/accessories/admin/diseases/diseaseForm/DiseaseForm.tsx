@@ -31,7 +31,7 @@ import { PATHS } from "../../../../../consts";
 import {
   createDiseaseReset,
   updateDiseaseReset,
-} from "../../../../../state/diseases/actions";
+} from "../../../../../state/diseases";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import { getDiseaseTypes } from "../../../../../state/types/diseases";
 

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { VisitDTO } from "../../../../generated";
-import { getVisits } from "../../../../state/visits/actions";
+import { getVisits } from "../../../../state/visits";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@mui/material";

@@ -6,7 +6,7 @@ import {
   deleteOperationType,
   deleteOperationTypeReset,
   getOperationTypes,
-} from "../../../../../../state/types/operations/actions";
+} from "../../../../../../state/types/operations";
 import { OperationTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import OperationTypesTable from "./operationTypesTable";

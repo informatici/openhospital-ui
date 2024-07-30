@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { DiseaseTypeDTO } from "../../../../../../../generated";
-import { createDiseaseType } from "../../../../../../../state/types/diseases/actions";
+import { createDiseaseType } from "../../../../../../../state/types/diseases";
 import DiseaseTypeForm from "../diseaseTypesForm/DiseaseTypeForm";
 import { getInitialFields } from "../diseaseTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

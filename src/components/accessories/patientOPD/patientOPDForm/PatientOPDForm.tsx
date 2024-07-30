@@ -63,13 +63,13 @@ import {
   deleteOperationRowReset,
   getOperations,
   updateOperationRowReset,
-} from "../../../../state/operations/actions";
+} from "../../../../state/operations";
 import { IOperationState } from "../../../../state/operations/types";
 import checkIcon from "../../../../assets/check-icon.png";
 import { opRowFields } from "../../patientOperation/opRowFields";
 import InfoBox from "../../infoBox/InfoBox";
 import { Add, Edit } from "@mui/icons-material";
-import { getWards } from "../../../../state/ward/actions";
+import { getWards } from "../../../../state/ward";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,

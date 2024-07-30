@@ -6,7 +6,7 @@ import {
   deleteDeliveryType,
   deleteDeliveryTypeReset,
   getDeliveryTypes,
-} from "../../../../../../state/types/deliveries/actions";
+} from "../../../../../../state/types/deliveries";
 import { DeliveryTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import DeliveryTypesTable from "./deliveryTypesTable";

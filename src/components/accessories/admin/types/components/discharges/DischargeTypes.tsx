@@ -6,7 +6,7 @@ import {
   deleteDischargeType,
   deleteDischargeTypeReset,
   getDischargeTypes,
-} from "../../../../../../state/types/discharges/actions";
+} from "../../../../../../state/types/discharges";
 import { DischargeTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import DischargeTypesTable from "./dischargeTypesTable";

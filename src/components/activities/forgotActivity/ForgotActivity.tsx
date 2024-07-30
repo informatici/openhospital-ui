@@ -14,14 +14,14 @@ import { HospitalDTO } from "../../../generated";
 import {
   setForgotPasswordThunk,
   resetForgotPasswordThunk,
-} from "../../../state/main/actions";
+} from "../../../state/main";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
-import { getHospital } from "../../../state/hospital/actions";
+import { getHospital } from "../../../state/hospital";
 
 const ForgotActivity: FC = () => {
   const { t } = useTranslation();

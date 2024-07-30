@@ -10,7 +10,7 @@ import { getInitialFields } from "../examTypesForm/consts";
 import ExamTypeForm from "../examTypesForm/ExamTypeForm";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
-import { updateExamType } from "../../../../../../../state/types/exams/actions";
+import { updateExamType } from "../../../../../../../state/types/exams";
 
 export const EditExamType = () => {
   const dispatch = useDispatch();

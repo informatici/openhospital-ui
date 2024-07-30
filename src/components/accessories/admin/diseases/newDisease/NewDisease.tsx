@@ -4,7 +4,7 @@ import React from "react";
 import { getInitialFields } from "../diseaseForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { DiseaseDTO } from "../../../../../generated";
-import { createDisease } from "../../../../../state/diseases/actions";
+import { createDisease } from "../../../../../state/diseases";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 

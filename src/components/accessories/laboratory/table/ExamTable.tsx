@@ -7,7 +7,7 @@ import "./styles.scss";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
+import { getLabWithRowsByCode } from "../../../../state/laboratories";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";

@@ -5,7 +5,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { OperationTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
-import { updateOperationType } from "../../../../../../../state/types/operations/actions";
+import { updateOperationType } from "../../../../../../../state/types/operations";
 import { PATHS } from "../../../../../../../consts";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";

@@ -19,7 +19,7 @@ import {
   searchPatient,
   getPatientSuccess,
   searchPatientReset,
-} from "../../../state/patients/actions";
+} from "../../../state/patients";
 import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import DateField from "../../accessories/dateField/DateField";

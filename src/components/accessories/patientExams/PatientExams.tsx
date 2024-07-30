@@ -22,7 +22,7 @@ import {
   getMaterials,
   updateLab,
   updateLabReset,
-} from "../../../state/laboratories/actions";
+} from "../../../state/laboratories";
 import {
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
@@ -30,7 +30,7 @@ import {
 } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
-import { getExamRows, getExams } from "../../../state/exams/actions";
+import { getExamRows, getExams } from "../../../state/exams";
 import {
   parseDate,
   updateLabFields,

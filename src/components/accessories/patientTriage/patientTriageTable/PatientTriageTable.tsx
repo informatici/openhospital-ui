@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
-import { examinationsByPatientId } from "../../../../state/examinations/actions";
+import { examinationsByPatientId } from "../../../../state/examinations";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";

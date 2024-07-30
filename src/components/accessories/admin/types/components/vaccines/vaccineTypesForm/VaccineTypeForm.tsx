@@ -25,7 +25,7 @@ import {
 import {
   createVaccineTypeReset,
   updateVaccineTypeReset,
-} from "../../../../../../../state/types/vaccines/actions";
+} from "../../../../../../../state/types/vaccines";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

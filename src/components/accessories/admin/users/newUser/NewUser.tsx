@@ -21,11 +21,8 @@ import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import { userSchema } from "./validation";
 import "./styles.scss";
-import {
-  createUser,
-  createUserReset,
-} from "../../../../../state/users/actions";
-import { getUserGroups } from "../../../../../state/usergroups/actions";
+import { createUser, createUserReset } from "../../../../../state/users";
+import { getUserGroups } from "../../../../../state/usergroups";
 import { PATHS } from "../../../../../consts";
 
 const initialValues = {

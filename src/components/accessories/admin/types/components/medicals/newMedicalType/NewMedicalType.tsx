@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { MedicalTypeDTO } from "../../../../../../../generated";
-import { createMedicalType } from "../../../../../../../state/types/medicals/actions";
+import { createMedicalType } from "../../../../../../../state/types/medicals";
 import MedicalTypeForm from "../medicalTypesForm/MedicalTypeForm";
 import { getInitialFields } from "../medicalTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

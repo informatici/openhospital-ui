@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { VaccineTypeDTO } from "../../../../../../../generated";
-import { createVaccineType } from "../../../../../../../state/types/vaccines/actions";
+import { createVaccineType } from "../../../../../../../state/types/vaccines";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

@@ -13,7 +13,7 @@ import {
   payBill,
   payBillReset,
   searchBills,
-} from "../../../state/bills/actions";
+} from "../../../state/bills";
 import { IState } from "../../../types";
 import RenderBillDetails from "../billTable/RenderBillDetails";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";

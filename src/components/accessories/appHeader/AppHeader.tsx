@@ -14,14 +14,14 @@ import { IDispatchProps, IStateProps, TProps } from "./types";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { IState } from "../../../types";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { setLogoutThunk } from "../../../state/main/actions";
+import { setLogoutThunk } from "../../../state/main";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import OHFeedback from "../feedback/OHFeedback";
 import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
 import { PATHS } from "../../../consts";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
-import { getHospital } from "../../../state/hospital/actions";
+import { getHospital } from "../../../state/hospital";
 import { HospitalDTO } from "../../../generated";
 
 const AppHeader: FunctionComponent<TProps> = ({

@@ -5,7 +5,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
-import { updatePregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment/actions";
+import { updatePregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment";
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
 import PregnantTreatmentTypeForm from "../pregnantTreatmentTypeForm/PregnantTreatmentTypeForm";

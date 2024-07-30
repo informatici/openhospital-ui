@@ -4,7 +4,7 @@ import React from "react";
 import { getInitialFields } from "../operationForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { OperationDTO } from "../../../../../generated";
-import { createOperation } from "../../../../../state/operations/actions";
+import { createOperation } from "../../../../../state/operations";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 

@@ -6,7 +6,7 @@ import {
   deleteAdmissionType,
   deleteAdmissionTypeReset,
   getAdmissionTypes,
-} from "../../../../../../state/types/admissions/actions";
+} from "../../../../../../state/types/admissions";
 import { AdmissionTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import AdmissionTypesTable from "./admissionTypesTable";

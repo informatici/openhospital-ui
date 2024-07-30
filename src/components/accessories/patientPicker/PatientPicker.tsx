@@ -32,7 +32,7 @@ import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
 import Button from "../button/Button";
 import { TextField as MaterialComponent } from "@mui/material";
-import { searchPatient } from "../../../state/patients/actions";
+import { searchPatient } from "../../../state/patients";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";

@@ -20,7 +20,7 @@ import { IState } from "../../../../types";
 import {
   createLabRequest,
   createLabRequestReset,
-} from "../../../../state/laboratories/actions";
+} from "../../../../state/laboratories";
 import PatientPicker from "../../patientPicker/PatientPicker";
 import { get, has } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";

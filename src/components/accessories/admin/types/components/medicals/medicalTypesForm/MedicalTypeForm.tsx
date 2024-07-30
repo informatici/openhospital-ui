@@ -25,7 +25,7 @@ import {
 import {
   createMedicalTypeReset,
   updateMedicalTypeReset,
-} from "../../../../../../../state/types/medicals/actions";
+} from "../../../../../../../state/types/medicals";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

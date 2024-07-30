@@ -5,7 +5,7 @@ import { getInitialFields } from "../wardForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { WardDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { updateWard } from "../../../../../state/ward/actions";
+import { updateWard } from "../../../../../state/ward";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";

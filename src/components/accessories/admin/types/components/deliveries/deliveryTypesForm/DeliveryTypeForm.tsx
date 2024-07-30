@@ -25,7 +25,7 @@ import {
 import {
   createDeliveryTypeReset,
   updateDeliveryTypeReset,
-} from "../../../../../../../state/types/deliveries/actions";
+} from "../../../../../../../state/types/deliveries";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { OperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { getOperationsByAdmissionId } from "../../../../state/operations/actions";
+import { getOperationsByAdmissionId } from "../../../../state/operations";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 
 interface IOwnProps {

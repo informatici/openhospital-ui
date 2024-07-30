@@ -22,15 +22,15 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../../../libraries/formDataHandling/functions";
-import {
-  createPregnantTreatmentTypeReset,
-  updatePregnantTreatmentTypeReset,
-} from "../../../../../../../state/types/pregnantTreatment/actions";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
 import { PATHS } from "../../../../../../../consts";
+import {
+  createPregnantTreatmentTypeReset,
+  updatePregnantTreatmentTypeReset,
+} from "../../../../../../../state/types/pregnantTreatment";
 
 const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   fields,

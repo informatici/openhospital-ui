@@ -6,7 +6,7 @@ import {
   deletePregnantTreatmentType,
   deletePregnantTreatmentTypeReset,
   getPregnantTreatmentTypes,
-} from "../../../../../../state/types/pregnantTreatment/actions";
+} from "../../../../../../state/types/pregnantTreatment";
 import { PregnantTreatmentTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import PregnantTreatmentTableType from "./pregnantTreatmentTableType";

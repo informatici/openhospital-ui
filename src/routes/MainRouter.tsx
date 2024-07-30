@@ -14,7 +14,7 @@ import { PATHS } from "../consts";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../types";
 import { TAPIResponseStatus } from "../state/types";
-import { getUserSettings } from "../state/main/actions";
+import { getUserSettings } from "../state/main";
 import { AdminRoutes } from "./Admin";
 import { withPermission } from "../libraries/permissionUtils/withPermission";
 import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";

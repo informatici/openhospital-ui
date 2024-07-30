@@ -5,7 +5,7 @@ import {
   deleteOperation,
   deleteOperationReset,
   getOperations,
-} from "../../../../state/operations/actions";
+} from "../../../../state/operations";
 import { OperationDTO } from "../../../../generated";
 import OperationTable from "./operationTable";
 import Button from "../../button/Button";

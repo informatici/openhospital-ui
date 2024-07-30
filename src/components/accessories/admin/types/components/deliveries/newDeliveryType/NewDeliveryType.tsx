@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { DeliveryTypeDTO } from "../../../../../../../generated";
-import { createDeliveryType } from "../../../../../../../state/types/deliveries/actions";
+import { createDeliveryType } from "../../../../../../../state/types/deliveries";
 import DeliveryTypeForm from "../deliveryTypesForm/DeliveryTypeForm";
 import { getInitialFields } from "../deliveryTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";

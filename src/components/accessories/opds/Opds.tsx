@@ -7,14 +7,14 @@ import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
 import "./styles.scss";
 import { OpdTable } from "./table/OpdTable";
-import { getDiseasesOpd } from "../../../state/diseases/actions";
+import { getDiseasesOpd } from "../../../state/diseases";
 import { useEffect } from "react";
-import { searchOpds } from "../../../state/opds/actions";
+import { searchOpds } from "../../../state/opds";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { useOpds } from "../../../libraries/hooks/api/useOpds";
 import { TFilterValues } from "./filter/types";
 import Pagination from "../pagination/Pagination";
-import { getWards } from "../../../state/ward/actions";
+import { getWards } from "../../../state/ward";
 import { getDiseaseTypes } from "../../../state/types/diseases";
 
 export const Opds: FC = () => {

@@ -7,7 +7,7 @@ import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@mui/lab";
-import { getDischarges } from "../../../../../state/admissions/actions";
+import { getDischarges } from "../../../../../state/admissions";
 import { IOwnProps } from "../types";
 import { Piechart } from "../../../charts/pie/Piechart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";

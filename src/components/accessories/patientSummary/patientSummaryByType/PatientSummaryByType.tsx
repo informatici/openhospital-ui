@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { connect, useSelector } from "react-redux";
 import { MedicalDTO } from "../../../../generated";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
-import { loadSummaryData } from "../../../../state/summary/actions";
+import { loadSummaryData } from "../../../../state/summary";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";

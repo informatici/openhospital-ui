@@ -17,7 +17,7 @@ import {
   getFromFields,
   parseDate,
 } from "../../../../libraries/formDataHandling/functions";
-import { getExamRows, getExams } from "../../../../state/exams/actions";
+import { getExamRows, getExams } from "../../../../state/exams";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -38,7 +38,7 @@ import {
   updateLab,
   createLab,
   getMaterials,
-} from "../../../../state/laboratories/actions";
+} from "../../../../state/laboratories";
 import { ILaboratoriesState } from "../../../../state/laboratories/types";
 import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { SupplierDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { getSuppliers } from "../../../../../state/suppliers/actions";
+import { getSuppliers } from "../../../../../state/suppliers";
 import { TFilterField } from "../../../table/filter/types";
 import classes from "./SuppliersTable.module.scss";
 

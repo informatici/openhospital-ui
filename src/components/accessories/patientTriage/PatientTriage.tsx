@@ -15,7 +15,7 @@ import {
   getLastByPatientId,
   updateExamination,
   updateExaminationReset,
-} from "../../../state/examinations/actions";
+} from "../../../state/examinations";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";

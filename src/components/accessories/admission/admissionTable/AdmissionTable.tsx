@@ -6,7 +6,7 @@ import { CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
-import { getPatientAdmissions } from "../../../../state/admissions/actions";
+import { getPatientAdmissions } from "../../../../state/admissions";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 

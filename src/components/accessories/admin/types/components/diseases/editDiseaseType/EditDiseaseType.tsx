@@ -5,7 +5,7 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { DiseaseTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
-import { updateDiseaseType } from "../../../../../../../state/types/diseases/actions";
+import { updateDiseaseType } from "../../../../../../../state/types/diseases";
 import { PATHS } from "../../../../../../../consts";
 import { getInitialFields } from "../diseaseTypesForm/consts";
 import DiseaseTypeForm from "../diseaseTypesForm/DiseaseTypeForm";

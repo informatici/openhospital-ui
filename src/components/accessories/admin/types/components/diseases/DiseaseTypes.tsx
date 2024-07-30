@@ -6,7 +6,7 @@ import {
   deleteDiseaseType,
   deleteDiseaseTypeReset,
   getDiseaseTypes,
-} from "../../../../../../state/types/diseases/actions";
+} from "../../../../../../state/types/diseases";
 import { DiseaseTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import DiseaseTypesTable from "./diseaseTypesTable";

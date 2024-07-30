@@ -25,7 +25,7 @@ import {
 import {
   createAdmissionTypeReset,
   updateAdmissionTypeReset,
-} from "../../../../../../../state/types/admissions/actions";
+} from "../../../../../../../state/types/admissions";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

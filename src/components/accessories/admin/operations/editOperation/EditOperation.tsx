@@ -5,7 +5,7 @@ import { getInitialFields } from "../operationForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { OperationDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
-import { updateOperation } from "../../../../../state/operations/actions";
+import { updateOperation } from "../../../../../state/operations";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";

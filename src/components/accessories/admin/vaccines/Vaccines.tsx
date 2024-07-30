@@ -8,7 +8,7 @@ import {
   deleteVaccine,
   deleteVaccineReset,
   getVaccines,
-} from "../../../../state/vaccines/actions";
+} from "../../../../state/vaccines";
 import { getVaccineTypes } from "../../../../state/types/vaccines";
 import { VaccineDTO } from "../../../../generated";
 import { PATHS } from "../../../../consts";

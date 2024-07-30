@@ -15,7 +15,7 @@ import {
   newBillReset,
   updateBill,
   updateBillReset,
-} from "../../../../state/bills/actions";
+} from "../../../../state/bills";
 import { IState } from "../../../../types";
 import { ItemGroups } from "../consts";
 import { usePendingBills } from "./pending_bill.hooks";
@@ -63,8 +63,9 @@ export const useFullBill = () => {
   });
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [itemToEdit, setItemToEdit] =
-    useState<Record<string, any> | undefined>();
+  const [itemToEdit, setItemToEdit] = useState<
+    Record<string, any> | undefined
+  >();
   const [billItems, setBillItems] = useState<BillItemsDTO[]>([]);
   const [billPayments, setBillPayments] = useState<BillPaymentsDTO[]>([]);
   const [fullBill, setFullBill] = useState<FullBillDTO>({

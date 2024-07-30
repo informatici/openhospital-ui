@@ -30,9 +30,9 @@ import { PATHS } from "../../../../../consts";
 import {
   createVaccineReset,
   updateVaccineReset,
-} from "../../../../../state/vaccines/actions";
+} from "../../../../../state/vaccines";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
-import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
+import { getVaccineTypes } from "../../../../../state/types/vaccines";
 
 const VaccineForm: FC<IVaccineFormProps> = ({
   fields,

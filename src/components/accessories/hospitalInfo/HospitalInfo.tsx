@@ -5,7 +5,7 @@ import "./styles.scss";
 import { TProps } from "./types";
 import { IState } from "../../../types";
 import { useDispatch, useSelector } from "react-redux";
-import { getHospital } from "../../../state/hospital/actions";
+import { getHospital } from "../../../state/hospital";
 import { HospitalDTO } from "../../../generated";
 
 export const HospitalInfo: FC<TProps> = () => {

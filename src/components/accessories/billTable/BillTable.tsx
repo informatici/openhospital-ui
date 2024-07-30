@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { FullBillDTO, PatientDTO } from "../../../generated";
-import { getPendingBills, searchBills } from "../../../state/bills/actions";
+import { getPendingBills, searchBills } from "../../../state/bills";
 import { IState } from "../../../types";
 import { CustomModal } from "../customModal/CustomModal";
 import Table from "../table/Table";

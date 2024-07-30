@@ -5,7 +5,7 @@ import { DiseaseDTO } from "../../../../generated";
 import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
-import { getAllDiseases } from "../../../../state/diseases/actions";
+import { getAllDiseases } from "../../../../state/diseases";
 import Button from "../../button/Button";
 import { useTranslation } from "react-i18next";
 import { getDiseaseTypes } from "../../../../state/types/diseases";

@@ -22,8 +22,8 @@ import {
   deleteLabReset,
   searchLabs,
   updateLabStatus,
-} from "../../../state/laboratories/actions";
-import { getExams } from "../../../state/exams/actions";
+} from "../../../state/laboratories";
+import { getExams } from "../../../state/exams";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";

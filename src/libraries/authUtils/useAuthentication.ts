@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthenticationSuccess } from "../../state/main/actions";
+import { setAuthenticationSuccess } from "../../state/main";
 import { IState } from "../../types";
 import { getAuthenticationFromSession } from "./getAuthenticationFromSession";
 import { saveAuthenticationDataToSession } from "./saveAuthenticationDataToSession";

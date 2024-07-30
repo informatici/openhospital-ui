@@ -4,7 +4,7 @@ import React from "react";
 import { getInitialFields } from "../vaccineForm/consts";
 import { useDispatch, useSelector } from "react-redux";
 import { VaccineDTO } from "../../../../../generated";
-import { createVaccine } from "../../../../../state/vaccines/actions";
+import { createVaccine } from "../../../../../state/vaccines";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 

@@ -17,7 +17,7 @@ import { IDeliveryResultTypeFormProps } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
-import { IDeliveryResultTypeState } from "../../../../../../../state/types/deliveryResultType/types";
+import { IDeliveryResultTypeState } from "../../../../../../../state/types/deliveryResults/types";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,7 +25,7 @@ import {
 import {
   createDeliveryResultTypeReset,
   updateDeliveryResultTypeReset,
-} from "../../../../../../../state/types/deliveryResultType/actions";
+} from "../../../../../../../state/types/deliveryResults";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";

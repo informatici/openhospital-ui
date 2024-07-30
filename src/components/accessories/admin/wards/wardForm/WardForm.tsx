@@ -28,10 +28,7 @@ import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
 import { IWardState } from "../../../../../state/ward/types";
 import { PATHS } from "../../../../../consts";
-import {
-  createWardReset,
-  updateWardReset,
-} from "../../../../../state/ward/actions";
+import { createWardReset, updateWardReset } from "../../../../../state/ward";
 
 const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;
 

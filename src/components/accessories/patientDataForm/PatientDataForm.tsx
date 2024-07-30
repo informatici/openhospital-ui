@@ -32,8 +32,8 @@ import moment from "moment";
 import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import { useDispatch, useSelector } from "react-redux";
-import { getAgeTypes } from "../../../state/ageTypes/actions";
-import { getCities } from "../../../state/patients/actions";
+import { getAgeTypes } from "../../../state/ageTypes";
+import { getCities } from "../../../state/patients";
 import { useNavigate } from "react-router-dom";
 
 const PatientDataForm: FunctionComponent<TProps> = ({

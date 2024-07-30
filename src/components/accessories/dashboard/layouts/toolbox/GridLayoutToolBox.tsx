@@ -19,7 +19,7 @@ import {
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { Layout, Layouts } from "react-grid-layout";
-import { saveLayouts } from "../../../../../state/layouts/actions";
+import { saveLayouts } from "../../../../../state/layouts";
 import "./styles.scss";
 import { UserSettingDTO } from "../../../../../generated";
 import { TUserCredentials } from "../../../../../state/main/types";

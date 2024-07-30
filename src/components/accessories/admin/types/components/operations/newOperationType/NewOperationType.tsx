@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { OperationTypeDTO } from "../../../../../../../generated";
-import { createOperationType } from "../../../../../../../state/types/operations/actions";
+import { createOperationType } from "../../../../../../../state/types/operations";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 import OperationTypeForm from "../operationTypesForm/OperationTypeForm";

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { DashboardFilter } from "./filter/DashboardFilter";
 import GridLayoutToolbox from "../layouts/toolbox/GridLayoutToolBox";
 import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
-import { setDashboardPeriod } from "../../../../state/dashboard/actions";
+import { setDashboardPeriod } from "../../../../state/dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.scss";
 import { IState } from "../../../../types";

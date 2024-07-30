@@ -10,7 +10,7 @@ import React, {
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { FullBillDTO } from "../../../generated";
-import { getBillsByYear, searchBills } from "../../../state/bills/actions";
+import { getBillsByYear, searchBills } from "../../../state/bills";
 import { IState } from "../../../types";
 import { IBillSummary } from "../../activities/billingActivity/types";
 import { TFilterValues } from "../billTable/types";

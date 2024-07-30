@@ -3,7 +3,7 @@ import { TDashboardComponentProps } from "../../layouts/types";
 import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { searchOpds } from "../../../../../state/opds/actions";
+import { searchOpds } from "../../../../../state/opds";
 import { TDashboardCardOptionActions } from "../../card/types";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";

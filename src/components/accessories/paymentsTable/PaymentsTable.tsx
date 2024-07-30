@@ -12,7 +12,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { searchPayments } from "../../../state/bills/actions";
+import { searchPayments } from "../../../state/bills";
 import { IState } from "../../../types";
 import { TFilterValues } from "../billTable/types";
 import DateField from "../dateField/DateField";

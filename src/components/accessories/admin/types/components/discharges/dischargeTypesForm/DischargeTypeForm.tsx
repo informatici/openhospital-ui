@@ -25,7 +25,7 @@ import {
 import {
   createDischargeTypeReset,
   updateDischargeTypeReset,
-} from "../../../../../../../state/types/discharges/actions";
+} from "../../../../../../../state/types/discharges";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
