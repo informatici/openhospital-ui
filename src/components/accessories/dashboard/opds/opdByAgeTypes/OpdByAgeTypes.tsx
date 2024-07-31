@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "@/libraries/hooks/redux";
+import { useDispatch } from "libraries/hooks/redux";
 import { searchOpds } from "../../../../../state/opds";
 import { getAgeTypes } from "../../../../../state/ageTypes";
 import { TDashboardCardOptionActions } from "../../card/types";

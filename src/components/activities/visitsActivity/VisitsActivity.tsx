@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "@/libraries/hooks/redux";
+import { useSelector } from "libraries/hooks/redux";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TUserCredentials } from "../../../state/main/types";

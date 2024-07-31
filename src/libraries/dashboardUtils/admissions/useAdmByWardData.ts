@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { AdmissionDTO, WardDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
-import { useSelector } from "@/libraries/hooks/redux";
+import { useSelector } from "libraries/hooks/redux";
 
 export const useAdmByAdmWardData = () => {
   const { t } = useTranslation();

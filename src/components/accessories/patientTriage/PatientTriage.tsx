@@ -1,6 +1,6 @@
 import { default as React, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";

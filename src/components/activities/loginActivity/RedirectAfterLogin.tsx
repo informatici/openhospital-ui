@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useSelector } from "@/libraries/hooks/redux";
+import { useSelector } from "libraries/hooks/redux";
 import { Navigate, useLocation } from "react-router";
 import { useLandingPageRoute } from "../../../libraries/hooks/useLandingPageRoute";
 import { IState } from "../../../types";

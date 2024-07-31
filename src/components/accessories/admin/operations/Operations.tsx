@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import classes from "./Operations.module.scss";
-import { useDispatch } from "@/libraries/hooks/redux";
+import { useDispatch } from "libraries/hooks/redux";
 import {
   deleteOperation,
   deleteOperationReset,

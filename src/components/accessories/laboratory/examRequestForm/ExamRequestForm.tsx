@@ -15,7 +15,7 @@ import {
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 import {
   createLabRequest,

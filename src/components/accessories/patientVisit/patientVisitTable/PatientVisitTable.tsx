@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { VisitDTO } from "../../../../generated";
 import { getVisits } from "../../../../state/visits";
 import { IState } from "../../../../types";

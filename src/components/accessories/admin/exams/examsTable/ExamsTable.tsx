@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 

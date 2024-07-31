@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "@/libraries/hooks/redux";
+import { useSelector } from "libraries/hooks/redux";
 import { AdmissionDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";

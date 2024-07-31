@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
 
 import { Search } from "@mui/icons-material";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { GridCloseIcon } from "@mui/x-data-grid";
 import { get, has } from "lodash";
 import {

@@ -57,4 +57,10 @@ const reducer = combineReducers({
   suppliers: supplierSlice.reducer,
 });
 
-export const store = configureStore({ reducer });
+export const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});

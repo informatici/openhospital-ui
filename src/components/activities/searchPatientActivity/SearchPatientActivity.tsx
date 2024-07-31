@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { number, object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
@@ -21,7 +21,7 @@ import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
 import { IStateProps, TValues } from "./types";
 import { useIsSearchById } from "./useIsSearchById";
-import { searchPatientsReset, searchPatient } from "@/state/patients";
+import { searchPatientsReset, searchPatient } from "state/patients";
 
 const SearchPatientActivity = () => {
   const { t } = useTranslation();

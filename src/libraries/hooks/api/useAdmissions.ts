@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { AdmissionDTO, PageInfoDTO } from "../../../generated";
 import { getAdmissions } from "../../../state/admissions";
 import { TAPIResponseStatus } from "../../../state/types";

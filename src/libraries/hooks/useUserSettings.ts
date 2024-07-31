@@ -1,4 +1,4 @@
-import { useSelector } from "@/libraries/hooks/redux";
+import { useSelector } from "libraries/hooks/redux";
 import { UserSettingDTO } from "../../generated";
 import { IState } from "../../types";
 

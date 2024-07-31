@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,10 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "jsx": "react"
   },
   "include": ["src"],
   "exclude": ["cypress.config.ts", "cypress", "node_modules"]

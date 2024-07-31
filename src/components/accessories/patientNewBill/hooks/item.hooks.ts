@@ -1,6 +1,6 @@
 import { argv } from "process";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { MedicalDTO, ExamDTO, OperationDTO } from "../../../../generated";
 import { getExams } from "../../../../state/exams";
 import { getMedicals } from "../../../../state/medicals";

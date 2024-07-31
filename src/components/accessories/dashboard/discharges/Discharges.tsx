@@ -1,7 +1,7 @@
 import { Skeleton } from "@mui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "@/libraries/hooks/redux";
+import { useDispatch } from "libraries/hooks/redux";
 import { getDischarges } from "../../../../state/admissions";
 import { getAgeTypes } from "../../../../state/ageTypes";
 import { getWards } from "../../../../state/ward";

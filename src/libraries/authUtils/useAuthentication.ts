@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { setAuthenticationSuccess } from "../../state/main";
 import { IState } from "../../types";
 import { getAuthenticationFromSession } from "./getAuthenticationFromSession";

@@ -13,7 +13,7 @@ import "./styles.scss";
 import { IOwnProps } from "./types";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { IState } from "../../../types";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { setLogout } from "../../../state/main";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";

@@ -3,7 +3,7 @@ import OperationRowForm from "./operationForm/OperationRowForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { OperationRowTransitionState } from "./types";
 import { OpdDTO, OperationRowDTO, VisitDTO } from "../../../generated";

@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import WardForm from "../wardForm/WardForm";
 import React from "react";
 import { getInitialFields } from "../wardForm/consts";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { WardDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { updateWard } from "../../../../../state/ward";

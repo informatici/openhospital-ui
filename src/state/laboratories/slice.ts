@@ -120,11 +120,10 @@ export const laboratorySlice = createSlice({
       .addCase(thunks.updateLabStatus.pending, (state) => {
         state.updateLab.status = "LOADING";
       })
-      .addCase(thunks.updateLab.fulfilled, (state, action) => {
+      .addCase(thunks.updateLabStatus.fulfilled, (state, action) => {
         state.updateLab.status = "SUCCESS";
-        state.updateLab.data = action.payload;
       })
-      .addCase(thunks.updateLab.rejected, (state, action) => {
+      .addCase(thunks.updateLabStatus.rejected, (state, action) => {
         state.updateLab.status = "FAIL";
         state.updateLab.error = action.payload;
       })

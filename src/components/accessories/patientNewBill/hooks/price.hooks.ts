@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { PriceDTO } from "../../../../generated/models/PriceDTO";
 import { PriceListDTO } from "../../../../generated/models/PriceListDTO";
 import { getPriceLists } from "../../../../state/prices";

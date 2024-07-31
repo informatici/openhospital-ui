@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { FullBillDTO, PatientDTO } from "../../../generated";
 import { getPendingBills, searchBills } from "../../../state/bills";
 import { IState } from "../../../types";

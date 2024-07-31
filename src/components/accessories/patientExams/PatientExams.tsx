@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { IState } from "../../../types";
 import ExamForm from "./ExamForm/ExamForm";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
 import checkIcon from "../../../assets/check-icon.png";

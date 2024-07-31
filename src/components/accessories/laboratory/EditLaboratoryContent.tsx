@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { Cancel } from "@mui/icons-material";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { useParams, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";

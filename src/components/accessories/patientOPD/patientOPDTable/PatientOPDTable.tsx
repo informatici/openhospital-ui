@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import { getOpdsWithOperationRows } from "../../../../state/opds";
 import { IState } from "../../../../types";

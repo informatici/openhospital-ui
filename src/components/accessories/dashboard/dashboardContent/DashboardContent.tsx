@@ -3,7 +3,7 @@ import { DashboardFilter } from "./filter/DashboardFilter";
 import GridLayoutToolbox from "../layouts/toolbox/GridLayoutToolBox";
 import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
 import { setDashboardPeriod } from "../../../../state/dashboard";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import "./styles.scss";
 import { IState } from "../../../../types";
 import { TAPIResponseStatus } from "../../../../state/types";

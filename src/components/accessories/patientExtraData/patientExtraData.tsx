@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { PatientDTO } from "../../../generated";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import checkIcon from "../../../assets/check-icon.png";

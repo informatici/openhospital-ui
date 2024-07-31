@@ -20,7 +20,7 @@ import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "./consts";
 import "./styles.scss";
 import { IStateProps, TActivityTransitionState, IOwnProps } from "./types";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 
 const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   dashboardRoute,

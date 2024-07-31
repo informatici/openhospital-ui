@@ -6,7 +6,7 @@ import { IExamTableProps, multipleResultsLabel } from "./types";
 import "./styles.scss";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { getLabWithRowsByCode } from "../../../../state/laboratories";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";

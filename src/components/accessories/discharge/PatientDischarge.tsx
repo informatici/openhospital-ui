@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "@/libraries/hooks/redux";
+import { useDispatch, useSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
 import { AdmissionDTO } from "../../../generated";
