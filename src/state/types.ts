@@ -38,6 +38,26 @@ export class ApiResponse<T> {
     this.data = props.data;
     this.error = props.error;
   }
+
+  static value<T>(value: T) {
+    return new ApiResponse<T>({ status: "SUCCESS", data: value });
+  }
+
+  static error<T>(error: any) {
+    return new ApiResponse<T>({ status: "FAIL", error: error });
+  }
+
+  static loading<T>() {
+    return new ApiResponse<T>({ status: "LOADING" });
+  }
+
+  static empty<T>() {
+    return new ApiResponse<T[]>({ status: "SUCCESS_EMPTY", data: [] });
+  }
+
+  static idle<T>() {
+    return new ApiResponse<T>({ status: "IDLE" });
+  }
 }
 
 export type RootState = ReturnType<typeof store.getState>;
