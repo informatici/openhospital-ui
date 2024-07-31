@@ -1,7 +1,8 @@
-import { DatePickerView, DateRange } from "@material-ui/pickers";
-import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
+import { DatePicker } from "@mui/x-date-pickers";
 import { ComponentType } from "react";
 import { FIELD_VALIDATION } from "../../../types";
+import { DateRange } from "@mui/lab/DateRangePicker";
+import { TextFieldProps } from "@mui/material";
 
 export interface IProps {
   fieldName?: string;
@@ -24,9 +25,8 @@ export interface IProps {
     dayInCurrentMonth: boolean,
     dayComponent: JSX.Element
   ) => JSX.Element;
-  views?: DatePickerView[];
   required?: FIELD_VALIDATION;
-  TextFieldComponent?: ComponentType<MuiTextFieldProps>;
+  TextFieldComponent?: ComponentType<TextFieldProps>;
   open?: boolean;
   okLabel?: string;
   cancelLabel?: string;

@@ -4,7 +4,7 @@ import { LabWithRowsDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import InfoBox from "../../infoBox/InfoBox";
 import { getLabsByPatientId } from "../../../../state/laboratories/actions";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";

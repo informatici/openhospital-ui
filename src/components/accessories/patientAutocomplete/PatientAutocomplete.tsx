@@ -1,4 +1,4 @@
-import { debounce } from "@material-ui/core";
+import { debounce } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import "./styles.scss";
 import { useDispatch, useSelector } from "react-redux";

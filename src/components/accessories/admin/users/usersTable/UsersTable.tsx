@@ -1,6 +1,6 @@
 import React, { useEffect, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";

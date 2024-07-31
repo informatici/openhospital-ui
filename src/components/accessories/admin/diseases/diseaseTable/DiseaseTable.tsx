@@ -2,13 +2,13 @@ import React, { FunctionComponent, ReactNode, useMemo } from "react";
 import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { DiseaseDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import classes from "./DiseaseTable.module.scss";
-import { CheckOutlined, CloseOutlined } from "@material-ui/icons";
+import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
 import { TFilterField } from "../../../table/filter/types";
 
 interface IOwnProps {

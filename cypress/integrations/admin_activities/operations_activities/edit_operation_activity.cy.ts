@@ -25,7 +25,8 @@ describe("Operations Edit Activity specs", () => {
   it("should successfully save operation changes", () => {
     cy.byId("type").click();
     cy.get('.MuiAutocomplete-popper li[data-option-index="0"]').click();
-    cy.dataCy("submit-form").click();
+    cy.byId("type").focus();
+    cy.dataCy("submit-form").click().click();
     cy.dataCy("dialog-info").contains("has been updated successfully!");
     cy.dataCy("approve-dialog").click();
   });

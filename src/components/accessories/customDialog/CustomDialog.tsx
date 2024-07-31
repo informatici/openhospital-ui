@@ -6,8 +6,8 @@ import {
   DialogProps,
   DialogTitle,
   IconButton,
-} from "@material-ui/core";
-import { GridCloseIcon } from "@material-ui/data-grid";
+} from "@mui/material";
+import { GridCloseIcon } from "@mui/x-data-grid";
 import { ICustomDialog } from "./types";
 
 export const CustomDialog: FC<ICustomDialog> = ({

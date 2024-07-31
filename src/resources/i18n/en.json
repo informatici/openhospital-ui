@@ -531,7 +531,11 @@
     "value": "Value",
     "true": "True",
     "false": "False",
-    "all": "All"
+    "all": "All",
+    "from": "From",
+    "to": "To",
+    "datebefore": "Should be before the end date",
+    "dateafter": "should be after start date"
   },
   "permission": {
     "denied": "Permission denied",

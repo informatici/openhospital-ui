@@ -5,7 +5,7 @@ import {
   Toolbar,
   Typography,
   TextField as MaterialComponent,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import DateField from "../dateField/DateField";

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
-import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { Checkbox, FormControlLabel } from "@mui/material";
 const CheckboxField: FunctionComponent<IProps> = ({
   fieldName,
   checked,

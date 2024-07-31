@@ -1,10 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { IProps } from "./types";
 import "./styles.scss";
-import {
-  Pagination as MaterialPagination,
-  PaginationProps,
-} from "@material-ui/lab";
+import { Pagination as MaterialPagination, PaginationProps } from "@mui/lab";
 
 const Pagination: FunctionComponent<IProps & PaginationProps> = ({
   ...paginationProps

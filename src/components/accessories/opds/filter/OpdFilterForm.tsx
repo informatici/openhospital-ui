@@ -3,8 +3,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Button,
-} from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
+} from "@mui/material";
+import { FilterList } from "@mui/icons-material";
 import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
 import { get, has } from "lodash";

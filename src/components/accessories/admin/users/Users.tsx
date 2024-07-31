@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { Tabs, Tab } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-
-import { Tabs, Tab } from "@material-ui/core";
 
 import Button from "../../button/Button";
 import UsersTable from "./usersTable";

@@ -25,7 +25,7 @@ import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TAgeFieldName, TProps } from "./types";
 import { useTranslation } from "react-i18next";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip } from "@mui/material";
 import { formCustomization } from "../../../customization/formCustomization";
 import { FIELD_VALIDATION, IState } from "../../../types";
 import moment from "moment";

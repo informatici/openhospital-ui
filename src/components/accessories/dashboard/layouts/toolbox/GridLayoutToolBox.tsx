@@ -16,8 +16,8 @@ import {
   removeDuplicates,
   removeWidget,
 } from "../consts";
-import { Button } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { Button } from "@mui/material";
+import { Add } from "@mui/icons-material";
 import { Layout, Layouts } from "react-grid-layout";
 import { saveLayouts } from "../../../../../state/layouts/actions";
 import "./styles.scss";
@@ -88,7 +88,7 @@ const GridLayoutToolbox: FC = () => {
         <Button
           className="Toolbox-item-button"
           variant="contained"
-          color="default"
+          color="inherit"
           endIcon={<Add />}
           onClick={() => onTake()}
         >

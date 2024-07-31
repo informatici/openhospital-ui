@@ -11,13 +11,13 @@ import {
   Table as MaterialComponent,
   TablePagination,
   TableSortLabel,
-} from "@material-ui/core";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+} from "@mui/material";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import {
   Edit,
   Delete,
@@ -27,7 +27,7 @@ import {
   Archive,
   Add,
   Close,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import "./styles.scss";
 import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
@@ -450,7 +450,7 @@ const Table: FunctionComponent<IProps> = ({
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={[rowsPerPage]}
           page={page}
-          onChangePage={handleChangePage}
+          onPageChange={handleChangePage}
         />
       ) : (
         ""

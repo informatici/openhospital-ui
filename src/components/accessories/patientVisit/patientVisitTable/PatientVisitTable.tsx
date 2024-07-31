@@ -4,7 +4,7 @@ import { VisitDTO } from "../../../../generated";
 import { getVisits } from "../../../../state/visits/actions";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
