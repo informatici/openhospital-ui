@@ -27,7 +27,9 @@ export const NewDeliveryResultType = () => {
 
   return (
     <div className="newDeliveryResultType">
-      <h3 className="title">{t("deliveryResultType.addDeliveryResultType")}</h3>
+      <h3 className="title" data-cy="sub-activity-title">
+        {t("deliveryResultType.addDeliveryResultType")}
+      </h3>
       <DeliveryResultTypeForm
         creationMode
         onSubmit={handleSubmit}

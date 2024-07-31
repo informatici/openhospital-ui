@@ -6,7 +6,7 @@ import { DeliveryResultTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { PATHS } from "../../../../../../../consts";
-import { setTypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 import DeliveryResultTypeForm from "../deliveryResultTypeForm/DeliveryResultTypeForm";
 import { getInitialFields } from "../deliveryResultTypeForm/consts";
@@ -21,13 +21,19 @@ export const EditDeliveryResultType = () => {
     (state) => state.types.deliveryResult.update
   );
 
+  const mode = useSelector<IState, TypeMode>(
+    (state) => state.types.config.mode
+  );
+
   const handleSubmit = (value: DeliveryResultTypeDTO) => {
     dispatch(updateDeliveryResultType(value));
   };
 
   useEffect(() => {
-    dispatch(setTypeMode("edit"));
-  });
+    if (mode !== "edit") {
+      dispatch(setTypeMode("edit"));
+    }
+  }, [mode, dispatch]);
 
   if (state?.code !== code) {
     return <Navigate to={PATHS.admin_delivery_result_types} />;
@@ -35,7 +41,7 @@ export const EditDeliveryResultType = () => {
 
   return (
     <div className="editDeliveryResultType">
-      <h3 className="title">
+      <h3 className="title" data-cy="sub-activity-title">
         {t("deliveryResultType.editDeliveryResultType")}
       </h3>
       <DeliveryResultTypeForm

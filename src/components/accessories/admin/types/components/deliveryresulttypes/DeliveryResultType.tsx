@@ -43,9 +43,9 @@ const DelevyResultType = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("deliveryResultType.title")}</h3>
+      <h3 data-cy="sub-activity-title">{t("deliveryResultType.title")}</h3>
 
-      <div className="deliveryResultTypes">
+      <div className="deliveryResultTypes" data-cy="deliveryresult-types-table">
         <DeliveryResultTypeTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -57,6 +57,7 @@ const DelevyResultType = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-deliveryresult-type"
             >
               {t("deliveryResultType.addDeliveryResultType")}
             </Button>
