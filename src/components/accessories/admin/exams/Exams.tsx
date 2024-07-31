@@ -26,7 +26,7 @@ export const Exams = () => {
   };
 
   return (
-    <div className={classes.exams}>
+    <div className={classes.exams} data-cy="exams-table">
       <ExamsTable
         headerActions={
           <Button
@@ -36,6 +36,7 @@ export const Exams = () => {
             type="button"
             variant="contained"
             color="primary"
+            dataCy="add-new-exam"
           >
             {t("exam.addExam")}
           </Button>

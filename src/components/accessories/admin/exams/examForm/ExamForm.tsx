@@ -198,12 +198,21 @@ const ExamForm: FC<IExamProps> = ({
               fieldName="selectedType"
               fieldValue={formik.values.procedure}
               label={t("exam.procedure")}
-              options={[{label:"1: a list of available \"string\" results", value: '1'},
-                {label:"2: a list of all \"boolean\" results", value: "2"},
-                {label: "3: exact value (it will be typed in by the laboratorist)", value: "3"}]}
+              options={[
+                {
+                  label: '1: a list of available "string" results',
+                  value: "1",
+                },
+                { label: '2: a list of all "boolean" results', value: "2" },
+                {
+                  label:
+                    "3: exact value (it will be typed in by the laboratorist)",
+                  value: "3",
+                },
+              ]}
               errorText={getErrorText("procedure")}
               isValid={isValid("procedure")}
-              onChange={v => formik.setFieldValue("procedure", v)}
+              onChange={(v) => formik.setFieldValue("procedure", v)}
               onBlur={formik.handleBlur}
               disabled={isLoading}
             />
@@ -224,7 +233,12 @@ const ExamForm: FC<IExamProps> = ({
 
         <div className="examForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -232,6 +246,7 @@ const ExamForm: FC<IExamProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
