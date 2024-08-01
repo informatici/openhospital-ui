@@ -23,7 +23,7 @@ describe("Exams edit activity specs", () => {
   it("should successfully save exam changes", () => {
     cy.byId("examtype").click();
     cy.get('.MuiAutocomplete-popper li[data-option-index="0"]').click();
-    cy.dataCy("submit-form").click();
+    cy.dataCy("submit-form").click().click();
     cy.dataCy("dialog-info").contains("Exam updated successfully");
     cy.dataCy("approve-dialog").click();
   });
