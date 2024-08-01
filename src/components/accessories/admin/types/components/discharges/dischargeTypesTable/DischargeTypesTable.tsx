@@ -5,7 +5,7 @@ import { ApiResponse } from "../../../../../../../state/types";
 import { IState } from "../../../../../../../types";
 import { DischargeTypeDTO } from "../../../../../../../generated";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import Table from "../../../../../table/Table";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import { deleteDischargeTypeReset } from "../../../../../../../state/types/discharges/actions";

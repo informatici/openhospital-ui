@@ -23,7 +23,7 @@ describe("Vaccines Edit Activity specs", () => {
   it("should successfully save vaccine changes", () => {
     cy.byId("vaccineType").click();
     cy.get('.MuiAutocomplete-popper li[data-option-index="0"]').click();
-    cy.dataCy("submit-form").click();
+    cy.dataCy("submit-form").click().click();
     cy.dataCy("dialog-info").contains("has been updated successfully!");
     cy.dataCy("approve-dialog").click();
   });

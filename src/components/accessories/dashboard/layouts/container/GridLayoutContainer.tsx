@@ -23,9 +23,9 @@ import {
   setBreakpoint,
 } from "../../../../../state/layouts/actions";
 import { GridLayoutItem } from "../item/GridLayoutItem";
-import { Button, CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress } from "@mui/material";
 import { FullscreenCard } from "../../card/FullscreenCard";
-import { ErrorOutline } from "@material-ui/icons";
+import { ErrorOutline } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 
@@ -43,8 +43,9 @@ const GridLayoutContainer: FC = () => {
   const [mounted, setMounted] = useState(false);
   const [canUpdateLayouts, setCanUpdateLayouts] = useState(true);
   const [localBreakpoint, setLocalBreakpoint] = useState<string>("md");
-  const [fsDashboard, setFsDashboard] =
-    useState<TDashboardComponent | undefined>(undefined);
+  const [fsDashboard, setFsDashboard] = useState<
+    TDashboardComponent | undefined
+  >(undefined);
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const gridLayoutRef = useRef<HTMLDivElement>(null);

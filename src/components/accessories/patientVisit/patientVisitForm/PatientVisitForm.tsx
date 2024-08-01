@@ -14,7 +14,7 @@ import { number, object, string } from "yup";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
 import warningIcon from "../../../../assets/warning-icon.png";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import TextField from "../../textField/TextField";
 import { get, has } from "lodash";
 import "./styles.scss";

@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect } from "react";
 import _ from "lodash";
-import { Collapse, IconButton } from "@material-ui/core";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
+import { Collapse, IconButton } from "@mui/material";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import "./styles.scss";
 import { IRowProps } from "./types";
 

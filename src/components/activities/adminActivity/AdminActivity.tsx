@@ -11,7 +11,7 @@ import SideMenu from "./SideMenu/SideMenu";
 import { IAuthentication } from "../../../state/main/types";
 import classes from "./AdminActivity.module.scss";
 import "./styles.scss";
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@mui/material";
 import {
   Accordion,
   AccordionDetails,

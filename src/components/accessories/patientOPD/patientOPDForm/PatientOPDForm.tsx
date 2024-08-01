@@ -39,7 +39,7 @@ import {
   ListItemText,
   Radio,
   RadioGroup,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   DiseaseDTO,
   OpdWithOperationRowDTO,
@@ -50,10 +50,10 @@ import moment from "moment";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import CheckboxField from "../../checkboxField/CheckboxField";
 import { isEmpty } from "lodash";
-import AddIcon from "@material-ui/icons/Add";
-import FileIcon from "@material-ui/icons/Label";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@mui/icons-material/Add";
+import FileIcon from "@mui/icons-material/Label";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { CustomDialog } from "../../customDialog/CustomDialog";
 import ContentCutIcon from "../../icons/content-cut";
 import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
@@ -68,7 +68,7 @@ import { IOperationState } from "../../../../state/operations/types";
 import checkIcon from "../../../../assets/check-icon.png";
 import { opRowFields } from "../../patientOperation/opRowFields";
 import InfoBox from "../../infoBox/InfoBox";
-import { Add, Edit } from "@material-ui/icons";
+import { Add, Edit } from "@mui/icons-material";
 import { getWards } from "../../../../state/ward/actions";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({

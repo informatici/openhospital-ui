@@ -25,8 +25,8 @@ import {
   AccordionDetails,
   AccordionSummary,
   CircularProgress,
-} from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
+} from "@mui/material";
+import { FilterList } from "@mui/icons-material";
 import PatientPicker from "../patientPicker/PatientPicker";
 import InfoBox from "../infoBox/InfoBox";
 

@@ -7,12 +7,12 @@ import {
   DialogTitle,
   IconButton,
   Box,
-} from "@material-ui/core";
-import DeleteRoundedIcon from "@material-ui/icons/Clear";
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
-import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+} from "@mui/material";
+import DeleteRoundedIcon from "@mui/icons-material/Clear";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import React, {
   ChangeEvent,
   FunctionComponent,
@@ -32,7 +32,7 @@ import {
   preprocessImage,
 } from "./utils";
 import classNames from "classnames";
-import { GridCloseIcon } from "@material-ui/data-grid";
+import { GridCloseIcon } from "@mui/x-data-grid";
 import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
 import { isEmpty } from "lodash";
 
@@ -176,14 +176,14 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
             className="profilePicture_hoverButton profilePicture_editIcon"
             onClick={isEditable ? openModal : () => {}}
           >
-            <EditRoundedIcon fontSize="default" style={{ color: "white" }} />
+            <EditRoundedIcon fontSize="inherit" style={{ color: "white" }} />
           </div>
         ) : (
           <div
             className="profilePicture_hoverButton profilePicture_addIcon"
             onClick={isEditable ? openModal : () => {}}
           >
-            <AddRoundedIcon fontSize="default" style={{ color: "white" }} />
+            <AddRoundedIcon fontSize="inherit" style={{ color: "white" }} />
           </div>
         )}
       </div>

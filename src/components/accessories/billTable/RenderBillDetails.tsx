@@ -1,19 +1,18 @@
 import {
-  makeStyles,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  withStyles,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { FullBillDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import "./styles.scss";
+import { makeStyles, withStyles } from "@mui/styles";
 
 interface IBillProps {
   fullBill: FullBillDTO;

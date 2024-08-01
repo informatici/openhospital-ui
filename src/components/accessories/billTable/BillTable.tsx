@@ -26,8 +26,8 @@ import {
   AccordionDetails,
   AccordionSummary,
   CircularProgress,
-} from "@material-ui/core";
-import { Add, FilterList } from "@material-ui/icons";
+} from "@mui/material";
+import { Add, FilterList } from "@mui/icons-material";
 import PatientPicker from "../patientPicker/PatientPicker";
 import { useNavigate } from "react-router";
 import InfoBox from "../infoBox/InfoBox";

@@ -17,7 +17,7 @@ describe("Diseases Edit Activity specs", () => {
     cy.byId("code").should("be.disabled");
     cy.get('input[name="opdInclude"]').uncheck();
     cy.get('input[name="ipdInInclude"]').check();
-    cy.byId("diseaseType").clear();
+    cy.byId("description").clear().type("FAIL");
     cy.dataCy("submit-form").click();
     cy.dataCy("dialog-info").should("not.exist");
   });
@@ -25,6 +25,7 @@ describe("Diseases Edit Activity specs", () => {
   it("should successfully save disease changes", () => {
     cy.byId("diseaseType").click();
     cy.get('.MuiAutocomplete-popper li[data-option-index="0"]').click();
+    cy.byId("description").clear().type("Disease description");
     cy.dataCy("submit-form").click();
     cy.dataCy("dialog-info").contains("has been updated successfully!");
     cy.dataCy("approve-dialog").click();

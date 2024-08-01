@@ -2,9 +2,9 @@ import classNames from "classnames";
 import React, { FunctionComponent } from "react";
 import { InfoBoxType, IProps } from "./types";
 import "./styles.scss";
-import InfoIcon from "@material-ui/icons/Info";
-import ErrorIcon from "@material-ui/icons/Error";
-import WarningIcon from "@material-ui/icons/Warning";
+import InfoIcon from "@mui/icons-material/Info";
+import ErrorIcon from "@mui/icons-material/Error";
+import WarningIcon from "@mui/icons-material/Warning";
 
 const InfoBox: FunctionComponent<IProps> = ({ type, message }) => {
   const renderIcon = () => {

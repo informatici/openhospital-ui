@@ -1,8 +1,8 @@
 import { FC, useEffect } from "react";
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import { RemoveRedEye } from "@material-ui/icons";
+import Link from "@mui/material/Link";
+import { RemoveRedEye } from "@mui/icons-material";
 import classNames from "classnames";
 import { useFormik } from "formik";
 import { get, has } from "lodash";
@@ -54,7 +54,7 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorMessage = useSelector<IState>((state) => {
+  const errorMessage = useSelector<IState, string | undefined>((state) => {
     const error = state.main.authentication.error;
     return error?.status === 401
       ? t("errors.incorrectcredentials")

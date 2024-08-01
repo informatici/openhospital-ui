@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { TDashboardCardProps } from "./types";
 import React, { useRef, useEffect } from "react";
 import "./styles.scss";
@@ -68,7 +68,8 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
         subheader={subtitle ?? false}
       ></CardHeader>
       <CardContent
-        innerRef={cardBodyRef}
+        component={"div"}
+        ref={cardBodyRef}
         className="DashboardCard-item-content"
       >
         {children}

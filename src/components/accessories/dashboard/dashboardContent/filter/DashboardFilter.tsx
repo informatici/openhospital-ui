@@ -3,14 +3,13 @@ import { IOwnProps, TPeriodType, TViewType } from "./types";
 import "./styles.scss";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import DateRangeField from "../../../dateRangeField/DateRangeField";
-import { DateRange } from "@material-ui/pickers";
-import { IconButton } from "@material-ui/core";
-import { CalendarTodaySharp } from "@material-ui/icons";
+import { IconButton } from "@mui/material";
+import { CalendarTodaySharp } from "@mui/icons-material";
 import DateField from "../../../dateField/DateField";
-import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
+import { ToggleButtonGroup, ToggleButton, DateRange } from "@mui/lab";
 import { isEmpty } from "lodash";
 import { usePeriodOptions } from "./usePeriodOptions";
+import DateRangeField from "../../../dateRangeField/DateRangeField";
 
 export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
   const { t } = useTranslation();
@@ -136,43 +135,45 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
           onChange={handleSelectionChange}
         >
           <ToggleButton value="custom">
-            <span>{period ?? "Custom"}</span>
-            {view === "range" ? (
-              <DateRangeField
-                fieldName="period"
-                isValid={true}
-                fieldValue={dateRange}
-                format="dd/MM/YYY"
-                onClose={() => setOpen(false)}
-                onChange={handleDateRangeChange}
-                TextFieldComponent={(props) => (
-                  <IconButton
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  >
-                    <CalendarTodaySharp />
-                  </IconButton>
-                )}
-                open={open}
-              />
-            ) : (
-              <DateField
-                fieldName="period"
-                isValid={true}
-                errorText=""
-                label=""
-                fieldValue={dateRange[0]?.toISOString() ?? ""}
-                format="dd/MM/YYY"
-                onChange={handleDateChange}
-                TextFieldComponent={(props) => (
-                  <IconButton onClick={onIconClickHandler}>
-                    <CalendarTodaySharp />
-                  </IconButton>
-                )}
-                open={open}
-              />
-            )}
+            <div className="filter__datefield">
+              <span>{period ?? "Custom"}</span>
+              {view === "range" ? (
+                <DateRangeField
+                  fieldName="period"
+                  isValid={true}
+                  fieldValue={dateRange}
+                  format="dd/MM/YYY"
+                  onClose={() => setOpen(false)}
+                  onChange={handleDateRangeChange}
+                  TextFieldComponent={(props) => (
+                    <IconButton
+                      onClick={() => {
+                        setOpen(!open);
+                      }}
+                    >
+                      <CalendarTodaySharp />
+                    </IconButton>
+                  )}
+                  open={open}
+                />
+              ) : (
+                <DateField
+                  fieldName="period"
+                  isValid={true}
+                  errorText=""
+                  label=""
+                  fieldValue={dateRange[0]?.toISOString() ?? ""}
+                  format="dd/MM/YYY"
+                  onChange={handleDateChange}
+                  TextFieldComponent={(props) => (
+                    <IconButton onClick={onIconClickHandler}>
+                      <CalendarTodaySharp />
+                    </IconButton>
+                  )}
+                  open={open}
+                />
+              )}
+            </div>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
