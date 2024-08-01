@@ -28,21 +28,21 @@ export const useData = () => {
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
-  const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const ageTypeStatus = useSelector(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const dischargeTypeStatus = useSelector(
     (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
-  const admissionStatus = useSelector<IState, TAPIResponseStatus>(
+  const admissionStatus = useSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getDischarges.status ?? ""
     )
   );
-  const wardStatus = useSelector<IState, TAPIResponseStatus>(
+  const wardStatus = useSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
   const sexLabels = [t("common.male"), t("common.female")];

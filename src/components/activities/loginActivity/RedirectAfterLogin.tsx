@@ -15,7 +15,7 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
     [landingPageRoute, location]
   );
 
-  const state = useSelector<IState, IState>((state) => state);
+  const state = useSelector((state) => state);
 
   const status = useMemo(
     () =>

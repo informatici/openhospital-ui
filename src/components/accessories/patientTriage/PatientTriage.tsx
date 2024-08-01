@@ -64,7 +64,7 @@ const PatientTriage: FC = () => {
       : state.examinations.updateExamination.status;
   });
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||

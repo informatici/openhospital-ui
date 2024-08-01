@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 import { Layouts } from "react-grid-layout";
 import {
@@ -39,7 +40,7 @@ export const layoutSlice = createSlice({
     builder
       // Get Layouts
       .addCase(thunks.getLayouts.pending, (state) => {
-        state.getLayouts.status = "LOADING";
+        state.getLayouts = ApiResponse.loading();
       })
       .addCase(thunks.getLayouts.fulfilled, (state, { payload }) => {
         let layout: Layouts;
@@ -73,12 +74,11 @@ export const layoutSlice = createSlice({
         };
       })
       .addCase(thunks.getLayouts.rejected, (state, action) => {
-        state.getLayouts.status = "FAIL";
-        state.getLayouts.error = action.payload;
+        state.getLayouts = ApiResponse.error(action.payload);
       })
       // Save Layouts
       .addCase(thunks.saveLayouts.pending, (state) => {
-        state.saveLayouts.status = "LOADING";
+        state.saveLayouts = ApiResponse.loading();
       })
       .addCase(thunks.saveLayouts.fulfilled, (state, action) => {
         state.saveLayouts.status = isEmpty(action.payload)
@@ -90,8 +90,7 @@ export const layoutSlice = createSlice({
         state.saveLayouts.data = action.payload.data;
       })
       .addCase(thunks.saveLayouts.rejected, (state, action) => {
-        state.saveLayouts.status = "FAIL";
-        state.saveLayouts.error = action.payload;
+        state.saveLayouts = ApiResponse.error(action.payload);
       }),
 });
 

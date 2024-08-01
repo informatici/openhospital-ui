@@ -46,9 +46,7 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const admissionTypesStore = useSelector<IState, IAdmissionTypesState>(
-    (state) => state.types.admissions
-  );
+  const admissionTypesStore = useSelector((state) => state.types.admissions);
 
   const errorMessage = useMemo(
     () =>

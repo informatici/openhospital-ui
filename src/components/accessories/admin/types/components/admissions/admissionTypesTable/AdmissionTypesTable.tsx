@@ -38,7 +38,7 @@ const AdmissionTypesTable = (props: IOwnProps) => {
     ApiResponse<AdmissionTypeDTO[]>
   >((state) => state.types.admissions.getAll);
 
-  const deleteAdmissionType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteAdmissionType = useSelector(
     (state) => state.types.admissions.delete
   );
 

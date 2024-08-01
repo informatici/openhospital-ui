@@ -11,9 +11,7 @@ import { createSupplier } from "../../../../../state/suppliers";
 export const NewSupplier = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<SupplierDTO>>(
-    (state) => state.suppliers.create
-  );
+  const create = useSelector((state) => state.suppliers.create);
 
   const handleSubmit = (value: SupplierDTO) => {
     dispatch(createSupplier(value));

@@ -13,13 +13,13 @@ export const useDisByDisTypeData = () => {
   const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
     (state) => state.types.discharges.getAll.data ?? []
   );
-  const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const dischargeTypeStatus = useSelector(
     (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getDischarges.status ?? ""
     )

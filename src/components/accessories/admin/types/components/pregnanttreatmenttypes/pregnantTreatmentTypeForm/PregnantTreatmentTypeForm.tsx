@@ -144,7 +144,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 
         <div className="pregnantTreatmentTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button type="submit" dataCy="submit-form" variant="contained" disabled={isLoading}>
               {submitButtonLabel}
             </Button>
           </div>
@@ -152,6 +152,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >

@@ -43,9 +43,12 @@ const PregnantTreatmentType = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("pregnantTreatmentTypes.title")}</h3>
+      <h3 data-cy="sub-activity-title">{t("pregnantTreatmentTypes.title")}</h3>
 
-      <div className="pregnantTreatmentTypes">
+      <div
+        className="pregnantTreatmentTypes"
+        data-cy="pregnanttreatment-types-table"
+      >
         <PregnantTreatmentTableType
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -57,6 +60,7 @@ const PregnantTreatmentType = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-pregnanttreatment-type"
             >
               {t("pregnantTreatmentTypes.addPregnantTreatmentType")}
             </Button>

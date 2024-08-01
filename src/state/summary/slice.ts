@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 
 export const summarySlice = createSlice({
   name: "symmary",
@@ -10,14 +11,12 @@ export const summarySlice = createSlice({
     builder
       // Load Summary Data
       .addCase(thunks.loadSummaryData.pending, (state) => {
-        state.summaryApisCall.status = "LOADING";
+        state.summaryApisCall = ApiResponse.loading();
       })
       .addCase(thunks.loadSummaryData.fulfilled, (state, action) => {
-        state.summaryApisCall.status = "SUCCESS";
-        state.summaryApisCall.data = action.payload;
+        state.summaryApisCall = ApiResponse.value(action.payload);
       })
       .addCase(thunks.loadSummaryData.rejected, (state, action) => {
-        state.summaryApisCall.status = "FAIL";
-        state.summaryApisCall.error = action.payload;
+        state.summaryApisCall = ApiResponse.error(action.payload);
       }),
 });

@@ -46,9 +46,7 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const vaccineTypesStore = useSelector<IState, IVaccineTypesState>(
-    (state) => state.types.vaccines
-  );
+  const vaccineTypesStore = useSelector((state) => state.types.vaccines);
 
   const errorMessage = useMemo(
     () =>
@@ -140,7 +138,12 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
 
         <div className="vaccineTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              dataCy="submit-form"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -148,6 +151,7 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >

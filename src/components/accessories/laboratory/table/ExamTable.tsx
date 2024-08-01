@@ -44,7 +44,7 @@ export const ExamTable: FC<IExamTableProps> = ({
   const dispatch = useDispatch();
   const canUpdate = usePermission("exams.update");
   const canDelete = usePermission("exams.delete");
-  const deleteStatus = useSelector<IState, any>(
+  const deleteStatus = useSelector(
     (state: IState) => state.laboratories.deleteLab.status
   );
   const deleteErrorMessage = useSelector(

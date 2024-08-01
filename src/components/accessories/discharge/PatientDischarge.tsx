@@ -43,11 +43,11 @@ const PatientDischarge: FC = () => {
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const dischargeStatus = useSelector<IState>(
+  const dischargeStatus = useSelector(
     (state) => state.admissions.dischargePatient.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.admissions.dischargePatient.error?.message ||
       state.admissions.currentAdmissionByPatientId.error?.message

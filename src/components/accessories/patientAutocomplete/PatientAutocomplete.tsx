@@ -22,7 +22,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
     (state) => state.patients.searchResults.data ?? []
   );
 
-  const searchStatus = useSelector<IState>(
+  const searchStatus = useSelector(
     (state) => state.patients.searchResults.status || "IDLE"
   );
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {

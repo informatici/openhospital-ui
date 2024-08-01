@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewAdmissionType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<AdmissionTypeDTO>>(
-    (state) => state.types.admissions.create
-  );
+  const create = useSelector((state) => state.types.admissions.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

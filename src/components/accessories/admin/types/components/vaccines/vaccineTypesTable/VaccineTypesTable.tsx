@@ -38,9 +38,7 @@ const VaccineTypesTable = (props: IOwnProps) => {
     ApiResponse<VaccineTypeDTO[]>
   >((state) => state.types.vaccines.getVaccineTypes);
 
-  const deleteVaccineType = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.types.vaccines.delete
-  );
+  const deleteVaccineType = useSelector((state) => state.types.vaccines.delete);
 
   const handleEdit = (row: VaccineTypeDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

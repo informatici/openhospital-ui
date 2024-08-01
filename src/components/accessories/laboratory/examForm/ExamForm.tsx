@@ -88,10 +88,8 @@ const ExamForm: FC<ExamProps> = ({
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
-  const errorMessage = useSelector<IState>(
+  const labStore = useSelector((state: IState) => state.laboratories);
+  const errorMessage = useSelector(
     (state) =>
       labStore.createLab.error?.message ||
       labStore.updateLab.error?.message ||

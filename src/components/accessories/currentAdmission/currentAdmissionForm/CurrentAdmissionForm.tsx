@@ -60,7 +60,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     (state) => state.admissions.updateAdmission.status
   );
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   );

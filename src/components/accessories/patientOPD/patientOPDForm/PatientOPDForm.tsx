@@ -316,9 +316,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }, 500);
   };
 
-  const operationStore = useSelector<IState, IOperationState>(
-    (state: IState) => state.operations
-  );
+  const operationStore = useSelector((state: IState) => state.operations);
 
   const operationsRowFields = useMemo(() => {
     return opRowFields(
@@ -340,7 +338,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       setShowModal(true);
     };
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.operations.deleteOperationRow.error?.message ||
       t("common.somethingwrong")

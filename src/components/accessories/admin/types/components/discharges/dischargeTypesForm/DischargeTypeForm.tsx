@@ -46,9 +46,7 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const dischargeTypesStore = useSelector<IState, IDischargeTypesState>(
-    (state) => state.types.discharges
-  );
+  const dischargeTypesStore = useSelector((state) => state.types.discharges);
 
   const errorMessage = useMemo(
     () =>

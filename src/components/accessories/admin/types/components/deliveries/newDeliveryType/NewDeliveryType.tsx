@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewDeliveryType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DeliveryTypeDTO>>(
-    (state) => state.types.deliveries.create
-  );
+  const create = useSelector((state) => state.types.deliveries.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

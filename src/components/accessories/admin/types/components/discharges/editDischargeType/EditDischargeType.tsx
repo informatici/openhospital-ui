@@ -17,13 +17,9 @@ export const EditDischargeType = () => {
   const { t } = useTranslation();
   const { state }: { state: DischargeTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DischargeTypeDTO>>(
-    (state) => state.types.discharges.update
-  );
+  const update = useSelector((state) => state.types.discharges.update);
 
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const mode = useSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: DischargeTypeDTO) => {
     dispatch(updateDischargeType(value));

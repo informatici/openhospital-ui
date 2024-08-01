@@ -73,7 +73,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     (state) => state.laboratories.labsRequestByPatientId.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.laboratories.labsRequestByPatientId.error?.message ||
       t("common.somethingwrong")

@@ -12,13 +12,13 @@ export const useAdmByAdmWardData = () => {
   const wards = useSelector<IState, WardDTO[]>(
     (state) => state.wards.allWards.data ?? []
   );
-  const wardStatus = useSelector<IState, TAPIResponseStatus>(
+  const wardStatus = useSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useSelector(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getAdmissions.status ?? ""
     )

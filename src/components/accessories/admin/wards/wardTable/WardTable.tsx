@@ -60,9 +60,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     (state) => state.wards.allWards
   );
 
-  const deleteWard = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.wards.delete
-  );
+  const deleteWard = useSelector((state) => state.wards.delete);
 
   const handleEdit = (row: WardDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

@@ -76,11 +76,11 @@ export const BillsRecap: FC = () => {
     return state.bills.getBillsByYear.data ?? [];
   });
 
-  const dataByYearIsLoading = useSelector<IState, boolean>((state) => {
+  const dataByYearIsLoading = useSelector((state) => {
     return state.bills.getBillsByYear.status === "LOADING";
   });
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useSelector(
     (state) => state.main.authentication.data
   );
 

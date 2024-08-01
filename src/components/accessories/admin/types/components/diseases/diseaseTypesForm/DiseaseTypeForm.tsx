@@ -46,9 +46,7 @@ const DiseaseTypeForm: FC<IDiseaseTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const diseaseTypesStore = useSelector<IState, IDiseaseTypesState>(
-    (state) => state.types.diseases
-  );
+  const diseaseTypesStore = useSelector((state) => state.types.diseases);
 
   const errorMessage = useMemo(
     () =>

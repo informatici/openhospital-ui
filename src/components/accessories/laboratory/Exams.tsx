@@ -57,9 +57,7 @@ export const Exams: FC = () => {
     () => updateFilterFields(initialFilterFields, filter, false),
     [filter]
   );
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
+  const labStore = useSelector((state: IState) => state.laboratories);
   const handleResetFilter = () => {
     setFilter(initialFilter as TFilterValues);
   };

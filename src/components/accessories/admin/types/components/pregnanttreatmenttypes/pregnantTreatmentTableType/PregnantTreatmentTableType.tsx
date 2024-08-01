@@ -38,7 +38,7 @@ const PregnantTreatmentTableType = (props: IOwnProps) => {
     ApiResponse<PregnantTreatmentTypeDTO[]>
   >((state) => state.types.pregnantTreatment.getAll);
 
-  const deleteDiseaseType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteDiseaseType = useSelector(
     (state) => state.types.pregnantTreatment.delete
   );
 

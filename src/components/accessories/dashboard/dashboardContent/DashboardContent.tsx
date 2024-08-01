@@ -17,7 +17,7 @@ export const DashboardContent: FunctionComponent = () => {
     dispatch(setDashboardPeriod(value));
   };
 
-  const authUserStatus = useSelector<IState, TAPIResponseStatus>(
+  const authUserStatus = useSelector(
     (state) => state.main.authentication.status ?? "IDLE"
   );
 

@@ -46,7 +46,7 @@ const WardForm: FC<IWardProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const wardStore = useSelector<IState, IWardState>((state) => state.wards);
+  const wardStore = useSelector((state) => state.wards);
 
   const errorMessage = useMemo(
     () =>

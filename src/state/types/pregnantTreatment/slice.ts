@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const pregnantTreatmentTypeSlice = createSlice({
@@ -21,21 +22,18 @@ export const pregnantTreatmentTypeSlice = createSlice({
     builder
       // Get Pregnant Treatment Types
       .addCase(thunks.getPregnantTreatmentTypes.pending, (state) => {
-        state.getAll.status = "LOADING";
+        state.getAll = ApiResponse.loading();
       })
       .addCase(thunks.getPregnantTreatmentTypes.fulfilled, (state, action) => {
-        state.getAll.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getAll.data = action.payload;
+        state.getAll = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getPregnantTreatmentTypes.rejected, (state, action) => {
-        state.getAll.status = "FAIL";
-        state.getAll.error = action.payload;
+        state.getAll = ApiResponse.error(action.payload);
       })
       // Create Pregnant Treatment Type
       .addCase(thunks.createPregnantTreatmentType.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(
         thunks.createPregnantTreatmentType.fulfilled,
@@ -45,12 +43,11 @@ export const pregnantTreatmentTypeSlice = createSlice({
         }
       )
       .addCase(thunks.createPregnantTreatmentType.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Pregnant Treatment Type
       .addCase(thunks.updatePregnantTreatmentType.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(
         thunks.updatePregnantTreatmentType.fulfilled,
@@ -60,12 +57,11 @@ export const pregnantTreatmentTypeSlice = createSlice({
         }
       )
       .addCase(thunks.updatePregnantTreatmentType.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete Pregnant Treatment Type
       .addCase(thunks.deletePregnantTreatmentType.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(
         thunks.deletePregnantTreatmentType.fulfilled,
@@ -77,8 +73,7 @@ export const pregnantTreatmentTypeSlice = createSlice({
         }
       )
       .addCase(thunks.deletePregnantTreatmentType.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 

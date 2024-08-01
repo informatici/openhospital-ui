@@ -49,7 +49,7 @@ const PatientVisit: FunctionComponent = () => {
       : state.visits.updateVisit.status;
   });
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.visits.createVisit.error?.message ||
       state.visits.updateVisit.error?.message ||

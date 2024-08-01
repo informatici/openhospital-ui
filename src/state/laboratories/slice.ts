@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const laboratorySlice = createSlice({
@@ -42,21 +43,18 @@ export const laboratorySlice = createSlice({
     builder
       // Search labs
       .addCase(thunks.searchLabs.pending, (state) => {
-        state.searchLabs.status = "LOADING";
+        state.searchLabs = ApiResponse.loading();
       })
       .addCase(thunks.searchLabs.fulfilled, (state, action) => {
-        state.searchLabs.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.searchLabs.data = action.payload;
+        state.searchLabs = 
+        ApiResponse.value(action.payload);
       })
       .addCase(thunks.searchLabs.rejected, (state, action) => {
-        state.searchLabs.status = "FAIL";
-        state.searchLabs.error = action.payload;
+        state.searchLabs = ApiResponse.error(action.payload);
       })
       // Get Labs By Patient ID
       .addCase(thunks.getLabsByPatientId.pending, (state) => {
-        state.labsByPatientId.status = "LOADING";
+        state.labsByPatientId = ApiResponse.loading();
       })
       .addCase(thunks.getLabsByPatientId.fulfilled, (state, action) => {
         state.labsByPatientId.status = isEmpty(action.payload)
@@ -65,101 +63,88 @@ export const laboratorySlice = createSlice({
         state.labsByPatientId.data = action.payload as any;
       })
       .addCase(thunks.getLabsByPatientId.rejected, (state, action) => {
-        state.labsByPatientId.status = "FAIL";
-        state.labsByPatientId.error = action.payload;
+        state.labsByPatientId = ApiResponse.error(action.payload);
       })
       // Get Lab By Code
       .addCase(thunks.getLabByCode.pending, (state) => {
-        state.getLabByCode.status = "LOADING";
+        state.getLabByCode = ApiResponse.loading();
       })
       .addCase(thunks.getLabByCode.fulfilled, (state, action) => {
         state.getLabByCode.status = "SUCCESS";
         state.getLabByCode.data = action.payload?.[0]?.laboratoryDTO;
       })
       .addCase(thunks.getLabByCode.rejected, (state, action) => {
-        state.getLabByCode.status = "FAIL";
-        state.getLabByCode.error = action.payload;
+        state.getLabByCode = ApiResponse.error(action.payload);
       })
       // Get Lab With Row By Code
       .addCase(thunks.getLabWithRowsByCode.pending, (state) => {
-        state.getLabWithRowsByCode.status = "LOADING";
+        state.getLabWithRowsByCode = ApiResponse.loading();
       })
       .addCase(thunks.getLabWithRowsByCode.fulfilled, (state, action) => {
-        state.getLabWithRowsByCode.status = "SUCCESS";
-        state.getLabWithRowsByCode.data = action.payload;
+        state.getLabWithRowsByCode = ApiResponse.value(action.payload);
       })
       .addCase(thunks.getLabWithRowsByCode.rejected, (state, action) => {
-        state.getLabWithRowsByCode.status = "FAIL";
-        state.getLabWithRowsByCode.error = action.payload;
+        state.getLabWithRowsByCode = ApiResponse.error(action.payload);
       })
       // Create Lab
       .addCase(thunks.createLab.pending, (state) => {
-        state.createLab.status = "LOADING";
+        state.createLab = ApiResponse.loading();
       })
       .addCase(thunks.createLab.fulfilled, (state, action) => {
-        state.createLab.status = "SUCCESS";
-        state.createLab.data = action.payload;
+        state.createLab = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createLab.rejected, (state, action) => {
-        state.createLab.status = "FAIL";
-        state.createLab.error = action.payload;
+        state.createLab = ApiResponse.error(action.payload);
       })
       // Create Lab Request
       .addCase(thunks.createLabRequest.pending, (state) => {
-        state.createLabRequest.status = "LOADING";
+        state.createLabRequest = ApiResponse.loading();
       })
       .addCase(thunks.createLabRequest.fulfilled, (state, action) => {
-        state.createLabRequest.status = "SUCCESS";
-        state.createLabRequest.data = action.payload;
+        state.createLabRequest = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createLabRequest.rejected, (state, action) => {
-        state.createLabRequest.status = "FAIL";
-        state.createLabRequest.error = action.payload;
+        state.createLabRequest = ApiResponse.error(action.payload);
       })
       // Update Lab Status
       .addCase(thunks.updateLabStatus.pending, (state) => {
-        state.updateLab.status = "LOADING";
+        state.updateLab = ApiResponse.loading();
       })
       .addCase(thunks.updateLabStatus.fulfilled, (state, action) => {
         state.updateLab.status = "SUCCESS";
       })
       .addCase(thunks.updateLabStatus.rejected, (state, action) => {
-        state.updateLab.status = "FAIL";
-        state.updateLab.error = action.payload;
+        state.updateLab = ApiResponse.error(action.payload);
       })
       // Update Lab
       .addCase(thunks.updateLab.pending, (state) => {
-        state.updateLab.status = "LOADING";
+        state.updateLab = ApiResponse.loading();
       })
       .addCase(thunks.updateLab.fulfilled, (state, action) => {
-        state.updateLab.status = "SUCCESS";
-        state.updateLab.data = action.payload;
+        state.updateLab = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateLab.rejected, (state, action) => {
-        state.updateLab.status = "FAIL";
-        state.updateLab.error = action.payload;
+        state.updateLab = ApiResponse.error(action.payload);
       })
       // Cancel Lab
       .addCase(thunks.cancelLab.pending, (state) => {
-        state.cancelLab.status = "LOADING";
+        state.cancelLab = ApiResponse.loading();
       })
       .addCase(thunks.cancelLab.fulfilled, (state, action) => {
         state.cancelLab.status = "SUCCESS";
       })
       .addCase(thunks.cancelLab.rejected, (state, action) => {
-        state.cancelLab.status = "FAIL";
-        state.cancelLab.error = action.payload;
+        state.cancelLab = ApiResponse.error(action.payload);
       })
       // Delete Lab
       .addCase(thunks.deleteLab.pending, (state) => {
-        state.deleteLab.status = "LOADING";
+        state.deleteLab = ApiResponse.loading();
       })
       .addCase(thunks.deleteLab.fulfilled, (state, action) => {
         state.deleteLab.status = "SUCCESS";
       })
       .addCase(thunks.deleteLab.rejected, (state, action) => {
-        state.deleteLab.status = "FAIL";
-        state.deleteLab.error = action.payload;
+        state.deleteLab = ApiResponse.error(action.payload);
       }),
 });
 

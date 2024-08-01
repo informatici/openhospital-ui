@@ -38,9 +38,7 @@ const DiseaseTypesTable = (props: IOwnProps) => {
     ApiResponse<DiseaseTypeDTO[]>
   >((state) => state.types.diseases.getAll);
 
-  const deleteDiseaseType = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.types.diseases.delete
-  );
+  const deleteDiseaseType = useSelector((state) => state.types.diseases.delete);
 
   const handleEdit = (row: DiseaseTypeDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

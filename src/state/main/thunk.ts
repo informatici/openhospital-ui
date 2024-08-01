@@ -45,7 +45,7 @@ export const setLogout =
     dispatch(setLogoutLoading());
     SessionStorage.clear();
     loginApi.logout().subscribe(
-      () => {
+      (payload) => {
         dispatch(getPatientsReset());
         dispatch(getLabsReset());
         dispatch(searchLabsReset());
@@ -53,7 +53,7 @@ export const setLogout =
         dispatch(searchPatientsReset());
         dispatch(getOperationsReset());
         dispatch(getOperationsByAdmissionReset());
-        dispatch(setLogoutSuccess());
+        dispatch(setLogoutSuccess(payload));
       },
       (error) => {
         dispatch(setLogoutFailed(error?.response));

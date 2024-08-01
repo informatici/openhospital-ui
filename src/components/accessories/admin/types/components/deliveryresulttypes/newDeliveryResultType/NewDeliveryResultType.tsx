@@ -13,9 +13,7 @@ import { createDeliveryResultType } from "../../../../../../../state/types/deliv
 export const NewDeliveryResultType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DeliveryResultTypeDTO>>(
-    (state) => state.types.deliveryResult.create
-  );
+  const create = useSelector((state) => state.types.deliveryResult.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

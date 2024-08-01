@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const therapySlice = createSlice({
@@ -21,52 +22,44 @@ export const therapySlice = createSlice({
     builder
       // Get Patient Therapies
       .addCase(thunks.getTherapiesByPatientId.pending, (state) => {
-        state.therapiesByPatientId.status = "LOADING";
+        state.therapiesByPatientId = ApiResponse.loading();
       })
       .addCase(thunks.getTherapiesByPatientId.fulfilled, (state, action) => {
-        state.therapiesByPatientId.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.therapiesByPatientId.data = action.payload;
+        state.therapiesByPatientId = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getTherapiesByPatientId.rejected, (state, action) => {
-        state.therapiesByPatientId.status = "FAIL";
-        state.therapiesByPatientId.error = action.payload;
+        state.therapiesByPatientId = ApiResponse.error(action.payload);
       })
       // Create Therapy
       .addCase(thunks.createTherapy.pending, (state) => {
-        state.createTherapy.status = "LOADING";
+        state.createTherapy = ApiResponse.loading();
       })
       .addCase(thunks.createTherapy.fulfilled, (state, action) => {
-        state.createTherapy.status = "SUCCESS";
-        state.createTherapy.data = action.payload;
+        state.createTherapy = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createTherapy.rejected, (state, action) => {
-        state.createTherapy.status = "FAIL";
-        state.createTherapy.error = action.payload;
+        state.createTherapy = ApiResponse.error(action.payload);
       })
       // Update Therapy
       .addCase(thunks.updateTherapy.pending, (state) => {
-        state.updateTherapy.status = "LOADING";
+        state.updateTherapy = ApiResponse.loading();
       })
       .addCase(thunks.updateTherapy.fulfilled, (state, action) => {
-        state.updateTherapy.status = "SUCCESS";
-        state.updateTherapy.data = action.payload;
+        state.updateTherapy = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateTherapy.rejected, (state, action) => {
-        state.updateTherapy.status = "FAIL";
-        state.updateTherapy.error = action.payload;
+        state.updateTherapy = ApiResponse.error(action.payload);
       })
       // Delete Therapy
       .addCase(thunks.deleteTherapy.pending, (state) => {
-        state.deleteTherapy.status = "LOADING";
+        state.deleteTherapy = ApiResponse.loading();
       })
       .addCase(thunks.deleteTherapy.fulfilled, (state, action) => {
         state.deleteTherapy.status = "SUCCESS";
       })
       .addCase(thunks.deleteTherapy.rejected, (state, action) => {
-        state.deleteTherapy.status = "FAIL";
-        state.deleteTherapy.error = action.payload;
+        state.deleteTherapy = ApiResponse.error(action.payload);
       }),
 });
 

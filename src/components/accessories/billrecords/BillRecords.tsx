@@ -128,7 +128,7 @@ const BillRecords = () => {
     (state) => state.bills.closeBill.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.bills.delete.error?.message ||
       state.bills.payBill.error?.message ||

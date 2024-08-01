@@ -20,7 +20,7 @@ export const Diseases = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const showFilter = useSelector<IState, boolean>(
+  const showFilter = useSelector(
     (state) =>
       (state.diseases.allDiseases.data?.filter(
         (item) => !(item.opdInclude || item.ipdOutInclude || item.opdInclude)

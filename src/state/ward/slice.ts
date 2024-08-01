@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const wardSlice = createSlice({
@@ -21,52 +22,44 @@ export const wardSlice = createSlice({
     builder
       // Get All Wards
       .addCase(thunks.getWards.pending, (state) => {
-        state.allWards.status = "LOADING";
+        state.allWards = ApiResponse.loading();
       })
       .addCase(thunks.getWards.fulfilled, (state, action) => {
-        state.allWards.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.allWards.data = action.payload;
+        state.allWards = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getWards.rejected, (state, action) => {
-        state.allWards.status = "FAIL";
-        state.allWards.error = action.payload;
+        state.allWards = ApiResponse.error(action.payload);
       })
       // Create Ward
       .addCase(thunks.createWard.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createWard.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create= ApiResponse.value(action.payload);
       })
       .addCase(thunks.createWard.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Ward
       .addCase(thunks.updateWard.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateWard.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update= ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateWard.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete Ward
       .addCase(thunks.deleteWard.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(thunks.deleteWard.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
       })
       .addCase(thunks.deleteWard.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 

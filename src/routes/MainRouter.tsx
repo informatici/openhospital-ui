@@ -21,9 +21,7 @@ import PermissionDenied from "../components/activities/PermissionDenied/Permissi
 
 export const MainRouter: React.FC = () => {
   const dispatch = useDispatch();
-  const status = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.main.authentication.status!
-  );
+  const status = useSelector((state) => state.main.authentication.status!);
   useEffect(() => {
     if (status === "SUCCESS") {
       dispatch(getUserSettings());

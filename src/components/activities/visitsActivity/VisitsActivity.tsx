@@ -18,7 +18,7 @@ const VisitsActivity: FC = () => {
     [t("nav.visits")]: PATHS.visits,
   };
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useSelector(
     (state) => state.main.authentication.data
   );
 

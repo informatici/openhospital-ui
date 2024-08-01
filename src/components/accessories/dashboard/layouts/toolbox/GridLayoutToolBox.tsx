@@ -29,25 +29,19 @@ const GridLayoutToolbox: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useSelector(
     (state) => state.main.authentication.data
   );
 
-  const breakpoint = useSelector<IState, string>(
-    (state) => state.layouts.breakpoint
-  );
+  const breakpoint = useSelector((state) => state.layouts.breakpoint);
 
-  const layouts = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.layouts
-  );
+  const layouts = useSelector((state: IState) => state.layouts.layouts);
 
   const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
     (state) => state.layouts.getLayouts.data
   );
 
-  const toolbox = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.toolbox
-  );
+  const toolbox = useSelector((state: IState) => state.layouts.toolbox);
 
   const onItemPut = (item: Layout) => {
     let layoutsTmp = removeDuplicates({

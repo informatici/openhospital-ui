@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewVaccineType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<VaccineTypeDTO>>(
-    (state) => state.types.vaccines.create
-  );
+  const create = useSelector((state) => state.types.vaccines.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));
@@ -27,7 +25,9 @@ export const NewVaccineType = () => {
 
   return (
     <div className="newVaccineType">
-      <h3 className="title">{t("vaccineTypes.addVaccineType")}</h3>
+      <h3 data-cy="sub-activity-title" className="title">
+        {t("vaccineTypes.addVaccineType")}
+      </h3>
       <VaccineTypeForm
         creationMode
         onSubmit={handleSubmit}

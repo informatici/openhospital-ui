@@ -38,9 +38,7 @@ const ExamTypesTable = (props: IOwnProps) => {
     ApiResponse<ExamTypeDTO[]>
   >((state) => state.types.exams.getAll);
 
-  const deleteExamType = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.types.exams.delete
-  );
+  const deleteExamType = useSelector((state) => state.types.exams.delete);
 
   const handleEdit = (row: ExamTypeDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

@@ -73,9 +73,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     ApiResponse<OperationDTO[]>
   >((state) => state.operations.operationList);
 
-  const deleteOperation = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.operations.delete
-  );
+  const deleteOperation = useSelector((state) => state.operations.delete);
 
   const handleEdit = (row: OperationDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

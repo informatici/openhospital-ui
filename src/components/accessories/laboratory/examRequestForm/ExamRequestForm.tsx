@@ -75,9 +75,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
 
   const examList = useSelector((state: IState) => state.exams.examList.data);
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
+  const labStore = useSelector((state: IState) => state.laboratories);
 
   const createLabRequestStatus = useSelector<
     IState,
@@ -105,7 +103,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     setActivityTransitionState("TO_RESET");
   };
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       labStore.createLabRequest.error?.message || t("common.somethingwrong")
   ) as string;

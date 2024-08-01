@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const priceSlice = createSlice({
@@ -21,66 +22,55 @@ export const priceSlice = createSlice({
     builder
       // Get Prices
       .addCase(thunks.getPrices.pending, (state) => {
-        state.getPrices.status = "LOADING";
+        state.getPrices = ApiResponse.loading();
       })
       .addCase(thunks.getPrices.fulfilled, (state, action) => {
-        state.getPrices.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getPrices.data = action.payload;
+        state.getPrices = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getPrices.rejected, (state, action) => {
-        state.getPrices.status = "FAIL";
-        state.getPrices.error = action.payload;
+        state.getPrices = ApiResponse.error(action.payload);
       })
       // Get Price Lists
       .addCase(thunks.getPriceLists.pending, (state) => {
-        state.getPriceLists.status = "LOADING";
+        state.getPriceLists = ApiResponse.loading();
       })
       .addCase(thunks.getPriceLists.fulfilled, (state, action) => {
-        state.getPriceLists.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getPriceLists.data = action.payload;
+        state.getPriceLists = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getPriceLists.rejected, (state, action) => {
-        state.getPriceLists.status = "FAIL";
-        state.getPriceLists.error = action.payload;
+        state.getPriceLists = ApiResponse.error(action.payload);
       })
       // Create Price List
       .addCase(thunks.createPriceList.pending, (state) => {
-        state.createPriceList.status = "LOADING";
+        state.createPriceList = ApiResponse.loading();
       })
       .addCase(thunks.createPriceList.fulfilled, (state, action) => {
-        state.createPriceList.status = "SUCCESS";
-        state.createPriceList.data = action.payload;
+        state.createPriceList = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createPriceList.rejected, (state, action) => {
-        state.createPriceList.status = "FAIL";
-        state.createPriceList.error = action.payload;
+        state.createPriceList = ApiResponse.error(action.payload);
       })
       // Update Price List
       .addCase(thunks.updatePriceList.pending, (state) => {
-        state.updatePriceList.status = "LOADING";
+        state.updatePriceList = ApiResponse.loading();
       })
       .addCase(thunks.updatePriceList.fulfilled, (state, action) => {
-        state.updatePriceList.status = "SUCCESS";
-        state.updatePriceList.data = action.payload;
+        state.updatePriceList = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updatePriceList.rejected, (state, action) => {
-        state.updatePriceList.status = "FAIL";
-        state.updatePriceList.error = action.payload;
+        state.updatePriceList = ApiResponse.error(action.payload);
       })
       // Delete Price List
       .addCase(thunks.deletePriceList.pending, (state) => {
-        state.deletePriceList.status = "LOADING";
+        state.deletePriceList = ApiResponse.loading();
       })
       .addCase(thunks.deletePriceList.fulfilled, (state, action) => {
         state.deletePriceList.status = "SUCCESS";
       })
       .addCase(thunks.deletePriceList.rejected, (state, action) => {
-        state.deletePriceList.status = "FAIL";
-        state.deletePriceList.error = action.payload;
+        state.deletePriceList = ApiResponse.error(action.payload);
       }),
 });
 

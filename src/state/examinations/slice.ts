@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const examinationSlice = createSlice({
@@ -21,21 +22,18 @@ export const examinationSlice = createSlice({
     builder
       // Get Examinations By Patient ID
       .addCase(thunks.examinationsByPatientId.pending, (state) => {
-        state.examinationsByPatientId.status = "LOADING";
+        state.examinationsByPatientId = ApiResponse.loading();
       })
       .addCase(thunks.examinationsByPatientId.fulfilled, (state, action) => {
-        state.examinationsByPatientId.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.examinationsByPatientId.data = action.payload;
+        state.examinationsByPatientId = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.examinationsByPatientId.rejected, (state, action) => {
-        state.examinationsByPatientId.status = "FAIL";
-        state.examinationsByPatientId.error = action.payload;
+        state.examinationsByPatientId = ApiResponse.error(action.payload);
       })
       // Get Default Patient Examination
       .addCase(thunks.getDefaultPatientExamination.pending, (state) => {
-        state.getDefaultPatientExamination.status = "LOADING";
+        state.getDefaultPatientExamination = ApiResponse.loading();
       })
       .addCase(
         thunks.getDefaultPatientExamination.fulfilled,
@@ -53,51 +51,44 @@ export const examinationSlice = createSlice({
       )
       // Get Last Examination By Patient ID
       .addCase(thunks.getLastByPatientId.pending, (state) => {
-        state.getLastByPatientId.status = "LOADING";
+        state.getLastByPatientId = ApiResponse.loading();
       })
       .addCase(thunks.getLastByPatientId.fulfilled, (state, action) => {
-        state.getLastByPatientId.status = "SUCCESS";
-        state.getLastByPatientId.data = action.payload;
+        state.getLastByPatientId = ApiResponse.value(action.payload);
       })
       .addCase(thunks.getLastByPatientId.rejected, (state, action) => {
-        state.getLastByPatientId.status = "FAIL";
-        state.getLastByPatientId.error = action.payload;
+        state.getLastByPatientId = ApiResponse.error(action.payload);
       })
       // Create Examination
       .addCase(thunks.createExamination.pending, (state) => {
-        state.createExamination.status = "LOADING";
+        state.createExamination = ApiResponse.loading();
       })
       .addCase(thunks.createExamination.fulfilled, (state, action) => {
-        state.createExamination.status = "SUCCESS";
-        state.updateExamination.data = action.payload;
+        state.createExamination = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createExamination.rejected, (state, action) => {
-        state.createExamination.status = "FAIL";
-        state.createExamination.error = action.payload;
+        state.createExamination = ApiResponse.error(action.payload);
       })
       // Update Examination
       .addCase(thunks.updateExamination.pending, (state) => {
-        state.updateExamination.status = "LOADING";
+        state.updateExamination = ApiResponse.loading();
       })
       .addCase(thunks.updateExamination.fulfilled, (state, action) => {
-        state.updateExamination.status = "SUCCESS";
-        state.updateExamination.data = action.payload;
+        state.updateExamination = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateExamination.rejected, (state, action) => {
-        state.updateExamination.status = "FAIL";
-        state.updateExamination.error = action.payload;
+        state.updateExamination = ApiResponse.error(action.payload);
       })
       // Update Examination
       .addCase(thunks.deleteExamination.pending, (state) => {
-        state.deleteExamination.status = "LOADING";
+        state.deleteExamination = ApiResponse.loading();
       })
       .addCase(thunks.deleteExamination.fulfilled, (state, action) => {
         state.deleteExamination.status = "SUCCESS";
         state.deleteExamination.data = action.payload as any;
       })
       .addCase(thunks.deleteExamination.rejected, (state, action) => {
-        state.deleteExamination.status = "FAIL";
-        state.deleteExamination.error = action.payload;
+        state.deleteExamination = ApiResponse.error(action.payload);
       }),
 });
 

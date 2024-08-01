@@ -48,9 +48,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const vaccineStore = useSelector<IState, IVaccineState>(
-    (state) => state.vaccines
-  );
+  const vaccineStore = useSelector((state) => state.vaccines);
 
   const vaccinesTypeState = useSelector(
     (state: IState) => state.types.vaccines.getVaccineTypes

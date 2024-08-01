@@ -9,10 +9,8 @@ export const useOpdBySexData = () => {
   const opds = useSelector<IState, OpdDTO[]>(
     (state) => state.opds.searchOpds.data?.data ?? []
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.opds.searchOpds.status ?? "IDLE"
-  );
-  const success = useSelector<IState, boolean>((state) =>
+  const status = useSelector((state) => state.opds.searchOpds.status ?? "IDLE");
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
   const labels = [t("common.male"), t("common.female")];

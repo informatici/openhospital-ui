@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const supplierSlice = createSlice({
@@ -21,41 +22,34 @@ export const supplierSlice = createSlice({
     builder
       // Get Suppliers
       .addCase(thunks.getSuppliers.pending, (state) => {
-        state.supplierList.status = "LOADING";
+        state.supplierList = ApiResponse.loading();
       })
       .addCase(thunks.getSuppliers.fulfilled, (state, action) => {
-        state.supplierList.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.supplierList.data = action.payload;
+        state.supplierList = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getSuppliers.rejected, (state, action) => {
-        state.supplierList.status = "FAIL";
-        state.supplierList.error = action.payload;
+        state.supplierList = ApiResponse.error(action.payload);
       })
       // Create Supplier
       .addCase(thunks.createSupplier.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createSupplier.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createSupplier.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Supplier
       .addCase(thunks.updateSupplier.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateSupplier.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateSupplier.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       }),
 });
 

@@ -38,7 +38,7 @@ const DischargeTypesTable = (props: IOwnProps) => {
     ApiResponse<DischargeTypeDTO[]>
   >((state) => state.types.discharges.getAll);
 
-  const deleteDischargeType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteDischargeType = useSelector(
     (state) => state.types.discharges.delete
   );
 

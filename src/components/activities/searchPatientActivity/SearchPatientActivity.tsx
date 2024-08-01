@@ -45,7 +45,7 @@ const SearchPatientActivity = () => {
     dispatch(searchPatientsReset());
   }, [dispatch]);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;

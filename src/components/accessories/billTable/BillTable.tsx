@@ -164,7 +164,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const errorMessage = useSelector<IState>((state) => {
+  const errorMessage = useSelector((state) => {
     return (
       (filter.status === "PENDING"
         ? state.bills.getPendingBills.error

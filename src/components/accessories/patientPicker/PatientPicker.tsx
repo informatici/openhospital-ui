@@ -146,12 +146,12 @@ const PatientPicker: FC<IProps> = ({
     (state) => state.patients.searchResults.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const isLoading = useSelector<IState, boolean>(
+  const isLoading = useSelector(
     (state) => state.patients.searchResults.status === "LOADING"
   );
 

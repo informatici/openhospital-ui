@@ -15,9 +15,7 @@ export const EditSupplier = () => {
   const { t } = useTranslation();
   const { state }: { state: SupplierDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<SupplierDTO>>(
-    (state) => state.suppliers.update
-  );
+  const update = useSelector((state) => state.suppliers.update);
   const navigate = useNavigate();
 
   const handleSubmit = (value: SupplierDTO) => {

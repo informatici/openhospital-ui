@@ -9,10 +9,10 @@ export const useDisBySexData = () => {
   const admissions = useSelector<IState, AdmissionDTO[]>(
     (state) => state.admissions.getDischarges.data?.data ?? []
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getDischarges.status ?? ""
     )

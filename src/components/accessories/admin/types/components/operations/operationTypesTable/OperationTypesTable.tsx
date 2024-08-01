@@ -38,7 +38,7 @@ const OperationTypesTable = (props: IOwnProps) => {
     ApiResponse<OperationTypeDTO[]>
   >((state) => state.types.operations.getAll);
 
-  const deleteOperationType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteOperationType = useSelector(
     (state) => state.types.operations.delete
   );
 

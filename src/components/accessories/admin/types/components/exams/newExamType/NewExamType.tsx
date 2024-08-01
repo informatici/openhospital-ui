@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewExamType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<ExamTypeDTO>>(
-    (state) => state.types.exams.create
-  );
+  const create = useSelector((state) => state.types.exams.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const visitSlice = createSlice({
@@ -21,52 +22,44 @@ export const visitSlice = createSlice({
     builder
       // Get Visits
       .addCase(thunks.getVisits.pending, (state) => {
-        state.getVisits.status = "LOADING";
+        state.getVisits = ApiResponse.loading();
       })
       .addCase(thunks.getVisits.fulfilled, (state, action) => {
-        state.getVisits.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getVisits.data = action.payload;
+        state.getVisits = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getVisits.rejected, (state, action) => {
-        state.getVisits.status = "FAIL";
-        state.getVisits.error = action.payload;
+        state.getVisits = ApiResponse.error(action.payload);
       })
       // Create Visit
       .addCase(thunks.createVisit.pending, (state) => {
-        state.createVisit.status = "LOADING";
+        state.createVisit = ApiResponse.loading();
       })
       .addCase(thunks.createVisit.fulfilled, (state, action) => {
-        state.createVisit.status = "SUCCESS";
-        state.createVisit.data = action.payload;
+        state.createVisit = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createVisit.rejected, (state, action) => {
-        state.createVisit.status = "FAIL";
-        state.createVisit.error = action.payload;
+        state.createVisit = ApiResponse.error(action.payload);
       })
       // Update Visit
       .addCase(thunks.updateVisit.pending, (state) => {
-        state.updateVisit.status = "LOADING";
+        state.updateVisit = ApiResponse.loading();
       })
       .addCase(thunks.updateVisit.fulfilled, (state, action) => {
-        state.updateVisit.status = "SUCCESS";
-        state.updateVisit.data = action.payload;
+        state.updateVisit = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateVisit.rejected, (state, action) => {
-        state.updateVisit.status = "FAIL";
-        state.updateVisit.error = action.payload;
+        state.updateVisit = ApiResponse.error(action.payload);
       })
       // Delete Visit
       .addCase(thunks.deleteVisit.pending, (state) => {
-        state.deleteVisit.status = "LOADING";
+        state.deleteVisit = ApiResponse.loading();
       })
       .addCase(thunks.deleteVisit.fulfilled, (state, action) => {
         state.deleteVisit.status = "SUCCESS";
       })
       .addCase(thunks.deleteVisit.rejected, (state, action) => {
-        state.deleteVisit.status = "FAIL";
-        state.deleteVisit.error = action.payload;
+        state.deleteVisit = ApiResponse.error(action.payload);
       }),
 });
 

@@ -15,9 +15,7 @@ export const EditWard = () => {
   const { t } = useTranslation();
   const { state }: { state: WardDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<WardDTO>>(
-    (state) => state.wards.update
-  );
+  const update = useSelector((state) => state.wards.update);
 
   const handleSubmit = (value: WardDTO) => {
     dispatch(updateWard({ ...value, lock: state?.lock }));

@@ -17,13 +17,9 @@ export const EditDeliveryType = () => {
   const { t } = useTranslation();
   const { state }: { state: DeliveryTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DeliveryTypeDTO>>(
-    (state) => state.types.deliveries.update
-  );
+  const update = useSelector((state) => state.types.deliveries.update);
 
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const mode = useSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: DeliveryTypeDTO) => {
     dispatch(updateDeliveryType(value));

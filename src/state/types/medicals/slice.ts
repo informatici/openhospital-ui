@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const medicalTypeSlice = createSlice({
@@ -21,45 +22,38 @@ export const medicalTypeSlice = createSlice({
     builder
       // Get Medical Types
       .addCase(thunks.getMedicalTypes.pending, (state) => {
-        state.getAll.status = "LOADING";
+        state.getAll = ApiResponse.loading();
       })
       .addCase(thunks.getMedicalTypes.fulfilled, (state, action) => {
-        state.getAll.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getAll.data = action.payload;
+        state.getAll = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getMedicalTypes.rejected, (state, action) => {
-        state.getAll.status = "FAIL";
-        state.getAll.error = action.payload;
+        state.getAll = ApiResponse.error(action.payload);
       })
       // Create Medical Type
       .addCase(thunks.createMedicalType.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createMedicalType.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createMedicalType.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Medical Type
       .addCase(thunks.updateMedicalType.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateMedicalType.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateMedicalType.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete Medical Type
       .addCase(thunks.deleteMedicalType.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(thunks.deleteMedicalType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
@@ -68,8 +62,7 @@ export const medicalTypeSlice = createSlice({
         });
       })
       .addCase(thunks.deleteMedicalType.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 

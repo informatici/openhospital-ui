@@ -16,7 +16,7 @@ const NewBillingActivity: FC = () => {
     [t("nav.billing")]: "/billing",
     [t("nav.newbill")]: "/billing/new",
   };
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useSelector(
     (state) => state.main.authentication.data
   );
   return (

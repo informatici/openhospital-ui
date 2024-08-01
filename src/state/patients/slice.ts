@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { isEmpty } from "lodash";
 import { ApiResponse } from "state/types";
+import { isEmpty } from "lodash";
 
 export const patientSlice = createSlice({
   name: "patients",
@@ -28,28 +28,23 @@ export const patientSlice = createSlice({
     builder
       // Search Patients
       .addCase(thunks.searchPatient.pending, (state) => {
-        state.searchResults.status = "LOADING";
+        state.searchResults = ApiResponse.loading();
       })
       .addCase(thunks.searchPatient.fulfilled, (state, action) => {
-        state.searchResults.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.searchResults.data = action.payload;
+        state.searchResults = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.searchPatient.rejected, (state, action) => {
-        state.searchResults.status = "FAIL";
-        state.searchResults.error = action.payload;
+        state.searchResults = ApiResponse.error(action.payload);
       })
       // Get Cities
       .addCase(thunks.getCities.pending, (state) => {
-        state.getCities.status = "LOADING";
+        state.getCities = ApiResponse.loading();
       })
       .addCase(thunks.getCities.fulfilled, (state, action) => {
         if (Array.isArray(action.payload)) {
-          state.getCities.status = isEmpty(action.payload)
-            ? "SUCCESS_EMPTY"
-            : "SUCCESS";
-          state.getCities.data = action.payload;
+          state.getCities = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
         } else {
           state.getCities = ApiResponse.error({
             message: "Unexpected response payload",
@@ -57,56 +52,47 @@ export const patientSlice = createSlice({
         }
       })
       .addCase(thunks.getCities.rejected, (state, action) => {
-        state.getCities.status = "FAIL";
-        state.getCities.error = action.payload;
+        state.getCities = ApiResponse.error(action.payload);
       })
       // Get Patients
       .addCase(thunks.getPatients.pending, (state) => {
-        state.getPatients.status = "LOADING";
+        state.getPatients = ApiResponse.loading();
       })
       .addCase(thunks.getPatients.fulfilled, (state, action) => {
-        state.getPatients.status = "SUCCESS";
-        state.getPatients.data = action.payload;
+        state.getPatients = ApiResponse.value(action.payload);
       })
       .addCase(thunks.getPatients.rejected, (state, action) => {
-        state.getPatients.status = "FAIL";
-        state.getPatients.error = action.payload;
+        state.getPatients = ApiResponse.error(action.payload);
       })
       // Get Patient
       .addCase(thunks.getPatient.pending, (state) => {
-        state.selectedPatient.status = "LOADING";
+        state.selectedPatient = ApiResponse.loading();
       })
       .addCase(thunks.getPatient.fulfilled, (state, action) => {
-        state.selectedPatient.status = "SUCCESS";
-        state.selectedPatient.data = action.payload;
+        state.selectedPatient = ApiResponse.value(action.payload);
       })
       .addCase(thunks.getPatient.rejected, (state, action) => {
-        state.selectedPatient.status = "FAIL";
-        state.selectedPatient.error = action.payload;
+        state.selectedPatient = ApiResponse.error(action.payload);
       })
       // Create Patient
       .addCase(thunks.createPatient.pending, (state) => {
-        state.createPatient.status = "LOADING";
+        state.createPatient = ApiResponse.loading();
       })
       .addCase(thunks.createPatient.fulfilled, (state, action) => {
-        state.createPatient.status = "SUCCESS";
-        state.createPatient.data = action.payload;
+        state.createPatient = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createPatient.rejected, (state, action) => {
-        state.createPatient.status = "FAIL";
-        state.createPatient.error = action.payload;
+        state.createPatient = ApiResponse.error(action.payload);
       })
       // Update Patient
       .addCase(thunks.updatePatient.pending, (state) => {
-        state.updatePatient.status = "LOADING";
+        state.updatePatient = ApiResponse.loading();
       })
       .addCase(thunks.updatePatient.fulfilled, (state, action) => {
-        state.updatePatient.status = "SUCCESS";
-        state.updatePatient.data = action.payload;
+        state.updatePatient = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updatePatient.rejected, (state, action) => {
-        state.updatePatient.status = "FAIL";
-        state.updatePatient.error = action.payload;
+        state.updatePatient = ApiResponse.error(action.payload);
       }),
 });
 

@@ -49,7 +49,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.updatePatient.status
   );
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   );

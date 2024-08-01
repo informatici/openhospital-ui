@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const hospitalSlice = createSlice({
@@ -11,16 +12,12 @@ export const hospitalSlice = createSlice({
     builder
       // Get Hospital
       .addCase(thunks.getHospital.pending, (state) => {
-        state.getHospital.status = "LOADING";
+        state.getHospital = ApiResponse.loading();
       })
       .addCase(thunks.getHospital.fulfilled, (state, action) => {
-        state.getHospital.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getHospital.data = action.payload;
+        state.getHospital = ApiResponse.value(action.payload);
       })
       .addCase(thunks.getHospital.rejected, (state, action) => {
-        state.getHospital.status = "FAIL";
-        state.getHospital.error = action.payload;
+        state.getHospital = ApiResponse.error(action.payload);
       }),
 });

@@ -48,9 +48,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const supplierStore = useSelector<IState, ISupplierState>(
-    (state) => state.suppliers
-  );
+  const supplierStore = useSelector((state) => state.suppliers);
 
   const errorMessage = useMemo(
     () =>

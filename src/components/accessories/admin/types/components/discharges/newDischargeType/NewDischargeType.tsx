@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewDischargeType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DischargeTypeDTO>>(
-    (state) => state.types.discharges.create
-  );
+  const create = useSelector((state) => state.types.discharges.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

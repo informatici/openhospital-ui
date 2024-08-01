@@ -38,7 +38,7 @@ const DeliveryResultTypeTable = (props: IOwnProps) => {
     ApiResponse<DeliveryResultTypeDTO[]>
   >((state) => state.types.deliveryResult.getAll);
 
-  const deleteDeliveryResultType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteDeliveryResultType = useSelector(
     (state) => state.types.deliveryResult.delete
   );
 

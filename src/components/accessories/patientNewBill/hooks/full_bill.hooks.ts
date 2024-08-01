@@ -22,7 +22,7 @@ import { usePendingBills } from "./pending_bill.hooks";
 import { useItemPrices } from "./price.hooks";
 
 export const useSelectedPatient = () => {
-  const patient = useSelector<IState, PatientDTO>(
+  const patient = useSelector(
     (state: IState) => state.patients.selectedPatient.data ?? ({} as any)
   );
   return { patient };
@@ -44,7 +44,7 @@ export const useFullBill = () => {
   );
   const creationMode = useMemo(() => !(pendings?.length > 0), [pendings]);
 
-  const status = useSelector<IState, string>((state: IState) =>
+  const status = useSelector((state: IState) =>
     creationMode
       ? state.bills.newBill.status ?? "IDLE"
       : state.bills.updateBill.status ?? "IDLE"

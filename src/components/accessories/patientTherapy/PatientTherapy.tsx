@@ -49,7 +49,7 @@ const PatientTherapy: FC = () => {
       : state.therapies.updateTherapy.status;
   });
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.therapies.createTherapy.error?.message ||
       state.therapies.updateTherapy.error?.message ||

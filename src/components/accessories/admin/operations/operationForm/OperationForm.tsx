@@ -49,9 +49,7 @@ const OperationForm: FC<IOperationProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const operationStore = useSelector<IState, IOperationState>(
-    (state) => state.operations
-  );
+  const operationStore = useSelector((state) => state.operations);
 
   const operationsTypeState = useSelector(
     (state: IState) => state.types.operations.getAll

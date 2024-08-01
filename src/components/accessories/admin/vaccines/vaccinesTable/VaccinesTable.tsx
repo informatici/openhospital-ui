@@ -56,9 +56,7 @@ export const VaccinesTable = ({
     ApiResponse<VaccineTypeDTO[]>
   >((state) => state.types.vaccines.getVaccineTypes);
 
-  const deleteVaccine = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.vaccines.delete
-  );
+  const deleteVaccine = useSelector((state) => state.vaccines.delete);
 
   const filters: TFilterField[] = [
     {

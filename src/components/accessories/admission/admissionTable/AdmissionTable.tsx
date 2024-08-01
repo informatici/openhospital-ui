@@ -89,12 +89,12 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     (state) => state.admissions.getPatientAdmissions.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.admissions.getPatientAdmissions.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const createAdmissionStatus = useSelector<IState>(
+  const createAdmissionStatus = useSelector(
     (state) => state.admissions.createAdmission.status
   );
 

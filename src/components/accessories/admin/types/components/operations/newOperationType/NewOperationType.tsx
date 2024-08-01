@@ -13,9 +13,7 @@ import { getInitialFields } from "../operationTypesForm/consts";
 export const NewOperationType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<OperationTypeDTO>>(
-    (state) => state.types.operations.create
-  );
+  const create = useSelector((state) => state.types.operations.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));
@@ -26,7 +24,7 @@ export const NewOperationType = () => {
   };
 
   return (
-    <div className="newOperationType">
+    <div className="newOperationType" data-cy="sub-operation-title">
       <h3 className="title">{t("operationTypes.addOperationType")}</h3>
       <OperationTypeForm
         creationMode

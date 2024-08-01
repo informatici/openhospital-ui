@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const userSlice = createSlice({
@@ -21,52 +22,44 @@ export const userSlice = createSlice({
     builder
       // Get Users
       .addCase(thunks.getUsers.pending, (state) => {
-        state.userList.status = "LOADING";
+        state.userList = ApiResponse.loading();
       })
       .addCase(thunks.getUsers.fulfilled, (state, action) => {
-        state.userList.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.userList.data = action.payload;
+        state.userList = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getUsers.rejected, (state, action) => {
-        state.userList.status = "FAIL";
-        state.userList.error = action.payload;
+        state.userList = ApiResponse.error(action.payload);
       })
       // Create User
       .addCase(thunks.createUser.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createUser.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createUser.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update User
       .addCase(thunks.updateUser.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateUser.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateUser.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete User
       .addCase(thunks.deleteUser.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(thunks.deleteUser.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
       })
       .addCase(thunks.deleteUser.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 

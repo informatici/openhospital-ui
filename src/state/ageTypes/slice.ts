@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const ageTypeSlice = createSlice({
@@ -11,16 +12,13 @@ export const ageTypeSlice = createSlice({
     builder
       // Get All Age Types
       .addCase(thunks.getAgeTypes.pending, (state) => {
-        state.getAllAgeTypes.status = "LOADING";
+        state.getAllAgeTypes = ApiResponse.loading();
       })
       .addCase(thunks.getAgeTypes.fulfilled, (state, action) => {
-        state.getAllAgeTypes.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getAllAgeTypes.data = action.payload;
+        state.getAllAgeTypes = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getAgeTypes.rejected, (state, action) => {
-        state.getAllAgeTypes.status = "FAIL";
-        state.getAllAgeTypes.error = action.payload;
+        state.getAllAgeTypes = ApiResponse.error(action.payload);
       }),
 });

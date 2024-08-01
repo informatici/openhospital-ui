@@ -56,15 +56,15 @@ const PatientAdmission: FC = () => {
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
-  const createStatus = useSelector<IState>(
+  const createStatus = useSelector(
     (state) => state.admissions.createAdmission.status
   );
 
-  const updateStatus = useSelector<IState>(
+  const updateStatus = useSelector(
     (state) => state.admissions.updateAdmission.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.admissions.createAdmission.error?.message ||
       state.admissions.updateAdmission.error?.message ||
@@ -220,7 +220,7 @@ const PatientAdmission: FC = () => {
           }
         />
       )}
-      {(createStatus === "FAIL" || createStatus === "FAIL") && (
+      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />
         </div>

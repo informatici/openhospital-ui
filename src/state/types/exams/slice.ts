@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const examTypeSlice = createSlice({
@@ -21,45 +22,38 @@ export const examTypeSlice = createSlice({
     builder
       // Get Exam Types
       .addCase(thunks.getExamTypes.pending, (state) => {
-        state.getAll.status = "LOADING";
+        state.getAll = ApiResponse.loading();
       })
       .addCase(thunks.getExamTypes.fulfilled, (state, action) => {
-        state.getAll.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.getAll.data = action.payload;
+        state.getAll = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getExamTypes.rejected, (state, action) => {
-        state.getAll.status = "FAIL";
-        state.getAll.error = action.payload;
+        state.getAll = ApiResponse.error(action.payload);
       })
       // Create Exam Type
       .addCase(thunks.createExamType.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createExamType.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createExamType.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Exam Type
       .addCase(thunks.updateExamType.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateExamType.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateExamType.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete Exam Type
       .addCase(thunks.deleteExamType.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(thunks.deleteExamType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
@@ -68,8 +62,7 @@ export const examTypeSlice = createSlice({
         });
       })
       .addCase(thunks.deleteExamType.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 

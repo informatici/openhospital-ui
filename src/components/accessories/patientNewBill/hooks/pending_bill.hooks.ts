@@ -6,7 +6,7 @@ import { IState } from "../../../../types";
 
 export const usePendingBills = (patientCode: number) => {
   const dispatch = useDispatch();
-  const status = useSelector<IState, string>(
+  const status = useSelector(
     (state: IState) => state.bills.getPendingBills.status ?? "IDLE"
   );
   const data = useSelector<IState, FullBillDTO[]>(

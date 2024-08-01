@@ -46,7 +46,7 @@ const PatientOPD: FunctionComponent = () => {
       : state.opds.updateOpd.status;
   });
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useSelector(
     (state) =>
       state.opds.createOpd.error?.message ||
       state.opds.updateOpd.error?.message ||

@@ -46,9 +46,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const medicalTypesStore = useSelector<IState, IMedicalTypesState>(
-    (state) => state.types.medicals
-  );
+  const medicalTypesStore = useSelector((state) => state.types.medicals);
 
   const errorMessage = useMemo(
     () =>

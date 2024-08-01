@@ -15,9 +15,7 @@ export const EditOperation = () => {
   const { t } = useTranslation();
   const { state }: { state: OperationDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<OperationDTO>>(
-    (state) => state.operations.update
-  );
+  const update = useSelector((state) => state.operations.update);
 
   const handleSubmit = (value: OperationDTO) => {
     dispatch(

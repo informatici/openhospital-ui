@@ -38,9 +38,7 @@ const MedicalTypesTable = (props: IOwnProps) => {
     ApiResponse<MedicalTypeDTO[]>
   >((state) => state.types.medicals.getAll);
 
-  const deleteMedicalType = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.types.medicals.delete
-  );
+  const deleteMedicalType = useSelector((state) => state.types.medicals.delete);
 
   const handleEdit = (row: MedicalTypeDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

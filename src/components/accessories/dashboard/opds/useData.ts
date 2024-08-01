@@ -12,13 +12,13 @@ export const useData = () => {
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
-  const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const ageTypeStatus = useSelector(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const opdStatus = useSelector<IState, TAPIResponseStatus>(
+  const opdStatus = useSelector(
     (state) => state.opds.searchOpds.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
   const sexLabels = [t("common.male"), t("common.female")];

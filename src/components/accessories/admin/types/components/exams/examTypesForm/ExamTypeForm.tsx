@@ -46,9 +46,7 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const examTypesStore = useSelector<IState, IExamTypesState>(
-    (state) => state.types.exams
-  );
+  const examTypesStore = useSelector((state) => state.types.exams);
 
   const errorMessage = useMemo(
     () =>

@@ -91,7 +91,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     (state) => state.examinations.examinationsByPatientId.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.examinations.examinationsByPatientId.error?.message ||
       t("common.somethingwrong")

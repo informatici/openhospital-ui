@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewPregnantTreatmentType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<PregnantTreatmentTypeDTO>>(
-    (state) => state.types.pregnantTreatment.create
-  );
+  const create = useSelector((state) => state.types.pregnantTreatment.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));
@@ -27,7 +25,7 @@ export const NewPregnantTreatmentType = () => {
 
   return (
     <div className="newPregnantTreatmentType">
-      <h3 className="title">
+      <h3 data-cy="sub-activity-title" className="title">
         {t("pregnantTreatmentTypes.addPregnantTreatmentType")}
       </h3>
       <PregnantTreatmentTypeForm

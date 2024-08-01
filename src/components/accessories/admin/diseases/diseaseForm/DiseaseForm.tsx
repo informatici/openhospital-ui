@@ -49,9 +49,7 @@ const DiseaseForm: FC<IDiseaseProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const diseaseStore = useSelector<IState, IDiseaseState>(
-    (state) => state.diseases
-  );
+  const diseaseStore = useSelector((state) => state.diseases);
 
   const diseasesTypeState = useSelector(
     (state: IState) => state.types.diseases.getAll

@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { IAuthentication } from "./types";
 import { ApiResponse } from "state/types";
+import { IAuthentication } from "./types";
 
 export const mainSlice = createSlice({
   name: "main",
@@ -15,18 +15,17 @@ export const mainSlice = createSlice({
       state,
       { payload }: PayloadAction<IAuthentication>
     ) => {
-      state.authentication.status = "SUCCESS";
-      state.authentication.data = payload;
+      state.authentication = ApiResponse.value(payload);
     },
     setLogoutReset: (state) => {
-      state.logout.status = "IDLE";
+      state.logout = initial.logout;
     },
     setLogoutLoading: (state) => {
-      state.logout.status = "LOADING";
+      state.logout = ApiResponse.loading();
     },
-    setLogoutSuccess: (state) => {
+    setLogoutSuccess: (state, action) => {
       state.authentication = ApiResponse.idle();
-      state.logout.status = "SUCCESS";
+      state.logout = ApiResponse.value(action.payload);
       state.settings = ApiResponse.idle();
     },
     setLogoutFailed: (state, { payload }: PayloadAction<any>) => {
@@ -38,38 +37,33 @@ export const mainSlice = createSlice({
     builder
       // Authentication
       .addCase(thunks.setAuthentication.pending, (state) => {
-        state.authentication.status = "LOADING";
+        state.authentication = ApiResponse.loading();
       })
       .addCase(thunks.setAuthentication.fulfilled, (state, action) => {
-        state.authentication.status = "SUCCESS";
-        state.authentication.data = <IAuthentication>action.payload;
+        state.authentication = ApiResponse.value(<IAuthentication>action.payload);
       })
       .addCase(thunks.setAuthentication.rejected, (state, action) => {
-        state.authentication.status = "FAIL";
-        state.authentication.error = action.payload;
+        state.authentication = ApiResponse.error(action.payload);
       })
       // Forgot password
       .addCase(thunks.setForgotPasswordThunk.pending, (state) => {
-        state.forgotpassword.status = "LOADING";
+        state.forgotpassword = ApiResponse.loading();
       })
       .addCase(thunks.setForgotPasswordThunk.fulfilled, (state, action) => {
         state.forgotpassword.status = "SUCCESS";
       })
       .addCase(thunks.setForgotPasswordThunk.rejected, (state, action) => {
-        state.forgotpassword.status = "FAIL";
-        state.forgotpassword.error = action.payload;
+        state.forgotpassword = ApiResponse.error(action.payload);
       })
       // Get User Settings
       .addCase(thunks.getUserSettings.pending, (state) => {
-        state.settings.status = "LOADING";
+        state.settings = ApiResponse.loading();
       })
       .addCase(thunks.getUserSettings.fulfilled, (state, action) => {
-        state.settings.status = "SUCCESS";
-        state.settings.data = action.payload;
+        state.settings = ApiResponse.value(action.payload);
       })
       .addCase(thunks.getUserSettings.rejected, (state, action) => {
-        state.settings.status = "FAIL";
-        state.settings.error = action.payload;
+        state.settings = ApiResponse.error(action.payload);
       }),
 });
 

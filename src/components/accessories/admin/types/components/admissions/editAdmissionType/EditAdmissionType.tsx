@@ -17,12 +17,8 @@ export const EditAdmissionType = () => {
   const { t } = useTranslation();
   const { state }: { state: AdmissionTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<AdmissionTypeDTO>>(
-    (state) => state.types.admissions.update
-  );
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const update = useSelector((state) => state.types.admissions.update);
+  const mode = useSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: AdmissionTypeDTO) => {
     dispatch(updateAdmissionType(value));

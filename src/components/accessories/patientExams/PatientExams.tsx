@@ -91,10 +91,8 @@ const PatientExams: FC = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
-  const errorMessage = useSelector<IState>(
+  const labStore = useSelector((state: IState) => state.laboratories);
+  const errorMessage = useSelector(
     (state) =>
       state.laboratories.createLab.error?.message ||
       state.laboratories.updateLab.error?.message ||

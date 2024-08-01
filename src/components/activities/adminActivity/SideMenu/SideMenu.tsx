@@ -27,9 +27,7 @@ const SideMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hospital = useSelector<IState, ApiResponse<HospitalDTO>>(
-    (state) => state.hospital.getHospital
-  );
+  const hospital = useSelector((state) => state.hospital.getHospital);
 
   const changeAdminSection = useCallback(
     (section: IAdminSection) => {

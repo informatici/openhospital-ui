@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const diseaseSlice = createSlice({
@@ -18,83 +19,67 @@ export const diseaseSlice = createSlice({
     builder
       // Get All Diseases
       .addCase(thunks.getAllDiseases.pending, (state) => {
-        state.allDiseases.status = "LOADING";
+        state.allDiseases = ApiResponse.loading();
       })
       .addCase(thunks.getAllDiseases.fulfilled, (state, action) => {
-        state.allDiseases.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.allDiseases.data = action.payload;
+        state.allDiseases = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getAllDiseases.rejected, (state, action) => {
-        state.allDiseases.status = "FAIL";
-        state.allDiseases.error = action.payload;
+        state.allDiseases = ApiResponse.error(action.payload);
       })
       // Get Diseases OPD
       .addCase(thunks.getDiseasesOpd.pending, (state) => {
-        state.diseasesOpd.status = "LOADING";
+        state.diseasesOpd = ApiResponse.loading();
       })
       .addCase(thunks.getDiseasesOpd.fulfilled, (state, action) => {
-        state.diseasesOpd.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.diseasesOpd.data = action.payload;
+        state.diseasesOpd = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getDiseasesOpd.rejected, (state, action) => {
-        state.diseasesOpd.status = "FAIL";
-        state.diseasesOpd.error = action.payload;
+        state.diseasesOpd = ApiResponse.error(action.payload);
       })
       // Get Diseases IPD IN
       .addCase(thunks.getDiseasesIpdIn.pending, (state) => {
-        state.diseasesIpdIn.status = "LOADING";
+        state.diseasesIpdIn = ApiResponse.loading();
       })
       .addCase(thunks.getDiseasesIpdIn.fulfilled, (state, action) => {
-        state.diseasesIpdIn.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.diseasesIpdIn.data = action.payload;
+        state.diseasesIpdIn = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getDiseasesIpdIn.rejected, (state, action) => {
-        state.diseasesIpdIn.status = "FAIL";
-        state.diseasesIpdIn.error = action.payload;
+        state.diseasesIpdIn = ApiResponse.error(action.payload);
       })
       // Get Diseases IPD OUT
       .addCase(thunks.getDiseasesIpdOut.pending, (state) => {
-        state.diseasesIpdOut.status = "LOADING";
+        state.diseasesIpdOut = ApiResponse.loading();
       })
       .addCase(thunks.getDiseasesIpdOut.fulfilled, (state, action) => {
-        state.diseasesIpdOut.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.diseasesIpdOut.data = action.payload;
+        state.diseasesIpdOut = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getDiseasesIpdOut.rejected, (state, action) => {
-        state.diseasesIpdOut.status = "FAIL";
-        state.diseasesIpdOut.error = action.payload;
+        state.diseasesIpdOut = ApiResponse.error(action.payload);
       })
       // Create Disease
       .addCase(thunks.createDisease.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createDisease.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createDisease.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Disease
       .addCase(thunks.updateDisease.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateDisease.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateDisease.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       }),
 });
 

@@ -51,7 +51,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useSelector(
     (state) =>
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );

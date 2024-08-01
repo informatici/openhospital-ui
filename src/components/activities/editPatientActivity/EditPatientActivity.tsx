@@ -30,7 +30,7 @@ const EditPatientActivity = () => {
   const { t } = useTranslation();
 
   const { userCredentials, isLoading, hasSucceeded, hasFailed, patient } =
-    useSelector<IState, IStateProps>((state) => ({
+    useSelector((state) => ({
       userCredentials: state.main.authentication.data,
       isLoading: state.patients.updatePatient.status === "LOADING",
       hasSucceeded: state.patients.updatePatient.status === "SUCCESS",
@@ -64,7 +64,7 @@ const EditPatientActivity = () => {
     )]: `${PATHS.patients_details}/${patient.data?.code}/edit`,
   };
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   ) as string;

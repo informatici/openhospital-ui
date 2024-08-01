@@ -58,7 +58,7 @@ const ForgotActivity: FC = () => {
     (state) => state.main.forgotpassword.error?.description || "unknown error"
   );
 
-  const status = useSelector<IState>(
+  const status = useSelector(
     (state) => state.main.forgotpassword.status || "IDLE"
   );
 
@@ -66,7 +66,7 @@ const ForgotActivity: FC = () => {
     dispatch(getHospital());
   }, [dispatch]);
 
-  const hospital = useSelector<IState>(
+  const hospital = useSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
 

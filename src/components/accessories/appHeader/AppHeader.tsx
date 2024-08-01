@@ -37,7 +37,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
     dispatch(getHospital());
   }, [dispatch, getHospital]);
 
-  const hospital = useSelector<IState>(
+  const hospital = useSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
   const openMenu = (isOpen: boolean) => {

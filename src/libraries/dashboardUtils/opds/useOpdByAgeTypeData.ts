@@ -12,13 +12,11 @@ export const useOpdByAgeTypeData = () => {
   const ageTypes = useSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
-  const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const ageTypeStatus = useSelector(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.opds.searchOpds.status ?? "IDLE"
-  );
-  const success = useSelector<IState, boolean>((state) =>
+  const status = useSelector((state) => state.opds.searchOpds.status ?? "IDLE");
+  const success = useSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
   const labels = ageTypes.map((e) => t(`patient.agetypes.${e.code ?? ""}`));

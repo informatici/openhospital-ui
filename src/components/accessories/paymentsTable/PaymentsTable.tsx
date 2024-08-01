@@ -60,7 +60,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
     (state) => state.bills.searchPayments.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.bills.searchPayments.error?.message || t("common.somethingwrong")
   ) as string;

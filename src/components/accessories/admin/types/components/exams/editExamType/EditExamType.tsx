@@ -17,9 +17,7 @@ export const EditExamType = () => {
   const { t } = useTranslation();
   const { state }: { state: ExamTypeDTO | undefined } = useLocation();
   const { code } = useParams<{ code: string }>();
-  const update = useSelector<IState, ApiResponse<ExamTypeDTO>>(
-    (state) => state.types.exams.update
-  );
+  const update = useSelector((state) => state.types.exams.update);
 
   const handleSubmit = (examTypeDTO: ExamTypeDTO) => {
     if (code) {

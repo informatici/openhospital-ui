@@ -54,17 +54,13 @@ const GridLayoutContainer: FC = () => {
     (state) => state.main.authentication.data
   );
 
-  const layouts = useSelector<IState, Layouts>(
-    (state) => state.layouts.layouts
-  );
+  const layouts = useSelector((state) => state.layouts.layouts);
 
   const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
     (state) => state.layouts.getLayouts.data
   );
 
-  const toolbox = useSelector<IState, Layouts>(
-    (state) => state.layouts.toolbox
-  );
+  const toolbox = useSelector((state) => state.layouts.toolbox);
 
   useLayoutEffect(() => {
     if (gridLayoutRef.current) {

@@ -17,9 +17,7 @@ export const EditDeliveryResultType = () => {
   const { t } = useTranslation();
   const { state }: { state: DeliveryResultTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DeliveryResultTypeDTO>>(
-    (state) => state.types.deliveryResult.update
-  );
+  const update = useSelector((state) => state.types.deliveryResult.update);
 
   const handleSubmit = (value: DeliveryResultTypeDTO) => {
     dispatch(updateDeliveryResultType(value));

@@ -61,7 +61,7 @@ const LoginActivity: FC = () => {
       : error?.message ?? t("errors.somethingwrong");
   });
 
-  const status = useSelector<IState>(
+  const status = useSelector(
     (state) => state.main.authentication.status || "IDLE"
   );
 
@@ -69,7 +69,7 @@ const LoginActivity: FC = () => {
     dispatch(getHospital());
   }, [dispatch]);
 
-  const hospital = useSelector<IState>(
+  const hospital = useSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
 

@@ -11,9 +11,7 @@ import { ApiResponse } from "../../../../../state/types";
 export const NewWard = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<WardDTO>>(
-    (state) => state.wards.create
-  );
+  const create = useSelector((state) => state.wards.create);
 
   const handleSubmit = (value: WardDTO) => {
     dispatch(createWard(value));

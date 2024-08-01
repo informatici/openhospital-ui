@@ -17,12 +17,8 @@ export const EditDiseaseType = () => {
   const { t } = useTranslation();
   const { state }: { state: DiseaseTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DiseaseTypeDTO>>(
-    (state) => state.types.diseases.update
-  );
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const update = useSelector((state) => state.types.diseases.update);
+  const mode = useSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: DiseaseTypeDTO) => {
     dispatch(updateDiseaseType(value));

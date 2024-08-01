@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const vaccineSlice = createSlice({
@@ -21,52 +22,44 @@ export const vaccineSlice = createSlice({
     builder
       // Get Vaccines
       .addCase(thunks.getVaccines.pending, (state) => {
-        state.vaccineList.status = "LOADING";
+        state.vaccineList = ApiResponse.loading();
       })
       .addCase(thunks.getVaccines.fulfilled, (state, action) => {
-        state.vaccineList.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.vaccineList.data = action.payload;
+        state.vaccineList = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getVaccines.rejected, (state, action) => {
-        state.vaccineList.status = "FAIL";
-        state.vaccineList.error = action.payload;
+        state.vaccineList = ApiResponse.error(action.payload);
       })
       // Create Vaccine
       .addCase(thunks.createVaccine.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createVaccine.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createVaccine.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Vaccine
       .addCase(thunks.updateVaccine.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateVaccine.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateVaccine.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete Vaccine
       .addCase(thunks.deleteVaccine.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(thunks.deleteVaccine.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
       })
       .addCase(thunks.deleteVaccine.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 

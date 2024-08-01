@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 
 export const operationSlice = createSlice({
@@ -36,101 +37,85 @@ export const operationSlice = createSlice({
     builder
       // Get Operations
       .addCase(thunks.getOperations.pending, (state) => {
-        state.operationList.status = "LOADING";
+        state.operationList = ApiResponse.loading();
       })
       .addCase(thunks.getOperations.fulfilled, (state, action) => {
-        state.operationList.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.operationList.data = action.payload;
+        state.operationList = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getOperations.rejected, (state, action) => {
-        state.operationList.status = "FAIL";
-        state.operationList.error = action.payload;
+        state.operationList = ApiResponse.error(action.payload);
       })
       // Get Operations Rows By Admission
       .addCase(thunks.getOperationsByAdmissionId.pending, (state) => {
-        state.operationRowsByQdmt.status = "LOADING";
+        state.operationRowsByQdmt = ApiResponse.loading();
       })
       .addCase(thunks.getOperationsByAdmissionId.fulfilled, (state, action) => {
-        state.operationRowsByQdmt.status = isEmpty(action.payload)
-          ? "SUCCESS_EMPTY"
-          : "SUCCESS";
-        state.operationRowsByQdmt.data = action.payload;
+        state.operationRowsByQdmt = isEmpty(action.payload)
+          ? ApiResponse.empty() : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getOperationsByAdmissionId.rejected, (state, action) => {
-        state.operationRowsByQdmt.status = "FAIL";
-        state.operationRowsByQdmt.error = action.payload;
+        state.operationRowsByQdmt = ApiResponse.error(action.payload);
       })
       // Create Operation
       .addCase(thunks.createOperation.pending, (state) => {
-        state.create.status = "LOADING";
+        state.create = ApiResponse.loading();
       })
       .addCase(thunks.createOperation.fulfilled, (state, action) => {
-        state.create.status = "SUCCESS";
-        state.create.data = action.payload;
+        state.create = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createOperation.rejected, (state, action) => {
-        state.create.status = "FAIL";
-        state.create.error = action.payload;
+        state.create = ApiResponse.error(action.payload);
       })
       // Update Operation
       .addCase(thunks.updateOperation.pending, (state) => {
-        state.update.status = "LOADING";
+        state.update = ApiResponse.loading();
       })
       .addCase(thunks.updateOperation.fulfilled, (state, action) => {
-        state.update.status = "SUCCESS";
-        state.update.data = action.payload;
+        state.update = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateOperation.rejected, (state, action) => {
-        state.update.status = "FAIL";
-        state.update.error = action.payload;
+        state.update = ApiResponse.error(action.payload);
       })
       // Delete Operation
       .addCase(thunks.deleteOperation.pending, (state) => {
-        state.delete.status = "LOADING";
+        state.delete = ApiResponse.loading();
       })
       .addCase(thunks.deleteOperation.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
       })
       .addCase(thunks.deleteOperation.rejected, (state, action) => {
-        state.delete.status = "FAIL";
-        state.delete.error = action.payload;
+        state.delete = ApiResponse.error(action.payload);
       })
       // Create Operation Row
       .addCase(thunks.createOperationRow.pending, (state) => {
-        state.createOperationRow.status = "LOADING";
+        state.createOperationRow = ApiResponse.loading();
       })
       .addCase(thunks.createOperationRow.fulfilled, (state, action) => {
-        state.createOperationRow.status = "SUCCESS";
-        state.createOperationRow.data = action.payload;
+        state.createOperationRow = ApiResponse.value(action.payload);
       })
       .addCase(thunks.createOperationRow.rejected, (state, action) => {
-        state.createOperationRow.status = "FAIL";
-        state.createOperationRow.error = action.payload;
+        state.createOperationRow = ApiResponse.error(action.payload);
       })
       // Update Operation Row
       .addCase(thunks.updateOperationRow.pending, (state) => {
-        state.updateOperationRow.status = "LOADING";
+        state.updateOperationRow = ApiResponse.loading();
       })
       .addCase(thunks.updateOperationRow.fulfilled, (state, action) => {
-        state.updateOperationRow.status = "SUCCESS";
-        state.updateOperationRow.data = action.payload;
+        state.updateOperationRow = ApiResponse.value(action.payload);
       })
       .addCase(thunks.updateOperationRow.rejected, (state, action) => {
-        state.updateOperationRow.status = "FAIL";
-        state.updateOperationRow.error = action.payload;
+        state.updateOperationRow = ApiResponse.error(action.payload);
       })
       // Delete Operation Row
       .addCase(thunks.deleteOperationRow.pending, (state) => {
-        state.deleteOperationRow.status = "LOADING";
+        state.deleteOperationRow = ApiResponse.loading();
       })
       .addCase(thunks.deleteOperationRow.fulfilled, (state, action) => {
         state.deleteOperationRow.status = "SUCCESS";
       })
       .addCase(thunks.deleteOperationRow.rejected, (state, action) => {
-        state.deleteOperationRow.status = "FAIL";
-        state.deleteOperationRow.error = action.payload;
+        state.deleteOperationRow = ApiResponse.error(action.payload);
       }),
 });
 

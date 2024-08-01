@@ -13,9 +13,7 @@ import "./styles.scss";
 export const NewMedicalType = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<MedicalTypeDTO>>(
-    (state) => state.types.medicals.create
-  );
+  const create = useSelector((state) => state.types.medicals.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

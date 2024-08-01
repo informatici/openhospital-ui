@@ -15,9 +15,7 @@ export const EditDisease = () => {
   const { t } = useTranslation();
   const { state }: { state: DiseaseDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<DiseaseDTO>>(
-    (state) => state.diseases.update
-  );
+  const update = useSelector((state) => state.diseases.update);
 
   const handleSubmit = (value: DiseaseDTO) => {
     dispatch(updateDisease({ ...value, lock: state?.lock }));

@@ -40,7 +40,7 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     (state) => state.visits.getVisits.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) =>
       state.visits.getVisits.error?.message || t("common.somethingwrong")
   ) as string;

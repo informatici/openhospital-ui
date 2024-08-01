@@ -17,13 +17,9 @@ export const EditMedicalType = () => {
   const { t } = useTranslation();
   const { state }: { state: MedicalTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<MedicalTypeDTO>>(
-    (state) => state.types.medicals.update
-  );
+  const update = useSelector((state) => state.types.medicals.update);
 
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const mode = useSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: MedicalTypeDTO) => {
     dispatch(updateMedicalType(value));

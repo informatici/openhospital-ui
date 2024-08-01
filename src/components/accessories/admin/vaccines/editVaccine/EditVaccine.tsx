@@ -15,9 +15,7 @@ export const EditVaccine = () => {
   const { t } = useTranslation();
   const { state }: { state: VaccineDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<VaccineDTO>>(
-    (state) => state.vaccines.update
-  );
+  const update = useSelector((state) => state.vaccines.update);
 
   const handleSubmit = (value: VaccineDTO) => {
     dispatch(updateVaccine({ ...value, lock: state?.lock }));

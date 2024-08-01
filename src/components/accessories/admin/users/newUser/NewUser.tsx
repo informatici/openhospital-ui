@@ -40,9 +40,7 @@ export const NewUser = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const create = useSelector<IState, ApiResponse<UserDTO>>(
-    (state) => state.users.create
-  );
+  const create = useSelector((state) => state.users.create);
 
   const userGroupsTypeState = useSelector(
     (state: IState) => state.usergroups.groupList

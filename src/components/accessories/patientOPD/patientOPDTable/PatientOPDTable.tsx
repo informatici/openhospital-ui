@@ -41,7 +41,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const opdStatus = useSelector<IState, string | undefined>(
     (state) => state.opds.getOpds.status
   );
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useSelector(
     (state) => state.opds.getOpds.error?.message || t("common.somethingwrong")
   ) as string;
   const patientCode = useSelector<IState, number | undefined>(

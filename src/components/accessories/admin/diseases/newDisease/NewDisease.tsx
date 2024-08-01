@@ -11,9 +11,7 @@ import { ApiResponse } from "../../../../../state/types";
 export const NewDisease = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DiseaseDTO>>(
-    (state) => state.diseases.create
-  );
+  const create = useSelector((state) => state.diseases.create);
 
   const handleSubmit = (value: DiseaseDTO) => {
     dispatch(createDisease(value));
