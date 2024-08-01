@@ -37,5 +37,6 @@ export const deleteAdmissionType = createAsyncThunk(
     api
       .deleteAdmissionType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

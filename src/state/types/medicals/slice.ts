@@ -63,6 +63,9 @@ export const medicalTypeSlice = createSlice({
       })
       .addCase(thunks.deleteMedicalType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
+        state.getAll.data = state.getAll.data?.filter((e) => {
+          return e.code !== action.payload.code;
+        });
       })
       .addCase(thunks.deleteMedicalType.rejected, (state, action) => {
         state.delete.status = "FAIL";

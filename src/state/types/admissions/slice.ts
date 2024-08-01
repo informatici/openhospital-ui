@@ -63,6 +63,9 @@ export const admissionTypeSlice = createSlice({
       })
       .addCase(thunks.deleteAdmissionType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
+        state.getAll.data = state.getAll.data?.filter((e) => {
+          return e.code !== action.payload.code;
+        });
       })
       .addCase(thunks.deleteAdmissionType.rejected, (state, action) => {
         state.delete.status = "FAIL";

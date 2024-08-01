@@ -37,5 +37,6 @@ export const deleteDiseaseType = createAsyncThunk(
     api
       .deleteDiseaseType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

@@ -63,6 +63,9 @@ export const examTypeSlice = createSlice({
       })
       .addCase(thunks.deleteExamType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
+        state.getAll.data = state.getAll.data?.filter((e) => {
+          return e.code !== action.payload.code;
+        });
       })
       .addCase(thunks.deleteExamType.rejected, (state, action) => {
         state.delete.status = "FAIL";

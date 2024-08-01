@@ -40,5 +40,6 @@ export const deleteOperationType = createAsyncThunk(
     api
       .deleteOperationType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

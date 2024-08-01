@@ -63,6 +63,9 @@ export const vaccineTypeSlice = createSlice({
       })
       .addCase(thunks.deleteVaccineType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
+        state.getVaccineTypes.data = state.getVaccineTypes.data?.filter((e) => {
+          return e.code !== action.payload.code;
+        });
       })
       .addCase(thunks.deleteVaccineType.rejected, (state, action) => {
         state.delete.status = "FAIL";

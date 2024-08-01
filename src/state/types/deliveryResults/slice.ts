@@ -63,6 +63,9 @@ export const deliveryResultTypeSlice = createSlice({
       })
       .addCase(thunks.deleteDeliveryResultType.fulfilled, (state, action) => {
         state.delete.status = "SUCCESS";
+        state.getAll.data = state.getAll.data?.filter((e) => {
+          return e.code !== action.payload.code;
+        });
       })
       .addCase(thunks.deleteDeliveryResultType.rejected, (state, action) => {
         state.delete.status = "FAIL";

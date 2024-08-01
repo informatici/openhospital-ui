@@ -37,5 +37,6 @@ export const deleteDeliveryType = createAsyncThunk(
     api
       .deleteDeliveryType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

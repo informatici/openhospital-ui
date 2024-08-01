@@ -37,5 +37,6 @@ export const deleteMedicalType = createAsyncThunk(
     api
       .deleteMedicalType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

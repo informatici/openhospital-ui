@@ -37,5 +37,6 @@ export const deleteDischargeType = createAsyncThunk(
     api
       .deleteDischargeType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

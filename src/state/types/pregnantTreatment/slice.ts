@@ -71,6 +71,9 @@ export const pregnantTreatmentTypeSlice = createSlice({
         thunks.deletePregnantTreatmentType.fulfilled,
         (state, action) => {
           state.delete.status = "SUCCESS";
+          state.getAll.data = state.getAll.data?.filter((e) => {
+            return e.code !== action.payload.code;
+          });
         }
       )
       .addCase(thunks.deletePregnantTreatmentType.rejected, (state, action) => {

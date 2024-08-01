@@ -46,5 +46,6 @@ export const deletePregnantTreatmentType = createAsyncThunk(
     api
       .deletePregnantTreatmentType({ code })
       .toPromise()
+      .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
