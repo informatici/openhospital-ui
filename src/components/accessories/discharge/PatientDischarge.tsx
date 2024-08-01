@@ -89,7 +89,7 @@ const PatientDischarge: FC = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getCurrentAdmission(patient?.code));
-      dispatch(getPatient((patient?.code ?? 0).toString()));
+      //dispatch(getPatient((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
     }

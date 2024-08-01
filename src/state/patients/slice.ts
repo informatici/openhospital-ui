@@ -32,7 +32,8 @@ export const patientSlice = createSlice({
       })
       .addCase(thunks.searchPatient.fulfilled, (state, action) => {
         state.searchResults = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.searchPatient.rejected, (state, action) => {
         state.searchResults = ApiResponse.error(action.payload);
@@ -44,7 +45,8 @@ export const patientSlice = createSlice({
       .addCase(thunks.getCities.fulfilled, (state, action) => {
         if (Array.isArray(action.payload)) {
           state.getCities = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+            ? ApiResponse.empty()
+            : ApiResponse.value(action.payload);
         } else {
           state.getCities = ApiResponse.error({
             message: "Unexpected response payload",
@@ -68,8 +70,14 @@ export const patientSlice = createSlice({
       .addCase(thunks.getPatient.pending, (state) => {
         state.selectedPatient = ApiResponse.loading();
       })
-      .addCase(thunks.getPatient.fulfilled, (state, action) => {
-        state.selectedPatient = ApiResponse.value(action.payload);
+      .addCase(thunks.getPatient.fulfilled, (state, { payload }) => {
+        if (typeof payload === "object" && !isEmpty(payload)) {
+          state.selectedPatient = ApiResponse.value(payload);
+        } else {
+          state.selectedPatient = ApiResponse.error({
+            message: "Unexpected response payload",
+          });
+        }
       })
       .addCase(thunks.getPatient.rejected, (state, action) => {
         state.selectedPatient = ApiResponse.error(action.payload);
