@@ -116,6 +116,7 @@ export const admissionSlice = createSlice({
       })
       .addCase(thunks.getCurrentAdmission.fulfilled, (state, action) => {
         state.currentAdmissionByPatientId.status = "SUCCESS";
+        state.currentAdmissionByPatientId.data = action.payload;
       })
       .addCase(thunks.getCurrentAdmission.rejected, (state, action) => {
         state.currentAdmissionByPatientId.status = "FAIL";

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 
 export const patientSlice = createSlice({
   name: "patients",
@@ -29,7 +31,9 @@ export const patientSlice = createSlice({
         state.searchResults.status = "LOADING";
       })
       .addCase(thunks.searchPatient.fulfilled, (state, action) => {
-        state.searchResults.status = "SUCCESS";
+        state.searchResults.status = isEmpty(action.payload)
+          ? "SUCCESS_EMPTY"
+          : "SUCCESS";
         state.searchResults.data = action.payload;
       })
       .addCase(thunks.searchPatient.rejected, (state, action) => {
@@ -41,8 +45,16 @@ export const patientSlice = createSlice({
         state.getCities.status = "LOADING";
       })
       .addCase(thunks.getCities.fulfilled, (state, action) => {
-        state.getCities.status = "SUCCESS";
-        state.getCities.data = action.payload;
+        if (Array.isArray(action.payload)) {
+          state.getCities.status = isEmpty(action.payload)
+            ? "SUCCESS_EMPTY"
+            : "SUCCESS";
+          state.getCities.data = action.payload;
+        } else {
+          state.getCities = ApiResponse.error({
+            message: "Unexpected response payload",
+          });
+        }
       })
       .addCase(thunks.getCities.rejected, (state, action) => {
         state.getCities.status = "FAIL";
