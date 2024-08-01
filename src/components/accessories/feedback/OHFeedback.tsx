@@ -1,5 +1,5 @@
-import { Tooltip } from "@material-ui/core";
-import { Feedback } from "@material-ui/icons";
+import { Tooltip } from "@mui/material";
+import { Feedback } from "@mui/icons-material";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { IState } from "../../../types";

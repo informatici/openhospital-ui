@@ -91,6 +91,8 @@ describe("EditPatientActivity spec", () => {
   });
 
   it("should redirect the user to the Patient on Patient button click", () => {
+    cy.authenticate(START_PATH);
+    cy.byId("firstName").clear().type("Marcelo");
     cy.dataCy("patient-data-submit-button").click();
     cy.dataCy("dialog-button-set").contains("Patient").click();
     cy.dataCy("patient-details");

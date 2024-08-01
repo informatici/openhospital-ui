@@ -1,10 +1,9 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import { DesktopDatePicker, MobileDatePicker } from "@material-ui/pickers";
+import { DesktopDatePicker, MobileDatePicker } from "@mui/x-date-pickers";
 import { IProps } from "./types";
 import "./styles.scss";
 import { FIELD_VALIDATION } from "../../../types";
-import { TextField, useMediaQuery } from "@material-ui/core";
-import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
+import { TextField, TextFieldProps, useMediaQuery } from "@mui/material";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
@@ -51,7 +50,7 @@ const DateField: FunctionComponent<IProps> = ({
     <div ref={anchorElRef}>
       {matches ? (
         <DesktopDatePicker
-          inputFormat={format}
+          format={format}
           label={
             required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
           }
@@ -61,36 +60,29 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
-          allowSameDateSelection
-          PopperProps={{
-            placement: "bottom-end",
-            anchorEl: anchorEl,
+          slots={{ textField: TextFieldComponent }}
+          slotProps={{
+            popper: {
+              placement: "bottom-end",
+              anchorEl: anchorEl,
+            },
+            textField: {
+              id: fieldName,
+              error: Boolean(errorText),
+              disabled,
+              helperText: errorText,
+              variant: "outlined",
+              margin: "dense",
+              required: required === FIELD_VALIDATION.REQUIRED,
+              className: actualClassName,
+            },
           }}
-          renderInput={(props: MuiTextFieldProps) =>
-            TextFieldComponent ? (
-              <TextFieldComponent {...props} />
-            ) : (
-              <TextField
-                {...props}
-                id={fieldName}
-                error={Boolean(errorText)}
-                disabled={disabled}
-                helperText={errorText}
-                variant="outlined"
-                margin="dense"
-                required={required === FIELD_VALIDATION.REQUIRED}
-                className={actualClassName}
-              />
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
           views={views}
           open={open}
         />
       ) : (
         <MobileDatePicker
-          inputFormat={format}
+          format={format}
           label={
             required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label
           }
@@ -100,26 +92,19 @@ const DateField: FunctionComponent<IProps> = ({
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
-          allowSameDateSelection
-          renderInput={(props: MuiTextFieldProps) =>
-            TextFieldComponent ? (
-              <TextFieldComponent {...props} />
-            ) : (
-              <TextField
-                {...props}
-                id={fieldName}
-                error={Boolean(errorText)}
-                disabled={disabled}
-                helperText={errorText}
-                variant="outlined"
-                margin="dense"
-                required={required === FIELD_VALIDATION.REQUIRED}
-                className={actualClassName}
-              />
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
+          slots={{ textField: TextFieldComponent }}
+          slotProps={{
+            textField: {
+              id: fieldName,
+              error: Boolean(errorText),
+              disabled,
+              helperText: errorText,
+              variant: "outlined",
+              margin: "dense",
+              required: required === FIELD_VALIDATION.REQUIRED,
+              className: actualClassName,
+            },
+          }}
           views={views}
           open={open}
         />

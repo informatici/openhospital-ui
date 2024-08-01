@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Autocomplete } from "@material-ui/lab";
+import { Autocomplete } from "@mui/lab";
 import {
   TextField as MuiTextField,
   FormControl,
   FormHelperText,
-} from "@material-ui/core";
+} from "@mui/material";
 import TextField from "../../../textField/TextField";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
@@ -146,11 +146,13 @@ export const NewUser = () => {
                   option.code.toString() +
                   (option.desc ? ` - ${option.desc}` : "")
                 }
-                getOptionSelected={(a, b) => a.code === b.code}
               />
               {touched.userGroupName && errors.userGroupName && (
                 <FormHelperText error>
-                  {errors.userGroupName?.code || errors.userGroupName}
+                  {
+                    (errors.userGroupName?.code ||
+                      errors.userGroupName) as ReactNode
+                  }
                 </FormHelperText>
               )}
             </FormControl>

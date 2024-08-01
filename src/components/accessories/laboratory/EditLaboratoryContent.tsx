@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core";
-import { Cancel } from "@material-ui/icons";
+import { Button } from "@mui/material";
+import { Cancel } from "@mui/icons-material";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";

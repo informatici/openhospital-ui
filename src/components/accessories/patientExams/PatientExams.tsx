@@ -35,7 +35,7 @@ import {
   parseDate,
   updateLabFields,
 } from "../../../libraries/formDataHandling/functions";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
 import { initialRequestFields } from "../laboratory/consts";
@@ -179,7 +179,9 @@ const PatientExams: FC = () => {
 
   return (
     <div className="patientExam">
-      <Permission require={creationMode ? "laboratories.create" : "laboratories.update"}>
+      <Permission
+        require={creationMode ? "laboratories.create" : "laboratories.update"}
+      >
         {creationMode && (
           <ExamRequestForm
             fields={initialRequestFields}

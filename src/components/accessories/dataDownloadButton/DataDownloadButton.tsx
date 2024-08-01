@@ -2,14 +2,14 @@ import React, { FunctionComponent, useState } from "react";
 import { IOwnProps } from "./types";
 import "./styles.scss";
 import { CSVLink } from "react-csv";
-import { IconButton, ListItemIcon, Typography } from "@material-ui/core";
+import { IconButton, ListItemIcon, Typography } from "@mui/material";
 import {
   DescriptionOutlined,
   ImageOutlined,
   SaveAlt as SaveAltIcon,
   ViewHeadlineOutlined,
-} from "@material-ui/icons";
-import { Menu, MenuItem } from "@material-ui/core";
+} from "@mui/icons-material";
+import { Menu, MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {
   exportComponentAsPDF,

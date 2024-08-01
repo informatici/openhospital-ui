@@ -10,7 +10,7 @@ import {
   LocalHospitalSharp,
   People,
   SupervisedUserCircle,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { IAdminSection } from "../types";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";

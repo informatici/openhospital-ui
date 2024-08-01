@@ -9,11 +9,11 @@ import {
   IconButton,
   Toolbar,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
-import { GridCloseIcon } from "@material-ui/data-grid";
+import { GridCloseIcon } from "@mui/x-data-grid";
 import { useTranslation } from "react-i18next";
-import { Check, Close } from "@material-ui/icons";
+import { Check, Close } from "@mui/icons-material";
 
 export const ChangeLabStatus: React.FC<ChangeLabStatusProps> = ({
   status,

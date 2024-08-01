@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import "./styles.scss";
 import { IProps } from "./types";
-import { Dialog, DialogContent, DialogContentText } from "@material-ui/core";
+import { Dialog, DialogContent, DialogContentText } from "@mui/material";
 import ImageResize from "../imageResize/ImageResize";
 
 export const ProfilePictureCropper: FunctionComponent<IProps> = ({

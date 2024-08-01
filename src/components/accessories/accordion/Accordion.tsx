@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { IPropsSummary, IProps } from "./types";
 import "./styles.scss";
 import classNames from "classnames";
@@ -17,7 +17,7 @@ export const AccordionSummary: React.FC<IPropsSummary> = ({
   );
 };
 
-export const AccordionDetails: React.FC = ({ children }) => {
+export const AccordionDetails: React.FC<PropsWithChildren> = ({ children }) => {
   return <div className="accordion_details">{children}</div>;
 };
 

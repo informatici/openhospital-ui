@@ -5,7 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { FunctionComponent, memo, useEffect, useState } from "react";
 import { IProps } from "./types";
 import "./styles.scss";

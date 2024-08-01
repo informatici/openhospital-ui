@@ -6,8 +6,8 @@ import React, {
   useState,
 } from "react";
 import { IOwnProps, TFilterFormFieldName } from "./types";
-import { IconButton, Menu } from "@material-ui/core";
-import { LocalBar } from "@material-ui/icons";
+import { IconButton, Menu } from "@mui/material";
+import { LocalBar } from "@mui/icons-material";
 import classes from "./FilterButton.module.scss";
 import { useFormik } from "formik";
 import { TFields } from "../../../../libraries/formDataHandling/types";

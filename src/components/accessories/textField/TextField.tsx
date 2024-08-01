@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect } from "react";
-import { TextField as MaterialComponent } from "@material-ui/core";
+import { TextField as MaterialComponent } from "@mui/material";
 import "./styles.scss";
 import { IProps } from "./types";
 import { FIELD_VALIDATION } from "../../../types";

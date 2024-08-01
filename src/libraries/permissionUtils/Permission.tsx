@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren, ReactNode } from "react";
 import { TPermission } from "../../types";
 import { usePermission } from "./usePermission";
 
@@ -6,7 +6,7 @@ type TPermissionProps = {
   require: TPermission;
 };
 
-export const Permission: React.FC<TPermissionProps> = ({
+export const Permission: React.FC<PropsWithChildren<TPermissionProps>> = ({
   children,
   require,
 }) => {

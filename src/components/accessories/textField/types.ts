@@ -3,7 +3,7 @@ import {
   InputProps,
   FilledInputProps,
   OutlinedInputProps,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
