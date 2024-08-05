@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import classes from "./Operations.module.scss";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import {
   deleteOperation,
   deleteOperationReset,
   getOperations,
-} from "../../../../state/operations/actions";
+} from "../../../../state/operations";
 import { OperationDTO } from "../../../../generated";
 import OperationTable from "./operationTable";
 import Button from "../../button/Button";
@@ -15,7 +15,7 @@ import { PATHS } from "../../../../consts";
 
 export const Operations = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

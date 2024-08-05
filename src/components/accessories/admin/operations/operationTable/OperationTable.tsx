@@ -3,13 +3,11 @@ import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { OperationDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
 import classes from "./OperationTable.module.scss";
 import { TFilterField } from "../../../table/filter/types";
-import { deleteOperationReset } from "../../../../../state/operations/actions";
+import { deleteOperationReset } from "../../../../../state/operations";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
@@ -25,14 +23,11 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
   onDelete,
   headerActions,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const operationTypesOptions = useSelector<
-    IState,
-    { label: string; value: string }[]
-  >(
+  const operationTypesOptions = useAppSelector(
     (state) =>
       state.types.operations.getAll.data?.map((item) => ({
         label: item.description,
@@ -68,14 +63,11 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     },
   ];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<OperationDTO[]>
-  >((state) => state.operations.operationList);
-
-  const deleteOperation = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.operations.delete
+  const { data, status, error } = useAppSelector(
+    (state) => state.operations.operationList
   );
+
+  const deleteOperation = useAppSelector((state) => state.operations.delete);
 
   const handleEdit = (row: OperationDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

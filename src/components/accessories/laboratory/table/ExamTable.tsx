@@ -6,8 +6,8 @@ import { IExamTableProps, multipleResultsLabel } from "./types";
 import "./styles.scss";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { LaboratoryDetails } from "../LaboratoryDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { getLabWithRowsByCode } from "../../../../state/laboratories";
 import { IState } from "../../../../types";
 import InfoBox from "../../infoBox/InfoBox";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
@@ -41,13 +41,13 @@ export const ExamTable: FC<IExamTableProps> = ({
   handleCancel,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const canUpdate = usePermission("exams.update");
   const canDelete = usePermission("exams.delete");
-  const deleteStatus = useSelector<IState, any>(
+  const deleteStatus = useAppSelector(
     (state: IState) => state.laboratories.deleteLab.status
   );
-  const deleteErrorMessage = useSelector(
+  const deleteErrorMessage = useAppSelector(
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 

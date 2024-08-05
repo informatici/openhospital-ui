@@ -21,7 +21,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { WardDTO } from "../../../../generated";
 
@@ -45,9 +45,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
       .min(1, t("common.greaterthan", { value: "1" })),
   });
 
-  const wards = useSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
 
   const initialValues = getFromFields(fields, "value");
 
@@ -81,8 +79,8 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
       }) ?? []
     );
   };
-  const wardOptions = useSelector<IState, { value: string; label: string }[]>(
-    (state: IState) => wardOptionsSelector(state)
+  const wardOptions = useAppSelector((state: IState) =>
+    wardOptionsSelector(state)
   );
 
   const isValid = (fieldName: string): boolean => {

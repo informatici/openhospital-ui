@@ -9,15 +9,15 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { PatientDTO } from "../../../generated";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import checkIcon from "../../../assets/check-icon.png";
 import {
-  getPatientThunk,
+  getPatient,
   updatePatient,
   updatePatientReset,
-} from "../../../state/patients/actions";
+} from "../../../state/patients";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 import Button from "../button/Button";
@@ -33,23 +33,21 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
   readOnly,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [editionMode, setEditionMode] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const patient = useSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector(
     (state) => state.patients.selectedPatient.data
   );
   const onSubmit = (values: PatientDTO) => {
     if (values.code) {
-      dispatch(updatePatient(values.code, values));
+      dispatch(updatePatient({ code: values.code, patientDTO: values }));
     }
   };
-  const status = useSelector<IState, TAPIResponseStatus | undefined>(
-    (state) => state.patients.updatePatient.status
-  );
+  const status = useAppSelector((state) => state.patients.updatePatient.status);
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   );
@@ -75,7 +73,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
       setEditionMode(false);
       dispatch(updatePatientReset());
       if (patient?.code) {
-        dispatch(getPatientThunk(patient?.code?.toString()));
+        dispatch(getPatient(patient?.code?.toString()));
       }
       formik.resetForm();
       setActivityTransitionState("IDLE");

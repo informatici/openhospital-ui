@@ -2,18 +2,16 @@ import { useTranslation } from "react-i18next";
 import WardForm from "../wardForm/WardForm";
 import React from "react";
 import { getInitialFields } from "../wardForm/consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { WardDTO } from "../../../../../generated";
-import { createWard } from "../../../../../state/ward/actions";
+import { createWard } from "../../../../../state/ward";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 
 export const NewWard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<WardDTO>>(
-    (state) => state.wards.create
-  );
+  const create = useAppSelector((state) => state.wards.create);
 
   const handleSubmit = (value: WardDTO) => {
     dispatch(createWard(value));

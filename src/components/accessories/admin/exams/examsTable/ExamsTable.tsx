@@ -1,21 +1,18 @@
-import React, { useEffect, ReactNode, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { ReactNode, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
-import { TFilterField } from "../../../table/filter/types";
-import { getExams } from "../../../../../state/exams/actions";
-import { getExamTypes } from "../../../../../state/types/exams";
-import { IState } from "../../../../../types";
 import { ExamDTO, ExamTypeDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { deleteExamReset } from "../../../../../state/exams/actions";
+import { deleteExamReset, getExams } from "../../../../../state/exams";
+import { getExamTypes } from "../../../../../state/types/exams";
+import InfoBox from "../../../infoBox/InfoBox";
+import { TFilterField } from "../../../table/filter/types";
 import { ExamProps } from "../types";
 
-import InfoBox from "../../../infoBox/InfoBox";
-import Table from "../../../table/Table";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import Table from "../../../table/Table";
 import classes from "./ExamsTable.module.scss";
 
 interface IOwnProps {
@@ -25,7 +22,7 @@ interface IOwnProps {
 }
 
 export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -41,10 +38,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     "procedure",
     "defaultResult",
   ];
-  const examTypesOptions = useSelector<
-    IState,
-    { label: string; value: string }[]
-  >(
+  const examTypesOptions = useAppSelector(
     (state) =>
       state.types.exams.getAll.data?.map((item: ExamTypeDTO) => ({
         value: item.code ?? "",
@@ -78,13 +72,11 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     "defaultResult",
   ];
 
-  const { data, status, error } = useSelector<IState, ApiResponse<ExamDTO[]>>(
+  const { data, status, error } = useAppSelector(
     (state) => state.exams.examList
   );
 
-  const deleteExam = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.exams.examDelete
-  );
+  const deleteExam = useAppSelector((state) => state.exams.examDelete);
 
   const formatDataToDisplay = (data: ExamDTO[]) => {
     return data.map((item) => {

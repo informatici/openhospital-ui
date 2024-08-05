@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from "react";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Autocomplete } from "@mui/lab";
@@ -21,11 +21,8 @@ import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import { userSchema } from "./validation";
 import "./styles.scss";
-import {
-  createUser,
-  createUserReset,
-} from "../../../../../state/users/actions";
-import { getUserGroups } from "../../../../../state/usergroups/actions";
+import { createUser, createUserReset } from "../../../../../state/users";
+import { getUserGroups } from "../../../../../state/usergroups";
 import { PATHS } from "../../../../../consts";
 
 const initialValues = {
@@ -39,15 +36,13 @@ const initialValues = {
 export type FormProps = UserDTO & { passwd2: string };
 
 export const NewUser = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const create = useSelector<IState, ApiResponse<UserDTO>>(
-    (state) => state.users.create
-  );
+  const create = useAppSelector((state) => state.users.create);
 
-  const userGroupsTypeState = useSelector(
+  const userGroupsTypeState = useAppSelector(
     (state: IState) => state.usergroups.groupList
   );
 

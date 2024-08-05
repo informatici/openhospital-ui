@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IVaccineTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IVaccineTypesState } from "../../../../../../../state/types/vaccines/types";
@@ -25,7 +25,7 @@ import {
 import {
   createVaccineTypeReset,
   updateVaccineTypeReset,
-} from "../../../../../../../state/types/vaccines/actions";
+} from "../../../../../../../state/types/vaccines";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
@@ -40,15 +40,13 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const vaccineTypesStore = useSelector<IState, IVaccineTypesState>(
-    (state) => state.types.vaccines
-  );
+  const vaccineTypesStore = useAppSelector((state) => state.types.vaccines);
 
   const errorMessage = useMemo(
     () =>
@@ -140,7 +138,12 @@ const VaccineTypeForm: FC<IVaccineTypeFormProps> = ({
 
         <div className="vaccineTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained"dataCy="submit-form" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              dataCy="submit-form"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>

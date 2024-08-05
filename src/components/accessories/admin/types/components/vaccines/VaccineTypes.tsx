@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteVaccineType,
   deleteVaccineTypeReset,
   getVaccineTypes,
-} from "../../../../../../state/types/vaccines/actions";
+} from "../../../../../../state/types/vaccines";
 import { VaccineTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import VaccineTypesTable from "./vaccineTypesTable";
@@ -16,7 +16,7 @@ import { setTypeMode } from "../../../../../../state/types/config";
 
 const VaccineTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getVaccineTypes());

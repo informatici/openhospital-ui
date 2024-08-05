@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { DeliveryResultTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
@@ -10,16 +10,14 @@ import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 import DeliveryResultTypeForm from "../deliveryResultTypeForm/DeliveryResultTypeForm";
 import { getInitialFields } from "../deliveryResultTypeForm/consts";
-import { updateDeliveryResultType } from "../../../../../../../state/types/deliveryResultType/actions";
+import { updateDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
 
 export const EditDeliveryResultType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: DeliveryResultTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DeliveryResultTypeDTO>>(
-    (state) => state.types.deliveryResult.update
-  );
+  const update = useAppSelector((state) => state.types.deliveryResult.update);
 
   const mode = useSelector<IState, TypeMode>(
     (state) => state.types.config.mode

@@ -2,9 +2,9 @@ import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { searchOpds } from "../../../../../state/opds/actions";
-import { getAgeTypes } from "../../../../../state/ageTypes/actions";
+import { useAppDispatch } from "libraries/hooks/redux";
+import { searchOpds } from "../../../../../state/opds";
+import { getAgeTypes } from "../../../../../state/ageTypes";
 import { TDashboardCardOptionActions } from "../../card/types";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
@@ -22,7 +22,7 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

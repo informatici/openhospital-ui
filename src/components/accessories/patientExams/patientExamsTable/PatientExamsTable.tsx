@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { LabWithRowsDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 import InfoBox from "../../infoBox/InfoBox";
-import { getLabsByPatientId } from "../../../../state/laboratories/actions";
+import { getLabsByPatientId } from "../../../../state/laboratories";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { statusLabel } from "../../laboratory/table/ExamTable";
@@ -41,14 +41,14 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["date", "exam", "status"];
 
-  const dispatch = useDispatch();
-  const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) =>
     state.laboratories.labsByPatientId.data
       ? state.laboratories.labsByPatientId.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -82,17 +82,17 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     //   .sort(dateComparator("desc", "date"));
   };
 
-  const labStatus = useSelector<IState, string | undefined>(
+  const labStatus = useAppSelector(
     (state) => state.laboratories.labsByPatientId.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
+  const labData = useAppSelector(
     (state) => state.laboratories.labsByPatientId.data
   );
 

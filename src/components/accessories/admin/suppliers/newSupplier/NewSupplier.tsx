@@ -1,19 +1,17 @@
 import { useTranslation } from "react-i18next";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { SupplierDTO } from "../../../../../generated";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 import SupplierForm from "../supplierForm/SupplierForm";
 import { getInitialFields } from "../supplierForm/consts";
-import { createSupplier } from "../../../../../state/suppliers/actions";
+import { createSupplier } from "../../../../../state/suppliers";
 
 export const NewSupplier = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<SupplierDTO>>(
-    (state) => state.suppliers.create
-  );
+  const create = useAppSelector((state) => state.suppliers.create);
 
   const handleSubmit = (value: SupplierDTO) => {
     dispatch(createSupplier(value));

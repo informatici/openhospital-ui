@@ -20,7 +20,7 @@ import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
 import { ISupplierFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
@@ -29,7 +29,7 @@ import { ISupplierState } from "../../../../../state/suppliers/types";
 import {
   createSupplierReset,
   updateSupplierReset,
-} from "../../../../../state/suppliers/actions";
+} from "../../../../../state/suppliers";
 import "./styles.scss";
 
 const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;
@@ -42,15 +42,13 @@ const SupplierForm: FC<ISupplierFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const supplierStore = useSelector<IState, ISupplierState>(
-    (state) => state.suppliers
-  );
+  const supplierStore = useAppSelector((state) => state.suppliers);
 
   const errorMessage = useMemo(
     () =>

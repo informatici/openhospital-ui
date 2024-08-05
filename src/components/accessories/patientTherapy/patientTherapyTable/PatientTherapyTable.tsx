@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { MedicalDTO, TherapyRowDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
-import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
+import { getTherapiesByPatientId } from "../../../../state/therapies";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 import InfoBox from "../../infoBox/InfoBox";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { getMedicals } from "../../../../state/medicals/actions";
+import { getMedicals } from "../../../../state/medicals";
 import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
 import moment from "moment";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
@@ -42,21 +42,21 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     duration: t("common.moment.duration"),
   };
   const order = ["startDate", "endDate", "medicalId"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, TherapyRowDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.therapies.therapiesByPatientId.data
       ? state.therapies.therapiesByPatientId.data
       : []
   );
 
-  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+  const medicals = useAppSelector((state) =>
     state.medicals.medicalsOrderByName.data
       ? state.medicals.medicalsOrderByName.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -98,7 +98,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     //.sort(dateComparator("desc", "startDate"));
   };
 
-  const therapyStatus = useSelector<IState, string | undefined>(
+  const therapyStatus = useAppSelector(
     (state) => state.therapies.therapiesByPatientId.status
   );
 

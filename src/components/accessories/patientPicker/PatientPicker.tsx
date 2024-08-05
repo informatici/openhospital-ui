@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
 
 import { Search } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { GridCloseIcon } from "@mui/x-data-grid";
 import { get, has } from "lodash";
 import {
@@ -32,7 +32,7 @@ import TextField from "../textField/TextField";
 import DateField from "../dateField/DateField";
 import Button from "../button/Button";
 import { TextField as MaterialComponent } from "@mui/material";
-import { searchPatient } from "../../../state/patients/actions";
+import { searchPatient } from "../../../state/patients";
 import InfoBox from "../infoBox/InfoBox";
 import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
@@ -51,7 +51,7 @@ const PatientPicker: FC<IProps> = ({
 }) => {
   const [value, setValue] = useState((initialValue ?? {}) as PatientDTO);
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const inputRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(currentPageConst);
   const [patientsPerPage] = useState(itemsPerPageConst);
@@ -98,7 +98,7 @@ const PatientPicker: FC<IProps> = ({
     },
   });
 
-  const patientData = useSelector<IState, PatientDTO[] | undefined>(
+  const patientData = useAppSelector(
     (state) => state.patients.searchResults.data
   );
 
@@ -142,16 +142,16 @@ const PatientPicker: FC<IProps> = ({
     if (value) onBlur(e, value);
   };
 
-  const searchStatus = useSelector<IState, string | undefined>(
+  const searchStatus = useAppSelector(
     (state) => state.patients.searchResults.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const isLoading = useSelector<IState, boolean>(
+  const isLoading = useAppSelector(
     (state) => state.patients.searchResults.status === "LOADING"
   );
 

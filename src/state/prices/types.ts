@@ -5,4 +5,7 @@ import { ApiResponse } from "../types";
 export type IPricesState = {
   getPrices: ApiResponse<Array<PriceDTO>>;
   getPriceLists: ApiResponse<Array<PriceListDTO>>;
+  createPriceList: ApiResponse<PriceListDTO>;
+  updatePriceList: ApiResponse<PriceListDTO>;
+  deletePriceList: ApiResponse<void>;
 };

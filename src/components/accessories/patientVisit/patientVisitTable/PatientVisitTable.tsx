@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { VisitDTO } from "../../../../generated";
-import { getVisits } from "../../../../state/visits/actions";
+import { getVisits } from "../../../../state/visits";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { CircularProgress } from "@mui/material";
@@ -30,22 +30,18 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     ward: t("visit.ward"),
   };
   const order = ["date", "duration"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, VisitDTO[]>(
-    (state) => state.visits.getVisits.data ?? []
-  );
-  const visitStatus = useSelector<IState, string | undefined>(
-    (state) => state.visits.getVisits.status
-  );
+  const data = useAppSelector((state) => state.visits.getVisits.data ?? []);
+  const visitStatus = useAppSelector((state) => state.visits.getVisits.status);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.visits.getVisits.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

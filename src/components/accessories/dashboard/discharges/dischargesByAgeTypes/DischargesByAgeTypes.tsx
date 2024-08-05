@@ -1,15 +1,15 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@mui/lab";
-import { getDischarges } from "../../../../../state/admissions/actions";
+import { getDischarges } from "../../../../../state/admissions";
 import { IOwnProps } from "../types";
-import { getAgeTypes } from "../../../../../state/ageTypes/actions";
+import { getAgeTypes } from "../../../../../state/ageTypes";
 import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
 import { useDisByAgeTypeData } from "../../../../../libraries/dashboardUtils/discharges/useDisByAgeTypeData";
@@ -22,7 +22,7 @@ export const DischargesByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

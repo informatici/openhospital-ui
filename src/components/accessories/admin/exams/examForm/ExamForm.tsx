@@ -22,20 +22,16 @@ import TextField from "../../../textField/TextField";
 import SelectField from "../../../selectField/SelectField";
 import "./styles.scss";
 import { IExamProps } from "./types";
-
-import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../../../../types";
 import { useNavigate } from "react-router";
 import { IExamState } from "../../../../../state/exams/types";
 import { PATHS } from "../../../../../consts";
-import {
-  createExamReset,
-  updateExamReset,
-} from "../../../../../state/exams/actions";
-import { getExamTypes } from "../../../../../state/types/exams/actions";
+import { createExamReset, updateExamReset } from "../../../../../state/exams";
+import { getExamTypes } from "../../../../../state/types/exams";
 
 import InfoBox from "../../../infoBox/InfoBox";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 
 const ExamForm: FC<IExamProps> = ({
   fields,
@@ -45,15 +41,15 @@ const ExamForm: FC<IExamProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const examStore = useSelector<IState, IExamState>((state) => state.exams);
+  const examStore = useAppSelector((state) => state.exams);
 
-  const examTypeState = useSelector(
+  const examTypeState = useAppSelector(
     (state: IState) => state.types.exams.getAll
   );
   const examTypeStateOptions = useMemo(

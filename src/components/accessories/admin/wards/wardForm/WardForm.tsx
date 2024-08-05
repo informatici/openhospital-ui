@@ -22,16 +22,13 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IWardProps } from "./types";
 import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
 import { IWardState } from "../../../../../state/ward/types";
 import { PATHS } from "../../../../../consts";
-import {
-  createWardReset,
-  updateWardReset,
-} from "../../../../../state/ward/actions";
+import { createWardReset, updateWardReset } from "../../../../../state/ward";
 
 const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;
 
@@ -43,13 +40,13 @@ const WardForm: FC<IWardProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const wardStore = useSelector<IState, IWardState>((state) => state.wards);
+  const wardStore = useAppSelector((state) => state.wards);
 
   const errorMessage = useMemo(
     () =>

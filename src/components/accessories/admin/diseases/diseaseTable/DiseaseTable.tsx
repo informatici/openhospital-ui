@@ -1,15 +1,13 @@
-import React, { FunctionComponent, ReactNode, useMemo } from "react";
-import Table from "../../../table/Table";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
-import { CircularProgress } from "@mui/material";
-import { useSelector } from "react-redux";
-import { IState } from "../../../../../types";
-import { DiseaseDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import classes from "./DiseaseTable.module.scss";
 import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
+import { useAppSelector } from "libraries/hooks/redux";
+import React, { FunctionComponent, ReactNode, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { DiseaseDTO } from "../../../../../generated";
+import InfoBox from "../../../infoBox/InfoBox";
+import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
+import classes from "./DiseaseTable.module.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -24,10 +22,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const diseasesOptions = useSelector<
-    IState,
-    { label: string; value: string }[]
-  >(
+  const diseasesOptions = useAppSelector(
     (state) =>
       state.types.diseases.getAll.data?.map((item) => ({
         value: item.code,
@@ -64,10 +59,9 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
     },
   ];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<DiseaseDTO[]>
-  >((state) => state.diseases.allDiseases);
+  const { data, status, error } = useAppSelector(
+    (state) => state.diseases.allDiseases
+  );
 
   const handleEdit = (row: DiseaseDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

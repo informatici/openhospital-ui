@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { ApiResponse } from "../../../../../../../state/types";
 import { IState } from "../../../../../../../types";
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
@@ -8,7 +8,7 @@ import InfoBox from "../../../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
 import Table from "../../../../../table/Table";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
-import { deletePregnantTreatmentTypeReset } from "../../../../../../../state/types/pregnantTreatment/actions";
+import { deletePregnantTreatmentTypeReset } from "../../../../../../../state/types/pregnantTreatment";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";
@@ -21,7 +21,7 @@ interface IOwnProps {
 
 const PregnantTreatmentTableType = (props: IOwnProps) => {
   const { onDelete, onEdit, headerActions } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -33,12 +33,11 @@ const PregnantTreatmentTableType = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<PregnantTreatmentTypeDTO[]>
-  >((state) => state.types.pregnantTreatment.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.pregnantTreatment.getAll
+  );
 
-  const deleteDiseaseType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteDiseaseType = useAppSelector(
     (state) => state.types.pregnantTreatment.delete
   );
 

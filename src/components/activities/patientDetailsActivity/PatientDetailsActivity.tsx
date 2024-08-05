@@ -1,14 +1,14 @@
 import { EditRounded, Notes, Person } from "@mui/icons-material";
 import classNames from "classnames";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
 import {
   Navigate,
+  Outlet,
   useLocation,
   useNavigate,
-  Outlet,
   useOutletContext,
   useParams,
 } from "react-router";
@@ -17,8 +17,7 @@ import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { getPatientThunk } from "../../../state/patients/actions";
-import { IState } from "../../../types";
+import { getPatient } from "../../../state/patients";
 import {
   Accordion,
   AccordionDetails,
@@ -32,21 +31,18 @@ import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture"
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
 import "./styles.scss";
-import {
-  IDispatchProps,
-  IStateProps,
-  IUserSection,
-  TActivityTransitionState,
-  TProps,
-} from "./types";
+import { IUserSection, TActivityTransitionState } from "./types";
 
 type ContextType = { status: string | null };
 
-const PatientDetailsActivity: FunctionComponent<TProps> = ({
-  userCredentials,
-  patient,
-  getPatientThunk,
-}) => {
+const PatientDetailsActivity = () => {
+  const dispatch = useAppDispatch();
+
+  const { userCredentials, patient } = useAppSelector((state) => ({
+    userCredentials: state.main.authentication.data,
+    patient: state.patients.selectedPatient,
+  }));
+
   useEffect(() => {
     scrollToElement(null);
   }, []);
@@ -57,9 +53,9 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatientThunk(id!);
+      dispatch(getPatient(id!));
     }
-  }, [patient, id, getPatientThunk]);
+  }, [patient, id, dispatch]);
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -385,19 +381,7 @@ const PatientDetailsActivity: FunctionComponent<TProps> = ({
   }
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-  patient: state.patients.selectedPatient,
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  getPatientThunk,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PatientDetailsActivity);
+export default PatientDetailsActivity;
 
 export function usePatient() {
   return useOutletContext<ContextType>();

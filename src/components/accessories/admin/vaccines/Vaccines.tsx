@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 
 import VaccinesTable from "./vaccinesTable";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
 import {
   deleteVaccine,
   deleteVaccineReset,
   getVaccines,
-} from "../../../../state/vaccines/actions";
+} from "../../../../state/vaccines";
 import { getVaccineTypes } from "../../../../state/types/vaccines";
 import { VaccineDTO } from "../../../../generated";
 import { PATHS } from "../../../../consts";
@@ -16,7 +16,7 @@ import Button from "../../button/Button";
 
 export const Vaccines = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

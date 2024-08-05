@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { AdmissionDTO, AdmissionTypeDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
@@ -7,24 +7,24 @@ import { colorGen } from "../../uiUtils/colorGenerator";
 
 export const useAdmByAdmTypeData = () => {
   const { t } = useTranslation();
-  const admissions = useSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
-  const admissionTypes = useSelector<IState, AdmissionTypeDTO[]>(
+  const admissionTypes = useAppSelector(
     (state) => state.types.admissions.getAll.data ?? []
   );
-  const admissionTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const admissionTypeStatus = useAppSelector(
     (state) => state.types.admissions.getAll.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useAppSelector(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getAdmissions.status ?? ""
     )
   );
-  const wardStatus = useSelector<IState, TAPIResponseStatus>(
+  const wardStatus = useAppSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
   const sexLabels = [t("common.male"), t("common.female")];

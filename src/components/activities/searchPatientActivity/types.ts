@@ -14,13 +14,6 @@ export interface IPatientSearchItemProps {
   hideAdditionalInformation?: boolean;
 }
 
-export interface IDispatchProps {
-  searchPatient: (values: TValues) => void;
-  getPatientSuccess: (patient: PatientDTO) => IAction<PatientDTO, {}>;
-}
-
-export type TProps = IStateProps & IDispatchProps;
-
 export type TValues = {
   id: string;
   firstName: string;

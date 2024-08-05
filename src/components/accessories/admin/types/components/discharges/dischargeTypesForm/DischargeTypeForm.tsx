@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IDischargeTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IDischargeTypesState } from "../../../../../../../state/types/discharges/types";
@@ -25,7 +25,7 @@ import {
 import {
   createDischargeTypeReset,
   updateDischargeTypeReset,
-} from "../../../../../../../state/types/discharges/actions";
+} from "../../../../../../../state/types/discharges";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
@@ -40,15 +40,13 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const dischargeTypesStore = useSelector<IState, IDischargeTypesState>(
-    (state) => state.types.discharges
-  );
+  const dischargeTypesStore = useAppSelector((state) => state.types.discharges);
 
   const errorMessage = useMemo(
     () =>

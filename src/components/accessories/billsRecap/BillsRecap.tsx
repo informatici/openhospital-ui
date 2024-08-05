@@ -8,9 +8,9 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FullBillDTO } from "../../../generated";
-import { getBillsByYear, searchBills } from "../../../state/bills/actions";
+import { getBillsByYear, searchBills } from "../../../state/bills";
 import { IState } from "../../../types";
 import { IBillSummary } from "../../activities/billingActivity/types";
 import { TFilterValues } from "../billTable/types";
@@ -60,7 +60,7 @@ export const BillsRecap: FC = () => {
   );
   const width = useWindowWidth();
   const [summaryByYear, summaryByYearChange] = useState({} as IBillSummary);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [year, setYear] = useState(() => {
     return {
       value: new Date().getFullYear().toString(),
@@ -68,19 +68,19 @@ export const BillsRecap: FC = () => {
     };
   });
 
-  const currentData = useSelector<IState, FullBillDTO[]>((state) => {
+  const currentData = useAppSelector((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
-  const dataByYear = useSelector<IState, FullBillDTO[]>((state) => {
+  const dataByYear = useAppSelector((state) => {
     return state.bills.getBillsByYear.data ?? [];
   });
 
-  const dataByYearIsLoading = useSelector<IState, boolean>((state) => {
+  const dataByYearIsLoading = useAppSelector((state) => {
     return state.bills.getBillsByYear.status === "LOADING";
   });
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 

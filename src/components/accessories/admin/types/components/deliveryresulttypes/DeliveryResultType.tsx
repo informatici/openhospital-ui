@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteDeliveryResultType,
   deleteDeliveryResultTypeReset,
-  getDeliveryResultType,
-} from "../../../../../../state/types/deliveryResultType/actions";
+  getDeliveryResultTypes,
+} from "../../../../../../state/types/deliveryResults";
 import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";
 import "./styles.scss";
@@ -16,10 +16,10 @@ import { DeliveryResultTypeDTO } from "../../../../../../generated";
 
 const DelevyResultType = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getDeliveryResultType());
+    dispatch(getDeliveryResultTypes());
     dispatch(setTypeMode("manage"));
 
     return () => {

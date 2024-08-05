@@ -21,7 +21,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
   Accordion,
@@ -63,13 +63,13 @@ import {
   deleteOperationRowReset,
   getOperations,
   updateOperationRowReset,
-} from "../../../../state/operations/actions";
+} from "../../../../state/operations";
 import { IOperationState } from "../../../../state/operations/types";
 import checkIcon from "../../../../assets/check-icon.png";
 import { opRowFields } from "../../patientOperation/opRowFields";
 import InfoBox from "../../infoBox/InfoBox";
 import { Add, Edit } from "@mui/icons-material";
-import { getWards } from "../../../../state/ward/actions";
+import { getWards } from "../../../../state/ward";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -84,7 +84,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const [operationCreationMode, setOperationCreationMode] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [expanded, setExpanded] = useState<boolean>(true);
 
   const validationSchema = object({
@@ -123,15 +123,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
-  const diseases = useSelector<IState, DiseaseDTO[]>(
+  const diseases = useAppSelector(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
 
-  const wards = useSelector<IState, WardDTO[]>(
+  const wards = useAppSelector(
     (state: IState) => state.wards.allWards.data ?? []
   );
 
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
@@ -193,10 +193,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       : [];
   };
 
-  const diseasesOptions = useSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => diseasesOptionsSelector(state));
+  const diseasesOptions = useAppSelector((state: IState) =>
+    diseasesOptionsSelector(state)
+  );
 
   const wardsOptionsSelector = (state: IState) => {
     return state.wards.allWards.data
@@ -210,8 +209,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           })
       : [];
   };
-  const wardsOptions = useSelector<IState, { value: string; label: string }[]>(
-    (state: IState) => wardsOptionsSelector(state)
+  const wardsOptions = useAppSelector((state: IState) =>
+    wardsOptionsSelector(state)
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -316,9 +315,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }, 500);
   };
 
-  const operationStore = useSelector<IState, IOperationState>(
-    (state: IState) => state.operations
-  );
+  const operationStore = useAppSelector((state: IState) => state.operations);
 
   const operationsRowFields = useMemo(() => {
     return opRowFields(
@@ -340,13 +337,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       setShowModal(true);
     };
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.operations.deleteOperationRow.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     return state.operations.deleteOperationRow.status;
   });
 

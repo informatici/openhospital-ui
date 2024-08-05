@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { object, string } from "yup";
 import { BillPaymentsDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
@@ -12,7 +12,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { searchPayments } from "../../../state/bills/actions";
+import { searchPayments } from "../../../state/bills";
 import { IState } from "../../../types";
 import { TFilterValues } from "../billTable/types";
 import DateField from "../dateField/DateField";
@@ -42,9 +42,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   };
   const order = ["date"];
   const [openFilter, setOpenFilter] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, {}[]>(
+  const data = useAppSelector(
     (state) =>
       state.bills.searchPayments.data?.map((item: BillPaymentsDTO) => {
         return {
@@ -56,11 +56,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       }) ?? []
   );
 
-  const status = useSelector<IState, string | undefined>(
-    (state) => state.bills.searchPayments.status
-  );
+  const status = useAppSelector((state) => state.bills.searchPayments.status);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.bills.searchPayments.error?.message || t("common.somethingwrong")
   ) as string;

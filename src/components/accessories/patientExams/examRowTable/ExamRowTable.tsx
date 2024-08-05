@@ -14,7 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
 import { debounce, isEmpty } from "lodash";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 
 const ExamRowTable: FC<IEditableTableProps> = ({
@@ -24,7 +24,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
   title,
   disabled = false,
 }) => {
-  const labToEditRows = useSelector(
+  const labToEditRows = useAppSelector(
     (state: IState) =>
       state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );

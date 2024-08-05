@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { LabWithRowsDTO, PageInfoDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
@@ -11,15 +11,7 @@ export const useLaboratories = () => {
   const [range, setRange] = useState(
     [moment().add(-5, "day"), moment()].map((e) => e.toISOString())
   );
-  const { pageInfo, data, status, error } = useSelector<
-    IState,
-    {
-      pageInfo?: PageInfoDTO;
-      data: LabWithRowsDTO[];
-      status: TAPIResponseStatus;
-      error?: any;
-    }
-  >((state) => {
+  const { pageInfo, data, status, error } = useAppSelector((state) => {
     const laboratoryState = state.laboratories.searchLabs;
     const pageInfo = laboratoryState.data?.pageInfo;
     const data = laboratoryState.data?.data ?? [];

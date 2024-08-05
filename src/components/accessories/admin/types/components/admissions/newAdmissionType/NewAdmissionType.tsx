@@ -1,21 +1,19 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { AdmissionTypeDTO } from "../../../../../../../generated";
-import { createAdmissionType } from "../../../../../../../state/types/admissions/actions";
+import { createAdmissionType } from "../../../../../../../state/types/admissions";
 import AdmissionTypeForm from "../admissionTypesForm/AdmissionTypeForm";
 import { getInitialFields } from "../admissionTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewAdmissionType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<AdmissionTypeDTO>>(
-    (state) => state.types.admissions.create
-  );
+  const create = useAppSelector((state) => state.types.admissions.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

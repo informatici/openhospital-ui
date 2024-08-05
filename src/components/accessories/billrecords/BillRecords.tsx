@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { BillPaymentsDTO, FullBillDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
@@ -13,7 +13,7 @@ import {
   payBill,
   payBillReset,
   searchBills,
-} from "../../../state/bills/actions";
+} from "../../../state/bills";
 import { IState } from "../../../types";
 import RenderBillDetails from "../billTable/RenderBillDetails";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -45,15 +45,15 @@ const BillRecords = () => {
     date: t("bill.date"),
     amount: t("bill.amount"),
   };
-  const user = useSelector(
+  const user = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
 
   const order = ["date", "balance"];
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const dispatch = useDispatch();
-  const patient = useSelector<IState, PatientDTO | undefined>(
+  const dispatch = useAppDispatch();
+  const patient = useAppSelector(
     (state) => state.patients.selectedPatient.data
   );
   const handleClose = () => {
@@ -82,7 +82,7 @@ const BillRecords = () => {
     }
   }, [patient, dispatch]);
 
-  const pendingBills = useSelector<IState, FullBillDTO[]>((state) => {
+  const pendingBills = useAppSelector((state) => {
     return state.bills.getPendingBills.data ?? [];
   });
 
@@ -105,7 +105,7 @@ const BillRecords = () => {
     };
   };
 
-  const closedBills = useSelector<IState, FullBillDTO[]>((state) => {
+  const closedBills = useAppSelector((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
@@ -117,18 +117,12 @@ const BillRecords = () => {
 
   const [selectedObj, setSeletedObj] = useState({} as any);
 
-  const deleteStatus = useSelector<IState, string | undefined>(
-    (state) => state.bills.delete.status
-  );
-  const paymentStatus = useSelector<IState, string | undefined>(
-    (state) => state.bills.payBill.status
-  );
+  const deleteStatus = useAppSelector((state) => state.bills.delete.status);
+  const paymentStatus = useAppSelector((state) => state.bills.payBill.status);
 
-  const closeStatus = useSelector<IState, string | undefined>(
-    (state) => state.bills.closeBill.status
-  );
+  const closeStatus = useAppSelector((state) => state.bills.closeBill.status);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.bills.delete.error?.message ||
       state.bills.payBill.error?.message ||
@@ -265,7 +259,7 @@ const BillRecords = () => {
         primaryButtonLabel="YES"
         secondaryButtonLabel="NO"
         handlePrimaryButtonClick={() => {
-          dispatch(closeBill(selectedObj.code, selectedObj));
+          dispatch(closeBill({ id: selectedObj.code, bill: selectedObj }));
           setOpenCloseBillDialog(false);
         }}
         handleSecondaryButtonClick={() => setOpenCloseBillDialog(false)}

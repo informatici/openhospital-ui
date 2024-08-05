@@ -1,15 +1,15 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
 import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@mui/lab";
-import { getAdmissions } from "../../../../../state/admissions/actions";
+import { getAdmissions } from "../../../../../state/admissions";
 import { IOwnProps } from "../types";
-import { getWards } from "../../../../../state/ward/actions";
+import { getWards } from "../../../../../state/ward";
 import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
 import { useAdmByAdmWardData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByWardData";
@@ -22,7 +22,7 @@ export const AdmissionsByWards: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -7,25 +7,25 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import { default as React } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
 import {
   setForgotPasswordThunk,
-  resetForgotPasswordThunk,
-} from "../../../state/main/actions";
+  resetForgotPassword,
+} from "../../../state/main";
 import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
-import { getHospital } from "../../../state/hospital/actions";
+import { getHospital } from "../../../state/hospital";
+import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
 
 const ForgotActivity: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const initialValues: IValues = {
     username: "",
@@ -44,7 +44,7 @@ const ForgotActivity: FC = () => {
   });
 
   const onResetForgotPassword = useCallback(() => {
-    dispatch(resetForgotPasswordThunk());
+    dispatch(resetForgotPassword());
   }, [dispatch]);
 
   const isValid = (fieldName: string): boolean => {
@@ -54,11 +54,11 @@ const ForgotActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorType = useSelector<IState, string | undefined>(
+  const errorType = useAppSelector(
     (state) => state.main.forgotpassword.error?.description || "unknown error"
   );
 
-  const status = useSelector<IState>(
+  const status = useAppSelector(
     (state) => state.main.forgotpassword.status || "IDLE"
   );
 
@@ -66,7 +66,7 @@ const ForgotActivity: FC = () => {
     dispatch(getHospital());
   }, [dispatch]);
 
-  const hospital = useSelector<IState>(
+  const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
 

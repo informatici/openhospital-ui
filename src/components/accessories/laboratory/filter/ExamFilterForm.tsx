@@ -30,7 +30,7 @@ import { IExamFilterProps, TFilterValues } from "./types";
 import "./styles.scss";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -156,7 +156,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
     })
   );
 
-  const examOptions = useSelector((state: IState) => {
+  const examOptions = useAppSelector((state: IState) => {
     return state.exams.examList.data?.map((e) => mapToOptions(e)) ?? [];
   });
 

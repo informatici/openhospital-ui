@@ -22,7 +22,7 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IDiseaseProps } from "./types";
 import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
@@ -31,7 +31,7 @@ import { PATHS } from "../../../../../consts";
 import {
   createDiseaseReset,
   updateDiseaseReset,
-} from "../../../../../state/diseases/actions";
+} from "../../../../../state/diseases";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import { getDiseaseTypes } from "../../../../../state/types/diseases";
 
@@ -43,17 +43,15 @@ const DiseaseForm: FC<IDiseaseProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const diseaseStore = useSelector<IState, IDiseaseState>(
-    (state) => state.diseases
-  );
+  const diseaseStore = useAppSelector((state) => state.diseases);
 
-  const diseasesTypeState = useSelector(
+  const diseasesTypeState = useAppSelector(
     (state: IState) => state.types.diseases.getAll
   );
 

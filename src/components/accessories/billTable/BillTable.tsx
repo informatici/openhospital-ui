@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FullBillDTO, PatientDTO } from "../../../generated";
-import { getPendingBills, searchBills } from "../../../state/bills/actions";
+import { getPendingBills, searchBills } from "../../../state/bills";
 import { IState } from "../../../types";
 import { CustomModal } from "../customModal/CustomModal";
 import Table from "../table/Table";
@@ -34,7 +34,7 @@ import InfoBox from "../infoBox/InfoBox";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const header = ["patient", "date", "status"];
   const dateFields = ["date"];
   const label = {
@@ -148,7 +148,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     [setFieldValue, handleBlur]
   );
 
-  const data = useSelector<IState, FullBillDTO[]>((state) => {
+  const data = useAppSelector((state) => {
     if (filter.status === "PENDING") {
       return state.bills.getPendingBills.data ?? [];
     } else {
@@ -156,7 +156,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const status = useSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     if (filter.status === "PENDING") {
       return state.bills.getPendingBills.status;
     } else {
@@ -164,7 +164,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const errorMessage = useSelector<IState>((state) => {
+  const errorMessage = useAppSelector((state) => {
     return (
       (filter.status === "PENDING"
         ? state.bills.getPendingBills.error

@@ -1,6 +1,6 @@
 import { default as React, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
@@ -15,7 +15,7 @@ import {
   getLastByPatientId,
   updateExamination,
   updateExaminationReset,
-} from "../../../state/examinations/actions";
+} from "../../../state/examinations";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
@@ -27,7 +27,7 @@ export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 
 const PatientTriage: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -41,19 +41,18 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const lastExamination = useSelector<
-    IState,
-    PatientExaminationDTO | undefined
-  >((state) => state.examinations.getLastByPatientId.data);
+  const lastExamination = useAppSelector(
+    (state) => state.examinations.getLastByPatientId.data
+  );
 
-  const patientDataCode = useSelector(
+  const patientDataCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  const deleteStatus = useSelector<IState, string | undefined>(
+  const deleteStatus = useAppSelector(
     (state) => state.examinations.deleteExamination.status
   );
-  const status = useSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -64,7 +63,7 @@ const PatientTriage: FC = () => {
       : state.examinations.updateExamination.status;
   });
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||
@@ -117,7 +116,12 @@ const PatientTriage: FC = () => {
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
-      dispatch(updateExamination(triageToEdit.pex_ID, triage));
+      dispatch(
+        updateExamination({
+          id: triageToEdit.pex_ID,
+          patientExaminationDTO: triage,
+        })
+      );
     } else {
       dispatch(createExamination(triage));
     }
@@ -135,8 +139,10 @@ const PatientTriage: FC = () => {
   };
 
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteExamination(code));
+    if (code) {
+      setDeletedObjCode(code.toString());
+      dispatch(deleteExamination(code));
+    }
   };
 
   const onEdit = (row: any) => {

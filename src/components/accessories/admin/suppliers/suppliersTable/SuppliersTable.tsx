@@ -1,13 +1,11 @@
-import React, { ReactNode, useEffect } from "react";
-import Table from "../../../table/Table";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { ReactNode, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { SupplierDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { getSuppliers } from "../../../../../state/suppliers/actions";
+import { getSuppliers } from "../../../../../state/suppliers";
+import InfoBox from "../../../infoBox/InfoBox";
+import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 import classes from "./SuppliersTable.module.scss";
 
@@ -17,7 +15,7 @@ interface IOwnProps {
 }
 
 export const SuppliersTable = ({ onEdit, headerActions }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -42,10 +40,9 @@ export const SuppliersTable = ({ onEdit, headerActions }: IOwnProps) => {
     { key: "name", label: t("supplier.name"), type: "text" },
   ];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<SupplierDTO[]>
-  >((state) => state.suppliers.supplierList);
+  const { data, status, error } = useAppSelector(
+    (state) => state.suppliers.supplierList
+  );
 
   const formatDataToDisplay = (data: SupplierDTO[]) => {
     return data.map((item) => {

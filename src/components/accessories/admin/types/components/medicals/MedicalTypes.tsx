@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteMedicalType,
   deleteMedicalTypeReset,
   getMedicalTypes,
-} from "../../../../../../state/types/medicals/actions";
+} from "../../../../../../state/types/medicals";
 import { MedicalTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";
@@ -16,7 +16,7 @@ import MedicalTypesTable from "./medicalTypesTable";
 
 const MedicalTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getMedicalTypes());

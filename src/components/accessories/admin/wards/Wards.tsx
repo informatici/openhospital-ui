@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import classes from "./Wards.module.scss";
-import { useDispatch } from "react-redux";
-import {
-  deleteWard,
-  deleteWardReset,
-  getWards,
-} from "../../../../state/ward/actions";
+import { useAppDispatch } from "libraries/hooks/redux";
+import { deleteWard, deleteWardReset, getWards } from "../../../../state/ward";
 import { WardDTO } from "../../../../generated";
 import WardTable from "./wardTable";
 import Button from "../../button/Button";
@@ -15,7 +11,7 @@ import { PATHS } from "../../../../consts";
 
 export const Wards = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IPregnantTreatmentTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IPregnantTreatmentTypesState } from "../../../../../../../state/types/pregnantTreatment/types";
@@ -22,15 +22,15 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../../../libraries/formDataHandling/functions";
-import {
-  createPregnantTreatmentTypeReset,
-  updatePregnantTreatmentTypeReset,
-} from "../../../../../../../state/types/pregnantTreatment/actions";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
 import { PATHS } from "../../../../../../../consts";
+import {
+  createPregnantTreatmentTypeReset,
+  updatePregnantTreatmentTypeReset,
+} from "../../../../../../../state/types/pregnantTreatment";
 
 const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   fields,
@@ -40,16 +40,15 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const pregnantTreatmentTypeStore = useSelector<
-    IState,
-    IPregnantTreatmentTypesState
-  >((state) => state.types.pregnantTreatment);
+  const pregnantTreatmentTypeStore = useAppSelector(
+    (state) => state.types.pregnantTreatment
+  );
 
   const errorMessage = useMemo(
     () =>
@@ -144,7 +143,12 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 
         <div className="pregnantTreatmentTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" dataCy="submit-form" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>

@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IMedicalTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IMedicalTypesState } from "../../../../../../../state/types/medicals/types";
@@ -25,7 +25,7 @@ import {
 import {
   createMedicalTypeReset,
   updateMedicalTypeReset,
-} from "../../../../../../../state/types/medicals/actions";
+} from "../../../../../../../state/types/medicals";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
@@ -40,15 +40,13 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const medicalTypesStore = useSelector<IState, IMedicalTypesState>(
-    (state) => state.types.medicals
-  );
+  const medicalTypesStore = useAppSelector((state) => state.types.medicals);
 
   const errorMessage = useMemo(
     () =>

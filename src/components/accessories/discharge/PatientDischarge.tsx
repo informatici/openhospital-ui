@@ -1,53 +1,53 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../types";
-import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO } from "../../../generated";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
+import { AdmissionDTO } from "../../../generated";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
-  getCurrentAdmissionByPatientId,
   dischargePatient,
   dischargePatientReset,
-} from "../../../state/admissions/actions";
-import { useFields } from "./useFields";
-import DischargeForm from "./dischargeForm/DischargeForm";
-import { getPatientThunk } from "../../../state/patients/actions";
-import { parseDate } from "../../../libraries/formDataHandling/functions";
+  getCurrentAdmission,
+} from "../../../state/admissions";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
+import InfoBox from "../infoBox/InfoBox";
+import DischargeForm from "./dischargeForm/DischargeForm";
+import "./styles.scss";
+import { AdmissionTransitionState } from "./types";
+import { useFields } from "./useFields";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const currentAdmissionStatus = useSelector(
+  const currentAdmissionStatus = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
   const fields = useFields(currentAdmission);
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const dischargeStatus = useSelector<IState>(
+  const dischargeStatus = useAppSelector(
     (state) => state.admissions.dischargePatient.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.admissions.dischargePatient.error?.message ||
       state.admissions.currentAdmissionByPatientId.error?.message
@@ -66,7 +66,12 @@ const PatientDischarge: FC = () => {
         note: adm.note,
         admitted: 0,
       };
-      dispatch(dischargePatient(patient?.code, dischargeToSave));
+      dispatch(
+        dischargePatient({
+          patientCode: patient?.code ?? -1,
+          admissionDTO: dischargeToSave,
+        })
+      );
     }
   };
 
@@ -83,12 +88,13 @@ const PatientDischarge: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(getCurrentAdmissionByPatientId(patient?.code));
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
+      dispatch(getCurrentAdmission(patient?.code));
+      dispatch(getPatient((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
+      setActivityTransitionState("IDLE");
     }
-  }, [dispatch, patient, activityTransitionState]);
+  }, [dispatch, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
@@ -98,7 +104,7 @@ const PatientDischarge: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+    dispatch(getCurrentAdmission(patient?.code));
   }, [patient, dispatch]);
 
   return (

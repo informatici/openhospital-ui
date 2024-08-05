@@ -1,34 +1,37 @@
 import { CircularProgress } from "@mui/material";
-import React, { FunctionComponent, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
-import { MedicalDTO } from "../../../../generated";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
-import { loadSummaryData } from "../../../../state/summary/actions";
+import { loadSummaryData } from "../../../../state/summary";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
-import { IDispatchProps, IStateProps, SummaryType, TProps } from "../types";
+import { SummaryType } from "../types";
 import useSummaryMetaData from "../useSummaryMetaData";
 
-const PatientSummaryByType: FunctionComponent<TProps> = ({
-  loadSummaryData,
-  isLoading,
-  summaryData = [],
-}) => {
+const PatientSummaryByType = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const { labels, dateFields, header, order } = useSummaryMetaData();
 
-  const patientCode = useSelector(
+  const patientCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  useEffect(() => {
-    if (patientCode) loadSummaryData(patientCode);
-  }, [patientCode, loadSummaryData]);
+  const { isLoading, summaryData } = useAppSelector((state) => ({
+    isLoading: state.summary.summaryApisCall.status === "LOADING",
+    hasSucceeded: state.summary.summaryApisCall.status === "SUCCESS",
+    hasFailed: state.summary.summaryApisCall.status === "FAIL",
+    summaryData: state.summary.summaryApisCall.data ?? [],
+  }));
 
-  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+  useEffect(() => {
+    if (patientCode) dispatch(loadSummaryData(patientCode));
+  }, [patientCode, dispatch]);
+
+  const medicals = useAppSelector((state) =>
     state.medicals.medicalsOrderByName.data
       ? state.medicals.medicalsOrderByName.data
       : []
@@ -216,18 +219,4 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: state.summary.summaryApisCall.status === "LOADING",
-  hasSucceeded: state.summary.summaryApisCall.status === "SUCCESS",
-  hasFailed: state.summary.summaryApisCall.status === "FAIL",
-  summaryData: state.summary.summaryApisCall.data,
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  loadSummaryData,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PatientSummaryByType);
+export default PatientSummaryByType;

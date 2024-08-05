@@ -1,21 +1,19 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { VaccineTypeDTO } from "../../../../../../../generated";
-import { createVaccineType } from "../../../../../../../state/types/vaccines/actions";
+import { createVaccineType } from "../../../../../../../state/types/vaccines";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewVaccineType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<VaccineTypeDTO>>(
-    (state) => state.types.vaccines.create
-  );
+  const create = useAppSelector((state) => state.types.vaccines.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

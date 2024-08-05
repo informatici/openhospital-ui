@@ -22,7 +22,7 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IOperationProps } from "./types";
 import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
@@ -31,7 +31,7 @@ import { PATHS } from "../../../../../consts";
 import {
   createOperationReset,
   updateOperationReset,
-} from "../../../../../state/operations/actions";
+} from "../../../../../state/operations";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import { getOperationTypes } from "../../../../../state/types/operations";
 
@@ -43,17 +43,15 @@ const OperationForm: FC<IOperationProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const operationStore = useSelector<IState, IOperationState>(
-    (state) => state.operations
-  );
+  const operationStore = useAppSelector((state) => state.operations);
 
-  const operationsTypeState = useSelector(
+  const operationsTypeState = useAppSelector(
     (state: IState) => state.types.operations.getAll
   );
 

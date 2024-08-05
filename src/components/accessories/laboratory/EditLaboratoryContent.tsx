@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { Cancel } from "@mui/icons-material";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useParams, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
@@ -14,21 +14,21 @@ import {
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
   updateLabReset,
-} from "../../../state/laboratories/actions";
-import { getExams } from "../../../state/exams/actions";
+} from "../../../state/laboratories";
+import { getExams } from "../../../state/exams";
 import ExamForm from "./examForm/ExamForm";
-import { getPatientThunk } from "../../../state/patients/actions";
+import { getPatient } from "../../../state/patients";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string | undefined }>();
   const navigate = useNavigate();
 
   const creationMode = useMemo(() => (id ? false : true), [id]);
 
-  const labWithRows = useSelector(
+  const labWithRows = useAppSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.data
   );
 
@@ -42,7 +42,7 @@ export const EditLaboratoryContent: FC = () => {
 
   useEffect(() => {
     if (labToEdit?.patientCode) {
-      dispatch(getPatientThunk(labToEdit.patientCode.toString()));
+      dispatch(getPatient(labToEdit.patientCode.toString()));
     }
   }, [labWithRows, dispatch, labToEdit?.patientCode]);
 
@@ -51,7 +51,7 @@ export const EditLaboratoryContent: FC = () => {
     navigate(0);
   }, [dispatch, navigate]);
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 

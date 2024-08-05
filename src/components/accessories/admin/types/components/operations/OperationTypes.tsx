@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteOperationType,
   deleteOperationTypeReset,
   getOperationTypes,
-} from "../../../../../../state/types/operations/actions";
+} from "../../../../../../state/types/operations";
 import { OperationTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import OperationTypesTable from "./operationTypesTable";
@@ -16,7 +16,7 @@ import { setTypeMode } from "../../../../../../state/types/config";
 
 const OperationTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getOperationTypes());

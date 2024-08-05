@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { TUserCredentials } from "../../../state/main/types";
@@ -18,7 +18,7 @@ const VisitsActivity: FC = () => {
     [t("nav.visits")]: PATHS.visits,
   };
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 

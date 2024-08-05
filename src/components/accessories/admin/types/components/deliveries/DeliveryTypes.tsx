@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteDeliveryType,
   deleteDeliveryTypeReset,
   getDeliveryTypes,
-} from "../../../../../../state/types/deliveries/actions";
+} from "../../../../../../state/types/deliveries";
 import { DeliveryTypeDTO } from "../../../../../../generated";
 import { PATHS } from "../../../../../../consts";
 import DeliveryTypesTable from "./deliveryTypesTable";
@@ -16,7 +16,7 @@ import { setTypeMode } from "../../../../../../state/types/config";
 
 const DeliveryTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDeliveryTypes());

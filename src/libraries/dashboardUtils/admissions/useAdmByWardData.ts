@@ -1,24 +1,22 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { AdmissionDTO, WardDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
+import { useAppSelector } from "libraries/hooks/redux";
 
 export const useAdmByAdmWardData = () => {
   const { t } = useTranslation();
-  const admissions = useSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
-  const wards = useSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
-  const wardStatus = useSelector<IState, TAPIResponseStatus>(
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
+  const wardStatus = useAppSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useAppSelector(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getAdmissions.status ?? ""
     )

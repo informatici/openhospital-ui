@@ -1,15 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FullBillDTO } from "../../../../generated";
-import { getPendingBills } from "../../../../state/bills/actions";
+import { getPendingBills } from "../../../../state/bills";
 import { IState } from "../../../../types";
 
 export const usePendingBills = (patientCode: number) => {
-  const dispatch = useDispatch();
-  const status = useSelector<IState, string>(
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(
     (state: IState) => state.bills.getPendingBills.status ?? "IDLE"
   );
-  const data = useSelector<IState, FullBillDTO[]>(
+  const data = useAppSelector(
     (state: IState) => state.bills.getPendingBills?.data ?? []
   );
   useEffect(() => {

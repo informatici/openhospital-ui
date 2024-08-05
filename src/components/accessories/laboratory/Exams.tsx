@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import React, { FC, Fragment, useMemo, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
@@ -22,8 +22,8 @@ import {
   deleteLabReset,
   searchLabs,
   updateLabStatus,
-} from "../../../state/laboratories/actions";
-import { getExams } from "../../../state/exams/actions";
+} from "../../../state/laboratories";
+import { getExams } from "../../../state/exams";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -37,7 +37,7 @@ import Pagination from "../pagination/Pagination";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -57,9 +57,7 @@ export const Exams: FC = () => {
     () => updateFilterFields(initialFilterFields, filter, false),
     [filter]
   );
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
+  const labStore = useAppSelector((state: IState) => state.laboratories);
   const handleResetFilter = () => {
     setFilter(initialFilter as TFilterValues);
   };
@@ -113,7 +111,10 @@ export const Exams: FC = () => {
   const onExamStatusChangeClick = () => {
     if (selectedExamRow?.code) {
       dispatch(
-        updateLabStatus(selectedExamRow?.code, LaboratoryDTOStatusEnum.Open)
+        updateLabStatus({
+          code: selectedExamRow?.code,
+          status: LaboratoryDTOStatusEnum.Open,
+        })
       );
     }
   };
@@ -134,23 +135,23 @@ export const Exams: FC = () => {
   };
   const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
 
-  const errorMessage = useSelector((state: IState) =>
+  const errorMessage = useAppSelector((state: IState) =>
     state.laboratories.searchLabs.error?.message
       ? state.laboratories.searchLabs.error?.message
       : t("common.somethingwrong")
   );
 
-  const updateLabErrorMsg = useSelector((state: IState) =>
+  const updateLabErrorMsg = useAppSelector((state: IState) =>
     state.laboratories.updateLab.error?.message
       ? state.laboratories.updateLab.error?.message
       : t("common.somethingwrong")
   );
 
-  let status = useSelector(
+  let status = useAppSelector(
     (state: IState) => state.laboratories.searchLabs.status
   );
 
-  let changeStatus = useSelector(
+  let changeStatus = useAppSelector(
     (state: IState) => state.laboratories.updateLab.status
   );
 

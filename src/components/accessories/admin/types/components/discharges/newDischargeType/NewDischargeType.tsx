@@ -1,21 +1,19 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { DischargeTypeDTO } from "../../../../../../../generated";
-import { createDischargeType } from "../../../../../../../state/types/discharges/actions";
+import { createDischargeType } from "../../../../../../../state/types/discharges";
 import DischargeTypeForm from "../dischargeTypesForm/DischargeTypeForm";
 import { getInitialFields } from "../dischargeTypesForm/consts";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewDischargeType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DischargeTypeDTO>>(
-    (state) => state.types.discharges.create
-  );
+  const create = useAppSelector((state) => state.types.discharges.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

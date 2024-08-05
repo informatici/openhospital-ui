@@ -1,10 +1,10 @@
 import { Skeleton } from "@mui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { getAdmissions } from "../../../../state/admissions/actions";
-import { getAgeTypes } from "../../../../state/ageTypes/actions";
-import { getWards } from "../../../../state/ward/actions";
+import { useAppDispatch } from "libraries/hooks/redux";
+import { getAdmissions } from "../../../../state/admissions";
+import { getAgeTypes } from "../../../../state/ageTypes";
+import { getWards } from "../../../../state/ward";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
 import { DataSummary } from "../summary/DataSummary";
@@ -15,7 +15,7 @@ import { getAdmissionTypes } from "../../../../state/types/admissions";
 
 export const Admissions: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       getAdmissions({

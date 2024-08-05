@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { IState } from "../../../types";
 import ExamForm from "./ExamForm/ExamForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
 import checkIcon from "../../../assets/check-icon.png";
@@ -22,7 +22,7 @@ import {
   getMaterials,
   updateLab,
   updateLabReset,
-} from "../../../state/laboratories/actions";
+} from "../../../state/laboratories";
 import {
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
@@ -30,7 +30,7 @@ import {
 } from "../../../generated";
 import { ILaboratoriesState } from "../../../state/laboratories/types";
 import InfoBox from "../infoBox/InfoBox";
-import { getExamRows, getExams } from "../../../state/exams/actions";
+import { getExamRows, getExams } from "../../../state/exams";
 import {
   parseDate,
   updateLabFields,
@@ -43,7 +43,7 @@ import PatientExamRequestsTable from "./patientExamRequestsTable/PatientExamRequ
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -59,11 +59,11 @@ const PatientExams: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const labWithRows = useSelector(
+  const labWithRows = useAppSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.data ?? {}
   );
 
-  const patientData = useSelector(
+  const patientData = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -91,10 +91,8 @@ const PatientExams: FC = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
-  const errorMessage = useSelector<IState>(
+  const labStore = useAppSelector((state: IState) => state.laboratories);
+  const errorMessage = useAppSelector(
     (state) =>
       state.laboratories.createLab.error?.message ||
       state.laboratories.updateLab.error?.message ||
@@ -102,7 +100,7 @@ const PatientExams: FC = () => {
       state.laboratories.deleteLab.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const exams = useSelector((state: IState) => state.exams.examList.data);
+  const exams = useAppSelector((state: IState) => state.exams.examList.data);
 
   const onSuccess = useCallback(
     (shoudlReset: boolean) => {
@@ -142,7 +140,7 @@ const PatientExams: FC = () => {
         : LaboratoryDTOStatusEnum.Open;
 
     if (!creationMode && labToEdit.code) {
-      dispatch(updateLab(labToEdit.code, labWithRowsDTO));
+      dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
     } else {
       dispatch(createLab(labWithRowsDTO));
     }

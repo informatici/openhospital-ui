@@ -14,10 +14,10 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IDeliveryResultTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
-import { IDeliveryResultTypeState } from "../../../../../../../state/types/deliveryResultType/types";
+import { IDeliveryResultTypeState } from "../../../../../../../state/types/deliveryResults/types";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,7 +25,7 @@ import {
 import {
   createDeliveryResultTypeReset,
   updateDeliveryResultTypeReset,
-} from "../../../../../../../state/types/deliveryResultType/actions";
+} from "../../../../../../../state/types/deliveryResults";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
@@ -40,16 +40,15 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const deliveryResultTypesStore = useSelector<
-    IState,
-    IDeliveryResultTypeState
-  >((state) => state.types.deliveryResult);
+  const deliveryResultTypesStore = useAppSelector(
+    (state) => state.types.deliveryResult
+  );
 
   const errorMessage = useMemo(
     () =>

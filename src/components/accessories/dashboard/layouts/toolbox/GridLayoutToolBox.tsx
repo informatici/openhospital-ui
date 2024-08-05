@@ -1,6 +1,6 @@
 import { FC } from "react";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
 import {
@@ -19,35 +19,29 @@ import {
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { Layout, Layouts } from "react-grid-layout";
-import { saveLayouts } from "../../../../../state/layouts/actions";
+import { saveLayouts } from "../../../../../state/layouts";
 import "./styles.scss";
 import { UserSettingDTO } from "../../../../../generated";
 import { TUserCredentials } from "../../../../../state/main/types";
 import InfoBox from "../../../infoBox/InfoBox";
 
 const GridLayoutToolbox: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 
-  const breakpoint = useSelector<IState, string>(
-    (state) => state.layouts.breakpoint
-  );
+  const breakpoint = useAppSelector((state) => state.layouts.breakpoint);
 
-  const layouts = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.layouts
-  );
+  const layouts = useAppSelector((state: IState) => state.layouts.layouts);
 
-  const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
+  const dashboardSetting = useAppSelector(
     (state) => state.layouts.getLayouts.data
   );
 
-  const toolbox = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.toolbox
-  );
+  const toolbox = useAppSelector((state: IState) => state.layouts.toolbox);
 
   const onItemPut = (item: Layout) => {
     let layoutsTmp = removeDuplicates({

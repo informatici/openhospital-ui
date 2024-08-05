@@ -4,7 +4,7 @@ import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -85,7 +85,7 @@ const TherapyForm: FC<TherapyProps> = ({
       });
     } else return [];
   };
-  const medicalOptions = useSelector((state: IState) =>
+  const medicalOptions = useAppSelector((state: IState) =>
     medicalOptionsSelector(state)
   );
 

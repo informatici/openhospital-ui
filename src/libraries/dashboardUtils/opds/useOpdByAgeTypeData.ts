@@ -1,24 +1,24 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { AgeTypeDTO, OpdDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 
 export const useOpdByAgeTypeData = () => {
   const { t } = useTranslation();
-  const opds = useSelector<IState, OpdDTO[]>(
+  const opds = useAppSelector(
     (state) => state.opds.searchOpds.data?.data ?? []
   );
-  const ageTypes = useSelector<IState, AgeTypeDTO[]>(
+  const ageTypes = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
-  const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const ageTypeStatus = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useAppSelector(
     (state) => state.opds.searchOpds.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
   const labels = ageTypes.map((e) => t(`patient.agetypes.${e.code ?? ""}`));

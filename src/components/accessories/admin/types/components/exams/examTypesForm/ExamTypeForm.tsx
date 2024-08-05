@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IExamTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IExamTypesState } from "../../../../../../../state/types/exams/types";
@@ -25,7 +25,7 @@ import {
 import {
   createExamTypeReset,
   updateExamTypeReset,
-} from "../../../../../../../state/types/exams/actions";
+} from "../../../../../../../state/types/exams";
 import TextField from "../../../../../textField/TextField";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
@@ -40,15 +40,13 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const examTypesStore = useSelector<IState, IExamTypesState>(
-    (state) => state.types.exams
-  );
+  const examTypesStore = useAppSelector((state) => state.types.exams);
 
   const errorMessage = useMemo(
     () =>
