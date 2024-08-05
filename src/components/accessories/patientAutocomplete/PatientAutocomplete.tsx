@@ -18,7 +18,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
   const getOptionSelected = (option: PatientDTO, v: PatientDTO) => {
     return option.code === v.code;
   };
-  const patientSearchResults = useAppSelector<IState, PatientDTO[]>(
+  const patientSearchResults = useAppSelector(
     (state) => state.patients.searchResults.data ?? []
   );
 

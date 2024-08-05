@@ -30,7 +30,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   const dispatch = useAppDispatch();
 
   const { userCredentials, isLoading, hasSucceeded, hasFailed } =
-    useAppSelector<IState, IStateProps>((state) => ({
+    useAppSelector((state) => ({
       userCredentials: state.main.authentication.data,
       isLoading: state.patients.createPatient.status === "LOADING",
       hasSucceeded: state.patients.createPatient.status === "SUCCESS",
@@ -54,7 +54,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
-  const patient = useAppSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector(
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
   );

@@ -33,10 +33,9 @@ const DiseaseTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<DiseaseTypeDTO[]>
-  >((state) => state.types.diseases.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.diseases.getAll
+  );
 
   const deleteDiseaseType = useAppSelector(
     (state) => state.types.diseases.delete

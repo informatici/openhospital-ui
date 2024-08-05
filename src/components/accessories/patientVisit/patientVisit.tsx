@@ -38,7 +38,7 @@ const PatientVisit: FunctionComponent = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,

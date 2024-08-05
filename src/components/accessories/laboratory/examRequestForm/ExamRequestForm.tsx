@@ -77,10 +77,9 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
 
   const labStore = useAppSelector((state: IState) => state.laboratories);
 
-  const createLabRequestStatus = useAppSelector<
-    IState,
-    TAPIResponseStatus | undefined
-  >((state: IState) => state.laboratories.createLabRequest.status);
+  const createLabRequestStatus = useAppSelector(
+    (state: IState) => state.laboratories.createLabRequest.status
+  );
 
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =

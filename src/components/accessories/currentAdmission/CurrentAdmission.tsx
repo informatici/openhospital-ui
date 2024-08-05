@@ -17,9 +17,7 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
   const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
-  const lastOpd = useAppSelector<IState, OpdDTO | undefined>(
-    (state) => state.opds.lastOpd.data
-  );
+  const lastOpd = useAppSelector((state) => state.opds.lastOpd.data);
 
   const handleEdit = () => {
     setEditionMode(true);

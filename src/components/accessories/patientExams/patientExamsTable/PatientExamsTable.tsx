@@ -42,13 +42,13 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const order = ["date", "exam", "status"];
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector<IState, LabWithRowsDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.laboratories.labsByPatientId.data
       ? state.laboratories.labsByPatientId.data
       : []
   );
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -82,7 +82,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     //   .sort(dateComparator("desc", "date"));
   };
 
-  const labStatus = useAppSelector<IState, string | undefined>(
+  const labStatus = useAppSelector(
     (state) => state.laboratories.labsByPatientId.status
   );
 
@@ -92,7 +92,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       t("common.somethingwrong")
   ) as string;
 
-  const labData = useAppSelector<IState, LabWithRowsDTO[] | undefined>(
+  const labData = useAppSelector(
     (state) => state.laboratories.labsByPatientId.data
   );
 

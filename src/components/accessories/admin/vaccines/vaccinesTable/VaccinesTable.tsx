@@ -46,15 +46,13 @@ export const VaccinesTable = ({
 
   const order = ["code", "type", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<VaccineDTO[]>
-  >((state) => state.vaccines.vaccineList);
+  const { data, status, error } = useAppSelector(
+    (state) => state.vaccines.vaccineList
+  );
 
-  const { data: vaccineTypes } = useAppSelector<
-    IState,
-    ApiResponse<VaccineTypeDTO[]>
-  >((state) => state.types.vaccines.getVaccineTypes);
+  const { data: vaccineTypes } = useAppSelector(
+    (state) => state.types.vaccines.getVaccineTypes
+  );
 
   const deleteVaccine = useAppSelector((state) => state.vaccines.delete);
 

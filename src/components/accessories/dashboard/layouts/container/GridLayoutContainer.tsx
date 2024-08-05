@@ -50,13 +50,13 @@ const GridLayoutContainer: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const gridLayoutRef = useRef<HTMLDivElement>(null);
 
-  const userCredentials = useAppSelector<IState, IAuthentication | undefined>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 
   const layouts = useAppSelector((state) => state.layouts.layouts);
 
-  const dashboardSetting = useAppSelector<IState, UserSettingDTO | undefined>(
+  const dashboardSetting = useAppSelector(
     (state) => state.layouts.getLayouts.data
   );
 

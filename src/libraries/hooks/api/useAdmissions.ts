@@ -13,15 +13,7 @@ export const useAdmissions = () => {
   const [range, setRange] = useState(
     [moment().add(-5, "day"), moment()].map((e) => e.toISOString())
   );
-  const { pageInfo, data, status, error } = useAppSelector<
-    IState,
-    {
-      pageInfo?: PageInfoDTO;
-      data: AdmissionDTO[];
-      status: TAPIResponseStatus;
-      error?: any;
-    }
-  >((state) => {
+  const { pageInfo, data, status, error } = useAppSelector((state) => {
     const admissionState = state.admissions.getAdmissions;
     const pageInfo = admissionState.data?.pageInfo;
     const data = admissionState.data?.data ?? [];

@@ -42,10 +42,9 @@ export const SuppliersTable = ({ onEdit, headerActions }: IOwnProps) => {
     { key: "name", label: t("supplier.name"), type: "text" },
   ];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<SupplierDTO[]>
-  >((state) => state.suppliers.supplierList);
+  const { data, status, error } = useAppSelector(
+    (state) => state.suppliers.supplierList
+  );
 
   const formatDataToDisplay = (data: SupplierDTO[]) => {
     return data.map((item) => {

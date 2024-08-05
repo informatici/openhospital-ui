@@ -125,9 +125,7 @@ export const GridLayoutItem = forwardRef<HTMLDivElement, TGridLayoutItemProps>(
   (props, ref) => {
     const { dashboardKey, onRemove, className, otherProps, onFullScreenEnter } =
       props;
-    const period = useAppSelector<IState, string[]>(
-      (state) => state.dashboard.period
-    );
+    const period = useAppSelector((state) => state.dashboard.period);
 
     return (
       <div ref={ref} className={`grid-item ${className ?? ""}`} {...otherProps}>

@@ -44,7 +44,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const [openFilter, setOpenFilter] = useState(false);
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector<IState, {}[]>(
+  const data = useAppSelector(
     (state) =>
       state.bills.searchPayments.data?.map((item: BillPaymentsDTO) => {
         return {
@@ -56,9 +56,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       }) ?? []
   );
 
-  const status = useAppSelector<IState, string | undefined>(
-    (state) => state.bills.searchPayments.status
-  );
+  const status = useAppSelector((state) => state.bills.searchPayments.status);
 
   const errorMessage = useAppSelector(
     (state) =>

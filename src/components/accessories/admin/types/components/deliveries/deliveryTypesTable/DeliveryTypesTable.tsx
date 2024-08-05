@@ -33,10 +33,9 @@ const DeliveryTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<DeliveryTypeDTO[]>
-  >((state) => state.types.deliveries.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.deliveries.getAll
+  );
 
   const deleteDeliveryType = useAppSelector(
     (state) => state.types.deliveries.delete

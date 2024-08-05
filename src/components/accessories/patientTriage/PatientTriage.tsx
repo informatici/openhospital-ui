@@ -41,19 +41,18 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const lastExamination = useAppSelector<
-    IState,
-    PatientExaminationDTO | undefined
-  >((state) => state.examinations.getLastByPatientId.data);
+  const lastExamination = useAppSelector(
+    (state) => state.examinations.getLastByPatientId.data
+  );
 
   const patientDataCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  const deleteStatus = useAppSelector<IState, string | undefined>(
+  const deleteStatus = useAppSelector(
     (state) => state.examinations.deleteExamination.status
   );
-  const status = useAppSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,

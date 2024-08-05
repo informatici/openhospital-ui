@@ -33,10 +33,9 @@ const MedicalTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<MedicalTypeDTO[]>
-  >((state) => state.types.medicals.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.medicals.getAll
+  );
 
   const deleteMedicalType = useAppSelector(
     (state) => state.types.medicals.delete

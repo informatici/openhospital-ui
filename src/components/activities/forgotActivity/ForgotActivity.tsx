@@ -54,7 +54,7 @@ const ForgotActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorType = useAppSelector<IState, string | undefined>(
+  const errorType = useAppSelector(
     (state) => state.main.forgotpassword.error?.description || "unknown error"
   );
 

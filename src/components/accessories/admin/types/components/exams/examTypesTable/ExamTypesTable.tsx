@@ -33,10 +33,9 @@ const ExamTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<ExamTypeDTO[]>
-  >((state) => state.types.exams.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.exams.getAll
+  );
 
   const deleteExamType = useAppSelector((state) => state.types.exams.delete);
 

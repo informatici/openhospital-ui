@@ -33,10 +33,9 @@ const VaccineTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<VaccineTypeDTO[]>
-  >((state) => state.types.vaccines.getVaccineTypes);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.vaccines.getVaccineTypes
+  );
 
   const deleteVaccineType = useAppSelector(
     (state) => state.types.vaccines.delete

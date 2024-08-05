@@ -8,7 +8,7 @@ import { ItemGroups } from "../consts";
 
 export const usePriceLists = () => {
   const dispatch = useAppDispatch();
-  const priceLists = useAppSelector<IState, PriceListDTO[]>(
+  const priceLists = useAppSelector(
     (state: IState) => state.prices.getPriceLists?.data ?? []
   );
 
@@ -23,7 +23,7 @@ export const useItemPrices = (idList?: number) => {
   const dispatch = useAppDispatch();
   const listId = useMemo(() => idList ?? 0, [idList]);
 
-  const prices = useAppSelector<IState, PriceDTO[]>((state: IState) =>
+  const prices = useAppSelector((state: IState) =>
     (state.prices.getPrices?.data ?? []).filter((e) => e.list?.id == listId)
   );
 
@@ -70,20 +70,17 @@ export const useItemPrices = (idList?: number) => {
       : [];
   };
 
-  const examsOptions = useAppSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => examsOptionsSelector(state));
+  const examsOptions = useAppSelector((state: IState) =>
+    examsOptionsSelector(state)
+  );
 
-  const medicalsOptions = useAppSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => medicalsOptionsSelector(state));
+  const medicalsOptions = useAppSelector((state: IState) =>
+    medicalsOptionsSelector(state)
+  );
 
-  const surgeriesOptions = useAppSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => surgeriesOptionsSelector(state));
+  const surgeriesOptions = useAppSelector((state: IState) =>
+    surgeriesOptionsSelector(state)
+  );
 
   return {
     prices,

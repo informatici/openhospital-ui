@@ -37,7 +37,7 @@ const GridLayoutToolbox: FC = () => {
 
   const layouts = useAppSelector((state: IState) => state.layouts.layouts);
 
-  const dashboardSetting = useAppSelector<IState, UserSettingDTO | undefined>(
+  const dashboardSetting = useAppSelector(
     (state) => state.layouts.getLayouts.data
   );
 

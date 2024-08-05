@@ -13,16 +13,14 @@ import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
-  const admissions = useAppSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
-  const wards = useAppSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
-  const admissionTypes = useAppSelector<IState, AdmissionTypeDTO[]>(
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
+  const admissionTypes = useAppSelector(
     (state) => state.types.admissions.getAll.data ?? []
   );
-  const ageTypes = useAppSelector<IState, AgeTypeDTO[]>(
+  const ageTypes = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
   const ageTypeStatus = useAppSelector(

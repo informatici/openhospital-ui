@@ -46,10 +46,9 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const deliveryResultTypesStore = useAppSelector<
-    IState,
-    IDeliveryResultTypeState
-  >((state) => state.types.deliveryResult);
+  const deliveryResultTypesStore = useAppSelector(
+    (state) => state.types.deliveryResult
+  );
 
   const errorMessage = useMemo(
     () =>

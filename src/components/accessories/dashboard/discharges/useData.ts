@@ -13,19 +13,17 @@ import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
-  const discharges = useAppSelector<IState, AdmissionDTO[]>(
+  const discharges = useAppSelector(
     (state) =>
       state.admissions.getDischarges.data?.data?.filter(
         (e) => e?.disDate !== undefined
       ) ?? []
   );
-  const wards = useAppSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
-  const dischargeTypes = useAppSelector<IState, AdmissionTypeDTO[]>(
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
+  const dischargeTypes = useAppSelector(
     (state) => state.types.discharges.getAll.data ?? []
   );
-  const ageTypes = useAppSelector<IState, AgeTypeDTO[]>(
+  const ageTypes = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
   const ageTypeStatus = useAppSelector(

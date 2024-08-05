@@ -6,9 +6,7 @@ import { IState } from "../../../../types";
 
 export const SideContent: FC = () => {
   const { t } = useTranslation();
-  const user = useAppSelector<IState, IAuthentication | undefined>(
-    (state) => state.main.authentication.data
-  );
+  const user = useAppSelector((state) => state.main.authentication.data);
 
   return (
     <div className="side">

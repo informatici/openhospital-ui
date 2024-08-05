@@ -5,6 +5,4 @@ import { IState } from "../../types";
  * @returns list of all user permissions
  */
 export const usePermissions = () =>
-  useAppSelector<IState, string[]>(
-    (state) => state.main.authentication?.data?.permissions || []
-  );
+  useAppSelector((state) => state.main.authentication?.data?.permissions || []);

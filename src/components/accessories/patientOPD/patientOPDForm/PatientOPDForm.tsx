@@ -123,11 +123,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
-  const diseases = useAppSelector<IState, DiseaseDTO[]>(
+  const diseases = useAppSelector(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
 
-  const wards = useAppSelector<IState, WardDTO[]>(
+  const wards = useAppSelector(
     (state: IState) => state.wards.allWards.data ?? []
   );
 
@@ -193,10 +193,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       : [];
   };
 
-  const diseasesOptions = useAppSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => diseasesOptionsSelector(state));
+  const diseasesOptions = useAppSelector((state: IState) =>
+    diseasesOptionsSelector(state)
+  );
 
   const wardsOptionsSelector = (state: IState) => {
     return state.wards.allWards.data
@@ -210,10 +209,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           })
       : [];
   };
-  const wardsOptions = useAppSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => wardsOptionsSelector(state));
+  const wardsOptions = useAppSelector((state: IState) =>
+    wardsOptionsSelector(state)
+  );
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -345,7 +343,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       t("common.somethingwrong")
   ) as string;
 
-  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     return state.operations.deleteOperationRow.status;
   });
 

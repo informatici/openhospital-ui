@@ -35,16 +35,14 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useAppSelector<IState, OpdWithOperationRowDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const opdStatus = useAppSelector<IState, string | undefined>(
-    (state) => state.opds.getOpds.status
-  );
+  const opdStatus = useAppSelector((state) => state.opds.getOpds.status);
   const errorMessage = useAppSelector(
     (state) => state.opds.getOpds.error?.message || t("common.somethingwrong")
   ) as string;
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

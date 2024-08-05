@@ -50,13 +50,13 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   const dispatch = useAppDispatch();
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const patient = useAppSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector(
     (state) => state.patients.selectedPatient.data
   );
   const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
-  const status = useAppSelector<IState, TAPIResponseStatus | undefined>(
+  const status = useAppSelector(
     (state) => state.admissions.updateAdmission.status
   );
 

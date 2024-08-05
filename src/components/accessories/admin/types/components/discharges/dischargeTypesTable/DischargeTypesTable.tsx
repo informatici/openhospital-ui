@@ -33,10 +33,9 @@ const DischargeTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<DischargeTypeDTO[]>
-  >((state) => state.types.discharges.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.discharges.getAll
+  );
 
   const deleteDischargeType = useAppSelector(
     (state) => state.types.discharges.delete

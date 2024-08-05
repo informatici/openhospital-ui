@@ -98,7 +98,7 @@ const PatientPicker: FC<IProps> = ({
     },
   });
 
-  const patientData = useAppSelector<IState, PatientDTO[] | undefined>(
+  const patientData = useAppSelector(
     (state) => state.patients.searchResults.data
   );
 
@@ -142,7 +142,7 @@ const PatientPicker: FC<IProps> = ({
     if (value) onBlur(e, value);
   };
 
-  const searchStatus = useAppSelector<IState, string | undefined>(
+  const searchStatus = useAppSelector(
     (state) => state.patients.searchResults.status
   );
 

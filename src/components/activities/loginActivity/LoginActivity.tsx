@@ -54,7 +54,7 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorMessage = useAppSelector<IState, string | undefined>((state) => {
+  const errorMessage = useAppSelector((state) => {
     const error = state.main.authentication.error;
     return error?.status === 401
       ? t("errors.incorrectcredentials")

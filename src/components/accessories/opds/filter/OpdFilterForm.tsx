@@ -190,7 +190,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
     value: value.code ?? "",
     label: value.description ?? "",
   });
-  const diseases = useAppSelector<IState, DiseaseDTO[]>((state: IState) => {
+  const diseases = useAppSelector((state: IState) => {
     return state.diseases.diseasesOpd.data ?? [];
   });
 
@@ -206,7 +206,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
     return state.types.diseases.getAll.data?.map((e) => mapToOptions(e)) ?? [];
   });
 
-  const wards = useAppSelector<IState, WardDTO[]>((state: IState) => {
+  const wards = useAppSelector((state: IState) => {
     return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
   });
 

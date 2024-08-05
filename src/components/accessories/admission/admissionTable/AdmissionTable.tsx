@@ -44,7 +44,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector<IState, AdmissionDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.admissions.getPatientAdmissions.data
       ? state.admissions.getPatientAdmissions.data.filter(
           (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
@@ -52,7 +52,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       : []
   );
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -85,7 +85,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const status = useAppSelector<IState, string | undefined>(
+  const status = useAppSelector(
     (state) => state.admissions.getPatientAdmissions.status
   );
 

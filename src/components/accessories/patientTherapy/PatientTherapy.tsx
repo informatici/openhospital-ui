@@ -38,7 +38,7 @@ const PatientTherapy: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const status = useAppSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -62,7 +62,7 @@ const PatientTherapy: FC = () => {
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const deleteStatus = useAppSelector<IState, string | undefined>(
+  const deleteStatus = useAppSelector(
     (state) => state.therapies.deleteTherapy.status
   );
 

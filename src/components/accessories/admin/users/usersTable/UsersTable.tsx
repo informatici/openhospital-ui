@@ -38,10 +38,9 @@ export const UsersTable = ({ headerActions }: IOwnProps) => {
     { key: "userName", label: t("user.username"), type: "text" },
   ];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<UserDTO[]>
-  >((state) => state.users.userList);
+  const { data, status, error } = useAppSelector(
+    (state) => state.users.userList
+  );
 
   const formatDataToDisplay = (data: UserDTO[]) => {
     return data.map((item) => {

@@ -6,7 +6,7 @@ import { IState } from "../../../types";
 
 export const useAdmBySexData = () => {
   const { t } = useTranslation();
-  const admissions = useAppSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
   const status = useAppSelector(

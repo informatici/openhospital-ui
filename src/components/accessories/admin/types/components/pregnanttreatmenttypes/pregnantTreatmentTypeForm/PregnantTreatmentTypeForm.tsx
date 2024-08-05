@@ -46,10 +46,9 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const pregnantTreatmentTypeStore = useAppSelector<
-    IState,
-    IPregnantTreatmentTypesState
-  >((state) => state.types.pregnantTreatment);
+  const pregnantTreatmentTypeStore = useAppSelector(
+    (state) => state.types.pregnantTreatment
+  );
 
   const errorMessage = useMemo(
     () =>

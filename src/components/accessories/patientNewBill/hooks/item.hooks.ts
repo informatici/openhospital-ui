@@ -8,13 +8,11 @@ import { IState } from "../../../../types";
 
 export const useItems = () => {
   const dispatch = useAppDispatch();
-  const medicals = useAppSelector<IState, MedicalDTO[]>(
+  const medicals = useAppSelector(
     (state) => state.medicals.medicalsOrderByName.data || []
   );
 
-  const exams = useAppSelector<IState, ExamDTO[]>(
-    (state) => state.exams.examList.data || []
-  );
+  const exams = useAppSelector((state) => state.exams.examList.data || []);
 
   const surgeries: OperationDTO[] = [];
   useEffect(() => {

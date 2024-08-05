@@ -53,7 +53,7 @@ const BillRecords = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useAppDispatch();
-  const patient = useAppSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector(
     (state) => state.patients.selectedPatient.data
   );
   const handleClose = () => {
@@ -82,7 +82,7 @@ const BillRecords = () => {
     }
   }, [patient, dispatch]);
 
-  const pendingBills = useAppSelector<IState, FullBillDTO[]>((state) => {
+  const pendingBills = useAppSelector((state) => {
     return state.bills.getPendingBills.data ?? [];
   });
 
@@ -105,7 +105,7 @@ const BillRecords = () => {
     };
   };
 
-  const closedBills = useAppSelector<IState, FullBillDTO[]>((state) => {
+  const closedBills = useAppSelector((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
@@ -117,16 +117,10 @@ const BillRecords = () => {
 
   const [selectedObj, setSeletedObj] = useState({} as any);
 
-  const deleteStatus = useAppSelector<IState, string | undefined>(
-    (state) => state.bills.delete.status
-  );
-  const paymentStatus = useAppSelector<IState, string | undefined>(
-    (state) => state.bills.payBill.status
-  );
+  const deleteStatus = useAppSelector((state) => state.bills.delete.status);
+  const paymentStatus = useAppSelector((state) => state.bills.payBill.status);
 
-  const closeStatus = useAppSelector<IState, string | undefined>(
-    (state) => state.bills.closeBill.status
-  );
+  const closeStatus = useAppSelector((state) => state.bills.closeBill.status);
 
   const errorMessage = useAppSelector(
     (state) =>

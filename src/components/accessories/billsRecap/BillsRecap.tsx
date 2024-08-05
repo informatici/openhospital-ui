@@ -68,11 +68,11 @@ export const BillsRecap: FC = () => {
     };
   });
 
-  const currentData = useAppSelector<IState, FullBillDTO[]>((state) => {
+  const currentData = useAppSelector((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
-  const dataByYear = useAppSelector<IState, FullBillDTO[]>((state) => {
+  const dataByYear = useAppSelector((state) => {
     return state.bills.getBillsByYear.data ?? [];
   });
 

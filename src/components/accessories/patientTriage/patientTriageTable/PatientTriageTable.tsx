@@ -45,13 +45,13 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const dateFields = ["pex_date"];
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector<IState, PatientExaminationDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.examinations.examinationsByPatientId.data
       ? state.examinations.examinationsByPatientId.data
       : []
   );
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
@@ -87,7 +87,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const triageStatus = useAppSelector<IState, string | undefined>(
+  const triageStatus = useAppSelector(
     (state) => state.examinations.examinationsByPatientId.status
   );
 

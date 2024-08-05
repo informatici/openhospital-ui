@@ -24,10 +24,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const diseasesOptions = useAppSelector<
-    IState,
-    { label: string; value: string }[]
-  >(
+  const diseasesOptions = useAppSelector(
     (state) =>
       state.types.diseases.getAll.data?.map((item) => ({
         value: item.code,
@@ -64,10 +61,9 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
     },
   ];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<DiseaseDTO[]>
-  >((state) => state.diseases.allDiseases);
+  const { data, status, error } = useAppSelector(
+    (state) => state.diseases.allDiseases
+  );
 
   const handleEdit = (row: DiseaseDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

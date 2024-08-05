@@ -41,10 +41,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     "procedure",
     "defaultResult",
   ];
-  const examTypesOptions = useAppSelector<
-    IState,
-    { label: string; value: string }[]
-  >(
+  const examTypesOptions = useAppSelector(
     (state) =>
       state.types.exams.getAll.data?.map((item: ExamTypeDTO) => ({
         value: item.code ?? "",
@@ -78,10 +75,9 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     "defaultResult",
   ];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<ExamDTO[]>
-  >((state) => state.exams.examList);
+  const { data, status, error } = useAppSelector(
+    (state) => state.exams.examList
+  );
 
   const deleteExam = useAppSelector((state) => state.exams.examDelete);
 

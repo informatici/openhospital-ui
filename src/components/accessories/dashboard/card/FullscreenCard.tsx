@@ -10,9 +10,7 @@ export const FullscreenCard: FC<TFullscreenCardProps> = ({
   dashboard,
   onClose,
 }) => {
-  const period = useAppSelector<IState, string[]>(
-    (state) => state.dashboard.period
-  );
+  const period = useAppSelector((state) => state.dashboard.period);
 
   return (
     <Dialog fullScreen open={dashboard !== undefined} onClose={onClose}>

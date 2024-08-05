@@ -41,13 +41,13 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   const order = ["date", "exam", "status"];
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector<IState, LaboratoryDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.laboratories.labsRequestByPatientId.data
       ? state.laboratories.labsRequestByPatientId.data
       : []
   );
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -69,7 +69,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     });
   };
 
-  const labRequestStatus = useAppSelector<IState, string | undefined>(
+  const labRequestStatus = useAppSelector(
     (state) => state.laboratories.labsRequestByPatientId.status
   );
 

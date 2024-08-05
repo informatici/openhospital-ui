@@ -11,15 +11,7 @@ export const useLaboratories = () => {
   const [range, setRange] = useState(
     [moment().add(-5, "day"), moment()].map((e) => e.toISOString())
   );
-  const { pageInfo, data, status, error } = useAppSelector<
-    IState,
-    {
-      pageInfo?: PageInfoDTO;
-      data: LabWithRowsDTO[];
-      status: TAPIResponseStatus;
-      error?: any;
-    }
-  >((state) => {
+  const { pageInfo, data, status, error } = useAppSelector((state) => {
     const laboratoryState = state.laboratories.searchLabs;
     const pageInfo = laboratoryState.data?.pageInfo;
     const data = laboratoryState.data?.data ?? [];

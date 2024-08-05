@@ -33,10 +33,9 @@ const AdmissionTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<AdmissionTypeDTO[]>
-  >((state) => state.types.admissions.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.admissions.getAll
+  );
 
   const deleteAdmissionType = useAppSelector(
     (state) => state.types.admissions.delete

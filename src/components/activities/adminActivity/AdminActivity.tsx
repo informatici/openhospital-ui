@@ -27,7 +27,7 @@ const AdminActivity = () => {
     [t("nav.administration")]: PATHS.admin,
   };
 
-  const userCredentials = useAppSelector<IState, IAuthentication | undefined>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication?.data
   );
 

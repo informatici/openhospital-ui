@@ -9,7 +9,7 @@ export const usePendingBills = (patientCode: number) => {
   const status = useAppSelector(
     (state: IState) => state.bills.getPendingBills.status ?? "IDLE"
   );
-  const data = useAppSelector<IState, FullBillDTO[]>(
+  const data = useAppSelector(
     (state: IState) => state.bills.getPendingBills?.data ?? []
   );
   useEffect(() => {

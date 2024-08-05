@@ -13,15 +13,7 @@ export const useDisharges = () => {
   const [range, setRange] = useState(
     [moment().add(-5, "day"), moment()].map((e) => e.toISOString())
   );
-  const { pageInfo, data, status, error } = useAppSelector<
-    IState,
-    {
-      pageInfo?: PageInfoDTO;
-      data: AdmissionDTO[];
-      status: TAPIResponseStatus;
-      error?: any;
-    }
-  >((state) => {
+  const { pageInfo, data, status, error } = useAppSelector((state) => {
     const dischargeState = state.admissions.getDischarges;
     const pageInfo = dischargeState.data?.pageInfo;
     const data = dischargeState.data?.data ?? [];

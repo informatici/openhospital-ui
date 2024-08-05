@@ -45,9 +45,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
       .min(1, t("common.greaterthan", { value: "1" })),
   });
 
-  const wards = useAppSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
 
   const initialValues = getFromFields(fields, "value");
 
@@ -81,10 +79,9 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
       }) ?? []
     );
   };
-  const wardOptions = useAppSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => wardOptionsSelector(state));
+  const wardOptions = useAppSelector((state: IState) =>
+    wardOptionsSelector(state)
+  );
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);

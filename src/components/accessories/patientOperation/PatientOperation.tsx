@@ -43,13 +43,13 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.status
       : state.operations.updateOperationRow.status;
   });
 
-  const errorMessage = useAppSelector<IState, string | undefined>((state) => {
+  const errorMessage = useAppSelector((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.error?.message
       : state.operations.updateOperationRow.error?.message;

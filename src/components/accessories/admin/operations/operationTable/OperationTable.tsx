@@ -29,10 +29,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const operationTypesOptions = useAppSelector<
-    IState,
-    { label: string; value: string }[]
-  >(
+  const operationTypesOptions = useAppSelector(
     (state) =>
       state.types.operations.getAll.data?.map((item) => ({
         label: item.description,
@@ -68,10 +65,9 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     },
   ];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<OperationDTO[]>
-  >((state) => state.operations.operationList);
+  const { data, status, error } = useAppSelector(
+    (state) => state.operations.operationList
+  );
 
   const deleteOperation = useAppSelector((state) => state.operations.delete);
 

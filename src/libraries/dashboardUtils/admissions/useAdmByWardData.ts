@@ -6,12 +6,10 @@ import { useAppSelector } from "libraries/hooks/redux";
 
 export const useAdmByAdmWardData = () => {
   const { t } = useTranslation();
-  const admissions = useAppSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
-  const wards = useAppSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
   const wardStatus = useAppSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );

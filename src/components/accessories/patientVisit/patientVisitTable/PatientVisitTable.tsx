@@ -33,19 +33,15 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
   const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useAppSelector<IState, VisitDTO[]>(
-    (state) => state.visits.getVisits.data ?? []
-  );
-  const visitStatus = useAppSelector<IState, string | undefined>(
-    (state) => state.visits.getVisits.status
-  );
+  const data = useAppSelector((state) => state.visits.getVisits.data ?? []);
+  const visitStatus = useAppSelector((state) => state.visits.getVisits.status);
 
   const errorMessage = useAppSelector(
     (state) =>
       state.visits.getVisits.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

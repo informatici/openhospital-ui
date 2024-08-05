@@ -37,15 +37,15 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector<IState, OperationRowDTO[]>(
+  const data = useAppSelector(
     (state) => state.operations.operationRowsByQdmt.data ?? []
   );
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  const currentAdmissionId = useAppSelector<IState, number | undefined>(
+  const currentAdmissionId = useAppSelector(
     (state) => state.admissions.currentAdmissionByPatientId.data?.id
   );
 
@@ -72,7 +72,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
     const opRow = data.find((item) => item.id === row.id);
     if (opRow !== undefined) onEdit(opRow);
   };
-  const status = useAppSelector<IState, string | undefined>(
+  const status = useAppSelector(
     (state) => state.operations.operationRowsByQdmt.status
   );
 

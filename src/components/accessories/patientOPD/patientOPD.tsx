@@ -35,7 +35,7 @@ const PatientOPD: FunctionComponent = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperationRowDTO);
   const [creationMode, setCreationMode] = useState(true);
-  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,

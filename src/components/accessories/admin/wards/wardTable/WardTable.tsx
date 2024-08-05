@@ -56,10 +56,9 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<WardDTO[]>
-  >((state) => state.wards.allWards);
+  const { data, status, error } = useAppSelector(
+    (state) => state.wards.allWards
+  );
 
   const deleteWard = useAppSelector((state) => state.wards.delete);
 

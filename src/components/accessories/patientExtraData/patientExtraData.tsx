@@ -37,7 +37,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
   const [editionMode, setEditionMode] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const patient = useAppSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector(
     (state) => state.patients.selectedPatient.data
   );
   const onSubmit = (values: PatientDTO) => {
@@ -45,9 +45,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
       dispatch(updatePatient({ code: values.code, patientDTO: values }));
     }
   };
-  const status = useAppSelector<IState, TAPIResponseStatus | undefined>(
-    (state) => state.patients.updatePatient.status
-  );
+  const status = useAppSelector((state) => state.patients.updatePatient.status);
 
   const errorMessage = useAppSelector(
     (state) =>

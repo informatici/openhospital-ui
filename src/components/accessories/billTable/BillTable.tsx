@@ -148,7 +148,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     [setFieldValue, handleBlur]
   );
 
-  const data = useAppSelector<IState, FullBillDTO[]>((state) => {
+  const data = useAppSelector((state) => {
     if (filter.status === "PENDING") {
       return state.bills.getPendingBills.data ?? [];
     } else {
@@ -156,7 +156,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const status = useAppSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     if (filter.status === "PENDING") {
       return state.bills.getPendingBills.status;
     } else {

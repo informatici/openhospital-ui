@@ -6,7 +6,7 @@ import { IState } from "../../../types";
 
 export const useOpdBySexData = () => {
   const { t } = useTranslation();
-  const opds = useAppSelector<IState, OpdDTO[]>(
+  const opds = useAppSelector(
     (state) => state.opds.searchOpds.data?.data ?? []
   );
   const status = useAppSelector(

@@ -6,10 +6,10 @@ import { IState } from "../../../types";
 
 export const useAdmByAgeTypeData = () => {
   const { t } = useTranslation();
-  const admissions = useAppSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
-  const ageTypes = useAppSelector<IState, AgeTypeDTO[]>(
+  const ageTypes = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
   const ageTypeStatus = useAppSelector(

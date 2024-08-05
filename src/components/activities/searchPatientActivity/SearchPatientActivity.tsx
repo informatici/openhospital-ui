@@ -28,7 +28,7 @@ const SearchPatientActivity = () => {
   const dispatch = useAppDispatch();
 
   const { userCredentials, patientSearchResults, searchStatus } =
-    useAppSelector<IState, IStateProps>((state) => ({
+    useAppSelector((state) => ({
       userCredentials: state.main.authentication.data,
       patientSearchResults: state.patients.searchResults.data,
       searchStatus: state.patients.searchResults.status || "IDLE",

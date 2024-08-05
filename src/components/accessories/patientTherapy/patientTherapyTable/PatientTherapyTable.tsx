@@ -44,19 +44,19 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
   const order = ["startDate", "endDate", "medicalId"];
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector<IState, TherapyRowDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.therapies.therapiesByPatientId.data
       ? state.therapies.therapiesByPatientId.data
       : []
   );
 
-  const medicals = useAppSelector<IState, MedicalDTO[]>((state) =>
+  const medicals = useAppSelector((state) =>
     state.medicals.medicalsOrderByName.data
       ? state.medicals.medicalsOrderByName.data
       : []
   );
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -98,7 +98,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     //.sort(dateComparator("desc", "startDate"));
   };
 
-  const therapyStatus = useAppSelector<IState, string | undefined>(
+  const therapyStatus = useAppSelector(
     (state) => state.therapies.therapiesByPatientId.status
   );
 

@@ -33,10 +33,9 @@ const OperationTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<OperationTypeDTO[]>
-  >((state) => state.types.operations.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.operations.getAll
+  );
 
   const deleteOperationType = useAppSelector(
     (state) => state.types.operations.delete

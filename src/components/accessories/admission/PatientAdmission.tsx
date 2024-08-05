@@ -71,15 +71,11 @@ const PatientAdmission: FC = () => {
       t("common.somethingwrong")
   ) as string;
 
-  const lastOpd = useAppSelector<IState, OpdDTO | undefined>(
-    (state) => state.opds.lastOpd.data
-  );
+  const lastOpd = useAppSelector((state) => state.opds.lastOpd.data);
 
-  const lastOpdStatus = useAppSelector<IState, string | undefined>(
-    (state) => state.opds.lastOpd.status
-  );
+  const lastOpdStatus = useAppSelector((state) => state.opds.lastOpd.status);
 
-  const patientCode = useAppSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 

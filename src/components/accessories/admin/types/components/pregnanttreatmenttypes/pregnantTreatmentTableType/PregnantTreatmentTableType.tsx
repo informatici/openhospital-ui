@@ -33,10 +33,9 @@ const PregnantTreatmentTableType = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useAppSelector<
-    IState,
-    ApiResponse<PregnantTreatmentTypeDTO[]>
-  >((state) => state.types.pregnantTreatment.getAll);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.pregnantTreatment.getAll
+  );
 
   const deleteDiseaseType = useAppSelector(
     (state) => state.types.pregnantTreatment.delete
