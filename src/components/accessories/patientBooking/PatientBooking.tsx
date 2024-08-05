@@ -1,30 +1,25 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import BookingForm from "./bookingForm/BookingForm";
-import "./styles.scss";
-import { connect } from "react-redux";
-import { IState } from "../../../types";
-import {
-  IDispatchProps,
-  IStateProps,
-  TBookingTransitionState,
-  TBookingProps,
-} from "./types";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import BookingForm from "./bookingForm/BookingForm";
 import { initialFields } from "./consts";
+import "./styles.scss";
+import { TBookingTransitionState } from "./types";
 
-const PatientBooking: FC<TBookingProps> = ({
-  createBooking,
-  createBookingReset,
-  isLoading,
-  hasSucceeded,
-  hasFailed,
-}) => {
+const PatientBooking = () => {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [bookingTransitionState, setActivityTransitionState] =
     useState<TBookingTransitionState>("IDLE");
+
+  const { isLoading, hasSucceeded, hasFailed } = useAppSelector((state) => ({
+    isLoading: false,
+    hasSucceeded: true,
+    hasFailed: false,
+  }));
 
   useEffect(() => {
     if (hasFailed) {
@@ -34,14 +29,14 @@ const PatientBooking: FC<TBookingProps> = ({
 
   useEffect(() => {
     if (bookingTransitionState === "TO_RESET") {
-      createBookingReset();
+      // dispatch(createBookingReset());
       setShouldResetForm(true);
     }
-  }, [bookingTransitionState, createBookingReset]);
+  }, [bookingTransitionState, dispatch]);
 
   const onSubmit = (booking: any) => {
     setShouldResetForm(false);
-    createBooking(booking);
+    // dispatch(createBooking(booking));
   };
 
   const resetFormCallback = () => {
@@ -62,14 +57,4 @@ const PatientBooking: FC<TBookingProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  isLoading: false,
-  hasSucceeded: true,
-  hasFailed: false,
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  createBooking: () => {},
-  createBookingReset: () => {},
-};
-export default connect(mapStateToProps, mapDispatchToProps)(PatientBooking);
+export default PatientBooking;

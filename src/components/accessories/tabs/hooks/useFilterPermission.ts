@@ -1,3 +1,4 @@
+import { TPermission } from "types";
 import { usePermissions } from "../../../../libraries/permissionUtils/usePermissions";
 import { TTabConfig } from "../types";
 
@@ -15,7 +16,7 @@ export const useFilterPermission = (config: TTabConfig): TTabConfig => {
     if (item.checkPermissions) {
       const checkPermissions = asArray(item.checkPermissions);
       return checkPermissions.find((permission) =>
-        permissions.includes(permission)
+        permissions.includes(<TPermission>permission)
       );
     }
     return true;

@@ -1,25 +1,27 @@
-import React, { FunctionComponent, useState } from "react";
+import { useAppSelector } from "libraries/hooks/redux";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
 import { Navigate } from "react-router";
 import PlusIcon from "../../../assets/PlusIcon";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import LargeButton from "../../accessories/largeButton/LargeButton";
 import "./styles.scss";
-import { IStateProps, TProps, TActivityTransitionState } from "./types";
+import { IOwnProps, TActivityTransitionState } from "./types";
 
-const PatientDashboardActivity: FunctionComponent<TProps> = ({
-  userCredentials,
+const PatientDashboardActivity: FC<IOwnProps> = ({
   newPatientRoute,
   searchPatientRoute,
 }) => {
   const { t } = useTranslation();
+
+  const { userCredentials } = useAppSelector((state) => ({
+    userCredentials: state.main.authentication.data,
+  }));
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -94,8 +96,4 @@ const PatientDashboardActivity: FunctionComponent<TProps> = ({
   }
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-});
-
-export default connect(mapStateToProps)(PatientDashboardActivity);
+export default PatientDashboardActivity;

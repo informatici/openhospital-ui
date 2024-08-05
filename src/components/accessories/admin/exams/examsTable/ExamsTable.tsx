@@ -1,21 +1,18 @@
-import React, { ReactNode, useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { ReactNode, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
-import { TFilterField } from "../../../table/filter/types";
-import InfoBox from "../../../infoBox/InfoBox";
-import { getExams } from "../../../../../state/exams";
-import { getExamTypes } from "../../../../../state/types/exams";
-import { IState } from "../../../../../types";
 import { ExamDTO, ExamTypeDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { deleteExamReset } from "../../../../../state/exams";
+import { deleteExamReset, getExams } from "../../../../../state/exams";
+import { getExamTypes } from "../../../../../state/types/exams";
+import InfoBox from "../../../infoBox/InfoBox";
+import { TFilterField } from "../../../table/filter/types";
 import { ExamProps } from "../types";
 
-import Table from "../../../table/Table";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import Table from "../../../table/Table";
 import classes from "./ExamsTable.module.scss";
 
 interface IOwnProps {

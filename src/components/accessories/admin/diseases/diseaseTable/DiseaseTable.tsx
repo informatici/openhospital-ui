@@ -1,15 +1,13 @@
-import React, { FunctionComponent, ReactNode, useMemo } from "react";
-import Table from "../../../table/Table";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
+import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../types";
+import React, { FunctionComponent, ReactNode, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { DiseaseDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import classes from "./DiseaseTable.module.scss";
-import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
+import InfoBox from "../../../infoBox/InfoBox";
+import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
+import classes from "./DiseaseTable.module.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
