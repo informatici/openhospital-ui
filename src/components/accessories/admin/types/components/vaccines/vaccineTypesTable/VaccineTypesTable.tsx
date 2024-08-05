@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { ApiResponse } from "../../../../../../../state/types";
 import { IState } from "../../../../../../../types";
 import { VaccineTypeDTO } from "../../../../../../../generated";
@@ -21,7 +21,7 @@ interface IOwnProps {
 
 const VaccineTypesTable = (props: IOwnProps) => {
   const { onDelete, onEdit, headerActions } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -33,12 +33,14 @@ const VaccineTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<VaccineTypeDTO[]>
   >((state) => state.types.vaccines.getVaccineTypes);
 
-  const deleteVaccineType = useSelector((state) => state.types.vaccines.delete);
+  const deleteVaccineType = useAppSelector(
+    (state) => state.types.vaccines.delete
+  );
 
   const handleEdit = (row: VaccineTypeDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

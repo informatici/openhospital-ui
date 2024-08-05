@@ -3,7 +3,7 @@ import AdmissionForm from "./admissionForm/AdmissionForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
 import { AdmissionDTO, OpdDTO, PatientDTOStatusEnum } from "../../../generated";
@@ -27,7 +27,7 @@ import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const canCreate = usePermission("admissions.create");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -41,45 +41,45 @@ const PatientAdmission: FC = () => {
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
 
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const currentAdmissionStatus = useSelector(
+  const currentAdmissionStatus = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
-  const createStatus = useSelector(
+  const createStatus = useAppSelector(
     (state) => state.admissions.createAdmission.status
   );
 
-  const updateStatus = useSelector(
+  const updateStatus = useAppSelector(
     (state) => state.admissions.updateAdmission.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.admissions.createAdmission.error?.message ||
       state.admissions.updateAdmission.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const lastOpd = useSelector<IState, OpdDTO | undefined>(
+  const lastOpd = useAppSelector<IState, OpdDTO | undefined>(
     (state) => state.opds.lastOpd.data
   );
 
-  const lastOpdStatus = useSelector<IState, string | undefined>(
+  const lastOpdStatus = useAppSelector<IState, string | undefined>(
     (state) => state.opds.lastOpd.status
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
 

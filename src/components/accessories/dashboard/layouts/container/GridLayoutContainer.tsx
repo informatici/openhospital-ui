@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from "react";
 import { FC, useRef, useEffect, useState } from "react";
 import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import {
   addWidget,
@@ -38,7 +38,7 @@ import { IAuthentication } from "../../../../../state/main/types";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const GridLayoutContainer: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [mounted, setMounted] = useState(false);
   const [canUpdateLayouts, setCanUpdateLayouts] = useState(true);
@@ -50,17 +50,17 @@ const GridLayoutContainer: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const gridLayoutRef = useRef<HTMLDivElement>(null);
 
-  const userCredentials = useSelector<IState, IAuthentication | undefined>(
+  const userCredentials = useAppSelector<IState, IAuthentication | undefined>(
     (state) => state.main.authentication.data
   );
 
-  const layouts = useSelector((state) => state.layouts.layouts);
+  const layouts = useAppSelector((state) => state.layouts.layouts);
 
-  const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
+  const dashboardSetting = useAppSelector<IState, UserSettingDTO | undefined>(
     (state) => state.layouts.getLayouts.data
   );
 
-  const toolbox = useSelector((state) => state.layouts.toolbox);
+  const toolbox = useAppSelector((state) => state.layouts.toolbox);
 
   useLayoutEffect(() => {
     if (gridLayoutRef.current) {
@@ -166,19 +166,19 @@ const GridLayoutContainer: FC = () => {
     setFsDashboard(undefined);
   };
 
-  const getLayoutsStatus = useSelector(
+  const getLayoutsStatus = useAppSelector(
     (state: IState) => state.layouts.getLayouts.status
   );
 
-  const resetLayoutsStatus = useSelector(
+  const resetLayoutsStatus = useAppSelector(
     (state: IState) => state.layouts.resetLayouts.status
   );
 
-  const saveLayoutsStatus = useSelector(
+  const saveLayoutsStatus = useAppSelector(
     (state: IState) => state.layouts.saveLayouts.status
   );
 
-  const errorMessage = useSelector((state: IState) =>
+  const errorMessage = useAppSelector((state: IState) =>
     t(
       state.layouts.getLayouts.error?.message ||
         state.layouts.resetLayouts.error?.message ||
@@ -186,7 +186,7 @@ const GridLayoutContainer: FC = () => {
     )
   );
 
-  const saveErrorMessage = useSelector((state: IState) =>
+  const saveErrorMessage = useAppSelector((state: IState) =>
     t(state.layouts.saveLayouts.error?.message || "dashboard.cantsaveconfig")
   );
 

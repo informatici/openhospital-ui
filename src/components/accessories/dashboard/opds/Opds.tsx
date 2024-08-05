@@ -1,7 +1,7 @@
 import { Skeleton } from "@mui/lab";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { getAgeTypes } from "../../../../state/ageTypes";
 import { searchOpds } from "../../../../state/opds";
 import { Barchart } from "../../charts/bar/Barchart";
@@ -13,7 +13,7 @@ import { useData } from "./useData";
 
 export const Opds: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       searchOpds({

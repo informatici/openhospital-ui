@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import "./styles.scss";
 
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { TUserCredentials } from "../../../state/main/types";
 
@@ -16,7 +16,7 @@ const NewBillingActivity: FC = () => {
     [t("nav.billing")]: "/billing",
     [t("nav.newbill")]: "/billing/new",
   };
-  const userCredentials = useSelector(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
   return (

@@ -19,7 +19,7 @@ import { MenuItem } from "../../../accessories/menuItem";
 import { IState } from "../../../../types";
 import { HospitalDTO } from "../../../../generated";
 import { ApiResponse } from "../../../../state/types";
-import { useSelector } from "../../../../libraries/hooks/redux";
+import { useAppSelector } from "../../../../libraries/hooks/redux";
 
 const SideMenu = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const SideMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hospital = useSelector((state) => state.hospital.getHospital);
+  const hospital = useAppSelector((state) => state.hospital.getHospital);
 
   const changeAdminSection = useCallback(
     (section: IAdminSection) => {

@@ -11,7 +11,7 @@ import VisitsActivity from "../components/activities/visitsActivity/VisitsActivi
 import { Private } from "../components/Private";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
 import { PATHS } from "../consts";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../types";
 import { TAPIResponseStatus } from "../state/types";
 import { getUserSettings } from "../state/main";
@@ -20,8 +20,8 @@ import { withPermission } from "../libraries/permissionUtils/withPermission";
 import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
 
 export const MainRouter: React.FC = () => {
-  const dispatch = useDispatch();
-  const status = useSelector((state) => state.main.authentication.status!);
+  const dispatch = useAppDispatch();
+  const status = useAppSelector((state) => state.main.authentication.status!);
   useEffect(() => {
     if (status === "SUCCESS") {
       dispatch(getUserSettings());

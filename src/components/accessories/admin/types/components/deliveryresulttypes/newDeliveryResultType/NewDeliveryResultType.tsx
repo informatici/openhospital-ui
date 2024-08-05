@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../../../types";
 import { ApiResponse } from "../../../../../../../state/types";
 import { DeliveryResultTypeDTO } from "../../../../../../../generated";
@@ -11,9 +11,9 @@ import { getInitialFields } from "../deliveryResultTypeForm/consts";
 import { createDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
 
 export const NewDeliveryResultType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector((state) => state.types.deliveryResult.create);
+  const create = useAppSelector((state) => state.types.deliveryResult.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

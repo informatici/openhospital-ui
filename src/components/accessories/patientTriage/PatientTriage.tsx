@@ -1,6 +1,6 @@
 import { default as React, FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
@@ -27,7 +27,7 @@ export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 
 const PatientTriage: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -41,19 +41,19 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const lastExamination = useSelector<
+  const lastExamination = useAppSelector<
     IState,
     PatientExaminationDTO | undefined
   >((state) => state.examinations.getLastByPatientId.data);
 
-  const patientDataCode = useSelector(
+  const patientDataCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
-  const deleteStatus = useSelector<IState, string | undefined>(
+  const deleteStatus = useAppSelector<IState, string | undefined>(
     (state) => state.examinations.deleteExamination.status
   );
-  const status = useSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector<IState, string | undefined>((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -64,7 +64,7 @@ const PatientTriage: FC = () => {
       : state.examinations.updateExamination.status;
   });
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||

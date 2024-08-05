@@ -3,7 +3,7 @@ import OperationRowForm from "./operationForm/OperationRowForm";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { OperationRowTransitionState } from "./types";
 import { OpdDTO, OperationRowDTO, VisitDTO } from "../../../generated";
@@ -32,7 +32,7 @@ interface IOwnProps {
 
 const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -43,27 +43,27 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.status
       : state.operations.updateOperationRow.status;
   });
 
-  const errorMessage = useSelector<IState, string | undefined>((state) => {
+  const errorMessage = useAppSelector<IState, string | undefined>((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.error?.message
       : state.operations.updateOperationRow.error?.message;
   });
 
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
 

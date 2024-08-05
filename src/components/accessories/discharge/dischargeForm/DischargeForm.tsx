@@ -3,7 +3,7 @@ import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -38,13 +38,13 @@ const DischargeForm: FC<DischargeProps> = ({
   admission,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const diagnosisOutList = useSelector(
+  const diagnosisOutList = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdOut.data
   );
 
-  const dischargeTypes = useSelector(
+  const dischargeTypes = useAppSelector(
     (state: IState) => state.types.discharges.getAll.data
   );
 
@@ -194,10 +194,10 @@ const DischargeForm: FC<DischargeProps> = ({
     dispatch(getDiseasesIpdOut());
   }, [dispatch]);
 
-  const diagnosisOutStatus = useSelector(
+  const diagnosisOutStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdOut.status
   );
-  const disTypeStatus = useSelector(
+  const disTypeStatus = useAppSelector(
     (state: IState) => state.types.discharges.getAll.status
   );
 

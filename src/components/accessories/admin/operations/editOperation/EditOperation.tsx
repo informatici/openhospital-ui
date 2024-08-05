@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import OperationForm from "../operationForm/OperationForm";
 import React from "react";
 import { getInitialFields } from "../operationForm/consts";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { OperationDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { updateOperation } from "../../../../../state/operations";
@@ -11,11 +11,11 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 
 export const EditOperation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: OperationDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector((state) => state.operations.update);
+  const update = useAppSelector((state) => state.operations.update);
 
   const handleSubmit = (value: OperationDTO) => {
     dispatch(

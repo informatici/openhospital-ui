@@ -31,7 +31,7 @@ import TextField from "../../textField/TextField";
 import { isEmpty } from "lodash";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import { IState } from "../../../../types";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
 import { Permission } from "../../../../libraries/permissionUtils/Permission";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -190,7 +190,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
     value: value.code ?? "",
     label: value.description ?? "",
   });
-  const diseases = useSelector<IState, DiseaseDTO[]>((state: IState) => {
+  const diseases = useAppSelector<IState, DiseaseDTO[]>((state: IState) => {
     return state.diseases.diseasesOpd.data ?? [];
   });
 
@@ -202,11 +202,11 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
           .map((e) => mapToOptions(e));
   }, [diseaseTypeCode, diseases]);
 
-  const diseaseTypeOptions = useSelector((state: IState) => {
+  const diseaseTypeOptions = useAppSelector((state: IState) => {
     return state.types.diseases.getAll.data?.map((e) => mapToOptions(e)) ?? [];
   });
 
-  const wards = useSelector<IState, WardDTO[]>((state: IState) => {
+  const wards = useAppSelector<IState, WardDTO[]>((state: IState) => {
     return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
   });
 

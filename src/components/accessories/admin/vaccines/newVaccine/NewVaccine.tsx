@@ -2,16 +2,16 @@ import { useTranslation } from "react-i18next";
 import VaccineForm from "../vaccineForm/VaccineForm";
 import React from "react";
 import { getInitialFields } from "../vaccineForm/consts";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { VaccineDTO } from "../../../../../generated";
 import { createVaccine } from "../../../../../state/vaccines";
 import { IState } from "../../../../../types";
 import { ApiResponse } from "../../../../../state/types";
 
 export const NewVaccine = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector((state) => state.vaccines.create);
+  const create = useAppSelector((state) => state.vaccines.create);
 
   const handleSubmit = (value: VaccineDTO) => {
     dispatch(createVaccine(value));

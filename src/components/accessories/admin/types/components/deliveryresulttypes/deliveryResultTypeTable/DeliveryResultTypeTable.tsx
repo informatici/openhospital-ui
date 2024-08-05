@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { ApiResponse } from "../../../../../../../state/types";
 import { IState } from "../../../../../../../types";
 import { DeliveryResultTypeDTO } from "../../../../../../../generated";
@@ -21,7 +21,7 @@ interface IOwnProps {
 
 const DeliveryResultTypeTable = (props: IOwnProps) => {
   const { onDelete, onEdit, headerActions } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -33,12 +33,12 @@ const DeliveryResultTypeTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<DeliveryResultTypeDTO[]>
   >((state) => state.types.deliveryResult.getAll);
 
-  const deleteDeliveryResultType = useSelector(
+  const deleteDeliveryResultType = useAppSelector(
     (state) => state.types.deliveryResult.delete
   );
 

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import "./styles.scss";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 import { TypeMode } from "../../../../state/types/config";
 import SelectField from "../../selectField/SelectField";
@@ -21,7 +21,7 @@ const TypesAdmin = () => {
   const defaultTypeOption: TypeOption = { label: "", value: "" };
   const [selectedOption, setSelectedOption] =
     useState<TypeOption>(defaultTypeOption);
-  const mode = useSelector((state) => state.types.config.mode);
+  const mode = useAppSelector((state) => state.types.config.mode);
 
   const typeOptions: TypeOption[] = sortBy(
     [

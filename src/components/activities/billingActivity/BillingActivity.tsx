@@ -17,7 +17,7 @@ import ManageBillingActivityContent from "../manageBillingActivityContent/Manage
 
 import { TTabConfig } from "../../accessories/tabs/types";
 import { BillsRecap } from "../../accessories/billsRecap/BillsRecap";
-import { useSelector } from "../../../libraries/hooks/redux";
+import { useAppSelector } from "../../../libraries/hooks/redux";
 
 const BillingActivity: FC = () => {
   const { t } = useTranslation();
@@ -54,7 +54,7 @@ const BillingActivity: FC = () => {
   const getRouteConfig = () => {
     return billingConfigs;
   };
-  const userCredentials = useSelector(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 

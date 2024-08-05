@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import classes from "./Operations.module.scss";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import {
   deleteOperation,
   deleteOperationReset,
@@ -15,7 +15,7 @@ import { PATHS } from "../../../../consts";
 
 export const Operations = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

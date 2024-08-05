@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { number, object, string } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
@@ -25,16 +25,14 @@ import { searchPatientsReset, searchPatient } from "state/patients";
 
 const SearchPatientActivity = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { userCredentials, patientSearchResults, searchStatus } = useSelector<
-    IState,
-    IStateProps
-  >((state) => ({
-    userCredentials: state.main.authentication.data,
-    patientSearchResults: state.patients.searchResults.data,
-    searchStatus: state.patients.searchResults.status || "IDLE",
-  }));
+  const { userCredentials, patientSearchResults, searchStatus } =
+    useAppSelector<IState, IStateProps>((state) => ({
+      userCredentials: state.main.authentication.data,
+      patientSearchResults: state.patients.searchResults.data,
+      searchStatus: state.patients.searchResults.status || "IDLE",
+    }));
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -45,7 +43,7 @@ const SearchPatientActivity = () => {
     dispatch(searchPatientsReset());
   }, [dispatch]);
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;

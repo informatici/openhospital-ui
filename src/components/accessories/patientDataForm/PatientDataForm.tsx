@@ -31,7 +31,7 @@ import { FIELD_VALIDATION, IState } from "../../../types";
 import moment from "moment";
 import { useCityOptions } from "./useCityOptions";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { getAgeTypes } from "../../../state/ageTypes";
 import { getCities } from "../../../state/patients";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   mode = "create",
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [ageType, setAgeType] = useState("birthDate" as TAgeFieldName);
 
   const validationSchema = useMemo(() => {
@@ -88,18 +88,20 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   }, [dispatch]);
 
   const initialValues = getFromFields(fields, "value");
-  const cities = useSelector((state: IState) => state.patients.getCities.data);
+  const cities = useAppSelector(
+    (state: IState) => state.patients.getCities.data
+  );
   const options = getFromFields(fields, "options");
   const cityOptions = useCityOptions(cities);
 
-  const ageRangeOptions = useSelector((state: IState) =>
+  const ageRangeOptions = useAppSelector((state: IState) =>
     state.ageTypes.getAllAgeTypes.data?.map((e) => ({
       value: e.code ?? "",
       label: e.code ? t("patient.agetypes." + e.code) : "",
     }))
   );
 
-  const allAgeTypes = useSelector(
+  const allAgeTypes = useAppSelector(
     (state: IState) => state.ageTypes.getAllAgeTypes.data
   );
 

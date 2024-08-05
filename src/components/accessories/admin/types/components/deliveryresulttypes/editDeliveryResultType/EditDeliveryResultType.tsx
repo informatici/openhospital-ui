@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { DeliveryResultTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
@@ -13,11 +13,11 @@ import { getInitialFields } from "../deliveryResultTypeForm/consts";
 import { updateDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
 
 export const EditDeliveryResultType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: DeliveryResultTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector((state) => state.types.deliveryResult.update);
+  const update = useAppSelector((state) => state.types.deliveryResult.update);
 
   const handleSubmit = (value: DeliveryResultTypeDTO) => {
     dispatch(updateDeliveryResultType(value));

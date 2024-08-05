@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { LabWithRowsDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
@@ -41,14 +41,14 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["date", "exam", "status"];
 
-  const dispatch = useDispatch();
-  const data = useSelector<IState, LabWithRowsDTO[]>((state) =>
+  const dispatch = useAppDispatch();
+  const data = useAppSelector<IState, LabWithRowsDTO[]>((state) =>
     state.laboratories.labsByPatientId.data
       ? state.laboratories.labsByPatientId.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -82,17 +82,17 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     //   .sort(dateComparator("desc", "date"));
   };
 
-  const labStatus = useSelector<IState, string | undefined>(
+  const labStatus = useAppSelector<IState, string | undefined>(
     (state) => state.laboratories.labsByPatientId.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const labData = useSelector<IState, LabWithRowsDTO[] | undefined>(
+  const labData = useAppSelector<IState, LabWithRowsDTO[] | undefined>(
     (state) => state.laboratories.labsByPatientId.data
   );
 

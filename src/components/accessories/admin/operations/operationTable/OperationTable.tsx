@@ -3,7 +3,7 @@ import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { OperationDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
@@ -25,11 +25,11 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
   onDelete,
   headerActions,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const operationTypesOptions = useSelector<
+  const operationTypesOptions = useAppSelector<
     IState,
     { label: string; value: string }[]
   >(
@@ -68,12 +68,12 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
     },
   ];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<OperationDTO[]>
   >((state) => state.operations.operationList);
 
-  const deleteOperation = useSelector((state) => state.operations.delete);
+  const deleteOperation = useAppSelector((state) => state.operations.delete);
 
   const handleEdit = (row: OperationDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

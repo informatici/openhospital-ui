@@ -4,18 +4,18 @@ import logo from "../../../assets/logo-color.svg";
 import "./styles.scss";
 import { TProps } from "./types";
 import { IState } from "../../../types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { getHospital } from "../../../state/hospital";
 import { HospitalDTO } from "../../../generated";
 
 export const HospitalInfo: FC<TProps> = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   useEffect(() => {
     dispatch(getHospital());
   }, [dispatch, getHospital]);
 
-  const hospital = useSelector(
+  const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
 

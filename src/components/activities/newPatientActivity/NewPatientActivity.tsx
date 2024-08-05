@@ -20,24 +20,22 @@ import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "./consts";
 import "./styles.scss";
 import { IStateProps, TActivityTransitionState, IOwnProps } from "./types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 
 const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   dashboardRoute,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { userCredentials, isLoading, hasSucceeded, hasFailed } = useSelector<
-    IState,
-    IStateProps
-  >((state) => ({
-    userCredentials: state.main.authentication.data,
-    isLoading: state.patients.createPatient.status === "LOADING",
-    hasSucceeded: state.patients.createPatient.status === "SUCCESS",
-    hasFailed: state.patients.createPatient.status === "FAIL",
-  }));
+  const { userCredentials, isLoading, hasSucceeded, hasFailed } =
+    useAppSelector<IState, IStateProps>((state) => ({
+      userCredentials: state.main.authentication.data,
+      isLoading: state.patients.createPatient.status === "LOADING",
+      hasSucceeded: state.patients.createPatient.status === "SUCCESS",
+      hasFailed: state.patients.createPatient.status === "FAIL",
+    }));
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -51,12 +49,12 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
-  const patient = useSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector<IState, PatientDTO | undefined>(
     (state) =>
       state.patients.createPatient.data || state.patients.updatePatient.data
   );

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import React from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { useTranslation } from "react-i18next";
 import {
@@ -26,22 +26,22 @@ import { TUserCredentials } from "../../../../../state/main/types";
 import InfoBox from "../../../infoBox/InfoBox";
 
 const GridLayoutToolbox: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const userCredentials = useSelector(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 
-  const breakpoint = useSelector((state) => state.layouts.breakpoint);
+  const breakpoint = useAppSelector((state) => state.layouts.breakpoint);
 
-  const layouts = useSelector((state: IState) => state.layouts.layouts);
+  const layouts = useAppSelector((state: IState) => state.layouts.layouts);
 
-  const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
+  const dashboardSetting = useAppSelector<IState, UserSettingDTO | undefined>(
     (state) => state.layouts.getLayouts.data
   );
 
-  const toolbox = useSelector((state: IState) => state.layouts.toolbox);
+  const toolbox = useAppSelector((state: IState) => state.layouts.toolbox);
 
   const onItemPut = (item: Layout) => {
     let layoutsTmp = removeDuplicates({

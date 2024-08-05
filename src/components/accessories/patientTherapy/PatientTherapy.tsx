@@ -15,7 +15,7 @@ import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { TherapyRowDTO } from "../../../generated";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
@@ -27,7 +27,7 @@ export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
 const PatientTherapy: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -38,7 +38,7 @@ const PatientTherapy: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const status = useSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector<IState, string | undefined>((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -49,7 +49,7 @@ const PatientTherapy: FC = () => {
       : state.therapies.updateTherapy.status;
   });
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.therapies.createTherapy.error?.message ||
       state.therapies.updateTherapy.error?.message ||
@@ -58,11 +58,11 @@ const PatientTherapy: FC = () => {
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
-  const patientData = useSelector(
+  const patientData = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const deleteStatus = useSelector<IState, string | undefined>(
+  const deleteStatus = useAppSelector<IState, string | undefined>(
     (state) => state.therapies.deleteTherapy.status
   );
 

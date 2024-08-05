@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
@@ -13,14 +13,16 @@ import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditPregnantTreatmentType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: PregnantTreatmentTypeDTO | undefined } =
     useLocation();
   const { code } = useParams();
-  const update = useSelector((state) => state.types.pregnantTreatment.update);
+  const update = useAppSelector(
+    (state) => state.types.pregnantTreatment.update
+  );
 
-  const mode = useSelector((state) => state.types.config.mode);
+  const mode = useAppSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: PregnantTreatmentTypeDTO) => {
     if (code) {

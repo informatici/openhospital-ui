@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { MedicalDTO, TherapyRowDTO } from "../../../../generated";
 import { IState } from "../../../../types";
 import Table from "../../table/Table";
@@ -42,21 +42,21 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     duration: t("common.moment.duration"),
   };
   const order = ["startDate", "endDate", "medicalId"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, TherapyRowDTO[]>((state) =>
+  const data = useAppSelector<IState, TherapyRowDTO[]>((state) =>
     state.therapies.therapiesByPatientId.data
       ? state.therapies.therapiesByPatientId.data
       : []
   );
 
-  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+  const medicals = useAppSelector<IState, MedicalDTO[]>((state) =>
     state.medicals.medicalsOrderByName.data
       ? state.medicals.medicalsOrderByName.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -98,7 +98,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     //.sort(dateComparator("desc", "startDate"));
   };
 
-  const therapyStatus = useSelector<IState, string | undefined>(
+  const therapyStatus = useAppSelector<IState, string | undefined>(
     (state) => state.therapies.therapiesByPatientId.status
   );
 

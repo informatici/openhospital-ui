@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { PatientDTO } from "../../../generated";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
 import checkIcon from "../../../assets/check-icon.png";
@@ -33,11 +33,11 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
   readOnly,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [editionMode, setEditionMode] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const patient = useSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector<IState, PatientDTO | undefined>(
     (state) => state.patients.selectedPatient.data
   );
   const onSubmit = (values: PatientDTO) => {
@@ -45,11 +45,11 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
       dispatch(updatePatient({ code: values.code, patientDTO: values }));
     }
   };
-  const status = useSelector<IState, TAPIResponseStatus | undefined>(
+  const status = useAppSelector<IState, TAPIResponseStatus | undefined>(
     (state) => state.patients.updatePatient.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   );

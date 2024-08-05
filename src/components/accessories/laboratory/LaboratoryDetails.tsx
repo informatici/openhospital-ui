@@ -2,7 +2,7 @@ import { Person, Notes, AssignmentInd } from "@mui/icons-material";
 import { isEmpty } from "lodash";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";
@@ -12,18 +12,18 @@ import { statusLabel } from "./table/ExamTable";
 export const LaboratoryDetails: FC = () => {
   const { t } = useTranslation();
 
-  const lab = useSelector(
+  const lab = useAppSelector(
     (state: IState) =>
       state.laboratories.getLabWithRowsByCode.data?.laboratoryDTO
   );
-  const labRowList = useSelector(
+  const labRowList = useAppSelector(
     (state: IState) =>
       state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );
-  const status = useSelector(
+  const status = useAppSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.status
   );
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state: IState) =>
       state.laboratories.getLabWithRowsByCode.error?.message ??
       t("common.somethingwrong")

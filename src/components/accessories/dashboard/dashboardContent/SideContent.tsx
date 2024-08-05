@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IAuthentication } from "../../../../state/main/types";
 import { IState } from "../../../../types";
 
 export const SideContent: FC = () => {
   const { t } = useTranslation();
-  const user = useSelector<IState, IAuthentication | undefined>(
+  const user = useAppSelector<IState, IAuthentication | undefined>(
     (state) => state.main.authentication.data
   );
 

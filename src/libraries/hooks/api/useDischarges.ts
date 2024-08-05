@@ -1,19 +1,19 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { AdmissionDTO, PageInfoDTO } from "../../../generated";
 import { getDischarges } from "../../../state/admissions";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 
 export const useDisharges = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(0);
   const [range, setRange] = useState(
     [moment().add(-5, "day"), moment()].map((e) => e.toISOString())
   );
-  const { pageInfo, data, status, error } = useSelector<
+  const { pageInfo, data, status, error } = useAppSelector<
     IState,
     {
       pageInfo?: PageInfoDTO;

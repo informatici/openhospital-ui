@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { ApiResponse } from "../../../../../../../state/types";
 import { IState } from "../../../../../../../types";
 import { AdmissionTypeDTO } from "../../../../../../../generated";
@@ -21,7 +21,7 @@ interface IOwnProps {
 
 const AdmissionTypesTable = (props: IOwnProps) => {
   const { onDelete, onEdit, headerActions } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -33,12 +33,12 @@ const AdmissionTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<AdmissionTypeDTO[]>
   >((state) => state.types.admissions.getAll);
 
-  const deleteAdmissionType = useSelector(
+  const deleteAdmissionType = useAppSelector(
     (state) => state.types.admissions.delete
   );
 

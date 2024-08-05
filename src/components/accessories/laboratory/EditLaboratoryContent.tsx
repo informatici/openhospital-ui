@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { Cancel } from "@mui/icons-material";
 import React, { FC, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useParams, useNavigate } from "react-router";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
@@ -22,13 +22,13 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string | undefined }>();
   const navigate = useNavigate();
 
   const creationMode = useMemo(() => (id ? false : true), [id]);
 
-  const labWithRows = useSelector(
+  const labWithRows = useAppSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.data
   );
 
@@ -51,7 +51,7 @@ export const EditLaboratoryContent: FC = () => {
     navigate(0);
   }, [dispatch, navigate]);
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 

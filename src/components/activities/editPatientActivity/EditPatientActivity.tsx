@@ -22,15 +22,15 @@ import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "../newPatientActivity/consts";
 import "./styles.scss";
 import { IStateProps, TActivityTransitionState } from "./types";
-import { useDispatch, useSelector } from "../../../libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
 
 const EditPatientActivity = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
 
   const { userCredentials, isLoading, hasSucceeded, hasFailed, patient } =
-    useSelector((state) => ({
+    useAppSelector((state) => ({
       userCredentials: state.main.authentication.data,
       isLoading: state.patients.updatePatient.status === "LOADING",
       hasSucceeded: state.patients.updatePatient.status === "SUCCESS",
@@ -64,7 +64,7 @@ const EditPatientActivity = () => {
     )]: `${PATHS.patients_details}/${patient.data?.code}/edit`,
   };
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   ) as string;

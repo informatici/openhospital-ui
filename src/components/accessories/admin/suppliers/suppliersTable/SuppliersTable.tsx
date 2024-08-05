@@ -3,7 +3,7 @@ import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { SupplierDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
@@ -17,7 +17,7 @@ interface IOwnProps {
 }
 
 export const SuppliersTable = ({ onEdit, headerActions }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const SuppliersTable = ({ onEdit, headerActions }: IOwnProps) => {
     { key: "name", label: t("supplier.name"), type: "text" },
   ];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<SupplierDTO[]>
   >((state) => state.suppliers.supplierList);

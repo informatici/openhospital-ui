@@ -1,7 +1,7 @@
 import { Tooltip } from "@mui/material";
 import { Feedback } from "@mui/icons-material";
 import React, { FC } from "react";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { useTranslation } from "react-i18next";
 import "./styles.scss";
@@ -9,7 +9,9 @@ import { feedbackConfig } from "../../../customization/feedback";
 
 const OHFeedback: FC = () => {
   const { t } = useTranslation();
-  const user = useSelector((state: IState) => state.main.authentication.data);
+  const user = useAppSelector(
+    (state: IState) => state.main.authentication.data
+  );
   (window as any).ATL_JQ_PAGE_PROPS = $.extend(
     (window as any).ATL_JQ_PAGE_PROPS,
     {

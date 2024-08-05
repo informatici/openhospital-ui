@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import React, { FC, Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import InfoBox from "../infoBox/InfoBox";
 import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
@@ -20,7 +20,7 @@ import { getDiseaseTypes } from "../../../state/types/diseases";
 export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import {
   deleteDischargeType,
@@ -16,7 +16,7 @@ import { setTypeMode } from "../../../../../../state/types/config";
 
 const DischargeTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDischargeTypes());

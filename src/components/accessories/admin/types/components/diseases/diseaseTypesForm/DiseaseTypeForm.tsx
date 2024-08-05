@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IDiseaseTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IDiseaseTypesState } from "../../../../../../../state/types/diseases/types";
@@ -40,13 +40,13 @@ const DiseaseTypeForm: FC<IDiseaseTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const diseaseTypesStore = useSelector((state) => state.types.diseases);
+  const diseaseTypesStore = useAppSelector((state) => state.types.diseases);
 
   const errorMessage = useMemo(
     () =>

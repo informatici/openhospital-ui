@@ -3,7 +3,7 @@ import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { VaccineDTO, VaccineTypeDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
@@ -26,7 +26,7 @@ export const VaccinesTable = ({
   onDelete,
   headerActions,
 }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -46,17 +46,17 @@ export const VaccinesTable = ({
 
   const order = ["code", "type", "description"];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<VaccineDTO[]>
   >((state) => state.vaccines.vaccineList);
 
-  const { data: vaccineTypes } = useSelector<
+  const { data: vaccineTypes } = useAppSelector<
     IState,
     ApiResponse<VaccineTypeDTO[]>
   >((state) => state.types.vaccines.getVaccineTypes);
 
-  const deleteVaccine = useSelector((state) => state.vaccines.delete);
+  const deleteVaccine = useAppSelector((state) => state.vaccines.delete);
 
   const filters: TFilterField[] = [
     {

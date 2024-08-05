@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useSelector } from "react-redux";
+import { connect, useAppSelector } from "react-redux";
 import { MedicalDTO } from "../../../../generated";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
 import { loadSummaryData } from "../../../../state/summary";
@@ -20,7 +20,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
   const { t } = useTranslation();
   const { labels, dateFields, header, order } = useSummaryMetaData();
 
-  const patientCode = useSelector(
+  const patientCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
 
@@ -28,7 +28,7 @@ const PatientSummaryByType: FunctionComponent<TProps> = ({
     if (patientCode) loadSummaryData(patientCode);
   }, [patientCode, loadSummaryData]);
 
-  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+  const medicals = useAppSelector<IState, MedicalDTO[]>((state) =>
     state.medicals.medicalsOrderByName.data
       ? state.medicals.medicalsOrderByName.data
       : []

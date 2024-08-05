@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
@@ -31,7 +31,7 @@ const LaboratoryActivity: FC = () => {
     };
   }, [location]);
 
-  const userCredentials = useSelector(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 

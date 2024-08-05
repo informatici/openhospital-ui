@@ -3,7 +3,7 @@ import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 import { OperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
@@ -35,17 +35,17 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["opDate", "operation"];
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, OperationRowDTO[]>(
+  const data = useAppSelector<IState, OperationRowDTO[]>(
     (state) => state.operations.operationRowsByQdmt.data ?? []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  const currentAdmissionId = useSelector<IState, number | undefined>(
+  const currentAdmissionId = useAppSelector<IState, number | undefined>(
     (state) => state.admissions.currentAdmissionByPatientId.data?.id
   );
 
@@ -72,7 +72,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
     const opRow = data.find((item) => item.id === row.id);
     if (opRow !== undefined) onEdit(opRow);
   };
-  const status = useSelector<IState, string | undefined>(
+  const status = useAppSelector<IState, string | undefined>(
     (state) => state.operations.operationRowsByQdmt.status
   );
 

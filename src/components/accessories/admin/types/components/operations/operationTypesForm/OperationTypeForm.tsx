@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IOperationTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IOperationTypesState } from "../../../../../../../state/types/operations/types";
@@ -40,13 +40,13 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const operationTypesStore = useSelector((state) => state.types.operations);
+  const operationTypesStore = useAppSelector((state) => state.types.operations);
 
   const errorMessage = useMemo(
     () =>

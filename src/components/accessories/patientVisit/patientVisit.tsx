@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { initialFields } from "./consts";
 import { VisitDTO } from "../../../generated";
@@ -24,7 +24,7 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -38,7 +38,7 @@ const PatientVisit: FunctionComponent = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -49,14 +49,14 @@ const PatientVisit: FunctionComponent = () => {
       : state.visits.updateVisit.status;
   });
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.visits.createVisit.error?.message ||
       state.visits.updateVisit.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 

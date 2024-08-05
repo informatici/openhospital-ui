@@ -21,7 +21,7 @@ import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import {
   Accordion,
@@ -84,7 +84,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const [operationCreationMode, setOperationCreationMode] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [expanded, setExpanded] = useState<boolean>(true);
 
   const validationSchema = object({
@@ -123,15 +123,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
-  const diseases = useSelector<IState, DiseaseDTO[]>(
+  const diseases = useAppSelector<IState, DiseaseDTO[]>(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
 
-  const wards = useSelector<IState, WardDTO[]>(
+  const wards = useAppSelector<IState, WardDTO[]>(
     (state: IState) => state.wards.allWards.data ?? []
   );
 
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
@@ -193,7 +193,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       : [];
   };
 
-  const diseasesOptions = useSelector<
+  const diseasesOptions = useAppSelector<
     IState,
     { value: string; label: string }[]
   >((state: IState) => diseasesOptionsSelector(state));
@@ -210,9 +210,10 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           })
       : [];
   };
-  const wardsOptions = useSelector<IState, { value: string; label: string }[]>(
-    (state: IState) => wardsOptionsSelector(state)
-  );
+  const wardsOptions = useAppSelector<
+    IState,
+    { value: string; label: string }[]
+  >((state: IState) => wardsOptionsSelector(state));
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -316,7 +317,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }, 500);
   };
 
-  const operationStore = useSelector((state: IState) => state.operations);
+  const operationStore = useAppSelector((state: IState) => state.operations);
 
   const operationsRowFields = useMemo(() => {
     return opRowFields(
@@ -338,13 +339,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       setShowModal(true);
     };
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.operations.deleteOperationRow.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector<IState, string | undefined>((state) => {
     return state.operations.deleteOperationRow.status;
   });
 

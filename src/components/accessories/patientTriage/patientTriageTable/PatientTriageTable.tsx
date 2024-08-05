@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
@@ -44,14 +44,14 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const order = ["pex_date"];
   const dateFields = ["pex_date"];
 
-  const dispatch = useDispatch();
-  const data = useSelector<IState, PatientExaminationDTO[]>((state) =>
+  const dispatch = useAppDispatch();
+  const data = useAppSelector<IState, PatientExaminationDTO[]>((state) =>
     state.examinations.examinationsByPatientId.data
       ? state.examinations.examinationsByPatientId.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
@@ -87,11 +87,11 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const triageStatus = useSelector<IState, string | undefined>(
+  const triageStatus = useAppSelector<IState, string | undefined>(
     (state) => state.examinations.examinationsByPatientId.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.examinations.examinationsByPatientId.error?.message ||
       t("common.somethingwrong")

@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { IOwnProps } from "../types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { searchOpds } from "../../../../../state/opds";
 import { TDashboardCardOptionActions } from "../../card/types";
 import React from "react";
@@ -21,7 +21,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const opdbysexcardref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

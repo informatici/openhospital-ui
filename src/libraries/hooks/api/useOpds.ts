@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { OpdDTO, PageInfoDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
@@ -11,7 +11,7 @@ export const useOpds = () => {
   const [range, setRange] = useState(
     [moment().add(-5, "day"), moment()].map((e) => e.toISOString())
   );
-  const { pageInfo, data, status, error } = useSelector<
+  const { pageInfo, data, status, error } = useAppSelector<
     IState,
     {
       pageInfo?: PageInfoDTO;

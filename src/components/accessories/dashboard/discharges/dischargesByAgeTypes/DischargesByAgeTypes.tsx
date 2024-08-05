@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { TDashboardComponentProps } from "../../layouts/types";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import React from "react";
 import { DashboardCard } from "../../card/DashboardCard";
 import { DataSummary } from "../../summary/DataSummary";
@@ -22,7 +22,7 @@ export const DischargesByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

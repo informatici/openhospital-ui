@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import {
   BillDTO,
   BillItemsDTO,
@@ -22,14 +22,14 @@ import { usePendingBills } from "./pending_bill.hooks";
 import { useItemPrices } from "./price.hooks";
 
 export const useSelectedPatient = () => {
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data ?? ({} as any)
   );
   return { patient };
 };
 
 export const useCurrentUser = () => {
-  const user = useSelector(
+  const user = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   return user;
@@ -44,7 +44,7 @@ export const useFullBill = () => {
   );
   const creationMode = useMemo(() => !(pendings?.length > 0), [pendings]);
 
-  const status = useSelector((state: IState) =>
+  const status = useAppSelector((state: IState) =>
     creationMode
       ? state.bills.newBill.status ?? "IDLE"
       : state.bills.updateBill.status ?? "IDLE"
@@ -62,7 +62,7 @@ export const useFullBill = () => {
     );
   });
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [itemToEdit, setItemToEdit] = useState<
     Record<string, any> | undefined
   >();

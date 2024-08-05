@@ -3,7 +3,7 @@ import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
 import { getPatientAdmissions } from "../../../../state/admissions";
@@ -42,9 +42,9 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["admDate", "disDate"];
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, AdmissionDTO[]>((state) =>
+  const data = useAppSelector<IState, AdmissionDTO[]>((state) =>
     state.admissions.getPatientAdmissions.data
       ? state.admissions.getPatientAdmissions.data.filter(
           (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
@@ -52,7 +52,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -85,16 +85,16 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const status = useSelector<IState, string | undefined>(
+  const status = useAppSelector<IState, string | undefined>(
     (state) => state.admissions.getPatientAdmissions.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.admissions.getPatientAdmissions.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const createAdmissionStatus = useSelector(
+  const createAdmissionStatus = useAppSelector(
     (state) => state.admissions.createAdmission.status
   );
 

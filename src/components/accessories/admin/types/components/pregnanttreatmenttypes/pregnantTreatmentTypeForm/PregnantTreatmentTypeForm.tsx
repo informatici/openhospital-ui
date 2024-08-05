@@ -14,7 +14,7 @@ import warningIcon from "../../../../../../../assets/warning-icon.png";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import "./styles.scss";
 import { IPregnantTreatmentTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
 import { IState } from "../../../../../../../types";
 import { IPregnantTreatmentTypesState } from "../../../../../../../state/types/pregnantTreatment/types";
@@ -40,13 +40,13 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const pregnantTreatmentTypeStore = useSelector<
+  const pregnantTreatmentTypeStore = useAppSelector<
     IState,
     IPregnantTreatmentTypesState
   >((state) => state.types.pregnantTreatment);
@@ -144,7 +144,12 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 
         <div className="pregnantTreatmentTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" dataCy="submit-form" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>

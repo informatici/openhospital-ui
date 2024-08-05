@@ -5,7 +5,7 @@ import { CircularProgress } from "@mui/material";
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 import InfoBox from "../../../infoBox/InfoBox";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { getUsers } from "../../../../../state/users";
 import { IState } from "../../../../../types";
 import { UserDTO } from "../../../../../generated";
@@ -18,7 +18,7 @@ interface IOwnProps {
 }
 
 export const UsersTable = ({ headerActions }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -38,9 +38,10 @@ export const UsersTable = ({ headerActions }: IOwnProps) => {
     { key: "userName", label: t("user.username"), type: "text" },
   ];
 
-  const { data, status, error } = useSelector<IState, ApiResponse<UserDTO[]>>(
-    (state) => state.users.userList
-  );
+  const { data, status, error } = useAppSelector<
+    IState,
+    ApiResponse<UserDTO[]>
+  >((state) => state.users.userList);
 
   const formatDataToDisplay = (data: UserDTO[]) => {
     return data.map((item) => {

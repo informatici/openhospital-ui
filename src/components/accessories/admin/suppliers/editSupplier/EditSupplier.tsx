@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { SupplierDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { IState } from "../../../../../types";
@@ -11,11 +11,11 @@ import { getInitialFields } from "../supplierForm/consts";
 import { updateSupplier } from "../../../../../state/suppliers";
 
 export const EditSupplier = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: SupplierDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector((state) => state.suppliers.update);
+  const update = useAppSelector((state) => state.suppliers.update);
   const navigate = useNavigate();
 
   const handleSubmit = (value: SupplierDTO) => {

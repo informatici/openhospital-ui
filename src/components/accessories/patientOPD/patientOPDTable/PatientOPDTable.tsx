@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import { getOpdsWithOperationRows } from "../../../../state/opds";
 import { IState } from "../../../../types";
@@ -32,19 +32,19 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     note: t("opd.note"),
   };
   const order = ["date", "disease"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, OpdWithOperationRowDTO[]>((state) =>
+  const data = useAppSelector<IState, OpdWithOperationRowDTO[]>((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const opdStatus = useSelector<IState, string | undefined>(
+  const opdStatus = useAppSelector<IState, string | undefined>(
     (state) => state.opds.getOpds.status
   );
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) => state.opds.getOpds.error?.message || t("common.somethingwrong")
   ) as string;
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

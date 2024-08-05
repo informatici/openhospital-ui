@@ -13,7 +13,7 @@ import "./styles.scss";
 import { IOwnProps } from "./types";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { IState } from "../../../types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { setLogout } from "../../../state/main";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
@@ -27,17 +27,17 @@ import { HospitalDTO } from "../../../generated";
 const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   useEffect(() => {
     dispatch(getHospital());
   }, [dispatch, getHospital]);
 
-  const hospital = useSelector(
+  const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
   const openMenu = (isOpen: boolean) => {

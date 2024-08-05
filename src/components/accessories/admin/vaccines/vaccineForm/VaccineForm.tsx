@@ -21,7 +21,7 @@ import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IVaccineFormProps } from "./types";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
@@ -42,15 +42,15 @@ const VaccineForm: FC<IVaccineFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const vaccineStore = useSelector((state) => state.vaccines);
+  const vaccineStore = useAppSelector((state) => state.vaccines);
 
-  const vaccinesTypeState = useSelector(
+  const vaccinesTypeState = useAppSelector(
     (state: IState) => state.types.vaccines.getVaccineTypes
   );
 

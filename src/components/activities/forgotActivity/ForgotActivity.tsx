@@ -21,11 +21,11 @@ import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
 import { getHospital } from "../../../state/hospital";
-import { useDispatch, useSelector } from "../../../libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
 
 const ForgotActivity: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const initialValues: IValues = {
     username: "",
@@ -54,11 +54,11 @@ const ForgotActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorType = useSelector<IState, string | undefined>(
+  const errorType = useAppSelector<IState, string | undefined>(
     (state) => state.main.forgotpassword.error?.description || "unknown error"
   );
 
-  const status = useSelector(
+  const status = useAppSelector(
     (state) => state.main.forgotpassword.status || "IDLE"
   );
 
@@ -66,7 +66,7 @@ const ForgotActivity: FC = () => {
     dispatch(getHospital());
   }, [dispatch]);
 
-  const hospital = useSelector(
+  const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
 

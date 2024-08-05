@@ -3,7 +3,7 @@ import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { OperationDTO } from "../../../../generated";
@@ -35,7 +35,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const operationList = useSelector(
+  const operationList = useAppSelector(
     (state: IState) => state.operations.operationList.data
   );
 
@@ -51,7 +51,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
   };
 
   const initialValues = getFromFields(fields, "value");
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
@@ -134,7 +134,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const operationStatus = useSelector(
+  const operationStatus = useAppSelector(
     (state: IState) => state.operations.operationList.status
   );
 

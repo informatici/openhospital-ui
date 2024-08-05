@@ -31,7 +31,7 @@ import { getExamTypes } from "../../../../../state/types/exams";
 
 import InfoBox from "../../../infoBox/InfoBox";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 
 const ExamForm: FC<IExamProps> = ({
   fields,
@@ -41,15 +41,15 @@ const ExamForm: FC<IExamProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const examStore = useSelector((state) => state.exams);
+  const examStore = useAppSelector((state) => state.exams);
 
-  const examTypeState = useSelector(
+  const examTypeState = useAppSelector(
     (state: IState) => state.types.exams.getAll
   );
   const examTypeStateOptions = useMemo(

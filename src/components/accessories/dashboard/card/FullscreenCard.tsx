@@ -1,7 +1,7 @@
 import { Dialog, Fab } from "@mui/material";
 import React, { FC } from "react";
 import { TFullscreenCardProps } from "./types";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 import { DashboardWidget } from "../layouts/item/GridLayoutItem";
 import { GridCloseIcon } from "@mui/x-data-grid";
@@ -10,7 +10,7 @@ export const FullscreenCard: FC<TFullscreenCardProps> = ({
   dashboard,
   onClose,
 }) => {
-  const period = useSelector<IState, string[]>(
+  const period = useAppSelector<IState, string[]>(
     (state) => state.dashboard.period
   );
 

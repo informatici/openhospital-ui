@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import VaccinesTable from "./vaccinesTable";
 import { useNavigate } from "react-router";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
 import {
   deleteVaccine,
@@ -16,7 +16,7 @@ import Button from "../../button/Button";
 
 export const Vaccines = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import DiseaseForm from "../diseaseForm/DiseaseForm";
 import React from "react";
 import { getInitialFields } from "../diseaseForm/consts";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { DiseaseDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
 import { updateDisease } from "../../../../../state/diseases";
@@ -11,11 +11,11 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 
 export const EditDisease = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: DiseaseDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector((state) => state.diseases.update);
+  const update = useAppSelector((state) => state.diseases.update);
 
   const handleSubmit = (value: DiseaseDTO) => {
     dispatch(updateDisease({ ...value, lock: state?.lock }));

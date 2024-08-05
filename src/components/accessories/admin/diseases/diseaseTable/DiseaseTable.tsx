@@ -3,7 +3,7 @@ import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { DiseaseDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
@@ -24,7 +24,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const diseasesOptions = useSelector<
+  const diseasesOptions = useAppSelector<
     IState,
     { label: string; value: string }[]
   >(
@@ -64,7 +64,7 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
     },
   ];
 
-  const { data, status, error } = useSelector<
+  const { data, status, error } = useAppSelector<
     IState,
     ApiResponse<DiseaseDTO[]>
   >((state) => state.diseases.allDiseases);

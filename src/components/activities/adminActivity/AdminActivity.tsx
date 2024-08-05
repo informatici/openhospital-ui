@@ -16,7 +16,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
-import { useSelector } from "../../../libraries/hooks/redux";
+import { useAppSelector } from "../../../libraries/hooks/redux";
 
 const AdminActivity = () => {
   const [expanded, setExpanded] = useState(false);
@@ -27,7 +27,7 @@ const AdminActivity = () => {
     [t("nav.administration")]: PATHS.admin,
   };
 
-  const userCredentials = useSelector<IState, IAuthentication | undefined>(
+  const userCredentials = useAppSelector<IState, IAuthentication | undefined>(
     (state) => state.main.authentication?.data
   );
 

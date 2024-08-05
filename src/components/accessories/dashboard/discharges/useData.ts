@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import {
   AdmissionDTO,
   WardDTO,
@@ -13,36 +13,36 @@ import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
-  const discharges = useSelector<IState, AdmissionDTO[]>(
+  const discharges = useAppSelector<IState, AdmissionDTO[]>(
     (state) =>
       state.admissions.getDischarges.data?.data?.filter(
         (e) => e?.disDate !== undefined
       ) ?? []
   );
-  const wards = useSelector<IState, WardDTO[]>(
+  const wards = useAppSelector<IState, WardDTO[]>(
     (state) => state.wards.allWards.data ?? []
   );
-  const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
+  const dischargeTypes = useAppSelector<IState, AdmissionTypeDTO[]>(
     (state) => state.types.discharges.getAll.data ?? []
   );
-  const ageTypes = useSelector<IState, AgeTypeDTO[]>(
+  const ageTypes = useAppSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
-  const ageTypeStatus = useSelector(
+  const ageTypeStatus = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const dischargeTypeStatus = useSelector(
+  const dischargeTypeStatus = useAppSelector(
     (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
-  const admissionStatus = useSelector(
+  const admissionStatus = useAppSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
-  const success = useSelector((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getDischarges.status ?? ""
     )
   );
-  const wardStatus = useSelector(
+  const wardStatus = useAppSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
   const sexLabels = [t("common.male"), t("common.female")];

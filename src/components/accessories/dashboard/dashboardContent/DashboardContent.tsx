@@ -3,7 +3,7 @@ import { DashboardFilter } from "./filter/DashboardFilter";
 import GridLayoutToolbox from "../layouts/toolbox/GridLayoutToolBox";
 import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
 import { setDashboardPeriod } from "../../../../state/dashboard";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import "./styles.scss";
 import { IState } from "../../../../types";
 import { TAPIResponseStatus } from "../../../../state/types";
@@ -12,12 +12,12 @@ import { Navigate } from "react-router";
 import { PATHS } from "../../../../consts";
 
 export const DashboardContent: FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handlePeriodChange = (value: string[]) => {
     dispatch(setDashboardPeriod(value));
   };
 
-  const authUserStatus = useSelector(
+  const authUserStatus = useAppSelector(
     (state) => state.main.authentication.status ?? "IDLE"
   );
 

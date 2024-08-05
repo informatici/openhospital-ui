@@ -3,7 +3,7 @@ import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
 import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { WardDTO } from "../../../../../generated";
 import { ApiResponse } from "../../../../../state/types";
@@ -26,7 +26,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
   onDelete,
   headerActions,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -56,11 +56,12 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
-  const { data, status, error } = useSelector<IState, ApiResponse<WardDTO[]>>(
-    (state) => state.wards.allWards
-  );
+  const { data, status, error } = useAppSelector<
+    IState,
+    ApiResponse<WardDTO[]>
+  >((state) => state.wards.allWards);
 
-  const deleteWard = useSelector((state) => state.wards.delete);
+  const deleteWard = useAppSelector((state) => state.wards.delete);
 
   const handleEdit = (row: WardDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

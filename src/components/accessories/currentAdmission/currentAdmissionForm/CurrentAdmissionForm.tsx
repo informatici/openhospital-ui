@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import {
   AdmissionTypeDTO,
   DiseaseDTO,
@@ -47,39 +47,39 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   fields,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const patient = useSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector<IState, PatientDTO | undefined>(
     (state) => state.patients.selectedPatient.data
   );
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
-  const status = useSelector<IState, TAPIResponseStatus | undefined>(
+  const status = useAppSelector<IState, TAPIResponseStatus | undefined>(
     (state) => state.admissions.updateAdmission.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   );
 
-  const diagnosisInList = useSelector(
+  const diagnosisInList = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.data
   );
 
-  const admissionTypes = useSelector(
+  const admissionTypes = useAppSelector(
     (state: IState) => state.types.admissions.getAll.data
   );
-  const wards = useSelector((state: IState) => state.wards.allWards.data);
-  const diagnosisInStatus = useSelector(
+  const wards = useAppSelector((state: IState) => state.wards.allWards.data);
+  const diagnosisInStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.status
   );
-  const wardStatus = useSelector(
+  const wardStatus = useAppSelector(
     (state: IState) => state.wards.allWards.status
   );
-  const admTypeStatus = useSelector(
+  const admTypeStatus = useAppSelector(
     (state: IState) => state.types.admissions.getAll.status
   );
 

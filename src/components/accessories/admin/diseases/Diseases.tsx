@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import classes from "./Diseases.module.scss";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { DiseaseDTO } from "../../../../generated";
 import DiseaseTable from "./diseaseTable";
 import { useNavigate } from "react-router";
@@ -17,10 +17,10 @@ export const Diseases = () => {
   const [view, setView] = useState<"enabled" | "disabled" | "all">("all");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const showFilter = useSelector(
+  const showFilter = useAppSelector(
     (state) =>
       (state.diseases.allDiseases.data?.filter(
         (item) => !(item.opdInclude || item.ipdOutInclude || item.opdInclude)

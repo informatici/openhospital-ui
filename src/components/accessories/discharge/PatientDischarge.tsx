@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import { AdmissionTransitionState } from "./types";
 import { AdmissionDTO } from "../../../generated";
@@ -22,32 +22,32 @@ import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const currentAdmissionStatus = useSelector(
+  const currentAdmissionStatus = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
   const fields = useFields(currentAdmission);
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const dischargeStatus = useSelector(
+  const dischargeStatus = useAppSelector(
     (state) => state.admissions.dischargePatient.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.admissions.dischargePatient.error?.message ||
       state.admissions.currentAdmissionByPatientId.error?.message
@@ -89,7 +89,7 @@ const PatientDischarge: FC = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(getCurrentAdmission(patient?.code));
-      //dispatch(getPatient((patient?.code ?? 0).toString()));
+      dispatch(getPatient((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
     }

@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { object, string } from "yup";
 import { BillPaymentsDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
@@ -42,9 +42,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   };
   const order = ["date"];
   const [openFilter, setOpenFilter] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, {}[]>(
+  const data = useAppSelector<IState, {}[]>(
     (state) =>
       state.bills.searchPayments.data?.map((item: BillPaymentsDTO) => {
         return {
@@ -56,11 +56,11 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       }) ?? []
   );
 
-  const status = useSelector<IState, string | undefined>(
+  const status = useAppSelector<IState, string | undefined>(
     (state) => state.bills.searchPayments.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.bills.searchPayments.error?.message || t("common.somethingwrong")
   ) as string;

@@ -8,14 +8,14 @@ import { updateExam } from "../../../../../state/exams";
 import { IState } from "../../../../../types";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 
 export const EditExam = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: ExamDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector((state) => state.operations.update);
+  const update = useAppSelector((state) => state.operations.update);
 
   const handleSubmit = (examDTO: ExamDTO) => {
     dispatch(updateExam({ code: examDTO.code!!, examDTO }));

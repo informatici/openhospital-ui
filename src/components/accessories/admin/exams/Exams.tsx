@@ -9,10 +9,10 @@ import classes from "./Exams.module.scss";
 
 import Button from "../../button/Button";
 import ExamsTable from "./examsTable";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 
 export const Exams = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
 

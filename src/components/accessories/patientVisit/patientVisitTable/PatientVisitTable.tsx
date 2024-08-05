@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { VisitDTO } from "../../../../generated";
 import { getVisits } from "../../../../state/visits";
 import { IState } from "../../../../types";
@@ -30,22 +30,22 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     ward: t("visit.ward"),
   };
   const order = ["date", "duration"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, VisitDTO[]>(
+  const data = useAppSelector<IState, VisitDTO[]>(
     (state) => state.visits.getVisits.data ?? []
   );
-  const visitStatus = useSelector<IState, string | undefined>(
+  const visitStatus = useAppSelector<IState, string | undefined>(
     (state) => state.visits.getVisits.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.visits.getVisits.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector<IState, number | undefined>(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

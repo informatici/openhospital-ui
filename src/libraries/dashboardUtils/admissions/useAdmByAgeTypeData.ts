@@ -1,24 +1,24 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { AdmissionDTO, AgeTypeDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
 
 export const useAdmByAgeTypeData = () => {
   const { t } = useTranslation();
-  const admissions = useSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector<IState, AdmissionDTO[]>(
     (state) => state.admissions.getAdmissions.data?.data ?? []
   );
-  const ageTypes = useSelector<IState, AgeTypeDTO[]>(
+  const ageTypes = useAppSelector<IState, AgeTypeDTO[]>(
     (state) => state.ageTypes.getAllAgeTypes.data ?? []
   );
-  const ageTypeStatus = useSelector(
+  const ageTypeStatus = useAppSelector(
     (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
   );
-  const status = useSelector(
+  const status = useAppSelector(
     (state) => state.admissions.getAdmissions.status ?? "IDLE"
   );
-  const success = useSelector((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getAdmissions.status ?? ""
     )

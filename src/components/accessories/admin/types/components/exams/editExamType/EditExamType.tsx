@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { ExamTypeDTO } from "../../../../../../../generated";
 import { IState } from "../../../../../../../types";
@@ -13,11 +13,11 @@ import "./styles.scss";
 import { updateExamType } from "../../../../../../../state/types/exams";
 
 export const EditExamType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: ExamTypeDTO | undefined } = useLocation();
   const { code } = useParams<{ code: string }>();
-  const update = useSelector((state) => state.types.exams.update);
+  const update = useAppSelector((state) => state.types.exams.update);
 
   const handleSubmit = (examTypeDTO: ExamTypeDTO) => {
     if (code) {

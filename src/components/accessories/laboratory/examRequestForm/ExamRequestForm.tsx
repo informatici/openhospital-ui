@@ -15,7 +15,7 @@ import {
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../types";
 import {
   createLabRequest,
@@ -41,12 +41,12 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
   handleSuccess,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [patientData, setPatientData] = useState({} as PatientDTO);
-  const exams = useSelector((state: IState) => state.exams.examList.data);
+  const exams = useAppSelector((state: IState) => state.exams.examList.data);
   const [currentExamCode, setCurrentExamCode] = useState("");
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const selectedPatient = useSelector(
+  const selectedPatient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
   const initialValues = getFromFields(fields, "value");
@@ -73,11 +73,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     } else return [];
   };
 
-  const examList = useSelector((state: IState) => state.exams.examList.data);
+  const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
-  const labStore = useSelector((state: IState) => state.laboratories);
+  const labStore = useAppSelector((state: IState) => state.laboratories);
 
-  const createLabRequestStatus = useSelector<
+  const createLabRequestStatus = useAppSelector<
     IState,
     TAPIResponseStatus | undefined
   >((state: IState) => state.laboratories.createLabRequest.status);
@@ -103,7 +103,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     setActivityTransitionState("TO_RESET");
   };
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       labStore.createLabRequest.error?.message || t("common.somethingwrong")
   ) as string;
@@ -186,7 +186,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     [setFieldValue, handleBlur]
   );
 
-  const examsLoading = useSelector(
+  const examsLoading = useAppSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 

@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { IProps } from "./types";
 
 import { Search } from "@mui/icons-material";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { GridCloseIcon } from "@mui/x-data-grid";
 import { get, has } from "lodash";
 import {
@@ -51,7 +51,7 @@ const PatientPicker: FC<IProps> = ({
 }) => {
   const [value, setValue] = useState((initialValue ?? {}) as PatientDTO);
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const inputRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(currentPageConst);
   const [patientsPerPage] = useState(itemsPerPageConst);
@@ -98,7 +98,7 @@ const PatientPicker: FC<IProps> = ({
     },
   });
 
-  const patientData = useSelector<IState, PatientDTO[] | undefined>(
+  const patientData = useAppSelector<IState, PatientDTO[] | undefined>(
     (state) => state.patients.searchResults.data
   );
 
@@ -142,16 +142,16 @@ const PatientPicker: FC<IProps> = ({
     if (value) onBlur(e, value);
   };
 
-  const searchStatus = useSelector<IState, string | undefined>(
+  const searchStatus = useAppSelector<IState, string | undefined>(
     (state) => state.patients.searchResults.status
   );
 
-  const errorMessage = useSelector(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const isLoading = useSelector(
+  const isLoading = useAppSelector(
     (state) => state.patients.searchResults.status === "LOADING"
   );
 

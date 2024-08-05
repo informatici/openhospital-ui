@@ -2,7 +2,7 @@ import { FC, forwardRef } from "react";
 import { TDashboardWidgetProps, TGridLayoutItemProps } from "../types";
 import React from "react";
 import { AdmissionsByAgeType } from "../../admissions/admissionByAgeType/AdmissionByAgeType";
-import { useSelector } from "libraries/hooks/redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import { AdmissionsBySex } from "../../admissions/admissionBySex/AdmissionBySex";
 import { AdmissionsByTypes } from "../../admissions/admissionByTypes/AdmissionByTypes";
@@ -125,7 +125,7 @@ export const GridLayoutItem = forwardRef<HTMLDivElement, TGridLayoutItemProps>(
   (props, ref) => {
     const { dashboardKey, onRemove, className, otherProps, onFullScreenEnter } =
       props;
-    const period = useSelector<IState, string[]>(
+    const period = useAppSelector<IState, string[]>(
       (state) => state.dashboard.period
     );
 

@@ -22,7 +22,7 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IWardProps } from "./types";
 import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
 import { useNavigate } from "react-router";
@@ -40,13 +40,13 @@ const WardForm: FC<IWardProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const wardStore = useSelector((state) => state.wards);
+  const wardStore = useAppSelector((state) => state.wards);
 
   const errorMessage = useMemo(
     () =>

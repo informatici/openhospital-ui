@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "libraries/hooks/redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { getMedicals } from "../../../state/medicals";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import Tabs from "../tabs/Tabs";
@@ -10,7 +10,7 @@ import PatientSummaryByType from "./patientSummaryByType/PatientSummaryByType";
 import "./styles.scss";
 
 const PatientSummary: FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   useEffect(() => {
     dispatch(getMedicals());

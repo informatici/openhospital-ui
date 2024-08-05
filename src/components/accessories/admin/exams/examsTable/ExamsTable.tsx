@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
 
@@ -25,7 +25,7 @@ interface IOwnProps {
 }
 
 export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +41,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     "procedure",
     "defaultResult",
   ];
-  const examTypesOptions = useSelector<
+  const examTypesOptions = useAppSelector<
     IState,
     { label: string; value: string }[]
   >(
@@ -78,11 +78,12 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     "defaultResult",
   ];
 
-  const { data, status, error } = useSelector<IState, ApiResponse<ExamDTO[]>>(
-    (state) => state.exams.examList
-  );
+  const { data, status, error } = useAppSelector<
+    IState,
+    ApiResponse<ExamDTO[]>
+  >((state) => state.exams.examList);
 
-  const deleteExam = useSelector((state) => state.exams.examDelete);
+  const deleteExam = useAppSelector((state) => state.exams.examDelete);
 
   const formatDataToDisplay = (data: ExamDTO[]) => {
     return data.map((item) => {
