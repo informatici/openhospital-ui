@@ -1,24 +1,24 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
-import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO } from "../../../generated";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
+import { AdmissionDTO } from "../../../generated";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
-  getCurrentAdmission,
   dischargePatient,
   dischargePatientReset,
+  getCurrentAdmission,
 } from "../../../state/admissions";
-import { useFields } from "./useFields";
-import DischargeForm from "./dischargeForm/DischargeForm";
-import { getPatient } from "../../../state/patients";
-import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
+import InfoBox from "../infoBox/InfoBox";
+import DischargeForm from "./dischargeForm/DischargeForm";
+import "./styles.scss";
+import { AdmissionTransitionState } from "./types";
+import { useFields } from "./useFields";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -92,8 +92,9 @@ const PatientDischarge: FC = () => {
       dispatch(getPatient((patient?.code ?? 0).toString()));
       dispatch(dischargePatientReset());
       setShouldResetForm(true);
+      setActivityTransitionState("IDLE");
     }
-  }, [dispatch, patient, activityTransitionState]);
+  }, [dispatch, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);
