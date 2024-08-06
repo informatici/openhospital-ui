@@ -1,11 +1,9 @@
+import { useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "libraries/hooks/redux";
 import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { TUserCredentials } from "../../../state/main/types";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { HospitalInfo } from "../../accessories/hospitalInfo/HospitalInfo";

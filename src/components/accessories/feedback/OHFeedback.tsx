@@ -1,11 +1,11 @@
-import { Tooltip } from "@mui/material";
 import { Feedback } from "@mui/icons-material";
-import React, { FC } from "react";
+import { Tooltip } from "@mui/material";
 import { useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import "./styles.scss";
 import { feedbackConfig } from "../../../customization/feedback";
+import { IState } from "../../../types";
+import "./styles.scss";
 
 const OHFeedback: FC = () => {
   const { t } = useTranslation();

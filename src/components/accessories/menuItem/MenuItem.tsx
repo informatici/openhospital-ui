@@ -1,11 +1,11 @@
-import React, { ReactNode, useState } from "react";
-import classes from "./MenuItem.module.scss";
 import classnames from "classnames";
+import React, { ReactNode, useState } from "react";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from "../accordion/Accordion";
+import classes from "./MenuItem.module.scss";
 import "./styles.scss";
 
 interface IOwnProps {

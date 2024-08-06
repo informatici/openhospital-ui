@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import classes from "./Operations.module.scss";
 import { useAppDispatch } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { PATHS } from "../../../../consts";
+import { OperationDTO } from "../../../../generated";
 import {
   deleteOperation,
   deleteOperationReset,
   getOperations,
 } from "../../../../state/operations";
-import { OperationDTO } from "../../../../generated";
-import OperationTable from "./operationTable";
 import Button from "../../button/Button";
-import { useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
-import { PATHS } from "../../../../consts";
+import classes from "./Operations.module.scss";
+import OperationTable from "./operationTable";
 
 export const Operations = () => {
   const navigate = useNavigate();

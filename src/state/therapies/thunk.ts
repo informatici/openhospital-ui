@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { TherapyDTO, TherapiesApi, TherapyRowDTO } from "../../generated";
+import { TherapiesApi, TherapyRowDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new TherapiesApi(customConfiguration());

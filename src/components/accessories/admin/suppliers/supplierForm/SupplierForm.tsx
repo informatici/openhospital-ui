@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,28 +10,25 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { object, string } from "yup";
+import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../../assets/check-icon.png";
-import Button from "../../../button/Button";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
-import TextField from "../../../textField/TextField";
-import { ISupplierFormProps } from "./types";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../types";
-import InfoBox from "../../../infoBox/InfoBox";
-import { useNavigate } from "react-router";
-import { PATHS } from "../../../../../consts";
-import { ISupplierState } from "../../../../../state/suppliers/types";
 import {
   createSupplierReset,
   updateSupplierReset,
 } from "../../../../../state/suppliers";
+import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import TextField from "../../../textField/TextField";
 import "./styles.scss";
+import { ISupplierFormProps } from "./types";
 
 const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;
 

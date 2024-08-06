@@ -1,14 +1,12 @@
-import { useTranslation } from "react-i18next";
-import OperationForm from "../operationForm/OperationForm";
-import React from "react";
-import { getInitialFields } from "../operationForm/consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { OperationDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { updateOperation } from "../../../../../state/operations";
-import { IState } from "../../../../../types";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { OperationDTO } from "../../../../../generated";
+import { updateOperation } from "../../../../../state/operations";
+import { getInitialFields } from "../operationForm/consts";
+import OperationForm from "../operationForm/OperationForm";
 
 export const EditOperation = () => {
   const dispatch = useAppDispatch();

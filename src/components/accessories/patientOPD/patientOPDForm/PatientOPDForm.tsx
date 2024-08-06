@@ -1,28 +1,8 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-  useMemo,
-} from "react";
-import { useFormik } from "formik";
-import {
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../../libraries/formDataHandling/functions";
-import DateField from "../../dateField/DateField";
-import { object, string } from "yup";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import Button from "../../button/Button";
-import warningIcon from "../../../../assets/warning-icon.png";
-import TextField from "../../textField/TextField";
-import { get, has } from "lodash";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { TProps } from "./types";
-import { IState } from "../../../../types";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import { Add, Edit } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import FileIcon from "@mui/icons-material/Label";
 import {
   Accordion,
   AccordionDetails,
@@ -40,23 +20,30 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import {
-  DiseaseDTO,
-  OpdWithOperationRowDTO,
-  OperationRowDTO,
-  WardDTO,
-} from "../../../../generated";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has, isEmpty } from "lodash";
 import moment from "moment";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+import { object, string } from "yup";
+import checkIcon from "../../../../assets/check-icon.png";
+import warningIcon from "../../../../assets/warning-icon.png";
+import {
+  OpdWithOperationRowDTO,
+  OperationRowDTO
+} from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import CheckboxField from "../../checkboxField/CheckboxField";
-import { isEmpty } from "lodash";
-import AddIcon from "@mui/icons-material/Add";
-import FileIcon from "@mui/icons-material/Label";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { CustomDialog } from "../../customDialog/CustomDialog";
-import ContentCutIcon from "../../icons/content-cut";
-import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../../libraries/formDataHandling/functions";
 import {
   createOperationRowReset,
   deleteOperationRow,
@@ -64,12 +51,21 @@ import {
   getOperations,
   updateOperationRowReset,
 } from "../../../../state/operations";
-import { IOperationState } from "../../../../state/operations/types";
-import checkIcon from "../../../../assets/check-icon.png";
-import { opRowFields } from "../../patientOperation/opRowFields";
-import InfoBox from "../../infoBox/InfoBox";
-import { Add, Edit } from "@mui/icons-material";
 import { getWards } from "../../../../state/ward";
+import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import Button from "../../button/Button";
+import CheckboxField from "../../checkboxField/CheckboxField";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import { CustomDialog } from "../../customDialog/CustomDialog";
+import DateField from "../../dateField/DateField";
+import ContentCutIcon from "../../icons/content-cut";
+import InfoBox from "../../infoBox/InfoBox";
+import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
+import { opRowFields } from "../../patientOperation/opRowFields";
+import TextField from "../../textField/TextField";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,

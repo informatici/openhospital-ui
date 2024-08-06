@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
 import { useAppSelector } from "libraries/hooks/redux";
+import React, { useMemo } from "react";
 import { Navigate, useLocation } from "react-router";
 import { useLandingPageRoute } from "../../../libraries/hooks/useLandingPageRoute";
-import { IState } from "../../../types";
 import { IRedirectAfterLogin } from "./types";
 
 export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({

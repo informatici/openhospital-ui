@@ -1,26 +1,26 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
-import { initialFields } from "./consts";
+import checkIcon from "../../../assets/check-icon.png";
 import { VisitDTO } from "../../../generated";
+import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
-  getVisits,
   createVisit,
   createVisitReset,
+  getVisits,
   updateVisit,
   updateVisitReset,
 } from "../../../state/visits";
-import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
-import { TActivityTransitionState } from "./types";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../assets/check-icon.png";
-import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
-import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
 import { getWards } from "../../../state/ward";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import { initialFields } from "./consts";
+import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
+import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
+import { TActivityTransitionState } from "./types";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();

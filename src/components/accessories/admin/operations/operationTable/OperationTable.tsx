@@ -1,16 +1,16 @@
-import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
-import Table from "../../../table/Table";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import checkIcon from "../../../../../assets/check-icon.png";
 import { OperationDTO } from "../../../../../generated";
-import classes from "./OperationTable.module.scss";
-import { TFilterField } from "../../../table/filter/types";
+import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 import { deleteOperationReset } from "../../../../../state/operations";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../../../assets/check-icon.png";
-import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
+import InfoBox from "../../../infoBox/InfoBox";
+import { TFilterField } from "../../../table/filter/types";
+import Table from "../../../table/Table";
+import classes from "./OperationTable.module.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;

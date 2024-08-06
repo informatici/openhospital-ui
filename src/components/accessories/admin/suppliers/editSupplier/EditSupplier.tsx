@@ -1,14 +1,12 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { SupplierDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { IState } from "../../../../../types";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { SupplierDTO } from "../../../../../generated";
+import { updateSupplier } from "../../../../../state/suppliers";
 import SupplierForm from "../supplierForm/SupplierForm";
 import { getInitialFields } from "../supplierForm/consts";
-import { updateSupplier } from "../../../../../state/suppliers";
 
 export const EditSupplier = () => {
   const dispatch = useAppDispatch();

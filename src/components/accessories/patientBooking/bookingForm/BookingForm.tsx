@@ -1,20 +1,20 @@
+import classnames from "classnames";
+import { useFormik } from "formik";
+import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
-import DateField from "../../dateField/DateField";
-import SelectField from "../../selectField/SelectField";
-import Button from "../../button/Button";
-import "./styles.scss";
-import { TBookingProps } from "./types";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { useFormik } from "formik";
-import { get, has } from "lodash";
+import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import warningIcon from "../../../../assets/warning-icon.png";
-import classnames from "classnames";
+import DateField from "../../dateField/DateField";
+import SelectField from "../../selectField/SelectField";
+import "./styles.scss";
+import { TBookingProps } from "./types";
 
 const BookingForm: FC<TBookingProps> = ({
   fields,

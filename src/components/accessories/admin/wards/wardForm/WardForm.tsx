@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,26 +10,23 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { number, object, string } from "yup";
+import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../../assets/check-icon.png";
+import { createWardReset, updateWardReset } from "../../../../../state/ward";
 import Button from "../../../button/Button";
+import CheckboxField from "../../../checkboxField/CheckboxField";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IWardProps } from "./types";
-import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../types";
-import InfoBox from "../../../infoBox/InfoBox";
-import { useNavigate } from "react-router";
-import { IWardState } from "../../../../../state/ward/types";
-import { PATHS } from "../../../../../consts";
-import { createWardReset, updateWardReset } from "../../../../../state/ward";
 
 const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;
 

@@ -6,14 +6,14 @@ import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { PatientDTO } from "../../../generated";
 import { updateFields } from "../../../libraries/formDataHandling/functions";
+import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
+  getPatient,
   updatePatient,
   updatePatientReset,
-  getPatient,
 } from "../../../state/patients";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import ConfirmationDialog from "../../accessories/confirmationDialog/ConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
@@ -21,8 +21,7 @@ import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "../newPatientActivity/consts";
 import "./styles.scss";
-import { IStateProps, TActivityTransitionState } from "./types";
-import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
+import { TActivityTransitionState } from "./types";
 
 const EditPatientActivity = () => {
   const dispatch = useAppDispatch();

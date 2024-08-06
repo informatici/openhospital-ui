@@ -1,3 +1,16 @@
+import {
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
 import React, {
   FC,
@@ -7,38 +20,22 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { FullBillDTO } from "../../../generated";
 import { getBillsByYear, searchBills } from "../../../state/bills";
-import { IState } from "../../../types";
 import { IBillSummary } from "../../activities/billingActivity/types";
 import { TFilterValues } from "../billTable/types";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  PointElement,
-  LineElement,
-} from "chart.js";
-import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 
 import { computeBillSummary } from "./billsMining";
 
-import "./styles.scss";
-import { TUserCredentials } from "../../../state/main/types";
-import { union } from "lodash";
-import { monthList, yearList } from "./consts";
-import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
-import SelectField from "../selectField/SelectField";
 import { CircularProgress } from "@mui/material";
+import { union } from "lodash";
+import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { useWindowWidth } from "../../../libraries/hooks/useWindowsWidth";
 import { isMobile } from "../../../libraries/uiUtils/screenUtils";
+import SelectField from "../selectField/SelectField";
+import { monthList, yearList } from "./consts";
+import "./styles.scss";
 
 ChartJS.register(
   CategoryScale,

@@ -1,13 +1,11 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { VaccineTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
 import { createVaccineType } from "../../../../../../../state/types/vaccines";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
 import { getInitialFields } from "../vaccineTypesForm/consts";
-import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewVaccineType = () => {

@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { DeliveryResultTypeDTO } from "../../../../../../../generated";
 import { PATHS } from "../../../../../../../consts";
+import { DeliveryResultTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
-import "./styles.scss";
+import { updateDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
 import DeliveryResultTypeForm from "../deliveryResultTypeForm/DeliveryResultTypeForm";
 import { getInitialFields } from "../deliveryResultTypeForm/consts";
-import { updateDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
+import "./styles.scss";
 
 export const EditDeliveryResultType = () => {
   const dispatch = useAppDispatch();

@@ -1,3 +1,26 @@
+import {
+  Add,
+  Archive,
+  Close,
+  Delete,
+  Edit,
+  InfoOutlined,
+  MonetizationOn,
+  Print,
+} from "@mui/icons-material";
+import {
+  IconButton,
+  Table as MaterialComponent,
+  TablePagination,
+  TableSortLabel,
+} from "@mui/material";
+import Paper from "@mui/material/Paper";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import moment from "moment";
 import React, {
   FunctionComponent,
   useCallback,
@@ -5,43 +28,20 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { TOrder } from "../../../libraries/sortUtils/types";
-import {
-  IconButton,
-  Table as MaterialComponent,
-  TablePagination,
-  TableSortLabel,
-} from "@mui/material";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import {
-  Edit,
-  Delete,
-  Print,
-  InfoOutlined,
-  MonetizationOn,
-  Archive,
-  Add,
-  Close,
-} from "@mui/icons-material";
-import "./styles.scss";
-import TableBodyRow from "./TableBodyRow";
-import { IProps, TActions } from "./types";
+import { useTranslation } from "react-i18next";
+import warningIcon from "../../../assets/warning-icon.png";
 import {
   dateComparator,
   defaultComparator,
 } from "../../../libraries/sortUtils/sortUtils";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import { useTranslation } from "react-i18next";
-import warningIcon from "../../../assets/warning-icon.png";
+import { TOrder } from "../../../libraries/sortUtils/types";
 import Button from "../button/Button";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { FilterButton } from "./filter/FilterButton";
 import { TFilterValues } from "./filter/types";
-import moment from "moment";
+import "./styles.scss";
+import TableBodyRow from "./TableBodyRow";
+import { IProps, TActions } from "./types";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,

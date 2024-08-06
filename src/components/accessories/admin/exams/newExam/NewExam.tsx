@@ -1,12 +1,10 @@
-import { useTranslation } from "react-i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-import { ExamDTO } from "../../../../../generated";
-import { ExamForm, getInitialFields } from "../examForm";
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
-import { createExam } from "../../../../../state/exams";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { ExamDTO } from "../../../../../generated";
+import { createExam } from "../../../../../state/exams";
+import { ExamForm, getInitialFields } from "../examForm";
 
 export const NewExam = () => {
   const dispatch = useAppDispatch();

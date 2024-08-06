@@ -1,3 +1,4 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, useNavigate } from "react-router";
@@ -11,7 +12,6 @@ import {
   createPatientReset,
   getPatientReset,
 } from "../../../state/patients";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import ExtendedConfirmationDialog from "../../accessories/extendedConfirmationDialog/ExtendedConfirmationDialog";
 import Footer from "../../accessories/footer/Footer";
@@ -19,8 +19,7 @@ import InfoBox from "../../accessories/infoBox/InfoBox";
 import PatientDataForm from "../../accessories/patientDataForm/PatientDataForm";
 import { initialFields } from "./consts";
 import "./styles.scss";
-import { IStateProps, TActivityTransitionState, IOwnProps } from "./types";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { IOwnProps, TActivityTransitionState } from "./types";
 
 const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   dashboardRoute,

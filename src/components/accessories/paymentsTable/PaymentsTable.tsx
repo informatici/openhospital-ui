@@ -1,8 +1,15 @@
+import { FilterList } from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  CircularProgress,
+} from "@mui/material";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { object, string } from "yup";
 import { BillPaymentsDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
@@ -13,22 +20,14 @@ import {
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
 import { searchPayments } from "../../../state/bills";
-import { IState } from "../../../types";
 import { TFilterValues } from "../billTable/types";
-import DateField from "../dateField/DateField";
 import Button from "../button/Button";
-import Table from "../table/Table";
-import { IPaymentsTableProps } from "./types";
-import "./styles.scss";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  CircularProgress,
-} from "@mui/material";
-import { FilterList } from "@mui/icons-material";
-import PatientPicker from "../patientPicker/PatientPicker";
+import DateField from "../dateField/DateField";
 import InfoBox from "../infoBox/InfoBox";
+import PatientPicker from "../patientPicker/PatientPicker";
+import Table from "../table/Table";
+import "./styles.scss";
+import { IPaymentsTableProps } from "./types";
 
 export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();

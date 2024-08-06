@@ -2,25 +2,25 @@ import {
   AppBar,
   Dialog,
   DialogContent,
+  TextField as MaterialComponent,
   Toolbar,
   Typography,
-  TextField as MaterialComponent,
 } from "@mui/material";
+import { useFormik } from "formik";
+import { get, has } from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import DateField from "../dateField/DateField";
-import Button from "../button/Button";
-import { useFormik } from "formik";
+import NumberFormat, { NumberFormatValues } from "react-number-format";
 import { object, string } from "yup";
-import { get, has } from "lodash";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
-import { TFields } from "../../../libraries/formDataHandling/types";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import {
   differenceInSeconds,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import NumberFormat, { NumberFormatValues } from "react-number-format";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import { TFields } from "../../../libraries/formDataHandling/types";
+import Button from "../button/Button";
+import DateField from "../dateField/DateField";
 
 export const PaymentDialog = ({
   open,

@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { AdmissionTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateAdmissionType } from "../../../../../../../state/types/admissions";
 import { PATHS } from "../../../../../../../consts";
-import { getInitialFields } from "../admissionTypesForm/consts";
+import { AdmissionTypeDTO } from "../../../../../../../generated";
+import { updateAdmissionType } from "../../../../../../../state/types/admissions";
+import { setTypeMode } from "../../../../../../../state/types/config";
 import AdmissionTypeForm from "../admissionTypesForm/AdmissionTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
+import { getInitialFields } from "../admissionTypesForm/consts";
 import "./styles.scss";
 
 export const EditAdmissionType = () => {

@@ -1,13 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import moment from "moment";
 import {
-  LaboratoryDTO,
   LaboratoriesApi,
+  LaboratoryDTO,
   LabWithRowsDTO,
   UpdateLaboratoryRequest,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import moment from "moment";
-import { labWithRowsDTO } from "../../mockServer/fixtures/labWithRowsDTO";
 
 const api = new LaboratoriesApi(customConfiguration());
 

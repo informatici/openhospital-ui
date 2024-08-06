@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from "react";
 import { Button as MaterialComponent } from "@mui/material";
-import { IProps } from "./types";
+import React, { FunctionComponent } from "react";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const LargeButton: FunctionComponent<IProps> = ({ children, handleClick }) => {
   return (

@@ -1,14 +1,12 @@
-import { useTranslation } from "react-i18next";
-import DiseaseForm from "../diseaseForm/DiseaseForm";
-import React from "react";
-import { getInitialFields } from "../diseaseForm/consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { DiseaseDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { updateDisease } from "../../../../../state/diseases";
-import { IState } from "../../../../../types";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { DiseaseDTO } from "../../../../../generated";
+import { updateDisease } from "../../../../../state/diseases";
+import { getInitialFields } from "../diseaseForm/consts";
+import DiseaseForm from "../diseaseForm/DiseaseForm";
 
 export const EditDisease = () => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
 import { getMedicals } from "../../../state/medicals";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
 import Tabs from "../tabs/Tabs";

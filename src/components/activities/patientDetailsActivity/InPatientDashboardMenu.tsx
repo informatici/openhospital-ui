@@ -1,22 +1,20 @@
-import React, { FunctionComponent, useCallback } from "react";
 import {
-  SettingsApplications,
-  LocalHotel,
-  LocalHospital,
-  Healing,
   ArtTrack,
   Colorize,
-  Pageview,
   ExitToApp,
+  Healing,
+  LocalHospital,
+  LocalHotel,
+  Pageview,
+  SettingsApplications,
 } from "@mui/icons-material";
-import Arrow from "../../../assets/arrow-w.svg";
-import { IUserSection } from "./types";
-import "./styles.scss";
+import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router";
-import { BASE_PATH } from "../../../generated";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { useLocation, useNavigate } from "react-router";
+import Arrow from "../../../assets/arrow-w.svg";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
+import "./styles.scss";
+import { IUserSection } from "./types";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;

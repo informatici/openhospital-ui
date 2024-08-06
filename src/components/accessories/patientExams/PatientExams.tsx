@@ -1,15 +1,20 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import "./styles.scss";
-import { TherapyTransitionState } from "./types";
-import { initialFields } from "./consts";
-import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { IState } from "../../../types";
-import ExamForm from "./ExamForm/ExamForm";
+import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import checkIcon from "../../../assets/check-icon.png";
+import {
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+  LaboratoryDTOStatusEnum,
+} from "../../../generated";
+import {
+  parseDate,
+  updateLabFields,
+} from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getExamRows, getExams } from "../../../state/exams";
 import {
   cancelLab,
   cancelLabReset,
@@ -23,23 +28,17 @@ import {
   updateLab,
   updateLabReset,
 } from "../../../state/laboratories";
-import {
-  LaboratoryDTO,
-  LaboratoryDTOInOutPatientEnum,
-  LaboratoryDTOStatusEnum,
-} from "../../../generated";
-import { ILaboratoriesState } from "../../../state/laboratories/types";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
-import { getExamRows, getExams } from "../../../state/exams";
-import {
-  parseDate,
-  updateLabFields,
-} from "../../../libraries/formDataHandling/functions";
-import { CircularProgress } from "@mui/material";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
-import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
 import { initialRequestFields } from "../laboratory/consts";
+import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
+import { initialFields } from "./consts";
+import ExamForm from "./ExamForm/ExamForm";
 import PatientExamRequestsTable from "./patientExamRequestsTable/PatientExamRequestsTable";
+import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
+import "./styles.scss";
+import { TherapyTransitionState } from "./types";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();

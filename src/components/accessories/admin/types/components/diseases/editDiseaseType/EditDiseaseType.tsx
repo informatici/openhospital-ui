@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { DiseaseTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateDiseaseType } from "../../../../../../../state/types/diseases";
 import { PATHS } from "../../../../../../../consts";
+import { DiseaseTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateDiseaseType } from "../../../../../../../state/types/diseases";
 import { getInitialFields } from "../diseaseTypesForm/consts";
 import DiseaseTypeForm from "../diseaseTypesForm/DiseaseTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDiseaseType = () => {

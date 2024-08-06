@@ -1,13 +1,11 @@
+import { useAppSelector } from "libraries/hooks/redux";
+import { sortBy } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import "./styles.scss";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
-import { useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../types";
-import { TypeMode } from "../../../../state/types/config";
 import SelectField from "../../selectField/SelectField";
-import { sortBy } from "lodash";
+import "./styles.scss";
 
 type TypeOption = {
   label: string;

@@ -1,41 +1,40 @@
+import { FilterList } from "@mui/icons-material";
 import {
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
   Button,
 } from "@mui/material";
-import { FilterList } from "@mui/icons-material";
 import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
+import { useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, { useCallback, useState } from "react";
-import { FC } from "react";
+import moment from "moment";
+import React, { FC, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
 import {
   ExamDTO,
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
 import {
-  getFromFields,
-  formatAllFieldValues,
   fixFilterDateFrom,
   fixFilterDateTo,
+  formatAllFieldValues,
+  getFromFields,
   removeTime,
 } from "../../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
-import { IExamFilterProps, TFilterValues } from "./types";
-import "./styles.scss";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import { IState } from "../../../../types";
-import { useAppSelector } from "libraries/hooks/redux";
-import moment from "moment";
-import { Permission } from "../../../../libraries/permissionUtils/Permission";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import warningIcon from "../../../../assets/warning-icon.png";
 import SelectField from "../../selectField/SelectField";
+import "./styles.scss";
+import { IExamFilterProps, TFilterValues } from "./types";
 
 export const ExamFilterForm: FC<IExamFilterProps> = ({
   fields,

@@ -1,10 +1,9 @@
-import { Button, Fade, IconButton, Menu } from "@mui/material";
-import { TDashboardCardOptionActions } from "./types";
-import { useState } from "react";
-import React from "react";
 import { Close, Fullscreen, GetApp } from "@mui/icons-material";
-import { DownloadOptions } from "./DashboardDownloadOptions";
+import { Fade, IconButton, Menu } from "@mui/material";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { DownloadOptions } from "./DashboardDownloadOptions";
+import { TDashboardCardOptionActions } from "./types";
 
 type TDashboardCardOptionProps = { actions: TDashboardCardOptionActions };
 export const DashboardCardActions = React.forwardRef<

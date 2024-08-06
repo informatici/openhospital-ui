@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { Fragment, FunctionComponent, useState } from "react";
-import { IProps } from "./types";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const Tabs: FunctionComponent<IProps> = ({ config }) => {
 

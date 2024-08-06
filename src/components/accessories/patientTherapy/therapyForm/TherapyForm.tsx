@@ -1,27 +1,25 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
 import { useFormik } from "formik";
+import { useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "libraries/hooks/redux";
 import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import Button from "../../button/Button";
 import TextField from "../../textField/TextField";
+import { initialFields } from "../consts";
 import "./styles.scss";
 import { TherapyFormFieldName, TherapyProps } from "./types";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { isEmpty } from "lodash";
-import { initialFields } from "../consts";
 
 const TherapyForm: FC<TherapyProps> = ({
   fields,

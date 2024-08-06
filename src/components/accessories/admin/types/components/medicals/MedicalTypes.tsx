@@ -1,18 +1,18 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { MedicalTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteMedicalType,
   deleteMedicalTypeReset,
   getMedicalTypes,
 } from "../../../../../../state/types/medicals";
-import { MedicalTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";
-import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 import MedicalTypesTable from "./medicalTypesTable";
+import "./styles.scss";
 
 const MedicalTypes = () => {
   const navigate = useNavigate();

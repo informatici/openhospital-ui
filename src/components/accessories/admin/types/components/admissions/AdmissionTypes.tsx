@@ -1,18 +1,18 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { AdmissionTypeDTO } from "../../../../../../generated";
 import {
   deleteAdmissionType,
   deleteAdmissionTypeReset,
   getAdmissionTypes,
 } from "../../../../../../state/types/admissions";
-import { AdmissionTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import AdmissionTypesTable from "./admissionTypesTable";
-import Button from "../../../../button/Button";
-import "./styles.scss";
 import { setTypeMode } from "../../../../../../state/types/config";
+import Button from "../../../../button/Button";
+import AdmissionTypesTable from "./admissionTypesTable";
+import "./styles.scss";
 
 const AdmissionTypes = () => {
   const navigate = useNavigate();

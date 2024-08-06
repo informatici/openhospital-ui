@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import classes from "./Diseases.module.scss";
+import { ToggleButton, ToggleButtonGroup } from "@mui/lab";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { DiseaseDTO } from "../../../../generated";
-import DiseaseTable from "./diseaseTable";
+import { isEmpty } from "lodash";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
+import { DiseaseDTO } from "../../../../generated";
 import { getAllDiseases } from "../../../../state/diseases";
-import Button from "../../button/Button";
-import { useTranslation } from "react-i18next";
 import { getDiseaseTypes } from "../../../../state/types/diseases";
-import { isEmpty } from "lodash";
-import { ToggleButtonGroup, ToggleButton } from "@mui/lab";
-import { IState } from "../../../../types";
+import Button from "../../button/Button";
+import classes from "./Diseases.module.scss";
+import DiseaseTable from "./diseaseTable";
 
 export const Diseases = () => {
   const [view, setView] = useState<"enabled" | "disabled" | "all">("all");

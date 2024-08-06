@@ -1,20 +1,19 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
-import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { DataSummary } from "../../summary/DataSummary";
-import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@mui/lab";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDisByDisTypeData } from "../../../../../libraries/dashboardUtils/discharges/useDisByDisTypeData";
 import { getDischarges } from "../../../../../state/admissions";
-import { IOwnProps } from "../types";
 import { Piechart } from "../../../charts/pie/Piechart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
-import { useDisByDisTypeData } from "../../../../../libraries/dashboardUtils/discharges/useDisByDisTypeData";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
+import { IOwnProps } from "../types";
 
-import "../../card/styles.scss";
 import { getDischargeTypes } from "../../../../../state/types/discharges";
+import "../../card/styles.scss";
 
 export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,

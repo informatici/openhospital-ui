@@ -1,13 +1,11 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import React from "react";
+import { Button } from "@mui/material";
 import { useFormik } from "formik";
-import {
-  formatAllFieldValues,
-  getFromFields,
-  parseDate,
-} from "../../../../libraries/formDataHandling/functions";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has } from "lodash";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
+import checkIcon from "../../../../assets/check-icon.png";
 import {
   ExamDTO,
   LaboratoryDTO,
@@ -15,25 +13,23 @@ import {
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../types";
+import {
+  formatAllFieldValues,
+  getFromFields,
+  parseDate,
+} from "../../../../libraries/formDataHandling/functions";
 import {
   createLabRequest,
   createLabRequestReset,
 } from "../../../../state/laboratories";
-import PatientPicker from "../../patientPicker/PatientPicker";
-import { get, has } from "lodash";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import { ILaboratoriesState } from "../../../../state/laboratories/types";
-import { Button } from "@mui/material";
-import { ControlPoint } from "@mui/icons-material";
-import { ExamRequestProps } from "./types";
-import "./styles.scss";
-import InfoBox from "../../infoBox/InfoBox";
-import { ExamTransitionState } from "../examForm/type";
-import { TAPIResponseStatus } from "../../../../state/types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../../assets/check-icon.png";
+import InfoBox from "../../infoBox/InfoBox";
+import PatientPicker from "../../patientPicker/PatientPicker";
+import { ExamTransitionState } from "../examForm/type";
+import "./styles.scss";
+import { ExamRequestProps } from "./types";
 
 const ExamRequestForm: FC<ExamRequestProps> = ({
   fields,

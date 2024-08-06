@@ -1,4 +1,3 @@
-import React, { ReactNode, useCallback } from "react";
 import {
   AirlineSeatFlat,
   ArrowForwardIosRounded,
@@ -11,15 +10,13 @@ import {
   People,
   SupervisedUserCircle,
 } from "@mui/icons-material";
-import { IAdminSection } from "../types";
+import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
-import classes from "./SideMenu.module.scss";
-import { MenuItem } from "../../../accessories/menuItem";
-import { IState } from "../../../../types";
-import { HospitalDTO } from "../../../../generated";
-import { ApiResponse } from "../../../../state/types";
 import { useAppSelector } from "../../../../libraries/hooks/redux";
+import { MenuItem } from "../../../accessories/menuItem";
+import { IAdminSection } from "../types";
+import classes from "./SideMenu.module.scss";
 
 const SideMenu = () => {
   const { t } = useTranslation();

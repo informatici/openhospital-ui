@@ -7,10 +7,10 @@ import {
   Select,
 } from "@mui/material";
 import React, { FunctionComponent, memo, useEffect, useState } from "react";
-import { IProps } from "./types";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
 import { FIELD_VALIDATION } from "../../../types";
+import "./styles.scss";
+import { IProps } from "./types";
 
 const SelectField: FunctionComponent<IProps> = ({
   fieldName,

@@ -1,18 +1,16 @@
-import { FC, forwardRef } from "react";
-import { TDashboardWidgetProps, TGridLayoutItemProps } from "../types";
-import React from "react";
-import { AdmissionsByAgeType } from "../../admissions/admissionByAgeType/AdmissionByAgeType";
 import { useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../types";
+import React, { FC, forwardRef } from "react";
+import { AdmissionsByAgeType } from "../../admissions/admissionByAgeType/AdmissionByAgeType";
 import { AdmissionsBySex } from "../../admissions/admissionBySex/AdmissionBySex";
 import { AdmissionsByTypes } from "../../admissions/admissionByTypes/AdmissionByTypes";
-import { OpdBySex } from "../../opds/opdsBySex/OpdBySex";
 import { AdmissionsByWards } from "../../admissions/admissionByWards/AdmissionByWards";
-import { OpdByAgeTypes } from "../../opds/opdByAgeTypes/OpdByAgeTypes";
+import { DischargesByAgeTypes } from "../../discharges/dischargesByAgeTypes/DischargesByAgeTypes";
 import { DischargesBySex } from "../../discharges/dischargesBySex/DischargesBySex";
 import { DischargesByTypes } from "../../discharges/dischargesByTypes/DischargesByTypes";
-import { DischargesByAgeTypes } from "../../discharges/dischargesByAgeTypes/DischargesByAgeTypes";
 import { DischargesByWards } from "../../discharges/dischargesByWards/DischargesByWards";
+import { OpdByAgeTypes } from "../../opds/opdByAgeTypes/OpdByAgeTypes";
+import { OpdBySex } from "../../opds/opdsBySex/OpdBySex";
+import { TDashboardWidgetProps, TGridLayoutItemProps } from "../types";
 
 export const DashboardWidget: FC<TDashboardWidgetProps> = ({
   dashboard,

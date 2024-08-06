@@ -1,48 +1,48 @@
 import React, { ReactNode } from "react";
-import VaccineTypes, {
-  EditVaccineType,
-  NewVaccineType,
-} from "../../components/accessories/admin/types/components/vaccines";
 import { Route, Routes } from "react-router";
-import NotFound from "../../components/activities/notFound/NotFound";
 import Empty from "../../components/accessories/admin/types/Empty";
 import TypesAdmin from "../../components/accessories/admin/types/TypesAdmin";
-import ExamTypes, {
-  EditExamType,
-  NewExamType,
-} from "../../components/accessories/admin/types/components/exams";
 import AdmissionTypes, {
   EditAdmissionType,
   NewAdmissionType,
 } from "../../components/accessories/admin/types/components/admissions";
-import DiseaseTypes, {
-  EditDiseaseType,
-  NewDiseaseType,
-} from "../../components/accessories/admin/types/components/diseases";
-import OperationTypes, {
-  EditOperationType,
-  NewOperationType,
-} from "../../components/accessories/admin/types/components/operations";
-import DischargeTypes, {
-  EditDischargeType,
-  NewDischargeType,
-} from "../../components/accessories/admin/types/components/discharges";
 import DeliveryTypes, {
   EditDeliveryType,
   NewDeliveryType,
 } from "../../components/accessories/admin/types/components/deliveries";
-import MedicalTypes, {
-  EditMedicalType,
-  NewMedicalType,
-} from "../../components/accessories/admin/types/components/medicals";
-import PregnantTreatmentType, {
-  EditPregnantTreatmentType,
-  NewPregnantTreatmentType,
-} from "../../components/accessories/admin/types/components/pregnanttreatmenttypes";
 import DeliveryResultType, {
   EditDeliveryResultType,
   NewDeliveryResultType,
 } from "../../components/accessories/admin/types/components/deliveryresulttypes";
+import DischargeTypes, {
+  EditDischargeType,
+  NewDischargeType,
+} from "../../components/accessories/admin/types/components/discharges";
+import DiseaseTypes, {
+  EditDiseaseType,
+  NewDiseaseType,
+} from "../../components/accessories/admin/types/components/diseases";
+import ExamTypes, {
+  EditExamType,
+  NewExamType,
+} from "../../components/accessories/admin/types/components/exams";
+import MedicalTypes, {
+  EditMedicalType,
+  NewMedicalType,
+} from "../../components/accessories/admin/types/components/medicals";
+import OperationTypes, {
+  EditOperationType,
+  NewOperationType,
+} from "../../components/accessories/admin/types/components/operations";
+import PregnantTreatmentType, {
+  EditPregnantTreatmentType,
+  NewPregnantTreatmentType,
+} from "../../components/accessories/admin/types/components/pregnanttreatmenttypes";
+import VaccineTypes, {
+  EditVaccineType,
+  NewVaccineType,
+} from "../../components/accessories/admin/types/components/vaccines";
+import NotFound from "../../components/activities/notFound/NotFound";
 
 const TypesRoutes = () => {
   const routes: { element: ReactNode; path: string }[] = [

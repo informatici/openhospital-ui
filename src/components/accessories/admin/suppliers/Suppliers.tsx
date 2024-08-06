@@ -1,11 +1,11 @@
 import React from "react";
 
-import SuppliersTable from "./suppliersTable";
-import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { SupplierDTO } from "../../../../generated";
+import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
+import { SupplierDTO } from "../../../../generated";
 import Button from "../../button/Button";
+import SuppliersTable from "./suppliersTable";
 
 export const Suppliers = () => {
   const navigate = useNavigate();

@@ -1,39 +1,39 @@
 import React, { ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
-import NotFound from "../../components/activities/notFound/NotFound";
-import AdminActivity, {
-  AdminActivityContent,
-} from "../../components/activities/adminActivity";
-import {
-  Wards,
-  NewWard,
-  EditWard,
-} from "../../components/accessories/admin/wards";
-import { Exams, EditExam, NewExam } from "../../components/accessories/admin/exams";
-import { Users, NewUser } from "../../components/accessories/admin/users";
-import TypesRoutes from "./TypesRoutes";
-import { PATHS } from "../../consts";
 import {
   Diseases,
   EditDisease,
   NewDisease,
 } from "../../components/accessories/admin/diseases";
+import { EditExam, Exams, NewExam } from "../../components/accessories/admin/exams";
 import {
   EditOperation,
   NewOperation,
   Operations,
 } from "../../components/accessories/admin/operations";
 import {
+  EditSupplier,
+  NewSupplier,
+  Suppliers,
+} from "../../components/accessories/admin/suppliers";
+import { NewUser, Users } from "../../components/accessories/admin/users";
+import {
   EditVaccine,
   NewVaccine,
   Vaccines,
 } from "../../components/accessories/admin/vaccines";
 import {
-  EditSupplier,
-  NewSupplier,
-  Suppliers,
-} from "../../components/accessories/admin/suppliers";
+  EditWard,
+  NewWard,
+  Wards,
+} from "../../components/accessories/admin/wards";
+import AdminActivity, {
+  AdminActivityContent,
+} from "../../components/activities/adminActivity";
+import NotFound from "../../components/activities/notFound/NotFound";
+import { PATHS } from "../../consts";
+import TypesRoutes from "./TypesRoutes";
 
 export const AdminRoutes = () => {
   const { t } = useTranslation();

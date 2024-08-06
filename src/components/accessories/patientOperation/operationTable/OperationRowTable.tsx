@@ -1,14 +1,13 @@
-import React, { FunctionComponent, useEffect } from "react";
-import Table from "../../table/Table";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../infoBox/InfoBox";
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../types";
+import React, { FunctionComponent, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { OperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { getOperationsByAdmissionId } from "../../../../state/operations";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getOperationsByAdmissionId } from "../../../../state/operations";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;

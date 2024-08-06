@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -23,6 +23,8 @@ import {
   getDiseasesIpdIn,
   getDiseasesIpdOut,
 } from "../../../../state/diseases";
+import { getAdmissionTypes } from "../../../../state/types/admissions";
+import { getDischargeTypes } from "../../../../state/types/discharges";
 import { getWards } from "../../../../state/ward";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
@@ -32,8 +34,6 @@ import DateField from "../../dateField/DateField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { AdmissionProps } from "./types";
-import { getAdmissionTypes } from "../../../../state/types/admissions";
-import { getDischargeTypes } from "../../../../state/types/discharges";
 
 const AdmissionForm: FC<AdmissionProps> = ({
   fields,

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
 import { IAuthentication } from "./types";
 
 export const mainSlice = createSlice({
@@ -40,7 +40,9 @@ export const mainSlice = createSlice({
         state.authentication = ApiResponse.loading();
       })
       .addCase(thunks.setAuthentication.fulfilled, (state, action) => {
-        state.authentication = ApiResponse.value(<IAuthentication>action.payload);
+        state.authentication = ApiResponse.value(
+          action.payload as IAuthentication
+        );
       })
       .addCase(thunks.setAuthentication.rejected, (state, action) => {
         state.authentication = ApiResponse.error(action.payload);

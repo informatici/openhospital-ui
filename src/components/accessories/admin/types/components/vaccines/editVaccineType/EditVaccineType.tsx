@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { VaccineTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateVaccineType } from "../../../../../../../state/types/vaccines";
 import { PATHS } from "../../../../../../../consts";
+import { VaccineTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateVaccineType } from "../../../../../../../state/types/vaccines";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditVaccineType = () => {

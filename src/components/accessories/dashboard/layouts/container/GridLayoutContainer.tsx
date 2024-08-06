@@ -1,8 +1,20 @@
-import React, { useLayoutEffect } from "react";
-import { FC, useRef, useEffect, useState } from "react";
-import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
+import { ErrorOutline } from "@mui/icons-material";
+import { Button, CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Layout, Layouts, Responsive, WidthProvider } from "react-grid-layout";
+import { useTranslation } from "react-i18next";
+import {
+  getLayouts,
+  getLayoutsReset,
+  resetLayouts,
+  saveLayouts,
+  saveLayoutsReset,
+  setBreakpoint,
+} from "../../../../../state/layouts";
 import { IState } from "../../../../../types";
+import InfoBox from "../../../infoBox/InfoBox";
+import { FullscreenCard } from "../../card/FullscreenCard";
 import {
   addWidget,
   defaultGridLayoutBreakpoints,
@@ -13,27 +25,13 @@ import {
   removeDuplicates,
   removeWidget,
 } from "../consts";
-import { LayoutBreakpoints, TDashboardComponent } from "../types";
-import {
-  getLayouts,
-  getLayoutsReset,
-  resetLayouts,
-  saveLayouts,
-  saveLayoutsReset,
-  setBreakpoint,
-} from "../../../../../state/layouts";
 import { GridLayoutItem } from "../item/GridLayoutItem";
-import { Button, CircularProgress } from "@mui/material";
-import { FullscreenCard } from "../../card/FullscreenCard";
-import { ErrorOutline } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
+import { LayoutBreakpoints, TDashboardComponent } from "../types";
 
+import { UserSettingDTO } from "../../../../../generated";
+import "../styles.scss";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
-import "../styles.scss";
-import { UserSettingDTO } from "../../../../../generated";
-import { IAuthentication } from "../../../../../state/main/types";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 

@@ -1,10 +1,10 @@
+import ErrorIcon from "@mui/icons-material/Error";
+import InfoIcon from "@mui/icons-material/Info";
+import WarningIcon from "@mui/icons-material/Warning";
 import classNames from "classnames";
 import React, { FunctionComponent } from "react";
-import { InfoBoxType, IProps } from "./types";
 import "./styles.scss";
-import InfoIcon from "@mui/icons-material/Info";
-import ErrorIcon from "@mui/icons-material/Error";
-import WarningIcon from "@mui/icons-material/Warning";
+import { InfoBoxType, IProps } from "./types";
 
 const InfoBox: FunctionComponent<IProps> = ({ type, message }) => {
   const renderIcon = () => {

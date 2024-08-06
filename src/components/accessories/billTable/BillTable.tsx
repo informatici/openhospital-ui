@@ -1,36 +1,35 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { FullBillDTO, PatientDTO } from "../../../generated";
-import { getPendingBills, searchBills } from "../../../state/bills";
-import { IState } from "../../../types";
-import { CustomModal } from "../customModal/CustomModal";
-import Table from "../table/Table";
-import useFormatData from "./useFormatData";
-import RenderBillDetails from "./RenderBillDetails";
-import { IBillTableProps, TFilterValues } from "./types";
-import DateField from "../dateField/DateField";
-import { useFormik } from "formik";
-import Button from "../button/Button";
-import { object, string } from "yup";
-import {
-  differenceInSeconds,
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../libraries/formDataHandling/functions";
-import { get, has } from "lodash";
-import SelectField from "../selectField/SelectField";
-import "./styles.scss";
+import { Add, FilterList } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   CircularProgress,
 } from "@mui/material";
-import { Add, FilterList } from "@mui/icons-material";
-import PatientPicker from "../patientPicker/PatientPicker";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has } from "lodash";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { object, string } from "yup";
+import { FullBillDTO, PatientDTO } from "../../../generated";
+import {
+  differenceInSeconds,
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../libraries/formDataHandling/functions";
+import { getPendingBills, searchBills } from "../../../state/bills";
+import Button from "../button/Button";
+import { CustomModal } from "../customModal/CustomModal";
+import DateField from "../dateField/DateField";
 import InfoBox from "../infoBox/InfoBox";
+import PatientPicker from "../patientPicker/PatientPicker";
+import SelectField from "../selectField/SelectField";
+import Table from "../table/Table";
+import RenderBillDetails from "./RenderBillDetails";
+import "./styles.scss";
+import { IBillTableProps, TFilterValues } from "./types";
+import useFormatData from "./useFormatData";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();

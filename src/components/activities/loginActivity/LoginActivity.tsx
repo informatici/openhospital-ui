@@ -1,26 +1,24 @@
-import { FC, useEffect } from "react";
-import { InputAdornment } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@mui/material/Link";
 import { RemoveRedEye } from "@mui/icons-material";
+import { InputAdornment } from "@mui/material";
+import Link from "@mui/material/Link";
 import classNames from "classnames";
 import { useFormik } from "formik";
-import { get, has } from "lodash";
-import { default as React, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has } from "lodash";
+import { FC, default as React, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link as RouterLink } from "react-router-dom";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
+import { getHospital } from "../../../state/hospital";
 import { setAuthentication } from "../../../state/main";
-import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
-import { getHospital } from "../../../state/hospital";
 
 const LoginActivity: FC = () => {
   useAuthentication();

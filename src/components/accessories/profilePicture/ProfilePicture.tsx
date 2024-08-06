@@ -1,18 +1,21 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  DialogTitle,
-  IconButton,
-  Box,
-} from "@mui/material";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import DeleteRoundedIcon from "@mui/icons-material/Clear";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+} from "@mui/material";
+import { GridCloseIcon } from "@mui/x-data-grid";
+import classNames from "classnames";
+import { isEmpty } from "lodash";
 import React, {
   ChangeEvent,
   FunctionComponent,
@@ -22,19 +25,15 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import Webcam from "../../accessories/webcam/Webcam";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
+import Webcam from "../../accessories/webcam/Webcam";
+import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
 import "./styles.scss";
 import { IProps } from "./types";
 import {
   extractPictureFromSelection,
-  handlePictureSelection,
-  preprocessImage,
+  preprocessImage
 } from "./utils";
-import classNames from "classnames";
-import { GridCloseIcon } from "@mui/x-data-grid";
-import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
-import { isEmpty } from "lodash";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,

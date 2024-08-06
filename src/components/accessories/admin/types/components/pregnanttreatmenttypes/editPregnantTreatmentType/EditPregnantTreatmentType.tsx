@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updatePregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment";
 import { PATHS } from "../../../../../../../consts";
+import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updatePregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment";
 import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
 import PregnantTreatmentTypeForm from "../pregnantTreatmentTypeForm/PregnantTreatmentTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditPregnantTreatmentType = () => {

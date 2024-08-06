@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 import { TPermission } from "../../types";
 import { usePermission } from "./usePermission";
 

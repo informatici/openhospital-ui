@@ -1,15 +1,13 @@
-import React, { useEffect, ReactNode } from "react";
-import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
+import React, { ReactNode, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { UserDTO } from "../../../../../generated";
+import { getUsers } from "../../../../../state/users";
+import InfoBox from "../../../infoBox/InfoBox";
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
-import InfoBox from "../../../infoBox/InfoBox";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { getUsers } from "../../../../../state/users";
-import { IState } from "../../../../../types";
-import { UserDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
 
 import classes from "./UsersTable.module.scss";
 

@@ -1,5 +1,3 @@
-import React, { FC } from "react";
-import Modal from "@mui/material/Modal";
 import {
   Box,
   DialogContent,
@@ -7,10 +5,12 @@ import {
   IconButton,
   Theme,
 } from "@mui/material";
-import "./styles.scss";
-import { ICustomModal } from "./types";
+import Modal from "@mui/material/Modal";
 import { makeStyles } from "@mui/styles";
 import { GridCloseIcon } from "@mui/x-data-grid";
+import React, { FC } from "react";
+import "./styles.scss";
+import { ICustomModal } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {

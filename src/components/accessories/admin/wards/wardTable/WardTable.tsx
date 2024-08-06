@@ -1,19 +1,17 @@
-import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
-import Table from "../../../table/Table";
-import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
+import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../types";
-import { WardDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
-import classes from "./WardTable.module.scss";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import checkIcon from "../../../../../assets/check-icon.png";
-import { deleteWardReset } from "../../../../../state/ward";
-import { TFilterField } from "../../../table/filter/types";
+import { WardDTO } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
+import { deleteWardReset } from "../../../../../state/ward";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import { TFilterField } from "../../../table/filter/types";
+import Table from "../../../table/Table";
+import classes from "./WardTable.module.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;

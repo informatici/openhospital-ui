@@ -1,17 +1,15 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { ApiResponse } from "../../../../../../../state/types";
-import { IState } from "../../../../../../../types";
-import { MedicalTypeDTO } from "../../../../../../../generated";
-import InfoBox from "../../../../../infoBox/InfoBox";
-import { CircularProgress } from "@mui/material";
-import Table from "../../../../../table/Table";
-import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
-import { deleteMedicalTypeReset } from "../../../../../../../state/types/medicals";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
+import { MedicalTypeDTO } from "../../../../../../../generated";
 import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";
+import { deleteMedicalTypeReset } from "../../../../../../../state/types/medicals";
+import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../../../infoBox/InfoBox";
+import Table from "../../../../../table/Table";
+import "./styles.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;

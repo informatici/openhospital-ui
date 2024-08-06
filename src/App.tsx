@@ -1,15 +1,15 @@
-import React, { FunctionComponent, useState } from "react";
-import "./App.scss";
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import { LangContext } from "./libraries/langContext/langContext";
-import { initReactI18next } from "react-i18next";
-import resources from "./resources";
-import { I18N_FALLBACK_LNG } from "./resources/config";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { MainRouter } from "./routes";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import React, { FunctionComponent, useState } from "react";
+import { initReactI18next } from "react-i18next";
+import "./App.scss";
+import { LangContext } from "./libraries/langContext/langContext";
+import resources from "./resources";
+import { I18N_FALLBACK_LNG } from "./resources/config";
+import { MainRouter } from "./routes";
 
 i18n
   .use(initReactI18next)

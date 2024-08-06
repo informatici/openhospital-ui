@@ -1,14 +1,13 @@
-import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
-import { getOpdsWithOperationRows } from "../../../../state/opds";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
 import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import InfoBox from "../../infoBox/InfoBox";
+import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getOpdsWithOperationRows } from "../../../../state/opds";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;

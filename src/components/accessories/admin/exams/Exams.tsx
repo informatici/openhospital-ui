@@ -1,15 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 import { PATHS } from "../../../../consts";
-import { deleteExam } from "../../../../state/exams";
 import { ExamDTO } from "../../../../generated";
+import { deleteExam } from "../../../../state/exams";
 import classes from "./Exams.module.scss";
 
+import { useAppDispatch } from "libraries/hooks/redux";
 import Button from "../../button/Button";
 import ExamsTable from "./examsTable";
-import { useAppDispatch } from "libraries/hooks/redux";
 
 export const Exams = () => {
   const dispatch = useAppDispatch();

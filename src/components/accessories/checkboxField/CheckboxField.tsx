@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import { IProps } from "./types";
-import "./styles.scss";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import "./styles.scss";
+import { IProps } from "./types";
 const CheckboxField: FunctionComponent<IProps> = ({
   fieldName,
   checked,
