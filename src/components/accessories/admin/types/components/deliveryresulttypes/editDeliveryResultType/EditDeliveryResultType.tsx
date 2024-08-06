@@ -3,10 +3,8 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Navigate, useLocation, useParams } from "react-router";
 import { DeliveryResultTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
 import { PATHS } from "../../../../../../../consts";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
+import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 import DeliveryResultTypeForm from "../deliveryResultTypeForm/DeliveryResultTypeForm";
 import { getInitialFields } from "../deliveryResultTypeForm/consts";
@@ -17,11 +15,9 @@ export const EditDeliveryResultType = () => {
   const { t } = useTranslation();
   const { state }: { state: DeliveryResultTypeDTO | undefined } = useLocation();
   const { code } = useParams();
+  
   const update = useAppSelector((state) => state.types.deliveryResult.update);
-
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const mode = useAppSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: DeliveryResultTypeDTO) => {
     dispatch(updateDeliveryResultType(value));
