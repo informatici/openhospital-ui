@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { usePermission } from "libraries/permissionUtils/usePermission";
 import { UserDTO } from "../../../../../generated";
 import { getUsers } from "../../../../../state/users";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -13,11 +14,13 @@ import classes from "./UsersTable.module.scss";
 
 interface IOwnProps {
   headerActions: ReactNode;
+  onEdit: (row: UserDTO) => void;
 }
 
-export const UsersTable = ({ headerActions }: IOwnProps) => {
+export const UsersTable = ({ headerActions, onEdit }: IOwnProps) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const canUpdate = usePermission("users.update");
 
   useEffect(() => {
     dispatch(getUsers({}));
@@ -47,6 +50,7 @@ export const UsersTable = ({ headerActions }: IOwnProps) => {
         userGroupName:
           item.userGroupName?.desc ?? item.userGroupName?.code ?? "",
         desc: item.desc ?? "",
+        passwd: item.passwd ?? ""
       };
     });
   };
@@ -78,6 +82,7 @@ export const UsersTable = ({ headerActions }: IOwnProps) => {
                 rawData={data}
                 rowKey="userName"
                 headerActions={headerActions}
+                onEdit={canUpdate ? onEdit: undefined}
               />
             );
           case "SUCCESS_EMPTY":
