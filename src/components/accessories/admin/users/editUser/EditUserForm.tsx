@@ -164,9 +164,9 @@ export const EditUserForm = ({
       </form>
       <ConfirmationDialog
         isOpen={hasSucceeded}
-        title={t("user.groupUpdated")}
+        title={t("user.updatedSuccessTitle")}
         icon={checkIcon}
-        info={t("user.groupUpdateSuccess")}
+        info={t("user.updatedSuccessMessage")}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => {
           navigate(PATHS.admin_users);
