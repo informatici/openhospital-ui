@@ -1,42 +1,41 @@
-import * as React from "react";
 import {
   AppBar,
+  CircularProgress,
   Dialog,
   DialogContent,
   FormControl,
+  FormHelperText,
   IconButton,
   InputAdornment,
   Toolbar,
   Typography,
-  FormHelperText,
-  CircularProgress,
 } from "@mui/material";
-import { FC, useCallback, useState, useRef, useEffect } from "react";
-import "./styles.scss";
+import * as React from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import "./styles.scss";
 import { IProps } from "./types";
 
 import { Search } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { Pagination } from "@mui/lab";
+import { TextField as MaterialComponent } from "@mui/material";
 import { GridCloseIcon } from "@mui/x-data-grid";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
+import { PatientDTO } from "../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { currentPageConst, initialFields, itemsPerPageConst } from "./consts";
-import { useFormik } from "formik";
-import { IState } from "../../../types";
-import { PatientDTO } from "../../../generated";
-import TextField from "../textField/TextField";
-import DateField from "../dateField/DateField";
-import Button from "../button/Button";
-import { TextField as MaterialComponent } from "@mui/material";
 import { searchPatient } from "../../../state/patients";
-import InfoBox from "../infoBox/InfoBox";
-import { TValues } from "../../activities/searchPatientActivity/types";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
-import { Pagination } from "@mui/lab";
+import { TValues } from "../../activities/searchPatientActivity/types";
+import Button from "../button/Button";
+import DateField from "../dateField/DateField";
+import InfoBox from "../infoBox/InfoBox";
+import TextField from "../textField/TextField";
+import { currentPageConst, initialFields, itemsPerPageConst } from "./consts";
 
 const PatientPicker: FC<IProps> = ({
   fieldName,

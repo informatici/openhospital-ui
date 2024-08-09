@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const hospitalSlice = createSlice({
   name: "hospitals",

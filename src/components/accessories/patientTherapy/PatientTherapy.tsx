@@ -1,27 +1,27 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
-import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
-import TherapyForm from "./therapyForm/TherapyForm";
-import "./styles.scss";
+import { useTranslation } from "react-i18next";
+import checkIcon from "../../../assets/check-icon.png";
+import { TherapyRowDTO } from "../../../generated";
+import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getMedicals } from "../../../state/medicals";
 import {
   createTherapy,
   createTherapyReset,
-  deleteTherapyReset,
   deleteTherapy,
-  updateTherapyReset,
+  deleteTherapyReset,
   updateTherapy,
+  updateTherapyReset,
 } from "../../../state/therapies";
-import { getMedicals } from "../../../state/medicals";
-import { initialFields } from "./consts";
-import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyRowDTO } from "../../../generated";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
-import checkIcon from "../../../assets/check-icon.png";
-import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { initialFields } from "./consts";
+import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
+import "./styles.scss";
+import TherapyForm from "./therapyForm/TherapyForm";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 

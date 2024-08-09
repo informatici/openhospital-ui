@@ -1,18 +1,18 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { VaccineTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteVaccineType,
   deleteVaccineTypeReset,
   getVaccineTypes,
 } from "../../../../../../state/types/vaccines";
-import { VaccineTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import VaccineTypesTable from "./vaccineTypesTable";
 import Button from "../../../../button/Button";
 import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
+import VaccineTypesTable from "./vaccineTypesTable";
 
 const VaccineTypes = () => {
   const navigate = useNavigate();

@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import {
   Box,
   Dialog,
@@ -8,6 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { GridCloseIcon } from "@mui/x-data-grid";
+import React, { FC } from "react";
 import { ICustomDialog } from "./types";
 
 export const CustomDialog: FC<ICustomDialog> = ({

@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -17,6 +17,7 @@ import {
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { getDiseasesIpdOut } from "../../../../state/diseases";
+import { getDischargeTypes } from "../../../../state/types/discharges";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
@@ -25,7 +26,6 @@ import DateField from "../../dateField/DateField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { DischargeProps } from "./types";
-import { getDischargeTypes } from "../../../../state/types/discharges";
 
 const DischargeForm: FC<DischargeProps> = ({
   fields,

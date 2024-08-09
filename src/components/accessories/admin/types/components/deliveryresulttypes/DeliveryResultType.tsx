@@ -1,18 +1,18 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { DeliveryResultTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteDeliveryResultType,
   deleteDeliveryResultTypeReset,
   getDeliveryResultTypes,
 } from "../../../../../../state/types/deliveryResults";
-import { PATHS } from "../../../../../../consts";
 import Button from "../../../../button/Button";
-import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 import DeliveryResultTypeTable from "./deliveryResultTypeTable";
-import { DeliveryResultTypeDTO } from "../../../../../../generated";
+import "./styles.scss";
 
 const DelevyResultType = () => {
   const navigate = useNavigate();

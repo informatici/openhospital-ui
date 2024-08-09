@@ -1,3 +1,4 @@
+import { Autocomplete } from "@mui/lab";
 import {
   createFilterOptions,
   debounce,
@@ -6,19 +7,18 @@ import {
   FormHelperText,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import _ from "lodash";
 import React, {
-  Fragment,
+  ChangeEvent,
   FC,
+  Fragment,
   useCallback,
   useEffect,
   useState,
-  ChangeEvent,
 } from "react";
-import { DefaultOptionType, IProps } from "./types";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { Autocomplete } from "@mui/lab";
-import _ from "lodash";
+import "./styles.scss";
+import { DefaultOptionType, IProps } from "./types";
 
 const AutocompleteField: FC<IProps> = ({
   fieldName,

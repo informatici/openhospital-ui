@@ -9,29 +9,28 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string, number } from "yup";
+import { useNavigate } from "react-router";
+import { number, object, string } from "yup";
+import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../../assets/check-icon.png";
-import Button from "../../../button/Button";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
-import TextField from "../../../textField/TextField";
-import SelectField from "../../../selectField/SelectField";
-import "./styles.scss";
-import { IExamProps } from "./types";
-import { IState } from "../../../../../types";
-import { useNavigate } from "react-router";
-import { IExamState } from "../../../../../state/exams/types";
-import { PATHS } from "../../../../../consts";
 import { createExamReset, updateExamReset } from "../../../../../state/exams";
 import { getExamTypes } from "../../../../../state/types/exams";
+import { IState } from "../../../../../types";
+import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import SelectField from "../../../selectField/SelectField";
+import TextField from "../../../textField/TextField";
+import "./styles.scss";
+import { IExamProps } from "./types";
 
-import InfoBox from "../../../infoBox/InfoBox";
-import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import AutocompleteField from "../../../autocompleteField/AutocompleteField";
+import InfoBox from "../../../infoBox/InfoBox";
 
 const ExamForm: FC<IExamProps> = ({
   fields,

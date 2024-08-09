@@ -1,16 +1,14 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { OperationTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateOperationType } from "../../../../../../../state/types/operations";
 import { PATHS } from "../../../../../../../consts";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
-import "./styles.scss";
+import { OperationTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateOperationType } from "../../../../../../../state/types/operations";
 import OperationTypeForm from "../operationTypesForm/OperationTypeForm";
 import { getInitialFields } from "../operationTypesForm/consts";
+import "./styles.scss";
 
 export const EditOperationType = () => {
   const dispatch = useAppDispatch();

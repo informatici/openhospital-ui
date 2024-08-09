@@ -1,20 +1,18 @@
 import { CircularProgress } from "@mui/material";
-import React, { FC, Fragment, useMemo, useState, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { FC, Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
-import { IState } from "../../../types";
-import InfoBox from "../infoBox/InfoBox";
-import { initialFilter, initialFilterFields } from "./consts";
-import { ExamFilterForm } from "./filter/ExamFilterForm";
-import "./styles.scss";
-import { ExamTable } from "./table/ExamTable";
 import checkIcon from "../../../assets/check-icon.png";
-import { useEffect } from "react";
+import { PATHS } from "../../../consts";
+import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
 import {
   getFromFields,
   updateFilterFields,
 } from "../../../libraries/formDataHandling/functions";
+import { useLaboratories } from "../../../libraries/hooks/api/useLaboratories";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { getExams } from "../../../state/exams";
 import {
   cancelLab,
   cancelLabReset,
@@ -23,17 +21,17 @@ import {
   searchLabs,
   updateLabStatus,
 } from "../../../state/laboratories";
-import { getExams } from "../../../state/exams";
-import { ILaboratoriesState } from "../../../state/laboratories/types";
-import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
+import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import { EditLaboratoryContent } from "./EditLaboratoryContent";
-import { PATHS } from "../../../consts";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { TFilterValues } from "./filter/types";
-import { ChangeLabStatus } from "./ChangeLabStatus";
-import { useLaboratories } from "../../../libraries/hooks/api/useLaboratories";
+import InfoBox from "../infoBox/InfoBox";
 import Pagination from "../pagination/Pagination";
+import { ChangeLabStatus } from "./ChangeLabStatus";
+import { initialFilter, initialFilterFields } from "./consts";
+import { EditLaboratoryContent } from "./EditLaboratoryContent";
+import { ExamFilterForm } from "./filter/ExamFilterForm";
+import { TFilterValues } from "./filter/types";
+import "./styles.scss";
+import { ExamTable } from "./table/ExamTable";
 
 export const Exams: FC = () => {
   const { t } = useTranslation();

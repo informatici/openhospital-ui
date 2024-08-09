@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { MedicalTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateMedicalType } from "../../../../../../../state/types/medicals";
 import { PATHS } from "../../../../../../../consts";
+import { MedicalTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateMedicalType } from "../../../../../../../state/types/medicals";
 import { getInitialFields } from "../medicalTypesForm/consts";
 import MedicalTypeForm from "../medicalTypesForm/MedicalTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditMedicalType = () => {

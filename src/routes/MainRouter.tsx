@@ -1,23 +1,21 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
 import { Navigate, Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import Dashboard from "../components/accessories/dashboard/Dashboard";
+import ForgotActivity from "../components/activities/forgotActivity/ForgotActivity";
 import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
-import ForgotActivity from "../components/activities/forgotActivity/ForgotActivity";
 import NotFound from "../components/activities/notFound/NotFound";
+import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
 import VisitsActivity from "../components/activities/visitsActivity/VisitsActivity";
 import { Private } from "../components/Private";
-import { PatientsRoutes } from "./Patients/PatientsRoutes";
 import { PATHS } from "../consts";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../types";
-import { TAPIResponseStatus } from "../state/types";
+import { withPermission } from "../libraries/permissionUtils/withPermission";
 import { getUserSettings } from "../state/main";
 import { AdminRoutes } from "./Admin";
-import { withPermission } from "../libraries/permissionUtils/withPermission";
-import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
+import { PatientsRoutes } from "./Patients/PatientsRoutes";
 
 export const MainRouter: React.FC = () => {
   const dispatch = useAppDispatch();

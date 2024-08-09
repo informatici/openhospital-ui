@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from "react";
-import ImageCrop, { Crop } from "react-image-crop";
-import { useTranslation } from "react-i18next";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
+import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import ImageCrop, { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import Button from "../button/Button";
 import "./styles.scss";

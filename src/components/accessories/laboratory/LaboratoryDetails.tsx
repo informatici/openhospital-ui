@@ -1,8 +1,8 @@
-import { Person, Notes, AssignmentInd } from "@mui/icons-material";
+import { AssignmentInd, Notes, Person } from "@mui/icons-material";
+import { useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "libraries/hooks/redux";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { IState } from "../../../types";
 import InfoBox from "../infoBox/InfoBox";

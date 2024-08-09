@@ -1,15 +1,11 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import AdmissionForm from "./admissionForm/AdmissionForm";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
-import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO, OpdDTO, PatientDTOStatusEnum } from "../../../generated";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { isEmpty } from "lodash";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import checkIcon from "../../../assets/check-icon.png";
+import { AdmissionDTO, PatientDTOStatusEnum } from "../../../generated";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createAdmission,
   createAdmissionReset,
@@ -17,13 +13,17 @@ import {
   updateAdmission,
   updateAdmissionReset,
 } from "../../../state/admissions";
-import { useFields } from "./useFields";
-import { getPatient } from "../../../state/patients";
-import PatientAdmissionTable from "./admissionTable/AdmissionTable";
-import { isEmpty } from "lodash";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { getLastOpd } from "../../../state/opds";
+import { getPatient } from "../../../state/patients";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
+import InfoBox from "../infoBox/InfoBox";
+import AdmissionForm from "./admissionForm/AdmissionForm";
+import PatientAdmissionTable from "./admissionTable/AdmissionTable";
+import "./styles.scss";
+import { AdmissionTransitionState } from "./types";
+import { useFields } from "./useFields";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();

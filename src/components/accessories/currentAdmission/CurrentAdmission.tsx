@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { AdmissionDTO, OpdDTO } from "../../../generated";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { AdmissionDTO } from "../../../generated";
 import { updateAdmission } from "../../../state/admissions";
 import { IState } from "../../../types";
 import { useFields } from "../admission/useFields";

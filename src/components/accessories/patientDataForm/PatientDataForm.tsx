@@ -1,6 +1,8 @@
+import { Tooltip } from "@mui/material";
 import { useFormik } from "formik";
-import { get, has } from "lodash";
-import { isEmpty } from "lodash";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has, isEmpty } from "lodash";
+import moment from "moment";
 import React, {
   FunctionComponent,
   useCallback,
@@ -8,33 +10,30 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { number, object, string } from "yup";
+import warningIcon from "../../../assets/warning-icon.png";
+import { formCustomization } from "../../../customization/formCustomization";
 import {
   formatAllFieldValues,
   getBirthDateAndAge,
   getFromFields,
   isFieldSuggested,
 } from "../../../libraries/formDataHandling/functions";
-import warningIcon from "../../../assets/warning-icon.png";
+import { getAgeTypes } from "../../../state/ageTypes";
+import { getCities } from "../../../state/patients";
+import { FIELD_VALIDATION, IState } from "../../../types";
+import AutocompleteField from "../autocompleteField/AutocompleteField";
+import Button from "../button/Button";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SelectField from "../selectField/SelectField";
-import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
 import { TAgeFieldName, TProps } from "./types";
-import { useTranslation } from "react-i18next";
-import { Tooltip } from "@mui/material";
-import { formCustomization } from "../../../customization/formCustomization";
-import { FIELD_VALIDATION, IState } from "../../../types";
-import moment from "moment";
 import { useCityOptions } from "./useCityOptions";
-import AutocompleteField from "../autocompleteField/AutocompleteField";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { getAgeTypes } from "../../../state/ageTypes";
-import { getCities } from "../../../state/patients";
-import { useNavigate } from "react-router-dom";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,

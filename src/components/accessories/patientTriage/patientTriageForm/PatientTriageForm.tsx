@@ -1,28 +1,27 @@
+import { useFormik } from "formik";
+import { get, has, isEmpty } from "lodash";
+import moment from "moment";
 import React, {
   FunctionComponent,
   useCallback,
   useEffect,
   useState,
 } from "react";
-import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
+import { number, object, string } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import DateField from "../../dateField/DateField";
-import { number, object, string } from "yup";
-import { TProps } from "./types";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import Button from "../../button/Button";
-import warningIcon from "../../../../assets/warning-icon.png";
-import TextField from "../../textField/TextField";
-import { get, has } from "lodash";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import DateField from "../../dateField/DateField";
 import SelectField from "../../selectField/SelectField";
+import TextField from "../../textField/TextField";
 import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import moment from "moment";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { isEmpty } from "lodash";
+import { TProps } from "./types";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,

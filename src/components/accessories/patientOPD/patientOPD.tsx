@@ -1,28 +1,28 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
-import { initialFields } from "./consts";
+import checkIcon from "../../../assets/check-icon.png";
 import { OpdWithOperationRowDTO } from "../../../generated";
+import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getDiseasesOpd } from "../../../state/diseases";
 import {
   createOpdReset,
   createOpdWithOperationsRow,
-  updateOpdWithOperationRow,
-  updateOpdReset,
   deleteOpdReset,
+  updateOpdReset,
+  updateOpdWithOperationRow,
 } from "../../../state/opds";
-import { getDiseasesOpd } from "../../../state/diseases";
-import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
-import { TActivityTransitionState } from "./types";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../assets/check-icon.png";
-import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
-import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
-import { PatientExtraData } from "../patientExtraData/patientExtraData";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { deleteOperationRowReset } from "../../../state/operations";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import { PatientExtraData } from "../patientExtraData/patientExtraData";
+import { initialFields } from "./consts";
+import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
+import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
+import { TActivityTransitionState } from "./types";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();

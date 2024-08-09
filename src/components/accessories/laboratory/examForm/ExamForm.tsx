@@ -1,10 +1,14 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useNavigate } from "react-router";
 import { object, string } from "yup";
+import checkIcon from "../../../../assets/check-icon.png";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../consts";
 import {
   ExamDTO,
   LaboratoryDTO,
@@ -12,38 +16,33 @@ import {
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
   parseDate,
 } from "../../../../libraries/formDataHandling/functions";
+import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
 import { getExamRows, getExams } from "../../../../state/exams";
+import {
+  createLab,
+  createLabReset,
+  deleteLabReset,
+  getMaterials,
+  updateLab,
+  updateLabReset,
+} from "../../../../state/laboratories";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import Button from "../../button/Button";
-import TextField from "../../textField/TextField";
-import checkIcon from "../../../../assets/check-icon.png";
-import "./styles.scss";
-import moment from "moment";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import PatientPicker from "../../patientPicker/PatientPicker";
-import { ExamProps, ExamTransitionState } from "./type";
-import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
-import {
-  createLabReset,
-  updateLabReset,
-  deleteLabReset,
-  updateLab,
-  createLab,
-  getMaterials,
-} from "../../../../state/laboratories";
-import { ILaboratoriesState } from "../../../../state/laboratories/types";
-import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
-import { useNavigate } from "react-router";
-import { PATHS } from "../../../../consts";
+import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
+import PatientPicker from "../../patientPicker/PatientPicker";
+import TextField from "../../textField/TextField";
+import "./styles.scss";
+import { ExamProps, ExamTransitionState } from "./type";
 
 const ExamForm: FC<ExamProps> = ({
   fields,

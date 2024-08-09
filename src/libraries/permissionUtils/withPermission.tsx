@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { PermissionDenied } from "../../components/accessories/permissionDenied/PermissionDenied";
 import { TPermission } from "../../types";
 import { usePermission } from "./usePermission";

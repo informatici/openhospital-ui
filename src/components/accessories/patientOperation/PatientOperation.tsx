@@ -1,15 +1,11 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import OperationRowForm from "./operationForm/OperationRowForm";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
-import { OperationRowTransitionState } from "./types";
-import { OpdDTO, OperationRowDTO, VisitDTO } from "../../../generated";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import { isEmpty } from "lodash";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import checkIcon from "../../../assets/check-icon.png";
+import { OpdDTO, OperationRowDTO } from "../../../generated";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getCurrentAdmission } from "../../../state/admissions";
 import {
   createOperationRow,
   createOperationRowReset,
@@ -18,10 +14,14 @@ import {
   updateOperationRow,
   updateOperationRowReset,
 } from "../../../state/operations";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import OperationRowForm from "./operationForm/OperationRowForm";
 import PatientOperationTable from "./operationTable/OperationRowTable";
-import { getCurrentAdmission } from "../../../state/admissions";
-import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
+import "./styles.scss";
+import { OperationRowTransitionState } from "./types";
 
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 

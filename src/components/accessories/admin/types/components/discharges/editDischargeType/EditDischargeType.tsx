@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { DischargeTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateDischargeType } from "../../../../../../../state/types/discharges";
 import { PATHS } from "../../../../../../../consts";
+import { DischargeTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateDischargeType } from "../../../../../../../state/types/discharges";
 import { getInitialFields } from "../dischargeTypesForm/consts";
 import DischargeTypeForm from "../dischargeTypesForm/DischargeTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDischargeType = () => {

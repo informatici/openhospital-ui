@@ -1,15 +1,12 @@
-import React, { FunctionComponent, useCallback, useEffect } from "react";
-import { DateRangePicker, MobileDateRangePicker } from "@mui/lab";
-import { IProps } from "./types";
-import "./styles.scss";
-import { FIELD_VALIDATION } from "../../../types";
-import { TextField, TextFieldProps, useMediaQuery } from "@mui/material";
-import DateField from "../dateField/DateField";
-import { object, string } from "yup";
-import { useTranslation } from "react-i18next";
-import moment from "moment";
 import { useFormik } from "formik";
 import { get, has } from "lodash";
+import moment from "moment";
+import React, { FunctionComponent, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { object, string } from "yup";
+import DateField from "../dateField/DateField";
+import "./styles.scss";
+import { IProps } from "./types";
 const DateRangeField: FunctionComponent<IProps> = ({
   startLabel,
   endLabel,

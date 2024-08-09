@@ -1,22 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import SmallButton from "../smallButton/SmallButton";
-import BillItemsTable from "./itemsTable/BillItemsTable";
-import { ItemPayment } from "./itemPayment/ItemPayment";
-import { CustomModal } from "../customModal/CustomModal";
-import BillItemPickerForm from "./itemPicker/BillItemPicker";
-import { PaymentDialog } from "../paymentDialog/PaymentDialog";
-import { BillItemsDTO } from "../../../generated";
 import { Add, Payment } from "@mui/icons-material";
-import { initialFields as initialItemFields } from "./itemPicker/consts";
-import { getPrices } from "../../../state/prices";
-import { useAppDispatch } from "libraries/hooks/redux";
-import { useSelectedPatient, useFullBill } from "./hooks/full_bill.hooks";
-import { useDialogStatus } from "./hooks/dialog.hooks";
-import InfoBox from "../infoBox/InfoBox";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useNavigate } from "react-router";
 import {
   Accordion,
   AccordionDetails,
@@ -24,8 +6,26 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import { useStyles } from "./consts";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { BillItemsDTO } from "../../../generated";
 import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getPrices } from "../../../state/prices";
+import { CustomModal } from "../customModal/CustomModal";
+import InfoBox from "../infoBox/InfoBox";
+import { PaymentDialog } from "../paymentDialog/PaymentDialog";
+import SmallButton from "../smallButton/SmallButton";
+import { useStyles } from "./consts";
+import { useDialogStatus } from "./hooks/dialog.hooks";
+import { useFullBill, useSelectedPatient } from "./hooks/full_bill.hooks";
+import { ItemPayment } from "./itemPayment/ItemPayment";
+import BillItemPickerForm from "./itemPicker/BillItemPicker";
+import { initialFields as initialItemFields } from "./itemPicker/consts";
+import BillItemsTable from "./itemsTable/BillItemsTable";
+import "./styles.scss";
 
 const PatientNewBill: FC = () => {
   const { t } = useTranslation();

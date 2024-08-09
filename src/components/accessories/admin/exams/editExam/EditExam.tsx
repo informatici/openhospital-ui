@@ -1,14 +1,12 @@
-import { useTranslation } from "react-i18next";
-import ExamForm from "../examForm/ExamForm";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React from "react";
-import { getInitialFields } from "../examForm/consts";
-import { ExamDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { updateExam } from "../../../../../state/exams";
-import { IState } from "../../../../../types";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { ExamDTO } from "../../../../../generated";
+import { updateExam } from "../../../../../state/exams";
+import { getInitialFields } from "../examForm/consts";
+import ExamForm from "../examForm/ExamForm";
 
 export const EditExam = () => {
   const dispatch = useAppDispatch();

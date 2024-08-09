@@ -1,19 +1,18 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
-import { IOwnProps } from "../types";
-import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
-import { searchOpds } from "../../../../../state/opds";
-import { TDashboardCardOptionActions } from "../../card/types";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { Piechart } from "../../../charts/pie/Piechart";
-import { DataSummary } from "../../summary/DataSummary";
 import { Skeleton } from "@mui/lab";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { searchOpds } from "../../../../../state/opds";
+import { Piechart } from "../../../charts/pie/Piechart";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
+import { IOwnProps } from "../types";
 
-import "../../card/styles.scss";
 import { useOpdBySexData } from "../../../../../libraries/dashboardUtils/opds/useOpdBySexData";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
+import "../../card/styles.scss";
 
 export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,

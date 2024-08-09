@@ -1,13 +1,11 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { AdmissionTypeDTO } from "../../../../../../../generated";
 import { createAdmissionType } from "../../../../../../../state/types/admissions";
+import { setTypeMode } from "../../../../../../../state/types/config";
 import AdmissionTypeForm from "../admissionTypesForm/AdmissionTypeForm";
 import { getInitialFields } from "../admissionTypesForm/consts";
-import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewAdmissionType = () => {

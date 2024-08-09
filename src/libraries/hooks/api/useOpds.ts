@@ -1,9 +1,6 @@
+import { useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "libraries/hooks/redux";
-import { OpdDTO, PageInfoDTO } from "../../../generated";
-import { TAPIResponseStatus } from "../../../state/types";
-import { IState } from "../../../types";
 
 export const useOpds = () => {
   const [size, setSize] = useState(10);

@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,31 +10,29 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { object, string } from "yup";
+import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../../assets/check-icon.png";
-import Button from "../../../button/Button";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
-import TextField from "../../../textField/TextField";
-import "./styles.scss";
-import { IOperationProps } from "./types";
-import CheckboxField from "../../../checkboxField/CheckboxField";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../../../types";
-import InfoBox from "../../../infoBox/InfoBox";
-import { useNavigate } from "react-router";
-import { IOperationState } from "../../../../../state/operations/types";
-import { PATHS } from "../../../../../consts";
 import {
   createOperationReset,
   updateOperationReset,
 } from "../../../../../state/operations";
-import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import { getOperationTypes } from "../../../../../state/types/operations";
+import { IState } from "../../../../../types";
+import AutocompleteField from "../../../autocompleteField/AutocompleteField";
+import Button from "../../../button/Button";
+import CheckboxField from "../../../checkboxField/CheckboxField";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import TextField from "../../../textField/TextField";
+import "./styles.scss";
+import { IOperationProps } from "./types";
 
 const OperationForm: FC<IOperationProps> = ({
   fields,

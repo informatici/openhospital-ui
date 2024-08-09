@@ -1,7 +1,8 @@
-import { IconButton } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import { useFormik } from "formik";
-import { get, has } from "lodash";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has, isEmpty } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,
@@ -9,25 +10,21 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import checkIcon from "../../../assets/check-icon.png";
 import { PatientDTO } from "../../../generated";
 import { getFromFields } from "../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../assets/check-icon.png";
 import {
   getPatient,
   updatePatient,
   updatePatientReset,
 } from "../../../state/patients";
-import { TAPIResponseStatus } from "../../../state/types";
-import { IState } from "../../../types";
 import Button from "../button/Button";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import TextField from "../textField/TextField";
 import { initialFields } from "./consts";
 import "./styles.scss";
 import { IOwnProps, TActivityTransitionState } from "./types";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import { isEmpty } from "lodash";
 
 export const PatientExtraData: FunctionComponent<IOwnProps> = ({
   readOnly,

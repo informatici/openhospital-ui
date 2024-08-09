@@ -1,10 +1,7 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { AdmissionDTO, PageInfoDTO } from "../../../generated";
 import { getDischarges } from "../../../state/admissions";
-import { TAPIResponseStatus } from "../../../state/types";
-import { IState } from "../../../types";
 
 export const useDisharges = () => {
   const dispatch = useAppDispatch();

@@ -1,15 +1,13 @@
-import { useTranslation } from "react-i18next";
-import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { DeliveryTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateDeliveryType } from "../../../../../../../state/types/deliveries";
 import { PATHS } from "../../../../../../../consts";
+import { DeliveryTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateDeliveryType } from "../../../../../../../state/types/deliveries";
 import { getInitialFields } from "../deliveryTypesForm/consts";
 import DeliveryTypeForm from "../deliveryTypesForm/DeliveryTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDeliveryType = () => {

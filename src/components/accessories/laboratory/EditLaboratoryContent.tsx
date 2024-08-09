@@ -1,24 +1,23 @@
-import { Button } from "@mui/material";
 import { Cancel } from "@mui/icons-material";
-import React, { FC, useCallback, useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useParams, useNavigate } from "react-router";
-import { IState } from "../../../types";
-import { initialFields } from "./consts";
-import "./styles.scss";
-import { useEffect } from "react";
+import React, { FC, useCallback, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router";
 import { updateLabFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { getExams } from "../../../state/exams";
 import {
   createLabReset,
   getLabWithRowsByCode,
   getLabWithRowsByCodeReset,
   updateLabReset,
 } from "../../../state/laboratories";
-import { getExams } from "../../../state/exams";
-import ExamForm from "./examForm/ExamForm";
 import { getPatient } from "../../../state/patients";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { IState } from "../../../types";
+import { initialFields } from "./consts";
+import ExamForm from "./examForm/ExamForm";
+import "./styles.scss";
 
 export const EditLaboratoryContent: FC = () => {
   const { t } = useTranslation();

@@ -1,16 +1,16 @@
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { number, object, string } from "yup";
+import { searchPatient, searchPatientsReset } from "state/patients";
+import { number, object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { formatAllFieldValues } from "../../../libraries/formDataHandling/functions";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import DateField from "../../accessories/dateField/DateField";
 import Footer from "../../accessories/footer/Footer";
@@ -19,9 +19,8 @@ import TextField from "../../accessories/textField/TextField";
 import { initialFields } from "./consts";
 import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
-import { IStateProps, TValues } from "./types";
+import { TValues } from "./types";
 import { useIsSearchById } from "./useIsSearchById";
-import { searchPatientsReset, searchPatient } from "state/patients";
 
 const SearchPatientActivity = () => {
   const { t } = useTranslation();

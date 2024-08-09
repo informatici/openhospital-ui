@@ -1,15 +1,14 @@
-import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { LabWithRowsDTO } from "../../../../generated";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
-import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
-import InfoBox from "../../infoBox/InfoBox";
-import { getLabsByPatientId } from "../../../../state/laboratories";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { FunctionComponent, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { LabWithRowsDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getLabsByPatientId } from "../../../../state/laboratories";
+import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
+import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;

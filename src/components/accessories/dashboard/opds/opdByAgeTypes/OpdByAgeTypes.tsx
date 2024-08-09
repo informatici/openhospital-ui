@@ -1,18 +1,17 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
-import { IOwnProps } from "../types";
-import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
-import { searchOpds } from "../../../../../state/opds";
-import { getAgeTypes } from "../../../../../state/ageTypes";
-import { TDashboardCardOptionActions } from "../../card/types";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { DataSummary } from "../../summary/DataSummary";
 import { Skeleton } from "@mui/lab";
-import { Barchart } from "../../../charts/bar/Barchart";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useOpdByAgeTypeData } from "../../../../../libraries/dashboardUtils/opds/useOpdByAgeTypeData";
+import { getAgeTypes } from "../../../../../state/ageTypes";
+import { searchOpds } from "../../../../../state/opds";
+import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
+import { IOwnProps } from "../types";
 
 import "../../card/styles.scss";
 

@@ -1,8 +1,5 @@
-import { useTranslation } from "react-i18next";
 import { useAppSelector } from "libraries/hooks/redux";
-import { AdmissionDTO, AdmissionTypeDTO } from "../../../generated";
-import { TAPIResponseStatus } from "../../../state/types";
-import { IState } from "../../../types";
+import { useTranslation } from "react-i18next";
 import { colorGen } from "../../uiUtils/colorGenerator";
 
 export const useAdmByAdmTypeData = () => {

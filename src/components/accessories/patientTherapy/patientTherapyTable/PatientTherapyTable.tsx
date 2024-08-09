@@ -1,17 +1,16 @@
-import React, { FunctionComponent, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { MedicalDTO, TherapyRowDTO } from "../../../../generated";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
-import { getTherapiesByPatientId } from "../../../../state/therapies";
-import { useTranslation } from "react-i18next";
 import { CircularProgress } from "@mui/material";
-import InfoBox from "../../infoBox/InfoBox";
-import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { getMedicals } from "../../../../state/medicals";
-import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
+import React, { FunctionComponent, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { TherapyRowDTO } from "../../../../generated";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
+import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getMedicals } from "../../../../state/medicals";
+import { getTherapiesByPatientId } from "../../../../state/therapies";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;

@@ -1,8 +1,8 @@
-import React, { useCallback, useRef, useState } from "react";
-import Camera, { WebcamProps } from "react-webcam";
-import { useTranslation } from "react-i18next";
-import Button from "@mui/material/Button";
 import CameraIcon from "@mui/icons-material/Camera";
+import Button from "@mui/material/Button";
+import React, { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import Camera, { WebcamProps } from "react-webcam";
 import ImageResize from "../imageResize/ImageResize";
 
 export type Props = Partial<WebcamProps> & {

@@ -1,13 +1,11 @@
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import { useTranslation } from "react-i18next";
 import "./styles.scss";
 
-import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 import { useAppSelector } from "libraries/hooks/redux";
-import { IState } from "../../../types";
-import { TUserCredentials } from "../../../state/main/types";
+import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
 
 const NewBillingActivity: FC = () => {
   const { t } = useTranslation();

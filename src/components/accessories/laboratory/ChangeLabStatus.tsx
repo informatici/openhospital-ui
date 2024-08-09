@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { ChangeLabStatusProps } from "./types";
+import { Check, Close } from "@mui/icons-material";
 import {
   AppBar,
   Button,
@@ -10,10 +9,10 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { GridCloseIcon } from "@mui/x-data-grid";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Check, Close } from "@mui/icons-material";
+import { ChangeLabStatusProps } from "./types";
 
 export const ChangeLabStatus: React.FC<ChangeLabStatusProps> = ({
   status,

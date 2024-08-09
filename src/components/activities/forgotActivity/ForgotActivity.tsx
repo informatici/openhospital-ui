@@ -1,5 +1,5 @@
-import { FC, useEffect, useCallback } from "react";
 import Link from "@mui/material/Link";
+import { FC, useCallback, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import classNames from "classnames";
@@ -10,18 +10,17 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
+import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
+import { getHospital } from "../../../state/hospital";
 import {
-  setForgotPasswordThunk,
   resetForgotPassword,
+  setForgotPasswordThunk,
 } from "../../../state/main";
-import { IState } from "../../../types";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
-import { getHospital } from "../../../state/hospital";
-import { useAppDispatch, useAppSelector } from "../../../libraries/hooks/redux";
 
 const ForgotActivity: FC = () => {
   const { t } = useTranslation();

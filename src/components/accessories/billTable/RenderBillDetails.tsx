@@ -6,13 +6,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { makeStyles, withStyles } from "@mui/styles";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { FullBillDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import "./styles.scss";
-import { makeStyles, withStyles } from "@mui/styles";
 
 interface IBillProps {
   fullBill: FullBillDTO;

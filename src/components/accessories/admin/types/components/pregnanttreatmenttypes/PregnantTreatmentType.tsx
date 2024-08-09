@@ -1,18 +1,18 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { PregnantTreatmentTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deletePregnantTreatmentType,
   deletePregnantTreatmentTypeReset,
   getPregnantTreatmentTypes,
 } from "../../../../../../state/types/pregnantTreatment";
-import { PregnantTreatmentTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import PregnantTreatmentTableType from "./pregnantTreatmentTableType";
 import Button from "../../../../button/Button";
+import PregnantTreatmentTableType from "./pregnantTreatmentTableType";
 import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 
 const PregnantTreatmentType = () => {
   const navigate = useNavigate();

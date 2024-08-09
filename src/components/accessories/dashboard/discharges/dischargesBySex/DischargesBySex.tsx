@@ -1,23 +1,18 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
-import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "libraries/hooks/redux";
-import { useData } from "../useData";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { DataSummary } from "../../summary/DataSummary";
-import { TDashboardCardOptionActions } from "../../card/types";
 import { Skeleton } from "@mui/lab";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getDischarges } from "../../../../../state/admissions";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
 import { IOwnProps } from "../types";
-import { toggleFullscreen } from "../../card/consts";
-import { ListItemIcon } from "@mui/material";
-import { Description, PictureAsPdf, SaveAlt } from "@mui/icons-material";
 
-import "../../card/styles.scss";
+import { useDisBySexData } from "../../../../../libraries/dashboardUtils/discharges/useDisBySexData";
 import { Piechart } from "../../../charts/pie/Piechart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
-import { useDisBySexData } from "../../../../../libraries/dashboardUtils/discharges/useDisBySexData";
+import "../../card/styles.scss";
 
 export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,

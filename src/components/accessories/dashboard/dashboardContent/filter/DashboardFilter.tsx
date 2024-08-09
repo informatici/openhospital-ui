@@ -1,15 +1,15 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { IOwnProps, TPeriodType, TViewType } from "./types";
-import "./styles.scss";
-import moment from "moment";
-import { useTranslation } from "react-i18next";
-import { IconButton } from "@mui/material";
 import { CalendarTodaySharp } from "@mui/icons-material";
-import DateField from "../../../dateField/DateField";
-import { ToggleButtonGroup, ToggleButton, DateRange } from "@mui/lab";
+import { DateRange, ToggleButton, ToggleButtonGroup } from "@mui/lab";
+import { IconButton } from "@mui/material";
 import { isEmpty } from "lodash";
-import { usePeriodOptions } from "./usePeriodOptions";
+import moment from "moment";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import DateField from "../../../dateField/DateField";
 import DateRangeField from "../../../dateRangeField/DateRangeField";
+import "./styles.scss";
+import { IOwnProps, TPeriodType, TViewType } from "./types";
+import { usePeriodOptions } from "./usePeriodOptions";
 
 export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
   const { t } = useTranslation();

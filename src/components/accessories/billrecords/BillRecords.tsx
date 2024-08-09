@@ -1,9 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { BillPaymentsDTO, FullBillDTO, PatientDTO } from "../../../generated";
+import moment from "moment";
+import numbro from "numbro";
+import React, { useEffect, useRef, useState } from "react";
+import { renderToString } from "react-dom/server";
+import { useTranslation } from "react-i18next";
+import checkIcon from "../../../assets/check-icon.png";
+import warningIcon from "../../../assets/warning-icon.png";
+import { BillPaymentsDTO, FullBillDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { TFields } from "../../../libraries/formDataHandling/types";
 import {
   closeBill,
   closeBillReset,
@@ -17,17 +24,10 @@ import {
 import { IState } from "../../../types";
 import RenderBillDetails from "../billTable/RenderBillDetails";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import Table from "../table/Table";
-import checkIcon from "../../../assets/check-icon.png";
-import warningIcon from "../../../assets/warning-icon.png";
-import "./styles.scss";
-import { PaymentDialog } from "../paymentDialog/PaymentDialog";
-import numbro from "numbro";
-import { TFields } from "../../../libraries/formDataHandling/types";
 import InfoBox from "../infoBox/InfoBox";
-import moment from "moment";
-import { renderToString } from "react-dom/server";
-import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { PaymentDialog } from "../paymentDialog/PaymentDialog";
+import Table from "../table/Table";
+import "./styles.scss";
 
 const BillRecords = () => {
   const { t } = useTranslation();

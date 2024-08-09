@@ -1,6 +1,5 @@
-import { IconButton } from "@mui/material";
-import { Edit } from "@mui/icons-material";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FunctionComponent,
@@ -9,37 +8,31 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import checkIcon from "../../../../assets/check-icon.png";
 import {
   AdmissionTypeDTO,
   DiseaseDTO,
   DiseaseTypeDTO,
-  PatientDTO,
-  WardDTO,
+  WardDTO
 } from "../../../../generated";
 import {
   differenceInDays,
   formatAllFieldValues,
-  getFromFields,
-  parseDate,
+  getFromFields
 } from "../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../assets/check-icon.png";
+import { updateAdmissionReset } from "../../../../state/admissions";
 import {
-  getPatient,
-  updatePatient,
-  updatePatientReset,
+  getPatient
 } from "../../../../state/patients";
-import { TAPIResponseStatus } from "../../../../state/types";
 import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import DateField from "../../dateField/DateField";
 import InfoBox from "../../infoBox/InfoBox";
 import TextField from "../../textField/TextField";
 import { initialFields } from "./consts";
 import { IOwnProps, TActivityTransitionState } from "./types";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import DateField from "../../dateField/DateField";
-import { updateAdmissionReset } from "../../../../state/admissions";
 
 export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   onDiscard,

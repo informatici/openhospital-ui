@@ -1,4 +1,4 @@
-import { AdmissionDTO, OperationRowDTO } from "../../../generated";
+import { OperationRowDTO } from "../../../generated";
 import { parseDate } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { initialFields } from "./consts";

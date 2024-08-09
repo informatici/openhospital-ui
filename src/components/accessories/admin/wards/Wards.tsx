@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import classes from "./Wards.module.scss";
 import { useAppDispatch } from "libraries/hooks/redux";
-import { deleteWard, deleteWardReset, getWards } from "../../../../state/ward";
-import { WardDTO } from "../../../../generated";
-import WardTable from "./wardTable";
-import Button from "../../button/Button";
-import { useNavigate } from "react-router";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
+import { WardDTO } from "../../../../generated";
+import { deleteWard, deleteWardReset, getWards } from "../../../../state/ward";
+import Button from "../../button/Button";
+import classes from "./Wards.module.scss";
+import WardTable from "./wardTable";
 
 export const Wards = () => {
   const navigate = useNavigate();

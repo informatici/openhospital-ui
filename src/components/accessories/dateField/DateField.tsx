@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@mui/material";
 import { DesktopDatePicker, MobileDatePicker } from "@mui/x-date-pickers";
-import { IProps } from "./types";
-import "./styles.scss";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { FIELD_VALIDATION } from "../../../types";
-import { TextField, TextFieldProps, useMediaQuery } from "@mui/material";
+import "./styles.scss";
+import { IProps } from "./types";
 const DateField: FunctionComponent<IProps> = ({
   fieldName,
   fieldValue,
