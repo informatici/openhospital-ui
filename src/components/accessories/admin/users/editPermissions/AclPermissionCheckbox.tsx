@@ -1,5 +1,5 @@
+import { Checkbox, Popper } from "@mui/material";
 import React from "react";
-import { Checkbox, Popper } from "@material-ui/core";
 
 import { PermissionDTO } from "../../../../../generated";
 import { computeNewPermission } from "./permission.utils";

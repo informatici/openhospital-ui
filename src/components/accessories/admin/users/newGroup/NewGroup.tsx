@@ -1,27 +1,25 @@
-import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-import TextField from "../../../textField/TextField";
-import Button from "../../../button/Button";
-import InfoBox from "../../../infoBox/InfoBox";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import TextField from "../../../textField/TextField";
 
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
-import { UserGroupDTO } from "../../../../../generated";
 import { PATHS } from "../../../../../consts";
+import { UserGroupDTO } from "../../../../../generated";
 
-import { userGroupSchema } from "./validation";
-import { TabOptions } from "../Users";
-import "./styles.scss";
 import {
   createUserGroup,
   createUserGroupReset,
-} from "../../../../../state/usergroups/actions";
+} from "../../../../../state/usergroups";
+import { TabOptions } from "../Users";
+import "./styles.scss";
+import { userGroupSchema } from "./validation";
 
 const initialValues = {
   code: "",
@@ -29,13 +27,11 @@ const initialValues = {
 };
 
 export const NewGroup = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const create = useSelector<IState, ApiResponse<UserGroupDTO>>(
-    (state) => state.usergroups.create
-  );
+  const create = useAppSelector((state) => state.usergroups.create);
 
   const {
     handleSubmit,

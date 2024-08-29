@@ -1,19 +1,20 @@
-import React, { useEffect, ReactNode } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { CircularProgress } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
-import Table from "../../../table/Table";
-import InfoBox from "../../../infoBox/InfoBox";
-import { getUserGroups } from "../../../../../state/usergroups/actions";
-import { IState } from "../../../../../types";
 import { UserGroupDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
+import { ApiResponse } from "../../../../../state/types";
 import {
   deleteUserGroup,
   deleteUserGroupReset,
-} from "../../../../../state/usergroups/actions";
+  getUserGroups,
+} from "../../../../../state/usergroups";
+import { IState } from "../../../../../types";
+import InfoBox from "../../../infoBox/InfoBox";
+import Table from "../../../table/Table";
 
 import classes from "./UserGroupsTable.module.scss";
 
@@ -23,7 +24,7 @@ interface IOwnProps {
 }
 
 export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const canUpdate = usePermission("users.update");
   const canDelete = usePermission("exams.delete");
@@ -52,9 +53,7 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
     ApiResponse<UserGroupDTO[]>
   >((state) => state.usergroups.groupList);
 
-  const deleteGroup = useSelector<IState, ApiResponse<UserGroupDTO>>(
-    (state) => state.usergroups.delete
-  );
+  const deleteGroup = useAppSelector((state) => state.usergroups.delete);
 
   useEffect(() => {
     if (deleteGroup.hasSucceeded) dispatch(getUserGroups());

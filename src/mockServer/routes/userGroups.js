@@ -8,5 +8,11 @@ export const userGroupRoutes = (server) => {
     server.post("/").intercept((_req, res) => {
       res.status(200).json(userGroupsDTO[0]);
     });
+    server.put("/").intercept((_req, res) => {
+      res.status(200).json(userGroupsDTO[0]);
+    });
+    server.delete("/:id").intercept((_req, res) => {
+      res.status(200).json(true);
+    });
   });
 };

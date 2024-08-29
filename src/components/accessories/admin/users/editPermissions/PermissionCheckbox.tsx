@@ -1,5 +1,5 @@
+import { Checkbox, FormControlLabel } from "@mui/material";
 import React from "react";
-import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { PermissionDTO } from "../../../../../generated";
 import { computeNewPermission } from "./permission.utils";
 

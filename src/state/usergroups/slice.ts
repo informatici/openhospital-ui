@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const userGroupSlice = createSlice({
   name: "userGroups",
@@ -26,7 +26,8 @@ export const userGroupSlice = createSlice({
       })
       .addCase(thunks.getUserGroups.fulfilled, (state, action) => {
         state.groupList = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getUserGroups.rejected, (state, action) => {
         state.groupList = ApiResponse.error(action.payload);
@@ -55,7 +56,7 @@ export const userGroupSlice = createSlice({
       .addCase(thunks.deleteUserGroup.pending, (state) => {
         state.delete = ApiResponse.loading();
       })
-      .addCase(thunks.deleteUserGroup.fulfilled, (state, action) => {
+      .addCase(thunks.deleteUserGroup.fulfilled, (state) => {
         state.delete.status = "SUCCESS";
       })
       .addCase(thunks.deleteUserGroup.rejected, (state, action) => {

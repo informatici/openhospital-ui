@@ -1,50 +1,46 @@
-import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 
-import TextField from "../../../textField/TextField";
-import Button from "../../../button/Button";
-import InfoBox from "../../../infoBox/InfoBox";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import TextField from "../../../textField/TextField";
 
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
-import { UserGroupDTO, PermissionDTO } from "../../../../../generated";
 import { PATHS } from "../../../../../consts";
+import { PermissionDTO, UserGroupDTO } from "../../../../../generated";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
-import { userGroupSchema } from "./validation";
-import { TabOptions } from "../Users";
-import "./styles.scss";
+import {
+  getAllPermissions,
+  updatePermission,
+  updatePermissionReset,
+} from "../../../../../state/permissions";
 import {
   updateUserGroup,
   updateUserGroupReset,
-} from "../../../../../state/usergroups/actions";
-import {
-  getAllPermissions,
-  updatePermissionReset,
-  updatePermission,
-} from "../../../../../state/permissions/actions";
+} from "../../../../../state/usergroups";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
 import { filterChangedGroupsPermissions } from "../editPermissions/permission.utils";
+import { TabOptions } from "../Users";
+import "./styles.scss";
+import { userGroupSchema } from "./validation";
 
 export const EditGroup = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state }: { state: UserGroupDTO } = useLocation();
   const { id } = useParams();
   const canUpdatePermissions = usePermission("grouppermission.update");
 
-  const update = useSelector<IState, ApiResponse<UserGroupDTO>>(
-    (state) => state.usergroups.update
-  );
-  const permissionsInitialState = useSelector(
-    (state: IState) => state.permissions.getAll
+  const update = useAppSelector((state) => state.usergroups.update);
+  const permissionsInitialState = useAppSelector(
+    (state) => state.permissions.getAll
   );
 
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
