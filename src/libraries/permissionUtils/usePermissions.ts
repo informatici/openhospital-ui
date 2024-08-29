@@ -1,10 +1,7 @@
-import { useSelector } from "react-redux";
-import { IState } from "../../types";
+import { useAppSelector } from "libraries/hooks/redux";
 
 /**
  * @returns list of all user permissions
  */
 export const usePermissions = () =>
-  useSelector<IState, string[]>(
-    (state) => state.main.authentication?.data?.permissions || []
-  );
+  useAppSelector((state) => state.main.authentication?.data?.permissions || []);

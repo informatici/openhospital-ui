@@ -1,22 +1,22 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { OperationTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteOperationType,
   deleteOperationTypeReset,
   getOperationTypes,
-} from "../../../../../../state/types/operations/actions";
-import { OperationTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import OperationTypesTable from "./operationTypesTable";
+} from "../../../../../../state/types/operations";
 import Button from "../../../../button/Button";
+import OperationTypesTable from "./operationTypesTable";
 import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 
 const OperationTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getOperationTypes());

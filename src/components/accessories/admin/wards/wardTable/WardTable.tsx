@@ -1,19 +1,17 @@
+import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
-import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
-import { WardDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { CheckOutlined, CloseOutlined } from "@material-ui/icons";
-import classes from "./WardTable.module.scss";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
-import { deleteWardReset } from "../../../../../state/ward/actions";
-import { TFilterField } from "../../../table/filter/types";
+import { WardDTO } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
+import { deleteWardReset } from "../../../../../state/ward";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import { TFilterField } from "../../../table/filter/types";
+import Table from "../../../table/Table";
+import classes from "./WardTable.module.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -26,7 +24,7 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
   onDelete,
   headerActions,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -56,13 +54,11 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     { key: "opd", label: t("ward.opd"), type: "boolean" },
   ];
 
-  const { data, status, error } = useSelector<IState, ApiResponse<WardDTO[]>>(
+  const { data, status, error } = useAppSelector(
     (state) => state.wards.allWards
   );
 
-  const deleteWard = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.wards.delete
-  );
+  const deleteWard = useAppSelector((state) => state.wards.delete);
 
   const handleEdit = (row: WardDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

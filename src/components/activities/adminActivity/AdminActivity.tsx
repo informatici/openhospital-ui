@@ -1,22 +1,20 @@
+import { useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
 import { PATHS } from "../../../consts";
+import { useAppSelector } from "../../../libraries/hooks/redux";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { IState } from "../../../types";
-import AppHeader from "../../accessories/appHeader/AppHeader";
-import Footer from "../../accessories/footer/Footer";
-import SideMenu from "./SideMenu/SideMenu";
-import { IAuthentication } from "../../../state/main/types";
-import classes from "./AdminActivity.module.scss";
-import "./styles.scss";
-import { useMediaQuery } from "@material-ui/core";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from "../../accessories/accordion/Accordion";
+import AppHeader from "../../accessories/appHeader/AppHeader";
+import Footer from "../../accessories/footer/Footer";
+import classes from "./AdminActivity.module.scss";
+import SideMenu from "./SideMenu/SideMenu";
+import "./styles.scss";
 
 const AdminActivity = () => {
   const [expanded, setExpanded] = useState(false);
@@ -27,7 +25,7 @@ const AdminActivity = () => {
     [t("nav.administration")]: PATHS.admin,
   };
 
-  const userCredentials = useSelector<IState, IAuthentication | undefined>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication?.data
   );
 

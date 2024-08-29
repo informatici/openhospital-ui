@@ -1,42 +1,41 @@
-import * as React from "react";
 import {
   AppBar,
+  CircularProgress,
   Dialog,
   DialogContent,
   FormControl,
+  FormHelperText,
   IconButton,
   InputAdornment,
   Toolbar,
   Typography,
-  FormHelperText,
-  CircularProgress,
-} from "@material-ui/core";
-import { FC, useCallback, useState, useRef, useEffect } from "react";
-import "./styles.scss";
+} from "@mui/material";
+import * as React from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import "./styles.scss";
 import { IProps } from "./types";
 
-import { Search } from "@material-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { GridCloseIcon } from "@material-ui/data-grid";
+import { Search } from "@mui/icons-material";
+import { Pagination } from "@mui/lab";
+import { TextField as MaterialComponent } from "@mui/material";
+import { GridCloseIcon } from "@mui/x-data-grid";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
+import { PatientDTO } from "../../../generated";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { currentPageConst, initialFields, itemsPerPageConst } from "./consts";
-import { useFormik } from "formik";
-import { IState } from "../../../types";
-import { PatientDTO } from "../../../generated";
-import TextField from "../textField/TextField";
-import DateField from "../dateField/DateField";
-import Button from "../button/Button";
-import { TextField as MaterialComponent } from "@material-ui/core";
-import { searchPatient } from "../../../state/patients/actions";
-import InfoBox from "../infoBox/InfoBox";
-import { TValues } from "../../activities/searchPatientActivity/types";
+import { searchPatient } from "../../../state/patients";
 import PatientSearchItem from "../../activities/searchPatientActivity/PatientSearchItem";
-import { Pagination } from "@material-ui/lab";
+import { TValues } from "../../activities/searchPatientActivity/types";
+import Button from "../button/Button";
+import DateField from "../dateField/DateField";
+import InfoBox from "../infoBox/InfoBox";
+import TextField from "../textField/TextField";
+import { currentPageConst, initialFields, itemsPerPageConst } from "./consts";
 
 const PatientPicker: FC<IProps> = ({
   fieldName,
@@ -51,7 +50,7 @@ const PatientPicker: FC<IProps> = ({
 }) => {
   const [value, setValue] = useState((initialValue ?? {}) as PatientDTO);
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const inputRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(currentPageConst);
   const [patientsPerPage] = useState(itemsPerPageConst);
@@ -98,7 +97,7 @@ const PatientPicker: FC<IProps> = ({
     },
   });
 
-  const patientData = useSelector<IState, PatientDTO[] | undefined>(
+  const patientData = useAppSelector(
     (state) => state.patients.searchResults.data
   );
 
@@ -142,16 +141,16 @@ const PatientPicker: FC<IProps> = ({
     if (value) onBlur(e, value);
   };
 
-  const searchStatus = useSelector<IState, string | undefined>(
+  const searchStatus = useAppSelector(
     (state) => state.patients.searchResults.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const isLoading = useSelector<IState, boolean>(
+  const isLoading = useAppSelector(
     (state) => state.patients.searchResults.status === "LOADING"
   );
 

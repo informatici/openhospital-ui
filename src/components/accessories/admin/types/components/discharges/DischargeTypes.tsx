@@ -1,22 +1,22 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { DischargeTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteDischargeType,
   deleteDischargeTypeReset,
   getDischargeTypes,
-} from "../../../../../../state/types/discharges/actions";
-import { DischargeTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import DischargeTypesTable from "./dischargeTypesTable";
+} from "../../../../../../state/types/discharges";
 import Button from "../../../../button/Button";
+import DischargeTypesTable from "./dischargeTypesTable";
 import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 
 const DischargeTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDischargeTypes());

@@ -1,8 +1,15 @@
+import { FilterList } from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  CircularProgress,
+} from "@mui/material";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import { BillPaymentsDTO, PatientDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
@@ -12,23 +19,15 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../libraries/formDataHandling/functions";
-import { searchPayments } from "../../../state/bills/actions";
-import { IState } from "../../../types";
+import { searchPayments } from "../../../state/bills";
 import { TFilterValues } from "../billTable/types";
-import DateField from "../dateField/DateField";
 import Button from "../button/Button";
-import Table from "../table/Table";
-import { IPaymentsTableProps } from "./types";
-import "./styles.scss";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  CircularProgress,
-} from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
-import PatientPicker from "../patientPicker/PatientPicker";
+import DateField from "../dateField/DateField";
 import InfoBox from "../infoBox/InfoBox";
+import PatientPicker from "../patientPicker/PatientPicker";
+import Table from "../table/Table";
+import "./styles.scss";
+import { IPaymentsTableProps } from "./types";
 
 export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   const { t } = useTranslation();
@@ -42,9 +41,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
   };
   const order = ["date"];
   const [openFilter, setOpenFilter] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, {}[]>(
+  const data = useAppSelector(
     (state) =>
       state.bills.searchPayments.data?.map((item: BillPaymentsDTO) => {
         return {
@@ -56,11 +55,9 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
       }) ?? []
   );
 
-  const status = useSelector<IState, string | undefined>(
-    (state) => state.bills.searchPayments.status
-  );
+  const status = useAppSelector((state) => state.bills.searchPayments.status);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.bills.searchPayments.error?.message || t("common.somethingwrong")
   ) as string;

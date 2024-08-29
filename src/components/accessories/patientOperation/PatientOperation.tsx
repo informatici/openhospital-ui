@@ -1,15 +1,11 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { isEmpty } from "lodash";
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import OperationRowForm from "./operationForm/OperationRowForm";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../types";
-import { OperationRowTransitionState } from "./types";
-import { OpdDTO, OperationRowDTO, VisitDTO } from "../../../generated";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
+import { OpdDTO, OperationRowDTO } from "../../../generated";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getCurrentAdmission } from "../../../state/admissions";
 import {
   createOperationRow,
   createOperationRowReset,
@@ -17,11 +13,15 @@ import {
   getOperationsByAdmissionId,
   updateOperationRow,
   updateOperationRowReset,
-} from "../../../state/operations/actions";
+} from "../../../state/operations";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../infoBox/InfoBox";
+import OperationRowForm from "./operationForm/OperationRowForm";
 import PatientOperationTable from "./operationTable/OperationRowTable";
-import { getCurrentAdmissionByPatientId } from "../../../state/admissions/actions";
-import { isEmpty } from "lodash";
 import { opRowFields } from "./opRowFields";
+import "./styles.scss";
+import { OperationRowTransitionState } from "./types";
 
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
@@ -32,7 +32,7 @@ interface IOwnProps {
 
 const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -43,27 +43,27 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.status
       : state.operations.updateOperationRow.status;
   });
 
-  const errorMessage = useSelector<IState, string | undefined>((state) => {
+  const errorMessage = useAppSelector((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
       ? state.operations.createOperationRow.error?.message
       : state.operations.updateOperationRow.error?.message;
   });
 
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
 
@@ -121,7 +121,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+    dispatch(getCurrentAdmission(patient?.code));
   }, [patient, dispatch]);
 
   const onEdit = (row: OperationRowDTO) => {

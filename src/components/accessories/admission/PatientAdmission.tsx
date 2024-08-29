@@ -1,84 +1,81 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { isEmpty } from "lodash";
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
-import AdmissionForm from "./admissionForm/AdmissionForm";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../types";
-import { AdmissionTransitionState } from "./types";
-import { AdmissionDTO, OpdDTO, PatientDTOStatusEnum } from "../../../generated";
-import InfoBox from "../infoBox/InfoBox";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../assets/check-icon.png";
+import { AdmissionDTO, PatientDTOStatusEnum } from "../../../generated";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   createAdmission,
   createAdmissionReset,
-  getCurrentAdmissionByPatientId,
+  getCurrentAdmission,
   updateAdmission,
   updateAdmissionReset,
-} from "../../../state/admissions/actions";
-import { useFields } from "./useFields";
-import { getPatientThunk } from "../../../state/patients/actions";
-import PatientAdmissionTable from "./admissionTable/AdmissionTable";
-import { isEmpty } from "lodash";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
-import { getLastOpd } from "../../../state/opds/actions";
+} from "../../../state/admissions";
+import { getLastOpd } from "../../../state/opds";
+import { getPatient } from "../../../state/patients";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
+import InfoBox from "../infoBox/InfoBox";
+import AdmissionForm from "./admissionForm/AdmissionForm";
+import PatientAdmissionTable from "./admissionTable/AdmissionTable";
+import "./styles.scss";
+import { AdmissionTransitionState } from "./types";
+import { useFields } from "./useFields";
 
 const PatientAdmission: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const canCreate = usePermission("admissions.create");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [isEditingCurrent, setIsEditingCurrent] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [admissionToEdit, setAdmissionToEdit] =
-    useState<AdmissionDTO | undefined>();
+  const [admissionToEdit, setAdmissionToEdit] = useState<
+    AdmissionDTO | undefined
+  >();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
 
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
-  const currentAdmissionStatus = useSelector(
+  const currentAdmissionStatus = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
-  const createStatus = useSelector<IState>(
+  const createStatus = useAppSelector(
     (state) => state.admissions.createAdmission.status
   );
 
-  const updateStatus = useSelector<IState>(
+  const updateStatus = useAppSelector(
     (state) => state.admissions.updateAdmission.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.admissions.createAdmission.error?.message ||
       state.admissions.updateAdmission.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const lastOpd = useSelector<IState, OpdDTO | undefined>(
-    (state) => state.opds.lastOpd.data
-  );
+  const lastOpd = useAppSelector((state) => state.opds.lastOpd.data);
 
-  const lastOpdStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.lastOpd.status
-  );
+  const lastOpdStatus = useAppSelector((state) => state.opds.lastOpd.status);
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -160,12 +157,12 @@ const PatientAdmission: FC = () => {
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(getPatientThunk((patient?.code ?? 0).toString()));
+      dispatch(getPatient((patient?.code ?? 0).toString()));
       setCreationMode(true);
       setAdmissionToEdit(undefined);
       dispatch(createAdmissionReset());
       dispatch(updateAdmissionReset());
-      dispatch(getCurrentAdmissionByPatientId(patient?.code));
+      dispatch(getCurrentAdmission(patient?.code));
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
@@ -181,7 +178,7 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmissionByPatientId(patient?.code));
+    dispatch(getCurrentAdmission(patient?.code));
   }, [patient, dispatch]);
 
   const onEdit = (row: AdmissionDTO) => {
@@ -219,7 +216,7 @@ const PatientAdmission: FC = () => {
           }
         />
       )}
-      {(createStatus === "FAIL" || createStatus === "FAIL") && (
+      {(createStatus === "FAIL" || updateStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />
         </div>

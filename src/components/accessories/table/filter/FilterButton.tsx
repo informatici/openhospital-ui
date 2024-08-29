@@ -1,3 +1,8 @@
+import { FilterAltTwoTone } from "@mui/icons-material";
+import { IconButton, Menu } from "@mui/material";
+import classnames from "classnames";
+import { useFormik } from "formik";
+import { get, has, isEmpty } from "lodash";
 import React, {
   MouseEvent,
   useCallback,
@@ -5,23 +10,18 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { IOwnProps, TFilterFormFieldName } from "./types";
-import { IconButton, Menu } from "@material-ui/core";
-import { LocalBar } from "@material-ui/icons";
-import classes from "./FilterButton.module.scss";
-import { useFormik } from "formik";
-import { TFields } from "../../../../libraries/formDataHandling/types";
+import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import TextField from "../../textField/TextField";
-import { useTranslation } from "react-i18next";
-import { get, has, isEmpty } from "lodash";
-import DateField from "../../dateField/DateField";
+import { TFields } from "../../../../libraries/formDataHandling/types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import classnames from "classnames";
+import DateField from "../../dateField/DateField";
+import TextField from "../../textField/TextField";
+import classes from "./FilterButton.module.scss";
+import { IOwnProps, TFilterFormFieldName } from "./types";
 
 export const FilterButton = ({ field, onChange }: IOwnProps) => {
   const { t } = useTranslation();
@@ -110,7 +110,7 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <LocalBar
+        <FilterAltTwoTone
           className={classnames(classes.icon, {
             [classes.filtered]:
               !isEmpty(formik.values.value) ||

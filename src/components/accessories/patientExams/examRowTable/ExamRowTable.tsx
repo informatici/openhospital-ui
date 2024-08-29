@@ -1,21 +1,21 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Typography } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Checkbox from "@mui/material/Checkbox";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { useAppSelector } from "libraries/hooks/redux";
+import { debounce, isEmpty } from "lodash";
 import React, { FC, useCallback } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import { Typography } from "@material-ui/core";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Checkbox from "@material-ui/core/Checkbox";
+import { IState } from "../../../../types";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
-import { debounce, isEmpty } from "lodash";
-import { useSelector } from "react-redux";
-import { IState } from "../../../../types";
 
 const ExamRowTable: FC<IEditableTableProps> = ({
   rows,
@@ -24,7 +24,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
   title,
   disabled = false,
 }) => {
-  const labToEditRows = useSelector(
+  const labToEditRows = useAppSelector(
     (state: IState) =>
       state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );

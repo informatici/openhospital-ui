@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -16,7 +16,8 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getDiseasesIpdOut } from "../../../../state/diseases/actions";
+import { getDiseasesIpdOut } from "../../../../state/diseases";
+import { getDischargeTypes } from "../../../../state/types/discharges";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
@@ -25,7 +26,6 @@ import DateField from "../../dateField/DateField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { DischargeProps } from "./types";
-import { getDischargeTypes } from "../../../../state/types/discharges";
 
 const DischargeForm: FC<DischargeProps> = ({
   fields,
@@ -38,13 +38,13 @@ const DischargeForm: FC<DischargeProps> = ({
   admission,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const diagnosisOutList = useSelector(
+  const diagnosisOutList = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdOut.data
   );
 
-  const dischargeTypes = useSelector(
+  const dischargeTypes = useAppSelector(
     (state: IState) => state.types.discharges.getAll.data
   );
 
@@ -194,10 +194,10 @@ const DischargeForm: FC<DischargeProps> = ({
     dispatch(getDiseasesIpdOut());
   }, [dispatch]);
 
-  const diagnosisOutStatus = useSelector(
+  const diagnosisOutStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdOut.status
   );
-  const disTypeStatus = useSelector(
+  const disTypeStatus = useAppSelector(
     (state: IState) => state.types.discharges.getAll.status
   );
 

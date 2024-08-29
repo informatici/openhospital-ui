@@ -1,46 +1,43 @@
-import { Tooltip, Typography } from "@material-ui/core";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import HomeIcon from "@material-ui/icons/Home";
-import LangSwitcher from "../langSwitcher/LangSwitcher";
-import NavigateBefore from "@material-ui/icons/NavigateBefore";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import HomeIcon from "@mui/icons-material/Home";
+import NavigateBefore from "@mui/icons-material/NavigateBefore";
+import { Tooltip, Typography } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import classNames from "classnames";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
-import "./styles.scss";
-import { IDispatchProps, IStateProps, TProps } from "./types";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { IState } from "../../../types";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { setLogoutThunk } from "../../../state/main/actions";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import warningIcon from "../../../assets/warning-icon.png";
-import OHFeedback from "../feedback/OHFeedback";
-import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
 import { PATHS } from "../../../consts";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
-import { getHospital } from "../../../state/hospital/actions";
 import { HospitalDTO } from "../../../generated";
+import { useShowHelp } from "../../../libraries/hooks/useShowHelp";
+import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { getHospital } from "../../../state/hospital";
+import { setLogout } from "../../../state/main";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import OHFeedback from "../feedback/OHFeedback";
+import LangSwitcher from "../langSwitcher/LangSwitcher";
+import "./styles.scss";
+import { IOwnProps } from "./types";
 
-const AppHeader: FunctionComponent<TProps> = ({
-  breadcrumbMap,
-  setLogoutThunk,
-}) => {
+const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   const keys = Object.keys(breadcrumbMap);
   const trailEdgeKey = keys.pop();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   useEffect(() => {
     dispatch(getHospital());
   }, [dispatch, getHospital]);
 
-  const hospital = useSelector<IState>(
+  const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
   const openMenu = (isOpen: boolean) => {
@@ -53,7 +50,7 @@ const AppHeader: FunctionComponent<TProps> = ({
   const showHelp = useShowHelp();
   const handleLogout = () => {
     setOpenLogoutConfirmation(false);
-    setLogoutThunk();
+    dispatch(setLogout());
   };
   const navigate = useNavigate();
 
@@ -194,12 +191,4 @@ const AppHeader: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  status: state.main.logout.status || "IDLE",
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  setLogoutThunk,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
+export default AppHeader;

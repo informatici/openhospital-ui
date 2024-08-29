@@ -1,11 +1,7 @@
-import { useSelector } from "react-redux";
-import { UserSettingDTO } from "../../generated";
-import { IState } from "../../types";
+import { useAppSelector } from "libraries/hooks/redux";
 
 /**
  * @returns list of all user settings
  */
 export const useUserSettings = () =>
-  useSelector<IState, UserSettingDTO[]>(
-    (state) => state.main.settings?.data || []
-  );
+  useAppSelector((state) => state.main.settings?.data || []);

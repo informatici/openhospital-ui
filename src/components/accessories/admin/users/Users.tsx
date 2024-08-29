@@ -1,12 +1,11 @@
+import { Tab, Tabs } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router";
-
-import { Tabs, Tab } from "@material-ui/core";
+import { useLocation, useNavigate } from "react-router";
 
 import Button from "../../button/Button";
-import UsersTable from "./usersTable";
 import UserGroupsTable from "./userGroupsTable";
+import UsersTable from "./usersTable";
 
 import { PATHS } from "../../../../consts";
 import { UserGroupDTO } from "../../../../generated";

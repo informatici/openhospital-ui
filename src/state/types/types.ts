@@ -2,13 +2,13 @@ import { IAdmissionTypesState } from "./admissions";
 import { ITypeConfigsState } from "./config";
 import { IDischargeTypesState } from "./discharges";
 import { IDeliveryTypesState } from "./deliveries";
-import { IDeliveryResultTypeState } from "./deliveryResultType";
+import { IDeliveryResultTypeState } from "./deliveryResults";
 import { IDiseaseTypesState } from "./diseases";
 import { IOperationTypesState } from "./operations";
 import { IVaccineTypesState } from "./vaccines";
 import { IMedicalTypesState } from "./medicals";
-import { IPregnantTreatmentTypesState } from "./pregnantTreatment";
 import { IExamTypesState } from "./exams";
+import { IPregnantTreatmentTypesState } from "./pregnantTreatment";
 
 export type ITypesState = {
   vaccines: IVaccineTypesState;

@@ -1,29 +1,23 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { DischargeTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateDischargeType } from "../../../../../../../state/types/discharges/actions";
 import { PATHS } from "../../../../../../../consts";
+import { DischargeTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateDischargeType } from "../../../../../../../state/types/discharges";
 import { getInitialFields } from "../dischargeTypesForm/consts";
 import DischargeTypeForm from "../dischargeTypesForm/DischargeTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDischargeType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: DischargeTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DischargeTypeDTO>>(
-    (state) => state.types.discharges.update
-  );
+  const update = useAppSelector((state) => state.types.discharges.update);
 
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const mode = useAppSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: DischargeTypeDTO) => {
     dispatch(updateDischargeType(value));

@@ -1,23 +1,19 @@
-import { useTranslation } from "react-i18next";
-import DiseaseForm from "../diseaseForm/DiseaseForm";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React from "react";
-import { getInitialFields } from "../diseaseForm/consts";
-import { useDispatch, useSelector } from "react-redux";
-import { DiseaseDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { updateDisease } from "../../../../../state/diseases/actions";
-import { IState } from "../../../../../types";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { DiseaseDTO } from "../../../../../generated";
+import { updateDisease } from "../../../../../state/diseases";
+import { getInitialFields } from "../diseaseForm/consts";
+import DiseaseForm from "../diseaseForm/DiseaseForm";
 
 export const EditDisease = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: DiseaseDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<DiseaseDTO>>(
-    (state) => state.diseases.update
-  );
+  const update = useAppSelector((state) => state.diseases.update);
 
   const handleSubmit = (value: DiseaseDTO) => {
     dispatch(updateDisease({ ...value, lock: state?.lock }));

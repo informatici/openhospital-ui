@@ -1,16 +1,15 @@
-import React, { FunctionComponent, useState } from "react";
-import { connect } from "react-redux";
-import "./App.scss";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { LangContext } from "./libraries/langContext/langContext";
+import React, { FunctionComponent, useState } from "react";
 import { initReactI18next } from "react-i18next";
+import "./App.scss";
+import { LangContext } from "./libraries/langContext/langContext";
 import resources from "./resources";
 import { I18N_FALLBACK_LNG } from "./resources/config";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { MainRouter } from "./routes";
-import { LocalizationProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@material-ui/pickers/adapter/date-fns";
 
 i18n
   .use(initReactI18next)
@@ -32,7 +31,7 @@ const App: FunctionComponent = () => {
     });
   };
 
-  const pickerTheme = createMuiTheme({
+  const pickerTheme = createTheme({
     palette: {
       primary: {
         main: "#fc1812",
@@ -48,15 +47,15 @@ const App: FunctionComponent = () => {
 
   return (
     <div className="App">
-      <LocalizationProvider dateAdapter={DateFnsUtils}>
-        <MuiThemeProvider theme={pickerTheme}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <ThemeProvider theme={pickerTheme}>
           <LangContext.Provider value={{ changeLang }}>
             <MainRouter />
           </LangContext.Provider>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </LocalizationProvider>
     </div>
   );
 };
 
-export default connect()(App);
+export default App;

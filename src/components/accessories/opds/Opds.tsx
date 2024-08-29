@@ -1,26 +1,25 @@
-import { CircularProgress } from "@material-ui/core";
-import React, { FC, Fragment, useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useOpds } from "../../../libraries/hooks/api/useOpds";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { getDiseasesOpd } from "../../../state/diseases";
+import { searchOpds } from "../../../state/opds";
+import { getDiseaseTypes } from "../../../state/types/diseases";
+import { getWards } from "../../../state/ward";
 import InfoBox from "../infoBox/InfoBox";
+import Pagination from "../pagination/Pagination";
 import { initialFilter, initialFilterFields } from "./consts";
 import { OpdFilterForm } from "./filter/OpdFilterForm";
+import { TFilterValues } from "./filter/types";
 import "./styles.scss";
 import { OpdTable } from "./table/OpdTable";
-import { getDiseasesOpd } from "../../../state/diseases/actions";
-import { useEffect } from "react";
-import { searchOpds } from "../../../state/opds/actions";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { useOpds } from "../../../libraries/hooks/api/useOpds";
-import { TFilterValues } from "./filter/types";
-import Pagination from "../pagination/Pagination";
-import { getWards } from "../../../state/ward/actions";
-import { getDiseaseTypes } from "../../../state/types/diseases";
 
 export const Opds: FC = () => {
   const fields = initialFilterFields;
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
 

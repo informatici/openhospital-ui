@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
 
-import VaccinesTable from "./vaccinesTable";
-import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { PATHS } from "../../../../consts";
+import { VaccineDTO } from "../../../../generated";
+import { getVaccineTypes } from "../../../../state/types/vaccines";
 import {
   deleteVaccine,
   deleteVaccineReset,
   getVaccines,
-} from "../../../../state/vaccines/actions";
-import { getVaccineTypes } from "../../../../state/types/vaccines";
-import { VaccineDTO } from "../../../../generated";
-import { PATHS } from "../../../../consts";
+} from "../../../../state/vaccines";
 import Button from "../../button/Button";
+import VaccinesTable from "./vaccinesTable";
 
 export const Vaccines = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

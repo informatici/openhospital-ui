@@ -1,11 +1,10 @@
-import React from "react";
-import { FC } from "react";
+import { CheckCircleRounded } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@material-ui/core";
+import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 import SmallButton from "../../smallButton/SmallButton";
 import "../styles.scss";
-import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
-import { CheckCircleRounded } from "@material-ui/icons";
 
 interface IOwnProps {
   handlePaymentDialog: () => void;

@@ -1,18 +1,17 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
+import { Skeleton } from "@mui/lab";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { Barchart } from "../../../charts/bar/Barchart";
-import { DataSummary } from "../../summary/DataSummary";
-import { TDashboardCardOptionActions } from "../../card/types";
-import { Skeleton } from "@material-ui/lab";
-import { getAdmissions } from "../../../../../state/admissions/actions";
-import { getAgeTypes } from "../../../../../state/ageTypes/actions";
-import { IOwnProps } from "../types";
 import { useAdmByAgeTypeData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByAgeTypeData";
+import { getAdmissions } from "../../../../../state/admissions";
+import { getAgeTypes } from "../../../../../state/ageTypes";
+import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
+import { IOwnProps } from "../types";
 
 import "../../card/styles.scss";
 
@@ -22,7 +21,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,8 +35,10 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   const { total, success, status, ageTypeStatus, data, csvData } =
     useAdmByAgeTypeData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
+  const [displaySize, setDisplaySize] = useState<{
+    width: number;
+    height: number;
+  }>();
 
   const onSizeChange = (width: number, height: number) => {
     setDisplaySize({ width: width - 1, height: height - 73 });

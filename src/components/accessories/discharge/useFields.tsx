@@ -1,8 +1,8 @@
 import { AdmissionDTO } from "../../../generated";
 import { differenceInDays } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { DischargeFormFieldName } from "./dischargeForm/types";
 import { initialFields } from "./consts";
+import { DischargeFormFieldName } from "./dischargeForm/types";
 
 export const useFields = (admission?: AdmissionDTO) => {
   const fields: TFields<DischargeFormFieldName> = {

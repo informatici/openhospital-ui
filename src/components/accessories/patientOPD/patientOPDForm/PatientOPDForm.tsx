@@ -1,28 +1,8 @@
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useState,
-  useMemo,
-} from "react";
-import { useFormik } from "formik";
-import {
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../../libraries/formDataHandling/functions";
-import DateField from "../../dateField/DateField";
-import { object, string } from "yup";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import Button from "../../button/Button";
-import warningIcon from "../../../../assets/warning-icon.png";
-import TextField from "../../textField/TextField";
-import { get, has } from "lodash";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { TProps } from "./types";
-import { IState } from "../../../../types";
-import { useDispatch, useSelector } from "react-redux";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import { Add, Edit } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import FileIcon from "@mui/icons-material/Label";
 import {
   Accordion,
   AccordionDetails,
@@ -39,37 +19,53 @@ import {
   ListItemText,
   Radio,
   RadioGroup,
-} from "@material-ui/core";
-import {
-  DiseaseDTO,
-  OpdWithOperationRowDTO,
-  OperationRowDTO,
-  WardDTO,
-} from "../../../../generated";
+} from "@mui/material";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has, isEmpty } from "lodash";
 import moment from "moment";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+import { object, string } from "yup";
+import checkIcon from "../../../../assets/check-icon.png";
+import warningIcon from "../../../../assets/warning-icon.png";
+import {
+  OpdWithOperationRowDTO,
+  OperationRowDTO
+} from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import CheckboxField from "../../checkboxField/CheckboxField";
-import { isEmpty } from "lodash";
-import AddIcon from "@material-ui/icons/Add";
-import FileIcon from "@material-ui/icons/Label";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import { CustomDialog } from "../../customDialog/CustomDialog";
-import ContentCutIcon from "../../icons/content-cut";
-import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../../libraries/formDataHandling/functions";
 import {
   createOperationRowReset,
   deleteOperationRow,
   deleteOperationRowReset,
   getOperations,
   updateOperationRowReset,
-} from "../../../../state/operations/actions";
-import { IOperationState } from "../../../../state/operations/types";
-import checkIcon from "../../../../assets/check-icon.png";
-import { opRowFields } from "../../patientOperation/opRowFields";
+} from "../../../../state/operations";
+import { getWards } from "../../../../state/ward";
+import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import Button from "../../button/Button";
+import CheckboxField from "../../checkboxField/CheckboxField";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import { CustomDialog } from "../../customDialog/CustomDialog";
+import DateField from "../../dateField/DateField";
+import ContentCutIcon from "../../icons/content-cut";
 import InfoBox from "../../infoBox/InfoBox";
-import { Add, Edit } from "@material-ui/icons";
-import { getWards } from "../../../../state/ward/actions";
+import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
+import { opRowFields } from "../../patientOperation/opRowFields";
+import TextField from "../../textField/TextField";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
   fields,
@@ -84,7 +80,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 }) => {
   const { t } = useTranslation();
   const [operationCreationMode, setOperationCreationMode] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [expanded, setExpanded] = useState<boolean>(true);
 
   const validationSchema = object({
@@ -123,15 +119,15 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
-  const diseases = useSelector<IState, DiseaseDTO[]>(
+  const diseases = useAppSelector(
     (state: IState) => state.diseases.diseasesOpd.data ?? []
   );
 
-  const wards = useSelector<IState, WardDTO[]>(
+  const wards = useAppSelector(
     (state: IState) => state.wards.allWards.data ?? []
   );
 
-  const username = useSelector(
+  const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   const [operationRows, setOperationRows] = useState([] as OperationRowDTO[]);
@@ -193,10 +189,9 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       : [];
   };
 
-  const diseasesOptions = useSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => diseasesOptionsSelector(state));
+  const diseasesOptions = useAppSelector((state: IState) =>
+    diseasesOptionsSelector(state)
+  );
 
   const wardsOptionsSelector = (state: IState) => {
     return state.wards.allWards.data
@@ -210,8 +205,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           })
       : [];
   };
-  const wardsOptions = useSelector<IState, { value: string; label: string }[]>(
-    (state: IState) => wardsOptionsSelector(state)
+  const wardsOptions = useAppSelector((state: IState) =>
+    wardsOptionsSelector(state)
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -316,9 +311,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }, 500);
   };
 
-  const operationStore = useSelector<IState, IOperationState>(
-    (state: IState) => state.operations
-  );
+  const operationStore = useAppSelector((state: IState) => state.operations);
 
   const operationsRowFields = useMemo(() => {
     return opRowFields(
@@ -340,13 +333,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       setShowModal(true);
     };
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.operations.deleteOperationRow.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     return state.operations.deleteOperationRow.status;
   });
 

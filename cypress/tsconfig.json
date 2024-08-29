@@ -1,8 +1,8 @@
 {
   "include": ["**/*.ts", "../cypress.d.ts"],
   "compilerOptions": {
-    "target": "es5", 
-    "skipLibCheck": true, 
+    "target": "es5",
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,7 +13,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "allowJs": true,
-    
+
     "types": ["cypress", "node"]
   }
 }

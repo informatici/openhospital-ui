@@ -1,18 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 import { PATHS } from "../../../../consts";
-import { deleteExam } from "../../../../state/exams/actions";
 import { ExamDTO } from "../../../../generated";
+import { deleteExam } from "../../../../state/exams";
 import classes from "./Exams.module.scss";
 
+import { useAppDispatch } from "libraries/hooks/redux";
 import Button from "../../button/Button";
 import ExamsTable from "./examsTable";
 
 export const Exams = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -26,7 +26,7 @@ export const Exams = () => {
   };
 
   return (
-    <div className={classes.exams}>
+    <div className={classes.exams} data-cy="exams-table">
       <ExamsTable
         headerActions={
           <Button
@@ -36,6 +36,7 @@ export const Exams = () => {
             type="button"
             variant="contained"
             color="primary"
+            dataCy="add-new-exam"
           >
             {t("exam.addExam")}
           </Button>

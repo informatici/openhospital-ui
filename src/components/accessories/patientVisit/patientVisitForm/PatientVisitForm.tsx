@@ -1,29 +1,28 @@
+import AddIcon from "@mui/icons-material/Add";
+import { useFormik } from "formik";
+import { useAppSelector } from "libraries/hooks/redux";
+import { get, has } from "lodash";
 import React, {
   FunctionComponent,
   useCallback,
   useEffect,
   useState,
 } from "react";
-import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
+import { number, object, string } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import DateField from "../../dateField/DateField";
-import { number, object, string } from "yup";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import Button from "../../button/Button";
-import warningIcon from "../../../../assets/warning-icon.png";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "../../textField/TextField";
-import { get, has } from "lodash";
-import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import { TProps } from "./types";
 import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import { WardDTO } from "../../../../generated";
+import Button from "../../button/Button";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import DateField from "../../dateField/DateField";
+import TextField from "../../textField/TextField";
+import "./styles.scss";
+import { TProps } from "./types";
 
 const PatientVisitForm: FunctionComponent<TProps> = ({
   fields,
@@ -45,9 +44,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
       .min(1, t("common.greaterthan", { value: "1" })),
   });
 
-  const wards = useSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
-  );
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
 
   const initialValues = getFromFields(fields, "value");
 
@@ -81,8 +78,8 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
       }) ?? []
     );
   };
-  const wardOptions = useSelector<IState, { value: string; label: string }[]>(
-    (state: IState) => wardOptionsSelector(state)
+  const wardOptions = useAppSelector((state: IState) =>
+    wardOptionsSelector(state)
   );
 
   const isValid = (fieldName: string): boolean => {

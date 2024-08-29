@@ -1,17 +1,15 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { ApiResponse } from "../../../../../../../state/types";
-import { IState } from "../../../../../../../types";
-import { VaccineTypeDTO } from "../../../../../../../generated";
-import InfoBox from "../../../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
-import Table from "../../../../../table/Table";
-import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
-import { deleteVaccineTypeReset } from "../../../../../../../state/types/vaccines/actions";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
+import { VaccineTypeDTO } from "../../../../../../../generated";
 import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";
+import { deleteVaccineTypeReset } from "../../../../../../../state/types/vaccines";
+import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../../../infoBox/InfoBox";
+import Table from "../../../../../table/Table";
+import "./styles.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -21,7 +19,7 @@ interface IOwnProps {
 
 const VaccineTypesTable = (props: IOwnProps) => {
   const { onDelete, onEdit, headerActions } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -33,12 +31,11 @@ const VaccineTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<VaccineTypeDTO[]>
-  >((state) => state.types.vaccines.getVaccineTypes);
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.vaccines.getVaccineTypes
+  );
 
-  const deleteVaccineType = useSelector<IState, ApiResponse<boolean>>(
+  const deleteVaccineType = useAppSelector(
     (state) => state.types.vaccines.delete
   );
 

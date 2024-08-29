@@ -1,19 +1,15 @@
-import { useTranslation } from "react-i18next";
-import DiseaseForm from "../diseaseForm/DiseaseForm";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React from "react";
-import { getInitialFields } from "../diseaseForm/consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { DiseaseDTO } from "../../../../../generated";
-import { createDisease } from "../../../../../state/diseases/actions";
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
+import { createDisease } from "../../../../../state/diseases";
+import { getInitialFields } from "../diseaseForm/consts";
+import DiseaseForm from "../diseaseForm/DiseaseForm";
 
 export const NewDisease = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DiseaseDTO>>(
-    (state) => state.diseases.create
-  );
+  const create = useAppSelector((state) => state.diseases.create);
 
   const handleSubmit = (value: DiseaseDTO) => {
     dispatch(createDisease(value));

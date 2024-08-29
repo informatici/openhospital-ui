@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import {
   BillDTO,
   BillItemsDTO,
@@ -15,21 +15,21 @@ import {
   newBillReset,
   updateBill,
   updateBillReset,
-} from "../../../../state/bills/actions";
+} from "../../../../state/bills";
 import { IState } from "../../../../types";
 import { ItemGroups } from "../consts";
 import { usePendingBills } from "./pending_bill.hooks";
 import { useItemPrices } from "./price.hooks";
 
 export const useSelectedPatient = () => {
-  const patient = useSelector<IState, PatientDTO>(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data ?? ({} as any)
   );
   return { patient };
 };
 
 export const useCurrentUser = () => {
-  const user = useSelector(
+  const user = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
   return user;
@@ -44,7 +44,7 @@ export const useFullBill = () => {
   );
   const creationMode = useMemo(() => !(pendings?.length > 0), [pendings]);
 
-  const status = useSelector<IState, string>((state: IState) =>
+  const status = useAppSelector((state: IState) =>
     creationMode
       ? state.bills.newBill.status ?? "IDLE"
       : state.bills.updateBill.status ?? "IDLE"
@@ -62,9 +62,10 @@ export const useFullBill = () => {
     );
   });
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [itemToEdit, setItemToEdit] =
-    useState<Record<string, any> | undefined>();
+  const dispatch = useAppDispatch();
+  const [itemToEdit, setItemToEdit] = useState<
+    Record<string, any> | undefined
+  >();
   const [billItems, setBillItems] = useState<BillItemsDTO[]>([]);
   const [billPayments, setBillPayments] = useState<BillPaymentsDTO[]>([]);
   const [fullBill, setFullBill] = useState<FullBillDTO>({
@@ -76,7 +77,7 @@ export const useFullBill = () => {
   const saveBill = useCallback(() => {
     creationMode
       ? dispatch(newBill(fullBill))
-      : dispatch(updateBill(bill.id ?? 0, fullBill));
+      : dispatch(updateBill({ id: bill.id ?? 0, fullBillDTO: fullBill }));
   }, [fullBill, creationMode, dispatch]);
 
   const { prices } = useItemPrices(pendings[0]?.bill?.listId);

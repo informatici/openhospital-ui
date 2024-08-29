@@ -1,22 +1,24 @@
-import { debounce, FormControl, FormHelperText } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+import { Autocomplete } from "@mui/lab";
+import {
+  createFilterOptions,
+  debounce,
+  FilterOptionsState,
+  FormControl,
+  FormHelperText,
+} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import _ from "lodash";
 import React, {
-  Fragment,
+  ChangeEvent,
   FC,
+  Fragment,
   useCallback,
   useEffect,
   useState,
-  ChangeEvent,
 } from "react";
-import { DefaultOptionType, IProps } from "./types";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import {
-  Autocomplete,
-  createFilterOptions,
-  FilterOptionsState,
-} from "@material-ui/lab";
-import _ from "lodash";
+import "./styles.scss";
+import { DefaultOptionType, IProps } from "./types";
 
 const AutocompleteField: FC<IProps> = ({
   fieldName,
@@ -113,7 +115,7 @@ const AutocompleteField: FC<IProps> = ({
     return option.value === v.value;
   };
 
-  const rendOption = (option: DefaultOptionType | string, props: any) => {
+  const rendOption = (props: any, option: DefaultOptionType | string) => {
     return (
       <Fragment>{typeof option === "string" ? option : option.label}</Fragment>
     );
@@ -161,8 +163,7 @@ const AutocompleteField: FC<IProps> = ({
         onInputChange={handleOnInputChange}
         getOptionLabel={getOptionLabel ? getOptionLabel : optionLabel}
         value={getFullObject(value)}
-        getOptionSelected={getOptionSelected ? getOptionSelected : isSelected}
-        renderOption={renderOption ? renderOption : rendOption}
+        renderOption={renderOption ? renderOption : undefined}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
         renderInput={(params) => (

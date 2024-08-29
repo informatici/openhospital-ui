@@ -1,6 +1,5 @@
-import { IconButton } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FunctionComponent,
@@ -9,37 +8,31 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import checkIcon from "../../../../assets/check-icon.png";
 import {
   AdmissionTypeDTO,
   DiseaseDTO,
   DiseaseTypeDTO,
-  PatientDTO,
-  WardDTO,
+  WardDTO
 } from "../../../../generated";
 import {
   differenceInDays,
   formatAllFieldValues,
-  getFromFields,
-  parseDate,
+  getFromFields
 } from "../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../assets/check-icon.png";
+import { updateAdmissionReset } from "../../../../state/admissions";
 import {
-  getPatientThunk,
-  updatePatient,
-  updatePatientReset,
-} from "../../../../state/patients/actions";
-import { TAPIResponseStatus } from "../../../../state/types";
+  getPatient
+} from "../../../../state/patients";
 import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
+import DateField from "../../dateField/DateField";
 import InfoBox from "../../infoBox/InfoBox";
 import TextField from "../../textField/TextField";
 import { initialFields } from "./consts";
 import { IOwnProps, TActivityTransitionState } from "./types";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import DateField from "../../dateField/DateField";
-import { updateAdmissionReset } from "../../../../state/admissions/actions";
 
 export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   onDiscard,
@@ -47,39 +40,39 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
   fields,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [activityTransitionState, setActivityTransitionState] =
     useState<TActivityTransitionState>("IDLE");
-  const patient = useSelector<IState, PatientDTO | undefined>(
+  const patient = useAppSelector(
     (state) => state.patients.selectedPatient.data
   );
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
-  const status = useSelector<IState, TAPIResponseStatus | undefined>(
+  const status = useAppSelector(
     (state) => state.admissions.updateAdmission.status
   );
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.updatePatient.error?.message || t("common.somethingwrong")
   );
 
-  const diagnosisInList = useSelector(
+  const diagnosisInList = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.data
   );
 
-  const admissionTypes = useSelector(
+  const admissionTypes = useAppSelector(
     (state: IState) => state.types.admissions.getAll.data
   );
-  const wards = useSelector((state: IState) => state.wards.allWards.data);
-  const diagnosisInStatus = useSelector(
+  const wards = useAppSelector((state: IState) => state.wards.allWards.data);
+  const diagnosisInStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.status
   );
-  const wardStatus = useSelector(
+  const wardStatus = useAppSelector(
     (state: IState) => state.wards.allWards.status
   );
-  const admTypeStatus = useSelector(
+  const admTypeStatus = useAppSelector(
     (state: IState) => state.types.admissions.getAll.status
   );
 
@@ -133,7 +126,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     if (activityTransitionState === "TO_RESET") {
       dispatch(updateAdmissionReset());
       if (patient?.code) {
-        dispatch(getPatientThunk(patient?.code?.toString()));
+        dispatch(getPatient(patient?.code?.toString()));
       }
       onDiscard();
     }

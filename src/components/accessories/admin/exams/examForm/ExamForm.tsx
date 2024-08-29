@@ -9,33 +9,28 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string, number } from "yup";
+import { useNavigate } from "react-router";
+import { number, object, string } from "yup";
+import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../../assets/check-icon.png";
+import { createExamReset, updateExamReset } from "../../../../../state/exams";
+import { getExamTypes } from "../../../../../state/types/exams";
+import { IState } from "../../../../../types";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
-import TextField from "../../../textField/TextField";
 import SelectField from "../../../selectField/SelectField";
+import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
-import { useNavigate } from "react-router";
-import { IExamState } from "../../../../../state/exams/types";
-import { PATHS } from "../../../../../consts";
-import {
-  createExamReset,
-  updateExamReset,
-} from "../../../../../state/exams/actions";
-import { getExamTypes } from "../../../../../state/types/exams/actions";
-
-import InfoBox from "../../../infoBox/InfoBox";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
+import InfoBox from "../../../infoBox/InfoBox";
 
 const ExamForm: FC<IExamProps> = ({
   fields,
@@ -45,15 +40,15 @@ const ExamForm: FC<IExamProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const examStore = useSelector<IState, IExamState>((state) => state.exams);
+  const examStore = useAppSelector((state) => state.exams);
 
-  const examTypeState = useSelector(
+  const examTypeState = useAppSelector(
     (state: IState) => state.types.exams.getAll
   );
   const examTypeStateOptions = useMemo(
@@ -198,12 +193,21 @@ const ExamForm: FC<IExamProps> = ({
               fieldName="selectedType"
               fieldValue={formik.values.procedure}
               label={t("exam.procedure")}
-              options={[{label:"1: a list of available \"string\" results", value: '1'},
-                {label:"2: a list of all \"boolean\" results", value: "2"},
-                {label: "3: exact value (it will be typed in by the laboratorist)", value: "3"}]}
+              options={[
+                {
+                  label: '1: a list of available "string" results',
+                  value: "1",
+                },
+                { label: '2: a list of all "boolean" results', value: "2" },
+                {
+                  label:
+                    "3: exact value (it will be typed in by the laboratorist)",
+                  value: "3",
+                },
+              ]}
               errorText={getErrorText("procedure")}
               isValid={isValid("procedure")}
-              onChange={v => formik.setFieldValue("procedure", v)}
+              onChange={(v) => formik.setFieldValue("procedure", v)}
               onBlur={formik.handleBlur}
               disabled={isLoading}
             />
@@ -224,7 +228,12 @@ const ExamForm: FC<IExamProps> = ({
 
         <div className="examForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -232,6 +241,7 @@ const ExamForm: FC<IExamProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >

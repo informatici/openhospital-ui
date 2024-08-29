@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { PriceDTO } from "../../../../generated/models/PriceDTO";
 import { PriceListDTO } from "../../../../generated/models/PriceListDTO";
-import { getPriceLists } from "../../../../state/prices/actions";
+import { getPriceLists } from "../../../../state/prices";
 import { IState } from "../../../../types";
 import { ItemGroups } from "../consts";
 
 export const usePriceLists = () => {
-  const dispatch = useDispatch();
-  const priceLists = useSelector<IState, PriceListDTO[]>(
+  const dispatch = useAppDispatch();
+  const priceLists = useAppSelector(
     (state: IState) => state.prices.getPriceLists?.data ?? []
   );
 
@@ -20,10 +20,10 @@ export const usePriceLists = () => {
 };
 
 export const useItemPrices = (idList?: number) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const listId = useMemo(() => idList ?? 0, [idList]);
 
-  const prices = useSelector<IState, PriceDTO[]>((state: IState) =>
+  const prices = useAppSelector((state: IState) =>
     (state.prices.getPrices?.data ?? []).filter((e) => e.list?.id == listId)
   );
 
@@ -70,19 +70,17 @@ export const useItemPrices = (idList?: number) => {
       : [];
   };
 
-  const examsOptions = useSelector<IState, { value: string; label: string }[]>(
-    (state: IState) => examsOptionsSelector(state)
+  const examsOptions = useAppSelector((state: IState) =>
+    examsOptionsSelector(state)
   );
 
-  const medicalsOptions = useSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => medicalsOptionsSelector(state));
+  const medicalsOptions = useAppSelector((state: IState) =>
+    medicalsOptionsSelector(state)
+  );
 
-  const surgeriesOptions = useSelector<
-    IState,
-    { value: string; label: string }[]
-  >((state: IState) => surgeriesOptionsSelector(state));
+  const surgeriesOptions = useAppSelector((state: IState) =>
+    surgeriesOptionsSelector(state)
+  );
 
   return {
     prices,

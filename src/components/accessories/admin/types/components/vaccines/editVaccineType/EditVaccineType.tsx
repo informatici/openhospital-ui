@@ -1,29 +1,23 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { VaccineTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateVaccineType } from "../../../../../../../state/types/vaccines/actions";
 import { PATHS } from "../../../../../../../consts";
+import { VaccineTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateVaccineType } from "../../../../../../../state/types/vaccines";
 import { getInitialFields } from "../vaccineTypesForm/consts";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditVaccineType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: VaccineTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<VaccineTypeDTO>>(
-    (state) => state.types.vaccines.update
-  );
+  const update = useAppSelector((state) => state.types.vaccines.update);
 
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const mode = useAppSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: VaccineTypeDTO) => {
     dispatch(updateVaccineType(value));

@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,30 +10,28 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { object, string } from "yup";
+import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../../libraries/formDataHandling/functions";
-import checkIcon from "../../../../../assets/check-icon.png";
-import Button from "../../../button/Button";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
-import TextField from "../../../textField/TextField";
-import "./styles.scss";
-import { IVaccineFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
-import InfoBox from "../../../infoBox/InfoBox";
-import { useNavigate } from "react-router";
-import { IVaccineState } from "../../../../../state/vaccines/types";
-import { PATHS } from "../../../../../consts";
+import { getVaccineTypes } from "../../../../../state/types/vaccines";
 import {
   createVaccineReset,
   updateVaccineReset,
-} from "../../../../../state/vaccines/actions";
+} from "../../../../../state/vaccines";
+import { IState } from "../../../../../types";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
-import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
+import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import TextField from "../../../textField/TextField";
+import "./styles.scss";
+import { IVaccineFormProps } from "./types";
 
 const VaccineForm: FC<IVaccineFormProps> = ({
   fields,
@@ -42,17 +41,15 @@ const VaccineForm: FC<IVaccineFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const vaccineStore = useSelector<IState, IVaccineState>(
-    (state) => state.vaccines
-  );
+  const vaccineStore = useAppSelector((state) => state.vaccines);
 
-  const vaccinesTypeState = useSelector(
+  const vaccinesTypeState = useAppSelector(
     (state: IState) => state.types.vaccines.getVaccineTypes
   );
 

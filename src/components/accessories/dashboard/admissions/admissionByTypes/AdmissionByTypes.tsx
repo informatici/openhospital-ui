@@ -1,20 +1,19 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
+import { Skeleton } from "@mui/lab";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { DataSummary } from "../../summary/DataSummary";
-import { TDashboardCardOptionActions } from "../../card/types";
-import { Skeleton } from "@material-ui/lab";
-import { getAdmissions } from "../../../../../state/admissions/actions";
-import { IOwnProps } from "../types";
+import { useAdmByAdmTypeData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByAdmTypeData";
+import { getAdmissions } from "../../../../../state/admissions";
 import { Piechart } from "../../../charts/pie/Piechart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
-import { useAdmByAdmTypeData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByAdmTypeData";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
+import { IOwnProps } from "../types";
 
-import "../../card/styles.scss";
 import { getAdmissionTypes } from "../../../../../state/types/admissions";
+import "../../card/styles.scss";
 
 export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -22,7 +21,7 @@ export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const admtcardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

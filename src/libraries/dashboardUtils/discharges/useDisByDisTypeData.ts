@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "libraries/hooks/redux";
 import { AdmissionDTO, AdmissionTypeDTO } from "../../../generated";
 import { TAPIResponseStatus } from "../../../state/types";
 import { IState } from "../../../types";
@@ -7,19 +7,19 @@ import { colorGen } from "../../uiUtils/colorGenerator";
 
 export const useDisByDisTypeData = () => {
   const { t } = useTranslation();
-  const admissions = useSelector<IState, AdmissionDTO[]>(
+  const admissions = useAppSelector(
     (state) => state.admissions.getDischarges.data?.data ?? []
   );
-  const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
+  const dischargeTypes = useAppSelector(
     (state) => state.types.discharges.getAll.data ?? []
   );
-  const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
+  const dischargeTypeStatus = useAppSelector(
     (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
-  const status = useSelector<IState, TAPIResponseStatus>(
+  const status = useAppSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getDischarges.status ?? ""
     )

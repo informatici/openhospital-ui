@@ -1,10 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { BillPaymentsDTO, FullBillDTO } from "../../../generated";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import { Link } from "react-router-dom";
 import React from "react";
-import { IStatus, TBillDisplayData } from "./types";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { BillPaymentsDTO, FullBillDTO } from "../../../generated";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
+import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import { IStatus, TBillDisplayData } from "./types";
 
 const useFormatData = (
   data: FullBillDTO[] | undefined,

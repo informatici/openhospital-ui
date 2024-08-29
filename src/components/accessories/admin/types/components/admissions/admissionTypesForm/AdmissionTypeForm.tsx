@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,15 +10,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
-import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
-import { IAdmissionTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../../../../../types";
-import { IAdmissionTypesState } from "../../../../../../../state/types/admissions/types";
+import { object, string } from "yup";
+import checkIcon from "../../../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,12 +22,13 @@ import {
 import {
   createAdmissionTypeReset,
   updateAdmissionTypeReset,
-} from "../../../../../../../state/types/admissions/actions";
-import TextField from "../../../../../textField/TextField";
+} from "../../../../../../../state/types/admissions";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { PATHS } from "../../../../../../../consts";
+import TextField from "../../../../../textField/TextField";
+import "./styles.scss";
+import { IAdmissionTypeFormProps } from "./types";
 
 const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
   fields,
@@ -40,15 +38,13 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const admissionTypesStore = useSelector<IState, IAdmissionTypesState>(
-    (state) => state.types.admissions
-  );
+  const admissionTypesStore = useAppSelector((state) => state.types.admissions);
 
   const errorMessage = useMemo(
     () =>

@@ -1,15 +1,20 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import "./styles.scss";
-import { TherapyTransitionState } from "./types";
-import { initialFields } from "./consts";
 import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { IState } from "../../../types";
-import ExamForm from "./ExamForm/ExamForm";
-import { useDispatch, useSelector } from "react-redux";
-import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
 import checkIcon from "../../../assets/check-icon.png";
+import {
+  LaboratoryDTO,
+  LaboratoryDTOInOutPatientEnum,
+  LaboratoryDTOStatusEnum,
+} from "../../../generated";
+import {
+  parseDate,
+  updateLabFields,
+} from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getExamRows, getExams } from "../../../state/exams";
 import {
   cancelLab,
   cancelLabReset,
@@ -22,28 +27,22 @@ import {
   getMaterials,
   updateLab,
   updateLabReset,
-} from "../../../state/laboratories/actions";
-import {
-  LaboratoryDTO,
-  LaboratoryDTOInOutPatientEnum,
-  LaboratoryDTOStatusEnum,
-} from "../../../generated";
-import { ILaboratoriesState } from "../../../state/laboratories/types";
+} from "../../../state/laboratories";
+import { IState } from "../../../types";
+import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
-import { getExamRows, getExams } from "../../../state/exams/actions";
-import {
-  parseDate,
-  updateLabFields,
-} from "../../../libraries/formDataHandling/functions";
-import { CircularProgress } from "@material-ui/core";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
-import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
 import { initialRequestFields } from "../laboratory/consts";
+import ExamRequestForm from "../laboratory/examRequestForm/ExamRequestForm";
+import { initialFields } from "./consts";
+import ExamForm from "./ExamForm/ExamForm";
 import PatientExamRequestsTable from "./patientExamRequestsTable/PatientExamRequestsTable";
+import PatientExamsTable from "./patientExamsTable/PatientExamsTable";
+import "./styles.scss";
+import { TherapyTransitionState } from "./types";
 
 const PatientExams: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -59,11 +58,11 @@ const PatientExams: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const labWithRows = useSelector(
+  const labWithRows = useAppSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.data ?? {}
   );
 
-  const patientData = useSelector(
+  const patientData = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -91,10 +90,8 @@ const PatientExams: FC = () => {
     }
   }, [dispatch, activityTransitionState]);
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
-  const errorMessage = useSelector<IState>(
+  const labStore = useAppSelector((state: IState) => state.laboratories);
+  const errorMessage = useAppSelector(
     (state) =>
       state.laboratories.createLab.error?.message ||
       state.laboratories.updateLab.error?.message ||
@@ -102,7 +99,7 @@ const PatientExams: FC = () => {
       state.laboratories.deleteLab.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const exams = useSelector((state: IState) => state.exams.examList.data);
+  const exams = useAppSelector((state: IState) => state.exams.examList.data);
 
   const onSuccess = useCallback(
     (shoudlReset: boolean) => {
@@ -142,7 +139,7 @@ const PatientExams: FC = () => {
         : LaboratoryDTOStatusEnum.Open;
 
     if (!creationMode && labToEdit.code) {
-      dispatch(updateLab(labToEdit.code, labWithRowsDTO));
+      dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
     } else {
       dispatch(createLab(labWithRowsDTO));
     }
@@ -179,7 +176,9 @@ const PatientExams: FC = () => {
 
   return (
     <div className="patientExam">
-      <Permission require={creationMode ? "laboratories.create" : "laboratories.update"}>
+      <Permission
+        require={creationMode ? "laboratories.create" : "laboratories.update"}
+      >
         {creationMode && (
           <ExamRequestForm
             fields={initialRequestFields}

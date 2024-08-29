@@ -1,28 +1,22 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
-import { DiseaseTypeDTO } from "../../../../../../../generated";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
-import { updateDiseaseType } from "../../../../../../../state/types/diseases/actions";
 import { PATHS } from "../../../../../../../consts";
+import { DiseaseTypeDTO } from "../../../../../../../generated";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { updateDiseaseType } from "../../../../../../../state/types/diseases";
 import { getInitialFields } from "../diseaseTypesForm/consts";
 import DiseaseTypeForm from "../diseaseTypesForm/DiseaseTypeForm";
-import { setTypeMode, TypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const EditDiseaseType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: DiseaseTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<DiseaseTypeDTO>>(
-    (state) => state.types.diseases.update
-  );
-  const mode = useSelector<IState, TypeMode>(
-    (state) => state.types.config.mode
-  );
+  const update = useAppSelector((state) => state.types.diseases.update);
+  const mode = useAppSelector((state) => state.types.config.mode);
 
   const handleSubmit = (value: DiseaseTypeDTO) => {
     dispatch(updateDiseaseType(value));

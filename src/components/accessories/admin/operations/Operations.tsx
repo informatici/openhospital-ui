@@ -1,21 +1,21 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import classes from "./Operations.module.scss";
-import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { PATHS } from "../../../../consts";
+import { OperationDTO } from "../../../../generated";
 import {
   deleteOperation,
   deleteOperationReset,
   getOperations,
-} from "../../../../state/operations/actions";
-import { OperationDTO } from "../../../../generated";
-import OperationTable from "./operationTable";
+} from "../../../../state/operations";
 import Button from "../../button/Button";
-import { useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
-import { PATHS } from "../../../../consts";
+import classes from "./Operations.module.scss";
+import OperationTable from "./operationTable";
 
 export const Operations = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {

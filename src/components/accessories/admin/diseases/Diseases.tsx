@@ -1,26 +1,25 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import classes from "./Diseases.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { DiseaseDTO } from "../../../../generated";
-import DiseaseTable from "./diseaseTable";
+import { ToggleButton, ToggleButtonGroup } from "@mui/lab";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { isEmpty } from "lodash";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
-import { getAllDiseases } from "../../../../state/diseases/actions";
-import Button from "../../button/Button";
-import { useTranslation } from "react-i18next";
+import { DiseaseDTO } from "../../../../generated";
+import { getAllDiseases } from "../../../../state/diseases";
 import { getDiseaseTypes } from "../../../../state/types/diseases";
-import { isEmpty } from "lodash";
-import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
-import { IState } from "../../../../types";
+import Button from "../../button/Button";
+import classes from "./Diseases.module.scss";
+import DiseaseTable from "./diseaseTable";
 
 export const Diseases = () => {
   const [view, setView] = useState<"enabled" | "disabled" | "all">("all");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const showFilter = useSelector<IState, boolean>(
+  const showFilter = useAppSelector(
     (state) =>
       (state.diseases.allDiseases.data?.filter(
         (item) => !(item.opdInclude || item.ipdOutInclude || item.opdInclude)

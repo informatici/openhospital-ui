@@ -1,23 +1,19 @@
-import { useTranslation } from "react-i18next";
-import OperationForm from "../operationForm/OperationForm";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React from "react";
-import { getInitialFields } from "../operationForm/consts";
-import { useDispatch, useSelector } from "react-redux";
-import { OperationDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { updateOperation } from "../../../../../state/operations/actions";
-import { IState } from "../../../../../types";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { OperationDTO } from "../../../../../generated";
+import { updateOperation } from "../../../../../state/operations";
+import { getInitialFields } from "../operationForm/consts";
+import OperationForm from "../operationForm/OperationForm";
 
 export const EditOperation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: OperationDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<OperationDTO>>(
-    (state) => state.operations.update
-  );
+  const update = useAppSelector((state) => state.operations.update);
 
   const handleSubmit = (value: OperationDTO) => {
     dispatch(

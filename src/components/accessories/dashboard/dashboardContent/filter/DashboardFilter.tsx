@@ -1,15 +1,14 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { IOwnProps, TPeriodType, TViewType } from "./types";
-import "./styles.scss";
-import moment from "moment";
-import { useTranslation } from "react-i18next";
-import DateRangeField from "../../../dateRangeField/DateRangeField";
-import { DateRange } from "@material-ui/pickers";
-import { IconButton } from "@material-ui/core";
-import { CalendarTodaySharp } from "@material-ui/icons";
-import DateField from "../../../dateField/DateField";
-import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
+import { CalendarTodaySharp } from "@mui/icons-material";
+import { DateRange, ToggleButton, ToggleButtonGroup } from "@mui/lab";
+import { IconButton } from "@mui/material";
 import { isEmpty } from "lodash";
+import moment from "moment";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import DateField from "../../../dateField/DateField";
+import DateRangeField from "../../../dateRangeField/DateRangeField";
+import "./styles.scss";
+import { IOwnProps, TPeriodType, TViewType } from "./types";
 import { usePeriodOptions } from "./usePeriodOptions";
 
 export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
@@ -136,43 +135,45 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
           onChange={handleSelectionChange}
         >
           <ToggleButton value="custom">
-            <span>{period ?? "Custom"}</span>
-            {view === "range" ? (
-              <DateRangeField
-                fieldName="period"
-                isValid={true}
-                fieldValue={dateRange}
-                format="dd/MM/YYY"
-                onClose={() => setOpen(false)}
-                onChange={handleDateRangeChange}
-                TextFieldComponent={(props) => (
-                  <IconButton
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
-                  >
-                    <CalendarTodaySharp />
-                  </IconButton>
-                )}
-                open={open}
-              />
-            ) : (
-              <DateField
-                fieldName="period"
-                isValid={true}
-                errorText=""
-                label=""
-                fieldValue={dateRange[0]?.toISOString() ?? ""}
-                format="dd/MM/YYY"
-                onChange={handleDateChange}
-                TextFieldComponent={(props) => (
-                  <IconButton onClick={onIconClickHandler}>
-                    <CalendarTodaySharp />
-                  </IconButton>
-                )}
-                open={open}
-              />
-            )}
+            <div className="filter__datefield">
+              <span>{period ?? "Custom"}</span>
+              {view === "range" ? (
+                <DateRangeField
+                  fieldName="period"
+                  isValid={true}
+                  fieldValue={dateRange}
+                  format="dd/MM/YYY"
+                  onClose={() => setOpen(false)}
+                  onChange={handleDateRangeChange}
+                  TextFieldComponent={(props) => (
+                    <IconButton
+                      onClick={() => {
+                        setOpen(!open);
+                      }}
+                    >
+                      <CalendarTodaySharp />
+                    </IconButton>
+                  )}
+                  open={open}
+                />
+              ) : (
+                <DateField
+                  fieldName="period"
+                  isValid={true}
+                  errorText=""
+                  label=""
+                  fieldValue={dateRange[0]?.toISOString() ?? ""}
+                  format="dd/MM/YYY"
+                  onChange={handleDateChange}
+                  TextFieldComponent={(props) => (
+                    <IconButton onClick={onIconClickHandler}>
+                      <CalendarTodaySharp />
+                    </IconButton>
+                  )}
+                  open={open}
+                />
+              )}
+            </div>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>

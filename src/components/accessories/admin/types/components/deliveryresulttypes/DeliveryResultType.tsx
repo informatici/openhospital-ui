@@ -1,25 +1,25 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { DeliveryResultTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteDeliveryResultType,
   deleteDeliveryResultTypeReset,
-  getDeliveryResultType,
-} from "../../../../../../state/types/deliveryResultType/actions";
-import { PATHS } from "../../../../../../consts";
+  getDeliveryResultTypes,
+} from "../../../../../../state/types/deliveryResults";
 import Button from "../../../../button/Button";
-import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 import DeliveryResultTypeTable from "./deliveryResultTypeTable";
-import { DeliveryResultTypeDTO } from "../../../../../../generated";
+import "./styles.scss";
 
 const DelevyResultType = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getDeliveryResultType());
+    dispatch(getDeliveryResultTypes());
     dispatch(setTypeMode("manage"));
 
     return () => {
@@ -43,9 +43,9 @@ const DelevyResultType = () => {
   const { t } = useTranslation();
   return (
     <>
-      <h3>{t("deliveryResultType.title")}</h3>
+      <h3 data-cy="sub-activity-title">{t("deliveryResultType.title")}</h3>
 
-      <div className="deliveryResultTypes">
+      <div className="deliveryResultTypes" data-cy="deliveryresult-types-table">
         <DeliveryResultTypeTable
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -57,6 +57,7 @@ const DelevyResultType = () => {
               type="button"
               variant="contained"
               color="primary"
+              dataCy="add-deliveryresult-type"
             >
               {t("deliveryResultType.addDeliveryResultType")}
             </Button>

@@ -1,7 +1,7 @@
+import { Button as MaterialComponent } from "@mui/material";
 import React, { FunctionComponent } from "react";
-import { Button as MaterialComponent } from "@material-ui/core";
-import { IProps } from "./types";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const Button: FunctionComponent<IProps> = ({
   children,

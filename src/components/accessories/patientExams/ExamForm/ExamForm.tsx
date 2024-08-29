@@ -1,27 +1,27 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { ExamDTO } from "../../../../generated";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { getExamRows } from "../../../../state/exams/actions";
+import { getExamRows } from "../../../../state/exams";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import Button from "../../button/Button";
 import TextField from "../../textField/TextField";
 import ExamRowTable from "../examRowTable/ExamRowTable";
 import "./styles.scss";
 import { ExamProps } from "./types";
-import moment from "moment";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -36,7 +36,7 @@ const ExamForm: FC<ExamProps> = ({
   labToEdit,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [currentExamCode, setCurrentExamCode] = useState("");
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
   const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
@@ -89,7 +89,7 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
-  const examList = useSelector((state: IState) => state.exams.examList.data);
+  const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
   const examRowOptionsSelector = (state: IState) => {
     if (state.exams.examRowsByExamCode.data) {
@@ -102,11 +102,11 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
-  const examRows = useSelector((state: IState) =>
+  const examRows = useAppSelector((state: IState) =>
     examRowOptionsSelector(state)
   );
 
-  const materialsLoading = useSelector(
+  const materialsLoading = useAppSelector(
     (state: IState) => state.laboratories.materials.status === "LOADING"
   );
 
@@ -123,7 +123,7 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
-  const materialsList = useSelector(
+  const materialsList = useAppSelector(
     (state: IState) => state.laboratories.materials.data
   );
 
@@ -230,11 +230,11 @@ const ExamForm: FC<ExamProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const examRowsLaoding = useSelector(
+  const examRowsLaoding = useAppSelector(
     (state: IState) => state.exams.examRowsByExamCode.status === "LOADING"
   );
 
-  const examsLoading = useSelector(
+  const examsLoading = useAppSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 

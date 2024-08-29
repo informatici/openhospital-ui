@@ -1,7 +1,7 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AdmissionDTO, OpdDTO } from "../../../generated";
-import { updateAdmission } from "../../../state/admissions/actions";
+import { AdmissionDTO } from "../../../generated";
+import { updateAdmission } from "../../../state/admissions";
 import { IState } from "../../../types";
 import { useFields } from "../admission/useFields";
 import { CurrentAdmissionData } from "./currentAdmissionData/CurrentAdmissionData";
@@ -12,14 +12,12 @@ import { IOwnProps } from "./types";
 export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
   onEditChange,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [editionMode, setEditionMode] = useState(false);
-  const currentAdmission = useSelector(
+  const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
-  const lastOpd = useSelector<IState, OpdDTO | undefined>(
-    (state) => state.opds.lastOpd.data
-  );
+  const lastOpd = useAppSelector((state) => state.opds.lastOpd.data);
 
   const handleEdit = () => {
     setEditionMode(true);

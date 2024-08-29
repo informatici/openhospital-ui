@@ -64,7 +64,7 @@ export interface IRowProps {
   labelData: Record<string, any>;
   tableHeader: Array<string>;
   isCollapsabile?: boolean;
-  renderActions: () => void;
+  renderActions: () => ReactNode;
   showEmptyCell?: boolean;
   renderCellDetails?: <T>(row: T) => any;
   coreRow?: any;

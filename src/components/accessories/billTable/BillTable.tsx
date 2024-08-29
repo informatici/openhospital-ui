@@ -1,40 +1,39 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { FullBillDTO, PatientDTO } from "../../../generated";
-import { getPendingBills, searchBills } from "../../../state/bills/actions";
-import { IState } from "../../../types";
-import { CustomModal } from "../customModal/CustomModal";
-import Table from "../table/Table";
-import useFormatData from "./useFormatData";
-import RenderBillDetails from "./RenderBillDetails";
-import { IBillTableProps, TFilterValues } from "./types";
-import DateField from "../dateField/DateField";
-import { useFormik } from "formik";
-import Button from "../button/Button";
-import { object, string } from "yup";
-import {
-  differenceInSeconds,
-  formatAllFieldValues,
-  getFromFields,
-} from "../../../libraries/formDataHandling/functions";
-import { get, has } from "lodash";
-import SelectField from "../selectField/SelectField";
-import "./styles.scss";
+import { Add, FilterList } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   CircularProgress,
-} from "@material-ui/core";
-import { Add, FilterList } from "@material-ui/icons";
-import PatientPicker from "../patientPicker/PatientPicker";
+} from "@mui/material";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has } from "lodash";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { object, string } from "yup";
+import { FullBillDTO, PatientDTO } from "../../../generated";
+import {
+  differenceInSeconds,
+  formatAllFieldValues,
+  getFromFields,
+} from "../../../libraries/formDataHandling/functions";
+import { getPendingBills, searchBills } from "../../../state/bills";
+import Button from "../button/Button";
+import { CustomModal } from "../customModal/CustomModal";
+import DateField from "../dateField/DateField";
 import InfoBox from "../infoBox/InfoBox";
+import PatientPicker from "../patientPicker/PatientPicker";
+import SelectField from "../selectField/SelectField";
+import Table from "../table/Table";
+import RenderBillDetails from "./RenderBillDetails";
+import "./styles.scss";
+import { IBillTableProps, TFilterValues } from "./types";
+import useFormatData from "./useFormatData";
 
 export const BillTable: FC<IBillTableProps> = ({ fields }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const header = ["patient", "date", "status"];
   const dateFields = ["date"];
   const label = {
@@ -148,7 +147,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     [setFieldValue, handleBlur]
   );
 
-  const data = useSelector<IState, FullBillDTO[]>((state) => {
+  const data = useAppSelector((state) => {
     if (filter.status === "PENDING") {
       return state.bills.getPendingBills.data ?? [];
     } else {
@@ -156,7 +155,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const status = useSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     if (filter.status === "PENDING") {
       return state.bills.getPendingBills.status;
     } else {
@@ -164,7 +163,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
     }
   });
 
-  const errorMessage = useSelector<IState>((state) => {
+  const errorMessage = useAppSelector((state) => {
     return (
       (filter.status === "PENDING"
         ? state.bills.getPendingBills.error

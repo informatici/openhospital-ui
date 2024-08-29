@@ -1,17 +1,16 @@
-import React, { FunctionComponent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { MedicalDTO, TherapyRowDTO } from "../../../../generated";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
-import { getTherapiesByPatientId } from "../../../../state/therapies/actions";
-import { useTranslation } from "react-i18next";
-import { CircularProgress } from "@material-ui/core";
-import InfoBox from "../../infoBox/InfoBox";
-import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { getMedicals } from "../../../../state/medicals/actions";
-import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
+import React, { FunctionComponent, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { TherapyRowDTO } from "../../../../generated";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
+import { formatDateDiff } from "../../../../libraries/formatUtils/formatDateDiff";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getMedicals } from "../../../../state/medicals";
+import { getTherapiesByPatientId } from "../../../../state/therapies";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -42,21 +41,21 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     duration: t("common.moment.duration"),
   };
   const order = ["startDate", "endDate", "medicalId"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, TherapyRowDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.therapies.therapiesByPatientId.data
       ? state.therapies.therapiesByPatientId.data
       : []
   );
 
-  const medicals = useSelector<IState, MedicalDTO[]>((state) =>
+  const medicals = useAppSelector((state) =>
     state.medicals.medicalsOrderByName.data
       ? state.medicals.medicalsOrderByName.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -98,7 +97,7 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     //.sort(dateComparator("desc", "startDate"));
   };
 
-  const therapyStatus = useSelector<IState, string | undefined>(
+  const therapyStatus = useAppSelector(
     (state) => state.therapies.therapiesByPatientId.status
   );
 

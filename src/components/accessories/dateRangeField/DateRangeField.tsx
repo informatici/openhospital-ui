@@ -1,168 +1,120 @@
-import React, { FunctionComponent } from "react";
-import {
-  DesktopDateRangePicker,
-  MobileDateRangePicker,
-} from "@material-ui/pickers";
-import { IProps } from "./types";
+import { useFormik } from "formik";
+import { get, has } from "lodash";
+import moment from "moment";
+import React, { FunctionComponent, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { object, string } from "yup";
+import DateField from "../dateField/DateField";
 import "./styles.scss";
-import { FIELD_VALIDATION } from "../../../types";
-import { TextField, useMediaQuery } from "@material-ui/core";
-import { MuiTextFieldProps } from "@material-ui/pickers/_shared/PureDateInput";
+import { IProps } from "./types";
 const DateRangeField: FunctionComponent<IProps> = ({
-  fieldName,
-  startErrorText,
-  endErrorText,
   startLabel,
   endLabel,
   fieldValue = [null, null],
-  disableFuture,
-  disabled,
-  theme,
-  format,
-  onClose,
   onChange,
-  shouldDisableDate,
-  required = FIELD_VALIDATION.IDLE,
-  open,
-  okLabel,
-  cancelLabel,
-  TextFieldComponent,
-  allowSameDateSelection = true,
-  calendars,
 }) => {
-  const matches = useMediaQuery("(min-width:768px)");
+  const { t } = useTranslation();
 
   const onChangeHandler = (value: any) => {
     onChange(value);
   };
 
-  const actualClassName = theme === "light" ? "dateField__light" : "dateField";
+  const validationSchema = object({
+    from: string()
+      .required(t("common.required"))
+      .test({
+        name: "from",
+        message: t("common.invaliddate"),
+        test: function (value) {
+          return moment(value).isValid();
+        },
+      })
+      .test({
+        name: "from",
+        message: t("common.datebefore"),
+        test: function (value) {
+          return moment(this.parent.to).isValid()
+            ? moment(value).isSameOrBefore(this.parent.to)
+            : true;
+        },
+      }),
+    to: string()
+      .required(t("common.required"))
+      .test({
+        name: "to",
+        message: t("common.dateafter", {
+          from: moment(new Date()).add(1, "day").format("DD/MM/YYYY"),
+        }),
+        test: function (value) {
+          return moment(value).isSameOrAfter(moment(this.parent.from));
+        },
+      }),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      from: (fieldValue?.[0] ? moment(fieldValue[0]) : moment()).toISOString(),
+      to: (fieldValue?.[1]
+        ? moment(fieldValue[1])
+        : moment().add(1, "day")
+      ).toISOString(),
+    },
+    validationSchema,
+    enableReinitialize: true,
+    onSubmit: (values: any) => {
+      onChange([moment(values.from).toDate(), moment(values.to).toDate()]);
+    },
+  });
+
+  const dateFieldHandleOnChange = useCallback(
+    (fieldName: string) => (value: any) => {
+      formik.setFieldValue(fieldName, value);
+      formik.setFieldTouched(fieldName);
+      formik.validateForm().then(() => {
+        if (formik.isValid) {
+          formik.submitForm();
+        }
+      });
+    },
+    [formik]
+  );
+
+  const isValid = (fieldName: string): boolean => {
+    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+  };
+
+  const getErrorText = (fieldName: string): string => {
+    return has(formik.touched, fieldName)
+      ? (get(formik.errors, fieldName) as string)
+      : "";
+  };
 
   return (
-    <>
-      {matches ? (
-        <DesktopDateRangePicker
-          inputFormat={format}
-          disabled={disabled}
-          disableFuture={disableFuture}
-          onChange={() => {}}
-          value={fieldValue}
-          shouldDisableDate={shouldDisableDate}
-          allowSameDateSelection={true}
-          calendars={calendars ?? 2}
-          renderInput={(
-            startProps: MuiTextFieldProps,
-            endProps: MuiTextFieldProps
-          ) =>
-            TextFieldComponent ? (
-              <TextFieldComponent />
-            ) : (
-              <div className={"dateRange"}>
-                <TextField
-                  {...startProps}
-                  id={(fieldName ?? "") + "-from"}
-                  error={Boolean(startErrorText)}
-                  disabled={disabled}
-                  helperText={startErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? startLabel + " **"
-                      : startLabel
-                  }
-                />
-                <TextField
-                  {...endProps}
-                  id={fieldName + "-to"}
-                  error={Boolean(endErrorText)}
-                  disabled={disabled}
-                  helperText={endErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? endLabel + " **"
-                      : endLabel
-                  }
-                />
-              </div>
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
-          open={open}
-          onClose={onClose}
-          onAccept={onChangeHandler}
-          disableCloseOnSelect={false}
-          allowKeyboardControl
-        />
-      ) : (
-        <MobileDateRangePicker
-          inputFormat={format}
-          disabled={disabled}
-          disableFuture={disableFuture}
-          onChange={() => {}}
-          value={fieldValue}
-          shouldDisableDate={shouldDisableDate}
-          allowSameDateSelection={allowSameDateSelection}
-          renderInput={(
-            startProps: MuiTextFieldProps,
-            endProps: MuiTextFieldProps
-          ) =>
-            TextFieldComponent ? (
-              <TextFieldComponent />
-            ) : (
-              <div className={"dateRange"}>
-                <TextField
-                  {...startProps}
-                  id={(fieldName ?? "") + "-from"}
-                  error={Boolean(startErrorText)}
-                  disabled={disabled}
-                  helperText={startErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? startLabel + " **"
-                      : startLabel
-                  }
-                />
-                <TextField
-                  {...endProps}
-                  id={fieldName + "-to"}
-                  error={Boolean(endErrorText)}
-                  disabled={disabled}
-                  helperText={endErrorText}
-                  variant="outlined"
-                  margin="dense"
-                  required={required === FIELD_VALIDATION.REQUIRED}
-                  className={actualClassName}
-                  label={
-                    required === FIELD_VALIDATION.SUGGESTED
-                      ? endLabel + " **"
-                      : endLabel
-                  }
-                />
-              </div>
-            )
-          }
-          okText={okLabel}
-          cancelText={cancelLabel}
-          open={open}
-          onClose={onClose}
-          onAccept={onChangeHandler}
-          disableCloseOnSelect={false}
-          allowKeyboardControl
-        />
-      )}
-    </>
+    <div className="dateRangeField">
+      <DateField
+        fieldName="from"
+        fieldValue={formik.values.from}
+        disableFuture={true}
+        theme="regular"
+        format="dd/MM/yyyy"
+        isValid={isValid("from")}
+        errorText={getErrorText("from")}
+        label={startLabel ?? t("common.from")}
+        onChange={dateFieldHandleOnChange("from")}
+      />
+      <span>-</span>
+      <DateField
+        fieldName="to"
+        fieldValue={formik.values.to}
+        disableFuture={true}
+        theme="regular"
+        format="dd/MM/yyyy"
+        isValid={isValid("to")}
+        errorText={getErrorText("to")}
+        label={endLabel ?? t("common.to")}
+        onChange={dateFieldHandleOnChange("to")}
+      />
+    </div>
   );
 };
 

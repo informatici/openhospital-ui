@@ -1,8 +1,8 @@
-import { DateRange } from "@material-ui/pickers";
 import moment from "moment";
 import { useState, useMemo } from "react";
 import { TViewType, TPeriodType } from "./types";
 import { getCachedPeriod } from "./consts";
+import { DateRange } from "@mui/lab/DateRangePicker";
 
 export const usePeriodOptions = () => {
   const cachedPeriod = getCachedPeriod();
@@ -61,9 +61,9 @@ export const usePeriodOptions = () => {
   }, [selection, dateRange, view]);
 
   const period = useMemo(() => {
-    return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(range[1])
-      .add(-1, "day")
-      .format("yyyy-MM-DD")}`;
+    return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(
+      range[1]
+    ).format("yyyy-MM-DD")}`;
   }, [dateRange, view, selection]);
 
   return {

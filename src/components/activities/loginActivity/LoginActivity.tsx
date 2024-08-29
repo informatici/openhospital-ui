@@ -1,31 +1,29 @@
-import { FC, useEffect } from "react";
-import { InputAdornment } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import { RemoveRedEye } from "@material-ui/icons";
+import { RemoveRedEye } from "@mui/icons-material";
+import { InputAdornment } from "@mui/material";
+import Link from "@mui/material/Link";
 import classNames from "classnames";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import { default as React, useState } from "react";
+import { FC, default as React, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 import { object, string } from "yup";
 import logo from "../../../assets/logo-color.svg";
 import { HospitalDTO } from "../../../generated";
 import { useAuthentication } from "../../../libraries/authUtils/useAuthentication";
-import { setAuthenticationThunk } from "../../../state/main/actions";
-import { IState } from "../../../types";
+import { getHospital } from "../../../state/hospital";
+import { setAuthentication } from "../../../state/main";
 import Button from "../../accessories/button/Button";
 import Footer from "../../accessories/footer/Footer";
 import TextField from "../../accessories/textField/TextField";
 import "./styles.scss";
 import { IValues } from "./types";
-import { getHospital } from "../../../state/hospital/actions";
 
 const LoginActivity: FC = () => {
   useAuthentication();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const initialValues: IValues = {
     username: "",
@@ -41,7 +39,7 @@ const LoginActivity: FC = () => {
     initialValues,
     validationSchema,
     onSubmit: (values: IValues) => {
-      dispatch(setAuthenticationThunk(values.username, values.password));
+      dispatch(setAuthentication(values));
     },
   });
 
@@ -54,14 +52,14 @@ const LoginActivity: FC = () => {
   const getErrorText = (fieldName: string): string => {
     return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : "";
   };
-  const errorMessage = useSelector<IState>((state) => {
+  const errorMessage = useAppSelector((state) => {
     const error = state.main.authentication.error;
     return error?.status === 401
       ? t("errors.incorrectcredentials")
       : error?.message ?? t("errors.somethingwrong");
   });
 
-  const status = useSelector<IState>(
+  const status = useAppSelector(
     (state) => state.main.authentication.status || "IDLE"
   );
 
@@ -69,7 +67,7 @@ const LoginActivity: FC = () => {
     dispatch(getHospital());
   }, [dispatch]);
 
-  const hospital = useSelector<IState>(
+  const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data
   ) as HospitalDTO;
 

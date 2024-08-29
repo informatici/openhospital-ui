@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,15 +10,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
-import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
-import { IDiseaseTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../../../../../types";
-import { IDiseaseTypesState } from "../../../../../../../state/types/diseases/types";
+import { object, string } from "yup";
+import checkIcon from "../../../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,12 +22,13 @@ import {
 import {
   createDiseaseTypeReset,
   updateDiseaseTypeReset,
-} from "../../../../../../../state/types/diseases/actions";
-import TextField from "../../../../../textField/TextField";
+} from "../../../../../../../state/types/diseases";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { PATHS } from "../../../../../../../consts";
+import TextField from "../../../../../textField/TextField";
+import "./styles.scss";
+import { IDiseaseTypeFormProps } from "./types";
 
 const DiseaseTypeForm: FC<IDiseaseTypeFormProps> = ({
   fields,
@@ -40,15 +38,13 @@ const DiseaseTypeForm: FC<IDiseaseTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const diseaseTypesStore = useSelector<IState, IDiseaseTypesState>(
-    (state) => state.types.diseases
-  );
+  const diseaseTypesStore = useAppSelector((state) => state.types.diseases);
 
   const errorMessage = useMemo(
     () =>

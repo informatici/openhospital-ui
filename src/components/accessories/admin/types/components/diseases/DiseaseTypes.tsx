@@ -1,22 +1,22 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { DiseaseTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteDiseaseType,
   deleteDiseaseTypeReset,
   getDiseaseTypes,
-} from "../../../../../../state/types/diseases/actions";
-import { DiseaseTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import DiseaseTypesTable from "./diseaseTypesTable";
+} from "../../../../../../state/types/diseases";
 import Button from "../../../../button/Button";
+import DiseaseTypesTable from "./diseaseTypesTable";
 import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 
 const DiseaseTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDiseaseTypes());

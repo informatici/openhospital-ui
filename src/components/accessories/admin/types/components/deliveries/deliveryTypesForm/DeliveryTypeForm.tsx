@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,15 +10,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
-import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
-import { IDeliveryTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../../../../../types";
-import { IDeliveryTypesState } from "../../../../../../../state/types/deliveries/types";
+import { object, string } from "yup";
+import checkIcon from "../../../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,12 +22,13 @@ import {
 import {
   createDeliveryTypeReset,
   updateDeliveryTypeReset,
-} from "../../../../../../../state/types/deliveries/actions";
-import TextField from "../../../../../textField/TextField";
+} from "../../../../../../../state/types/deliveries";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { PATHS } from "../../../../../../../consts";
+import TextField from "../../../../../textField/TextField";
+import "./styles.scss";
+import { IDeliveryTypeFormProps } from "./types";
 
 const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
   fields,
@@ -40,15 +38,13 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const deliveryTypesStore = useSelector<IState, IDeliveryTypesState>(
-    (state) => state.types.deliveries
-  );
+  const deliveryTypesStore = useAppSelector((state) => state.types.deliveries);
 
   const errorMessage = useMemo(
     () =>

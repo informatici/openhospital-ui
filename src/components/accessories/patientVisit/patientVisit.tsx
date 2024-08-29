@@ -1,30 +1,30 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../types";
-import { initialFields } from "./consts";
+import checkIcon from "../../../assets/check-icon.png";
 import { VisitDTO } from "../../../generated";
+import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
-  getVisits,
   createVisit,
   createVisitReset,
+  getVisits,
   updateVisit,
   updateVisitReset,
-} from "../../../state/visits/actions";
-import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
-import { TActivityTransitionState } from "./types";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import InfoBox from "../infoBox/InfoBox";
+} from "../../../state/visits";
+import { getWards } from "../../../state/ward";
+import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../assets/check-icon.png";
+import InfoBox from "../infoBox/InfoBox";
+import { initialFields } from "./consts";
+import PatientVisitForm from "./patientVisitForm/PatientVisitForm";
 import PatientVisitTable from "./patientVisitTable/PatientVisitTable";
-import { updateVisitFields } from "../../../libraries/formDataHandling/functions";
-import { getWards } from "../../../state/ward/actions";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { TActivityTransitionState } from "./types";
 
 const PatientVisit: FunctionComponent = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -38,7 +38,7 @@ const PatientVisit: FunctionComponent = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -49,14 +49,14 @@ const PatientVisit: FunctionComponent = () => {
       : state.visits.updateVisit.status;
   });
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.visits.createVisit.error?.message ||
       state.visits.updateVisit.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
@@ -91,9 +91,12 @@ const PatientVisit: FunctionComponent = () => {
     if (patient) visitValuesToSave.patient = patient;
     if (!creationMode && visitToEdit.visitID) {
       dispatch(
-        updateVisit(visitToEdit.visitID, {
-          ...visitToEdit,
-          ...visitValuesToSave,
+        updateVisit({
+          visitID: visitToEdit.visitID,
+          visitDTO: {
+            ...visitToEdit,
+            ...visitValuesToSave,
+          },
         })
       );
     } else dispatch(createVisit({ ...visitValuesToSave, visitID: 0 }));

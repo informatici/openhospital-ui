@@ -1,20 +1,18 @@
 import { argv } from "process";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { MedicalDTO, ExamDTO, OperationDTO } from "../../../../generated";
-import { getExams } from "../../../../state/exams/actions";
-import { getMedicals } from "../../../../state/medicals/actions";
+import { getExams } from "../../../../state/exams";
+import { getMedicals } from "../../../../state/medicals";
 import { IState } from "../../../../types";
 
 export const useItems = () => {
-  const dispatch = useDispatch();
-  const medicals = useSelector<IState, MedicalDTO[]>(
+  const dispatch = useAppDispatch();
+  const medicals = useAppSelector(
     (state) => state.medicals.medicalsOrderByName.data || []
   );
 
-  const exams = useSelector<IState, ExamDTO[]>(
-    (state) => state.exams.examList.data || []
-  );
+  const exams = useAppSelector((state) => state.exams.examList.data || []);
 
   const surgeries: OperationDTO[] = [];
   useEffect(() => {

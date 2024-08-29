@@ -1,23 +1,19 @@
-import { useTranslation } from "react-i18next";
-import VaccineForm from "../vaccineForm/VaccineForm";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React from "react";
-import { getInitialFields } from "../vaccineForm/consts";
-import { useDispatch, useSelector } from "react-redux";
-import { VaccineDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { updateVaccine } from "../../../../../state/vaccines/actions";
-import { IState } from "../../../../../types";
+import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { VaccineDTO } from "../../../../../generated";
+import { updateVaccine } from "../../../../../state/vaccines";
+import { getInitialFields } from "../vaccineForm/consts";
+import VaccineForm from "../vaccineForm/VaccineForm";
 
 export const EditVaccine = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: VaccineDTO | undefined } = useLocation();
   const { code } = useParams();
-  const update = useSelector<IState, ApiResponse<VaccineDTO>>(
-    (state) => state.vaccines.update
-  );
+  const update = useAppSelector((state) => state.vaccines.update);
 
   const handleSubmit = (value: VaccineDTO) => {
     dispatch(updateVaccine({ ...value, lock: state?.lock }));

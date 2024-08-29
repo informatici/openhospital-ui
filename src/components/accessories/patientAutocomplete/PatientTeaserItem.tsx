@@ -1,12 +1,12 @@
+import { CakeOutlined } from "@mui/icons-material";
+import { SvgIcon } from "@mui/material";
 import React from "react";
+import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
+import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
+import { ReactComponent as TaxIcon } from "../../../assets/tax.svg";
 import { PatientDTO } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
-import { CakeOutlined } from "@material-ui/icons";
-import { ReactComponent as MaleIcon } from "../../../assets/gender-male.svg";
-import { ReactComponent as FemaleIcon } from "../../../assets/gender-female.svg";
-import { ReactComponent as TaxIcon } from "../../../assets/tax.svg";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
-import { SvgIcon } from "@material-ui/core";
 
 const PatientTeaserItem = (patient: PatientDTO) => {
   // value used to style profile picture

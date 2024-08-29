@@ -1,23 +1,19 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { SupplierDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import { IState } from "../../../../../types";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
+import { SupplierDTO } from "../../../../../generated";
+import { updateSupplier } from "../../../../../state/suppliers";
 import SupplierForm from "../supplierForm/SupplierForm";
 import { getInitialFields } from "../supplierForm/consts";
-import { updateSupplier } from "../../../../../state/suppliers/actions";
 
 export const EditSupplier = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { state }: { state: SupplierDTO | undefined } = useLocation();
   const { id } = useParams();
-  const update = useSelector<IState, ApiResponse<SupplierDTO>>(
-    (state) => state.suppliers.update
-  );
+  const update = useAppSelector((state) => state.suppliers.update);
   const navigate = useNavigate();
 
   const handleSubmit = (value: SupplierDTO) => {

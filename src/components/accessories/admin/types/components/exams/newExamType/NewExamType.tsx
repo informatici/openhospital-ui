@@ -1,21 +1,17 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
+import { useTranslation } from "react-i18next";
 import { ExamTypeDTO } from "../../../../../../../generated";
-import { createExamType } from "../../../../../../../state/types/exams/actions";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { createExamType } from "../../../../../../../state/types/exams";
 import ExamTypeForm from "../examTypesForm/ExamTypeForm";
 import { getInitialFields } from "../examTypesForm/consts";
-import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewExamType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<ExamTypeDTO>>(
-    (state) => state.types.exams.create
-  );
+  const create = useAppSelector((state) => state.types.exams.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

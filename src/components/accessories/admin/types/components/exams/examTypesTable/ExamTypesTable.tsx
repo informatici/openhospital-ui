@@ -1,17 +1,15 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { ApiResponse } from "../../../../../../../state/types";
-import { IState } from "../../../../../../../types";
-import { ExamTypeDTO } from "../../../../../../../generated";
-import InfoBox from "../../../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
-import Table from "../../../../../table/Table";
-import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
-import { deleteExamTypeReset } from "../../../../../../../state/types/exams/actions";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
+import { ExamTypeDTO } from "../../../../../../../generated";
 import { scrollToElement } from "../../../../../../../libraries/uiUtils/scrollToElement";
+import { deleteExamTypeReset } from "../../../../../../../state/types/exams";
+import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../../../infoBox/InfoBox";
+import Table from "../../../../../table/Table";
+import "./styles.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -21,7 +19,7 @@ interface IOwnProps {
 
 const ExamTypesTable = (props: IOwnProps) => {
   const { onDelete, onEdit, headerActions } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -33,14 +31,11 @@ const ExamTypesTable = (props: IOwnProps) => {
   };
   const order = ["code", "description"];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<ExamTypeDTO[]>
-  >((state) => state.types.exams.getAll);
-
-  const deleteExamType = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.types.exams.delete
+  const { data, status, error } = useAppSelector(
+    (state) => state.types.exams.getAll
   );
+
+  const deleteExamType = useAppSelector((state) => state.types.exams.delete);
 
   const handleEdit = (row: ExamTypeDTO) => {
     onEdit((data ?? []).find((item) => item.code === row?.code));

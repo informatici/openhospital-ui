@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,15 +10,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
-import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
-import { IDeliveryResultTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../../../../../types";
-import { IDeliveryResultTypeState } from "../../../../../../../state/types/deliveryResultType/types";
+import { object, string } from "yup";
+import checkIcon from "../../../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,12 +22,13 @@ import {
 import {
   createDeliveryResultTypeReset,
   updateDeliveryResultTypeReset,
-} from "../../../../../../../state/types/deliveryResultType/actions";
-import TextField from "../../../../../textField/TextField";
+} from "../../../../../../../state/types/deliveryResults";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { PATHS } from "../../../../../../../consts";
+import TextField from "../../../../../textField/TextField";
+import "./styles.scss";
+import { IDeliveryResultTypeFormProps } from "./types";
 
 const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
   fields,
@@ -40,16 +38,15 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const deliveryResultTypesStore = useSelector<
-    IState,
-    IDeliveryResultTypeState
-  >((state) => state.types.deliveryResult);
+  const deliveryResultTypesStore = useAppSelector(
+    (state) => state.types.deliveryResult
+  );
 
   const errorMessage = useMemo(
     () =>
@@ -144,7 +141,12 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
 
         <div className="deliveryResultTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              dataCy="submit-form"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -152,6 +154,7 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
             <Button
               type="reset"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >

@@ -1,21 +1,17 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
+import { useTranslation } from "react-i18next";
 import { DeliveryResultTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
-import "./styles.scss";
+import { createDeliveryResultType } from "../../../../../../../state/types/deliveryResults";
 import DeliveryResultTypeForm from "../deliveryResultTypeForm/DeliveryResultTypeForm";
 import { getInitialFields } from "../deliveryResultTypeForm/consts";
-import { createDeliveryResultType } from "../../../../../../../state/types/deliveryResultType/actions";
+import "./styles.scss";
 
 export const NewDeliveryResultType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<DeliveryResultTypeDTO>>(
-    (state) => state.types.deliveryResult.create
-  );
+  const create = useAppSelector((state) => state.types.deliveryResult.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));
@@ -27,7 +23,9 @@ export const NewDeliveryResultType = () => {
 
   return (
     <div className="newDeliveryResultType">
-      <h3 className="title">{t("deliveryResultType.addDeliveryResultType")}</h3>
+      <h3 className="title" data-cy="sub-activity-title">
+        {t("deliveryResultType.addDeliveryResultType")}
+      </h3>
       <DeliveryResultTypeForm
         creationMode
         onSubmit={handleSubmit}

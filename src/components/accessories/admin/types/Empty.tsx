@@ -1,6 +1,6 @@
 import React from "react";
-import InfoBox from "../../infoBox/InfoBox";
 import { useTranslation } from "react-i18next";
+import InfoBox from "../../infoBox/InfoBox";
 
 const Empty = () => {
   const { t } = useTranslation();

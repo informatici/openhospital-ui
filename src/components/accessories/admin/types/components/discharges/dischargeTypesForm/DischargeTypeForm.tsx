@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,15 +10,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
-import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
-import { IDischargeTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../../../../../types";
-import { IDischargeTypesState } from "../../../../../../../state/types/discharges/types";
+import { object, string } from "yup";
+import checkIcon from "../../../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,12 +22,13 @@ import {
 import {
   createDischargeTypeReset,
   updateDischargeTypeReset,
-} from "../../../../../../../state/types/discharges/actions";
-import TextField from "../../../../../textField/TextField";
+} from "../../../../../../../state/types/discharges";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { PATHS } from "../../../../../../../consts";
+import TextField from "../../../../../textField/TextField";
+import "./styles.scss";
+import { IDischargeTypeFormProps } from "./types";
 
 const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
   fields,
@@ -40,15 +38,13 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const dischargeTypesStore = useSelector<IState, IDischargeTypesState>(
-    (state) => state.types.discharges
-  );
+  const dischargeTypesStore = useAppSelector((state) => state.types.discharges);
 
   const errorMessage = useMemo(
     () =>

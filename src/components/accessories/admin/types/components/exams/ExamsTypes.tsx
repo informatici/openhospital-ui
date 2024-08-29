@@ -1,22 +1,22 @@
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { PATHS } from "../../../../../../consts";
+import { ExamTypeDTO } from "../../../../../../generated";
+import { setTypeMode } from "../../../../../../state/types/config";
 import {
   deleteExamType,
   deleteExamTypeReset,
   getExamTypes,
-} from "../../../../../../state/types/exams/actions";
-import { ExamTypeDTO } from "../../../../../../generated";
-import { PATHS } from "../../../../../../consts";
-import ExamTypesTable from "./examTypesTable";
+} from "../../../../../../state/types/exams";
 import Button from "../../../../button/Button";
+import ExamTypesTable from "./examTypesTable";
 import "./styles.scss";
-import { setTypeMode } from "../../../../../../state/types/config";
 
 const ExamTypes = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getExamTypes());

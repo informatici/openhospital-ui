@@ -1,22 +1,17 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { ReactNode, useEffect, useRef } from "react";
-import Table from "../../../table/Table";
 import { useTranslation } from "react-i18next";
-import InfoBox from "../../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
-import { VaccineDTO, VaccineTypeDTO } from "../../../../../generated";
-import { ApiResponse } from "../../../../../state/types";
-import classes from "./VaccinesTable.module.scss";
-import {
-  deleteVaccineReset,
-  getVaccines,
-} from "../../../../../state/vaccines/actions";
-import { TFilterField } from "../../../table/filter/types";
-import { getVaccineTypes } from "../../../../../state/types/vaccines/actions";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import checkIcon from "../../../../../assets/check-icon.png";
+import { VaccineDTO } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
+import { getVaccineTypes } from "../../../../../state/types/vaccines";
+import { deleteVaccineReset, getVaccines } from "../../../../../state/vaccines";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import InfoBox from "../../../infoBox/InfoBox";
+import { TFilterField } from "../../../table/filter/types";
+import Table from "../../../table/Table";
+import classes from "./VaccinesTable.module.scss";
 
 interface IOwnProps {
   onEdit: (row: any) => void;
@@ -29,7 +24,7 @@ export const VaccinesTable = ({
   onDelete,
   headerActions,
 }: IOwnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -49,19 +44,15 @@ export const VaccinesTable = ({
 
   const order = ["code", "type", "description"];
 
-  const { data, status, error } = useSelector<
-    IState,
-    ApiResponse<VaccineDTO[]>
-  >((state) => state.vaccines.vaccineList);
-
-  const { data: vaccineTypes } = useSelector<
-    IState,
-    ApiResponse<VaccineTypeDTO[]>
-  >((state) => state.types.vaccines.getVaccineTypes);
-
-  const deleteVaccine = useSelector<IState, ApiResponse<boolean>>(
-    (state) => state.vaccines.delete
+  const { data, status, error } = useAppSelector(
+    (state) => state.vaccines.vaccineList
   );
+
+  const { data: vaccineTypes } = useAppSelector(
+    (state) => state.types.vaccines.getVaccineTypes
+  );
+
+  const deleteVaccine = useAppSelector((state) => state.vaccines.delete);
 
   const filters: TFilterField[] = [
     {

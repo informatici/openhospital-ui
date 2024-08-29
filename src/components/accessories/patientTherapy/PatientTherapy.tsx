@@ -1,33 +1,33 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
-import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
-import TherapyForm from "./therapyForm/TherapyForm";
-import "./styles.scss";
+import { useTranslation } from "react-i18next";
+import checkIcon from "../../../assets/check-icon.png";
+import { TherapyRowDTO } from "../../../generated";
+import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getMedicals } from "../../../state/medicals";
 import {
   createTherapy,
   createTherapyReset,
-  deleteTherapyReset,
   deleteTherapy,
-  updateTherapyReset,
+  deleteTherapyReset,
   updateTherapy,
-} from "../../../state/therapies/actions";
-import { getMedicals } from "../../../state/medicals/actions";
-import { initialFields } from "./consts";
-import { useTranslation } from "react-i18next";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { TherapyRowDTO } from "../../../generated";
-import { useDispatch, useSelector } from "react-redux";
+  updateTherapyReset,
+} from "../../../state/therapies";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
-import checkIcon from "../../../assets/check-icon.png";
-import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { initialFields } from "./consts";
+import PatientTherapyTable from "./patientTherapyTable/PatientTherapyTable";
+import "./styles.scss";
+import TherapyForm from "./therapyForm/TherapyForm";
 
 export type TherapyTransitionState = "IDLE" | "TO_RESET";
 
 const PatientTherapy: FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
@@ -38,7 +38,7 @@ const PatientTherapy: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const status = useSelector<IState, string | undefined>((state) => {
+  const status = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -49,7 +49,7 @@ const PatientTherapy: FC = () => {
       : state.therapies.updateTherapy.status;
   });
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.therapies.createTherapy.error?.message ||
       state.therapies.updateTherapy.error?.message ||
@@ -58,11 +58,11 @@ const PatientTherapy: FC = () => {
 
   const [deletedObjCode, setDeletedObjCode] = useState("");
 
-  const patientData = useSelector(
+  const patientData = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const deleteStatus = useSelector<IState, string | undefined>(
+  const deleteStatus = useAppSelector(
     (state) => state.therapies.deleteTherapy.status
   );
 

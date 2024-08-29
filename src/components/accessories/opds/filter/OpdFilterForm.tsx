@@ -1,17 +1,19 @@
+import { FilterList } from "@mui/icons-material";
 import {
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
   Button,
-} from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
+} from "@mui/material";
 import { differenceInSeconds } from "date-fns";
 import { useFormik } from "formik";
-import { get, has } from "lodash";
-import React, { useCallback, useState } from "react";
-import { FC, useMemo } from "react";
+import { useAppSelector } from "libraries/hooks/redux";
+import { get, has, isEmpty } from "lodash";
+import moment from "moment";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { number, object, string } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
 import {
   DiseaseDTO,
   DiseaseTypeDTO,
@@ -19,23 +21,19 @@ import {
   WardDTO,
 } from "../../../../generated";
 import {
-  getFromFields,
   formatAllFieldValues,
+  getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../../libraries/permissionUtils/Permission";
+import { IState } from "../../../../types";
+import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
 import PatientPicker from "../../patientPicker/PatientPicker";
 import SelectField from "../../selectField/SelectField";
-import { IOpdFilterProps, TFilterValues } from "./types";
-import "./styles.scss";
 import TextField from "../../textField/TextField";
-import { isEmpty } from "lodash";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import { IState } from "../../../../types";
-import { useSelector } from "react-redux";
-import moment from "moment";
-import { Permission } from "../../../../libraries/permissionUtils/Permission";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import warningIcon from "../../../../assets/warning-icon.png";
+import "./styles.scss";
+import { IOpdFilterProps, TFilterValues } from "./types";
 
 export const OpdFilterForm: FC<IOpdFilterProps> = ({
   fields,
@@ -190,7 +188,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
     value: value.code ?? "",
     label: value.description ?? "",
   });
-  const diseases = useSelector<IState, DiseaseDTO[]>((state: IState) => {
+  const diseases = useAppSelector((state: IState) => {
     return state.diseases.diseasesOpd.data ?? [];
   });
 
@@ -202,11 +200,11 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
           .map((e) => mapToOptions(e));
   }, [diseaseTypeCode, diseases]);
 
-  const diseaseTypeOptions = useSelector((state: IState) => {
+  const diseaseTypeOptions = useAppSelector((state: IState) => {
     return state.types.diseases.getAll.data?.map((e) => mapToOptions(e)) ?? [];
   });
 
-  const wards = useSelector<IState, WardDTO[]>((state: IState) => {
+  const wards = useAppSelector((state: IState) => {
     return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
   });
 

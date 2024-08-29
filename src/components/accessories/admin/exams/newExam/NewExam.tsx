@@ -1,19 +1,15 @@
-import { useTranslation } from "react-i18next";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { ExamDTO } from "../../../../../generated";
+import { createExam } from "../../../../../state/exams";
 import { ExamForm, getInitialFields } from "../examForm";
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
-import { createExam } from "../../../../../state/exams/actions";
 
 export const NewExam = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<ExamDTO>>(
-    (state) => state.exams.examCreate
-  );
+  const create = useAppSelector((state) => state.exams.examCreate);
 
   const handleSubmit = (value: ExamDTO) => {
     dispatch(createExam(value));

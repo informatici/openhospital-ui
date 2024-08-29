@@ -1,19 +1,17 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
+import { useTranslation } from "react-i18next";
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
-import { createPregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment/actions";
+import { setTypeMode } from "../../../../../../../state/types/config";
+import { createPregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment";
 import PregnantTreatmentTypeForm from "../pregnantTreatmentTypeForm/PregnantTreatmentTypeForm";
 import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
-import { setTypeMode } from "../../../../../../../state/types/config";
 import "./styles.scss";
 
 export const NewPregnantTreatmentType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<PregnantTreatmentTypeDTO>>(
+  const create = useAppSelector(
     (state) => state.types.pregnantTreatment.create
   );
 

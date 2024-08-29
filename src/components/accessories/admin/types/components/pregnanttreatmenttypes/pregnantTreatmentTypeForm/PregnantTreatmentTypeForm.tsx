@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -9,15 +10,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
-import checkIcon from "../../../../../../../assets/check-icon.png";
-import "./styles.scss";
-import { IPregnantTreatmentTypeFormProps } from "./types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { IState } from "../../../../../../../types";
-import { IPregnantTreatmentTypesState } from "../../../../../../../state/types/pregnantTreatment/types";
+import { object, string } from "yup";
+import checkIcon from "../../../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
   getFromFields,
@@ -25,12 +22,13 @@ import {
 import {
   createPregnantTreatmentTypeReset,
   updatePregnantTreatmentTypeReset,
-} from "../../../../../../../state/types/pregnantTreatment/actions";
-import TextField from "../../../../../textField/TextField";
+} from "../../../../../../../state/types/pregnantTreatment";
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import { PATHS } from "../../../../../../../consts";
+import TextField from "../../../../../textField/TextField";
+import "./styles.scss";
+import { IPregnantTreatmentTypeFormProps } from "./types";
 
 const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   fields,
@@ -40,16 +38,15 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   resetButtonLabel,
   isLoading,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const pregnantTreatmentTypeStore = useSelector<
-    IState,
-    IPregnantTreatmentTypesState
-  >((state) => state.types.pregnantTreatment);
+  const pregnantTreatmentTypeStore = useAppSelector(
+    (state) => state.types.pregnantTreatment
+  );
 
   const errorMessage = useMemo(
     () =>
@@ -144,7 +141,12 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 
         <div className="pregnantTreatmentTypesForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" dataCy="submit-form" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>

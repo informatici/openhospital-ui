@@ -1,32 +1,28 @@
-import React, { useEffect } from "react";
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Autocomplete } from "@material-ui/lab";
+import { Autocomplete } from "@mui/lab";
 import {
-  TextField as MuiTextField,
   FormControl,
   FormHelperText,
-} from "@material-ui/core";
-import TextField from "../../../textField/TextField";
-import Button from "../../../button/Button";
-import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+  TextField as MuiTextField,
+} from "@mui/material";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { ReactNode, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
+import Button from "../../../button/Button";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
+import TextField from "../../../textField/TextField";
 
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
 import { UserDTO, UserGroupDTO } from "../../../../../generated";
+import { IState } from "../../../../../types";
 
-import { userSchema } from "./validation";
-import "./styles.scss";
-import {
-  createUser,
-  createUserReset,
-} from "../../../../../state/users/actions";
-import { getUserGroups } from "../../../../../state/usergroups/actions";
 import { PATHS } from "../../../../../consts";
+import { getUserGroups } from "../../../../../state/usergroups";
+import { createUser, createUserReset } from "../../../../../state/users";
+import "./styles.scss";
+import { userSchema } from "./validation";
 
 const initialValues = {
   userName: "",
@@ -39,15 +35,13 @@ const initialValues = {
 export type FormProps = UserDTO & { passwd2: string };
 
 export const NewUser = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const create = useSelector<IState, ApiResponse<UserDTO>>(
-    (state) => state.users.create
-  );
+  const create = useAppSelector((state) => state.users.create);
 
-  const userGroupsTypeState = useSelector(
+  const userGroupsTypeState = useAppSelector(
     (state: IState) => state.usergroups.groupList
   );
 
@@ -150,11 +144,13 @@ export const NewUser = () => {
                   option.code.toString() +
                   (option.desc ? ` - ${option.desc}` : "")
                 }
-                getOptionSelected={(a, b) => a.code === b.code}
               />
               {touched.userGroupName && errors.userGroupName && (
                 <FormHelperText error>
-                  {errors.userGroupName?.code || errors.userGroupName}
+                  {
+                    (errors.userGroupName?.code ||
+                      errors.userGroupName) as ReactNode
+                  }
                 </FormHelperText>
               )}
             </FormControl>

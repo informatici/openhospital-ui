@@ -1,14 +1,13 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
-import { getOpdsWithOperationRows } from "../../../../state/opds/actions";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
-import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import InfoBox from "../../infoBox/InfoBox";
+import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getOpdsWithOperationRows } from "../../../../state/opds";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
@@ -32,19 +31,17 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     note: t("opd.note"),
   };
   const order = ["date", "disease"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, OpdWithOperationRowDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
   );
-  const opdStatus = useSelector<IState, string | undefined>(
-    (state) => state.opds.getOpds.status
-  );
-  const errorMessage = useSelector<IState>(
+  const opdStatus = useAppSelector((state) => state.opds.getOpds.status);
+  const errorMessage = useAppSelector(
     (state) => state.opds.getOpds.error?.message || t("common.somethingwrong")
   ) as string;
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

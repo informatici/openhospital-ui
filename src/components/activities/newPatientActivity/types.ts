@@ -1,7 +1,7 @@
 import { PatientDTO } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
 
-interface IOwnProps {
+export interface IOwnProps {
   dashboardRoute: string;
 }
 
@@ -11,13 +11,6 @@ export interface IStateProps {
   hasSucceeded: boolean;
   hasFailed: boolean;
 }
-
-export interface IDispatchProps {
-  createPatient: (patient: PatientDTO) => any;
-  createPatientReset: () => any;
-}
-
-export type TProps = IOwnProps & IStateProps & IDispatchProps;
 
 export type TActivityTransitionState =
   | "IDLE"

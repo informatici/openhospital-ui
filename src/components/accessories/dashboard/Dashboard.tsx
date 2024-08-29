@@ -1,19 +1,22 @@
-import React, { FunctionComponent, useState } from "react";
+import { Chart, registerables } from "chart.js";
+import { useAppSelector } from "libraries/hooks/redux";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { IState } from "../../../types";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import AppHeader from "../appHeader/AppHeader";
 import Footer from "../footer/Footer";
 import { DashboardContent } from "./dashboardContent/DashboardContent";
 import "./styles.scss";
-import { IStateProps, TProps } from "./types";
-import { Chart, registerables } from "chart.js";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 Chart.register(...registerables);
 
-const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
+const Dashboard = () => {
   const { t } = useTranslation();
+
+  const { userCredentials } = useAppSelector((state) => ({
+    userCredentials: state.main.authentication.data,
+  }));
+
   const breadcrumbMap = {
     [t("nav.dashboard")]: "",
   };
@@ -34,8 +37,4 @@ const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

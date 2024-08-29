@@ -1,19 +1,19 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CustomModal } from "../../customModal/CustomModal";
-import Table from "../../table/Table";
-import { IExamTableProps, multipleResultsLabel } from "./types";
-import "./styles.scss";
-import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { LaboratoryDetails } from "../LaboratoryDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
-import { IState } from "../../../../types";
-import InfoBox from "../../infoBox/InfoBox";
-import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { LabWithRowsDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getLabWithRowsByCode } from "../../../../state/laboratories";
+import { IState } from "../../../../types";
+import { CustomModal } from "../../customModal/CustomModal";
+import InfoBox from "../../infoBox/InfoBox";
 import { LabelBadge } from "../../labelBadge/LabelBadge";
+import Table from "../../table/Table";
 import { TActions } from "../../table/types";
+import { LaboratoryDetails } from "../LaboratoryDetails";
+import "./styles.scss";
+import { IExamTableProps, multipleResultsLabel } from "./types";
 
 export const statusLabel = (status: LaboratoryDTOStatusEnum) => {
   status = status.toUpperCase() as LaboratoryDTOStatusEnum;
@@ -41,14 +41,13 @@ export const ExamTable: FC<IExamTableProps> = ({
   handleCancel,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const canUpdate = usePermission("exams.update");
   const canDelete = usePermission("exams.delete");
-
-  const deleteStatus = useSelector<IState, any>(
+  const deleteStatus = useAppSelector(
     (state: IState) => state.laboratories.deleteLab.status
   );
-  const deleteErrorMessage = useSelector(
+  const deleteErrorMessage = useAppSelector(
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 

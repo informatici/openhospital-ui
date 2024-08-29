@@ -1,19 +1,15 @@
-import { useTranslation } from "react-i18next";
-import OperationForm from "../operationForm/OperationForm";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React from "react";
-import { getInitialFields } from "../operationForm/consts";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { OperationDTO } from "../../../../../generated";
-import { createOperation } from "../../../../../state/operations/actions";
-import { IState } from "../../../../../types";
-import { ApiResponse } from "../../../../../state/types";
+import { createOperation } from "../../../../../state/operations";
+import { getInitialFields } from "../operationForm/consts";
+import OperationForm from "../operationForm/OperationForm";
 
 export const NewOperation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<OperationDTO>>(
-    (state) => state.operations.create
-  );
+  const create = useAppSelector((state) => state.operations.create);
 
   const handleSubmit = (value: OperationDTO) => {
     dispatch(createOperation(value));

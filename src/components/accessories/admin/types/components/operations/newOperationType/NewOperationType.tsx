@@ -1,21 +1,17 @@
-import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../../../types";
-import { ApiResponse } from "../../../../../../../state/types";
+import { useTranslation } from "react-i18next";
 import { OperationTypeDTO } from "../../../../../../../generated";
-import { createOperationType } from "../../../../../../../state/types/operations/actions";
 import { setTypeMode } from "../../../../../../../state/types/config";
-import "./styles.scss";
+import { createOperationType } from "../../../../../../../state/types/operations";
 import OperationTypeForm from "../operationTypesForm/OperationTypeForm";
 import { getInitialFields } from "../operationTypesForm/consts";
+import "./styles.scss";
 
 export const NewOperationType = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const create = useSelector<IState, ApiResponse<OperationTypeDTO>>(
-    (state) => state.types.operations.create
-  );
+  const create = useAppSelector((state) => state.types.operations.create);
 
   useEffect(() => {
     dispatch(setTypeMode("edit"));

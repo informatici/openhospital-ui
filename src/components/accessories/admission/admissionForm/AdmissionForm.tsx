@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -22,8 +22,10 @@ import {
 import {
   getDiseasesIpdIn,
   getDiseasesIpdOut,
-} from "../../../../state/diseases/actions";
-import { getWards } from "../../../../state/ward/actions";
+} from "../../../../state/diseases";
+import { getAdmissionTypes } from "../../../../state/types/admissions";
+import { getDischargeTypes } from "../../../../state/types/discharges";
+import { getWards } from "../../../../state/ward";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
@@ -32,8 +34,6 @@ import DateField from "../../dateField/DateField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { AdmissionProps } from "./types";
-import { getAdmissionTypes } from "../../../../state/types/admissions";
-import { getDischargeTypes } from "../../../../state/types/discharges";
 
 const AdmissionForm: FC<AdmissionProps> = ({
   fields,
@@ -47,27 +47,27 @@ const AdmissionForm: FC<AdmissionProps> = ({
   resetFormCallback,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const diagnosisInList = useSelector(
+  const diagnosisInList = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.data
   );
 
-  const admissionTypes = useSelector(
+  const admissionTypes = useAppSelector(
     (state: IState) => state.types.admissions.getAll.data
   );
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
-  const wards = useSelector((state: IState) =>
+  const wards = useAppSelector((state: IState) =>
     state.wards.allWards.data?.filter((ward) => ward.beds > 0)
   );
 
-  const diagnosisOutList = useSelector(
+  const diagnosisOutList = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdOut.data
   );
 
-  const dischargeTypes = useSelector(
+  const dischargeTypes = useAppSelector(
     (state: IState) => state.types.discharges.getAll.data
   );
 
@@ -263,13 +263,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const diagnosisInStatus = useSelector(
+  const diagnosisInStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.status
   );
-  const wardStatus = useSelector(
+  const wardStatus = useAppSelector(
     (state: IState) => state.wards.allWards.status
   );
-  const admTypeStatus = useSelector(
+  const admTypeStatus = useAppSelector(
     (state: IState) => state.types.admissions.getAll.status
   );
 
@@ -285,10 +285,10 @@ const AdmissionForm: FC<AdmissionProps> = ({
     dispatch(getDiseasesIpdOut());
   }, [dispatch]);
 
-  const diagnosisOutStatus = useSelector(
+  const diagnosisOutStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdOut.status
   );
-  const disTypeStatus = useSelector(
+  const disTypeStatus = useAppSelector(
     (state: IState) => state.types.discharges.getAll.status
   );
 

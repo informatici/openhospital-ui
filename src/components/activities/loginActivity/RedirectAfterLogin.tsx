@@ -1,8 +1,7 @@
+import { useAppSelector } from "libraries/hooks/redux";
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
 import { useLandingPageRoute } from "../../../libraries/hooks/useLandingPageRoute";
-import { IState } from "../../../types";
 import { IRedirectAfterLogin } from "./types";
 
 export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
@@ -15,7 +14,7 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
     [landingPageRoute, location]
   );
 
-  const state = useSelector<IState, IState>((state) => state);
+  const state = useAppSelector((state) => state);
 
   const status = useMemo(
     () =>

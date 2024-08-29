@@ -47,10 +47,9 @@ describe("NewPatientActivity spec", () => {
       .then((firstSrc) => {
         const placeholder = firstSrc;
 
-        cy.dataCy("profile-picture-input").selectFile(
-          "@profilePicture",
-          { force: true }
-        );
+        cy.dataCy("profile-picture-input").selectFile("@profilePicture", {
+          force: true,
+        });
         cy.get(".MuiDialogContent-root .MuiButton-containedPrimary").click();
         cy.wait(2000);
 
@@ -98,19 +97,19 @@ describe("NewPatientActivity spec", () => {
   it("should show an error message when the call fails", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
+    cy.get(".MuiPickersDay-today").click();
     cy.byId("firstName").clear().type("fail");
     cy.byId("secondName").clear().type("fail");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.dataValue("M").click();
-    cy.dataCy("patient-data-submit-button").click();
+    cy.dataCy("patient-data-submit-button").click().click();
     cy.dataCy("info-box").should("have.class", "error");
   });
 
   it("should show a confirmation dialog when the call is successful", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
+    cy.get(".MuiPickersDay-today").click();
     cy.byId("firstName").clear().type("Antonio Carlos");
     cy.byId("secondName").clear().type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
@@ -131,12 +130,12 @@ describe("NewPatientActivity spec", () => {
   it("should redirect the user to the DashboardActivity on Dashboard button click", () => {
     cy.wait(2000);
     cy.get(".dateField button").click();
-    cy.get(".MuiPickersCalendar-week .MuiPickersDay-today").click();
+    cy.get(".MuiPickersDay-today").click();
     cy.byId("firstName").type("Antonio Carlos");
     cy.byId("secondName").type("Jobim");
     cy.get(".MuiSelect-select[id=sex]").click();
     cy.dataValue("M").click();
-    cy.dataCy("patient-data-submit-button").click();
+    cy.dataCy("patient-data-submit-button").click().click();
     cy.dataCy("dialog-button-set").contains("Go to home").click();
     cy.dataCy("dashboard-activity");
   });
