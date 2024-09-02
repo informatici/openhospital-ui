@@ -26,10 +26,10 @@ export const patientRoutes = (server) => {
           res.body = null;
           break;
         case "1234563":
-          res.status(200).json(patientDTOOut);
+          res.status(200).json({ ...patientDTOOut, code });
           break;
         default:
-          res.status(200).json(patientDTO);
+          res.status(200).json({ ...patientDTO, code });
       }
     });
 
