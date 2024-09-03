@@ -8,6 +8,7 @@ import { usePermission } from "../../../../libraries/permissionUtils/usePermissi
 import { getOpdsWithOperationRows } from "../../../../state/opds";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
+
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;

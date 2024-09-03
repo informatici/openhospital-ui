@@ -1,4 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import moment from "moment";
 import {
   OpdDTO,
   OpdWithOperationRowDTO,
@@ -6,8 +8,6 @@ import {
   UpdateOpdWithOperationRowRequest,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import { isEmpty } from "lodash";
-import moment from "moment";
 
 const api = new OpdsApi(customConfiguration());
 
@@ -31,7 +31,7 @@ export const getOpdsWithOperationRows = createAsyncThunk(
       })
       .toPromise()
       .then((result) =>
-        result.map((item) =>
+        (result ?? []).map((item) =>
           item.opdDTO ? item : ({ opdDTO: item } as OpdWithOperationRowDTO)
         )
       )
