@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const laboratorySlice = createSlice({
   name: "laboratories",
@@ -46,8 +46,7 @@ export const laboratorySlice = createSlice({
         state.searchLabs = ApiResponse.loading();
       })
       .addCase(thunks.searchLabs.fulfilled, (state, action) => {
-        state.searchLabs = 
-        ApiResponse.value(action.payload);
+        state.searchLabs = ApiResponse.value(action.payload);
       })
       .addCase(thunks.searchLabs.rejected, (state, action) => {
         state.searchLabs = ApiResponse.error(action.payload);
@@ -64,6 +63,19 @@ export const laboratorySlice = createSlice({
       })
       .addCase(thunks.getLabsByPatientId.rejected, (state, action) => {
         state.labsByPatientId = ApiResponse.error(action.payload);
+      })
+      // Get Lab Requests By Patient ID
+      .addCase(thunks.getLabsRequestByPatientId.pending, (state) => {
+        state.labsRequestByPatientId = ApiResponse.loading();
+      })
+      .addCase(thunks.getLabsRequestByPatientId.fulfilled, (state, action) => {
+        state.labsRequestByPatientId.status = isEmpty(action.payload)
+          ? "SUCCESS_EMPTY"
+          : "SUCCESS";
+        state.labsRequestByPatientId.data = action.payload as any;
+      })
+      .addCase(thunks.getLabsRequestByPatientId.rejected, (state, action) => {
+        state.labsRequestByPatientId = ApiResponse.error(action.payload);
       })
       // Get Lab By Code
       .addCase(thunks.getLabByCode.pending, (state) => {
