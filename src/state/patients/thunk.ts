@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { PatientDTO, PatientsApi, UpdatePatientRequest } from "../../generated";
-import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import moment from "moment";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
+import { PatientDTO, PatientsApi, UpdatePatientRequest } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new PatientsApi(customConfiguration());
 
@@ -13,7 +13,7 @@ export const searchPatient = createAsyncThunk(
       return api
         .getPatient({ code: parseInt(values.id) })
         .toPromise()
-        .then((result) => [result])
+        .then((result) => (result ? [result] : []))
         .catch((error) => thunkApi.rejectWithValue(error.response));
     }
     return api
