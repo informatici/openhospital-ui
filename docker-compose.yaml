@@ -15,7 +15,7 @@ x-mariadb: &mariadb-env
   MARIADB_ROOT_PASSWORD: root
   MARIADB_USER: isf
   MARIADB_PASSWORD: isf123
-  OH_DEMO_LANG: en
+  OH_DB_LANG: en
 x-ui: &ui-env
   <<: *repository-args
   PUBLIC_URL: /

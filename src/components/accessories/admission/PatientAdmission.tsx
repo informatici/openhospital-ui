@@ -1,7 +1,9 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
 import { AdmissionDTO, PatientDTOStatusEnum } from "../../../generated";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
@@ -10,11 +12,11 @@ import {
   createAdmission,
   createAdmissionReset,
   getCurrentAdmission,
+  getCurrentAdmissionReset,
   updateAdmission,
   updateAdmissionReset,
 } from "../../../state/admissions";
 import { getLastOpd } from "../../../state/opds";
-import { getPatient } from "../../../state/patients";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
@@ -29,6 +31,8 @@ const PatientAdmission: FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const canCreate = usePermission("admissions.create");
+  const canUpdate = usePermission("admissions.update");
+  const { id } = useParams();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
@@ -50,10 +54,6 @@ const PatientAdmission: FC = () => {
 
   const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
-  );
-
-  const currentAdmissionStatus = useAppSelector(
-    (state: IState) => state.admissions.currentAdmissionByPatientId.status
   );
 
   const createStatus = useAppSelector(
@@ -81,14 +81,9 @@ const PatientAdmission: FC = () => {
 
   useEffect(() => {
     if (patientCode && creationMode) {
-      dispatch(getLastOpd(patientCode ?? -1));
+      dispatch(getLastOpd(parseInt(id!!)));
     }
   }, [dispatch, patientCode, creationMode]);
-
-  const open = useMemo(() => {
-    if (creationMode) return showForm && canCreate;
-    return showForm;
-  }, [showForm, canCreate, creationMode]);
 
   const fields = useFields(admissionToEdit, lastOpd?.disease);
 
@@ -143,30 +138,26 @@ const PatientAdmission: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!creationMode) {
-      setShowForm(true);
-    } else if (
-      creationMode &&
-      currentAdmissionStatus !== "SUCCESS" &&
-      currentAdmissionStatus !== "IDLE" &&
-      !currentAdmission
-    ) {
-      setShowForm(true);
-    } else setShowForm(false);
-  }, [currentAdmissionStatus, currentAdmission, creationMode]);
+    if (creationMode && !!currentAdmission) {
+      setShowForm(false);
+    } else setShowForm(true);
+  }, [currentAdmission, creationMode]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
-      dispatch(getPatient((patient?.code ?? 0).toString()));
-      setCreationMode(true);
-      setAdmissionToEdit(undefined);
       dispatch(createAdmissionReset());
       dispatch(updateAdmissionReset());
-      dispatch(getCurrentAdmission(patient?.code));
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
   }, [dispatch, patient, activityTransitionState]);
+
+  useEffect(() => {
+    if (createStatus === "SUCCESS" || updateStatus === "SUCCESS") {
+      dispatch(getPatient(id!!));
+      dispatch(getCurrentAdmission(parseInt(id!!)));
+    }
+  }, [createStatus, updateStatus]);
 
   const resetFormCallback = () => {
     setCreationMode(true);
@@ -178,8 +169,11 @@ const PatientAdmission: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrentAdmission(patient?.code));
-  }, [patient, dispatch]);
+    dispatch(getCurrentAdmission(parseInt(id!!)));
+    return () => {
+      dispatch(getCurrentAdmissionReset());
+    };
+  }, [dispatch]);
 
   const onEdit = (row: AdmissionDTO) => {
     setAdmissionToEdit(row);
@@ -196,8 +190,10 @@ const PatientAdmission: FC = () => {
       {patient?.status === PatientDTOStatusEnum.I && (
         <InfoBox type="info" message={t("admission.patientalreadyadmitted")} />
       )}
-      {!open && <CurrentAdmission onEditChange={onCurrentAdmissionChange} />}
-      {open && (
+      {!showForm && currentAdmission && (
+        <CurrentAdmission onEditChange={onCurrentAdmissionChange} />
+      )}
+      {showForm && (creationMode ? canCreate : canUpdate) && (
         <AdmissionForm
           fields={fields}
           onSubmit={onSubmit}
