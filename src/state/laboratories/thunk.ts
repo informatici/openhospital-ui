@@ -35,7 +35,7 @@ export const getLabsByPatientId = createAsyncThunk(
       .getLaboratory1({ patId: patId ?? -1 })
       .toPromise()
       .then((result) =>
-        result.map((item) =>
+        (result ?? []).map((item) =>
           item.laboratoryDTO ? item : { laboratoryDTO: item }
         )
       )
