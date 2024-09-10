@@ -17,7 +17,7 @@ _This project is still in early stages. For a more mature user interface of Open
 This project is based on React. To learn React, check out the [React documentation](https://reactjs.org/).  
 To install the project dependencies, issue:
 
-    - npm i
+    npm i
 
 **It has to be done before any of the following activities**
 
@@ -29,29 +29,28 @@ Examples:
 
 - you want to develop using real api instead of mocked: use this `.env.local` file
 
-  ```
-  # .env.local
-  REACT_APP_USE_MOCK_API=
-  ```
+	# .env.local
+	REACT_APP_USE_MOCK_API=
 
-  - then: `npm start`
+then `npm start`
 
 - you want to connect your local dev environment to docker api:
-  ```
-  # .env.local
-  REACT_APP_USE_MOCK_API=
-  REACT_APP_BASE_PATH=http://localhost:8080/oh-api
-  ```
-  - then: `docker-compose up && npm start`
+
+	# .env.local
+	REACT_APP_USE_MOCK_API=
+	REACT_APP_BASE_PATH=http://localhost:8080/oh-api
+
+then `docker-compose up database backend && npm start`
 
 ## Run local development environment
 
-    - npm start
+    npm start
 
 ## Run full stack environment locally
 
 You can run a full OH2 stack locally using [Docker](https://www.docker.com/) (required) using this command:
-( - docker-compose up
+
+	docker-compose up
 
 Then you can access to:
 
@@ -61,7 +60,7 @@ Then you can access to:
 
 ## How to publish on Web Server
 
-    - npm run build:staging
+    npm run build:staging
 
 Then connect to the Intesys VPN and open FileZilla.
 
@@ -82,39 +81,39 @@ Once you are logged in, go under /home/httpd/open-hospital/shared/public and rep
 
 Easy step:
 
-    - git push intesys-remote develop
+	git push intesys-remote develop
 
 Old method:
 
-    - npm run build:gh-pages
-    - git commit
+	npm run build:gh-pages
+	git commit
 
-        then
+then
 
-        - git subtree push --prefix build intesys-oh gh-pages
+	git subtree push --prefix build intesys-oh gh-pages
 
-        or
+or
 
-        - git subtree split --prefix build develop
-        - git push intesys-oh GIT_ID:gh-pages --force
+	git subtree split --prefix build develop
+	git push intesys-oh GIT_ID:gh-pages --force
 
 ## How to launch the application
 
 You can run a development build of the application by issuing:
 
-    - npm start
+	npm start
 
 ## How to run unit tests
 
 To run unit tests, issue:
 
-    - npm test
+	npm test
 
 ## How to launch the e2e tests
 
 Run:
 
-    - npm run e2e
+	npm run e2e
 
 it launches application in development mode and starts cypress, in a single process.
 
@@ -123,10 +122,10 @@ it launches application in development mode and starts cypress, in a single proc
 If you want more control over **Cypress e2e tests**, use two different processes: one for serving the app (**process #1**) and one for running the Cypress Test Runner (**process #2**). You can launch it by issuing the following commands in two different intances of your terminal:
 
     //process #1
-    - npm start
+	npm start
 
     //process #2
-    - npm run cypress:open
+	npm run cypress:open
 
 Once the app is compiled and served, and the Cypress Test Runner is launched, click on _Run all specs_
 
