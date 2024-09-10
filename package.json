@@ -143,7 +143,7 @@
     "storybook": "^7.6.15",
     "storybook-addon-material-ui": "^0.9.0-alpha.24",
     "typescript": "^5.2.2",
-    "webpack": "^5.76.0"
+    "webpack": "^5.94.0"
   },
   "_moduleAliases": {
     "@": "./dist"
