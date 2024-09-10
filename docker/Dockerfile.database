@@ -1,5 +1,7 @@
 FROM mariadb:10.6.11
 
+ARG OH_DB_LANG=en
+
 ARG GITHUB_ORG=informatici
 ARG OH_CORE_BRANCH=develop
 ARG MARIADB_PORT
@@ -7,11 +9,6 @@ ARG MARIADB_DATABASE
 ARG MARIADB_ROOT_PASSWORD
 ARG MARIADB_USER
 ARG MARIADB_PASSWORD
-ARG OH_DEMO_LANG
-# ENV MYSQL_DATABASE=oh
-# ENV MYSQL_ROOT_PASSWORD=root
-# ENV MYSQL_USER=isf
-# ENV MYSQL_PASSWORD=isf123
 
 RUN apt-get update
 RUN apt-get install git -y
@@ -22,8 +19,8 @@ EXPOSE 3306
 
 RUN cp sql/step_01_create_structure.sql /docker-entrypoint-initdb.d/
 RUN cp sql/step_02_dump_menu.sql /docker-entrypoint-initdb.d/
-RUN cp sql/step_03_dump_default_data_en.sql /docker-entrypoint-initdb.d/
-#RUN cp sql/step_04_all_following_steps.sql /docker-entrypoint-initdb.d/
+RUN cp sql/step_03_dump_default_data_${OH_DB_LANG}.sql /docker-entrypoint-initdb.d/
+#COPY sql/step_04_all_following_steps.sql /docker-entrypoint-initdb.d/
 RUN cp sql/step_05_update_menu_i18n.sql /docker-entrypoint-initdb.d/
 RUN cp sql/step_06_opd_extended.sql /docker-entrypoint-initdb.d/
 RUN cp sql/step_07_modifiche_matiri.sql /docker-entrypoint-initdb.d/
@@ -39,7 +36,11 @@ RUN cp sql/step_7* /docker-entrypoint-initdb.d/
 RUN cp sql/step_8* /docker-entrypoint-initdb.d/
 RUN cp sql/step_9* /docker-entrypoint-initdb.d/
 RUN cp sql/step_a1* /docker-entrypoint-initdb.d/
-RUN mkdir data_en && cp sql/data_en/* data_en/
+RUN mkdir data_${OH_DB_LANG} && cp sql/data_${OH_DB_LANG}/* data_${OH_DB_LANG}/
+RUN cp sql/step_03_dump_vaccine_data_${OH_DB_LANG}.sql /docker-entrypoint-initdb.d/step_z100_dump_vaccine_data_${OH_DB_LANG}.sql
+RUN cp sql/step_03_dump_dicomtype_data_${OH_DB_LANG}.sql /docker-entrypoint-initdb.d/step_z101_dump_dicomtype_data_${OH_DB_LANG}.sql
+
+# optional steps
 #RUN cp sql/delete_all_data.sql /docker-entrypoint-initdb.d/step_9990_delete_all_data.sql
 #RUN cp sql/load_demo_data.sql /docker-entrypoint-initdb.d/step_9991_load_demo_data.sql
 #RUN cp sql/extra/reset_admin_password_strong.sql /docker-entrypoint-initdb.d/step_9992_reset_admin_password_strong.sql
