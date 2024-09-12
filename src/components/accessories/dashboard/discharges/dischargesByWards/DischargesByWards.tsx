@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -26,11 +26,11 @@ export const DischargesByWards: FC<TDashboardComponentProps & IOwnProps> = ({
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: period }));
     dispatch(getWards());
-  }, [dispatch]);
+  }, [dispatch, period]);
 
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: period }));
-  }, [period]);
+  }, [period, dispatch]);
 
   const { total, success, status, wardStatus, data, csvData } =
     useDisByWardData();

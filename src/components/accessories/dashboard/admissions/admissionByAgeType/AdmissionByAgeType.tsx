@@ -1,4 +1,3 @@
-import { Skeleton } from "@mui/lab";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +12,7 @@ import { TDashboardComponentProps } from "../../layouts/types";
 import { DataSummary } from "../../summary/DataSummary";
 import { IOwnProps } from "../types";
 
+import { Skeleton } from "@mui/material";
 import "../../card/styles.scss";
 
 export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
@@ -30,7 +30,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
 
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
-  }, [period]);
+  }, [period, dispatch]);
 
   const { total, success, status, ageTypeStatus, data, csvData } =
     useAdmByAgeTypeData();
