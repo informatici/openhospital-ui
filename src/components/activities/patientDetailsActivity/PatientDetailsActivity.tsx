@@ -17,7 +17,7 @@ import { PatientDTOStatusEnum } from "../../../generated";
 import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import { getPatient } from "../../../state/patients";
+import { getPatient, getPatientReset } from "../../../state/patients";
 import {
   Accordion,
   AccordionDetails,
@@ -56,6 +56,12 @@ const PatientDetailsActivity = () => {
       dispatch(getPatient(id!));
     }
   }, [patient, id, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(getPatientReset());
+    };
+  }, [dispatch]);
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,

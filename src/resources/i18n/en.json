@@ -46,7 +46,8 @@
     "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit",
     "validateGroupCode": "Invalid group code",
     "validatePasswordMustMatch": "Passwords must match",
-    "validateUserName": "You need to specify a user name"
+    "validateUserName": "You need to specify a user name",
+    "validateUserNameRegex": "Allowed characters: lowercase letters(abc), numbers(123), dot(.), dash (-) and underscore (_)"
   },
   "hospital": {
     "address": "Address",

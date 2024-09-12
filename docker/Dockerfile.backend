@@ -29,4 +29,4 @@ RUN --mount=type=cache,target=/root/.m2 mvn clean install -DskipTests=true
 
 # CMD mvn spring-boot:run
 WORKDIR /openhospital-api/target
-CMD java -cp "openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.JarLauncher
+CMD java -cp "openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher
