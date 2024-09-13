@@ -25,22 +25,17 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
-    width?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
-     */
-    height?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
-     */
     y?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
     x?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
+     */
+    width?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
@@ -61,6 +56,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
     centerY?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
+     */
+    height?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D

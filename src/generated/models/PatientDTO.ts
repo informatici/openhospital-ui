@@ -148,7 +148,7 @@ export interface PatientDTO {
   lock?: number;
   /**
    * BlobPhoto
-   * @type {Array<string>}
+   * @type {string}
    * @memberof PatientDTO
    */
   blobPhoto?: string;

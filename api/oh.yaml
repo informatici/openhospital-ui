@@ -2069,6 +2069,57 @@ paths:
                 $ref: '#/components/schemas/UserSettingDTO'
       security:
       - bearerAuth: []
+  /users/groups/{group_code}/permissions/{id}:
+    post:
+      tags:
+      - Users
+      operationId: assignPermission
+      parameters:
+      - name: group_code
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Users
+      operationId: revokePermission
+      parameters:
+      - name: group_code
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+      - bearerAuth: []
   /therapies:
     post:
       tags:
@@ -3367,6 +3418,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserProfileDTO'
+      security:
+      - bearerAuth: []
+  /users/groups/{group_code}:
+    get:
+      tags:
+      - Users
+      operationId: getUserGroup_1
+      parameters:
+      - name: group_code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupDTO'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - Users
+      operationId: deleteGroup
+      parameters:
+      - name: group_code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
       security:
       - bearerAuth: []
   /therapies/{code_patient}:
@@ -5872,26 +5962,6 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
-  /users/groups/{group_code}:
-    delete:
-      tags:
-      - Users
-      operationId: deleteGroup
-      parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: boolean
-      security:
-      - bearerAuth: []
   /operations/rows/{code}:
     delete:
       tags:
@@ -6108,9 +6178,9 @@ components:
           example: 0
         opd:
           type: boolean
-        female:
-          type: boolean
         male:
+          type: boolean
+        female:
           type: boolean
         pharmacy:
           type: boolean
@@ -6358,6 +6428,23 @@ components:
           format: int32
           example: 0
       description: Class representing a vaccine
+    PermissionDTO:
+      required:
+      - description
+      - id
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: integer
+          description: The permission id
+          format: int32
+        description:
+          maxLength: 255
+          type: string
+          description: The permission description
+      description: List of group's permissions
     UserDTO:
       required:
       - passwd
@@ -6397,6 +6484,11 @@ components:
           type: string
           description: The description of the group
           example: Staff members working in the laboratory
+        permissions:
+          type: array
+          description: List of group's permissions
+          items:
+            $ref: '#/components/schemas/PermissionDTO'
       description: The user's group
     UserSettingDTO:
       required:
@@ -6426,7 +6518,6 @@ components:
           description: The value of the user
     SupplierDTO:
       required:
-      - supDeleted
       - supId
       - supName
       type: object
@@ -6468,10 +6559,6 @@ components:
           maxLength: 200
           type: string
           description: The supplier's notes
-        supDeleted:
-          type: string
-          description: "Flag record deleted, values are 'Y' OR 'N' "
-          example: "N"
     PricesOthersDTO:
       required:
       - code
@@ -6749,11 +6836,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       description: The admission
     AdmissionTypeDTO:
       required:
@@ -7764,9 +7851,9 @@ components:
           $ref: '#/components/schemas/PatientProfilePhoto'
         patientConsensus:
           $ref: '#/components/schemas/PatientConsensus'
-        searchString:
-          type: string
         informations:
+          type: string
+        searchString:
           type: string
     PatientConsensus:
       type: object
@@ -7971,16 +8058,13 @@ components:
                           properties:
                             empty:
                               type: boolean
-                            width:
-                              type: number
-                              format: double
-                            height:
-                              type: number
-                              format: double
                             "y":
                               type: number
                               format: double
                             x:
+                              type: number
+                              format: double
+                            width:
                               type: number
                               format: double
                             maxX:
@@ -7993,6 +8077,9 @@ components:
                               type: number
                               format: double
                             centerY:
+                              type: number
+                              format: double
+                            height:
                               type: number
                               format: double
                             minX:
@@ -8006,16 +8093,13 @@ components:
                           properties:
                             empty:
                               type: boolean
-                            width:
-                              type: number
-                              format: double
-                            height:
-                              type: number
-                              format: double
                             "y":
                               type: number
                               format: double
                             x:
+                              type: number
+                              format: double
+                            width:
                               type: number
                               format: double
                             maxX:
@@ -8028,6 +8112,9 @@ components:
                               type: number
                               format: double
                             centerY:
+                              type: number
+                              format: double
+                            height:
                               type: number
                               format: double
                             minX:
@@ -8060,16 +8147,13 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
                         "y":
                           type: number
                           format: double
                         x:
+                          type: number
+                          format: double
+                        width:
                           type: number
                           format: double
                         maxX:
@@ -8082,6 +8166,9 @@ components:
                           type: number
                           format: double
                         centerY:
+                          type: number
+                          format: double
+                        height:
                           type: number
                           format: double
                         minX:
@@ -8175,9 +8262,6 @@ components:
                           format: float
                         transformed:
                           type: boolean
-                    height:
-                      type: integer
-                      format: int32
                     maxDescent:
                       type: integer
                       format: int32
@@ -8247,6 +8331,9 @@ components:
                     maxAdvance:
                       type: integer
                       format: int32
+                    height:
+                      type: integer
+                      format: int32
                     ascent:
                       type: integer
                       format: int32
@@ -8296,16 +8383,13 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
                         "y":
                           type: number
                           format: double
                         x:
+                          type: number
+                          format: double
+                        width:
                           type: number
                           format: double
                         maxX:
@@ -8318,6 +8402,9 @@ components:
                           type: number
                           format: double
                         centerY:
+                          type: number
+                          format: double
+                        height:
                           type: number
                           format: double
                         minX:
@@ -8331,16 +8418,13 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
                         "y":
                           type: number
                           format: double
                         x:
+                          type: number
+                          format: double
+                        width:
                           type: number
                           format: double
                         maxX:
@@ -8353,6 +8437,9 @@ components:
                           type: number
                           format: double
                         centerY:
+                          type: number
+                          format: double
+                        height:
                           type: number
                           format: double
                         minX:
@@ -8453,16 +8540,13 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
                         "y":
                           type: number
                           format: double
                         x:
+                          type: number
+                          format: double
+                        width:
                           type: number
                           format: double
                         maxX:
@@ -8475,6 +8559,9 @@ components:
                           type: number
                           format: double
                         centerY:
+                          type: number
+                          format: double
+                        height:
                           type: number
                           format: double
                         minX:
@@ -8488,16 +8575,13 @@ components:
                       properties:
                         empty:
                           type: boolean
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
                         "y":
                           type: number
                           format: double
                         x:
+                          type: number
+                          format: double
+                        width:
                           type: number
                           format: double
                         maxX:
@@ -8510,6 +8594,9 @@ components:
                           type: number
                           format: double
                         centerY:
+                          type: number
+                          format: double
+                        height:
                           type: number
                           format: double
                         minX:
@@ -8599,13 +8686,13 @@ components:
         smsInt:
           type: integer
           format: int32
+        medical:
+          type: integer
+          format: int32
         sms:
           type: boolean
         notify:
           type: boolean
-        medical:
-          type: integer
-          format: int32
     TherapyDTO:
       type: object
       properties:
@@ -8955,22 +9042,6 @@ components:
         currency:
           type: string
       description: The price list
-    PermissionDTO:
-      required:
-      - description
-      - id
-      type: object
-      properties:
-        name:
-          type: string
-        id:
-          type: integer
-          description: The permission id
-          format: int32
-        description:
-          maxLength: 255
-          type: string
-          description: The permission description
     PageInfoDTO:
       type: object
       properties:

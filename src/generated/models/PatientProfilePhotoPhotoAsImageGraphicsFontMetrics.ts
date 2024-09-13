@@ -30,11 +30,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetrics {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
-    height?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
-     */
     maxDescent?: number;
     /**
      * @type {Array<number>}
@@ -61,6 +56,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFontMetrics {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
      */
     maxAdvance?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics
+     */
+    height?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFontMetrics

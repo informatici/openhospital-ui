@@ -63,10 +63,4 @@ export interface SupplierDTO {
      * @memberof SupplierDTO
      */
     supNote?: string;
-    /**
-     * Flag record deleted, values are \'Y\' OR \'N\' 
-     * @type {string}
-     * @memberof SupplierDTO
-     */
-    supDeleted: string;
 }

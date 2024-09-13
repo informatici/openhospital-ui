@@ -11,6 +11,10 @@
  * Do not edit the class manually.
  */
 
+import {
+    PermissionDTO,
+} from './';
+
 /**
  * The user\'s group
  * @export
@@ -29,4 +33,10 @@ export interface UserGroupDTO {
      * @memberof UserGroupDTO
      */
     desc?: string;
+    /**
+     * List of group\'s permissions
+     * @type {Array<PermissionDTO>}
+     * @memberof UserGroupDTO
+     */
+    permissions?: Array<PermissionDTO>;
 }
