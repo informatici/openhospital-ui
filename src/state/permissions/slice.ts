@@ -7,11 +7,7 @@ import * as thunks from "./thunk";
 export const permissionSlice = createSlice({
   name: "permissions",
   initialState: initial,
-  reducers: {
-    updatePermissionReset: (state) => {
-      state.update = initial.update;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) =>
     builder
       // Get Permissions
@@ -25,18 +21,5 @@ export const permissionSlice = createSlice({
       })
       .addCase(thunks.getAllPermissions.rejected, (state, action) => {
         state.getAll = ApiResponse.error(action.payload);
-      })
-
-      // Update Permission
-      .addCase(thunks.updatePermission.pending, (state) => {
-        state.update = ApiResponse.loading();
-      })
-      .addCase(thunks.updatePermission.fulfilled, (state, action) => {
-        state.update = ApiResponse.value(action.payload);
-      })
-      .addCase(thunks.updatePermission.rejected, (state, action) => {
-        state.update = ApiResponse.error(action.payload);
       }),
 });
-
-export const { updatePermissionReset } = permissionSlice.actions;

@@ -7,5 +7,4 @@ export const initial: IPermissionsState = {
     status: "IDLE",
     data: new Array<PermissionDTO>(),
   }),
-  update: new ApiResponse({ status: "IDLE" }),
 };
