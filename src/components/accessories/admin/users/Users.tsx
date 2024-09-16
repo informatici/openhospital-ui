@@ -9,9 +9,16 @@ import UsersTable from "./usersTable";
 
 import { PATHS } from "../../../../consts";
 
+import { UserDTO } from "../../../../generated";
+
 export const Users = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const handleEditUser = (row: UserDTO) =>
+    navigate(PATHS.admin_users_edit.replace(":id", row.userName!), {
+      state: row,
+    });
 
   const [tab, setTab] = useState<"users" | "groups">("users");
   return (
@@ -38,6 +45,7 @@ export const Users = () => {
               {t("user.addUser")}
             </Button>
           }
+          onEdit={handleEditUser}
         />
       ) : (
         <UserGroupsTable />
