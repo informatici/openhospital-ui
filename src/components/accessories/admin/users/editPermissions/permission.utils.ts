@@ -1,5 +1,15 @@
 import { PermissionDTO } from "../../../../../generated";
 
+export enum PermissionActionEnum {
+  ASSIGN = "assign",
+  REVOKE = "revoke",
+}
+
+export type PermissionActionType = {
+  action: PermissionActionEnum;
+  permission: PermissionDTO;
+};
+
 export enum Crud {
   CREATE = "create",
   READ = "read",
@@ -7,7 +17,20 @@ export enum Crud {
   DELETE = "delete",
 }
 
-export const groupPermissions = (
+/**
+ * fomats permission in the CRUD format
+ * @param permissions
+ * @returns Map<string, Record<Crud, PermissionDTO>>
+ * @example
+ * permissionsToCrud([
+ * { id: "1", name: "users.create" },
+ * { id: "2", name: "users.read" },-
+ * ]) => Map(2) {
+ * "users" => { create: { id: "1", name: "users.create" },
+ *            { read: { id: "2", name: "users.read" }
+ *
+ */
+export const permissionsToCrud = (
   permissions: PermissionDTO[]
 ): Map<string, Record<Crud, PermissionDTO>> => {
   let permissionNames = new Map();
@@ -31,45 +54,30 @@ export const groupPermissions = (
   return permissionNames;
 };
 
-export const computeNewPermission = (
-  thisGroupId: string,
-  permission: PermissionDTO,
-  val: boolean
-): PermissionDTO => {
-  const getUserGroups = () => {
-    if (val) {
-      if (permission.userGroupIds.includes(thisGroupId))
-        return permission.userGroupIds;
-      return [...permission.userGroupIds, thisGroupId];
-    }
-    let userGroupIds: string[] = [];
-    for (let index = 0; index < permission.userGroupIds.length; index++) {
-      if (permission.userGroupIds[index] !== thisGroupId)
-        userGroupIds = [...userGroupIds, permission.userGroupIds[index]];
-    }
-    return userGroupIds;
-  };
-
-  return {
-    ...permission,
-    userGroupIds: getUserGroups(),
-  };
-};
-
-export const filterChangedGroupsPermissions = (
+export const comparePermissions = (
+  allPermissions: PermissionDTO[],
   initialPermissions: PermissionDTO[],
   stackedPermissions: PermissionDTO[]
-): PermissionDTO[] => {
-  let filteredPermissions: PermissionDTO[] = [];
-  for (let index = 0; index < stackedPermissions.length; index++) {
-    const reference = initialPermissions.find(
-      ({ id }) => stackedPermissions[index].id === id
+): Array<PermissionActionType> => {
+  let changedPermissions: Array<PermissionActionType> = [];
+  for (const permission of allPermissions) {
+    const initialPermission = initialPermissions.find(
+      ({ id }) => permission.id === id
     );
-    if (
-      [...reference!.userGroupIds].sort().join(" ") !==
-      [...stackedPermissions[index].userGroupIds].sort().join(" ")
-    )
-      filteredPermissions = [...filteredPermissions, stackedPermissions[index]];
+    const stackedPermission = stackedPermissions.find(
+      ({ id }) => permission.id === id
+    );
+    if (initialPermission !== stackedPermission) {
+      changedPermissions = [
+        ...changedPermissions,
+        {
+          action: stackedPermission
+            ? PermissionActionEnum.ASSIGN
+            : PermissionActionEnum.REVOKE,
+          permission,
+        },
+      ];
+    }
   }
-  return filteredPermissions;
+  return changedPermissions;
 };

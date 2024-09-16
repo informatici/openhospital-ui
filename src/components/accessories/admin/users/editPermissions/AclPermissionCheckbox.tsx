@@ -1,32 +1,34 @@
 import { Checkbox, Popper } from "@mui/material";
 import React from "react";
-
 import { PermissionDTO } from "../../../../../generated";
-import { computeNewPermission } from "./permission.utils";
+import { PermissionActionEnum } from "./permission.utils";
 
 interface IProps {
   permission: PermissionDTO;
-  onChange: (permission: PermissionDTO) => void;
-  thisGroupId: string;
+  groupPermissions: Array<PermissionDTO>;
+  onChange: (permission: PermissionDTO, action: PermissionActionEnum) => void;
 }
 
 export const AclPermissionCheckbox = ({
   permission,
+  groupPermissions,
   onChange,
-  thisGroupId,
 }: IProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
+  const checked =
+    groupPermissions?.some((p) => p.id === permission.id) || false;
   return (
     <>
       <Checkbox
         aria-describedby={id}
-        checked={
-          !!permission.userGroupIds.find((group) => group === thisGroupId)
-        }
+        checked={checked}
         onChange={(_ev, val) =>
-          onChange(computeNewPermission(thisGroupId, permission, val))
+          onChange(
+            permission,
+            checked ? PermissionActionEnum.REVOKE : PermissionActionEnum.ASSIGN
+          )
         }
         name={permission.id.toString()}
         onMouseEnter={(event: React.MouseEvent<HTMLElement>) => {

@@ -1,50 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { PermissionDTO } from "../../../../../generated";
 import { AclTable } from "./AclTable";
 import { AreaAccess } from "./AreaAccess";
+import { PermissionActionEnum, PermissionActionType } from "./permission.utils";
 
 interface IProps {
   permissions: PermissionDTO[];
-  thisGroupId: string;
+  groupPermissions: PermissionDTO[];
   setDirty: (v: boolean) => void;
-  update: (a: any) => void; // TODO: rename this
+  update: (pa: PermissionActionType) => void;
 }
 export const GroupPermissionsEditor = ({
   permissions,
-  thisGroupId,
+  groupPermissions,
   setDirty,
   update,
 }: IProps) => {
-  const [permissionsState, setPermissionsState] = useState<PermissionDTO[]>([]);
-
-  useEffect(() => {
-    setPermissionsState(permissions);
-  }, [permissions]);
-
-  const handleChange = (newPermission: PermissionDTO) => {
+  const handleChange = (
+    newPermission: PermissionDTO,
+    action: PermissionActionEnum
+  ) => {
     setDirty(true);
-
-    const newState = permissionsState.map((perm) =>
-      perm.id === newPermission.id ? newPermission : perm
-    );
-    setPermissionsState(newState);
-    update(newPermission);
+    update({ permission: newPermission, action });
   };
 
   return (
     <>
       <h2>Areas access</h2>
       <AreaAccess
-        permissions={permissionsState}
-        thisGroupId={thisGroupId}
+        permissions={permissions}
+        groupPermissions={groupPermissions}
         onChange={handleChange}
       />
-
       <h2>Access-control list</h2>
       <AclTable
-        permissions={permissionsState}
-        userGroupId={thisGroupId}
+        permissions={permissions}
+        groupPermissions={groupPermissions}
         onChange={handleChange}
       />
     </>

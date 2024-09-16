@@ -15,17 +15,22 @@ import { PATHS } from "../../../../../consts";
 import { PermissionDTO, UserGroupDTO } from "../../../../../generated";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
+import { getAllPermissions } from "../../../../../state/permissions";
 import {
-  getAllPermissions,
-  updatePermission,
-  updatePermissionReset,
-} from "../../../../../state/permissions";
+  assignPermission,
+  revokePermission,
+} from "../../../../../state/usergroups";
 import {
   updateUserGroup,
   updateUserGroupReset,
+  getUserGroup,
 } from "../../../../../state/usergroups";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
-import { filterChangedGroupsPermissions } from "../editPermissions/permission.utils";
+import {
+  PermissionActionEnum,
+  PermissionActionType,
+  comparePermissions,
+} from "../editPermissions/permission.utils";
 import { TabOptions } from "../Users";
 import "./styles.scss";
 import { userGroupSchema } from "./validation";
@@ -39,24 +44,33 @@ export const EditGroup = () => {
   const canUpdatePermissions = usePermission("grouppermission.update");
 
   const update = useAppSelector((state) => state.usergroups.update);
-  const permissionsInitialState = useAppSelector(
-    (state) => state.permissions.getAll
-  );
-
+  const permissions = useAppSelector((state) => state.permissions.getAll);
+  const group = useAppSelector((state) => state.usergroups.currentGroup);
+  // local state to keep track of permissions
+  const [groupPermissions, setGroupPermissions] = useState<PermissionDTO[]>([]);
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
-  const [permissionsStack, setPermissionsStack] = useState<PermissionDTO[]>([]);
+  // make sure everything is loaded before displaying the editor
+  const [isPermissionEditorAvailable, setIsPermissionEditorAvailable] =
+    useState<boolean>(false);
+  // keep track of which permissions have been updated and how
+  const [updatedPermissionsStack, setUpdatedPermissionsStack] = useState<
+    Array<PermissionActionType>
+  >([]);
 
-  const handleUpdatePermissions = (newPermission: PermissionDTO) => {
-    const otherPermissions = permissionsStack.filter(
-      ({ id }) => id !== newPermission.id
+  const handleUpdatePermissions = ({
+    permission,
+    action,
+  }: PermissionActionType) => {
+    const otherPermissions = groupPermissions.filter(
+      (p) => p.id !== permission.id
     );
 
-    setPermissionsStack([
-      ...otherPermissions,
-      ...filterChangedGroupsPermissions(permissionsInitialState.data!, [
-        newPermission,
-      ]),
-    ]);
+    if (action === PermissionActionEnum.REVOKE) {
+      setGroupPermissions(otherPermissions);
+    }
+    if (action === PermissionActionEnum.ASSIGN) {
+      setGroupPermissions([...otherPermissions, permission]);
+    }
   };
 
   const {
@@ -68,46 +82,88 @@ export const EditGroup = () => {
     resetForm,
     errors,
     touched,
-    values,
   } = useFormik({
     initialValues: state,
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
       dispatch(updateUserGroup(values));
-      for (let index = 0; index < permissionsStack.length; index++) {
-        dispatch(
-          updatePermission({
-            id: permissionsStack[index].id,
-            permissionDTO: permissionsStack[index],
-          })
+
+      // this is applying to all permissions, but we may want to only apply to the ones that have changed
+      // using the updatedPermissionsStack array
+      // this is open to debate
+      for (const permission of permissions.data!) {
+        const isAllowed = groupPermissions.some(
+          (gp) => gp.id === permission.id
         );
+        if (isAllowed) {
+          dispatch(
+            assignPermission({
+              permissionId: permission.id,
+              groupCode: state.code,
+            })
+          );
+        } else {
+          dispatch(
+            revokePermission({
+              permissionId: permission.id,
+              groupCode: state.code,
+            })
+          );
+        }
       }
     },
   });
 
+  // load permissions and group on mount
   useEffect(() => {
     dispatch(getAllPermissions());
+    dispatch(getUserGroup(state.code));
     return () => {
       dispatch(updateUserGroupReset());
-      dispatch(updatePermissionReset());
     };
-  }, [dispatch]);
+  }, [dispatch, state.code]);
+
+  // update group permissions on group load
+  useEffect(() => {
+    if (group.data) {
+      setGroupPermissions(group.data.permissions ?? []);
+    }
+  }, [group.data]);
+
+  // compare permissions to update the update stack
+  // and display permissions when ready
+  useEffect(() => {
+    if (canUpdatePermissions && group.data && permissions.data) {
+      setIsPermissionEditorAvailable(true);
+
+      const newPermissionStack = comparePermissions(
+        permissions.data,
+        group.data?.permissions ?? [],
+        groupPermissions
+      );
+
+      setUpdatedPermissionsStack(newPermissionStack);
+    }
+  }, [canUpdatePermissions, group.data, permissions.data, groupPermissions]);
 
   if (state?.code !== id) {
     return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
   }
 
-  if (permissionsInitialState.hasFailed)
+  if (permissions.hasFailed)
     return (
       <InfoBox
         type="error"
-        message={`Unable to load permissions ${permissionsInitialState.error?.toString()}`}
+        message={`Unable to load permissions ${permissions.error?.toString()}`}
       />
     );
-  if (!permissionsInitialState.hasSucceeded || !permissionsInitialState.data)
-    return <>...</>;
-  if (!permissionsInitialState.data.length)
-    return <>no permissions in database</>;
+  if (group.hasFailed)
+    return (
+      <InfoBox
+        type="error"
+        message={`Unable to load permissions ${permissions.error?.toString()}`}
+      />
+    );
 
   return (
     <div className="newGroupForm">
@@ -137,26 +193,35 @@ export const EditGroup = () => {
           </div>
         </div>
 
-        {canUpdatePermissions && (
+        {isPermissionEditorAvailable && (
           <GroupPermissionsEditor
-            permissions={permissionsInitialState.data ?? []}
-            thisGroupId={values.code as string}
+            permissions={permissions.data ?? []}
+            groupPermissions={groupPermissions}
             setDirty={setDirtyPermissions}
             update={handleUpdatePermissions}
           />
         )}
 
         <div className="newGroupForm__item fullWidth">
-          {permissionsStack.length > 0 && (
-            <p>
-              <code>
-                Editing permissions:{" "}
-                {permissionsStack.map(({ id }) => id).join(",")}
-              </code>
-              <br />
-              {permissionsStack.length} permissions will be updated.
-            </p>
-          )}
+          {isPermissionEditorAvailable &&
+            updatedPermissionsStack.length > 0 && (
+              <p>
+                <code>
+                  Editing permissions:{" "}
+                  {updatedPermissionsStack
+                    .map(
+                      (p) =>
+                        `${p.permission.name}: ${
+                          p.action ? "allowed" : "revoked"
+                        }`
+                    )
+                    .join(",")}
+                </code>
+                <br />
+                {updatedPermissionsStack.length} permission
+                {updatedPermissionsStack.length > 1 ? "s" : ""} will be updated.
+              </p>
+            )}
           {update.hasFailed && (
             <div className="info-box-container">
               <InfoBox

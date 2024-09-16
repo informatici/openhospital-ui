@@ -1,28 +1,33 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import React from "react";
 import { PermissionDTO } from "../../../../../generated";
-import { computeNewPermission } from "./permission.utils";
+import { PermissionActionEnum } from "./permission.utils";
 
 interface IProps {
   permission: PermissionDTO;
-  onChange: (permission: PermissionDTO) => void;
-  thisGroupId: string;
+  groupPermissions: Array<PermissionDTO>;
+  onChange: (permission: PermissionDTO, action: PermissionActionEnum) => void;
 }
 
 export const PermissionCheckbox = ({
   permission,
+  groupPermissions,
   onChange,
-  thisGroupId,
 }: IProps) => {
+  const checked =
+    groupPermissions?.some((p) => p.id === permission.id) || false;
   return (
     <FormControlLabel
       control={
         <Checkbox
-          checked={
-            !!permission.userGroupIds.find((group) => group === thisGroupId)
-          }
+          checked={checked}
           onChange={(_ev, val) =>
-            onChange(computeNewPermission(thisGroupId, permission, val))
+            onChange(
+              permission,
+              checked
+                ? PermissionActionEnum.REVOKE
+                : PermissionActionEnum.ASSIGN
+            )
           }
           name={permission.id.toString()}
         />

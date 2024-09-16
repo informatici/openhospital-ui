@@ -2,13 +2,18 @@ import React from "react";
 
 import { PermissionDTO } from "../../../../../generated";
 import { PermissionCheckbox } from "./PermissionCheckbox";
+import { PermissionActionEnum } from "./permission.utils";
 
 interface IProps {
   permissions: PermissionDTO[];
-  thisGroupId: string;
-  onChange: (permission: PermissionDTO) => void;
+  groupPermissions: PermissionDTO[];
+  onChange: (permission: PermissionDTO, action: PermissionActionEnum) => void;
 }
-export const AreaAccess = ({ permissions, thisGroupId, onChange }: IProps) => {
+export const AreaAccess = ({
+  permissions,
+  groupPermissions,
+  onChange,
+}: IProps) => {
   return (
     <ul>
       {permissions
@@ -19,8 +24,8 @@ export const AreaAccess = ({ permissions, thisGroupId, onChange }: IProps) => {
           <li key={index}>
             <PermissionCheckbox
               permission={perm}
+              groupPermissions={groupPermissions}
               onChange={onChange}
-              thisGroupId={thisGroupId}
             />
           </li>
         ))}

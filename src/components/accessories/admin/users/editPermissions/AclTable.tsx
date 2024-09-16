@@ -3,17 +3,25 @@ import React, { useMemo } from "react";
 import { PermissionDTO } from "../../../../../generated";
 import { AclPermissionCheckbox } from "./AclPermissionCheckbox";
 import classes from "./AclTable.module.scss";
-import { Crud, groupPermissions } from "./permission.utils";
+import {
+  Crud,
+  PermissionActionEnum,
+  permissionsToCrud,
+} from "./permission.utils";
 
 interface IProps {
   permissions: PermissionDTO[];
-  userGroupId: string;
-  onChange: (permission: PermissionDTO) => void;
+  groupPermissions: PermissionDTO[];
+  onChange: (permission: PermissionDTO, action: PermissionActionEnum) => void;
 }
 
-export const AclTable = ({ permissions, userGroupId, onChange }: IProps) => {
+export const AclTable = ({
+  permissions,
+  groupPermissions,
+  onChange,
+}: IProps) => {
   const crudPermissions = useMemo(() => {
-    return groupPermissions(permissions);
+    return permissionsToCrud(permissions);
   }, [permissions]);
 
   const crudKeys = Array.from(crudPermissions.keys());
@@ -41,7 +49,7 @@ export const AclTable = ({ permissions, userGroupId, onChange }: IProps) => {
                       <AclPermissionCheckbox
                         permission={crudPermission[access]}
                         onChange={onChange}
-                        thisGroupId={userGroupId}
+                        groupPermissions={groupPermissions}
                       />
                     </td>
                   ) : (

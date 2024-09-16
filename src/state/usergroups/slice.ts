@@ -32,6 +32,16 @@ export const userGroupSlice = createSlice({
       .addCase(thunks.getUserGroups.rejected, (state, action) => {
         state.groupList = ApiResponse.error(action.payload);
       })
+      // Get User Groups
+      .addCase(thunks.getUserGroup.pending, (state) => {
+        state.groupList = ApiResponse.loading();
+      })
+      .addCase(thunks.getUserGroup.fulfilled, (state, action) => {
+        state.currentGroup = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getUserGroup.rejected, (state, action) => {
+        state.groupList = ApiResponse.error(action.payload);
+      })
       // Create User Group
       .addCase(thunks.createUserGroup.pending, (state) => {
         state.create = ApiResponse.loading();
