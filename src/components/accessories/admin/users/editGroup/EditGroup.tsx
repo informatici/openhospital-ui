@@ -212,7 +212,9 @@ export const EditGroup = () => {
                     .map(
                       (p) =>
                         `${p.permission.name}: ${
-                          p.action ? "allowed" : "revoked"
+                          p.action === PermissionActionEnum.ASSIGN
+                            ? "assign"
+                            : "revoked"
                         }`
                     )
                     .join(",")}
