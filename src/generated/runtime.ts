@@ -138,16 +138,16 @@ export class BaseAPI {
           .forEach((mw) => (request = mw.pre!(request)));
         return request;
       }),
-        concatMap((args) =>
-          ajax(args).pipe(
-            map((response) => {
-              this.middleware
-                .filter((item) => item.post)
-                .forEach((mw) => (response = mw.post!(response)));
-              return response;
-            })
-          )
-        );
+      concatMap((args) =>
+        ajax(args).pipe(
+          map((response) => {
+            this.middleware
+              .filter((item) => item.post)
+              .forEach((mw) => (response = mw.post!(response)));
+            return response;
+          })
+        )
+      )
     );
 
   /**
