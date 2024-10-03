@@ -24,7 +24,7 @@ export const EditSupplier = () => {
     if (state?.supId !== Number(id)) {
       navigate(PATHS.admin_suppliers);
     }
-  }, [id, state]);
+  }, [id, navigate, state]);
 
   return (
     <SupplierForm

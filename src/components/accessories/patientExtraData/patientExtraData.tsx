@@ -75,6 +75,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
       formik.resetForm();
       setActivityTransitionState("IDLE");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, activityTransitionState]);
 
   const discardChanges = () => {

@@ -106,27 +106,6 @@ const ExamForm: FC<ExamProps> = ({
     examRowOptionsSelector(state)
   );
 
-  const materialsLoading = useAppSelector(
-    (state: IState) => state.laboratories.materials.status === "LOADING"
-  );
-
-  const materialsOptionsSelector = (materials: string[] | undefined) => {
-    if (materials) {
-      return materials.map((item) => {
-        let label = item ? t(item) : "";
-        return {
-          value: item ?? "",
-          label:
-            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
-        };
-      });
-    } else return [];
-  };
-
-  const materialsList = useAppSelector(
-    (state: IState) => state.laboratories.materials.data
-  );
-
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -148,8 +127,9 @@ const ExamForm: FC<ExamProps> = ({
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
+
   useEffect(() => {
     if (initialValues["exam"] !== "") {
       setCurrentExamCode(initialValues["exam"]);
@@ -157,7 +137,7 @@ const ExamForm: FC<ExamProps> = ({
     if (labToEdit) {
       formik.setFieldValue("result", labToEdit.result);
     }
-  }, [initialValues]);
+  }, [formik, initialValues, labToEdit]);
 
   useEffect(() => {
     if (currentExamCode) {

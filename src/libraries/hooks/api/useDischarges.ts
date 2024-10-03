@@ -36,7 +36,7 @@ export const useDisharges = () => {
 
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: range, page, size }));
-  }, [page]);
+  }, [dispatch, page, range, size]);
 
   return {
     pageInfo,

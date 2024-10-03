@@ -162,7 +162,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
   });
 
   const initialValues = getFromFields(fields, "value");
-  const [filter, setFilter] = useState(initialValues as TFilterValues);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -173,7 +173,6 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
         values
       ) as TFilterValues;
       onSubmit(formattedValues);
-      setFilter(formattedValues);
     },
   });
 
@@ -259,7 +258,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
         setFieldValue("dateTo", end);
       }
     },
-    [formik]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -300,7 +299,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
           formik.setFieldValue("diseaseCode", "");
         }
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, setFieldValue, formik]
   );
 
   const newPatientOptions = [
@@ -351,7 +350,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                 {t("opd.general")}
               </div>
               <div className="filterOpdForm__section_content">
-                <div className="filterOpdForm__item">
+                <div className="filterOpdForm__item halfWidth">
                   <SelectField
                     fieldName="newPatiient"
                     fieldValue={formik.values.newPatient}
@@ -360,6 +359,18 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                     errorText={getErrorText("newPatient")}
                     onBlur={onBlurCallback("newPatient")}
                     options={newPatientOptions}
+                  />
+                </div>
+
+                <div className="filterOpdForm__item halfWidth">
+                  <AutocompleteField
+                    fieldName="wardCode"
+                    fieldValue={formik.values.wardCode}
+                    label={t("opd.ward")}
+                    isValid={isValid("wardCode")}
+                    errorText={getErrorText("wardCode")}
+                    onBlur={onBlurCallback("wardCode")}
+                    options={wardOptions}
                   />
                 </div>
                 <div className="filterOpdForm__item fullWidth">
@@ -382,17 +393,6 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
                     errorText={getErrorText("diseaseCode")}
                     onBlur={onBlurCallback("diseaseCode")}
                     options={diseaseOptions}
-                  />
-                </div>
-                <div className="filterOpdForm__item">
-                  <AutocompleteField
-                    fieldName="wardCode"
-                    fieldValue={formik.values.wardCode}
-                    label={t("opd.ward")}
-                    isValid={isValid("wardCode")}
-                    errorText={getErrorText("wardCode")}
-                    onBlur={onBlurCallback("wardCode")}
-                    options={wardOptions}
                   />
                 </div>
               </div>

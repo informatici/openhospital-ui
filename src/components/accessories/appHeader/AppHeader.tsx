@@ -35,7 +35,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   );
   useEffect(() => {
     dispatch(getHospital());
-  }, [dispatch, getHospital]);
+  }, [dispatch]);
 
   const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data

@@ -101,6 +101,7 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
 
   useEffect(() => {
     formik.submitForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formik.values]);
 
   return (

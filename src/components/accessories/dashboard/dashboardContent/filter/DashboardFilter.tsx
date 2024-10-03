@@ -27,6 +27,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 
   useEffect(() => {
     onPeriodChange([range[0], range[1]]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range]);
 
   const handleViewChange = useCallback(
@@ -36,6 +37,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
         setSelection("current");
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [view]
   );
 
@@ -45,7 +47,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
         setSelection(value as TPeriodType);
       }
     },
-    [selection]
+    [setSelection]
   );
 
   const onIconClickHandler = useCallback(
@@ -66,6 +68,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
       setSelection("custom");
       setOpen(false);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dateRange]
   );
 
@@ -78,7 +81,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
       setSelection("custom");
       setOpen(false);
     },
-    [dateRange]
+    [setDateRange, setSelection, setView]
   );
 
   return (

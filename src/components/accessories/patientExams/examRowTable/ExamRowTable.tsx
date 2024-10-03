@@ -33,10 +33,12 @@ const ExamRowTable: FC<IEditableTableProps> = ({
     debounceUpdate(value);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdate = useCallback(
     debounce((value: string) => onBlur(value), 100),
     []
   );
+
   return (
     <Accordion disabled={disabled}>
       <AccordionSummary

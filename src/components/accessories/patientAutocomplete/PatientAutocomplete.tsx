@@ -38,7 +38,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
         firstName: inputValue,
       } as TValues)
     );
-  }, [inputValue]);
+  }, [dispatch, inputValue]);
 
   const handleOnInputChange = (event: any, value: string) => {
     if (value === "") setValue(undefined);

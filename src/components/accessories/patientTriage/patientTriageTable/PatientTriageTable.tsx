@@ -96,10 +96,6 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       t("common.somethingwrong")
   ) as string;
 
-  const onDelete = (row: PatientExaminationDTO) => {
-    handleDelete(row.pex_ID);
-  };
-
   return (
     <div className="patientTriageTable">
       <h5>{t("examination.previousentries")}</h5>

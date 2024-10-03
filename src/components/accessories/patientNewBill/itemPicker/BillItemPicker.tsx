@@ -37,19 +37,19 @@ const BillItemPickerForm: FC<BillItemProps> = ({
   const handleFormSubmit = useCallback(
     (values: Record<string, any>) => {
       const id =
-        itemToEdit == undefined
+        itemToEdit === undefined
           ? (items.map((e) => e.id).sort()[items.length - 1] ?? 0) + 1
           : itemToEdit?.id;
       let item: any = { id: id };
       item.itemQuantity = values?.itemQuantity;
-      if (itemType == ItemGroups.other.id) {
+      if (itemType === ItemGroups.other.id) {
         item.itemAmount = values?.itemAmount;
         item.itemDescription = values?.itemDescription;
         onSubmit(item, itemToEdit === undefined ? true : false);
         return;
       }
       let priceDTO: PriceDTO | undefined = prices.find(
-        (e) => e?.item == values?.itemId
+        (e) => e?.item === values?.itemId
       );
 
       if (priceDTO) {
@@ -61,7 +61,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         onSubmit(item, itemToEdit === undefined ? true : false);
       }
     },
-    [itemType]
+    [itemToEdit, itemType, items, onSubmit, prices]
   );
 
   const {
@@ -75,21 +75,18 @@ const BillItemPickerForm: FC<BillItemProps> = ({
     values,
   } = useItemFormik(fields, itemType, items, itemToEdit, handleFormSubmit);
 
-  const handleItemTypeChange = useCallback(
-    (e: any, value: string) => {
-      setItemType(value);
-    },
-    [itemType]
-  );
+  const handleItemTypeChange = useCallback((e: any, value: string) => {
+    setItemType(value);
+  }, []);
 
   const options = useMemo(() => {
     return (
-      (itemType == ItemGroups.medical.id && medicalsOptions) ||
-      (itemType == ItemGroups.exam.id && examsOptions) ||
-      (itemType == ItemGroups.surgery.id && surgeriesOptions) ||
+      (itemType === ItemGroups.medical.id && medicalsOptions) ||
+      (itemType === ItemGroups.exam.id && examsOptions) ||
+      (itemType === ItemGroups.surgery.id && surgeriesOptions) ||
       []
     );
-  }, [itemType]);
+  }, [examsOptions, itemType, medicalsOptions, surgeriesOptions]);
 
   return (
     <form
@@ -109,28 +106,28 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         >
           <FormControlLabel
             value={ItemGroups.medical.id}
-            className={itemType == ItemGroups.medical.id ? "checked" : ""}
+            className={itemType === ItemGroups.medical.id ? "checked" : ""}
             control={<Radio />}
             label={t("bill.medical")}
             labelPlacement="top"
           />
           <FormControlLabel
             value={ItemGroups.exam.id}
-            className={itemType == ItemGroups.exam.id ? "checked" : ""}
+            className={itemType === ItemGroups.exam.id ? "checked" : ""}
             control={<Radio />}
             label={t("bill.exam")}
             labelPlacement="top"
           />
           <FormControlLabel
             value={ItemGroups.surgery.id}
-            className={itemType == ItemGroups.surgery.id ? "checked" : ""}
+            className={itemType === ItemGroups.surgery.id ? "checked" : ""}
             control={<Radio />}
             label={t("bill.surgery")}
             labelPlacement="top"
           />
           <FormControlLabel
             value={ItemGroups.other.id}
-            className={itemType == ItemGroups.other.id ? "checked" : ""}
+            className={itemType === ItemGroups.other.id ? "checked" : ""}
             control={<Radio />}
             label={t("bill.other")}
             labelPlacement="top"
@@ -138,7 +135,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
         </RadioGroup>
       </div>
       <div id="second">
-        {itemType != ItemGroups.other.id && (
+        {itemType !== ItemGroups.other.id && (
           <AutocompleteField
             fieldName="itemId"
             fieldValue={values.itemId}
@@ -150,7 +147,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
             isLoading={false}
           />
         )}
-        {itemType == ItemGroups.other.id && (
+        {itemType === ItemGroups.other.id && (
           <>
             <TextField
               theme="regular"

@@ -37,14 +37,11 @@ export const Diseases = () => {
     });
   };
 
-  const handleViewChange = useCallback(
-    (event: any, value: any) => {
-      if (!isEmpty(value)) {
-        setView(value);
-      }
-    },
-    [view]
-  );
+  const handleViewChange = useCallback((event: any, value: any) => {
+    if (!isEmpty(value)) {
+      setView(value);
+    }
+  }, []);
 
   const predicate = useCallback(
     (disease: DiseaseDTO) => {

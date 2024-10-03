@@ -1,8 +1,7 @@
-import { DatePicker } from "@mui/x-date-pickers";
-import { ComponentType } from "react";
-import { FIELD_VALIDATION } from "../../../types";
 import { DateRange } from "@mui/lab/DateRangePicker";
 import { TextFieldProps } from "@mui/material";
+import { ComponentType } from "react";
+import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
   fieldName?: string;

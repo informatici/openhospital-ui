@@ -140,6 +140,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
           }
         : opRowToEdit
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [creationMode]);
 
   return (

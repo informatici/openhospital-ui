@@ -50,7 +50,7 @@ const EditPatientActivity = () => {
     if (isEmpty(patient.data) && patient.status === "IDLE" && id) {
       dispatch(getPatient(id));
     }
-  }, [patient, id, getPatient]);
+  }, [patient, id, dispatch]);
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -81,10 +81,6 @@ const EditPatientActivity = () => {
           },
         })
       );
-    else
-      console.error(
-        'The Patient: PatientDTO object must have a "code" property.'
-      );
   };
 
   const [activityTransitionState, setActivityTransitionState] =
@@ -96,10 +92,9 @@ const EditPatientActivity = () => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
       getPatient(id!);
     }
-  }, [patient, id, getPatient]);
+  }, [patient, id]);
 
   useEffect(() => {
-    console.log(activityTransitionState);
     if (activityTransitionState === "TO_PATIENT") {
       getPatient(id!);
       updatePatientReset();
@@ -108,7 +103,7 @@ const EditPatientActivity = () => {
       setOpenConfirmationMessage(false);
       setActivityTransitionState("IDLE");
     }
-  }, [activityTransitionState, updatePatientReset, getPatient, id]);
+  }, [activityTransitionState, id]);
 
   useEffect(() => {
     setOpenConfirmationMessage(hasSucceeded);

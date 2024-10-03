@@ -15,7 +15,7 @@ const PatientBooking = () => {
   const [bookingTransitionState, setActivityTransitionState] =
     useState<TBookingTransitionState>("IDLE");
 
-  const { isLoading, hasSucceeded, hasFailed } = useAppSelector((state) => ({
+  const { isLoading, hasFailed } = useAppSelector((state) => ({
     isLoading: false,
     hasSucceeded: true,
     hasFailed: false,

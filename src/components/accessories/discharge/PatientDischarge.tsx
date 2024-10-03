@@ -94,7 +94,7 @@ const PatientDischarge: FC = () => {
       setShouldResetForm(true);
       setActivityTransitionState("IDLE");
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, activityTransitionState, patient]);
 
   const resetFormCallback = () => {
     setShouldResetForm(false);

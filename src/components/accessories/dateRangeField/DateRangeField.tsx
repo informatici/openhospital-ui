@@ -15,10 +15,6 @@ const DateRangeField: FunctionComponent<IProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const onChangeHandler = (value: any) => {
-    onChange(value);
-  };
-
   const validationSchema = object({
     from: string()
       .required(t("common.required"))

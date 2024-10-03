@@ -152,6 +152,7 @@ const DischargeForm: FC<DischargeProps> = ({
       ).toString();
       setFieldValue("bedDays", days);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setFieldValue, admission]
   );
 
@@ -172,7 +173,7 @@ const DischargeForm: FC<DischargeProps> = ({
         setFieldValue(fieldName, value);
         formik.setFieldTouched(fieldName, false);
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, setFieldValue, formik]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);

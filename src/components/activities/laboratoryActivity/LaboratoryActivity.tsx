@@ -27,7 +27,7 @@ const LaboratoryActivity: FC = () => {
     return {
       [t("nav.laboratory")]: PATHS.laboratory,
     };
-  }, [location]);
+  }, [location.pathname, t]);
 
   const userCredentials = useAppSelector(
     (state) => state.main.authentication.data

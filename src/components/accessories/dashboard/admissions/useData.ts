@@ -1,15 +1,6 @@
-import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useAppSelector } from "libraries/hooks/redux";
-import {
-  AdmissionDTO,
-  WardDTO,
-  AdmissionTypeDTO,
-  AgeTypeDTO,
-} from "../../../../generated";
+import { useTranslation } from "react-i18next";
 import { colorGen } from "../../../../libraries/uiUtils/colorGenerator";
-import { TAPIResponseStatus } from "../../../../state/types";
-import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
