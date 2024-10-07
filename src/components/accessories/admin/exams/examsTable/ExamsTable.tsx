@@ -48,7 +48,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
 
   const filters: TFilterField[] = [
     {
-      key: "type",
+      key: "examtype",
       label: t("exam.examtype"),
       type: "select",
       options: examTypesOptions,
@@ -124,7 +124,10 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
                   onDelete={onDelete}
                   headerActions={headerActions}
                   filterColumns={filters}
-                  rawData={data ?? []}
+                  rawData={(data ?? []).map((exam) => ({
+                    ...exam,
+                    examtype: exam.examtype?.code,
+                  }))}
                   manualFilter={false}
                   rowKey="code"
                 />
