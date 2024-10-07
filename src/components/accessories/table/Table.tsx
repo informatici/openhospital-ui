@@ -37,10 +37,10 @@ import {
 import { TOrder } from "../../../libraries/sortUtils/types";
 import Button from "../button/Button";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
+import TableBodyRow from "./TableBodyRow";
 import { FilterButton } from "./filter/FilterButton";
 import { TFilterValues } from "./filter/types";
 import "./styles.scss";
-import TableBodyRow from "./TableBodyRow";
 import { IProps, TActions } from "./types";
 
 const Table: FunctionComponent<IProps> = ({
@@ -399,7 +399,7 @@ const Table: FunctionComponent<IProps> = ({
                           field={filterField}
                           onChange={(value) =>
                             setFilters((previous) => ({
-                              ...filters,
+                              ...previous,
                               [filterField.key]: value,
                             }))
                           }
