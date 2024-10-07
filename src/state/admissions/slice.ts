@@ -58,7 +58,7 @@ export const admissionSlice = createSlice({
         state.getAdmissions = ApiResponse.loading();
       })
       .addCase(thunks.getAdmissions.fulfilled, (state, action) => {
-        state.getAdmissions.status = isEmpty(action.payload.data)
+        state.getAdmissions.status = isEmpty(action.payload?.data)
           ? "SUCCESS_EMPTY"
           : "SUCCESS";
         state.getAdmissions.data = action.payload;
@@ -71,7 +71,7 @@ export const admissionSlice = createSlice({
         state.getDischarges = ApiResponse.loading();
       })
       .addCase(thunks.getDischarges.fulfilled, (state, action) => {
-        state.getDischarges.status = isEmpty(action.payload.data)
+        state.getDischarges.status = isEmpty(action.payload?.data)
           ? "SUCCESS_EMPTY"
           : "SUCCESS";
         state.getDischarges.data = action.payload;
