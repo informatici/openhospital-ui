@@ -11,6 +11,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { FIELD_VALIDATION } from "types";
 import { number, object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
@@ -49,8 +50,8 @@ const WardForm: FC<IWardProps> = ({
   const errorMessage = useMemo(
     () =>
       (creationMode
-        ? wardStore.create.error?.message
-        : wardStore.update.error?.message) ?? t("common.somethingwrong"),
+        ? t(wardStore.create.error?.message)
+        : t(wardStore.update.error?.message)) ?? t("common.somethingwrong"),
     [
       creationMode,
       t,
@@ -62,7 +63,9 @@ const WardForm: FC<IWardProps> = ({
   const initialValues = getFromFields(fields, "value");
 
   const validationSchema = object({
-    code: string().required(t("common.required")),
+    code: string()
+      .max(3, t("validations.maxLength", { max: 3 }))
+      .required(t("common.required")),
     description: string().required(t("common.required")),
     email: string().email(t("validations.email")),
     beds: number().min(0, t("validations.min", { min: 0 })),
@@ -133,6 +136,7 @@ const WardForm: FC<IWardProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading || !creationMode}
+              required={FIELD_VALIDATION.REQUIRED}
             />
           </div>
           <div className="wardForm__item halfWidth">
@@ -145,6 +149,7 @@ const WardForm: FC<IWardProps> = ({
               onBlur={formik.handleBlur}
               type="text"
               disabled={isLoading}
+              required={FIELD_VALIDATION.REQUIRED}
             />
           </div>
         </div>
