@@ -27,7 +27,7 @@ export const updateUser = createAsyncThunk(
   "users/updateUser",
   async (userDTO: UserDTO, thunkApi) =>
     api
-      .updateUser({ userDTO })
+      .updateUser({ username: userDTO.userName, userDTO })
       .toPromise()
       .then(() => userDTO)
       .catch((error) => thunkApi.rejectWithValue(error.response))

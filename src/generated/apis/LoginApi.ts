@@ -16,10 +16,15 @@ import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, OperationOpts, RawAjaxRes
 import {
     LoginRequest,
     LoginResponse,
+    TokenRefreshRequest,
 } from '../models';
 
 export interface AuthenticateUserRequest {
     loginRequest: LoginRequest;
+}
+
+export interface RefreshTokenRequest {
+    tokenRefreshRequest: TokenRefreshRequest;
 }
 
 /**
@@ -61,6 +66,26 @@ export class LoginApi extends BaseAPI {
             url: '/auth/logout',
             method: 'POST',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest): Observable<LoginResponse>
+    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LoginResponse>>
+    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest, opts?: OperationOpts): Observable<LoginResponse | RawAjaxResponse<LoginResponse>> {
+        throwIfNullOrUndefined(tokenRefreshRequest, 'tokenRefreshRequest', 'refreshToken');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<LoginResponse>({
+            url: '/auth/refresh-token',
+            method: 'POST',
+            headers,
+            body: tokenRefreshRequest,
         }, opts?.responseOpts);
     };
 
