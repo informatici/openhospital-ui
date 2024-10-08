@@ -837,7 +837,7 @@
         "msg": "Le code du pavillon est déjà utilisé"
       },
       "thecodeistoolongmax1char": {
-        "msg": "La salle est trop longue. Elle devrait contenir trois caractères ou moins"
+        "msg": "Le code est trop longu. Il devrait contenir trois caractères ou moins"
       }
     }
   },
