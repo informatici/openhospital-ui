@@ -27,7 +27,7 @@ export const Opds: FC = () => {
 
   useEffect(() => {
     dispatch(searchOpds({ ...filter, paged: false }));
-  }, [filter]);
+  }, [dispatch, filter]);
 
   useEffect(() => {
     setFilter((previous) => ({ ...previous, page: page }));
@@ -49,7 +49,7 @@ export const Opds: FC = () => {
     dispatch(getDiseasesOpd());
     dispatch(getDiseaseTypes());
     dispatch(getWards());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Fragment>

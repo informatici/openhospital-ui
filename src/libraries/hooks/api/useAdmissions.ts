@@ -36,7 +36,7 @@ export const useAdmissions = () => {
 
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: range, page, size }));
-  }, [page]);
+  }, [dispatch, page, range, size]);
 
   return {
     pageInfo,

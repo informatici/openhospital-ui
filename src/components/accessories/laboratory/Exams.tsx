@@ -1,6 +1,13 @@
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { FC, Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
@@ -78,11 +85,11 @@ export const Exams: FC = () => {
     return () => {
       dispatch(deleteLabReset());
     };
-  }, []);
+  }, [dispatch, fields]);
 
   useEffect(() => {
     dispatch(searchLabs({ ...filter, paged: true }));
-  }, [filter]);
+  }, [dispatch, filter]);
 
   useEffect(() => {
     const refresh = (
@@ -91,7 +98,7 @@ export const Exams: FC = () => {
     if (refresh) {
       dispatch(searchLabs({ ...filter, paged: true }));
     }
-  }, [location]);
+  }, [dispatch, filter, location]);
 
   const onSubmit = (values: TFilterValues) => {
     setFilter({ ...values, page: 0, size: filter.size });
@@ -123,12 +130,12 @@ export const Exams: FC = () => {
   };
 
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(`${code}` ?? "");
+    setDeletedObjCode(code === undefined ? "" : `${code}`);
     dispatch(deleteLab(code));
   };
 
   const onCancel = (code: number | undefined) => {
-    setCanceledObjCode(`${code}` ?? "");
+    setCanceledObjCode(code === undefined ? "" : `${code}`);
     dispatch(cancelLab(code));
   };
   const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
@@ -157,7 +164,7 @@ export const Exams: FC = () => {
     if (changeStatus === "SUCCESS") {
       dispatch(searchLabs({ ...filter, paged: true }));
     }
-  }, [changeStatus]);
+  }, [changeStatus, dispatch, filter]);
 
   /**
    * I commented the following lignes because they were causing issue with filter.
@@ -258,6 +265,7 @@ export const Exams: FC = () => {
         )}
       </>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, fields, data, filter, dispatch, labStore, showStatusChangeModal]);
 
   return (

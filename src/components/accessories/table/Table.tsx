@@ -348,6 +348,7 @@ const Table: FunctionComponent<IProps> = ({
     if (onFilterChange && !manualFilter) {
       onFilterChange(filters);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   return (

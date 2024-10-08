@@ -1,12 +1,11 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import {
   BillDTO,
   BillItemsDTO,
   BillPaymentsDTO,
   FullBillDTO,
-  PatientDTO,
 } from "../../../../generated";
 import { currencyFormat } from "../../../../libraries/formatUtils/currencyFormatting";
 import { parseDate } from "../../../../libraries/formDataHandling/functions";
@@ -39,9 +38,7 @@ export const useFullBill = () => {
   const { patient } = useSelectedPatient();
   const user = useCurrentUser();
 
-  const { data: pendings, status: pendingStatus } = usePendingBills(
-    patient.code ?? 0
-  );
+  const { data: pendings } = usePendingBills(patient.code ?? 0);
   const creationMode = useMemo(() => !(pendings?.length > 0), [pendings]);
 
   const status = useAppSelector((state: IState) =>
@@ -78,16 +75,16 @@ export const useFullBill = () => {
     creationMode
       ? dispatch(newBill(fullBill))
       : dispatch(updateBill({ id: bill.id ?? 0, fullBillDTO: fullBill }));
-  }, [fullBill, creationMode, dispatch]);
+  }, [creationMode, dispatch, fullBill, bill]);
 
   const { prices } = useItemPrices(pendings[0]?.bill?.listId);
   const itemsRowData = useMemo(() => {
     return billItems.map((item) => {
       const priceDTO = prices.find(
-        (e) => (e.id ?? 0).toString() == item.priceId || e.item == item.itemId
+        (e) => (e.id ?? 0).toString() === item.priceId || e.item === item.itemId
       );
       const groupLabel = Object.entries(ItemGroups).find(
-        (e) => e[1].id == priceDTO?.group
+        (e) => e[1].id === priceDTO?.group
       );
       return {
         id: item.id,
@@ -100,12 +97,13 @@ export const useFullBill = () => {
         itemAmount: item.itemAmount,
       };
     });
-  }, [billItems]);
+  }, [billItems, prices, t]);
 
   const handleBillEdit = useCallback(
     (billDTO: BillDTO) => setBill({ ...billDTO }),
-    [bill]
+    []
   );
+
   const handleAddPayment = useCallback(
     (values: Record<string, any>) =>
       setBillPayments([
@@ -118,19 +116,19 @@ export const useFullBill = () => {
           user: user as any,
         },
       ]),
-    [billPayments]
+    [bill, billPayments, user]
   );
   const handleAddItem = useCallback(
     (itemDTO: BillItemsDTO) => {
       itemDTO.billId = bill.id;
       setBillItems([...billItems, itemDTO]);
     },
-    [billItems]
+    [bill, billItems]
   );
   const handleEditItem = useCallback(
     (itemDTO: BillItemsDTO) => {
       const items = billItems.map((item) =>
-        item.id == itemDTO.id ? itemDTO : item
+        item.id === itemDTO.id ? itemDTO : item
       );
       setBillItems([...items]);
       setItemToEdit(undefined);
@@ -139,14 +137,14 @@ export const useFullBill = () => {
   );
   const handleDeletePayment = useCallback(
     (paymentDTO: BillPaymentsDTO) => {
-      let payments = billPayments.filter((value) => value.id != paymentDTO.id);
+      let payments = billPayments.filter((value) => value.id !== paymentDTO.id);
       setBillPayments([...payments]);
     },
     [billPayments]
   );
   const handleDeleteItem = useCallback(
     (item: any) => {
-      let items = billItems.filter((value) => value.id != item.id);
+      let items = billItems.filter((value) => value.id !== item.id);
       setBillItems([...items]);
     },
     [billItems]
@@ -155,17 +153,19 @@ export const useFullBill = () => {
     setFullBill(() => {
       return { ...fullBill, billDTO: bill };
     });
-  }, [bill]);
+  }, [bill, fullBill]);
+
   useEffect(() => {
     setFullBill(() => {
       return { ...fullBill, billItemsDTO: billItems };
     });
-  }, [billItems]);
+  }, [billItems, fullBill]);
+
   useEffect(() => {
     setFullBill(() => {
       return { ...fullBill, billPaymentsDTO: billPayments };
     });
-  }, [billPayments]);
+  }, [billPayments, fullBill]);
 
   useEffect(() => {
     if (!creationMode) {
@@ -174,7 +174,7 @@ export const useFullBill = () => {
       setBillItems([...(fullBill.billItems ?? [])]);
       setBillPayments([...(fullBill.billPayments ?? [])]);
     }
-  }, [creationMode, patient]);
+  }, [creationMode, patient, pendings]);
 
   const billTotal = useMemo(() => {
     return billItems
@@ -194,13 +194,13 @@ export const useFullBill = () => {
       amount: billTotal,
       balance: billTotal - paymentTotal,
     }));
-  }, [billTotal, paymentTotal]);
+  }, [bill, billTotal, paymentTotal]);
 
   useEffect(() => {
     if (status === "SUCCESS") {
       creationMode ? dispatch(newBillReset()) : dispatch(updateBillReset());
     }
-  }, [status]);
+  }, [creationMode, dispatch, status]);
 
   return {
     fullBill,

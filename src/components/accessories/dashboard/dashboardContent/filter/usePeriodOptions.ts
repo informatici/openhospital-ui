@@ -1,8 +1,8 @@
-import moment from "moment";
-import { useState, useMemo } from "react";
-import { TViewType, TPeriodType } from "./types";
-import { getCachedPeriod } from "./consts";
 import { DateRange } from "@mui/lab/DateRangePicker";
+import moment from "moment";
+import { useMemo, useState } from "react";
+import { getCachedPeriod } from "./consts";
+import { TPeriodType, TViewType } from "./types";
 
 export const usePeriodOptions = () => {
   const cachedPeriod = getCachedPeriod();
@@ -64,7 +64,7 @@ export const usePeriodOptions = () => {
     return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(
       range[1]
     ).format("yyyy-MM-DD")}`;
-  }, [dateRange, view, selection]);
+  }, [range]);
 
   return {
     view,

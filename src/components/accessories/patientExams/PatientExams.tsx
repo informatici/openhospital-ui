@@ -101,12 +101,9 @@ const PatientExams: FC = () => {
   ) as string;
   const exams = useAppSelector((state: IState) => state.exams.examList.data);
 
-  const onSuccess = useCallback(
-    (shoudlReset: boolean) => {
-      setShouldUpdateRequestsTable(shoudlReset);
-    },
-    [dispatch]
-  );
+  const onSuccess = useCallback((shoudlReset: boolean) => {
+    setShouldUpdateRequestsTable(shoudlReset);
+  }, []);
 
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
@@ -153,12 +150,12 @@ const PatientExams: FC = () => {
     scrollToElement(null);
   };
   const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(`${code}` ?? "");
+    setDeletedObjCode(code === undefined ? "" : `${code}`);
     dispatch(deleteLab(code));
   };
 
   const onCancel = (code: number | undefined) => {
-    setCanceledObjCode(`${code}` ?? "");
+    setCanceledObjCode(code === undefined ? "" : `${code}`);
     dispatch(cancelLab(code));
   };
 

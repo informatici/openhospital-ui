@@ -81,7 +81,7 @@ const ExamForm: FC<ExamProps> = ({
       setShouldResetForm(true);
       handleReset();
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, activityTransitionState, handleReset]);
 
   const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -135,13 +135,13 @@ const ExamForm: FC<ExamProps> = ({
     }
   };
 
-  const resetFormCallback = () => {
+  const resetFormCallback = useCallback(() => {
     setShouldResetForm(false);
     dispatch(createLabReset());
     dispatch(updateLabReset());
     setActivityTransitionState("IDLE");
     scrollToElement(null);
-  };
+  }, [dispatch]);
 
   const rowTableHeaders: Array<{
     label: string;
@@ -192,19 +192,6 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
-  const materialsOptionsSelector = (materials: string[] | undefined) => {
-    if (materials) {
-      return materials.map((item) => {
-        let label = item ? t(item) : "";
-        return {
-          value: item ?? "",
-          label:
-            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
-        };
-      });
-    } else return [];
-  };
-
   const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
   const examRowOptionsSelector = (state: IState) => {
@@ -243,8 +230,9 @@ const ExamForm: FC<ExamProps> = ({
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
+
   useEffect(() => {
     if (initialValues["exam"] !== "") {
       setCurrentExamCode(initialValues["exam"]);

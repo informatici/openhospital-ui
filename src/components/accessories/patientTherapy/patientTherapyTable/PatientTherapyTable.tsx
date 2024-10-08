@@ -101,10 +101,6 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     (state) => state.therapies.therapiesByPatientId.status
   );
 
-  const onDelete = (row: TherapyRowDTO) => {
-    handleDelete(row.therapyID);
-  };
-
   const onEdit = (row: TherapyRowDTO) => {
     handleEdit(data.find((item) => item.therapyID === row.therapyID));
   };

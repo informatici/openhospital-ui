@@ -1,8 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { AdmissionDTO, WardDTO } from "../../../generated";
-import { TAPIResponseStatus } from "../../../state/types";
-import { IState } from "../../../types";
 import { useAppSelector } from "libraries/hooks/redux";
+import { useTranslation } from "react-i18next";
 
 export const useAdmByAdmWardData = () => {
   const { t } = useTranslation();

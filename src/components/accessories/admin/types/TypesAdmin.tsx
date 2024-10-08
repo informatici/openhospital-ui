@@ -1,6 +1,6 @@
 import { useAppSelector } from "libraries/hooks/redux";
 import { sortBy } from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { PATHS } from "../../../../consts";
@@ -16,7 +16,11 @@ const TypesAdmin = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  const defaultTypeOption: TypeOption = { label: "", value: "" };
+  const defaultTypeOption: TypeOption = useMemo(
+    () => ({ label: "", value: "" }),
+    []
+  );
+
   const [selectedOption, setSelectedOption] =
     useState<TypeOption>(defaultTypeOption);
   const mode = useAppSelector((state) => state.types.config.mode);
@@ -57,7 +61,7 @@ const TypesAdmin = () => {
         setSelectedOption(defaultTypeOption);
       }
     }
-  }, [location]);
+  }, [defaultTypeOption, location, typeOptions]);
 
   const handleTypeChange = (value: string) => {
     if (value?.length > 0) {

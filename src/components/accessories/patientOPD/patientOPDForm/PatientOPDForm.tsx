@@ -35,10 +35,7 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 import checkIcon from "../../../../assets/check-icon.png";
 import warningIcon from "../../../../assets/warning-icon.png";
-import {
-  OpdWithOperationRowDTO,
-  OperationRowDTO
-} from "../../../../generated";
+import { OpdWithOperationRowDTO, OperationRowDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
@@ -175,6 +172,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setFieldValue]
   );
 
@@ -323,6 +321,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
           }
         : opRowToEdit
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [operationCreationMode, opRowToEdit]);
 
   const handleUpdateOperationRow =
@@ -357,7 +356,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       if (idx > -1) ops.splice(idx, 1);
       setOperationRows(() => [...ops]);
     }
-  }, [changeStatus]);
+  }, [changeStatus, deletedObjCode, operationRows]);
 
   return (
     <>

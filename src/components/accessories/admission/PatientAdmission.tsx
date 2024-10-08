@@ -83,7 +83,7 @@ const PatientAdmission: FC = () => {
     if (patientCode && creationMode) {
       dispatch(getLastOpd(parseInt(id!!)));
     }
-  }, [dispatch, patientCode, creationMode]);
+  }, [dispatch, patientCode, creationMode, id]);
 
   const fields = useFields(admissionToEdit, lastOpd?.disease);
 
@@ -157,7 +157,7 @@ const PatientAdmission: FC = () => {
       dispatch(getPatient(id!!));
       dispatch(getCurrentAdmission(parseInt(id!!)));
     }
-  }, [createStatus, updateStatus]);
+  }, [createStatus, dispatch, id, updateStatus]);
 
   const resetFormCallback = () => {
     setCreationMode(true);
@@ -173,7 +173,7 @@ const PatientAdmission: FC = () => {
     return () => {
       dispatch(getCurrentAdmissionReset());
     };
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const onEdit = (row: AdmissionDTO) => {
     setAdmissionToEdit(row);

@@ -1,4 +1,3 @@
-import { PatientDTO } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
 
 export interface IOwnProps {

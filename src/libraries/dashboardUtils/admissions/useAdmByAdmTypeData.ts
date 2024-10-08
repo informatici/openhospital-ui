@@ -21,10 +21,7 @@ export const useAdmByAdmTypeData = () => {
       state.admissions.getAdmissions.status ?? ""
     )
   );
-  const wardStatus = useAppSelector(
-    (state) => state.wards.allWards.status ?? "IDLE"
-  );
-  const sexLabels = [t("common.male"), t("common.female")];
+
   const labels = admissionTypes.map((e) => e.description ?? "");
   const data = {
     labels: labels,

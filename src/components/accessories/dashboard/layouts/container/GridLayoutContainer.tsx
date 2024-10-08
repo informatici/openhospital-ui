@@ -71,7 +71,7 @@ const GridLayoutContainer: FC = () => {
   useEffect(() => {
     dispatch(getLayouts(userCredentials?.username!));
     setMounted(true);
-  }, []);
+  }, [dispatch, userCredentials]);
 
   const onRetry = () => {
     dispatch(getLayouts(userCredentials?.username!));

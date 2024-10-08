@@ -1,4 +1,3 @@
-import { LaboratoryDTOStatusEnum } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 export interface IExamFilterProps {

@@ -1,4 +1,4 @@
-import { PatientDTO, TherapyRowDTO } from "../../../../generated";
+import { TherapyRowDTO } from "../../../../generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface ITherapyProps {

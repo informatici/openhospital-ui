@@ -51,9 +51,6 @@ const OperationRowForm: FC<OperationRowProps> = ({
   };
 
   const initialValues = getFromFields(fields, "value");
-  const currentAdmission = useAppSelector(
-    (state: IState) => state.admissions.currentAdmissionByPatientId.data
-  );
 
   const validationSchema = object({
     operation: string().required(t("common.required")),
@@ -97,7 +94,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
       formik.setFieldTouched(fieldName);
       formik.validateField(fieldName);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {

@@ -100,11 +100,13 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
   };
 
   useEffect(() => {
+    formik.submitForm();
     const submit = setTimeout(() => {
       formik.submitForm();
     }, 250);
 
     return () => clearInterval(submit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formik.values]);
 
   return (

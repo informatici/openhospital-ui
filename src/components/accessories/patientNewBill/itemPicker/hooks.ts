@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import { has, get } from "lodash";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { get, has } from "lodash";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { number, object, string } from "yup";
 import { BillItemsDTO } from "../../../../generated";
@@ -22,7 +22,7 @@ export const useItemFormik = (
   const { t } = useTranslation();
 
   const validationSchema = useMemo(() => {
-    if (itemType == ItemGroups.other.id) {
+    if (itemType === ItemGroups.other.id) {
       return object({
         itemAmount: number()
           .required(t("common.required"))
@@ -35,10 +35,10 @@ export const useItemFormik = (
             test: (value) => {
               const item = items.find(
                 (e) =>
-                  e.itemDescription?.toLocaleLowerCase() ==
-                  value?.toLocaleLowerCase()
+                  e.itemDescription?.toLocaleLowerCase() ===
+                  (value as string)?.toLocaleLowerCase()
               );
-              return item == null || itemToEdit != undefined;
+              return item == null || itemToEdit !== undefined;
             },
           })
           .required(t("common.required")),
@@ -49,8 +49,8 @@ export const useItemFormik = (
         name: "item",
         message: t("bill.itemalreadypresent"),
         test: (value) => {
-          const item = items.find((e) => e.itemId == value);
-          return item == null || itemToEdit != undefined;
+          const item = items.find((e) => e.itemId === value);
+          return item == null || itemToEdit !== undefined;
         },
       }),
       itemQuantity: number()
@@ -58,15 +58,16 @@ export const useItemFormik = (
           name: "quantity",
           message: t("common.lessthan", { value: "1" }),
           test: (value) => {
-            if (itemType == ItemGroups.medical.id) return true;
+            if (itemType === ItemGroups.medical.id) return true;
             return value > 1 ? false : true;
           },
         })
         .min(1, t("common.greaterthan", { value: "1" })),
     });
-  }, [itemType]);
+  }, [itemToEdit, itemType, items, t]);
+
   const initialValues = useMemo(() => {
-    if (itemToEdit != undefined) {
+    if (itemToEdit !== undefined) {
       return getFromFields(
         {
           itemAmount: {
@@ -90,7 +91,7 @@ export const useItemFormik = (
       );
     }
     return getFromFields(fields, "value");
-  }, [itemToEdit]);
+  }, [fields, itemToEdit]);
 
   const formik = useFormik({
     initialValues,
@@ -107,7 +108,6 @@ export const useItemFormik = (
     getFieldProps,
     values,
     resetForm,
-    handleChange,
     handleBlur,
     handleSubmit,
     isValid: isFormValid,
@@ -122,7 +122,7 @@ export const useItemFormik = (
         handleBlur(e);
         setFieldValue(fieldName, value);
       },
-    [handleBlur, handleChange]
+    [handleBlur, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {

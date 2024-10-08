@@ -8,7 +8,7 @@ import {
 } from "@mui/icons-material";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import "./styles.scss";
 import { IUserSection } from "./types";
@@ -28,7 +28,6 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
     return value === userSection ? "active" : "default";
   };
 
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const changeUserSection = useCallback(
@@ -36,7 +35,7 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       setUserSection(section);
       navigate(`${section}`, { replace: true });
     },
-    [navigate, pathname, setUserSection]
+    [navigate, setUserSection]
   );
 
   return (
