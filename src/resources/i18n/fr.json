@@ -834,7 +834,7 @@
     },
     "common": {
       "thecodeisalreadyinuse": {
-        "msg": "Le code de quartier est déjà utilisé"
+        "msg": "Le code du pavillon est déjà utilisé"
       },
       "thecodeistoolongmax1char": {
         "msg": "La salle est trop longue. Elle devrait contenir trois caractères ou moins"
