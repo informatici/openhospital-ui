@@ -46,26 +46,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFont {
      */
     family?: string;
     /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    plain?: boolean;
-    /**
-     * @type {string}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    psname?: string;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    size2D?: number;
-    /**
-     * @type {Array<object>}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    availableAttributes?: Array<object>;
-    /**
      * @type {string}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
@@ -105,4 +85,24 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFont {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
     transformed?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    plain?: boolean;
+    /**
+     * @type {string}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    psname?: string;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    size2D?: number;
+    /**
+     * @type {Array<object>}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    availableAttributes?: Array<object>;
 }

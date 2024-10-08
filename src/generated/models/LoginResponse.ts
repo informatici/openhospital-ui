@@ -24,6 +24,12 @@ export interface LoginResponse {
      */
     token?: string;
     /**
+     * RefreshToken
+     * @type {string}
+     * @memberof LoginResponse
+     */
+    refreshToken?: string;
+    /**
      * Type of Token
      * @type {string}
      * @memberof LoginResponse
