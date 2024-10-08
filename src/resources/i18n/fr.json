@@ -834,7 +834,7 @@
     },
     "common": {
       "thecodeisalreadyinuse": {
-        "msg": "The ward code is already in use"
+        "msg": "Le code de quartier est déjà utilisé"
       },
       "thecodeistoolongmax1char": {
         "msg": "The ward is too long. It should three characters or less"
