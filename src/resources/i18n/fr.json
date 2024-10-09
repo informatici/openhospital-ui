@@ -831,6 +831,14 @@
       "swabs": { "txt": "Écouvillons" },
       "tissues": { "txt": "Tissus" },
       "urine": { "txt": "Urine" }
+    },
+    "common": {
+      "thecodeisalreadyinuse": {
+        "msg": "Le code du pavillon est déjà utilisé"
+      },
+      "thecodeistoolongmax1char": {
+        "msg": "Le code est trop long. Il doit contenir trois caractères ou moins"
+      }
     }
   },
   "exam": {
