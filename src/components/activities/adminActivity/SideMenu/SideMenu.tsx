@@ -10,6 +10,8 @@ import {
   People,
   SupervisedUserCircle,
 } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { PATHS } from "consts";
 import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
@@ -102,6 +104,20 @@ const SideMenu = () => {
                     <span className={classes.value}>{entry[1] ?? "---"}</span>
                   </div>
                 ))}
+            <Button
+              type="button"
+              variant="text"
+              sx={{
+                color: "black",
+                backgroundColor: "white",
+                "&:hover": { backgroundColor: "gray" },
+              }}
+              onClick={() => {
+                navigate(PATHS.admin_hospital_edit);
+              }}
+            >
+              {t("hospital.editHospital")}
+            </Button>
           </div>
         }
       />

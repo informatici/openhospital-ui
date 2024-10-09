@@ -4,6 +4,8 @@ import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new HospitalsApi(customConfiguration(false));
 
+const securedApi = new HospitalsApi(customConfiguration());
+
 export const getHospital = createAsyncThunk(
   "hospitals/getHospital",
   async (_, thunkApi) =>
@@ -16,7 +18,7 @@ export const getHospital = createAsyncThunk(
 export const updateHospital = createAsyncThunk(
   "hospitals/updateHospital",
   async (payload: { code: string; hospitalDTO: HospitalDTO }, thunkApi) =>
-    api
+    securedApi
       .updateHospital(payload)
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))

@@ -28,7 +28,9 @@ export const hospitalSlice = createSlice({
         state.updateHospital = ApiResponse.loading();
       })
       .addCase(thunks.updateHospital.fulfilled, (state, action) => {
-        state.updateHospital = ApiResponse.value(action.payload);
+        state.updateHospital = state.getHospital = ApiResponse.value(
+          action.payload
+        );
       })
       .addCase(thunks.updateHospital.rejected, (state, action) => {
         state.updateHospital = ApiResponse.error(action.payload);
