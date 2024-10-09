@@ -226,7 +226,7 @@ export const AdminRoutes = () => {
         path: getPath(PATHS.admin_hospital_edit),
         element: (
           <AdminActivityContent
-            title={t("nav.hospital")}
+            title={t("hospital.editHospital")}
             children={<EditHospital />}
           />
         ),

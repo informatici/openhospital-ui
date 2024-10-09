@@ -177,14 +177,20 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 
         <div className="hospitalForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              dataCy="submit-form"
+              variant="contained"
+              disabled={isLoading}
+            >
               {submitButtonLabel}
             </Button>
           </div>
-          <div className="reset_button">
+          <div className="discard_button">
             <Button
               type="button"
               variant="text"
+              dataCy="cancel-form"
               disabled={isLoading}
               onClick={() => setOpenDiscardConfirmation(true)}
             >
