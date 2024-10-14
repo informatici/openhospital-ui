@@ -21,7 +21,7 @@ export const EditHospital = () => {
     dispatch(
       updateHospital({
         code: hospital!.code!!,
-        hospitalDTO: { ...value, code: hospital!.code },
+        hospitalDTO: { ...hospital, ...value },
       })
     );
   };

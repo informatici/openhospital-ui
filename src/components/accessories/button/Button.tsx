@@ -11,18 +11,17 @@ const Button: FunctionComponent<IProps> = ({
   disabled,
   dataCy,
   onClick,
-  sx,
+  className,
 }) => {
   return (
     <MaterialComponent
-      className="button"
+      className={"button " + className ?? ""}
       type={type}
       color={color}
       variant={variant}
       disableElevation
       disabled={disabled}
       onClick={onClick}
-      sx={sx}
       data-cy={dataCy}
     >
       {children}

@@ -1,5 +1,4 @@
-import { ButtonProps, SxProps } from "@mui/material";
-import { Theme } from "@mui/system";
+import { ButtonProps } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 export interface IProps extends PropsWithChildren {
@@ -8,6 +7,6 @@ export interface IProps extends PropsWithChildren {
   color?: ButtonProps["color"] | undefined;
   disabled?: boolean;
   dataCy?: string;
-  sx?: SxProps<Theme>;
+  className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

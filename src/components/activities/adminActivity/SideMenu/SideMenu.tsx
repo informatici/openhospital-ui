@@ -109,11 +109,7 @@ const SideMenu = () => {
               type="button"
               variant="text"
               dataCy="edit-hospital"
-              sx={{
-                color: "black",
-                backgroundColor: "white",
-                "&:hover": { backgroundColor: "gray" },
-              }}
+              className={classes.editButton}
               onClick={() => {
                 navigate(PATHS.admin_hospital_edit);
               }}
