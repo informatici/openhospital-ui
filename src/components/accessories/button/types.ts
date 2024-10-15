@@ -7,5 +7,6 @@ export interface IProps extends PropsWithChildren {
   color?: ButtonProps["color"] | undefined;
   disabled?: boolean;
   dataCy?: string;
+  className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

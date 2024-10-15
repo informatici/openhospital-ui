@@ -45,7 +45,13 @@
     "telephone": "Telephone",
     "fax": "Fax",
     "email": "Email Address",
-    "currencyCod": "Currency Code"
+    "currencyCod": "Currency Code",
+    "editHospital": "Edit hospital infos",
+    "updateHospital": "Save changes",
+    "saveHospital": "Save",
+    "updated": "Hospital infos updated",
+    "updateSuccess": "Hospital infos have been updated successfully!",
+    "discardChanges": "Changes will be lost. Do you want to discard anyway ?"
   },
   "login": {
     "username": "Username",
