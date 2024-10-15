@@ -5,8 +5,8 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 import { ExamDTO } from "../../../../../generated";
 import { updateExam } from "../../../../../state/exams";
-import { getInitialFields } from "../examForm/consts";
 import ExamForm from "../examForm/ExamForm";
+import { getInitialFields } from "../examForm/consts";
 
 export const EditExam = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +16,12 @@ export const EditExam = () => {
   const update = useAppSelector((state) => state.operations.update);
 
   const handleSubmit = (examDTO: ExamDTO) => {
-    dispatch(updateExam({ code: examDTO.code!!, examDTO }));
+    dispatch(
+      updateExam({
+        code: examDTO.code!!,
+        examWithRowsDTO: { exam: examDTO, rows: [] },
+      })
+    );
   };
 
   if (state?.code !== id) {

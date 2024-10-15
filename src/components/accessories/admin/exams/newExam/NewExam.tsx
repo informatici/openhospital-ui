@@ -12,7 +12,7 @@ export const NewExam = () => {
   const create = useAppSelector((state) => state.exams.examCreate);
 
   const handleSubmit = (value: ExamDTO) => {
-    dispatch(createExam(value));
+    dispatch(createExam({ examWithRowsDTO: { exam: value, rows: [] } }));
   };
 
   return (

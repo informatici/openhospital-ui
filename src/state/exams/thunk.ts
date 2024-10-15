@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ExamDTO, ExamRowsApi, ExamsApi, UpdateExamsRequest } from "../../generated";
+import {
+  ExamRowsApi,
+  ExamsApi,
+  NewExamRequest,
+  UpdateExamRequest,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new ExamsApi(customConfiguration());
@@ -26,18 +31,18 @@ export const getExamRows = createAsyncThunk(
 
 export const createExam = createAsyncThunk(
   "exams/createExam",
-  async (examDTO: ExamDTO, thunkApi) =>
+  async (payload: NewExamRequest, thunkApi) =>
     api
-      .newExam({ examDTO })
+      .newExam(payload)
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
 export const updateExam = createAsyncThunk(
   "exams/updateExam",
-  async (payload: UpdateExamsRequest, thunkApi) =>
+  async (payload: UpdateExamRequest, thunkApi) =>
     api
-      .updateExams(payload)
+      .updateExam(payload)
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -46,7 +51,7 @@ export const deleteExam = createAsyncThunk(
   "exams/deleteExam",
   async (code: string, thunkApi) =>
     api
-      .deleteExam1({code})
+      .deleteExam1({ code })
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
