@@ -14,7 +14,7 @@ describe("Add Ward Activity specs", () => {
   });
 
   it("should fail to create a new ward", () => {
-    cy.byId("code").type("FAIL");
+    cy.byId("code").type("FL");
     cy.byId("description").type("Children ward");
     cy.byId("email").type("children.ward@oh.com");
     cy.byId("telephone").type("698123234");

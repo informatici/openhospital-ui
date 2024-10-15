@@ -91,7 +91,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
         dispatch(searchBills(filter));
         break;
     }
-  }, [filter]);
+  }, [dispatch, filter]);
 
   const { setFieldValue, handleBlur } = formik;
 

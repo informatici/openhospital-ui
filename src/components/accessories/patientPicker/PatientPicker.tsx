@@ -135,7 +135,7 @@ const PatientPicker: FC<IProps> = ({
   useEffect(() => {
     const pat = patientData?.find((item) => item.code === fieldValue);
     pat ? setValue(pat) : setValue(initialValue ?? ({} as any));
-  }, [fieldValue]);
+  }, [fieldValue, initialValue, patientData]);
 
   const handleOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (value) onBlur(e, value);

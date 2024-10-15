@@ -118,6 +118,7 @@ const TherapyForm: FC<TherapyProps> = ({
       );
       computeEndDate(formik.values.startDate);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [formik]
   );
 
@@ -129,6 +130,7 @@ const TherapyForm: FC<TherapyProps> = ({
         formik.setFieldTouched(fieldName);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [formik]
   );
 
@@ -148,7 +150,7 @@ const TherapyForm: FC<TherapyProps> = ({
         formik.handleBlur(e);
         setFieldValue(fieldName, value);
       },
-    [setFieldValue, handleBlur]
+    [formik, setFieldValue]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);

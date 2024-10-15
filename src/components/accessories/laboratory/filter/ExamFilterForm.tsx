@@ -204,7 +204,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
         setFieldValue("dateTo", end);
       }
     },
-    [formik]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -235,7 +235,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
             : setFieldValue(fieldName, value?.code ?? "");
         }
       },
-    [setFieldValue, handleBlur]
+    [handleBlur, examStatusOptions, setFieldValue]
   );
 
   return (

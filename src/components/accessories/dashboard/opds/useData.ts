@@ -1,8 +1,5 @@
-import { useTranslation } from "react-i18next";
 import { useAppSelector } from "libraries/hooks/redux";
-import { AgeTypeDTO, OpdDTO } from "../../../../generated";
-import { TAPIResponseStatus } from "../../../../state/types";
-import { IState } from "../../../../types";
+import { useTranslation } from "react-i18next";
 
 export const useData = () => {
   const { t } = useTranslation();

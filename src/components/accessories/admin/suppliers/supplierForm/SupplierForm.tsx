@@ -30,8 +30,6 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { ISupplierFormProps } from "./types";
 
-const FORMAT = /^([0-9]{3})?[0-9]{2,10}$/;
-
 const SupplierForm: FC<ISupplierFormProps> = ({
   fields,
   onSubmit,

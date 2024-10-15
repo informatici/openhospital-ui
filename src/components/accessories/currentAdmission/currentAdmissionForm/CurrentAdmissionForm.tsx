@@ -13,17 +13,15 @@ import {
   AdmissionTypeDTO,
   DiseaseDTO,
   DiseaseTypeDTO,
-  WardDTO
+  WardDTO,
 } from "../../../../generated";
 import {
   differenceInDays,
   formatAllFieldValues,
-  getFromFields
+  getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
 import { updateAdmissionReset } from "../../../../state/admissions";
-import {
-  getPatient
-} from "../../../../state/patients";
+import { getPatient } from "../../../../state/patients";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
@@ -130,9 +128,9 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       }
       onDiscard();
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, activityTransitionState, patient, onDiscard]);
 
-  const { setFieldValue, resetForm, handleBlur } = formik;
+  const { setFieldValue, handleBlur } = formik;
 
   const isValid = (fieldName: string): boolean => {
     return has(formik.touched, fieldName) && has(formik.errors, fieldName);
@@ -154,7 +152,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       ).toString();
       setFieldValue("bedDays", days);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
 
   const onBlurCallback = useCallback(

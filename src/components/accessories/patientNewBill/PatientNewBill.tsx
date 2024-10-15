@@ -34,10 +34,8 @@ const PatientNewBill: FC = () => {
   const [openPayment, setOpenPayment] = useState(true);
 
   const {
-    fullBill,
     bill,
     billItems,
-    billPayments,
     itemsRowData,
     billTotal,
     paymentTotal,
@@ -46,19 +44,15 @@ const PatientNewBill: FC = () => {
     status,
     saveBill,
     setItemToEdit,
-    handleBillEdit,
     handleAddItem,
     handleEditItem,
     handleAddPayment,
     handleDeleteItem,
-    handleDeletePayment,
   } = useFullBill();
 
   const {
     showItemPicker,
     showPaymentDialog,
-    openSaveDialog,
-    handleSaveDialog,
     handleItemPicker,
     handlePaymentDialog,
   } = useDialogStatus();
@@ -81,10 +75,13 @@ const PatientNewBill: FC = () => {
 
   const resetItemFormCallback = () => {};
 
-  const handleTableEdit = useCallback((row: any) => {
-    setItemToEdit(row);
-    handleItemPicker();
-  }, []);
+  const handleTableEdit = useCallback(
+    (row: any) => {
+      setItemToEdit(row);
+      handleItemPicker();
+    },
+    [handleItemPicker, setItemToEdit]
+  );
 
   const handlePayment = (values: Record<string, any>) => {
     handleAddPayment(values);
@@ -102,7 +99,7 @@ const PatientNewBill: FC = () => {
     if (status === "SUCCESS") {
       navigate(`/details/${patient.code ?? ""}/billsrecord`);
     }
-  }, [status]);
+  }, [navigate, patient.code, status]);
 
   const classes = useStyles();
 
@@ -110,7 +107,7 @@ const PatientNewBill: FC = () => {
     <>
       <div className="patientNewBill">
         <div className="patientNewBill_main">
-          {billItems.length != 0 && (
+          {billItems.length !== 0 && (
             <div className="patientNewBill_payment">
               <Accordion expanded={openPayment}>
                 <AccordionSummary onClick={() => setOpenPayment(!openPayment)}>
@@ -130,11 +127,11 @@ const PatientNewBill: FC = () => {
           )}
           <div className="patientNewBill_items">
             <div>
-              {billTotal == 0 && (
+              {billTotal === 0 && (
                 <span className={"additem"}>{t("bill.clicktoadditem")}</span>
               )}
             </div>
-            {billItems.length != 0 && (
+            {billItems.length !== 0 && (
               <BillItemsTable
                 rowData={itemsRowData}
                 handleDelete={handleDeleteItem}
@@ -153,7 +150,7 @@ const PatientNewBill: FC = () => {
             </div>
           </div>
         </div>
-        {billTotal == 0 && (
+        {billTotal === 0 && (
           <div className="patientNewBill_nopayment">
             <span>{t("bill.nopendingbill")}</span>
           </div>
@@ -169,7 +166,7 @@ const PatientNewBill: FC = () => {
           </div>
         )}
       </div>
-      <Backdrop className={classes.backdrop} open={status == "LOADING"}>
+      <Backdrop className={classes.backdrop} open={status === "LOADING"}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <CustomModal

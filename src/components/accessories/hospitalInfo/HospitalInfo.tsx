@@ -12,7 +12,7 @@ export const HospitalInfo: FC<TProps> = () => {
   const { t } = useTranslation();
   useEffect(() => {
     dispatch(getHospital());
-  }, [dispatch, getHospital]);
+  }, [dispatch]);
 
   const hospital = useAppSelector(
     (state) => state.hospital.getHospital.data

@@ -22,7 +22,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   handleCancel,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("laboratories.update");
   const canCancel = usePermission("laboratories.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +52,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   useEffect(() => {
     if (shouldUpdateTable || patientCode)
       dispatch(getLabsRequestByPatientId(patientCode));
-  }, [patientCode, shouldUpdateTable]);
+  }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
@@ -77,12 +76,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       state.laboratories.labsRequestByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
-
-  const onEdit = (row: any) => {
-    if (handleEdit) {
-      handleEdit(data?.find((item) => item.code === row.code));
-    }
-  };
 
   const onCancel = (row: any) => {
     if (handleCancel) {

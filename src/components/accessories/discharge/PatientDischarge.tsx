@@ -94,6 +94,7 @@ const PatientDischarge: FC = () => {
       setShouldResetForm(true);
       setActivityTransitionState("IDLE");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, activityTransitionState]);
 
   const resetFormCallback = () => {

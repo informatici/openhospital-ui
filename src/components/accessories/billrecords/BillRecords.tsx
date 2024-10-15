@@ -67,7 +67,7 @@ const BillRecords = () => {
     dispatch(deleteBillReset());
     dispatch(payBillReset());
     dispatch(closeBillReset());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (patient && patient.code) {
@@ -275,7 +275,7 @@ const BillRecords = () => {
         }}
         handleSecondaryButtonClick={() => ({})}
       />
-      <iframe id="ifmcontentstoprint"></iframe>
+      <iframe id="ifmcontentstoprint" title="ifmcontentstoprint"></iframe>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,13 +25,12 @@ export const AdmissionsByWards: FC<TDashboardComponentProps & IOwnProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    //dispatch(getAdmissions({ admissionrange: period }));
     dispatch(getWards());
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
-  }, [period]);
+  }, [period, dispatch]);
 
   const { total, success, status, wardStatus, data, csvData } =
     useAdmByAdmWardData();

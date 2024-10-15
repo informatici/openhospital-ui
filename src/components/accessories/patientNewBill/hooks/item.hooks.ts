@@ -1,10 +1,8 @@
-import { argv } from "process";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { MedicalDTO, ExamDTO, OperationDTO } from "../../../../generated";
+import { useEffect } from "react";
+import { OperationDTO } from "../../../../generated";
 import { getExams } from "../../../../state/exams";
 import { getMedicals } from "../../../../state/medicals";
-import { IState } from "../../../../types";
 
 export const useItems = () => {
   const dispatch = useAppDispatch();

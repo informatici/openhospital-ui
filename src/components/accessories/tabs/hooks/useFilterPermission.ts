@@ -16,7 +16,7 @@ export const useFilterPermission = (config: TTabConfig): TTabConfig => {
     if (item.checkPermissions) {
       const checkPermissions = asArray(item.checkPermissions);
       return checkPermissions.find((permission) =>
-        permissions.includes(<TPermission>permission)
+        permissions.includes(permission as TPermission)
       );
     }
     return true;

@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";

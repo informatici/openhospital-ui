@@ -60,7 +60,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     dispatch(getPatientReset());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (
@@ -77,7 +77,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
         });
       }
     }
-  }, [activityTransitionState, createPatientReset]);
+  }, [activityTransitionState, dispatch, navigate, patient?.code]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {

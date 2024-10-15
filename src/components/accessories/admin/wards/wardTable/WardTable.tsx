@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { WardDTO } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
-import { deleteWardReset } from "../../../../../state/ward";
+import { deleteWardReset, getWards } from "../../../../../state/ward";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import { TFilterField } from "../../../table/filter/types";
@@ -72,7 +72,14 @@ export const WardTable: FunctionComponent<IOwnProps> = ({
     if (deleteWard.status === "FAIL") {
       scrollToElement(infoBoxRef.current);
     }
-  }, [deleteWard.status]);
+
+    if (
+      deleteWard.status === "SUCCESS" ||
+      deleteWard.status === "SUCCESS_EMPTY"
+    ) {
+      dispatch(getWards());
+    }
+  }, [deleteWard.status, dispatch]);
 
   const formatDataToDisplay = (data: WardDTO[]) => {
     return data.map((item) => {

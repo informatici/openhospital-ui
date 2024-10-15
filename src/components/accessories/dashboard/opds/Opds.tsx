@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -23,15 +23,8 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
     );
     dispatch(getAgeTypes());
   }, [dispatch, period]);
-  const {
-    ageTypeStatus,
-    opdStatus,
-    dataByAgeType,
-    dataBySex,
-    success,
-    total,
-    opds,
-  } = useData();
+  const { ageTypeStatus, opdStatus, dataByAgeType, dataBySex, success, total } =
+    useData();
 
   return (
     <>
