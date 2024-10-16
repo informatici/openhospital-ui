@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { number, object, string } from "yup";
+import { array, number, object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
@@ -28,6 +28,8 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
+import { AddCircle } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -60,6 +62,15 @@ const ExamForm: FC<IExamProps> = ({
     [examTypeState.data]
   );
 
+  const procedureOptions = useMemo(
+    () => [
+      { value: "1", label: t("exam.procedures.1") },
+      { value: "2", label: t("exam.procedures.2") },
+      { value: "3", label: t("exam.procedures.3") },
+    ],
+    [t]
+  );
+
   const errorMessage = useMemo(
     () =>
       (creationMode
@@ -79,6 +90,18 @@ const ExamForm: FC<IExamProps> = ({
     code: string().required(t("common.required")),
     description: string().required(t("common.required")),
     examtype: string().required(t("common.required")),
+    rows: array()
+      .of(string().required(t("common.required")))
+      .test({
+        name: "min",
+        exclusive: true,
+        test: function (value) {
+          return parseInt(this.parent.procedure) === 3
+            ? true
+            : (value as string[]).length <= 2;
+        },
+        message: t("exam.minLength"),
+      }),
     procedure: number()
       .test({
         name: "onetwothree",
@@ -119,11 +142,34 @@ const ExamForm: FC<IExamProps> = ({
     navigate(-1);
   };
 
+  const addExamRow = useCallback(() => {
+    formik.setFieldValue("rows", [...formik.values.rows, ""]);
+  }, [formik]);
+
+  const removeExamRow = useCallback(
+    (index: number) => () => {
+      formik.setFieldValue(
+        "rows",
+        (formik.values.rows as string[]).splice(index, 1)
+      );
+    },
+    [formik]
+  );
+
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
+        if (fieldName === "procedure") {
+          const rows = formik.values.rows as string[];
+          if (parseInt(value) === 3) {
+            setFieldValue("rows", []);
+          } else if (rows.length < 2) {
+            setFieldValue("rows", rows.length === 1 ? [rows[0], ""] : ["", ""]);
+          }
+          console.log(formik.values.rows);
+        }
       },
     [handleBlur, setFieldValue]
   );
@@ -193,18 +239,7 @@ const ExamForm: FC<IExamProps> = ({
               fieldName="selectedType"
               fieldValue={formik.values.procedure}
               label={t("exam.procedure")}
-              options={[
-                {
-                  label: '1: a list of available "string" results',
-                  value: "1",
-                },
-                { label: '2: a list of all "boolean" results', value: "2" },
-                {
-                  label:
-                    "3: exact value (it will be typed in by the laboratorist)",
-                  value: "3",
-                },
-              ]}
+              options={procedureOptions}
               errorText={getErrorText("procedure")}
               isValid={isValid("procedure")}
               onChange={(v) => formik.setFieldValue("procedure", v)}
@@ -225,6 +260,38 @@ const ExamForm: FC<IExamProps> = ({
             />
           </div>
         </div>
+
+        {["1", "2"].includes(formik.values.procedure) && (
+          <div className="column start-sm center-xs exam-rows">
+            <div className="options_header">
+              <span className="title">Exam options</span>
+              {isValid("rows") && (
+                <span className="error">{getErrorText("rows")}</span>
+              )}
+            </div>
+            {(formik.values.rows as string[]).map((_, index) => (
+              <div className="examForm__item halfWidth" key={index}>
+                <TextField
+                  field={formik.getFieldProps(`rows.${index}`)}
+                  theme="regular"
+                  label={""}
+                  isValid={isValid(`rows.${index}`)}
+                  errorText={getErrorText(`rows.${index}`)}
+                  onBlur={formik.handleBlur}
+                  type="text"
+                  disabled={isLoading || !creationMode}
+                />
+              </div>
+            ))}
+            <IconButton
+              onClick={addExamRow}
+              className="add-row-icon"
+              size="medium"
+            >
+              <AddCircle />
+            </IconButton>
+          </div>
+        )}
 
         <div className="examForm__buttonSet">
           <div className="submit_button">

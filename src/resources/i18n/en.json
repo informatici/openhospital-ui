@@ -852,6 +852,11 @@
     "examtype": "Exam Type",
     "description": "Name",
     "procedure": "Procedure",
+    "procedures": {
+      "1": "1 - Only one option",
+      "2": "2 - Multiple options can be selected",
+      "3": "3 - Custom value"
+    },
     "defaultResult": "Default value",
     "addExam": "New exam",
     "editExam": "Edit exam",

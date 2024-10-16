@@ -8,7 +8,7 @@ import { deleteExamReset, getExams } from "../../../../../state/exams";
 import { getExamTypes } from "../../../../../state/types/exams";
 import InfoBox from "../../../infoBox/InfoBox";
 import { TFilterField } from "../../../table/filter/types";
-import { ExamProps } from "../types";
+import { ExamFormFieldName } from "../types";
 
 import checkIcon from "../../../../../assets/check-icon.png";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
@@ -31,7 +31,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     dispatch(getExamTypes());
   }, [dispatch]);
 
-  const header: Array<ExamProps> = [
+  const header: Array<ExamFormFieldName> = [
     "code",
     "examtype",
     "description",
@@ -64,7 +64,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     procedure: t("exam.procedure"),
     defaultResult: t("exam.defaultResult"),
   };
-  const order: Array<ExamProps> = [
+  const order: Array<ExamFormFieldName> = [
     "code",
     "examtype",
     "description",

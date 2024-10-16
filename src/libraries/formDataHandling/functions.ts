@@ -28,7 +28,11 @@ export const getFromFields = (
   fieldAddress: TFieldAddress
 ): Record<string, any> => {
   return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
-    acc[key] = fields[key][fieldAddress];
+    if (fieldAddress === "value") {
+      acc[key] = fields[key].isArray
+        ? JSON.parse(fields[key][fieldAddress])
+        : fields[key][fieldAddress];
+    }
     return acc;
   }, {});
 };

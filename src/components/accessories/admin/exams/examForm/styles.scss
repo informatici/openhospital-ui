@@ -15,6 +15,35 @@
     justify-content: space-between;
   }
 
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exam-rows {
+    .options_header {
+      padding: 16px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: x-large;
+        font-weight: lighter;
+      }
+
+      .error {
+        color: red;
+        font-size: x-small;
+        align-self: flex-start;
+      }
+    }
+    .add-row-icon {
+      margin-left: 16px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   .examForm__item {
     margin: 7px 0px;
     padding: 0px 15px;
