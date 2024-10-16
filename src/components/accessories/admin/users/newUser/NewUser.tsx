@@ -67,10 +67,14 @@ export const NewUser = () => {
 
   useEffect(() => {
     dispatch(getUserGroups());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (create.hasSucceeded) navigate(PATHS.admin_users);
     return () => {
       dispatch(createUserReset());
     };
-  }, [dispatch]);
+  }, [create.hasSucceeded, dispatch, navigate]);
 
   return (
     <div className="newUserForm">

@@ -41,3 +41,37 @@ export const deleteUserGroup = createAsyncThunk(
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
+
+export const getUserGroup = createAsyncThunk(
+  "userGroups/getUserGroup",
+  async (groupCode: string, thunkApi) =>
+    api
+      // GET /users/groups/{group_code}
+      .getUserGroup({ groupCode })
+      .toPromise()
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const assignPermission = createAsyncThunk(
+  "userGroups/setUserGroupPermission",
+  async (
+    { permissionId, groupCode }: { permissionId: number; groupCode: string },
+    thunkApi
+  ) =>
+    api
+      .assignPermission({ groupCode, id: permissionId })
+      .toPromise()
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const revokePermission = createAsyncThunk(
+  "userGroups/setUserGroupPermission",
+  async (
+    { permissionId, groupCode }: { permissionId: number; groupCode: string },
+    thunkApi
+  ) =>
+    api
+      .revokePermission({ groupCode, id: permissionId })
+      .toPromise()
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);

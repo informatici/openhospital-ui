@@ -24,6 +24,7 @@ import { opdRoutes } from "./routes/opd";
 import { operationRoutes } from "./routes/operations";
 import { operationTypeRoutes } from "./routes/operationTypes";
 import { patientRoutes } from "./routes/patients";
+import { permissionRoutes } from "./routes/permission";
 import { pregnantTreatmentTypeRoutes } from "./routes/pregnantTreatmentType";
 import { pricesRoutes } from "./routes/prices";
 import { suppliersRoutes } from "./routes/suppliers";
@@ -77,6 +78,7 @@ export function makeServer() {
     medicalTypesRoutes(server);
     pregnantTreatmentTypeRoutes(server);
     deliveryResultTypeRoutes(server);
+    permissionRoutes(server);
     labExamRequestRoutes(server);
   });
   return server;
