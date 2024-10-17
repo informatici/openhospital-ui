@@ -1032,7 +1032,10 @@
     "updated": "Supplier updated",
     "updateSuccess": "Supplier has been updated successfully!",
     "created": "Supplier created",
-    "createSuccess": "Supplier has been created successfully!"
+    "createSuccess": "Supplier has been created successfully!",
+    "deleted": "Supplier deleted",
+    "deleting": "Deleting supplier...",
+    "deleteSuccess": "Supplier has been deleted successfully!"
   },
   "ward": {
     "code": "Code",

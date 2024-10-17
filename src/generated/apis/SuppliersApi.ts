@@ -17,6 +17,10 @@ import {
     SupplierDTO,
 } from '../models';
 
+export interface DeleteSupplierRequest {
+    id: number;
+}
+
 export interface GetSuppliersRequest {
     excludeDeleted?: boolean;
 }
@@ -37,6 +41,24 @@ export interface UpdateSupplierRequest {
  * no description
  */
 export class SuppliersApi extends BaseAPI {
+
+    /**
+     */
+    deleteSupplier({ id }: DeleteSupplierRequest): Observable<void>
+    deleteSupplier({ id }: DeleteSupplierRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
+    deleteSupplier({ id }: DeleteSupplierRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+        throwIfNullOrUndefined(id, 'id', 'deleteSupplier');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<void>({
+            url: '/suppliers/{id}'.replace('{id}', encodeURI(id)),
+            method: 'DELETE',
+            headers,
+        }, opts?.responseOpts);
+    };
 
     /**
      */

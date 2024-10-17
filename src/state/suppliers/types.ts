@@ -5,5 +5,5 @@ export type ISupplierState = {
   supplierList: ApiResponse<Array<SupplierDTO>>;
   create: ApiResponse<SupplierDTO>;
   update: ApiResponse<SupplierDTO>;
-  delete: ApiResponse<boolean>;
+  delete: ApiResponse<void>;
 };

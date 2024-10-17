@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const supplierSlice = createSlice({
   name: "suppliers",
@@ -26,7 +26,8 @@ export const supplierSlice = createSlice({
       })
       .addCase(thunks.getSuppliers.fulfilled, (state, action) => {
         state.supplierList = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getSuppliers.rejected, (state, action) => {
         state.supplierList = ApiResponse.error(action.payload);
@@ -50,6 +51,16 @@ export const supplierSlice = createSlice({
       })
       .addCase(thunks.updateSupplier.rejected, (state, action) => {
         state.update = ApiResponse.error(action.payload);
+      })
+      // Delete Supplier
+      .addCase(thunks.deleteSupplier.pending, (state) => {
+        state.delete = ApiResponse.loading();
+      })
+      .addCase(thunks.deleteSupplier.fulfilled, (state, action) => {
+        state.delete = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.deleteSupplier.rejected, (state, action) => {
+        state.delete = ApiResponse.error(action.payload);
       }),
 });
 
