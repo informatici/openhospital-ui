@@ -10,4 +10,9 @@ export interface IOperationProps {
   isLoading: boolean;
 }
 
-export type OperationFormFieldName = "code" | "description" | "type" | "major";
+export type OperationFormFieldName =
+  | "code"
+  | "description"
+  | "type"
+  | "major"
+  | "opeFor";
