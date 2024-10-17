@@ -443,7 +443,13 @@
     "saveOperation": "Save Operation",
     "createSuccess": "Operation has been created successfully!",
     "updateSuccess": "Operation {{code}} has been updated successfully!",
-    "deleteSuccess": "Operation {{code}} has been deleted successfully!"
+    "deleteSuccess": "Operation {{code}} has been deleted successfully!",
+    "opeFor": "Context",
+    "contextOptions": {
+      "opd_admission": "OPD/Admission",
+      "admission": "Admission",
+      "opd": "OPD"
+    }
   },
   "common": {
     "ok": "OK",
