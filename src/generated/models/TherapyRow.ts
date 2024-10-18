@@ -106,18 +106,18 @@ export interface TherapyRow {
      */
     smsInt: number;
     /**
-     * @type {boolean}
+     * @type {number}
      * @memberof TherapyRow
      */
-    sms?: boolean;
+    medical?: number;
     /**
      * @type {boolean}
      * @memberof TherapyRow
      */
     notify?: boolean;
     /**
-     * @type {number}
+     * @type {boolean}
      * @memberof TherapyRow
      */
-    medical?: number;
+    sms?: boolean;
 }

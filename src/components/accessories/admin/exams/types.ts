@@ -1,6 +1,7 @@
-export type ExamProps =
+export type ExamFormFieldName =
   | "code"
   | "examtype"
   | "description"
   | "procedure"
-  | "defaultResult";
+  | "defaultResult"
+  | "rows";

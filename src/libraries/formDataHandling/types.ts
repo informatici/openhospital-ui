@@ -28,6 +28,7 @@ export interface IFieldContent {
   type: TFieldType;
   isEnabled?: boolean;
   isVisible?: boolean;
+  isArray?: boolean;
   options?: Array<{ label: string; value: string }>;
 }
 

@@ -1,10 +1,10 @@
 import { ExamDTO } from "../../../../../generated";
 import { TFields } from "../../../../../libraries/formDataHandling/types";
-import { ExamProps } from "../types";
+import { ExamFormFieldName } from "../types";
 
 export interface IExamProps {
-  fields: TFields<ExamProps>;
-  onSubmit: (exam: ExamDTO) => void;
+  fields: TFields<ExamFormFieldName>;
+  onSubmit: (values: ExamDTO & { rows: string[] | undefined }) => void;
   creationMode: boolean;
   submitButtonLabel: string;
   resetButtonLabel: string;

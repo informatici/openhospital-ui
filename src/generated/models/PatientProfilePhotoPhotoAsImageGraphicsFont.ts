@@ -46,6 +46,11 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFont {
      */
     family?: string;
     /**
+     * @type {boolean}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
+     */
+    plain?: boolean;
+    /**
      * @type {string}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
@@ -85,11 +90,6 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsFont {
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
      */
     transformed?: boolean;
-    /**
-     * @type {boolean}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont
-     */
-    plain?: boolean;
     /**
      * @type {string}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsFont

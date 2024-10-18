@@ -195,10 +195,10 @@ export interface Patient {
      * @type {string}
      * @memberof Patient
      */
-    informations?: string;
+    searchString?: string;
     /**
      * @type {string}
      * @memberof Patient
      */
-    searchString?: string;
+    informations?: string;
 }

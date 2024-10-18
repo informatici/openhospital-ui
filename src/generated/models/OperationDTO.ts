@@ -38,6 +38,12 @@ export interface OperationDTO {
      */
     type: OperationTypeDTO;
     /**
+     * The operation context
+     * @type {string}
+     * @memberof OperationDTO
+     */
+    opeFor: OperationDTOOpeForEnum;
+    /**
      * The operation major
      * @type {number}
      * @memberof OperationDTO
@@ -50,3 +56,14 @@ export interface OperationDTO {
      */
     lock?: number;
 }
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum OperationDTOOpeForEnum {
+    OpdAdmission = 'opd_admission',
+    Admission = 'admission',
+    Opd = 'opd'
+}
+

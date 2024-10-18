@@ -18,9 +18,8 @@ describe("Add exam Activity specs", () => {
     cy.byId("examtype").click();
     cy.get('.MuiAutocomplete-popper li[data-option-index="0"]').click();
     cy.byId("selectedType").last().click();
-    cy.get('.MuiPopover-paper li[data-value="1"]').last().click();
+    cy.get('.MuiPopover-paper li[data-value="3"]').last().click().click();
     cy.byId("description").type("Children exam");
-    cy.byId("defaultResult").type("POSITIVE");
     cy.dataCy("submit-form").click();
     cy.dataCy("info-box").contains("Fail");
   });
