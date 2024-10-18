@@ -1,7 +1,10 @@
+import classnames from "classnames/dedupe";
 import { useFormik } from "formik";
-import { get, has } from "lodash";
+import { get, has, isEmpty } from "lodash";
 import React, {
+  ChangeEvent,
   FC,
+  Fragment,
   useCallback,
   useEffect,
   useMemo,
@@ -28,8 +31,8 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
-import { AddCircle } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { AddCircle, Delete } from "@mui/icons-material";
+import { IconButton, Radio, RadioGroup } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -102,6 +105,18 @@ const ExamForm: FC<IExamProps> = ({
         },
         message: t("exam.minLength"),
       }),
+    defaultResult: string().test({
+      name: "procedure-1",
+      exclusive: true,
+      test: function (value) {
+        return (
+          this.parent.procedure === "1" &&
+          !isEmpty(value) &&
+          (this.parent.rows as string[]).includes(value)
+        );
+      },
+      message: t("exam.invalidDefaultResult"),
+    }),
     procedure: number()
       .test({
         name: "onetwothree",
@@ -116,6 +131,7 @@ const ExamForm: FC<IExamProps> = ({
     initialValues,
     validationSchema,
     enableReinitialize: true,
+    validateOnChange: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       formattedValues.examtype = examTypeState.data?.find(
@@ -150,7 +166,7 @@ const ExamForm: FC<IExamProps> = ({
     (index: number) => () => {
       formik.setFieldValue(
         "rows",
-        (formik.values.rows as string[]).splice(index, 1)
+        (formik.values.rows as string[]).toSpliced(index, 1)
       );
     },
     [formik]
@@ -172,6 +188,14 @@ const ExamForm: FC<IExamProps> = ({
         }
       },
     [handleBlur, setFieldValue]
+  );
+
+  const handleDefaultResultChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      formik.setFieldValue("defaultResult", e.target.value);
+      formik.setFieldError("defaultResult", "");
+    },
+    [formik, dispatch]
   );
 
   const cleanUp = useCallback(() => {
@@ -247,41 +271,64 @@ const ExamForm: FC<IExamProps> = ({
               disabled={isLoading}
             />
           </div>
-          <div className="examForm__item halfWidth">
-            <TextField
-              field={formik.getFieldProps("defaultResult")}
-              theme="regular"
-              label={t("exam.defaultResult")}
-              isValid={isValid("defaultResult")}
-              errorText={getErrorText("defaultResult")}
-              onBlur={formik.handleBlur}
-              type="text"
-              disabled={isLoading}
-            />
-          </div>
+          {formik.values.procedure !== "2" && (
+            <div className="examForm__item halfWidth">
+              <TextField
+                field={formik.getFieldProps("defaultResult")}
+                theme="regular"
+                label={t("exam.defaultResult")}
+                isValid={isValid("defaultResult")}
+                errorText={getErrorText("defaultResult")}
+                onBlur={formik.handleBlur}
+                type="text"
+                disabled={isLoading || formik.values.procedure === "1"}
+              />
+            </div>
+          )}
         </div>
 
         {["1", "2"].includes(formik.values.procedure) && (
-          <div className="column start-sm center-xs exam-rows">
-            <div className="options_header">
-              <span className="title">Exam options</span>
-              {isValid("rows") && (
-                <span className="error">{getErrorText("rows")}</span>
-              )}
-            </div>
-            {(formik.values.rows as string[]).map((_, index) => (
-              <div className="examForm__item halfWidth" key={index}>
-                <TextField
-                  field={formik.getFieldProps(`rows.${index}`)}
-                  theme="regular"
-                  label={""}
-                  isValid={isValid(`rows.${index}`)}
-                  errorText={getErrorText(`rows.${index}`)}
-                  onBlur={formik.handleBlur}
-                  type="text"
-                  disabled={isLoading || !creationMode}
-                />
-              </div>
+          <RadioGroup
+            value={formik.values.defaultResult}
+            onChange={handleDefaultResultChange}
+            className={classnames("exam-rows", {
+              "procedure-2": formik.values.procedure === "2",
+            })}
+          >
+            <span className="title">{t("exam.possibleValues")}</span>
+            {formik.values.procedure === "1" && (
+              <span className="trailing">{t("exam.defaultValue")}</span>
+            )}
+            {(formik.values.rows as string[]).map((row, index) => (
+              <Fragment key={index}>
+                <div className="col-start-1 examForm__item fullWidth">
+                  <TextField
+                    field={formik.getFieldProps(`rows.${index}`)}
+                    theme="regular"
+                    label={t("common.option")}
+                    isValid={isValid(`rows.${index}`)}
+                    errorText={getErrorText(`rows.${index}`)}
+                    onBlur={formik.handleBlur}
+                    type="text"
+                    disabled={isLoading || !creationMode}
+                  />
+                </div>
+                {(formik.values.rows as string[]).length > 2 && (
+                  <IconButton onClick={removeExamRow(index)}>
+                    <Delete />
+                  </IconButton>
+                )}
+                {formik.values.procedure === "1" && (
+                  <Radio
+                    checked={
+                      !isEmpty(formik.values.defaultResult) &&
+                      formik.values.defaultResult === row
+                    }
+                    value={row}
+                    className="radio"
+                  />
+                )}
+              </Fragment>
             ))}
             <IconButton
               onClick={addExamRow}
@@ -290,9 +337,8 @@ const ExamForm: FC<IExamProps> = ({
             >
               <AddCircle />
             </IconButton>
-          </div>
+          </RadioGroup>
         )}
-
         <div className="examForm__buttonSet">
           <div className="submit_button">
             <Button
