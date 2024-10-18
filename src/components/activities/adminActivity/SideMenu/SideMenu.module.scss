@@ -20,6 +20,14 @@
   gap: 8px;
 }
 
+.editButton {
+  color: black !important;
+  background-color: white !important;
+  &:hover {
+    background-color: gray !important;
+  }
+}
+
 .item {
   display: flex;
   flex-direction: column;

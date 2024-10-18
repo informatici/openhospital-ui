@@ -1,23 +1,24 @@
-import { Dispatch, createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginApi, UsersApi } from "../../generated";
-import { customConfiguration } from "../../libraries/apiUtils/configuration";
+import { createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
 import { concat } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
+import { LoginApi, UsersApi, UserSettingsApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { saveAuthenticationDataToSession } from "../../libraries/authUtils/saveAuthenticationDataToSession";
 import { savePermissionDataToSession } from "../../libraries/authUtils/savePermissionDataToSession";
 import { SessionStorage } from "../../libraries/storage/storage";
-import { IAction } from "../types";
-import { setLogoutFailed, setLogoutLoading, setLogoutSuccess } from "./slice";
-import { getPatientsReset, searchPatientsReset } from "../patients";
 import { getLabsReset, searchLabsReset } from "../laboratories";
 import { getOpdsReset } from "../opds";
 import {
   getOperationsByAdmissionReset,
   getOperationsReset,
 } from "../operations";
+import { getPatientsReset, searchPatientsReset } from "../patients";
+import { IAction } from "../types";
+import { setLogoutFailed, setLogoutLoading, setLogoutSuccess } from "./slice";
 
 const loginApi = new LoginApi(customConfiguration(false));
 const usersApi = new UsersApi(customConfiguration());
+const userSettingsApi = new UserSettingsApi(customConfiguration());
 
 export const setAuthentication = createAsyncThunk(
   "main/getLayouts",
@@ -71,7 +72,7 @@ export const setForgotPasswordThunk = createAsyncThunk(
 export const getUserSettings = createAsyncThunk(
   "main/getUserSettings",
   async (_, thunkApi) =>
-    usersApi
+    userSettingsApi
       .getUserSettings()
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))

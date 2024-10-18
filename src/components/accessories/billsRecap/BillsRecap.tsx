@@ -12,14 +12,7 @@ import {
 } from "chart.js";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import moment from "moment";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
 import { getBillsByYear, searchBills } from "../../../state/bills";
@@ -98,6 +91,7 @@ export const BillsRecap: FC = () => {
 
   useEffect(() => {
     dispatch(searchBills(filter as TFilterValues));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
@@ -188,7 +182,7 @@ export const BillsRecap: FC = () => {
         ],
       };
     },
-    [summaryCurrentYear]
+    [summaryCurrentYear, t]
   );
 
   const paymentsVariationsData = useMemo(() => {
@@ -206,7 +200,7 @@ export const BillsRecap: FC = () => {
         {
           label: t("bill.payments"),
           data:
-            labels.length != 0
+            labels.length !== 0
               ? labels.map(
                   (item) => summaryCurrentYear.paymentsByMonthsOfYear[item] ?? 0
                 )
@@ -217,7 +211,7 @@ export const BillsRecap: FC = () => {
         {
           label: t("bill.debts"),
           data:
-            labels.length != 0
+            labels.length !== 0
               ? labels.map(
                   (item) => summaryCurrentYear.debtsByMonthsOfYear[item] ?? 0
                 )
@@ -227,6 +221,7 @@ export const BillsRecap: FC = () => {
         },
       ],
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summaryCurrentYear]);
 
   const getOptionsFromYears = (years: number[]) => {
@@ -237,7 +232,6 @@ export const BillsRecap: FC = () => {
       };
     });
   };
-  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="bills__recap">

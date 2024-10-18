@@ -4,7 +4,6 @@ import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { LabWithRowsDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { getLabsByPatientId } from "../../../../state/laboratories";
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
@@ -22,8 +21,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   handleDelete,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("exams.update");
-  const canDelete = usePermission("exams.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const header = ["date", "exam", "status"];
@@ -90,21 +87,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
       state.laboratories.labsByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
-
-  const labData = useAppSelector(
-    (state) => state.laboratories.labsByPatientId.data
-  );
-
-  const onEdit = (row: any) => {
-    handleEdit(
-      labData?.find((item) => item.laboratoryDTO?.code === row.code)
-        ?.laboratoryDTO
-    );
-  };
-
-  const onDelete = (row: any) => {
-    handleDelete(row.code);
-  };
 
   return (
     <div className="patientExamsTable">

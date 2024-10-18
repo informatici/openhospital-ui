@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -38,11 +38,11 @@ export const Discharges: FC<IOwnProps> = ({ period }) => {
     dispatch(getAgeTypes());
     dispatch(getDischargeTypes());
     dispatch(getWards());
-  }, [dispatch]);
+  }, [dispatch, period]);
 
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: period }));
-  }, [period]);
+  }, [period, dispatch]);
 
   return (
     <>

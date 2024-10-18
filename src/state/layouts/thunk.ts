@@ -1,15 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UserSettingDTO, UsersApi } from "../../generated";
-import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { decodeLayoutConfig } from "../../components/accessories/dashboard/layouts/consts";
+import { UserSettingDTO, UserSettingsApi } from "../../generated";
+import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
-const api = new UsersApi(customConfiguration());
+const api = new UserSettingsApi(customConfiguration());
 
 export const getLayouts = createAsyncThunk(
   "layouts/getLayouts",
   async (userName: string, thunkApi) =>
     api
-      .getUserSettingByUser({ configName: "dashboard", userName })
+      .getUserSettingByUser({ configName: "dashboard" })
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

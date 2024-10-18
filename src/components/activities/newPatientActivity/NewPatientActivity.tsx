@@ -60,7 +60,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     dispatch(getPatientReset());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (
@@ -68,16 +68,16 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
       activityTransitionState === "TO_DASHBOARD" ||
       activityTransitionState === "TO_PATIENT_DASHBOARD"
     ) {
+      const code = patient?.code;
       dispatch(createPatientReset());
       setShouldResetForm(true);
+      if (activityTransitionState === "TO_PATIENT_DASHBOARD" && !!code) {
+        navigate(`${PATHS.patients_details}/${code}`, {
+          replace: true,
+        });
+      }
     }
-  }, [activityTransitionState, createPatientReset]);
-
-  useEffect(() => {
-    if (activityTransitionState === "TO_PATIENT_DASHBOARD" && patient?.code) {
-      navigate(`/patients/details/${patient?.code}`, { replace: true });
-    }
-  }, [patient, activityTransitionState, createPatientReset]);
+  }, [activityTransitionState, dispatch, navigate, patient?.code]);
 
   const infoBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -97,8 +97,6 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
   switch (activityTransitionState) {
     case "TO_DASHBOARD":
       return <Navigate to={dashboardRoute} />;
-    case "TO_PATIENT_DASHBOARD":
-      return <Navigate to={`${PATHS.patients_details}/${patient?.code}`} />;
     default:
       return (
         <div className="newPatient">

@@ -79,13 +79,13 @@ const PatientTriage: FC = () => {
     if (status === "SUCCESS" && patientDataCode) {
       dispatch(getLastByPatientId(patientDataCode));
     }
-  }, [status]);
+  }, [dispatch, patientDataCode, status]);
 
   useEffect(() => {
     if (deleteStatus === "SUCCESS" && patientDataCode) {
       dispatch(getLastByPatientId(patientDataCode));
     }
-  }, [deleteStatus]);
+  }, [deleteStatus, dispatch, patientDataCode]);
 
   useEffect(() => {
     dispatch(createExaminationReset());
@@ -109,7 +109,7 @@ const PatientTriage: FC = () => {
       dispatch(getLastByPatientId(patientDataCode));
       dispatch(getDefaultPatientExamination(patientDataCode));
     }
-  }, [patientDataCode]);
+  }, [dispatch, patientDataCode]);
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);

@@ -36,8 +36,6 @@ const PatientVisit: FunctionComponent = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const [showModal, setShowModal] = useState(false);
-
   const changeStatus = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
@@ -112,10 +110,6 @@ const PatientVisit: FunctionComponent = () => {
     scrollToElement(null);
   };
 
-  const addOperationCallback = () => {
-    setShowModal(true);
-  };
-
   const onEdit: (row: VisitDTO) => void = (row) => {
     setVisitToEdit(row);
     setCreationMode(false);
@@ -141,7 +135,7 @@ const PatientVisit: FunctionComponent = () => {
           isLoading={changeStatus === "LOADING"}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
-          addOperationCallback={addOperationCallback}
+          addOperationCallback={() => {}}
         />
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef}>

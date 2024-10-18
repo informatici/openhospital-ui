@@ -36,7 +36,8 @@
     "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
     "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit",
     "validatePasswordMustMatch": "Passwords must match",
-    "validateUserName": "You need to specify a user name"
+    "validateUserName": "You need to specify a user name",
+    "validateUserNameRegex": "Allowed characters: lowercase letters(abc), numbers(123), dot(.), dash (-) and underscore (_)"
   },
   "hospital": {
     "address": "Address",
@@ -46,7 +47,13 @@
     "telephone": "Telephone",
     "fax": "Fax",
     "email": "Email Address",
-    "currencyCod": "Currency Code"
+    "currencyCod": "Currency Code",
+    "editHospital": "Edit hospital infos",
+    "updateHospital": "Save changes",
+    "saveHospital": "Save",
+    "updated": "Hospital infos updated",
+    "updateSuccess": "Hospital infos have been updated successfully!",
+    "discardChanges": "Changes will be lost. Do you want to discard anyway ?"
   },
   "login": {
     "username": "Username",
@@ -832,6 +839,14 @@
       "swabs": { "txt": "Swabs" },
       "tissues": { "txt": "Tissues" },
       "urine": { "txt": "Urine" }
+    },
+    "common": {
+      "thecodeisalreadyinuse": {
+        "msg": "The ward code is already in use"
+      },
+      "thecodeistoolongmax1char": {
+        "msg": "The ward is too long. It should three characters or less"
+      }
     }
   },
   "exam": {

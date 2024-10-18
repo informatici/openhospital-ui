@@ -1,5 +1,10 @@
 import { produce } from "immer";
+import { isEmpty } from "lodash";
 import moment from "moment";
+import {
+  TAgeFieldName,
+  TAgeType,
+} from "../../components/accessories/patientDataForm/types";
 import { IFormCustomizationProps } from "../../customization/formCustomization/type";
 import {
   AdmissionDTO,
@@ -17,11 +22,6 @@ import {
   WardDTO,
 } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
-import {
-  TAgeFieldName,
-  TAgeType,
-} from "../../components/accessories/patientDataForm/types";
-import { isEmpty } from "lodash";
 
 export const getFromFields = (
   fields: TFields,
@@ -328,10 +328,10 @@ export const getBirthDateAndAge = (
   switch (ageType) {
     case "agetype":
       let selectedAgeType = allAgeTypes?.find(
-        (at, i) => at.code == values.agetype
+        (at, i) => at.code === values.agetype
       );
 
-      if (selectedAgeType != undefined) {
+      if (selectedAgeType !== undefined) {
         let averageAge = Math.round(
           selectedAgeType.from && selectedAgeType.to
             ? (selectedAgeType.from + selectedAgeType.to) / 2

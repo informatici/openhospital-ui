@@ -1,7 +1,6 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import imageCompression from "browser-image-compression";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { MAX_FILE_UPLOAD_SIZE } from "./consts";
-import { pick } from "lodash";
 
 const createPreview = (img: HTMLImageElement) => {
   const canvas = document.createElement("canvas");

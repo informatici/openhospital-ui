@@ -2,6 +2,7 @@ import { useAppDispatch } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { getOperationTypes } from "state/types/operations";
 import { PATHS } from "../../../../consts";
 import { OperationDTO } from "../../../../generated";
 import {
@@ -20,6 +21,7 @@ export const Operations = () => {
 
   useEffect(() => {
     dispatch(getOperations());
+    dispatch(getOperationTypes());
 
     return () => {
       dispatch(deleteOperationReset());

@@ -30,10 +30,7 @@ import Webcam from "../../accessories/webcam/Webcam";
 import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
 import "./styles.scss";
 import { IProps } from "./types";
-import {
-  extractPictureFromSelection,
-  preprocessImage
-} from "./utils";
+import { extractPictureFromSelection, preprocessImage } from "./utils";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
@@ -81,7 +78,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       setFromFileSystem(false);
       openCropper();
     }
-  }, [pictureToResize]);
+  }, [fromFileSystem, pictureToResize, showModal]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -122,6 +119,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       preprocessImage(setPicture, image, setShowError);
       closeModal();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setPicture]
   );
 

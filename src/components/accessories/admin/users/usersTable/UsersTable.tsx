@@ -10,6 +10,7 @@ import InfoBox from "../../../infoBox/InfoBox";
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
 
+import { getUserGroups } from "state/usergroups";
 import classes from "./UsersTable.module.scss";
 
 interface IOwnProps {
@@ -24,6 +25,7 @@ export const UsersTable = ({ headerActions, onEdit }: IOwnProps) => {
 
   useEffect(() => {
     dispatch(getUsers({}));
+    dispatch(getUserGroups());
   }, [dispatch]);
 
   const header = ["userName", "userGroupName", "desc"];
@@ -34,8 +36,21 @@ export const UsersTable = ({ headerActions, onEdit }: IOwnProps) => {
     desc: t("user.description"),
   };
   const order = ["userName", "userGroupName", "desc"];
+  const userGroupOptions = useAppSelector(
+    (state) =>
+      state.usergroups.groupList.data?.map((item) => ({
+        value: item.code ?? "",
+        label: item.desc ?? item.code ?? "",
+      })) ?? []
+  );
 
   const filters: TFilterField[] = [
+    {
+      key: "userGroupName",
+      label: t("user.groups"),
+      type: "select",
+      options: userGroupOptions,
+    },
     { key: "userName", label: t("user.username"), type: "text" },
   ];
 
@@ -79,7 +94,10 @@ export const UsersTable = ({ headerActions, onEdit }: IOwnProps) => {
                 filterColumns={filters}
                 manualFilter={false}
                 isCollapsabile={false}
-                rawData={data}
+                rawData={(data ?? []).map((user) => ({
+                  ...user,
+                  userGroupName: user.userGroupName?.code,
+                }))}
                 rowKey="userName"
                 headerActions={headerActions}
                 onEdit={canUpdate ? onEdit: undefined}

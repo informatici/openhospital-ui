@@ -35,6 +35,8 @@ apis\SMSApi.ts
 apis\StockMovementsApi.ts
 apis\SuppliersApi.ts
 apis\TherapiesApi.ts
+apis\UserGroupsApi.ts
+apis\UserSettingsApi.ts
 apis\UsersApi.ts
 apis\VaccineTypeApi.ts
 apis\VaccinesApi.ts
@@ -62,7 +64,6 @@ models\FullBillDTO.ts
 models\HospitalDTO.ts
 models\LabWithRowsDTO.ts
 models\LaboratoryDTO.ts
-models\LitePermissionDTO.ts
 models\LoginRequest.ts
 models\LoginResponse.ts
 models\LotDTO.ts
@@ -116,6 +117,7 @@ models\SupplierDTO.ts
 models\TherapyDTO.ts
 models\TherapyRow.ts
 models\TherapyRowDTO.ts
+models\TokenRefreshRequest.ts
 models\UserDTO.ts
 models\UserGroupDTO.ts
 models\UserProfileDTO.ts

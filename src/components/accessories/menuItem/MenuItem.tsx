@@ -14,6 +14,7 @@ interface IOwnProps {
   label: string;
   selected?: boolean;
   expandedContent?: ReactNode;
+  dataCy?: string;
   onClick: () => void;
 }
 
@@ -23,11 +24,13 @@ export const MenuItem = ({
   label,
   selected,
   expandedContent,
+  dataCy,
   onClick,
 }: IOwnProps) => {
   const [expanded, setExpanded] = useState(false);
   const menu = (
     <div
+      data-cy={dataCy}
       className={classnames(classes.menuItem, selected ? classes.active : null)}
       onClick={onClick}
     >

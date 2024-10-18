@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { FullBillDTO } from "../../../../generated";
+import { useEffect } from "react";
 import { getPendingBills } from "../../../../state/bills";
 import { IState } from "../../../../types";
 

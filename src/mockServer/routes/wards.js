@@ -19,7 +19,7 @@ export const wardsRoutes = (server) => {
     server.post("/").intercept((req, res) => {
       const body = req.jsonBody();
       switch (body.code) {
-        case "FAIL":
+        case "FL":
           res.status(400).json({ message: "Fail to create ward" });
           break;
         default:
@@ -29,7 +29,7 @@ export const wardsRoutes = (server) => {
     server.put("/").intercept((req, res) => {
       const body = req.jsonBody();
       switch (body.code) {
-        case "FAIL":
+        case "FL":
           res.status(400).json({ message: "Fail to update ward" });
           break;
         default:

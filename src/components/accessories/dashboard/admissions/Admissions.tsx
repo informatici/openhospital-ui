@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/lab";
+import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,10 +25,12 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
     dispatch(getAgeTypes());
     dispatch(getAdmissionTypes());
     dispatch(getWards());
-  }, [dispatch]);
+  }, [dispatch, period]);
+
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
-  }, [period]);
+  }, [period, dispatch]);
+
   const {
     admissionStatus,
     admissionTypeStatus,

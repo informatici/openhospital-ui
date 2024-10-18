@@ -24,7 +24,7 @@ export const MainRouter: React.FC = () => {
     if (status === "SUCCESS") {
       dispatch(getUserSettings());
     }
-  }, [status]);
+  }, [dispatch, status]);
 
   const RequiredAdminAccess = withPermission(
     "admin.access",

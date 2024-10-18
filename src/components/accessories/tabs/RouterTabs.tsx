@@ -30,7 +30,7 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
     if (!mobile) {
       return tabs.map((item, index) => {
         const path = item.path!;
-        return tabs.length == 1 ? (
+        return tabs.length === 1 ? (
           <></>
         ) : (
           <div

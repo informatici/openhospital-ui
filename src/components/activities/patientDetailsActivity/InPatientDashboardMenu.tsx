@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import "./styles.scss";
@@ -27,7 +27,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const isActive = (value: string) => {

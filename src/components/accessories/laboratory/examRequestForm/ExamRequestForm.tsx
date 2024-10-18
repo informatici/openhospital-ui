@@ -40,7 +40,6 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
   const dispatch = useAppDispatch();
   const [patientData, setPatientData] = useState({} as PatientDTO);
   const exams = useAppSelector((state: IState) => state.exams.examList.data);
-  const [currentExamCode, setCurrentExamCode] = useState("");
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const selectedPatient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -91,7 +90,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       dispatch(createLabRequestReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, activityTransitionState, handleSuccess]);
 
   const onClose = () => {
     if (handleSuccess) handleSuccess(true);
@@ -135,11 +134,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     },
   });
 
-  const resetFormCallback = () => {
+  const resetFormCallback = useCallback(() => {
     setShouldResetForm(false);
     dispatch(createLabRequestReset());
     setActivityTransitionState("IDLE");
-  };
+  }, [dispatch]);
 
   const { setFieldValue, handleBlur, resetForm } = formik;
 
@@ -147,7 +146,6 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
-      setCurrentExamCode("");
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
@@ -170,9 +168,6 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
         handleBlur(e);
         if (typeof value === "string") {
           setFieldValue(fieldName, value);
-          if (fieldName === "exam") {
-            setCurrentExamCode(value);
-          }
         } else {
           setFieldValue(fieldName, value?.code ?? "");
           setPatientData(value as PatientDTO);

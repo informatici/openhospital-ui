@@ -11,7 +11,6 @@ import _ from "lodash";
 import React, {
   ChangeEvent,
   FC,
-  Fragment,
   useCallback,
   useEffect,
   useState,
@@ -76,6 +75,7 @@ const AutocompleteField: FC<IProps> = ({
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdate = useCallback(
     debounce((value: any) => {
       setValue(value);
@@ -109,16 +109,6 @@ const AutocompleteField: FC<IProps> = ({
     }
     // Regular option
     return option.label;
-  };
-
-  const isSelected = (option: DefaultOptionType, v: DefaultOptionType) => {
-    return option.value === v.value;
-  };
-
-  const rendOption = (props: any, option: DefaultOptionType | string) => {
-    return (
-      <Fragment>{typeof option === "string" ? option : option.label}</Fragment>
-    );
   };
 
   const filter = createFilterOptions<DefaultOptionType>({

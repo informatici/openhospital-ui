@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const admissionSlice = createSlice({
   name: "admissions",
@@ -16,6 +16,9 @@ export const admissionSlice = createSlice({
     },
     dischargePatientReset: (state) => {
       state.dischargePatient = initial.dischargePatient;
+    },
+    getCurrentAdmissionReset: (state) => {
+      state.currentAdmissionByPatientId = initial.currentAdmissionByPatientId;
     },
   },
   extraReducers: (builder) =>
@@ -55,7 +58,7 @@ export const admissionSlice = createSlice({
         state.getAdmissions = ApiResponse.loading();
       })
       .addCase(thunks.getAdmissions.fulfilled, (state, action) => {
-        state.getAdmissions.status = isEmpty(action.payload.data)
+        state.getAdmissions.status = isEmpty(action.payload?.data)
           ? "SUCCESS_EMPTY"
           : "SUCCESS";
         state.getAdmissions.data = action.payload;
@@ -68,7 +71,7 @@ export const admissionSlice = createSlice({
         state.getDischarges = ApiResponse.loading();
       })
       .addCase(thunks.getDischarges.fulfilled, (state, action) => {
-        state.getDischarges.status = isEmpty(action.payload.data)
+        state.getDischarges.status = isEmpty(action.payload?.data)
           ? "SUCCESS_EMPTY"
           : "SUCCESS";
         state.getDischarges.data = action.payload;
@@ -82,7 +85,8 @@ export const admissionSlice = createSlice({
       })
       .addCase(thunks.getPatientAdmissions.fulfilled, (state, action) => {
         state.getPatientAdmissions = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getPatientAdmissions.rejected, (state, action) => {
         state.getPatientAdmissions = ApiResponse.error(action.payload);
@@ -93,7 +97,8 @@ export const admissionSlice = createSlice({
       })
       .addCase(thunks.getAdmittedPatients.fulfilled, (state, action) => {
         state.getAdmittedPatients = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getAdmittedPatients.rejected, (state, action) => {
         state.getAdmittedPatients = ApiResponse.error(action.payload);
@@ -114,4 +119,5 @@ export const {
   createAdmissionReset,
   updateAdmissionReset,
   dischargePatientReset,
+  getCurrentAdmissionReset,
 } = admissionSlice.actions;

@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { initial } from "./initial";
-import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
 import { isEmpty } from "lodash";
 import { Layouts } from "react-grid-layout";
+import { ApiResponse } from "state/types";
 import {
   decodeLayoutConfig,
   encodeLayout,
   toolboxDashboards,
 } from "../../components/accessories/dashboard/layouts/consts";
+import { initial } from "./initial";
+import * as thunks from "./thunk";
 
 export const layoutSlice = createSlice({
   name: "layouts",
@@ -72,6 +72,9 @@ export const layoutSlice = createSlice({
           ...payload,
           configValue: encodeLayout({ layout, toolbox }),
         };
+
+        state.layouts = layout;
+        state.toolbox = toolbox;
       })
       .addCase(thunks.getLayouts.rejected, (state, action) => {
         state.getLayouts = ApiResponse.error(action.payload);

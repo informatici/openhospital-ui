@@ -24,7 +24,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
         navigate(`/patients/details/${patient.code}`);
       }
     }
-  }, [activityTransitionState, getPatientSuccessCallback, patient]);
+  }, [activityTransitionState, getPatientSuccessCallback, navigate, patient]);
 
   const patientDate = renderDate(patient.birthDate ?? "");
 
