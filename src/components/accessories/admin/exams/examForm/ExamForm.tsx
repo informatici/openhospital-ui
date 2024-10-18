@@ -304,7 +304,7 @@ const ExamForm: FC<IExamProps> = ({
                     errorText={getErrorText(`rows.${index}`)}
                     onBlur={formik.handleBlur}
                     type="text"
-                    disabled={isLoading || !creationMode}
+                    disabled={isLoading}
                   />
                 </div>
                 {(formik.values.rows as string[]).length > 2 && (
