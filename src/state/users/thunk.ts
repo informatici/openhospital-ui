@@ -13,6 +13,15 @@ export const getUsers = createAsyncThunk(
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
+export const getUserById = createAsyncThunk(
+  "users/getUserById",
+  async (username: string, thunkApi) =>
+    api
+      .getUserByName({ username })
+      .toPromise()
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
 export const createUser = createAsyncThunk(
   "users/createUser",
   async (userDTO: UserDTO, thunkApi) =>

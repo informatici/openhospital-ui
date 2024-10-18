@@ -1,6 +1,6 @@
+import { dashboardSettingDTO } from "mockServer/fixtures/dashboardSettingDTO";
 import permissionList from "../fixtures/permissionList";
 import { usersDTO } from "../fixtures/usersDTO";
-import { dashboardSettingDTO } from "mockServer/fixtures/dashboardSettingDTO";
 
 export const userRoutes = (server) => {
   server.namespace("/users", () => {
@@ -20,8 +20,14 @@ export const userRoutes = (server) => {
     server.get("/").intercept((_req, res) => {
       res.status(200).json(usersDTO);
     });
+    server.get("/:username").intercept((_req, res) => {
+      res.status(200).json(usersDTO[0]);
+    });
     server.post("/").intercept((_req, res) => {
       res.status(200).json(usersDTO[0]);
+    });
+    server.put("/:username").intercept((_req, res) => {
+      res.status(200).json(_req.jsonBody());
     });
     server.get("/:username/settings/dashboard").intercept((req, res) => {
       res.status(200).json(dashboardSettingDTO);

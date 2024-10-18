@@ -22,7 +22,7 @@ import {
   NewSupplier,
   Suppliers,
 } from "../../components/accessories/admin/suppliers";
-import { NewUser, Users } from "../../components/accessories/admin/users";
+import { EditUser, NewUser, Users } from "../../components/accessories/admin/users";
 import {
   EditVaccine,
   NewVaccine,
@@ -211,6 +211,11 @@ export const AdminRoutes = () => {
         path: getPath(PATHS.admin_users_new),
         element: (
           <AdminActivityContent title={t("nav.users")} children={<NewUser />} />
+        ),
+      },{
+        path: getPath(PATHS.admin_users_edit),
+        element: (
+          <AdminActivityContent title={t("nav.users")} children={<EditUser />} />
         ),
       },
       {
