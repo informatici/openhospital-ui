@@ -6,17 +6,24 @@ export const examRoutes = (server) => {
       res.status(200).json(examsDTO);
     });
     server.post("/").intercept((req, res) => {
-      let body = req.jsonBody();
-      switch (body.code) {
+      const body = req.jsonBody();
+      switch (body.exam.code) {
         case "FAIL":
           res.status(400).json({ message: "Fail to create exam" });
           break;
         default:
-          res.status(200).json(body);
+          res.status(201).json(body.exam);
       }
     });
-    server.put("/:code").intercept((_req, res) => {
-      res.status(200).json(examsDTO);
+    server.put("/:code").intercept((req, res) => {
+      const body = req.jsonBody();
+      switch (body.exam.description) {
+        case "FAIL":
+          res.status(400).json({ message: "Fail to update exam" });
+          break;
+        default:
+          res.status(200).json(body.exam);
+      }
     });
     server.delete("/:code").intercept((req, res) => {
       const { code } = req.params;

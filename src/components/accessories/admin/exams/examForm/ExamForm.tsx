@@ -327,6 +327,7 @@ const ExamForm: FC<IExamProps> = ({
             <IconButton
               onClick={addExamRow}
               className="add-row-icon"
+              data-cy="add-exam-row"
               size="medium"
             >
               <AddCircle />
