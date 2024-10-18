@@ -15,6 +15,8 @@ export const getInitialFields: (
   rows: {
     type: "text",
     isArray: true,
-    value: JSON.stringify(rows ?? (exam?.procedure !== 3 ? ["", ""] : [])),
+    value: JSON.stringify(
+      rows ?? ((exam?.procedure ?? 3) !== 3 ? ["", ""] : [])
+    ),
   },
 });

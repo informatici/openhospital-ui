@@ -93,26 +93,15 @@ const ExamForm: FC<IExamProps> = ({
     code: string().required(t("common.required")),
     description: string().required(t("common.required")),
     examtype: string().required(t("common.required")),
-    rows: array()
-      .of(string().required(t("common.required")))
-      .test({
-        name: "min",
-        exclusive: true,
-        test: function (value) {
-          return parseInt(this.parent.procedure) === 3
-            ? true
-            : (value as string[]).length <= 2;
-        },
-        message: t("exam.minLength"),
-      }),
+    rows: array().of(string().required(t("common.required"))),
     defaultResult: string().test({
       name: "procedure-1",
       exclusive: true,
       test: function (value) {
         return (
-          this.parent.procedure === "1" &&
-          !isEmpty(value) &&
-          (this.parent.rows as string[]).includes(value)
+          this.parent.procedure !== 1 ||
+          (!isEmpty(value) &&
+            (this.parent.rows as string[]).some((item) => item == value))
         );
       },
       message: t("exam.invalidDefaultResult"),
@@ -177,16 +166,21 @@ const ExamForm: FC<IExamProps> = ({
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
         handleBlur(e);
         setFieldValue(fieldName, value);
-        if (fieldName === "procedure") {
-          const rows = formik.values.rows as string[];
-          if (parseInt(value) === 3) {
-            setFieldValue("rows", []);
-          } else if (rows.length < 2) {
-            setFieldValue("rows", rows.length === 1 ? [rows[0], ""] : ["", ""]);
-          }
-          console.log(formik.values.rows);
-        }
       },
+    [handleBlur, setFieldValue]
+  );
+
+  const handleProcedureChange = useCallback(
+    (value: string) => {
+      setFieldValue("procedure", value);
+      const rows = formik.values.rows as string[];
+      if (value === "3") {
+        setFieldValue("rows", []);
+      } else if (rows.length < 2) {
+        setFieldValue("rows", rows.length === 1 ? [rows[0], ""] : ["", ""]);
+      }
+      setFieldValue("defaultResult", "");
+    },
     [handleBlur, setFieldValue]
   );
 
@@ -266,7 +260,7 @@ const ExamForm: FC<IExamProps> = ({
               options={procedureOptions}
               errorText={getErrorText("procedure")}
               isValid={isValid("procedure")}
-              onChange={(v) => formik.setFieldValue("procedure", v)}
+              onChange={handleProcedureChange}
               onBlur={formik.handleBlur}
               disabled={isLoading}
             />
