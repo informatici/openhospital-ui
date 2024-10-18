@@ -32,6 +32,8 @@ export const getFromFields = (
       acc[key] = fields[key].isArray
         ? JSON.parse(fields[key][fieldAddress])
         : fields[key][fieldAddress];
+    } else {
+      acc[key] = fields[key][fieldAddress];
     }
     return acc;
   }, {});
