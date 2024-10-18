@@ -10,10 +10,12 @@ import {
   People,
   SupervisedUserCircle,
 } from "@mui/icons-material";
+import { PATHS } from "consts";
 import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { useAppSelector } from "../../../../libraries/hooks/redux";
+import Button from "../../../accessories/button/Button";
 import { MenuItem } from "../../../accessories/menuItem";
 import { IAdminSection } from "../types";
 import classes from "./SideMenu.module.scss";
@@ -86,6 +88,7 @@ const SideMenu = () => {
       ))}
       <h6 className={classes.label}>{t("nav.hospital")}</h6>
       <MenuItem
+        dataCy="hospital-infos"
         icon={<LocalHospitalSharp fontSize="small" />}
         label={t(`nav.hospitalInfo`)}
         onClick={() => {}}
@@ -102,6 +105,17 @@ const SideMenu = () => {
                     <span className={classes.value}>{entry[1] ?? "---"}</span>
                   </div>
                 ))}
+            <Button
+              type="button"
+              variant="text"
+              dataCy="edit-hospital"
+              className={classes.editButton}
+              onClick={() => {
+                navigate(PATHS.admin_hospital_edit);
+              }}
+            >
+              {t("hospital.editHospital")}
+            </Button>
           </div>
         }
       />

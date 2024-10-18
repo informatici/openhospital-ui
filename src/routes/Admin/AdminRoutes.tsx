@@ -1,3 +1,4 @@
+import { EditHospital } from "components/accessories/admin/hospital";
 import React, { ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
@@ -6,7 +7,11 @@ import {
   EditDisease,
   NewDisease,
 } from "../../components/accessories/admin/diseases";
-import { EditExam, Exams, NewExam } from "../../components/accessories/admin/exams";
+import {
+  EditExam,
+  Exams,
+  NewExam,
+} from "../../components/accessories/admin/exams";
 import {
   EditOperation,
   NewOperation,
@@ -240,6 +245,15 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.types")}
             children={<TypesRoutes />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_hospital_edit),
+        element: (
+          <AdminActivityContent
+            title={t("hospital.editHospital")}
+            children={<EditHospital />}
           />
         ),
       },
