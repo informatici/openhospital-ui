@@ -20,11 +20,14 @@ export const userRoutes = (server) => {
     server.get("/").intercept((_req, res) => {
       res.status(200).json(usersDTO);
     });
+    server.get("/:username").intercept((_req, res) => {
+      res.status(200).json(usersDTO[0]);
+    });
     server.post("/").intercept((_req, res) => {
       res.status(200).json(usersDTO[0]);
     });
-    server.put("/").intercept((_req, res) => {
-      res.status(200).json(usersDTO[0]);
+    server.put("/:username").intercept((_req, res) => {
+      res.status(200).json(_req.jsonBody());
     });
     server.get("/:username/settings/dashboard").intercept((req, res) => {
       res.status(200).json(dashboardSettingDTO);

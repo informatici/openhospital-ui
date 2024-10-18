@@ -43,6 +43,15 @@ export const EditUserForm = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
+    const { passwd2, ...userDTO } = values;
+    if (userDTO.passwd === undefined) {
+      userDTO.passwd = "";
+    }
+
+    onSubmit(userDTO);
+  };
+
   const {
     handleSubmit,
     handleBlur,
@@ -55,10 +64,10 @@ export const EditUserForm = ({
     values,
     setFieldTouched,
     setFieldValue,
-  } = useFormik<UserDTO>({
-    initialValues,
+  } = useFormik<UserDTO & { passwd2: string }>({
+    initialValues: { ...initialValues, passwd: "", passwd2: "" },
     validationSchema: userSchema(t),
-    onSubmit,
+    onSubmit: handleFormSubmit,
   });
 
   return (
@@ -90,7 +99,9 @@ export const EditUserForm = ({
                   option.code.toString() +
                   (option.desc ? ` - ${option.desc}` : "")
                 }
-                isOptionEqualToValue={(option, value) => option.code === value.code}
+                isOptionEqualToValue={(option, value) =>
+                  option.code === value.code
+                }
               />
               {touched.userGroupName && errors.userGroupName && (
                 <FormHelperText error>
@@ -103,7 +114,7 @@ export const EditUserForm = ({
             </FormControl>
           </div>
 
-          <div className="editUserForm__item fullWidth">
+          <div className="editUserForm__item halfWidth">
             <TextField
               field={getFieldProps("passwd")}
               theme="regular"
@@ -116,8 +127,23 @@ export const EditUserForm = ({
               InputProps={{ autoComplete: "one-time-code" }}
             />
           </div>
+          <div className="editUserForm__item halfWidth">
+            <TextField
+              field={getFieldProps("passwd2")}
+              theme="regular"
+              label={t("user.passwordRetype")}
+              isValid={!!touched.passwd2 && !!errors.passwd2}
+              errorText={(touched.passwd2 && errors.passwd2) || ""}
+              onBlur={handleBlur}
+              type="password"
+              // this below prevents from saving the password on the computer
+              InputProps={{ autoComplete: "one-time-code" }}
+            />
+          </div>
           <div className="editUserForm__item fullWidth">
             <TextField
+              multiline
+              rows={3}
               field={getFieldProps("desc")}
               theme="regular"
               label={t("user.description")}

@@ -7,7 +7,11 @@ import { Navigate } from "react-router-dom";
 import { PATHS } from "../../../../../consts";
 import { UserDTO } from "../../../../../generated";
 import { getUserGroups } from "../../../../../state/usergroups";
-import { getUsers, updateUser, updateUserReset } from "../../../../../state/users";
+import {
+  getUserById,
+  updateUser,
+  updateUserReset,
+} from "../../../../../state/users";
 import { EditUserForm } from "./EditUserForm";
 
 export const EditUser = () => {
@@ -18,36 +22,43 @@ export const EditUser = () => {
   const { isLoading, hasSucceeded, hasFailed, error } = useAppSelector(
     (state) => state.users.update
   );
-  const users = useAppSelector((state) => state.users.userList);
-  const groups = useAppSelector((state) => state.usergroups.groupList)
+  const getUser = useAppSelector((state) => state.users.getById);
+  const groups = useAppSelector((state) => state.usergroups.groupList);
 
   useEffect(() => {
-    dispatch(getUsers({}))
-    dispatch(getUserGroups())
+    dispatch(getUserById(id!));
+    dispatch(getUserGroups());
     return () => {
       dispatch(updateUserReset());
     };
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   useEffect(() => {
-    if (users.hasSucceeded) {
-      const user = users.data?.find(({ userName }) => userName === id);
-      if (!!user) setUser(user);
+    if (getUser.hasSucceeded) {
+      if (!!getUser.data) setUser(getUser.data);
       else setUserNotFound(true);
     }
-  }, [users.hasSucceeded, users.data, id]);
+  }, [getUser.hasSucceeded, getUser.data, id]);
 
   const handleUpdate = (user: UserDTO) => {
     dispatch(updateUser(user));
   };
 
-  if(userNotFound) return <Navigate to={PATHS.admin_users} />;
+  if (userNotFound) return <Navigate to={PATHS.admin_users} />;
 
-  if (users.isLoading || groups.isLoading || !users || !user || !groups.data) {
-    return <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />;
+  if (
+    getUser.isLoading ||
+    groups.isLoading ||
+    !getUser ||
+    !user ||
+    !groups.data
+  ) {
+    return (
+      <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+    );
   }
-  if(!user) {
-    console.log("user not found")
+  if (!user) {
+    console.log("user not found");
   }
 
   return (
