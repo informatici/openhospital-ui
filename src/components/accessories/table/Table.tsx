@@ -20,14 +20,8 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import moment from "moment";
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { filterData } from "libraries/tableUtils";
+import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import warningIcon from "../../../assets/warning-icon.png";
 import {
@@ -255,94 +249,18 @@ const Table: FunctionComponent<IProps> = ({
     setExpanded(!expanded);
   };
 
-  const removeRowWhere = useCallback(
-    (
-      values: Record<string, any>[],
-      predicate: (row: Record<string, any>) => boolean
-    ) => {
-      return values.filter((entry) => {
-        const row = (rawData ?? rowData).find(
-          (item) => item[rowKey ?? ""] === entry[rowKey ?? ""]
-        );
-        return !!row ? !predicate(row) : false;
-      });
-    },
-    [rawData, rowData, rowKey]
+  const filteredData = useMemo(
+    () =>
+      filterData(
+        rawData,
+        rowData,
+        rowKey,
+        filterColumns,
+        filters,
+        manualFilter
+      ),
+    [filterColumns, filters, manualFilter, rowData]
   );
-
-  const filteredData = useMemo(() => {
-    if ((filterColumns?.length ?? 0) === 0 || manualFilter) {
-      return rowData;
-    }
-    let result = rowData;
-    filterColumns.forEach((field) => {
-      const filter = filters[field.key];
-      if (filter) {
-        switch (field.type) {
-          case "boolean":
-            result = removeRowWhere(result, (row) =>
-              filter.value === undefined
-                ? false
-                : (row[field.key] ?? false) !== filter.value
-            );
-            break;
-          case "number":
-            result = removeRowWhere(
-              result,
-              (row) =>
-                (filter.value === undefined
-                  ? false
-                  : row[field.key] !== filter.value) ||
-                (filter.min === undefined
-                  ? false
-                  : row[field.key] < filter.min) ||
-                (filter.max === undefined ? false : row[field.key] > filter.max)
-            );
-            break;
-          case "text":
-            result = removeRowWhere(result, (row) =>
-              filter.value === undefined
-                ? false
-                : !row[field.key]
-                    ?.toString()
-                    .toLowerCase()
-                    .includes(filter.value.toString().toLowerCase())
-            );
-            break;
-
-          case "select":
-            result = removeRowWhere(result, (row) =>
-              filter.value === undefined
-                ? false
-                : row[field.key] !== filter.value
-            );
-            break;
-
-          default:
-            result = removeRowWhere(
-              result,
-              (row) =>
-                (filter.value === undefined
-                  ? false
-                  : !moment(row[field.key]).isSame(
-                      moment(filter.value as string)
-                    )) ||
-                (filter.min === undefined
-                  ? false
-                  : moment(row[field.key]).isBefore(
-                      moment(filter.min as string)
-                    )) ||
-                (filter.max === undefined
-                  ? false
-                  : moment(row[field.key]).isAfter(
-                      moment(filter.max as string)
-                    ))
-            );
-        }
-      }
-    });
-    return result;
-  }, [filterColumns, filters, manualFilter, removeRowWhere, rowData]);
 
   useEffect(() => {
     if (onFilterChange && !manualFilter) {
