@@ -30,3 +30,12 @@ export const updateSupplier = createAsyncThunk(
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
+
+export const deleteSupplier = createAsyncThunk(
+  "suppliers/deleteSupplier",
+  async (id: number, thunkApi) =>
+    api
+      .deleteSupplier({ id })
+      .toPromise()
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);
