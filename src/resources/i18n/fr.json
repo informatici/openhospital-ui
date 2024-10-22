@@ -1040,7 +1040,10 @@
     "updated": "Fournisseur mis à jour",
     "updateSuccess": "Fournisseur mis à jour avec succès !",
     "created": "Fournisseur creé",
-    "createSuccess": "Fournisseur creé avec succès !"
+    "createSuccess": "Fournisseur creé avec succès !",
+    "deleted": "Supplier deleted",
+    "deleting": "Deleting supplier...",
+    "deleteSuccess": "Supplier has been deleted successfully!"
   },
   "ward": {
     "code": "Code",
