@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import checkIcon from "../../../../../assets/check-icon.png";
-import { OperationDTO } from "../../../../../generated";
+import { OperationDTO, OperationDTOOpeForEnum } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 import { deleteOperationReset } from "../../../../../state/operations";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
@@ -35,15 +35,26 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
       })) ?? []
   );
 
-  const header = ["code", "type", "description", "class"];
+  const operationContextOptions = () => {
+    return Object.values(OperationDTOOpeForEnum).map((type) => {
+      return {
+        label: t(`operation.contextOptions.${type}`),
+        value: type,
+      };
+    });
+  };
+
+  const header = ["code", "type", "description", "class", "opeFor"];
 
   const label = {
     code: t("operation.code"),
     type: t("operation.type"),
     description: t("operation.description"),
     class: t("operation.class"),
+    opeFor: t("operation.opeFor"),
   };
-  const order = ["code", "type", "description", "class"];
+
+  const order = ["code", "type", "description", "class", "opeFor"];
   const filters: TFilterField[] = [
     { key: "description", label: t("operation.description"), type: "text" },
     {
@@ -60,6 +71,12 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
         { label: t("operation.classes.minor"), value: "0" },
         { label: t("operation.classes.major"), value: "1" },
       ],
+    },
+    {
+      key: "opeFor",
+      label: t("operation.opeFor"),
+      type: "select",
+      options: operationContextOptions(),
     },
   ];
 
@@ -89,6 +106,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
         code: item.code ?? "",
         type: item.type?.description ?? "",
         description: item.description ?? "",
+        opeFor: t(`operation.contextOptions.${item.opeFor}`),
         class:
           item.major === 0
             ? t("operation.classes.minor")
