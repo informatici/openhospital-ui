@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { OperationDTOOpeForEnum } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
@@ -62,6 +63,15 @@ const OperationForm: FC<IOperationProps> = ({
       })) ?? [],
     [operationsTypeState.data]
   );
+
+  const operationContextOptions = () => {
+    return Object.values(OperationDTOOpeForEnum).map((type) => {
+      return {
+        label: t(`operation.contextOptions.${type}`),
+        value: type,
+      };
+    });
+  };
 
   const errorMessage = useMemo(
     () =>
@@ -150,19 +160,6 @@ const OperationForm: FC<IOperationProps> = ({
     <div className="operationForm">
       <form className="operationForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
-          <div className="operationForm__item fullWidth">
-            <AutocompleteField
-              fieldName="type"
-              fieldValue={formik.values.type}
-              label={t("operation.type")}
-              isValid={isValid("type")}
-              errorText={getErrorText("type")}
-              onBlur={onBlurCallback("type")}
-              options={operationsTypeOptions}
-              loading={operationsTypeState.status === "LOADING"}
-              disabled={isLoading}
-            />
-          </div>
           <div className="operationForm__item halfWidth">
             <TextField
               field={formik.getFieldProps("code")}
@@ -176,6 +173,22 @@ const OperationForm: FC<IOperationProps> = ({
             />
           </div>
           <div className="operationForm__item halfWidth">
+            <AutocompleteField
+              fieldName="type"
+              fieldValue={formik.values.type}
+              label={t("operation.type")}
+              isValid={isValid("type")}
+              errorText={getErrorText("type")}
+              onBlur={onBlurCallback("type")}
+              options={operationsTypeOptions}
+              loading={operationsTypeState.status === "LOADING"}
+              disabled={isLoading}
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="operationForm__item thirdWidth">
             <TextField
               field={formik.getFieldProps("description")}
               theme="regular"
@@ -187,10 +200,20 @@ const OperationForm: FC<IOperationProps> = ({
               disabled={isLoading}
             />
           </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="operationForm__item">
+          <div className="operationForm__item thirdWidth">
+            <AutocompleteField
+              fieldName="opeFor"
+              fieldValue={formik.values.opeFor}
+              label={t("operation.opeFor")}
+              isValid={isValid("opeFor")}
+              errorText={getErrorText("opeFor")}
+              onBlur={onBlurCallback("opeFor")}
+              options={operationContextOptions()}
+              loading={operationsTypeState.status === "LOADING"}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="operationForm__item thirdWith">
             <CheckboxField
               fieldName={"major"}
               checked={formik.values.major === "1"}
