@@ -445,7 +445,13 @@
     "saveOperation": "Sauver l'opération",
     "createSuccess": "Opération créé avec succès !",
     "updateSuccess": "L'opération {{code}} a été mise à jour avec succès !",
-    "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !"
+    "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !",
+    "opeFor": "Context",
+    "contextOptions": {
+      "opd_admission": "OPD/Admission",
+      "admission": "Admission",
+      "opd": "OPD"
+    }
   },
   "common": {
     "ok": "OK",
