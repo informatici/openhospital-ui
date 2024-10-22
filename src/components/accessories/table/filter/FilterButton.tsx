@@ -100,7 +100,6 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
   };
 
   useEffect(() => {
-    formik.submitForm();
     const submit = setTimeout(() => {
       formik.submitForm();
     }, 250);
