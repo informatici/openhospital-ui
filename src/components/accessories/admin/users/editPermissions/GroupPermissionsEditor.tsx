@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useTranslation } from "react-i18next";
 import { PermissionDTO } from "../../../../../generated";
 import { AclTable } from "./AclTable";
 import { AreaAccess } from "./AreaAccess";
@@ -25,15 +26,17 @@ export const GroupPermissionsEditor = ({
     update({ permission: newPermission, action });
   };
 
+  const { t } = useTranslation();
+
   return (
     <>
-      <h2>Areas access</h2>
+      <h2>{t("permission.accessarea")}</h2>
       <AreaAccess
         permissions={permissions}
         groupPermissions={groupPermissions}
         onChange={handleChange}
       />
-      <h2>Access-control list</h2>
+      <h2>{t("permission.accesscontrollist")}</h2>
       <AclTable
         permissions={permissions}
         groupPermissions={groupPermissions}

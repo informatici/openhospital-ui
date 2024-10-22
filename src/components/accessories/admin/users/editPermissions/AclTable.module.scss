@@ -1,17 +1,22 @@
-table.acl {
-  min-width: 100%;
-  th {
-    text-align: left;
+.container {
+  max-height: 400px;
+  overflow-y: auto;
+
+  table.acl {
+    min-width: 100%;
+    th {
+      text-align: left;
+    }
+    td {
+      border-bottom: 1px solid #ccc;
+    }
   }
-  td {
-    border-bottom: 1px solid #ccc;
-  }
-}
-td.empty {
-  span {
-    padding: 5px 13px;
-  font-weight: bold;
-  font-size: 19px;
-  color: #555;
+  td.empty {
+    span {
+      padding: 5px 13px;
+      font-weight: bold;
+      font-size: 19px;
+      color: #555;
+    }
   }
 }

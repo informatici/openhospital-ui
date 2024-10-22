@@ -559,7 +559,14 @@
   "permission": {
     "denied": "Permission denied",
     "unauthorized": "Unauthorized",
-    "accessdenied": "You don't have permission required to access this content"
+    "accessdenied": "You don't have permission required to access this content",
+    "name": "Name",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "deleted": "Deleted",
+    "accessarea": "Access area",
+    "accesscontrollist": "Access control list"
   },
   "therapy": {
     "newtherapy": "New Therapy",

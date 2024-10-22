@@ -15,15 +15,12 @@ import { PATHS } from "../../../../../consts";
 import { PermissionDTO, UserGroupDTO } from "../../../../../generated";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
+import { CircularProgress } from "@mui/material";
 import { getAllPermissions } from "../../../../../state/permissions";
 import {
-  assignPermission,
-  revokePermission,
-} from "../../../../../state/usergroups";
-import {
+  getUserGroup,
   updateUserGroup,
   updateUserGroupReset,
-  getUserGroup,
 } from "../../../../../state/usergroups";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
 import {
@@ -46,12 +43,15 @@ export const EditGroup = () => {
   const update = useAppSelector((state) => state.usergroups.update);
   const permissions = useAppSelector((state) => state.permissions.getAll);
   const group = useAppSelector((state) => state.usergroups.currentGroup);
+
   // local state to keep track of permissions
   const [groupPermissions, setGroupPermissions] = useState<PermissionDTO[]>([]);
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
+
   // make sure everything is loaded before displaying the editor
   const [isPermissionEditorAvailable, setIsPermissionEditorAvailable] =
     useState<boolean>(false);
+
   // keep track of which permissions have been updated and how
   const [updatedPermissionsStack, setUpdatedPermissionsStack] = useState<
     Array<PermissionActionType>
@@ -86,31 +86,10 @@ export const EditGroup = () => {
     initialValues: state,
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
-      dispatch(updateUserGroup(values));
+      values.permissions = groupPermissions;
+      const dto: UserGroupDTO = { ...values, permissions: groupPermissions };
 
-      // this is applying to all permissions, but we may want to only apply to the ones that have changed
-      // using the updatedPermissionsStack array
-      // this is open to debate
-      for (const permission of permissions.data!) {
-        const isAllowed = groupPermissions.some(
-          (gp) => gp.id === permission.id
-        );
-        if (isAllowed) {
-          dispatch(
-            assignPermission({
-              permissionId: permission.id,
-              groupCode: state.code,
-            })
-          );
-        } else {
-          dispatch(
-            revokePermission({
-              permissionId: permission.id,
-              groupCode: state.code,
-            })
-          );
-        }
-      }
+      dispatch(updateUserGroup(dto));
     },
   });
 
@@ -150,6 +129,11 @@ export const EditGroup = () => {
     return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
   }
 
+  const handleFormReset = () => {
+    resetForm();
+    setGroupPermissions(group.data?.permissions ?? []);
+  };
+
   if (permissions.hasFailed)
     return (
       <InfoBox
@@ -166,111 +150,122 @@ export const EditGroup = () => {
     );
 
   return (
-    <div className="newGroupForm">
-      <form className="newGroupForm__form" onSubmit={handleSubmit}>
-        <div className="row start-sm center-xs">
-          <div className="newGroupForm__item fullWidth">
-            <TextField
-              field={getFieldProps("code")}
-              theme="regular"
-              label={t("user.code")}
-              isValid={!!touched.code && !!errors.code}
-              errorText={(touched.code && errors.code) || ""}
-              onBlur={handleBlur}
-              type="text"
-              disabled
-            />
-          </div>
-          <div className="newGroupForm__item fullWidth">
-            <TextField
-              field={getFieldProps("desc")}
-              theme="regular"
-              label={t("user.desc")}
-              isValid={!!touched.desc && !!errors.desc}
-              errorText={(touched.desc && errors.desc) || ""}
-              onBlur={handleBlur}
-            />
-          </div>
-        </div>
-
-        {isPermissionEditorAvailable && (
-          <GroupPermissionsEditor
-            permissions={permissions.data ?? []}
-            groupPermissions={groupPermissions}
-            setDirty={setDirtyPermissions}
-            update={handleUpdatePermissions}
-          />
-        )}
-
-        <div className="newGroupForm__item fullWidth">
-          {isPermissionEditorAvailable &&
-            updatedPermissionsStack.length > 0 && (
-              <p>
-                <code>
-                  Editing permissions:{" "}
-                  {updatedPermissionsStack
-                    .map(
-                      (p) =>
-                        `${p.permission.name}: ${
-                          p.action === PermissionActionEnum.ASSIGN
-                            ? "assign"
-                            : "revoked"
-                        }`
-                    )
-                    .join(",")}
-                </code>
-                <br />
-                {updatedPermissionsStack.length} permission
-                {updatedPermissionsStack.length > 1 ? "s" : ""} will be updated.
-              </p>
-            )}
-          {update.hasFailed && (
-            <div className="info-box-container">
-              <InfoBox
-                type="error"
-                message={update.error?.message ?? t("common.somethingwrong")}
-              />
+    <>
+      {group.status === "LOADING" || permissions.status === "LOADING" ? (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      ) : (
+        <div className="newGroupForm">
+          <form className="newGroupForm__form" onSubmit={handleSubmit}>
+            <div className="row start-sm center-xs">
+              <div className="newGroupForm__item fullWidth">
+                <TextField
+                  field={getFieldProps("code")}
+                  theme="regular"
+                  label={t("user.code")}
+                  isValid={!!touched.code && !!errors.code}
+                  errorText={(touched.code && errors.code) || ""}
+                  onBlur={handleBlur}
+                  type="text"
+                  disabled
+                />
+              </div>
+              <div className="newGroupForm__item fullWidth">
+                <TextField
+                  field={getFieldProps("desc")}
+                  theme="regular"
+                  label={t("user.desc")}
+                  isValid={!!touched.desc && !!errors.desc}
+                  errorText={(touched.desc && errors.desc) || ""}
+                  onBlur={handleBlur}
+                />
+              </div>
             </div>
-          )}
-        </div>
 
-        <div className="newGroupForm__buttonSet">
-          <div className="submit_button">
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={
-                !!update.isLoading || !isValid || !(dirty || dirtyPermissions)
-              }
-            >
-              {t("common.save")}
-            </Button>
-          </div>
-          <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              disabled={!!update.isLoading || !(dirty || dirtyPermissions)}
-              onClick={async () => {
-                resetForm();
-              }}
-            >
-              {t("common.reset")}
-            </Button>
-          </div>
+            {isPermissionEditorAvailable && (
+              <GroupPermissionsEditor
+                permissions={permissions.data ?? []}
+                groupPermissions={groupPermissions}
+                setDirty={setDirtyPermissions}
+                update={handleUpdatePermissions}
+              />
+            )}
+
+            <div className="newGroupForm__item fullWidth">
+              {isPermissionEditorAvailable &&
+                updatedPermissionsStack.length > 0 && (
+                  <p>
+                    <code>
+                      Editing permissions:{" "}
+                      {updatedPermissionsStack
+                        .map(
+                          (p) =>
+                            `${p.permission.name}: ${
+                              p.action === PermissionActionEnum.ASSIGN
+                                ? "assign"
+                                : "revoked"
+                            }`
+                        )
+                        .join(",")}
+                    </code>
+                    <br />
+                    {updatedPermissionsStack.length} permission
+                    {updatedPermissionsStack.length > 1 ? "s" : ""} will be
+                    updated.
+                  </p>
+                )}
+              {update.hasFailed && (
+                <div className="info-box-container">
+                  <InfoBox
+                    type="error"
+                    message={
+                      update.error?.message ?? t("common.somethingwrong")
+                    }
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="newGroupForm__buttonSet">
+              <div className="submit_button">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={
+                    !!update.isLoading ||
+                    !isValid ||
+                    !(dirty || dirtyPermissions)
+                  }
+                >
+                  {t("common.save")}
+                </Button>
+              </div>
+              <div className="reset_button">
+                <Button
+                  type="reset"
+                  variant="text"
+                  disabled={!!update.isLoading || !(dirty || dirtyPermissions)}
+                  onClick={handleFormReset}
+                >
+                  {t("common.reset")}
+                </Button>
+              </div>
+            </div>
+          </form>
+          <ConfirmationDialog
+            isOpen={update.hasSucceeded}
+            title={t("user.groupUpdated")}
+            icon={checkIcon}
+            info={t("user.groupUpdateSuccess")}
+            primaryButtonLabel="Ok"
+            handlePrimaryButtonClick={() => {
+              navigate(PATHS.admin_users, {
+                state: { tab: TabOptions.groups },
+              });
+            }}
+            handleSecondaryButtonClick={() => ({})}
+          />
         </div>
-      </form>
-      <ConfirmationDialog
-        isOpen={update.hasSucceeded}
-        title={t("user.groupUpdated")}
-        icon={checkIcon}
-        info={t("user.groupUpdateSuccess")}
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => {
-          navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
-        }}
-        handleSecondaryButtonClick={() => ({})}
-      />
-    </div>
+      )}
+    </>
   );
 };

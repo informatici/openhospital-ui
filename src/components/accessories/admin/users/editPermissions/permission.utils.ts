@@ -67,6 +67,11 @@ export const comparePermissions = (
     const stackedPermission = stackedPermissions.find(
       ({ id }) => permission.id === id
     );
+
+    if (!!initialPermission && !!stackedPermission) {
+      continue;
+    }
+
     if (initialPermission !== stackedPermission) {
       changedPermissions = [
         ...changedPermissions,
