@@ -29,6 +29,8 @@
     "addUser": "Nouvel utilisateur",
     "createdSuccessTitle": "Utilisateur créé",
     "createdSuccessMessage": "Utilisateur créé avec succès !",
+    "updatedSuccessTitle": "User updated",
+    "updatedSuccessMessage": "User has been updated successfully!",
     "validateUserNeedsGroup": "Chaque utilisateur doit appartenir à un groupe",
     "validatePasswordNeeded": "Aucun mot de psse fourni",
     "validatePasswordTooShort": "Le mot de passe est trop court - il doit comporter au moins 5 caractères",
