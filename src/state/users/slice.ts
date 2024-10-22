@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const userSlice = createSlice({
   name: "users",
@@ -17,6 +17,9 @@ export const userSlice = createSlice({
     deleteUserReset: (state) => {
       state.delete = initial.delete;
     },
+    getUserByIdReset: (state) => {
+      state.getById = initial.getById;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -26,10 +29,21 @@ export const userSlice = createSlice({
       })
       .addCase(thunks.getUsers.fulfilled, (state, action) => {
         state.userList = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getUsers.rejected, (state, action) => {
         state.userList = ApiResponse.error(action.payload);
+      })
+      // Get User by id
+      .addCase(thunks.getUserById.pending, (state) => {
+        state.getById = ApiResponse.loading();
+      })
+      .addCase(thunks.getUserById.fulfilled, (state, action) => {
+        state.getById = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getUserById.rejected, (state, action) => {
+        state.getById = ApiResponse.error(action.payload);
       })
       // Create User
       .addCase(thunks.createUser.pending, (state) => {
@@ -63,5 +77,9 @@ export const userSlice = createSlice({
       }),
 });
 
-export const { createUserReset, updateUserReset, deleteUserReset } =
-  userSlice.actions;
+export const {
+  createUserReset,
+  updateUserReset,
+  deleteUserReset,
+  getUserByIdReset,
+} = userSlice.actions;

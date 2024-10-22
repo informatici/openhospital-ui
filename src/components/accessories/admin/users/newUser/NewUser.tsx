@@ -91,7 +91,7 @@ export const NewUser = () => {
               type="text"
             />
           </div>
-          <div className="newUserForm__item fullWidth">
+          <div className="newUserForm__item halfWidth">
             <TextField
               field={getFieldProps("passwd")}
               theme="regular"
@@ -104,7 +104,7 @@ export const NewUser = () => {
               InputProps={{ autoComplete: "one-time-code" }}
             />
           </div>
-          <div className="newUserForm__item fullWidth">
+          <div className="newUserForm__item halfWidth">
             <TextField
               field={getFieldProps("passwd2")}
               theme="regular"
@@ -163,6 +163,8 @@ export const NewUser = () => {
               isValid={!!touched.desc && !!errors.desc}
               errorText={(touched.desc && errors.desc) || ""}
               onBlur={handleBlur}
+              rows={3}
+              multiline
             />
           </div>
         </div>
@@ -180,7 +182,7 @@ export const NewUser = () => {
             <Button
               type="reset"
               variant="text"
-              disabled={!!create.isLoading || !dirty}
+              disabled={!!create.isLoading}
               onClick={() => {
                 navigate(PATHS.admin_users);
               }}

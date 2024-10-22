@@ -24,6 +24,7 @@ import {
 } from "../../components/accessories/admin/suppliers";
 import {
   EditGroup,
+  EditUser,
   NewGroup,
   NewUser,
   Users,
@@ -236,6 +237,15 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("user.editGroup")}
             children={<EditGroup />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_users_edit),
+        element: (
+          <AdminActivityContent
+            title={t("nav.users")}
+            children={<EditUser />}
           />
         ),
       },
