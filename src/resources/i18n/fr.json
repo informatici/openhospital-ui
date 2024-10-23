@@ -18,15 +18,26 @@
     "number": "la valeur n'est pas un nombre valide"
   },
   "user": {
+    "code": "Code",
+    "desc": "Description",
     "users": "Utilisateurs",
     "username": "Nom d'utilisateur",
     "group": "Groupe",
     "groups": "Groupes",
     "password": "Mot de passe",
-    "passwordRetype": "Retaper le mot de passe",
-    "lastlogin": "Dernière connexion",
-    "description": "Description",
+    "addGroup": "New group",
     "addUser": "Nouvel utilisateur",
+    "editGroup": "Edit group",
+    "description": "Description",
+    "lastlogin": "Dernière connexion",
+    "groupCreated": "Group created",
+    "groupDeleted": "Group deleted",
+    "groupUpdated": "Group updated",
+    "groupUpdateSuccess": "Group updated successfully",
+    "groupCreateSuccess": "Group created successfully",
+    "groupDeleteSuccess": "Group deleted successfully",
+    "groupPermissionsOnlyOnUpdate": "You can edit a group's permission once you created it.",
+    "passwordRetype": "Retaper le mot de passe",
     "createdSuccessTitle": "Utilisateur créé",
     "createdSuccessMessage": "Utilisateur créé avec succès !",
     "updatedSuccessTitle": "User updated",
@@ -35,6 +46,7 @@
     "validatePasswordNeeded": "Aucun mot de psse fourni",
     "validatePasswordTooShort": "Le mot de passe est trop court - il doit comporter au moins 5 caractères",
     "validatePasswordTooWeak": "Veuillez créer un mot de passe plus fort : 1 lettre majuscule, 1 lettre minuscule, 1 chiffre",
+    "validateGroupCode": "Invalid group code",
     "validatePasswordMustMatch": "Les mots de passe doivent correspondre",
     "validateUserName": "Vous devez spécifier un nom d'utilisateur",
     "validateUserNameRegex": "Caractères autorisés : lettres minuscules (abc), chiffres (123), point (.), tiret (-) et trait de soulignement (_)"
@@ -555,7 +567,14 @@
   "permission": {
     "denied": "Autorisation refusée",
     "unauthorized": "Non autorisé",
-    "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu"
+    "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu",
+    "name": "Name",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "deleted": "Deleted",
+    "accessarea": "Access area",
+    "accesscontrollist": "Access control list"
   },
   "therapy": {
     "newtherapy": "Nouvelle thérapie",
