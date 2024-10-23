@@ -25,6 +25,8 @@ export const PATHS = {
   admin_vaccines_types_edit: "/admin/types/vaccines/:code/edit",
   admin_users: "/admin/users",
   admin_users_new: "/admin/users/new",
+  admin_usergroups_new: "/admin/users/groups/new",
+  admin_usergroups_edit: "/admin/users/groups/edit/:id",
   admin_users_edit: "/admin/users/:id/edit",
   admin_vaccines: "/admin/vaccines",
   admin_vaccines_new: "/admin/vaccines/new",
