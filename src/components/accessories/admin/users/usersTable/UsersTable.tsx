@@ -53,7 +53,6 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
   }, [deleteUser.status, dispatch]);
 
   const header = ["userName", "userGroupName", "desc"];
-
   const label = {
     userName: t("user.username"),
     userGroupName: t("user.groups"),
