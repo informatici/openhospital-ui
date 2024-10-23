@@ -11,8 +11,11 @@ export const NewExam = () => {
   const { t } = useTranslation();
   const create = useAppSelector((state) => state.exams.examCreate);
 
-  const handleSubmit = (value: ExamDTO) => {
-    dispatch(createExam(value));
+  const handleSubmit = ({
+    rows,
+    ...examDTO
+  }: ExamDTO & { rows: string[] | undefined }) => {
+    dispatch(createExam({ examWithRowsDTO: { exam: examDTO, rows } }));
   };
 
   return (
@@ -22,7 +25,7 @@ export const NewExam = () => {
       isLoading={!!create.isLoading}
       resetButtonLabel={t("common.cancel")}
       submitButtonLabel={t("supplier.saveSupplier")}
-      fields={getInitialFields(undefined)}
+      fields={getInitialFields(undefined, undefined)}
     />
   );
 };

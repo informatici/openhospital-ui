@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
     ExamDTO,
+    ExamWithRowsDTO,
 } from '../models';
 
 export interface DeleteExam1Request {
@@ -26,12 +27,12 @@ export interface GetExams1Request {
 }
 
 export interface NewExamRequest {
-    examDTO: ExamDTO;
+    examWithRowsDTO: ExamWithRowsDTO;
 }
 
-export interface UpdateExamsRequest {
+export interface UpdateExamRequest {
     code: string;
-    examDTO: ExamDTO;
+    examWithRowsDTO: ExamWithRowsDTO;
 }
 
 /**
@@ -93,10 +94,10 @@ export class ExamsApi extends BaseAPI {
 
     /**
      */
-    newExam({ examDTO }: NewExamRequest): Observable<ExamDTO>
-    newExam({ examDTO }: NewExamRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
-    newExam({ examDTO }: NewExamRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
-        throwIfNullOrUndefined(examDTO, 'examDTO', 'newExam');
+    newExam({ examWithRowsDTO }: NewExamRequest): Observable<ExamDTO>
+    newExam({ examWithRowsDTO }: NewExamRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
+    newExam({ examWithRowsDTO }: NewExamRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
+        throwIfNullOrUndefined(examWithRowsDTO, 'examWithRowsDTO', 'newExam');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -107,17 +108,17 @@ export class ExamsApi extends BaseAPI {
             url: '/exams',
             method: 'POST',
             headers,
-            body: examDTO,
+            body: examWithRowsDTO,
         }, opts?.responseOpts);
     };
 
     /**
      */
-    updateExams({ code, examDTO }: UpdateExamsRequest): Observable<ExamDTO>
-    updateExams({ code, examDTO }: UpdateExamsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
-    updateExams({ code, examDTO }: UpdateExamsRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'updateExams');
-        throwIfNullOrUndefined(examDTO, 'examDTO', 'updateExams');
+    updateExam({ code, examWithRowsDTO }: UpdateExamRequest): Observable<ExamDTO>
+    updateExam({ code, examWithRowsDTO }: UpdateExamRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
+    updateExam({ code, examWithRowsDTO }: UpdateExamRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'updateExam');
+        throwIfNullOrUndefined(examWithRowsDTO, 'examWithRowsDTO', 'updateExam');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -128,7 +129,7 @@ export class ExamsApi extends BaseAPI {
             url: '/exams/{code}'.replace('{code}', encodeURI(code)),
             method: 'PUT',
             headers,
-            body: examDTO,
+            body: examWithRowsDTO,
         }, opts?.responseOpts);
     };
 

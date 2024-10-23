@@ -14,6 +14,8 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
+    GroupPermissionsDTO,
+    PermissionDTO,
     UserGroupDTO,
 } from '../models';
 
@@ -34,9 +36,19 @@ export interface NewUserGroupRequest {
     userGroupDTO: UserGroupDTO;
 }
 
+export interface ReplaceGroupPermissionsRequest {
+    groupCode: string;
+    groupPermissionsDTO: GroupPermissionsDTO;
+}
+
 export interface RevokePermissionRequest {
     groupCode: string;
     id: number;
+}
+
+export interface UpdateGroupPermissionsRequest {
+    groupCode: string;
+    groupPermissionsDTO: GroupPermissionsDTO;
 }
 
 export interface UpdateUserGroupRequest {
@@ -142,6 +154,27 @@ export class UserGroupsApi extends BaseAPI {
 
     /**
      */
+    replaceGroupPermissions({ groupCode, groupPermissionsDTO }: ReplaceGroupPermissionsRequest): Observable<Array<PermissionDTO>>
+    replaceGroupPermissions({ groupCode, groupPermissionsDTO }: ReplaceGroupPermissionsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PermissionDTO>>>
+    replaceGroupPermissions({ groupCode, groupPermissionsDTO }: ReplaceGroupPermissionsRequest, opts?: OperationOpts): Observable<Array<PermissionDTO> | RawAjaxResponse<Array<PermissionDTO>>> {
+        throwIfNullOrUndefined(groupCode, 'groupCode', 'replaceGroupPermissions');
+        throwIfNullOrUndefined(groupPermissionsDTO, 'groupPermissionsDTO', 'replaceGroupPermissions');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<Array<PermissionDTO>>({
+            url: '/usergroups/{group_code}/permissions'.replace('{group_code}', encodeURI(groupCode)),
+            method: 'PATCH',
+            headers,
+            body: groupPermissionsDTO,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
     revokePermission({ groupCode, id }: RevokePermissionRequest): Observable<void>
     revokePermission({ groupCode, id }: RevokePermissionRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
     revokePermission({ groupCode, id }: RevokePermissionRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
@@ -156,6 +189,27 @@ export class UserGroupsApi extends BaseAPI {
             url: '/usergroups/{group_code}/permissions/{id}'.replace('{group_code}', encodeURI(groupCode)).replace('{id}', encodeURI(id)),
             method: 'DELETE',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    updateGroupPermissions({ groupCode, groupPermissionsDTO }: UpdateGroupPermissionsRequest): Observable<Array<PermissionDTO>>
+    updateGroupPermissions({ groupCode, groupPermissionsDTO }: UpdateGroupPermissionsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PermissionDTO>>>
+    updateGroupPermissions({ groupCode, groupPermissionsDTO }: UpdateGroupPermissionsRequest, opts?: OperationOpts): Observable<Array<PermissionDTO> | RawAjaxResponse<Array<PermissionDTO>>> {
+        throwIfNullOrUndefined(groupCode, 'groupCode', 'updateGroupPermissions');
+        throwIfNullOrUndefined(groupPermissionsDTO, 'groupPermissionsDTO', 'updateGroupPermissions');
+
+        const headers: HttpHeaders = {
+            'Content-Type': 'application/json',
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        return this.request<Array<PermissionDTO>>({
+            url: '/usergroups/{group_code}/permissions'.replace('{group_code}', encodeURI(groupCode)),
+            method: 'PUT',
+            headers,
+            body: groupPermissionsDTO,
         }, opts?.responseOpts);
     };
 

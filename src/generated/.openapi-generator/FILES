@@ -60,7 +60,9 @@ models\DiseaseTypeDTO.ts
 models\ExamDTO.ts
 models\ExamRowDTO.ts
 models\ExamTypeDTO.ts
+models\ExamWithRowsDTO.ts
 models\FullBillDTO.ts
+models\GroupPermissionsDTO.ts
 models\HospitalDTO.ts
 models\LabWithRowsDTO.ts
 models\LaboratoryDTO.ts
