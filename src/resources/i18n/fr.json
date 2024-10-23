@@ -18,21 +18,35 @@
     "number": "la valeur n'est pas un nombre valide"
   },
   "user": {
+    "code": "Code",
+    "desc": "Description",
     "users": "Utilisateurs",
     "username": "Nom d'utilisateur",
     "group": "Groupe",
     "groups": "Groupes",
     "password": "Mot de passe",
-    "passwordRetype": "Retaper le mot de passe",
-    "lastlogin": "Dernière connexion",
-    "description": "Description",
+    "addGroup": "New group",
     "addUser": "Nouvel utilisateur",
+    "editGroup": "Edit group",
+    "description": "Description",
+    "lastlogin": "Dernière connexion",
+    "groupCreated": "Group created",
+    "groupDeleted": "Group deleted",
+    "groupUpdated": "Group updated",
+    "groupUpdateSuccess": "Group updated successfully",
+    "groupCreateSuccess": "Group created successfully",
+    "groupDeleteSuccess": "Group deleted successfully",
+    "groupPermissionsOnlyOnUpdate": "You can edit a group's permission once you created it.",
+    "passwordRetype": "Retaper le mot de passe",
     "createdSuccessTitle": "Utilisateur créé",
     "createdSuccessMessage": "Utilisateur créé avec succès !",
+    "updatedSuccessTitle": "User updated",
+    "updatedSuccessMessage": "User has been updated successfully!",
     "validateUserNeedsGroup": "Chaque utilisateur doit appartenir à un groupe",
     "validatePasswordNeeded": "Aucun mot de psse fourni",
     "validatePasswordTooShort": "Le mot de passe est trop court - il doit comporter au moins 5 caractères",
     "validatePasswordTooWeak": "Veuillez créer un mot de passe plus fort : 1 lettre majuscule, 1 lettre minuscule, 1 chiffre",
+    "validateGroupCode": "Invalid group code",
     "validatePasswordMustMatch": "Les mots de passe doivent correspondre",
     "validateUserName": "Vous devez spécifier un nom d'utilisateur",
     "validateUserNameRegex": "Caractères autorisés : lettres minuscules (abc), chiffres (123), point (.), tiret (-) et trait de soulignement (_)"
@@ -45,7 +59,13 @@
     "telephone": "Téléphone",
     "fax": "Fax",
     "email": "Adresse e-mail",
-    "currencyCod": "Code de devise"
+    "currencyCod": "Code de devise",
+    "editHospital": "Edit hospital infos",
+    "updateHospital": "Save changes",
+    "saveHospital": "Save",
+    "updated": "Hospital infos updated",
+    "updateSuccess": "Hospital infos have been updated successfully!",
+    "discardChanges": "Changes will be lost. Do you want to discard anyway ?"
   },
   "login": {
     "username": "Nom d'utilisateur",
@@ -437,7 +457,13 @@
     "saveOperation": "Sauver l'opération",
     "createSuccess": "Opération créé avec succès !",
     "updateSuccess": "L'opération {{code}} a été mise à jour avec succès !",
-    "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !"
+    "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !",
+    "opeFor": "Context",
+    "contextOptions": {
+      "opd_admission": "OPD/Admission",
+      "admission": "Admission",
+      "opd": "OPD"
+    }
   },
   "common": {
     "ok": "OK",
@@ -536,12 +562,20 @@
     "from": "D'où",
     "to": "Vers",
     "datebefore": "Devrait être avant la date de fin",
-    "dateafter": "Doit être supérieur à la date de début"
+    "dateafter": "Doit être supérieur à la date de début",
+    "option": "Option"
   },
   "permission": {
     "denied": "Autorisation refusée",
     "unauthorized": "Non autorisé",
-    "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu"
+    "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu",
+    "name": "Name",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "deleted": "Deleted",
+    "accessarea": "Access area",
+    "accesscontrollist": "Access control list"
   },
   "therapy": {
     "newtherapy": "Nouvelle thérapie",
@@ -846,6 +880,11 @@
     "examtype": "Type d'examen",
     "description": "Nom",
     "procedure": "Procédure",
+    "procedures": {
+      "1": "1 - Only one option",
+      "2": "2 - Multiple options can be selected",
+      "3": "3 - Custom value"
+    },
     "defaultResult": "Valeur par défaut",
     "addExam": "Nouvel examen",
     "editExam": "Modifier l'examen",
@@ -856,7 +895,10 @@
     "createSuccess": "Examen créé avec succès",
     "deleteSuccess": "Examen supprimé avec succès",
     "updateExam": "Mettre à jour l'examen",
-    "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3"
+    "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3",
+    "possibleValues": "Possible values",
+    "defaultValue": "Default value",
+    "invalidDefaultResult": "Default result should be one of possible values"
   },
   "vaccine": {
     "code": "Code",
@@ -1026,7 +1068,10 @@
     "updated": "Fournisseur mis à jour",
     "updateSuccess": "Fournisseur mis à jour avec succès !",
     "created": "Fournisseur creé",
-    "createSuccess": "Fournisseur creé avec succès !"
+    "createSuccess": "Fournisseur creé avec succès !",
+    "deleted": "Supplier deleted",
+    "deleting": "Deleting supplier...",
+    "deleteSuccess": "Supplier has been deleted successfully!"
   },
   "ward": {
     "code": "Code",
