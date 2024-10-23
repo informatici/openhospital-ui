@@ -562,7 +562,8 @@
     "from": "D'où",
     "to": "Vers",
     "datebefore": "Devrait être avant la date de fin",
-    "dateafter": "Doit être supérieur à la date de début"
+    "dateafter": "Doit être supérieur à la date de début",
+    "option": "Option"
   },
   "permission": {
     "denied": "Autorisation refusée",
@@ -879,6 +880,11 @@
     "examtype": "Type d'examen",
     "description": "Nom",
     "procedure": "Procédure",
+    "procedures": {
+      "1": "1 - Only one option",
+      "2": "2 - Multiple options can be selected",
+      "3": "3 - Custom value"
+    },
     "defaultResult": "Valeur par défaut",
     "addExam": "Nouvel examen",
     "editExam": "Modifier l'examen",
@@ -889,7 +895,10 @@
     "createSuccess": "Examen créé avec succès",
     "deleteSuccess": "Examen supprimé avec succès",
     "updateExam": "Mettre à jour l'examen",
-    "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3"
+    "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3",
+    "possibleValues": "Possible values",
+    "defaultValue": "Default value",
+    "invalidDefaultResult": "Default result should be one of possible values"
   },
   "vaccine": {
     "code": "Code",
