@@ -77,5 +77,9 @@ export const userSlice = createSlice({
       }),
 });
 
-export const { createUserReset, updateUserReset, deleteUserReset } =
-  userSlice.actions;
+export const {
+  createUserReset,
+  updateUserReset,
+  deleteUserReset,
+  getUserByIdReset,
+} = userSlice.actions;

@@ -9,6 +9,7 @@ import { UserDTO } from "../../../../../generated";
 import { getUserGroups } from "../../../../../state/usergroups";
 import {
   getUserById,
+  getUserByIdReset,
   updateUser,
   updateUserReset,
 } from "../../../../../state/users";
@@ -30,6 +31,7 @@ export const EditUser = () => {
     dispatch(getUserGroups());
     return () => {
       dispatch(updateUserReset());
+      dispatch(getUserByIdReset());
     };
   }, [dispatch, id]);
 

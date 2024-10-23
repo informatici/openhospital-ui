@@ -18,15 +18,26 @@
     "number": "the value is not a valid number"
   },
   "user": {
+    "code": "Code",
+    "desc": "Description",
     "users": "Users",
     "username": "Username",
     "group": "Group",
     "groups": "Groups",
     "password": "Password",
-    "passwordRetype": "Re-type Password",
-    "lastlogin": "Last login",
-    "description": "Description",
+    "addGroup": "New group",
     "addUser": "New user",
+    "editGroup": "Edit group",
+    "description": "Description",
+    "lastlogin": "Last login",
+    "groupCreated": "Group created",
+    "groupDeleted": "Group deleted",
+    "groupUpdated": "Group updated",
+    "groupUpdateSuccess": "Group updated successfully",
+    "groupCreateSuccess": "Group created successfully",
+    "groupDeleteSuccess": "Group deleted successfully",
+    "groupPermissionsOnlyOnUpdate": "You can edit a group's permission once you created it.",
+    "passwordRetype": "Re-type Password",
     "createdSuccessTitle": "User created",
     "createdSuccessMessage": "User has been created successfully!",
     "updatedSuccessTitle": "User updated",
@@ -35,6 +46,7 @@
     "validatePasswordNeeded": "No password provided.",
     "validatePasswordTooShort": "Password is too short - should be 5 chars minimum.",
     "validatePasswordTooWeak": "Please create a stronger password: 1 upper case letter, 1 lower case letter, 1 numeric digit",
+    "validateGroupCode": "Invalid group code",
     "validatePasswordMustMatch": "Passwords must match",
     "validateUserName": "You need to specify a user name",
     "validateUserNameRegex": "Allowed characters: lowercase letters(abc), numbers(123), dot(.), dash (-) and underscore (_)"
@@ -556,7 +568,14 @@
   "permission": {
     "denied": "Permission denied",
     "unauthorized": "Unauthorized",
-    "accessdenied": "You don't have permission required to access this content"
+    "accessdenied": "You don't have permission required to access this content",
+    "name": "Name",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "deleted": "Deleted",
+    "accessarea": "Access area",
+    "accesscontrollist": "Access control list"
   },
   "therapy": {
     "newtherapy": "New Therapy",

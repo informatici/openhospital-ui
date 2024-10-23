@@ -14,7 +14,9 @@
   border-radius: 8px;
   flex-grow: 1;
   margin: 30px 160px;
-  // align-self: center;
+  @include susy-media($medium) {
+    margin: 20px 20px;
+  }
   @include susy-media($medium-down) {
     flex-direction: column;
     margin: 20px 20px;
@@ -36,7 +38,7 @@
   border-radius: 8px 0px 0px 8px;
   width: max-content;
   padding: 8px 0px;
-  min-width: 260px;
+  min-width: 311px;
   @include susy-media($medium-down) {
     border-radius: 8px;
     width: 100%;
