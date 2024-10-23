@@ -6237,9 +6237,9 @@ components:
           example: 0
         opd:
           type: boolean
-        female:
-          type: boolean
         male:
+          type: boolean
+        female:
           type: boolean
         pharmacy:
           type: boolean
@@ -7572,13 +7572,13 @@ components:
           description:
             Possible result for the exam(only for exams with procedure
             1 and 2)
-          example: "['POSITIVE', 'NEGATIVE']"
+          example: "['>=12 (NORMAL)', 'IRREGULAR']"
           items:
             type: string
             description:
               Possible result for the exam(only for exams with procedure
               1 and 2)
-            example: "['POSITIVE', 'NEGATIVE']"
+            example: "['>=12 (NORMAL)', 'IRREGULAR']"
     PatientExaminationDTO:
       required:
         - patientCode

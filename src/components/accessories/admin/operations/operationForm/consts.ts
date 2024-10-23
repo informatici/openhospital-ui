@@ -1,6 +1,6 @@
-import { TFields } from "../../../../../libraries/formDataHandling/types";
 import { OperationFormFieldName } from ".";
-import { OperationDTO } from "../../../../../generated";
+import { OperationDTO, OperationDTOOpeForEnum } from "../../../../../generated";
+import { TFields } from "../../../../../libraries/formDataHandling/types";
 
 export const getInitialFields: (
   operation: OperationDTO | undefined
@@ -8,6 +8,10 @@ export const getInitialFields: (
   code: { type: "text", value: operation?.code ?? "" },
   description: { type: "text", value: operation?.description ?? "" },
   type: { type: "text", value: operation?.type?.code ?? "" },
+  opeFor: {
+    type: "text",
+    value: operation?.opeFor ?? OperationDTOOpeForEnum.OpdAdmission,
+  },
   major: {
     type: "number",
     value: `${operation?.major ?? 1}`,
