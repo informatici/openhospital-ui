@@ -118,6 +118,12 @@ export interface PatientExaminationDTO {
      * @memberof PatientExaminationDTO
      */
     pex_bowel_desc?: PatientExaminationDTOPexBowelDescEnum;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    lock?: number;
 }
 
 /**

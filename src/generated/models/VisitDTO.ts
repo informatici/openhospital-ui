@@ -68,4 +68,10 @@ export interface VisitDTO {
      * @memberof VisitDTO
      */
     service?: string;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof VisitDTO
+     */
+    lock?: number;
 }
