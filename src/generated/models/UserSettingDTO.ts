@@ -40,4 +40,10 @@ export interface UserSettingDTO {
      * @memberof UserSettingDTO
      */
     configValue: string;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof UserSettingDTO
+     */
+    lock?: number;
 }

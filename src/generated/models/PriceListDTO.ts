@@ -47,6 +47,12 @@ export interface PriceListDTO {
      */
     currency?: string;
     /**
+     * Lock
+     * @type {number}
+     * @memberof PriceListDTO
+     */
+    lock?: number;
+    /**
      * @type {number}
      * @memberof PriceListDTO
      */
