@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { usePermission } from "libraries/permissionUtils/usePermission";
+import checkIcon from "../../../../../assets/check-icon.png";
 import { UserDTO } from "../../../../../generated";
 import { deleteUserReset, getUsers } from "../../../../../state/users";
+import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import Table from "../../../table/Table";
 import { TFilterField } from "../../../table/filter/types";
@@ -44,10 +46,7 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
       scrollToElement(infoBoxRef.current);
     }
 
-    if (
-      deleteUser.status === "SUCCESS" ||
-      deleteUser.status === "SUCCESS_EMPTY"
-    ) {
+    if (deleteUser.hasSucceeded) {
       dispatch(getUsers({}));
     }
   }, [deleteUser.status, dispatch]);
@@ -131,6 +130,17 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
                   headerActions={headerActions}
                   onEdit={canUpdate ? onEdit : undefined}
                   onDelete={canDelete ? onDelete : undefined}
+                />
+                <ConfirmationDialog
+                  isOpen={!!deleteUser.hasSucceeded}
+                  title={t("user.deleted")}
+                  icon={checkIcon}
+                  info={t("user.deleteSuccess")}
+                  primaryButtonLabel="Ok"
+                  handlePrimaryButtonClick={() => {
+                    dispatch(deleteUserReset());
+                  }}
+                  handleSecondaryButtonClick={() => ({})}
                 />
               </>
             );
