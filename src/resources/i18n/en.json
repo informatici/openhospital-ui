@@ -574,8 +574,11 @@
     "read": "Read",
     "update": "Update",
     "deleted": "Deleted",
+    "delete": "Delete",
     "accessarea": "Access area",
-    "accesscontrollist": "Access control list"
+    "accesscontrollist": "Access control list",
+    "toggle-check-all": "Toggle check all",
+    "all": "All"
   },
   "therapy": {
     "newtherapy": "New Therapy",

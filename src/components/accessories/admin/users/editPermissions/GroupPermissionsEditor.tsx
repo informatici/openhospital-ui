@@ -19,11 +19,11 @@ export const GroupPermissionsEditor = ({
   update,
 }: IProps) => {
   const handleChange = (
-    newPermission: PermissionDTO,
+    newPermissions: PermissionDTO[],
     action: PermissionActionEnum
   ) => {
     setDirty(true);
-    update({ permission: newPermission, action });
+    update({ permissions: newPermissions, action });
   };
 
   const { t } = useTranslation();

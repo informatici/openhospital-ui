@@ -22,13 +22,13 @@ import {
   updateUserGroup,
   updateUserGroupReset,
 } from "../../../../../state/usergroups";
+import { TabOptions } from "../Users";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
 import {
   PermissionActionEnum,
   PermissionActionType,
   comparePermissions,
 } from "../editPermissions/permission.utils";
-import { TabOptions } from "../Users";
 import "./styles.scss";
 import { userGroupSchema } from "./validation";
 
@@ -58,18 +58,18 @@ export const EditGroup = () => {
   >([]);
 
   const handleUpdatePermissions = ({
-    permission,
+    permissions: perms,
     action,
   }: PermissionActionType) => {
     const otherPermissions = groupPermissions.filter(
-      (p) => p.id !== permission.id
+      (p) => !perms.some((item) => item.id === p.id)
     );
 
     if (action === PermissionActionEnum.REVOKE) {
       setGroupPermissions(otherPermissions);
     }
     if (action === PermissionActionEnum.ASSIGN) {
-      setGroupPermissions([...otherPermissions, permission]);
+      setGroupPermissions([...otherPermissions, ...perms]);
     }
   };
 
@@ -197,13 +197,15 @@ export const EditGroup = () => {
                     <code>
                       Editing permissions:{" "}
                       {updatedPermissionsStack
-                        .map(
-                          (p) =>
-                            `${p.permission.name}: ${
-                              p.action === PermissionActionEnum.ASSIGN
-                                ? "assign"
-                                : "revoked"
-                            }`
+                        .flatMap((p) =>
+                          p.permissions.map(
+                            (item) =>
+                              `${item.name}: ${
+                                p.action === PermissionActionEnum.ASSIGN
+                                  ? "assign"
+                                  : "revoked"
+                              }`
+                          )
                         )
                         .join(",")}
                     </code>
