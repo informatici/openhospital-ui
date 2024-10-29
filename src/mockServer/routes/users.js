@@ -29,6 +29,16 @@ export const userRoutes = (server) => {
     server.put("/:username").intercept((_req, res) => {
       res.status(200).json(_req.jsonBody());
     });
+    server.delete("/:username").intercept((req, res) => {
+      const username = req.params.username;
+      switch (username) {
+        case "FAIL":
+          res.status(400).json({ message: "Fail to delete user" });
+          break;
+        default:
+          res.status(204);
+      }
+    });
     server.get("/:username/settings/dashboard").intercept((req, res) => {
       res.status(200).json(dashboardSettingDTO);
     });

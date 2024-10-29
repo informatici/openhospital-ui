@@ -47,7 +47,6 @@ index.ts
 models\AdmissionDTO.ts
 models\AdmissionTypeDTO.ts
 models\AdmittedPatientDTO.ts
-models\AgeType.ts
 models\AgeTypeDTO.ts
 models\BillDTO.ts
 models\BillItemsDTO.ts

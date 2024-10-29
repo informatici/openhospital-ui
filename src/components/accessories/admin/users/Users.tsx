@@ -1,5 +1,5 @@
 import { Tab, Tabs } from "@mui/material";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 
@@ -7,6 +7,8 @@ import Button from "../../button/Button";
 import UserGroupsTable from "./userGroupsTable";
 import UsersTable from "./usersTable";
 
+import { useAppDispatch } from "libraries/hooks/redux";
+import { deleteUser } from "state/users";
 import { PATHS } from "../../../../consts";
 import { UserDTO, UserGroupDTO } from "../../../../generated";
 
@@ -18,6 +20,7 @@ export enum TabOptions {
 export const Users = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const { state }: { state: { tab?: TabOptions } } = useLocation();
   const setTab = (tab: TabOptions) =>
@@ -32,6 +35,13 @@ export const Users = () => {
     navigate(PATHS.admin_users_edit.replace(":id", row.userName!), {
       state: row,
     });
+
+  const handleDeleteUser = useCallback(
+    (row: UserDTO) => {
+      dispatch(deleteUser(row.userName ?? ""));
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -58,6 +68,7 @@ export const Users = () => {
             </Button>
           }
           onEdit={handleEditUser}
+          onDelete={handleDeleteUser}
         />
       ) : (
         <UserGroupsTable

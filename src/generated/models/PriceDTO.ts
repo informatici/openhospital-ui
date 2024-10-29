@@ -56,6 +56,12 @@ export interface PriceDTO {
      */
     price: number;
     /**
+     * Lock
+     * @type {number}
+     * @memberof PriceDTO
+     */
+    lock?: number;
+    /**
      * @type {boolean}
      * @memberof PriceDTO
      */

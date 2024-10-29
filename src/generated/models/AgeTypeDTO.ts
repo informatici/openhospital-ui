@@ -36,6 +36,12 @@ export interface AgeTypeDTO {
      */
     from: number;
     /**
+     * Lock
+     * @type {number}
+     * @memberof AgeTypeDTO
+     */
+    lock?: number;
+    /**
      * The maximum value of the range
      * @type {number}
      * @memberof AgeTypeDTO

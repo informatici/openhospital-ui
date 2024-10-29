@@ -35,6 +35,12 @@ export interface PricesOthersDTO {
      */
     description: string;
     /**
+     * Lock
+     * @type {number}
+     * @memberof PricesOthersDTO
+     */
+    lock?: number;
+    /**
      * @type {boolean}
      * @memberof PricesOthersDTO
      */

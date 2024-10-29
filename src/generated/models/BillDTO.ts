@@ -91,6 +91,12 @@ export interface BillDTO {
      */
     user: string;
     /**
+     * Lock
+     * @type {number}
+     * @memberof BillDTO
+     */
+    lock?: number;
+    /**
      * @type {boolean}
      * @memberof BillDTO
      */

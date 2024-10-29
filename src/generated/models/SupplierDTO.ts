@@ -63,4 +63,10 @@ export interface SupplierDTO {
      * @memberof SupplierDTO
      */
     supNote?: string;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof SupplierDTO
+     */
+    lock?: number;
 }

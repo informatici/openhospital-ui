@@ -14,7 +14,6 @@
 import { Observable } from 'rxjs';
 import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
 import {
-    AgeType,
     AgeTypeDTO,
 } from '../models';
 
@@ -37,16 +36,16 @@ export class AgeTypesApi extends BaseAPI {
 
     /**
      */
-    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest): Observable<AgeType>
-    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AgeType>>
-    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<AgeType | RawAjaxResponse<AgeType>> {
+    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest): Observable<AgeTypeDTO>
+    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AgeTypeDTO>>
+    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<AgeTypeDTO | RawAjaxResponse<AgeTypeDTO>> {
         throwIfNullOrUndefined(index, 'index', 'getAgeTypeByIndex');
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<AgeType>({
+        return this.request<AgeTypeDTO>({
             url: '/agetypes/{index}'.replace('{index}', encodeURI(index)),
             method: 'GET',
             headers,

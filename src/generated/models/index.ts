@@ -1,7 +1,6 @@
 export * from './AdmissionDTO';
 export * from './AdmissionTypeDTO';
 export * from './AdmittedPatientDTO';
-export * from './AgeType';
 export * from './AgeTypeDTO';
 export * from './BillDTO';
 export * from './BillItemsDTO';

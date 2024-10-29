@@ -40,10 +40,10 @@ export const wardsRoutes = (server) => {
       const code = req.params.code;
       switch (code) {
         case "FAIL":
-          res.status(400).json({ message: "Fail to update ward" });
+          res.status(400).json({ message: "Fail to delete ward" });
           break;
         default:
-          res.status(200);
+          res.status(204);
       }
     });
   });
