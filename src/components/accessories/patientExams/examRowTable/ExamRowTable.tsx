@@ -29,13 +29,13 @@ const ExamRowTable: FC<IEditableTableProps> = ({
       state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );
 
-  const handleOnBlur = (value: string) => {
-    debounceUpdate(value);
+  const handleOnBlur = (value: string, checked: boolean) => {
+    debounceUpdate(value, checked);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdate = useCallback(
-    debounce((value: string) => onBlur(value), 100),
+    debounce((value: string, checked: boolean) => onBlur(value, checked), 100),
     []
   );
 
@@ -76,7 +76,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
                   <TableCell align="right" component="td" scope="row">
                     <Checkbox
                       onChange={(e, value) => {
-                        handleOnBlur(row.label);
+                        handleOnBlur(row.label, value);
                       }}
                       defaultChecked={
                         !isEmpty(

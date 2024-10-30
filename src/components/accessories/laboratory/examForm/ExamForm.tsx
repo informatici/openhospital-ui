@@ -288,15 +288,14 @@ const ExamForm: FC<ExamProps> = ({
   );
 
   const onBlurCallbackForTableRow = useCallback(
-    () => (value: string) => {
-      setRowsData((rowObjs: string[]) => {
-        if (!rowObjs.includes(value)) {
-          rowObjs.push(value);
-        } else rowObjs = rowObjs.filter((e) => e !== value);
-        return rowObjs;
-      });
+    (value: string, checked: boolean) => {
+      if (checked && !rowsData.includes(value)) {
+        setRowsData((prevState) => [...prevState, value]);
+      } else {
+        setRowsData((prevState) => prevState.filter((row) => row !== value));
+      }
     },
-    []
+    [rowsData]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -416,7 +415,7 @@ const ExamForm: FC<ExamProps> = ({
                 <ExamRowTable
                   title={t("lab.resultstitle")}
                   headerData={rowTableHeaders}
-                  onBlur={onBlurCallbackForTableRow()}
+                  onBlur={onBlurCallbackForTableRow}
                   rows={examRows}
                   disabled={isLoading}
                 />
