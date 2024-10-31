@@ -280,7 +280,8 @@
     "belowminage": "Min. age is 0",
     "abovemaxage": "max. age is 200",
     "ward": "Ward",
-    "previousentries": "Previous Visits"
+    "previousentries": "Previous Visits",
+    "operations": "Patient Operations"
   },
   "visit": {
     "date": "Date",

@@ -534,12 +534,11 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                 <div className="patientOpdForm__item fullWidth">
                   <details open>
                     <summary>
-                      {" "}
                       <ContentCutIcon
                         fontSize="small"
                         className="operation_icon"
-                      />{" "}
-                      Patient Operations
+                      />
+                      {t("opd.operations")}
                     </summary>
                     <List dense={true} className="opd_operations">
                       {operationRows.map((value, index: number) => (
