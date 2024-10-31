@@ -56,16 +56,16 @@ export class DiseasesApi extends BaseAPI {
 
     /**
      */
-    deleteDisease({ code }: DeleteDiseaseRequest): Observable<{ [key: string]: boolean; }>
-    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<RawAjaxResponse<{ [key: string]: boolean; }>>
-    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<{ [key: string]: boolean; } | RawAjaxResponse<{ [key: string]: boolean; }>> {
+    deleteDisease({ code }: DeleteDiseaseRequest): Observable<boolean>
+    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
+    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteDisease');
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<{ [key: string]: boolean; }>({
+        return this.request<boolean>({
             url: '/diseases/{code}'.replace('{code}', encodeURI(code)),
             method: 'DELETE',
             headers,
