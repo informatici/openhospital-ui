@@ -109,7 +109,7 @@ export const AclTable = ({
       <table className={classes.acl}>
         <thead>
           <tr>
-            <td>
+            <th>
               <Tooltip title={t("permission.toggle-check-all")}>
                 <Checkbox
                   checked={allRowsChecked()}
@@ -117,7 +117,7 @@ export const AclTable = ({
                   name={"permission.all"}
                 />
               </Tooltip>
-            </td>
+            </th>
             <th>{t("permission.name")}</th>
             <th>{t("permission.create")}</th>
             <th>{t("permission.read")}</th>
