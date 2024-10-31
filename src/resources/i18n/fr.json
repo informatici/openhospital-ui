@@ -280,7 +280,8 @@
     "belowminage": "L'âge minimum est 0",
     "abovemaxage": "l'âge maximum est 200",
     "ward": "Pavillon",
-    "previousentries": "Visites précédentes"
+    "previousentries": "Visites précédentes",
+    "operations": "Patient Operations"
   },
   "visit": {
     "date": "Date",
