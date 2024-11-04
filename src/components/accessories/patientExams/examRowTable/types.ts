@@ -1,6 +1,6 @@
 export interface IEditableTableProps {
   rows: Array<{ label: string; value: string }>;
-  onBlur: (value: string, checked: boolean) => void;
+  onChange: (value: string, checked: boolean) => void;
   fieldValues?: string[];
   headerData: Array<{
     label: string;

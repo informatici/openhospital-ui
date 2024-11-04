@@ -415,7 +415,7 @@ const ExamForm: FC<ExamProps> = ({
                 <ExamRowTable
                   title={t("lab.resultstitle")}
                   headerData={rowTableHeaders}
-                  onBlur={onBlurCallbackForTableRow}
+                  onChange={onBlurCallbackForTableRow}
                   rows={examRows}
                   disabled={isLoading}
                 />

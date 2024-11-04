@@ -12,14 +12,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "libraries/hooks/redux";
 import { debounce, isEmpty } from "lodash";
-import React, { FC, useCallback } from "react";
+import React, { ChangeEvent, FC, useCallback } from "react";
 import { IState } from "../../../../types";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
 
 const ExamRowTable: FC<IEditableTableProps> = ({
   rows,
-  onBlur,
+  onChange,
   headerData,
   title,
   disabled = false,
@@ -29,14 +29,20 @@ const ExamRowTable: FC<IEditableTableProps> = ({
       state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );
 
-  const handleOnBlur = (value: string, checked: boolean) => {
-    debounceUpdate(value, checked);
-  };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdate = useCallback(
-    debounce((value: string, checked: boolean) => onBlur(value, checked), 100),
+    debounce(
+      (value: string, checked: boolean) => onChange(value, checked),
+      100
+    ),
     []
+  );
+
+  const handleChange = useCallback(
+    (value: string) => (_: ChangeEvent, checked: boolean) => {
+      debounceUpdate(value, checked);
+    },
+    [debounceUpdate]
   );
 
   return (
@@ -75,9 +81,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
                   </TableCell>
                   <TableCell align="right" component="td" scope="row">
                     <Checkbox
-                      onChange={(e, value) => {
-                        handleOnBlur(row.label, value);
-                      }}
+                      onChange={handleChange(row.label)}
                       defaultChecked={
                         !isEmpty(
                           labToEditRows?.filter((e) => e === row.label) ?? []
