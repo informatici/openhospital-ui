@@ -15,10 +15,10 @@ export const useData = () => {
     (state) => state.types.discharges.getAll.data ?? []
   );
   const ageTypes = useAppSelector(
-    (state) => state.ageTypes.getAllAgeTypes.data ?? []
+    (state) => state.types.ageTypes.getAll.data ?? []
   );
   const ageTypeStatus = useAppSelector(
-    (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
+    (state) => state.types.ageTypes.getAll.status ?? "IDLE"
   );
   const dischargeTypeStatus = useAppSelector(
     (state) => state.types.discharges.getAll.status ?? "IDLE"

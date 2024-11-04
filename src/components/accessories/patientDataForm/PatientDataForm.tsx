@@ -12,6 +12,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { getAgeTypes } from "state/types/ageTypes";
 import { number, object, string } from "yup";
 import warningIcon from "../../../assets/warning-icon.png";
 import { formCustomization } from "../../../customization/formCustomization";
@@ -21,7 +22,6 @@ import {
   getFromFields,
   isFieldSuggested,
 } from "../../../libraries/formDataHandling/functions";
-import { getAgeTypes } from "../../../state/ageTypes";
 import { getCities } from "../../../state/patients";
 import { FIELD_VALIDATION, IState } from "../../../types";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
@@ -94,14 +94,14 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   const cityOptions = useCityOptions(cities);
 
   const ageRangeOptions = useAppSelector((state: IState) =>
-    state.ageTypes.getAllAgeTypes.data?.map((e) => ({
+    state.types.ageTypes.getAll.data?.map((e) => ({
       value: e.code ?? "",
       label: e.code ? t("patient.agetypes." + e.code) : "",
     }))
   );
 
   const allAgeTypes = useAppSelector(
-    (state: IState) => state.ageTypes.getAllAgeTypes.data
+    (state: IState) => state.types.ageTypes.getAll.data
   );
 
   const ageTypeOptions = [

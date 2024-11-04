@@ -12,10 +12,10 @@ export const useData = () => {
     (state) => state.types.admissions.getAll.data ?? []
   );
   const ageTypes = useAppSelector(
-    (state) => state.ageTypes.getAllAgeTypes.data ?? []
+    (state) => state.types.ageTypes.getAll.data ?? []
   );
   const ageTypeStatus = useAppSelector(
-    (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
+    (state) => state.types.ageTypes.getAll.status ?? "IDLE"
   );
   const admissionTypeStatus = useAppSelector(
     (state) => state.types.admissions.getAll.status ?? "IDLE"
