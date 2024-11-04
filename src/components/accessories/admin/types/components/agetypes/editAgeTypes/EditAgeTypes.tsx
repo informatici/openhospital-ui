@@ -42,7 +42,7 @@ export const EditAgeTypes = () => {
   return (
     <div className="editAgeTypes">
       <h3 data-cy="sub-activity-title" className="title">
-        {t("ageTypes.editAgeType")}
+        {t("ageTypes.editAgeTypes")}
       </h3>
       {ageTypesState.isLoading && <CircularProgress className="loader" />}
       {ageTypesState.hasFailed && (
