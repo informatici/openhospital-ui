@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
+import { AgeTypeDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { updateAgeTypeReset } from "state/types/ageTypes";
-import { array, number, object, string } from "yup";
+import { array, number, object, ref, string } from "yup";
 import checkIcon from "../../../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../../../consts";
@@ -17,6 +18,7 @@ import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
 import AgeTypeForm from "./AgeTypeForm";
+import { validateRange } from "./consts";
 import "./styles.scss";
 import { IAgeTypesFormProps } from "./types";
 
@@ -32,6 +34,7 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   const updateAgeTypes = useAppSelector((state) => state.types.ageTypes.update);
 
@@ -54,7 +57,7 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
           .min(0, t("common.greaterthan", { value: 0 })),
         to: number()
           .required(t("common.required"))
-          .min(0, t("common.greaterthan", { value: 0 })),
+          .min(ref("from"), t("ageTypes.shouldbegreaterthanfrom")),
       })
     ),
   });
@@ -67,7 +70,12 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
       const formattedValues = rows.map((fields, index) =>
         formatAllFieldValues(fields, values.ageTypes[index])
       );
-      onSubmit(formattedValues as any);
+
+      const errors = validateRange(formattedValues as AgeTypeDTO[], t);
+      setValidationErrors(errors);
+      if (errors.length === 0) {
+        onSubmit(formattedValues as any);
+      }
     },
   });
 
@@ -159,6 +167,11 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
         {updateAgeTypes.status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        {validationErrors.length > 0 && (
+          <div ref={infoBoxRef} className="info-box-container">
+            <InfoBox type="error" message={validationErrors.join("; ")} />
           </div>
         )}
         <ConfirmationDialog

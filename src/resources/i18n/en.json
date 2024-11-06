@@ -1069,7 +1069,10 @@
     "created": "Age type created",
     "updated": "Age types updated",
     "updateSuccess": "The age types have been updated successfully!",
-    "cancelUpdate": "Are you sure to cancel the age types update?"
+    "cancelUpdate": "Are you sure to cancel the age types update?",
+    "shouldbegreaterthanfrom": "Should be great than from",
+    "somerangesareoverlapped": "Some ranges overlap",
+    "somerangesarenotdefined": "Some ranges are not defined properly"
   },
   "supplier": {
     "id": "Supplier ID",
