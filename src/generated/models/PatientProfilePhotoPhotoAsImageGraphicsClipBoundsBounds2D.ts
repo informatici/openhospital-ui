@@ -30,17 +30,17 @@ export interface PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D {
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
+    width?: number;
+    /**
+     * @type {number}
+     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
+     */
     minX?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
      */
     minY?: number;
-    /**
-     * @type {number}
-     * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D
-     */
-    width?: number;
     /**
      * @type {number}
      * @memberof PatientProfilePhotoPhotoAsImageGraphicsClipBoundsBounds2D

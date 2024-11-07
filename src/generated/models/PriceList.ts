@@ -67,4 +67,9 @@ export interface PriceList {
      * @memberof PriceList
      */
     currency: string;
+    /**
+     * @type {number}
+     * @memberof PriceList
+     */
+    lock?: number;
 }

@@ -26,10 +26,11 @@ export const Users = () => {
   const setTab = (tab: TabOptions) =>
     navigate(PATHS.admin_users, { state: { tab } });
 
-  const handleEditGroup = (row: UserGroupDTO) =>
+  const handleEditGroup = (row: UserGroupDTO) => {
     navigate(PATHS.admin_usergroups_edit.replace(":id", row.code!), {
       state: row,
     });
+  };
 
   const handleEditUser = (row: UserDTO) =>
     navigate(PATHS.admin_users_edit.replace(":id", row.userName!), {

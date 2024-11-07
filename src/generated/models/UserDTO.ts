@@ -43,4 +43,10 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     desc?: string;
+    /**
+     * Whether the user has been soft deleted or not
+     * @type {boolean}
+     * @memberof UserDTO
+     */
+    deleted?: boolean;
 }

@@ -22,6 +22,12 @@ import {
  */
 export interface UserGroupDTO {
     /**
+     * List of group\'s permissions
+     * @type {Array<PermissionDTO>}
+     * @memberof UserGroupDTO
+     */
+    permissions?: Array<PermissionDTO>;
+    /**
      * Name of the group (must be unique)
      * @type {string}
      * @memberof UserGroupDTO
@@ -34,9 +40,9 @@ export interface UserGroupDTO {
      */
     desc?: string;
     /**
-     * List of group\'s permissions
-     * @type {Array<PermissionDTO>}
+     * Whether the group has been soft deleted or not
+     * @type {boolean}
      * @memberof UserGroupDTO
      */
-    permissions?: Array<PermissionDTO>;
+    deleted?: boolean;
 }
