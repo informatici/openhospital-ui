@@ -63,6 +63,7 @@ const Table: FunctionComponent<IProps> = ({
   addTitle,
   showEmptyCell = true,
   renderItemDetails,
+  rowClassNames,
   getCoreRow,
   onClose,
   onCancel,
@@ -315,6 +316,7 @@ const Table: FunctionComponent<IProps> = ({
         filters,
         manualFilter
       ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterColumns, filters, manualFilter, rowData]
   );
 
@@ -407,6 +409,7 @@ const Table: FunctionComponent<IProps> = ({
                     renderActions={() => renderActions(row)}
                     isCollapsabile={isCollapsabile}
                     showEmptyCell={showEmptyCell}
+                    rowClassNames={rowClassNames}
                     renderCellDetails={renderItemDetails}
                     detailColSpan={detailColSpan}
                     expanded={expanded}

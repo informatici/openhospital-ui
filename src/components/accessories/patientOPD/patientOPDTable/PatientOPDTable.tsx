@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { FunctionComponent, useEffect, useRef } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
@@ -8,6 +8,7 @@ import { usePermission } from "../../../../libraries/permissionUtils/usePermissi
 import { getOpdsWithOperationRows } from "../../../../state/opds";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
+import "./styles.scss";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -34,6 +35,9 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   const order = ["date", "disease"];
   const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+  const [mostRecentVisit, setMostRecentVisit] = useState<
+    OpdWithOperationRowDTO | undefined
+  >(undefined);
 
   const data = useAppSelector((state) =>
     state.opds.getOpds.data ? state.opds.getOpds.data : []
@@ -67,8 +71,32 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     return results;
   };
 
+  useEffect(() => {
+    if (data.length > 0) {
+      const mostRecent = data.reduce((latest, item) => {
+        if (!!item.opdDTO?.date && latest.opdDTO?.date) {
+          return new Date(item.opdDTO?.date) > new Date(latest.opdDTO?.date)
+            ? item
+            : latest;
+        } else {
+          return latest;
+        }
+      });
+
+      setMostRecentVisit(mostRecent);
+    }
+  }, [data]);
+
   const onEdit = (row?: OpdDTO) => {
     handleEdit(data.find((item) => item.opdDTO?.code === row?.code));
+  };
+
+  const getRowClassNames = (row: any): string => {
+    if ((row.opdDTO?.code ?? row.code) === mostRecentVisit?.opdDTO?.code) {
+      return "mostRecentVisit";
+    }
+
+    return "";
   };
 
   return (
@@ -83,6 +111,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
           columnsOrder={order}
           rowsPerPage={5}
           isCollapsabile={true}
+          rowClassNames={getRowClassNames}
           onEdit={canUpdate ? onEdit : undefined}
           addTitle={t("opd.addoperation")}
         />

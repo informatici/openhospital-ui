@@ -16,6 +16,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   isCollapsabile,
   showEmptyCell = true,
   renderCellDetails,
+  rowClassNames,
   coreRow,
   detailColSpan,
   expanded,
@@ -30,7 +31,10 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
 
   return (
     <>
-      <TableRow key={rowIndex}>
+      <TableRow
+        className={rowClassNames ? rowClassNames(row) : ""}
+        key={rowIndex}
+      >
         {isCollapsabile ? (
           <TableCell width="40">
             <IconButton
