@@ -15,10 +15,11 @@ import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
 
-import { UserDTO, UserGroupDTO } from "../../../../../generated";
 import { IState } from "../../../../../types";
 
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import { UserDTO } from "generated/models/UserDTO";
+import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { PATHS } from "../../../../../consts";
 import { getUserGroups } from "../../../../../state/usergroups";
 import { createUser, createUserReset } from "../../../../../state/users";

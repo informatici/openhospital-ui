@@ -22,12 +22,6 @@ import {
  */
 export interface UserGroupDTO {
     /**
-     * List of group\'s permissions
-     * @type {Array<PermissionDTO>}
-     * @memberof UserGroupDTO
-     */
-    permissions?: Array<PermissionDTO>;
-    /**
      * Name of the group (must be unique)
      * @type {string}
      * @memberof UserGroupDTO
@@ -45,4 +39,10 @@ export interface UserGroupDTO {
      * @memberof UserGroupDTO
      */
     deleted?: boolean;
+    /**
+     * List of group\'s permissions
+     * @type {Array<PermissionDTO>}
+     * @memberof UserGroupDTO
+     */
+    permissions?: Array<PermissionDTO>;
 }

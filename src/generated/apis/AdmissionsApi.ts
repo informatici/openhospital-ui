@@ -55,7 +55,7 @@ export interface GetDischargesRequest {
     size?: number;
 }
 
-export interface GetNextYProgRequest {
+export interface GetNextYearProgressiveIdRequest {
     wardcode: string;
 }
 
@@ -240,10 +240,10 @@ export class AdmissionsApi extends BaseAPI {
 
     /**
      */
-    getNextYProg({ wardcode }: GetNextYProgRequest): Observable<number>
-    getNextYProg({ wardcode }: GetNextYProgRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    getNextYProg({ wardcode }: GetNextYProgRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
-        throwIfNullOrUndefined(wardcode, 'wardcode', 'getNextYProg');
+    getNextYearProgressiveId({ wardcode }: GetNextYearProgressiveIdRequest): Observable<number>
+    getNextYearProgressiveId({ wardcode }: GetNextYearProgressiveIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getNextYearProgressiveId({ wardcode }: GetNextYearProgressiveIdRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(wardcode, 'wardcode', 'getNextYearProgressiveId');
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),

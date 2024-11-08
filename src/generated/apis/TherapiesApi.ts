@@ -16,7 +16,6 @@ import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts,
 import {
     MedicalDTO,
     TherapyDTO,
-    TherapyRow,
     TherapyRowDTO,
 } from '../models';
 
@@ -171,9 +170,9 @@ export class TherapiesApi extends BaseAPI {
 
     /**
      */
-    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest): Observable<TherapyRow>
-    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyRow>>
-    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<TherapyRow | RawAjaxResponse<TherapyRow>> {
+    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest): Observable<TherapyRowDTO>
+    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyRowDTO>>
+    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<TherapyRowDTO | RawAjaxResponse<TherapyRowDTO>> {
         throwIfNullOrUndefined(therapyRowDTO, 'therapyRowDTO', 'replaceTherapies');
 
         const headers: HttpHeaders = {
@@ -181,7 +180,7 @@ export class TherapiesApi extends BaseAPI {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<TherapyRow>({
+        return this.request<TherapyRowDTO>({
             url: '/therapies/replace',
             method: 'POST',
             headers,

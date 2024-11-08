@@ -25,7 +25,7 @@ export interface NewDischargeTypeRequest {
     dischargeTypeDTO: DischargeTypeDTO;
 }
 
-export interface UpdateDischargeTypetRequest {
+export interface UpdateDischargeTypeRequest {
     dischargeTypeDTO: DischargeTypeDTO;
 }
 
@@ -90,10 +90,10 @@ export class DischargeTypeApi extends BaseAPI {
 
     /**
      */
-    updateDischargeTypet({ dischargeTypeDTO }: UpdateDischargeTypetRequest): Observable<DischargeTypeDTO>
-    updateDischargeTypet({ dischargeTypeDTO }: UpdateDischargeTypetRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DischargeTypeDTO>>
-    updateDischargeTypet({ dischargeTypeDTO }: UpdateDischargeTypetRequest, opts?: OperationOpts): Observable<DischargeTypeDTO | RawAjaxResponse<DischargeTypeDTO>> {
-        throwIfNullOrUndefined(dischargeTypeDTO, 'dischargeTypeDTO', 'updateDischargeTypet');
+    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest): Observable<DischargeTypeDTO>
+    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DischargeTypeDTO>>
+    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest, opts?: OperationOpts): Observable<DischargeTypeDTO | RawAjaxResponse<DischargeTypeDTO>> {
+        throwIfNullOrUndefined(dischargeTypeDTO, 'dischargeTypeDTO', 'updateDischargeType');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',

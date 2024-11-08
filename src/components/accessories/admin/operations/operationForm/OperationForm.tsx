@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { OperationDTOOpeForEnum } from "generated";
+import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {

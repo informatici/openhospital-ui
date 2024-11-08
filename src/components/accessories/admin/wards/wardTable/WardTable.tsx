@@ -1,16 +1,16 @@
 import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
+import { WardDTO } from "generated/models/WardDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import checkIcon from "../../../../../assets/check-icon.png";
-import { WardDTO } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
 import { deleteWardReset, getWards } from "../../../../../state/ward";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
-import { TFilterField } from "../../../table/filter/types";
 import Table from "../../../table/Table";
+import { TFilterField } from "../../../table/filter/types";
 import classes from "./WardTable.module.scss";
 
 interface IOwnProps {
