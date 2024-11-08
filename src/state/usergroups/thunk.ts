@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UserGroupDTO, UserGroupsApi } from "../../generated";
+import { UserGroupDTO } from "generated/models/UserGroupDTO";
+import { UserGroupsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new UserGroupsApi(customConfiguration());

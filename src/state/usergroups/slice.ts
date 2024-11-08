@@ -17,6 +17,9 @@ export const userGroupSlice = createSlice({
     deleteUserGroupReset: (state) => {
       state.delete = initial.delete;
     },
+    getUserGroupReset: (state) => {
+      state.currentGroup = initial.currentGroup;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -78,4 +81,5 @@ export const {
   createUserGroupReset,
   updateUserGroupReset,
   deleteUserGroupReset,
+  getUserGroupReset,
 } = userGroupSlice.actions;

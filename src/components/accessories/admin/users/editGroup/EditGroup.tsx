@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate, useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
@@ -12,14 +12,16 @@ import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
 import { PATHS } from "../../../../../consts";
-import { PermissionDTO, UserGroupDTO } from "../../../../../generated";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
 import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import { PermissionDTO } from "generated/models/PermissionDTO";
+import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { getAllPermissions } from "../../../../../state/permissions";
 import {
   getUserGroup,
+  getUserGroupReset,
   updateUserGroup,
   updateUserGroupReset,
 } from "../../../../../state/usergroups";
@@ -37,7 +39,6 @@ export const EditGroup = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { state }: { state: UserGroupDTO } = useLocation();
   const { id } = useParams();
   const canUpdatePermissions = usePermission("grouppermission.update");
 
@@ -85,8 +86,9 @@ export const EditGroup = () => {
     touched,
     values,
     setFieldValue,
+    setValues,
   } = useFormik({
-    initialValues: state,
+    initialValues: group.data ?? { code: "" },
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
       values.permissions = groupPermissions;
@@ -99,18 +101,25 @@ export const EditGroup = () => {
   // load permissions and group on mount
   useEffect(() => {
     dispatch(getAllPermissions());
-    dispatch(getUserGroup(state.code));
+    dispatch(getUserGroup(id!!));
     return () => {
       dispatch(updateUserGroupReset());
     };
-  }, [dispatch, state.code]);
+  }, [dispatch, id]);
 
   // update group permissions on group load
   useEffect(() => {
     if (group.data) {
       setGroupPermissions(group.data.permissions ?? []);
+      setValues(group.data);
     }
   }, [group.data]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(getUserGroupReset());
+    };
+  }, []);
 
   // compare permissions to update the update stack
   // and display permissions when ready
@@ -140,10 +149,6 @@ export const EditGroup = () => {
     [setFieldValue]
   );
 
-  if (state?.code !== id) {
-    return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
-  }
-
   if (permissions.hasFailed)
     return (
       <InfoBox
@@ -161,7 +166,7 @@ export const EditGroup = () => {
 
   return (
     <>
-      {group.status === "LOADING" || permissions.status === "LOADING" ? (
+      {group.isLoading || group.status === "IDLE" || permissions.isLoading ? (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       ) : (
         <div className="newGroupForm">

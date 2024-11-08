@@ -1,4 +1,4 @@
-import { UserGroupDTO } from "../../generated";
+import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { ApiResponse } from "../types";
 
 export type IUserGroupState = {
