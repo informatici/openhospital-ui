@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, useLocation, useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ import { PermissionDTO, UserGroupDTO } from "../../../../../generated";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
 import { CircularProgress } from "@mui/material";
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { getAllPermissions } from "../../../../../state/permissions";
 import {
   getUserGroup,
@@ -82,6 +83,8 @@ export const EditGroup = () => {
     resetForm,
     errors,
     touched,
+    values,
+    setFieldValue,
   } = useFormik({
     initialValues: state,
     validationSchema: userGroupSchema(t),
@@ -125,14 +128,21 @@ export const EditGroup = () => {
     }
   }, [canUpdatePermissions, group.data, permissions.data, groupPermissions]);
 
-  if (state?.code !== id) {
-    return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
-  }
-
   const handleFormReset = () => {
     resetForm();
     setGroupPermissions(group.data?.permissions ?? []);
   };
+
+  const handleCheckboxChange = useCallback(
+    (fieldName: string) => (value: boolean) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
+
+  if (state?.code !== id) {
+    return <Navigate to={PATHS.admin_users} state={{ tab: "groups" }} />;
+  }
 
   if (permissions.hasFailed)
     return (
@@ -179,6 +189,14 @@ export const EditGroup = () => {
                   onBlur={handleBlur}
                 />
               </div>
+            </div>
+            <div className="newGroupForm__item fullWidth">
+              <CheckboxField
+                fieldName={"deleted"}
+                checked={!!values.deleted}
+                label={t("common.deleted")}
+                onChange={handleCheckboxChange("deleted")}
+              />
             </div>
 
             {isPermissionEditorAvailable && (

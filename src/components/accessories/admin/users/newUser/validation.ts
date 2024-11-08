@@ -1,5 +1,5 @@
 import { TFunction } from "react-i18next";
-import { object, ref, string } from "yup";
+import { boolean, object, ref, string } from "yup";
 import { UserGroupDTO } from "../../../../../generated";
 import { FormProps } from "./NewUser";
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
@@ -30,4 +30,5 @@ export const userSchema = (t: TFunction<"translation">) =>
       .required(t("user.validatePasswordNeeded"))
       .oneOf([ref("passwd")], t("user.validatePasswordMustMatch")),
     desc: string(),
+    deleted: boolean(),
   });

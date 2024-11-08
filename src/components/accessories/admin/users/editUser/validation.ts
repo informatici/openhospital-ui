@@ -1,5 +1,5 @@
 import { TFunction } from "react-i18next";
-import { object, ref, string } from "yup";
+import { boolean, object, ref, string } from "yup";
 import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
@@ -7,7 +7,7 @@ export const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
 export const userSchema = (t: TFunction<"translation">) =>
   object().shape<
-    Pick<UserDTO, "userGroupName" | "desc"> & {
+    Pick<UserDTO, "userGroupName" | "deleted" | "desc"> & {
       passwd: string | undefined;
       passwd2: string | undefined;
     }
@@ -24,6 +24,7 @@ export const userSchema = (t: TFunction<"translation">) =>
       .matches(passwordRules, {
         message: t("user.validatePasswordTooWeak"),
       }),
+    deleted: boolean(),
     passwd2: string()
       .oneOf([ref("passwd")], t("user.validatePasswordMustMatch"))
       .notRequired()

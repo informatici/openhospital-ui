@@ -123,12 +123,6 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
     []
   );
 
-  const disableRowAction = useCallback(
-    (row: UserDTO, action: TActions) =>
-      "edit" === action ? !!row.deleted : false,
-    []
-  );
-
   return (
     <div className={classes.table}>
       {(() => {
@@ -179,7 +173,6 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
                   labels={{
                     delete: { message: t("user.confirmUserDeletion") },
                   }}
-                  disableRowAction={disableRowAction}
                   displayRowAction={displayRowAction}
                 />
                 <ConfirmationDialog

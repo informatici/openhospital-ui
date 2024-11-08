@@ -5,7 +5,7 @@ import {
   TextField as MuiTextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +17,7 @@ import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -69,6 +70,13 @@ export const EditUserForm = ({
     validationSchema: userSchema(t),
     onSubmit: handleFormSubmit,
   });
+
+  const handleCheckboxChange = useCallback(
+    (fieldName: string) => (value: boolean) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
 
   return (
     <div className="editUserForm">
@@ -150,6 +158,14 @@ export const EditUserForm = ({
               isValid={!!touched.desc && !!errors.desc}
               errorText={(touched.desc && errors.desc) || ""}
               onBlur={handleBlur}
+            />
+          </div>
+          <div className="editUserForm__item fullWidth">
+            <CheckboxField
+              fieldName={"deleted"}
+              checked={!!values.deleted}
+              label={t("common.deleted")}
+              onChange={handleCheckboxChange("deleted")}
             />
           </div>
         </div>

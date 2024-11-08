@@ -91,12 +91,6 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
     []
   );
 
-  const disableRowAction = useCallback(
-    (row: UserGroupDTO, action: TActions) =>
-      "edit" === action ? !!row.deleted : false,
-    []
-  );
-
   return (
     <div className={classes.table}>
       {(() => {
@@ -139,7 +133,6 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
                   rowKey="userName"
                   headerActions={headerActions}
                   onRestore={canUpdate ? handleRestore : undefined}
-                  disableRowAction={disableRowAction}
                   displayRowAction={displayRowAction}
                   labels={{
                     delete: { message: t("user.confirmUserGroupDeletion") },
