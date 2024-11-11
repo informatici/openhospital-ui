@@ -884,6 +884,19 @@
       "thecodeistoolongmax1char": {
         "msg": "The ward is too long. It should three characters or less"
       }
+    },
+    "groupsbrowser": {
+      "alreadysoftdeleted": {
+        "msg": "The user group is already set as deleted."
+      },
+      "thisgrouphasusersandcannotbedeleted": {
+        "msg": "The group you want to delete has users and cannot be deleted."
+      }
+    },
+    "userbrowser": {
+      "alreadysoftdeleted": {
+        "msg": "The user is already set as deleted."
+      }
     }
   },
   "exam": {

@@ -111,11 +111,11 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
                   <div ref={infoBoxRef} className="info-box-container">
                     <InfoBox
                       type="error"
-                      message={
-                        update.hasFailed
+                      message={t(
+                        deleteGroup.hasFailed
                           ? deleteGroup.error?.message
                           : update.error?.message
-                      }
+                      )}
                     />
                   </div>
                 )}

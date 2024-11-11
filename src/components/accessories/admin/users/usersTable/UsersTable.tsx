@@ -143,11 +143,11 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
                   <div ref={infoBoxRef} className="info-box-container">
                     <InfoBox
                       type="error"
-                      message={
-                        update.hasFailed
+                      message={t(
+                        deleteUser.hasFailed
                           ? deleteUser.error?.message
                           : update.error?.message
-                      }
+                      )}
                     />
                   </div>
                 )}
