@@ -6811,7 +6811,7 @@ components:
           type: string
           description: The value of the setting
           example: "FALSE"
-        Description:
+        description:
           maxLength: 500
           type: string
         needRestart:
