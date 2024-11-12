@@ -17,6 +17,7 @@ export interface IProps {
   onView?: (row: any) => void;
   onAdd?: (row: any) => void;
   onRestore?: (row: any) => void;
+  onSoftDelete?: (row: any) => void;
   addTitle?: string;
   showEmptyCell?: boolean;
   rowClassNames?: <T>(row: T) => string;
@@ -90,4 +91,5 @@ export type TActions =
   | "close"
   | "cancel"
   | "add"
-  | "restore";
+  | "restore"
+  | "softDelete";

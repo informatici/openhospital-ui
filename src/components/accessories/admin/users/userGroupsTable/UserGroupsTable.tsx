@@ -45,9 +45,12 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
     dispatch(deleteUserGroup(row.code));
   };
 
-  const handleRestore = (row: UserGroupDTO) => {
-    dispatch(updateUserGroup({ ...row, deleted: false }));
-  };
+  const handleUpdate = useCallback(
+    (deleted: boolean) => (row: UserGroupDTO) => {
+      dispatch(updateUserGroup({ ...row, deleted }));
+    },
+    [updateUserGroup]
+  );
 
   const header = ["code", "desc", "deleted"];
 
@@ -87,7 +90,11 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
 
   const displayRowAction = useCallback(
     (row: UserGroupDTO, action: TActions) =>
-      action === "restore" ? !!row.deleted : true,
+      action === "restore"
+        ? !!row.deleted
+        : action === "softDelete"
+        ? !row.deleted
+        : true,
     []
   );
 
@@ -132,7 +139,8 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
                   rawData={data}
                   rowKey="userName"
                   headerActions={headerActions}
-                  onRestore={canUpdate ? handleRestore : undefined}
+                  onRestore={canUpdate ? handleUpdate(false) : undefined}
+                  onSoftDelete={canUpdate ? handleUpdate(true) : undefined}
                   displayRowAction={displayRowAction}
                   labels={{
                     delete: { message: t("user.confirmUserGroupDeletion") },

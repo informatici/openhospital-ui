@@ -106,20 +106,27 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
     });
   };
 
-  const handleRestore = (row: UserDTO) => {
-    dispatch(
-      updateUser({
-        ...row,
-        userGroupName: data!.find((user) => user.userName === row.userName)!
-          .userGroupName,
-        deleted: false,
-      })
-    );
-  };
+  const handleUpdate = useCallback(
+    (deleted: boolean) => (row: UserDTO) => {
+      dispatch(
+        updateUser({
+          ...row,
+          userGroupName: data!.find((user) => user.userName === row.userName)!
+            .userGroupName,
+          deleted,
+        })
+      );
+    },
+    [updateUser, data]
+  );
 
   const displayRowAction = useCallback(
     (row: UserDTO, action: TActions) =>
-      action === "restore" ? !!row.deleted : true,
+      action === "restore"
+        ? !!row.deleted
+        : action === "softDelete"
+        ? !row.deleted
+        : true,
     []
   );
 
@@ -169,7 +176,8 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
                   headerActions={headerActions}
                   onEdit={canUpdate ? onEdit : undefined}
                   onDelete={canDelete ? onDelete : undefined}
-                  onRestore={canUpdate ? handleRestore : undefined}
+                  onRestore={canUpdate ? handleUpdate(false) : undefined}
+                  onSoftDelete={canUpdate ? handleUpdate(true) : undefined}
                   labels={{
                     delete: { message: t("user.confirmUserDeletion") },
                   }}

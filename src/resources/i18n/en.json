@@ -571,7 +571,9 @@
     "option": "Option",
     "deleted": "Deleted",
     "restore": "Restore",
-    "restoreConfirmation": "Are you sure to restore this item ?"
+    "restoreConfirmation": "Are you sure to restore this item ?",
+    "softDelete": "Mark as deleted",
+    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
   },
   "permission": {
     "denied": "Permission denied",

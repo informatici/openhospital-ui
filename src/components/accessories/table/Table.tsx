@@ -4,6 +4,7 @@ import {
   Close,
   Delete,
   Edit,
+  HighlightOff,
   InfoOutlined,
   MonetizationOn,
   Print,
@@ -60,6 +61,7 @@ const Table: FunctionComponent<IProps> = ({
   onView,
   onAdd,
   onRestore,
+  onSoftDelete,
   addTitle,
   showEmptyCell = true,
   renderItemDetails,
@@ -229,6 +231,20 @@ const Table: FunctionComponent<IProps> = ({
             <Restore />
           </IconButton>
         );
+      case "softDelete":
+        return (
+          <IconButton
+            data-cy="table-softDelete-action"
+            size="small"
+            disabled={disableAction(row, "softDelete")}
+            title={labels?.softDelete?.tooltip ?? t("common.softDelete")}
+            onClick={handleOpenConfirmation(row, "softDelete")}
+          >
+            <HighlightOff
+              color={disableAction(row, "softDelete") ? "inherit" : "primary"}
+            />
+          </IconButton>
+        );
     }
   };
 
@@ -245,7 +261,15 @@ const Table: FunctionComponent<IProps> = ({
   }, []);
 
   const renderActions = (row: any) => {
-    if (onEdit || onDelete || onPrint || onView || onCancel) {
+    if (
+      onEdit ||
+      onDelete ||
+      onPrint ||
+      onView ||
+      onCancel ||
+      onRestore ||
+      onSoftDelete
+    ) {
       return (
         <TableCell
           scope="row"
@@ -283,6 +307,10 @@ const Table: FunctionComponent<IProps> = ({
           (displayRowAction ? displayRowAction(row, "restore") : true)
             ? renderIcon("restore", row)
             : ""}
+          {onSoftDelete &&
+          (displayRowAction ? displayRowAction(row, "softDelete") : true)
+            ? renderIcon("softDelete", row)
+            : ""}
         </TableCell>
       );
     }
@@ -299,6 +327,11 @@ const Table: FunctionComponent<IProps> = ({
 
   const handleRestore = () => {
     if (onRestore) onRestore(currentRow);
+    closeConfirmationDialog();
+  };
+
+  const handleSoftDelete = () => {
+    if (onSoftDelete) onSoftDelete(currentRow);
     closeConfirmationDialog();
   };
 
@@ -447,6 +480,24 @@ const Table: FunctionComponent<IProps> = ({
         primaryButtonLabel={t("common.ok")}
         secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={handleDelete}
+        handleSecondaryButtonClick={closeConfirmationDialog}
+      />
+
+      <ConfirmationDialog
+        isOpen={
+          openConfirmation.open && openConfirmation.action === "softDelete"
+        }
+        title={labels?.softDelete?.title ?? t("common.softDelete")}
+        info={
+          labels?.softDelete?.message ??
+          t("common.softDeleteConfirmation", {
+            code: currentRow.code,
+          })
+        }
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleSoftDelete}
         handleSecondaryButtonClick={closeConfirmationDialog}
       />
 
