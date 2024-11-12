@@ -1,5 +1,4 @@
 import { FormikProps } from "formik";
-import { TFunction } from "react-i18next";
 import { AgeTypeDTO } from "../../../../../../../generated";
 import { TFields } from "../../../../../../../libraries/formDataHandling/types";
 
@@ -11,8 +10,7 @@ export interface IAgeTypesFormProps {
   isLoading: boolean;
 }
 
-export interface IAgeTypeFormProps {
-  t: TFunction;
+export interface IAgeTypeFieldsProps {
   isValid: (fieldName: string, index: number) => boolean;
   getErrorText: (fieldName: string, index: number) => string;
   formik: FormikProps<{ ageTypes: Record<string, any>[] }>;

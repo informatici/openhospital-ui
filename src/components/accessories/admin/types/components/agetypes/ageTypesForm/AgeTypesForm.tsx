@@ -17,7 +17,7 @@ import {
 import Button from "../../../../../button/Button";
 import ConfirmationDialog from "../../../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../../../infoBox/InfoBox";
-import AgeTypeForm from "./AgeTypeForm";
+import AgeTypeFields from "./AgeTypeFields";
 import { validateRange } from "./consts";
 import "./styles.scss";
 import { IAgeTypesFormProps } from "./types";
@@ -118,12 +118,11 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
             </thead>
             <tbody>
               {rows.map((fields, index) => (
-                <AgeTypeForm
+                <AgeTypeFields
                   formik={formik}
                   getErrorText={getErrorText}
                   index={index}
                   isValid={isValid}
-                  t={t}
                   key={index}
                 />
               ))}

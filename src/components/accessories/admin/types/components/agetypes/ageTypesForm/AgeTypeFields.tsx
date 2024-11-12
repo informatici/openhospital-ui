@@ -1,14 +1,16 @@
 import TextField from "components/accessories/textField/TextField";
 import React, { FC } from "react";
-import { IAgeTypeFormProps } from "./types";
+import { useTranslation } from "react-i18next";
+import { IAgeTypeFieldsProps } from "./types";
 
-const AgeTypeForm: FC<IAgeTypeFormProps> = ({
+const AgeTypeFields: FC<IAgeTypeFieldsProps> = ({
   formik,
   getErrorText,
   isValid,
-  t,
   index,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <tr className="ageTypeFormRow">
       <td>{formik.values.ageTypes[index].code}</td>
@@ -39,4 +41,4 @@ const AgeTypeForm: FC<IAgeTypeFormProps> = ({
   );
 };
 
-export default AgeTypeForm;
+export default AgeTypeFields;
