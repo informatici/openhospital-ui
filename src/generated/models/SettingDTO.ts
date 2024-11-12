@@ -62,7 +62,7 @@ export interface SettingDTO {
      * @type {string}
      * @memberof SettingDTO
      */
-    Description?: string;
+    description?: string;
     /**
      * Whether the app needs restart after the setting has been modified
      * @type {boolean}

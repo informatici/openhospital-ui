@@ -21,7 +21,7 @@ export const settingsSlice = createSlice({
       state.update = initial.update;
     },
     resetAllSettingReset: (state) => {
-      state.update = initial.update;
+      state.resetAll = initial.resetAll;
     },
   },
   extraReducers: (builder) =>
