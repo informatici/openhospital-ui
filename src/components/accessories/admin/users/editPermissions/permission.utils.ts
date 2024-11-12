@@ -7,7 +7,7 @@ export enum PermissionActionEnum {
 
 export type PermissionActionType = {
   action: PermissionActionEnum;
-  permission: PermissionDTO;
+  permissions: PermissionDTO[];
 };
 
 export enum Crud {
@@ -79,7 +79,7 @@ export const comparePermissions = (
           action: stackedPermission
             ? PermissionActionEnum.ASSIGN
             : PermissionActionEnum.REVOKE,
-          permission,
+          permissions: [permission],
         },
       ];
     }

@@ -18,6 +18,7 @@ export interface IProps {
   onAdd?: (row: any) => void;
   addTitle?: string;
   showEmptyCell?: boolean;
+  rowClassNames?: <T>(row: T) => string;
   renderItemDetails?: (row: any) => void;
   coreData?: Array<any>;
   identifierColumn?: string;
@@ -66,6 +67,7 @@ export interface IRowProps {
   isCollapsabile?: boolean;
   renderActions: () => ReactNode;
   showEmptyCell?: boolean;
+  rowClassNames?: <T>(row: T) => string;
   renderCellDetails?: <T>(row: T) => any;
   coreRow?: any;
   detailColSpan?: number;

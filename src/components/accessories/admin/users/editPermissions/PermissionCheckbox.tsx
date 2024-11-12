@@ -6,7 +6,10 @@ import { PermissionActionEnum } from "./permission.utils";
 interface IProps {
   permission: PermissionDTO;
   groupPermissions: Array<PermissionDTO>;
-  onChange: (permission: PermissionDTO, action: PermissionActionEnum) => void;
+  onChange: (
+    permissions: PermissionDTO[],
+    action: PermissionActionEnum
+  ) => void;
 }
 
 export const PermissionCheckbox = ({
@@ -23,7 +26,7 @@ export const PermissionCheckbox = ({
           checked={checked}
           onChange={(_ev, val) =>
             onChange(
-              permission,
+              [permission],
               checked
                 ? PermissionActionEnum.REVOKE
                 : PermissionActionEnum.ASSIGN

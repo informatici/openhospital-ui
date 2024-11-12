@@ -7,7 +7,10 @@ import { PermissionActionEnum } from "./permission.utils";
 interface IProps {
   permissions: PermissionDTO[];
   groupPermissions: PermissionDTO[];
-  onChange: (permission: PermissionDTO, action: PermissionActionEnum) => void;
+  onChange: (
+    permissions: PermissionDTO[],
+    action: PermissionActionEnum
+  ) => void;
 }
 export const AreaAccess = ({
   permissions,

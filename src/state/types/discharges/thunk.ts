@@ -26,7 +26,7 @@ export const updateDischargeType = createAsyncThunk(
   "dischargeTypes/updateDischargeType",
   async (dischargeTypeDTO: DischargeTypeDTO, thunkApi) =>
     api
-      .updateDischargeTypet({ dischargeTypeDTO })
+      .updateDischargeType({ dischargeTypeDTO })
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

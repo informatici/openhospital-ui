@@ -49,7 +49,7 @@ export const layoutSlice = createSlice({
 
         state.getLayouts.status = "SUCCESS";
 
-        savedConfig = payload.configValue;
+        savedConfig = payload?.configValue;
         if (savedConfig && atob(savedConfig) !== null) {
           let decodedConfig = decodeLayoutConfig(savedConfig);
           if (decodedConfig) {

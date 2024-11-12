@@ -12,7 +12,7 @@
  */
 
 import {
-    PriceList,
+    PriceListDTO,
 } from './';
 
 /**
@@ -27,10 +27,10 @@ export interface PriceDTO {
      */
     id?: number;
     /**
-     * @type {PriceList}
+     * @type {PriceListDTO}
      * @memberof PriceDTO
      */
-    list: PriceList;
+    list: PriceListDTO;
     /**
      * The group
      * @type {string}
