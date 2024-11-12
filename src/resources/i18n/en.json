@@ -52,8 +52,8 @@
     "validatePasswordMustMatch": "Passwords must match",
     "validateUserName": "You need to specify a user name",
     "validateUserNameRegex": "Allowed characters: lowercase letters(abc), numbers(123), dot(.), dash (-) and underscore (_)",
-    "confirmUserDeletion": "Are you sure you want to delete the user ? If it is already used somewhere then, it will be marked as deleted instead.",
-    "confirmUserGroupDeletion": "Are you sure you want to delete the user group ? If it is already used somewhere then, it will be marked as deleted instead."
+    "confirmUserDeletion": "Are you sure you want to delete the user ?",
+    "confirmUserGroupDeletion": "Are you sure you want to delete the user group ?"
   },
   "hospital": {
     "address": "Address",
