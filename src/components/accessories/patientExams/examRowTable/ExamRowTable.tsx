@@ -8,7 +8,6 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "libraries/hooks/redux";
 import { debounce, isEmpty } from "lodash";
@@ -62,7 +61,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
             size="small"
             aria-label="results table"
           >
-            <TableHead>
+            {/* <TableHead>
               <TableRow key={"header"}>
                 {headerData.map((row, index) => {
                   return (
@@ -72,7 +71,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
                   );
                 })}
               </TableRow>
-            </TableHead>
+            </TableHead> */}
             <TableBody>
               {rows?.map((row, index) => (
                 <TableRow key={index}>
