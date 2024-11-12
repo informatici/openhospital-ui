@@ -59,8 +59,8 @@ paths:
               $ref: "#/components/schemas/WardDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -140,8 +140,8 @@ paths:
               $ref: "#/components/schemas/VaccineTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -194,8 +194,8 @@ paths:
               $ref: "#/components/schemas/VaccineDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -955,8 +955,8 @@ paths:
               $ref: "#/components/schemas/OperationRowDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1083,8 +1083,8 @@ paths:
               $ref: "#/components/schemas/MovementTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1137,8 +1137,8 @@ paths:
               $ref: "#/components/schemas/MedicalTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1215,8 +1215,8 @@ paths:
               $ref: "#/components/schemas/MedicalDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1254,8 +1254,8 @@ paths:
               $ref: "#/components/schemas/MalnutritionDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1555,7 +1555,7 @@ paths:
           content:
             application/json:
               schema:
-                type: boolean
+                $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
   /diseasetypes:
@@ -1604,8 +1604,8 @@ paths:
               $ref: "#/components/schemas/DiseaseTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1643,8 +1643,8 @@ paths:
               $ref: "#/components/schemas/DiseaseDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1670,7 +1670,7 @@ paths:
     put:
       tags:
       - DischargeType
-      operationId: updateDischargeTypet
+      operationId: updateDischargeType
       requestBody:
         content:
           application/json:
@@ -1697,8 +1697,8 @@ paths:
               $ref: "#/components/schemas/DischargeTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1751,8 +1751,8 @@ paths:
               $ref: "#/components/schemas/DeliveryTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1805,8 +1805,8 @@ paths:
               $ref: "#/components/schemas/DeliveryResultTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -1965,8 +1965,8 @@ paths:
               $ref: "#/components/schemas/AdmissionTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2051,8 +2051,8 @@ paths:
       responses:
         "400":
           description: Bad Request
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2071,8 +2071,8 @@ paths:
               $ref: "#/components/schemas/VisitDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2093,8 +2093,8 @@ paths:
                 $ref: "#/components/schemas/VisitDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2272,8 +2272,8 @@ paths:
               $ref: "#/components/schemas/TherapyRowDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2294,12 +2294,12 @@ paths:
                 $ref: "#/components/schemas/TherapyRowDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TherapyRow"
+                $ref: "#/components/schemas/TherapyRowDTO"
       security:
       - bearerAuth: []
   /therapies/meds-out-of-stock:
@@ -2390,8 +2390,8 @@ paths:
                 $ref: "#/components/schemas/MovementDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2418,8 +2418,8 @@ paths:
                 $ref: "#/components/schemas/MovementDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2528,8 +2528,8 @@ paths:
               $ref: "#/components/schemas/PricesOthersDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2563,8 +2563,8 @@ paths:
               $ref: "#/components/schemas/PriceListDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2598,8 +2598,8 @@ paths:
               $ref: "#/components/schemas/PregnantTreatmentTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2618,8 +2618,8 @@ paths:
               $ref: "#/components/schemas/PatientVaccineDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2666,8 +2666,8 @@ paths:
               $ref: "#/components/schemas/PatientDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2701,8 +2701,8 @@ paths:
               $ref: "#/components/schemas/OperationTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2736,8 +2736,8 @@ paths:
               $ref: "#/components/schemas/OperationDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2778,8 +2778,8 @@ paths:
               $ref: "#/components/schemas/OpdDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2798,8 +2798,8 @@ paths:
               $ref: "#/components/schemas/OpdWithOperationRowDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2818,8 +2818,8 @@ paths:
               $ref: "#/components/schemas/MovementWardDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2846,8 +2846,8 @@ paths:
                 $ref: "#/components/schemas/MovementDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2874,8 +2874,8 @@ paths:
                 $ref: "#/components/schemas/MovementDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2925,8 +2925,8 @@ paths:
               $ref: "#/components/schemas/LabWithRowsDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2947,8 +2947,8 @@ paths:
                 $ref: "#/components/schemas/LabWithRowsDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -2982,8 +2982,8 @@ paths:
               $ref: "#/components/schemas/LaboratoryDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -3017,8 +3017,8 @@ paths:
               $ref: "#/components/schemas/ExamTypeDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -3087,8 +3087,8 @@ paths:
               $ref: "#/components/schemas/ExamRowDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -3107,12 +3107,12 @@ paths:
               $ref: "#/components/schemas/PatientExaminationDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
-                type: boolean
+                $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
   /bills:
@@ -3159,8 +3159,8 @@ paths:
               $ref: "#/components/schemas/FullBillDTO"
         required: true
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           content:
             application/json:
               schema:
@@ -3239,7 +3239,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: "#/components/schemas/LoginResponse"
       security:
@@ -4443,7 +4443,7 @@ paths:
     get:
       tags:
       - Opds
-      operationId: getProgYear_1
+      operationId: getProgressiveYear
       parameters:
       - name: year
         in: path
@@ -5146,7 +5146,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            text/plain:
               schema:
                 type: string
       security:
@@ -5415,9 +5415,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: boolean
+                type: boolean
       security:
       - bearerAuth: []
   /diseases/opd:
@@ -5802,7 +5800,7 @@ paths:
     get:
       tags:
       - Admissions
-      operationId: getNextYProg
+      operationId: getNextYearProgressiveId
       parameters:
       - name: wardcode
         in: query
@@ -6083,9 +6081,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: boolean
+                type: boolean
       security:
       - bearerAuth: []
   /dischargetypes/{code}:
@@ -6239,13 +6235,13 @@ components:
           description: lock
           format: int32
           example: 0
+        opd:
+          type: boolean
         pharmacy:
           type: boolean
         male:
           type: boolean
         female:
-          type: boolean
-        opd:
           type: boolean
     PatientDTO:
       required:
@@ -7914,938 +7910,6 @@ components:
           description: "The sms flag: 1 if sms need to be sent to patient, 0 otherwise"
           format: int32
           example: 0
-    Patient:
-      required:
-      - age
-      - birthDate
-      - bloodType
-      - city
-      - deleted
-      - fatherName
-      - firstName
-      - motherName
-      - name
-      - secondName
-      - sex
-      type: object
-      properties:
-        createdBy:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        lastModifiedBy:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        active:
-          type: integer
-          format: int32
-        code:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-        secondName:
-          type: string
-        name:
-          type: string
-        birthDate:
-          type: string
-          format: date
-        age:
-          type: integer
-          format: int32
-        agetype:
-          type: string
-        sex:
-          type: string
-        address:
-          type: string
-        city:
-          type: string
-        nextKin:
-          type: string
-        telephone:
-          type: string
-        note:
-          type: string
-        motherName:
-          type: string
-        mother:
-          type: string
-        fatherName:
-          type: string
-        father:
-          type: string
-        bloodType:
-          type: string
-        hasInsurance:
-          type: string
-        parentTogether:
-          type: string
-        taxCode:
-          type: string
-        maritalStatus:
-          type: string
-        profession:
-          type: string
-        deleted:
-          type: string
-        anamnesis:
-          type: string
-        allergies:
-          type: string
-        lock:
-          type: integer
-          format: int32
-        patientProfilePhoto:
-          $ref: "#/components/schemas/PatientProfilePhoto"
-        patientConsensus:
-          $ref: "#/components/schemas/PatientConsensus"
-        searchString:
-          type: string
-        informations:
-          type: string
-    PatientConsensus:
-      type: object
-      properties:
-        createdBy:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        lastModifiedBy:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        active:
-          type: integer
-          format: int32
-        id:
-          type: integer
-          format: int32
-        consensusFlag:
-          type: boolean
-        serviceFlag:
-          type: boolean
-        patient:
-          $ref: "#/components/schemas/Patient"
-    PatientProfilePhoto:
-      type: object
-      properties:
-        patient:
-          $ref: "#/components/schemas/Patient"
-        photo:
-          type: array
-          items:
-            type: string
-            format: byte
-        photoAsImage:
-          type: object
-          properties:
-            accelerationPriority:
-              type: number
-              format: float
-            source:
-              type: object
-            graphics:
-              type: object
-              properties:
-                color:
-                  type: object
-                  properties:
-                    red:
-                      type: integer
-                      format: int32
-                    green:
-                      type: integer
-                      format: int32
-                    blue:
-                      type: integer
-                      format: int32
-                    alpha:
-                      type: integer
-                      format: int32
-                    colorSpace:
-                      type: object
-                      properties:
-                        type:
-                          type: integer
-                          format: int32
-                        numComponents:
-                          type: integer
-                          format: int32
-                        cs_sRGB:
-                          type: boolean
-                    rgb:
-                      type: integer
-                      format: int32
-                    transparency:
-                      type: integer
-                      format: int32
-                font:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    style:
-                      type: integer
-                      format: int32
-                    size:
-                      type: integer
-                      format: int32
-                    attributes:
-                      type: object
-                      additionalProperties:
-                        type: object
-                    family:
-                      type: string
-                    plain:
-                      type: boolean
-                    fontName:
-                      type: string
-                    transform:
-                      type: object
-                      properties:
-                        scaleX:
-                          type: number
-                          format: double
-                        shearY:
-                          type: number
-                          format: double
-                        shearX:
-                          type: number
-                          format: double
-                        scaleY:
-                          type: number
-                          format: double
-                        translateX:
-                          type: number
-                          format: double
-                        translateY:
-                          type: number
-                          format: double
-                        type:
-                          type: integer
-                          format: int32
-                        identity:
-                          type: boolean
-                        determinant:
-                          type: number
-                          format: double
-                        toRotation:
-                          type: number
-                          format: double
-                          writeOnly: true
-                        toQuadrantRotation:
-                          type: integer
-                          format: int32
-                          writeOnly: true
-                    bold:
-                      type: boolean
-                    italic:
-                      type: boolean
-                    numGlyphs:
-                      type: integer
-                      format: int32
-                    missingGlyphCode:
-                      type: integer
-                      format: int32
-                    italicAngle:
-                      type: number
-                      format: float
-                    transformed:
-                      type: boolean
-                    psname:
-                      type: string
-                    size2D:
-                      type: number
-                      format: float
-                    availableAttributes:
-                      type: array
-                      items:
-                        type: object
-                fontMetrics:
-                  type: object
-                  properties:
-                    font:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        style:
-                          type: integer
-                          format: int32
-                        size:
-                          type: integer
-                          format: int32
-                        attributes:
-                          type: object
-                          additionalProperties:
-                            type: object
-                        family:
-                          type: string
-                        plain:
-                          type: boolean
-                        fontName:
-                          type: string
-                        transform:
-                          type: object
-                          properties:
-                            scaleX:
-                              type: number
-                              format: double
-                            shearY:
-                              type: number
-                              format: double
-                            shearX:
-                              type: number
-                              format: double
-                            scaleY:
-                              type: number
-                              format: double
-                            translateX:
-                              type: number
-                              format: double
-                            translateY:
-                              type: number
-                              format: double
-                            type:
-                              type: integer
-                              format: int32
-                            identity:
-                              type: boolean
-                            determinant:
-                              type: number
-                              format: double
-                            toRotation:
-                              type: number
-                              format: double
-                              writeOnly: true
-                            toQuadrantRotation:
-                              type: integer
-                              format: int32
-                              writeOnly: true
-                        bold:
-                          type: boolean
-                        italic:
-                          type: boolean
-                        numGlyphs:
-                          type: integer
-                          format: int32
-                        missingGlyphCode:
-                          type: integer
-                          format: int32
-                        italicAngle:
-                          type: number
-                          format: float
-                        transformed:
-                          type: boolean
-                        psname:
-                          type: string
-                        size2D:
-                          type: number
-                          format: float
-                        availableAttributes:
-                          type: array
-                          items:
-                            type: object
-                    ascent:
-                      type: integer
-                      format: int32
-                    descent:
-                      type: integer
-                      format: int32
-                    leading:
-                      type: integer
-                      format: int32
-                    maxDescent:
-                      type: integer
-                      format: int32
-                    widths:
-                      type: array
-                      items:
-                        type: integer
-                        format: int32
-                    fontRenderContext:
-                      type: object
-                      properties:
-                        antiAliased:
-                          type: boolean
-                        transformType:
-                          type: integer
-                          format: int32
-                        transform:
-                          type: object
-                          properties:
-                            scaleX:
-                              type: number
-                              format: double
-                            shearY:
-                              type: number
-                              format: double
-                            shearX:
-                              type: number
-                              format: double
-                            scaleY:
-                              type: number
-                              format: double
-                            translateX:
-                              type: number
-                              format: double
-                            translateY:
-                              type: number
-                              format: double
-                            type:
-                              type: integer
-                              format: int32
-                            identity:
-                              type: boolean
-                            determinant:
-                              type: number
-                              format: double
-                            toRotation:
-                              type: number
-                              format: double
-                              writeOnly: true
-                            toQuadrantRotation:
-                              type: integer
-                              format: int32
-                              writeOnly: true
-                        antiAliasingHint:
-                          type: object
-                        fractionalMetricsHint:
-                          type: object
-                        transformed:
-                          type: boolean
-                    maxAscent:
-                      type: integer
-                      format: int32
-                    maxDecent:
-                      type: integer
-                      format: int32
-                      deprecated: true
-                    maxAdvance:
-                      type: integer
-                      format: int32
-                    height:
-                      type: integer
-                      format: int32
-                clipBounds:
-                  type: object
-                  properties:
-                    x:
-                      type: number
-                      format: double
-                    "y":
-                      type: number
-                      format: double
-                    width:
-                      type: number
-                      format: double
-                    height:
-                      type: number
-                      format: double
-                    empty:
-                      type: boolean
-                    location:
-                      type: object
-                      properties:
-                        x:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                    size:
-                      type: object
-                      properties:
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                    bounds2D:
-                      type: object
-                      properties:
-                        empty:
-                          type: boolean
-                        width:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                        x:
-                          type: number
-                          format: double
-                        maxX:
-                          type: number
-                          format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
-                          type: number
-                          format: double
-                    rect:
-                      type: object
-                      properties:
-                        empty:
-                          type: boolean
-                        width:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                        x:
-                          type: number
-                          format: double
-                        maxX:
-                          type: number
-                          format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
-                          type: number
-                          format: double
-                      writeOnly: true
-                    maxX:
-                      type: number
-                      format: double
-                    maxY:
-                      type: number
-                      format: double
-                    centerX:
-                      type: number
-                      format: double
-                    centerY:
-                      type: number
-                      format: double
-                    minX:
-                      type: number
-                      format: double
-                    minY:
-                      type: number
-                      format: double
-                xormode:
-                  type: object
-                  properties:
-                    red:
-                      type: integer
-                      format: int32
-                    green:
-                      type: integer
-                      format: int32
-                    blue:
-                      type: integer
-                      format: int32
-                    alpha:
-                      type: integer
-                      format: int32
-                    colorSpace:
-                      type: object
-                      properties:
-                        type:
-                          type: integer
-                          format: int32
-                        numComponents:
-                          type: integer
-                          format: int32
-                        cs_sRGB:
-                          type: boolean
-                    rgb:
-                      type: integer
-                      format: int32
-                    transparency:
-                      type: integer
-                      format: int32
-                  writeOnly: true
-                clip:
-                  type: object
-                  properties:
-                    bounds:
-                      type: object
-                      properties:
-                        x:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                        empty:
-                          type: boolean
-                        location:
-                          type: object
-                          properties:
-                            x:
-                              type: number
-                              format: double
-                            "y":
-                              type: number
-                              format: double
-                        size:
-                          type: object
-                          properties:
-                            width:
-                              type: number
-                              format: double
-                            height:
-                              type: number
-                              format: double
-                        bounds2D:
-                          type: object
-                          properties:
-                            empty:
-                              type: boolean
-                            width:
-                              type: number
-                              format: double
-                            "y":
-                              type: number
-                              format: double
-                            x:
-                              type: number
-                              format: double
-                            maxX:
-                              type: number
-                              format: double
-                            maxY:
-                              type: number
-                              format: double
-                            centerX:
-                              type: number
-                              format: double
-                            centerY:
-                              type: number
-                              format: double
-                            height:
-                              type: number
-                              format: double
-                            minX:
-                              type: number
-                              format: double
-                            minY:
-                              type: number
-                              format: double
-                        rect:
-                          type: object
-                          properties:
-                            empty:
-                              type: boolean
-                            width:
-                              type: number
-                              format: double
-                            "y":
-                              type: number
-                              format: double
-                            x:
-                              type: number
-                              format: double
-                            maxX:
-                              type: number
-                              format: double
-                            maxY:
-                              type: number
-                              format: double
-                            centerX:
-                              type: number
-                              format: double
-                            centerY:
-                              type: number
-                              format: double
-                            height:
-                              type: number
-                              format: double
-                            minX:
-                              type: number
-                              format: double
-                            minY:
-                              type: number
-                              format: double
-                          writeOnly: true
-                        maxX:
-                          type: number
-                          format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
-                          type: number
-                          format: double
-                    bounds2D:
-                      type: object
-                      properties:
-                        empty:
-                          type: boolean
-                        width:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                        x:
-                          type: number
-                          format: double
-                        maxX:
-                          type: number
-                          format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
-                          type: number
-                          format: double
-                clipRect:
-                  type: object
-                  properties:
-                    x:
-                      type: number
-                      format: double
-                    "y":
-                      type: number
-                      format: double
-                    width:
-                      type: number
-                      format: double
-                    height:
-                      type: number
-                      format: double
-                    empty:
-                      type: boolean
-                    location:
-                      type: object
-                      properties:
-                        x:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                    size:
-                      type: object
-                      properties:
-                        width:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                    bounds2D:
-                      type: object
-                      properties:
-                        empty:
-                          type: boolean
-                        width:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                        x:
-                          type: number
-                          format: double
-                        maxX:
-                          type: number
-                          format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
-                          type: number
-                          format: double
-                    rect:
-                      type: object
-                      properties:
-                        empty:
-                          type: boolean
-                        width:
-                          type: number
-                          format: double
-                        "y":
-                          type: number
-                          format: double
-                        x:
-                          type: number
-                          format: double
-                        maxX:
-                          type: number
-                          format: double
-                        maxY:
-                          type: number
-                          format: double
-                        centerX:
-                          type: number
-                          format: double
-                        centerY:
-                          type: number
-                          format: double
-                        height:
-                          type: number
-                          format: double
-                        minX:
-                          type: number
-                          format: double
-                        minY:
-                          type: number
-                          format: double
-                      writeOnly: true
-                    maxX:
-                      type: number
-                      format: double
-                    maxY:
-                      type: number
-                      format: double
-                    centerX:
-                      type: number
-                      format: double
-                    centerY:
-                      type: number
-                      format: double
-                    minX:
-                      type: number
-                      format: double
-                    minY:
-                      type: number
-                      format: double
-                  deprecated: true
-    TherapyRow:
-      required:
-      - endDate
-      - freqInDay
-      - freqInPeriod
-      - medicalId
-      - notifyInt
-      - patient
-      - qty
-      - smsInt
-      - startDate
-      - unitID
-      type: object
-      properties:
-        createdBy:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        lastModifiedBy:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        active:
-          type: integer
-          format: int32
-        therapyID:
-          type: integer
-          format: int32
-        patient:
-          $ref: "#/components/schemas/Patient"
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        medicalId:
-          type: integer
-          format: int32
-        qty:
-          type: number
-          format: double
-        unitID:
-          type: integer
-          format: int32
-        freqInDay:
-          type: integer
-          format: int32
-        freqInPeriod:
-          type: integer
-          format: int32
-        note:
-          type: string
-        notifyInt:
-          type: integer
-          format: int32
-        smsInt:
-          type: integer
-          format: int32
-        notify:
-          type: boolean
-        sms:
-          type: boolean
-        medical:
-          type: integer
-          format: int32
     TherapyDTO:
       type: object
       properties:
@@ -9129,7 +8193,7 @@ components:
           type: integer
           format: int32
         list:
-          $ref: "#/components/schemas/PriceList"
+          $ref: "#/components/schemas/PriceListDTO"
         group:
           type: string
           description: The group
@@ -9159,42 +8223,6 @@ components:
           format: int32
           readOnly: true
       description: Class representing a prices
-    PriceList:
-      required:
-      - code
-      - currency
-      - description
-      - name
-      type: object
-      properties:
-        createdBy:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        lastModifiedBy:
-          type: string
-        lastModifiedDate:
-          type: string
-          format: date-time
-        active:
-          type: integer
-          format: int32
-        id:
-          type: integer
-          format: int32
-        code:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        currency:
-          type: string
-        lock:
-          type: integer
-          format: int32
-      description: The price list
     PageInfoDTO:
       type: object
       properties:

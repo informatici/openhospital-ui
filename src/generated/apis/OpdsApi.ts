@@ -51,7 +51,7 @@ export interface GetOpdToDayOrWeekRequest {
     oneWeek?: boolean;
 }
 
-export interface GetProgYear1Request {
+export interface GetProgressiveYearRequest {
     year: number;
 }
 
@@ -198,10 +198,10 @@ export class OpdsApi extends BaseAPI {
 
     /**
      */
-    getProgYear1({ year }: GetProgYear1Request): Observable<number>
-    getProgYear1({ year }: GetProgYear1Request, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    getProgYear1({ year }: GetProgYear1Request, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
-        throwIfNullOrUndefined(year, 'year', 'getProgYear1');
+    getProgressiveYear({ year }: GetProgressiveYearRequest): Observable<number>
+    getProgressiveYear({ year }: GetProgressiveYearRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
+    getProgressiveYear({ year }: GetProgressiveYearRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+        throwIfNullOrUndefined(year, 'year', 'getProgressiveYear');
 
         const headers: HttpHeaders = {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),

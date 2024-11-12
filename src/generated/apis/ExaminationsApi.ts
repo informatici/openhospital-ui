@@ -179,9 +179,9 @@ export class ExaminationsApi extends BaseAPI {
 
     /**
      */
-    newPatientExamination({ patientExaminationDTO }: NewPatientExaminationRequest): Observable<boolean>
-    newPatientExamination({ patientExaminationDTO }: NewPatientExaminationRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newPatientExamination({ patientExaminationDTO }: NewPatientExaminationRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newPatientExamination({ patientExaminationDTO }: NewPatientExaminationRequest): Observable<PatientExaminationDTO>
+    newPatientExamination({ patientExaminationDTO }: NewPatientExaminationRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    newPatientExamination({ patientExaminationDTO }: NewPatientExaminationRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
         throwIfNullOrUndefined(patientExaminationDTO, 'patientExaminationDTO', 'newPatientExamination');
 
         const headers: HttpHeaders = {
@@ -189,7 +189,7 @@ export class ExaminationsApi extends BaseAPI {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<boolean>({
+        return this.request<PatientExaminationDTO>({
             url: '/examinations',
             method: 'POST',
             headers,
@@ -199,9 +199,9 @@ export class ExaminationsApi extends BaseAPI {
 
     /**
      */
-    updateExamination({ id, patientExaminationDTO }: UpdateExaminationRequest): Observable<boolean>
-    updateExamination({ id, patientExaminationDTO }: UpdateExaminationRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    updateExamination({ id, patientExaminationDTO }: UpdateExaminationRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    updateExamination({ id, patientExaminationDTO }: UpdateExaminationRequest): Observable<PatientExaminationDTO>
+    updateExamination({ id, patientExaminationDTO }: UpdateExaminationRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientExaminationDTO>>
+    updateExamination({ id, patientExaminationDTO }: UpdateExaminationRequest, opts?: OperationOpts): Observable<PatientExaminationDTO | RawAjaxResponse<PatientExaminationDTO>> {
         throwIfNullOrUndefined(id, 'id', 'updateExamination');
         throwIfNullOrUndefined(patientExaminationDTO, 'patientExaminationDTO', 'updateExamination');
 
@@ -210,7 +210,7 @@ export class ExaminationsApi extends BaseAPI {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<boolean>({
+        return this.request<PatientExaminationDTO>({
             url: '/examinations/{id}'.replace('{id}', encodeURI(id)),
             method: 'PUT',
             headers,
