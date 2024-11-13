@@ -91,7 +91,6 @@ export const EditGroup = () => {
     initialValues: group.data ?? { code: "" },
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
-      values.permissions = groupPermissions;
       const dto: UserGroupDTO = { ...values, permissions: groupPermissions };
 
       dispatch(updateUserGroup(dto));
