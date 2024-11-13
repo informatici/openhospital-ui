@@ -1,3 +1,4 @@
+import SelectField from "components/accessories/selectField/SelectField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -10,19 +11,17 @@ import checkIcon from "../../../../assets/check-icon.png";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../consts";
 import {
-  ExamDTO,
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
   parseDate,
 } from "../../../../libraries/formDataHandling/functions";
-import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getExamRows, getExams } from "../../../../state/exams";
 import {
   createLab,
@@ -140,7 +139,6 @@ const ExamForm: FC<ExamProps> = ({
     dispatch(createLabReset());
     dispatch(updateLabReset());
     setActivityTransitionState("IDLE");
-    scrollToElement(null);
   }, [dispatch]);
 
   const rowTableHeaders: Array<{
@@ -177,20 +175,18 @@ const ExamForm: FC<ExamProps> = ({
   const initialValues = getFromFields(fields, "value");
   const [rowsData, setRowsData] = useState([...labToEditRows]);
 
-  const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
-    if (exams) {
-      return exams.map((item) => {
-        return {
-          value: item.code ?? "",
-          label:
-            (item.description &&
-              item.description?.length > 30 &&
-              item.description.slice(0, 30) + "...") ||
-            (item.description ?? ""),
-        };
-      });
-    } else return [];
-  };
+  const examOptions = useAppSelector((state: IState) => {
+    return (state.exams.examList.data ?? []).map((item) => {
+      return {
+        value: item.code ?? "",
+        label:
+          (item.description &&
+            item.description?.length > 30 &&
+            item.description.slice(0, 30) + "...") ||
+          (item.description ?? ""),
+      };
+    });
+  });
 
   const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
@@ -384,14 +380,14 @@ const ExamForm: FC<ExamProps> = ({
               />
             </div> */}
             <div className="patientExamForm__item">
-              <AutocompleteField
+              <SelectField
                 fieldName="exam"
                 fieldValue={formik.values.exam}
                 label={t("lab.exam")}
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
-                options={examOptionsSelector(examList)}
+                options={examOptions}
                 isLoading={examsLoading}
                 disabled={isLoading}
               />

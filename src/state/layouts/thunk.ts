@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import createDebouncedAsyncThunk from "libraries/reduxUtils/createDebounceAsyncThunk";
 import { decodeLayoutConfig } from "../../components/accessories/dashboard/layouts/consts";
 import { UserSettingDTO, UserSettingsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
@@ -14,7 +15,7 @@ export const getLayouts = createAsyncThunk(
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
-export const saveLayouts = createAsyncThunk(
+export const saveLayouts = createDebouncedAsyncThunk(
   "layouts/saveLayouts",
   async (setting: UserSettingDTO, thunkApi) =>
     (setting.id > 0
