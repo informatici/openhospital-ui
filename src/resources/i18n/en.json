@@ -930,6 +930,7 @@
     "vaccines": "Types of vaccine",
     "exams": "Types of exam",
     "admissions": "Types of admission",
+    "ages": "Types of age",
     "diseases": "Types of disease",
     "discharges": "Types of discharge",
     "deliveries": "Types of delivery",
@@ -1057,6 +1058,22 @@
     "updateSuccess": "The operation type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the operation type creation?",
     "cancelUpdate": "Are you sure to cancel the operation type update?"
+  },
+  "ageTypes": {
+    "code": "Code",
+    "description": "Description",
+    "from": "From",
+    "to": "To",
+    "title": "Manage age types",
+    "editAgeTypes": "Edit age types",
+    "updateAgeType": "Save changes",
+    "created": "Age type created",
+    "updated": "Age types updated",
+    "updateSuccess": "The age types have been updated successfully!",
+    "cancelUpdate": "Are you sure to cancel the age types update?",
+    "shouldbegreaterthanfrom": "Should be great than from",
+    "somerangesareoverlapped": "Some ranges overlap",
+    "somerangesarenotdefined": "Some ranges are not defined properly"
   },
   "supplier": {
     "id": "Supplier ID",

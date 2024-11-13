@@ -1,3 +1,4 @@
+import SelectField from "components/accessories/selectField/SelectField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -10,19 +11,17 @@ import checkIcon from "../../../../assets/check-icon.png";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../consts";
 import {
-  ExamDTO,
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
   parseDate,
 } from "../../../../libraries/formDataHandling/functions";
-import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getExamRows, getExams } from "../../../../state/exams";
 import {
   createLab,
@@ -140,16 +139,7 @@ const ExamForm: FC<ExamProps> = ({
     dispatch(createLabReset());
     dispatch(updateLabReset());
     setActivityTransitionState("IDLE");
-    scrollToElement(null);
   }, [dispatch]);
-
-  const rowTableHeaders: Array<{
-    label: string;
-    align: "left" | "right" | "center" | "justify";
-  }> = [
-    { label: t("lab.resultrow"), align: "left" },
-    { label: t("lab.value"), align: "right" },
-  ];
 
   const validationSchema = object({
     labDate: string()
@@ -177,20 +167,18 @@ const ExamForm: FC<ExamProps> = ({
   const initialValues = getFromFields(fields, "value");
   const [rowsData, setRowsData] = useState([...labToEditRows]);
 
-  const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
-    if (exams) {
-      return exams.map((item) => {
-        return {
-          value: item.code ?? "",
-          label:
-            (item.description &&
-              item.description?.length > 30 &&
-              item.description.slice(0, 30) + "...") ||
-            (item.description ?? ""),
-        };
-      });
-    } else return [];
-  };
+  const examOptions = useAppSelector((state: IState) => {
+    return (state.exams.examList.data ?? []).map((item) => {
+      return {
+        value: item.code ?? "",
+        label:
+          (item.description &&
+            item.description?.length > 30 &&
+            item.description.slice(0, 30) + "...") ||
+          (item.description ?? ""),
+      };
+    });
+  });
 
   const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
@@ -237,7 +225,9 @@ const ExamForm: FC<ExamProps> = ({
     if (initialValues["exam"] !== "") {
       setCurrentExamCode(initialValues["exam"]);
     }
-  }, [initialValues]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (currentExamCode) {
@@ -273,6 +263,7 @@ const ExamForm: FC<ExamProps> = ({
           setFieldValue(fieldName, value);
           if (fieldName === "exam") {
             setCurrentExamCode(value);
+            setFieldValue("result", "");
           }
 
           // Clear rowsData variable for exam status validation
@@ -288,15 +279,14 @@ const ExamForm: FC<ExamProps> = ({
   );
 
   const onBlurCallbackForTableRow = useCallback(
-    () => (value: string) => {
-      setRowsData((rowObjs: string[]) => {
-        if (!rowObjs.includes(value)) {
-          rowObjs.push(value);
-        } else rowObjs = rowObjs.filter((e) => e !== value);
-        return rowObjs;
-      });
+    (value: string, checked: boolean) => {
+      if (checked && !rowsData.includes(value)) {
+        setRowsData((prevState) => [...prevState, value]);
+      } else {
+        setRowsData((prevState) => prevState.filter((row) => row !== value));
+      }
     },
-    []
+    [rowsData]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -384,14 +374,14 @@ const ExamForm: FC<ExamProps> = ({
               />
             </div> */}
             <div className="patientExamForm__item">
-              <AutocompleteField
+              <SelectField
                 fieldName="exam"
                 fieldValue={formik.values.exam}
                 label={t("lab.exam")}
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
-                options={examOptionsSelector(examList)}
+                options={examOptions}
                 isLoading={examsLoading}
                 disabled={isLoading}
               />
@@ -415,8 +405,7 @@ const ExamForm: FC<ExamProps> = ({
               {currentExamProcedure === "2" && (
                 <ExamRowTable
                   title={t("lab.resultstitle")}
-                  headerData={rowTableHeaders}
-                  onBlur={onBlurCallbackForTableRow()}
+                  onChange={onBlurCallbackForTableRow}
                   rows={examRows}
                   disabled={isLoading}
                 />

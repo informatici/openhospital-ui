@@ -1,6 +1,5 @@
 import { ISettingsState } from "state/settings";
 import { IAdmissionsState } from "./state/admissions/types";
-import { IAgeTypeState } from "./state/ageTypes/types";
 import { IBillsState } from "./state/bills/types";
 import { IDashboardState } from "./state/dashboard/types";
 import { IDiseaseState } from "./state/diseases/types";
@@ -47,7 +46,6 @@ export interface IState {
   operations: IOperationState;
   diseaseTypes: IDiseaseTypesState;
   examTypes: IExamTypesState;
-  ageTypes: IAgeTypeState;
   hospital: IHospitalState;
   layouts: ILayoutsState;
   dashboard: IDashboardState;

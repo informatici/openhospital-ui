@@ -26,7 +26,7 @@ export interface GetAgeTypeCodeByAgeRequest {
 }
 
 export interface UpdateAgeTypeRequest {
-    ageTypeDTO: AgeTypeDTO;
+    ageTypeDTO: Array<AgeTypeDTO>;
 }
 
 /**
@@ -93,9 +93,9 @@ export class AgeTypesApi extends BaseAPI {
 
     /**
      */
-    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest): Observable<AgeTypeDTO>
-    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AgeTypeDTO>>
-    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<AgeTypeDTO | RawAjaxResponse<AgeTypeDTO>> {
+    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest): Observable<Array<AgeTypeDTO>>
+    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AgeTypeDTO>>>
+    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<Array<AgeTypeDTO> | RawAjaxResponse<Array<AgeTypeDTO>>> {
         throwIfNullOrUndefined(ageTypeDTO, 'ageTypeDTO', 'updateAgeType');
 
         const headers: HttpHeaders = {
@@ -103,7 +103,7 @@ export class AgeTypesApi extends BaseAPI {
             ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<AgeTypeDTO>({
+        return this.request<Array<AgeTypeDTO>>({
             url: '/agetypes',
             method: 'PUT',
             headers,

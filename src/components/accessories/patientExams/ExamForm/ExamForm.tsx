@@ -41,14 +41,6 @@ const ExamForm: FC<ExamProps> = ({
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
   const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
 
-  const rowTableHeaders: Array<{
-    label: string;
-    align: "left" | "right" | "center" | "justify";
-  }> = [
-    { label: t("lab.resultrow"), align: "left" },
-    { label: t("lab.value"), align: "right" },
-  ];
-
   const validationSchema = object({
     labDate: string()
       .required(t("common.required"))
@@ -287,8 +279,7 @@ const ExamForm: FC<ExamProps> = ({
               {currentExamProcedure === "2" && (
                 <ExamRowTable
                   title={t("lab.resultstitle")}
-                  headerData={rowTableHeaders}
-                  onBlur={onBlurCallbackForTableRow()}
+                  onChange={onBlurCallbackForTableRow()}
                   rows={examRows}
                   disabled={isLoading}
                 />

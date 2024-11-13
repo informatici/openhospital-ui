@@ -3,7 +3,6 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAdmByAgeTypeData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByAgeTypeData";
 import { getAdmissions } from "../../../../../state/admissions";
-import { getAgeTypes } from "../../../../../state/ageTypes";
 import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
 import { DashboardCard } from "../../card/DashboardCard";
@@ -13,6 +12,7 @@ import { DataSummary } from "../../summary/DataSummary";
 import { IOwnProps } from "../types";
 
 import { Skeleton } from "@mui/material";
+import { getAgeTypes } from "state/types/ageTypes";
 import "../../card/styles.scss";
 
 export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({

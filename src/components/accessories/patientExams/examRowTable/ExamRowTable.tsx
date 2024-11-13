@@ -8,19 +8,17 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "libraries/hooks/redux";
 import { debounce, isEmpty } from "lodash";
-import React, { FC, useCallback } from "react";
+import React, { ChangeEvent, FC, useCallback } from "react";
 import { IState } from "../../../../types";
 import "./styles.scss";
 import { IEditableTableProps } from "./types";
 
 const ExamRowTable: FC<IEditableTableProps> = ({
   rows,
-  onBlur,
-  headerData,
+  onChange,
   title,
   disabled = false,
 }) => {
@@ -29,14 +27,20 @@ const ExamRowTable: FC<IEditableTableProps> = ({
       state.laboratories.getLabWithRowsByCode.data?.laboratoryRowList
   );
 
-  const handleOnBlur = (value: string) => {
-    debounceUpdate(value);
-  };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdate = useCallback(
-    debounce((value: string) => onBlur(value), 100),
+    debounce(
+      (value: string, checked: boolean) => onChange(value, checked),
+      100
+    ),
     []
+  );
+
+  const handleChange = useCallback(
+    (value: string) => (_: ChangeEvent, checked: boolean) => {
+      debounceUpdate(value, checked);
+    },
+    [debounceUpdate]
   );
 
   return (
@@ -56,17 +60,6 @@ const ExamRowTable: FC<IEditableTableProps> = ({
             size="small"
             aria-label="results table"
           >
-            <TableHead>
-              <TableRow key={"header"}>
-                {headerData.map((row, index) => {
-                  return (
-                    <TableCell key={index} align={row.align}>
-                      {row.label}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead>
             <TableBody>
               {rows?.map((row, index) => (
                 <TableRow key={index}>
@@ -75,9 +68,7 @@ const ExamRowTable: FC<IEditableTableProps> = ({
                   </TableCell>
                   <TableCell align="right" component="td" scope="row">
                     <Checkbox
-                      onChange={(e, value) => {
-                        handleOnBlur(row.label);
-                      }}
+                      onChange={handleChange(row.label)}
                       defaultChecked={
                         !isEmpty(
                           labToEditRows?.filter((e) => e === row.label) ?? []

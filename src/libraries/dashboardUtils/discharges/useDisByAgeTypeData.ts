@@ -7,10 +7,10 @@ export const useDisByAgeTypeData = () => {
     (state) => state.admissions.getDischarges.data?.data ?? []
   );
   const ageTypes = useAppSelector(
-    (state) => state.ageTypes.getAllAgeTypes.data ?? []
+    (state) => state.types.ageTypes.getAll.data ?? []
   );
   const ageTypeStatus = useAppSelector(
-    (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
+    (state) => state.types.ageTypes.getAll.status ?? "IDLE"
   );
   const status = useAppSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"

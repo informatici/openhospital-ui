@@ -1930,7 +1930,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AgeTypeDTO"
+              type: array
+              items:
+                $ref: "#/components/schemas/AgeTypeDTO"
         required: true
       responses:
         "200":
@@ -1938,7 +1940,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AgeTypeDTO"
+                type: array
+                items:
+                  $ref: "#/components/schemas/AgeTypeDTO"
       security:
       - bearerAuth: []
   /admissiontypes:

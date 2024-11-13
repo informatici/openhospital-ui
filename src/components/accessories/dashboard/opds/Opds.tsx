@@ -2,7 +2,7 @@ import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { getAgeTypes } from "../../../../state/ageTypes";
+import { getAgeTypes } from "state/types/ageTypes";
 import { searchOpds } from "../../../../state/opds";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
