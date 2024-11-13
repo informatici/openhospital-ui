@@ -1,19 +1,21 @@
-import { vaccineTypeSlice } from "./vaccines";
-import { admissionTypeSlice } from "./admissions";
-import { diseaseTypeSlice } from "./diseases";
-import { operationTypeSlice } from "./operations";
-import { configSlice } from "./config";
-import { examTypeSlice } from "./exams";
-import { dischargeTypeSlice } from "./discharges";
-import { deliveryTypeSlice } from "./deliveries";
-import { medicalTypeSlice } from "./medicals";
-import { pregnantTreatmentTypeSlice } from "./pregnantTreatment";
-import { deliveryResultTypeSlice } from "./deliveryResults";
 import { combineReducers } from "@reduxjs/toolkit";
+import { admissionTypeSlice } from "./admissions";
+import { ageTypeSlice } from "./ageTypes";
+import { configSlice } from "./config";
+import { deliveryTypeSlice } from "./deliveries";
+import { deliveryResultTypeSlice } from "./deliveryResults";
+import { dischargeTypeSlice } from "./discharges";
+import { diseaseTypeSlice } from "./diseases";
+import { examTypeSlice } from "./exams";
+import { medicalTypeSlice } from "./medicals";
+import { operationTypeSlice } from "./operations";
+import { pregnantTreatmentTypeSlice } from "./pregnantTreatment";
+import { vaccineTypeSlice } from "./vaccines";
 
 const typesReducer = combineReducers({
   vaccines: vaccineTypeSlice.reducer,
   admissions: admissionTypeSlice.reducer,
+  ageTypes: ageTypeSlice.reducer,
   diseases: diseaseTypeSlice.reducer,
   operations: operationTypeSlice.reducer,
   config: configSlice.reducer,

@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { admissionSlice } from "./admissions";
-import { ageTypeSlice } from "./ageTypes";
 import { billSlice } from "./bills";
 import { dashboardSlice } from "./dashboard";
 import { diseaseSlice } from "./diseases";
@@ -48,7 +47,6 @@ const reducer = combineReducers({
   operations: operationSlice.reducer,
   diseaseTypes: diseaseTypeSlice.reducer,
   examTypes: examTypeSlice.reducer,
-  ageTypes: ageTypeSlice.reducer,
   hospital: hospitalSlice.reducer,
   layouts: layoutSlice.reducer,
   dashboard: dashboardSlice.reducer,

@@ -76,4 +76,6 @@ export const PATHS = {
   admin_admissions_types_new: "/admin/types/admissions/new",
   admin_admissions_types_edit: "/admin/types/admissions/:code/edit",
   admin_hospital_edit: "/admin/hospital/edit",
+  admin_age_types: "/admin/types/ages",
+  admin_age_types_edit: "/admin/types/ages/edit",
 };

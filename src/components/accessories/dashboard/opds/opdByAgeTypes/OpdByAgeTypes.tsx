@@ -3,7 +3,6 @@ import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useOpdByAgeTypeData } from "../../../../../libraries/dashboardUtils/opds/useOpdByAgeTypeData";
-import { getAgeTypes } from "../../../../../state/ageTypes";
 import { searchOpds } from "../../../../../state/opds";
 import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
@@ -13,6 +12,7 @@ import { TDashboardComponentProps } from "../../layouts/types";
 import { DataSummary } from "../../summary/DataSummary";
 import { IOwnProps } from "../types";
 
+import { getAgeTypes } from "state/types/ageTypes";
 import "../../card/styles.scss";
 
 export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({

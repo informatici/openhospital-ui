@@ -1,3 +1,6 @@
+import AgeTypes, {
+  EditAgeTypes,
+} from "components/accessories/admin/types/components/agetypes";
 import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import Empty from "../../components/accessories/admin/types/Empty";
@@ -165,6 +168,14 @@ const TypesRoutes = () => {
     {
       path: "deliveryresulttypes/:code/edit",
       element: <EditDeliveryResultType />,
+    },
+    {
+      path: "ages",
+      element: <AgeTypes />,
+    },
+    {
+      path: "ages/edit",
+      element: <EditAgeTypes />,
     },
   ];
 

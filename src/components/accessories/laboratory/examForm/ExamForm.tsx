@@ -141,14 +141,6 @@ const ExamForm: FC<ExamProps> = ({
     setActivityTransitionState("IDLE");
   }, [dispatch]);
 
-  const rowTableHeaders: Array<{
-    label: string;
-    align: "left" | "right" | "center" | "justify";
-  }> = [
-    { label: t("lab.resultrow"), align: "left" },
-    { label: t("lab.value"), align: "right" },
-  ];
-
   const validationSchema = object({
     labDate: string()
       .required(t("common.required"))
@@ -233,7 +225,9 @@ const ExamForm: FC<ExamProps> = ({
     if (initialValues["exam"] !== "") {
       setCurrentExamCode(initialValues["exam"]);
     }
-  }, [initialValues]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (currentExamCode) {
@@ -269,6 +263,7 @@ const ExamForm: FC<ExamProps> = ({
           setFieldValue(fieldName, value);
           if (fieldName === "exam") {
             setCurrentExamCode(value);
+            setFieldValue("result", "");
           }
 
           // Clear rowsData variable for exam status validation
@@ -284,15 +279,14 @@ const ExamForm: FC<ExamProps> = ({
   );
 
   const onBlurCallbackForTableRow = useCallback(
-    () => (value: string) => {
-      setRowsData((rowObjs: string[]) => {
-        if (!rowObjs.includes(value)) {
-          rowObjs.push(value);
-        } else rowObjs = rowObjs.filter((e) => e !== value);
-        return rowObjs;
-      });
+    (value: string, checked: boolean) => {
+      if (checked && !rowsData.includes(value)) {
+        setRowsData((prevState) => [...prevState, value]);
+      } else {
+        setRowsData((prevState) => prevState.filter((row) => row !== value));
+      }
     },
-    []
+    [rowsData]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -411,8 +405,7 @@ const ExamForm: FC<ExamProps> = ({
               {currentExamProcedure === "2" && (
                 <ExamRowTable
                   title={t("lab.resultstitle")}
-                  headerData={rowTableHeaders}
-                  onBlur={onBlurCallbackForTableRow()}
+                  onChange={onBlurCallbackForTableRow}
                   rows={examRows}
                   disabled={isLoading}
                 />
