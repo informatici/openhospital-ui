@@ -125,7 +125,11 @@ const Table: FunctionComponent<IProps> = ({
             title={labels?.edit?.tooltip ?? "Edit"}
             size="small"
             disabled={disableAction(row, "edit")}
-            onClick={() => onEdit && onEdit(row)}
+            onClick={
+              disableAction(row, "edit")
+                ? () => {}
+                : () => onEdit && onEdit(row)
+            }
           >
             <Edit />
           </IconButton>
@@ -137,7 +141,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={labels?.delete?.tooltip ?? "Delete"}
             disabled={disableAction(row, "delete")}
-            onClick={handleOpenConfirmation(row, "delete")}
+            onClick={
+              disableAction(row, "delete")
+                ? () => {}
+                : handleOpenConfirmation(row, "delete")
+            }
           >
             <Delete
               color={disableAction(row, "delete") ? "inherit" : "primary"}
@@ -151,7 +159,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={labels?.print?.tooltip ?? "Print"}
             disabled={disableAction(row, "print")}
-            onClick={() => onPrint && onPrint(row)}
+            onClick={
+              disableAction(row, "print")
+                ? () => {}
+                : () => onPrint && onPrint(row)
+            }
           >
             <Print color="secondary" />
           </IconButton>
@@ -164,7 +176,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={labels?.view?.tooltip ?? "View details"}
             disabled={disableAction(row, "view")}
-            onClick={() => onView && onView(row)}
+            onClick={
+              disableAction(row, "view")
+                ? () => {}
+                : () => onView && onView(row)
+            }
           >
             <InfoOutlined color="primary" titleAccess={"View Details"} />
           </IconButton>
@@ -176,7 +192,9 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={labels?.pay?.tooltip ?? "Add a payment"}
             disabled={disableAction(row, "pay")}
-            onClick={() => onPay && onPay(row)}
+            onClick={
+              disableAction(row, "pay") ? () => {} : () => onPay && onPay(row)
+            }
           >
             <MonetizationOn htmlColor="#00912c" />
           </IconButton>
@@ -189,7 +207,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={labels?.close?.tooltip ?? "Close the bill"}
             disabled={disableAction(row, "close")}
-            onClick={() => onClose && onClose(row)}
+            onClick={
+              disableAction(row, "close")
+                ? () => {}
+                : () => onClose && onClose(row)
+            }
           >
             <Archive htmlColor="#0373fc" />
           </IconButton>
@@ -202,7 +224,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={labels?.cancel?.tooltip ?? "Cancel"}
             disabled={disableAction(row, "cancel")}
-            onClick={handleOpenConfirmation(row, "cancel")}
+            onClick={
+              disableAction(row, "cancel")
+                ? () => {}
+                : handleOpenConfirmation(row, "cancel")
+            }
           >
             <Close color="primary" />
           </IconButton>
@@ -214,7 +240,9 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             title={addTitle ?? labels?.add?.tooltip ?? "Add"}
             disabled={disableAction(row, "add")}
-            onClick={() => onAdd && onAdd(row)}
+            onClick={
+              disableAction(row, "add") ? () => {} : () => onAdd && onAdd(row)
+            }
           >
             <Add />
           </IconButton>
@@ -226,7 +254,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             disabled={disableAction(row, "restore")}
             title={labels?.restore?.tooltip ?? t("common.restore")}
-            onClick={handleOpenConfirmation(row, "restore")}
+            onClick={
+              disableAction(row, "restore")
+                ? () => {}
+                : handleOpenConfirmation(row, "restore")
+            }
           >
             <Restore />
           </IconButton>
@@ -238,7 +270,11 @@ const Table: FunctionComponent<IProps> = ({
             size="small"
             disabled={disableAction(row, "softDelete")}
             title={labels?.softDelete?.tooltip ?? t("common.softDelete")}
-            onClick={handleOpenConfirmation(row, "softDelete")}
+            onClick={
+              disableAction(row, "softDelete")
+                ? () => {}
+                : handleOpenConfirmation(row, "softDelete")
+            }
           >
             <HighlightOff
               color={disableAction(row, "softDelete") ? "inherit" : "primary"}
