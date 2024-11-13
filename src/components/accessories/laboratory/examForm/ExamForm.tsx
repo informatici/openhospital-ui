@@ -233,7 +233,9 @@ const ExamForm: FC<ExamProps> = ({
     if (initialValues["exam"] !== "") {
       setCurrentExamCode(initialValues["exam"]);
     }
-  }, [initialValues]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (currentExamCode) {
@@ -269,6 +271,7 @@ const ExamForm: FC<ExamProps> = ({
           setFieldValue(fieldName, value);
           if (fieldName === "exam") {
             setCurrentExamCode(value);
+            setFieldValue("result", "");
           }
 
           // Clear rowsData variable for exam status validation
