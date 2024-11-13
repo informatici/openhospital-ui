@@ -19,7 +19,6 @@ import { IEditableTableProps } from "./types";
 const ExamRowTable: FC<IEditableTableProps> = ({
   rows,
   onChange,
-  headerData,
   title,
   disabled = false,
 }) => {
@@ -61,17 +60,6 @@ const ExamRowTable: FC<IEditableTableProps> = ({
             size="small"
             aria-label="results table"
           >
-            {/* <TableHead>
-              <TableRow key={"header"}>
-                {headerData.map((row, index) => {
-                  return (
-                    <TableCell key={index} align={row.align}>
-                      {row.label}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead> */}
             <TableBody>
               {rows?.map((row, index) => (
                 <TableRow key={index}>
