@@ -10,6 +10,7 @@ import {
   deleteUserReset,
   getUsers,
   updateUser,
+  updateUserReset,
 } from "../../../../../state/users";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -45,18 +46,35 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
 
     return () => {
       dispatch(deleteUserReset());
+      dispatch(updateUserReset());
     };
   }, [dispatch]);
 
   useEffect(() => {
-    if (deleteUser.hasFailed || update.hasFailed) {
+    if (update.hasFailed) {
       scrollToElement(infoBoxRef.current);
     }
 
-    if (deleteUser.hasSucceeded || update.hasSucceeded) {
+    if (update.hasSucceeded) {
       dispatch(getUsers({}));
     }
-  }, [deleteUser.status, update.status, dispatch]);
+    return () => {
+      dispatch(deleteUserReset());
+    };
+  }, [update.status, dispatch]);
+
+  useEffect(() => {
+    if (deleteUser.hasFailed) {
+      scrollToElement(infoBoxRef.current);
+    }
+
+    if (deleteUser.hasSucceeded) {
+      dispatch(getUsers({}));
+    }
+    return () => {
+      dispatch(updateUserReset());
+    };
+  }, [deleteUser.status, dispatch]);
 
   const header = ["userName", "userGroupName", "desc", "deleted"];
   const label = {

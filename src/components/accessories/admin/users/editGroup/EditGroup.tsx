@@ -242,9 +242,9 @@ export const EditGroup = () => {
                 <div className="info-box-container">
                   <InfoBox
                     type="error"
-                    message={
-                      update.error?.message ?? t("common.somethingwrong")
-                    }
+                    message={t(
+                      update.error?.message ?? "common.somethingwrong"
+                    )}
                   />
                 </div>
               )}

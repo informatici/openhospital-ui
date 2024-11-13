@@ -106,7 +106,7 @@ export const NewGroup = () => {
             <div className="info-box-container">
               <InfoBox
                 type="error"
-                message={create.error?.message ?? t("common.somethingwrong")}
+                message={t(create.error?.message ?? "common.somethingwrong")}
               />
             </div>
           )}

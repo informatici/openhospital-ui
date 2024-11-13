@@ -895,6 +895,11 @@
         "msg": "The group you want to delete has users and cannot be deleted."
       }
     },
+    "sql": {
+      "theselecteditemisstillusedsomewhere": {
+        "msg": "The selected item is still used somewhere."
+      }
+    },
     "userbrowser": {
       "alreadysoftdeleted": {
         "msg": "The user is already set as deleted."

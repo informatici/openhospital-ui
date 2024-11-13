@@ -12,6 +12,7 @@ import {
   deleteUserGroupReset,
   getUserGroups,
   updateUserGroup,
+  updateUserGroupReset,
 } from "../../../../../state/usergroups";
 import { IState } from "../../../../../types";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -38,6 +39,7 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
     dispatch(getUserGroups());
     return () => {
       dispatch(deleteUserGroupReset());
+      dispatch(updateUserGroupReset());
     };
   }, [dispatch]);
 
@@ -70,13 +72,26 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
   const update = useAppSelector((state) => state.usergroups.update);
 
   useEffect(() => {
-    if (deleteGroup.hasFailed || update.hasFailed) {
+    if (update.hasFailed) {
       scrollToElement(infoBoxRef.current);
     }
 
-    if (deleteGroup.hasSucceeded || update.hasSucceeded)
-      dispatch(getUserGroups());
-  }, [deleteGroup.status, update.status, dispatch]);
+    if (update.hasSucceeded) dispatch(getUserGroups());
+    return () => {
+      dispatch(deleteUserGroupReset());
+    };
+  }, [update.status, dispatch]);
+
+  useEffect(() => {
+    if (deleteGroup.hasFailed) {
+      scrollToElement(infoBoxRef.current);
+    }
+
+    if (deleteGroup.hasSucceeded) dispatch(getUserGroups());
+    return () => {
+      dispatch(updateUserGroupReset());
+    };
+  }, [deleteGroup.status, dispatch]);
 
   const formatDataToDisplay = (data: UserGroupDTO[]) => {
     return data.map((item) => {
