@@ -1,19 +1,21 @@
+import { tokenHasExpired } from "libraries/authUtils/tokenHasExpired";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { SessionStorage } from "libraries/storage/storage";
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import { Private } from "../components/Private";
 import Dashboard from "../components/accessories/dashboard/Dashboard";
+import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
 import ForgotActivity from "../components/activities/forgotActivity/ForgotActivity";
 import LaboratoryActivity from "../components/activities/laboratoryActivity/LaboratoryActivity";
 import LoginActivity from "../components/activities/loginActivity/LoginActivity";
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
 import NotFound from "../components/activities/notFound/NotFound";
-import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
 import VisitsActivity from "../components/activities/visitsActivity/VisitsActivity";
-import { Private } from "../components/Private";
-import { PATHS } from "../consts";
+import { AUTH_KEY, PATHS } from "../consts";
 import { withPermission } from "../libraries/permissionUtils/withPermission";
-import { getUserSettings } from "../state/main";
+import { getUserSettings, refreshToken } from "../state/main";
 import { AdminRoutes } from "./Admin";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
 
@@ -25,6 +27,18 @@ export const MainRouter: React.FC = () => {
       dispatch(getUserSettings());
     }
   }, [dispatch, status]);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const userCredentials = SessionStorage.read(AUTH_KEY);
+      if (userCredentials?.token && tokenHasExpired(userCredentials.token)) {
+        dispatch(refreshToken(userCredentials.refreshToken));
+      }
+    }, 5000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [dispatch]);
 
   const RequiredAdminAccess = withPermission(
     "admin.access",

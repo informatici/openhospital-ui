@@ -47,6 +47,18 @@ export const mainSlice = createSlice({
       .addCase(thunks.setAuthentication.rejected, (state, action) => {
         state.authentication = ApiResponse.error(action.payload);
       })
+      // Refresh token
+      .addCase(thunks.refreshToken.pending, (state) => {
+        state.authentication = ApiResponse.loading();
+      })
+      .addCase(thunks.refreshToken.fulfilled, (state, action) => {
+        state.authentication = ApiResponse.value(
+          action.payload as IAuthentication
+        );
+      })
+      .addCase(thunks.refreshToken.rejected, (state, action) => {
+        state.authentication = ApiResponse.error(action.payload);
+      })
       // Forgot password
       .addCase(thunks.setForgotPasswordThunk.pending, (state) => {
         state.forgotpassword = ApiResponse.loading();

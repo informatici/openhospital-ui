@@ -77,3 +77,23 @@ export const getUserSettings = createAsyncThunk(
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
+
+export const refreshToken = createAsyncThunk(
+  "main/refreshToken",
+  async (value: string, thunkApi) =>
+    concat(
+      loginApi
+        .refreshToken({ tokenRefreshRequest: { refreshToken: value } })
+        .pipe(tap(saveAuthenticationDataToSession)),
+      usersApi
+        .retrieveProfileByCurrentLoggedInUser()
+        .pipe(tap(savePermissionDataToSession))
+    )
+      .pipe(toArray())
+      .toPromise()
+      .then(([userCredentials, me]) => ({
+        ...userCredentials,
+        ...me,
+      }))
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);
